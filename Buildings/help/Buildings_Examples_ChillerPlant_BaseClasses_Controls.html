@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Controls<![endif]-->
@@ -44,7 +44,7 @@ This package contains component models that are used to construct the control sy
 >Buildings.Examples.ChillerPlant</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -128,77 +128,77 @@ During day, it discharges provided that its charge is above a threshold. It rema
 discharging until it is empty.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</a> (This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.Block instead.).</p>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>SOC</td><td>State of charge</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Power charged or discharged from battery</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> BatteryControl <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for battery&quot;</span>
- <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> SOC <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State of charge&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power charged or discharged from battery&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> off(initialStep=true, nOut=2,
     nIn=2,
     use_activePort=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is disconnected&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T1(
     use_conditionPort=true,
     delayedTransition=true,
     waitTime=1);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> charge(
     nOut=1,
     initialStep=false,
     use_activePort=true,
     nIn=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is being charged&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessThreshold"
 >Modelica.Blocks.Logical.LessThreshold</a> lessThreshold(threshold=0.5);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
 >Modelica.Blocks.Logical.GreaterEqualThreshold</a> greaterEqualThreshold(threshold=
        0.99);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T3(use_conditionPort=true, use_firePort=
         false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
 >Modelica.Blocks.Sources.BooleanExpression</a> isDay(y=<span style="color: red; font-weight: normal; font-style: normal;">mod</span>(time, 86400) &gt; 7*3600<span style="color: blue; font-weight: normal; font-style: normal;">
          and </span><span style="color: red; font-weight: normal; font-style: normal;">mod</span>(time, 86400) &lt;= 19*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outputs true if it is day time&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> discharge(
     nOut=1,
     initialStep=false,
     use_activePort=true,
     nIn=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is being discharged&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
 >Modelica.Blocks.Logical.Not</a> not1;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
 >Modelica.Blocks.Logical.And</a> and1;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T2(
     use_conditionPort=true,
     delayedTransition=true,
     waitTime=1);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
 >Modelica.Blocks.Logical.And</a> and2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterThreshold"
 >Modelica.Blocks.Logical.GreaterThreshold</a> greaterThreshold(threshold=0.8);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessEqualThreshold"
 >Modelica.Blocks.Logical.LessEqualThreshold</a> lessEqualThreshold(threshold=
         0.01);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T4(use_conditionPort=true, use_firePort=
         false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MultiSwitch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MultiSwitch"
 >Modelica.Blocks.Math.MultiSwitch</a> multiSwitch1(nu=3, expr={0,200e3,-400e3});
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
 
@@ -259,48 +259,48 @@ The chiller is disabled when
 </ul>
 where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>deaBan</td><td>&nbsp;</td><td>Dead band of temperature to prevent chiller short cycling [K]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>chiCHWST</td><td>Chiller chilled water supply temperature (water entering chiller) [K]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</a></td><td>y</td><td>Control signal for chiller. 1: Enable, 0: Disable</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TSet</td><td>Set temperature of chiller [K]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ChillerSwitch <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control unit for enabling/disabling chiller&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> chiCHWST(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Chiller chilled water supply temperature (water entering chiller)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >Modelica.Blocks.Interfaces.BooleanOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Control signal for chiller. 1: Enable, 0: Disable&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TSet(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set temperature of chiller&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> deaBan <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Dead band of temperature to prevent chiller short cycling&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
 >Modelica.Blocks.Logical.Hysteresis</a> hysteresis(uLow=0, uHigh=deaBan);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> add(k1=+1, k2=-1);
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hysteresis.y, y);
@@ -328,7 +328,7 @@ where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, 
 This component computes the value of
 <p align="left" style="font-style:italic;"> y = k - u. </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -338,20 +338,20 @@ This component computes the value of
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u</td><td>Input</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Output</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> KMinusU <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Output y=k-u&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a>;
 <span style="color: blue; font-weight: normal; font-style: normal;">public </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real k <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sum of u and y&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Output&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   y = k - u;
@@ -389,7 +389,7 @@ This component calcuates the output according to two piecewise linear function a
 </tr>
 </table>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -405,14 +405,14 @@ This component calcuates the output according to two piecewise linear function a
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u</td><td>Set point</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y[2]</td><td>Connectors of Real output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> LinearPiecewiseTwo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;A two-pieces linear piecewise function&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real x0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First interval [x0, x1]&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real x1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First interval [x0, x1] and second interval (x1, x2]&quot;</span>;
@@ -421,9 +421,9 @@ This component calcuates the output according to two piecewise linear function a
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y11 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y[1] at u = x1&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y20 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y[2] at u = x1&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y21 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y[2] at u = x2&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set point&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connectors of Real output signal&quot;</span>;
   <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
 >Buildings.Controls.SetPoints.Table</a> y1Tab(table=[x0, y10; x1, y11; x2, y11]) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -454,7 +454,7 @@ This component calcuates the output according to two piecewise linear function a
 
    This model counts the number of requests sent by actuators. A request is triggerred when an input singal <code>uAct[i]</code> is larger than <code>uTri</code>.
    
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -465,22 +465,22 @@ This component calcuates the output according to two piecewise linear function a
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >IntegerOutput</a></td><td>nInc</td><td>Number of actuators requesting control signal increase</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>uAct[nAct]</td><td>Input signal from actuators</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> RequestCounter <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Count the number of actuators that have request&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nAct <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of actuators&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real uTri <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value to trigger a request from actuator&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >Modelica.Blocks.Interfaces.IntegerOutput</a> nInc <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of actuators requesting control signal increase&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> uAct[nAct] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signal from actuators&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
   nInc := 0;
@@ -514,14 +514,14 @@ This component calcuates the output according to two piecewise linear function a
   <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
 </ul>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</a> (Single Input Single Output discrete control block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>samplePeriod</td><td>&nbsp;</td><td>Sample period of component [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>startTime</td><td>0</td><td>First sample time instant [s]</td></tr>
 <tr><td>Real</td><td>uTri</td><td>&nbsp;</td><td>Value to triggering the request for actuator</td></tr>
 <tr><td>Real</td><td>yEqu0</td><td>&nbsp;</td><td>y setpoint when equipment starts</td></tr>
@@ -531,41 +531,41 @@ This component calcuates the output according to two piecewise linear function a
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u</td><td>Continuous input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Continuous output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TrimAndRespond <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trim and respond logic&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real uTri <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value to triggering the request for actuator&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yEqu0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y setpoint when equipment starts&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yDec(max=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y decrement (must be negative)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yInc(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y increment (must be positive)&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
 >Modelica.Blocks.Logical.GreaterEqualThreshold</a>
                                            incY(threshold=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outputs true if y needs to be increased&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> swi;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
 >Modelica.Blocks.Discrete.Sampler</a> sam(samplePeriod=samplePeriod) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sampler&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> conYDec(k=yDec) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y decrease&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> conYInc(k=yInc) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;y increase&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.UnitDelay"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.UnitDelay"
 >Modelica.Blocks.Discrete.UnitDelay</a> uniDel1(
     y_start=yEqu0,
     samplePeriod=samplePeriod,
     startTime=samplePeriod);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> add;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Nonlinear.html#Modelica.Blocks.Nonlinear.Limiter"
 >Modelica.Blocks.Nonlinear.Limiter</a> lim(uMax=1, uMin=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;State limiter&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(lim.y, y);
@@ -602,20 +602,20 @@ This component calcuates the output according to two piecewise linear function a
    control algorithm.
 </p>
    
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</a> (Single Input Single Output continuous control block).</p>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u</td><td>Connector of Real input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TrimAndRespondContinuousTimeApproximation <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Trim and respond logic&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</a>;
 
   <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -627,7 +627,7 @@ This component calcuates the output according to two piecewise linear function a
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
     k=0.1);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> const(k=0);
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, conPID.u_s);
@@ -680,83 +680,83 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</a></td><td>dTOff</td><td>1</td><td>Temperature difference to switch WSE off [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</a></td><td>dTW</td><td>1</td><td>Temperature difference that is added to WSE on guard [K]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>wseCHWST</td><td>WSE chilled water supply temperature (water entering WSE) [K]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y2</td><td>Control signal for chiller shutoff valve</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TWetBul</td><td>Wet bulb temperature [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>towTApp</td><td>Cooling tower approach [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>wseCWST</td><td>WSE condenser water supply temperature (water entering WSE) [K]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y1</td><td>Control signal for WSE shutoff valve</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WSEControl <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control unit for WSE&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</a> dTOff = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature difference to switch WSE off&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</a> dTW = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature difference that is added to WSE on guard&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> wseCHWST(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;WSE chilled water supply temperature (water entering WSE)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y2 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Control signal for chiller shutoff valve&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TWetBul(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wet bulb temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> towTApp(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cooling tower approach&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> wseCWST(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;WSE condenser water supply temperature (water entering WSE)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</a> booToRea2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Control signal for WSE shutoff valve&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> off(
     use_activePort=true,
     nOut=1,
     nIn=1,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=true);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T1(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
     condition=wseCHWST &gt; 0.9*TWetBul + towTApp + dTW);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> on(nIn=1, nOut=1,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> T2(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
     condition=wseCHWST &lt; wseCWST + dTOff);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.BooleanToReal"
 >Modelica.Blocks.Math.BooleanToReal</a> booToRea1(realTrue=0, realFalse=1);
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
 
@@ -772,7 +772,7 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:42:33 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:28:22 2015.
 </address>
 </body>
 </html>

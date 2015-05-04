@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.Utilities</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -108,12 +108,12 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
 <i>t = 5</i> s to change the signal to one.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TestVoltageCTRL <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This test check the correctness of the voltage controller model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_Utilities.html#Buildings.Electrical.Utilities.VoltageControl"
 >VoltageControl</a> voltageControl(
@@ -126,15 +126,15 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
     tDelay=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage controller&quot;</span>;
   <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.VoltageSource"
 >DC.Sources.VoltageSource</a> sou <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Varriable voltage source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
 >Modelica.Electrical.Analog.Basic.Ground</a> ground;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</a> cosine(
     amplitude=20,
     freqHz=0.1,
     phase=0,
     offset=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable voltage signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> Vtr_high(k=120*(1 + 0.1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage threshold high&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -145,7 +145,7 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:20 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:59 2015.
 </address>
 </body>
 </html>

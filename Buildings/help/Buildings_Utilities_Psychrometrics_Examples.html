@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Utilities.Psychrometrics</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -144,26 +144,26 @@ Buildings.Utilities.Psychrometrics</a>.
 This examples is a unit test for the density computation.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Density_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to test the density computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XDryBul(
     height=0.014,
     offset=0,
     duration=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb water vapor mass fraction&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.Density_pTX"
 >Buildings.Utilities.Psychrometrics.Density_pTX</a> den <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> TDryBul(
     duration=0.5,
     startTime=0.5,
@@ -188,18 +188,18 @@ This examples is a unit test for the density computation.
 <br><img src="Buildings.Utilities.Psych07f169d9b336056batureD.png" alt="Buildings.Utilities.Psychrometrics.Examples.DewPointTemperature">
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DewPointTemperature <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Unit test for dew point temperature calculation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
    <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_TDewPoi"
 >Buildings.Utilities.Psychrometrics.pW_TDewPoi</a> watVapPre;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XHum(
     duration=1,
     height=(0.01 - 0.1),
@@ -228,23 +228,23 @@ This examples is a unit test for the density computation.
 <br><img src="Buildings.Utilities.Psych65f18cd03739426fssureD.png" alt="Buildings.Utilities.Psychrometrics.Examples.HumidityRatioPressure">
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> HumidityRatioPressure <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Unit test for humidity ratio model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.pW_X"
 >Buildings.Utilities.Psychrometrics.pW_X</a> vapPre(
                          use_p_in=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for humidity ratio&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XHumDryAir(
     duration=1,
     height=(0.0133 - 0.2),
     offset=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Humidity concentration in [kg/kg dry air]&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pW"
 >Buildings.Utilities.Psychrometrics.X_pW</a> humRat(
@@ -277,19 +277,19 @@ This examples is a unit test for the density computation.
 <br><img src="Buildings.Utilities.Psych288977a9371f0717pTphiD.png" alt="Buildings.Utilities.Psychrometrics.Examples.MassFraction_pTphi">
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> MassFraction_pTphi <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Unit test for dew point temperature calculation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
    <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium1 = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
    <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium2 = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> Phi(
     offset=0,
     duration=0.5,
@@ -297,13 +297,13 @@ This examples is a unit test for the density computation.
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</a> masFra1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Mass fraction computation&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> T(
     height=10,
     offset=283.15,
     duration=0.5,
     startTime=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> P(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
 >Buildings.Utilities.Psychrometrics.X_pTphi</a> masFra2(use_p_in=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -334,26 +334,26 @@ This examples is a unit test for the density computation.
 This examples is a unit test for the relative humidity computation.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Phi_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to test the relative humidity computation&quot;</span>
- <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+ <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XDryBul(
     height=0.014,
     offset=0,
     duration=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb water vapor mass fraction&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.Phi_pTX"
 >Buildings.Utilities.Psychrometrics.Phi_pTX</a> phi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> TDryBul(
     duration=0.5,
     startTime=0.5,
@@ -381,12 +381,12 @@ This examples is a unit test for the relative humidity computation.
 
 This examples is a unit test for the saturation pressure computation.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SaturationPressure <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Model to test the wet bulb temperature computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
@@ -395,7 +395,7 @@ This examples is a unit test for the saturation pressure computation.
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SaturationPressure"
 >Buildings.Utilities.Psychrometrics.SaturationPressure</a> pSat <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Saturation pressure&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> T(
     height=373.15 - 190,
     duration=1,
@@ -420,18 +420,18 @@ This examples is a unit test for the saturation pressure computation.
 
 This examples is a unit test for the saturation pressure computation of liquid water.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SaturationPressureLiquid <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Model to test the wet bulb temperature computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SaturationPressureLiquid"
 >Buildings.Utilities.Psychrometrics.SaturationPressureLiquid</a> pSat <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Saturation pressure&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> T(
     height=100,
     duration=1,
@@ -456,18 +456,18 @@ This examples is a unit test for the saturation pressure computation of liquid w
 
 This examples is a unit test for the sublimation pressure computation of ice.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> SublimationPressureIce <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Model to test the wet bulb temperature computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.SublimationPressureIce"
 >Buildings.Utilities.Psychrometrics.SublimationPressureIce</a> pSat <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Saturation pressure&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> T(
     height=273.15 - 190,
     duration=1,
@@ -495,12 +495,12 @@ The model on the top uses the accurate computation of the
 wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TWetBul_TDryBulPhi <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Model to test the wet bulb temperature computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
@@ -509,14 +509,14 @@ computation of the wet bulb temperature.
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a> wetBulPhi(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
       package</span> Medium = Medium) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for wet bulb temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> phi(
     duration=1,
     height=0.98,
     offset=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Relative humidity&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> TDryBul(k=283.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a> wetBulPhiApp(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
@@ -548,17 +548,17 @@ The model on the top uses the accurate computation of the
 wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TWetBul_TDryBulXi
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
 
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> TDryBul(
     height=10,
     duration=1,
@@ -566,9 +566,9 @@ computation of the wet bulb temperature.
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi"
 >Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</a> wetBul(         <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">
       package</span> Medium = Medium) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for wet bulb temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XHum(
     duration=1,
     height=(0.0133 - 0.0175),
@@ -599,16 +599,16 @@ computation of the wet bulb temperature.
 <br><img src="Buildings.Utilities.Psych7149065a8ed12ad7ryAirD.png" alt="Buildings.Utilities.Psychrometrics.Examples.TotalAirDryAir">
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> TotalAirDryAir <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Unit test for conversion of humidity per total air and dry air mass&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
    <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XHum(
     duration=1,
     height=(0.01 - 0.1),
@@ -643,23 +643,23 @@ computation of the wet bulb temperature.
 
 This examples is a unit test for the wet bulb computation.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WetBul_pTX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model to test the wet bulb temperature computation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> p(k=101325) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> XDryBul(
     duration=1,
     height=0.014,
     offset=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb water vapor mass fraction&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> TDryBul(k=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
   <a href="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.WetBul_pTX"
 >Buildings.Utilities.Psychrometrics.WetBul_pTX</a> wetBul_TDryBulX;
@@ -671,7 +671,7 @@ This examples is a unit test for the wet bulb computation.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:35 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:27:25 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -44,7 +44,7 @@ This package contains base classes that are used to construct the models in
 >Buildings.Obsolete.Fluid.Movers</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -120,9 +120,9 @@ the head or the mass flow rate.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</a></td><td>rho_default</td><td>Medium.density(sta_default)</td><td>Fluid density at medium default state [kg/m3]</td></tr>
-<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</a></td><td>Medium in the component</td></tr>
 <tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
 <tr><td>Boolean</td><td>control_m_flow</td><td>&nbsp;</td><td>= false to control head instead of m_flow</td></tr>
@@ -134,40 +134,40 @@ the head or the mass flow rate.
 <tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
 >efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
 <tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
 <tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
 <tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
 <tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
 >Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
 >MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
@@ -175,13 +175,13 @@ the head or the mass flow rate.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -209,16 +209,16 @@ the head or the mass flow rate.
     &quot;Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >Medium.AbsolutePressure</a> p_a_default(displayUnit=&quot;Pa&quot;) = Medium.p_default <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal inlet pressure for predefined fan or pump characteristics&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</a> sta_default =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.setState_pTX</span>(
      T=Medium.T_default,
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Default medium state&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> PToMedium_flow(y=Q_flow + WFlo) <span style="color: blue; font-weight: normal; font-style: normal;">if </span> addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat and work input into medium&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -301,7 +301,7 @@ to be used during the simulation.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</a></td><td>rho_default</td><td>&nbsp;</td><td>Fluid density at medium default state [kg/m3]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
 <tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
@@ -310,7 +310,7 @@ to be used during the simulation.
 >efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
 <tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
 >efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
 >AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
 <tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
 >flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
@@ -321,18 +321,18 @@ to be used during the simulation.
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
 <tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
 <tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -343,15 +343,15 @@ to be used during the simulation.
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal));
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">import </span>cha = <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics"
 >Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics</a>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
 >Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm</a>
     N_nominal = 1500 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal rotational speed for flow characteristic&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</a> V_flow_nominal=
     pressure.V_flow[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(pressure.V_flow,1)] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal volume flow rate, used for homotopy&quot;</span>;
@@ -369,16 +369,16 @@ to be used during the simulation.
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Classes used to implement the filtered speed</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean filteredSpeed=true <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;= true, if speed is filtered with a 2nd order CriticalDamping filter&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> riseTime=30 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Rise time of the filter (time to reach 99.6 % of the speed)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Modelica.Blocks.Types.Init</a> init=Modelica.Blocks.Types.Init.InitialOutput <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of initialization (no init/steady state/initial state/initial output)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real N_start=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial value of speed&quot;</span>;
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Speed</span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> N_actual(min=0, max=N_nominal,
                                                  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;AngularVelocity&quot;,
                                                  <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1/min&quot;,
@@ -389,10 +389,10 @@ to be used during the simulation.
   Real r_V(start=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ratio V_flow/V_flow_max&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> N_filtered(min=0, start=N_start, max=N_nominal) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
      filteredSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Filtered speed in the range 0..N_nominal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Filter"
 >Modelica.Blocks.Continuous.Filter</a> filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -406,17 +406,17 @@ to be used during the simulation.
      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>filterType=Modelica.Blocks.Types.FilterType.LowPass) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
         filteredSpeed <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Second order filter to approximate valve opening time, and to improve numerics&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</a> VDelta_flow(fixed=false, start=delta*V_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Small volume flow rate&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpDelta(fixed=false, start=100) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Small pressure&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real delta = 0.05 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Small value used to transition to other fan curve&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real cBar[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Coefficients for linear approximation of pressure vs. flow rate&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpMax(min=0, fixed=false);
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real kRes(min=0, unit=&quot;kg/(s.m4)&quot;, fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Coefficient for internal pressure drop of fan or pump&quot;</span>;
@@ -467,7 +467,7 @@ to be used during the simulation.
     &quot;Flag, true if user specified data that contain V_flow_max&quot;</span>;
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Variables</span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</a> rho <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium density&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">function</span> getPerformanceDataAsString
@@ -948,17 +948,17 @@ adding heat to the volume, and flow work to this model.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</a></td><td>Medium in the component</td></tr>
 <tr><td>Boolean</td><td>control_m_flow</td><td>&nbsp;</td><td>= false to control dp instead of m_flow</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >AbsolutePressure</a></td><td>dp_start</td><td>0</td><td>Guess value of dp = port_a.p - port_b.p [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_start</td><td>0</td><td>Guess value of m_flow = port_a.m_flow [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>&nbsp;</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
 <tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if temperatures at port_a and port_b are computed</td></tr>
@@ -967,13 +967,13 @@ adding heat to the volume, and flow work to this model.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>dp_in</td><td>Prescribed outlet pressure</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -984,18 +984,18 @@ adding heat to the volume, and flow work to this model.
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// what to control</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= false to control dp instead of m_flow&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> m_flow_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Prescribed mass flow rate&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> dp_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>control_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Prescribed outlet pressure&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> m_flow_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Needed to connect to conditional connector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> dp_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Needed to connect to conditional connector&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -1060,43 +1060,43 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</a></td><td>Medium in the component</td></tr>
 <tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
 <tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
 <tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
 >Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
 >MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
 <tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
@@ -1104,7 +1104,7 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -1112,7 +1112,7 @@ and more robust simulation, in particular if the mass flow is equal to zero.
   &quot;Partial model to interface fan or pump models with the medium&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
@@ -1147,17 +1147,17 @@ and more robust simulation, in particular if the mass flow is equal to zero.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean addPowerToMedium=true <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> tau=1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Time constant of fluid volume for nominal flow, used if dynamicBalance=true&quot;</span>;
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Models</span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat dissipation to environment&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</a> rho_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density of inflowing fluid&quot;</span>;
 
   <a href="Buildings_Obsolete_Fluid_Movers_BaseClasses.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.IdealSource"
@@ -1171,10 +1171,10 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 >Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> prePow <span style="color: blue; font-weight: normal; font-style: normal;">if </span>addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Prescribed power (=heat and flow work) flow for dynamic model&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ThermodynamicState"
 >Medium.ThermodynamicState</a> sta_start=<span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
       T=T_start, p=p_start, X=X_start) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at start values&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
 >Modelica.SIunits.SpecificEnthalpy</a> h_outflow_start =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.specificEnthalpy</span>(sta_start) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Start value for outflowing enthalpy&quot;</span>;
 
@@ -1221,7 +1221,7 @@ to properly guard against division by zero.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</a></td><td>rho_default</td><td>&nbsp;</td><td>Fluid density at medium default state [kg/m3]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
 <tr><td>Boolean</td><td>use_powerCharacteristic</td><td>false</td><td>Use powerCharacteristic (vs. efficiencyCharacteristic)</td></tr>
@@ -1236,14 +1236,14 @@ to properly guard against division by zero.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PowerInterface <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Partial model to compute power draw and heat dissipation of fans and pumps&quot;</span>
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
+  <span style="color: blue; font-weight: normal; font-style: normal;">import </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Constants.html#Modelica.Constants"
 >Modelica.Constants</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_powerCharacteristic = false <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1262,35 +1262,35 @@ to properly guard against division by zero.
       hydraulicEfficiency(r_V={1}, eta={0.7}) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Normalized volume flow rate vs. efficiency&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Modelica.SIunits.Density</a> rho_default <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fluid density at medium default state&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> P(quantity=&quot;Modelica.SIunits.Power&quot;,
    unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical power consumed&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> WHyd <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hydraulic power input (converted to flow work and heat)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> WFlo <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow work&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</a> Q_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat input from fan or pump to medium&quot;</span>;
   Real eta(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Global efficiency&quot;</span>;
   Real etaHyd(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Hydraulic efficiency&quot;</span>;
   Real etaMot(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Motor efficiency&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpMachine(displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure increase&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</a> VMachine_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume flow rate&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</a> V_flow_max(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Maximum volume flow rate, used for smoothing&quot;</span>;
   <span style="color: #006400; font-weight: normal; font-style: normal;">//Modelica.SIunits.HeatFlowRate QThe_flow &quot;Heat input into the medium&quot;;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.VolumeFlowRate"
 >Modelica.SIunits.VolumeFlowRate</a> delta_V_flow = 1E-3*V_flow_max <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Factor used for setting heat input into medium to zero at very small flows&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real motDer[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(motorEfficiency.r_V, 1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1298,7 +1298,7 @@ to properly guard against division by zero.
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real hydDer[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(hydraulicEfficiency.r_V,1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Coefficients for polynomial of pressure vs. flow rate&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</a> QThe_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat input from fan or pump to medium&quot;</span>;
 
@@ -1370,9 +1370,9 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
 >Density</a></td><td>rho_default</td><td>Medium.density_pTX(p=Medium....</td><td>Fluid density at medium default state [kg/m3]</td></tr>
-<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</a></td><td>Medium in the component</td></tr>
 <tr><td>Boolean</td><td>addPowerToMedium</td><td>true</td><td>Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Characteristics</td></tr>
@@ -1382,7 +1382,7 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 >efficiencyParameters</a></td><td>motorEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
 <tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters"
 >efficiencyParameters</a></td><td>hydraulicEfficiency</td><td>&nbsp;</td><td>Normalized volume flow rate vs. efficiency</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits_Conversions_NonSIunits.html#Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm"
 >AngularVelocity_rpm</a></td><td>N_nominal</td><td>1500</td><td>Nominal rotational speed for flow characteristic [1/min]</td></tr>
 <tr><td><a href="Buildings_Obsolete_Fluid_Movers_BaseClasses_Characteristics.html#Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters"
 >flowParameters</a></td><td>pressure</td><td>&nbsp;</td><td>Volume flow rate vs. total pressure rise</td></tr>
@@ -1390,47 +1390,47 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 >powerParameters</a></td><td>power</td><td>&nbsp;</td><td>Volume flow rate vs. electrical power consumption</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
 <tr><td>Real</td><td>r_V.start</td><td>1</td><td>Ratio V_flow/V_flow_max [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>max(pressure.V_flow)*rho_def...</td><td>Nominal mass flow rate [kg/s]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
 <tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
 <tr><td>Boolean</td><td>show_T</td><td>false</td><td>= true, if actual temperature at port is computed</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Filtered speed</td></tr>
 <tr><td>Boolean</td><td>filteredSpeed</td><td>true</td><td>= true, if speed is filtered with a 2nd order CriticalDamping filter</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>riseTime</td><td>30</td><td>Rise time of the filter (time to reach 99.6 % of the speed) [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Init"
 >Init</a></td><td>init</td><td>Modelica.Blocks.Types.Init.I...</td><td>Type of initialization (no init/steady state/initial state/initial output)</td></tr>
 <tr><td>Real</td><td>N_start</td><td>0</td><td>Initial value of speed</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
 <tr><td>Boolean</td><td>dynamicBalance</td><td>true</td><td>Set to true to use a dynamic balance, which often leads to smaller systems of equations</td></tr>
 <tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tau</td><td>1</td><td>Time constant of fluid volume for nominal flow, used if dynamicBalance=true [s]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
 >Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
 >MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
@@ -1438,15 +1438,15 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Electrical power consumed [W]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>N_actual</td><td>[1/min]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>Heat dissipation to environment</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -1467,11 +1467,11 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Models</span>
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> dpMac(y=-dpMachine) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Pressure drop of the pump or fan&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> PToMedium_flow(y=Q_flow + WFlo) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        addPowerToMedium <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat and work input into medium&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -1484,7 +1484,7 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:47:34 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:33:15 2015.
 </address>
 </body>
 </html>

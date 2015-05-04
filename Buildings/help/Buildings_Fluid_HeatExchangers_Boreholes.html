@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Boreholes<![endif]-->
@@ -40,7 +40,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 
 This package contains models for borehole heat exchangers.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -182,49 +182,49 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td colspan="2">replaceable package Medium</td><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >PartialMedium</a></td><td>Medium in the component</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</a></td><td>rBor</td><td>0.1</td><td>Radius of the borehole [m]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dp_nominal</td><td>&nbsp;</td><td>Pressure difference [Pa]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow.start</td><td>0</td><td>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dp.start</td><td>0</td><td>Pressure difference between port_a and port_b [Pa]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Soil</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_Soil.html#Buildings.HeatTransfer.Data.Soil.Generic"
 >Generic</a></td><td>matSoi</td><td>redeclare parameter Building...</td><td>Thermal properties of soil</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</a></td><td>rExt</td><td>3</td><td>Radius of the soil used for the external boundary condition [m]</td></tr>
 <tr><td>Integer</td><td>nHor</td><td>10</td><td>Number of state variables in each horizontal layer of the soil</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>samplePeriod</td><td>&nbsp;</td><td>Sample period for the external boundary condition [s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Borehole</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_BoreholeFillings.html#Buildings.HeatTransfer.Data.BoreholeFillings.Generic"
 >Generic</a></td><td>matFil</td><td>redeclare parameter Building...</td><td>Thermal properties of the filling material</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</a></td><td>hBor</td><td>&nbsp;</td><td>Total height of the borehole [m]</td></tr>
 <tr><td>Integer</td><td>nVer</td><td>10</td><td>Number of segments used for discretization in the vertical direction</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>xC</td><td>0.05</td><td>Shank spacing, defined as the distance between the center of a pipe and the center of the borehole [m]</td></tr>
 <tr><td>Real</td><td>B0</td><td>17.44</td><td>Shape coefficient for grout resistance</td></tr>
 <tr><td>Real</td><td>B1</td><td>-0.605</td><td>Shape coefficient for grout resistance</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Tubes</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Radius</a></td><td>rTub</td><td>0.02</td><td>Radius of the tubes [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</a></td><td>kTub</td><td>0.5</td><td>Thermal conductivity of the tube [W/(m.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>eTub</td><td>0.002</td><td>Thickness of a tube [m]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*abs(m_flow_nominal)</td><td>Small mass flow rate for regularization of zero flow [kg/s]</td></tr>
 <tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Diagnostics</td></tr>
@@ -236,44 +236,44 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 <tr><td>Real</td><td>deltaM</td><td>0.1</td><td>Fraction of nominal flow rate where flow transitions to laminar</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Dynamics</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Equations</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>energyDynamics</td><td>Modelica.Fluid.Types.Dynamic...</td><td>Formulation of energy balance</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
 >Dynamics</a></td><td>massDynamics</td><td>energyDynamics</td><td>Formulation of mass balance</td></tr>
 <tr><td>Real</td><td>mSenFac</td><td>1</td><td>Factor for scaling the sensible thermal mass of the volume</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.AbsolutePressure"
 >AbsolutePressure</a></td><td>p_start</td><td>Medium.p_default</td><td>Start value of pressure [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
 >Temperature</a></td><td>T_start</td><td>Medium.T_default</td><td>Start value of temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.MassFraction"
 >MassFraction</a></td><td>X_start[Medium.nX]</td><td>Medium.X_default</td><td>Start value of mass fractions m_i/m [kg/kg]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_start[Medium.nC]</td><td>fill(0, Medium.nC)</td><td>Start value of trace substances</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
 >ExtraProperty</a></td><td>C_nominal[Medium.nC]</td><td>fill(1E-2, Medium.nC)</td><td>Nominal value of trace substances. (Set to typical order of magnitude.)</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initial temperature</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Soil</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TExt0_start</td><td>283.15</td><td>Initial far field temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TExt_start[nVer]</td><td>{if z[i] &gt;= z0 then TExt0_st...</td><td>Temperature of the undisturbed ground [K]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Filling material</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TFil0_start</td><td>TExt0_start</td><td>Initial temperature of the filling material for h = 0...z0 [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TFil_start[nVer]</td><td>TExt_start</td><td>Temperature of the undisturbed ground [K]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Temperature profile</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</a></td><td>z0</td><td>10</td><td>Depth below which the temperature gradient starts [m]</td></tr>
 <tr><td>Real</td><td>dT_dz</td><td>0.01</td><td>Vertical temperature gradient of the undisturbed soil for h below z0 [K/m]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
 >FluidPort_a</a></td><td>port_a</td><td>Fluid connector a (positive design flow direction is from port_a to port_b)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
 >FluidPort_b</a></td><td>port_b</td><td>Fluid connector b (positive design flow direction is from port_a to port_b)</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -294,52 +294,52 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 >Buildings.HeatTransfer.Data.BoreholeFillings.Generic</a> matFil <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal properties of the filling material&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</a> rTub=0.02 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radius of the tubes&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</a> kTub=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal conductivity of the tube&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> eTub=0.002 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness of a tube&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</a> hBor <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total height of the borehole&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nVer=10 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of segments used for discretization in the vertical direction&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</a> rBor=0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Radius of the borehole&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Radius"
 >Modelica.SIunits.Radius</a> rExt=3 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Radius of the soil used for the external boundary condition&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nHor(min=1) = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of state variables in each horizontal layer of the soil&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TExt0_start=283.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Initial far field temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TExt_start[nVer]={<span style="color: blue; font-weight: normal; font-style: normal;">if </span>z[i] &gt;= z0<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>
       TExt0_start + (z[i] - z0)*dT_dz<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>TExt0_start <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nVer} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature of the undisturbed ground&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TFil0_start=TExt0_start <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Initial temperature of the filling material for h = 0...z0&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TFil_start[nVer]=TExt_start <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature of the undisturbed ground&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</a> z0=10 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Depth below which the temperature gradient starts&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real dT_dz(unit=&quot;K/m&quot;) = 0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Vertical temperature gradient of the undisturbed soil for h below z0&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> samplePeriod <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sample period for the external boundary condition&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> xC=0.05 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Shank spacing, defined as the distance between the center of a pipe and the center of the borehole&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real B0=17.44 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shape coefficient for grout resistance&quot;</span>;
@@ -382,12 +382,12 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>C_nominal=C_nominal,
     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Discretized borehole segments&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> Tdown[nVer] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium temperature in pipe 1&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> Tup[nVer] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium temperature in pipe 2&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</a> z[nVer]={hBor/nVer*(i - 0.5) <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:
       nVer} <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance from the surface to the considered segment&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -404,7 +404,7 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:03 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:20:41 2015.
 </address>
 </body>
 </html>

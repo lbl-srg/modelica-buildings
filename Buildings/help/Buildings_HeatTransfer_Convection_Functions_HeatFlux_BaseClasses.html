@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -44,7 +44,7 @@ This package contains base classes that are used to construct the models in
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -84,37 +84,37 @@ where
 <i>h</i> is the convective heat transfer coefficient.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >TemperatureDifference</a></td><td>dT</td><td>&nbsp;</td><td>Temperature difference solid minus fluid [K]</td></tr>
 </table>
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >HeatFlux</a></td><td>q_flow</td><td>Convective heat flux from solid to fluid [W/m2]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> PartialHeatFlux <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Partial function for convective heat flux&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
 
- <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+ <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
 >Modelica.SIunits.TemperatureDifference</a> dT <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature difference solid minus fluid&quot;</span>;
- <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
+ <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlux"
 >Modelica.SIunits.HeatFlux</a> q_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Convective heat flux from solid to fluid&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialHeatFlux;
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:11 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:55 2015.
 </address>
 </body>
 </html>

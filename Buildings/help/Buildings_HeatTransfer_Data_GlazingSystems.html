@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE GlazingSystems<![endif]-->
@@ -40,7 +40,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 
 Package with generic records that implement thermophysical properties for glazing systems.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -89,7 +89,7 @@ Package with generic records that implement thermophysical properties for glazin
 
 Generic record that implements thermophysical properties for glazing systems.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</a> (Icon for records).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -102,16 +102,16 @@ Generic record that implements thermophysical properties for glazing systems.
 >Generic</a></td><td>gas[:]</td><td>{Buildings.HeatTransfer.Data...</td><td>Layer by layer declaration of glass layers, starting from outside to room-side</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
 >Generic</a></td><td>shade</td><td>&nbsp;</td><td>Shade</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</a></td><td>UFra</td><td>&nbsp;</td><td>U-value of frame [W/(m2.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRFra</td><td>0.8</td><td>Infrared absorptivity of window frame [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absSolFra</td><td>0.5</td><td>Solar absorptivity of window frame [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Generic <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal properties of glazing systems&quot;</span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</a>;
 <span style="color: #006400; font-weight: normal; font-style: normal;">//  parameter Integer nLay(min=1, fixed=true) &quot;Number of glass layers&quot;</span>
 <span style="color: #006400; font-weight: normal; font-style: normal;">//    annotation (Evaluate=true);</span>
@@ -132,12 +132,12 @@ Generic record that implements thermophysical properties for glazing systems.
     &quot;Layer by layer declaration of glass layers, starting from outside to room-side&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
 >Shades.Generic</a> shade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shade&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</a> UFra <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;U-value of frame&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Modelica.SIunits.Emissivity</a> absIRFra=0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Infrared absorptivity of window frame&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Modelica.SIunits.Emissivity</a> absSolFra=0.5 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar absorptivity of window frame&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean haveShade = haveInteriorShade<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>haveExteriorShade <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -168,11 +168,11 @@ Generic record that implements thermophysical properties for glazing systems.
 >Generic</a></td><td>gas[:]</td><td>{Buildings.HeatTransfer.Data...</td><td>Layer by layer declaration of glass layers, starting from outside to room-side</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
 >Generic</a></td><td>shade</td><td>&nbsp;</td><td>Shade</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</a></td><td>UFra</td><td>3</td><td>U-value of frame [W/(m2.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRFra</td><td>0.8</td><td>Infrared absorptivity of window frame [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absSolFra</td><td>0.5</td><td>Solar absorptivity of window frame [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -205,11 +205,11 @@ Generic record that implements thermophysical properties for glazing systems.
 >Generic</a></td><td>gas[:]</td><td>{Gases.Air(x=0.0127)}</td><td>Layer by layer declaration of glass layers, starting from outside to room-side</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
 >Generic</a></td><td>shade</td><td>&nbsp;</td><td>Shade</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</a></td><td>UFra</td><td>1.4</td><td>U-value of frame [W/(m2.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRFra</td><td>0.8</td><td>Infrared absorptivity of window frame [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absSolFra</td><td>0.5</td><td>Solar absorptivity of window frame [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -243,11 +243,11 @@ Generic record that implements thermophysical properties for glazing systems.
 >Generic</a></td><td>gas[:]</td><td>{Gases.Air(x=0.0127),Gases.A...</td><td>Layer by layer declaration of glass layers, starting from outside to room-side</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_Shades.html#Buildings.HeatTransfer.Data.Shades.Generic"
 >Generic</a></td><td>shade</td><td>&nbsp;</td><td>Shade</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</a></td><td>UFra</td><td>1.4</td><td>U-value of frame [W/(m2.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRFra</td><td>0.8</td><td>Infrared absorptivity of window frame [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absSolFra</td><td>0.5</td><td>Solar absorptivity of window frame [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -261,7 +261,7 @@ Generic record that implements thermophysical properties for glazing systems.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:34 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:23:18 2015.
 </address>
 </body>
 </html>

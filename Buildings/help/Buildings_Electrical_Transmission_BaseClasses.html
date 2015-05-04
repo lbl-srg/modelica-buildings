@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -41,7 +41,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains partial models that describe electric
 lines and cables.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -186,11 +186,11 @@ show how this can be done.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
@@ -199,7 +199,7 @@ show how this can be done.
 >Load</a></td><td>modelMode</td><td>Buildings.Electrical.Types.L...</td><td>Select between steady state and dynamic model</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
 <tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
@@ -212,19 +212,19 @@ show how this can be done.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialBaseLine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial cable line dispersion model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> l(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the line&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_nominal(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal power of the line&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start=220) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage of the line&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f_n = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Frequency considered in the definition of cables properties&quot;</span>;
 
@@ -235,7 +235,7 @@ show how this can be done.
     &quot;Select between steady state and dynamic model&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_T = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, enables the input for the temperature of the cable&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TCable = T_ref <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fixed temperature of the cable&quot;</span>;
 
@@ -249,31 +249,31 @@ show how this can be done.
     Buildings.Electrical.Transmission.BaseClasses.BaseCable <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Commercial cables options&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_ref = commercialCable.T_ref <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reference temperature of the line&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> M = commercialCable.M <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineResistance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Resistance of the cable&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineInductance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Inductance of the cable due to mutual and self inductance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> C =<span style="color: red; font-weight: normal; font-style: normal;"> commercialCable.lineCapacitance</span>(l, f_n, commercialCable) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Capacitance of the cable&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
 >Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> cableTemp <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature of the cable&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> T <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the cable&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> cableTemperature(y=T_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature of the cable&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> T_in <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Internal variable for conditional temperature&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -326,11 +326,11 @@ Buildings.Electrical.Transmission.Base.PartialBaseLine</a> for more information.
 >Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
@@ -339,7 +339,7 @@ Buildings.Electrical.Transmission.Base.PartialBaseLine</a> for more information.
 >Load</a></td><td>modelMode</td><td>Buildings.Electrical.Types.L...</td><td>Select between steady state and dynamic model</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
 <tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
@@ -356,7 +356,7 @@ Buildings.Electrical.Transmission.Base.PartialBaseLine</a> for more information.
 >Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -421,7 +421,7 @@ the type of cables that connect the nodes.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the lines in the network [V]</td></tr>
 <tr><td><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
 >PartialGrid</a></td><td>grid</td><td>redeclare parameter Building...</td><td>Record that describe the grid with the number of nodes, links, connections, etc.</td></tr>
@@ -439,7 +439,7 @@ the type of cables that connect the nodes.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialNetwork <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Partial model that represent an electric network&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage of the lines in the network&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Transmission_Grids.html#Buildings.Electrical.Transmission.Grids.PartialGrid"
@@ -489,7 +489,7 @@ Partial model of an inductance that links two generalized electrical connectors.
 >Terminal</a></td><td>terminal_n</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side p</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>L</td><td>&nbsp;</td><td>Inductance [H]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -505,7 +505,7 @@ Partial model of an inductance that links two generalized electrical connectors.
   &quot;Partial model of an inductive element that links two electrical connectors&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
 >Interfaces.PartialTwoPort</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">Connections.branch</span>(terminal_p.theta, terminal_n.theta);
@@ -550,7 +550,7 @@ and are specified by the user.
 </p>
 
 <p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
->Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Buildings.Electrical.Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
 >Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a> (Partial model to include a conditional HeatPort in order to describe the power loss via a thermal network).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -564,20 +564,20 @@ and are specified by the user.
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
 <tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>C</td><td>&nbsp;</td><td>Capacity [F]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>L</td><td>&nbsp;</td><td>Inductance [H]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -587,7 +587,7 @@ and are specified by the user.
 >Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -595,23 +595,23 @@ and are specified by the user.
   &quot;Partial model of an RLC element that links two electrical connectors&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
 >Buildings.Electrical.Interfaces.PartialTwoPort</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
 >Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a>(T = T_ref);
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance at temperature T_ref&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Reference temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> M = 507.65 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> C <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacity&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R_actual <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual resistance = R*(M + T_heatPort)/(M + T_ref) &quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -658,7 +658,7 @@ if <code>useHeatPort = true</code>.
 </p>
 
 <p>Extends from <a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
->Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+>Interfaces.PartialTwoPort</a> (Model of a generic two port component with phase systems), <a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
 >Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a> (Partial model to include a conditional HeatPort in order to describe the power loss via a thermal network).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -672,13 +672,13 @@ if <code>useHeatPort = true</code>.
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>redeclare replaceable Buildi...</td><td>Electric terminal side n</td></tr>
 <tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -688,7 +688,7 @@ if <code>useHeatPort = true</code>.
 >Terminal</a></td><td>terminal_n</td><td>Electric terminal side p</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal_p</td><td>Electric terminal side n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -696,16 +696,16 @@ if <code>useHeatPort = true</code>.
   &quot;Partial model of a resistive element that links two electrical connectors&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
 >Interfaces.PartialTwoPort</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Interfaces.html#Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort"
 >Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort</a>(T = T_ref);
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance at temperature T_ref&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Reference temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> M = 507.65 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R_actual <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual resistance = R*(M + T_heatPort)/(M + T_ref) &quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -751,11 +751,11 @@ the properties of the cable such its resistance, inductance or capacitance.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
 >Material</a></td><td>material</td><td>Buildings.Electrical.Transmi...</td><td>Material of the cable</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Current</a></td><td>Amp</td><td>0.0</td><td>Ampacitance of the cable [A]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference cable temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>M</td><td>228.1 + 273.15</td><td>Temperature constant of the material [K]</td></tr>
 <tr><td colspan="2">replaceable function lineResistance</td><td>&nbsp;</td><td>Function that computes the resistance of a cable</td></tr>
 <tr><td colspan="2">replaceable function lineInductance</td><td>&nbsp;</td><td>Function that computes the inductance of a cable</td></tr>
@@ -767,61 +767,61 @@ the properties of the cable such its resistance, inductance or capacitance.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Transmission_Types.html#Buildings.Electrical.Transmission.Types.Material"
 >Buildings.Electrical.Transmission.Types.Material</a> material = Buildings.Electrical.Transmission.Types.Material.Al <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Material of the cable&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> Amp(start=0.0)=0.0 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Ampacitance of the cable&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_ref = 298.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reference cable temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> M = 228.1 + 273.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature constant of the material&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineResistance <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Function that computes the resistance of a cable&quot;</span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
       &quot;Frequency considered in the definition of cables properties&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance of the cable&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
   <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineResistance;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineInductance <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Function that computes the inductance of a cable&quot;</span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
       &quot;Frequency considered in the definition of cables properties&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance of the cable&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
   <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineInductance;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">function</span> lineCapacitance <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Function that computes the capacitance of a cable&quot;</span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> l <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of the cable&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f = 50 <span style="color: #006400; font-weight: normal; font-style: normal;">
       &quot;Frequency considered in the definition of cables properties&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+    <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> C <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacitance of the cable&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega = 2*Modelica.Constants.pi*f;
   <span style="color: blue; font-weight: normal; font-style: normal;">end </span>lineCapacitance;
 
@@ -829,7 +829,7 @@ the properties of the cable such its resistance, inductance or capacitance.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:20 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:59 2015.
 </address>
 </body>
 </html>

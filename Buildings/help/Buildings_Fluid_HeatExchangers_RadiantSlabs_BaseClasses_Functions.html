@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
@@ -106,44 +106,44 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Distance</a></td><td>disPip</td><td>&nbsp;</td><td>pipe distance [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
 >Diameter</a></td><td>dPipOut</td><td>&nbsp;</td><td>pipe outside diameter [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</a></td><td>k</td><td>&nbsp;</td><td>pipe level construction element thermal conductivity [W/(m.K)]</td></tr>
 <tr><td><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType"
 >SystemType</a></td><td>sysTyp</td><td>&nbsp;</td><td>Type of radiant system</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >ThermalConductivity</a></td><td>kIns</td><td>&nbsp;</td><td>floor slab insulation thermal conductivity [W/(m.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
 >Thickness</a></td><td>dIns</td><td>&nbsp;</td><td>floor slab insulation thickness [m]</td></tr>
 </table>
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >ThermalInsulance</a></td><td>Rx</td><td>Thermal insulance [m2.K/W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> AverageResistance <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Average fictitious resistance for plane that contains the pipes&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Distance"
 >Modelica.SIunits.Distance</a> disPip <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;pipe distance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Diameter"
 >Modelica.SIunits.Diameter</a> dPipOut <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;pipe outside diameter&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</a> k <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;pipe level construction element thermal conductivity&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_HeatExchangers_RadiantSlabs_Types.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType</a>
      sysTyp <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of radiant system&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
 >Modelica.SIunits.ThermalConductivity</a> kIns <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;floor slab insulation thermal conductivity&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Thickness"
 >Modelica.SIunits.Thickness</a> dIns <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;floor slab insulation thickness&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalInsulance"
 >Modelica.SIunits.ThermalInsulance</a> Rx <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal insulance&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   Real cri(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -202,64 +202,64 @@ For a fully dynamic model, a finite element method for the radiant slab would ne
 This function computes the heat flow rate for the radiant slab.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_a</td><td>&nbsp;</td><td>Temperature at port_a [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_b</td><td>&nbsp;</td><td>Temperature at port_b [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_s</td><td>&nbsp;</td><td>Temperature of solid [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_f</td><td>&nbsp;</td><td>Temperature of fluid control volume [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >SpecificHeatCapacity</a></td><td>c_p</td><td>&nbsp;</td><td>Specific heat capacity [J/(kg.K)]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
 >ThermalConductance</a></td><td>UA</td><td>&nbsp;</td><td>UA value [W/K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow</td><td>&nbsp;</td><td>Mass flow rate from port_a to port_b [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate from port_a to port_b [kg/s]</td></tr>
 </table>
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</a></td><td>Q_flow</td><td>Heat flow rate [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> heatFlowRate <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat flow rate for epsilon-NTU model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_a <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature at port_a&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_b <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature at port_b&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_s <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of solid&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_f <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of fluid control volume&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
 >Modelica.SIunits.SpecificHeatCapacity</a> c_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Specific heat capacity&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
 >Modelica.SIunits.ThermalConductance</a> UA <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;UA value&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Mass flow rate from port_a to port_b&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal mass flow rate from port_a to port_b&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</a> Q_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat flow rate&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_abs_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Absolute value of mass flow rate&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet fluid temperature&quot;</span>;
   Real eps <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat transfer effectiveness&quot;</span>;
 
@@ -288,7 +288,7 @@ This function computes the heat flow rate for the radiant slab.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:35:58 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:21:37 2015.
 </address>
 </body>
 </html>

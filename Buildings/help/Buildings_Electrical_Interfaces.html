@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Interfaces<![endif]-->
@@ -45,7 +45,7 @@ The classes are not directly usable, but can
 be extended when building a new model.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
 >Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -232,9 +232,9 @@ Q = - P * tan(arccos(pf))
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
@@ -244,13 +244,13 @@ Q = - P * tan(arccos(pf))
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -260,7 +260,7 @@ Q = - P * tan(arccos(pf))
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_pf_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, the power factor is defined by an input&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real pf(min=0, max=1) = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> pf_in(
     min=0,
     max=1,
@@ -268,17 +268,17 @@ Q = - P * tan(arccos(pf))
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">function</span> j = <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.j"
 >PhaseSystem.j</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;J operator that rotates of 90 degrees&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> pf_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hidden value of the input load for the conditional connector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ElectricCharge"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ElectricCharge"
 >Modelica.SIunits.ElectricCharge</a> q[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Electric charge&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Admittance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Admittance"
 >Modelica.SIunits.Admittance</a>[2] Y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Admittance&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular velocity&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> Q = P*<span style="color: red; font-weight: normal; font-style: normal;">tan</span>(-<span style="color: red; font-weight: normal; font-style: normal;">acos</span>(pf_internal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reactive power (negative because capacitive load)&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -411,11 +411,11 @@ R = R<sub>min</sub> + y<sub>R</sub> (R<sub>max</sub> - R<sub>min</sub>)
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized electric terminal</td></tr>
 <tr><td>Boolean</td><td>inductive</td><td>true</td><td>If true, the load is inductive, otherwise it is capacitive</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>1</td><td>Resistance [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>L</td><td>0</td><td>Inductance [H]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>C</td><td>0</td><td>Capacitance [F]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Modelling assumption</td></tr>
 <tr><td>Boolean</td><td>linearized</td><td>false</td><td>If true, the load model is linearized</td></tr>
@@ -427,37 +427,37 @@ R = R<sub>min</sub> + y<sub>R</sub> (R<sub>max</sub> - R<sub>min</sub>)
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Variable load</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Resistance</td></tr>
 <tr><td>Boolean</td><td>use_R_in</td><td>false</td><td>If true, R is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>RMin</td><td>1e-4</td><td>Minimum value of the resistance [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>RMax</td><td>1e2</td><td>Maximum value of the resistance [Ohm]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Capacitance</td></tr>
 <tr><td>Boolean</td><td>use_C_in</td><td>false</td><td>If true, C is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>CMin</td><td>1e-4</td><td>Minimum value of the capacitance [F]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>CMax</td><td>1e2</td><td>Maximum value of the capacitance [F]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Inductance</td></tr>
 <tr><td>Boolean</td><td>use_L_in</td><td>false</td><td>If true, L is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>LMin</td><td>1e-4</td><td>Minimum value of the inductance [H]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>LMax</td><td>1e2</td><td>Maximum value of the inductance [H]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_R</td><td>Input that sepecify variable R</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_C</td><td>Input that sepecify variable C</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_L</td><td>Input that sepecify variable L</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -470,59 +470,59 @@ R = R<sub>min</sub> + y<sub>R</sub> (R<sub>max</sub> - R<sub>min</sub>)
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V_nominal(fixed = true)=1);
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean inductive=true <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, the load is inductive, otherwise it is capacitive&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R(start = 1,min=0) = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Resistance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L(start=0, min=0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> C(start=0,min=0) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Capacitance&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_R_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, R is specified by an input&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> RMin(start = R, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Minimum value of the resistance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> RMax(start = R, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Maximum value of the resistance&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_C_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, C is specified by an input&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> CMin(start = C, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Minimum value of the capacitance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> CMax(start = C, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Maximum value of the capacitance&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_L_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, L is specified by an input&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> LMin(start = L, min=Modelica.Constants.eps) = 1e-4 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Minimum value of the inductance&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> LMax(start = L, min=Modelica.Constants.eps) = 1e2 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Maximum value of the inductance&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> y_R(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_R_in <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Input that sepecify variable R&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> y_C(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_C_in <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Input that sepecify variable C&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> y_L(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_L_in <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Input that sepecify variable L&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y_R_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Internal signal used to compute the variable R_internal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y_C_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Internal signal used to compute the variable C_internal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y_L_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Internal signal used to compute the variable L_internal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> R_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual resistance used to compute the impedance&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Modelica.SIunits.Inductance</a> L_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual inductance used to compute the impedance&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Modelica.SIunits.Capacitance</a> C_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual capacitance used to compute the impedance&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -617,9 +617,9 @@ Q = P  tan(arccos(pf))
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
@@ -629,13 +629,13 @@ Q = P  tan(arccos(pf))
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -645,7 +645,7 @@ Q = P  tan(arccos(pf))
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_pf_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, the power factor is defined by an input&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real pf(min=0, max=1) = 0.8 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power factor&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> pf_in(
     min=0,
     max=1,
@@ -653,17 +653,17 @@ Q = P  tan(arccos(pf))
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">function</span> j = <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.j"
 >PhaseSystem.j</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;J operator that rotates of 90 degrees&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> pf_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hidden value of the input load for the conditional connector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MagneticFlux"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MagneticFlux"
 >Modelica.SIunits.MagneticFlux</a> psi[2](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Magnetic flux&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Z[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Impedance of the load&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular frequency&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> Q = P*<span style="color: red; font-weight: normal; font-style: normal;">tan</span>(<span style="color: red; font-weight: normal; font-style: normal;">acos</span>(pf_internal)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reactive power (positive because inductive load)&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -788,9 +788,9 @@ at the terminal differs from the nominal voltage.
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
@@ -800,9 +800,9 @@ at the terminal differs from the nominal voltage.
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized electric terminal</td></tr>
@@ -819,10 +819,10 @@ at the terminal differs from the nominal voltage.
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal power (negative if consumed, positive if generated)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
@@ -831,24 +831,24 @@ at the terminal differs from the nominal voltage.
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Initialization mode for homotopy operator&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> v[:](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phaseVoltages</span>(V_nominal)) = terminal.v <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage vector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> i[:](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phaseCurrents</span>(0.0)) = terminal.i <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Current vector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S[PhaseSystem.n] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phasePowers_vi</span>(v, -i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Phase powers&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power of the load (negative if consumed, positive if fed into the electrical grid)&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> y(min=0, max=1, unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        (mode == Buildings.Electrical.Types.Load.VariableZ_y_input) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fraction of the nominal power consumed&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> Pow(unit=&quot;W&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        (mode == Buildings.Electrical.Types.Load.VariableZ_P_input) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power consumed&quot;</span>;
@@ -859,10 +859,10 @@ at the terminal differs from the nominal voltage.
     &quot;Generalized electric terminal&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> y_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hidden value of the input load for the conditional connector&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> P_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hidden value of the input power for the conditional connector&quot;</span>;
   Real load(min=eps, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1008,13 +1008,13 @@ These variables are used in conversion models such as transformers and AC/DC con
   &quot;Model representing a generic two port system for conversion&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialTwoPort"
 >Buildings.Electrical.Interfaces.PartialTwoPort</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> v_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage drop between the two positive pins&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> v_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage drop between the two negative pins&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> i_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current flowing through the positive pins&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> i_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current flowing through the negative pins&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   i_p =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.systemCurrent</span>(terminal_p.i);
@@ -1062,7 +1062,7 @@ The electrical connector is a general electrical interface.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
 <tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
 <tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
@@ -1070,16 +1070,16 @@ The electrical connector is a general electrical interface.
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>G</td><td>Total solar irradiation per unit area [W/m2]</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
@@ -1092,10 +1092,10 @@ The electrical connector is a general electrical interface.
       <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> G(unit=&quot;W/m2&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Total solar irradiation per unit area&quot;</span>;
 
@@ -1105,7 +1105,7 @@ The electrical connector is a general electrical interface.
 >PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> solarPower(y=A*fAct*eta*G);
 
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -1151,7 +1151,7 @@ specified by the surface tilt, latitude and azimuth.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
 <tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
 <tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
@@ -1161,20 +1161,20 @@ specified by the surface tilt, latitude and azimuth.
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.PartialPV"
 >PartialPV</a></td><td>panel</td><td>redeclare PartialPV panel</td><td>PV panel</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Orientation</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
@@ -1192,13 +1192,13 @@ specified by the surface tilt, latitude and azimuth.
 >Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a> <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> til <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> lat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> azi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface azimuth&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
 
@@ -1229,7 +1229,7 @@ specified by the surface tilt, latitude and azimuth.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>lat=lat,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>azi=azi) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Direct irradiation on tilted surface&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> G <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total irradiation on tilted surface&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -1265,7 +1265,7 @@ The model defines also an output <code>P</code> for the power generated by the P
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
 <tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
 <tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
@@ -1273,19 +1273,19 @@ The model defines also an output <code>P</code> for the power generated by the P
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialPvBase <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Partial model with basic parameters for PVs&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Net surface area&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fAct(min=0, max=1, unit=&quot;1&quot;) = 0.9 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fraction of surface area with active solar cells&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta(min=0, max=1, unit=&quot;1&quot;) = 0.12 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Module conversion efficiency&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> P(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generated power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialPvBase;
 </div>
@@ -1415,19 +1415,19 @@ Below and above these wind speeds, the generated power is zero.
 >Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
 <tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
 <tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
@@ -1449,7 +1449,7 @@ Below and above these wind speeds, the generated power is zero.
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> PhaseSystem = <a href="Buildings_Electrical_Interfaces_PhaseSystem.html#Buildings.Electrical.Interfaces.PartialWindTurbine.PhaseSystem"
 >PhaseSystem</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generalized terminal&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Tables.html#Modelica.Blocks.Tables.CombiTable1Ds"
 >Modelica.Blocks.Tables.CombiTable1Ds</a> per(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tableOnFile=tableOnFile,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>table=<span style="color: red; font-weight: normal; font-style: normal;">cat</span>(1,<span style="color: red; font-weight: normal; font-style: normal;"> cat</span>(1, [0, 0], table),
@@ -1460,7 +1460,7 @@ Below and above these wind speeds, the generated power is zero.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>columns=2:2,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Performance table that maps wind speed to electrical power output&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</a> gain(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=scale) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Gain, used to allow a user to easily scale the power&quot;</span>;
   <a href="Buildings_Electrical_DC_Sources_BaseClasses.html#Buildings.Electrical.DC.Sources.BaseClasses.WindCorrection"
@@ -1511,35 +1511,35 @@ The model defines also an output <code>P</code> for the power generated by the w
 <tr><td>String</td><td>fileName</td><td>&quot;NoName&quot;</td><td>File where matrix is stored</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
 <tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
 <tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PartialWindTurbineBase <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Base class for turbine model that contains basic parameters&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</a> vIn = table[1,1] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Cut-in steady wind speed&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
 >Modelica.SIunits.Velocity</a> vOut = table[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(table,1), 1] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Cut-out steady wind speed&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scale(min=0)=1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Scaling factor, used to allow adjusting the power output without changing the table&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real h <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Height over ground&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Modelica.SIunits.Height</a> hRef = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reference height for wind measurement&quot;</span>;
  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real nWin(min=0) = 0.4 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1557,12 +1557,12 @@ The model defines also an output <code>P</code> for the power generated by the w
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String tableName=&quot;NoName&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Table name on file or in function usertab (see documentation)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>String fileName=&quot;NoName&quot; <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;File where matrix is stored&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal(min=0, start=110) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal voltage (V_nominal &gt;= 0)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> vWin(unit=&quot;m/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Steady wind speed&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> P(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generated power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialWindTurbineBase;
 </div>
@@ -1628,11 +1628,11 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase system&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean potentialReference = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Serve as potential root&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean definiteReference = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Serve as definite root&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S[PhaseSystem.n]=
     <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem.phasePowers_vi</span>(terminal.v, terminal.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Complex power S[1] = P, S[2]= Q&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phi=
     <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem.phase</span>(terminal.v) -<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem.phase</span>(-terminal.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Phase shift with respect to reference angle&quot;</span>;
@@ -1809,7 +1809,7 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>Generalized terminal</td></tr>
 <tr><td>Boolean</td><td>use_V_in</td><td>true</td><td>If true, the voltage is an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V</td><td>1</td><td>Value of constant voltage [V]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
 <tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
@@ -1820,7 +1820,7 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Terminal"
 >Terminal</a></td><td>terminal</td><td>Generalized terminal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>V_in</td><td>Input voltage [V]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -1829,13 +1829,13 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Electrical_Interfaces.html#Buildings.Electrical.Interfaces.Source"
 >Buildings.Electrical.Interfaces.Source</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_V_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;If true, the voltage is an input&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Value of constant voltage&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> V_in(unit=&quot;V&quot;, min=0, start = 1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        use_V_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input voltage&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a>  V_in_internal(unit=&quot;V&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Hidden value of the input voltage for the conditional connector&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -1913,7 +1913,7 @@ that are used to determine which of the three-phase are connected to the network
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:22 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:20:01 2015.
 </address>
 </body>
 </html>

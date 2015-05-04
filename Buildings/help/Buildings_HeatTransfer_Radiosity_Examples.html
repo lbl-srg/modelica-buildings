@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.HeatTransfer.Radiosity</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -85,12 +85,12 @@ This examples demonstrates two opaque surfaces that radiate toward each other.
 The model assumes that the view factor between the surfaces is equal to one.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> OpaqueSurface <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Test model for indoor source as an opaque surface&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
   <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
@@ -126,17 +126,17 @@ The model assumes that the view factor between the surfaces is equal to one.
 <br><img src="Buildings.HeatTransfer.Ra86d034f36fa3f695osityD.png" alt="Buildings.HeatTransfer.Radiosity.Examples.OutdoorRadiosity">
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>1</td><td>Area of receiving surface [m2]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> OutdoorRadiosity <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for outdoor radiosity&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.OpaqueSurface"
 >Buildings.HeatTransfer.Radiosity.OpaqueSurface</a> sur(A=A, absIR=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -144,14 +144,14 @@ The model assumes that the view factor between the surfaces is equal to one.
   <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.OutdoorRadiosity"
 >Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a> outRad(A=A, vieFacSky=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outdoor radiosity model&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> A=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Area of receiving surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> TSky(
     duration=1,
     height=30,
     offset=273.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sky blackbody temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> TAir(k=273.15 + 20) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outside air temperature&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -162,7 +162,7 @@ The model assumes that the view factor between the surfaces is equal to one.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:14 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:58 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -45,7 +45,7 @@ This package contains base classes that are used to construct the models in
 Buildings.Rooms.Validation.BESTEST</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -78,7 +78,7 @@ Buildings.Rooms.Validation.BESTEST</a>.
 Time schedule that is used for set points.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
 >Modelica.Blocks.Sources.CombiTimeTable</a> (Table look-up with respect to time and linear/periodic extrapolation methods (data from matrix/file)).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -91,23 +91,23 @@ Time schedule that is used for set points.
 <tr><td>Boolean</td><td>verboseRead</td><td>true</td><td>= true, if info message that file is loading is to be printed</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Table data interpretation</td></tr>
 <tr><td>Integer</td><td>columns[:]</td><td>2:size(table, 2)</td><td>Columns of table to be interpolated</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Smoothness"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Smoothness"
 >Smoothness</a></td><td>smoothness</td><td>Modelica.Blocks.Types.Smooth...</td><td>Smoothness of table interpolation</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Extrapolation"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.Extrapolation"
 >Extrapolation</a></td><td>extrapolation</td><td>if size(table, 1) == 1 then ...</td><td>Extrapolation of data outside the definition range</td></tr>
 <tr><td>Real</td><td>offset[:]</td><td>fill(0, size(table, 2) - 1)</td><td>Offsets of output signals</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>startTime</td><td>0</td><td>Output = offset for time &lt; startTime [s]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y[nout]</td><td>Connector of Real output signals</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> DaySchedule <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Schedule that repeats every day&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.CombiTimeTable"
 >Modelica.Blocks.Sources.CombiTimeTable</a>(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tableOnFile=false,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>tableName=&quot;NoName&quot;,
@@ -125,7 +125,7 @@ Time schedule that is used for set points.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:40:27 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:26:14 2015.
 </address>
 </body>
 </html>

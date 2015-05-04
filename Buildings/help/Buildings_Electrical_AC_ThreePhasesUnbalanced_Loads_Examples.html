@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -108,12 +108,12 @@ the current necessary to satisfy the Kirchoff Current Law (KCL)
 such that the algebraic sum of the phase current in each impedance is equal to zero.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Impedances <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This model tests three-phase unbalanced impedances with and without neutral cable&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N"
 >Sources.FixedVoltage_N</a> sou_N(definiteReference=true,
@@ -145,7 +145,7 @@ such that the algebraic sum of the phase current in each impedance is equal to z
     use_L_in=true,
     LMin=0.1,
     LMax=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Impedance without neutral cable&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> var_RL(
     duration=0.5,
     startTime=0.25,
@@ -191,15 +191,15 @@ The model contains both a controlled and a not controlled load so the user can
 compare the difference in the voltages and powers when the load is unplugged.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> LoadCtrl
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N"
 >Sources.FixedVoltage_N</a> sou(f=60, V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</a> pow_1(
     freqHz=0.1,
     amplitude=4500,
@@ -282,23 +282,23 @@ because the equations relative to the load are conditionally removed, reducing t
 of the system of equations.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Loads <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This model tests the load models without neutral cable connection&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage"
 >Sources.FixedVoltage</a> sou(definiteReference=true,
     f=60,
     V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
 >Modelica.Blocks.Sources.Sine</a> ph_1(
     amplitude=2000,
     freqHz=10,
     offset=-2500) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power signal for loads on phase 1&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> ph_23(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power signal for loads on phase 2 and 3&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive"
@@ -393,25 +393,25 @@ such that the algebraic sum of the phase current in each load is equal to zero.
 <img alt="image" src="../Resources/Images/Electrical/AC/ThreePhasesUnbalanced/Loads/Examples/unbalancedLoads.png"/>
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Loads_N <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This model tests unbalanced load models with neutral cable connection&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage_N"
 >Sources.FixedVoltage_N</a>
                        sou(definiteReference=true,
     f=60,
     V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> ph_1(
     offset=-1000,
     duration=0.5,
     startTime=0.25,
     height=-500) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power signal for loads on phase 1&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> ph_23(k=-1000) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power signal for loads on phase 2 and 3&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Resistive_N"
@@ -452,7 +452,7 @@ such that the algebraic sum of the phase current in each load is equal to zero.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:42 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:21 2015.
 </address>
 </body>
 </html>

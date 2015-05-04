@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Conversion<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains models for AC/AC and AC/DC conversion.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -127,7 +127,7 @@ Furthermore, reactive power on both side are set to zero.
 <h4>Note:</h4>
 <p>
 This model is derived from
-<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Utilities.html#Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Utilities.html#Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter"
 >
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
@@ -182,13 +182,13 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
     &quot;If true, connect side 1 of converter to ground&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, connect side 2 of converter to ground&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> LossPower[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Loss power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_p[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.phasePowers_vi</span>(terminal_p.v, terminal_p.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin p&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_n[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phasePowers_vi</span>(terminal_n.v, terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin n&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -260,11 +260,11 @@ Given the nominal conditions,the model computes the values of the resistance and
 >PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>Rms voltage on side 1 of the transformer (primary side) [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>Rms voltage on side 2 of the transformer (secondary side) [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
 >ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
 <tr><td>Real</td><td>XoverR</td><td>&nbsp;</td><td>Ratio between the complex and real components of the impedance (XL/R)</td></tr>
 <tr><td>Real</td><td>Zperc</td><td>&nbsp;</td><td>Short circuit impedance</td></tr>
@@ -274,9 +274,9 @@ Given the nominal conditions,the model computes the values of the resistance and
 <tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
 <tr><td>Boolean</td><td>ground_2</td><td>true</td><td>If true, connect side 2 of converter to ground</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phi_1</td><td>0</td><td>Angle of the voltage side 1 at initialization [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phi_2</td><td>phi_1</td><td>Angle of the voltage side 2 at initialization [rad]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -304,13 +304,13 @@ Given the nominal conditions,the model computes the values of the resistance and
 >Interfaces.Terminal_p</a> terminal_p(
       i(start =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(PhaseSystem_p.n),
       <span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect = StateSelect.prefer)));
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Rms voltage on side 1 of the transformer (primary side)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Rms voltage on side 2 of the transformer (secondary side)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
 >Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal power of the transformer&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real XoverR <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -320,64 +320,64 @@ Given the nominal conditions,the model computes the values of the resistance and
     &quot;If true, connect side 1 of converter to ground&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, connect side 2 of converter to ground&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phi_1 = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Angle of the voltage side 1 at initialization&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phi_2 = phi_1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Angle of the voltage side 2 at initialization&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Efficiency"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Efficiency"
 >Modelica.SIunits.Efficiency</a> eta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> PLoss[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Loss power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   Real N = VHigh/VLow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Winding ratio&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> IHigh = VABase/VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal current on primary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> ILow = VABase/VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal current on secondary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> IscHigh = IHigh/Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Short circuit current on primary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> IscLow = ILow/Zperc <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Short circuit current on secondary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Zp = VHigh/IscHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the primary side (module)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Z1[2]=
     {Zp*<span style="color: red; font-weight: normal; font-style: normal;">cos</span>(<span style="color: red; font-weight: normal; font-style: normal;">atan</span>(XoverR)), Zp*<span style="color: red; font-weight: normal; font-style: normal;">sin</span>(<span style="color: red; font-weight: normal; font-style: normal;">atan</span>(XoverR))} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the primary side of the transformer&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Zs = VLow/IscLow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the secondary side (module)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Z2[2]=
     {Zs*<span style="color: red; font-weight: normal; font-style: normal;">cos</span>(<span style="color: red; font-weight: normal; font-style: normal;">atan</span>(XoverR)), Zs*<span style="color: red; font-weight: normal; font-style: normal;">sin</span>(<span style="color: red; font-weight: normal; font-style: normal;">atan</span>(XoverR))} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the secondary side of the transformer&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V1[2](
     start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phaseVoltages</span>(VHigh, phi_1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage at the winding - primary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V2[2](
     start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.phaseVoltages</span>(VLow, phi_2)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage at the winding - secondary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_p[2]=
     <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_p.phasePowers_vi</span>(terminal_p.v, terminal_p.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin p (secondary)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_n[2]=
     <span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem_n.phasePowers_vi</span>(terminal_n.v, terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin n (primary)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S_p =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regRoot</span>(P_p[1]^2 + P_p[2]^2, delta=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Apparent power at terminal p&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S_n =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regRoot</span>(P_n[1]^2 + P_n[2]^2, delta=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Apparent power at terminal n&quot;</span>;
 
@@ -472,13 +472,13 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 >PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>VHigh</td><td>&nbsp;</td><td>RMS voltage on side 1 of the transformer (primary side) [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>VLow</td><td>&nbsp;</td><td>RMS voltage on side 2 of the transformer (secondary side) [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
 >ApparentPower</a></td><td>VABase</td><td>&nbsp;</td><td>Nominal power of the transformer [VA]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Frequency</a></td><td>f</td><td>&nbsp;</td><td>Nominal frequency [Hz]</td></tr>
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
 >PerUnit</a></td><td>R1</td><td>&nbsp;</td><td>Resistance on side 1 of the transformer (pu) [1]</td></tr>
@@ -500,9 +500,9 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 <tr style="background-color: #e0e0e0"><td colspan="4">side 2</td></tr>
 <tr><td>Boolean</td><td>ground_2</td><td>true</td><td>Connect side 2 of converter to ground</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phi_1</td><td>0</td><td>Angle of the voltage side 1 at initialization [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phi_2</td><td>phi_1</td><td>Angle of the voltage side 2 at initialization [rad]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -530,16 +530,16 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 >Interfaces.Terminal_p</a> terminal_p(
       i(start =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(PhaseSystem_p.n),
       <span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect = StateSelect.prefer)));
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> VHigh <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;RMS voltage on side 1 of the transformer (primary side)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> VLow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;RMS voltage on side 2 of the transformer (secondary side)&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.ApparentPower"
 >Modelica.SIunits.ApparentPower</a> VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal power of the transformer&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f(start=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal frequency&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.PerUnit"
 >Buildings.Electrical.Types.PerUnit</a> R1(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -563,59 +563,59 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
     &quot;Magnetization inductance (pu)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_1 = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 1 of converter to ground&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_2 = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect side 2 of converter to ground&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phi_1 = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Angle of the voltage side 1 at initialization&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phi_2 = phi_1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Angle of the voltage side 2 at initialization&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Efficiency"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Efficiency"
 >Modelica.SIunits.Efficiency</a> eta <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Efficiency&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> PLoss[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Loss power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega_n = 2*Modelica.Constants.pi*f;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real N = VHigh/VLow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Winding ratio&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> RBaseHigh = VHigh^2/VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Base impedance of the primary side&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Modelica.SIunits.Resistance</a> RBaseLow = VLow^2/VABase <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Base impedance of the secondary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Z1[2] = {RBaseHigh*R1, omega*L1*RBaseHigh/omega_n} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the primary side of the transformer&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Z2[2] = {RBaseLow*R2, omega*L2*RBaseLow/omega_n} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Impedance of the secondary side of the transformer&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Zrm[2] = {RBaseHigh*Rm, 0} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Magnetization impedance - resistance&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Impedance"
 >Modelica.SIunits.Impedance</a> Zlm[2] = {0, omega*Lm*RBaseHigh/omega_n} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Magnetization impedance - impedence&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V1[2](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phaseVoltages</span>(VHigh, phi_1)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage at the winding - primary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V2[2](start =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phaseVoltages</span>(VLow, phi_2)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage at the winding - secondary side&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_p[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.phasePowers_vi</span>(terminal_p.v, terminal_p.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin p (secondary)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_n[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phasePowers_vi</span>(terminal_n.v, terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin n (primary)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S_p =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regRoot</span>(P_p[1]^2 + P_p[2]^2, delta=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Apparent power at terminal p&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> S_n =<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Fluid.Utilities.regRoot</span>(P_n[1]^2 + P_n[2]^2, delta=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Apparent power at terminal n&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Angular velocity&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> Im[2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Magnetization current&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>(P_p[1]^2 + P_p[2]^2) &lt;= VABase*1.01,
@@ -715,7 +715,7 @@ Furthermore, reactive power on both side are set to <i>0</i>.
 <h4>Note:</h4>
 <p>
 This model is derived from
-<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Utilities.html#Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Utilities.html#Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter"
 >
 Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
@@ -763,7 +763,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
     &quot;Ratio of DC voltage / AC RMS voltage&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eta(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Converter efficiency, pLoss = (1-eta) * Ptr&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> PLoss <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Loss power&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_AC = false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect AC side of converter to ground&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean ground_DC = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connect DC side of converter to ground&quot;</span>;
@@ -772,10 +772,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 >PhaseSystem_p.Current</a> i_dc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;DC current&quot;</span>;
   <a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem.Voltage"
 >PhaseSystem_p.Voltage</a> v_dc <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;DC voltage&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_p[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_p.phasePowers_vi</span>(terminal_p.v, terminal_p.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin p (secondary)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_n[2] =<span style="color: red; font-weight: normal; font-style: normal;"> PhaseSystem_n.phasePowers_vi</span>(terminal_n.v, terminal_n.i) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power transmitted at pin n (primary)&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -806,7 +806,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:00 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:40 2015.
 </address>
 </body>
 </html>

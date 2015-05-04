@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Lines<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains models for lines for DC circuits.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -107,11 +107,11 @@ using commercial cables or using default values.
 >PartialPhaseSystem</a></td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l</td><td>&nbsp;</td><td>Length of the line [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power of the line [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage of the line [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
@@ -120,7 +120,7 @@ using commercial cables or using default values.
 >Load</a></td><td>modelMode</td><td>Types.Load.FixedZ_steady_state</td><td>Select between steady state and dynamic model</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Thermal</td></tr>
 <tr><td>Boolean</td><td>use_T</td><td>false</td><td>If true, enables the input for the temperature of the cable</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TCable</td><td>T_ref</td><td>Fixed temperature of the cable [K]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Tech. specification</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Auto/Manual mode</td></tr>
@@ -135,7 +135,7 @@ using commercial cables or using default values.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>T</td><td>Temperature of the cable</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -210,22 +210,22 @@ presence of the capacitive effect.
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
 <tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>C</td><td>&nbsp;</td><td>Capacity [F]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>L</td><td>0</td><td>Inductance [H]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>Vc_start</td><td>V_nominal</td><td>Initial value of the voltage of the capacitance in the middle of the line [V]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Model</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Assumptions</td></tr>
@@ -236,7 +236,7 @@ presence of the capacitive effect.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -255,10 +255,10 @@ presence of the capacitive effect.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>L=0);
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_C = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Set to true to add a capacitance in the center of the line&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> Vc_start = V_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Initial value of the voltage of the capacitance in the middle of the line&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> Vc(start = Vc_start, stateSelect = StateSelect.prefer) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Voltage of the capacitor&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -318,13 +318,13 @@ The model represents the lumped resistance as shown in the figure below.
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system of terminal n</td></tr>
 <tr><td>Boolean</td><td>useHeatPort</td><td>false</td><td>=true, if HeatPort is enabled</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>T_ref</td><td>Fixed device temperature if useHeatPort = false [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>&nbsp;</td><td>Resistance at temperature T_ref [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T_ref</td><td>298.15</td><td>Reference temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>M</td><td>507.65</td><td>Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref)) [K]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -332,7 +332,7 @@ The model represents the lumped resistance as shown in the figure below.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_p</td><td>Phase system of terminal p</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem_n</td><td>Phase system of terminal n</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>heatPort</td><td>&nbsp;</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -361,7 +361,7 @@ The model represents the lumped resistance as shown in the figure below.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:11 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:50 2015.
 </address>
 </body>
 </html>

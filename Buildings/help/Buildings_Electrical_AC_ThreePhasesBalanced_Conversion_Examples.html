@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.AC.ThreePhasesBalanced.Conversion</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -97,12 +97,12 @@ This example illustrates the use of a model that converts AC voltage to AC volta
 The transformer model assumes a linear loss when transmitting the power.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACConverter <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how to use the AC/AC converter model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACConverter"
@@ -118,7 +118,7 @@ The transformer model assumes a linear loss when transmitting the power.
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-1000,
     V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> ramp(
     duration=0.5,
     startTime=0.3,
@@ -154,12 +154,12 @@ The example shows three different configurations:
 <li>with a short circuit connection.</li>
 </ul>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformer <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how to use the AC/AC simplified transformer model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformer"
 >Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformer</a> tra_load(
@@ -179,7 +179,7 @@ The example shows three different configurations:
     P_nominal=-2000,
     pf=0.8,
     V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> ramp(
     duration=0.5,
     startTime=0.3,
@@ -242,12 +242,12 @@ The example shows three different configurations:
 <li>with a short circuit connection.</li>
 </ul>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACACTransformerFull <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how to use the AC/AC transformer model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Conversion.html#Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull"
 >Buildings.Electrical.AC.ThreePhasesBalanced.Conversion.ACACTransformerFull</a> tra_load(
@@ -273,7 +273,7 @@ The example shows three different configurations:
     P_nominal=-2000,
     pf=0.8,
     V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> ramp(
     duration=0.5,
     startTime=0.3,
@@ -341,12 +341,12 @@ This example illustrates the use of a model that converts AC voltage to DC volta
 The transformer model assumes a linear loss when transmitting the power.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ACDCConverter <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how to use the AC/DC converter model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Resistor"
 >Buildings.Electrical.DC.Loads.Resistor</a> res(R=1, V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -367,7 +367,7 @@ The transformer model assumes a linear loss when transmitting the power.
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     P_nominal=-200,
     V_nominal=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Variable resistive load&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> pow(
     duration=0.5,
     startTime=0.2,
@@ -382,7 +382,7 @@ The transformer model assumes a linear loss when transmitting the power.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:10 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:49 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Continuous<![endif]-->
@@ -40,11 +40,11 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 
 This package contains components models for continuous time controls.
 For additional models, see also
-<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous"
 >
 Modelica.Blocks.Discrete</a>.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -111,7 +111,7 @@ Modelica.Blocks.Discrete</a>.
 
 <p>
 This model is identical to
-<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >
 Modelica.Blocks.Continuous.LimPID</a> except
 that it can be configured to have a reverse action.
@@ -131,17 +131,17 @@ for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 </li>
 </ul>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >Modelica.Blocks.Continuous.LimPID</a> (P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
 >SimpleController</a></td><td>controllerType</td><td>.Modelica.Blocks.Types.Simpl...</td><td>Type of controller</td></tr>
 <tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Ti</td><td>0.5</td><td>Time constant of Integrator block [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Td</td><td>0.1</td><td>Time constant of Derivative block [s]</td></tr>
 <tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of output</td></tr>
 <tr><td>Real</td><td>yMin</td><td>0</td><td>Lower limit of output</td></tr>
@@ -151,7 +151,7 @@ for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 <tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
 <tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true for throttling the water flow rate through a cooling coil controller</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
 >InitPID</a></td><td>initType</td><td>.Modelica.Blocks.Types.InitP...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
 <tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initialization</td></tr>
 <tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
@@ -163,17 +163,17 @@ for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> LimPID <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
 >Modelica.Blocks.Continuous.LimPID</a>(
     addP(k1=revAct*wp, k2=-revAct),
     addD(k1=revAct*wd, k2=-revAct),
@@ -233,7 +233,7 @@ This model may be used to check how many rooms
 exceed a temperature threshold.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a> (Basic graphical layout of input/output block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -245,25 +245,25 @@ exceed a temperature threshold.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >IntegerOutput</a></td><td>y</td><td>Number of input signals that violate the threshold</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u[nin]</td><td>Input signals</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> NumberOfRequests <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Outputs the number of signals that are above/below a certain threshold&quot;</span>
-   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.Block"
 >Modelica.Blocks.Icons.Block</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nin <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of inputs&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real threShold = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Threshold&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer kind <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Set to 0 for u&gt;threShold, to 1 for &gt;=, to 2 for &lt;= or to 3 for &lt;&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.IntegerOutput"
 >Modelica.Blocks.Interfaces.IntegerOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of input signals that violate the threshold&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> u[nin] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Input signals&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
   y := 0;
@@ -312,28 +312,28 @@ Block that records the time that has elapsed since its input signal switched to 
 At the beginning of the simulation, this block outputs the time that has elapsed since the start of the simulation. Afterwards, whenever its input switches to false, the timer is reset.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
 >Modelica.Blocks.Interfaces.partialBooleanBlockIcon</a> (This icon will be removed in future Modelica versions, use Modelica.Blocks.Icons.PartialBooleanBlock instead.).</p>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</a></td><td>u</td><td>Connector of Boolean input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Connector of Real output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> OffTimer <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Records the time since the input changed to false&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.partialBooleanBlockIcon"
 >Modelica.Blocks.Interfaces.partialBooleanBlockIcon</a>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</a> u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector of Boolean input signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> y <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector of Real output signal&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> entryTime <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time instant when u became true&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">pre</span>(entryTime) = 0;
@@ -372,7 +372,7 @@ example, to modulate a device between 0.3 and 1.0, and switch it to off when the
 is small enough.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</a> (Single-Variable continuous controller).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -382,12 +382,12 @@ is small enough.
 <tr><td>Real</td><td>eOff</td><td>-eOn</td><td>if on and control error &lt; eOff, set y=0</td></tr>
 <tr><td>Boolean</td><td>pre_y_start</td><td>false</td><td>Value of hysteresis output at initial time</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Set point tracking</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
 >SimpleController</a></td><td>controllerType</td><td>Modelica.Blocks.Types.Simple...</td><td>Type of controller</td></tr>
 <tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Ti</td><td>&nbsp;</td><td>Time constant of Integrator block [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Td</td><td>&nbsp;</td><td>Time constant of Derivative block [s]</td></tr>
 <tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of output</td></tr>
 <tr><td>Real</td><td>yMin</td><td>0</td><td>Lower limit of output</td></tr>
@@ -397,7 +397,7 @@ is small enough.
 <tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
 <tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true to enable reverse action (such as for a cooling coil controller)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
 >InitPID</a></td><td>initType</td><td>Modelica.Blocks.Types.InitPI...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
 <tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initializiation</td></tr>
 <tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
@@ -407,17 +407,17 @@ is small enough.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PIDHysteresis <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;PID controller with anti-windup, output limiter and output hysteresis&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real eOn = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -426,13 +426,13 @@ is small enough.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean pre_y_start=false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Value of hysteresis output at initial time&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
 >Modelica.Blocks.Types.SimpleController</a> controllerType=Modelica.Blocks.Types.SimpleController.PID <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of controller&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real k=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gain of controller&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> Ti <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time constant of Integrator block&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> Td <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time constant of Derivative block&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yMax=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Upper limit of output&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yMin=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Lower limit of output&quot;</span>;
@@ -443,7 +443,7 @@ is small enough.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean reverseAction = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
 >Modelica.Blocks.Types.InitPID</a> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean limitsAtInit=true <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -472,18 +472,18 @@ is small enough.
     y_start=y_start,
     Td=Td,
     reverseAction=reverseAction) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for room temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
 >Modelica.Blocks.Logical.Hysteresis</a> hys(
     pre_y_start=pre_y_start,
     uLow=eOff,
     uHigh=eOn) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Hysteresis element to switch controller on and off&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> swi;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> zer(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zero signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</a> feeBac;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> swi1;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -530,7 +530,7 @@ too fast. When the controller switches off, the timer starts and
 avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</a> (Single-Variable continuous controller).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -541,12 +541,12 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 <tr><td>Real</td><td>eOff</td><td>-eOn</td><td>if on and control error &lt; eOff, set y=0</td></tr>
 <tr><td>Boolean</td><td>pre_y_start</td><td>false</td><td>Value of hysteresis output at initial time</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Set point tracking</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
 >SimpleController</a></td><td>controllerType</td><td>Modelica.Blocks.Types.Simple...</td><td>Type of controller</td></tr>
 <tr><td>Real</td><td>k</td><td>1</td><td>Gain of controller</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Ti</td><td>&nbsp;</td><td>Time constant of Integrator block [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>Td</td><td>&nbsp;</td><td>Time constant of Derivative block [s]</td></tr>
 <tr><td>Real</td><td>yMax</td><td>1</td><td>Upper limit of modulating output</td></tr>
 <tr><td>Real</td><td>yMin</td><td>0.3</td><td>Lower limit of modulating output (before switch to 0)</td></tr>
@@ -556,7 +556,7 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 <tr><td>Real</td><td>Nd</td><td>10</td><td>The higher Nd, the more ideal the derivative block</td></tr>
 <tr><td>Boolean</td><td>reverseAction</td><td>false</td><td>Set to true to enable reverse action (such as for a cooling coil controller)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Initialization</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
 >InitPID</a></td><td>initType</td><td>Modelica.Blocks.Types.InitPI...</td><td>Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)</td></tr>
 <tr><td>Boolean</td><td>limitsAtInit</td><td>true</td><td>= false, if limits are ignored during initializiation</td></tr>
 <tr><td>Real</td><td>xi_start</td><td>0</td><td>Initial or guess value value for integrator output (= integrator state)</td></tr>
@@ -566,23 +566,23 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_s</td><td>Connector of setpoint input signal</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u_m</td><td>Connector of measurement input signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y</td><td>Connector of actuator output signal</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>tOn</td><td>Time since boiler switched on</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>tOff</td><td>Time since boiler switched off</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</a></td><td>on</td><td>Outputs true if boiler is on</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PIDHysteresisTimer <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;PID controller with anti-windup, hysteresis and timer to prevent short cycling&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SVcontrol"
 >Modelica.Blocks.Interfaces.SVcontrol</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real minOffTime=600 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -593,13 +593,13 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean pre_y_start=false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Value of hysteresis output at initial time&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.SimpleController"
 >Modelica.Blocks.Types.SimpleController</a> controllerType=Modelica.Blocks.Types.SimpleController.PID <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of controller&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real k=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Gain of controller&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> Ti <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time constant of Integrator block&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> Td <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time constant of Derivative block&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yMax=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Upper limit of modulating output&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real yMin=0.3 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -611,7 +611,7 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean reverseAction = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Set to true to enable reverse action (such as for a cooling coil controller)&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Types.html#Modelica.Blocks.Types.InitPID"
 >Modelica.Blocks.Types.InitPID</a> initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean limitsAtInit=true <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -622,9 +622,9 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
     &quot;Initial or guess value for state of derivative block&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real y_start=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Initial value of output&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> tOn <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time since boiler switched on&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> tOff <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Time since boiler switched off&quot;</span>;
 
   <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
@@ -646,36 +646,36 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>yMax=yMax,
     reverseAction=reverseAction) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller to track setpoint&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> zer(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Zero signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> switch2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
 >Modelica.Blocks.Logical.GreaterEqualThreshold</a> greaterEqualThreshold(threshold=
        minOffTime);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.And"
 >Modelica.Blocks.Logical.And</a> and3;
 <span style="color: blue; font-weight: normal; font-style: normal;">public </span>
   <a href="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
 >OffTimer</a> offHys;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
 >Modelica.Blocks.Logical.Timer</a> onTimer;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
 >Modelica.Blocks.Logical.Not</a> not1;
 <span style="color: blue; font-weight: normal; font-style: normal;">public </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Timer"
 >Modelica.Blocks.Logical.Timer</a> offTimer;
-         <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+         <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >Modelica.Blocks.Interfaces.BooleanOutput</a> on <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outputs true if boiler is on&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> switch1;
 <span style="color: blue; font-weight: normal; font-style: normal;">public </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
 >Modelica.Blocks.Math.Feedback</a> feeBac;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Hysteresis"
 >Modelica.Blocks.Logical.Hysteresis</a> hys(
     pre_y_start=pre_y_start,
     uLow=eOff,
@@ -728,7 +728,7 @@ This block may for example be used in a variable air volume flow
 controller to access the position of the dampers that are most open.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
 >Modelica.Blocks.Interfaces.MIMO</a> (Multiple Input Multiple Output continuous control block).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -739,14 +739,14 @@ controller to access the position of the dampers that are most open.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>u[nin]</td><td>Connector of Real input signals</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>y[nout]</td><td>Connector of Real output signals</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> SignalRanker <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ranks output signals such that y[i] &gt;= y[i+1]&quot;</span>
-   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.MIMO"
 >Modelica.Blocks.Interfaces.MIMO</a>(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>nout=nin);
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   Real t <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temporary variable&quot;</span>;
@@ -765,7 +765,7 @@ controller to access the position of the dampers that are most open.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:52 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:31 2015.
 </address>
 </body>
 </html>

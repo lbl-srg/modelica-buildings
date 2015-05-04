@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Windows<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains models for heat transfer in windows.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -137,7 +137,7 @@ This model adds the convective heat transfer coefficient to its base model.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Heat transfer area of frame and window [m2]</td></tr>
 <tr><td>Real</td><td>fFra</td><td>&nbsp;</td><td>Fraction of window frame divided by total window area</td></tr>
 <tr><td>Boolean</td><td>linearizeRadiation</td><td>&nbsp;</td><td>Set to true to linearize emissive power</td></tr>
@@ -146,33 +146,33 @@ This model adds the convective heat transfer coefficient to its base model.
 <tr><td>Boolean</td><td>haveExteriorShade</td><td>&nbsp;</td><td>Set to true if window has exterior shade (at surface a)</td></tr>
 <tr><td>Boolean</td><td>haveInteriorShade</td><td>&nbsp;</td><td>Set to true if window has interior shade (at surface b)</td></tr>
 <tr><td>Boolean</td><td>thisSideHasShade</td><td>haveExteriorShade</td><td>Set to true if this side of the model has a shade</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRSha_air</td><td>&nbsp;</td><td>Infrared absorptivity of shade surface that faces air [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Emissivity</a></td><td>absIRSha_glass</td><td>&nbsp;</td><td>Infrared absorptivity of shade surface that faces glass [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
 >TransmissionCoefficient</a></td><td>tauIRSha_air</td><td>&nbsp;</td><td>Infrared transmissivity of shade for radiation coming from the exterior or the room [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
 >TransmissionCoefficient</a></td><td>tauIRSha_glass</td><td>&nbsp;</td><td>Infrared transmissivity of shade for radiation coming from the glass [1]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>uSha</td><td>Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>air</td><td>Port that connects to the air (room or outside)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaUns</td><td>Heat port that connects to unshaded part of glass</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaSha</td><td>Heat port that connects to shaded part of glass</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>frame</td><td>Heat port at window frame</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>vWin</td><td>Wind speed [m/s]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TBlaSky</td><td>Black body sky temperature [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOut</td><td>Outside temperature [K]</td></tr>
 <tr><td>output <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityOutflow"
 >RadiosityOutflow</a></td><td>JOutUns</td><td>Outgoing radiosity that connects to unshaded part of glass [W]</td></tr>
@@ -182,7 +182,7 @@ This model adds the convective heat transfer coefficient to its base model.
 >RadiosityOutflow</a></td><td>JOutSha</td><td>Outgoing radiosity that connects to shaded part of glass [W]</td></tr>
 <tr><td>input <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
 >RadiosityInflow</a></td><td>JInSha</td><td>Incoming radiosity that connects to shaded part of glass [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>QSolAbs_flow</td><td>Solar radiation absorbed by shade [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -190,17 +190,17 @@ This model adds the convective heat transfer coefficient to its base model.
   &quot;Model for heat convection and radiation at the exterior surface of a window that may have a shading device&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
 >BaseClasses.PartialWindowBoundaryCondition</a>(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>thisSideHasShade=haveExteriorShade);
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Modelica.SIunits.Emissivity</a> absIRSha_air <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Infrared absorptivity of shade surface that faces air&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Emissivity"
 >Modelica.SIunits.Emissivity</a> absIRSha_glass <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Infrared absorptivity of shade surface that faces glass&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
 >Modelica.SIunits.TransmissionCoefficient</a> tauIRSha_air <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Infrared transmissivity of shade for radiation coming from the exterior or the room&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
 >Modelica.SIunits.TransmissionCoefficient</a> tauIRSha_glass <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Infrared transmissivity of shade for radiation coming from the glass&quot;</span>;
 
@@ -209,7 +209,7 @@ This model adds the convective heat transfer coefficient to its base model.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real vieFacSky(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>min=0, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>max=1, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;View factor from receiving surface to sky&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> vWin(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;m/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind speed&quot;</span>;
   <a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient"
 >Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient</a>
@@ -224,12 +224,12 @@ This model adds the convective heat transfer coefficient to its base model.
    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>A=AGla, vieFacSky=vieFacSky,
     linearize=linearizeRadiation) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outdoor radiosity&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TBlaSky(
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
     min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Black body sky temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOut(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;,
                                             <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit = &quot;K&quot;, min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outside temperature&quot;</span>;
@@ -245,7 +245,7 @@ This model adds the convective heat transfer coefficient to its base model.
   <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
 >Interfaces.RadiosityInflow</a> JInSha <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Incoming radiosity that connects to shaded part of glass&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> QSolAbs_flow(unit=&quot;W&quot;, quantity=&quot;Power&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar radiation absorbed by shade&quot;</span>;
 
@@ -267,14 +267,14 @@ This model adds the convective heat transfer coefficient to its base model.
       <span style="color: blue; font-weight: normal; font-style: normal;">final </span>A=AGla) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Convective heat balance of shade&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">public </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.Convection"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.Convection"
 >Modelica.Thermal.HeatTransfer.Components.Convection</a> conFra <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Convective heat transfer between air and frame&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.Convection"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.Convection"
 >Modelica.Thermal.HeatTransfer.Components.Convection</a> conWinUns <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Convection from unshaded part of window to outside or room air&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</a> proUns <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Product for unshaded part of window&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(-1E-10&lt;vieFacSky<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>1.00001 &gt; vieFacSky,
@@ -397,9 +397,9 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td><a href="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
 >ParameterConstructionWithWindow</a></td><td>conPar</td><td>&nbsp;</td><td>Construction parameters</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth; azi= -90 degree East; azi= 0 South [rad]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -407,13 +407,13 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>incAng</td><td>Solar incidence angle [rad]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>HDirTilUns</td><td>Direct solar irradiation on tilted, unshaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>HDirTil</td><td>Direct solar irradiation on tilted, shaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>fraSun</td><td>Fraction of the area that is unshaded [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -425,30 +425,30 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 >Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a> conPar <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Construction parameters&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> lat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> azi(displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Surface azimuth; azi= -90 degree East; azi= 0 South&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex4"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex4"
 >Modelica.Blocks.Routing.Multiplex4</a> mulFraSun(
     n1=1,
     n2=1,
     n3=1,
     n4=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Multiplex for fraction of shaded area&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> sumFraSun <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Addition of sun exposed window area fractions&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> resFraSun(k2=1.0, k1=-1.0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Calculates resultant sun exposed window area fraction&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> overlap(k=1.0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Overlap of sun exposed window area fraction&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> noSunCond(k=small) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Condition when the sun is not in front of window&quot;</span>;
 
@@ -489,19 +489,19 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
   <a href="Buildings_BoundaryConditions_SolarGeometry_BaseClasses.html#Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth"
 >BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth</a> walSolAzi <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Angle measured in horizontal plane between projection of sun&#39;s rays and normal to vertical surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
 >Modelica.Blocks.Math.Product</a> mulHDir <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Multiplication to obtain direct solar irradiation on shaded window&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Extractor"
 >Modelica.Blocks.Routing.Extractor</a> extFraSun(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowOutOfRange=false, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>
       nin=4,
     index(start=idx, fixed=true)) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Extractor to pick the appropriate output signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerConstant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerConstant"
 >Modelica.Blocks.Sources.IntegerConstant</a> idxSou(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=idx) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Source term to pick output signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> const(k=1);
 
   <a href="Buildings_Utilities_Math.html#Buildings.Utilities.Math.SmoothMax"
@@ -569,14 +569,14 @@ This model adds the convective heat transfer coefficient to its base model.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Heat transfer area of frame and window [m2]</td></tr>
 <tr><td>Real</td><td>fFra</td><td>&nbsp;</td><td>Fraction of window frame divided by total window area</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >CoefficientOfHeatTransfer</a></td><td>hFixed</td><td>4</td><td>Constant convection coefficient [W/(m2.K)]</td></tr>
 <tr><td><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
 >InteriorConvection</a></td><td>conMod</td><td>Buildings.HeatTransfer.Types...</td><td>Convective heat transfer model</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Shading</td></tr>
 <tr><td>Boolean</td><td>haveExteriorShade</td><td>&nbsp;</td><td>Set to true if window has exterior shade (at surface a)</td></tr>
@@ -586,19 +586,19 @@ This model adds the convective heat transfer coefficient to its base model.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>uSha</td><td>Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>air</td><td>Port that connects to the air (room or outside)</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaUns</td><td>Heat port that connects to unshaded part of glass</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaSha</td><td>Heat port that connects to shaded part of glass</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>frame</td><td>Heat port at window frame</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>QRadAbs_flow</td><td>Total net radiation that is absorbed by the shade (positive if absorbed) [W]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>TSha</td><td>Shade temperature [K]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -607,20 +607,20 @@ This model adds the convective heat transfer coefficient to its base model.
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialWindowBoundaryCondition"
 >BaseClasses.PartialWindowBoundaryCondition</a>(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>thisSideHasShade=haveInteriorShade);
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
 >Modelica.SIunits.CoefficientOfHeatTransfer</a> hFixed=4 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Constant convection coefficient&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
 >Types.InteriorConvection</a> conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Convective heat transfer model&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> til <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
 
- <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+ <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> QRadAbs_flow(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Total net radiation that is absorbed by the shade (positive if absorbed)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> TSha(
    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;K&quot;,
    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ThermodynamicTemperature&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
@@ -737,23 +737,23 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth; azi= -90 degree East; azi= 0 South [rad]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Overhang</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wL</td><td>&nbsp;</td><td>Overhang width left to the window, measured from the window corner [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wR</td><td>&nbsp;</td><td>Overhang width right to the window, measured from the window corner [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>dep</td><td>&nbsp;</td><td>Overhang depth (measured perpendicular to the wall plane) [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>gap</td><td>&nbsp;</td><td>Distance between window upper edge and overhang lower edge [m]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Window</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>hWin</td><td>&nbsp;</td><td>Window height [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wWin</td><td>&nbsp;</td><td>Window width [m]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -761,13 +761,13 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>incAng</td><td>Solar incidence angle [rad]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>HDirTilUns</td><td>Direct solar irradiation on tilted, unshaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>HDirTil</td><td>Direct solar irradiation on tilted, shaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>fraSun</td><td>Fraction of the area that is unshaded [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -777,9 +777,9 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 >Buildings.Rooms.BaseClasses.Overhang</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> lat(displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Latitude&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> azi(displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Surface azimuth; azi= -90 degree East; azi= 0 South&quot;</span>;
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Overhang dimensions</span>
@@ -870,16 +870,16 @@ Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Side fin</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>h</td><td>&nbsp;</td><td>Height of side fin that extends above window, measured from top of window [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>dep</td><td>&nbsp;</td><td>Side fin depth (measured perpendicular to the wall plane) [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>gap</td><td>&nbsp;</td><td>Distance between side fin and window edge [m]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Window</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>hWin</td><td>&nbsp;</td><td>Window height [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wWin</td><td>&nbsp;</td><td>Window width [m]</td></tr>
 </table>
 <h3>Connectors</h3>
@@ -887,13 +887,13 @@ Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
 >Bus</a></td><td>weaBus</td><td>Weather data bus</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>incAng</td><td>Solar incidence angle [rad]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>HDirTilUns</td><td>Direct solar irradiation on tilted, unshaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>HDirTil</td><td>Direct solar irradiation on tilted, shaded surface [W/m2]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>fraSun</td><td>Fraction of the area that is unshaded [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -1063,11 +1063,11 @@ Validation of the window model of the Modelica Buildings library.</a>
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
 >Generic</a></td><td>glaSys</td><td>&nbsp;</td><td>Glazing system</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Heat transfer area [m2]</td></tr>
 <tr><td>Real</td><td>fFra</td><td>0.1</td><td>Fraction of frame</td></tr>
 <tr><td>Boolean</td><td>linearize</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Advanced</b></td></tr>
 <tr><td>Boolean</td><td>homotopyInitialization</td><td>true</td><td>= true, use homotopy method</td></tr>
@@ -1091,23 +1091,23 @@ Validation of the window model of the Modelica Buildings library.</a>
 >RadiosityOutflow</a></td><td>JOutSha_b</td><td>Outgoing radiosity that connects to shaded part of glass at room-side [W]</td></tr>
 <tr><td>input <a href="Buildings_HeatTransfer_Interfaces.html#Buildings.HeatTransfer.Interfaces.RadiosityInflow"
 >RadiosityInflow</a></td><td>JInSha_b</td><td>Incoming radiosity that connects to shaded part of glass at room-side [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>glaUns_a</td><td>Heat port at unshaded glass of exterior-facing surface</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaUns_b</td><td>Heat port at unshaded glass of room-facing surface</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>glaSha_a</td><td>Heat port at shaded glass of exterior-facing surface</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>glaSha_b</td><td>Heat port at shaded glass of room-facing surface</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >HeatPort_a</a></td><td>fra_a</td><td>Heat port at frame of exterior-facing surface</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >HeatPort_b</a></td><td>fra_b</td><td>Heat port at frame of room-facing surface</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>uSha</td><td>Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>QAbsUns_flow[size(glaSys.glass, 1)]</td><td>Solar radiation absorbed by unshaded part of glass [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>QAbsSha_flow[size(glaSys.glass, 1)]</td><td>Solar radiation absorbed by shaded part of glass [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -1116,15 +1116,15 @@ Validation of the window model of the Modelica Buildings library.</a>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_GlazingSystems.html#Buildings.HeatTransfer.Data.GlazingSystems.Generic"
 >Buildings.HeatTransfer.Data.GlazingSystems.Generic</a> glaSys <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Glazing system&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat transfer area&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fFra(min=0, max=1)=0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fraction of frame&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> AFra = fFra*A <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Frame area&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> AGla = A-AFra <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Glass area&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean linearize=false <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Set to true to linearize emissive power&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> til(displayUnit=&quot;deg&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Surface tilt&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean homotopyInitialization = true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;= true, use homotopy method&quot;</span>;
 
@@ -1172,39 +1172,39 @@ Validation of the window model of the Modelica Buildings library.</a>
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>homotopyInitialization=homotopyInitialization) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for shaded center of glass&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
 >Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> frame(G=AFra*
         glaSys.UFra) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermal conductance of frame&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> glaUns_a <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at unshaded glass of exterior-facing surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</a> glaUns_b <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at unshaded glass of room-facing surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> glaSha_a <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at shaded glass of exterior-facing surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</a> glaSha_b <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at shaded glass of room-facing surface&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> fra_a <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at frame of exterior-facing surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b"
 >Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b</a> fra_b <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat port at frame of room-facing surface&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> uSha(min=0, max=1) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> QAbsUns_flow[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(glaSys.glass, 1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;,
       <span style="color: blue; font-weight: normal; font-style: normal;">each </span>quantity=&quot;Power&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by unshaded part of glass&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> QAbsSha_flow[<span style="color: red; font-weight: normal; font-style: normal;">size</span>(glaSys.glass, 1)](
      <span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;,
      <span style="color: blue; font-weight: normal; font-style: normal;">each </span>quantity=&quot;Power&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1245,7 +1245,7 @@ Validation of the window model of the Modelica Buildings library.</a>
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:17 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:23:01 2015.
 </address>
 </body>
 </html>

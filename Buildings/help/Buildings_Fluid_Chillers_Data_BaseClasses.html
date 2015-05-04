@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -49,7 +49,7 @@ and
 >
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Icons_BaseClassLibrary.html#Modelica.Fluid.Icons.BaseClassLibrary"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Icons_BaseClassLibrary.html#Modelica.Fluid.Icons.BaseClassLibrary"
 >Modelica.Fluid.Icons.BaseClassLibrary</a> (This icon will be removed in future Modelica versions, use Modelica.Icons.BasePackage instead.).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -78,7 +78,7 @@ Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 
 This is the base record for chiller models.
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</a> (Icon for records).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -88,14 +88,14 @@ This is the base record for chiller models.
 <tr><td>Real</td><td>PLRMin</td><td>&nbsp;</td><td>Minimum part load ratio</td></tr>
 <tr><td>Real</td><td>etaMotor</td><td>&nbsp;</td><td>Fraction of compressor motor heat entering refrigerant</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >HeatFlowRate</a></td><td>QEva_flow_nominal</td><td>&nbsp;</td><td>Reference capacity (negative number) [W]</td></tr>
 <tr><td>Real</td><td>COP_nominal</td><td>&nbsp;</td><td>Reference coefficient of performance</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>mEva_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow at evaporator [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>mCon_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow at condenser [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TEvaLvg_nominal</td><td>&nbsp;</td><td>Temperature of fluid leaving evaporator at nominal condition [K]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Performance curves</td></tr>
 <tr><td>Integer</td><td>nCapFunT</td><td>&nbsp;</td><td>Number of coefficients for capFunT</td></tr>
@@ -104,16 +104,16 @@ This is the base record for chiller models.
 <tr><td>Real</td><td>capFunT[nCapFunT]</td><td>&nbsp;</td><td>Biquadratic coefficients for capFunT</td></tr>
 <tr><td>Real</td><td>EIRFunT[nEIRFunT]</td><td>&nbsp;</td><td>Biquadratic coefficients for EIRFunT</td></tr>
 <tr><td>Real</td><td>EIRFunPLR[nEIRFunPLR]</td><td>&nbsp;</td><td>Coefficients for EIRFunPLR</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TEvaLvgMin</td><td>&nbsp;</td><td>Minimum value for leaving evaporator temperature [K]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TEvaLvgMax</td><td>&nbsp;</td><td>Maximum value for leaving evaporator temperature [K]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> Chiller <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Base classes for chiller models&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</a> QEva_flow_nominal(max=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Reference capacity (negative number)&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real COP_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Reference coefficient of performance&quot;</span>;
@@ -125,13 +125,13 @@ This is the base record for chiller models.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real etaMotor(min=0, max=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fraction of compressor motor heat entering refrigerant&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> mEva_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal mass flow at evaporator&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> mCon_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal mass flow at condenser&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TEvaLvg_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Temperature of fluid leaving evaporator at nominal condition&quot;</span>;
 
@@ -141,10 +141,10 @@ This is the base record for chiller models.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real capFunT[nCapFunT] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Biquadratic coefficients for capFunT&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real EIRFunT[nEIRFunT] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Biquadratic coefficients for EIRFunT&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real EIRFunPLR[nEIRFunPLR] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Coefficients for EIRFunPLR&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TEvaLvgMin <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Minimum value for leaving evaporator temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TEvaLvgMax <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Maximum value for leaving evaporator temperature&quot;</span>;
 
@@ -152,7 +152,7 @@ This is the base record for chiller models.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:35 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:20:14 2015.
 </address>
 </body>
 </html>

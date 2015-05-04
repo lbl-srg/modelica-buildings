@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.AC.ThreePhasesBalanced.Loads</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -91,12 +91,12 @@ This model illustrates the use of the impedance models.
 The impedances have unitary values such that the RMS value of the voltage and of the current are the same.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Impedances <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Example that illustrates the use of the impedance models&quot;</span>
-   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage"
 >Sources.FixedVoltage</a> sou(f=60, V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
@@ -150,12 +150,12 @@ The impedances have unitary values such that the RMS value of the voltage and of
 This model illustrates the use of the three-phase unbalanced load models.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ParallelLoads <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Example that illustrates the use of the load models&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage"
 >Sources.FixedVoltage</a> E(f=60, V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
@@ -167,7 +167,7 @@ This model illustrates the use of the three-phase unbalanced load models.
     P_nominal=-2000,
     use_pf_in=true,
     V_nominal=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inductive load with variable power factor&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> load(              startTime=0.2, duration=0.3) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power signal profile&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesBalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive"
@@ -185,13 +185,13 @@ This model illustrates the use of the three-phase unbalanced load models.
     V_nominal=480,
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Inductive load with P as input&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> pow(
     startTime=0.2,
     duration=0.3,
     height=4000,
     offset=-2000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power consumption profile&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a> pf(
     height=0.2,
     duration=0.2,
@@ -229,19 +229,19 @@ This model illustrates the use of the impedance models and how the three-phase b
 can reproduce the same results obtained using three separate one phase circuits.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ThreePhases <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Example that provides a comparison between AC one phase and three-phase balanced&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> errorY=
     <span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>((sen_Y.S[1] - (sen_a.S[1] + sen_b.S[1] + sen_c.S[1]))^2 +
     (sen_Y.S[2] - (sen_a.S[2] + sen_b.S[2] + sen_c.S[2]))^2) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Difference of the power consumption in the star (Y) connection&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> errorD=
     <span style="color: red; font-weight: normal; font-style: normal;">sqrt</span>((sen_D.S[1] - (sen_ab.S[1] + sen_bc.S[1] + sen_ca.S[1]))^2 +
     (sen_D.S[2] - (sen_ab.S[2] + sen_bc.S[2] + sen_ca.S[2]))^2) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -367,7 +367,7 @@ can reproduce the same results obtained using three separate one phase circuits.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:14 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:53 2015.
 </address>
 </body>
 </html>

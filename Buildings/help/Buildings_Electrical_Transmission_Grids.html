@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Grids<![endif]-->
@@ -49,7 +49,7 @@ electrical networks. The topology of the network is specified by
 <li>the connection between links and nodes.</li>
 </ul>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
 >Modelica.Icons.MaterialPropertiesPackage</a> (Icon for package containing property classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -109,7 +109,7 @@ represent a typical distribution feeder.</p>
 <tr><td>Integer</td><td>nNodes</td><td>34</td><td>Number of nodes of the grid</td></tr>
 <tr><td>Integer</td><td>nLinks</td><td>33</td><td>Number of links connecting the nodes</td></tr>
 <tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]; [2, 3]; [3, 4]; [4,...</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l[nLinks, 1]</td><td>[48; 16; 16; 40; 32; 16; 16;...</td><td>Length of the cable [m]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -199,7 +199,7 @@ values contained in the matrices.
 <img alt="image" src="../Resources/Images/Electrical/Transmission/Grids/partialGrid.png"/>
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
 >Modelica.Icons.MaterialProperty</a> (Icon for property classes).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -207,20 +207,20 @@ values contained in the matrices.
 <tr><td>Integer</td><td>nNodes</td><td>&nbsp;</td><td>Number of nodes of the grid</td></tr>
 <tr><td>Integer</td><td>nLinks</td><td>&nbsp;</td><td>Number of links connecting the nodes</td></tr>
 <tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>&nbsp;</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l[nLinks, 1]</td><td>&nbsp;</td><td>Length of the cable [m]</td></tr>
 <tr><td><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
 >BaseCable</a></td><td>cables[nLinks]</td><td>redeclare Buildings.Electric...</td><td>Array that contains the characteristics of each cable</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">record</span> PartialGrid <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Partial model that represents a generalized grid&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.MaterialProperty"
 >Modelica.Icons.MaterialProperty</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nNodes <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of nodes of the grid&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nLinks <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of links connecting the nodes&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer fromTo[nLinks,2] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Indexes [i,1]-&gt;[i,2] of the nodes connected by link i&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> l[nLinks,1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Length of the cable&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_Transmission_BaseClasses.html#Buildings.Electrical.Transmission.BaseClasses.BaseCable"
@@ -258,7 +258,7 @@ The picture below describes the grid topology.
 <tr><td>Integer</td><td>nNodes</td><td>2</td><td>Number of nodes of the grid</td></tr>
 <tr><td>Integer</td><td>nLinks</td><td>1</td><td>Number of links connecting the nodes</td></tr>
 <tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]]</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l[nLinks, 1]</td><td>[200]</td><td>Length of the cable [m]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -310,7 +310,7 @@ The picture below describes the grid topology.
 <tr><td>Integer</td><td>nNodes</td><td>2</td><td>Number of nodes of the grid</td></tr>
 <tr><td>Integer</td><td>nLinks</td><td>1</td><td>Number of links connecting the nodes</td></tr>
 <tr><td>Integer</td><td>fromTo[nLinks, 2]</td><td>[[1, 2]]</td><td>Indexes [i,1]-&gt;[i,2] of the nodes connected by link i</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>l[nLinks, 1]</td><td>[200]</td><td>Length of the cable [m]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -329,7 +329,7 @@ The picture below describes the grid topology.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:58 2015.
 </address>
 </body>
 </html>

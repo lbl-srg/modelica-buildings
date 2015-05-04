@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Validation<![endif]-->
@@ -47,7 +47,7 @@ exact outputs. These model outputs are stored as reference data to
 allow continuous validation whenever models in the library change.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -129,9 +129,9 @@ of the day-of adjustment for a simple input scenario.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -140,9 +140,9 @@ of the day-of adjustment for a simple input scenario.
   &quot;Demand response client with constant input for actual power consumption&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Controls_Predictors_Validation_BaseClasses.html#Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase"
 >Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> PCon(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Measured power consumption&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</a> integrator <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Integrator to compute energy from power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -182,9 +182,9 @@ of the baseline prediction model based on a simple input scenario.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -236,9 +236,9 @@ received and until midnight the same day.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -248,27 +248,27 @@ received and until midnight the same day.
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Controls_Predictors_Validation_BaseClasses.html#Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase"
 >Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase</a>
     (baseLoad(predictionModel=Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression));
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
 >Modelica.Blocks.Sources.Ramp</a>   TOut(
     y(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;),
     offset=283.15,
     height=10,
     duration(displayUnit=&quot;h&quot;) = 61*24*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outside temperature&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> POffSet(k=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Offset for power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> PCon(k2=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Consumed power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.To_degC"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math_UnitConversions.html#Modelica.Blocks.Math.UnitConversions.To_degC"
 >Modelica.Blocks.Math.UnitConversions.To_degC</a> to_degC;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> err(k2=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prediction error&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
 >Modelica.Blocks.Discrete.Sampler</a> TSam(samplePeriod=tSample) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sampler to turn TOut into a piece-wise constant signal. This makes it easier to verify the results&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</a> integrator <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Integrator to compute energy from power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> TOutFut[nPre - 1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>y=293.15) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        nPre &gt; 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prediction of future outside temperatures&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -315,9 +315,9 @@ of the baseline prediction model based on a simple input scenario.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -371,9 +371,9 @@ of the baseline prediction model based on a simple input scenario.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -383,22 +383,22 @@ of the baseline prediction model based on a simple input scenario.
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Controls_Predictors_Validation_BaseClasses.html#Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase"
 >Buildings.Controls.Predictors.Validation.BaseClasses.PartialSimpleTestCase</a>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Cosine"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Cosine"
 >Modelica.Blocks.Sources.Cosine</a> PBas(
     amplitude=0.5,
     offset=0.5,
     freqHz=1/tPeriod,
     phase=3.1415926535898) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Measured power consumption&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Discrete.html#Modelica.Blocks.Discrete.Sampler"
 >Modelica.Blocks.Discrete.Sampler</a> P(samplePeriod=tSample) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
 >Modelica.Blocks.Continuous.Integrator</a> integrator <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Integrator to compute energy from power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
 >Modelica.Blocks.Sources.RealExpression</a> realExpression(
     y=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>(dayType.y[1] == Buildings.Controls.Types.Day.WorkingDay)<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>0<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>1);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> PCon <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Consumed power&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(P.y, integrator.u);
@@ -439,9 +439,9 @@ of the baseline prediction model based on a simple input scenario.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tPeriod</td><td>24*3600</td><td>Period [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>tSample</td><td>3600</td><td>Sampling period [s]</td></tr>
 <tr><td>Integer</td><td>nPre</td><td>12</td><td>Number of time steps to predict</td></tr>
 </table>
@@ -455,7 +455,7 @@ of the baseline prediction model based on a simple input scenario.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:59 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:39 2015.
 </address>
 </body>
 </html>

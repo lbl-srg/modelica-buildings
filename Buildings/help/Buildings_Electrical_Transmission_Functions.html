@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
@@ -44,7 +44,7 @@ cable properties and select the default cable during
 automatic parametrization.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -425,29 +425,29 @@ where <i>d<sub>1</sub></i>, <i>d<sub>2</sub></i>, and <i>d<sub>3</sub></i> are
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>d1</td><td>&nbsp;</td><td>Distance between conductors [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>d2</td><td>d1</td><td>Distance between conductors [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>d3</td><td>2*d1</td><td>Distance between conductors [m]</td></tr>
 </table>
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>GMD</td><td>Geometric Mean Distance [m]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> computeGMD <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This function computes the geometric mean distance of a three-phase transmission line&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> d2 = d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> d3 = 2*d1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Distance between conductors&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> GMD <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Geometric Mean Distance&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
   GMD := (d1*d2*d3)^(1.0/3.0);
@@ -500,23 +500,23 @@ that are part of the cable, and the diamater of the conductor <i>d</i>.
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>d</td><td>&nbsp;</td><td>Diameter of the conductor [m]</td></tr>
 <tr><td>Integer</td><td>N</td><td>1</td><td>Number of conductors</td></tr>
 </table>
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>GMR</td><td>Geometric Mean Radius [m]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> computeGMR <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This function computes the geometric mean radius of a cable with 1 to 4 conductors&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> d <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Diameter of the conductor&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer N = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of conductors&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> GMR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Geometric Mean Radius&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
   <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(N &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>N &lt; 5,
@@ -570,9 +570,9 @@ Buildings.Electrical.Transmission.LowVoltageCables</a>.
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>0</td><td>Rated power [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>0</td><td>Rated voltage [V]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -584,15 +584,15 @@ Buildings.Electrical.Transmission.LowVoltageCables</a>.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectCable_low <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This function is used to automatically select the
     type of cable for low voltages&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated power&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated voltage&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Generic"
 >Buildings.Electrical.Transmission.LowVoltageCables.Generic</a> cable <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cable&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real safety_factor = 1.2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> I_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal current flowing through the line&quot;</span>;
   <a href="Buildings_Electrical_Transmission_LowVoltageCables.html#Buildings.Electrical.Transmission.LowVoltageCables.Cu10"
 >Buildings.Electrical.Transmission.LowVoltageCables.Cu10</a> cu10;
@@ -686,9 +686,9 @@ Buildings.Electrical.Transmission.MediumVoltageCables</a>.
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>0</td><td>Rated power [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>0</td><td>Rated voltage [V]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -700,15 +700,15 @@ Buildings.Electrical.Transmission.MediumVoltageCables</a>.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectCable_med <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This function is used to automatically select the
     type of cable for medium voltages&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated power&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V_nominal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Rated voltage&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Generic"
 >Buildings.Electrical.Transmission.MediumVoltageCables.Generic</a> cable <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Cable&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real safety_factor = 1.2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> I_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal current flowing through the line&quot;</span>;
   <a href="Buildings_Electrical_Transmission_MediumVoltageCables.html#Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10"
 >Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10</a> Al10;
@@ -807,7 +807,7 @@ The computation is as follows:
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V</td><td>&nbsp;</td><td>Nominal voltage [V]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -819,7 +819,7 @@ The computation is as follows:
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> selectVoltageLevel <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This function computes the voltage level (low, medium or high) given the nominal voltage&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal voltage&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.VoltageLevel"
 >Buildings.Electrical.Types.VoltageLevel</a> level <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of voltage level&quot;</span>;
@@ -842,7 +842,7 @@ The computation is as follows:
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:58 2015.
 </address>
 </body>
 </html>

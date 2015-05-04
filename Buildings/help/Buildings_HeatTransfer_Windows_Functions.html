@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Functions<![endif]-->
@@ -43,7 +43,7 @@ This package contains functions that are used to compute
 heat transfer in the window model.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -295,13 +295,13 @@ This function computes discrete incident angles for the window radiation calcula
 <h3>Outputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>psi[NDIR]</td><td>Array of incident angles [rad]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> getAngle <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Generate incident angles&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer NDIR <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of incident angles&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> psi[NDIR] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Array of incident angles&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
@@ -874,7 +874,7 @@ Otherwise, the formula for coated glass will be used.
 <tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
 <tr><td>Real</td><td>glass[3, N]</td><td>&nbsp;</td><td>Propertry of each glass pane</td></tr>
 <tr><td>Real</td><td>xGla[N]</td><td>&nbsp;</td><td>Thickness of each glass pane</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -889,7 +889,7 @@ Otherwise, the formula for coated glass will be used.
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3, N] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of each glass pane&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real xGla[N] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness of each glass pane&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, N, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
@@ -954,7 +954,7 @@ This function computes the angular variation and the hemispherical integration o
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
 <tr><td>Real</td><td>glass[3]</td><td>&nbsp;</td><td>Propertry of one glass pane</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -968,7 +968,7 @@ This function computes the angular variation and the hemispherical integration o
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of one glass pane&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
@@ -1224,9 +1224,9 @@ Validation of the window model of the Modelica Buildings library.</a>
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td>Integer</td><td>HEM</td><td>&nbsp;</td><td>Index of hemispherical integration</td></tr>
 <tr><td>Real</td><td>glass[3]</td><td>&nbsp;</td><td>Propertry of one glass pane</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>x</td><td>&nbsp;</td><td>Thickness [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>psi[HEM - 1]</td><td>&nbsp;</td><td>Incident angles [rad]</td></tr>
 </table>
 <h3>Outputs</h3>
@@ -1241,9 +1241,9 @@ Validation of the window model of the Modelica Buildings library.</a>
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real glass[3] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Propertry of one glass pane&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> x <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thickness&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> psi[HEM - 1] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incident angles&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real layer[3, HEM] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Transmittance, front and back reflectance&quot;</span>;
 
@@ -1730,7 +1730,7 @@ Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the 
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:37:17 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:23:01 2015.
 </address>
 </body>
 </html>

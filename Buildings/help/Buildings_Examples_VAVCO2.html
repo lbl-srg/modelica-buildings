@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE VAVCO2<![endif]-->
@@ -37,7 +37,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <b>Variable air volume flow system of MIT building with continuous time control for static pressure reset</b><br>
 </p>
 <h3>Information</h3>
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -95,20 +95,20 @@ solutions for the control signal as the split between pressure raise
 of the supply fan and pressure raise of the return fan is arbitrary.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>mMIT_flow</td><td>roo.m0Tot_flow</td><td>Nominal mass flow rate of MIT system model as in ASHRAE 825-RP [kg/s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dpSuiSup_nominal</td><td>95</td><td>Pressure drop supply air leg with splitters of one suite (obtained from simulation) [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dpSuiRet_nominal</td><td>233</td><td>Pressure drop return air leg with splitters of one suite (obtained from simulation) [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dpFanSupMIT_nominal</td><td>1050</td><td>Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation) [Pa]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>dpFanRetMIT_nominal</td><td>347</td><td>Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation) [Pa]</td></tr>
 <tr><td>Real</td><td>scaM_flow</td><td>1</td><td>Scaling factor for mass flow rate</td></tr>
 <tr><td>Real</td><td>scaDpFanSup_nominal</td><td>1</td><td>Scaling factor for supply fan pressure lift with NSui number of suites</td></tr>
@@ -117,23 +117,23 @@ of the supply fan and pressure raise of the return fan is arbitrary.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> VAVSystemCTControl <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
 >Buildings.Media.Air</a> (                      extraPropertiesNames={&quot;CO2&quot;});
- <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> mMIT_flow = roo.m0Tot_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal mass flow rate of MIT system model as in ASHRAE 825-RP&quot;</span>;
-<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpSuiSup_nominal = 95 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Pressure drop supply air leg with splitters of one suite (obtained from simulation)&quot;</span>;
-<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpSuiRet_nominal = 233 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Pressure drop return air leg with splitters of one suite (obtained from simulation)&quot;</span>;
-<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpFanSupMIT_nominal = 1050 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)&quot;</span>;
-<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> dpFanRetMIT_nominal = 347 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scaM_flow = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Scaling factor for mass flow rate&quot;</span>;
@@ -141,9 +141,9 @@ of the supply fan and pressure raise of the return fan is arbitrary.
     &quot;Scaling factor for supply fan pressure lift with NSui number of suites&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real scaDpFanRet_nominal = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Scaling factor for supply fan pressure lift with NSui number of suites&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> PAtm(k=101325);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> yDam(k=0.5);
 <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
 >Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> res31(
@@ -211,7 +211,7 @@ of the supply fan and pressure raise of the return fan is arbitrary.
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Trapezoid"
 >Modelica.Blocks.Sources.Trapezoid</a>
                                 pSet(
     amplitude=120,
@@ -241,7 +241,7 @@ of the supply fan and pressure raise of the return fan is arbitrary.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:45:01 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:30:48 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Sources<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains models of AC sources.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
 >Modelica.Icons.SourcesPackage</a> (Icon for packages containing sources).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -118,11 +118,11 @@ This is a constant voltage source. The complex voltage is specified by the RMS v
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
 >OnePhase</a></td><td>Phase system</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Frequency</a></td><td>f</td><td>&nbsp;</td><td>Frequency of the source [Hz]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V</td><td>&nbsp;</td><td>RMS voltage of the source [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phiSou</td><td>0</td><td>Phase shift of the source [rad]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
 <tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
@@ -141,14 +141,14 @@ This is a constant voltage source. The complex voltage is specified by the RMS v
 >PhaseSystems.OnePhase</a>,
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
 >Interfaces.Terminal_p</a> terminal);
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f(start=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Frequency of the source&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V(start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;RMS voltage of the source&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phiSou = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase shift of the source&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> thetaRel <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Absolute angle of rotating system as offset to thetaRef&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -183,7 +183,7 @@ This model must be used with
 <a href="modelica://Buildings.Electrical.AC.Sources.Grid">
 Buildings.Electrical.AC.Sources.Grid</a>
 or with a voltage source from the package
-<a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Sources.html#Modelica.Electrical.QuasiStationary.SinglePhase.Sources"
+<a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_QuasiStationary_SinglePhase_Sources.html#Modelica.Electrical.QuasiStationary.SinglePhase.Sources"
 >
 Modelica.Electrical.QuasiStationary.SinglePhase.Sources</a>.
 Otherwise, there will be no equation that defines the phase
@@ -206,9 +206,9 @@ Buildings.Electrical.AC.UsersGuide</a>.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_OnePhase.html#Buildings.Electrical.PhaseSystems.OnePhase"
 >OnePhase</a></td><td>Phase system</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Frequency</a></td><td>f</td><td>&nbsp;</td><td>Frequency of the source [Hz]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phiGen</td><td>0</td><td>Phase shift of the source [rad]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Reference Parameters</td></tr>
 <tr><td>Boolean</td><td>potentialReference</td><td>true</td><td>Serve as potential root</td></tr>
@@ -218,7 +218,7 @@ Buildings.Electrical.AC.UsersGuide</a>.
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>P</td><td>Variable power generated by the source</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -229,18 +229,18 @@ Buildings.Electrical.AC.UsersGuide</a>.
 >PhaseSystems.OnePhase</a>,
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
 >Interfaces.Terminal_p</a> terminal);
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f(start=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Frequency of the source&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phiGen(displayUnit=&quot;deg&quot;) = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Phase shift of the source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Current"
 >Modelica.SIunits.Current</a> I <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;value of current&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> P <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Variable power generated by the source&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> thetaRel <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Absolute angle of rotating system as offset to thetaRef&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -289,11 +289,11 @@ in Europe it is <i>230</i> Volts at <i>50</i> Hz.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
 >Terminal_p</a></td><td>terminal</td><td>redeclare Buildings.Electric...</td><td>&nbsp;</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Frequency</a></td><td>f</td><td>&nbsp;</td><td>Frequency of the source [Hz]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V</td><td>&nbsp;</td><td>RMS voltage of the source [V]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>phiSou</td><td>0</td><td>Phase shift angle of the source [rad]</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_OnePhase_Sources.html#Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage"
 >FixedVoltage</a></td><td>sou</td><td>redeclare Buildings.Electric...</td><td>Voltage source</td></tr>
@@ -311,11 +311,11 @@ in Europe it is <i>230</i> Volts at <i>50</i> Hz.
 
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p"
 >Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_p</a> terminal;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Frequency"
 >Modelica.SIunits.Frequency</a> f(start=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Frequency of the source&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Modelica.SIunits.Voltage</a> V(start = 110) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;RMS voltage of the source&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Modelica.SIunits.Angle</a> phiSou = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase shift angle of the source&quot;</span>;
   <a href="Buildings_Electrical_AC_Interfaces.html#Buildings.Electrical.AC.Interfaces.PowerOutput"
 >Buildings.Electrical.AC.Interfaces.PowerOutput</a> P <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -389,7 +389,7 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
 <tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
 <tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
@@ -405,10 +405,10 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>G</td><td>Total solar irradiation per unit area [W/m2]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -432,7 +432,7 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>P_nominal=0,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>linearized=linearized) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</a> gain_DCAC(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=eta_DCAC) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Gain that represents the DCAC conversion losses&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -489,7 +489,7 @@ where <i>pf</i> is the power factor.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>&nbsp;</td><td>Net surface area [m2]</td></tr>
 <tr><td>Real</td><td>fAct</td><td>0.9</td><td>Fraction of surface area with active solar cells [1]</td></tr>
 <tr><td>Real</td><td>eta</td><td>0.12</td><td>Module conversion efficiency [1]</td></tr>
@@ -500,17 +500,17 @@ where <i>pf</i> is the power factor.
 <tr><td>Real</td><td>pf</td><td>0.9</td><td>Power factor</td></tr>
 <tr><td>Real</td><td>eta_DCAC</td><td>0.9</td><td>Efficiency of DC/AC conversion</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Orientation</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>til</td><td>&nbsp;</td><td>Surface tilt [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>lat</td><td>&nbsp;</td><td>Latitude [rad]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
 >Angle</a></td><td>azi</td><td>&nbsp;</td><td>Surface azimuth [rad]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
 <tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
@@ -601,7 +601,7 @@ Below and above these wind speeds, the generated power is zero.
 >Capacitive</a></td><td>load</td><td>redeclare Buildings.Electric...</td><td>Load model</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Wind correction</td></tr>
 <tr><td>Real</td><td>h</td><td>&nbsp;</td><td>Height over ground</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Height"
 >Height</a></td><td>hRef</td><td>10</td><td>Reference height for wind measurement [m]</td></tr>
 <tr><td>Real</td><td>nWin</td><td>0.4</td><td>Height exponent for wind profile calculation</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">AC-Conversion</td></tr>
@@ -611,9 +611,9 @@ Below and above these wind speeds, the generated power is zero.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>vWin</td><td>Steady wind speed [m/s]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>P</td><td>Generated power [W]</td></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
 </table>
@@ -635,7 +635,7 @@ Below and above these wind speeds, the generated power is zero.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>pf=pf,
     V_nominal=V_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load model&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
 >Modelica.Blocks.Math.Gain</a> gain_DCAC(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>k=eta_DCAC);
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(load.terminal, terminal);
@@ -645,7 +645,7 @@ Below and above these wind speeds, the generated power is zero.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:06 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:46 2015.
 </address>
 </body>
 </html>

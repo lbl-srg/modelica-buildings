@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.DC.Storage</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -84,85 +84,85 @@ The charging and discharing power is assumed to be controlled to
 a constant value of <i>10,000</i> Watts.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Battery <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for battery&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_DC_Storage.html#Buildings.Electrical.DC.Storage.Battery"
 >Buildings.Electrical.DC.Storage.Battery</a>     bat(EMax=40e3*3600, V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Battery&quot;</span>;
   <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.ConstantVoltage"
 >Buildings.Electrical.DC.Sources.ConstantVoltage</a>    sou(V=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage source&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Electrical_Analog_Basic.html#Modelica.Electrical.Analog.Basic.Ground"
 >Modelica.Electrical.Analog.Basic.Ground</a> ground;
   <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
 >Buildings.Electrical.DC.Loads.Conductor</a>             loa(
     P_nominal=0, mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=12) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical load&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> const1(k=-10e3) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Power consumption of the load&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.SampleTrigger"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.SampleTrigger"
 >Modelica.Blocks.Sources.SampleTrigger</a> startCharge(period=24*3600,
       startTime=23*3600);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> off(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=true, nOut=1,
     nIn=1,
     use_activePort=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is disconnected&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> THold(use_conditionPort=true,
       delayedTransition=false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> charge(
     nIn=1,
     use_activePort=true,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=false,
     nOut=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is charged&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.GreaterEqualThreshold"
 >Modelica.Blocks.Logical.GreaterEqualThreshold</a> greaterEqualThreshold(threshold=
        0.99);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> TOn(
     use_conditionPort=true,
     delayedTransition=false,
     loopCheck=false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> discharge(
     nOut=1,
     use_activePort=true,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=false,
     nIn=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is discharged&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Step"
 >Modelica_StateGraph2.Step</a> hold(
     nOut=1,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialStep=false,
     use_activePort=false,
     nIn=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery charge is hold&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.SampleTrigger"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.SampleTrigger"
 >Modelica.Blocks.Sources.SampleTrigger</a> startDischarge(period=24*3600,
       startTime=14*3600);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> TDischarge(use_conditionPort=true,
       delayedTransition=false);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessEqualThreshold"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.LessEqualThreshold"
 >Modelica.Blocks.Logical.LessEqualThreshold</a> lessEqualThreshold(threshold=
         0.01);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
+  <a href="../../msl/Modelica_StateGraph2%202.0.2/help/Modelica_StateGraph2.html#Modelica_StateGraph2.Transition"
 >Modelica_StateGraph2.Transition</a> TOff(use_conditionPort=true,
       delayedTransition=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery is empty and switched off&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> switch1;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
 >Modelica.Blocks.Logical.Switch</a> switch2;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> PCha(k=1e4) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Charging power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> POff(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Off power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> PDis(k=-1e4) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Discharging power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> add;
   <a href="Buildings_Electrical_DC_Sensors.html#Buildings.Electrical.DC.Sensors.GeneralizedSensor"
 >Buildings.Electrical.DC.Sensors.GeneralizedSensor</a> powSen <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Power sensor&quot;</span>;
@@ -201,7 +201,7 @@ a constant value of <i>10,000</i> Watts.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:34:19 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:58 2015.
 </address>
 </body>
 </html>

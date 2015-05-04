@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Loads<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains models that represent different types of AC single phase loads.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -219,9 +219,9 @@ The choices are between a null current or the linearized model.
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal.start</td><td>110</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
@@ -232,11 +232,11 @@ The choices are between a null current or the linearized model.
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -341,11 +341,11 @@ Buildings.Electrical.Interfaces.Impedance</a> for more details.
 <tr><td colspan="2">replaceable package PhaseSystem</td><td><a href="Buildings_Electrical_PhaseSystems_PartialPhaseSystem.html#Buildings.Electrical.PhaseSystems.PartialPhaseSystem"
 >PartialPhaseSystem</a></td><td>Phase system</td></tr>
 <tr><td>Boolean</td><td>inductive</td><td>true</td><td>If true, the load is inductive, otherwise it is capacitive</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>R</td><td>1</td><td>Resistance [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>L</td><td>0</td><td>Inductance [H]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>C</td><td>0</td><td>Capacitance [F]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
@@ -353,36 +353,36 @@ Buildings.Electrical.Interfaces.Impedance</a> for more details.
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Variable load</b></td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Resistance</td></tr>
 <tr><td>Boolean</td><td>use_R_in</td><td>false</td><td>If true, R is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>RMin</td><td>1e-4</td><td>Minimum value of the resistance [Ohm]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Resistance"
 >Resistance</a></td><td>RMax</td><td>1e2</td><td>Maximum value of the resistance [Ohm]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Capacitance</td></tr>
 <tr><td>Boolean</td><td>use_C_in</td><td>false</td><td>If true, C is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>CMin</td><td>1e-4</td><td>Minimum value of the capacitance [F]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Capacitance"
 >Capacitance</a></td><td>CMax</td><td>1e2</td><td>Maximum value of the capacitance [F]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Inductance</td></tr>
 <tr><td>Boolean</td><td>use_L_in</td><td>false</td><td>If true, L is specified by an input</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>LMin</td><td>1e-4</td><td>Minimum value of the inductance [H]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Inductance"
 >Inductance</a></td><td>LMax</td><td>1e2</td><td>Maximum value of the inductance [H]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_R</td><td>Input that sepecify variable R</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_C</td><td>Input that sepecify variable C</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y_L</td><td>Input that sepecify variable L</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -394,10 +394,10 @@ Buildings.Electrical.Interfaces.Impedance</a> for more details.
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Electrical_AC_OnePhase_Interfaces.html#Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n"
 >Interfaces.Terminal_n</a> terminal);
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AngularVelocity"
 >Modelica.SIunits.AngularVelocity</a> omega <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Frequency of the quasi-stationary sine waves&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Reactance"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Reactance"
 >Modelica.SIunits.Reactance</a> X(start = 1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Complex component of the impedance&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   omega =<span style="color: red; font-weight: normal; font-style: normal;"> der</span>(<span style="color: red; font-weight: normal; font-style: normal;">PhaseSystem.thetaRef</span>(terminal.theta));
@@ -549,9 +549,9 @@ The choices are between a null current or the linearized model.
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr><td>Boolean</td><td>use_pf_in</td><td>false</td><td>If true, the power factor is defined by an input</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal.start</td><td>110</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Real</td><td>pf</td><td>0.8</td><td>Power factor</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
@@ -562,11 +562,11 @@ The choices are between a null current or the linearized model.
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>pf_in</td><td>Power factor [1]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -765,9 +765,9 @@ The choices are between a null current or the linearized model.
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.Load"
 >Load</a></td><td>mode</td><td>Buildings.Electrical.Types.L...</td><td>Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal conditions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Power</a></td><td>P_nominal</td><td>&nbsp;</td><td>Nominal power (negative if consumed, positive if generated) [W]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal.start</td><td>110</td><td>Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Initialization</b></td></tr>
 <tr><td><a href="Buildings_Electrical_Types.html#Buildings.Electrical.Types.InitMode"
@@ -777,9 +777,9 @@ The choices are between a null current or the linearized model.
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package PhaseSystem</td><td>Phase system</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>y</td><td>Fraction of the nominal power consumed [1]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>Pow</td><td>Power consumed [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -811,7 +811,7 @@ The choices are between a null current or the linearized model.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:03 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:43 2015.
 </address>
 </body>
 </html>

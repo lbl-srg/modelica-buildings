@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Predictors<![endif]-->
@@ -42,7 +42,7 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 This package contains components models for load prediction.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</a> (Icon for standard packages).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -182,7 +182,7 @@ and maximum adjustment factors as defined by the parameters
 <code>adjFacMin</code> and <code>adjFacMax</code>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
 >Modelica.Blocks.Icons.DiscreteBlock</a> (Graphical layout of discrete block component icon).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -194,9 +194,9 @@ and maximum adjustment factors as defined by the parameters
 >PredictionModel</a></td><td>predictionModel</td><td>Types.PredictionModel.Weathe...</td><td>Load prediction model</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Day of adjustment</td></tr>
 <tr><td>Boolean</td><td>use_dayOfAdj</td><td>true</td><td>if true, use the day of adjustment</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>dayOfAdj_start</td><td>-14400</td><td>Number of hours prior to current time when day of adjustment starts [s]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>dayOfAdj_end</td><td>-3600</td><td>Number of hours prior to current time when day of adjustment ends [s]</td></tr>
 <tr><td>Real</td><td>minAdjFac</td><td>0.8</td><td>Minimum adjustment factor</td></tr>
 <tr><td>Real</td><td>maxAdjFac</td><td>1.2</td><td>Maximum adjustment factor</td></tr>
@@ -204,23 +204,23 @@ and maximum adjustment factors as defined by the parameters
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOut</td><td>Outside air temperature [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOutFut[nPre - 1]</td><td>Future outside air temperatures [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>ECon</td><td>Consumed electrical energy [J]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>PPre[nPre]</td><td>Predicted power consumptions (first element is for current time [W]</td></tr>
 <tr><td>input <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
 >DayTypeInput</a></td><td>typeOfDay[integer((nPre - 1)/nSam) + 2]</td><td>Type of day for the current and the future days for which a prediction is to be made.
     Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</a></td><td>storeHistory</td><td>If false, history terms are no longer stored for the remainder of the day</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ElectricalLoad <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Block that predicts an electrical load&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Icons.html#Modelica.Blocks.Icons.DiscreteBlock"
 >Modelica.Blocks.Icons.DiscreteBlock</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSam(min=1) = 24 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -238,13 +238,13 @@ and maximum adjustment factors as defined by the parameters
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_dayOfAdj=true <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;if true, use the day of adjustment&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> dayOfAdj_start(
     max=0,
     displayUnit=&quot;h&quot;) = -14400 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of hours prior to current time when day of adjustment starts&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> dayOfAdj_end(
     max=0,
     displayUnit=&quot;h&quot;) = -3600 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -254,21 +254,21 @@ and maximum adjustment factors as defined by the parameters
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real maxAdjFac(min=0) = 1.2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Maximum adjustment factor&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOut(unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
      (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outside air temperature&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOutFut[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Future outside air temperatures&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> ECon(unit=&quot;J&quot;, nominal=1E5) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Consumed electrical energy&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> PPre[nPre](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Predicted power consumptions (first element is for current time&quot;</span>;
 
@@ -276,16 +276,16 @@ and maximum adjustment factors as defined by the parameters
 >Buildings.Controls.Interfaces.DayTypeInput</a> typeOfDay[<span style="color: red; font-weight: normal; font-style: normal;">integer</span>((nPre-1)/nSam)+2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for the current and the future days for which a prediction is to be made.
     Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</a> storeHistory <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If false, history terms are no longer stored for the remainder of the day&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span>Real adj(unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load adjustment factor&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> samplePeriod=86400/nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sample period of the component&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> samStart(fixed=false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Time when the first sampling starts&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer iDayOf_start =<span style="color: red; font-weight: normal; font-style: normal;"> integer</span>((nSam*dayOfAdj_start/86400+1E-8)) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -295,27 +295,27 @@ and maximum adjustment factors as defined by the parameters
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nDayOf = iDayOf_end-iDayOf_start <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of samples used for the day of adjustment&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> dt = 86400/nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Length of one sampling interval&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> PAve <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Average power over the past interval&quot;</span>;
   Boolean sampleTrigger <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;True, if sample time instant&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
 >Modelica.SIunits.Energy</a> ELast <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Energy at the last sample&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> tLast <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Time at which last sample occurred&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer[nPre] iSam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index for power of the current sampling interval&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> P[Buildings.Controls.Types.nDayTypes,nSam,nHis] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Baseline power consumption&quot;</span>;
   <span style="color: #006400; font-weight: normal; font-style: normal;">// The temperature history is set to a zero array if it is not needed.</span>
   <span style="color: #006400; font-weight: normal; font-style: normal;">// This significantly reduces the size of the code that needs to be compiled.</span>
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T[
    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>Buildings.Controls.Types.nDayTypes<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>predictionModel == Types.PredictionModel.WeatherRegression<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>nSam<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
@@ -333,14 +333,14 @@ and maximum adjustment factors as defined by the parameters
   Boolean _storeHistory <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Flag, switched to false when block gets an storeHistory=false signal, and remaining false until midnight&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
 >Modelica.SIunits.Energy</a> EActAve <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual energy over the day off period&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
 >Modelica.SIunits.Energy</a> EHisAve <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Actual load over the day off period, summed over all time intervals&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+  <span style="color: blue; font-weight: normal; font-style: normal;">discrete </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Power"
 >Modelica.SIunits.Power</a> PPreHis[Buildings.Controls.Types.nDayTypes, nSam] <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Predicted power consumptions for all day off time intervals&quot;</span>;
   Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>start=false, <span style="color: blue; font-weight: normal; font-style: normal;">each </span>fixed=true) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -354,17 +354,17 @@ and maximum adjustment factors as defined by the parameters
   Integer idxSam <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Index to access iSam[1]&quot;</span>;
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors</span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOut_in_internal(unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Needed to connect to conditional connector&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOutFut_in_internal[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Needed to connect to conditional connector&quot;</span>;
 
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Functions</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">function</span> isMidNight
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> t <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simulation time&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Boolean r <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;True if time is midnight, false otherwise&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">algorithm </span>
@@ -372,12 +372,12 @@ and maximum adjustment factors as defined by the parameters
   <span style="color: blue; font-weight: normal; font-style: normal;">end </span>isMidNight;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">function</span> getTypeOfDays
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> t <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Simulation time&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Controls_Types.html#Buildings.Controls.Types.Day"
 >Buildings.Controls.Types.Day</a>[:] typeOfDay <span style="color: #006400; font-weight: normal; font-style: normal;">
       &quot;Type of day as received from input connector&quot;</span>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> dt <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Length of one sampling interval&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer nPre <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of predictions to be made&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer[nPre] tod <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for each prediction interval&quot;</span>;
@@ -592,7 +592,7 @@ Wrong values for parameters.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:55 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:35 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Rooms.Constructions</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -90,7 +90,7 @@ Buildings.Rooms.Constructions</a>.
 This model tests the exterior construction without windows.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -102,7 +102,7 @@ This model tests the exterior construction without windows.
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExteriorWall <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Test model for an exterior wall without a window&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200"
@@ -136,13 +136,13 @@ This model tests the exterior construction without windows.
 >Buildings.HeatTransfer.Convection.Interior</a> con[
                               1](A={3*10}, til={Buildings.Types.Tilt.Wall}) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Model for heat convection&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol(m=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
   <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
         &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> TRoo(k=273.15 + 20) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Room air temperature&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(prescribedTemperature.port, theCol.port_b);
@@ -171,19 +171,19 @@ This model tests the exterior construction without windows.
 This model tests the exterior construction with two windows.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td>Integer</td><td>nCon</td><td>2</td><td>Number of constructions</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A[:]</td><td>{3*10,3*10}</td><td>Heat transfer area of wall and window [m2]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>hWin[:]</td><td>{2,1}</td><td>Window height [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wWin[:]</td><td>{3,3}</td><td>Window width [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>AWin[:]</td><td>hWin .* wWin</td><td>Heat transfer area of frame and window [m2]</td></tr>
 <tr><td>Real</td><td>fFra[:]</td><td>{0.1,0.1}</td><td>Fraction of window frame divided by total window area</td></tr>
 <tr><td>Boolean</td><td>linearizeRadiation</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
@@ -199,17 +199,17 @@ This model tests the exterior construction with two windows.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExteriorWallTwoWindows <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Test model for an exterior wall with two windows, one having a shade, the other not&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nCon = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of constructions&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> A[:]={3*10, 3*10} <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat transfer area of wall and window&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> hWin[:] = {2, 1} <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window height&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> wWin[:] = {3, 3} <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window width&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> AWin[:]= hWin .* wWin <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat transfer area of frame and window&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fFra[:]={0.1, 0.1} <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -270,34 +270,34 @@ This model tests the exterior construction with two windows.
 >Buildings.HeatTransfer.Convection.Interior</a> con[nCon](A=A - AWin,
     til={Buildings.Types.Tilt.Wall,
          Buildings.Types.Tilt.Wall}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for heat convection&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol(m=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
   <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
         &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> uSha(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shading control signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol1(m=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
   <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
 >HeatTransfer.Radiosity.IndoorRadiosity</a> indRad[nCon](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>linearize = linearizeRadiation,
     A=AWin) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for indoor radiosity&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
 >Modelica.Blocks.Routing.Replicator</a> replicator(nout=nCon);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol3(
                                                                    m=2) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QAbsSha[nCon](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by interior shade&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QAbs[nCon,<span style="color: red; font-weight: normal; font-style: normal;"> size</span>(glaSys1.glass, 1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by glass&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QTra[nCon](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by exterior shade&quot;</span>;
 
@@ -320,7 +320,7 @@ This model tests the exterior construction with two windows.
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade}) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Model for interior shade heat transfer&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
 >Modelica.Blocks.Math.Sum</a> sumJ[nCon](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>nin=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>glaSys1.haveShade<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>glaSys2.haveShade<span style="color: blue; font-weight: normal; font-style: normal;">
          then </span>2<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sum of radiosity fom glass to outside&quot;</span>;
   <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
@@ -386,18 +386,18 @@ This model tests the exterior construction with two windows.
 This model tests the exterior constructions with windows.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>A</td><td>3*10</td><td>Heat transfer area of wall and window [m2]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>hWin</td><td>2</td><td>Window height [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Length</a></td><td>wWin</td><td>3</td><td>Window width [m]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Area</a></td><td>AWin</td><td>hWin*wWin</td><td>Heat transfer area of frame and window [m2]</td></tr>
 <tr><td>Real</td><td>fFra</td><td>0.1</td><td>Fraction of window frame divided by total window area</td></tr>
 <tr><td>Boolean</td><td>linearizeRadiation</td><td>false</td><td>Set to true to linearize emissive power</td></tr>
@@ -411,16 +411,16 @@ This model tests the exterior constructions with windows.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExteriorWallWithWindow <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Test model for an exterior wall with a window&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> A=3*10 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat transfer area of wall and window&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> hWin = 2 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window height&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Length"
 >Modelica.SIunits.Length</a> wWin = 3 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Window width&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Area"
 >Modelica.SIunits.Area</a> AWin=hWin*wWin <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat transfer area of frame and window&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real fFra=0.1 <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -473,28 +473,28 @@ This model tests the exterior constructions with windows.
 >Buildings.HeatTransfer.Convection.Interior</a> con[1](
       <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=A .- AWin,
       til={Buildings.Types.Tilt.Wall}) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for heat convection&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol(m=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
   <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
 >BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(filNam=
         &quot;modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> uSha(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Shading control signal&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
 >Modelica.Thermal.HeatTransfer.Components.ThermalCollector</a> theCol1(m=1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Thermal collector to link a vector of models to a single model&quot;</span>;
   <a href="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.IndoorRadiosity"
 >HeatTransfer.Radiosity.IndoorRadiosity</a> indRad(A=AWin, linearize=
         linearizeRadiation) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for indoor radiosity&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QAbs[1,<span style="color: red; font-weight: normal; font-style: normal;">size</span>(glaSys.glass, 1)](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by glass&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QAbsSha(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by interior shade&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a> QTra(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Solar radiation absorbed by exterior shade&quot;</span>;
 
@@ -518,7 +518,7 @@ This model tests the exterior constructions with windows.
     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>A=AGla) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
      glaSys.haveShade <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Interior shade radiation model&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
 >Modelica.Blocks.Math.Sum</a> sumJ[1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>nin=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>glaSys.haveShade<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>2<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>1) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sum of radiosity fom glass to outside&quot;</span>;
 
@@ -573,7 +573,7 @@ This model tests the exterior constructions with windows.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:38:14 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:23:58 2015.
 </address>
 </body>
 </html>

@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -44,7 +44,7 @@ This package contains base classes that are used to construct the models in
 >Buildings.Utilities.Psychrometrics.Functions</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -111,12 +111,12 @@ This package contains base classes that are used to construct the models in
 Derivative of dew point temperature calculation for moist air.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>p_w</td><td>&nbsp;</td><td>Water vapor partial pressure [Pa]</td></tr>
 <tr><td>Real</td><td>dp_w</td><td>&nbsp;</td><td>Differential of water vapor partial pressure</td></tr>
 </table>
@@ -127,22 +127,22 @@ Derivative of dew point temperature calculation for moist air.
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_TDewPoi_pW_amb <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative of function TDewPoi_pW_amb&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor partial pressure&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dp_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of water vapor partial pressure&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real dT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of dew point temperature&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T1=283.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T2=293.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Second support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p1=1227.97 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p2=2338.76 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Second support point&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real a1=(<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>(p2) -<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.log</span>(p1)*T2/T1)/(1 -
@@ -169,12 +169,12 @@ Derivative of dew point temperature calculation for moist air.
 Derivative of dew point temperature calculation for moist air above freezing temperature.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>&nbsp;</td><td>Dew point temperature [K]</td></tr>
 <tr><td>Real</td><td>dT</td><td>&nbsp;</td><td>Temperature differential</td></tr>
 </table>
@@ -185,9 +185,9 @@ Derivative of dew point temperature calculation for moist air above freezing tem
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_pW_TDewPoi <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative of function pW_TDewPoi&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dew point temperature&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dT <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature differential&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real dp_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of water vapor partial pressure&quot;</span>;
@@ -219,12 +219,12 @@ Derivative of dew point temperature calculation for moist air above freezing tem
 Derivative of dew point temperature calculation for moist air.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>T</td><td>&nbsp;</td><td>Dew point temperature [K]</td></tr>
 <tr><td>Real</td><td>dT</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 </table>
@@ -235,20 +235,20 @@ Derivative of dew point temperature calculation for moist air.
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_pW_TDewPoi_amb <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative of function pW_TDewPoi_amb&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dew point temperature&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dT;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real dp_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of water vapor partial pressure&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T1=283.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> T2=293.15 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Second support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p1=1227.97 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;First support point&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p2=2338.76 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Second support point&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Real a1=(<span style="color: red; font-weight: normal; font-style: normal;">Modelica.Math.log</span>(p2) -<span style="color: red; font-weight: normal; font-style: normal;"> Modelica.Math.log</span>(p1)*T2/T1)/(1 -
@@ -279,14 +279,14 @@ Derivative of function
 Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >MassFraction</a></td><td>X_w</td><td>&nbsp;</td><td>Species concentration at dry bulb temperature [1]</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Pressure</a></td><td>p</td><td>101325</td><td>Total pressure [Pa]</td></tr>
 <tr><td>Real</td><td>dX_w</td><td>&nbsp;</td><td>Differential of species concentration at dry bulb temperature</td></tr>
 <tr><td>Real</td><td>dp</td><td>&nbsp;</td><td>Differential of total pressure</td></tr>
@@ -298,15 +298,15 @@ Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_pW_X <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative of function pW_X&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</a> X_w(
     min=0,
     max=1,
     nominal=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Species concentration at dry bulb temperature&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p=101325 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total pressure&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dX_w <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -316,7 +316,7 @@ Buildings.Utilities.Psychrometrics.Functions.pW_X</a>.
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real dp_w <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of water vapor pressure&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
 >Modelica.SIunits.MassFraction</a> x_w(nominal=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Water mass fraction per mass of dry air&quot;</span>;
   Real dX_w_dX <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential d (x_w) / d X_w&quot;</span>;
@@ -346,12 +346,12 @@ Derivative of function
 Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>Tsat</td><td>&nbsp;</td><td>Saturation temperature [K]</td></tr>
 <tr><td>Real</td><td>dTsat</td><td>&nbsp;</td><td>Saturation temperature derivative [K/s]</td></tr>
 </table>
@@ -363,9 +363,9 @@ Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid</a>.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_saturationPressureLiquid <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Derivative of the function saturationPressureLiquid&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> Tsat <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Saturation temperature&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dTsat(unit=&quot;K/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Saturation temperature derivative&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real psat_der(unit=&quot;Pa/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Differential of saturation pressure&quot;</span>;
@@ -395,12 +395,12 @@ Derivative of function
 Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a> (Icon for functions).</p>
 <h3>Inputs</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Inputs">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Temperature</a></td><td>TSat</td><td>&nbsp;</td><td>Saturation temperature [K]</td></tr>
 <tr><td>Real</td><td>dTsat</td><td>&nbsp;</td><td>Sublimation temperature derivative [K/s]</td></tr>
 </table>
@@ -412,18 +412,18 @@ Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce</a>.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">function</span> der_sublimationPressureIce <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Derivative of function sublimationPressureIce&quot;</span>
-    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
+    <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</a>;
-    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+    <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TSat(displayUnit=&quot;degC&quot;,
                                             nominal=300) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Saturation temperature&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real dTsat(unit=&quot;K/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sublimation temperature derivative&quot;</span>;
     <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real psat_der(unit=&quot;Pa/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sublimation pressure derivative&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
 >Modelica.SIunits.Temperature</a> TTriple=273.16 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Triple point temperature&quot;</span>;
-    <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
 >Modelica.SIunits.AbsolutePressure</a> pTriple=611.657 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Triple point pressure&quot;</span>;
     Real r1=TSat/TTriple <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Common subexpression 1&quot;</span>;
     Real r1_der=dTsat/TTriple <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Derivative of common subexpression 1&quot;</span>;
@@ -436,7 +436,7 @@ Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce</a>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:33 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:27:22 2015.
 </address>
 </body>
 </html>

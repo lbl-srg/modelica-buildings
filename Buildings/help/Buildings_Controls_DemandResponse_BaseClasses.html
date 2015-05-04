@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -44,7 +44,7 @@ This package contains base classes that are used to construct the models in
 >Buildings.Controls.DemandResponse</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -132,22 +132,22 @@ the current type of day, then the predicted power consumption
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
 >Step_in</a></td><td>inPort[nIn]</td><td>Vector of step input connectors</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
 >Step_out</a></td><td>outPort[nOut]</td><td>Vector of step output connectors</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>ECon</td><td>Consumed electrical energy [J]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>PPre[nPre]</td><td>Predicted power consumption for the current time interval [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOutFut[nPre - 1]</td><td>Future outside air temperatures [K]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOut</td><td>Outside air temperature [K]</td></tr>
 <tr><td>input <a href="Buildings_Controls_Interfaces.html#Buildings.Controls.Interfaces.DayTypeInput"
 >DayTypeInput</a></td><td>typeOfDay[integer((nPre - 1)/nSam) + 2]</td><td>Type of day for the current and the future days for which a prediction is to be made.
     Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >BooleanInput</a></td><td>isEventDay</td><td>If true, this day remains an event day until midnight</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -157,7 +157,7 @@ the current type of day, then the predicted power consumption
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nHis(min=1) = 10 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of history terms to be stored&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOut(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
      (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Outside air temperature&quot;</span>;
@@ -166,7 +166,7 @@ the current type of day, then the predicted power consumption
 >Buildings.Controls.Interfaces.DayTypeInput</a> typeOfDay[<span style="color: red; font-weight: normal; font-style: normal;">integer</span>((nPre-1)/nSam)+2] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type of day for the current and the future days for which a prediction is to be made.
     Typically, this has dimension 2 for predictions up to and including 24 hours, and 2+n for any additional day&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanInput"
 >Modelica.Blocks.Interfaces.BooleanInput</a> isEventDay <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;If true, this day remains an event day until midnight&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
@@ -176,7 +176,7 @@ the current type of day, then the predicted power consumption
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nPre=nPre,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>nHis=nHis,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>predictionModel=predictionModel) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model that computes the base line&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
 >Modelica.Blocks.Logical.Not</a> stoHis <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Boolean signal to set whether history should be stored&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
@@ -208,7 +208,7 @@ Block that outputs the currently consumed electrical power,
 which is equal to its input signal.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
 >Modelica.StateGraph.StepWithSignal</a> (Ordinary step (= step that is not active when simulation starts). Connector &#39;active&#39; is true when the step is active).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -219,25 +219,25 @@ which is equal to its input signal.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
 >Step_in</a></td><td>inPort[nIn]</td><td>Vector of step input connectors</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
 >Step_out</a></td><td>outPort[nOut]</td><td>Vector of step output connectors</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BooleanOutput"
 >BooleanOutput</a></td><td>active</td><td>&nbsp;</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>PCon</td><td>Consumed electrical power [W]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>PPre</td><td>Predicted power consumption for current hour [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> NormalOperation <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Normal operation&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.StepWithSignal"
 >Modelica.StateGraph.StepWithSignal</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> PCon(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Consumed electrical power&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> PPre(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Predicted power consumption for current hour&quot;</span>;
 
@@ -264,7 +264,7 @@ This is a partial block that declares parameters, inputs and outputs that are
 used by the blocks that compute the demand reponse client.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
 >Modelica.StateGraph.Step</a> (Ordinary step (= step that is not active when simulation starts)).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -279,21 +279,21 @@ used by the blocks that compute the demand reponse client.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
 >Step_in</a></td><td>inPort[nIn]</td><td>Vector of step input connectors</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
 >Step_out</a></td><td>outPort[nOut]</td><td>Vector of step output connectors</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>ECon</td><td>Consumed electrical energy [J]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>PPre[nPre]</td><td>Predicted power consumption for the current time interval [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>TOutFut[nPre - 1]</td><td>Future outside air temperatures [K]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">block</span> PartialDemandResponse <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Partial block that declares common data for demand response models&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
 >Modelica.StateGraph.Step</a>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nSam <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Number of intervals in a day for which baseline is computed&quot;</span>;
@@ -305,14 +305,14 @@ used by the blocks that compute the demand reponse client.
 >Buildings.Controls.Predictors.Types.PredictionModel</a> predictionModel <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Load prediction model&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> ECon(unit=&quot;J&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Consumed electrical energy&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> PPre[nPre](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Predicted power consumption for the current time interval&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> TOutFut[nPre-1](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;K&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
        (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Future outside air temperatures&quot;</span>;
@@ -337,7 +337,7 @@ This model computes the predicted load as the product of the shed
 control signal and the consumed electrical power.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
 >Modelica.StateGraph.Step</a> (Ordinary step (= step that is not active when simulation starts)).</p>
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
@@ -348,31 +348,31 @@ control signal and the consumed electrical power.
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_in"
 >Step_in</a></td><td>inPort[nIn]</td><td>Vector of step input connectors</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph_Interfaces.html#Modelica.StateGraph.Interfaces.Step_out"
 >Step_out</a></td><td>outPort[nOut]</td><td>Vector of step output connectors</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>PCon</td><td>Consumed electrical power [W]</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>yShed</td><td>Amount of load to shed. Set to 0.5 to shed 50% of load [1]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>PPre</td><td>Predicted power consumption for current hour [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ShedOperation <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Computes the consumption with the shed taken into account&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_StateGraph.html#Modelica.StateGraph.Step"
 >Modelica.StateGraph.Step</a>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> PCon(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Consumed electrical power&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> yShed(min=-1, max=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Amount of load to shed. Set to 0.5 to shed 50% of load&quot;</span>;
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> PPre(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Predicted power consumption for current hour&quot;</span>;
 
@@ -382,7 +382,7 @@ control signal and the consumed electrical power.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:32:55 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:18:35 2015.
 </address>
 </body>
 </html>

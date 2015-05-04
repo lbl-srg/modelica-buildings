@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE BaseClasses<![endif]-->
@@ -44,7 +44,7 @@ This package contains base classes that are used to construct the models in
 >Buildings.Utilities.IO.BCVTB</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</a> (Icon for packages containing base classes).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -103,26 +103,26 @@ interfacing fluid flow systems with the BCVTB interface.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model within the source</td></tr>
 <tr><td>Boolean</td><td>use_m_flow_in</td><td>false</td><td>Get the mass flow rate from the input connector</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow</td><td>0</td><td>Fixed mass flow rate going out of the fluid port [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Nominal condition</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_nominal</td><td>&nbsp;</td><td>Nominal mass flow rate, used for regularization near zero flow [kg/s]</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Advanced</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >MassFlowRate</a></td><td>m_flow_small</td><td>1E-4*m_flow_nominal</td><td>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td colspan="2">replaceable package Medium</td><td>Medium model within the source</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate</td></tr>
-<tr><td>input <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>T_in</td><td>Prescribed boundary temperature</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
 >FluidPorts_b</a></td><td>ports[nPorts]</td><td>&nbsp;</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>HSen_flow</td><td>Sensible enthalpy flow rate, positive if flow into the component [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -132,26 +132,26 @@ interfacing fluid flow systems with the BCVTB interface.
 >Buildings.BaseClasses.BaseIcon</a>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
-      <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
 >Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model within the source&quot;</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nPorts=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of ports&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> m_flow_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>    use_m_flow_in <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Prescribed mass flow rate&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> T_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed boundary temperature&quot;</span>;
 
    <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_m_flow_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Get the mass flow rate from the input connector&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_flow = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Fixed mass flow rate going out of the fluid port&quot;</span>;
 
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_flow_nominal(min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Nominal mass flow rate, used for regularization near zero flow&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
 >Modelica.SIunits.MassFlowRate</a> m_flow_small(min=0) = 1E-4*m_flow_nominal <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required)&quot;</span>;
 
@@ -161,7 +161,7 @@ interfacing fluid flow systems with the BCVTB interface.
 >Medium</a>,
     <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Total enthalpy flow rate (sensible plus latent)&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
 >Modelica.Fluid.Interfaces.FluidPorts_b</a> ports[
                                 nPorts](
                      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Utilities_IO_BCVTB_BaseClasses_Medium.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface.Medium"
@@ -171,10 +171,10 @@ interfacing fluid flow systems with the BCVTB interface.
                             <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>0<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>
                                      -Modelica.Constants.inf));
 
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
 >Modelica.Blocks.Math.Sum</a> sumHTot_flow(nin=nPorts) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sum of total enthalpy flow rates&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> HSen_flow(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Sensible enthalpy flow rate, positive if flow into the component&quot;</span>;
   <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
@@ -187,7 +187,7 @@ interfacing fluid flow systems with the BCVTB interface.
     use_C_in=false,
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_m_flow_in=true);
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.PortFlowDirection"
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.PortFlowDirection"
 >Modelica.Fluid.Types.PortFlowDirection</a> flowDirection=
                    Modelica.Fluid.Types.PortFlowDirection.Bidirectional <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Allowed flow direction&quot;</span>;
@@ -297,7 +297,7 @@ communication interval.
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
 <tr><td>Integer</td><td>socketFD</td><td>&nbsp;</td><td>Socket file descripter</td></tr>
 <tr><td>Integer</td><td>flaWri</td><td>&nbsp;</td><td>Communication flag to write to the socket stream</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>simTimWri</td><td>&nbsp;</td><td>Current simulation time in seconds to write [s]</td></tr>
 <tr><td>Real</td><td>dblValWri[nDblWri]</td><td>&nbsp;</td><td>Double values to write</td></tr>
 <tr><td>Integer</td><td>nDblWri</td><td>&nbsp;</td><td>Number of double values to write</td></tr>
@@ -307,7 +307,7 @@ communication interval.
 <table border="1" cellspacing="0" cellpadding="2" summary="Outputs">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
 <tr><td>Integer</td><td>flaRea</td><td>Communication flag read from the socket stream</td></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Time</a></td><td>simTimRea</td><td>Current simulation time in seconds read from socket [s]</td></tr>
 <tr><td>Real</td><td>dblValRea[nDblRea]</td><td>Double values read from socket</td></tr>
 <tr><td>Integer</td><td>retVal</td><td>The exit value, which is negative if an error occurred</td></tr>
@@ -318,14 +318,14 @@ communication interval.
 
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer socketFD(min=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Socket file descripter&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer flaWri <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Communication flag to write to the socket stream&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> simTimWri <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Current simulation time in seconds to write&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Real[nDblWri] dblValWri <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Double values to write&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer nDblWri <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of double values to write&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">input </span>Integer nDblRea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of double values to read&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Integer flaRea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Communication flag read from the socket stream&quot;</span>;
-  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Time"
 >Modelica.SIunits.Time</a> simTimRea <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Current simulation time in seconds read from socket&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">output </span>Real[nDblRea] dblValRea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Double values read from socket&quot;</span>;
@@ -342,7 +342,7 @@ communication interval.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:41:30 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:27:19 2015.
 </address>
 </body>
 </html>

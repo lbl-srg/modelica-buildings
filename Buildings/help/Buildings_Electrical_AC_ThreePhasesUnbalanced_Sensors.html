@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Sensors<![endif]-->
@@ -43,7 +43,7 @@ This package contains models that represent different types of three
 phases unbalanced AC/AC sensors.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
 >Modelica.Icons.SensorsPackage</a> (Icon for packages containing sensors).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -121,11 +121,11 @@ The two components of the power <i>S</i> are the active and reactive power for e
 >Terminal_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
 >Terminal_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>V[3]</td><td>Voltage [V]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>I[3]</td><td>Current [A]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>S[3, terminal_n.phase[1].PhaseSystem.n]</td><td>Phase powers [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -136,13 +136,13 @@ The two components of the power <i>S</i> are the active and reactive power for e
 >Interfaces.Terminal_n</a> terminal_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical connector side N&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p"
 >Interfaces.Terminal_p</a> terminal_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical connector side P&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> V[3](<span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricPotential&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;V&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> I[3](<span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricCurrent&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;A&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> S[3,terminal_n.phase[1].PhaseSystem.n](
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Power&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase powers&quot;</span>;
@@ -184,11 +184,11 @@ The two components of the power <i>S</i> are the active and reactive power for e
 >Terminal4_n</a></td><td>terminal_n</td><td>Electrical connector side N</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p"
 >Terminal4_p</a></td><td>terminal_p</td><td>Electrical connector side P</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>V[4]</td><td>Voltage [V]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>I[4]</td><td>Current [A]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>S[4, terminal_n.phase[1].PhaseSystem.n]</td><td>Phase powers [W]</td></tr>
 </table>
 <h3>Modelica definition</h3>
@@ -199,13 +199,13 @@ The two components of the power <i>S</i> are the active and reactive power for e
 >Interfaces.Terminal4_n</a> terminal_n <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical connector side N&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p"
 >Interfaces.Terminal4_p</a> terminal_p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical connector side P&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> V[4](<span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricPotential&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;V&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Voltage&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> I[4](<span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;ElectricCurrent&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;A&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Current&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> S[4,terminal_n.phase[1].PhaseSystem.n](
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Power&quot;,
                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Phase powers&quot;</span>;
@@ -245,16 +245,16 @@ in the Wye (Y) grounded configuration.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>RMS Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Boolean</td><td>perUnit</td><td>true</td><td>This flag display voltage in p.u.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>V[3]</td><td>Voltage in per unit [1]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>theta[3]</td><td>Angle [rad]</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
 >Terminal_n</a></td><td>term</td><td>Electrical connector</td></tr>
@@ -307,16 +307,16 @@ in the Wye (Y) grounded configuration.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>RMS Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Boolean</td><td>perUnit</td><td>true</td><td>This flag display voltage in p.u.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>V[3]</td><td>Voltage in per unit [1]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>theta[3]</td><td>Angle [rad]</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n"
 >Terminal_n</a></td><td>term</td><td>Electrical connector</td></tr>
@@ -369,16 +369,16 @@ in the Wye (Y) grounded configuration.
 <h3>Parameters</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
 <tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
-<tr><td><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Voltage"
 >Voltage</a></td><td>V_nominal</td><td>&nbsp;</td><td>RMS Nominal voltage (V_nominal &gt;= 0) [V]</td></tr>
 <tr><td>Boolean</td><td>perUnit</td><td>true</td><td>This flag display voltage in p.u.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
 <tr><th>Type</th><th>Name</th><th>Description</th></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>V[3]</td><td>Voltage in per unit [1]</td></tr>
-<tr><td>output <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>theta[3]</td><td>Angle [rad]</td></tr>
 <tr><td><a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Interfaces.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_n"
 >Terminal4_n</a></td><td>term</td><td>Electrical connector</td></tr>
@@ -409,7 +409,7 @@ in the Wye (Y) grounded configuration.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:46 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:25 2015.
 </address>
 </body>
 </html>

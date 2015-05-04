@@ -19,14 +19,14 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <body>
-<!-- --- header ------ -->
+<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
 </div>
 <div class="headerLinks">
 <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
 </div>
-<!-- --- end header -- -->
+<!-- end header -->
 
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
@@ -45,7 +45,7 @@ This package contains examples for the use of models that can be found in
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources</a>.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
 <h3>Package Content</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
@@ -102,12 +102,12 @@ Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources</a>.
 This example shows how to use a fixed voltage generator model.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> FixedVoltageSource <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how using a fixed voltage source&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.FixedVoltage"
 >FixedVoltage</a>                             grid(
@@ -164,11 +164,11 @@ specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this example
 of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVPanels <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;This example illustrates how to use PV panel models&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive"
 >ThreePhasesUnbalanced.Loads.Inductive</a>                                             RL(
@@ -178,7 +178,7 @@ of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
     plugPhase3=false) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load taht consumes the power generted by the PVs&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid"
 >ThreePhasesUnbalanced.Sources.Grid</a> grid(f=60, V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Electrical grid model&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a>  load(k=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load consumption&quot;</span>;
   <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
 >BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifTil(
@@ -194,7 +194,7 @@ of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
 >BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
       computeWetBulbTemperature=false,
       filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> G <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total irradiation on tilted surface&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple"
 >PVsimple</a>                               pvSimple(      V_nominal=480,
@@ -248,12 +248,12 @@ specified by the vector <code>areaFraction={0.4,0.0,0.6}</code>. In this example
 of the power generation is on phase 1, 0% on phase 2 (disconnected) and 60% on phase 3.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> PVPanels_N <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;This example illustrates how to use PV panel models with neutral cable&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Loads.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive_N"
 >ThreePhasesUnbalanced.Loads.Inductive_N</a>                                             RL(
@@ -264,7 +264,7 @@ of the power generation is on phase 1, 0% on phase 2 (disconnected) and 60% on p
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid_N"
 >ThreePhasesUnbalanced.Sources.Grid_N</a> grid(f=60, V=480) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Electrical grid model&quot;</span>;
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
 >Modelica.Blocks.Sources.Constant</a>  load(k=0.5) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Load consumption&quot;</span>;
   <a href="Buildings_BoundaryConditions_SolarIrradiation.html#Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez"
 >BoundaryConditions.SolarIrradiation.DiffusePerez</a> HDifTil(
@@ -280,7 +280,7 @@ of the power generation is on phase 1, 0% on phase 2 (disconnected) and 60% on p
 >BoundaryConditions.WeatherData.ReaderTMY3</a> weaDat(
       computeWetBulbTemperature=false,
       filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;);
-  <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
 >Modelica.Blocks.Math.Add</a> G <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Total irradiation on tilted surface&quot;</span>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.PVsimple_N"
 >PVsimple_N</a>                               pvSimple(      V_nominal=480,
@@ -341,7 +341,7 @@ As expected the phase with the higher power production has the higher voltage de
 from the nominal condition.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
@@ -351,7 +351,7 @@ from the nominal condition.
 </table>
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindTurbine <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Example for the WindTurbine AC model&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine"
 >Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine</a> tur(
@@ -423,7 +423,7 @@ As expected the phase with the higher power production has the higher voltage de
 from the nominal condition.
 </p>
 
-<p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a> (Icon for runnable examples).</p>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
@@ -434,7 +434,7 @@ from the nominal condition.
 <h3>Modelica definition</h3>
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> WindTurbine_N <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Example for the WindTurbine AC model with neutral cable&quot;</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</a>;
   <a href="Buildings_Electrical_AC_ThreePhasesUnbalanced_Sources.html#Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine_N"
 >Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.WindTurbine_N</a> tur(
@@ -478,7 +478,7 @@ from the nominal condition.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  9 09:33:53 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:19:32 2015.
 </address>
 </body>
 </html>
