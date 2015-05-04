@@ -82,7 +82,7 @@ Optionally, this model can have a flow resistance.
 If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
 <p>
-For a model that uses a an input the fluid temperature leaving at
+For a model that uses as an input the fluid temperature leaving at
 <code>port_b</code>, use
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_T\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_T</a>
@@ -103,6 +103,10 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2015, by Marcus Fuchs:<br/>
+Corrected typo in documentation.
+</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 Added output signal <code>Q_flow</code> so that it has
