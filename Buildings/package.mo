@@ -127,7 +127,7 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-    class Version_2_0_0 "Version 2.0.0-rc.1"
+    class Version_2_0_0 "Version 2.0.0"
       extends Modelica.Icons.ReleaseNotes;
         annotation (Documentation(info="<html>
 <p>
@@ -4390,7 +4390,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0-rc.1 - Release candidate</a>(April 9, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(May 4, 2015)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_6_build1\">Version 1.6 build1</a>(June 19, 2014)
@@ -4880,9 +4880,9 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="2.0.0-rc.1",
-versionDate="2015-04-09",
-dateModified = "2015-04-09",
+version="2.0.0",
+versionDate="2015-05-04",
+dateModified = "2015-05-04",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
