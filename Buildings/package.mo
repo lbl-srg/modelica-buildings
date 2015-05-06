@@ -166,12 +166,35 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil<br/>
+                          Buildings.Fluid.HeatExchangers.HeaterCooler_u<br/>
+                          Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Set parameter <code>prescribedHeatFlowRate=true</code>
+                          which causes a simpler energy balance to be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
+                          Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
+
+       </td>
+       <td valign=\"top\">Propagated parameter <code>allowFlowReversal</code>
+                          which can cause a simpler energy balance to be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
+
+
+       </td>
+       <td valign=\"top\">Added test on <code>allowFlowReversal</code> in criteria
+                          about what energy balance implementation to use.
+                          This causes simpler models, for example when exporting
+                          <code>Buildings.Fluid.HeatExchangers.HeaterCooler_u</code>
+                          as an FMU.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
@@ -205,12 +228,13 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected documenation.
        </td>
    </tr>
    </table>
