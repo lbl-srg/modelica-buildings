@@ -5,7 +5,8 @@ partial model PartialDXCoil "Partial model for DX coil"
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName = "water");
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare package Medium = Medium,
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
+      prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
@@ -192,6 +193,10 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015 by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=true</code> for <code>vol</code>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Updated model due to change in
