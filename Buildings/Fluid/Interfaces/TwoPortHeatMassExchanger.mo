@@ -43,6 +43,7 @@ model TwoPortHeatMassExchanger
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
+    final allowFlowReversal=allowFlowReversal,
     final mSenFac=1,
     final m_flow_nominal = m_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -142,6 +143,13 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Added missing propagation of <code>allowFlowReversal</code> to
+instance <code>vol</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">#412</a>.
+</li>
 <li>
 May 1, 2015, by Marcus Fuchs:<br/>
 Fixed links in documentation.
