@@ -112,7 +112,25 @@ functionality, use
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
-</html>", revisions="<html>
+<p>
+To increase the numerical robustness of the model, the parameter
+<code>prescribedHeatFlowRate</code> can be set by the user.
+This parameter only has an effect if the model has exactly two fluid ports connected,
+and if it is used as a steady-state model.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if there is a model connected to <code>heatPort</code>
+that computes the heat flow rate <i>not</i> as a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+</li>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the only means of heat flow at the <code>heatPort</code>
+is computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.
+</li>
+</ul></html>",
+          revisions="<html>
 <ul>
 <li>
 February 11, 2014 by Michael Wetter:<br/>

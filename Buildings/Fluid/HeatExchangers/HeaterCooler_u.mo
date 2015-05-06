@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
+      prescribedHeatFlowRate=true),
     final showDesignFlowDirection=false);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
@@ -103,6 +104,13 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Set <code>prescribedHeatFlowRate=true</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">
+#412</a>.
+</li>
 <li>
 May 1, 2015, by Marcus Fuchs:<br/>
 Corrected typo in documentation.
