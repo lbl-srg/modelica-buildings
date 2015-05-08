@@ -19,7 +19,7 @@ model StaticTwoPortConservationEquation
                                                      p=Medium.p_default,
                                                      T=Medium.T_default,
                                                      X=Medium.X_default))
-    "Leaving temperature of the component"
+    "Leaving specific enthalpy of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110}), iconTransformation(
@@ -174,6 +174,10 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Corrected documentation.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.

@@ -3,7 +3,7 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 protected
-  Modelica.Blocks.Sources.Constant masExc(k=0)
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
     "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
@@ -16,11 +16,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
-      points={{-59,88},{-30,88},{-30,18},{-22,18}},
+      points={{-39,88},{-30,88},{-30,18},{-22,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{-59,88},{28,88},{28,16},{38,16}},
+      points={{-39,88},{28,88},{28,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -54,8 +54,8 @@ which may itself be a function of temperature or mass flow rate.
 </li>
 </ul>
 <h4>Options</h4>
-<ul>
-<li>Parameter <code>mSenFac</code> can be used to increase the thermal mass of this model
+<p>
+The parameter <code>mSenFac</code> can be used to increase the thermal mass of this model
 without increasing its volume. This way, species concentrations are still calculated
 correctly even though the thermal mass increases. The additional thermal mass is calculated
 based on the density and the value of the function <code>HeatCapacityCp</code>
@@ -63,8 +63,7 @@ of the medium state <code>state_default</code>. <br/>
 This parameter can for instance be useful in a pipe model when the developer wants to
 lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
 the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally.
-</li>
-</ul>
+</p>
 <h4>Implementation</h4>
 <p>
 If the model is operated in steady-state and has two fluid ports connected,
@@ -89,7 +88,12 @@ where <code>m_flowInv</code> approximates the expression <code>1/m_flow</code>.
 The variable <code>mXi_flow</code> is used to add a species mass flow rate to the fluid.
 </li>
 </ul>
-
+<p>
+For the rationale of selecting different energy and mass balances, and for the
+use of <code>prescribedHeatFlowRate</code>, see the documentation of
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\">
+Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.
+</p>
 <p>
 For simple models that uses this model, see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
@@ -100,6 +104,13 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2015 by Michael Wetter<br/>
+Set <code>final</code> keyword for <code>masExc(final k=0)</code>.
+This addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/230\">
+issue 230</a>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Redesigned implementation of latent and sensible heat flow rates

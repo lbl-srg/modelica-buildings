@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "EWin.y",
+    "ESol.y",
+    "ELoa.y",
+    "ERat.y",
+    "sen1.V",
+    "sen2.V",
+    "sen3.V",
+    "winTur.P",
+    "PSol.y"
+  };

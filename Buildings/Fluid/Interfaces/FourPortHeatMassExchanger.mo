@@ -67,6 +67,7 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium1,
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
+    final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
     energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
@@ -88,6 +89,7 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
+    final allowFlowReversal=allowFlowReversal2,
     final mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
@@ -184,6 +186,7 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -235,6 +238,13 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Added missing propagation of <code>allowFlowReversal</code> to
+instances <code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">#412</a>.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in pressure drop elements to be final.
