@@ -7,7 +7,8 @@ block HeaterCooler_u
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final Q_flow_nominal=Q_flow_nominal,
-      final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
     "Nominal mass flow rate";
@@ -33,6 +34,13 @@ that takes as an input signal the normalized heat flow rate.
 The FMU has an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
 Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
