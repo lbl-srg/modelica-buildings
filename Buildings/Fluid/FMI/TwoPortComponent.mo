@@ -6,7 +6,7 @@ block TwoPortComponent
     constrainedby Buildings.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,
       final allowFlowReversal=allowFlowReversal)
-    "Component that holds actual model"
+    "Component that holds the actual model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.RealExpression dpCom(y=com.port_a.p - com.port_b.p) if
