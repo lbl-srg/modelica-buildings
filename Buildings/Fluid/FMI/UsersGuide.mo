@@ -99,11 +99,35 @@ Note the following when exporting FMUs:
 </p>
 <ol>
 <li>
-Volumes, if configured with a dynamic balance,
-cannot be exported as an FMU as they would require the derivatives
-of the pressure as an input.
+<p>
+For models with control volumes,
+the mass balance must be configured using
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>
+when used with the media
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>.
+Otherwise, the translation stops with the error
+</p>
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.p
+</pre>
+<p>
+The reason is that for
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>,
+mass is proportional to pressure and pressure is proportional
+to density. Hence, <i>dm/dt</i> requires <i>dp/dt</i>,
+but the time derivative of the pressure is not an input to the model.
+</p>
+<p>
+For <a href=\"modelica://Buildings.Media.Water\">
+Buildings.Media.Water</a>, this setting is not needed
+as the mass is independent of pressure.
+</p>
 </li>
 <li>
+<p>
 The model
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FlowMachine_m_flow\">
 Buildings.Fluid.FixedResistances.FlowMachine_m_flow</a>
@@ -121,8 +145,10 @@ Buildings.Fluid.FMI.IdealSource_m_flow</a>,
 which takes as an input signal the mass flow rate. If this differs
 from the mass flow rate of the inlet connector, the simulation
 will stop with an error.
+</p>
 </li>
 <li>
+<p>
 When connecting fluid flow components in a loop,
 be careful to avoid circular assignments for example for the temperature,
 as these can of course not be simulated.
@@ -132,6 +158,7 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
 to its inlet. In this situation, neither pressure, nor mass flow rate or temperature
 can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.
+</p>
 </li>
 </html>"));
 end UsersGuide;

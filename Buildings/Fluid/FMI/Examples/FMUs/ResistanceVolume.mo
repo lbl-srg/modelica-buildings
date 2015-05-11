@@ -40,7 +40,8 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final V=V,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
 equation
@@ -87,6 +88,13 @@ The FMU has an instance of
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>

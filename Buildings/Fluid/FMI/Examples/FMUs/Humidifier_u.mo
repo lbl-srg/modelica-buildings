@@ -7,6 +7,7 @@ block Humidifier_u "FMU declaration for an ideal humidifier"
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final mWat_flow_nominal=mWat_flow_nominal,
       final T=T,
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
@@ -39,6 +40,13 @@ will be added to the medium.
 The FMU has an instance of
 <a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
 Buildings.Fluid.MassExchangers.Humidifier_u</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">user's guide</a>
+for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
