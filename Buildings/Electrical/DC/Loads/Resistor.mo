@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Loads;
 model Resistor "Ideal linear electrical resistor"
-  extends Buildings.Electrical.Interfaces.Load(
+  extends Buildings.Electrical.Interfaces.ResistiveLoad(
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal,
     final mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
@@ -44,6 +44,10 @@ The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPor
 </html>",
  revisions="<html>
 <ul>
+<li>May 14, 2015, by Marco Bonvini:<br/>
+Changed parent class to <code>ResistiveLoad</code> in order
+to help openmodelica parsing the model.
+</li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
 First implementation.

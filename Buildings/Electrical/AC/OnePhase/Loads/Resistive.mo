@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Resistive "Model of a resistive load"
-  extends Buildings.Electrical.Interfaces.Load(
+  extends Buildings.Electrical.Interfaces.ResistiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
@@ -158,6 +158,10 @@ The choices are between a null current or the linearized model.
 
 </html>", revisions="<html>
 <ul>
+<li>May 14, 2015, by Marco Bonvini:<br/>
+Changed parent class to <code>ResistiveLoad</code> in order
+to help openmodelica parsing the model.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.
 </li>
