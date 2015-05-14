@@ -160,5 +160,6 @@ can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.
 </p>
 </li>
+</ol>
 </html>"));
 end UsersGuide;
