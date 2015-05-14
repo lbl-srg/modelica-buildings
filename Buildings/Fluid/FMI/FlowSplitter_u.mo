@@ -49,7 +49,12 @@ initial equation
 equation
   for i in 1:nout loop
     assert(u[i] >= 0, "Control signal must be non-negative.");
-    connect(inlet.p, outlet[i].p);
+    // FIXME: Dymola 2015 FD01 (on Linux 64) does not automatically
+    // remove the conditional equation below. We thus have to manually check
+    // if use_p_in is true before connecting the inlet and outlet pressures.
+    if use_p_in then
+      connect(inlet.p, outlet[i].p);
+    end if;
     outlet[i].m_flow = u[i]*m_flow_nominal[i];
     outlet[i].forward = inlet.forward;
   end for;
