@@ -29,8 +29,22 @@ package Air
     "ThermodynamicState record for moist air"
   end ThermodynamicState;
 
+  // There must not be any stateSelect=StateSelect.prefer for
+  // the pressure.
+  // Otherwise, translateModel("Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume")
+  // will fail as Dymola does an index reduction and outputs
+  //   Differentiated the equation
+  //   vol.dynBal.medium.p+res.dp-inlet.p = 0.0;
+  //   giving
+  //   der(vol.dynBal.medium.p)+der(res.dp) = der(inlet.p);
+  //
+  //   The model requires derivatives of some inputs as listed below:
+  //   1 inlet.m_flow
+  //   1 inlet.p
+  // Therefore, the statement
+  //   p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+  // has been removed.
   redeclare replaceable model extends BaseProperties(
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
@@ -947,6 +961,17 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 11, 2015, by Michael Wetter:<br/>
+Removed
+<code>p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)</code>
+in declaration of <code>BaseProperties</code>.
+Otherwise, when models that contain a fluid volume
+are exported as an FMU, their pressure would be
+differentiated with respect to time. This would require
+the time derivative of the inlet pressure, which is not available,
+causing the translation to stop with an error.
+</li>
 <li>
 May 1, 2015, by Michael Wetter:<br/>
 Added <code>Inline=true</code> for

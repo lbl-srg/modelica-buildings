@@ -929,3 +929,5 @@ Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/legal.html
 Buildings/package.order
+Buildings/simulator.log
+Buildings/unitTests.log
