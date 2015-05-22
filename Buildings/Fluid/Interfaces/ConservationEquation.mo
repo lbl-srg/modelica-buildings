@@ -17,9 +17,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start,
-      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-                     then StateSelect.prefer else StateSelect.default),
+    p(start=p_start),
     h(start=hStart),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi],
@@ -329,6 +327,22 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.
+</li>
+<li>
+February 6, 2014 by Michael Wetter:<br/>
+Removed <pre>
+p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+then StateSelect.prefer else StateSelect.default)
+</pre>
+because the previous declaration led to the translation error
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.m_flow
+1 inlet.p
+</pre>
+when translating
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed\">
+Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed</a>.
 </li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
