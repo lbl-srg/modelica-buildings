@@ -9,13 +9,13 @@ model SingleLayer "Model for single layer heat conductance"
   // if the convection coefficient is a function of temperature.
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
-        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
       each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
   Modelica.SIunits.SpecificInternalEnergy u[nSta](start=
      material.c*{T_a_start+(T_b_start-T_a_start) * UA *
-        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
         each nominal = 270000)
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
@@ -36,14 +36,17 @@ model SingleLayer "Model for single layer heat conductance"
 protected
   final parameter Integer nSta(min=1) = material.nSta
     "Number of state variables";
-  final parameter Modelica.SIunits.ThermalConductance UAnSta = UA*nSta
-    "Thermal conductance between nodes";
-  final parameter Modelica.SIunits.ThermalConductance UAnSta2 = 2*UAnSta
-    "Thermal conductance between nodes and surface boundary";
+  final parameter Modelica.SIunits.ThermalResistance RnSta = R/nSta
+    "Thermal resistance between nodes";
+  final parameter Modelica.SIunits.ThermalResistance RnSta2 = RnSta/2
+    "Thermal resistance between nodes and surface boundary";
+
   parameter Modelica.SIunits.Mass m = A*material.x*material.d/material.nSta
     "Mass associated with the temperature state";
-  parameter Modelica.SIunits.HeatCapacity C = m*material.c
+  final parameter Modelica.SIunits.HeatCapacity C = m*material.c
     "Heat capacity associated with the temperature state";
+  final parameter Real CInv = if material.steadyState then 0 else 1/C
+    "Inverse of heat capacity associated with the temperature state";
 
   parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
@@ -64,7 +67,7 @@ initial equation
       else
         for i in 1:nSta loop
           T[i] = T_a_start+(T_b_start-T_a_start) * UA *
-            sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i);
+            sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i);
         end for;
       end if;
     end if;
@@ -85,12 +88,12 @@ equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[nSta+1];
 
-    port_a.T-T[1] = Q_flow[1]/UAnSta2;
-    T[nSta] -port_b.T = Q_flow[nSta+1]/UAnSta2;
+    port_a.T-T[1] = Q_flow[1]*RnSta2;
+    T[nSta] -port_b.T = Q_flow[nSta+1]*RnSta2;
 
     for i in 2:nSta loop
        // Q_flow[i] is heat flowing from (i-1) to (i)
-       T[i-1]-T[i] = Q_flow[i]/UAnSta;
+       T[i-1]-T[i] = Q_flow[i]*RnSta;
     end for;
 
     // Steady-state heat balance
@@ -125,7 +128,7 @@ equation
       else
         // Regular material
         for i in 1:nSta loop
-          der(T[i]) = (Q_flow[i]-Q_flow[i+1])/C;
+          der(T[i]) = (Q_flow[i]-Q_flow[i+1])*CInv;
           u[i]=material.c*T[i];
         end for;
       end if;
@@ -266,6 +269,12 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated function to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Changed the input argument for the function
