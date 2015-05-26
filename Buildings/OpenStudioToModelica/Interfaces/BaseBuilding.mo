@@ -38,8 +38,14 @@ partial model BaseBuilding "Building model that contains all the parameters and 
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
+  parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=
+    Buildings.HeatTransfer.Types.InteriorConvection.Fixed
+    "Select mode for interior convection coefficient";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hInternalFixed = 3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions";
+  parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=
+    Buildings.HeatTransfer.Types.ExteriorConvection.Fixed
+    "Select mode for exterior convection coefficient";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hExternalFixed = 10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions";
   parameter Modelica.Fluid.Types.Dynamics roomEnDyn = Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -49,9 +55,9 @@ partial model BaseBuilding "Building model that contains all the parameters and 
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.SIunits.Temperature T_ground = 283.15
     "Ground temperature.";
-  parameter Integer nStaRef = 2
+  parameter Integer nStaRef = 1
     "Number of state variables in a reference material of 0.2 m concrete";
-  parameter Buildings.HeatTransfer.Data.Solids.Generic soil_material(x=2, k=1.3, c=800, d=1500) annotation(Dialog(tab = "Materials", group="Soil"));
+  parameter Buildings.HeatTransfer.Data.Solids.Generic soil_material(x=2, k=1.3, c=800, d=1500, nSta = 1) annotation(Dialog(tab = "Materials", group="Soil"));
   parameter Real frame_fra = 0.1
     "Fraction of the windows surface occupied by the frame";
   parameter Modelica.SIunits.Emissivity abs_sol_iw = 0.84
