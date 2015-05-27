@@ -231,10 +231,12 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
-                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstanceTwoPort
        </td>
-       <td valign=\"top\">Corrected documenation.
+       <td valign=\"top\">Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.
+                          For this setting, the sensor output was for the wrong flow direction.
+                          This corrects
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
        </td>
    </tr>
    </table>
@@ -245,6 +247,12 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+       </td>
+       <td valign=\"top\">Corrected documentation.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>

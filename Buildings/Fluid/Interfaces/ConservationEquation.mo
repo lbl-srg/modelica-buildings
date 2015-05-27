@@ -273,6 +273,22 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+May 22, 2015 by Michael Wetter:<br/>
+Removed <pre>
+p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+then StateSelect.prefer else StateSelect.default)
+</pre>
+because the previous declaration led to the translation error
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.m_flow
+1 inlet.p
+</pre>
+when translating
+<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+with a dynamic energy balance.
+</li>
+<li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.
 </li>
@@ -327,22 +343,6 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.
-</li>
-<li>
-February 6, 2014 by Michael Wetter:<br/>
-Removed <pre>
-p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-then StateSelect.prefer else StateSelect.default)
-</pre>
-because the previous declaration led to the translation error
-<pre>
-The model requires derivatives of some inputs as listed below:
-1 inlet.m_flow
-1 inlet.p
-</pre>
-when translating
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed\">
-Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed</a>.
 </li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
