@@ -19,8 +19,8 @@ model NaturalVentilation
     redeclare package Medium = Medium,
     A=0.1,
     m=0.5,
-    dp_turbulent=0.1) annotation (Placement(transformation(extent={{20,-30},{40,
-            -10}})));
+    dp_turbulent=0.1)
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Airflow.Multizone.MediumColumn colOut(
     redeclare package Medium = Medium,
     h=3,
@@ -30,7 +30,8 @@ model NaturalVentilation
     redeclare package Medium = Medium,
     A=0.1,
     m=0.5,
-    dp_turbulent=0.1) annotation (Placement(transformation(extent={{23,40},{43,60}})));
+    dp_turbulent=0.1)
+    annotation (Placement(transformation(extent={{23,40},{43,60}})));
   Buildings.Airflow.Multizone.MediumColumn colRooTop(
     redeclare package Medium = Medium,
     h=3,
@@ -44,7 +45,7 @@ model NaturalVentilation
     T_start=273.15 + 20,
     nPorts=2,
     m_flow_nominal=0.001)
-              annotation (Placement(transformation(extent={{53,-20},{73,0}})));
+    annotation (Placement(transformation(extent={{53,-20},{73,0}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-49,-20},{-29,0}})));

@@ -1,8 +1,7 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
-    m=0.5,
-    k = CD * A * sqrt(2.0/rho_default));
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.5, k=CD*
+        A*sqrt(2.0/rho_default));
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 

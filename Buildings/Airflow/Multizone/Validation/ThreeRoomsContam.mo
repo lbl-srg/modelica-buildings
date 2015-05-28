@@ -12,8 +12,7 @@ model ThreeRoomsContam
     nPorts=5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{80,-20},
-            {100,0}})));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
@@ -33,7 +32,7 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
-  Fluid.Sources.FixedBoundary volOut(
+  Buildings.Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
@@ -79,17 +78,15 @@ model ThreeRoomsContam
     hA=3/2,
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
-                               annotation (Placement(transformation(extent={{-1,-55},
-            {19,-35}})));
-  Fluid.MixingVolumes.MixingVolume volWes(
+    annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
+  Buildings.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
     V=2.5*5*5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{-90,-30},
-            {-70,-10}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
         transformation(extent={{-40,-21},{-20,-1}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
@@ -116,8 +113,7 @@ model ThreeRoomsContam
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{-20,120},
-            {0,140}})));
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
   Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
     "Fixed temperature"

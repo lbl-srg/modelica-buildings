@@ -42,8 +42,10 @@ protected
   Modelica.SIunits.Mass mExcBA(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
 
-  Medium.MassFraction Xi_a1_inflow[Medium1.nXi] "Mass fraction of medium that flows in at port a1";
-  Medium.MassFraction Xi_a2_inflow[Medium2.nXi] "Mass fraction of medium that flows in at port a2";
+  Medium.MassFraction Xi_a1_inflow[Medium1.nXi]
+    "Mass fraction of medium that flows in at port a1";
+  Medium.MassFraction Xi_a2_inflow[Medium2.nXi]
+    "Mass fraction of medium that flows in at port a2";
 equation
   // enforcing error control on both direction rather than on the sum only
   // gives higher robustness. The reason may be that for bi-directional flow,
