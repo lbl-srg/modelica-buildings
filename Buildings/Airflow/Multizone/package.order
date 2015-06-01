@@ -1,5 +1,4 @@
 UsersGuide
-UsersGuide
 DoorDiscretizedOpen
 DoorDiscretizedOperable
 EffectiveAirLeakageArea
@@ -8,7 +7,6 @@ MediumColumnDynamic
 Orifice
 ZonalFlow_ACS
 ZonalFlow_m_flow
-Types
 Types
 Examples
 Validation
