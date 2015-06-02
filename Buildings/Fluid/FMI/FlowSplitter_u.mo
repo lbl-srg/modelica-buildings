@@ -49,7 +49,7 @@ initial equation
 equation
   for i in 1:nout loop
     assert(u[i] >= 0, "Control signal must be non-negative.");
-    // FIXME: Dymola 2015 FD01 (on Linux 64) does not automatically
+    // Dymola 2015 FD01 (on Linux 64) does not automatically
     // remove the conditional equation below. We thus have to manually check
     // if use_p_in is true before connecting the inlet and outlet pressures.
     if use_p_in then
@@ -68,10 +68,10 @@ equation
   // Conditional connector
   connect(bacPro_internal, inlet.backward);
   // Stop if mass is not conserved in the system
-  // fixme  assert(abs(inlet.m_flow-sum(outlet.m_flow)) > 1E-2 * mAve_flow_nominal,
-//    "Mass flow rate is not conserved.
-//  inlet.m_flow = " + String(inlet.m_flow) + "
-//  outlet.m_flow = " + String(sum(outlet.m_flow)));
+  assert(abs(inlet.m_flow-sum(outlet.m_flow)) > 1E-2 * mAve_flow_nominal,
+    "Mass flow rate is not conserved.
+  inlet.m_flow       = " + String(inlet.m_flow) + "
+  sum(outlet.m_flow) = " + String(sum(outlet.m_flow)));
 
   annotation(defaultComponentName="spl",
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
