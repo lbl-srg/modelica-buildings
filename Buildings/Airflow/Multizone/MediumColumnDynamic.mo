@@ -31,18 +31,18 @@ model MediumColumnDynamic
 
   // m_flow_nominal is not used by vol, since this component
   // can only be configured as a dynamic model.
-  Fluid.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     final nPorts=2,
     redeclare final package Medium = Medium,
-    final m_flow_nominal = m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     final V=V,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
-    final C_start=C_start) "Air volume in the shaft"             annotation (
-      Placement(transformation(
+    final C_start=C_start) "Air volume in the shaft" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,0})));
