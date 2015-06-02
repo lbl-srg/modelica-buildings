@@ -35,6 +35,8 @@ protected
   final parameter Modelica.SIunits.Area A[nTot](fixed=false) "Surface areas";
   final parameter Real kOpa[nOpa](unit="W/K4", fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
+  final parameter Real kOpaInv[nOpa](unit="K4/W", fixed=false)
+    "Inverse of kOpa, used to avoid having to use a safe division";
   final parameter Real F[nTot, nTot](
     min=0,
     max=1,
@@ -138,6 +140,9 @@ initial equation
       F[i, j] = A[j]/sum((A[k]) for k in 1:nTot);
     end for;
   end for;
+  for i in 1:nOpa loop
+    kOpaInv[i] = 1/kOpa[i];
+  end for;
   // Test whether the view factors add up to one, or the sum is zero in case there
   // is only one construction
   for i in 1:nTot loop
@@ -182,7 +187,7 @@ equation
   // avoid a singularity.
   for j in 1:nOpa loop
     //   T4Opa[j] = if (kOpa[j] > 1E-28) then (Q_flow[j]-epsOpa[j] * G[j])/kOpa[j] else T40;
-    T4Opa[j] = (-J[j] - rhoOpa[j]*G[j])/kOpa[j];
+    T4Opa[j] = (-J[j] - rhoOpa[j]*G[j])*kOpaInv[j];
   end for;
   // 4th power of temperature
   if linearizeRadiation then
@@ -364,6 +369,12 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

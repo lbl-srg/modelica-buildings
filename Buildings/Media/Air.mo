@@ -967,7 +967,7 @@ Removed
 <code>p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)</code>
 in declaration of <code>BaseProperties</code>.
 Otherwise, when models that contain a fluid volume
-are exported as an FMU, their pressure would be 
+are exported as an FMU, their pressure would be
 differentiated with respect to time. This would require
 the time derivative of the inlet pressure, which is not available,
 causing the translation to stop with an error.

@@ -27,7 +27,11 @@ model PowerLawFixedM "Test model for power law function"
 
 equation
   dp = 10*(-1+2*time);
-  V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLaw(dp=dp, k=k, m=m, dp_turbulent=dp_turbulent);
+  V_flow = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
+    dp=dp,
+    k=k,
+    m=m,
+    dp_turbulent=dp_turbulent);
   VFixed_flow = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
     k=k,
     dp=dp,

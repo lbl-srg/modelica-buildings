@@ -11,13 +11,13 @@ model ReverseBuoyancy
     T_start=273.15 + 25,
     nPorts=5,
     m_flow_nominal=0.001) "Volume of bottom floor, east room"
-              annotation (Placement(transformation(extent={{-34,-30},{-14,-10}})));
+    annotation (Placement(transformation(extent={{-34,-30},{-14,-10}})));
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     m=0.5,
     A=0.01,
-    dp_turbulent=0.1) annotation (Placement(transformation(extent={{38,-86},{58,
-            -66}})));
+    dp_turbulent=0.1)
+    annotation (Placement(transformation(extent={{38,-86},{58,-66}})));
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
@@ -27,8 +27,8 @@ model ReverseBuoyancy
     redeclare package Medium = Medium,
     m=0.5,
     A=0.01,
-    dp_turbulent=0.1) annotation (Placement(transformation(extent={{37,-10},{57,
-            10}})));
+    dp_turbulent=0.1)
+    annotation (Placement(transformation(extent={{37,-10},{57,10}})));
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
@@ -73,9 +73,9 @@ model ReverseBuoyancy
     CDClo=0.78,
     nCom=10,
     vZer=0.01,
-    dp_turbulent=0.1) "Discretized door" annotation (Placement(transformation(
-          extent={{-61,-55},{-41,-35}})));
-  Buildings.Fluid.Delays.DelayFirstOrder volBotWes(
+    dp_turbulent=0.1) "Discretized door"
+    annotation (Placement(transformation(extent={{-61,-55},{-41,-35}})));
+  Fluid.Delays.DelayFirstOrder volBotWes(
     redeclare package Medium = Medium,
     m_flow_nominal=1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -84,7 +84,7 @@ model ReverseBuoyancy
     T_start=273.15 + 22,
     nPorts=3,
     p_start=101325) "Volume of bottom floor, west room"
-              annotation (Placement(transformation(extent={{-161,-29},{-141,-9}})));
+    annotation (Placement(transformation(extent={{-161,-29},{-141,-9}})));
   Modelica.Blocks.Sources.Constant ope(k=1) annotation (Placement(
         transformation(extent={{-102,-23},{-82,-3}})));
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
@@ -113,7 +113,7 @@ model ReverseBuoyancy
     T_start=273.15 + 21,
     nPorts=3,
     m_flow_nominal=0.001) "Volume of top floor, east room"
-              annotation (Placement(transformation(extent={{-30,121},{-10,141}})));
+    annotation (Placement(transformation(extent={{-30,121},{-10,141}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volTopWes(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -122,7 +122,7 @@ model ReverseBuoyancy
     V=2.5*5*10,
     nPorts=3,
     m_flow_nominal=0.001) "Volume of top floor, west room"
-              annotation (Placement(transformation(extent={{-110,120},{-90,140}})));
+    annotation (Placement(transformation(extent={{-110,120},{-90,140}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeCloTop(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
@@ -134,9 +134,9 @@ model ReverseBuoyancy
     CDClo=0.78,
     nCom=10,
     vZer=0.01,
-    dp_turbulent=0.1) "Discretized door" annotation (Placement(transformation(
-          extent={{-63,80},{-43,100}})));
-  Fluid.Sources.FixedBoundary volOut(
+    dp_turbulent=0.1) "Discretized door"
+    annotation (Placement(transformation(extent={{-63,80},{-43,100}})));
+  Buildings.Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     p=100000,
     T=283.15,

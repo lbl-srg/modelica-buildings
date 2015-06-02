@@ -43,14 +43,20 @@ and if it is used as a steady-state model.
 Use the following settings:
 </p>
 <ul>
-<li>Set <code>prescribedHeatFlowRate=true</code> if there is a model connected to <code>heatPort</code>
-that computes the heat flow rate <i>not</i> as a function of the temperature difference
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
 between the medium and an ambient temperature. Examples include an ideal electrical heater,
 a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
 </li>
-<li>Set <code>prescribedHeatFlowRate=true</code> if the only means of heat flow at the <code>heatPort</code>
-is computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
-which may itself be a function of temperature or mass flow rate.
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 </li>
 </ul>
 <h4>Options</h4>
