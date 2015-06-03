@@ -26,13 +26,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     X(start=X_start),
     d(start=rho_nominal)) "Medium properties";
 
-// fixme: This should be corrected in the Annex60 repository.
-//        I think this statement should only be done in the Medium package, but
-//        not in this package. The change is needed for p so that FMI.Examples.HeaterCoolerPrescribed succeeds.
-//             stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-//             then StateSelect.prefer else StateSelect.default),
-
-
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
@@ -350,22 +343,6 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.
-</li>
-<li>
-February 6, 2014 by Michael Wetter:<br/>
-Removed <pre>
-p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-then StateSelect.prefer else StateSelect.default)
-</pre>
-because the previous declaration led to the translation error
-<pre>
-The model requires derivatives of some inputs as listed below:
-1 inlet.m_flow
-1 inlet.p
-</pre>
-when translating
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed\">
-Buildings.Fluid.FMI.Examples.HeaterCoolerPrescribed</a>.
 </li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
