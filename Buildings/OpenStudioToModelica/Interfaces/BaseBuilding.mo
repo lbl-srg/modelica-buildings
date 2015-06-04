@@ -4,7 +4,8 @@ partial model BaseBuilding "Building model that contains all the parameters and 
   extends Buildings.BaseClasses.BaseIconBuilding;
 
   // FLUID AND AIR
-  package MediumAir = Buildings.Media.Air "Medium air model";
+  package MediumAir = Buildings.Media.Specialized.Air.PerfectGas
+    "Medium air model";
 
   // WEATHER BUS
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"  annotation (Placement(
