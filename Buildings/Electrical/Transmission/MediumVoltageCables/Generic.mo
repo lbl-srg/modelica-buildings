@@ -5,7 +5,7 @@ record Generic "Data record for a generic medium voltage cable"
   parameter String size(start="")
     "AWG or kcmil code representing the conductor size";
   parameter Buildings.Electrical.Types.CharacteristicResistance Rdc(start=0)
-    "Characteristic DC resistance of the cable @ Tref";
+    "Characteristic DC resistance of the cable @ T_ref";
   parameter Modelica.SIunits.Length d "Inner diameter";
   parameter Modelica.SIunits.Length D "Outer diameter";
   parameter Modelica.SIunits.Length GMR "Geometrical Mean Radius of the cable";
@@ -129,14 +129,14 @@ For medium voltage cables, the geometric properties of the cable and the materia
 specified. For example some of the properties that are specified are:
 </p>
 <pre>
-Rdc  : Characteristic DC resistance at T = Tref[Ohm/m]
-Tref : Reference temperature of the material [K]
-d    : Inner diameter [m]
-D    : Outer diameter [m]
-Amp  : Ampacity [A]
+Rdc   : Characteristic DC resistance at T = T_ref[Ohm/m]
+T_ref : Reference temperature of the material [K]
+d     : Inner diameter [m]
+D     : Outer diameter [m]
+Amp   : Ampacity [A]
 </pre>
 <p>
-other properties such as the geometric mean diameter GMD and the 
+other properties such as the geometric mean diameter GMD and the
 geometric mean radius GMR are by default computed using functions,
 but this can be overriden.
 </p>

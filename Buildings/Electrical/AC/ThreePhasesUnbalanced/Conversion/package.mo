@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced;
-package Conversion "Package with converter and transformer models for three phases 
+package Conversion "Package with converter and transformer models for three-phase
   unbalanced AC systems"
   extends Modelica.Icons.Package;
 

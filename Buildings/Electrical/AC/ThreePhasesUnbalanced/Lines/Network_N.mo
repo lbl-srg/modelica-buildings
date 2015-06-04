@@ -3,7 +3,7 @@ model Network_N "Three phases unbalanced AC network with neutral cable"
   extends Transmission.BaseClasses.PartialNetwork(
     redeclare
       Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal4_p terminal,
-    redeclare Transmission.Grids.TestGrid2Nodes grid,
+    redeclare replaceable Transmission.Grids.TestGrid2Nodes grid,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Line_N lines(
         commercialCable=grid.cables));
     Modelica.SIunits.Voltage VAbs[3,grid.nNodes]
@@ -24,13 +24,18 @@ equation
  Documentation(revisions="<html>
 <ul>
 <li>
+March 30, 2015, by Michael Wetter:<br/>
+Made <code>term</code> replaceable. This was detected
+by the OpenModelica regression tests.
+</li>
+<li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model represents a generalized electrical AC three phases unbalanced network
+This model represents a generalized electrical AC three-phase unbalanced network
 with neutral cable.
 </p>
 <p>

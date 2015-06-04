@@ -5,7 +5,7 @@ record Annealed_Al_350 "Annealed Al cable - kcmil 350"
     M = 228.1 + 273.15,
     size="350",
     Rdc=0.165682e-3,
-    Tref=298.15,
+    T_ref=298.15,
     d=16.789e-3,
     D=34.417e-3,
     GMR=Buildings.Electrical.Transmission.Functions.computeGMR(d),
@@ -18,8 +18,8 @@ Annealed aluminium cable with a cross-sectional kcmil 350
 This type of cable has the following properties
 </p>
 <pre>
-Rdc  = 0.165682e-3 // Characteristic DC resistance at T = Tref[Ohm/m]
-Tref = 298.15      // Reference temperature of the material [K]
+Rdc  = 0.165682e-3 // Characteristic DC resistance at T = T_ref[Ohm/m]
+T_ref= 298.15      // Reference temperature of the material [K]
 d    = 16.789e-3   // Inner diameter [m]
 D    = 34.417e-3   // Outer diameter [m]
 Amp  = 375         // Ampacity [A]

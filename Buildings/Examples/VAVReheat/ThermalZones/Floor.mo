@@ -423,7 +423,6 @@ equation
   connect(sou.weaBus, weaBus) annotation (Line(
       points={{181.9,-6.1},{181.9,8},{210,8},{210,200}},
       color={255,204,51},
-      pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None), Text(
       string="%second",
@@ -432,25 +431,21 @@ equation
   connect(eas.weaBus, weaBus) annotation (Line(
       points={{341.9,93.9},{341.9,120},{210,120},{210,200}},
       color={255,204,51},
-      pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
   connect(nor.weaBus, weaBus) annotation (Line(
       points={{181.9,153.9},{182,160},{182,168},{210,168},{210,200}},
       color={255,204,51},
-      pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
   connect(wes.weaBus, weaBus) annotation (Line(
       points={{49.9,73.9},{49.9,168},{210,168},{210,200}},
       color={255,204,51},
-      pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.weaBus, weaBus) annotation (Line(
       points={{181.9,73.9},{181.9,90},{210,90},{210,200}},
       color={255,204,51},
-      pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, leaSou.weaBus) annotation (Line(

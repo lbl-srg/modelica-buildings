@@ -12,7 +12,7 @@ model ACACTransformer
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage sou(
     definiteReference=true,
     f=60,
-    V=480) "Voulate source"
+    V=480) "Voltage source"
       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,50})));
@@ -89,8 +89,7 @@ The example shows three different configurations:
 <li>without a load connected, and</li>
 <li>with a short circuit connection.</li>
 </ul>
-</html>
-",    revisions="<html>
+</html>",    revisions="<html>
 <ul>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>

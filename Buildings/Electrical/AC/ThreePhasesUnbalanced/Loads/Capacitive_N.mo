@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Capacitive_N
-  "Model of a three phases unbalanced capacitive load with neutral cable"
+  "Model of a three-phase unbalanced capacitive load with neutral cable"
   extends BaseClasses.LoadCtrl_N(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Capacitive load1(pf=pf,
         use_pf_in=use_pf_in),
@@ -191,8 +191,8 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a three phases unbalanced capacitive load.
-The model extends from 
+This model represents a three-phase unbalanced capacitive load.
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a>
 and uses the load model from the package
@@ -207,7 +207,7 @@ of the loads.
 </p>
 <p>
 For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl_N</a> and
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
 Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a>.
 </p>

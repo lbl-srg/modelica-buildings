@@ -10,7 +10,7 @@ This package contains models for direct evaporation cooling coils
 <p>
 The following three DX coil models are available:
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>DX coil model</th>
       <th>Properties</th>

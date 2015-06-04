@@ -131,7 +131,6 @@ equation
           lineColor={0,0,0}),
         Line(
           points={{-100,80},{-80,80},{-80,-44},{-6,-44}},
-          pattern=LinePattern.None,
           smooth=Smooth.None),
         Text(
           extent={{-140,138},{-94,100}},
@@ -178,7 +177,7 @@ where
 <p>
 The following polynomials can be selected to compute the efficiency:
 </p>
-<table summary=\"summary\"  border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\"  border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Parameter <code>effCur</code></th>
 <th>Efficiency curve</th>

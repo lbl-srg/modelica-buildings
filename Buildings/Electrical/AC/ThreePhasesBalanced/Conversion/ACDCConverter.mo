@@ -7,7 +7,7 @@ model ACDCConverter "AC DC converter"
 defaultComponentName="conACDC",
 Documentation(info="<html>
 <p>
-This model represents a simplified conversion between a three phases
+This model represents a simplified conversion between a three-phase
 balanced AC system and a DC systems.
 </p>
 <p>

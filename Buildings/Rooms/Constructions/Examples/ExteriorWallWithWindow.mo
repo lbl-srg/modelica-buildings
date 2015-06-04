@@ -183,7 +183,6 @@ equation
   connect(conExt.JInUns_a, bouConExt.JOutUns) annotation (Line(
       points={{61,2},{66,2},{66,4.66667},{93.3333,4.66667}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.JOutUns_a, bouConExt.JInUns) annotation (Line(
       points={{61,-2},{68,-2},{68,7.33333},{93.3333,7.33333}},
@@ -200,7 +199,6 @@ equation
   connect(conExt.JInSha_a, bouConExt.JOutSha) annotation (Line(
       points={{61,-16},{74,-16},{74,-7.33333},{93.3333,-7.33333}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.JOutSha_a, bouConExt.JInSha) annotation (Line(
       points={{61,-20},{76,-20},{76,-4.66667},{93.3333,-4.66667}},
@@ -225,7 +223,6 @@ equation
   connect(intShaRad.JIn_glass, conExt.JOutSha_b) annotation (Line(
       points={{-19,-58},{-10,-58},{-10,-16},{-1,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.glaUns_b, intShaCon.glaUns) annotation (Line(
       points={{0,-8},{-8,-8},{-8,-128},{-20,-128}},
@@ -270,7 +267,6 @@ equation
   connect(indRad.JIn, sumJ[1].y) annotation (Line(
       points={{-101,-94},{-96,-94},{-96,-70},{-93,-70}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.fra_b, intShaCon.frame) annotation (Line(
       points={{-0.2,-26},{-4,-26},{-4,-146},{-22,-146},{-22,-140},{-23,-140}},

@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
 model Resistive
-  "Model of a three phases unbalanced resistive load without neutral cable"
+  "Model of a three-phase unbalanced resistive load without neutral cable"
   extends BaseClasses.LoadCtrl(
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load1,
     redeclare Buildings.Electrical.AC.OnePhase.Loads.Resistive load2,
@@ -92,8 +92,8 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a three phases unbalanced resistive load.
-The model extends from 
+This model represents a three-phase unbalanced resistive load.
+The model extends from
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a>
 and uses the load model from the package
@@ -103,7 +103,7 @@ The model computes the voltages, currents and powers on each phase.
 </p>
 <p>
 For more information, see <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.LoadCtrl</a> and
 <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
 Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>.
 </p>

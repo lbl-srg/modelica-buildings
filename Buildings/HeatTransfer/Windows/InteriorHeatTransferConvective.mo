@@ -147,7 +147,5 @@ First implementation.
         Text(
           extent={{-28,-84},{34,-100}},
           lineColor={0,0,127},
-          textString="TSha")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+          textString="TSha")}));
 end InteriorHeatTransferConvective;

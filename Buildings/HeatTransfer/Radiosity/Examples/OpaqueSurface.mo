@@ -19,7 +19,6 @@ equation
   connect(T1.port, bod1.heatPort) annotation (Line(
       points={{-60,-10},{-49.2,-10},{-49.2,20.2}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(T2.port, bod2.heatPort) annotation (Line(
       points={{40,-10},{49.2,-10},{49.2,20.2}},

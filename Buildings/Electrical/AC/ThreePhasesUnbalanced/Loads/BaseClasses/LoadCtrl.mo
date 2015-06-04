@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model LoadCtrl
-  "Partial model of a three phases load with voltage controller without neutral cable"
+  "Partial model of a three-phase load with voltage controller without neutral cable"
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
-    "Connector for three phases unbalanced systems without neutral cable"
+    "Connector for three-phase unbalanced systems without neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
 
@@ -18,7 +18,7 @@ equation
       smooth=Smooth.None));
   annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC unbalanced
+This model represents a partial interface for a three-phase AC unbalanced
 load without neutral cable.
 </p>
 <p>
@@ -50,6 +50,5 @@ August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+</html>"));
 end LoadCtrl;

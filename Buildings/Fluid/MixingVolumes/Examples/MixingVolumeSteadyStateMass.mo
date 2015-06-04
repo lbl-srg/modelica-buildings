@@ -64,8 +64,8 @@ equation
   annotation (Documentation(
         info="<html>
 <p>
-This model shows that steady state mass dynamics are correctly simulated. 
-A change in pressure does not lead to an exchange and/or creation of mass. 
+This model shows that steady state mass dynamics are correctly simulated.
+A change in pressure does not lead to an exchange and/or creation of mass.
 The mixing volume temperature is also unaffected by a pressure change.
 </p>
 </html>", revisions="<html>
@@ -79,6 +79,5 @@ First implementation.
 experiment(StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos"
-        "Simulate and plot"),
-    Diagram(graphics));
+        "Simulate and plot"));
 end MixingVolumeSteadyStateMass;

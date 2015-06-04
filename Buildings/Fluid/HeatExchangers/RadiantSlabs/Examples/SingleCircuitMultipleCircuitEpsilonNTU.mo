@@ -128,32 +128,26 @@ equation
   connect(sla1.surf_a, conAbo1.port_a)    annotation (Line(
       points={{6.66134e-16,30},{0,30},{0,120},{-20,120}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TAbo.port, conAbo1.port_b) annotation (Line(
       points={{-60,120},{-40,120}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TAbo.port, conAbo2.port_b) annotation (Line(
       points={{-60,120},{-52,120},{-52,90},{-40,90}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conAbo2.port_a, sla2.surf_a)    annotation (Line(
       points={{-20,90},{24,90},{24,-10}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TBel.port, conBel2.port_a) annotation (Line(
       points={{-60,-80},{-50,-80},{-50,-110},{-40,-110}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TBel.port, conBel3.port_a) annotation (Line(
       points={{-60,-80},{-50,-80},{-50,-140},{-40,-140}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TAbo.port, conAbo3.port_b) annotation (Line(
       points={{-60,120},{-52,120},{-52,60},{-40,60}},

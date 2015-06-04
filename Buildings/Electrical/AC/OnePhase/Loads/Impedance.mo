@@ -1,8 +1,8 @@
 within Buildings.Electrical.AC.OnePhase.Loads;
 model Impedance "Model of a generic impedance"
   extends Buildings.Electrical.Interfaces.Impedance(
-    redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal);
+    redeclare replaceable package PhaseSystem = PhaseSystems.OnePhase,
+    redeclare replaceable Interfaces.Terminal_n terminal);
 protected
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
@@ -63,6 +63,11 @@ Buildings.Electrical.Interfaces.Impedance</a> for more details.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2015, by Michael Wetter:<br/>
+Made <code>PhaseSystem</code> and <code>terminal</code> replaceable. This was detected
+by the OpenModelica regression tests.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.
 </li>

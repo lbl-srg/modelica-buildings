@@ -4,12 +4,11 @@ model UnbalancedWindTurbine_N
   extends
     Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine;
   Interfaces.Terminal4_p terminal
-    "Connector for three phases unbalanced systems with neutral cable"
+    "Connector for three-phase unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Interfaces.Connection3to4_p conn3to4 "Connection between 3 to 4 wire"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,0})));
 equation
 
@@ -108,7 +107,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-This model is a class extended by three phases unbalanced
+This model is a class extended by three-phase unbalanced
 wind turbine power sources with neutral cable connection.
 </p>
 <p>
@@ -126,7 +125,5 @@ August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end UnbalancedWindTurbine_N;

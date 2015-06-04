@@ -132,14 +132,12 @@ Revised documentation and model.
 </ul>
 </html>", info="<html>
 <p>
-This model represents an AC three phases unbalanced cable with
+This model represents an AC three-phase unbalanced cable with
 neutral connection. The model is based on
 <a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>
 using either commercial cables or default values.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end Line_N;

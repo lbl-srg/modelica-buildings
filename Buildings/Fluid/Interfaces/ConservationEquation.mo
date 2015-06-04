@@ -17,9 +17,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start,
-      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-                     then StateSelect.prefer else StateSelect.default),
+    p(start=p_start),
     h(start=hStart),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi],
@@ -61,7 +59,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
                                              start=hStart)
-    "Leaving enthalpy of the component"
+    "Leaving specific enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
@@ -275,8 +273,28 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+May 22, 2015 by Michael Wetter:<br/>
+Removed <pre>
+p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+then StateSelect.prefer else StateSelect.default)
+</pre>
+because the previous declaration led to the translation error
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.m_flow
+1 inlet.p
+</pre>
+when translating
+<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+with a dynamic energy balance.
+</li>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Corrected documentation.
+</li>
+<li>
 February 16, 2015, by Filip Jorissen:<br/>
-Fixed SteadyState massDynamics implementation for compressible media. 
+Fixed SteadyState massDynamics implementation for compressible media.
 Mass <code>m</code> is now constant.
 </li>
 <li>

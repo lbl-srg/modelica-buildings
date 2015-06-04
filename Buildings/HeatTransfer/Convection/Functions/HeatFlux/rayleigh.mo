@@ -13,9 +13,10 @@ function rayleigh "Rayleigh number with smooth transition to lower limit"
 protected
  Modelica.SIunits.TemperatureDifference dT "Temperature difference";
 algorithm
-  dT :=abs(T_a - T_b);
-  Ra := rho^2*x^3*Modelica.Constants.g_n*c_p*dT/((T_a+T_b)/2*mu*k);
-  Ra := Buildings.Utilities.Math.Functions.smoothMax(x1=Ra, x2=Ra_min, deltaX=Ra_min/10);
+  Ra := Buildings.Utilities.Math.Functions.smoothMax(
+    x1=rho^2*x^3*Modelica.Constants.g_n*c_p*abs(T_a - T_b)/((T_a+T_b)/2*mu*k),
+    x2=Ra_min,
+    deltaX=Ra_min/10);
 annotation (smoothOrder=1,
 Documentation(info="<html>
 This function returns the Rayleigh number.
@@ -27,6 +28,12 @@ has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
 <li>
 July 2, 2013, by Michael Wetter:<br/>
 Renamed function from <code>raleigh</code> to <code>rayleigh</code>.

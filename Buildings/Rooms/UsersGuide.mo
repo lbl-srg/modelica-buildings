@@ -611,7 +611,7 @@ of the Modelica model.
 </li>
 </ul>
 A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
-<-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <h4>Conventions</h4>
 <p>
 The following conventions are made:
@@ -666,7 +666,7 @@ For the surface heat flow rates,
 we exchange <i>Q<sub>e</sub> = 1 &frasl; &Delta; t &int;<sub>&Delta; t</sub> Q(s) dt</i>.
 </li>
 </ul>
-<-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <h4>Implementation</h4>
 <p>
 This section explains how the data exchange between Modelica and CFD is
@@ -679,7 +679,7 @@ The section is only of interest to developers. Users may skip this section.
 Interfacing CFD with the Modelica room air heat and mass balance is done
 in the model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD\">
-Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD</a>
+Buildings.Rooms.BaseClasses.AirHeatMassBalanceCFD</a>.
 To interface variables from Modelica and CFD, the following classes and
 conventions are used in this model.
 </p>

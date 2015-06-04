@@ -117,7 +117,7 @@ equation
           smooth=Smooth.None)}),
           Documentation(info="<html>
 <p>
-Model of a three phases balanced impedance.
+Model of a three-phase balanced impedance.
 </p>
 <p>
 If <code>inductive=true</code>, then the

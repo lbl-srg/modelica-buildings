@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLine
-  "Test model for a three phases unbalanced commercial cable without neutral"
+  "Test model for a three-phase unbalanced commercial cable without neutral"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage E(
     definiteReference=true,

@@ -133,7 +133,6 @@ equation
   connect(JInUns_a, win.JInUns_a) annotation (Line(
       points={{-310,20},{-200,20},{-200,-3.2},{-119.65,-3.2}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(JOutUns_a, win.JOutUns_a) annotation (Line(
       points={{-310,-20},{-220,-20},{-220,-25.8},{-119.65,-25.8}},
@@ -150,7 +149,6 @@ equation
   connect(win.JInSha_a, JInSha_a) annotation (Line(
       points={{-119.65,-104.9},{-162,-104.9},{-162,-160},{-310,-160}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(win.JOutSha_a, JOutSha_a) annotation (Line(
       points={{-119.65,-127.5},{-139.375,-127.5},{-139.375,-200},{-310,-200}},
@@ -167,7 +165,6 @@ equation
   connect(win.JInUns_b, JInUns_b) annotation (Line(
       points={{117.65,-25.8},{233.375,-25.8},{233.375,-20},{310,-20}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(win.glaUns_b, glaUns_b) annotation (Line(
       points={{112,-59.7},{239,-59.7},{239,-80},{300,-80}},
@@ -184,7 +181,6 @@ equation
   connect(win.JInSha_b, JInSha_b) annotation (Line(
       points={{117.65,-127.5},{178.375,-127.5},{178.375,-200},{310,-200}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(win.fra_b, fra_b) annotation (Line(
       points={{113.13,-161.4},{159.675,-161.4},{159.675,-260},{302,-260}},

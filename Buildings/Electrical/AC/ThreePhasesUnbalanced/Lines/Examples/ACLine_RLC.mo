@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
-model ACLine_RLC "Test model for a three phases unbalanced RLC line"
+model ACLine_RLC "Test model for a three-phase unbalanced RLC line"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Resistance RBase = 3*10
     "Base value for the line resistance";
@@ -102,8 +102,7 @@ equation
       points={{-40,-70},{-20,-70},{-20,-60},{0,-60}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),graphics),
-  experiment(StopTime=1.0,Tolerance=1e-06),
+  annotation (  experiment(StopTime=1.0,Tolerance=1e-06),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLine_RLC.mos"
         "Simulate and plot"),
@@ -115,19 +114,19 @@ a source to a load.
 <p>
 The model has four different loads. The loads <code>sc_load</code>,
 <code>sc_load1</code>, <code>sc_load2</code>, <code>sc_load3</code> represent
-short circuits <i>R=0</i>. The current that flows through the load depends 
+short circuits <i>R=0</i>. The current that flows through the load depends
 on the resistance, inductance and capacitance of the line.
 </p>
 <p>
-The parameter <i>R</i>, <i>L</i> and <i>C</i> are such that at the nominal 
+The parameter <i>R</i>, <i>L</i> and <i>C</i> are such that at the nominal
 frequency <i>f<sub>nom</sub> = 60 Hz</i> the respective resistance and
 reactances are all equal to 10 &Omega;.
 </p>
 <p>
-The lines used in this example have a T model (see 
+The lines used in this example have a T model (see
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>). 
-The equivalent impedance of the line on each phase is equal to 
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>).
+The equivalent impedance of the line on each phase is equal to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Z<sub>EQ</sub> = R/2 +jX<sub>L</sub>/2 + (R/2 +jX<sub>L</sub>/2)(-jX<sub>C</sub>)/
@@ -138,7 +137,7 @@ that in this case is equal to <i>Z<sub>EQ</sub> = 15 + j5 </i> &Omega;.
 </p>
 <p>
 Given the equivalent impedance of each phase, and a voltage
-with an RMS value of 100 V produces a current equal to 
+with an RMS value of 100 V produces a current equal to
 <i>I = 6 - j2 </i> A flowing through phase 1.
 </p>
 <h4>Notes</h4>
@@ -150,7 +149,7 @@ dynamic phasors.
 
 <p>
 <b>(2) Note:</b>
-The line model <code>RLCLine_2a</code> has a current that is different 
+The line model <code>RLCLine_2a</code> has a current that is different
 from the one passing in <code>RLCLine_1</code> because the series of two T
 line models is different from the sum of the two separate line models.
 </p>

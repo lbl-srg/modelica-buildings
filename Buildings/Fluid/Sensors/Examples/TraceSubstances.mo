@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors.Examples;
 model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.Air (                      extraPropertiesNames={"CO2"})
+ package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600
@@ -37,9 +37,8 @@ model TraceSubstances "Test model for the extra property sensor"
     nPorts=1) "Fresh air supply"
     annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
   Sources.FixedBoundary mSin(
-    redeclare package Medium = Medium,
-    nPorts=1) "Exhaust air"
-    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
+    redeclare package Medium = Medium, nPorts=1) "Exhaust air"
+    annotation (Placement(transformation(extent={{-42,-62},{-22,-42}})));
   Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
@@ -53,14 +52,18 @@ model TraceSubstances "Test model for the extra property sensor"
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
-
-
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     dp_nominal=10,
     m_flow_nominal=0.005,
     linearized=true)
     annotation (Placement(transformation(extent={{60,-62},{80,-42}})));
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubNoFlorRev(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=false,
+    tau=0) "Sensor at exhaust air, configured to not allow flow reversal"
+    annotation (Placement(transformation(extent={{18,-62},{-2,-42}})));
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -74,10 +77,6 @@ equation
   connect(step.y, sou.m_flow_in) annotation (Line(
       points={{-59,40},{-4.1,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(mSin.ports[1], senTraSub.port_b) annotation (Line(
-      points={{20,-52},{30,-52}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], vol.ports[1]) annotation (Line(
       points={{18,38},{81,38},{81,50}},
@@ -97,6 +96,14 @@ equation
       smooth=Smooth.None));
   connect(senVol.port, vol.ports[4]) annotation (Line(
       points={{110,50},{110,40},{87,40},{87,50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTraSubNoFlorRev.port_a, senTraSub.port_b) annotation (Line(
+      points={{18,-52},{30,-52}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTraSubNoFlorRev.port_b, mSin.ports[1]) annotation (Line(
+      points={{-2,-52},{-22,-52}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (
@@ -119,6 +126,11 @@ to the outside air concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 22, 2015, by Michael Wetter:<br/>
+Updated example to test the correction for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
+</li>
 <li>
 May 8, 2014, by Michael Wetter:<br/>
 Added a pressure drop element, as otherwise the initialization problem

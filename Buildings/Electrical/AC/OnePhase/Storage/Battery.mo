@@ -12,7 +12,7 @@ model Battery "Simple model of a battery"
   parameter Real SOC_start(start=0.1) "Initial charge";
   parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
     "Maximum available charge";
-  parameter Modelica.SIunits.Voltage V_nominal(start = 120)
+  parameter Modelica.SIunits.Voltage V_nominal(start = 110)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean linearized=false
     "If =true introduce a linearization in the load";
@@ -105,8 +105,7 @@ equation
       smooth=Smooth.None));
   annotation (
 defaultComponentName="bat",
-Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),            graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Polygon(
@@ -172,7 +171,7 @@ Simple model of a battery.
 <p>
 This model takes as an input the power to be stored in the battery (if <i>P &gt; 0</i>)
 or to be extracted from the battery. This model has a one phase AC connector
-and takes into account the efficiency of the conversion 
+and takes into account the efficiency of the conversion
 between DC and AC <i>&eta;<sub>DCAC</sub></i>.
 </p>
 <p>
@@ -190,7 +189,7 @@ and that the state of charge remains between zero and one.
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Corrected problem, the losses due to AC/DC conversion have to
-affect both during the charge and the discharge. The input P is the 
+affect both during the charge and the discharge. The input P is the
 power that is taken, due to conversions the actual power drain
 from the battery is higher.
 </li>

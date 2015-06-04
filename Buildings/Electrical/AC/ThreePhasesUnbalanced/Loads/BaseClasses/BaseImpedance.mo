@@ -1,11 +1,9 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model BaseImpedance
-  "Partial model of a three phases unbalanced impedance"
+  "Partial model of a three-phase unbalanced impedance"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load1(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -23,8 +21,6 @@ partial model BaseImpedance
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load2(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -42,8 +38,6 @@ partial model BaseImpedance
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
     load3(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     inductive=inductive,
     R=R,
     L=L,
@@ -221,7 +215,7 @@ equation
 
   annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC
+This model represents a partial interface for a three-phase AC
 unbalanced impedance.
 </p>
 <p>

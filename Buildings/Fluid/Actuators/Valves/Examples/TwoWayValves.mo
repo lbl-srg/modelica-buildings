@@ -57,16 +57,13 @@ model TwoWayValves "Two way valves with different opening characteristics"
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-39,80},{-12,80},{10,80},{10,72}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(y.y, valQui.y) annotation (Line(
       points={{-39,80},{-12,80},{-12,40},{10,40},{10,32}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(y.y, valEqu.y) annotation (Line(
       points={{-39,80},{-12,80},{-12,0},{10,0},{10,-8}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
       points={{-50,3},{-27,3},{-27,60},{0,60}},
       color={0,127,255},
@@ -134,7 +131,5 @@ June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end TwoWayValves;

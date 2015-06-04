@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLineMatrix_RLC_N
-  "Test model for a three phases unbalanced RLC line with neutral cable specified by Z and B matrices"
+  "Test model for a three-phase unbalanced RLC line with neutral cable specified by Z and B matrices"
   extends Modelica.Icons.Example;
   Sources.FixedVoltage_N E(
     definiteReference=true,
@@ -90,7 +90,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ACLineMatrix_RLC_N;

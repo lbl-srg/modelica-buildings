@@ -57,7 +57,6 @@ equation
   connect(con.port_b,TB. port) annotation (Line(
       points={{40,30},{60,30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(step.y,TA. T) annotation (Line(
       points={{-79,30},{-62,30}},

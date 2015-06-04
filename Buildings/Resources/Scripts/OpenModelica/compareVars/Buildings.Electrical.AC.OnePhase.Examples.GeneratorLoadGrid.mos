@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "grid.P.real",
+    "grid.P.apparent"
+  };

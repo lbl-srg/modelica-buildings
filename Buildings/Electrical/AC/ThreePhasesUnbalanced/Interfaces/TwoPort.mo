@@ -20,7 +20,7 @@ Added model and documentation.
 </ul>
 </html>", info="<html>
 <p>
-Interface model for an AC three phases unbalanced component with two ports
+Interface model for an AC three-phase unbalanced component with two ports
 and without neutral cable.
 </p>
 </html>"));

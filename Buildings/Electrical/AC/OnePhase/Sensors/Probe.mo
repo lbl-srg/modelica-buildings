@@ -1,10 +1,10 @@
 within Buildings.Electrical.AC.OnePhase.Sensors;
 model Probe "Model of a probe that measures RMS voltage and angle"
   extends Icons.GeneralizedProbe;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
     "Nominal voltage (V_nominal >= 0)";
   parameter Boolean perUnit = true "If true, display voltage in p.u.";
-  Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
+  replaceable Interfaces.Terminal_n term "Electrical connector" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -51,6 +51,11 @@ Optionally, given a reference voltage, the model can compute the voltage in per 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2015, by Michael Wetter:<br/>
+Made <code>term</code> replaceable. This was detected
+by the OpenModelica regression tests.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised model.
 </li>

@@ -8,7 +8,7 @@ model ACACTransformerFull
 defaultComponentName="traACAC",
 Documentation(info="<html>
 <p>
-Model of a transformer for three phases
+Model of a transformer for three-phase
 balanced AC systems. The model includes core and magnetic losses.
 </p>
 <p>

@@ -4,23 +4,25 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
 
   Sources.Grid grid(
     f=60,
-    V=220,
-    Phi=0.5235987755983)
+    V=120,
+    phiSou=0.5235987755983) "Electrical grid"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Sources.Generator                sou(f=60, Phi=0.17453292519943)
-    "Gas turbine"   annotation (Placement(transformation(
+  Sources.Generator sou(f=60, phiGen(displayUnit="rad")) "Gas turbine"
+                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={-30,-10})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive res(
-    P_nominal=5e3,
     mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
-    V_nominal=220) "Resistance" annotation (Placement(transformation(
+    P_nominal=-5e3,
+    V_nominal=120,
+    pf=1) "Inductive load"      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={30,-10})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=1e4,
     duration=0.6,
-    startTime=0.1)
+    startTime=0.1,
+    offset=0)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(ramp.y, sou.P) annotation (Line(
@@ -35,7 +37,13 @@ equation
       points={{20,-10},{10,-10},{10,40}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation ( Documentation(info="<html>
+  annotation (experiment(
+      StopTime=1.0,
+      Tolerance=1e-05),
+      __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Examples/GeneratorLoadGrid.mos"
+        "Simulate and plot"),
+        Documentation(info="<html>
 <p>
 This model illustrates a generator, an inductive load and a grid connection.
 The power output of the generator is equal to its input signal, which is
@@ -51,8 +59,5 @@ January 10, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/Examples/GeneratorLoadGrid.mos"
-        "Simulate and plot"));
+</html>"));
 end GeneratorLoadGrid;

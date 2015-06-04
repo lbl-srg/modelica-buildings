@@ -42,8 +42,7 @@ equation
       smooth=Smooth.None));
   annotation (
   defaultComponentName="y2yg",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),       graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
           points={{0,40},{0,0},{-30,-30}},
@@ -89,9 +88,9 @@ Added model.
 </html>", info="<html>
 <p>
 Adapter from wye (Y) to wye grounded (Yg) connector.
-A three phases unbalanced connector has three AC single phase
-connectors. Each AC single phase connector contains a the phase voltage, 
-which is measured 
+A three-phase unbalanced connector has three AC single phase
+connectors. Each AC single phase connector contains a the phase voltage,
+which is measured
 between the phase and the neutral. This model assures that the voltage of the neutral
 cable is equal to zero.
 </p>

@@ -169,9 +169,9 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Resistive-inductive model that connects two AC three phases
+Resistive-inductive model that connects two AC three-phase
 unbalanced interfaces with neutral line. This model can be used to represent a
-cable in a three phases unbalanced AC system.
+cable in a three-phase unbalanced AC system.
 </p>
 
 <p align=\"center\">
@@ -199,7 +199,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end TwoPortRL_N;

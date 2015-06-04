@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
 partial model PartialSource
-  "Partial model for a three phases AC unbalanced voltage source without neutral cable"
+  "Partial model for a three-phase AC unbalanced voltage source without neutral cable"
 
   Interfaces.Connection3to4_p connection3to4
     "Connection between three to four AC connectors"
@@ -8,7 +8,7 @@ partial model PartialSource
   OnePhase.Basics.Ground ground "Ground reference"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   Interfaces.Terminal_p terminal
-    "Connector for three phases unbalanced systems"
+    "Connector for three-phase unbalanced systems"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
 
@@ -22,7 +22,7 @@ equation
       smooth=Smooth.None));
   annotation ( Documentation(info="<html>
 <p>
-This model is a partial class extended by three phases unbalanced
+This model is a partial class extended by three-phase unbalanced
 voltage sources without neutral cable connection.
 </p>
 </html>",

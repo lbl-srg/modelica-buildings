@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model ThreeWayValves "Three way valves with different opening characteristics"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Water "Medium model";
+  package Medium = Buildings.Media.Water "Medium in the component";
 
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valLin(
     redeclare package Medium = Medium,
@@ -53,8 +53,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-19,40},{10,40},{10,14}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(PSin.y, sin.p_in)
     annotation (Line(points={{81,70},{86,70},{86,8},{72,8}}, color={0,0,127}));
   connect(y.y, valEquPerLin.y) annotation (Line(points={{-19,40},{-12,40},{-12,-28},
@@ -114,7 +113,5 @@ June 16, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ThreeWayValves;

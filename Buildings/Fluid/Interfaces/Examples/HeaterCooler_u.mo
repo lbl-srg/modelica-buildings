@@ -282,12 +282,10 @@ model HeaterCooler_u
 equation
   connect(POut.y,sin_1. p_in) annotation (Line(
       points={{-179,150},{-170,150}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y,sou_1. T_in) annotation (Line(
       points={{-179,104},{-176,104},{-172,104}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(u.y, hea1.u)
                       annotation (Line(points={{-127,184},{-70,184},{-70,160},{
           -28,160},{-28,106},{-16,106}},

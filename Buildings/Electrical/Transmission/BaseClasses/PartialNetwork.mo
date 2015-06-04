@@ -1,6 +1,6 @@
 within Buildings.Electrical.Transmission.BaseClasses;
 partial model PartialNetwork "Partial model that represent an electric network"
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=120)
+  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
     "Nominal voltage of the lines in the network";
   replaceable parameter Buildings.Electrical.Transmission.Grids.PartialGrid grid
     "Record that describe the grid with the number of nodes, links, connections, etc."

@@ -42,8 +42,7 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/InteriorConvection.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+ Documentation(info="<html>
 <p>
 This is a test model for the interior side convective heat transfer.
 During the simulation, the shading control signal is changed, which

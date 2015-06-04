@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced;
-package Lines "Package with transmission line models for three phases unbalanced AC systems"
+package Lines "Package with transmission line models for three-phase unbalanced AC systems"
   extends Modelica.Icons.Package;
 
 
@@ -34,7 +34,7 @@ Revised documentation.
 </html>", info="<html>
 <p>
 This package contains models for transmission lines and electrical networks
-of AC three phases unbalanced systems.
+of AC three-phase unbalanced systems.
 </p>
 </html>"));
 end Lines;

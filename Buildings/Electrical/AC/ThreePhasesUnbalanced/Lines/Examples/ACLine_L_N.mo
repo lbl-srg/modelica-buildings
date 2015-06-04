@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACLine_L_N
-  "Test model for a three phases unbalanced inductive line with neutral cable"
+  "Test model for a three-phase unbalanced inductive line with neutral cable"
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Inductance Lbase = 10/2/Modelica.Constants.pi/60
     "Base value for the line inductances";
@@ -107,7 +107,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ACLine_L_N;

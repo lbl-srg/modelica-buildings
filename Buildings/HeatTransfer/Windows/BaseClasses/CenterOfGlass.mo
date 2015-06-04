@@ -82,7 +82,6 @@ equation
     annotation (Line(
       points={{1,-4},{6,-4},{6,-20},{-28,-20},{-28,-4},{-21,-4}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
     connect(u, gas[i].u)   annotation (Line(
@@ -113,7 +112,6 @@ equation
   connect(JIn_a, glass[1].JIn_a) annotation (Line(
       points={{-110,40},{-60,40},{-60,4},{-21,4}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glass[1].JOut_a, JOut_a) annotation (Line(
       points={{-21,-4},{-60,-4},{-60,-40},{-110,-40}},
@@ -126,7 +124,6 @@ equation
   connect(JIn_b, glass[nGlaLay].JIn_b) annotation (Line(
       points={{110,-40},{80,-40},{80,-4},{1,-4}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glass.QAbs_flow, QAbs_flow) annotation (Line(
       points={{-10,-11},{-10,-60},{1.11022e-15,-60},{1.11022e-15,-120}},

@@ -33,6 +33,9 @@ protected
     cp_default*m_flow_small*0.01
     "Small value for deltah used for regularization";
 
+  final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
+    "Flag, true if the sensor is a dynamic sensor";
+
   Modelica.SIunits.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
 
@@ -50,8 +53,7 @@ protected
 
   Real k(start=1)
     "Gain to take flow rate into account for sensor time constant";
-  final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
-    "Flag, true if the sensor is a dynamic sensor";
+
   Real mNor_flow "Normalized mass flow rate";
 
 initial equation

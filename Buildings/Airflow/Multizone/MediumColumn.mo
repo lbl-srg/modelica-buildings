@@ -55,10 +55,8 @@ initial equation
   // The next assert tests for all allowed values of the enumeration.
   // Testing against densitySelection > 0 gives an error in OpenModelica as enumerations start with 1.
   assert(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop
-         or
-         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom
-         or
-         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
+     or densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom
+     or densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
     "You need to set the parameter \"densitySelection\" for the model MediumColumn.");
 equation
   // Design direction of mass flow rate
@@ -79,7 +77,7 @@ equation
         p=port_a.p,
         T=Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Xi)),
         X_w=if Medium.nXi == 0 then 0 else Xi[1]);
-    elseif (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
+  elseif (densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom) then
       Xi = inStream(port_b.Xi_outflow);
       rho = Buildings.Utilities.Psychrometrics.Functions.density_pTX(
         p=port_b.p,
@@ -116,7 +114,6 @@ equation
     Icon(graphics={
         Line(
           points={{0,100},{0,-100},{0,-98}},
-          pattern=LinePattern.None,
           smooth=Smooth.None),
         Text(
           extent={{24,-78},{106,-100}},
@@ -225,7 +222,7 @@ Changed model to use
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
 Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
-as 
+as
 <a href=\"modelica://Buildings.Media.Air.density\">
 Buildings.Media.Air.density</a>
 does not depend on temperature.
@@ -234,7 +231,7 @@ does not depend on temperature.
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/311\">#311</a>.
 </li>
 <li><i>October 4, 2014</i> by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because

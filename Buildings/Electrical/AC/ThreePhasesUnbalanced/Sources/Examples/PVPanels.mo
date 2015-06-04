@@ -88,8 +88,6 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (experiment(StopTime=172800, Tolerance=1e-05),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),        graphics),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),
@@ -111,6 +109,6 @@ the grid.
 The PV produces different amounts of power on each phase according to the fractions
 specified by the vector <code>areaFraction={0.5,0.3,0.2}</code>. In this example, 50%
 of the power generation is on phase 1, 30% on phase 2 and 20% on phase 3.
-</p> 
+</p>
 </html>"));
 end PVPanels;

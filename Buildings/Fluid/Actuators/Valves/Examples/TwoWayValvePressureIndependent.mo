@@ -117,6 +117,5 @@ January 29, 2015 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+</html>"));
 end TwoWayValvePressureIndependent;

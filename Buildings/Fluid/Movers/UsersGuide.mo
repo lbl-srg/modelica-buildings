@@ -227,12 +227,12 @@ is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
 approximating the inertia of the rotor and the fluid.
 Thus, a step change in the fan input signal will cause a gradual change
-</p>
 in the fan speed.
 The filter has a parameter <code>riseTime</code>, which by default is set to
 <i>30</i> seconds.
 The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
+</p>
 </li>
 </ol>
 

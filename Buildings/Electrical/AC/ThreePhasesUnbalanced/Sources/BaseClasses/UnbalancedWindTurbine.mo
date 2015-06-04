@@ -98,7 +98,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-This model is a class extended by three phases unbalanced
+This model is a class extended by three-phase unbalanced
 wind turbine power sources without neutral cable.
 </p>
 </html>",

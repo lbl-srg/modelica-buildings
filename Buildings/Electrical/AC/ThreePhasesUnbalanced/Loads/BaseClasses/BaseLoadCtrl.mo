@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model BaseLoadCtrl
-  "Partial model of a three phases unbalanced load with voltage controllers"
+  "Partial model of a three-phase unbalanced load with voltage controllers"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   parameter Buildings.Electrical.Types.LoadConnection loadConn=
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
@@ -336,7 +336,7 @@ equation
 
     annotation (    Documentation(info="<html>
 <p>
-This model represents a partial interface for a three phases AC unbalanced
+This model represents a partial interface for a three-phase AC unbalanced
 load.
 </p>
 <p>
@@ -362,9 +362,5 @@ September 24, 2014, by Marco Bonvini:<br/>
 Created model and documentation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end BaseLoadCtrl;

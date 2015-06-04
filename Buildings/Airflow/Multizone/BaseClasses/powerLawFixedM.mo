@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.BaseClasses;
-function powerLawFixedM "Power law used in orifice equations when m is constant"
+function powerLawFixedM
+  "Power law used in orifice equations when m is constant"
   input Real k "Flow coefficient, k = V_flow/ dp^m";
   input Modelica.SIunits.Pressure dp "Pressure difference";
   input Real m(min=0.5, max=1)

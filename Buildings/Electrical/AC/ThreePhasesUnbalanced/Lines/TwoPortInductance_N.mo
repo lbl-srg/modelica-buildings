@@ -102,9 +102,9 @@ equation
           rotation=180)}),
     Documentation(info="<html>
 <p>
-Inductive model that connects two AC three phases
+Inductive model that connects two AC three-phase
 unbalanced interfaces with neutral line. This model can be used to represent a
-cable in a three phases unbalanced AC system.
+cable in a three-phase unbalanced AC system.
 </p>
 
 <p align=\"center\">
@@ -117,7 +117,7 @@ Assuming that the inductance <i>L</i> is the overall inductance of the cable,
 each line has an inductance equal to <i>L/3</i>.
 </p>
 <p>
-The inductance of the neutral cable is defined separately using the parameter 
+The inductance of the neutral cable is defined separately using the parameter
 <code>Ln</code>.
 </p>
 </html>", revisions="<html>
@@ -127,7 +127,5 @@ January 14, 2015, by Marco Bonvini:<br/>
 Added model and user guide
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end TwoPortInductance_N;

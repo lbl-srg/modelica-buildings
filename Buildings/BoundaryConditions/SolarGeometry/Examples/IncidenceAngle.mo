@@ -2,7 +2,7 @@ within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model IncidenceAngle "Test model for solar incidence angle"
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngHor(
-    til=0,
+    til=Buildings.Types.Tilt.Ceiling,
     lat=0.73097781993588,
     azi=0.3) "Incidence angle on horizontal surface"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -12,23 +12,23 @@ model IncidenceAngle "Test model for solar incidence angle"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngNor(
     lat=0.73097781993588,
-    azi=3.1415926535898,
-    til=0.69813170079773) "Incidence angle on North-facing surface"
+    azi=Buildings.Types.Azimuth.N,
+    til=Buildings.Types.Tilt.Wall) "Incidence angle on North-facing surface"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngWes(
     lat=0.73097781993588,
-    azi=-1.5707963267949,
-    til=0.69813170079773) "Incidence angle on West-facing surface"
+    azi=Buildings.Types.Azimuth.W,
+    til=Buildings.Types.Tilt.Wall) "Incidence angle on West-facing surface"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngSou(
     lat=0.73097781993588,
-    azi=0,
-    til=0.69813170079773) "Incidence angle on South-facing surface"
+    azi=Buildings.Types.Azimuth.S,
+    til=Buildings.Types.Tilt.Wall) "Incidence angle on South-facing surface"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAngEas(
     lat=0.73097781993588,
-    azi=1.5707963267949,
-    til=0.69813170079773) "Incidence angle on East-facing surface"
+    azi=Buildings.Types.Azimuth.E,
+    til=Buildings.Types.Tilt.Wall) "Incidence angle on East-facing surface"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 equation
   connect(weaDat.weaBus, incAngHor.weaBus) annotation (Line(
@@ -66,6 +66,12 @@ that faces Norths, East, South and West.
 </html>", revisions="<html>
 <ul>
 <li>
+March 24, 2015, by Michael Wetter:<br/>
+Assigned azimuth and tilt using the types from
+<a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>.
+</li>
+<li>
 January 16, 2015, by Michael Wetter:<br/>
 Added surfaces for each orientation.
 </li>
@@ -77,7 +83,5 @@ First implementation.
 </html>"),
 experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/IncidenceAngle.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+        "Simulate and plot"));
 end IncidenceAngle;

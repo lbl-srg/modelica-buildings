@@ -54,7 +54,7 @@ Revised documentation.
 </ul>
 </html>", info="<html>
 <p>
-This model represents a cable for three phases balanced AC systems. The model is based on
+This model represents a cable for three-phase balanced AC systems. The model is based on
 <a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i> either

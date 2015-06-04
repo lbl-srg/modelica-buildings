@@ -125,7 +125,6 @@ equation
   connect(radShaOut.JIn, radOut.JOut) annotation (Line(
       points={{-61,-4},{-66,-4},{-66,-54.6},{-77,-54.6}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(radIn.JOut, radShaInt.JIn) annotation (Line(
       points={{81,-46},{72,-46},{72,-6},{61,-6}},
@@ -238,7 +237,6 @@ equation
   connect(radOut.JIn, sumJOut.y) annotation (Line(
       points={{-77,-63.4},{-60,-63.4},{-60,-62},{-43.02,-62}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sha.JOut_a, sumJOut.u[1]) annotation (Line(
       points={{-1,36},{-26,36},{-26,-59.9},{-30,-59.9}},
@@ -251,7 +249,6 @@ equation
   connect(radIn.JIn, sumJRoo.y) annotation (Line(
       points={{81,-54},{57.02,-54}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sha.JOut_b, sumJRoo.u[1]) annotation (Line(
       points={{21,44},{28,44},{28,-51.9},{44,-51.9}},

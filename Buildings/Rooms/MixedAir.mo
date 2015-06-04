@@ -66,14 +66,13 @@ equation
   connect(uSha, bouConExtWin.uSha) annotation (Line(
       points={{-280,180},{308,180},{308,64},{351,64}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(uSha, conExtWinRad.uSha) annotation (Line(
       points={{-280,180},{422,180},{422,-40},{310.2,-40},{310.2,-25.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(irRadGai.uSha,uSha)
-                             annotation (Line(
+    annotation (Line(
       points={{-100.833,-22.5},{-110,-22.5},{-110,180},{-280,180}},
       color={0,0,127},
       smooth=Smooth.None));

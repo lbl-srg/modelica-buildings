@@ -16,7 +16,7 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
     phiSou={phiSou, phiSou + angle120, phiSou + 2*angle120},
     potentialReference={potentialReference, potentialReference, potentialReference},
     definiteReference={definiteReference, false, false},
-    each V=V/sqrt(3)) "Voltage sources on the three phases"
+    each V=V/sqrt(3)) "Voltage sources on the three-phase"
              annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation
 

@@ -58,9 +58,7 @@ equation
       points={{1,70},{66,70},{66,-10},{30,-10},{30,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-            experiment(
+  annotation (            experiment(
       StopTime=3600,
       Tolerance=1e-05),
             __Dymola_Commands(file=
@@ -89,7 +87,7 @@ during both the charge and discharge phases.
 All the batteries start from the same initial condition, which is 50% of their total capacity.
 The batteries are charged and discharged in the same way. The input signal <code>pow.y</code>
 is the power that each battery should store or release. The signal has a duty cycle equal to 50%.
-Therefore, if there are no losses the same amount of power stored into the battery will be 
+Therefore, if there are no losses the same amount of power stored into the battery will be
 released and after one cycle the State of Charge (SOC) has to be equal.
 </p>
 <p>
@@ -99,7 +97,7 @@ The image below shows the SOC of the three batteries.
 <img alt=\"alt-image\" src=\"modelica://Buildings/Resources/Images/Electrical/AC/OnePhase/Storage/Examples/SOCs.png\"/>
 </p>
 <p>
-As expected the red line (ideal battery) maintains the SOC over the time. 
+As expected the red line (ideal battery) maintains the SOC over the time.
 The other two batteries loose some
 of the initial energy due to the losses.
 </p>

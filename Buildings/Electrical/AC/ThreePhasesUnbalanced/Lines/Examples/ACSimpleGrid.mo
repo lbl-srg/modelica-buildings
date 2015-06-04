@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.Examples;
 model ACSimpleGrid
-  "Test model for a network model for three phases unbalanced systems without neutral cable"
+  "Test model for a network model for three-phase unbalanced systems without neutral cable"
   extends Modelica.Icons.Example;
   Network network(
     redeclare Buildings.Electrical.Transmission.Grids.TestGrid2Nodes grid,
@@ -42,8 +42,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                               graphics),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACSimpleGrid.mos"
         "Simulate and plot"),
@@ -57,7 +55,7 @@ Created model and documentation.
 </html>", info="<html>
 <p>
 This example demonstrates how to use a network model to connect
-a source to a load. In this simple case the network has two nodes 
+a source to a load. In this simple case the network has two nodes
 that are connected by a commercial cable without a neutral line.
 </p>
 <p>
