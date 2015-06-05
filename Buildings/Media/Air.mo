@@ -46,6 +46,7 @@ package Air
   // has been removed.
   redeclare replaceable model extends BaseProperties(
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
   protected
@@ -961,6 +962,18 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Added <code>stateSelect</code> attribute in <code>BaseProperties.T</code>
+to allow correct use of <code>preferredMediumState</code> as
+described in
+<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium\">
+Modelica.Media.Interfaces.PartialMedium</a>.
+Note that the default is <code>preferredMediumState=false</code>
+and hence the same states are used as were used before.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
 <li>
 May 11, 2015, by Michael Wetter:<br/>
 Removed
