@@ -39,8 +39,7 @@ Buildings/Airflow/Multizone/Orifice.mo
 Buildings/Airflow/Multizone/Types/densitySelection.mo
 Buildings/Airflow/Multizone/Types/package.mo
 Buildings/Airflow/Multizone/Types/package.order
-Buildings/Airflow/Multizone/UsersGuide/package.mo
-Buildings/Airflow/Multizone/UsersGuide/package.order
+Buildings/Airflow/Multizone/UsersGuide.mo
 Buildings/Airflow/Multizone/Validation/ThreeRoomsContam.mo
 Buildings/Airflow/Multizone/Validation/package.mo
 Buildings/Airflow/Multizone/Validation/package.order
