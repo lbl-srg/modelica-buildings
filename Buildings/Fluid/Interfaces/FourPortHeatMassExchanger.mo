@@ -80,7 +80,7 @@ model FourPortHeatMassExchanger
     final X_start=X1_start,
     final C_start=C1_start,
     final C_nominal=C1_nominal,
-    final mSenFac=1) "Volume for fluid 1"
+    mSenFac=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
@@ -90,7 +90,7 @@ model FourPortHeatMassExchanger
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
     final allowFlowReversal=allowFlowReversal2,
-    final mSenFac=1,
+    mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
@@ -238,6 +238,13 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 2, 2015, by Filip Jorissen:<br/>
+Removed final modifier from <code>mSenFac</code> in
+<code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Added missing propagation of <code>allowFlowReversal</code> to
