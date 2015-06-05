@@ -12,8 +12,7 @@ model ZonalFlow "Model with prescribed air exchange between two volumes"
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room A"
-                       annotation (Placement(transformation(extent={{-80,0},{-60,
-            20}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume rooB(
     V=volB,
     redeclare package Medium = Medium,

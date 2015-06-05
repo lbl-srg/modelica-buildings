@@ -12,6 +12,7 @@ PartialPvBase
 PartialTwoPort
 PartialWindTurbine
 PartialWindTurbineBase
+ResistiveLoad
 Source
 Terminal
 VariableVoltageSource

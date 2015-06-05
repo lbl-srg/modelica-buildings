@@ -5,13 +5,13 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     volTop(nPorts=3),
     volEas(nPorts=6));
 
-  Fluid.Sensors.TraceSubstances CO2SenTop(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenTop(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
-  Fluid.Sensors.TraceSubstances CO2SenWes(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenWes(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{-102,10},{-82,30}})));
-  Fluid.Sensors.TraceSubstances CO2SenEas(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenEas(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{58,10},{78,30}})));
   Modelica.Blocks.Sources.Pulse pulse(
@@ -20,7 +20,7 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     period=86400,
     startTime=3600)
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Fluid.Sources.TraceSubstancesFlowSource sou(
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "CO2 source"

@@ -20,22 +20,22 @@ model InfraredRadiationGainDistribution
     "Outgoing radiosity that connects to shaded and unshaded part of glass"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 protected
-  Real fraConExt[NConExt] = AEpsConExt/sumAEps
+  Real fraConExt[NConExt] = AEpsConExt*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by exterior constructions";
-  Real fraConExtWinOpa[NConExtWin] = AEpsConExtWinOpa/sumAEps
+  Real fraConExtWinOpa[NConExtWin] = AEpsConExtWinOpa*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by opaque part of exterior constructions that have a window";
-  Real fraConExtWinGla[NConExtWin] = (AEpsConExtWinSha + AEpsConExtWinUns)/sumAEps
+  Real fraConExtWinGla[NConExtWin] = (AEpsConExtWinSha + AEpsConExtWinUns)*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by opaque part of glass constructions that have a window";
-  Real fraConExtWinFra[NConExtWin] = AEpsConExtWinFra/sumAEps
+  Real fraConExtWinFra[NConExtWin] = AEpsConExtWinFra*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by window frame of exterior constructions that have a window";
 
-  Real fraConPar_a[NConPar] = AEpsConPar_a/sumAEps
+  Real fraConPar_a[NConPar] = AEpsConPar_a*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by partition constructions surface a";
-  Real fraConPar_b[NConPar] = AEpsConPar_b/sumAEps
+  Real fraConPar_b[NConPar] = AEpsConPar_b*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by partition constructions surface b";
-  Real fraConBou[NConBou] = AEpsConBou/sumAEps
+  Real fraConBou[NConBou] = AEpsConBou*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by constructions with exterior boundary conditions exposed to outside of room model";
-  Real fraSurBou[NSurBou] = AEpsSurBou/sumAEps
+  Real fraSurBou[NSurBou] = AEpsSurBou*sumAEpsInv
     "Fraction of infrared radiant heat gain absorbed by surface models of constructions that are modeled outside of this room";
 
  parameter Real AEpsConExt[NConExt] = {AConExt[i]*epsConExt[i] for i in 1:NConExt}
@@ -61,8 +61,8 @@ protected
 
  parameter Real sumAEpsNoWin(fixed=false)
     "Sum of absorptivity times area of all constructions except for windows";
- Real sumAEps
-    "Sum of absorptivity times area of all constructions including windows";
+ Real sumAEpsInv
+    "Inverse of sum of absorptivity times area of all constructions including windows";
 
  Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
       each final haveShade=haveShade)
@@ -73,7 +73,7 @@ initial equation
 equation
   connect(uSha, shaSig.u);
 
-  sumAEps      = sumAEpsNoWin + sum(AEpsConExtWinUns) + sum(AEpsConExtWinSha);
+  sumAEpsInv   = 1.0/(sumAEpsNoWin + sum(AEpsConExtWinUns) + sum(AEpsConExtWinSha));
 
   // Infrared radiative heat flow
   // If a construction is not present, we assign the temperature of the connector to 20 degC.
@@ -144,6 +144,12 @@ that will strike the glass or the window shade.
 </html>",
         revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
 <li>
 July 16, 2013, by Michael Wetter:<br/>
 Added assignment of heat port temperature instead of heat flow rate

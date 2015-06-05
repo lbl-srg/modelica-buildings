@@ -138,9 +138,17 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.FMI
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">This package contains blocks that serve as containers for exporting
+                          models from <code>Buildings.Fluid</code> as a Functional Mockup Unit (FMU).<br/>
+                          This allows using models from <code>Buildings.Fluid</code>, add them
+                          to a block that only has input and output signals, but no acausal connectors,
+                          and then export the model as a Functional Mockup Unit.
+                          Models can be individual models or systems that are composed of various
+                          models.
+                          For more information, see the
+                          <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">User's Guide</a>.
        </td>
        </tr>
    </table>
@@ -231,10 +239,12 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
-                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TraceSubstanceTwoPort
        </td>
-       <td valign=\"top\">Corrected documenation.
+       <td valign=\"top\">Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.
+                          For this setting, the sensor output was for the wrong flow direction.
+                          This corrects
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
        </td>
    </tr>
    </table>
@@ -245,6 +255,12 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+       </td>
+       <td valign=\"top\">Corrected documentation.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
@@ -264,8 +280,6 @@ its class name ends with the string <code>Beta</code>.
    </ul>
    </html>"));
    end Version_2_0_1;
-
-
 
     class Version_2_0_0 "Version 2.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -4958,7 +4972,10 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">Fluid.FMI</a>
+   </td>
+   <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
+</tr><tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
 </tr>

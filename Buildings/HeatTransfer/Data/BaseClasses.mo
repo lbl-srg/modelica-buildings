@@ -20,7 +20,7 @@ package BaseClasses "Base classes for package Data"
     parameter Real piRef=331.4
       "Ratio x/sqrt(alpha) for reference material of 0.2 m concrete"
       annotation (Dialog(tab="Advanced"));
-    parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
+    parameter Real piMat=if steadyState then piRef else x*sqrt(c*d/k)
       "Ratio x/sqrt(alpha)"
       annotation(Dialog(tab="Advanced"));
     parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
@@ -66,6 +66,12 @@ and ceilings of different surface area.
 </html>",
   revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

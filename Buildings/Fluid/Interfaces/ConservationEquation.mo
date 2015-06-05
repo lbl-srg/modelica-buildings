@@ -16,15 +16,10 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
-    preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start,
-      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-                     then StateSelect.prefer else StateSelect.default),
+    p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi],
-       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
-                     then StateSelect.prefer else StateSelect.default),
+    Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_nominal)) "Medium properties";
 
@@ -274,6 +269,44 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015 by Michael Wetter:<br/>
+Removed <code>preferredMediumStates= false</code> in
+the instance <code>medium</code> as the default
+is already <code>false</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
+<li>
+June 5, 2015 by Filip Jorissen:<br/>
+Removed <pre>
+Xi(start=X_start[1:Medium.nXi],
+       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+       then StateSelect.prefer else StateSelect.default),
+</pre>
+and set
+<code>preferredMediumStates = false</code>
+because the previous declaration led to more equations and 
+translation problems in large models.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
+<li>
+May 22, 2015 by Michael Wetter:<br/>
+Removed <pre>
+p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+then StateSelect.prefer else StateSelect.default)
+</pre>
+because the previous declaration led to the translation error
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.m_flow
+1 inlet.p
+</pre>
+when translating
+<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+with a dynamic energy balance.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.

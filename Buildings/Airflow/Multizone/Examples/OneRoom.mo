@@ -12,8 +12,8 @@ model OneRoom
     V=2.5*5*5,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-              annotation (Placement(transformation(
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-10})));
@@ -44,8 +44,8 @@ model OneRoom
     p_start=Medium.p_default,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-              annotation (Placement(transformation(
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={51,-10})));

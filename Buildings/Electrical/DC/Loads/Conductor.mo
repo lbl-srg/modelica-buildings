@@ -1,6 +1,6 @@
 within Buildings.Electrical.DC.Loads;
 model Conductor "Model of a generic DC load"
-    extends Buildings.Electrical.Interfaces.Load(
+    extends Buildings.Electrical.Interfaces.ResistiveLoad(
      redeclare package PhaseSystem = PhaseSystems.TwoConductor,
      redeclare Interfaces.Terminal_n terminal);
 protected
@@ -130,6 +130,12 @@ The points are at <i>0.8 V<sub>nom</sub></i> and <i>1.2 V<sub>nom</sub></i>.
 
 </html>", revisions="<html>
 <ul>
+<li>May 14, 2015, by Marco Bonvini:<br/>
+Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
+Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
+to help openmodelica parsing the model. This fixes issue 
+<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+</li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>initMode</code> that can be used to
 select the assumption to be used during initialization phase
