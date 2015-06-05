@@ -390,6 +390,7 @@ Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos50slash1to12.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos80slash1to12.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/VeroLine80slash115dash2comma2slash2.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/package.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/package.order
 Buildings/Fluid/Movers/Data/Pumps/package.mo
 Buildings/Fluid/Movers/Data/Pumps/package.order
 Buildings/Fluid/Movers/Data/SpeedControlled_Nrpm.mo
@@ -596,8 +597,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
-Buildings/Resources/ReferenceResults/Dymola/updateNames.sh
-Buildings/Resources/ReferenceResults/Dymola/updateNames.sh~
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -997,4 +996,3 @@ Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/legal.html
 Buildings/package.order
-Buildings/simulator.log
