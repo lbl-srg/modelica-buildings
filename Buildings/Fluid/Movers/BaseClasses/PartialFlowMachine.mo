@@ -139,7 +139,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extractor.index, stage) annotation (Line(
-      points={{-40,62},{-40,120},{0,120}},
+      points={{-40,62},{-40,90},{0,90},{0,120},{0,120}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
