@@ -13,8 +13,8 @@ partial model BaseBuilding "Building model that contains all the parameters and 
             {-90,90}})));
 
   // ROOM CONNECTORS
-  RoomConnector_in rooms_conn[nRooms](each ports(redeclare package Medium =
-          MediumAir)) "Room connectors for fluid and internal heat gains"
+  RoomConnector_in rooms_conn[nRooms](redeclare each package Medium = MediumAir)
+    "Room connectors for fluid and internal heat gains"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}}),
         iconTransformation(extent={{-120,-90},{-80,-50}})));
 
@@ -100,9 +100,9 @@ partial model BaseBuilding "Building model that contains all the parameters and 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi(T = T_ground)
     "Ground temperature";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics), Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),     Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>

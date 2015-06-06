@@ -2,7 +2,10 @@ within Buildings.OpenStudioToModelica.Interfaces;
 partial model InternalHeatGains
   "Model that can be used as a base for modeling internal heat gains"
   extends Buildings.BaseClasses.BaseIcon;
-  RoomConnector_out roomConnector_out
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+  RoomConnector_out roomConnector_out(redeclare final package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{80,-20},{120,20}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

@@ -1,1 +1,5 @@
 ZeroInternalHeatGain
+FixedTemperatureNoInternalHeatGain
+FixedTemperatureIHGSchedule
+ElectricPowerWithCOP
+Schedules

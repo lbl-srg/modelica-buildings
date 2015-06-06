@@ -6,7 +6,8 @@ model SmallOfficeNoHvac
       redeclare
       Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeBuilding           building,
       redeclare
-      Buildings.OpenStudioToModelica.InternalHeatGains.ZeroInternalHeatGain           ihg);
+      Buildings.OpenStudioToModelica.InternalHeatGains.ZeroInternalHeatGain           ihg(
+        redeclare package Medium = Buildings.Media.Specialized.Air.PerfectGas));
   annotation (Documentation(revisions="<html>
 <ul>
 <li>

@@ -526,18 +526,30 @@ equation
   connect(Attic.surf_surBou[3], Perimeter_ZN_3_ceiling.port_b);
   connect(Attic.surf_surBou[4], Perimeter_ZN_1_ceiling.port_b);
   connect(Attic.surf_surBou[5], Perimeter_ZN_2_ceiling.port_b);
+
   connect(Core_ZN.qGai_flow, rooms_conn[1].qGai);
   connect(Core_ZN.ports, rooms_conn[1].ports);
+  connect(Core_ZN.heaPorAir, rooms_conn[1].heaPorAir);
+
   connect(Perimeter_ZN_3.qGai_flow, rooms_conn[2].qGai);
   connect(Perimeter_ZN_3.ports, rooms_conn[2].ports);
+  connect(Perimeter_ZN_3.heaPorAir, rooms_conn[2].heaPorAir);
+
   connect(Perimeter_ZN_4.qGai_flow, rooms_conn[3].qGai);
   connect(Perimeter_ZN_4.ports, rooms_conn[3].ports);
+  connect(Perimeter_ZN_4.heaPorAir, rooms_conn[3].heaPorAir);
+
   connect(Perimeter_ZN_2.qGai_flow, rooms_conn[4].qGai);
   connect(Perimeter_ZN_2.ports, rooms_conn[4].ports);
+  connect(Perimeter_ZN_2.heaPorAir, rooms_conn[4].heaPorAir);
+
   connect(Perimeter_ZN_1.qGai_flow, rooms_conn[5].qGai);
   connect(Perimeter_ZN_1.ports, rooms_conn[5].ports);
+  connect(Perimeter_ZN_1.heaPorAir, rooms_conn[5].heaPorAir);
+
   connect(Attic.qGai_flow, rooms_conn[6].qGai);
   connect(Attic.ports, rooms_conn[6].ports);
+  connect(Attic.heaPorAir, rooms_conn[6].heaPorAir);
 annotation(experiment(StopTime=86400.0, tolerance = 1.0e-5),
 uses(Modelica(version="3.2.1"), Buildings(version="2.0")),
 Documentation(
