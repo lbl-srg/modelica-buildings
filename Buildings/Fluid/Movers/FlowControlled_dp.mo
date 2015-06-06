@@ -3,19 +3,10 @@ model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
-  preSou(dp_start=dp_start));
+  preSou(dp_start=dp_start),
+  stageInputs(each final unit="Pa"),
+  constInput(final unit="Pa"));
 
-  parameter Boolean useOnIn = false
-    "Set to true to switch device on/off using external signal";
-
-  parameter Boolean onOff=true "Set to true if device is on"
-  annotation (Dialog(enable= not useOnIn), evaluate = true);
-
-  parameter Boolean useDpIn = true
-    "Set to false for setting a constant pressure head using parameter dpSet";
-  parameter Modelica.SIunits.Pressure dpSet(min=0)=100000
-    "Pressure heat set point when useDpInput is false"
-    annotation(Dialog(enable=not useDpIn));
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
@@ -32,28 +23,26 @@ model FlowControlled_dp
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalize filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if useDpIn
+  Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
+    inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,120}),  iconTransformation(
+        origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-2,120})));
-  Modelica.Blocks.Interfaces.BooleanInput on_in if useOnIn
-    "Prescribed on/off status"                             annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-20,120})));
+
   Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
-    annotation (Placement(transformation(extent={{72,40},{92,60}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={36,38})));
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -72,35 +61,15 @@ protected
      filteredSpeed "Filtered pressure"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
-public
-  Modelica.Blocks.Math.Product dpSetProd
-    "Set point taking into account mover on/off status" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-10,50})));
-  Modelica.Blocks.Math.BooleanToReal onToReal(realTrue=-1)
-    "Conversion to real for on/off signal"
-    annotation (Placement(transformation(extent={{-56,36},{-40,52}})));
 
-  Modelica.Blocks.Sources.Constant dpConst(k=dpSet) if
-                                              not useDpIn
-    "Constant set point for dp when not using input"
-    annotation (Placement(transformation(extent={{-40,60},{-26,74}})));
-  Modelica.Blocks.Sources.BooleanConstant onConst(k=onOff) if not useOnIn
-    "Constant on/off value when not using input"
-    annotation (Placement(transformation(extent={{-80,36},{-64,52}})));
+
 equation
-  assert(dp_actual >= -Modelica.Constants.eps,
-    "dp_in cannot be negative. Obtained dp_in = " + String(dp_actual));
-
+  assert(dp_in >= -1E-3,
+    "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
+	
   if filteredSpeed then
-    connect(dpSetProd.y, filter.u) annotation (Line(
-        points={{1,50},{10,50},{10,88},{18.6,88}},
-        color={0,0,127},
-        smooth=Smooth.None));
     connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{38,88},{38,50},{70,50}},
+      points={{34.7,88},{36,88},{36,50}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, dp_filtered) annotation (Line(
@@ -109,39 +78,27 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   else
-    connect(dpSetProd.y, gain.u) annotation (Line(
-        points={{1,50},{70,50}},
-        color={0,0,127},
-        smooth=Smooth.None));
+    connect(inputSwitch.y, gain.u) annotation (Line(
+      points={{1,50},{36,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
   end if;
 
-  connect(dp_actual, gain.y) annotation (Line(
-      points={{110,50},{93,50}},
+  connect(inputSwitch.y, filter.u) annotation (Line(
+      points={{1,50},{10,50},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.u, preSou.dp_in) annotation (Line(
-      points={{70,50},{60,50},{60,40},{36,40},{36,8}},
+  connect(inputSwitch.u, dp_in) annotation (Line(
+      points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dpSetProd.u1, dp_in) annotation (Line(
-      points={{-22,56},{-22,68},{0,68},{0,120}},
+  connect(preSou.dp_in, gain.y) annotation (Line(
+      points={{36,8},{36,27}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(onToReal.y, dpSetProd.u2) annotation (Line(
-      points={{-39.2,44},{-22,44}},
+  connect(gain.u, dp_actual) annotation (Line(
+      points={{36,50},{110,50}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(dpConst.y, dpSetProd.u1) annotation (Line(
-      points={{-25.3,67},{-22,67},{-22,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(on_in, onToReal.u) annotation (Line(
-      points={{-20,120},{-20,96},{-57.6,96},{-57.6,44}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(onConst.y, onToReal.u) annotation (Line(
-      points={{-63.2,44},{-57.6,44}},
-      color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
@@ -169,6 +126,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 2, 2015, by Filip Jorissen:<br/>
+Added code for supporting stage input and constant input.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
@@ -199,7 +160,11 @@ Revised implementation to allow zero flow rate.
        Added model to the Buildings library.
 </ul>
 </html>"),
-    Icon(graphics={Text(extent={{20,142},{104,108}},textString="dp_in"),
+    Icon(graphics={
+        Text(
+          visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
+          extent={{20,142},{104,108}},
+          textString="dp_in"),
         Line(
           points={{32,50},{100,50}},
           color={0,0,0},
