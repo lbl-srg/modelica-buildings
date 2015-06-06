@@ -57,6 +57,11 @@ protected
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
 
 initial equation
+  // This assertion is required to ensure that the default value of
+  // in Buildings.HeatTransfer.Data.Gases.Generic is overwritten.
+  assert(gas.x > 0, "The gas thickness must be non-negative. Obtained gas.x = " + String(gas.x) + ".
+  Check the parameter for the gas thickness of the window model.");
+
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
 
   // Computations that are used in the linearized model only
@@ -171,8 +176,8 @@ as a function that is differentiable in the temperatures.
 <p>
 To use this model, set the parameter <code>til</code>
 to a value defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
-Buildings.HeatTransfer.Types.Tilt</a>.
+<a href=\"modelica://Buildings.Types.Tilt\">
+Buildings.Types.Tilt</a>.
 </p>
 <br/>
 
@@ -187,6 +192,13 @@ of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Added assertion as the gas layer is now by
+default assigned a dummy layer with negative thickness.
+This has been done to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Removed duplicate <code>initial equation</code> section.

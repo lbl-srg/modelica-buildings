@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start));
 
@@ -76,12 +76,10 @@ equation
     connect(filter.y, m_flow_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
-        connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
+    connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
       points={{110,50},{60,50},{60,40},{24,40},{24,8}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   annotation (defaultComponentName="fan",

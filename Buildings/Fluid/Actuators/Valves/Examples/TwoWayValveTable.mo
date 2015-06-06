@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Valves.Examples;
 model TwoWayValveTable
   "Two way valve with nonlinear opening characteristics based on a table"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium";
+  package Medium = Buildings.Media.Water "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,
@@ -56,8 +56,7 @@ model TwoWayValveTable
 equation
   connect(y.y,valTab. y) annotation (Line(
       points={{-19,60},{-19,60},{-10,60},{-10,32}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(sou.ports[1], senVolFlo.port_a) annotation (Line(
       points={{-70,20},{-60,20}},
       color={0,127,255},
@@ -108,7 +107,7 @@ opening characteristics.
 The valve has the following opening characteristics, which is taken from a test case
 of the IEA EBC Annex 60 project.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td><i>y</i></td>
   <td>0</td>  <td>0.1667</td>  <td>0.3333</td>  <td>0.5</td>  <td>0.6667</td>  <td>1</td>
 </tr>

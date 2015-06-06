@@ -216,18 +216,22 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-      experiment(StopTime=7200),
     Icon(graphics={                      Text(
           extent={{-70,54},{74,-64}},
           lineColor={0,0,255},
           textString="DR")}),
     Documentation(info="<html>
 <p>
-Model for a demand response client.
+Model for a data-driven demand response client that predicts the future load and
+allows to apply a load shedding factor.
+</p>
+<p>
 This model takes as a parameter the number of samples in a day, which is generally
 <i>24</i> for one hour sampling or <i>96</i> for <i>15</i> minute sampling.
-Input to the model are the consumed energy, the current temperature,
-the week of the day, which is of type
+Input to the model are the consumed energy up to the current time instant,
+the current temperature,
+the type of the day, which may be a working day, non-working day or holiday
+as defined in
 <a href=\"modelica://Buildings.Controls.Types.Day\">
 Buildings.Controls.Types.Day</a>,
 a boolean signal that indicates whether it is an event day,

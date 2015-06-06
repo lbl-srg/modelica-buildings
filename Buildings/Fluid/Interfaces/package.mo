@@ -33,7 +33,7 @@ These define parameters that are needed by many fluid flow components.
 Next, we describe the basic classes. For a more detailed description,
 see the <i>info</i> section of the class.
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <!-- ============================================== -->
   <td><a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">

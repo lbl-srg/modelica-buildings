@@ -2,6 +2,7 @@ AbsorbedRadiation
 CenterOfGlass
 GasConvection
 GlassLayer
+InteriorConvection
 Overhang
 Shade
 SideFins

@@ -32,7 +32,7 @@ initial equation
                             T=273.15+3,
                             X=cat(1,{XSatMin},{1-sum({XSatMin})})));
 */
-  hMin = Medium.h_pTX(
+  hMin = Medium.specificEnthalpy_pTX(
            p=   Medium.p_default,
            T=   TSatMin,
            X=   cat(1,{XSatMin},{1-sum({XSatMin})}));

@@ -11,6 +11,10 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   Documentation(revisions="<html>
 <ul>
 <li>
+February 13, 2015, by Michael Wetter:<br/>
+Updated documentation.
+</li>
+<li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised record for OpenModelica.
 </li>
@@ -47,7 +51,9 @@ declaration such as
 <p>
 This data record can be used with
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
 </p>
 <p>
 An example that uses manufacturer data can be found in

@@ -1,17 +1,17 @@
 within Buildings.Airflow.Multizone.Examples;
 model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
-  extends Buildings.Airflow.Multizone.Examples.Validation3Rooms(
+  extends Buildings.Airflow.Multizone.Validation.ThreeRoomsContam(
     volWes(nPorts=5),
     volTop(nPorts=3),
     volEas(nPorts=6));
 
-  Fluid.Sensors.TraceSubstances CO2SenTop(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenTop(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
-  Fluid.Sensors.TraceSubstances CO2SenWes(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenWes(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{-102,10},{-82,30}})));
-  Fluid.Sensors.TraceSubstances CO2SenEas(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.TraceSubstances CO2SenEas(redeclare package Medium = Medium)
     "CO2 sensor"
     annotation (Placement(transformation(extent={{58,10},{78,30}})));
   Modelica.Blocks.Sources.Pulse pulse(
@@ -20,7 +20,7 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     period=86400,
     startTime=3600)
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Fluid.Sources.TraceSubstancesFlowSource sou(
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "CO2 source"
@@ -59,8 +59,8 @@ equation
     Documentation(info="<html>
 <p>
 This model is based on
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>.
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
 In addition, a CO<sub>2</sub> source has been added to the left room
 in the bottom floor.
 At initial time, all volumes have zero CO<sub>2</sub> concentration.
@@ -73,8 +73,8 @@ the other rooms, and eventually its concentration decays.
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Extended model from
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
-Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>
+<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>
 and added documentation.
 </li>
 </ul>

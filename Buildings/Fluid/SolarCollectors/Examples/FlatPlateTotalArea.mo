@@ -1,8 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Examples;
 model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
   extends Modelica.Icons.Example;
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the system";
+  replaceable package Medium = Buildings.Media.Water "Medium in the system";
 
   Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
     redeclare package Medium = Medium,

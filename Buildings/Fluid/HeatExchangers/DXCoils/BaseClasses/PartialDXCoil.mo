@@ -5,7 +5,8 @@ partial model PartialDXCoil "Partial model for DX coil"
   extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName = "water");
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare package Medium = Medium,
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
+      prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
@@ -44,7 +45,7 @@ partial model PartialDXCoil "Partial model for DX coil"
 protected
   Modelica.SIunits.SpecificEnthalpy hEvaIn=
     inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
-  Modelica.SIunits.Temperature TEvaIn = Medium.T_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
+  Modelica.SIunits.Temperature TEvaIn = Medium.temperature_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
     "Dry bulb temperature of air entering the cooling coil";
   Modelica.SIunits.MassFraction XEvaIn[Medium.nXi] = inStream(port_a.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
@@ -192,6 +193,10 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015 by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=true</code> for <code>vol</code>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Updated model due to change in

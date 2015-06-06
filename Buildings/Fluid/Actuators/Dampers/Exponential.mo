@@ -45,6 +45,7 @@ differentiable in <i>y</i> and the derivative is continuous.
 <p>
 The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
 compute the flow coefficient <i>k(y)</i> as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
 </p>
@@ -61,7 +62,8 @@ with regularization near the origin.
 </p>
 <p>
 ASHRAE 825-RP lists the following parameter values as typical:
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <td></td><th>opposed blades</th><th>single blades</th>
 </tr>

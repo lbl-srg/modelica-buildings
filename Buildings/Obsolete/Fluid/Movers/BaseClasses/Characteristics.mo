@@ -434,7 +434,7 @@ curves.
 </p>
 
 The following performance curves are implemented:<br/>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Independent variable</th>
 <th>Dependent variable</th>

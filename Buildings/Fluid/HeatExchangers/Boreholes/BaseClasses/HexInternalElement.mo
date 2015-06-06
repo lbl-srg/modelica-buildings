@@ -10,7 +10,6 @@ model HexInternalElement "Internal part of a borehole"
     vol1(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
-         final allowFlowReversal=allowFlowReversal1,
          final V=m2_flow_nominal*tau2/rho2_nominal,
          final m_flow_small=m1_flow_small),
     final vol2(final energyDynamics=energyDynamics,
@@ -242,7 +241,7 @@ and the heat storage within the fluid and the borehole filling.
 <p>
 This model computes the different thermal resistances present
 in a single-U-tube borehole using the method of Bauer et al. (2011)
-and computing explicitely the fluid-to-ground thermal resistance
+and computing explicitly the fluid-to-ground thermal resistance
 <i>R<sub>b</sub></i> and the
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
@@ -279,6 +278,11 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Removed assignement of <code>vol.allowFlowReversal</code> as this is
+done in the base class.
+</li>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for temperatures and derivatives of <code>capFil1</code>

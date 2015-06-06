@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
 
   Buildings.Fluid.Storage.Stratified tanSim(
     redeclare package Medium = Medium,
@@ -86,8 +86,7 @@ model Stratified "Test model for stratified tank"
 equation
   connect(TWat.y, sou_1.T_in) annotation (Line(
       points={{-79,12},{-62,12}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{
           5.55112e-16,10},{5.55112e-16,10},{6,10}},
                                      color={0,127,255}));
@@ -107,8 +106,7 @@ equation
           {30,34}},       color={0,0,127}));
   connect(P.y, sin_1.p_in) annotation (Line(
       points={{41,70},{100,70},{100,16},{92,16}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(sine.y, TBCSid1.T) annotation (Line(points={{-69,72},{-55.5,72},{
           -55.5,90},{-41.2,90}}, color={0,0,127}));
   connect(sine.y, TBCTop1.T) annotation (Line(points={{-69,72},{-41.2,72}},

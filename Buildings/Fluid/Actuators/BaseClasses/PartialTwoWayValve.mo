@@ -66,7 +66,7 @@ initial equation
 Documentation(info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
-with different opening characteristics, such as linear, equal percentage, 
+with different opening characteristics, such as linear, equal percentage,
 quick opening or pressure-independent.
 </p>
 <p>
@@ -107,12 +107,12 @@ revisions="<html>
 <ul>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>
-Moved the governing equations to 
+Moved the governing equations to
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv\">
 PartialTwoWayValveKv</a>
-in order to be able to extend from this partial in 
+in order to be able to extend from this partial in
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
-TwoWayPressureIndepedent</a>
+TwoWayPressureIndependent</a>
 </li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>

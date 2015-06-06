@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation.BaseClasses;
 model ControlledFlowMachine
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Air;
 
   Modelica.Blocks.Sources.Pulse y(
     startTime=0,

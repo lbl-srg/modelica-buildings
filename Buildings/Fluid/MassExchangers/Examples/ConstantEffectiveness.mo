@@ -2,8 +2,8 @@ within Buildings.Fluid.MassExchangers.Examples;
 model ConstantEffectiveness
   extends Modelica.Icons.Example;
 
- package Medium1 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
- package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ package Medium1 = Buildings.Media.Air;
+ package Medium2 = Buildings.Media.Air;
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2, T=273.15 + 10,
@@ -68,8 +68,7 @@ model ConstantEffectiveness
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y, sou_2.T_in) annotation (Line(points={{1,-80},{20,-80},{20,-56},
           {38,-56}}, color={0,0,127}));
   connect(TWat.y, sou_1.T_in)

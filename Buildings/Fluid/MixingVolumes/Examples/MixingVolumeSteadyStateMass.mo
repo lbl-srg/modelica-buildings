@@ -1,0 +1,83 @@
+within Buildings.Fluid.MixingVolumes.Examples;
+model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
+  extends Modelica.Icons.Example;
+  package Medium = Buildings.Media.Air;
+  Sources.MassFlowSource_T sou(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1) "Flow source and sink"
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+  Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=1) "Boundary condition"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={92,-10})));
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    V=1,
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.01,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    allowFlowReversal=true,
+    prescribedHeatFlowRate=false,
+    nPorts=2,
+    mSenFac=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Mixing volume with steady state mass dynamics"
+     annotation (Placement(transformation(extent={{30,20},{50,40}})));
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=1,
+    offset=1,
+    height=-2) "Ramp input"
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
+
+  Modelica.Blocks.Math.Gain gain(k=0.01) "Gain for nominal mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.01,
+    dp_nominal=1000) "Pressure drop"
+    annotation (Placement(transformation(extent={{50,-20},{70,0}})));
+equation
+  connect(ramp.y, gain.u) annotation (Line(
+      points={{-69,-10},{-62,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, sou.m_flow_in) annotation (Line(
+      points={{-39,-10},{-31.5,-10},{-31.5,-2},{-20,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sou.ports[1], vol.ports[1]) annotation (Line(
+      points={{0,-10},{38,-10},{38,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], res.port_a) annotation (Line(
+      points={{42,20},{42,-10},{50,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res.port_b, bou.ports[1]) annotation (Line(
+      points={{70,-10},{82,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Documentation(
+        info="<html>
+<p>
+This model shows that steady state mass dynamics are correctly simulated.
+A change in pressure does not lead to an exchange and/or creation of mass.
+The mixing volume temperature is also unaffected by a pressure change.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 9, 2015 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+experiment(StopTime=1.0),
+__Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos"
+        "Simulate and plot"));
+end MixingVolumeSteadyStateMass;

@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
-model ZonalFlow
+model ZonalFlow "Model with prescribed air exchange between two volumes"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.Volume volA=100 "Volume of room A";
   parameter Modelica.SIunits.Volume volB=1 "Volume of room B";
   Buildings.Fluid.MixingVolumes.MixingVolume rooA(
@@ -12,8 +12,7 @@ model ZonalFlow
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room A"
-                       annotation (Placement(transformation(extent={{-80,0},{-60,
-            20}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume rooB(
     V=volB,
     redeclare package Medium = Medium,

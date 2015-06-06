@@ -3,8 +3,8 @@ model DryCoilDiscretized
   "Model that demonstrates use of a finite volume model of a heat exchanger without condensation"
   extends Modelica.Icons.Example;
 
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Air;
 
   parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal = 40+273.15;
@@ -92,8 +92,7 @@ model DryCoilDiscretized
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y, sou_2.T_in) annotation (Line(points={{1,-80},{20,-80},{20,-56},
           {38,-56}}, color={0,0,127}));
   connect(TWat.y, sou_1.T_in)

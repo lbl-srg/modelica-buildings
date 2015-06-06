@@ -2,9 +2,9 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
 model ChillerSetPointControl
   "Test model for chiller setpoint control using TrimAndResponse and LinearPieceWiseTwo"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater;
-  package MediumAir = Buildings.Media.GasesPTDecoupled.SimpleAir "Medium model";
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Water;
+  package MediumAir = Buildings.Media.Air "Medium model";
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=61.6*2
     "Nominal mass flow rate at fan";
   parameter Real COPc_nominal=3 "Chiller COP";

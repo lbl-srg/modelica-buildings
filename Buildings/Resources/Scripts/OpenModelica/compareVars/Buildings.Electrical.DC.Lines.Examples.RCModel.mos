@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "sen_ss.I",
+    "sen_dyn.I",
+    "RC_ss.Vc",
+    "RC_dyn.Vc"
+  };

@@ -2,7 +2,7 @@ within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachine_y_pumpCurves
   "Pumps that illustrates the use of the pump curves"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+  package Medium = Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
@@ -37,7 +37,6 @@ model FlowMachine_y_pumpCurves
     p=300000,
     T=293.15,
     nPorts=4) annotation (Placement(transformation(extent={{-70,78},{-50,98}})));
-
 
   Buildings.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,

@@ -49,7 +49,7 @@ equation
               y2=s*port_a.C_outflow,
               x_small=m_flow_small);
   else
-     CMed = s*inStream(port_b.C_outflow);
+     CMed = s*port_b.C_outflow;
   end if;
   // Output signal of sensor
   if dynamic then
@@ -79,6 +79,13 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 22, 2015, by Michael Wetter:<br/>
+Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.
+For this setting, the sensor output was for the wrong flow direction.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Corrected syntax errors in setting nominal value for output signal

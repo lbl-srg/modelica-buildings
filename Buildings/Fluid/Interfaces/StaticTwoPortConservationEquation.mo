@@ -7,7 +7,7 @@ model StaticTwoPortConservationEquation
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Sensible plus latent heat flow rate transfered into the medium"
+    "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
@@ -19,7 +19,7 @@ model StaticTwoPortConservationEquation
                                                      p=Medium.p_default,
                                                      T=Medium.T_default,
                                                      X=Medium.X_default))
-    "Leaving temperature of the component"
+    "Leaving specific enthalpy of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110}), iconTransformation(
@@ -174,6 +174,10 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Corrected documentation.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Improved documentation for <code>Q_flow</code> input.

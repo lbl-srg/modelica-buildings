@@ -4,9 +4,9 @@ model OneOpenDoor "Model with one open and one closed door"
 
   package Medium = Modelica.Media.Air.SimpleAir;
 
-  Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
-      Medium = Medium) "Discretized door" annotation (Placement(transformation(
-          extent={{10,-8},{30,12}})));
+  Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package Medium
+      = Medium) "Discretized door"
+    annotation (Placement(transformation(extent={{10,-8},{30,12}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -15,7 +15,7 @@ model OneOpenDoor "Model with one open and one closed door"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
     m_flow_nominal=0.01)
-              annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
+    annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
@@ -30,10 +30,9 @@ model OneOpenDoor "Model with one open and one closed door"
         transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-20,60},{0,80}})));
-  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
-      package Medium = Medium, LClo=20*1E-4) "Discretized door"
-      annotation (
-      Placement(transformation(extent={{10,-44},{30,-24}})));
+  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare package
+      Medium = Medium, LClo=20*1E-4) "Discretized door"
+    annotation (Placement(transformation(extent={{10,-44},{30,-24}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=120,
     height=1,

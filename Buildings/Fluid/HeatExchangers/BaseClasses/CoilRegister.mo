@@ -96,9 +96,9 @@ model CoilRegister "Register for a heat exchanger"
   annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered from solid into medium 1";
+    "Heat transferred from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered from solid into medium 2";
+    "Heat transferred from solid into medium 2";
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));

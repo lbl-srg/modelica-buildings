@@ -3,11 +3,11 @@ model System2
   "2nd part of the system model, consisting of the room with heat transfer and a radiator"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
 //-------------------------Step 2: Water as medium-------------------------//
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+      Buildings.Media.Water "Medium model";
 //-------------------------------------------------------------------------//
 
 //------------------------Step 4: Design conditions------------------------//

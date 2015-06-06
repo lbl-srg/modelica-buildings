@@ -5,7 +5,7 @@ model GasConvection "Test problem for convection in the gas layer"
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=Buildings.HeatTransfer.Types.Tilt.Wall)
+    til=Buildings.Types.Tilt.Wall)
     "Model for gas convection in vertical gap"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp TBC(
@@ -28,7 +28,7 @@ model GasConvection "Test problem for convection in the gas layer"
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=Buildings.HeatTransfer.Types.Tilt.Ceiling)
+    til=Buildings.Types.Tilt.Ceiling)
     "Model for gas convection in horizontal gap in a ceiling"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -46,7 +46,7 @@ model GasConvection "Test problem for convection in the gas layer"
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=Buildings.HeatTransfer.Types.Tilt.Floor)
+    til=Buildings.Types.Tilt.Floor)
     "Model for gas convection in horizontal gap in a floor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,

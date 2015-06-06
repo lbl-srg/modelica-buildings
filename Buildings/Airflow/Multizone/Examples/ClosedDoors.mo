@@ -1,13 +1,13 @@
 within Buildings.Airflow.Multizone.Examples;
 model ClosedDoors "Model with three closed doors"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Buildings.Media.Specialized.Air.PerfectGas;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
-    forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-30},{30,-10}})));
+    forceErrorControlOnFlow=true) "Discretized door"
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -15,16 +15,16 @@ model ClosedDoors "Model with three closed doors"
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{-80,0},{-60,20}})));
+    m_flow_nominal=0.01)
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{40,40},{60,60}})));
+    m_flow_nominal=0.01)
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
     annotation (Placement(transformation(extent={{4,40},{24,60}})));
   Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
@@ -37,21 +37,21 @@ model ClosedDoors "Model with three closed doors"
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{70,-40},{90,-20}})));
+    m_flow_nominal=0.01)
+    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAC(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
-    forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-60},{30,-40}})));
+    forceErrorControlOnFlow=true) "Discretized door"
+    annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
   Modelica.Blocks.Sources.Constant yDoor(k=0) "Input signal for door opening"
                                              annotation (Placement(
         transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooBC(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
-    forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
-        transformation(extent={{10,-90},{30,-70}})));
+    forceErrorControlOnFlow=true) "Discretized door"
+    annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
 equation
   connect(Gain1.y, PrescribedHeatFlow1.Q_flow)
     annotation (Line(points={{-7,50},{4,50}}, color={0,0,255}));
@@ -129,6 +129,15 @@ each other through three doors that all have the same geometry.
 All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
 a small air flow through the doors.
+</p>
+<p>
+This model uses
+<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGas\">
+Buildings.Media.Specialized.Air.PerfectGas</a>
+as the medium because
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air</a>
+does not account for expansion if air the air is heated.
 </p>
 </html>", revisions="<html>
 <ul>

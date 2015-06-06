@@ -35,9 +35,7 @@ partial model PowerInterface
   //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
 protected
   parameter Data.FlowControlled _perPow
-    "Record with performance data for power"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+    "Record with performance data for power";
 
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
@@ -74,7 +72,6 @@ initial algorithm
 
 equation
   eta = etaHyd * etaMot;
-//  WFlo = eta * P;
   // Flow work
   WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd

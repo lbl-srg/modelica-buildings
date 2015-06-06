@@ -3,9 +3,8 @@ model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+      Buildings.Media.Air;
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
   parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
@@ -388,7 +387,6 @@ equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-2,-160}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{310,120},{320,120},{320,60}},

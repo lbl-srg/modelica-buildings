@@ -1,0 +1,14 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Examples.Density_pTX", method="dassl", resultFile="Density_pTX_block");
+createPlot(id=1, position={75, 70, 832, 810},
+ y={"den.T"},
+range={0.0, 1.0, 15.0, 35.0}, grid=true, filename="Density_pTX_block.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={75, 70, 832, 198},
+ y={"den.X_w"},
+range={0.0, 1.0, -0.005, 0.015}, grid=true, subPlot=2, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={75, 70, 832, 198},
+ y={"den.p"},
+range={0.0, 1.0, 90000.0, 115000.0}, grid=true, subPlot=3, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+createPlot(id=1, position={75, 70, 832, 198},
+ y={"den.d"},
+range={0.0, 1.0, 1.1400000000000001, 1.2000000000000002}, grid=true, subPlot=4, leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+

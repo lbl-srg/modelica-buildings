@@ -12,16 +12,16 @@ model DiffuseIsotropic
         transformation(extent={{-11,-1},{9,21}}),iconTransformation(extent={{1,
             -1},{2,-2}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-        HDifRoo(til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
+        HDifRoo(til=Buildings.Types.Tilt.Ceiling,
                 rho=rho) "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-        HDifFlo(til=Buildings.HeatTransfer.Types.Tilt.Floor,
+        HDifFlo(til=Buildings.Types.Tilt.Floor,
                 rho=rho) "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
         HDifWal(
-        til=Buildings.HeatTransfer.Types.Tilt.Wall,
+        til=Buildings.Types.Tilt.Wall,
         rho=rho) "Diffuse irradiation on wall"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -77,7 +77,5 @@ First implementation.
 </html>"),
 experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos"
-        "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+        "Simulate and plot"));
 end DiffuseIsotropic;

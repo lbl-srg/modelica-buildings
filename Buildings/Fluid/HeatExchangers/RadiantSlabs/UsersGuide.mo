@@ -164,7 +164,7 @@ The parameter <code>sysTyp</code> is used to select the equation that is used to
 the average temperature in the plane of the pipes.
 It needs to be set to the following values:
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>sysTyp</th>
       <th>System type</th>

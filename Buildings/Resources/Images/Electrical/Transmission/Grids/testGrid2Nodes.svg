@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="testGrid2Nodes.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="277.74637"
+     inkscape:cy="851.92091"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3025"
+     showgrid="true"
+     inkscape:window-width="1816"
+     inkscape:window-height="964"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3344">
+      <g
+         id="g3025"
+         inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+         inkscape:export-xdpi="201.0135"
+         inkscape:export-ydpi="201.0135">
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot3181"
+           style="font-size:10px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135"><flowRegion
+             id="flowRegion3183"><rect
+               id="rect3185"
+               width="101.25"
+               height="127.75001"
+               x="148.75"
+               y="84.612175" /></flowRegion><flowPara
+             id="flowPara3187"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New">nNodes = 2</flowPara><flowPara
+             id="flowPara3189"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New">nLinks = 1</flowPara><flowPara
+             id="flowPara3191"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New">fromTo =[[1,2]]</flowPara><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New"
+             id="flowPara3205" /></flowRoot>        <path
+           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 250,97.36218 120,0"
+           id="path2987"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="path2989"
+           sodipodi:cx="10"
+           sodipodi:cy="142.36218"
+           sodipodi:rx="5"
+           sodipodi:ry="5"
+           d="m 15,142.36218 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
+           transform="translate(240,-45)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135" />
+        <path
+           d="m 15,142.36218 a 5,5 0 1 1 -10,0 5,5 0 1 1 10,0 z"
+           sodipodi:ry="5"
+           sodipodi:rx="5"
+           sodipodi:cy="142.36218"
+           sodipodi:cx="10"
+           id="path2997"
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           sodipodi:type="arc"
+           transform="translate(360,-45)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135" />
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot3013"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           transform="translate(336,38.882118)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135"><flowRegion
+             id="flowRegion3015"><rect
+               id="rect3017"
+               width="93"
+               height="67"
+               x="-91"
+               y="38.362183" /></flowRegion><flowPara
+             id="flowPara3019"
+             style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Courier New;-inkscape-font-specification:Courier New">1</flowPara></flowRoot>        <flowRoot
+           transform="translate(458.15269,38.882118)"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           id="flowRoot3207"
+           xml:space="preserve"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135"><flowRegion
+             id="flowRegion3209"><rect
+               y="38.362183"
+               x="-91"
+               height="67"
+               width="93"
+               id="rect3211" /></flowRegion><flowPara
+             style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Courier New;-inkscape-font-specification:Courier New"
+             id="flowPara3213">2</flowPara></flowRoot>        <flowRoot
+           xml:space="preserve"
+           id="flowRoot3303"
+           style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           transform="translate(398.91169,58.88212)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135"><flowRegion
+             id="flowRegion3305"><rect
+               id="rect3307"
+               width="93"
+               height="67"
+               x="-91"
+               y="38.362183" /></flowRegion><flowPara
+             id="flowPara3309"
+             style="font-size:8px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#800000;font-family:Courier New;-inkscape-font-specification:Courier New Bold">1</flowPara></flowRoot>        <g
+           id="g3325"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135">
+          <flowRoot
+             xml:space="preserve"
+             id="flowRoot3311"
+             style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+             transform="translate(331,73.733346)"><flowRegion
+               id="flowRegion3313"><rect
+                 id="rect3315"
+                 width="93"
+                 height="67"
+                 x="-91"
+                 y="38.362183" /></flowRegion><flowPara
+               id="flowPara3317"
+               style="font-size:8px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#800000;font-family:Courier New;-inkscape-font-specification:Courier New Bold">1</flowPara></flowRoot>          <rect
+             y="108.45748"
+             x="239"
+             height="13.904701"
+             width="7.0625"
+             id="rect3476"
+             style="fill:#800000;fill-opacity:0.23430966;stroke:none" />
+        </g>
+        <flowRoot
+           style="font-size:10px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           id="flowRoot4246"
+           xml:space="preserve"
+           transform="translate(207.25,0)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135"><flowRegion
+             id="flowRegion4248"><rect
+               y="84.612175"
+               x="148.75"
+               height="127.75001"
+               width="86.25"
+               id="rect4250" /></flowRegion><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New"
+             id="flowPara4254" /><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New"
+             id="flowPara4274" /><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New"
+             id="flowPara4256">l = [200]</flowPara><flowPara
+             id="flowPara4270"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;text-anchor:start;font-family:Courier New;-inkscape-font-specification:Courier New" /></flowRoot>        <g
+           id="g3332"
+           transform="translate(172,0)"
+           inkscape:export-filename="/mnt/hgfs/Documents/projects/DistrictNetworks/BuildingsLibrary/modelica-buildings/Buildings/Resources/Images/Electrical/Transmission/Grids/testGrid2Nodes.png"
+           inkscape:export-xdpi="201.0135"
+           inkscape:export-ydpi="201.0135">
+          <flowRoot
+             transform="translate(331,73.733346)"
+             style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+             id="flowRoot3334"
+             xml:space="preserve"><flowRegion
+               id="flowRegion3336"><rect
+                 y="38.362183"
+                 x="-91"
+                 height="67"
+                 width="93"
+                 id="rect3338" /></flowRegion><flowPara
+               style="font-size:8px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#800000;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+               id="flowPara3340">1</flowPara></flowRoot>          <rect
+             style="fill:#800000;fill-opacity:0.23430966;stroke:none"
+             id="rect3342"
+             width="7.0625"
+             height="13.904701"
+             x="239"
+             y="108.45748" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

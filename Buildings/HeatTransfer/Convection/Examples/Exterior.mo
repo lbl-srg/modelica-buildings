@@ -7,8 +7,8 @@ model Exterior "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
   Buildings.HeatTransfer.Convection.Exterior nor(
     A=1,
-    azi=Buildings.HeatTransfer.Types.Azimuth.N,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.N,
+    til=Buildings.Types.Tilt.Wall,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "North-facing wall"                       annotation (Placement(
         transformation(
@@ -16,8 +16,8 @@ model Exterior "Test model for exterior heat transfer coefficients"
         origin={30,30})));
   Buildings.HeatTransfer.Convection.Exterior wes(
     A=1,
-    azi=Buildings.HeatTransfer.Types.Azimuth.W,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.W,
+    til=Buildings.Types.Tilt.Wall,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "West facing wall"                                         annotation (
       Placement(transformation(
@@ -33,8 +33,8 @@ model Exterior "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.HeatTransfer.Convection.Exterior sou(
     A=1,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.S,
+    til=Buildings.Types.Tilt.Wall,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "South facing wall"                         annotation (
       Placement(transformation(
@@ -42,8 +42,8 @@ model Exterior "Test model for exterior heat transfer coefficients"
         origin={30,-30})));
   Buildings.HeatTransfer.Convection.Exterior eas(
     A=1,
-    azi=Buildings.HeatTransfer.Types.Azimuth.E,
-    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    azi=Buildings.Types.Azimuth.E,
+    til=Buildings.Types.Tilt.Wall,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
     "East facing wall"                          annotation (
       Placement(transformation(

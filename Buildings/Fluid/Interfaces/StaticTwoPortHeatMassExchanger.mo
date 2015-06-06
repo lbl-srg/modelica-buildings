@@ -10,7 +10,7 @@ model StaticTwoPortHeatMassExchanger
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Model inputs
-  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
+  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
 

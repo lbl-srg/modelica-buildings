@@ -2,9 +2,9 @@ within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftNoVolume
   "Model that demonstrates the chimney effect with a steady-state model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Modelica.Media.Air.SimpleAir;
 
-  Fluid.MixingVolumes.MixingVolume roo(
+  Buildings.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -13,8 +13,7 @@ model ChimneyShaftNoVolume
     m_flow_nominal=0.05,
     p_start=101325,
     nPorts=3) "Air volume of a room"
-     annotation (Placement(transformation(extent={{20,-60},
-            {40,-40}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
@@ -31,8 +30,8 @@ model ChimneyShaftNoVolume
   Buildings.Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    nPorts=2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,50})));
   Buildings.Airflow.Multizone.Orifice oriBot(
@@ -63,7 +62,7 @@ model ChimneyShaftNoVolume
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,10})));
-  Buildings.Controls.Continuous.LimPID con(
+  Modelica.Blocks.Continuous.LimPID con(
     Td=10,
     yMax=1,
     yMin=-1,
@@ -79,9 +78,8 @@ model ChimneyShaftNoVolume
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
-  Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium =
-        Medium, densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual)
-    "Shaft of chimney"
+  Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium = Medium,
+      densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual) "Shaft of chimney"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   MediumColumn staIn(
     redeclare package Medium = Medium,
@@ -212,6 +210,13 @@ up the other flow path.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 24, 2015 by Michael Wetter:<br/>
+Changed media to
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
+Modelica.Media.Air.SimpleAir</a>
+in order to test the medium column for a media that has no moisture.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

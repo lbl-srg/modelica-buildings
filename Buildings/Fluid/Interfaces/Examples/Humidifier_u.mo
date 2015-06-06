@@ -2,7 +2,7 @@ within Buildings.Fluid.Interfaces.Examples;
 model Humidifier_u
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+ package Medium = Buildings.Media.Air;
  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
     "Nominal water mass flow rate";
   Humidifier hea1(redeclare package Medium =
@@ -369,12 +369,10 @@ protected
 equation
   connect(POut.y,sin_1. p_in) annotation (Line(
       points={{-179,150},{-174.5,150},{-174.5,152},{-170,152}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y,sou_1. T_in) annotation (Line(
       points={{-179,102},{-174.5,102},{-174.5,106},{-170,106}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(res_11.port_b, hea1.port_a)
                                      annotation (Line(points={{-80,102},{-54,
           102}}, color={0,127,255}));

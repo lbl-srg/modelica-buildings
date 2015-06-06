@@ -44,7 +44,7 @@ Block that outputs the number of inputs that exceed a threshold.
 The parameter <code>kind</code> is used to determine the kind of the
 inequality. The table below shows the allowed settings.
 </p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\" summary=\"Allowed parameter settings.\">
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\" summary=\"Allowed parameter settings.\">
 <tr>
 <th>Value of parameter <code>kind</code></th>
 <th>Output signal incremented by 1 for each <i>i &isin; {1, ..., nin}</i> if</th>

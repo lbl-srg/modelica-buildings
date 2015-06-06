@@ -22,7 +22,7 @@ electrical power draw and efficiency as a function
 of the volume flow rate and the speed.
 The following performance curves are implemented:
 </p>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th>Independent variable</th>
 <th>Dependent variable</th>
@@ -70,7 +70,7 @@ Note that not all records can be used with all models, as
 the records only declare the minimum set of required data.
 </p>
 <!-- Table for performance data -->
-<table summary=\"Performance data\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"Performance data\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <th></th>
 <th style=\"text-align:left\">
@@ -92,8 +92,8 @@ Data.SpeedControlled_Nrpm</a>
 FlowControlled_m_flow</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
 </tr>
 <tr>
 <th>
@@ -101,8 +101,8 @@ FlowControlled_m_flow</a>
 FlowControlled_dp</a>
 </th>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
+<td style=\"background-color:DarkGreen\"/>
 </tr>
 <tr>
 <th>
@@ -111,7 +111,7 @@ SpeedControlled_y</a>
 </th>
 <td style=\"background-color:DarkRed\"/>
 <td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkRed\"/>
+<td style=\"background-color:DarkGreen\"/>
 </tr>
 <tr>
 <th>
@@ -149,7 +149,7 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
 full speed, the points shown in the table below.
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
       <th>Head [Pa]</th>
@@ -227,12 +227,12 @@ is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
 approximating the inertia of the rotor and the fluid.
 Thus, a step change in the fan input signal will cause a gradual change
-</p>
 in the fan speed.
 The filter has a parameter <code>riseTime</code>, which by default is set to
 <i>30</i> seconds.
 The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
+</p>
 </li>
 </ol>
 

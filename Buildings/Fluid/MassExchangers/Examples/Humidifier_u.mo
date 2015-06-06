@@ -2,7 +2,7 @@ within Buildings.Fluid.MassExchangers.Examples;
 model Humidifier_u "Model that demonstrates the ideal humidifier model"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
 
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=

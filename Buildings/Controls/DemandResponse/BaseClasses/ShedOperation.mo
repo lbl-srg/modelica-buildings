@@ -23,7 +23,8 @@ equation
           lineColor={0,0,255},
           textString="SH")}),    Documentation(info="<html>
 <p>
-fixme: this is only a place holder.
+This model computes the predicted load as the product of the shed
+control signal and the consumed electrical power.
 </p>
 </html>", revisions="<html>
 <ul>

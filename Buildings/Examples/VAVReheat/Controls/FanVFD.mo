@@ -4,11 +4,11 @@ block FanVFD "Controller for fan revolution"
   import Buildings.Examples.VAVReheat.Controls.OperationModes;
   Buildings.Controls.Continuous.LimPID con(
     yMax=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=60,
-    k=0.5,
-    Ti=15,
-    yMin=r_N_min) "Controller"
+    yMin=r_N_min,
+    k=k,
+    Ti=Ti,
+    controllerType=controllerType) "Controller"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Math.Gain gaiMea(k=1/xSet_nominal)
     "Gain to normalize measurement signal"
@@ -38,11 +38,19 @@ block FanVFD "Controller for fan revolution"
     "Type of initialization (1: no init, 2: steady state, 3/4: initial output)";
   parameter Real y_start=0 "Initial or guess value of output (= state)";
 
+  parameter Modelica.Blocks.Types.SimpleController
+    controllerType=.Modelica.Blocks.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Setpoint tracking"));
+  parameter Real k=0.5 "Gain of controller"
+    annotation (Dialog(group="Setpoint tracking"));
+  parameter Modelica.SIunits.Time Ti=15 "Time constant of Integrator block"
+    annotation (Dialog(group="Setpoint tracking"));
+
 equation
   connect(gaiMea.y, con.u_m) annotation (Line(
       points={{-39,6.10623e-16},{-10,6.10623e-16},{-10,18}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(con.y, extractor.u[OperationModes.occupied]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},

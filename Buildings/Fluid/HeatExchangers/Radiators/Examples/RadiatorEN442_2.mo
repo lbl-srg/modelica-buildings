@@ -1,16 +1,14 @@
 within Buildings.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Temperature TRoo = 20+273.15 "Room temperature"
     annotation (Evaluate=false);
  parameter Modelica.SIunits.Power Q_flow_nominal = 500 "Nominal power";
-  parameter Modelica.SIunits.Temperature T_a_nominal=273.15 + 40
-    "Radiator inlet temperature at nominal condition"
-    annotation (Evaluate=false);
- parameter Modelica.SIunits.Temperature T_b_nominal = 273.15+30
-    "Radiator outlet temperature at nominal condition"
-    annotation (Evaluate=false);
+  parameter Modelica.SIunits.Temperature T_a_nominal=313.15
+    "Radiator inlet temperature at nominal condition";
+ parameter Modelica.SIunits.Temperature T_b_nominal = 303.15
+    "Radiator outlet temperature at nominal condition";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
     Q_flow_nominal/(T_a_nominal-T_b_nominal)/Medium.cp_const
     "Nominal mass flow rate";
@@ -38,9 +36,8 @@ model RadiatorEN442_2 "Test model for radiator"
     T=T_b_nominal) "Sink"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
 
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
-      package Medium =
-               Medium,
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
+    redeclare package Medium = Medium,
     T_a_nominal=T_a_nominal,
     T_b_nominal=T_b_nominal,
     Q_flow_nominal=Q_flow_nominal,
@@ -120,5 +117,20 @@ equation
     Documentation(info="<html>
 This test model compares the radiator model when
 used as a steady-state and a dynamic model.
+</html>", revisions="<html>
+<ul>
+<li>
+June 5, 2015 by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> from instances
+<code>T_a_nominal</code> and <code>T_b_nominal</code>
+to avoid the warning about non-literal nominal values.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/128\">#128</a>.
+</li>
+<li>
+January 30, 2009 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end RadiatorEN442_2;

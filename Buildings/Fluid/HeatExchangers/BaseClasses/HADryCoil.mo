@@ -112,7 +112,7 @@ the references below.
 <ul>
 <li>
 Wetter Michael,
-<A HREF=\"http://www.osti.gov/energycitations/product.biblio.jsp?osti_id=7353\">
+<a href=\"http://www.osti.gov/energycitations/product.biblio.jsp?osti_id=7353\">
 Simulation model finned water-air-coil without condensation</a>,
 LBNL-42355,
 Lawrence Berkeley National Laboratory,
@@ -120,8 +120,8 @@ Berkeley, CA, 1999.
 </li>
 <li>
 Wetter Michael,
-<A HREF=\"http://www.osti.gov/energycitations/product.biblio.jsp?osti_id=7352\">
-Simulation model air-to-air plate heat exchanger</A>,
+<a href=\"http://www.osti.gov/energycitations/product.biblio.jsp?osti_id=7352\">
+Simulation model air-to-air plate heat exchanger</a>,
 LBNL-42354,
 Lawrence Berkeley National Laboratory,
 Berkeley, CA, 1999.

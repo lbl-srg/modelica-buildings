@@ -3,9 +3,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+      Buildings.Media.Air;
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
   parameter Boolean dynamicBalanceJunction=true
@@ -172,7 +171,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     xSet_nominal(displayUnit="Pa") = 30,
-    r_N_min=0.2) "Controller for fan of hot deck"
+    r_N_min=0.2,
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=1) "Controller for fan of hot deck"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
@@ -299,7 +300,11 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
                         xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0.2) "Controller for return air fan"
+    r_N_min=0.2,
+    k=1,
+    Ti=15,
+    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    "Controller for return air fan"
     annotation (Placement(transformation(extent={{240,220},{260,240}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
@@ -1139,7 +1144,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRet.port_a, fanRet.port_b) annotation (Line(
-      points={{102,160},{220,160},{220,160},{340,160}},
+      points={{102,160},{340,160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splHotColDec.port_2, fanSupHot.port_a) annotation (Line(
@@ -1256,6 +1261,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2015, by Michael Wetter:<br/>
+Added resistance of preheat coil to filter, changed controller of
+return fan to use a PI controller.
+This was done to stabilize the control during summer.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

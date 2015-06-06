@@ -2,12 +2,11 @@ within Buildings.Fluid.Sources.Examples;
 model Outside_CpLowRise
   "Test model for source and sink with outside weather data and wind pressure"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model for air";
+  package Medium = Buildings.Media.Air "Medium model for air";
   Buildings.Fluid.Sources.Outside_CpLowRise west(
     redeclare package Medium = Medium,
     s=5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.W,
+    azi=Buildings.Types.Azimuth.W,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -16,19 +15,19 @@ model Outside_CpLowRise
   Buildings.Fluid.Sources.Outside_CpLowRise north(
     redeclare package Medium = Medium,
     s=1/5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.N,
+    azi=Buildings.Types.Azimuth.N,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Fluid.Sources.Outside_CpLowRise south(
     redeclare package Medium = Medium,
     s=1/5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    azi=Buildings.Types.Azimuth.S,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Fluid.Sources.Outside_CpLowRise east(
     redeclare package Medium = Medium,
     s=5,
-    azi=Buildings.HeatTransfer.Types.Azimuth.E,
+    azi=Buildings.Types.Azimuth.E,
     Cp0=0.6) "Model with outside conditions"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation

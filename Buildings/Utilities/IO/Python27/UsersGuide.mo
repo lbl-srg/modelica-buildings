@@ -34,7 +34,7 @@ environment to find the dynamically linked libraries.
 The next sections explain how to set these variables for the
 following system configurations:
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>System</th>
       <th>Settings</th>
@@ -128,7 +128,7 @@ If there are no arguments at all, then the function takes no arguments.</p>
 The table below shows the list of arguments for various combinations where no,
 one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
- <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+ <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblWri</th>   <th>nIntWri</th>  <th>nStrWri</th>  <th>Arguments</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>0      </td>  <td>1.                            </td></tr>
   <tr> <td>0      </td>   <td>1      </td>  <td>1      </td>  <td>1, \"a\"                        </td></tr>
@@ -162,7 +162,7 @@ ignored.
 <p>
 The table below shows valid return types for various combinations where no, one or two double values
 and integer values are returned.</p>
- <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+ <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr> <th>nDblRea</th>   <th>nIntRea</th>  <th>Return value</th>  </tr>
   <tr> <td>1      </td>   <td>0      </td>  <td>1.                 </td></tr>
   <tr> <td>0      </td>   <td>1      </td>  <td>1                  </td></tr>

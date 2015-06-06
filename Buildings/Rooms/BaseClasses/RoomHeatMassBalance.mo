@@ -54,7 +54,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
     final glaSys=datConExtWin.glaSys,
-    each final homotopyInitialization=homotopyInitialization) if haveConExtWin
+    each final homotopyInitialization=homotopyInitialization,
+    each final linearizeRadiation=linearizeRadiation) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
   Constructions.Construction conPar[NConPar](
@@ -107,7 +108,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-270,-150},{-250,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
@@ -136,7 +137,7 @@ partial model RoomHeatMassBalance "Base model for a room"
 
   HeatTransfer.Windows.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
     final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-    final N=datConExtWin.glaSys.nLay,
+    final N={size(datConExtWin[i].glaSys.glass, 1) for i in 1:NConExtWin},
     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
@@ -188,7 +189,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol for i in 1:NConExtWin}) if
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol for i in 1:NConExtWin}) if
        haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
@@ -240,7 +241,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=datConExtWin.glaSys.shade.absIR_a,
-    final absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin},
+    final absIR_glass={(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
@@ -328,42 +329,34 @@ equation
   connect(bouConExtWin.opa_a, conExtWin.opa_a) annotation (Line(
       points={{352,69},{280,69}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInUns_a, bouConExtWin.JOutUns) annotation (Line(
       points={{280.5,60},{304,60},{304,58},{351.5,58}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInUns, conExtWin.JOutUns_a) annotation (Line(
       points={{351.5,60},{316,60},{316,58},{280.5,58}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.glaUns_a, bouConExtWin.glaUns) annotation (Line(
       points={{280,55},{352,55}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.glaSha, conExtWin.glaSha_a) annotation (Line(
       points={{352,53},{280,53}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInSha_a, bouConExtWin.JOutSha) annotation (Line(
       points={{280.5,51},{286,51},{286,52},{292,52},{292,49},{351.5,49}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInSha, conExtWin.JOutSha_a) annotation (Line(
       points={{351.5,51},{290,51},{290,49},{280.5,49}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.fra_a, bouConExtWin.fra) annotation (Line(
       points={{280,46},{352,46}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
       points={{288,138.333},{334,138.333},{334,139},{352,139}},
@@ -623,13 +616,11 @@ equation
   connect(conExtWin.JOutSha_b, shaRad.JIn_glass) annotation (Line(
       points={{249.5,51},{222,51},{222,70},{16,70},{16,92},{-39,92}},
       color={0,127,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(irRadExc.JInConExtWin, sumJFroWin.y) annotation (Line(
       points={{-79.5833,13.3333},{-46,13.3333},{-46,14},{-41,14}},
       color={0,127,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow) annotation (Line(
@@ -797,6 +788,11 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Propagated parameter <code>homotopyInitialization</code>.

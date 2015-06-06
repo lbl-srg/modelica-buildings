@@ -23,6 +23,7 @@ Function that approximates <i>y=1 &frasl; x</i>
 inside the interval <i>-&delta; &le; x &le; &delta;</i>.
 The approximation is twice continuously differentiable with a bounded derivative on the whole
 real line.
+</p>
 <p>
 See the package <code>Examples</code> for the graph.
 </p>

@@ -26,7 +26,7 @@ Buildings.Controls.Predictors.BaseClasses.sampleStart</a>.
 The function produces the following sequence of points
 </p>
 <table summary=\"Table with start of the simulation and sampling time\"
-border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\" >
+border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\" >
 <tr><th>simulation start</th><th>start of sampling</th></tr>
 <tr><td>-10</td><td> -10</td></tr>
 <tr><td>-9</td><td> -5</td></tr>

@@ -16,10 +16,10 @@ model WindowWithShade
         each A=1,
         layers={matLayExt,matLayExt,matLayExt,matLayExt},
         til={
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Floor,
-            Buildings.HeatTransfer.Types.Tilt.Ceiling},
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Floor,
+            Buildings.Types.Tilt.Ceiling},
         boundaryCondition={
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
@@ -34,11 +34,11 @@ model WindowWithShade
         each hWin=0.5,
         each fFra=0.2,
         til={
-            Buildings.HeatTransfer.Types.Tilt.Wall,
-            Buildings.HeatTransfer.Types.Tilt.Wall},
+            Buildings.Types.Tilt.Wall,
+            Buildings.Types.Tilt.Wall},
         azi={
-            Buildings.HeatTransfer.Types.Azimuth.E,
-            Buildings.HeatTransfer.Types.Azimuth.W},
+            Buildings.Types.Azimuth.E,
+            Buildings.Types.Azimuth.W},
         boundaryCondition={
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature,
             Buildings.Rooms.Types.CFDBoundaryConditions.Temperature}),

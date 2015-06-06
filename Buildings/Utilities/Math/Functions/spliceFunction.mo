@@ -32,6 +32,7 @@ The function is adapted from
 <a href=\"modelica://Modelica.Media.Air.MoistAir.Utilities.spliceFunction\">
 Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

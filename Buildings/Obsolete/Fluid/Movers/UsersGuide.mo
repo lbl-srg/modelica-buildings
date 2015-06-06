@@ -45,7 +45,7 @@ Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
 <p>
 For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
 full speed, the points shown in the table below.</p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
       <th>Head [Pa]</th>

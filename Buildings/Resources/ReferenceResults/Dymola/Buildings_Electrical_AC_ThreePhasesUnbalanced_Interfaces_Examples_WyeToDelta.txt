@@ -1,0 +1,9 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+probe_Y.V[1]=[277.128143310546875, 277.128143310546875]
+probeD.V[2]=[480., 480.]
+probeD.V[3]=[480., 480.]
+time=[0., 1.]
+probeD.V[1]=[480., 480.]
+probe_Y.V[3]=[277.128143310546875, 277.128143310546875]
+probe_Y.V[2]=[277.128143310546875, 277.128143310546875]

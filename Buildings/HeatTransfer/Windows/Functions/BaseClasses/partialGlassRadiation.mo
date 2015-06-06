@@ -11,7 +11,7 @@ This is a partial function that is used to implement the radiation functions for
 <ul>
 <li>
 December 19 2011, by Wangda Zuo:<br/>
-Separate part of defintions to particalSingleGlassRadiation.mo.
+Separate part of definitions to particalSingleGlassRadiation.mo.
 </li>
 </ul>
 <ul>

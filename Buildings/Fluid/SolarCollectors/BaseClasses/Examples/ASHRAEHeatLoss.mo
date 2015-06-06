@@ -28,7 +28,7 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
     nSeg=3,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium = Buildings.Media.Water,
     G_nominal=per.G_nominal,
     dT_nominal=per.dT_nominal,
     A_c=per.A,

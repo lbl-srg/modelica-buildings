@@ -111,58 +111,58 @@ equation
           smooth=Smooth.None)}),
 Documentation(info="<html>
 <p>
-Two way valve with a pressure-independent valve opening characteristic. 
-The mass flow rate is controlled such that it is nearly equal to its 
-set point <code>y*m_flow_nominal</code>, unless the pressure 
+Two way valve with a pressure-independent valve opening characteristic.
+The mass flow rate is controlled such that it is nearly equal to its
+set point <code>y*m_flow_nominal</code>, unless the pressure
 <code>dp</code> is too low, in which case a regular <code>Kv</code>
-characteristic is used. 
+characteristic is used.
 </p>
 <h4>Main equations</h4>
 <p>
-First the minimum pressure head <code>dp_min</code> 
-required for delivering the requested mass flow rate 
-<code>y*m_flow_nominal</code> is computed. If 
-<code>dp &gt; dp_min</code> then the requested mass flow 
-rate is supplied. If <code>dp &lt; dp_min</code> then 
-<code>m_flow = Kv/sqrt(dp)</code>. Transition between 
+First the minimum pressure head <code>dp_min</code>
+required for delivering the requested mass flow rate
+<code>y*m_flow_nominal</code> is computed. If
+<code>dp &gt; dp_min</code> then the requested mass flow
+rate is supplied. If <code>dp &lt; dp_min</code> then
+<code>m_flow = Kv/sqrt(dp)</code>. Transition between
 these two flow regimes happens in a smooth way.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-This model is configured by setting <code>m_flow_nominal</code> 
-to the mass flow rate that the valve should supply when it is 
-completely open, i.e., <code>y = 1</code>. The pressure drop corresponding 
+This model is configured by setting <code>m_flow_nominal</code>
+to the mass flow rate that the valve should supply when it is
+completely open, i.e., <code>y = 1</code>. The pressure drop corresponding
 to this working point can be set using <code>dpValve_nominal</code>,
-or using a <code>Kv</code>, <code>Cv</code> or <code>Av</code> 
-value. The parameter <code>dpValve_fixed</code> can be used to add 
-additional pressure drops, although in this valve it is equivalent to 
-add these to <code>dpValve_nominal</code>. 
+or using a <code>Kv</code>, <code>Cv</code> or <code>Av</code>
+value. The parameter <code>dpValve_fixed</code> can be used to add
+additional pressure drops, although in this valve it is equivalent to
+add these to <code>dpValve_nominal</code>.
 </p>
 <p>
-The parameter <code>l2</code> represents the non-ideal 
-leakage behaviour of this valve for high pressures. 
-It is assumed that the mass flow rate will rise beyond 
+The parameter <code>l2</code> represents the non-ideal
+leakage behaviour of this valve for high pressures.
+It is assumed that the mass flow rate will rise beyond
 the requested mass flow rate <code>y*m_flow_nominal</code>
 if <code>dp &gt; dpValve_nominal+dpFixed_nominal</code>.
-The parameter <code>l2</code> represents the slope 
-of this rise: 
-<code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>. 
+The parameter <code>l2</code> represents the slope
+of this rise:
+<code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>.
 In the ideal case <code>l2=0</code>, but
-this may introduce singularities, for instance when 
-connecting this component with a fixed mass flow source. 
+this may introduce singularities, for instance when
+connecting this component with a fixed mass flow source.
 </p>
 <h4>Options</h4>
 <p>
-Parameter <code>deltax</code> sets the duration of 
-the transition region between the two flow regimes 
-as a fraction of <code>dp_nominal</code> or <code>m_flow_nominal</code>, 
-depending on the value of <code>from_dp</code>. 
+Parameter <code>deltax</code> sets the duration of
+the transition region between the two flow regimes
+as a fraction of <code>dp_nominal</code> or <code>m_flow_nominal</code>,
+depending on the value of <code>from_dp</code>.
 </p>
 <h4>Implementation</h4>
 <p>
-Note that the result in the transition region when 
-using <code>from_dp = true</code> is not identical to 
-the result when using <code>from_dp = false</code>. 
+Note that the result in the transition region when
+using <code>from_dp = true</code> is not identical to
+the result when using <code>from_dp = false</code>.
 </p>
 </html>",
 revisions="<html>

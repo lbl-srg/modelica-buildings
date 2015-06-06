@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElementLatent
   "Model that tests the basic element that is used to built heat exchanger models"
   extends Modelica.Icons.Example;
- package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ package Medium_W = Buildings.Media.Water;
+ package Medium_A = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium_A,
     use_p_in=true,
@@ -85,24 +85,19 @@ model HexElementLatent
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(
       points={{-79,54},{-79,54},{-62,54}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(POut.y, sin_1.p_in) annotation (Line(
       points={{-79,90},{30,90},{30,58},{40,58}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(PIn.y, sou_2.p_in) annotation (Line(
       points={{21,-50},{30,-50},{30,-62},{38,-62}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TWat.y, sou_2.T_in) annotation (Line(
       points={{21,-82},{30,-82},{30,-66},{38,-66}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(POut.y, sin_2.p_in) annotation (Line(
       points={{-79,90},{-70,90},{-70,-12},{-62,-12}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(hex.port_b1, res_12.port_a)
                                      annotation (Line(points={{32,6},{48,6}},
                         color={0,127,255}));
