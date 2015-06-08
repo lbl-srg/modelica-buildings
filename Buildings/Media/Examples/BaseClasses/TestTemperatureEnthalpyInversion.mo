@@ -2,7 +2,7 @@ within Buildings.Media.Examples.BaseClasses;
 partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
    replaceable package Medium =
-        Modelica.Media.Interfaces.PartialCondensingGases;
+        Modelica.Media.Interfaces.PartialMedium;
      parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
      Modelica.SIunits.Temperature T "Temperature";
      Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
@@ -22,6 +22,13 @@ Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>
+<li>
+June 6, 2015 by Michael Wetter:<br/>
+Changed <code>Medium</code> base class to avoid a translation error
+in Dymola 2016 using pedantic mode.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
 <li>
 February 12, 2015 by Michael Wetter:<br/>
 Replaced <code>h_pTX</code> with <code>specificEnthalpy_pTX</code>

@@ -61,8 +61,6 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
-          Medium.reference_T)*dynBal.CSen),
     final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -242,6 +240,15 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Moved assignment of <code>dynBal.U.start</code>
+from instance <code>dynBal</code> to the actual model implementation.
+This is required for a pedantic model check in Dymola 2016.
+It addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">
+issue 266</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Improved documentation and changed the test
