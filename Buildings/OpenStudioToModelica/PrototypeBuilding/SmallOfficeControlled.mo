@@ -91,8 +91,7 @@ model SmallOfficeControlled
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=V_nominal,
     pf=pf,
-    linearized=true,
-    initMode=Buildings.Electrical.Types.InitMode.linearized)
+    initMode=Buildings.Electrical.Types.InitMode.zero_current)
     "Electric load representing the building"        annotation (Placement(transformation(extent={{78,-10},
             {58,10}})));
   Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n term

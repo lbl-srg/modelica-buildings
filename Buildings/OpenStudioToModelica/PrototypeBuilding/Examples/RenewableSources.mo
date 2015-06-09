@@ -54,7 +54,6 @@ model RenewableSources
     l=100) "Electrical line"
     annotation (Placement(transformation(extent={{142,2},{162,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line5(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=3*(PLoa_nominal) + PWin,
     l=100) "Electrical line"
