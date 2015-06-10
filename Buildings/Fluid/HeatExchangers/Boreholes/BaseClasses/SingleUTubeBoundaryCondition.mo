@@ -13,7 +13,7 @@ model SingleUTubeBoundaryCondition
     "Period between two samples";
   ExtendableArray table=ExtendableArray()
     "Extentable array, used to store history of rate of heat flows";
-  Modelica.SIunits.HeatFlowRate QAve_flow
+  discrete Modelica.SIunits.HeatFlowRate QAve_flow(fixed=true, start=0)
     "Average heat flux over a time period";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat flow rate at the center of the borehole, positive if heat is added to soil"
@@ -28,32 +28,34 @@ protected
   final parameter Modelica.SIunits.ThermalConductivity k= matSoi.k
     "Thermal conductivity of the soil";
   final parameter Modelica.SIunits.Density d = matSoi.d "Density of the soil";
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
+  discrete Modelica.SIunits.Energy UOld
+    "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
+  discrete Modelica.SIunits.Temperature T(fixed=true, start=TExt_start)
+    "Temperature at heat port";
   final parameter Modelica.SIunits.Time startTime(fixed=false)
     "Start time of the simulation";
   Integer iSam(min=1)
     "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
-initial algorithm
-  U         := 0;
-  UOld      := 0;
-  startTime := time;
-  iSam      := 1;
+initial equation
+  U         = 0;
+  UOld      = 0;
+  startTime = time;
+  iSam      = 1;
 equation
   der(U) = Q_flow;
-algorithm
   when initial() or sample(startTime,samplePeriod) then
-    QAve_flow := (U-UOld)/samplePeriod;
-    UOld      := U;
-    port.T    := TExt_start + Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop(
-                                 table=table, iSam=iSam,
+    QAve_flow = (U-UOld)/samplePeriod;
+    UOld      = U;
+    T    = TExt_start + Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop(
+                                 table=table, iSam=pre(iSam),
                                  Q_flow=QAve_flow, samplePeriod=samplePeriod,
                                  rExt=rExt, hSeg=hSeg,
                                  k=k, d=d, c=c);
-    iSam := iSam+1;
+    iSam = pre(iSam)+1;
   end when;
-
+  port.T = T;
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
@@ -97,6 +99,17 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Revised model to avoid an
+error because of conflicting start values if
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube\">
+Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube</a>
+is translated
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Moved assignment of <code>startTime</code> to <code>initial algorithm</code> section

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model ParallelCircuitsSlab
   "Model of multiple parallel circuits of a radiant slab"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+  extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=p_start,
              nominal=Medium.p_default)),
     port_b(p(start=p_start,
@@ -231,6 +231,15 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Changed base class from
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
+Modelica.Fluid.Interfaces.PartialTwoPort</a>
+to
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPort\">
+Buildings.Fluid.Interfaces.PartialTwoPort</a>.
+</li>
 <li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.

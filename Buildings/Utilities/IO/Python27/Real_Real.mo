@@ -1,7 +1,9 @@
 within Buildings.Utilities.IO.Python27;
 model Real_Real
   "Block that exchanges a vector of real values with a Python function"
-  extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    startTime=0,
+    firstTrigger(fixed=true, start=false));
 
   parameter String moduleName
     "Name of the python module that contains the function";
@@ -121,6 +123,17 @@ Integral of uR[i] over the sampling interval
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Set <code>firstTrigger(fixed=true, start=false)</code> to avoid a
+warning about unspecified initial conditions if
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
+Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
+is translated
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 September 29, 2014, by Michael Wetter:<br/>
 Changed <code>algorithm</code> to <code>equation</code> section

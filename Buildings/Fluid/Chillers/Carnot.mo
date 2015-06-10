@@ -55,10 +55,8 @@ model Carnot
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.SIunits.Temperature TCon
-    "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva
-    "Evaporator temperature used to compute efficiency";
+  Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
+  Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
