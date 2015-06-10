@@ -27,7 +27,11 @@ equation
       color={0,0,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=86400),
+            -100},{100,100}}), graphics), experiment(
+      StopTime=3.1536e+07,
+      Interval=60,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"),
     Documentation(revisions="<html>
 <ul>
 <li>
