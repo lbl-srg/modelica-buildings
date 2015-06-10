@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Examples;
 model WyeToDelta "Test for Y to D connection"
+  extends Modelica.Icons.Example;
 
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta wyeToDelta
     "Conversion of the voltages from Y to D"
