@@ -11,7 +11,7 @@ partial model FluidProperties
   parameter Modelica.SIunits.Pressure p = Medium.p_default "Pressure";
   parameter Modelica.SIunits.MassFraction X[Medium.nX]=
     Medium.X_default "Mass fraction";
-  Modelica.SIunits.Temperature T "Temperature";
+  Medium.Temperature T "Temperature";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
     "Celsius temperature";
 
@@ -45,7 +45,7 @@ partial model FluidProperties
   Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity";
 
   Modelica.SIunits.AbsolutePressure pMed "Pressure";
-  Modelica.SIunits.Temperature TMed "Temperature";
+  Medium.Temperature TMed "Temperature";
   Modelica.SIunits.MolarMass MM "Mixture molar mass";
 
   Medium.BaseProperties basPro "Medium base properties";
@@ -111,6 +111,18 @@ This example checks thermophysical properties of the medium.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Changed type of <code>T</code> from
+<code>Modelica.SIunits.Temperature</code> to <code>Medium.Temperature</code>.
+Otherwise, it has a different start value than <code>BaseProperties.T</code>, which
+causes an error if 
+<a href=\"Buildings.Media.Examples.WaterProperties\">
+Buildings.Media.Examples.WaterProperties</a>
+is translated in pedantic mode.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
 <li>
 October 16, 2014, by Michael Wetter:<br/>
 Removed call to <code>setState_dTX</code> as this

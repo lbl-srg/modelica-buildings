@@ -153,9 +153,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     yMin=0,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
-    k=0.1) "Controller for pre-heating coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=1) "Controller for pre-heating coil"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,
@@ -163,9 +163,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1,
-    Ti=120) "Controller for cooling coil"
+    Ti=120,
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=1) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{340,-200},{360,-180}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -197,7 +197,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
     dpValve_nominal=6000,
     from_dp=true,
-    dpFixed_nominal=6000) "Cooling coil valve"
+    dpFixed_nominal=6000,
+    filteredOpening=false) "Cooling coil valve"
                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -445,7 +446,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
-    riseTime=10) "Preheating coil valve"
+    riseTime=10,
+    filteredOpening=false) "Preheating coil valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -487,7 +489,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
-    dpFixed_nominal=6000) "Heating coil valve"
+    dpFixed_nominal=6000,
+    filteredOpening=false) "Heating coil valve"
                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -497,9 +500,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
-    k=0.1) "Controller for heating coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    k=1) "Controller for heating coil"
     annotation (Placement(transformation(extent={{340,-60},{360,-40}})));
   Buildings.Controls.SetPoints.Table TSetHot(table=[273.15 + 5,273.15 + 40; 273.15
          + 22,273.15 + 22]) "Setpoint for hot deck temperature"
@@ -1261,6 +1264,16 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 10, 2015, by Michael Wetter:<br/>
+In air handler unit, changed all coil controllers to proportional controllers,
+set the proportional band to <i>1</i> Kelvin,
+and removed the raise time of the coil valves.
+This leads to more stable control.
+Previously, the raise time was <i>120</i> seconds, and there was a PI controller
+with time constant of <i>120</i> seconds, which caused oscillatory behavior
+in the heating coil.
+</li>
 <li>
 March 2, 2015, by Michael Wetter:<br/>
 Added resistance of preheat coil to filter, changed controller of

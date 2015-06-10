@@ -22,7 +22,7 @@ model CoilHeader "Header for a heat exchanger register"
 
   Modelica.Fluid.Interfaces.FluidPort_b port_b[nPipPar](
         redeclare each final package Medium = Medium,
-        each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
+        each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
@@ -43,6 +43,17 @@ different flow reroutings in the coil header.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Removed start value for <code>port_b.m_flow</code> to avoid an
+error because of conflicting start values if
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretized\">
+Buildings.Fluid.HeatExchangers.Examples.DryCoilDiscretized</a>
+is translated
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

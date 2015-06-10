@@ -39,14 +39,14 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Dialog(enable=use_dayOfAdj,
                 group="Day of adjustment"));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
-  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
-  "Outside air temperature"
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") if
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+    "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
-    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
+       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
        transformation(extent={{-140,-120},{-100,-80}}),
@@ -126,7 +126,13 @@ protected
   Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](each start=false, each fixed=true)
     "Flag, true if a value in PPreHis has been set for that element";
 
-  Real intTOut(unit="K.s", start=0, fixed=true)
+  // If predictionModel <> Types.PredictionModel.WeatherRegression,
+  // then intTOut = 0 and hence we set fixed=false.
+  // This is required to avoid a warning if model is translated in pedantic mode
+  // in Dymola 2016.
+  Real intTOut(unit="K.s",
+               start=0,
+               fixed = (predictionModel == Types.PredictionModel.WeatherRegression))
     "Time integral of outside temperature";
   discrete Real intTOutLast(unit="K.s")
     "Last sampled value of time integral of outside temperature";
@@ -233,7 +239,9 @@ Wrong values for parameters.
   Received dayOfAdj_start = " + String(dayOfAdj_start) + "
            dayOfAdj_end   = " + String(dayOfAdj_end));
    end if;
-
+   idxSam = 0;
+   adj = 1;
+   PAve = 0;
 equation
   // Conditional connector
   connect(TOut,    TOut_in_internal);
@@ -459,6 +467,13 @@ and maximum adjustment factors as defined by the parameters
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Updated model to allow translation
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 October 29, 2014, by Michael Wetter:<br/>
 Revised implementation.

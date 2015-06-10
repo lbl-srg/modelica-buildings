@@ -5,19 +5,15 @@ package Water "Package with model for liquid water with constant density"
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
-     reference_X={1});
+     reference_X={1},
+     AbsolutePressure(start=p_default),
+     Temperature(start=T_default),
+     Density(start=d_const));
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
-  // For the ThermodynamicState, we set start values to the default medium states
-  // to provide better guesses for solvers
-  record extends ThermodynamicState(
-      T(start=T_default),
-      p(start=p_default)) "Thermodynamic state variables"
-  end ThermodynamicState;
-
   redeclare model BaseProperties "Base properties"
-    Modelica.SIunits.Temperature T(stateSelect=
+    Temperature T(stateSelect=
       if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -139,6 +135,35 @@ There are no phase changes.
 </html>", revisions="<html>
 <ul>
 <li>
+June 6, 2015, by Michael Wetter:<br/>
+Set <code>AbsolutePressure(start=p_default)</code> to avoid
+a translation error if
+<a href=\"modelica://Buildings.Fluid.Sources.Examples.TraceSubstancesFlowSource\">
+Buildings.Fluid.Sources.Examples.TraceSubstancesFlowSource</a>
+(if used with water instead of air)
+is translated in pedantic mode in Dymola 2016.
+The reason is that pressures use <code>Medium.p_default</code> as start values,
+but
+<a href=\"modelica://Modelica.Media.Interfaces.Types\">
+Modelica.Media.Interfaces.Types</a>
+sets a default value of <i>1E-5</i>.
+A similar change has been done for pressure and density.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Changed type of <code>BaseProperties.T</code> from
+<code>Modelica.SIunits.Temperature</code> to <code>Temperature</code>.
+Otherwise, it has a different start value than <code>Medium.T</code>, which
+causes an error if 
+<a href=\"Buildings.Media.Examples.WaterProperties\">
+Buildings.Media.Examples.WaterProperties</a>
+is translated in pedantic mode.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
 June 5, 2015, by Michael Wetter:<br/>
 Added <code>stateSelect</code> attribute in <code>BaseProperties.T</code>
 to allow correct use of <code>preferredMediumState</code> as
@@ -149,6 +174,13 @@ and set <code>preferredMediumState=false</code>
 to keep the same states as were used before.
 This is for 
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Removed <code>ThermodynamicState</code> declaration as this lead to
+the error
+\"Attempting to redeclare record ThermodynamicState when the original was not replaceable.\"
+in Dymola 2016 using the pedantic model check.
 </li>
 <li>
 May 1, 2015, by Michael Wetter:<br/>

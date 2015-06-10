@@ -35,11 +35,13 @@ protected
     "Start time of the simulation";
   Integer iSam(min=1)
     "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
-initial algorithm
-  U         := 0;
-  UOld      := 0;
-  startTime := time;
-  iSam      := 1;
+initial equation
+  U         = 0;
+  UOld      = 0;
+  startTime = time;
+  iSam      = 1;
+  port.T    = TExt_start;
+  QAve_flow = 0;
 equation
   der(U) = Q_flow;
 algorithm
@@ -97,6 +99,16 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Revised model to provide start values and avoid a warning if
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube\">
+Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube</a>
+is translated
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 September 27, 2013, by Michael Wetter:<br/>
 Moved assignment of <code>startTime</code> to <code>initial algorithm</code> section

@@ -35,7 +35,8 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter Boolean verbose=false "Set to true for verbose output";
   parameter Modelica.SIunits.Density rho_start "Density at initial state";
 
-  Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
+  Modelica.Blocks.Interfaces.RealInput u[nWri](start=_uStart,
+                                               each fixed=true) "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -368,6 +369,15 @@ Buildings.Rooms.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 4, 2015, by Michael Wetter:<br/>
+Set <code>start</code> and <code>fixed</code>
+attributes in
+<code>u[nWri](start=_uStart, each fixed=true)</code>
+to avoid a warning in Dymola 2016 about unspecified initial conditions.
+This closes
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
+</li>
 <li>
 February 6, 2015, by Michael Wetter:<br/>
 Changed <code>initial algorithm</code> to <code>initial equation</code>.

@@ -1,7 +1,12 @@
 within Buildings.Controls.Discrete;
 block BooleanDelay "Zero order hold for boolean variable"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
-  extends Modelica.Blocks.Interfaces.DiscreteBlock;
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    firstTrigger(fixed=true,
+                 start=firstTrigger_start));
+  parameter Boolean firstTrigger_start=false
+    "Start value for rising edge signals first sample instant"
+    annotation (Dialog(tab="Initialization"));
 protected
   Boolean ySample;
 algorithm
@@ -32,6 +37,15 @@ y(t<sub>i+1</sub>) = u(t<sub>i</sub>).
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Set start value and <code>fixed</code> attribute
+for <code>firstTrigger</code>
+to avoid a translation warning in pedantic mode
+in Dymola 2016.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>
 Improved documentation.

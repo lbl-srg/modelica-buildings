@@ -29,10 +29,10 @@ partial model PartialMixingVolume
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port for sensible heat input"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=T_start)) "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.SIunits.Temperature T "Temperature of the fluid";
+  Medium.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
   Modelica.SIunits.MassFraction Xi[Medium.nXi]
     "Species concentration of the fluid";
@@ -61,8 +61,6 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
-          Medium.reference_T)*dynBal.CSen),
     final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -242,6 +240,28 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Set start value for <code>heatPort.T</code> and changed
+type of <code>T</code> to <code>Medium.Temperature</code> rather than
+<code>Modelica.SIunits.Temperature</code>
+to avoid an
+error because of conflicting start values if
+<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
+Buildings.Fluid.Chillers.Carnot</a>
+is translated using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Moved assignment of <code>dynBal.U.start</code>
+from instance <code>dynBal</code> to the actual model implementation.
+This is required for a pedantic model check in Dymola 2016.
+It addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">
+issue 266</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Improved documentation and changed the test
