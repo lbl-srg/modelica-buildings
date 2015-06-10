@@ -13,7 +13,7 @@ model SingleUTubeBoundaryCondition
     "Period between two samples";
   ExtendableArray table=ExtendableArray()
     "Extentable array, used to store history of rate of heat flows";
-  discrete Modelica.SIunits.HeatFlowRate QAve_flow(fixed=true, start=0)
+  Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat flow rate at the center of the borehole, positive if heat is added to soil"
@@ -28,12 +28,9 @@ protected
   final parameter Modelica.SIunits.ThermalConductivity k= matSoi.k
     "Thermal conductivity of the soil";
   final parameter Modelica.SIunits.Density d = matSoi.d "Density of the soil";
-  discrete Modelica.SIunits.Energy UOld
-    "Internal energy at the previous period";
+  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  discrete Modelica.SIunits.Temperature T(fixed=true, start=TExt_start)
-    "Temperature at heat port";
   final parameter Modelica.SIunits.Time startTime(fixed=false)
     "Start time of the simulation";
   Integer iSam(min=1)
@@ -43,19 +40,22 @@ initial equation
   UOld      = 0;
   startTime = time;
   iSam      = 1;
+  port.T    = TExt_start;
+  QAve_flow = 0;
 equation
   der(U) = Q_flow;
+algorithm
   when initial() or sample(startTime,samplePeriod) then
-    QAve_flow = (U-UOld)/samplePeriod;
-    UOld      = U;
-    T    = TExt_start + Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop(
-                                 table=table, iSam=pre(iSam),
+    QAve_flow := (U-UOld)/samplePeriod;
+    UOld      := U;
+    port.T    := TExt_start + Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop(
+                                 table=table, iSam=iSam,
                                  Q_flow=QAve_flow, samplePeriod=samplePeriod,
                                  rExt=rExt, hSeg=hSeg,
                                  k=k, d=d, c=c);
-    iSam = pre(iSam)+1;
+    iSam := iSam+1;
   end when;
-  port.T = T;
+
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
@@ -101,8 +101,7 @@ revisions="<html>
 <ul>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
-Revised model to avoid an
-error because of conflicting start values if
+Revised model to provide start values and avoid a warning if
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube\">
 Buildings.Fluid.HeatExchangers.Boreholes.Examples.UTube</a>
 is translated

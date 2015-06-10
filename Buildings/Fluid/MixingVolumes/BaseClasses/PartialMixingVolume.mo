@@ -243,7 +243,7 @@ Buildings.Fluid.MixingVolumes</a>.
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Set start value for <code>heatPort.T</code> and changed
-type of <code>T<code> to <code>Medium.Temperature</code> rather than
+type of <code>T</code> to <code>Medium.Temperature</code> rather than
 <code>Modelica.SIunits.Temperature</code>
 to avoid an
 error because of conflicting start values if
