@@ -22,7 +22,6 @@ model Real_Real
 
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
-public
   Real uRWri[nDblWri] "Value to be sent to Python";
 initial equation
    uRWri    =  pre(uR);
