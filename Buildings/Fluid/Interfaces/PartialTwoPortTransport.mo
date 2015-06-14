@@ -37,36 +37,39 @@ partial model PartialTwoPortTransport
 
   Modelica.SIunits.VolumeFlowRate V_flow=
       m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
-                  Medium.density(state_a),
-                  Medium.density(state_b),
+                  Medium.density(
+                    Medium.setState_phX(
+                      p=  port_a.p,
+                      h=  inStream(port_a.h_outflow),
+                      X=  inStream(port_a.Xi_outflow))),
+                  Medium.density(
+                       Medium.setState_phX(
+                         p=  port_b.p,
+                         h=  inStream(port_b.h_outflow),
+                         X=  inStream(port_b.Xi_outflow))),
                   m_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
   Medium.Temperature port_a_T=
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,
-                  Medium.temperature(state_a),
+                  Medium.temperature(
+                    Medium.setState_phX(
+                      p=  port_a.p,
+                      h=  inStream(port_a.h_outflow),
+                      X=  inStream(port_a.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_a, if show_T = true";
   Medium.Temperature port_b_T=
       Modelica.Fluid.Utilities.regStep(port_b.m_flow,
-                  Medium.temperature(state_b),
+                  Medium.temperature(
+                    Medium.setState_phX(
+                      p=  port_b.p,
+                      h=  inStream(port_b.h_outflow),
+                      X=  inStream(port_b.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_b, if show_T = true";
-protected
-  Medium.ThermodynamicState state_a = Medium.setState_phX(
-              port_a.p,
-              inStream(port_a.h_outflow),
-              inStream(port_a.Xi_outflow)) if
-                 show_T or show_V_flow
-    "State for medium inflowing through port_a";
-  Medium.ThermodynamicState state_b = Medium.setState_phX(
-              port_b.p,
-              inStream(port_b.h_outflow),
-              inStream(port_b.Xi_outflow)) if
-                 show_T or show_V_flow
-    "State for medium inflowing through port_b";
 equation
   // Pressure drop in design flow direction
   dp = port_a.p - port_b.p;
@@ -119,6 +122,14 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Removed protected conditional variables <code>state_a</code> and <code>state_b</code>,
+as they were used outside of a connect statement, which causes an
+error during pedantic model check in Dymola 2016.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/128\">#128</a>.
+</li>
 <li>
 April 1, 2015, by Michael Wetter:<br/>
 Made computation of <code>state_a</code> and <code>state_p</code>

@@ -205,12 +205,17 @@ its class name ends with the string <code>Beta</code>.
                           as an FMU.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDExchange
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Set <code>start</code> and <code>fixed</code>
+                          attributes in
+                          <code>u[nWri](start=_uStart, each fixed=true)</code>
+                          to avoid a warning in Dymola 2016 about unspecified initial conditions.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
        </td>
    </tr>
    </table>

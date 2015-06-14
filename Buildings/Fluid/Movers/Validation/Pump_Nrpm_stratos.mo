@@ -277,7 +277,6 @@ equation
       smooth=Smooth.None));
 
   annotation (experiment(StopTime=1000),
-experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -302,6 +301,12 @@ Wilo Stratos 80/1-12 data sheet</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Removed dublicate <code>experiment</code> annotation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>
 Cleaned up implementation

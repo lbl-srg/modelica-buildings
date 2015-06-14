@@ -443,7 +443,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Validation/SingleSpeedEnergyPlusPLR.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Validation/SingleSpeedPLREnergyPlus.mos"
         "Simulate and plot"),
     experiment(StopTime=86400),
             Documentation(info="<html>
@@ -483,6 +483,10 @@ are corrected by dividing them by
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2015, by Michael Wetter:<br/>
+Corrected wrong link to run script.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
