@@ -53,9 +53,8 @@ model PumpsParallel "Two flow machines in parallel"
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    constInput=1,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
-    "Model of a flow machine"
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=1) "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpOut2(
     redeclare package Medium = Medium,
@@ -127,7 +126,8 @@ at the top has reverse flow.
 <ul>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using parameter as demonstration case.
+Set constant speed for pump using parameter 
+instead of <code>realInput</code>.
 </li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
