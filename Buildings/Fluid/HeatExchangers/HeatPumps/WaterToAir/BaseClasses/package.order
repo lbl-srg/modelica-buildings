@@ -1,6 +1,9 @@
 CoolingCapacity
-HeatingCapacity
-PartialWaterToAir
+DryCoil
 HeatFlow
 HeatMassFlow
+HeatingCapacity
+PartialCapacity
+PartialWaterToAir
+WetCoil
 Examples

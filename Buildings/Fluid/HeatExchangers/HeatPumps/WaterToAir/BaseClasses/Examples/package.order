@@ -1,4 +1,6 @@
 CoolingCapacity
-HeatingCapacity
+DryCoil
 HeatFlow
 HeatMassFlow
+HeatingCapacity
+WetCoil
