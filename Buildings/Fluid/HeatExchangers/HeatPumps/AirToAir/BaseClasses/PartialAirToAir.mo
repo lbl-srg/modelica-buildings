@@ -2,9 +2,9 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.BaseClasses;
 partial model PartialAirToAir "Partial model for air to air heat pump"
   extends Interfaces.FourPortHeatMassExchanger(
     final show_T=false,
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1( final allowFlowReversal=true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(V=m2_flow_nominal*tau2/rho2_nominal,
-       nPorts=2,final allowFlowReversal=true));
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+       nPorts=2));
 
   parameter Boolean computeReevaporation=true
     "Set to true to compute reevaporation of water that accumulated on coil";
@@ -15,13 +15,13 @@ partial model PartialAirToAir "Partial model for air to air heat pump"
     inStream(port_a1.h_outflow) "Enthalpy of air entering the heat pump";
   Modelica.SIunits.MassFraction X1In[Medium1.nXi] = inStream(port_a1.Xi_outflow)
     "Water mass fraction in air entering the heat pump";
-  Modelica.SIunits.Temperature T1In = Medium1.T_phX(p=port_a1.p, h=h1In, X=X1In)
+  Modelica.SIunits.Temperature T1In = Medium1.temperature_phX(p=port_a1.p, h=h1In, X=X1In)
     "Temperature of air entering the heat pump";
   Modelica.SIunits.SpecificEnthalpy h2In=
     inStream(port_a2.h_outflow) "Enthalpy of air entering the heat pump";
   Modelica.SIunits.MassFraction X2In[Medium2.nXi] = inStream(port_a2.Xi_outflow)
     "Water mass fraction in air entering the heat pump";
-  Modelica.SIunits.Temperature T2In = Medium2.T_phX(p=port_a2.p, h=h2In, X=X2In)
+  Modelica.SIunits.Temperature T2In = Medium2.temperature_phX(p=port_a2.p, h=h2In, X=X2In)
     "Temperature of air entering the heat pump";
 //   Modelica.SIunits.Temperature T2In = Medium2.temperature_ph(p=port_a2.p, h=h2In)
 //     "Temperature of water entering the heat pump";

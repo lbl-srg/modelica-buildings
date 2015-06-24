@@ -3,7 +3,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
   extends Modelica.Icons.Example;
   parameter Integer nSta=4 "Number of standard compressor speeds";
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   parameter Real minSpeRat(min=0,max=1) = 0.2 "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Sources.Constant p(

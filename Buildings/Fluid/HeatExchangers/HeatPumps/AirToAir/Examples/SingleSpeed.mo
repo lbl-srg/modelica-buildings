@@ -1,9 +1,8 @@
 within Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.Examples;
 model SingleSpeed "Test model for single speed air to air heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
-  package Medium2 = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium1 = Buildings.Media.Air;
+  package Medium2 = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = datHP.heaSta[1].nomVal.m1_flow_nominal
     "Medium1 nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = datHP.heaSta[1].nomVal.m1_flow_nominal
@@ -76,7 +75,8 @@ model SingleSpeed "Test model for single speed air to air heat pump"
         nomVal=AirToAir.Data.BaseClasses.HeatingNominalValues(
           Q_flow_nominal=1838.7,
           COP_nominal=5,
-          m1_flow_nominal=0.1661088),
+          m1_flow_nominal=m1_flow_nominal,
+          m2_flow_nominal=m2_flow_nominal),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={0.617474,-0.00245669,-1.87E-05,0.0254921,-1.01E-04,-1.09E-04},
           capFunFF1={1},
@@ -94,7 +94,7 @@ model SingleSpeed "Test model for single speed air to air heat pump"
         nomVal=AirToAir.Data.BaseClasses.CoolingNominalValues(
           Q_flow_nominal=-1877.9,
           COP_nominal=4,
-          m1_flow_nominal=0.151008,
+          m1_flow_nominal=m1_flow_nominal,
           SHR_nominal=0.75),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},

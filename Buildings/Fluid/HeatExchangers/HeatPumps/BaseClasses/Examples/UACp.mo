@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model UACp "Test model for UACp"
   extends Modelica.Icons.Example;
-  package Medium =Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium =Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.UACp uacp(
     redeclare package Medium = Medium,
     homotopyInitialization=true,

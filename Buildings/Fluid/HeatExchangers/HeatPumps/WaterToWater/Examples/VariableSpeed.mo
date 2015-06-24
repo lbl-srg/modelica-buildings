@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.HeatPumps.WaterToWater.Examples;
 model VariableSpeed "Test model for variable speed water to water heat pump"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium1 = Buildings.Media.Water;
+  package Medium2 = Buildings.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = datHP.heaMod.m1_flow_nominal
     "Medium1 nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = datHP.heaMod.m2_flow_nominal

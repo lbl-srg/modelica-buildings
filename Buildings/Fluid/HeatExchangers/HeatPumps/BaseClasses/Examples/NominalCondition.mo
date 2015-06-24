@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model NominalCondition "Test model for NominalCondition"
   extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.NominalCondition cooNomCon(
       redeclare package Medium = Medium,
     TIn_nominal=cooNomVal.T1In_nominal,

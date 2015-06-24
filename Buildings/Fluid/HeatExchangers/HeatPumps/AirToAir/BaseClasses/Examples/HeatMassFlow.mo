@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.BaseClasses.Examples;
 model HeatMassFlow "Test model for HeatMassFlow"
   extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Modelica.Blocks.Sources.Ramp T1(
     startTime=600,
     duration=1200,

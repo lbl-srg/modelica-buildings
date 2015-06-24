@@ -134,10 +134,10 @@ protected
     "Difference in water vapor concentration that drives mass transfer";
 
   constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Specific heat capacity of air";
   constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity of water vapor";
 initial equation
   QSen_flow_nominal=SHR_nominal * Q_flow_nominal;
@@ -171,7 +171,7 @@ initial equation
   // be used here because blocks cannot be used to assign parameter
   // values.
   XWetBulOut_nominal   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Medium.saturationPressureLiquid(Tsat=TWetBulOut_nominal),
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat=TWetBulOut_nominal),
       p=     p_nominal,
       phi=   1);
   TWetBulOut_nominal = (TOut_nominal
@@ -243,7 +243,7 @@ equation
       // an iteration would be done. This would be inefficient because
       // the wet bulb conditions are only needed in this branch.
       XWetBulOut = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-        pSat=  Medium.saturationPressureLiquid(Tsat=TWetBulOut),
+        pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat=TWetBulOut),
         p=     p_nominal,
         phi=   1);
       TWetBulOut = (TOut * ((1-XOut) * cpAir_nominal + XOut * cpSte_nominal)

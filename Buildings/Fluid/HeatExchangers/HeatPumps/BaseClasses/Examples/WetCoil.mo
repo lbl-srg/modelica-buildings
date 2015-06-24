@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model WetCoil "Test model for WetCoil"
  extends Modelica.Icons.Example;
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
     datHP=datHP,

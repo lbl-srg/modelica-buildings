@@ -2,12 +2,12 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model WetCoilAirToAirHP "Test model for WetCoil"
  extends Modelica.Icons.Example;
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
     redeclare final
       Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.BaseClasses.CoolingCapacity
-                                                                                                  cooCap,
+                                                                                    cooCap,
     datHP=datHP,
     calRecoverableWasteHeat=false)
     "Performs calculation for wet coil condition"

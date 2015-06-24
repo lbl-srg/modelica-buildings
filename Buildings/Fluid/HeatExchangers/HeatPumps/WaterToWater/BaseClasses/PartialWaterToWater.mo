@@ -3,10 +3,9 @@ partial model PartialWaterToWater
   "Partial model for water source water heater/cooler"
   import Buildings;
   extends Interfaces.FourPortHeatMassExchanger(
-    final show_T=false,
-    vol1(final allowFlowReversal=true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(      V=m2_flow_nominal*tau2/rho2_nominal,
-      nPorts=2,final allowFlowReversal=true));
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+      V=m2_flow_nominal*tau2/rho2_nominal,
+      nPorts=2));
 
   parameter Buildings.Fluid.HeatExchangers.HeatPumps.WaterToWater.Data.HPData   datHP
     "Heat pump data";

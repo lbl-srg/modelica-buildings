@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model EvaporationFlowReversal
   "Test model for evaporation with zero flow and flow reversal"
   extends Modelica.Icons.Example;
-  package Medium =Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium =Buildings.Media.Air;
 
   final parameter Integer nCooSta= 1;
 

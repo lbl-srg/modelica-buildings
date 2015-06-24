@@ -2,8 +2,11 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.BaseClasses;
 block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
    extends Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.PartialCapacity;
- output Real[nSta] ff2(each min=0)
-    "Water flow fraction: ratio of actual water flow rate by rated mass flwo rate";
+
+ parameter
+    Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingStage
+    cooSta[nSta];
+
  Modelica.Blocks.Interfaces.RealOutput QRecWas_flow[nSta](each min=0)
     "Recoverable waste heat, positive value "
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -16,9 +19,9 @@ block CoolingCapacity
  output Real corFac2[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid flow fraction";
 
-  parameter
-    Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingStage
-    cooSta[nSta];
+protected
+  output Real[nSta] ff2(each min=0)
+    "Water flow fraction: ratio of actual water flow rate by rated mass flwo rate";
 
 initial algorithm
   // Verify correctness of performance curves, and write warning if error is bigger than 10%

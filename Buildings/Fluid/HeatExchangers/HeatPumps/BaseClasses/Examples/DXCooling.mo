@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples;
 model DXCooling "Test model for DXCooling"
   extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.DXCooling dxCoo(
     redeclare package Medium = Medium,
     variableSpeedCoil=true,

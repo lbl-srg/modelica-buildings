@@ -22,7 +22,7 @@ equation
   XInVec =cat(1,{XIn},{1-sum({XIn})});
 
   XIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(
-     p_w=Medium.saturationPressureLiquid(TADP), p=p);
+     p_w=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TADP), p=p);
 
   hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XInVec));
 

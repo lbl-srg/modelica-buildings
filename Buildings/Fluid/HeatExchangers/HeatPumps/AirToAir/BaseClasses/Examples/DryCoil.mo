@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.BaseClasses.Examples;
 model DryCoil "Test model for DryCoil"
 extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Modelica.Blocks.Sources.Constant p(
     k=101325)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));

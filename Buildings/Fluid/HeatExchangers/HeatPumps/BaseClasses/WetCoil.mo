@@ -29,9 +29,10 @@ model WetCoil "Calculates wet coil condition "
   replaceable
     Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.BaseClasses.CoolingCapacity
       cooCap(
-        cooSta=datHP.cooSta,
-        m1_flow_small=datHP.m1_flow_small,
-        nSta=datHP.nCooSta)
+        cooSta=datHP.cooSta) constrainedby
+    Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.BaseClasses.CoolingCapacity(
+          m1_flow_small=datHP.m1_flow_small,
+          nSta=datHP.nCooSta)
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TADP(

@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Examples;
 model SingleSpeed "Test model for single speed water to air heat pump"
   extends Modelica.Icons.Example;
   package Medium1 =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
-  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater;
+      Buildings.Media.Air;
+  package Medium2 = Buildings.Media.Water;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = datHP.heaSta[1].nomVal.m1_flow_nominal
     "Medium1 nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = datHP.heaSta[1].nomVal.m2_flow_nominal
