@@ -6,7 +6,7 @@ package OpaqueConstructions
 
    parameter Integer nLay(min=1) "Number of layers";
 
-    parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
+   parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
       annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[i].R for i in 1:nLay)
@@ -50,7 +50,8 @@ package OpaqueConstructions
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Backward)}),
-      defaultComponentName="opaCon",
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaCon",
       Documentation(info="<html>
 Generic record with material definitions for constructions
 with one or more layers of material.
@@ -81,7 +82,7 @@ Changed the annotation of the instance <code>material</code>
 from
 <code>Evaluate=true</code> to <code>Evaluate=false</code>.
 This is required to allow changing the material properties after compilation.
-Note, however, that the number of state variables in 
+Note, however, that the number of state variables in
 <a href=\"modelica://Buildings.HeatTransfer.Data.BaseClasses.Material\">
 Buildings.HeatTransfer.Data.BaseClasses.Material</a>
 are only computed when the model is translated, because
@@ -108,17 +109,26 @@ First implementation.
         material={Solids.InsulationBoard(x=0.1),
                   Solids.Concrete(x=0.2)},
                   final nLay=2)
-    "Construction with 100 mm insulation and 200 mm concrete";
+    "Construction with 100 mm insulation and 200 mm concrete"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaCon");
 
   record Brick120 =
       Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
         material={Solids.Brick(x=0.12)},
-        final nLay=1) "Construction with 120mm brick";
+        final nLay=1) "Construction with 120mm brick"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaCon");
 
   record Concrete200 =
       Buildings.HeatTransfer.Data.OpaqueConstructions.Generic (
         material={Solids.Concrete(x=0.2)},
-        final nLay=1) "Construction with 200mm concrete";
+        final nLay=1) "Construction with 200mm concrete"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datOpaCon");
 
   annotation (preferredView="info",
 Documentation(info="<html>
@@ -135,7 +145,6 @@ are used to compute infrared heat radiation (in the infrared spectrum).
 The parameters <code>absSol_a</code> and <code>absSol_b</code>
 are used to compute solar heat radiation (in the solar spectrum).
 </p>
-
 </html>",
 revisions="<html>
 <ul>

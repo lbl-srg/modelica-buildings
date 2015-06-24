@@ -2,7 +2,8 @@ within Buildings.Fluid.Storage;
 model ExpansionVessel "Expansion vessel with fixed pressure"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+   final massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+   final mSenFac=1);
  parameter Modelica.SIunits.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
  parameter Modelica.SIunits.Pressure p = Medium.p_default
@@ -95,12 +96,12 @@ the thermal expansion of the liquid.
 <p>
 Note that alternatively, the model
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
-Buildings.Fluid.Sources.FixedBoundary</a> may be used to set 
+Buildings.Fluid.Sources.FixedBoundary</a> may be used to set
 a reference pressure. The main difference between these two models
 is that in this model, there is an energy and mass balance for the volume.
 In contrast, for
 <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
-Buildings.Fluid.Sources.FixedBoundary</a>, 
+Buildings.Fluid.Sources.FixedBoundary</a>,
 any mass flow rate that flows out of the model will be at a user-specified temperature.
 Therefore, <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
 Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
@@ -145,7 +146,5 @@ Nov. 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ExpansionVessel;

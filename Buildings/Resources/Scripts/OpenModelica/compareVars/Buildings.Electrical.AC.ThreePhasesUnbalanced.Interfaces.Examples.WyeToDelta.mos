@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "probe_Y.V[1]",
+    "probe_Y.V[2]",
+    "probe_Y.V[3]",
+    "probeD.V[1]",
+    "probeD.V[2]",
+    "probeD.V[3]"
+  };

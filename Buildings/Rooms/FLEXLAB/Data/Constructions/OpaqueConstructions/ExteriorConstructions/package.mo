@@ -2,10 +2,9 @@ within Buildings.Rooms.FLEXLAB.Data.Constructions.OpaqueConstructions;
 package ExteriorConstructions "Exterior walls in FLEXLAB test cells"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-
   annotation(Documentation(info="<html>
     <p>
-    This package contains constructions defining exterior walls used in 
+    This package contains constructions defining exterior walls used in
     FLEXLAB test cells. The following table lists locations in FLEXLAB test cells
     where the constructions are used. Locations of walls in UF90XR are described
     assuming that the windows are facing south. Some of the constructions are

@@ -9,7 +9,7 @@ protected
   parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
     "Absorptivity of opaque part of exterior constructions that contain a window";
   parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
-    {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin}
+    {(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin}
     "Absorptivity of unshaded part of window constructions";
   parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
     "Absorptivity of shaded part of window constructions";
@@ -42,6 +42,11 @@ needed for the radiative balance.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 12, 2013, by Michael Wetter:<br/>
 First implementation to facilitate the separation of the convective and radiative model.

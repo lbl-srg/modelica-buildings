@@ -1,8 +1,1 @@
 BaseClasses
-OnlyExteriorWallNoWindow
-OnlyExteriorWallWithWindow
-OnlyExteriorWallWithWindowExteriorShade
-OnlyExteriorWallWithWindowInteriorShade
-OnlyPartition
-OnlyConstructionBoundary
-OnlySurfaceBoundary

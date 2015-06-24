@@ -3,8 +3,8 @@ partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
   extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
 
-  Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
-  Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
+  Medium1.Temperature T_in1 "Inlet temperature medium 1";
+  Medium2.Temperature T_in2 "Inlet temperature medium 2";
   Modelica.SIunits.ThermalConductance C1_flow
     "Heat capacity flow rate medium 1";
   Modelica.SIunits.ThermalConductance C2_flow
@@ -101,11 +101,11 @@ equation
 Partial model to implement heat exchanger models.
 </p>
 <p>
-Classes that extend this model need to implement heat and 
+Classes that extend this model need to implement heat and
 mass balance equations in a form like
 </p>
 <pre>
-  // transfered heat
+  // transferred heat
   Q1_flow = eps * QMax_flow;
   // no heat loss to ambient
   0 = Q1_flow + Q2_flow;
@@ -119,6 +119,17 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Changed type of <code>T_in1</code> and <code>T_in2</code>
+to <code>Medium1.Temperature</code> and <code>Medium2.Temperature</code>
+to avoid an error because of conflicting start values if
+<a href=\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl\">
+Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl</a>
+is translated using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 October 8, 2011, by Michael Wetter:<br/>
 Set <code>show_T=false</code> to avoid state events near zero flow.
@@ -137,7 +148,7 @@ Added regularization near zero flow.
 </li>
 <li>
 October 2, 2009, by Michael Wetter:<br/>
-Changed computation of inlet temperatures to use 
+Changed computation of inlet temperatures to use
 <code>state_*_inflow</code> which is already known in base class.
 </li>
 <li>
@@ -145,7 +156,5 @@ April 28, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+</html>"));
 end PartialEffectiveness;

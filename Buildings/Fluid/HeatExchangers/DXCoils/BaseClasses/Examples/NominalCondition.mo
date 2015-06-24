@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model NominalCondition "Test model for NominalCondition"
   extends Modelica.Icons.Example;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition
      nomCon(redeclare package Medium = Medium, per=nomVal)
     "Calculates nominal values"
@@ -14,8 +14,7 @@ model NominalCondition "Test model for NominalCondition"
     SHR_nominal=0.8,
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  annotation (Diagram(graphics),
-experiment(StopTime=60),
+  annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/NominalCondition.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -37,7 +36,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

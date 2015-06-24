@@ -3,8 +3,7 @@ model MixingBoxMinimumFlow
   "Mixing box with minimum flow rate, with constant pressure difference and varying control signal"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
-    "Medium in the component"
+ package Medium = Buildings.Media.Air "Medium in the component"
          annotation (choicesAllMatching = true);
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
@@ -22,50 +21,43 @@ model MixingBoxMinimumFlow
     dpExh_nominal=20,
     redeclare package Medium = Medium) "mixing box"
                             annotation (Placement(transformation(extent={{14,
-            -22},{34,-2}}, rotation=0)));
+            -22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=3)                                             annotation (Placement(
-        transformation(extent={{-60,2},{-40,22}},  rotation=0)));
+        transformation(extent={{-60,2},{-40,22}})));
     Buildings.Fluid.Sources.Boundary_pT bouSup(             redeclare package
       Medium = Medium, T=273.15 + 26,
     use_p_in=true,
     nPorts=1)                                                                       annotation (Placement(
-        transformation(extent={{68,-10},{48,10}}, rotation=0)));
+        transformation(extent={{68,-10},{48,10}})));
     Buildings.Fluid.Sources.Boundary_pT bouRet(             redeclare package
       Medium = Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                                                         annotation (Placement(
-        transformation(extent={{68,-90},{48,-70}}, rotation=0)));
+        transformation(extent={{68,-90},{48,-70}})));
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{-100,10},{-80,30}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
     Modelica.Blocks.Sources.Constant yDamMin(k=0.5)
-      annotation (Placement(transformation(extent={{-40,40},{-20,60}},rotation=
-            0)));
+      annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
     Modelica.Blocks.Sources.Ramp PSup(
     offset=101320,
     height=-10,
     startTime=0,
-    duration=20) annotation (Placement(transformation(extent={{60,40},{80,60}},
-          rotation=0)));
+    duration=20) annotation (Placement(transformation(extent={{60,40},{80,60}})));
     Modelica.Blocks.Sources.Ramp PRet(
     height=10,
     offset=101330,
     duration=20,
     startTime=20)
-                 annotation (Placement(transformation(extent={{60,-50},{80,-30}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
     Modelica.Blocks.Sources.Step yDam(
     height=0.1,
     offset=0.45,
     startTime=60)
-                 annotation (Placement(transformation(extent={{-40,70},{-20,90}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDamMin.y, mixBox.yOutMin)
                                annotation (Line(points={{-19,50},{18,50},{18,
@@ -100,10 +92,7 @@ equation
       points={{48,-80},{42,-80},{42,-18},{34,-18}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBoxMinimumFlow.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBoxMinimumFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=240),
 Documentation(info="<html>
@@ -115,6 +104,12 @@ conditions and input signals.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
 First implementation.

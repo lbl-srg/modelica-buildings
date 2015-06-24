@@ -3,7 +3,7 @@ model Pipe "Pipe with finite volume discretization along flow path"
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
    diameter=sqrt(4*m_flow_nominal/rho_default/v_nominal/Modelica.Constants.pi),
    dp_nominal=2*dpStraightPipe_nominal,
-   res(dp(nominal=length*10)));
+   preDro(dp(nominal=length*10)));
   // Because dp_nominal is a non-literal value, we set
   // dp.nominal=100 instead of the default dp.nominal=dp_nominal,
   // because the latter is ignored by Dymola 2012 FD 01.
@@ -74,14 +74,13 @@ equation
 
   end if;
   annotation (
-    Icon(graphics),
     defaultComponentName="pip",
     Documentation(info="<html>
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
 <p>
-If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port 
+If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port
 for the heat exchange with the environment.
 If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
@@ -95,11 +94,11 @@ by the user.
 The default value for <code>dp_nominal</code> is two times the pressure drop that the pipe
 would have if it were straight with no fittings.
 The factor of two that takes into account the pressure loss of fittings can be overwritten.
-These fittings could also be explicitely modeled outside of this component using models from
+These fittings could also be explicitly modeled outside of this component using models from
 the package
 <a href=\"modelica://Modelica.Fluid.Fittings\">
 Modelica.Fluid.Fittings</a>.
-For mass flow rates other than <code>m_flow_nominal</code>, the model 
+For mass flow rates other than <code>m_flow_nominal</code>, the model
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
 compute the pressure drop.
@@ -112,13 +111,18 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+February 5, 2015, by Michael Wetter:<br/>
+Renamed <code>res</code> to <code>preDro</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
+</li>
+<li>
 September 13, 2013 by Michael Wetter:<br/>
 Replaced <code>nominal</code> with <code>default</code> values
 as they are computed using the default Medium values.
 </li>
 <li>
 February 22, 2012 by Michael Wetter:<br/>
-Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and 
+Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and
 used heat port connector from <code>Modelica.Fluid</code> package for vector of heat ports.
 </li>
 <li>

@@ -11,6 +11,8 @@ model Window "Model for a window"
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Interfaces.RadiosityOutflow JOutUns_a
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
@@ -42,14 +44,18 @@ model Window "Model for a window"
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) "Model for unshaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization)
+    "Model for unshaded center of glass"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass glaSha(
     final glaSys=glaSys,
     final A=AGla,
     final til=til,
-    final linearize=linearize) if haveShade "Model for shaded center of glass"
+    final linearize=linearize,
+    final homotopyInitialization=homotopyInitialization) if
+       haveShade "Model for shaded center of glass"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor frame(G=AFra*
@@ -59,32 +65,30 @@ model Window "Model for a window"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_a
     "Heat port at unshaded glass of exterior-facing surface"
                                                     annotation (Placement(transformation(extent={{-210,10},
-            {-190,30}},rotation=0)));
+            {-190,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaUns_b
     "Heat port at unshaded glass of room-facing surface"
                                                 annotation (Placement(transformation(extent={{190,10},
-            {210,30}},rotation=0)));
+            {210,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha_a if haveShade
     "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-210, -30}, {-190,-10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-210, -30}, {-190,-10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b glaSha_b if haveShade
     "Heat port at shaded glass of room-facing surface"
-  annotation (Placement(transformation(extent={{190,-30}, {210,-10}}, rotation=0)));
+  annotation (Placement(transformation(extent={{190,-30}, {210,-10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-210,
-            -170},{-190,-150}},
-                       rotation=0)));
+            -170},{-190,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
     "Heat port at frame of room-facing surface"                                       annotation (Placement(transformation(extent={{192,
-            -170},{212,-150}},
-                      rotation=0)));
+            -170},{212,-150}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
        haveShade
     "Control signal for the shading device. 0: unshaded; 1: fully shaded (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[glaSys.nLay](each unit="W",
+  Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
                                                        annotation (Placement(
@@ -95,8 +99,9 @@ model Window "Model for a window"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-220})));
-  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[glaSys.nLay](each unit="W",
-      each quantity="Power") if haveShade
+  Modelica.Blocks.Interfaces.RealInput QAbsSha_flow[size(glaSys.glass, 1)](
+     each unit="W",
+     each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
                                         annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -159,7 +164,6 @@ equation
   connect(JInUns_a, glaUns.JIn_a) annotation (Line(
       points={{-210,120},{-40,120},{-40,24},{-11,24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.JOut_a, JOutUns_a) annotation (Line(
       points={{-11,16},{-46,16},{-46,80},{-210,80}},
@@ -172,12 +176,10 @@ equation
   connect(JInUns_b, glaUns.JIn_b) annotation (Line(
       points={{210,80},{176,80},{176,16},{11,16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(JInSha_a, glaSha.JIn_a) annotation (Line(
       points={{-210,-60},{-46,-60},{-46,-16},{-11,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaSha.JOut_a, JOutSha_a) annotation (Line(
       points={{-11,-24},{-42,-24},{-42,-100},{-210,-100}},
@@ -190,7 +192,6 @@ equation
   connect(JInSha_b, glaSha.JIn_b) annotation (Line(
       points={{210,-100},{172,-100},{172,-24},{11,-24}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(glaUns.QAbs_flow, QAbsUns_flow) annotation (Line(
       points={{6.10623e-16,9},{6.10623e-16,0},{-80,0},{-80,-220}},
@@ -203,10 +204,8 @@ equation
       smooth=Smooth.None));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{200,200}},
-        initialScale=0.1),     graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-200,-200},{200,200}},
-        initialScale=0.1),                                           graphics={
+            -200},{200,200}}),     graphics), Icon(coordinateSystem(
+          preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
         Polygon(
           visible = glaSys.haveInteriorShade,
           points={{48,160},{48,60},{116,-4},{116,96},{48,160}},
@@ -338,15 +337,15 @@ equation
 <h4>Overview</h4>
 <p>
 This is a model for a window system. The equations are similar to the
-equations used in the Window 5 model and described in TARCOG 2006. 
-The model computes 
-the heat balance from the exterior surface to 
+equations used in the Window 5 model and described in TARCOG 2006.
+The model computes
+the heat balance from the exterior surface to
 the room-facing surface for a window system.
 The window system can have
 an exterior or an interior shade, but not both, or it can
 have no shade.
 The convective heat transfer between the window system and the outside air
-or the room is <em>not</em> computed by this model. 
+or the room is <em>not</em> computed by this model.
 They can be computed using the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
@@ -358,24 +357,24 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
 <h4>Limitations</h4>
 <p>
 To calculate the angular transmittance, reflectance and absorptance of a glazing system, Window 5 model first calculates the value for each wave length, then calculate the weighted value over entire wave lengths.
-Current window model in Buildings library only uses the weighted value of each glass. 
-As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5. 
-The difference is small for single layer window or multi-layer window with the same glasses. 
-But it can be large for multi-layer window with different glasses.  
+Current window model in Buildings library only uses the weighted value of each glass.
+As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5.
+The difference is small for single layer window or multi-layer window with the same glasses.
+But it can be large for multi-layer window with different glasses.
 </p>
 
 <h4>Parameters</h4>
 <p>
-This model takes as the parameter <code>glaSys</code> a data record 
+This model takes as the parameter <code>glaSys</code> a data record
 from the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a>.
-This data record specifies the properties of the glasses, 
+This data record specifies the properties of the glasses,
 the gas fills, the frame and of
 the shades, if any shade is present.
 Whether a shade is present or not is determined by the parameters
 <code>glaSys.haveExteriorShade</code> and
-<code>glaSys.haveInteriorShade</code>. 
+<code>glaSys.haveInteriorShade</code>.
 </p>
 <p>
 The parameter <code>linearize</code> can be used
@@ -383,11 +382,11 @@ to linearize the model equations.
 </p>
 <h4>Ports</h4>
 <p>
-If a shade is present, then the input port <code>u</code> is used 
+If a shade is present, then the input port <code>u</code> is used
 to determine the
-shade position. Set <code>u=0</code> to have the window in the 
+shade position. Set <code>u=0</code> to have the window in the
 unshaded mode,
-and set <code>u=1</code> to have the window shade completely deployed. 
+and set <code>u=1</code> to have the window shade completely deployed.
 Any intermediate value is possible.
 If no shade is present, then this port will be removed.
 </p>
@@ -395,7 +394,7 @@ If no shade is present, then this port will be removed.
 For the heat ports, the suffix <code>_a</code> is used for the exterior, outside-facing side
 of the window, and the suffix <code>_b</code> is used for the interior, room-facing surface
 of the window.
-Each side has heat ports that connect to the glass, to the frame, and, optionally, to the 
+Each side has heat ports that connect to the glass, to the frame, and, optionally, to the
 shade. If no shade is present, then the heat port to the shade will be removed.
 </p>
 
@@ -423,16 +422,16 @@ and no interior shade, then the model <code>glaSha</code> will be removed.
 </ol>
 
 <p>
-The models <code>glaUns</code> and <code>glaSha</code> 
-compute the solar radiation that is absorbed by each 
-glass pane and the solar radiation that is transitted 
+The models <code>glaUns</code> and <code>glaSha</code>
+compute the solar radiation that is absorbed by each
+glass pane and the solar radiation that is transitted
 through the window as a function of the solar incidence angle.
 They then compute a heat balance that takes into account heat conduction through the glass,
 heat convection through the gas layer,
 and infrared radiation from the exterior and the room through the glass and gas layers.
 The infrared radiative heat exchange is computed using a radiosity balance.
-Heat conduction through the frame is computed using a heat flow path that is parallel to the 
-glazing system, i.e., there is no heat exchange between the frame 
+Heat conduction through the frame is computed using a heat flow path that is parallel to the
+glazing system, i.e., there is no heat exchange between the frame
 and the glazing layer.
 </p>
 
@@ -441,7 +440,7 @@ and the glazing layer.
 The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
 a comparative model validation with the WINDOW 6 program. These validations are described in Nouidui et al. (2012).
 The window model has also been validated as part of the BESTEST validations that are implemented in
-<a href=\"modelica://Buildings.Rooms.Examples.BESTEST\">
+<a href=\"modelica://Buildings.Rooms.Validation.BESTEST\">
 Buildings.Rooms.Examples.BESTEST</a>.
 </p>
 
@@ -460,6 +459,15 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
+<li>
+July 25, 2014, by Michael Wetter:<br/>
+Propagated parameter <code>homotopyInitialization</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

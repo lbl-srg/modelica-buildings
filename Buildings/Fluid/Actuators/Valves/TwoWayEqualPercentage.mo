@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayEqualPercentage "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValve(phi=if homotopyInitialization then
+  extends BaseClasses.PartialTwoWayValveKv(phi=if homotopyInitialization then
         homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(
         y_actual,
         R,
@@ -19,7 +19,7 @@ initial equation
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
   // 1/k^2, the parameter l must not be zero.
   assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
-  assert(l < 1/R, "Wrong parameters in valve model.\n" 
+  assert(l < 1/R, "Wrong parameters in valve model.\n"
                 + "  Rangeability R = " + String(R) + "\n"
                 + "  Leakage flow l = " + String(l) + "\n"
                 + "  Must have l < 1/R = " + String(1/R));
@@ -29,7 +29,7 @@ initial equation
 <p>
 Two way valve with an equal percentage valve opening characteristic.
 </p><p>
-This model is based on the partial valve model 
+This model is based on the partial valve model
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 Check this model for more information, such
@@ -46,14 +46,14 @@ has been added to the variable <code>phi</code>.
 </li>
 <li>
 March 27, 2014 by Michael Wetter:<br/>
-Revised model for implementation of new valve model that computes the flow function 
+Revised model for implementation of new valve model that computes the flow function
 based on a table.
 </li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

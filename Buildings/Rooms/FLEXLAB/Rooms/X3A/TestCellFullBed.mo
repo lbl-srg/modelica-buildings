@@ -12,28 +12,28 @@ model TestCellFullBed
         A = {6.645*3.09, 6.645*1.51, 6.645*0.91, 6.645*3.65, 3.6575 * 9.144},
         each absIR=0.9,
         each absSol=0.9,
-        til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Wall}),
+        til={Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Floor, Buildings.Types.Tilt.Wall}),
       datConExt(
          layers={extDoo,
          R16p8Wal,
          R20Wal,
          bedDiv},
          A={1.3716 * 2.39, 3.6576*2.52-2.39*1.3716, 6.6675*9.144, 3.6576 * 1.524},
-         til={Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
-         azi={Buildings.HeatTransfer.Types.Azimuth.N,Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
+         til={Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling, Buildings.Types.Tilt.Wall},
+         azi={Buildings.Types.Azimuth.N,Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.S, Buildings.Types.Azimuth.W}),
       datConBou(
          layers = {bedDiv, parCon, parDoo, R52Wal},
          A = {3.6576 * 7.62, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
-         til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall},
-         azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
+         til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall},
+         azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.6675*3.6576},
         glaSys={glaSys},
         hWin={1.8288},
         wWin={5.88},
-        til={Buildings.HeatTransfer.Types.Tilt.Wall},
-        azi={Buildings.HeatTransfer.Types.Azimuth.S}),
+        til={Buildings.Types.Tilt.Wall},
+        azi={Buildings.Types.Azimuth.S}),
       intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
@@ -96,7 +96,7 @@ model TestCellFullBed
   </p>
   <p align=\"center\">
   <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/TestCell.png\" border=\"1\" alt=\"Wall sections in test cell model\"/>
-  </p>  
+  </p>
   <p>
   The different wall sections are entered into the model according to the following table.
   </p>
@@ -127,7 +127,7 @@ model TestCellFullBed
   <th>Location in TestCelNoDiv</th>
   </tr>
   <tr>
-  <td>4</td>  
+  <td>4</td>
   <td>Insulated wall separating the test cell and the electrical room</td>
   <td>datConBou[5]</td>
   <td>datConBou[4]</td>
@@ -143,9 +143,9 @@ model TestCellFullBed
   </table>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes the connections to models outside of the X3A package. The connections in datConExt 
-  are not described in the table because they are connected to the external environment, and no additional heat 
-  port connections are necessary. A rationale for why the model is created this way is also provided if it is 
+  The following table describes the connections to models outside of the X3A package. The connections in datConExt
+  are not described in the table because they are connected to the external environment, and no additional heat
+  port connections are necessary. A rationale for why the model is created this way is also provided if it is
   considered necessary.
   </p>
   <table border =\"1\" summary=\"Description of intended connections including TestCell model\">
@@ -162,8 +162,8 @@ model TestCellFullBed
   <td>X3B.TestCell.surf_conBou[1] is the location of the cell dividing wall in the neighboring test cell. Connecting
   X3A.TestCellNoCelDiv.surf_surBou[2] to this port models heat transfer from the wall in X3B.TestCell to the air in this
   space.</td>
-  </tr>  
-  </table> 
+  </tr>
+  </table>
   </html>",
   revisions = "<html>
   <ul>

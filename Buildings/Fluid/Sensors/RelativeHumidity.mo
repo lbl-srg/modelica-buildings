@@ -5,21 +5,24 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
 
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)
     "Relative humidity in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Medium.BaseProperties med "Medium state at dry bulb temperature";
-
+  Modelica.SIunits.Temperature T "Temperature of the medium";
+  Medium.MassFraction Xi[Medium.nXi] "Mass fraction of the medium";
 equation
-  med.p = port.p;
-  med.h = inStream(port.h_outflow);
-  med.Xi = inStream(port.Xi_outflow);
-  phi = med.phi;
+  Xi = inStream(port.Xi_outflow);
+  T=Medium.temperature_phX(
+      p=port.p,
+      h=inStream(port.h_outflow),
+      X=Xi);
+
+  phi = Buildings.Utilities.Psychrometrics.Functions.phi_pTX(
+    p=port.p,
+    T=T,
+    X_w=Xi[1]);
 
 annotation (defaultComponentName="senRelHum",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),
@@ -34,7 +37,7 @@ annotation (defaultComponentName="senRelHum",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the relative humidity of the fluid connected to its port. 
+This model outputs the relative humidity of the fluid connected to its port.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>
@@ -42,13 +45,12 @@ Note that this sensor can only be used with media that contain the variable <cod
 which is typically the case for moist air models.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 12, 2010 by Michael Wetter:<br/>

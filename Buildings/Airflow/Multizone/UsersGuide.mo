@@ -1,16 +1,17 @@
 within Buildings.Airflow.Multizone;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <code>Buildings.Airflow.Multizone</code> contains models for 
+The package <code>Buildings.Airflow.Multizone</code> contains models for
 multizone airflow and contaminant transport.
 </p>
 <p>
-The models can be used to compute the air flow between different rooms 
+The models can be used to compute the air flow between different rooms
 and between a room and the exterior environment.
-In multizone airflow models, typically each room volume is assumed 
+In multizone airflow models, typically each room volume is assumed
 to be completely mixed.
 The driving force for the air flow are pressure differences that
 can be induced, e.g., by
@@ -31,15 +32,15 @@ wind pressure on the building facade.
 </ul>
 <p>
 Wind pressure coefficients for different building configurations can be found
-in Costola <i>et al.</i> (2009), Persily and Ivy (2001), and Swami and Chandra (1987). 
+in Costola <i>et al.</i> (2009), Persily and Ivy (2001), and Swami and Chandra (1987).
 </p>
-<p>  
-The models in this package are as described in Wetter (2005), 
+<p>
+The models in this package are as described in Wetter (2005),
 except for the addition of the model
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
 Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
-that computes the wind pressure on facades, and 
-some changes that have been done when migrating 
+that computes the wind pressure on facades, and
+some changes that have been done when migrating
 the models to Modelica 3.1, which led to a simpler implementation based
 on the stream functions.
 </p>

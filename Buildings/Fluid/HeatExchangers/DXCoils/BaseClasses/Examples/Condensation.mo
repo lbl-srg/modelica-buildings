@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model Condensation "Test model for Condensation block"
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
  extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation mWat(
       redeclare package Medium = Medium) "Calculates rate of condensation"
@@ -39,22 +39,21 @@ equation
           6.10623e-16},{-20,6.10623e-16},{-1,6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-annotation (Diagram(graphics),
-experiment(StopTime=3600),
+annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/Condensation.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of Condensation block 
+This example illustrates working of Condensation block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 Aug 8, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

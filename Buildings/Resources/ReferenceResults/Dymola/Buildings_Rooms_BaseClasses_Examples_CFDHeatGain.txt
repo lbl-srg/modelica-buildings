@@ -1,0 +1,6 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+heatGain.QLat_flow=[600., 600.]
+heatGain.QCon_flow=[500., 500.]
+heatGain.QRad_flow=[250., 250.]
+time=[0., 3600.]

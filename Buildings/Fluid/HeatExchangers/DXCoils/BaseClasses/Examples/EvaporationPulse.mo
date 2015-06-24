@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model EvaporationPulse "Test model for evaporation with pulse signal"
   extends Modelica.Icons.Example;
-  package Medium =Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium =Buildings.Media.Air;
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
@@ -148,7 +148,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates the evaporation of water vapor that 
+This example illustrates the evaporation of water vapor that
 accumulated on the coil.
 Input to the model is a pulse signal that switches the coil on and off.
 The two instances have a different frequency of the on and off signal
@@ -160,7 +160,7 @@ revisions="<html>
 <ul>
 <li>
 August 23, 2012 by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -14,15 +14,15 @@ import java.text.SimpleDateFormat;
 
 /**
  * This class records and prints all electric chillers found in an input file.
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, October 10, 2010
- * 
+ *
  */
 public class ParserResultObject {
 
@@ -36,7 +36,7 @@ public class ParserResultObject {
 
     /**
      * This method sets the found electric chillers in an array.
-     * 
+     *
      * @param eirs
      *            array list of ElectricEIRs.
      */
@@ -48,7 +48,7 @@ public class ParserResultObject {
 
     /**
      * This method sets the found reformulated electric chillers in an array.
-     * 
+     *
      * @param reformEirs
      *            array list of reformulated ElectricEIR.
      */
@@ -70,7 +70,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated ElectricEIR in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -112,7 +112,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all ElectricEIR in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -125,17 +125,19 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricEIR \"Performance data for chiller ElectricEIR\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
-                + "Package with performance data for chillers."
-                + "</html>\"," 
-                + " revisions=\"<html>"
+                + "package ElectricEIR \"Performance data for chiller ElectricEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(preferredView=\"info\",\n"
+                + " Documentation(info=\"<html>\n"
+                + "<p>\n"
+                + "Package with performance data for chillers.\n"
+                + "</p>\n"
+                + "</html>\n\","
+                + " revisions=\"<html>\n"
                 + "Generated on "
                 + getDateTime()
                 + " by "
-                // + System.getProperty("user.name")
-                + "mwetter."
+                + System.getProperty("user.name")
                 + "</html>\"));"
                 + "\n"
                 + "  "
@@ -181,11 +183,12 @@ public class ParserResultObject {
                 + "annotation (Dialog(group=\"Performance curves\"));"
                 + "\n"
                 + "\n"
-                +
-
-                "    "
-                + "annotation (Documentation(info=\"<html>"
+                + "annotation(\n"
+                + "defaultComponentName=\"datChi\",\n"
+                + "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
                 + "\n"
+                + "<p>"
                 + "This record is used as a template for performance data"
                 + "\n"
                 + "for the chiller model"
@@ -198,13 +201,22 @@ public class ParserResultObject {
                 + "\n"
                 + "Buildings.Fluid.Chillers.ElectricEIR</a>."
                 + "\n"
+                + "</p>"
+                + "\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "September 17, 2010 by Michael Wetter:<br>"
+                + "December 19, 2014 by Michael Wetter:<br/>"
+                + "\n"
+                + "Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>."
+                + "\n"
+                + "</li>"
+                + "<li>"
+                + "\n"
+                + "September 17, 2010 by Michael Wetter:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -249,6 +261,10 @@ public class ParserResultObject {
 
         // print the header + ElectricEIR + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedElectricEirs = cleanRecordedElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedElectricEirs + fileFooter);
         fw.close();
     }
@@ -256,11 +272,11 @@ public class ParserResultObject {
     /**
      * This method returns the number of duplicated ElectricEIR found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalElectricEirsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated Electric EIRs
@@ -291,7 +307,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated reformulated ElectricEIR in an input file
      * and print them in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -334,7 +350,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all reformulated ElectricEIR in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -347,18 +363,18 @@ public class ParserResultObject {
         // defines the header of the output file
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
-                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
-                + " Package with performance data for chillers."
-                + "</html>\"," 
-                + " revisions=\"<html>"
-                + " Generated on "
-                + getDateTime()  
-                + " by "     
-                // + System.getProperty("user.name")
-                + "mwetter."
-                + "</html>\"));"
+                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(preferredView=" + "\"" + "info" + "\""
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for chillers."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
+                + getDateTime()
+                + " by "
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
                 + "\n"
                 + "  "
                 + "record Generic \"Generic data record for chiller ElectricReformulatedEIR\""
@@ -403,10 +419,10 @@ public class ParserResultObject {
                 + "annotation (Dialog(group=\"Performance curves\"));"
                 + "\n"
                 + "\n"
-                +
-
-                "    "
-                + "annotation (Documentation(info=\"<html>"
+                + "annotation(\n"
+                + "defaultComponentName=\"datChi\",\n"
+                + "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
                 + "\n"
                 + "This record is used as a template for performance data"
                 + "\n"
@@ -426,7 +442,14 @@ public class ParserResultObject {
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "September 17, 2010 by Michael Wetter:<br>"
+                + "December 19, 2014 by Michael Wetter:<br/>"
+                + "\n"
+                + "Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>."
+                + "\n"
+                + "</li>"
+                + "<li>"
+                + "\n"
+                + "September 17, 2010 by Michael Wetter:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -472,6 +495,11 @@ public class ParserResultObject {
         // print the header + ReformulatedElectricEIR + footer in the output
         // file
         OutputStreamWriter fw = new FileWriter(fileName);
+
+        // Some E+ fields have string such as Trane CVHG670-44&86 2490kW/6.5COP
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedReformElectricEirs = cleanRecordedReformElectricEirs.replaceAll("&", "&amp;");
+
         fw.write(fileHeader + cleanRecordedReformElectricEirs + fileFooter);
         fw.close();
     }
@@ -479,7 +507,7 @@ public class ParserResultObject {
     /**
      * This method returns the number of duplicated reformulated ElectricEIR in
      * an input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
@@ -513,7 +541,7 @@ public class ParserResultObject {
 
     /**
      * This method saves duplicates found in an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list with found duplicates.
@@ -539,7 +567,7 @@ public class ParserResultObject {
 
     /**
      * This method removes duplicates from an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list without duplicates.

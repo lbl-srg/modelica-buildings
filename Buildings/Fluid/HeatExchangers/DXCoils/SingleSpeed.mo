@@ -35,7 +35,7 @@ equation
 This model can be used to simulate a DX cooling coil with single speed compressor.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -45,7 +45,7 @@ revisions="<html>
 <ul>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),

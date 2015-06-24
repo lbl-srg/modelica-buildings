@@ -7,7 +7,7 @@ model Temperature "Ideal one port temperature sensor"
                                           min=0,
                                           displayUnit = "degC")
     "Temperature in port medium"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
   T = Medium.temperature(state=Medium.setState_phX(
@@ -15,11 +15,11 @@ equation
 annotation (defaultComponentName="senTem",
     Documentation(info="<html>
 <p>
-This model outputs the temperature of the fluid connected to its port. 
+This model outputs the temperature of the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.

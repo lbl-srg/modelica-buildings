@@ -32,7 +32,7 @@ initial equation
                             T=273.15+3,
                             X=cat(1,{XSatMin},{1-sum({XSatMin})})));
 */
-  hMin = Medium.h_pTX(
+  hMin = Medium.specificEnthalpy_pTX(
            p=   Medium.p_default,
            T=   TSatMin,
            X=   cat(1,{XSatMin},{1-sum({XSatMin})}));
@@ -101,14 +101,13 @@ Revised implementation and documentation.
 </li>
 <li>
 July 4, 2012 by Kaustubh Phalak:<br/>
-Updated to handle zero mass flow rate and freezing coil condition. 
+Updated to handle zero mass flow rate and freezing coil condition.
 </li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
-</html>"),
-    Diagram(graphics));
+</html>"));
 end ApparatusDewPoint;

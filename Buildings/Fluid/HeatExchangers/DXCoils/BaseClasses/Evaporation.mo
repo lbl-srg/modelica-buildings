@@ -31,13 +31,13 @@ model Evaporation
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
                                             final unit = "K",
                                             displayUnit = "degC")
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}},  rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
 
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -109,10 +109,10 @@ protected
     "Difference in water vapor concentration that drives mass transfer";
 
   constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Specific heat capacity of air";
   constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
-     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+     Buildings.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity of water vapor";
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
@@ -146,7 +146,7 @@ initial equation
   // be used here because blocks cannot be used to assign parameter
   // values.
   XEvaWetBulOut_nominal   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut_nominal),
+      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut_nominal),
       p=     nomVal.p_nominal,
       phi=   1);
   TEvaWetBulOut_nominal = (TEvaOut_nominal
@@ -156,28 +156,27 @@ initial equation
 
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
-  if (dX_nominal > 1E-10) then
-     Modelica.Utilities.Streams.print("Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
-       This means that the coil is not dehumidifying air at the nominal conditions.
-       Check nominal parameters.
-         " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
-                                                                                           nomVal));
-  end if;
+  assert(dX_nominal > 1E-10,
+     "Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
+  This means that the coil is not dehumidifying air at the nominal conditions.
+  Check nominal parameters.
+  " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
+      AssertionLevel.warning);
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
 
   // If gamma is bigger than a maximum value, write a warning and then
   // use the smaller value.
-  if (nomVal.gamma > gammaMax) then
-     Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
-  Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which 
+  assert(nomVal.gamma <= gammaMax,
+  "Warning: In DX coil model, gamma is too large for these coil conditions.
+  Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which
   corresponds to a mass transfer effectiveness of 0.8, will be used.
   Coil nominal performance data are:
    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
    dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = " + String(XEvaOut_nominal) + " - " +
       String(XEvaWetBulOut_nominal) + " = " + String(dX_nominal) + "
-   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n");
-  end if;
+   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n",
+   AssertionLevel.warning);
 
   logArg = 1-min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/dX_nominal;
 
@@ -220,7 +219,7 @@ equation
       // an iteration would be done. This would be inefficient because
       // the wet bulb conditions are only needed in this branch.
       XEvaWetBulOut = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-        pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut),
+        pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut),
         p=     nomVal.p_nominal,
         phi=   1);
       TEvaWetBulOut = (TEvaOut * ((1-XEvaOut) * cpAir_nominal + XEvaOut * cpSte_nominal)
@@ -276,15 +275,15 @@ removed from the air is negative:
 The parameter <i>t<sub>wet</sub></i>
 defines how long it takes for condensate to drip of the coil, assuming the
 coil starts completely dry and operates at the nominal operating point.
-Henderson et al. (2003) measured values for 
+Henderson et al. (2003) measured values for
 <i>t<sub>wet</sub></i>
-from <i>16.5</i> minutes (<i>990</i> seconds) to 
-<i>29</i> minutes (<i>1740</i> seconds). 
+from <i>16.5</i> minutes (<i>990</i> seconds) to
+<i>29</i> minutes (<i>1740</i> seconds).
 Thus, we use a default value of <i>t<sub>wet</sub>=1400</i> seconds.
 The maximum amount of water that can accumulate on the coil is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m<sub>max</sub> = -Q&#775;<sub>L,nom</sub> &nbsp; t<sub>wet</sub> &frasl; h<sub>fg</sub> 
+  m<sub>max</sub> = -Q&#775;<sub>L,nom</sub> &nbsp; t<sub>wet</sub> &frasl; h<sub>fg</sub>
 </p>
 <p>
 where
@@ -292,7 +291,7 @@ where
 <i>h<sub>fg</sub></i> is the latent heat of evaporation.
 </p>
 <p>
-When the coil is off, the water that has been accumulated on the coil 
+When the coil is off, the water that has been accumulated on the coil
 evaporates into the air. The rate of water vapor evaporation at nominal operating
 conditions is defined by the parameter <i>&gamma;<sub>nom</sub></i>. The definition of
 <i>&gamma;<sub>nom</sub></i> is
@@ -301,8 +300,8 @@ conditions is defined by the parameter <i>&gamma;<sub>nom</sub></i>. The definit
   &gamma;<sub>nom</sub> = Q&#775;<sub>e,nom</sub> &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
 <p>
-where 
-<i>Q&#775;<sub>e,nom</sub>&lt;0</i> is the rate of evaporation from the coil surface into 
+where
+<i>Q&#775;<sub>e,nom</sub>&lt;0</i> is the rate of evaporation from the coil surface into
 the air stream right after the coil is switched off.
 The default value is <i>&gamma;<sub>nom</sub> = 1.5</i>.
 </p>
@@ -318,13 +317,13 @@ The rate of water accumulation is computed as
 where
 <i>m&#775;<sub>wat</sub>(t) &le; 0</i> is the water vapor mass flow rate that is extracted
 from the air at the current operating conditions.
-The actual water vapor mass flow rate that is removed 
-from the air stream is as computed by the steady-state 
+The actual water vapor mass flow rate that is removed
+from the air stream is as computed by the steady-state
 cooling coil performance model
 because for the coil outlet conditions, it does not matter whether the water
 accumulates on the coil or drips away from the coil.
 The initial value for the water accumulation is zero at the start of the simulation, and
-set to whatever water remains after the coil has been switched off and 
+set to whatever water remains after the coil has been switched off and
 the water partially or completely evaporated into the air stream.
 </p>
 <p>
@@ -339,17 +338,17 @@ The change of water on the coil is
 </p>
 <p>
 where
-<i>m&#775;<sub>max</sub>(t) &gt; 0</i> is 
+<i>m&#775;<sub>max</sub>(t) &gt; 0</i> is
 the maximum water mass flow rate from the coil to the air and
 <i>&eta;(t) &isin; [0, 1]</i> is the mass transfer effectiveness.
-For an evaporative cooler, 
+For an evaporative cooler,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   &eta;(t) = 1-exp(-NTU(t)),
 </p>
 <p>
 where
-<i>NTU(t)=(hA)<sub>m</sub>/C&#775;<sub>a</sub></i> are the number of mass transfer units and 
+<i>NTU(t)=(hA)<sub>m</sub>/C&#775;<sub>a</sub></i> are the number of mass transfer units and
 <i>C&#775;<sub>a</sub></i> is the air capacity flow rate.
 The mass transfer coefficient <i>(hA)<sub>m</sub></i>
 is assumed to be proportional to the wet coil area, which
@@ -360,7 +359,7 @@ Hence,
   (hA)<sub>m</sub>(t) &prop; m(t) &frasl; m<sub>max</sub>(t).
 </p>
 <p>
-Furthermore, the mass transfer coefficient depends on the velocity, and 
+Furthermore, the mass transfer coefficient depends on the velocity, and
 hence mass flow rate, as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -379,8 +378,8 @@ Therefore, the water mass flow rate from the coil into the
 air stream is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m&#775;<sub>wat</sub>(t) = m&#775;<sub>max</sub>(t) 
-  (1-exp(-K  
+  m&#775;<sub>wat</sub>(t) = m&#775;<sub>max</sub>(t)
+  (1-exp(-K
           (m(t) &frasl; m<sub>tot</sub>)
           (m&#775;<sub>a</sub>(t) &frasl; m&#775;<sub>a,nom</sub>)<sup>-0.2</sup>
 
@@ -417,7 +416,7 @@ and, hence,
   m&#775;<sub>nom</sub> = m&#775;<sub>max,nom</sub> (1-e<sup>-K</sup>).
 </p>
 <p>
-Because 
+Because
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   m&#775;<sub>nom</sub> = - &gamma; Q&#775;<sub>L,nom</sub> &frasl; h<sub>fg</sub>,
@@ -426,7 +425,7 @@ Because
 it follows that
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  K = -ln(    
+  K = -ln(
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
   (x<sub>wb,nom</sub>-x<sub>nom</sub>)
@@ -435,7 +434,7 @@ it follows that
 <p>
 where
 <i>x<sub>nom</sub></i> is the humidity ratio at the coil at nominal condition and
-<i>x<sub>wb,nom</sub></i> is the humidity ratio at the wet bulb condition. 
+<i>x<sub>wb,nom</sub></i> is the humidity ratio at the wet bulb condition.
 Note that the <i>ln(&middot;)</i> in the above equation requires that the argument
 is positive. See the implementation section below for how this is implemented.
 </p>
@@ -443,12 +442,12 @@ is positive. See the implementation section below for how this is implemented.
 <h5>Potential for moisture transfer</h5>
 <p>
 For the potential that causes the moisture transfer,
-the difference in mass fraction between the current 
+the difference in mass fraction between the current
 coil air and the coil air at the wet bulb conditions is used, provided that
 the air mass flow rate is within <i>1&frasl;3</i> of the nominal mass flow rate.
 For smaller air mass flow rates, the outlet conditions are used to ensure that
 the outlet conditions are not supersaturated air.
-The transition between these two driving potential is continuously differentiable 
+The transition between these two driving potential is continuously differentiable
 in the mass flow rate.
 </p>
 <h5>Computation of mass transfer effectiveness</h5>
@@ -456,17 +455,17 @@ in the mass flow rate.
 To evaluate
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  K = -ln(    
+  K = -ln(
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
   (x<sub>wb,nom</sub>-x<sub>nom</sub>)
 ),
 </p>
 <p>
-the argument of the <i>ln(&middot;)</i> function must be positive. 
+the argument of the <i>ln(&middot;)</i> function must be positive.
 However, often the parameter <i>&gamma;<sub>nom</sub></i> is not known, and the default
-value of 
-<i>&gamma;<sub>nom</sub> = 1.5</i> may yield negative arguments for 
+value of
+<i>&gamma;<sub>nom</sub> = 1.5</i> may yield negative arguments for
 the function <i>ln(&middot;)</i>.
 We therefore set a lower bound on <i>&gamma;<sub>nom</sub></i> as follows:
 Note that <i>&gamma;<sub>nom</sub></i> must be such that
@@ -481,7 +480,7 @@ This condition is equivalent to
 <p>
 If <i>&gamma;<sub>nom</sub></i> were equal to the right hand side, then the
 mass transfer effectiveness would be one. Hence, we set the maximum value of
-&gamma;<sub>nom,max</sub> to 
+&gamma;<sub>nom,max</sub> to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>wb,nom</sub>-x<sub>nom</sub>)
@@ -489,7 +488,7 @@ mass transfer effectiveness would be one. Hence, we set the maximum value of
   &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
 <p>
-which corresponds to a mass transfer effectiveness of <i>0.8</i>. If 
+which corresponds to a mass transfer effectiveness of <i>0.8</i>. If
 <i>&gamma;<sub>nom</sub> &gt; &gamma;<sub>nom,max</sub></i>, the model sets
 <i>&gamma;<sub>nom</sub>=&gamma;<sub>nom,max</sub></i> and writes a warning message.
 </p>
@@ -501,14 +500,14 @@ is once continuously differentiable with bounded derivatives on compact sets:
 </p>
 <ul>
 <li>
-We impose that 
-<i>m&#775;<sub>wat</sub>(t) &rarr; 0</i> as <i>m &rarr; 0</i> 
+We impose that
+<i>m&#775;<sub>wat</sub>(t) &rarr; 0</i> as <i>m &rarr; 0</i>
 to ensure that there is no evaporation if no water remains on the coil.
 </li>
 <li>
-We impose that 
-<i>m&#775;<sub>wat</sub>(t) &frasl; m&#775;<sub>a</sub>(t) &rarr; 0</i> 
-as <i>m&#775;<sub>a</sub>(t) &rarr; 0</i> 
+We impose that
+<i>m&#775;<sub>wat</sub>(t) &frasl; m&#775;<sub>a</sub>(t) &rarr; 0</i>
+as <i>m&#775;<sub>a</sub>(t) &rarr; 0</i>
 to ensure that the evaporation mass flow rate remains bounded at zero air flow rate
 and that it is symmetric near zero without having to trigger an event.
 </li>
@@ -518,12 +517,12 @@ This is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i
 the equation for the evaporation mass flow rate by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t) 
+ m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t)
  (x<sub>wb,nom</sub>-x<sub>nom</sub>),
 </p>
 <p>
 where
-<i>C=K &delta;<sup>-0.2</sup></i> which approximates continuity at 
+<i>C=K &delta;<sup>-0.2</sup></i> which approximates continuity at
 <i>|m&#775;<sub>a</sub>|=&delta;</i>. Note that differentiability is ensured
 because the two equations are combined using the function
 <a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
@@ -549,19 +548,20 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+January 21, 2015 by Michael Wetter:<br/>
+Converted print statements to assertions with <code>AssertionLevel.warning</code>.
+</li>
+<li>
 June 18, 2014 by Michael Wetter:<br/>
-Added <code>fixed=true</code> for start value of <code>m</code> 
+Added <code>fixed=true</code> for start value of <code>m</code>
 to avoid a warning during translation.
 </li>
 <li>
 August 21, 2012 by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
-                   graphics),
-    Icon(graphics={
+</html>"),    Icon(graphics={
         Rectangle(
           extent={{-96,94},{96,-98}},
           fillPattern=FillPattern.Sphere,

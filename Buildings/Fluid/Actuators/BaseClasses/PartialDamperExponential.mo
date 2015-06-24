@@ -38,7 +38,7 @@ partial model PartialDamperExponential
   annotation(Dialog(tab="Damper coefficients"));
  parameter Boolean use_constant_density=true
     "Set to true to use constant density for flow friction"
-   annotation (Dialog(tab="Advanced"));
+   annotation (Evaluate=true, Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
  parameter Real kFixed(unit="")
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
@@ -67,8 +67,9 @@ initial equation
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
 equation
   rho = if use_constant_density then
-         rho_default else
-         Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+          rho_default
+        else
+          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
   kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y_actual,
@@ -109,9 +110,9 @@ equation
   end if; // linearized
 annotation(Documentation(info="<html>
 <p>
-Partial model for air dampers with exponential opening characteristics. 
+Partial model for air dampers with exponential opening characteristics.
 This is the base model for air dampers and variable air volume flow boxes.
-The model implements the functions that relate the opening signal, 
+The model implements the functions that relate the opening signal,
 the pressure drop and the mass flow rate.
 The model also defines parameters that are used by different air damper
 models.
@@ -124,6 +125,15 @@ Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 27, 2015 by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> for <code>use_constant_density</code>.
+This is a structural parameter. Adding this annotation leads to fewer
+numerical Jacobians for
+<code>Buildings.Examples.VAVReheat.ClosedLoop</code>
+with
+<code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
@@ -141,13 +151,13 @@ and model
 <li>
 August 5, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+section. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
 June 22, 2008 by Michael Wetter:<br/>
-Extended range of control signal from 0 to 1 by implementing the function 
+Extended range of control signal from 0 to 1 by implementing the function
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 exponentialDamper</a>.
 </li>

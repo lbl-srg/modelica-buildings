@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "roo.yCFD[1]",
+    "roo.yCFD[2]",
+    "roo.surf_surBou[1].Q_flow",
+    "roo.surf_surBou[2].Q_flow",
+    "roo.surf_surBou[3].Q_flow",
+    "roo.surf_surBou[4].Q_flow",
+    "roo.surf_surBou[5].Q_flow",
+    "roo.surf_surBou[6].Q_flow",
+    "roo.surf_surBou[1].T",
+    "roo.surf_surBou[2].T",
+    "roo.surf_surBou[3].T",
+    "roo.surf_surBou[4].T",
+    "roo.surf_surBou[5].T",
+    "roo.surf_surBou[6].T"
+  };

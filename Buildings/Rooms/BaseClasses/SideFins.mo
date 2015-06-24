@@ -1,6 +1,6 @@
 within Buildings.Rooms.BaseClasses;
 record SideFins "Record for window side fins"
-
+  extends Modelica.Icons.Record;
   parameter Modelica.SIunits.Length h(min=0)
     "Height of side fin that extends above window, measured from top of window"
     annotation(Dialog(tab="General",group="Side fin"));
@@ -20,7 +20,7 @@ Documentation(info="<html>
 This record declares parameters for window side fins.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a>
 for an explanation of the parameters, and
@@ -45,7 +45,6 @@ March 5, 2012, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics));
+</html>"));
 
 end SideFins;

@@ -1,10 +1,10 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(
-    vol1(
-      final prescribedHeatFlowRate = true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
+ extends Interfaces.FourPortHeatMassExchanger(vol1(
+      prescribedHeatFlowRate = true),
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+      prescribedHeatFlowRate = true));
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume
@@ -45,8 +45,7 @@ model Carnot
     annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
   Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
   Real COP(min=0) "Coefficient of performance";
   Real COPCar(min=0) "Carnot efficiency";
@@ -56,10 +55,8 @@ model Carnot
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.SIunits.Temperature TCon
-    "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva
-    "Evaporator temperature used to compute efficiency";
+  Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
+  Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -290,7 +287,7 @@ case
 = &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
 <p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature 
+where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
 will be used as the evaporator (or condenser) temperature. The options
@@ -305,10 +302,10 @@ The chiller COP is computed as the product
   COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
+where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
-that can be used to take into account a change in <i>COP</i> at part load 
+that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 </p>
 <p>
@@ -321,6 +318,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015 by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=true</code> for <code>vol2</code>.
+</li>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
 Reimplemented the computation of the port states to avoid using

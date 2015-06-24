@@ -29,7 +29,7 @@ model ExteriorWallTwoWindows
 
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[nCon](
     each layers = extConMat,
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each til=Buildings.Types.Tilt.Wall,
     each azi=0.017453292519943,
     A=A,
     hWin=hWin,
@@ -64,8 +64,8 @@ model ExteriorWallTwoWindows
     "Room temperature"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.HeatTransfer.Convection.Interior con[nCon](A=A - AWin,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall,
-         Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
+    til={Buildings.Types.Tilt.Wall,
+         Buildings.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=2)
     "Thermal collector to link a vector of models to a single model"
@@ -100,7 +100,7 @@ model ExteriorWallTwoWindows
   Modelica.Blocks.Sources.Constant QAbsSha[nCon](each k=0)
     "Solar radiation absorbed by interior shade"
     annotation (Placement(transformation(extent={{-90,-120},{-70,-100}})));
-  Modelica.Blocks.Sources.Constant QAbs[nCon,glaSys1.nLay](each k=0)
+  Modelica.Blocks.Sources.Constant QAbs[nCon, size(glaSys1.glass, 1)](each k=0)
     "Solar radiation absorbed by glass"
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
   Modelica.Blocks.Sources.Constant QTra[nCon](each k=0)
@@ -120,6 +120,7 @@ model ExteriorWallTwoWindows
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
     fFra=fFra,
+    til=conPar[:].til,
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade})
     "Model for interior shade heat transfer"
@@ -255,7 +256,6 @@ equation
   connect(intShaRad.JIn_glass, conExt.JOutSha_b) annotation (Line(
       points={{-19,-58},{-10,-58},{-10,-16},{-1,-16}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.glaUns_b, intShaCon.glaUns) annotation (Line(
       points={{0,-8},{-8,-8},{-8,-128},{-20,-128}},
@@ -298,6 +298,10 @@ This model tests the exterior construction with two windows.
 </html>", revisions="<html>
 <ul>
 <li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model for OpenModelica.
+</li>
+<li>
 April 29, 2013, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
 which was set to an interior instead of an exterior convection model.
@@ -306,12 +310,12 @@ which was set to an interior instead of an exterior convection model.
 June 12, 2013, by Michael Wetter:<br/>
 Redesigned model to separate convection from radiation, which is
 required for the implementation of a CFD model.
-Corrected wrong connection to frame heat transfer. The previous implementation accounted 
+Corrected wrong connection to frame heat transfer. The previous implementation accounted
 twice for the convective resistance of the frame on the room-side.
 </li>
 <li>
 March 7, 2012, by Michael Wetter:<br/>
-Updated example to use new data model 
+Updated example to use new data model
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
 Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
 in model for boundary conditions.

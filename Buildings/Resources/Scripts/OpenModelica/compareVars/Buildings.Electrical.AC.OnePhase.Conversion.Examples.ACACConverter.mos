@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "load.S[1]",
+    "load.S[2]",
+    "sou.S[1]",
+    "sou.S[2]",
+    "load.i[1]",
+    "load.i[2]",
+    "conACAC.terminal_n.v[1]",
+    "conACAC.terminal_n.v[2]",
+    "conACAC.terminal_p.v[1]",
+    "conACAC.terminal_p.v[2]"
+  };

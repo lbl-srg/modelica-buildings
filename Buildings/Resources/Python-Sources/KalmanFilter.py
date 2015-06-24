@@ -1,4 +1,4 @@
-''' Python module that is used for the example 
+''' Python module that is used for the example
     Buildings.Utilities.IO.Python27.Examples.Kalman
 '''
 def random(seed):
@@ -16,7 +16,7 @@ def filter(u):
     ''' Kalman filter, based on http://www.scipy.org/Cookbook/KalmanFiltering
     '''
 # Kalman filter example demo in Python
-    
+
     # A Python implementation of the example given in pages 11-15 of "An
     # Introduction to the Kalman Filter" by Greg Welch and Gary Bishop,
     # University of North Carolina at Chapel Hill, Department of Computer
@@ -37,14 +37,14 @@ def filter(u):
         xhat = d['xhat']
         P    = d['P']
     else:
-        # intial guesses
+        # initial guesses
         xhat = 0.0
         P    = 1.0
 
     Q = 1e-5 # process variance
-    
+
     R = 0.01 # estimate of measurement variance, change to see effect
-    
+
     xhatminus = xhat
     Pminus = P+Q
     # measurement update

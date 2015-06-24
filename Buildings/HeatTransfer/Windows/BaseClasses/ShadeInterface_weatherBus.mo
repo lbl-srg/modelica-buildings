@@ -29,10 +29,7 @@ partial model ShadeInterface_weatherBus
     "Fraction of the area that is unshaded"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-equation
-
-  annotation (Diagram(graphics),
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 Partial model to implement overhang and side fin model with weather bus as a connector.
 </p>
@@ -41,7 +38,7 @@ revisions="<html>
 <ul>
 <li>
 March 2, 2012, by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

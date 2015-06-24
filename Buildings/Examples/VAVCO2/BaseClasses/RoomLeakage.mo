@@ -10,14 +10,13 @@ model RoomLeakage "Room leakage model"
     redeclare package Medium = Medium,
     dp_nominal=1000) "Resistance model"
                                       annotation (Placement(transformation(
-          extent={{20,-10},{40,10}}, rotation=0)));
+          extent={{20,-10},{40,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p "Pressure"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium)                 annotation (Placement(transformation(extent={{
-            90,-10},{110,10}}, rotation=0)));
+            90,-10},{110,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT amb(             redeclare package Medium
       =                                                                          Medium,
@@ -25,8 +24,7 @@ model RoomLeakage "Room leakage model"
     use_p_in=true,
     p=101325,
     T=293.15)
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(res.port_b, port_b)
     annotation (Line(points={{40,6.10623e-16},{55,6.10623e-16},{55,1.16573e-15},
@@ -39,10 +37,7 @@ equation
           1.27676e-15},{0,6.10623e-16},{20,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(
           extent={{-80,40},{0,-40}},

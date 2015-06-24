@@ -13,17 +13,17 @@ model Closet "Model of the closet connected to test cell X3A"
     A = {3.6576 * 2.886075 - 2.39*1.22, 2.39 * 1.22},
     each absIR = 0.9,
     each absSol = 0.9,
-    each til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    each til=Buildings.Types.Tilt.Wall),
   datConExt(
     layers = {higIns, roo},
     A = {3.6576 * 1.667, AFlo},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.N}),
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
   datConBou(
     layers = {higIns, celDiv, slaCon},
     A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Floor},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.E, Buildings.HeatTransfer.Types.Azimuth.N}));
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N}));
 
   replaceable
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
@@ -63,7 +63,7 @@ model Closet "Model of the closet connected to test cell X3A"
     <p>
     This is a model for the closet attached to test cell 3A in the LBNL User Facility.
     This documentation describes the wall constructions used in the closet. Documentation
-    describing how it should be connected to other models in the package to form a 
+    describing how it should be connected to other models in the package to form a
     complete model of test cell X3A can be found in
     <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
     Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
@@ -102,7 +102,7 @@ model Closet "Model of the closet connected to test cell X3A"
     <td>Air space connected to partition wall and door in TestCell model</td>
     <td>Wall: datSurBou[1]<br/>
     Door: datSurBou[2]</td>
-    </tr>    
+    </tr>
     <tr>
     <td>4</td>
     <td>West wall connected to Electrical</td>
@@ -111,16 +111,16 @@ model Closet "Model of the closet connected to test cell X3A"
     </tr>
     </table>
     <p>
-    There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
-    modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in 
+    There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is
+    modeled in datConExt[2] using the layer <code>roo</code>. The other is the floor, which is modeled in
     datConBou[1] using the layer <code>slaCon</code>.
     </p>
     <p>
     Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-    The following table describes the connections to models outside of the X3A package.. The connections in datConExt 
-    are not described in the table because they are connected to the external environment, and no additional heat 
-    port connections are necessary. A rationale for why the model is created this way is also provided if it is 
-    considered necessary. 
+    The following table describes the connections to models outside of the X3A package.. The connections in datConExt
+    are not described in the table because they are connected to the external environment, and no additional heat
+    port connections are necessary. A rationale for why the model is created this way is also provided if it is
+    considered necessary.
     </p>
     <table border =\"1\" summary=\"Intended connections including the Closet model\">
     <tr>
@@ -144,8 +144,8 @@ model Closet "Model of the closet connected to test cell X3A"
     <td></td>
     <td>There is no specific connection which is appropriate connection for this construction. surf_conBou[3] represents
     the floor of the room, and must be connected to a heat port representing the ground temperature.</td>
-    </tr>  
-    </table>  
+    </tr>
+    </table>
     </html>",
     revisions = "<html>
     <ul>

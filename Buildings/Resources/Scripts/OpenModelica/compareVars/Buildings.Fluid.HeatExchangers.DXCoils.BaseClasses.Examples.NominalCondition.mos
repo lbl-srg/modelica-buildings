@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "nomCon.per.TEvaIn_nominal",
+    "nomCon.TOut_nominal",
+    "nomCon.hEvaIn_nominal",
+    "nomCon.hOut_nominal",
+    "nomCon.XEvaIn_nominal",
+    "nomCon.XEvaOut_nominal"
+  };

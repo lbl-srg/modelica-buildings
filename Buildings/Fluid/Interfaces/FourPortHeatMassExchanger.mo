@@ -67,6 +67,7 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium1,
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
+    final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
     energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
@@ -78,15 +79,18 @@ model FourPortHeatMassExchanger
     final T_start=T1_start,
     final X_start=X1_start,
     final C_start=C1_start,
-    final C_nominal=C1_nominal) "Volume for fluid 1"
+    final C_nominal=C1_nominal,
+    mSenFac=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
+            {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
+    final allowFlowReversal=allowFlowReversal2,
+    mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
@@ -167,7 +171,7 @@ initial algorithm
  Received tau1 = " + String(tau1) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau1 > Modelica.Constants.eps,
-"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau1 = " + String(tau1) + "\n");
 
@@ -179,9 +183,10 @@ initial algorithm
  Received tau2 = " + String(tau2) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau2 > Modelica.Constants.eps,
-"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.          
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -208,18 +213,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports two fluid streams between four ports. 
+This component transports two fluid streams between four ports.
 It provides the basic model for implementing a dynamic heat exchanger.
 </p>
 <p>
 The model can be used as-is, although there will be no heat or mass transfer
-between the two fluid streams. 
+between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
 <a href=\"Buildings.Fluid.Chillers.Carnot\">
@@ -231,12 +232,26 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 2, 2015, by Filip Jorissen:<br/>
+Removed final modifier from <code>mSenFac</code> in
+<code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
+</li>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Added missing propagation of <code>allowFlowReversal</code> to
+instances <code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">#412</a>.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in pressure drop elements to be final.
@@ -272,11 +287,11 @@ longer used in its base class.
 July 29, 2011, by Michael Wetter:
 <ul>
 <li>
-Changed values of 
+Changed values of
 <code>h_outflow_a1_start</code>,
 <code>h_outflow_b1_start</code>,
 <code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>, and 
+<code>h_outflow_b2_start</code>, and
 declared them as final.
 </li>
 <li>

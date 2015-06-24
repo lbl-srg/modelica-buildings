@@ -6,9 +6,9 @@ function powerSeries "Power series used to compute far-field temperature"
 algorithm
   W := -0.5772 - Modelica.Math.log(u) + sum((-1)^(j + 1)*u^j/(j*factorial(j))
     for j in 1:N);
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
           <p>
-This function computes the power series that is used to compute the far-field 
+This function computes the power series that is used to compute the far-field
 temperature.
 </p>
 </html>", revisions="<html>

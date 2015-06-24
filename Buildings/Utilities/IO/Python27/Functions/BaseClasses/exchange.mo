@@ -36,10 +36,10 @@ function exchange "Function that communicates with Python"
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with Python.
-See 
+See
 <a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">
 Buildings.Utilities.IO.Python27.UsersGuide</a>
-for instructions, and 
+for instructions, and
 <a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples\">
 Buildings.Utilities.IO.Python27.Functions.Examples</a>
 for examples.

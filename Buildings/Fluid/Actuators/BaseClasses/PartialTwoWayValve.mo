@@ -16,7 +16,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  input Real phi 
+  input Real phi
     "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
  parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
@@ -29,39 +29,7 @@ protected
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
-equation
- kVal = phi*Kv_SI;
- if (dpFixed_nominal > Modelica.Constants.eps) then 
-   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
- else 
-   k = kVal;
- end if;
 
- if linearized then
-   // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
-   // if m_flow = m_flow_nominal and dp = dp_nominal
-   m_flow*m_flow_nominal_pos = k^2 * dp;
- else
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-      else
-         dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent),
-                                simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
-      else
-        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                m_flow_turbulent=m_flow_turbulent);
-      end if;
-    end if; // homotopyInitialization
- end if; // linearized
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
@@ -98,13 +66,13 @@ equation
 Documentation(info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
-with different opening characteristics, such as linear, equal percentage
-or quick opening.
+with different opening characteristics, such as linear, equal percentage,
+quick opening or pressure-independent.
 </p>
 <p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
 the origin, this model linearizes the pressure drop versus flow relation
-ship. The region in which it is linearized is parameterized by 
+ship. The region in which it is linearized is parameterized by
 </p>
 <pre>
   m_turbulent_flow = deltaM * m_flow_nominal
@@ -117,8 +85,8 @@ changes.
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
-which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+which is the flow coefficient in SI units, i.e.,
+it is the ratio between mass flow rate in <code>kg/s</code> and square root
 of pressure drop in <code>Pa</code>.
 </p>
 <h4>Modelling options</h4>
@@ -134,17 +102,18 @@ The two way valve models are implemented using this partial model, as opposed to
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
 </p>
-<h4>Implementation</h4>
-<p>
-Models that extend this model need to provide a binding equation 
-for the flow function <code>phi</code>.
-An example of such a code can be found in
-<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\">
-Buildings.Fluid.Actuators.Valves.TwoWayLinear</a>.
-</p>
-</html>", 
+</html>",
 revisions="<html>
 <ul>
+<li>
+January 29, 2015, by Filip Jorissen:<br/>
+Moved the governing equations to
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv\">
+PartialTwoWayValveKv</a>
+in order to be able to extend from this partial in
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
+TwoWayPressureIndependent</a>
+</li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>
 Reformulated the computation of <code>k</code> to make the model
@@ -160,7 +129,7 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </li>
 <li>
 March 27, 2014 by Michael Wetter:<br/>
-Revised model for implementation of new valve model that computes the flow function 
+Revised model for implementation of new valve model that computes the flow function
 based on a table.
 </li>
 <li>
@@ -182,7 +151,7 @@ a non-literal value.
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
@@ -199,7 +168,7 @@ and model
 <li>
 August 12, 2011 by Michael Wetter:<br/>
 Added <code>assert</code> statement to prevent <code>l=0</code> due to the
-implementation of 
+implementation of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
 </li>
@@ -209,7 +178,7 @@ Revised implementation to use new base class for actuators.
 </li>
 <li>
 February 18, 2009 by Michael Wetter:<br/>
-Implemented parameterization of flow coefficient as in 
+Implemented parameterization of flow coefficient as in
 <code>Modelica.Fluid</code>.
 </li>
 <li>

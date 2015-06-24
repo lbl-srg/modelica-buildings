@@ -35,6 +35,8 @@ protected
   final parameter Modelica.SIunits.Area A[nTot](fixed=false) "Surface areas";
   final parameter Real kOpa[nOpa](unit="W/K4", fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
+  final parameter Real kOpaInv[nOpa](unit="K4/W", fixed=false)
+    "Inverse of kOpa, used to avoid having to use a safe division";
   final parameter Real F[nTot, nTot](
     min=0,
     max=1,
@@ -138,6 +140,9 @@ initial equation
       F[i, j] = A[j]/sum((A[k]) for k in 1:nTot);
     end for;
   end for;
+  for i in 1:nOpa loop
+    kOpaInv[i] = 1/kOpa[i];
+  end for;
   // Test whether the view factors add up to one, or the sum is zero in case there
   // is only one construction
   for i in 1:nTot loop
@@ -182,7 +187,7 @@ equation
   // avoid a singularity.
   for j in 1:nOpa loop
     //   T4Opa[j] = if (kOpa[j] > 1E-28) then (Q_flow[j]-epsOpa[j] * G[j])/kOpa[j] else T40;
-    T4Opa[j] = (-J[j] - rhoOpa[j]*G[j])/kOpa[j];
+    T4Opa[j] = (-J[j] - rhoOpa[j]*G[j])*kOpaInv[j];
   end for;
   // 4th power of temperature
   if linearizeRadiation then
@@ -298,7 +303,7 @@ This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp; 
+  E<sup>i</sup> = &sigma; &nbsp; A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup> &nbsp;
 (T<sup>i</sup>)<sup>4</sup>,
 </p>
 <p>
@@ -323,16 +328,16 @@ The incoming radiation at surface <i>i</i> is
   G<sup>i</sup> = -&sum;<sub>j</sub> &nbsp; F<sup>j,i</sup> &nbsp; J<sup>j</sup>
 </p>
 <p>
-where 
-<i>F<sup>j,i</sup></i> 
+where
+<i>F<sup>j,i</sup></i>
 is the view factor from surface
-<i>j</i> to surface <i>i</i>, 
-<i>J<sup>j</sup></i> 
+<i>j</i> to surface <i>i</i>,
+<i>J<sup>j</sup></i>
 is the radiosity leaving surface <i>j</i>
 and the sum is over all surfaces.
 For opaque surfaces, it follows from the first law
 that the radiosity
-<i>J<sup>i</sup></i> 
+<i>J<sup>i</sup></i>
 is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -349,8 +354,8 @@ For each surface <i>i</i>, the heat balance is
   0 = Q<sup>i</sup> + J<sup>i</sup> + G<sup>i</sup>.
 </p>
 <p>
-For opaque surfaces, the heat flow rate 
-<i>Q<sup>i</sup></i> 
+For opaque surfaces, the heat flow rate
+<i>Q<sup>i</sup></i>
 is set to be equal to the heat flow rate at the heat port.
 For the glass of the windows, the radiosity outflow at the connector is
 set to the radiosity
@@ -365,6 +370,12 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </html>", revisions="<html>
 <ul>
 <li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
+<li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
@@ -375,12 +386,12 @@ See track issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1
 </li>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
-Removed <code>cardinality</code> function as this is 
+Removed <code>cardinality</code> function as this is
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>
 February 10, 2012 by Wangda Zuo:<br/>
-Fixed a bug for linearization of T4. 
+Fixed a bug for linearization of T4.
 </li>
 <li>
 April 21, 2011 by Michael Wetter:<br/>

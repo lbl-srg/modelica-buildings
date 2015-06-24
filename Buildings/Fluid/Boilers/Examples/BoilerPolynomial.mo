@@ -1,7 +1,7 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomial "Test model"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
@@ -9,8 +9,6 @@ model BoilerPolynomial "Test model"
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -93,23 +91,25 @@ equation
       points={{-59,-20},{-50,-20},{-50,-52},{-14,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Documentation(info="<html>
 This example demonstrates the open loop response of the boiler
 model for a control signal that is first a ramp from <i>0</i>
-to <i>1</i>, followed by a step that switches the boilers off and 
+to <i>1</i>, followed by a step that switches the boilers off and
 then on again.
 The instances of the boiler models are parameterized
 so that <code>boi1</code> is a dynamic model and
 <code>boi2</code> is a steady-state model.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 April 27, 2013, by Michael Wetter:<br/>
 Removed first order filter from the output of the table.

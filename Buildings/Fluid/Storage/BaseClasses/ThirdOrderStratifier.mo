@@ -15,21 +15,20 @@ model ThirdOrderStratifier
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes" annotation (Placement(transformation(extent={
-            {90,-10},{110,10}},rotation=0)));
+            {90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow
     "Mass flow rate from port a to port b" annotation (Placement(transformation(
-          extent={{-140,62},{-100,102}}, rotation=0)));
+          extent={{-140,62},{-100,102}})));
 
   Modelica.Blocks.Interfaces.RealInput[nSeg + 1] H_flow
     "Enthalpy flow between the volumes" annotation (Placement(transformation(
-          extent={{-140,-100},{-100,-60}}, rotation=0)));
+          extent={{-140,-100},{-100,-60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each
       package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
   Modelica.SIunits.SpecificEnthalpy[nSeg + 1] hOut
@@ -46,8 +45,8 @@ protected
     "Sign used to implement the third order upwind scheme without triggering a state event";
 
 equation
-  assert(nSeg >= 4, "
-Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
+  assert(nSeg >= 4,
+  "Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
 
   // assign zero flow conditions at port
   fluidPort[:].m_flow = zeros(nSeg + 2);
@@ -105,11 +104,11 @@ Number of segments of the enhanced stratified tank should be no less than 4 (nSe
   annotation (Documentation(info="<html>
 <p>
 This model reduces the numerical dissipation that is introduced
-by the standard first-order upwind discretization scheme which is 
+by the standard first-order upwind discretization scheme which is
 created when connecting fluid volumes in series.
 </p>
 <p>
-The model is used in conjunction with 
+The model is used in conjunction with
 <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
 Modelica.Fluid.Storage.Stratified</a>.
 It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">

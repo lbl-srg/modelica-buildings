@@ -1,7 +1,7 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
-    package Medium = Modelica.Media.Air.SimpleAir;
+    package Medium = Buildings.Media.Air;
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10)
     "Thermal conductor"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -39,8 +39,7 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
@@ -88,6 +87,5 @@ First implementation.
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeHeatConduction.mos"
-        "Simulate and plot"),
-    Diagram(graphics));
+        "Simulate and plot"));
 end MixingVolumeHeatConduction;

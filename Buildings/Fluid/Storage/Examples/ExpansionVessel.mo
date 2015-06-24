@@ -3,10 +3,9 @@ model ExpansionVessel "Test model for expansion vessel"
   extends Modelica.Icons.Example;
 
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
 
-  inner Modelica.Fluid.System system(p_ambient=400000, massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   Buildings.Fluid.Storage.ExpansionVessel expVes(
     redeclare package Medium = Medium, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -48,7 +47,6 @@ equation
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 This model tests a pressure expansion vessel. The medium model that is used in this
 example changes its density as a function of temperature.

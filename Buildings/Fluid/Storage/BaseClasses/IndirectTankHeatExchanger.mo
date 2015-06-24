@@ -77,7 +77,8 @@ model IndirectTankHeatExchanger
     each T_start=T_start,
     each X_start=X_start,
     each C_start=C_start,
-    each C_nominal=C_nominal) "Heat exchanger fluid"
+    each C_nominal=C_nominal,
+    each final allowFlowReversal=allowFlowReversal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](each C=CHex/
         nSeg,
@@ -89,7 +90,8 @@ model IndirectTankHeatExchanger
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex)
+  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex,
+      allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
@@ -103,7 +105,6 @@ protected
     "Temperature of the heat transfer fluid"                                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-20,-70})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenWat[nSeg]
     "Temperature sensor of the fluid surrounding the heat exchanger"
@@ -122,7 +123,6 @@ protected
                                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={20,-80})));
   HeatExchangers.BaseClasses.HANaturalCylinder hANatCyl[nSeg](
     redeclare each final package Medium = Medium,
@@ -133,7 +133,6 @@ protected
     "Calculates an hA value for each side of the heat exchanger"
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
     "Temperature at the external surface of the heat exchanger" annotation (
@@ -268,7 +267,7 @@ equation
           For example, the heat exchanger in a storage tank which is part of a solar thermal system.
           </p>
           <p>
-          This component models the fluid in the heat exchanger, convection between the fluid and 
+          This component models the fluid in the heat exchanger, convection between the fluid and
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
@@ -278,12 +277,16 @@ equation
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
-          The fluid ports are intended to be connected to a circulated heat transfer fluid 
+          The fluid ports are intended to be connected to a circulated heat transfer fluid
           while the heat port is intended to be connected to a stagnant fluid.
-          </p>          
+          </p>
           </html>",
-          revisions = "<html>
+          revisions="<html>
           <ul>
+<li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code>.
+</li>
           <li>
           August 29, 2014, by Michael Wetter:<br/>
           Introduced <code>MediumTan</code> for the tank medium, and assigned <code>Medium</code>

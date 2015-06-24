@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "vol.dynBal.m",
+    "vol.T",
+    "sou.ports[1].m_flow",
+    "vol.ports[2].m_flow"
+  };

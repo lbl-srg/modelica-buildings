@@ -23,9 +23,9 @@ initial algorithm
 defaultComponentName="dam",
 Documentation(info="<html>
 <p>
-This model is an air damper with flow coefficient that is an exponential function 
+This model is an air damper with flow coefficient that is an exponential function
 of the opening angle. The model is as in ASHRAE 825-RP.
-A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 
+A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
 for consistency within this library.
 </p>
@@ -37,14 +37,15 @@ For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
 </p>
 <p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial that
-matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and 
-<code>y=1</code>, respectively. In addition, the polynomials are such that 
+matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and
+<code>y=1</code>, respectively. In addition, the polynomials are such that
 <i>k<sub>d</sub>(y)</i> is
 differentiable in <i>y</i> and the derivative is continuous.
 </p>
 <p>
 The damper characteristics <i>k<sub>d</sub>(y)</i> is then used to
 compute the flow coefficient <i>k(y)</i> as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 k(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A,
 </p>
@@ -61,7 +62,8 @@ with regularization near the origin.
 </p>
 <p>
 ASHRAE 825-RP lists the following parameter values as typical:
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <td></td><th>opposed blades</th><th>single blades</th>
 </tr>
@@ -88,7 +90,7 @@ ASHRAE 825-RP lists the following parameter values as typical:
 <h4>References</h4>
 <p>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
-<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>, 
+<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,
 ASHRAE Final Report 825-RP, Atlanta, GA.
 </p>
 </html>", revisions="<html>
@@ -102,26 +104,26 @@ September 26, 2013 by Michael Wetter:<br/>
 Moved assignemnt of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
 from <code>initial algorithm</code> to the variable declaration, to avoid a division
 by zero in OpenModelica.
-</li> 
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li>
 June 22, 2008 by Michael Wetter:<br/>
-Extended range of control signal from 0 to 1 by implementing the function 
+Extended range of control signal from 0 to 1 by implementing the function
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>.
 </li>
 <li>
 June 10, 2008 by Michael Wetter:<br/>
-Introduced new partial base class, 
+Introduced new partial base class,
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
 June 30, 2007 by Michael Wetter:<br/>
-Introduced new partial base class, 
+Introduced new partial base class,
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
 </li>
 <li>

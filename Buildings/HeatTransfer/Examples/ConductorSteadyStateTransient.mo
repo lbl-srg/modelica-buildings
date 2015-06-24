@@ -47,19 +47,18 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
     annotation (Placement(transformation(extent={{0,-16},{12,-4}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{14,-56},{26,-44}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-4)
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.HeatTransfer.Convection.Interior conv1(A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv1(A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-20},{-30,0}})));
-  Buildings.HeatTransfer.Convection.Interior conv2(A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv2(A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-60},{-30,-40}})));
 equation
   connect(con.port_b, TB.port) annotation (Line(
       points={{40,30},{60,30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(step.y, TA.T) annotation (Line(
       points={{-79,30},{-62,30}},
@@ -121,15 +120,13 @@ equation
       points={{-10,-50},{14,-50}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=86400),
+  annotation (experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-This example illustrates modeling of multi-layer materials. It also tests if the 
-multi-layer material computes the same heat transfer with its boundary condition 
-as two instances of a single layer material. 
+This example illustrates modeling of multi-layer materials. It also tests if the
+multi-layer material computes the same heat transfer with its boundary condition
+as two instances of a single layer material.
 The insulation is computed in steady-state, whereas the brick is computed using transient
 heat conduction.
 The <code>assert</code> block will stop the simulation if the heat exchange with the boundary

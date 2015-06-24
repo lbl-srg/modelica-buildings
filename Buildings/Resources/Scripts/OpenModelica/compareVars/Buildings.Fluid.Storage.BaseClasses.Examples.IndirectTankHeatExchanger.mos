@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "indTanHex.vol[1].T",
+    "indTanHex.vol[2].T",
+    "indTanHex.vol[3].T"
+  };

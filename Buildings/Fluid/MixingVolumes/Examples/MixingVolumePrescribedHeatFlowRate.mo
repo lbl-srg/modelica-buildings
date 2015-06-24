@@ -2,7 +2,7 @@ within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumePrescribedHeatFlowRate
   "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
-    package Medium = Modelica.Media.Air.SimpleAir;
+    package Medium = Buildings.Media.Air;
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -35,8 +35,7 @@ model MixingVolumePrescribedHeatFlowRate
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant const(k=0)
@@ -79,8 +78,8 @@ equation
 This model demonstrates the use of the mixing volume with a prescribed heat flow rate.
 The mixing volume is configured as a steady-state model.
 The heat flow rate is set to a very small value. This model is used to test
-convergence for the case the the prescribed heat flow rate should be zero,
-but due to numerical solutions, it may have a small error that causes the signal to be 
+convergence for the case the prescribed heat flow rate should be zero,
+but due to numerical solutions, it may have a small error that causes the signal to be
 non-zero.
 </p>
 </html>", revisions="<html>
@@ -93,6 +92,5 @@ First implementation.
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"
-        "Simulate and plot"),
-    Diagram(graphics));
+        "Simulate and plot"));
 end MixingVolumePrescribedHeatFlowRate;

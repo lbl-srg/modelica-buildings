@@ -38,8 +38,32 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  ////////////////////////////////////////////////////////////////////
+  // Dynamics
+  parameter Modelica.SIunits.Time tau=1 "Time constant for mixing";
 
+  ////////////////////////////////////////////////////////////////////
+  // Connectors
+
+  Modelica.Blocks.Interfaces.RealOutput Ql_flow
+    "Heat loss of tank (positive if heat flows from tank to ambient)"
+    annotation (Placement(transformation(extent={{100,62},{120,82}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heaPorVol
+    "Heat port of fluid volumes"
+    annotation (Placement(transformation(extent={{-6,-6},{6,6}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
+    "Heat port tank side (outside insulation)"
+    annotation (Placement(transformation(extent={{50,-6},{62,6}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
+    "Heat port tank top (outside insulation)"
+    annotation (Placement(transformation(extent={{14,68},{26,80}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
+    "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
+    annotation (Placement(transformation(extent={{14,-80},{26,-68}})));
+
+  // Models
   MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
@@ -50,78 +74,18 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     each C_start=C_start,
     each V=VTan/nSeg,
     each nPorts=nPorts,
-    each m_flow_nominal = m_flow_nominal) "Tank segment"
-                              annotation (Placement(transformation(extent={{6,-16},
-            {26,4}},       rotation=0)));
-  Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port a"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}},rotation=
-            0)));
-  Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
-      each m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}},  rotation=
-            0)));
-  Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port b"
-    annotation (Placement(transformation(extent={{50,-90},{70,-70}}, rotation=0)));
-  BaseClasses.Buoyancy buo(
-    redeclare package Medium = Medium,
-    V=VTan,
-    nSeg=nSeg,
-    tau=tau) "Model to prevent unstable tank stratification"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}}, rotation=0)));
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant for mixing due to temperature inversion";
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
-                                                 nSeg - 1] conFlu(each G=
-        conFluSeg) "Thermal conductance in fluid between the segments"
-    annotation (Placement(transformation(extent={{-56,4},{-42,18}},  rotation=0)));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
-                                                 nSeg] conWal(
-     each G=2*Modelica.Constants.pi*kIns*hSeg/Modelica.Math.log((rTan+dIns)/rTan))
-    "Thermal conductance through tank wall"
-    annotation (Placement(transformation(extent={{10,34},{20,46}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(
-     G=conTopSeg) "Thermal conductance through tank top"
-    annotation (Placement(transformation(extent={{10,54},{20,66}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBot(
-     G=conTopSeg) "Thermal conductance through tank bottom"
-    annotation (Placement(transformation(extent={{10,14},{20,26}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heaPorVol
-    "Heat port of fluid volumes"
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
-    "Heat port tank side (outside insulation)"
-                    annotation (Placement(transformation(extent={{50,-6},{62,6}},
-          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSid[
-                                                         nSeg]
-    "Heat flow at wall of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,34},{42,46}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
-    "Heat port tank top (outside insulation)"
-                    annotation (Placement(transformation(extent={{14,68},{26,80}},
-          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloTop
-    "Heat flow at top of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,54},{42,66}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
-    "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
-                    annotation (Placement(transformation(extent={{14,-80},{26,
-            -68}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloBot
-    "Heat flow at bottom of tank (outside insulation)"
-    annotation (Placement(transformation(extent={{30,14},{42,26}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput Ql_flow
-    "Heat loss of tank (positive if heat flows from tank to ambient)"
-    annotation (Placement(transformation(extent={{100,62},{120,82}}, rotation=0)));
-
+    each m_flow_nominal = m_flow_nominal,
+    each final mSenFac=1,
+    each final m_flow_small=m_flow_small,
+    each final allowFlowReversal=allowFlowReversal) "Tank segment"
+      annotation (Placement(transformation(extent={{6,-16},{26,4}})));
 protected
   constant Integer nPorts = 2 "Number of ports of volume";
 
-  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
-         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi])
-    "Medium state at default properties";
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
   parameter Modelica.SIunits.Length hSeg = hTan / nSeg
     "Height of a tank segment";
   parameter Modelica.SIunits.Area ATan = VTan/hTan
@@ -133,47 +97,88 @@ protected
   parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
 
-protected
+  Sensors.EnthalpyFlowRate H_a_flow(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port a"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  Sensors.EnthalpyFlowRate[nSeg - 1] H_vol_flow(
+    redeclare package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal,
+    each final tau=0,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
+    "Enthalpy flow rate between the volumes"
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+  Sensors.EnthalpyFlowRate H_b_flow(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final tau=0,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small) "Enthalpy flow rate at port b"
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+  BaseClasses.Buoyancy buo(
+    redeclare final package Medium = Medium,
+    final V=VTan,
+    final nSeg=nSeg,
+    final tau=tau) "Model to prevent unstable tank stratification"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nSeg - 1] conFlu(
+    each G=conFluSeg) "Thermal conductance in fluid between the segments"
+    annotation (Placement(transformation(extent={{-56,4},{-42,18}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nSeg] conWal(
+     each G=2*Modelica.Constants.pi*kIns*hSeg/Modelica.Math.log((rTan+dIns)/rTan))
+    "Thermal conductance through tank wall"
+    annotation (Placement(transformation(extent={{10,34},{20,46}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(
+     G=conTopSeg) "Thermal conductance through tank top"
+    annotation (Placement(transformation(extent={{10,54},{20,66}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conBot(
+     G=conTopSeg) "Thermal conductance through tank bottom"
+    annotation (Placement(transformation(extent={{10,14},{20,26}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloTop
+    "Heat flow at top of tank (outside insulation)"
+    annotation (Placement(transformation(extent={{30,54},{42,66}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloBot
+    "Heat flow at bottom of tank (outside insulation)"
+    annotation (Placement(transformation(extent={{30,14},{42,26}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSid[nSeg]
+    "Heat flow at wall of tank (outside insulation)"
+    annotation (Placement(transformation(extent={{30,34},{42,46}})));
+
   Modelica.Blocks.Routing.Multiplex3 mul(
     n1=1,
     n2=nSeg,
-    n3=1) annotation (Placement(transformation(extent={{62,44},{70,54}},
-          rotation=0)));
+    n3=1) "Multiplex to collect heat flow rates"
+    annotation (Placement(transformation(extent={{62,44},{70,54}})));
   Modelica.Blocks.Math.Sum sum1(nin=nSeg + 2)
-                                          annotation (Placement(transformation(
-          extent={{78,42},{90,56}}, rotation=0)));
-public
+  annotation (Placement(transformation(extent={{78,42},{90,56}})));
+
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
     "Connector to assign multiple heat ports to one heat port"
     annotation (Placement(transformation(extent={{46,20},{58,32}})));
 equation
-  connect(hA_flow.port_b, vol[1].ports[1])
-                                     annotation (Line(points={{-40,-80},{-40,-80},
-          {14,-80},{14,-16},{16,-16}},            color={0,127,255}));
-  connect(vol[nSeg].ports[2], hB_flow.port_a)
-                                        annotation (Line(points={{16,-16},{14,-16},
-          {14,-80},{50,-80}},                               color={0,127,255}));
-  connect(hB_flow.port_b, port_b)
-                             annotation (Line(points={{70,-80},{80,-80},{80,
-          5.55112e-16},{100,5.55112e-16}},   color={0,127,255}));
+  connect(H_a_flow.port_b, vol[1].ports[1]) annotation (Line(points={{-40,-80},{
+          -40,-80},{14,-80},{14,-16},{16,-16}}, color={0,127,255}));
+  connect(vol[nSeg].ports[2], H_b_flow.port_a) annotation (Line(points={{16,-16},
+          {14,-16},{14,-80},{50,-80}}, color={0,127,255}));
+  connect(H_b_flow.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{80,
+          5.55112e-16},{100,5.55112e-16}}, color={0,127,255}));
   for i in 1:(nSeg-1) loop
 
-  connect(vol[i].ports[2], hVol_flow[i].port_a)
-                                               annotation (Line(points={{16,-16},
-            {16,-20},{-28,-20},{-28,-40},{-20,-40}},                color={0,
-            127,255}));
-  connect(hVol_flow[i].port_b, vol[i+1].ports[1])
-                                                 annotation (Line(points={{
-            5.55112e-16,-40},{4,-40},{4,-16},{16,-16}},        color={0,127,255}));
+    connect(vol[i].ports[2], H_vol_flow[i].port_a) annotation (Line(points={{16,
+            -16},{16,-20},{-28,-20},{-28,-40},{-20,-40}}, color={0,127,255}));
+    connect(H_vol_flow[i].port_b, vol[i + 1].ports[1]) annotation (Line(points={
+            {5.55112e-16,-40},{4,-40},{4,-16},{16,-16}}, color={0,127,255}));
   end for;
-  connect(port_a, hA_flow.port_a)
-                             annotation (Line(points={{-100,5.55112e-16},{-80,
-          5.55112e-16},{-80,-80},{-60,-80}},                    color={0,127,
-          255}));
+  connect(port_a, H_a_flow.port_a) annotation (Line(points={{-100,5.55112e-16},{
+          -80,5.55112e-16},{-80,-80},{-60,-80}}, color={0,127,255}));
   connect(buo.heatPort, vol.heatPort)    annotation (Line(
       points={{-40,60},{6,60},{6,-6}},
-      color={191,0,0},
-      pattern=LinePattern.None));
+      color={191,0,0}));
   for i in 1:nSeg-1 loop
   // heat conduction between fluid nodes
      connect(vol[i].heatPort, conFlu[i].port_a)    annotation (Line(points={{6,-6},{
@@ -227,7 +232,7 @@ Documentation(info="<html>
 This is a model of a stratified storage tank.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -239,6 +244,35 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>
+and set <code>mSenFac=1</code>.
+</li>
+<li>
+January 26, 2015, by Michael Wetter:<br/>
+Renamed
+<code>hA_flow</code> to <code>H_a_flow</code>,
+<code>hB_flow</code> to <code>H_b_flow</code> and
+<code>hVol_flow</code> to <code>H_vol_flow</code>
+as they output enthalpy flow rate, and not specific enthalpy.
+Made various models <code>protected</code>.
+</li>
+<li>
+January 25, 2015, by Michael Wetter:<br/>
+Added <code>final</code> to <code>tau = 0</code> in <code>EnthalpyFlowRate</code>.
+These sensors do not need dynamics as the enthalpy flow rate
+is used to compute a heat flow which is then added to the volume of the tank.
+Thus, if there were high frequency oscillations of small mass flow rates,
+then they have a small effect on <code>H_flow</code>, and they are
+not used in any control loop. Rather, the oscillations are further damped
+by the differential equation of the fluid volume.
+</li>
+<li>
+January 25, 2015, by Filip Jorissen:<br/>
+Set <code>tau = 0</code> in <code>EnthalpyFlowRate</code>
+sensors for increased simulation speed.
+</li>
 <li>
 August 29, 2014, by Michael Wetter:<br/>
 Replaced the use of <code>Medium.lambda_const</code> with
@@ -262,14 +296,14 @@ Changed default start values for temperature and pressure.
 <li>
 October 25, 2009 by Michael Wetter:<br/>
 Changed computation of heat transfer through top (and bottom) of tank. Now,
-the thermal resistance of the fluid is not taken into account, i.e., the 
+the thermal resistance of the fluid is not taken into account, i.e., the
 top (and bottom) element is assumed to be mixed.
 <li>
 October 23, 2009 by Michael Wetter:<br/>
-Fixed bug in computing heat conduction of top and bottom segment. 
-In the previous version, 
+Fixed bug in computing heat conduction of top and bottom segment.
+In the previous version,
 for computing the heat conduction between the top (or bottom) segment and
-the outside, 
+the outside,
 the whole thickness of the water volume was used
 instead of only half the thickness.
 </li>
@@ -399,8 +433,5 @@ Icon(graphics={
         Line(
           points={{22,-74},{70,-74},{70,72}},
           color={127,0,0},
-          pattern=LinePattern.Dot)}),
-                            Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                    graphics));
+          pattern=LinePattern.Dot)}));
 end Stratified;

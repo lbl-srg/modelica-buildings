@@ -3,19 +3,18 @@ model System3
   "Third part of the system model with air supply and closed loop control"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
 
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater;
+      Buildings.Media.Water;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    mSenFac=3)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
@@ -70,7 +69,7 @@ model System3
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowMachine_m_flow fan(redeclare package Medium = MediumA,
+  Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
       m_flow_nominal=mA_flow_nominal,
     dynamicBalance=false) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -144,9 +143,6 @@ model System3
   Modelica.Blocks.Math.BooleanToReal mWat_flow(realTrue=0, realFalse=
         mW_flow_nominal) "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
-    "Heat capacity for furniture and walls"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -246,23 +242,19 @@ equation
       points={{-59,-100},{-50,-100},{-50,-92},{-40,-92}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaCap.port, vol.heatPort) annotation (Line(
-      points={{70,50},{50,50},{50,30},{60,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model modifies
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>
-to use the actual outside temperature for a summer day, 
+to use the actual outside temperature for a summer day,
 and it adds closed loop control.
 The closed loop control measures the room temperature and switches
 the chilled water flow rate on or off.
 </p>
 <h4>Implementation</h4>
 <p>
-This section describes how we modified 
+This section describes how we modified
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>
 to build this model.
@@ -270,7 +262,7 @@ to build this model.
 <ol>
 <li>
 <p>
-The first step was to copy the model 
+The first step was to copy the model
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System2\">
 Buildings.Examples.Tutorial.SpaceCooling.System2</a>.
 </p>
@@ -278,7 +270,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System2</a>.
 <li>
 <p>
 Next, we changed in <code>weaDat</code> the parameter that determines
-whether the outside dry bulb temperature is used from the weather data file 
+whether the outside dry bulb temperature is used from the weather data file
 or set to a constant value. This can be accomplished in the GUI of the weather data reader
 as follows:
 <p align=\"center\">
@@ -328,8 +320,8 @@ we needed to add a conversion block. We therefore replaced the instance
 <code>mWat_flow</code> from a constant block to the block
 <a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
 Modelica.Blocks.Math.BooleanToReal</a>.
-Because the cooling control has a reverse action, i.e., 
-if the measured value exceeds the set point, the system should switch 
+Because the cooling control has a reverse action, i.e.,
+if the measured value exceeds the set point, the system should switch
 on instead of off, we configured the parameters of the conversion block
 as follow:
 </p>
@@ -344,9 +336,9 @@ is above the set point, and <i>0</i> otherwise.
 </li>
 </ol>
 <p>
-This completes building the model shown in the figure on 
+This completes building the model shown in the figure on
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling\">
-Buildings.Examples.Tutorial.SpaceCooling</a>. 
+Buildings.Examples.Tutorial.SpaceCooling</a>.
 When simulating the model, the response shown below should be seen.
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/System3TemperaturesClosedLoop.png\" border=\"1\"/>
@@ -362,6 +354,17 @@ Buildings.Controls.Continuous.LimPID</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28, 2015 by Michael Wetter:<br/>
+Added thermal mass of furniture directly to air volume.
+This avoids an index reduction.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 11, 2012, by Michael Wetter:<br/>
 First implementation.

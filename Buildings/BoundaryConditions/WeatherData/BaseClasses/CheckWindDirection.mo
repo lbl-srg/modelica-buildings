@@ -18,7 +18,6 @@ protected
   constant Real nMin=0 "Lower bound";
   constant Real nMax=2*Modelica.Constants.pi "Upper bound";
 equation
-
   nOut = Buildings.Utilities.Math.Functions.smoothLimit(
     nIn,
     nMin,
@@ -30,8 +29,7 @@ equation
 <p>
 This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
@@ -42,9 +40,5 @@ July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end CheckWindDirection;

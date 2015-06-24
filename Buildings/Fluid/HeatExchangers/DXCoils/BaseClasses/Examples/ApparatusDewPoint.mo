@@ -3,7 +3,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
   extends Modelica.Icons.Example;
   parameter Integer nSta=4 "Number of standard compressor speeds";
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   parameter Real minSpeRat(min=0,max=1) = 0.2 "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Sources.Constant p(
@@ -140,16 +140,16 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates calculation of air properties at apparatus dew point:  
+This example illustrates calculation of air properties at apparatus dew point:
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

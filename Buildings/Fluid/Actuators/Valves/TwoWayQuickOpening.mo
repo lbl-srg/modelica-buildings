@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Valves;
 model TwoWayQuickOpening "Two way valve with linear flow characteristics"
-  extends BaseClasses.PartialTwoWayValve(phi=if homotopyInitialization then
+  extends BaseClasses.PartialTwoWayValveKv(phi=if homotopyInitialization then
         homotopy(actual=l + Modelica.Fluid.Utilities.regPow(
         y_actual,
         alpInv,
@@ -12,8 +12,7 @@ model TwoWayQuickOpening "Two way valve with linear flow characteristics"
   parameter Real alp = 2 "Parameter for valve characteristics, alp>0";
   parameter Real delta0 = 0.01 "Range of significant deviation from power law";
 protected
-   parameter Real alpInv = 1/alp
-     "Inverse of alpha";
+   parameter Real alpInv = 1/alp "Inverse of alpha";
 
 initial equation
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
@@ -26,7 +25,7 @@ Documentation(info="<html>
 Two way valve with a power function for the valve opening characteristic.
 Valves that need to open quickly typically have such a valve characteristics.
 </p><p>
-This model is based on the partial valve model 
+This model is based on the partial valve model
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 Check this model for more information, such
@@ -44,14 +43,14 @@ has been added to the variable <code>phi</code>.
 </li>
 <li>
 March 27, 2014 by Michael Wetter:<br/>
-Revised model for implementation of new valve model that computes the flow function 
+Revised model for implementation of new valve model that computes the flow function
 based on a table.
 </li>
 <li>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal=0</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

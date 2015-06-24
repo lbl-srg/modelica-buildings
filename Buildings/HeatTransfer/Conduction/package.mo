@@ -2,7 +2,7 @@ within Buildings.HeatTransfer;
 package Conduction "Package with models for heat conduction"
   extends Modelica.Icons.VariantsPackage;
 
-  constant Integer nSupPCM = 6 
+  constant Integer nSupPCM = 6
     "Number of support points to approximate u(T) releation, used only for phase change material";
 
 annotation (Documentation(info="<html>
@@ -11,12 +11,12 @@ This package provides component models to compute heat conduction.
 </p>
 <h4>Implementation</h4>
 <p>
-The package declares the constant <code>nSupPCM</code>, 
+The package declares the constant <code>nSupPCM</code>,
 which is equal to the number of support points that are used
 to approximate the specific internal energy versus temperature relation.
-This approximation is used by 
+This approximation is used by
 <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>
-to replace the piece-wise linear function by a cubic hermite spline, with 
+to replace the piece-wise linear function by a cubic hermite spline, with
 linear extrapolation, in order to avoid state events during the simulation.
 </p>
 </html>", revisions="<html>

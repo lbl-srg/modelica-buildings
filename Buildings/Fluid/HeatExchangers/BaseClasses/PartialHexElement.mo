@@ -5,6 +5,13 @@ model PartialHexElement "Element of a heat exchanger 2"
         final massDynamics=energyDynamics,
         final initialize_p=initialize_p1));
 
+  constant Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(HideResult=true);
+  constant Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(HideResult=true);
+
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
      annotation(Dialog(group = "Nominal condition"));
@@ -15,12 +22,6 @@ model PartialHexElement "Element of a heat exchanger 2"
   parameter Modelica.SIunits.HeatCapacity C=2*UA_nominal*tau_m
     "Heat capacity of metal (= cp*m)";
 
-  parameter Boolean initialize_p1 = not Medium1.singleState
-    "Set to true to initialize the pressure of volume 1"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Boolean initialize_p2 = not Medium2.singleState
-    "Set to true to initialize the pressure of volume 2"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
   Modelica.Blocks.Interfaces.RealInput Gc_1
     "Signal representing the convective thermal conductance medium 1 in [W/K]"
     annotation (Placement(transformation(
@@ -48,11 +49,10 @@ model PartialHexElement "Element of a heat exchanger 2"
 
   Modelica.Thermal.HeatTransfer.Components.Convection con1(dT(min=-200))
     "Convection (and conduction) on fluid side 1"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.Convection con2(dT(min=-200))
     "Convection (and conduction) on fluid side 2"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(Gc_1, con1.Gc) annotation (Line(points={{-40,100},{-40,40},{-50,40},{
           -50,30}}, color={0,0,127}));
@@ -132,6 +132,13 @@ that a GUI displays the volume as a replaceable component.
 revisions="<html>
 <ul>
 <li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
+<li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameters <code>initialize_p1</code> and <code>initialize_p2</code>.
 This is required to enable the coil models to initialize the pressure in the
@@ -182,10 +189,7 @@ March 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                   graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+</html>"),    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-84,114},{-62,86}},
           lineColor={0,0,255},

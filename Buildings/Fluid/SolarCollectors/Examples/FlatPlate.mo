@@ -28,9 +28,7 @@ model FlatPlate "Test model for FlatPlate"
     redeclare package Medium = Medium,
     nPorts=1,
     p(displayUnit="bar") = 100000) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}},rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-    annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -82,19 +80,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
-This example demonstrates the implementation of 
-<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\"> 
-Buildings.Fluid.SolarCollectors.ASHRAE93</a>. 
-In it water is passed through a flat plate solar thermal collector while 
+This example demonstrates the implementation of
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.ASHRAE93\">
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>.
+In it water is passed through a flat plate solar thermal collector while
 being heated by the sun in the San Francisco, CA, USA climate.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 September 18, 2014, by Michael Wetter:<br/>
 Changed medium from water to glycol.
@@ -106,6 +108,6 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
- "Simulate and Plot"),
+        "Simulate and Plot"),
  experiment(StopTime=86400.0));
 end FlatPlate;

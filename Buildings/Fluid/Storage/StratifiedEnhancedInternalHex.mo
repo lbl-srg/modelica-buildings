@@ -90,13 +90,19 @@ model StratifiedEnhancedInternalHex
     ACroHex*lHex*dHex*cHex
     "Capacitance of the heat exchanger without the fluid"
     annotation(Dialog(tab = "Dynamics heat exchanger", group="Equations"));
-
+  parameter Boolean allowFlowReversalHex = true
+    "= true to allow flow reversal in heat exchanger, false restricts to design direction (portHex_a -> portHex_b)"
+    annotation(Dialog(tab="Assumptions", group="Heat exchanger"), Evaluate=true);
   Modelica.Fluid.Interfaces.FluidPort_a portHex_a(
-    redeclare final package Medium =MediumHex) "Heat exchanger inlet"
+    redeclare final package Medium =MediumHex,
+     m_flow(min=if allowFlowReversalHex then -Modelica.Constants.inf else 0))
+    "Heat exchanger inlet"
    annotation (Placement(transformation(extent={{-110,-48},{-90,-28}}),
                    iconTransformation(extent={{-110,-48},{-90,-28}})));
   Modelica.Fluid.Interfaces.FluidPort_b portHex_b(
-     redeclare final package Medium = MediumHex) "Heat exchanger outlet"
+     redeclare final package Medium = MediumHex,
+     m_flow(max=if allowFlowReversalHex then Modelica.Constants.inf else 0))
+    "Heat exchanger outlet"
    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
         iconTransformation(extent={{-110,-90},{-90,-70}})));
 
@@ -115,11 +121,13 @@ model StratifiedEnhancedInternalHex
     final m_flow_nominal=mHex_flow_nominal,
     final energyDynamics=energyDynamicsHex,
     final massDynamics=massDynamicsHex,
-    m_flow_small=1e-4*abs(mHex_flow_nominal),
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
     final linearizeFlowResistance=linearizeFlowResistance,
-    final deltaM=deltaM) "Heat exchanger inside the tank"
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversalHex,
+    final m_flow_small=1e-4*abs(mHex_flow_nominal))
+    "Heat exchanger inside the tank"
      annotation (Placement(
         transformation(
         extent={{-10,-15},{10,15}},
@@ -219,15 +227,13 @@ equation
           pattern=LinePattern.None,
           fillColor={255,85,85},
           fillPattern=FillPattern.Solid)}),
-              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
 defaultComponentName = "tan",
 Documentation(info = "<html>
 <p>
 This is a model of a stratified storage tank for thermal energy storage with built-in heat exchanger.
 </p>
 <p>
-See the 
+See the
 <a href=\"modelica://Buildings.Fluid.Storage.UsersGuide\">
 Buildings.Fluid.Storage.UsersGuide</a>
 for more information.
@@ -237,12 +243,16 @@ for more information.
 The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
 </p>
 </html>",
-revisions = "<html>
+revisions="<html>
 <ul>
+<li>
+March 28, 2015, by Filip Jorissen:<br/>
+Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>.
+</li>
 <li>
 September 2, 2014 by Michael Wetter:<br/>
 Replaced the <code>abs()</code> function in the assignment of the parameter
-<code>nSegHexTan</code> as the return value of <code>abs()</code> 
+<code>nSegHexTan</code> as the return value of <code>abs()</code>
 is a <code>Real</code> which causes a type error during model check.
 </li>
 <li>
@@ -250,7 +260,7 @@ August 29, 2014 by Michael Wetter:<br/>
 Corrected issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/271\">#271</a>
 which led to a compilation error if the heat exchanger and the tank
 had different media.
-</li> 
+</li>
 <li>
 April 18, 2014 by Michael Wetter:<br/>
 Added missing ceiling function in computation of <code>botHexSeg</code>.
@@ -258,8 +268,8 @@ Without this function, this parameter can take on zero, which is wrong
 because the Modelica uses one-based arrays.
 
 Revised the model as the old version required the port<sub>a</sub>
-of the heat exchanger to be located higher than port<sub>b</sub>. 
-This makes sense if the heat exchanger is used to heat up the tank, 
+of the heat exchanger to be located higher than port<sub>b</sub>.
+This makes sense if the heat exchanger is used to heat up the tank,
 but not if it is used to cool down a tank, such as in a cooling plant.
 The following parameters were changed:
 <ol>
@@ -275,7 +285,7 @@ The names of the following ports have been changed:
 <li>Changed <code>port_a1</code> to <code>portHex_a</code>.</li>
 <li>Changed <code>port_b1</code> to <code>portHex_b</code>.</li>
 </ol>
-The conversion script should update old instances of 
+The conversion script should update old instances of
 this model automatically in Dymola for all of the above changes.
 </li>
 <li>

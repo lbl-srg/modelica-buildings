@@ -13,17 +13,17 @@ model Electrical "Model of the electrical room attached to test cell X3A"
     A = {3.6576 * 1.2641, 3.6576 * 1.524},
     each absIR = 0.9,
     each absSol = 0.9,
-    each til = Buildings.HeatTransfer.Types.Tilt.Wall),
+    each til = Buildings.Types.Tilt.Wall),
   datConExt(
     layers = {eleExt, eleExt, extDooUn, roo},
     A = {3.6576 * 1.26413, 3.6576 * 1.524 - 2.38658 * 1.524, 2.38658*1.524, 2.39},
-    til = {Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Wall, Buildings.HeatTransfer.Types.Tilt.Ceiling},
-    azi = {Buildings.HeatTransfer.Types.Azimuth.N, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.W, Buildings.HeatTransfer.Types.Azimuth.N}),
+    til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Ceiling},
+    azi = {Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N}),
    datConBou(
      layers = {slaCon},
      A = {2.39},
-     til = {Buildings.HeatTransfer.Types.Tilt.Floor},
-     azi = {Buildings.HeatTransfer.Types.Azimuth.N}));
+     til = {Buildings.Types.Tilt.Floor},
+     azi = {Buildings.Types.Azimuth.N}));
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
@@ -58,13 +58,13 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   annotation(Documentation(info="<html>
   <p>
   This is a model for the electrical room connected to test cell 3A in the LBNL User Facility.
-  Other models are provided for the main space of the test cell and the connected closet. This 
-  documentation describes the wall constructions used in the electrical room model. For 
+  Other models are provided for the main space of the test cell and the connected closet. This
+  documentation describes the wall constructions used in the electrical room model. For
   documentation describing how the room models are to be connected to develop a model of the
   entire X3A test cell see
   <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.X3A\">
   Buildings.Rooms.FLEXLAB.Rooms.X3A</a>.
-  </p> 
+  </p>
   <p>
   There are 4 different wall sections described in the model. They are shown in the figure below.
   </p>
@@ -72,7 +72,7 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   <img src=\"modelica://Buildings/Resources/Images/Rooms/FLEXLAB/Rooms/X3A/Electrical.png\" border=\"1\" alt=\"Wall sections in TestCell model\"/>
   </p>
   <p>
-  The different wall sections are entered into the model according to the following table.  
+  The different wall sections are entered into the model according to the following table.
   </p>
   <table border=\"1\" summary=\"Description of wall sections in EF90Electrical\">
   <tr>
@@ -107,16 +107,16 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   </tr>
   </table>
   <p>
-  There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is 
-  modeled in datConExt[4] using the layer <code>roo</code>. The other is the floor, which is modeled in 
+  There are two additional surfaces which are not included in the diagram. One is the model of the roof. It is
+  modeled in datConExt[4] using the layer <code>roo</code>. The other is the floor, which is modeled in
   datConBou[1] using the layer <code>slaCon</code>.
   </p>
   <p>
   Several of the connections in this model are intended to be connected to specific surfaces in other room models.
-  The following table describes the connections to rooms which are not in the X3A package. The constructions in 
-  datConExt are not described in the table because they are connected to the external environment, and no 
-  additional heat port connections are necessary. A rationale for why the model is created this way is also 
-  provided if it is considered necessary. 
+  The following table describes the connections to rooms which are not in the X3A package. The constructions in
+  datConExt are not described in the table because they are connected to the external environment, and no
+  additional heat port connections are necessary. A rationale for why the model is created this way is also
+  provided if it is considered necessary.
   </p>
   <table border =\"1\" summary = \"Description of intended connections including Electrical model\">
   <tr>

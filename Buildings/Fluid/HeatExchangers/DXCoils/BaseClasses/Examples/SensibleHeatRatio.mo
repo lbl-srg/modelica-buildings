@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model SensibleHeatRatio "Test model for SensibleHeatRatio"
  extends Modelica.Icons.Example;
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Modelica.Blocks.Sources.Constant p(
     k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -53,22 +53,21 @@ equation
       points={{-59,-80},{-34,-80},{-34,-8},{19,-8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SensibleHeatRatio.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates calculation of sensible heat ratio in block 
+This example illustrates calculation of sensible heat ratio in block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 Aug 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

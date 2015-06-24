@@ -6,15 +6,15 @@ model RadiationTemperature "Radiative temperature of the room"
      haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
                               annotation (Placement(transformation(extent={{230,110},
-            {250,130}},          rotation=0)));
+            {250,130}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
     haveShade "Heat port that connects to room-side surface of shaded glass"
                               annotation (Placement(transformation(extent={{230,70},
-            {250,90}},           rotation=0)));
+            {250,90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha[NConExtWin] if
     haveShade "Heat port that connects to shade"
                                        annotation (Placement(transformation(extent={{230,28},
-            {250,48}},           rotation=0)));
+            {250,48}})));
   parameter Boolean haveShade "Set to true if the windows have a shade"
   annotation(HideResult="true");
 
@@ -38,7 +38,7 @@ protected
   final parameter Modelica.SIunits.Area AGla[NWin] = datConExtWin.AGla
     "Surface area of opaque surfaces";
   final parameter Real epsGla[NWin](min=0, max=1)=
-    {datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b for i in 1:NWin}
+    {datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b for i in 1:NWin}
     "Absorptivity of glass";
   final parameter Real epsSha[NWin](min=0, max=1)=
     {datConExtWin[i].glaSys.shade.absIR_a for i in 1:NWin}
@@ -196,7 +196,7 @@ equation
   else
       conSurBou[1].T = 293.15;
   end if;
-  
+
   if haveConExtWin then
     for i in 1:NConExtWin loop
       0 = conExtWin[i].Q_flow;
@@ -236,7 +236,7 @@ computed as
   &sum;<sub>i</sub> &nbsp; (A<sup>i</sup> &nbsp; &epsilon;<sup>i</sup>)
 </p>
 <p>
-where 
+where
 <i>T<sub>rad</sub></i> is the radiative temperature of the room,
 <i>A<sup>i</sup></i> are the surface areas of the room,
 <i>&epsilon;<sup>i</sup></i> are the infrared emissivities of the surfaces, and
@@ -247,7 +247,7 @@ If a the windows have a shade, then the equation is modified to take the actual 
 surface area into account. In this situation, the shaded part of a window has a infrared radiative power
 of</p>
 <p align=\"center\" style=\"font-style:italic;\">
- E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> + 
+ E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> +
    (1-u) &nbsp; &epsilon;<sub>g</sub> &tau;<sub>s</sub> &nbsp; T<sub>gs</sub>)
 </p>
 <p>
@@ -272,6 +272,11 @@ For the unshaded part of the window, the radiative power is
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 July 16, 2013, by Michael Wetter:<br/>
 Added assignment of heat port temperature instead of heat flow rate

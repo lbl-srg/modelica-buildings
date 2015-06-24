@@ -9,14 +9,13 @@ model CoilRegister "Register for a heat exchanger"
   replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choicesAllMatching = true);
-  outer Modelica.Fluid.System system "System wide properties";
 
-  parameter Boolean allowFlowReversal1 = system.allowFlowReversal
-    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = system.allowFlowReversal
-    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  constant Boolean initialize_p1 = not Medium1.singleState
+    "Set to true to initialize the pressure of volume 1"
+    annotation(HideResult=true);
+  constant Boolean initialize_p2 = not Medium2.singleState
+    "Set to true to initialize the pressure of volume 2"
+    annotation(HideResult=true);
 
   parameter Integer nPipPar(min=1)=2
     "Number of parallel pipes in each register";
@@ -25,12 +24,12 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
-  parameter Boolean initialize_p1 = not Medium1.singleState
-    "Set to true to initialize the pressure of volume 1"
-    annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Boolean initialize_p2 = not Medium2.singleState
-    "Set to true to initialize the pressure of volume 2"
-    annotation(Dialog(tab = "Initialization", group = "Medium 2"));
+  parameter Boolean allowFlowReversal1 = true
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversal2 = true
+    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   replaceable Buildings.Fluid.HeatExchangers.BaseClasses.HexElementSensible ele[nPipPar, nPipSeg]
     constrainedby Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement(
@@ -55,31 +54,28 @@ model CoilRegister "Register for a heat exchanger"
     each deltaM2=deltaM2,
     each dp1_nominal=dp1_nominal,
     each dp2_nominal=dp2_nominal) "Element of a heat exchanger"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
         each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
         each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-90,-72},{-110,-52}})));
 
   parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
@@ -100,9 +96,9 @@ model CoilRegister "Register for a heat exchanger"
   annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered from solid into medium 1";
+    "Heat transferred from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered from solid into medium 2";
+    "Heat transferred from solid into medium 2";
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
@@ -127,10 +123,10 @@ model CoilRegister "Register for a heat exchanger"
 protected
   Modelica.Blocks.Math.Gain gai_1(k=1/nEle)
     "Gain medium-side 1 to take discretization into account"
-    annotation (Placement(transformation(extent={{-34,48},{-22,62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-34,48},{-22,62}})));
   Modelica.Blocks.Math.Gain gai_2(k=1/nEle)
     "Gain medium-side 2 to take discretization into account"
-    annotation (Placement(transformation(extent={{24,-76},{12,-62}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,-76},{12,-62}})));
 equation
   // As OpenModelica does not support multiple iterators as of August 2014, we
   // use here two sum(.) functions
@@ -187,6 +183,19 @@ between the fluid volumes and the solid in each heat exchanger element.
 revisions="<html>
 <ul>
 <li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 August 10, 2014, by Michael Wetter:<br/>
 Reformulated the multiple iterators in the <code>sum</code> function
 as this language construct is not supported in OpenModelica.
@@ -218,10 +227,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+extent=[-20,80; 0,100],    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -273,5 +279,5 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-80,112},{-58,84}},
           lineColor={0,0,255},
           textString="h")}),
-    Placement(transformation(extent={{-20,80},{0,100}}, rotation=0)));
+    Placement(transformation(extent={{-20,80},{0,100}})));
 end CoilRegister;

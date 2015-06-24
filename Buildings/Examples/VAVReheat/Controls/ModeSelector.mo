@@ -27,7 +27,9 @@ model ModeSelector "Finite State Machine for the operational modes"
     "Set point for room air temperature during cooling mode";
   parameter Modelica.SIunits.Temperature TSetHeaCoiOut=303.15
     "Set point for air outlet temperature at central heating coil";
-  Modelica.StateGraph.Transition t1(condition=delTRooOnOff/2 < -TRooMinErrHea.y)
+  Modelica.StateGraph.Transition t1(condition=delTRooOnOff/2 < -TRooMinErrHea.y,
+    enableTimer=true,
+    waitTime=30*60)
     annotation (Placement(transformation(extent={{50,70},{30,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{160,160},{180,180}})));

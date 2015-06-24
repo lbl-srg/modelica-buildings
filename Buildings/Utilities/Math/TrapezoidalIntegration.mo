@@ -14,7 +14,7 @@ equation
 <ul>
 <li>
 November 29, 2013 by Marcus Fuchs:<br/>
-Implementation based on Funtions.trapezoidalIntegration.
+Implementation based on Functions.trapezoidalIntegration.
 </li>
 </ul>
 </html>"));

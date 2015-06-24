@@ -25,13 +25,14 @@ smoothOrder=1,
 derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>
-Function to provide a once continuously differentialbe transition between 
+Function to provide a once continuously differentialbe transition between
 to arguments.
 </p><p>
-The function is adapted from 
+The function is adapted from
 <a href=\"modelica://Modelica.Media.Air.MoistAir.Utilities.spliceFunction\">
 Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

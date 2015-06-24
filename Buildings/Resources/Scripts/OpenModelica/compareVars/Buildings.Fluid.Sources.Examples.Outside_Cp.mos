@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "bou1.ports[1].p",
+    "bou2.ports[1].p",
+    "bouFix.ports[1].p",
+    "ori1.m_flow",
+    "ori2.m_flow",
+    "ori1.dp",
+    "ori2.dp"
+  };

@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model ConvectionResistance
   "Model that tests a basic segment that is used to build a borehole"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium in the pipes";
+ package Medium = Buildings.Media.Water "Medium in the pipes";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
@@ -43,8 +42,6 @@ algorithm
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/ConvectionResistance.mos"
         "Simulate and plot"),
-        Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}})),
                   Documentation(info="<html>
 <p>
 This example tests the function for the convective thermal resistance

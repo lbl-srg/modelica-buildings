@@ -37,11 +37,11 @@ equation
 <p>
 This model can be used to simulate a DX cooling coil with multiple
 operating stages. Depending on the used performance curves, each
-stage could be a different compressor speed, or a different mode 
+stage could be a different compressor speed, or a different mode
 of operation, such as with or without hot gas reheat.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
 Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
@@ -53,7 +53,7 @@ revisions="<html>
 September 6, 2012 by Michael Wetter:<br/>
 Changed control signal from a real number to an integer that is equal to the stage of
 the coil.
-Removed filter at the control input signal because there is anyway an 
+Removed filter at the control input signal because there is anyway an
 event when the signal changes, and because the filter led in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling</a>
@@ -61,13 +61,12 @@ to a higher computing time.
 </li>
 <li>
 July 28, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"),
     Icon(graphics={Text(
           extent={{-102,94},{-44,76}},
           lineColor={0,0,127},
-          textString="stage")}),
-    Diagram(graphics));
+          textString="stage")}));
 end MultiStage;

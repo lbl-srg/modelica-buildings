@@ -6,23 +6,17 @@ model TraceSubstances "Ideal one port trace substances sensor"
 
   Modelica.Blocks.Interfaces.RealOutput C(min=0)
     "Trace substance in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real s[Medium.nC](each fixed=false)
-    "Vector with zero everywhere except where species is";
-initial algorithm
-  for i in 1:Medium.nC loop
+  parameter Real s[:]= {
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName,
-                                            caseSensitive=false)) then
-      s[i] :=1;
-    else
-      s[i] :=0;
-    end if;
-  end for;
-  assert(abs(1-sum(s)) < 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:Medium.nC}
+    "Vector with zero everywhere except where species is";
+initial equation
+  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
 equation
@@ -32,8 +26,6 @@ equation
   // if we set C = CVec[ind];
   C = s*inStream(port.C_outflow);
 annotation (defaultComponentName="senTraSub",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),
@@ -48,18 +40,25 @@ annotation (defaultComponentName="senTraSub",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the trace substances contained in the fluid connected to its port. 
+This model outputs the trace substances contained in the fluid connected to its port.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+June 10, 2015, by Michael Wetter:<br/>
+Reformulated assignment of <code>s</code> and <code>assert</code>
+statement. The reformulation of the assignment of <code>s</code> was
+done to allow a model check in non-pedantic mode.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/268\">issue 268</a>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Corrected a syntax error in setting the nominal value for the output signal.

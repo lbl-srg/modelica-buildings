@@ -3,15 +3,13 @@ block pW_TDewPoi
   "Model to compute the water vapor pressure for a given dew point temperature of moist air"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
     "Dew point temperature"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 equation
  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
@@ -22,25 +20,26 @@ equation
 Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
-The correlation used in this model is valid for dew point temperatures between 
+The correlation used in this model is valid for dew point temperatures between
 <i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
 ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
 in
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
 Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
-The approximation error of this simplified function is below 5% for a 
+The approximation error of this simplified function is below 5% for a
 temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 December 7, 2011 by Michael Wetter:<br/>
-Changed function call from 
+Changed function call from
 <code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
-to 
+to
 <code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);</code>
-as the first version sometimes triggered warnings when the solver attempts negative 
+as the first version sometimes triggered warnings when the solver attempts negative
 temperatures. The accuracy of the two implementation does not change much in the
 region of interest for building HVAC applications.
 </li>
@@ -113,7 +112,5 @@ First implementation.
         Line(points={{68,-44},{-62,-44}}, color={175,175,175}),
         Line(points={{68,-18},{-10,-18}}, color={175,175,175}),
         Line(points={{70,6},{12,6}}, color={175,175,175}),
-        Line(points={{68,32},{22,32}}, color={175,175,175})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})));
+        Line(points={{68,32},{22,32}}, color={175,175,175})}));
 end pW_TDewPoi;

@@ -61,8 +61,13 @@ equation
       points={{-59,50},{-40,50},{-40,35},{-31.6667,35}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/InfraredRadiationGainDistribution.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+  Diagram(coordinateSystem(extent={{-160,-220},{120,120}})),
+    Documentation(info="<html>
+<p>
+Test model for the distribution of the infrared radiation heat gain.
+</p>
+</html>"));
 end InfraredRadiationGainDistribution;

@@ -60,8 +60,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  annotation (Diagram(graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
@@ -109,7 +108,7 @@ The negative values indicate that at the nominal conditions, fluid is leaving th
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modeled. 
+Optionally, at the fluid junction, a control volume can be modeled.
 This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
@@ -122,7 +121,7 @@ The control volume has the size
   V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal
 </pre>
 <p>
-where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density 
+where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density
 of the medium in the volume at nominal condition.
 Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
 system of equations.
@@ -140,7 +139,7 @@ to avoid flow reversal in large flow networks where such a setting may be useful
 </li>
 <li>
 June 11, 2008 by Michael Wetter:<br/>
-Based class on 
+Based class on
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>

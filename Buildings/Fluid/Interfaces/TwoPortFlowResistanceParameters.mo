@@ -11,7 +11,8 @@ record TwoPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
                 tab="Flow resistance"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
-    "Pressure"                                annotation(Dialog(group = "Nominal condition"));
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance,
@@ -25,7 +26,7 @@ Documentation(info="<html>
 This class contains parameters that are used to
 compute the pressure drop in models that have one fluid stream.
 Note that the nominal mass flow rate is not declared here because
-the model 
+the model
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 PartialTwoPortInterface</a>
 already declares it.

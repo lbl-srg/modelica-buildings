@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "RL_pf.S[1]",
+    "RL_pf.S[2]",
+    "varRL_y.S[1]",
+    "varRL_y.S[2]",
+    "varRC_y.S[1]",
+    "varRC_y.S[2]",
+    "varRL_P.S[1]",
+    "varRL_P.S[2]",
+    "E.S[1]",
+    "E.S[2]"
+  };

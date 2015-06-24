@@ -15,26 +15,26 @@ import java.util.Date;
 /**
  * This class records and prints all dx single speed cooling coils found in an input file.
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
- * 
+ *
  */
 public class ParserResultObject {
 
     private ArrayList<DXSingleSpeed> dxSingleSpeeds;
     private ArrayList<DXDoubleSpeed> dxDoubleSpeeds;
-    private String gloHeaderStr; 
+    private String gloHeaderStr;
 
     public ParserResultObject() {
     }
 
     /**
      * This method sets the found dx single speed coils in an array.
-     * 
+     *
      * @param foundDXSingleSpeeds
      *            array list of DXSingleSpeeds.
      */
@@ -43,10 +43,10 @@ public class ParserResultObject {
 
         dxSingleSpeeds = foundDXSingleSpeeds;
     }
-    
+
     /**
      * This method sets the found dx double speed coils in an array.
-     * 
+     *
      * @param foundDXDoubleSpeeds
      *            array list of DXDoubleSpeeds.
      */
@@ -66,7 +66,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated DXSingleSpeed in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -109,7 +109,7 @@ public class ParserResultObject {
     /**
      * This method finds duplicated DXDoubleSpeed in the input file and print them
      * in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -151,7 +151,7 @@ public class ParserResultObject {
 
     /**
      * This method prints all DXSingleSpeed in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -164,19 +164,21 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
                 + "\n"
-                
-                
+
+
                 + "package SingleSpeed \"Performance data for SingleSpeed DXCoils\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + "\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(\n  preferredView=" + "\"" + "info" + "\""
+                + ",\n  Documentation(info=\"<html>\n<p>\n"
                 + "Package with performance data for DX coils."
-                + "</html>\"," 
-                + " revisions=\"<html>"
-                + "Generated on "
+                + "\n</p>\n</html>\",\n"
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
                 + "tsnouidui."
-                + "</html>\"));"
+                + "\n</p>\n</html>\"));"
                 + "\n"
 
                 + "  "
@@ -185,8 +187,11 @@ public class ParserResultObject {
                 + "    "
                 + "extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=1);"
                 + "\n"
-                + "annotation (defaultComponentName=\"per\", Documentation(info=\"<html>"
-                + "\n"
+                + "annotation(\n"
+                + "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
+                + "\n<p>\n"
                 + "This record is used as a template for performance data"
                 + "\n"
                 + "for SingleSpeed DXCoils"
@@ -198,14 +203,14 @@ public class ParserResultObject {
                 + "\">"
                 + "\n"
                 + "Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>."
-                + "\n"
+                + "\n</p>\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "November 20, 2012 by Thierry S. Nouidui:<br>"
+                + "November 20, 2012 by Thierry S. Nouidui:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -250,13 +255,16 @@ public class ParserResultObject {
 
         // print the header + DXSingleSpeed + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedDXSingleSpeeds = cleanRecordedDXSingleSpeeds.replaceAll("&", "&amp;");
         fw.write(fileHeader + cleanRecordedDXSingleSpeeds + fileFooter);
         fw.close();
     }
 
     /**
      * This method prints all DXDoubleSpeed in an output file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @exception IOException
@@ -269,18 +277,20 @@ public class ParserResultObject {
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
                 + "\n"
-                
+
                 + "package DoubleSpeed \"Performance data for DoubleSpeed DXCoils\""
-                + "\n" + " annotation(preferredView=" + "\"" + "info" + "\""
-                + ", Documentation(info=\"<html>" 
+                + "\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+                + " annotation(\n preferredView=" + "\"" + "info" + "\""
+                + ",\n  Documentation(info=\"<html>\n<p>\n"
                 + "Package with performance data for DX coils."
-                + "</html>\"," 
-                + " revisions=\"<html>"
-                + "Generated on "
+                + "\n</p>\n</html>\",\n"
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
                 + getDateTime()
                 + " by "
                 + "tsnouidui."
-                + "</html>\"));"
+                + "\n</p>\n</html>\"));"
                 + "\n"
                 + "  "
                 + "record Generic \"Generic data record for DoubleSpeed DXCoils\""
@@ -288,11 +298,14 @@ public class ParserResultObject {
                 + "    "
                 + "extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=2);"
                 + "\n"
-                + "annotation (defaultComponentName=\"per\", Documentation(info=\"<html>"
-                + "\n"
+                + "annotation(\n"
+                + "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+                + "Documentation(info=\"<html>"
+                + "\n<p>\n"
                 + "This record is used as a template for performance data"
                 + "\n"
-                + "for DoubleSpeed DXCoils"
+                + "for the double speed DX coils"
                 + "\n"
                 + "<a href="
                 + "\\"
@@ -301,14 +314,14 @@ public class ParserResultObject {
                 + "\">"
                 + "\n"
                 + "Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed</a>."
-                + "\n"
+                + "\n</p>\n"
                 + "</html>\", revisions=\"<html>"
                 + "\n"
                 + "<ul>"
                 + "\n"
                 + "<li>"
                 + "\n"
-                + "November 20, 2012 by Thierry S. Nouidui:<br>"
+                + "November 20, 2012 by Thierry S. Nouidui:<br/>"
                 + "\n"
                 + "First implementation."
                 + "\n"
@@ -328,7 +341,7 @@ public class ParserResultObject {
                 .hasNext();) {
             recordedDXDoubleSpeedsStrings.add(dxDoubleSpeedIterator.next()
                     .toMoRecordString());
-            
+
         }
 
         // remove any duplicates in the array;
@@ -354,19 +367,22 @@ public class ParserResultObject {
 
         // print the header + DXSingleSpeed + footer in the output file
         OutputStreamWriter fw = new FileWriter(fileName);
+        // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
+        // The & sign needs to be converted to &amp; as it is inside an html section.
+        cleanRecordedDXDoubleSpeeds = cleanRecordedDXDoubleSpeeds.replaceAll("&", "&amp;");
         fw.write(fileHeader + cleanRecordedDXDoubleSpeeds + fileFooter);
         fw.close();
-     
+
     }
 
     /**
      * This method returns the number of duplicated DXSingleSpeed found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalDXSingleSpeedsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated DXSingleSpeed coils data
@@ -393,15 +409,15 @@ public class ParserResultObject {
 
         return value;
     }
-    
+
     /**
      * This method returns the number of duplicated DXDoubleSpeed found in an
      * input file.
-     * 
+     *
      * @param fileName
      *            the EnergyPlus idf file name.
      * @return number of duplicates.
-     * 
+     *
      */
     public double cardinalDXDoubleSpeedsDuplicatesFile(String fileName) {
         // this method returns the cardinality of the duplicated DXDoubleSpeed coils data
@@ -433,7 +449,7 @@ public class ParserResultObject {
 
     /**
      * This method saves duplicates found in an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list with found duplicates.
@@ -459,7 +475,7 @@ public class ParserResultObject {
 
     /**
      * This method removes duplicates from an array list.
-     * 
+     *
      * @param arlList
      *            array list with duplicated entries.
      * @return new array list without duplicates.

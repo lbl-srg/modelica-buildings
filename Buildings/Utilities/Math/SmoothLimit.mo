@@ -10,15 +10,24 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},
-          textString="smoothLimit()")}),       
+          textString="smoothLimit()")}),
 Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <i>limit(.,.)</i> function.
 The output is bounded to be in <i>[lower, upper]</i>.
 </p>
+<p>
+Note that the limit need not be respected, such as illustrated in
+<a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothMin\">
+Buildings.Utilities.Math.Examples.SmoothMin</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 12, 2015, by Filip Jorissen:<br/>
+Added documentation reference demonstrating overshoot.
+</li>
 <li>
 July 14, 2010, by Wangda Zuo, Michael Wetter:<br/>
 First implementation.

@@ -18,7 +18,7 @@ input Modelica.SIunits.SpecificHeatCapacity c
 output Modelica.SIunits.TemperatureDifference dT "Temperature drop of the soil";
 protected
  Modelica.SIunits.Time minSamplePeriod= rExt^2/(4*(k/c/d)*3.8)
-    "Minimal lenght of the sampling period";
+    "Minimal length of the sampling period";
  Modelica.SIunits.HeatFlowRate QL_flow
     "Intermediate variable for heat flow rate at the lower bound of the time interval";
  Modelica.SIunits.HeatFlowRate QU_flow
@@ -53,16 +53,16 @@ algorithm
 annotation(Documentation(info="<html>
 <p>
 This function calculates the temperature drop of the soil at the outer boundary of the cylinder.
-The analytical formula of Hart and Couvillion (1986) for constant 
-heat extraction is adapted to a non-constant heat flux. 
+The analytical formula of Hart and Couvillion (1986) for constant
+heat extraction is adapted to a non-constant heat flux.
 To adapt the formula for a variable rate of heat extraction,
-different constant heat extraction rates, starting at different time instances, 
+different constant heat extraction rates, starting at different time instances,
 are super-imposed.
-To obtain the temperature drop at the time <i>t=n*&Delta;t</i>, the effects of 
+To obtain the temperature drop at the time <i>t=n*&Delta;t</i>, the effects of
 constant rate of heat extractions are super-imposed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Delta;T ( r , t=n &Delta;t )= 1 &frasl; ( 4 &pi; k ) 
+&Delta;T ( r , t=n &Delta;t )= 1 &frasl; ( 4 &pi; k )
   &sum;  W(u(r, t= i &Delta;t)) (q<sub>n-i+1</sub>-q<sub>n-i</sub>),
 </p>
 <p>
@@ -70,9 +70,9 @@ where <i>r</i> is the radius for which the temperature is computed,
 <i>k</i> is the thermal conductivity of the material,
 <i>W</i> is a solution of the heat conduction in polar coordinates and
 <i>q<sub>i</sub>=Q<sub>i</sub>/h</i> is
-the specific rate of heat extraction per unit lenght at time 
+the specific rate of heat extraction per unit length at time
 <i>t=i &Delta;t</i>.
-The value of 
+The value of
 <i>W</i> is obtained using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -93,7 +93,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a>.
 <h4>References</h4>
 <p>
 Hart and Couvillion, (1986). <i>Earth Coupled Heat Transfer.</i>
-Publication of the National Water Well Association. 
+Publication of the National Water Well Association.
 </p>
 </html>",
 revisions="<html>

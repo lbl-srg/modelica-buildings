@@ -56,5 +56,4 @@ equation
       points={{-19,-70},{12,-70},{12,-2.8},{28,-2.8}},
       color={255,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
 end PreCoolingStarter;

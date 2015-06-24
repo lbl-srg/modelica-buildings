@@ -1,6 +1,6 @@
 Constant
-OpaqueSurface
 IndoorRadiosity
+OpaqueSurface
 OutdoorRadiosity
 RadiositySplitter
 Examples

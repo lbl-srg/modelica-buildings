@@ -84,7 +84,7 @@ model CenterOfGlass "Test model for center of glas heat transfer"
         glaSys.haveExteriorShade or glaSys.haveInteriorShade)
     "Bounds the shading signal"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Modelica.Blocks.Sources.Constant QAbs[glaSys.nLay](each k=0)
+  Modelica.Blocks.Sources.Constant QAbs[size(glaSys.glass, 1)](each k=0)
     "Solar radiation absorbed by glass"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
   Modelica.Blocks.Math.MultiSum sumJ(nu=2)
@@ -235,7 +235,6 @@ equation
   connect(radIn.JIn, sumJ.y)     annotation (Line(
       points={{79,-134},{63.02,-134}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sha.JOut_b, sumJ.u[1])     annotation (Line(
       points={{21,44},{32,44},{32,-131.9},{50,-131.9}},
@@ -256,6 +255,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This model tests the heat transfer for the center of the glass, with and without a shading device.
 </html>", revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Changed model to avoid a translation error
+in OpenModelica.
+</li>
 <li>
 June 27, 2013, by Michael Wetter:<br/>
 Changed model because the outflowing radiosity has been changed to be a non-negative quantity.

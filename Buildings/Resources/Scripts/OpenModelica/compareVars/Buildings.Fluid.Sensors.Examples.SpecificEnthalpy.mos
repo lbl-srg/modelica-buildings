@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "senStr.port_a.m_flow",
+    "senStr.h_out",
+    "senFloSou.h_out"
+  };

@@ -4,7 +4,9 @@ model SkyRadiationExchange
   extends Buildings.BaseClasses.BaseIcon;
   parameter Integer n(min=1) "Number of constructions";
    parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
-  parameter Real vieFacSky[n](min=0, max=1) "View factor to sky (=1 for roofs)";
+  parameter Real vieFacSky[n](
+    each min=0,
+    each max=1) "View factor to sky (=1 for roofs)";
   parameter Modelica.SIunits.Emissivity absIR[n]
     "Infrared absorptivity of building surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat port"
@@ -21,7 +23,8 @@ model SkyRadiationExchange
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 protected
-  parameter Real k[n](unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i] for i in 1:n}
+  parameter Real k[n](
+    each unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i] for i in 1:n}
     "Constant for radiative heat exchange";
   Modelica.SIunits.Temperature TEnv[n] "Environment temperature";
   Real TBlaSky4(unit="K4") "Auxiliary variable for radiative heat exchange";
@@ -39,7 +42,7 @@ equation
     h[i]  = k[i] * TEnv[i]^3;
     port[i].Q_flow = h[i] * (port[i].T-TEnv[i]);
   end for;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation ( Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -85,14 +88,18 @@ equation
           lineColor={0,0,127},
           textString="QIR_flow")}),
         Documentation(info = "<html>
-This model computes the infrared radiative heat flow 
+This model computes the infrared radiative heat flow
 between exterior building surfaces and the ambient. The ambient consists
-of the sky black-body radiation and the outdoor temperature 
+of the sky black-body radiation and the outdoor temperature
 (which is used as an approximation to the surface temperature of
 the ground and neighboring buildings).
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 13, 2015, by Michael Wetter:<br/>
+Added missing <code>each</code> keywords.
+</li>
 <li>
 June 4 2010, by Michael Wetter:<br/>
 First implementation.

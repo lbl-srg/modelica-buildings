@@ -3,9 +3,9 @@ model System3
   "3rd part of the system model, which adds the boiler loop with open loop control"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+      Buildings.Media.Air;
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+      Buildings.Media.Water "Medium model";
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";
@@ -33,8 +33,6 @@ model System3
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------------//
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -81,9 +79,8 @@ model System3
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
@@ -117,7 +114,7 @@ model System3
         origin={-50,-190})));
 
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
-    package Medium = MediumW,
+      package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
     m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal +
@@ -127,7 +124,7 @@ model System3
         rotation=270,
         origin={60,-110})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
-    package Medium = MediumW,
+      package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,-200,0},
     m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal}) "Mixer"
@@ -136,7 +133,7 @@ model System3
         rotation=270,
         origin={60,-190})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
-    package Medium = MediumW,
+      package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal*{1,-1,-1},
     dp_nominal=200*{1,-1,-1}) "Splitter for radiator loop valve bypass"
@@ -146,7 +143,7 @@ model System3
         origin={60,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
       redeclare package Medium = MediumW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
@@ -200,7 +197,7 @@ model System3
         rotation=270,
         origin={60,-280})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
-    package Medium = MediumW,
+      package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mBoi_flow_nominal,-mBoi_flow_nominal},
     dp_nominal={0,0,-200}) "Splitter"
@@ -582,6 +579,12 @@ this indicates that the model is correct.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br/>
 Added nominal pressure drop for valves as

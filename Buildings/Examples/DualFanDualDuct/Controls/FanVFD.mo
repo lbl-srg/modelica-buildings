@@ -40,7 +40,6 @@ equation
   connect(gaiMea.y, con.u_m) annotation (Line(
       points={{-39,6.10623e-16},{-10,6.10623e-16},{-10,18}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(con.y, extractor.u[OperationModes.occupied]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},
@@ -95,8 +94,7 @@ equation
       points={{110,5.55112e-16},{80,0},{50,0},{50,-30},{41,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(graphics={Text(
+  annotation ( Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
           lineColor={0,0,255},
           textString="r_N_min=%r_N_min")}));

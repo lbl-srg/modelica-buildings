@@ -2,13 +2,13 @@ within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyBrightness "Sky brightness"
   extends Modelica.Blocks.Icons.Block;
 public
-  Modelica.Blocks.Interfaces.RealInput relAirMas "Relative Air Mass"
+  Modelica.Blocks.Interfaces.RealInput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2")
     "Horizontal diffuse solar radiation"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput skyBri "Sky Brightness"
+  Modelica.Blocks.Interfaces.RealOutput skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   skyBri = Buildings.Utilities.Math.Functions.smoothMin(
@@ -25,8 +25,7 @@ This component computes the sky brightness.
 R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 <i>Modeling Dyalight Availability and Irradiance Componets From Direct and Global Irradiance</i>,
 Solar Energy, 44(5):271-289.
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 07, 2010, by Wangda Zuo:<br/>
@@ -34,8 +33,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

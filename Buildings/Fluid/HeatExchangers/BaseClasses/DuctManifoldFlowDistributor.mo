@@ -3,36 +3,109 @@ model DuctManifoldFlowDistributor
   "Manifold for duct inlet that distributes the mass flow rate equally"
   extends PartialDuctManifold;
 
-equation
-  port_b[1, 1].m_flow = -port_a.m_flow/nPipPar/nPipSeg;
-  for j in 2:nPipSeg loop
-    port_b[1, j].m_flow = port_b[1, 1].m_flow;
-  end for;
-  for i in 2:nPipPar loop
-    for j in 1:nPipSeg loop
-      port_b[i, j].m_flow = port_b[1, 1].m_flow;
-    end for;
-  end for;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Mass flow rate at port_a" annotation(Dialog(group = "Nominal Condition"));
 
-  port_b[1, 1].p = port_a.p;
+protected
+  Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
+  Modelica.Blocks.Math.Gain gain(final k=1/nPipPar/nPipSeg)
+    "Gain for mass flow distribution to manifold"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+
+  Modelica.Blocks.Sources.Constant dpDis(final k=0)
+    "Pressure drop of distribution"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
+  Movers.BaseClasses.IdealSource sou0(
+    redeclare final package Medium = Medium,
+    each allowFlowReversal=allowFlowReversal,
+    each m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    final control_m_flow=false,
+    m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    final dp_start=0,
+    final show_V_flow=false,
+    final show_T=false) "Mass flow rate source with fixed dp"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+
+  Movers.BaseClasses.IdealSource sou1[nPipPar-1](
+    redeclare each final package Medium = Medium,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    each final control_m_flow=true,
+    each m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    each final show_V_flow=false,
+    each final show_T=false) "Mass flow rate source with fixed m_flow"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
+  Movers.BaseClasses.IdealSource sou2[nPipPar,nPipSeg-1](
+    redeclare each final package Medium = Medium,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    each final control_m_flow=true,
+    each m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
+    each final show_V_flow=false,
+    each final show_T=false) "Mass flow rate source with fixed m_flow"
+    annotation (Placement(transformation(extent={{40,-72},{60,-52}})));
+equation
+  connect(port_a, senMasFlo.port_a) annotation (Line(
+      points={{-100,0},{-60,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFlo.m_flow, gain.u) annotation (Line(
+      points={{-50,11},{-50,70},{-22,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  // Connect the model that imposes zero pressure drop in the manifold
+  connect(senMasFlo.port_b, sou0.port_a) annotation (Line(
+      points={{-40,0},{0,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou0.port_b, port_b[1, 1]) annotation (Line(
+      points={{20,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dpDis.y, sou0.dp_in) annotation (Line(
+      points={{1,30},{16,30},{16,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  // Connect the models that impose the mass flow rates
+  for i in 1:nPipPar-1 loop
+      connect(senMasFlo.port_b, sou1[i].port_a) annotation (Line(
+      points={{-40,0},{-20,0},{-20,-30},{20,-30}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(sou1[i].port_b, port_b[i+1, 1]) annotation (Line(
+      points={{40,-30},{80,-30},{80,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(gain.y, sou1[i].m_flow_in) annotation (Line(
+      points={{1,70},{24,70},{24,-22}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    end for;
 
   for i in 1:nPipPar loop
-    for j in 1:nPipSeg loop
-      inStream(port_a.h_outflow)  = port_b[i, j].h_outflow;
-      inStream(port_a.Xi_outflow) = port_b[i, j].Xi_outflow;
-      inStream(port_a.C_outflow)  = port_b[i, j].C_outflow;
+    for j in 1:nPipSeg-1 loop
+      connect(senMasFlo.port_b, sou2[i, j].port_a) annotation (Line(
+      points={{-40,0},{-20,0},{-20,-62},{40,-62}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(sou2[i, j].port_b, port_b[i, j+1]) annotation (Line(
+      points={{60,-62},{80,-62},{80,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      connect(gain.y, sou2[i, j].m_flow_in) annotation (Line(
+      points={{1,70},{44,70},{44,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
     end for;
   end for;
-  // As OpenModelica does not support multiple iterators as of August 2014, we
-  // use here two sum(.) functions
-  port_a.h_outflow  = sum(sum(inStream(port_b[i, j].h_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.Xi_outflow = sum(sum(inStream(port_b[i, j].Xi_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
-  port_a.C_outflow  = sum(sum(inStream(port_b[i, j].C_outflow) for i in 1:nPipPar) for j in 1:nPipSeg)/nPipPar/nPipSeg;
-
-annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                    graphics),
-Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 This model distributes the mass flow rates equally between all instances
 of <code>port_b</code>.
@@ -53,6 +126,10 @@ what you are doing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 13, 2014, by Michael Wetter:<br/>
+Rewrote the model to make it compile in OpenModelica.
+</li>
 <li>
 August 10, 2014, by Michael Wetter:<br/>
 Reformulated the multiple iterators in the <code>sum</code> function

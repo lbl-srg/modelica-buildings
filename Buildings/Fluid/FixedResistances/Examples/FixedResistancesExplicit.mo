@@ -2,80 +2,69 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.IdealGases.SimpleAir;
+ package Medium = Buildings.Media.Air;
   Buildings.Fluid.Sources.Boundary_ph sou(
    redeclare package Medium = Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
-          extent={{-60,90},{-40,110}},rotation=0)));
+          extent={{-60,90},{-40,110}})));
   Buildings.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
-          extent={{120,90},{100,110}},
-                                    rotation=0)));
+          extent={{120,90},{100,110}})));
 
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{-20,90},{0,110}},
-          rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{140,-80},
-            {160,-60}},        rotation=0)));
+             annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{20,90},{40,110}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{20,90},{40,110}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{20,50},{40,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{20,50},{40,70}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{-20,50},{0,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-20,50},{0,70}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{-20,-20},{0,0}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res32(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
-             annotation (Placement(transformation(extent={{20,-20},{40,0}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{20,-20},{40,0}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res42(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{20,-60},{40,-40}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res41(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
-             annotation (Placement(transformation(extent={{-20,-60},{0,-40}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Fluid.Sources.MassFlowSource_h bou(
     redeclare package Medium = Medium,
     m_flow=1,
@@ -90,28 +79,25 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
-          extent={{120,-40},{100,-20}},
-                                    rotation=0)));
+          extent={{120,-40},{100,-20}})));
   Buildings.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
       =        Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
-          extent={{120,50},{100,70}},
-                                    rotation=0)));
+          extent={{120,50},{100,70}})));
   Buildings.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
       =        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
-          extent={{-58,50},{-38,70}}, rotation=0)));
+          extent={{-58,50},{-38,70}})));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
     offset=101315)
                  annotation (Placement(transformation(extent={{-100,90},{-80,
-            110}},
-          rotation=0)));
+            110}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
@@ -124,9 +110,9 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res11.port_b, res12.port_a)

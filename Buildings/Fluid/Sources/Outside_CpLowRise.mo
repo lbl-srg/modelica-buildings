@@ -44,39 +44,39 @@ equation
     Documentation(info="<html>
 <p>
 This model describes boundary conditions for
-pressure, enthalpy, and species concentration that can be obtained 
+pressure, enthalpy, and species concentration that can be obtained
 from weather data. The model is identical to
 <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
 Buildings.Fluid.Sources.Outside</a>,
-except that it adds the wind pressure to the 
+except that it adds the wind pressure to the
 pressure at the fluid port <code>ports</code>.
 The correlation that is used to compute the wind pressure is based
-on Swami and Chandra (1987) and valid for low-rise buildings 
+on Swami and Chandra (1987) and valid for low-rise buildings
 with rectangular shape.
 The same correlation is also implemented in CONTAM (Persily and Ivy, 2001).
-For other buildings, the model 
+For other buildings, the model
 <a href=\"modelica://Buildings.Fluid.Sources.Outside_Cp\">
 Buildings.Fluid.Sources.Outside_Cp</a> should be used that takes
 the wind pressure coefficient as an input or parameter.
 </p>
 <p>
-The wind pressure coefficient is computed based on the 
+The wind pressure coefficient is computed based on the
 side ratio of the walls, which is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 s = x &frasl; y
 </p>
 <p>
-where <i>x</i> is the length of the wall that will be connected to 
+where <i>x</i> is the length of the wall that will be connected to
 this model, and <i>y</i> is the length of the adjacent wall.
 The wind direction is computed relative to the azimuth of this surface,
 which is equal to the parameter <code>azi</code>.
-The surface azimuth is defined in 
-<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
-Buildings.HeatTransfer.Types.Azimuth</a>.
+The surface azimuth is defined in
+<a href=\"modelica://Buildings.Types.Azimuth\">
+Buildings.Types.Azimuth</a>.
 For example, if an exterior wall is South oriented, i.e., its outside-facing
-surface is towards South, use 
-<code>Buildings.HeatTransfer.Types.Azimuth.S</code>.
+surface is towards South, use
+<code>Buildings.Types.Azimuth.S</code>.
 </p>
 <p>
 Based on the surface azimuth, the wind direction and the side ratio
@@ -85,7 +85,7 @@ is attenuated compared to the reference wind pressure <code>Cp0</code>.
 The reference wind pressure <code>Cp0</code> is a user-defined parameter,
 and must be equal to the wind pressure at zero wind incidence angle.
 Swami and Chandra (1987) recommend <i>C<sub>p0</sub> = 0.6</i> for
-all low-rise buildings as this represents the average of 
+all low-rise buildings as this represents the average of
 various values reported in the literature.
 The computation of the actual wind pressure coefficient <i>C<sub>p</sub></i>
 is explained in the function

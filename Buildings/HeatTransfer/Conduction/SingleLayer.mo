@@ -9,13 +9,13 @@ model SingleLayer "Model for single layer heat conductance"
   // if the convection coefficient is a function of temperature.
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
-        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
       each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
   Modelica.SIunits.SpecificInternalEnergy u[nSta](start=
      material.c*{T_a_start+(T_b_start-T_a_start) * UA *
-        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
         each nominal = 270000)
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
@@ -36,14 +36,17 @@ model SingleLayer "Model for single layer heat conductance"
 protected
   final parameter Integer nSta(min=1) = material.nSta
     "Number of state variables";
-  final parameter Modelica.SIunits.ThermalConductance UAnSta = UA*nSta
-    "Thermal conductance between nodes";
-  final parameter Modelica.SIunits.ThermalConductance UAnSta2 = 2*UAnSta
-    "Thermal conductance between nodes and surface boundary";
+  final parameter Modelica.SIunits.ThermalResistance RnSta = R/nSta
+    "Thermal resistance between nodes";
+  final parameter Modelica.SIunits.ThermalResistance RnSta2 = RnSta/2
+    "Thermal resistance between nodes and surface boundary";
+
   parameter Modelica.SIunits.Mass m = A*material.x*material.d/material.nSta
     "Mass associated with the temperature state";
-  parameter Modelica.SIunits.HeatCapacity C = m*material.c
+  final parameter Modelica.SIunits.HeatCapacity C = m*material.c
     "Heat capacity associated with the temperature state";
+  final parameter Real CInv = if material.steadyState then 0 else 1/C
+    "Inverse of heat capacity associated with the temperature state";
 
   parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
@@ -64,14 +67,18 @@ initial equation
       else
         for i in 1:nSta loop
           T[i] = T_a_start+(T_b_start-T_a_start) * UA *
-            sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i);
+            sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i);
         end for;
       end if;
     end if;
 
    if material.phasechange then
      (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-       material=material);
+       c=   material.c,
+       TSol=material.TSol,
+       TLiq=material.TLiq,
+       LHea=material.LHea,
+       ensureMonotonicity=material.ensureMonotonicity);
    else
      ud    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
      Td    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
@@ -81,12 +88,12 @@ equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[nSta+1];
 
-    port_a.T-T[1] = Q_flow[1]/UAnSta2;
-    T[nSta] -port_b.T = Q_flow[nSta+1]/UAnSta2;
+    port_a.T-T[1] = Q_flow[1]*RnSta2;
+    T[nSta] -port_b.T = Q_flow[nSta+1]*RnSta2;
 
     for i in 2:nSta loop
        // Q_flow[i] is heat flowing from (i-1) to (i)
-       T[i-1]-T[i] = Q_flow[i]/UAnSta;
+       T[i-1]-T[i] = Q_flow[i]*RnSta;
     end for;
 
     // Steady-state heat balance
@@ -121,14 +128,13 @@ equation
       else
         // Regular material
         for i in 1:nSta loop
-          der(T[i]) = (Q_flow[i]-Q_flow[i+1])/C;
+          der(T[i]) = (Q_flow[i]-Q_flow[i+1])*CInv;
           u[i]=material.c*T[i];
         end for;
       end if;
     end if;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,4},{92,-4}},
@@ -184,20 +190,20 @@ is non-zero, then this model computes <i>transient</i> heat conduction, i.e., it
 computes a numerical approximation to the solution of the heat equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; c (&part; T(s,t) &frasl; &part;t) = 
+   &rho; c (&part; T(s,t) &frasl; &part;t) =
     k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;),
 </p>
 <p>
-where 
+where
 <i>&rho;</i>
 is the mass density,
 <i>c</i>
 is the specific heat capacity per unit mass,
 <i>T</i>
 is the temperature at location <i>s</i> and time <i>t</i> and
-<i>k</i> is the heat conductivity. 
+<i>k</i> is the heat conductivity.
 At the locations <i>s=0</i> and <i>s=x</i>, where <i>x</i> is the
-material thickness, the temperature and heat flow rate is equal to the 
+material thickness, the temperature and heat flow rate is equal to the
 temperature and heat flow rate of the heat ports.
 </p>
 <h4>Transient heat conduction in phase change materials</h4>
@@ -210,27 +216,27 @@ The record <a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
 Buildings.HeatTransfer.Data.SolidsPCM</a>
 declares the solidus temperature <code>TSol</code>,
 the liquidus temperature <code>TLiq</code> and the latent heat of
-phase transformation <code>LHea</code>. 
+phase transformation <code>LHea</code>.
 For heat transfer with phase change, the specific internal energy <i>u</i>
 is the dependent variable, rather than the temperature.
 Therefore, the governing equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; (&part; u(s,t) &frasl; &part;t) = 
+   &rho; (&part; u(s,t) &frasl; &part;t) =
     k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;).
 </p>
 <p>
-The constitutive 
+The constitutive
 relation between specific internal energy <i>u</i> and temperature <i>T</i> is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\"> 
-Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using 
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\">
+Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using
 cubic hermite spline interpolation with linear extrapolation.
 </p>
 <h4>Steady-state heat conduction</h4>
 <p>
 If <code>material.c=0</code>, or if the material extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
-Buildings.HeatTransfer.Data.Resistances</a>, 
+Buildings.HeatTransfer.Data.Resistances</a>,
 then steady-state heat conduction is computed. In this situation, the heat
 flow between its heat ports is
 </p>
@@ -246,9 +252,9 @@ where
 </p>
 <h4>Spatial discretization</h4>
 <p>
-To spatially discretize the heat equation, the construction is 
-divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
-The state variables are connected to each other through thermal conductors. 
+To spatially discretize the heat equation, the construction is
+divided into compartments with <code>material.nSta &ge; 1</code> state variables.
+The state variables are connected to each other through thermal conductors.
 There is also a thermal conductor
 between the surfaces and the outermost state variables. Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
@@ -263,6 +269,21 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 21, 2015, by Michael Wetter:<br/>
+Reformulated function to reduce use of the division macro
+in Dymola.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/417\">issue 417</a>.
+</li>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed the input argument for the function
+<code>Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</code>
+from type
+<code>Buildings.HeatTransfer.Data.BaseClasses.Material</code>
+to the elements of this type as OpenModelica fails to translate the
+model if the input to this function is a record.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

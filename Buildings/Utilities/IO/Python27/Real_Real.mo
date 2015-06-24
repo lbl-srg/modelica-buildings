@@ -1,7 +1,9 @@
 within Buildings.Utilities.IO.Python27;
 model Real_Real
   "Block that exchanges a vector of real values with a Python function"
-  extends Modelica.Blocks.Interfaces.DiscreteBlock(startTime=0);
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    startTime=0,
+    firstTrigger(fixed=true, start=false));
 
   parameter String moduleName
     "Name of the python module that contains the function";
@@ -22,7 +24,6 @@ model Real_Real
 
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
-public
   Real uRWri[nDblWri] "Value to be sent to Python";
 initial equation
    uRWri    =  pre(uR);
@@ -73,20 +74,19 @@ equation
   end when;
 
   annotation (defaultComponentName="pyt",
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),            graphics), Icon(coordinateSystem(
+ Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={Bitmap(
             extent={{-88,82},{80,-78}}, fileName="modelica://Buildings/Resources/Images/Utilities/IO/Python27/python.png")}),
     Documentation(info="<html>
 Block that exchanges data with a Python function.<br/>
 <p>
-For each element in the input vector <code>uR[nDblWri]</code>, 
+For each element in the input vector <code>uR[nDblWri]</code>,
 the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
 the current value, the average over the sampling interval or the integral
 over the sampling interval is sent to Python. The following three options are allowed:
 </p>
 <br/>
-<table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
 <td>
 flaDblWri[i]
@@ -124,14 +124,25 @@ Integral of uR[i] over the sampling interval
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2015 by Michael Wetter:<br/>
+Set <code>firstTrigger(fixed=true, start=false)</code> to avoid a
+warning about unspecified initial conditions if
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
+Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
+is translated
+using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
+<li>
 September 29, 2014, by Michael Wetter:<br/>
 Changed <code>algorithm</code> to <code>equation</code> section
-and assigned start values to avoid a translation warning in 
+and assigned start values to avoid a translation warning in
 Dymola.
 </li>
 <li>
 February 5, 2013, by Michael Wetter:<br/>
-First implementation, 
+First implementation,
 based on
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB.BCVTB\">
 Buildings.Utilities.IO.BCVTB.BCVTB</a>.

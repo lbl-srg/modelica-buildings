@@ -29,7 +29,7 @@ if x < xMin then
   end if;
   annotation (Documentation(info="<html>
 <p>
-This function is the derivative of  
+This function is the derivative of
 <a href=\"modelica://Buildings.Fluid.Utilities.extendedPolynomial\">
 extendedPolynomial</a> with respect to <code>x</code>.
 </p>

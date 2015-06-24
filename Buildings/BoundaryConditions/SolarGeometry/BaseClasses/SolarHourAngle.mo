@@ -17,11 +17,12 @@ equation
     defaultComponentName="solHouAng",
     Documentation(info="<html>
 <p>
-This component computes the solar hour angle, which is defined as the angle between the circle that passes through an observer, the north pole and the south pole, 
+This component computes the solar hour angle,
+which is defined as the angle between the circle
+that passes through an observer, the north pole and the south pole,
 and the circle that passes through the sun, the north and the south pole.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 17, 2010, by Wangda Zuo:<br/>
@@ -29,8 +30,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

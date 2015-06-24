@@ -10,11 +10,11 @@ model StaticFourPortHeatMassExchanger
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   input Modelica.SIunits.HeatFlowRate Q1_flow
-    "Heat transfered into the medium 1";
+    "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
     "Moisture mass flow rate added to the medium 1";
   input Modelica.SIunits.HeatFlowRate Q2_flow
-    "Heat transfered into the medium 2";
+    "Heat transferred into the medium 2";
   input Medium2.MassFlowRate mWat2_flow
     "Moisture mass flow rate added to the medium 2";
   constant Boolean sensibleOnly1
@@ -57,10 +57,6 @@ equation
   connect(bal2.port_b, port_b2);
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component transports two fluid streams between four ports, without
@@ -70,12 +66,12 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>,
 but it has four ports instead of two.
 </p>
 <p>
-If <code>dp<i>N</i>_nominal &gt; Modelica.Constants.eps</code>, 
+If <code>dp<i>N</i>_nominal &gt; Modelica.Constants.eps</code>,
 where <code><i>N</i></code> denotes the fluid <i>1</i> or <i>2</i>,
 then the model computes
 pressure drop due to flow friction in the respective fluid stream.
 The pressure drop is defined by a quadratic function that goes through
-the point <code>(m<i>N</i>_flow_nominal, dp<i>N</i>_nominal)</code>. 
+the point <code>(m<i>N</i>_flow_nominal, dp<i>N</i>_nominal)</code>.
 At <code>|m<i>N</i>_flow| &lt; deltaM<i>N</i> * m<i>N</i>_flow_nominal</code>,
 the pressure drop vs. flow relation is linearized.
 If the parameter <code>linearizeFlowResistance<i>N</i></code> is set to true,
@@ -103,7 +99,7 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 <p>
      Note that the model does not implement <code>0 = Q1_flow + Q2_flow</code> or
      <code>0 = mXi1_flow + mXi2_flow</code>. If there is no heat or mass transfer
-     with the environment, then a model that extends this model needs to provide these 
+     with the environment, then a model that extends this model needs to provide these
      equations.
 </p>
 </html>", revisions="<html>
@@ -142,9 +138,9 @@ Added <code>homotopy</code> operator.
 <li>
 August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
-adds or removes moisture to the air stream. 
+adds or removes moisture to the air stream.
 In the old implementation, the enthalpy and species
-outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+outflow at <code>port_b</code> was multiplied with the mass flow rate at
 <code>port_a</code>. The old implementation led to small errors that were proportional
 to the amount of moisture change. For example, if the moisture added by the component
 was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
@@ -154,7 +150,7 @@ With the new implementation, the energy and moisture balance is exact.
 <li>
 March 22, 2010, by Michael Wetter:<br/>
 Added constants <code>sensibleOnly1</code> and
-<code>sensibleOnly2</code> to 
+<code>sensibleOnly2</code> to
 simplify species balance equations.
 </li>
 <li>

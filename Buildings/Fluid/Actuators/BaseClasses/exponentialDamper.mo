@@ -31,11 +31,11 @@ Documentation(info="<html>
 <p>
 This function computes the opening characteristics of an exponential damper.
 </p><p>
-The function is used by the model 
+The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
 Buildings.Fluid.Actuators.Dampers.Exponential</a>.
 </p><p>
-For <code>yL &lt; y &lt; yU</code>, the damper characteristics is 
+For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   k<sub>d</sub>(y) = exp(a+b (1-y)).

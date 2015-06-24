@@ -2,7 +2,7 @@ within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   extends Modelica.Icons.Example;
-package Medium = Buildings.Media.PerfectGases.MoistAir;
+package Medium = Buildings.Media.Air;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
@@ -25,7 +25,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 303.15,
     X={0.02,0.98})  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={38,70})));
   Buildings.Fluid.MassExchangers.ConstantEffectiveness masExcFor(
     redeclare package Medium1 = Medium,
@@ -102,7 +101,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 293.15)
                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,70})));
   Modelica.Fluid.Sources.MassFlowSource_T source4(
     m_flow=1,
@@ -114,7 +112,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 303.15,
     X={0.02,0.98})  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={38,30})));
 
   Modelica.Fluid.Sources.MassFlowSource_T source1(
@@ -128,7 +125,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     T(displayUnit="degC") = 293.15)
                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,100})));
   Buildings.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
@@ -136,7 +132,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,98})));
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,140},{30,160}})));
@@ -164,10 +159,8 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-12,36},{8,56}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{118,-100},{138,-80}})));
-equation
 
+equation
   connect(res1.port_b, sink1.ports[1]) annotation (Line(
       points={{10,100},{30,100}},
       color={0,127,255},
@@ -326,7 +319,7 @@ If the results differ, then an assert is triggered.
 </p>
 <p>
 Note that if the latent heat transfer effectiveness is non-zero, then
-the results will differ. The reason is that the maximum capacity stream 
+the results will differ. The reason is that the maximum capacity stream
 is computed using the mass flow rates at <code>port_a1</code>
 and <code>port_a2</code>. For reverse flow, they are not equal if
 moisture is added to the mass flow rate. Using an average mass flow rate
@@ -345,9 +338,9 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
-with 
+with
 <code>Buildings.Fluid.Sources.FixedBoundary</code>
-as otherwise, the pedantic model check fails in 
+as otherwise, the pedantic model check fails in
 Dymola 2014 FD01 beta3.
 </li>
 <li>

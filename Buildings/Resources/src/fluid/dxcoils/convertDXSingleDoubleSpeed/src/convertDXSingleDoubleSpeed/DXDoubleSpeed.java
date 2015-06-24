@@ -10,15 +10,15 @@ import convertDXSingleDoubleSpeed.BiQuadraticCurve;
 
 /**
  * This class represents a cooling coil from type "DXDoubleSpeed".
- * 
+ *
  * <h3>License agreement</h3>
- * 
+ *
  * The use of this program is subjected to the following <A
  * HREF="../../../../../../../legal.html">license terms</A>.
- * 
+ *
  * @author <A HREF="mailto:TSNouidui@lbl.gov">Thierry Nouidui</A>
  * @version 1.0, November 20, 2012
- * 
+ *
  */
 public class DXDoubleSpeed {
 
@@ -51,7 +51,7 @@ public class DXDoubleSpeed {
 
     /**
      * This method sets the found dx coils performance in an array.
-     * 
+     *
      * @param foundDXCoilPerformances
      *            array list of DXCoilPerformances.
      */
@@ -64,7 +64,7 @@ public class DXDoubleSpeed {
 
     /**
      * This method is used to convert single speed dx coils data into a String.
-     * 
+     *
      * @return the converted cooling coil data as a string.
      */
     public String toMoRecordString() {
@@ -74,14 +74,18 @@ public class DXDoubleSpeed {
                 + replaceTokenCharacter(name)
                 + " ="
                 + "\n"
-                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed.Generic (";
+                + "    Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed.Generic(";
 
-        stringAnnotationOfDXDoubleSpeedObjectBegin = "annotation (Documentation(info=\"<html>"
+        stringAnnotationOfDXDoubleSpeedObjectBegin = "annotation(\n"
+        		+ "defaultComponentName=\"datCoi\",\n"
+        		+ "defaultComponentPrefixes=\"parameter\",\n"
+        		+ "Documentation(info=\"<html>"
                 + "\n"
+        		+ "<p>\n"
                 + "Performance data for double speed cooling coil model."
                 + "\n"
                 + "This data corresponds to the following EnergyPlus model:"
-                + "\n" + "<pre>";
+                + "</p>\n" + "<pre>";
 
         stringAnnotationOfDXDoubleSpeedObjectEnd = "</pre>" + "\n"
                 + "</html>\"))" + ";";
@@ -286,7 +290,7 @@ public class DXDoubleSpeed {
     /**
      * this method is used to removed token strings from the name of the cooling
      * coil and to print it in a format that can be used in Modelica.
-     * 
+     *
      * @param name
      *            input string.
      * @return name without token strings.
@@ -303,10 +307,10 @@ public class DXDoubleSpeed {
 
     /**
      * This method converts a string in a float.
-     * 
+     *
      * @param number
      *            string value.
-     * 
+     *
      * @return float value.
      */
     static float getFloat(String number) {
@@ -318,10 +322,10 @@ public class DXDoubleSpeed {
 
     /**
      * This method rounds a double to four decimals.
-     * 
+     *
      * @param d
      *            double value.
-     * 
+     *
      * @return double rounded value.
      */
     static double roundFourDecimals(double d) {

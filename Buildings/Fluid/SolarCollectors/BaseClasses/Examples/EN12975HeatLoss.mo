@@ -27,7 +27,7 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     nSeg=3,
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium = Buildings.Media.Water,
     C1=per.C1,
     C2=per.C2,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
@@ -55,11 +55,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
       <p>
-        This examples demonstrates the implementation of 
+        This examples demonstrates the implementation of
         <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
         Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
       </p>

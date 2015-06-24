@@ -18,10 +18,7 @@ equation
   connect(y_actual, res1.y) annotation (Line(points={{50,70},{84,70},{84,32},{
           -50,32},{-50,12}},
         color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-72,24},{-34,-20}},
           lineColor={255,255,255},
@@ -32,16 +29,16 @@ defaultComponentName="val",
 Documentation(info="<html>
 <p>
 Three way valve with equal percentage characteristics
-between <code>port_1</code> and <code>port_2</code> 
+between <code>port_1</code> and <code>port_2</code>
 and linear opening characteristic between <code>port_1</code> and <code>port_2</code>.
 Such opening characteristics were typical for valves from Landis &amp; Gyr (now
 Siemens).
 </p><p>
-This model is based on the partial valve models 
+This model is based on the partial valve models
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a> and
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>. 
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
@@ -58,7 +55,7 @@ revisions="<html>
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

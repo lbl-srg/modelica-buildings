@@ -11,5 +11,6 @@ RegNonZeroPower
 SmoothBlocks
 SmoothExponential
 SmoothLimit
+SmoothMin
 Splice
 VectorFunctions

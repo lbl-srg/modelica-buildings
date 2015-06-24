@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "m_flow.y",
+    "appDryPt.TDry",
+    "appDryPt.hDry",
+    "appDryPt.hEvaIn",
+    "Q_flow.y"
+  };

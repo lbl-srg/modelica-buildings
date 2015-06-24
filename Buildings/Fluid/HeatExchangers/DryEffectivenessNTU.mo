@@ -83,7 +83,7 @@ initial equation
     Medium2.p_default,
     T_a2_nominal,
     Medium2.X_default));
-  // heat transfered from fluid 1 to 2 at nominal condition
+  // heat transferred from fluid 1 to 2 at nominal condition
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
   Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -219,7 +219,5 @@ February 12, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+</html>"));
 end DryEffectivenessNTU;

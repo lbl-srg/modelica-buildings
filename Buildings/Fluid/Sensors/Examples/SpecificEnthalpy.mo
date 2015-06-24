@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.IdealGases.SimpleAir "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   Buildings.Fluid.Sources.MassFlowSource_h sou(
     redeclare package Medium = Medium,
@@ -24,8 +24,7 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
     offset=1,
     duration=60)
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Buildings.Fluid.Sensors.SpecificEnthalpy senFloSou(
     redeclare package Medium = Medium) "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -53,10 +52,7 @@ equation
     annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEnthalpy.mos"
-        "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-        graphics),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 This example tests the specific enthalpy sensors.
 </p>

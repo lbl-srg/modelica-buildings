@@ -11,7 +11,7 @@ public
     displayUnit="min") "Equation of time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real Bt;
+  Real Bt "Intermediate variable";
 equation
   Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182
     "Our unit is s instead of day in (A.4.2b)";
@@ -23,8 +23,7 @@ equation
 <p>
 This component computes the difference between solar noon and noon of local civic time.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 13, 2010, by Wangda Zuo:<br/>
@@ -32,8 +31,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

@@ -34,22 +34,21 @@ equation
       points={{-19,-30},{-12,-30},{-12,4},{-2,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=60),
+  annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/InputPower.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of InputPower block 
+This example illustrates working of InputPower block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

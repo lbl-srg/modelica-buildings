@@ -12,8 +12,7 @@ partial block HumidityRatioVaporPressure
                                          displayUnit="Pa",
                                          min = 0) if  use_p_in
     "Atmospheric Pressure"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-                rotation=0)));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput p_in_internal
@@ -24,17 +23,14 @@ equation
     p_in_internal = p;
   end if;
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Documentation(info="<html>
 <p>
 Partial Block to compute the relation between humidity ratio and water vapor partial pressure.
 </p>
 <p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
-is used as atmospheric pressure, 
-and the <code>p_in</code> input connector is disabled; 
-if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
+is used as atmospheric pressure,
+and the <code>p_in</code> input connector is disabled;
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored,
 and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>

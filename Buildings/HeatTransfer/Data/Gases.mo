@@ -21,18 +21,27 @@ package Gases "Package with thermophysical properties for window fill gases"
       parameter Modelica.SIunits.MolarMass MM
       "Molar mass (of mixture or single fluid)";
 
-      constant Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
+      parameter Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
 
-    annotation (defaultComponentName="gas", Documentation(info=
-                   "<html>
+    annotation (
+    defaultComponentPrefixes="parameter",
+    defaultComponentName="datGas",
+Documentation(info=
+"<html>
 Generic record for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>
 <ul>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
+Changed <code>P0</code> from a <code>constant</code> to a
+<code>parameter</code> to avoid a compilation error in
+OpenModelica.
+</li>
 <li>
 August 18 2010, by Michael Wetter:<br/>
 First implementation.
@@ -44,22 +53,34 @@ First implementation.
   record Air = Generic(a_k= 2.873E-3, b_k= 7.760E-5,
                        a_mu=3.723E-6, b_mu=4.940E-8,
                        a_c=1002.737,  b_c= 1.2324E-2,
-                       MM=28.97E-3) "Thermophysical properties for air";
+                       MM=28.97E-3) "Thermophysical properties for air"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGas");
 
   record Argon = Generic(a_k= 2.285E-3, b_k= 5.149E-5,
                          a_mu=3.379E-6, b_mu=6.451E-8,
                          a_c=521.9285,  b_c= 0,
-                         MM=39.948E-3) "Thermophysical properties for argon";
+                         MM=39.948E-3) "Thermophysical properties for argon"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGas");
 
   record Krypton = Generic(a_k= 9.443E-4, b_k= 2.826E-5,
                            a_mu=2.213E-6, b_mu=7.777E-8,
                            a_c=248.0907,  b_c= 0,
-                           MM=83.80E-3) "Thermophysical properties for krypton";
+                           MM=83.80E-3) "Thermophysical properties for krypton"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGas");
 
   record Xenon = Generic(a_k= 4.538E-4, b_k= 1.723E-5,
                          a_mu=1.069E-6, b_mu=7.414E-8,
                          a_c=158.3397,  b_c= 0,
-                         MM=131.3E-3) "Thermophysical properties for krypton";
+                         MM=131.3E-3) "Thermophysical properties for krypton"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGas");
 
  function thermalConductivity
     "Function to compute the thermal conductivity of gases"
@@ -97,8 +118,8 @@ end specificHeatCapacity;
   annotation (Documentation(info="<html>
 Package with records for thermophysical properties for window
 gas fills.
-The implementation is according to 
-<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003, 
+The implementation is according to
+<a href=\"http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425\">ISO 15099:2003,
 Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
 </html>",
   revisions="<html>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model UACp "Test model for UACp"
   extends Modelica.Icons.Example;
-  package Medium =Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium =Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp(
     per=nomVal,
     redeclare package Medium = Medium,
@@ -14,8 +14,7 @@ model UACp "Test model for UACp"
     SHR_nominal=0.8,
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  annotation (Diagram(graphics),
-experiment(StopTime=60),
+  annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/UACp.mos"
         "Simulate and plot"),
           Documentation(info="<html><p>
@@ -32,7 +31,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

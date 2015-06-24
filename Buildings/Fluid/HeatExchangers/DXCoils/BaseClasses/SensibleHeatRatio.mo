@@ -41,7 +41,7 @@ algorithm
   //Coil on-off condition
   if on then
    //Calculate enthalpy at inlet air temperature and absolute humidity at ADP i.e. h_TEvaIn_wADP
-    h_TEvaIn_XADP := Medium.h_pTX(
+    h_TEvaIn_XADP := Medium.specificEnthalpy_pTX(
       p=p,
       T=TEvaIn,
       X=cat(1, {XADP}, {1-XADP}));
@@ -76,7 +76,7 @@ Revised implementation.
 </li>
 <li>
 August 9, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 
@@ -85,6 +85,5 @@ First implementation.
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textString="Qs/Q")}),
-    Diagram(graphics));
+          textString="Qs/Q")}));
 end SensibleHeatRatio;

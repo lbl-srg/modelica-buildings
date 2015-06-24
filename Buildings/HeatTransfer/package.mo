@@ -6,7 +6,7 @@ package HeatTransfer "Package with heat transfer models"
 annotation (preferredView="info", Documentation(info="<html>
 This package contains models for heat transfer elements.
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100,-100},{100,100}}), 
+Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100,-100},{100,100}}),
 graphics={
       Polygon(
         origin = {13.758,27.517},

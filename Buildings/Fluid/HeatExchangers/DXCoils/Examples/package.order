@@ -1,7 +1,5 @@
 MultiStage
 SingleSpeed
-VariableSpeed
-SingleSpeedValidation
-SingleSpeedValidationPLR
 SpaceCooling
+VariableSpeed
 PerformanceCurves

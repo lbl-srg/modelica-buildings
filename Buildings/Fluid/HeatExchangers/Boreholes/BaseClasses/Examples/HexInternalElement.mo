@@ -2,9 +2,7 @@ within Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples;
 model HexInternalElement
   "Model that tests the basic element that is used to built borehole models"
   extends Modelica.Icons.Example;
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Fluid";
+  package Medium = Buildings.Media.Water "Fluid";
 
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement hex(
     redeclare package Medium = Medium,
@@ -28,16 +26,14 @@ model HexInternalElement
     nPorts=1,
     use_T_in=false,
     p=101340,
-    T=303.15) annotation (Placement(transformation(extent={{-60,-10},{-40,10}},
-          rotation=0)));
+    T=303.15) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
     use_T_in=false,
     p=101330,
-    T=283.15) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}},
-          rotation=0)));
+    T=283.15) annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
       points={{-40,6.66134e-16},{-16,6.66134e-16},{-16,1.22125e-15},{10,
@@ -56,13 +52,17 @@ equation
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/HexInternalElement.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})),
     Documentation(info="<html>
 This example illustrates modeling the internal part of a borehole heat exchanger.
-The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 
+The borehole is constitued with two pipes that are symetricaly spaced in the borehole.
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
 Added declaration of soil properties as this is needed for the new

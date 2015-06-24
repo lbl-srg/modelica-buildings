@@ -14,25 +14,27 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-algorithm
-  HDirTil := max(0, Modelica.Math.cos(incAng)*HDirNor);
+equation
+  HDirTil =  max(0, Modelica.Math.cos(incAng)*HDirNor);
   annotation (
     defaultComponentName="HDirTil",
     Documentation(info="<html>
 <p>
 This component computes the direct solar irradiation on a tilted surface.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+May 5, 2015, by Filip Jorissen:<br/>
+Converted <code>algorithm</code> section into
+<code>equation</code> section for easier differentiability.
+</li>
 <li>
 May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

@@ -2,7 +2,7 @@ within Buildings.Examples.VAVCO2;
 model VAVSystemCTControl
   "Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
+ package Medium = Buildings.Media.Air (                      extraPropertiesNames={"CO2"});
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
 parameter Modelica.SIunits.Pressure dpSuiSup_nominal = 95
@@ -58,7 +58,8 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   mExh_flow_nominal=scaM_flow*1,
   redeclare package Medium = Medium,
     dpExh_nominal=0.467,
-    allowFlowReversal=true) "mixing box"
+    allowFlowReversal=true,
+    from_dp=false) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
@@ -66,8 +67,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     T=293.15,
     nPorts=2)
     annotation (Placement(transformation(extent={{-38,-74},{-18,-54}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
    Buildings.Controls.Continuous.LimPID conSupFan(
     Ti=60,
     yMax=1,
@@ -78,17 +77,17 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Fluid.Movers.FlowMachine_y fan32(
+  Fluid.Movers.SpeedControlled_y fan32(
     redeclare package Medium = Medium,
-    pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100}),
+    per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
     dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
-  Fluid.Movers.FlowMachine_y fan56(
+  Fluid.Movers.SpeedControlled_y fan56(
     redeclare package Medium = Medium,
-    pressure(final V_flow={2.676,11.05}, dp={600,100}),
+    per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
     dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
@@ -184,8 +183,8 @@ The supply and return fans are controlled to provide a constant static
 pressure.
 </p>
 <p>
-Note that this example does not control the room temperature and 
-the heat flow through the building envelope. It only implements the 
+Note that this example does not control the room temperature and
+the heat flow through the building envelope. It only implements the
 CO<sub>2</sub> source and the damper and fan control to maintain
 a CO<sub>2</sub> concentration in the room below 700 PPM.
 </p>

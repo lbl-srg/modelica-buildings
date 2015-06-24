@@ -49,7 +49,7 @@ algorithm
   end if;
   annotation (Documentation(info="<html>
 <p>
-This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading. 
+This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
 </html>", revisions="<html>

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "QSen_flow.H_flow",
+    "vol.T",
+    "QLat_flow.H_flow"
+  };

@@ -11,7 +11,6 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   constant Modelica.SIunits.Height ceiHeiMin=0 "Minimum allowed ceiling height";
 equation
-
   ceiHeiOut = Buildings.Utilities.Math.Functions.smoothMax(
     ceiHeiIn,
     ceiHeiMin,
@@ -23,8 +22,7 @@ equation
 <p>
 This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
@@ -32,8 +30,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-28,42},{26,-34}},

@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Examples;
 model StratifiedLoadingUnloading "Test model for stratified tank"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Buildings.Media.Water "Medium model";
  constant Integer nSeg = 7 "Number of segments in tank";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1*1000/3600/4;
@@ -13,14 +13,13 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     redeclare package Medium = Medium,
     use_T_in=false,
     nPorts=2)             annotation (Placement(transformation(extent={{-100,-20},
-            {-80,0}},  rotation=0)));
+            {-80,0}})));
   Sources.MassFlowSource_T sin_1(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     m_flow=-0.028,
     use_m_flow_in=true,
-    nPorts=1)      annotation (Placement(transformation(extent={{78,-2},{58,18}},
-                     rotation=0)));
+    nPorts=1)      annotation (Placement(transformation(extent={{78,-2},{58,18}})));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
     redeclare package Medium = Medium,
     hTan=3,
@@ -30,17 +29,14 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Tank"
                                annotation (Placement(transformation(extent={{-30,-2},
-            {-10,18}},rotation=0)));
+            {-10,18}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Sources.MassFlowSource_T sin_2(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     m_flow=-0.028,
     use_m_flow_in=true,
-    nPorts=1)      annotation (Placement(transformation(extent={{78,-40},{58,-20}},
-                     rotation=0)));
+    nPorts=1)      annotation (Placement(transformation(extent={{78,-40},{58,-20}})));
   Buildings.Fluid.Storage.Stratified tan(
     redeclare package Medium = Medium,
     hTan=3,
@@ -50,7 +46,7 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Tank"
                                annotation (Placement(transformation(extent={{-26,-40},
-            {-6,-20}},rotation=0)));
+            {-6,-20}})));
 
   Modelica.Blocks.Sources.Pulse pulse(
     amplitude=2*m_flow_nominal,
@@ -60,33 +56,30 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
   Buildings.Fluid.Sensors.EnthalpyFlowRate HIn_flow(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{-60,-38},{-44,-22}},
-                                   rotation=0)));
+          extent={{-60,-38},{-44,-22}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
       = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{22,-38},{38,-22}},
-                                   rotation=0)));
+          extent={{22,-38},{38,-22}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium
       = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{-60,0},{-44,16}},
-                                   rotation=0)));
+          extent={{-60,0},{-44,16}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOutEnh_flow(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{2,0},{18,16}},  rotation=0)));
+          extent={{2,0},{18,16}})));
   Modelica.Blocks.Math.Add add(k2=-1) annotation (Placement(transformation(
-          extent={{20,40},{40,60}},   rotation=0)));
+          extent={{20,40},{40,60}})));
   Modelica.Blocks.Continuous.Integrator dHTanEnh
     "Difference in enthalpy (should be zero at steady-state)"
-    annotation (Placement(transformation(extent={{60,40},{80,60}},   rotation=0)));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.Blocks.Math.Add add1(
                                k2=-1) annotation (Placement(transformation(
-          extent={{20,-80},{40,-60}}, rotation=0)));
+          extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Continuous.Integrator dHTan
     "Difference in enthalpy (should be zero at steady-state)"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
 
   connect(sou_1.ports[1], HIn_flow.port_a) annotation (Line(
@@ -153,14 +146,12 @@ equation
       points={{41,90},{90,90},{90,-22},{78,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}})),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
+  annotation (                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization
-scheme that reduces numerical diffusion that is induced when connecting 
+scheme that reduces numerical diffusion that is induced when connecting
 volumes in series.
 </html>"),
     experiment(StopTime=14400));

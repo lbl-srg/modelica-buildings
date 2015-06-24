@@ -27,7 +27,7 @@ partial model PartialElectric
   Modelica.SIunits.Temperature TConEnt "Condenser entering temperature";
   Modelica.SIunits.Temperature TConLvg "Condenser leaving temperature";
 
-  Real COP(min=0) "Coefficient of performance";
+  Real COP(min=0, unit="1") "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
@@ -35,15 +35,15 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Real capFunT(min=0, nominal=1, start=1)
+  Real capFunT(min=0, nominal=1, start=1, unit="1")
     "Cooling capacity factor function of temperature curve";
-  Real EIRFunT(min=0, nominal=1, start=1)
+  Real EIRFunT(min=0, nominal=1, start=1, unit="1")
     "Power input to cooling capacity ratio function of temperature curve";
-  Real EIRFunPLR(min=0, nominal=1, start=1)
+  Real EIRFunPLR(min=0, nominal=1, start=1, unit="1")
     "Power input to cooling capacity ratio function of part load ratio";
-  Real PLR1(min=0, nominal=1, start=1) "Part load ratio";
-  Real PLR2(min=0, nominal=1, start=1) "Part load ratio";
-  Real CR(min=0, nominal=1,  start=1) "Cycling ratio";
+  Real PLR1(min=0, nominal=1, start=1, unit="1") "Part load ratio";
+  Real PLR2(min=0, nominal=1, start=1, unit="1") "Part load ratio";
+  Real CR(min=0, nominal=1,  start=1, unit="1") "Cycling ratio";
 
 protected
   Modelica.SIunits.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
@@ -55,11 +55,11 @@ protected
   // Performance data
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
     "Reference capacity (negative number)";
-  parameter Real COP_nominal "Reference coefficient of performance";
-  parameter Real PLRMax(min=0) "Maximum part load ratio";
-  parameter Real PLRMinUnl(min=0) "Minimum part unload ratio";
-  parameter Real PLRMin(min=0) "Minimum part load ratio";
-  parameter Real etaMotor(min=0, max=1)
+  parameter Real COP_nominal(min=0, unit="1") "Reference coefficient of performance";
+  parameter Real PLRMax(min=0, unit="1") "Maximum part load ratio";
+  parameter Real PLRMinUnl(min=0, unit="1") "Minimum part unload ratio";
+  parameter Real PLRMin(min=0, unit="1") "Minimum part load ratio";
+  parameter Real etaMotor(min=0, max=1, unit="1")
     "Fraction of compressor motor heat entering refrigerant";
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
     "Nominal mass flow at evaporator";
@@ -90,6 +90,7 @@ protected
 
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be smaller than zero.");
+  assert(Q_flow_small < 0, "Parameter Q_flow_small must be smaller than zero.");
   assert(PLRMinUnl >= PLRMin, "Parameter PLRMinUnl must be bigger or equal to PLRMin");
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
 equation
@@ -111,22 +112,42 @@ equation
     // Available cooling capacity
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
-    QEva_flow_set = min(m2_flow*(hSet-inStream(port_a2.h_outflow)),0);
+    QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  m2_flow*(hSet-inStream(port_a2.h_outflow)),
+      x2= Q_flow_small,
+      deltaX=-Q_flow_small/100);
 
     // Part load ratio
-    PLR1 = min(QEva_flow_set/(QEva_flow_ava+Q_flow_small), PLRMax);
+    PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  QEva_flow_set/(QEva_flow_ava+Q_flow_small),
+      x2=  PLRMax,
+      deltaX=PLRMax/100);
     // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
     // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
     // condition the compressor power is assumed to be the same as if the chiller
     // were to operate at PLRMinUnl
-    PLR2 = max(PLRMinUnl, PLR1);
-    // Cycling ratio
-    CR = min(PLR1/PLRMin,1.0);
+    PLR2 = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=  PLRMinUnl,
+      x2=  PLR1,
+      deltaX=  PLRMinUnl/100);
+
+    // Cycling ratio.
+    // Due to smoothing, this can be about deltaX/10 above 1.0
+    CR = Buildings.Utilities.Math.Functions.smoothMin(
+      x1=  PLR1/PLRMin,
+      x2=  1,
+      deltaX=0.001);
 
     // Compressor power.
     P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;
     // Heat flow rates into evaporator and condenser
-    QEva_flow = max(QEva_flow_set, QEva_flow_ava);
+    // Q_flow_small is a negative number.
+    QEva_flow = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=  QEva_flow_set,
+      x2=  QEva_flow_ava,
+      deltaX= -Q_flow_small/10);
+
+  //QEva_flow = max(QEva_flow_set, QEva_flow_ava);
     QCon_flow = -QEva_flow + P*etaMotor;
     // Coefficient of performance
     COP = -QEva_flow/(P-Q_flow_small);
@@ -247,7 +268,7 @@ CoolTools chiller model that are implemented in EnergyPlus as the models
 <code>Chiller:Electric:EIR</code> and <code>Chiller:Electric:ReformulatedEIR</code>.
 </p>
 <p>
-The model takes as an input the set point for the leaving chilled water temperature, 
+The model takes as an input the set point for the leaving chilled water temperature,
 which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
@@ -266,20 +287,20 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than 
-the minimal load at which it can operature. Notice that this model does continuously operature even if 
-the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature 
-can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than
+the minimal load at which it can operature. Notice that this model does continuously operature even if
+the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature
+can therefore be considered as an
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
 The test <pre>
   PLR2 = max(PLRMinUnl, PLR1);
 </pre>
-computes the part load ratio of the compressor. 
+computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
 the chiller uses hot gas bypass to reduce the capacity, while the compressor
-power draw does not change. 
+power draw does not change.
 </li>
 </ol>
 <p>
@@ -308,9 +329,14 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 revisions="<html>
 <ul>
 <li>
+March 12, 2015, by Michael Wetter:<br/>
+Refactored model to make it once continuously differentiable.
+This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/373\">373</a>.
+</li>
+<li>
 Jan. 10, 2011, by Michael Wetter:<br/>
 Added input signal to switch chiller off, and changed base class to use a dynamic model.
-The change of the base class was required to improve the robustness of the model when the control 
+The change of the base class was required to improve the robustness of the model when the control
 is switched on again.
 </li>
 <li>
@@ -322,6 +348,5 @@ October 13, 2008, by Brandon Hencey:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end PartialElectric;

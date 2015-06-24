@@ -130,7 +130,7 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-The model calculates solar radiation through the window. 
+The model calculates solar radiation through the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>
@@ -219,6 +219,10 @@ Dissertation. University of California at Berkeley. 2004.
 </html>", revisions="<html>
 <ul>
 <li>
+March 13, 2015, by Michael Wetter:<br/>
+Removed duplicate text annotation.
+</li>
+<li>
 December 12, 2011, by Wangda Zuo:<br/>
 Add glass thickness as a parameter for tra and abs. It is needed by the claculation of property for uncoated glass.
 </li>
@@ -237,7 +241,7 @@ Revise the model by separating transmittance and absorbance.
 </li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
-Replaced record 
+Replaced record
 <a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">
 Buildings.HeatTransfer.Data.GlazingSystems</a> with the
 parameters used by this model.
@@ -254,10 +258,6 @@ First implementation.
           extent={{0,86},{90,72}},
           lineColor={0,0,127},
           textString="QAbsExtSha"),
-        Text(
-          extent={{-32,-80},{22,-96}},
-          lineColor={0,0,127},
-          textString="uSha"),
         Text(
           extent={{-4,-22},{92,-36}},
           lineColor={0,0,127},

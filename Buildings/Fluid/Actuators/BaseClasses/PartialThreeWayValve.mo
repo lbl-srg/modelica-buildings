@@ -45,7 +45,7 @@ partial model PartialThreeWayValve "Partial three way valve"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real fraK(min=0, max=1) = 0.7
-    "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
+    "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
   parameter Real[2] l(each min=0, each max=1) = {0, 0}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
@@ -61,19 +61,16 @@ partial model PartialThreeWayValve "Partial three way valve"
 
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
-    annotation (Placement(transformation(extent={{-74,40},{-62,52}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-74,40},{-62,52}})));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
-    annotation (Placement(transformation(extent={{-92,40},{-80,52}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
 equation
 
   connect(uni.y, inv.u1)
     annotation (Line(points={{-79.4,46},{-72.8,46}},
                      color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Line(
           points={{0,70},{40,70}},
@@ -158,27 +155,27 @@ equation
 <p>
 Partial model of a three way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
-or quick opening. The three way valve model consists of a mixer where 
+or quick opening. The three way valve model consists of a mixer where
 valves are placed in two of the flow legs. The third flow leg
-has no friction. 
-The flow coefficient <code>Kv</code> for flow from <code>port_1 -> port_2</code> is
-a parameter. 
-The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
+has no friction.
+The flow coefficient <code>Kv</code> for flow from <code>port_1 &rarr; port_2</code> is
+a parameter.
+The flow coefficient for the bypass flow from <code>port_3 &rarr; port_2</code>
 is computed as
 </p>
 <pre>
-         Kv(port_3 -> port_2)
+         Kv(port_3 &rarr; port_2)
   fraK = ----------------------
-         Kv(port_1 -> port_2)
-</pre> 
+         Kv(port_1 &rarr; port_2)
+</pre>
 <p>
 where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
 of <code>fraK=0.7</code>.
 </p>
 <p>
-Since this model uses two way valves to construct a three way valve, see 
+Since this model uses two way valves to construct a three way valve, see
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a> 
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
@@ -191,8 +188,8 @@ parameter has the attribute <code>fixed=false</code> for some values
 of <code>CvData</code>. In this case, assigning a value is not allowed.
 Corrected wrong documentation of parameter <code>fraK(min=0, max=1) = 0.7</code>.
 The documenation was
-<i>Fraction Kv(port_1->port_2)/Kv(port_3->port_2)</i> instead of
-<i>Fraction Kv(port_3->port_2)/Kv(port_1->port_2)</i>.
+<i>Fraction Kv(port_1&rarr;port_2)/Kv(port_3&rarr;port_2)</i> instead of
+<i>Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)</i>.
 Because the parameter set correctly its attributes <code>min=0</code> and <code>max=1</code>,
 instances of this model used the correct value.
 </li>
@@ -204,7 +201,7 @@ Removed duplicate declaration of <code>m_flow_nominal</code>.
 February 20, 2012 by Michael Wetter:<br/>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
 and added new parameter <code>dpFixed_nominal=0</code>.
-See 
+See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>

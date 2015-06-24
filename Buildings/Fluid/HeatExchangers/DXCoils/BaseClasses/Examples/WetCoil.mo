@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model WetCoil "Test model for WetCoil"
  extends Modelica.Icons.Example;
  package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   Modelica.Blocks.Sources.Constant p(
     k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -120,22 +120,21 @@ equation
       points={{1,50},{10,50},{10,20},{19,20}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/WetCoil.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of WetCoil block 
+This example illustrates working of WetCoil block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

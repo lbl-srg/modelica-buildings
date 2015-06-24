@@ -2,31 +2,29 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 partial model PartialStaticTwoPortCoolingTower
   "Base class for test models of cooling towers"
 
-  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+  package Medium_W = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.5
-    "Design air flow rate"
+    "Design water flow rate"
       annotation (Dialog(group="Nominal condition"));
 
   replaceable
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
      constrainedby
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
-    redeclare package Medium = Medium_W,
+    redeclare final package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     show_T=true) "Cooling tower"
-    annotation (Placement(transformation(extent={{24,-60},{44,-40}}, rotation=0)));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
-        Medium_W, m_flow_nominal=mWat_flow_nominal,
+    annotation (Placement(transformation(extent={{24,-60},{44,-40}})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    redeclare package Medium = Medium_W,
+    m_flow_nominal=mWat_flow_nominal,
     dynamicBalance=false,
     filteredSpeed=false) "Pump for chilled water loop"
                           annotation (Placement(transformation(extent={{-40,-60},
-            {-20,-40}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+            {-20,-40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
@@ -38,15 +36,12 @@ partial model PartialStaticTwoPortCoolingTower
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
   Modelica.Blocks.Sources.Constant TSwi(k=273.15 + 22)
     "Switch temperature for switching tower pump on"
-    annotation (Placement(transformation(extent={{-80,-206},{-60,-186}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-206},{-60,-186}})));
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero flow rate"
-    annotation (Placement(transformation(extent={{-20,-230},{0,-210}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=mWat_flow_nominal)
     "Water flow rate"
-    annotation (Placement(transformation(extent={{-20,-168},{0,-148}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-168},{0,-148}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
@@ -54,8 +49,9 @@ partial model PartialStaticTwoPortCoolingTower
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Fluid.Sources.FixedBoundary   exp(           redeclare package
-      Medium = Medium_W, nPorts=1)
+  Buildings.Fluid.Sources.FixedBoundary exp(
+    redeclare package Medium = Medium_W,
+    nPorts=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={92,-120})));

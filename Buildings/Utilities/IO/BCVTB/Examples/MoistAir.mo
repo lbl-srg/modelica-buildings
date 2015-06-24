@@ -2,7 +2,7 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       259.2*6/1.2/3600 "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
@@ -19,9 +19,7 @@ model MoistAir
     use_X_in=true,
     p(displayUnit="Pa") = 101325,
     T=293.15)             annotation (Placement(transformation(extent={{96,60},
-            {116,80}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
+            {116,80}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -38,7 +36,7 @@ model MoistAir
     use_m_flow_in=false,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{204,-4},{224,16}})));
-  Buildings.Fluid.MassExchangers.HumidifierPrescribed hum(
+  Buildings.Fluid.MassExchangers.Humidifier_u hum(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -47,7 +45,7 @@ model MoistAir
     allowFlowReversal=false,
     use_T_in=false) "Humidifier"
     annotation (Placement(transformation(extent={{240,62},{260,82}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hex(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -105,9 +103,9 @@ model MoistAir
                                       TSup(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{310,62},{330,82}})));
-  Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
-        pressure(V_flow={0,m_flow_nominal/1.2},
-          dp={2*400,400}),
+  Buildings.Fluid.Movers.SpeedControlled_y fan(redeclare package Medium = Medium,
+        per(pressure(V_flow={0,m_flow_nominal/1.2},
+          dp={2*400,400})),
         dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
@@ -307,7 +305,7 @@ equation
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.<br/>
 <p>
 The model represents an air-based heating system with an ideal heater and an ideal humidifier
-in the supply duct. The heater and humidifier are controlled with a feedback loop that 
+in the supply duct. The heater and humidifier are controlled with a feedback loop that
 tracks the room air temperature and room air humidity. These quantities are simulated
 in the EnergyPlus simulation program through the Building Controls Virtual Test Bed.
 The component <code>bouBCVTB</code> models the boundary between the domain that models the air
@@ -319,14 +317,20 @@ where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
 <li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
+<li>
 May 1, 2013, by Michael Wetter:<br/>
-Removed the medium declaration in the instance 
+Removed the medium declaration in the instance
 of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
 this model no longer allows to replace the medium.
 </li>
 <li>
 January 13, 2012, by Michael Wetter:<br/>
-Updated fan parameters, which were still for version 0.12 of the 
+Updated fan parameters, which were still for version 0.12 of the
 Buildings library and hence caused a translation error with version 1.0 or higher.
 </li>
 <li>
@@ -335,7 +339,7 @@ Changed sensor models from one-port sensors to two port sensors.
 </li>
 <li>
 January 21, 2010 by Michael Wetter:<br/>
-Changed model to include fan instead of having flow driven by two reservoirs at 
+Changed model to include fan instead of having flow driven by two reservoirs at
 different pressure.
 </li>
 <li>

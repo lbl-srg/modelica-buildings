@@ -13,44 +13,38 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
   WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   connect(zen.zen, y) annotation (Line(
       points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.dec, zen.decAng) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,5.4},{-2,5.4}},
+  connect(weaBus.solDec, zen.decAng) annotation (Line(
+      points={{-100,0},{-40,0},{-40,5.4},{-2,5.4}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.sol.solHouAng, zen.solHouAng) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-6},{-60,-6},{-60,-4.8},
-          {-2,-4.8}},
+      smooth=Smooth.None));
+  connect(weaBus.solHouAng, zen.solHouAng) annotation (Line(
+      points={{-100,0},{-40,0},{-40,-4.8},{-2,-4.8}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="zen",
     Documentation(info="<html>
 <p>
-This component computes the zenith angle, which is the angle between the earth surface normal and the sun beam.
+This component computes the zenith angle,
+which is the angle between the earth surface normal and the sun beam.
 For a definition of the parameters, see the User's Guide
-<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">Buildings.BoundaryConditions.UsersGuide</a>.
+<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">
+Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 25, 2012, by Michael Wetter:<br/>
-Changed model to get declination angle and 
+Changed model to get declination angle and
 solar hour angle from weather bus.
 </li>
 <li>
@@ -59,8 +53,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

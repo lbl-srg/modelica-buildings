@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model CoolingCapacity "Test model for CoolingCapacity"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+  package Medium = Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
     sta={sta},
     m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
@@ -58,13 +58,12 @@ equation
       points={{-59,-60},{-32,-60},{-32,-4.8},{-21,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of cooling capacity function 
+This example illustrates working of cooling capacity function
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
 </p>
@@ -78,7 +77,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

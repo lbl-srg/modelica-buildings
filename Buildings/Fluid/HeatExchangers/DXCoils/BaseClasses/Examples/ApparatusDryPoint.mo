@@ -3,7 +3,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
   extends Modelica.Icons.Example;
   parameter Integer nSta=4;
   package Medium =
-      Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
+      Buildings.Media.Air;
   parameter Real minSpeRat(min=0,max=1) = 0.2 "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Sources.Constant p(
@@ -135,15 +135,14 @@ equation
       points={{-59,-50},{-28,-50},{-28,-5},{59,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=3600),
+  annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDryPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of ApparatusDryPoint block 
+This example illustrates working of ApparatusDryPoint block
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>.
 </p>
 </html>",
 revisions="<html>
@@ -155,7 +154,7 @@ to be parameters does not imply that the whole record has the variability of a p
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

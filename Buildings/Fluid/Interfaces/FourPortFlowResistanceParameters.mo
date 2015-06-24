@@ -11,7 +11,8 @@ record FourPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
   parameter Modelica.SIunits.Pressure dp1_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance1,
@@ -29,7 +30,8 @@ record FourPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
   parameter Modelica.SIunits.Pressure dp2_nominal(min=0, displayUnit="Pa")
-    "Pressure" annotation(Dialog(group = "Nominal condition"));
+    "Pressure difference"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(enable = computeFlowResistance2,
@@ -43,7 +45,7 @@ Documentation(info="<html>
 This class contains parameters that are used to
 compute the pressure drop in components that have two fluid streams.
 Note that the nominal mass flow rate is not declared here because
-the model 
+the model
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
 PartialFourPortInterface</a>
 already declares it.

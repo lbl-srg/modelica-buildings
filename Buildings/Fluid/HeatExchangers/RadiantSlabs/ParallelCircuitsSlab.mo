@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
 model ParallelCircuitsSlab
   "Model of multiple parallel circuits of a radiant slab"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+  extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=p_start,
              nominal=Medium.p_default)),
     port_b(p(start=p_start,
@@ -21,7 +21,7 @@ model ParallelCircuitsSlab
       m_flow_small=m_flow_small/nCir));
 
   parameter Integer nCir(min=1) = 1 "Number of parallel circuits";
-  parameter Integer nSeg(min=2) = 10
+  parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
   parameter Modelica.SIunits.Area A
@@ -44,6 +44,10 @@ model ParallelCircuitsSlab
   // Parameters used for the fluid model implementation
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
+    heatTransfer=Types.HeatTransfer.EpsilonNTU
+    "Model for heat transfer between fluid and slab";
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -81,6 +85,7 @@ model ParallelCircuitsSlab
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
+    final heatTransfer=heatTransfer,
     final sysTyp=sysTyp,
     final A=A/nCir,
     final disPip=disPip,
@@ -142,52 +147,40 @@ protected
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
   connect(sla.port_b, masFloMul_b.port_a) annotation (Line(
-      points={{10,6.10623e-16},{28,-3.36456e-22},{28,6.10623e-16},{40,
-          6.10623e-16}},
+      points={{10,0},{28,0},{28,0},{40,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(masFloMul_b.port_b, port_b) annotation (Line(
-      points={{60,6.10623e-16},{80,6.10623e-16},{80,5.55112e-16},{100,
-          5.55112e-16}},
+      points={{60,0},{80,0},{80,0},{100,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(port_a, masFloMul_a.port_b) annotation (Line(
-      points={{-100,5.55112e-16},{-78,5.55112e-16},{-78,6.10623e-16},{-60,
-          6.10623e-16}},
+      points={{-100,0},{-78,0},{-78,0},{-60,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(masFloMul_a.port_a, sla.port_a) annotation (Line(
-      points={{-40,6.10623e-16},{-24,-3.36456e-22},{-24,6.10623e-16},{-10,
-          6.10623e-16}},
+      points={{-40,0},{-24,0},{-24,0},{-10,0}},
       color={0,127,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
 
   connect(sla.surf_a,heaFloMul_a. port_a) annotation (Line(
       points={{4,10},{4,30},{-40,30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(heaFloMul_a.port_b, surf_a) annotation (Line(
       points={{-60,30},{-70,30},{-70,50},{40,50},{40,100}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(sla.surf_b,heaFloMul_b. port_a) annotation (Line(
       points={{4,-10},{4,-30},{40,-30}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(heaFloMul_b.port_b, surf_b) annotation (Line(
       points={{60,-30},{70,-30},{70,-80},{40,-80},{40,-100}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
@@ -200,7 +193,7 @@ that are arranged in a parallel.
 </p>
 <p>
 The parameter <code>nCir</code> declares the number of parallel flow circuits.
-Each circuit will have the same mass flow rate, and it is exposed to the same 
+Each circuit will have the same mass flow rate, and it is exposed to the same
 port variables for the heat port at the two surfaces, and for the flow inlet and outlet.
 </p>
 <p>
@@ -209,13 +202,13 @@ with the same pipe spacing and pipe length. Then, rather than using two instance
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 this system can be modeled using one instance of this model in order to reduce computing effort.
-See 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit\">
-Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit</a> for an example
+See
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuitEpsilonNTU</a> for an example
 that shows that the models give identical results.
 </p>
 <p>
-Since this model is a parallel arrangment of <code>nCir</code> models of 
+Since this model is a parallel arrangment of <code>nCir</code> models of
 <a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 we refer to
@@ -223,22 +216,36 @@ we refer to
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 for the model documentation.
 </p>
+<p>
+See the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">
+user's guide</a> for more information.
+</p>
 <h4>Implementation</h4>
 <p>
 To allow a better comment for the nominal mass flow rate, i.e., to specify that
 its value is for all circuits combined, this
-model does not inherit 
+model does not inherit
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
 Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2015 by Michael Wetter:<br/>
+Changed base class from
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
+Modelica.Fluid.Interfaces.PartialTwoPort</a>
+to
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPort\">
+Buildings.Fluid.Interfaces.PartialTwoPort</a>.
+</li>
+<li>
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.
 This is correct, because the states are only used for reporting, but not
-to compute any other variable. 
-Use of the states to compute other variables would violate the Modelica 
+to compute any other variable.
+Use of the states to compute other variables would violate the Modelica
 language, as conditionally removed variables must not be used in any equation.
 </li>
 <li>

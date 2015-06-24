@@ -3,9 +3,8 @@ model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-  package MediumW = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model for water";
+      Buildings.Media.Air;
+  package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
   parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
@@ -14,15 +13,15 @@ model ClosedLoop
   parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
 
   constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=5*VRooCor*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=6*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=5.5*VRooSou*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=7*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=8*VRooEas*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=10*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=5.5*VRooNor*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=7*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=8*VRooWes*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=10*VRooWes*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
@@ -79,18 +78,18 @@ model ClosedLoop
     redeclare package Medium = MediumA,
     dp_nominal=20) "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{440,110},{420,130}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanSup(
+  Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0}),
+    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  Buildings.Fluid.Movers.FlowMachine_y fanRet(
+  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     dynamicBalance=true,
-    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}),
+    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
@@ -115,11 +114,6 @@ model ClosedLoop
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-300,138},{-280,158}})));
-  inner Modelica.Fluid.System system(
-    p_ambient(displayUnit="Pa"),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_small=1E-4*m_flow_nominal)
-    annotation (Placement(transformation(extent={{-340,100},{-320,120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
@@ -154,7 +148,7 @@ model ClosedLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,50})));
-  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.0)
+  Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.2)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
@@ -282,7 +276,7 @@ model ClosedLoop
     VRoo=VRooWes) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1104,6},{1172,74}})));
   Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
-      1.2, r_N_min=0.0) "Controller for fan"
+      1.2, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
@@ -393,7 +387,6 @@ equation
   connect(TSupSetHea.y, heaCoiCon.u_s) annotation (Line(
       points={{-79,-160},{-2,-160}},
       color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(fanRet.port_a, dpRetFan.port_b) annotation (Line(
       points={{310,120},{320,120},{320,60}},
@@ -954,45 +947,45 @@ for air flow through building leakage and through open doors based
 on wind pressure and flow imbalance of the HVAC system.
 </p>
 <p>
-The HVAC system is a variable air volume (VAV) flow system with economizer 
-and a heating and cooling coil in the air handler unit. There is also a 
-reheat coil and an air damper in each of the five zone inlet branches. 
+The HVAC system is a variable air volume (VAV) flow system with economizer
+and a heating and cooling coil in the air handler unit. There is also a
+reheat coil and an air damper in each of the five zone inlet branches.
 The figure below shows the schematic diagram of the HVAC system
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/VAVReheat/vavSchematics.png\" border=\"1\"/>
 </p>
 <p>
-The control is an implementation of the control sequence 
-<i>VAV 2A2-21232</i> of the Sequences of Operation for 
-Common HVAC Systems (ASHRAE, 2006). In this control sequence, the 
-supply fan speed is regulated based on the duct static pressure. 
-The return fan controller tracks the supply fan air flow rate 
-reduced by a fixed offset. The duct static pressure is adjusted 
-so that at least one VAV damper is 90% open. The economizer dampers 
-are modulated to track the setpoint for the mixed air dry bulb temperature. 
-Priority is given to maintain a minimum outside air volume flow rate. 
-In each zone, the VAV damper is adjusted to meet the room temperature 
-setpoint for cooling, or fully opened during heating. 
-The room temperature setpoint for heating is tracked by varying 
-the water flow rate through the reheat coil. There is also a 
-finite state machine that transitions the mode of operation of 
-the HVAC system between the modes 
+The control is an implementation of the control sequence
+<i>VAV 2A2-21232</i> of the Sequences of Operation for
+Common HVAC Systems (ASHRAE, 2006). In this control sequence, the
+supply fan speed is regulated based on the duct static pressure.
+The return fan controller tracks the supply fan air flow rate
+reduced by a fixed offset. The duct static pressure is adjusted
+so that at least one VAV damper is 90% open. The economizer dampers
+are modulated to track the setpoint for the mixed air dry bulb temperature.
+Priority is given to maintain a minimum outside air volume flow rate.
+In each zone, the VAV damper is adjusted to meet the room temperature
+setpoint for cooling, or fully opened during heating.
+The room temperature setpoint for heating is tracked by varying
+the water flow rate through the reheat coil. There is also a
+finite state machine that transitions the mode of operation of
+the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>. 
-In the VAV model, all air flows are computed based on the 
-duct static pressure distribution and the performance curves of the fans. 
-Local loop control is implemented using proportional and proportional-integral 
-controllers, while the supervisory control is implemented 
+<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
+In the VAV model, all air flows are computed based on the
+duct static pressure distribution and the performance curves of the fans.
+Local loop control is implemented using proportional and proportional-integral
+controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
 <p>
-To model the heat transfer through the building envelope, 
+To model the heat transfer through the building envelope,
 a model of five interconnected rooms is used.
-The five room model is representative of one floor of the 
-new construction medium office building for Chicago, IL, 
-as described in the set of DOE Commercial Building Benchmarks 
-(Deru et al, 2009). There are four perimeter zones and one core zone. 
+The five room model is representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
 The envelope thermal properties meet ASHRAE Standard 90.1-2004.
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -1000,7 +993,7 @@ surfaces. The convective heat transfer coefficient is computed based
 on the temperature difference between the surface and the room air.
 There is also a layer-by-layer short-wave radiation,
 long-wave radiation, convection and conduction heat transfer model for the
-windows. The model is similar to the 
+windows. The model is similar to the
 Window 5 model and described in TARCOG 2006.
 </p>
 <p>

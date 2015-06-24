@@ -2,9 +2,9 @@ within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftNoVolume
   "Model that demonstrates the chimney effect with a steady-state model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.IdealGases.SimpleAir;
+  package Medium = Modelica.Media.Air.SimpleAir;
 
-  Fluid.MixingVolumes.MixingVolume roo(
+  Buildings.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -13,8 +13,7 @@ model ChimneyShaftNoVolume
     m_flow_nominal=0.05,
     p_start=101325,
     nPorts=3) "Air volume of a room"
-     annotation (Placement(transformation(extent={{20,-60},
-            {40,-40}},   rotation=0)));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
@@ -31,8 +30,8 @@ model ChimneyShaftNoVolume
   Buildings.Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    nPorts=2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,50})));
   Buildings.Airflow.Multizone.Orifice oriBot(
@@ -50,8 +49,7 @@ model ChimneyShaftNoVolume
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
     h=1.5) "Model for stack effect outside the room"
-    annotation (Placement(transformation(extent={{100,-1},{120,19}},  rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-1},{120,19}})));
   Buildings.Airflow.Multizone.Orifice oriChiBot(
     m=0.5,
     redeclare package Medium = Medium,
@@ -64,7 +62,7 @@ model ChimneyShaftNoVolume
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,10})));
-  Buildings.Controls.Continuous.LimPID con(
+  Modelica.Blocks.Continuous.LimPID con(
     Td=10,
     yMax=1,
     yMin=-1,
@@ -77,22 +75,17 @@ model ChimneyShaftNoVolume
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-80,0})));
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium =
-        Medium, densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual)
-    "Shaft of chimney"
+  Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium = Medium,
+      densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual) "Shaft of chimney"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   MediumColumn staIn(
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=1.5) "Model for stack effect inside the room"
-    annotation (Placement(transformation(extent={{100,-59},{120,-39}},rotation=
-            0)));
+    annotation (Placement(transformation(extent={{100,-59},{120,-39}})));
 
 equation
   connect(TSet.y, con.u_s) annotation (Line(
@@ -168,17 +161,16 @@ equation
     experiment(
       StopTime=3600,
       Tolerance=1e-06),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model demonstrate buoyancy-induced air flow 
+This model demonstrate buoyancy-induced air flow
 through a vertical shaft.
 On the right, there are two flow paths that are connected
 to a volume, which is kept at 20&deg;C through a feedback
-controller, and to the ambient, which is at 
+controller, and to the ambient, which is at
 0&deg;C.
 The flow path on the very right consists of an orifice
-and two models that compute the pressure difference 
+and two models that compute the pressure difference
 <i>&Delta;p</i>
 between
 the bottom and top of the medium column using <i>&Delta;p=h &rho; g</i>,
@@ -188,7 +180,7 @@ where
 <i>g</i> is the gravity constant.
 </p>
 <p>
-The top model is parameterized to use the 
+The top model is parameterized to use the
 density from the ambient,
 whereas the bottom model is parameterized to use
 the density from the room volume, regardless of
@@ -201,13 +193,13 @@ and a roof with a leakage on the right. The chimney height starts
 <i>1.5</i> m below the roof, and ends <i>1.5</i> m above the roof.
 </p>
 <p>
-The flow boundary condition of the model 
-<code>boundary</code> is such that at the start 
+The flow boundary condition of the model
+<code>boundary</code> is such that at the start
 of the simulation, air flows from <code>boundary</code>
 to <code>roo</code> until <i>t=600</i> seconds. Then, the flow rate
-is set to zero until <i>t=1800</i> seconds. 
+is set to zero until <i>t=1800</i> seconds.
 Since the shaft <code>sha</code> is filled with
-20&deg;C air, there is a circulation in the clock-wise 
+20&deg;C air, there is a circulation in the clock-wise
 direction; up the shaft, and down the other flow path.
 Next, until <i>t=2400</i> seconds, air is extracted from
 the volume <code>roo</code>, and then the flow rate
@@ -218,6 +210,19 @@ up the other flow path.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 24, 2015 by Michael Wetter:<br/>
+Changed media to
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
+Modelica.Media.Air.SimpleAir</a>
+in order to test the medium column for a media that has no moisture.
+</li>
+<li>
+December 22, 2014 by Michael Wetter:<br/>
+Removed <code>Modelica.Fluid.System</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
+</li>
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Added documentation.

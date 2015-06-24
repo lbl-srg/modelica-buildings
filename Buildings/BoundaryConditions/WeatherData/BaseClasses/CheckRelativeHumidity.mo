@@ -25,8 +25,7 @@ equation
 <p>
 This component constrains the value of relative humidity to a range of <i>[0, 1]</i>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
@@ -34,9 +33,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Bitmap(extent={{-56,52},{62,-42}}, fileName=
-              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
+            100}}), graphics={Bitmap(extent={{-74,74},{76,-78}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/BaseClasses/relativeHumidity.png")}));
 end CheckRelativeHumidity;

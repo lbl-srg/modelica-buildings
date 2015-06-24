@@ -4,7 +4,7 @@ block IndexMassFraction
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching = true);
-  parameter String substanceName "Name of species substance";
+  parameter String substanceName="" "Name of species substance";
 
 protected
   parameter Integer i_x(fixed=false) "Index of substance";
@@ -26,7 +26,7 @@ initial algorithm
 <p>
 This block computes the index that the subtance with name
 <code>substanceName</code> has in the mass fraction vector <code>X</code>.
-If the medium model has no component called <code>substanceName</code>, 
+If the medium model has no component called <code>substanceName</code>,
 then the block writes an error message and terminates the simulation.
 </p>
 <p>

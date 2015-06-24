@@ -2,14 +2,14 @@ within Buildings.Fluid.Sensors.Examples;
 model VolumeFlowRate "Test model for the volume flow rate sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+  package Medium = Buildings.Media.Air
     "Medium model";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
-        transformation(extent={{80,-10},{60,10}},rotation=0)));
+        transformation(extent={{80,-10},{60,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
@@ -17,9 +17,8 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
     use_m_flow_in=true,
     nPorts=1) "Flow boundary condition"
      annotation (Placement(transformation(
-          extent={{-50,-10},{-30,10}},rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+          extent={{-50,-10},{-30,10}})));
+
   Modelica.Blocks.Sources.Ramp ramp(
     height=-20,
     offset=10,
@@ -52,18 +51,16 @@ equation
       points={{48,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-experiment(StopTime=60),
+    annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example tests the volume flow rate sensor.
-One sensor is configured to be steady-state, and the other is 
+One sensor is configured to be steady-state, and the other is
 configured to be dynamic.
 Note that steady-state sensors can lead to numerical problems
-if used incorrectly. 
+if used incorrectly.
 See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.

@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block SolarTime "Solar time"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput locTim(quantity="Time", unit="s")
     "Local time" annotation (Placement(transformation(extent={{-140,-74},{-100,
             -34}}), iconTransformation(extent={{-140,-74},{-100,-34}})));
@@ -13,8 +12,8 @@ public
     final unit="s",
     displayUnit="s") "Solar time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-algorithm
-  solTim := locTim + equTim "Our unit is s in stead of h in (A.4.3)";
+equation
+  solTim = locTim + equTim "Our unit is s in stead of h in (A.4.3)";
 
   annotation (
     defaultComponentName="solTim",
@@ -25,12 +24,11 @@ This component computes the local solar time.
 <p>
 <b>Note:</b> To avoid events, this block does not convert solar time to a scale of 24 hours.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Feb. 16, 2012, by Michael Wetter:<br/>
-Removed section that limits solar time to 
+Removed section that limits solar time to
 <code>0 &le; solTim &le; 86400</code> as this triggers
 events, and is not needed because solar time is used in
 trigonometric functions only.
@@ -41,8 +39,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

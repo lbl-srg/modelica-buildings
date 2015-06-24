@@ -104,7 +104,6 @@ equation
   connect(radShaOut.JIn, radOut.JOut) annotation (Line(
       points={{-61,-4},{-78,-4},{-78,-58},{-83,-58}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(radIn.JOut, radShaInt.JIn) annotation (Line(
       points={{81,-48},{72,-48},{72,-6},{61,-6}},
@@ -171,12 +170,10 @@ equation
   connect(radIn.JIn, sumJRoo.y) annotation (Line(
       points={{81,-56},{70,-56},{70,-70},{57.02,-70}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(radOut.JIn, sumJOut.y) annotation (Line(
       points={{-83,-66},{-59.02,-66}},
       color={0,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(TAirRoo.port, extShaCon.glass) annotation (Line(
       points={{100,20},{74,20},{74,50},{19.4,50}},
@@ -252,8 +249,8 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
                       graphics),
     Documentation(info="<html>
 This model tests the shading device. Note that the temperature of the shading device changes
-slightly as the shade control signal changes (i.e., as the shade is lowered). 
-This is because the shade has a different emissive power than the glass, which changes the 
+slightly as the shade control signal changes (i.e., as the shade is lowered).
+This is because the shade has a different emissive power than the glass, which changes the
 energy balance.
 </html>", revisions="<html>
 <ul>

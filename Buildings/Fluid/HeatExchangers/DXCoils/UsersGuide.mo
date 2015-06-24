@@ -4,13 +4,13 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for direct evaporation cooling coils 
+This package contains models for direct evaporation cooling coils
 (DX coils).
 </p>
 <p>
 The following three DX coil models are available:
 </p>
-  <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>DX coil model</th>
       <th>Properties</th>
@@ -23,8 +23,8 @@ The following three DX coil models are available:
           the coil performance at different compressor speed, or the
           coil performance as it switches between cooling only, cooling
           with hot gas reheat, or heating only.</td>
-      <td>Integer; <i>0</i> for off, 
-                   <i>1</i> for first stage, 
+      <td>Integer; <i>0</i> for off,
+                   <i>1</i> for first stage,
                    <i>2</i> for second stage, etc.</td>
     </tr>
     <tr>
@@ -46,9 +46,9 @@ The following three DX coil models are available:
   </table>
 <h4>Control of the coils</h4>
 <p>
-The DX coil models take as a control input 
+The DX coil models take as a control input
 the stage of operation,
-an on/off signal, 
+an on/off signal,
 or the speed of the compressor.
 Because the thermal response of the coil is very fast, it is important to use
 as the controlled variable the room air temperature, as the room air temperature
@@ -58,7 +58,7 @@ is used, then the control algorithm should be such that short-cycling is avoided
 <h4>Coil performance</h4>
 <p>
 The steady-state total rate of cooling and the Energy Input Ratio (EIR) are
-computed using polynomials in the air mass flow fraction (relative to the 
+computed using polynomials in the air mass flow fraction (relative to the
 nominal mass flow rate),
 the evaporator air inlet temperature and the
 the condensor air inlet temperature.
@@ -79,15 +79,15 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
 </p>
 <h4>Coil dynamics</h4>
 <p>
-Two dynamic effects are modeled: The accumulation and reevaporation of 
+Two dynamic effects are modeled: The accumulation and reevaporation of
 water at the evaporator, and the thermal response of the evaporator.
-The dynamics of the evaporation is described at 
+The dynamics of the evaporation is described at
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
 The dynamics of the evaporator is approximated by a first order response
 where the time constant is a model parameter. Hence, the dynamic response
 is similar to other models of the <code>Buildings.Fluid</code> package
-and described at 
+and described at
 <a href=\"modelica://Buildings.Fluid.UsersGuide\">
 Buildings.Fluid.UsersGuide</a>.
 </p>
@@ -101,17 +101,17 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>
 and the wet coil is modeled using
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
-Both use the same model 
+Both use the same model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>
-to compute the cooling capacity, but the wet coil uses 
+to compute the cooling capacity, but the wet coil uses
 the wet-bulb temperature of the air inlet instead of the dry bulb temperature
 to compute the coil performance.
 The wet coil model computes the humidity of the leaving air
 <i>X<sub>w,o</sub></i>, using the bypass factor model.
 This humidity is compared to the humidity at the evaporator inlet
 <i>X<sub>i</sub></i>.
-If 
+If
 <i>X<sub>w,o</sub>-X<sub>i</sub> &gt; 0</i> the coil is assumed to be dry,
 otherwise it is wet.
 This test is implemented in
@@ -133,14 +133,14 @@ determined as shown in the figure below.
 <p>
 The method used is the bypass factor method, which assumes that of the leaving air, a fraction is at the
 same condition as the entering air, and the other fraction is at the apparatus dew point.
-This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which 
+This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which
 is computed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp</a>. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp</a>.
 </p>
 <p>
 Once the ratio <i>UA &frasl; c<sub>p</sub></i> is known,
-the bypass factor is a function of the current 
+the bypass factor is a function of the current
 mass flow rate only. (Under the assumption that the velocity dependence of <i>UA</i>
 can be neglected.
 </p>
@@ -158,7 +158,7 @@ However, if the performance curve for the energy input ratio contains electricit
 use for a condenser fan, then this is of course reflected by the model output.
 </li>
 <li>
-The air must flow from port a to port b. 
+The air must flow from port a to port b.
 If there is reverse flow, then no cooling is provided and no power is consumed.
 </li>
 </ul>
@@ -166,7 +166,7 @@ If there is reverse flow, then no cooling is provided and no power is consumed.
 <ul>
 <li>
 September 24, 2012 by Michael Wetter:<br/>
-First implementation. 
+First implementation.
 </li>
 </ul>
 </html>"));

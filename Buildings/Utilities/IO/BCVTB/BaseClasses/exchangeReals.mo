@@ -12,7 +12,7 @@ function exchangeReals "Exchanges values of type Real with the socket"
   output Modelica.SIunits.Time simTimRea
     "Current simulation time in seconds read from socket";
   output Real[nDblRea] dblValRea "Double values read from socket";
-  output Integer retVal "The exit value, which is negative if an error occured";
+  output Integer retVal "The exit value, which is negative if an error occurred";
   external "C"
      retVal=exchangeModelicaClient(socketFD,
        flaWri, flaRea,
@@ -24,7 +24,7 @@ function exchangeReals "Exchanges values of type Real with the socket"
         Include="#include \"bcvtb.h\"");
 annotation(Documentation(info="<html>
 Function to exchange data of type <code>Real</code> with the socket.
-This function must only be called once in each 
+This function must only be called once in each
 communication interval.
 </html>",
 revisions="<html>

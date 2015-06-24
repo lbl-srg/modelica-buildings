@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "load.load1.S[1]",
+    "load.load1.S[2]",
+    "load_ctrl.load1.S[1]",
+    "load_ctrl.vCTRL_1.V_nominal",
+    "load_ctrl.vCTRL_1.Vmin",
+    "load_ctrl.vCTRL_1.Vmax",
+    "load.load1.v[1]",
+    "load_ctrl.vCTRL_1.terminal.v[1]"
+  };

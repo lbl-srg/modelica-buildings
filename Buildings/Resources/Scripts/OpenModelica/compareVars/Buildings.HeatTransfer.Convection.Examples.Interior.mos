@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "conCon.Q_flow",
+    "conVer.Q_flow",
+    "conHorFluTop.Q_flow",
+    "conHorSolTop.Q_flow",
+    "conHorFluTop.Q_flow",
+    "conHorSolTop.Q_flow",
+    "conHorFluTop.solid.T",
+    "conHorFluTop.fluid.T"
+  };

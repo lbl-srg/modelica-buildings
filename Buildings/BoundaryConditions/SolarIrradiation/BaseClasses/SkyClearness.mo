@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyClearness "Sky clearness"
   extends Modelica.Blocks.Icons.Block;
-public
+
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
@@ -19,36 +19,47 @@ public
     "Sky clearness. skyCle=1: overast sky; skyCle=8: clear sky"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real tmp1;
-algorithm
-  tmp1 := 5.534e-6*(zen*180/Modelica.Constants.pi)^3;
+  constant Real k = 5.534e-6*(180/Modelica.Constants.pi)^3 "Constant factor";
+  Real tmp1 "Intermediate variable";
+equation
+  tmp1 =  k*zen^3;
 
-  skyCle := smooth(1, if (HGloHor < Modelica.Constants.small) then 1 else
-    Buildings.Utilities.Math.Functions.smoothLimit(
-    (HGloHor/Buildings.Utilities.Math.Functions.smoothMax(
-      HDifHor,
-      1e-4,
-      1e-5) + tmp1)/(1 + tmp1),
-    1,
-    8,
-    0.1));
+  skyCle =  smooth(1,
+    if (HGloHor < Modelica.Constants.small)
+      then
+        1
+      else
+       Buildings.Utilities.Math.Functions.smoothLimit(
+        x=  (HGloHor/Buildings.Utilities.Math.Functions.smoothMax(
+                       x1=  HDifHor,
+                       x2=  1e-4,
+                       deltaX=  1e-5) + tmp1)/(1 + tmp1),
+        l=  1,
+        u=  8,
+        deltaX=  0.1));
   annotation (
     defaultComponentName="skyCle",
     Documentation(info="<html>
 <p>
 This component computes the sky clearness.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+May 5, 2015, by Michael Wetter:<br/>
+Introduced constant <code>k</code> to reduce number of operations.
+</li>
+<li>
+May 5, 2015, by Filip Jorissen:<br/>
+Converted <code>algorithm</code> section into
+<code>equation</code> section for easier differentiability.
+</li>
 <li>
 July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

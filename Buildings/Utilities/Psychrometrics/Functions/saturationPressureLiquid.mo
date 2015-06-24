@@ -14,8 +14,6 @@ algorithm
     smoothOrder=99,
     derivative=Buildings.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid,
     Inline=true,
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
 Saturation pressure of water above the triple point temperature computed from temperature
@@ -25,7 +23,7 @@ according to Wagner <i>et al.</i> (1993). The range of validity is between
 <h4>References</h4>
 <p>
 Wagner W., A. Saul, A. Pruss.
- <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>, 
+ <i>International equations for the pressure along the melting and along the sublimation curve of ordinary water substance</i>,
 equation 3.5. 1993.
 <a href=\"http://www.nist.gov/data/PDFfiles/jpcrd477.pdf\">
 http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.

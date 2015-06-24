@@ -8,7 +8,7 @@ model Pipe
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
-  parameter Integer nSeg(min=2) = 10 "Number of volume segments";
+  parameter Integer nSeg(min=1) = 10 "Number of volume segments";
   parameter Modelica.SIunits.Length thicknessIns "Thickness of insulation";
   parameter Modelica.SIunits.ThermalConductivity lambdaIns
     "Heat conductivity of insulation";
@@ -23,7 +23,7 @@ model Pipe
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
     use_dh=true,
@@ -35,8 +35,7 @@ model Pipe
     final linearized=linearizeFlowResistance,
     final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
-                                 annotation (Placement(transformation(extent={{-30,-10},
-            {-10,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each final package Medium = Medium,
     each energyDynamics=energyDynamics,
@@ -53,7 +52,7 @@ model Pipe
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Volume for pipe fluid"
                                                   annotation (Placement(
-        transformation(extent={{-1,-18},{19,-38}}, rotation=0)));
+        transformation(extent={{-1,-18},{19,-38}})));
 
 protected
   parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^
@@ -66,18 +65,20 @@ protected
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 equation
-  connect(port_a, res.port_a) annotation (Line(
-      points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,
-          1.16573e-15},{-58,6.10623e-16},{-30,6.10623e-16}},
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,5.55112e-16},{-72,5.55112e-16},{-72,1.16573e-15},{-58,1.16573e-15},
+          {-58,6.10623e-16},{-30,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res.port_b, vol[1].ports[1]) annotation (Line(
+  connect(preDro.port_b, vol[1].ports[1]) annotation (Line(
       points={{-10,6.10623e-16},{7,6.10623e-16},{7,-18}},
       color={0,127,255},
       smooth=Smooth.None));
-  for i in 1:(nSeg - 1) loop
-    connect(vol[i].ports[2], vol[i + 1].ports[1]);
-  end for;
+  if nSeg > 1 then
+    for i in 1:(nSeg - 1) loop
+      connect(vol[i].ports[2], vol[i + 1].ports[1]);
+    end for;
+  end if;
   connect(vol[nSeg].ports[2], port_b) annotation (Line(
       points={{11,-18},{12,-18},{12,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
@@ -102,7 +103,7 @@ equation
 <p>
 Model of a pipe with flow resistance and optional heat storage.
 This model can be used for modeling the heat exchange between the pipe and environment.
-The model consists of a flow resistance 
+The model consists of a flow resistance
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
 and <code>nSeg</code> mixing volumes
@@ -111,6 +112,16 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 5, 2015, by Michael Wetter:<br/>
+Renamed <code>res</code> to <code>preDro</code> for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
+</li>
+<li>
+October 10, 2014, by Michael Wetter:<br/>
+Changed minimum attribute for <code>nSeg</code> from 2 to 1.
+This is required for the radiant slab model.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

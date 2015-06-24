@@ -1,8 +1,7 @@
 within Buildings.Fluid.Sources.Examples;
 model Outside "Test model for source and sink with outside weather data"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
-    "Medium model for air";
+  package Medium = Buildings.Media.Air "Medium model for air";
   Buildings.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=
        1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
@@ -21,8 +20,6 @@ model Outside "Test model for source and sink with outside weather data"
   Sensors.MassFractionTwoPort senMasFra(redeclare package Medium = Medium,
       m_flow_nominal=1) "Sensor for mass fraction of water"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(weaDat.weaBus, bou.weaBus)      annotation (Line(
       points={{-60,30},{-50,30},{-50,30.2}},
@@ -48,5 +45,5 @@ equation
   annotation (
 experiment(StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos"
-        "Simulate and plot"),                                                                                                    Diagram(graphics));
+        "Simulate and plot"));
 end Outside;

@@ -19,7 +19,6 @@ equation
   connect(T1.port, bod1.heatPort) annotation (Line(
       points={{-60,-10},{-49.2,-10},{-49.2,20.2}},
       color={191,0,0},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(T2.port, bod2.heatPort) annotation (Line(
       points={{40,-10},{49.2,-10},{49.2,20.2}},
@@ -37,7 +36,6 @@ equation
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OpaqueSurface.mos"
         "Simulate and plot"),
-              Diagram(graphics),
     Documentation(info="<html>
 <p>
 This examples demonstrates two opaque surfaces that radiate toward each other.

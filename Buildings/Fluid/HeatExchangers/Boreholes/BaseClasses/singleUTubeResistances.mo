@@ -58,6 +58,7 @@ algorithm
   // ********** Rb and Ra from multipole **********
   // Help variables
   RCondPipe :=Modelica.Math.log((rTub + eTub)/rTub)/(2*Modelica.Constants.pi*hSeg*kTub);
+  beta :=2*Modelica.Constants.pi*kFil*RCondPipe;
   sigma :=(kFil - kSoi)/(kFil + kSoi);
   R_1delta_LS :=1/(2*Modelica.Constants.pi*kFil)*(log(rBor/(rTub + eTub)) + log(rBor/(2*xC)) +
     sigma*log(rBor^4/(rBor^4 - xC^4)));
@@ -68,7 +69,6 @@ algorithm
     rBor^2 + xC^2)/(rBor^2 - xC^2)));
 
   //Rb and Ra
-  beta :=2*Modelica.Constants.pi*kFil*RCondPipe;
   Rb :=R_1delta_MP/2;
   Ra :=Ra_LS - 1/(Modelica.Constants.pi*kFil)*(rTub^2/(4*xC^2)*(1 + sigma*
     4*rBor^4*xC^2/(rBor^4 - xC^4))/((1 + beta)/(1 - beta) - rTub^2/(4*xC^2) +
@@ -109,7 +109,7 @@ algorithm
   assert(test,
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
-  Input to the function 
+  Input to the function
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
   is
            hSeg = " + String(hSeg) + " m
@@ -127,12 +127,12 @@ algorithm
   //Conduction resistance in grout from pipe wall to capacity in grout
   RCondGro := x*Rg + RCondPipe;
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
-This model computes the thermal resistances of a 
-single-U-tube borehole using the method of Bauer et al. (2011). 
-It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
-and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> as defined by 
+This model computes the thermal resistances of a
+single-U-tube borehole using the method of Bauer et al. (2011).
+It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i>
+and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> as defined by
 Hellstroem (1991) using the multipole method.
 </p>
 <p>
@@ -151,8 +151,8 @@ R<sub>gb</sub><sup>1U</sup> =  (  1 - x<sup>1U</sup>  )  R<sub>g</sub><sup>1U</s
 <p>
 The thermal resistance between the two grout zones are
 <p align=\"center\" style=\"font-style:italic;\">
-R<sub>gg</sub><sup>1U</sup> = 2 R<sub>gb</sub><sup>1U</sup>  
-( R<sub>ar</sub><sup>1U</sup> - 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ) / 
+R<sub>gg</sub><sup>1U</sup> = 2 R<sub>gb</sub><sup>1U</sup>
+( R<sub>ar</sub><sup>1U</sup> - 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ) /
 ( 2 R<sub>gb</sub><sup>1U</sup> - R<sub>ar</sub><sup>1U</sup> + 2 x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> ).
 </p>
 <p>
@@ -165,8 +165,8 @@ R<sub>CondGro</sub> = x<sup>1U</sup> R<sub>g</sub><sup>1U</sup> + log (  ( r<sub
 The capacities are located at
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-x<sup>1U</sup> =log ( (r<sub>Bor</sub><sup>2</sup> 
-+ 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>)<sup>1&frasl;2</sup>/ ( 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  ) / 
+x<sup>1U</sup> =log ( (r<sub>Bor</sub><sup>2</sup>
++ 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>)<sup>1&frasl;2</sup>/ ( 2  ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  ) /
 log ( r<sub>Bor</sub>/ ( &radic;2  ( r<sub>Tub</sub> + e<sub>Tub</sub> ))).
 </p>
 <p>
@@ -183,30 +183,30 @@ The thermal resistance between the two pipe outer walls is
 </p>
 <p>
 The fluid to ground thermal resistance
-<i>R<sub>b</sub></i> 
-and the grout to grout thermal resistance <i>R<sub>a</sub></i> are calculated with the multipole method 
+<i>R<sub>b</sub></i>
+and the grout to grout thermal resistance <i>R<sub>a</sub></i> are calculated with the multipole method
 (Hellstroem (1991)) as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>b</sub> =1/ ( 4 &pi; k<sub>Fil</sub> )   ( log ( r<sub>Bor</sub>/ ( r<sub>Tub</sub> + e<sub>Tub</sub> )  )  + log ( r<sub>Bor</sub>/ ( 2 x<sub>C</sub> )  )  +
     &sigma; log ( r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  )  )  - 1/ ( 4 &pi; k<sub>Fil</sub> )   (  ( r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/
-     ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 - &sigma; 4 x<sub>C</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  ( 
+     ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 - &sigma; 4 x<sub>C</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  ) <sup>2</sup> ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  +  (
     r<sub>Tub</sub> + e<sub>Tub</sub> ) <sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 + &sigma; 16 x<sub>C</sub><sup>4</sup> r<sub>Bor</sub><sup>4</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> ) <sup>2</sup>)).
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 R<sub>a</sub> = 1/ ( &pi; k<sub>Fil</sub> )   ( log ( 2 x<sub>C</sub>/r<sub>Tub</sub> )  + &sigma; log ((
-    r<sub>Bor</sub><sup>2</sup> + x<sub>C</sub><sup>2</sup> ) / ( r<sub>Bor</sub><sup>2</sup> - x<sub>C</sub><sup>2</sup> )  )  )  - 1/ ( &pi; k<sub>Fil</sub> )   ( r<sub>Tub</sub><sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 + &sigma; 
+    r<sub>Bor</sub><sup>2</sup> + x<sub>C</sub><sup>2</sup> ) / ( r<sub>Bor</sub><sup>2</sup> - x<sub>C</sub><sup>2</sup> )  )  )  - 1/ ( &pi; k<sub>Fil</sub> )   ( r<sub>Tub</sub><sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )   ( 1 + &sigma;
     4 r<sub>Bor</sub><sup>4</sup> x<sub>C</sub><sup>2</sup>/ ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> )  ) / (  ( 1 + &beta; ) / ( 1 - &beta; )  - r<sub>Tub</sub><sup>2</sup>/ ( 4 x<sub>C</sub><sup>2</sup> )  +
     &sigma; 2 r<sub>Tub</sub><sup>2</sup> r<sub>Bor</sub><sup>2</sup>  ( r<sub>Bor</sub><sup>4</sup> + x<sub>C</sub><sup>4</sup> ) / ( r<sub>Bor</sub><sup>4</sup> - x<sub>C</sub><sup>4</sup> ) <sup>2</sup>)),
 </p>
-<p> 
-with 
+<p>
+with
 <i>&sigma; = ( k<sub>Fil</sub> - k<sub>Soi</sub> ) / ( k<sub>Fil</sub> + k<sub>Soi</sub> ) </i> and  <i> &beta; = 2 &pi; k<sub>Fil</sub> R<sub>CondPipe</sub></i>,
 where
-<i>k<sub>Fil</sub></i> and <i>k<sub>Soi</sub></i> are the conductivity of the filling material 
+<i>k<sub>Fil</sub></i> and <i>k<sub>Soi</sub></i> are the conductivity of the filling material
 and of the ground,
-<i>r<sub>Tub</sub>+e<sub>Tub</sub></i> and <i>r<sub>Bor</sub></i> are the pipe and the borehole outside radius and 
-<i>x<sub>C</sub></i> is the shank spacing, which is equal to the distance between 
+<i>r<sub>Tub</sub>+e<sub>Tub</sub></i> and <i>r<sub>Bor</sub></i> are the pipe and the borehole outside radius and
+<i>x<sub>C</sub></i> is the shank spacing, which is equal to the distance between
 the center of borehole and the center of the pipe.
 </p>
 <p>
@@ -222,7 +222,7 @@ Bauer et al. (2011) for details.
 </p>
 <h4>References</h4>
 <p>
-G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
+G. Hellstr&ouml;m. <i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>.
 Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
 </p>
 <p>
@@ -235,8 +235,11 @@ Thermal resistance and capacity models for borehole heat exchangers
 International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
+<li>
+January 21, 2015 by Michael Wetter:<br/>
+Fixed bug in <code>beta</code> being used before it was assigned.
+</li>
 <li>
 February 14, 2014 by Michael Wetter:<br/>
 Added an assert statement to test for non-physical values.
@@ -257,6 +260,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
 </html>"));
 end singleUTubeResistances;

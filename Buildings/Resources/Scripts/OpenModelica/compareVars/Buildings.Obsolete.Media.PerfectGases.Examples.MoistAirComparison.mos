@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "hLiqPer",
+    "hLiqIde",
+    "hStePer",
+    "hSteIde",
+    "hAirPer",
+    "hAirIde",
+    "errLiq",
+    "errSte",
+    "errAir"
+  };

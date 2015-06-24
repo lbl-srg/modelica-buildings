@@ -11,14 +11,14 @@ model Interior "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.Convection.Interior conCon(
                                            A=1,
-  til=Buildings.HeatTransfer.Types.Tilt.Wall)    annotation (Placement(
+  til=Buildings.Types.Tilt.Wall)    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,10})));
   Buildings.HeatTransfer.Convection.Interior conVer(
                                            A=1,
-  til=Buildings.HeatTransfer.Types.Tilt.Wall,
+  til=Buildings.Types.Tilt.Wall,
   conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
                                                                annotation (
       Placement(transformation(
@@ -35,7 +35,7 @@ model Interior "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.HeatTransfer.Convection.Interior conHorFluTop(
     A=1,
-    til=Buildings.HeatTransfer.Types.Tilt.Floor,
+    til=Buildings.Types.Tilt.Floor,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
     "Convection model with fluid on top"        annotation (
       Placement(transformation(
@@ -44,7 +44,7 @@ model Interior "Test model for convective heat transfer coefficients"
         origin={50,10})));
   Buildings.HeatTransfer.Convection.Interior conHorSolTop(
     A=1,
-    til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
+    til=Buildings.Types.Tilt.Ceiling,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
     "Convection model with solid on top"        annotation (
       Placement(transformation(
@@ -106,9 +106,7 @@ equation
       points={{80,-30},{90,-30},{90,-5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), 
-experiment(StopTime=1.0),
+  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Convection/Examples/Interior.mos" "Simulate and plot"),
     Documentation(info="<html>
 This example tests the convective heat transfer models.

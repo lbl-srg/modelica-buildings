@@ -2,15 +2,14 @@ within Buildings.Fluid.Sensors.Examples;
 model Density "Test model for the density sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+  package Medium = Buildings.Media.Air
     "Medium model";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
-        transformation(extent={{90,-40},{70,-20}},
-                                                 rotation=0)));
+        transformation(extent={{90,-40},{70,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
@@ -18,9 +17,8 @@ model Density "Test model for the density sensor"
     nPorts=1,
     use_m_flow_in=true) "Flow boundary condition"
      annotation (Placement(transformation(
-          extent={{-50,-10},{-30,10}},rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+          extent={{-50,-10},{-30,10}})));
+
   Buildings.Fluid.Sensors.Density senDenVol(
     redeclare package Medium = Medium) "Density sensor for the volume"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -70,9 +68,7 @@ equation
       points={{-69,8},{-50,8}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-experiment(StopTime=60),
+    annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos"
         "Simulate and plot"),
     Documentation(info="<html>

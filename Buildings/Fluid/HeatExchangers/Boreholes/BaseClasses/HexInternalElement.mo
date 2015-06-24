@@ -10,7 +10,6 @@ model HexInternalElement "Internal part of a borehole"
     vol1(final energyDynamics=energyDynamics,
          final massDynamics=massDynamics,
          final prescribedHeatFlowRate=false,
-         final allowFlowReversal=allowFlowReversal1,
          final V=m2_flow_nominal*tau2/rho2_nominal,
          final m_flow_small=m1_flow_small),
     final vol2(final energyDynamics=energyDynamics,
@@ -62,7 +61,6 @@ model HexInternalElement "Internal part of a borehole"
     "Heat capacity of the filling material"  annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
-        rotation=0,
         origin={72,2})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(
     final C=Co_fil/2,
@@ -72,7 +70,6 @@ model HexInternalElement "Internal part of a borehole"
     "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
-        rotation=0,
         origin={72,8})));
 
 protected
@@ -236,27 +233,27 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model for the heat transfer between the fluid and within the borehole filling. 
-This model computes the dynamic response of the fluid in the tubes, 
-the heat transfer between the fluid and the borehole filling, 
+Model for the heat transfer between the fluid and within the borehole filling.
+This model computes the dynamic response of the fluid in the tubes,
+the heat transfer between the fluid and the borehole filling,
 and the heat storage within the fluid and the borehole filling.
 </p>
 <p>
-This model computes the different thermal resistances present 
-in a single-U-tube borehole using the method of Bauer et al. (2011) 
-and computing explicitely the fluid-to-ground thermal resistance 
-<i>R<sub>b</sub></i> and the 
+This model computes the different thermal resistances present
+in a single-U-tube borehole using the method of Bauer et al. (2011)
+and computing explicitly the fluid-to-ground thermal resistance
+<i>R<sub>b</sub></i> and the
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
 using the multipole method.
 The multipole method is implemented in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
-The convection resistance is calculated using the 
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>.
+The convection resistance is calculated using the
 Dittus-Boelter correlation
 as implemented in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. 
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>.
 </p>
 <p>
 The figure below shows the thermal network set up by Bauer et al. (2010).
@@ -266,8 +263,8 @@ The figure below shows the thermal network set up by Bauer et al. (2010).
 </p>
 <h4>References</h4>
 <p>
-G. Hellstr&ouml;m. 
-<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>. 
+G. Hellstr&ouml;m.
+<i>Ground heat storage: thermal analyses of duct storage systems (Theory)</i>.
 Dept. of Mathematical Physics, University of Lund, Sweden, 1991.
 </p>
 <p>
@@ -280,8 +277,12 @@ Thermal resistance and capacity models for borehole heat exchangers
 International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
-<p>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Removed assignement of <code>vol.allowFlowReversal</code> as this is
+done in the base class.
+</li>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for temperatures and derivatives of <code>capFil1</code>
@@ -293,7 +294,7 @@ Removed unused parameters <code>B0</code> and <code>B1</code>.
 </li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
-Revised implementation, added comments, replaced 
+Revised implementation, added comments, replaced
 <code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
 with resistance models from the Modelica Standard Library.
 </li>
@@ -302,8 +303,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end HexInternalElement;
