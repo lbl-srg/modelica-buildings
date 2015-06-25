@@ -9,17 +9,17 @@ model RenewableSources
     "Nominal HVAC cooling/heating power";
   parameter Real COP_nominal = 4
     "Nominal coefficient of performance of HVAC systems";
-  parameter Modelica.SIunits.Power PPluLig_nominal = 15e3
+  parameter Modelica.SIunits.Power PPluLig_nominal = 11.5e3
     "Nominal power consumption of plug loads and lights";
   parameter Modelica.SIunits.Power PLoa_nominal = P_hvac_nominal/COP_nominal + PPluLig_nominal
     "Nominal power of a building load";
   parameter Modelica.SIunits.Power PWin = PLoa_nominal*4
     "Nominal power of the wind turbine";
-  parameter Modelica.SIunits.Power PSun = PLoa_nominal*1.0
+  parameter Modelica.SIunits.Power PSun = PLoa_nominal*1.5
     "Nominal power of the PV";
   parameter Modelica.SIunits.DensityOfHeatFlowRate W_m2_nominal = 1000
     "Nominal solar power per unit area";
-  parameter Real eff_PV = 0.12*0.85*0.9
+  parameter Real eff_PV = 0.12*0.89*0.9
     "Nominal solar power conversion efficiency (this should consider converion efficiency, area covered, AC/DC losses)";
   parameter Modelica.SIunits.Area A_PV = PSun/eff_PV/W_m2_nominal
     "Nominal area of a P installation";
@@ -33,42 +33,42 @@ model RenewableSources
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=7*(PLoa_nominal) + PWin,
-    l=500) "Electrical line"
+    l=1000) "Electrical line"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line2(
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=3*(PLoa_nominal),
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{-18,2},{2,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line3(
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=2*(PLoa_nominal),
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{40,2},{60,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line4(
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=(PLoa_nominal),
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{142,2},{162,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line5(
     V_nominal=V_nominal,
     P_nominal=3*(PLoa_nominal) + PWin,
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{-46,18},{-26,38}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line6(
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=2*(PLoa_nominal) + PWin,
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{-4,18},{16,38}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line7(
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=(PLoa_nominal) + PWin,
-    l=100) "Electrical line"
+    l=200) "Electrical line"
     annotation (Placement(transformation(extent={{70,18},{90,38}})));
   Electrical.AC.ThreePhasesBalanced.Sources.WindTurbine winTur(
     V_nominal=V_nominal,
@@ -84,7 +84,7 @@ model RenewableSources
     mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=PWin,
-    l=100)
+    l=200)
     annotation (Placement(transformation(extent={{150,18},{170,38}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -125,92 +125,99 @@ model RenewableSources
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
     azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
+    pfPV=0.85,
+    pf=0.8,
     til_pv=0.5235987755983) "Office building 1"
     annotation (Placement(transformation(extent={{-32,40},{-52,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui3(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
-    azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
-    til_pv=0.5235987755983) "Office building 3"
+    til_pv=0.34906585039887,
+    azi_pv=Buildings.Types.Azimuth.W,
+    pfPV=0.8,
+    pf=0.8) "Office building 3"
     annotation (Placement(transformation(extent={{48,40},{28,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui5(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
-    azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
-    til_pv=0.5235987755983) "Office building 5"
+    til_pv=0.61086523819802,
+    azi_pv=Buildings.Types.Azimuth.W,
+    pfPV=0.95,
+    pf=0.95) "Office building 5"
     annotation (Placement(transformation(extent={{128,40},{108,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui7(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
     azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
-    til_pv=0.5235987755983) "Office building 7"
+    til_pv=0.5235987755983,
+    pfPV=0.97,
+    pf=0.75) "Office building 7"
     annotation (Placement(transformation(extent={{208,40},{188,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui2(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
     pf=0.9,
-    azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
-    til_pv=0.5235987755983) "Office building 2"
+    til_pv=0.5235987755983,
+    azi_pv=Buildings.Types.Azimuth.E,
+    pfPV=0.8) "Office building 2"
     annotation (Placement(transformation(extent={{8,40},{-12,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui4(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
     azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
+    pfPV=0.9,
+    pf=0.88,
     til_pv=0.5235987755983) "Office building 4"
     annotation (Placement(transformation(extent={{88,40},{68,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui6(
     lon=weaDat.lon,
     lat=weaDat.lat,
     timZon=weaDat.timZon,
-    pf=0.9,
-    azi_pv=Buildings.Types.Azimuth.S,
     V_nominal=V_nominal,
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
     A=A_PV,
-    til_pv=0.5235987755983) "Office building 6"
+    til_pv=0.43633231299858,
+    azi_pv=Buildings.Types.Azimuth.E,
+    pfPV=0.9,
+    pf=0.8) "Office building 6"
     annotation (Placement(transformation(extent={{168,40},{148,60}})));
   Modelica.Blocks.Sources.RealExpression PSol(y=bui1.PPv + bui2.PPv + bui3.PPv +
         bui4.PPv + bui5.PPv + bui6.PPv + bui7.PPv)
@@ -398,7 +405,7 @@ causing possible instabilities to the electrical grid.
 </p>
 </html>"),
 experiment(
-      StopTime=2678400,
+      StopTime=31536000,
       Tolerance=1e-06),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/RenewableSources.mos"

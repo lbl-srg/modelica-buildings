@@ -11,6 +11,7 @@ model SmallOfficeControlled
   parameter Modelica.SIunits.Area A "Surface area of the PV";
   parameter Modelica.SIunits.Angle til_pv "Titl angle of the PVs";
   parameter Modelica.SIunits.Angle azi_pv "Azimuth angle of the PVs";
+  parameter Real pfPV=0.8 "Power factor of the pv after dc/ac conversion";
   parameter Real pf=0.8 "Power factor of the building load";
   parameter Modelica.SIunits.Voltage V_nominal=480
     "Nominal voltage of the electric network";
@@ -85,7 +86,9 @@ model SmallOfficeControlled
     til=til_pv,
     lat=lat,
     azi=azi_pv,
-    V_nominal=V_nominal) "PV model"
+    V_nominal=V_nominal,
+    eta_DCAC=0.89,
+    pf=pfPV) "PV model"
     annotation (Placement(transformation(extent={{42,50},{22,70}})));
   Electrical.AC.ThreePhasesBalanced.Loads.Inductive loa(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
