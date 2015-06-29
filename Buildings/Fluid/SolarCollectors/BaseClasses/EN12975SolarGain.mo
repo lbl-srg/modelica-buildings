@@ -65,7 +65,7 @@ equation
 
   for i in 1 : nSeg loop
   QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
-  HSkyDifTil))*Buildings.Utilities.Math.Functions.smoothHeaviside((Medium.T_max+1)-TFlu[i],1);
+  HSkyDifTil))*Buildings.Utilities.Math.Functions.smoothHeaviside((Medium.T_max-1)-TFlu[i],1);
   end for;
   annotation (
     defaultComponentName="solGai",
@@ -137,11 +137,17 @@ equation
       </p>
     </html>",
     revisions="<html>
-      <ul>
-        <li>
-          Jan 15, 2013, by Peter Grant:<br/>
-          First implementation
-        </li>
-      </ul>
-    </html>"));
+<ul>
+<li>
+June 29, 2015, by Filip Jorissen:<br/>
+Fixed sign mistake causing model to fail under high
+solar irradiation because temperature goes above 
+medium temperature bound.
+</li>
+<li>
+Jan 15, 2013, by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end EN12975SolarGain;
