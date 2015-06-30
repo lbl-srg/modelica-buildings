@@ -94,10 +94,12 @@ protected
       allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
+  Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg] if
+        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Convection coefficient between the heat transfer fluid and heat exchanger"
     annotation (Placement(transformation(extent={{-10,12},{-30,-8}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection HexToTan[nSeg]
+  Modelica.Thermal.HeatTransfer.Components.Convection HexToTan[nSeg] if
+        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Convection coefficient between the heat exchanger and the surrounding medium"
     annotation (Placement(transformation(extent={{20,12},{40,-8}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
@@ -141,6 +143,16 @@ protected
         rotation=90,
         origin={20,42})));
 
+  Modelica.Blocks.Sources.RealExpression hA_series[nSeg](y={1/(1/hAPipIns[i].hA
+         + 1/hANatCyl[i].hA) for i in 1:nSeg}) if
+        (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Series resistance for steady state operation"
+    annotation (Placement(transformation(extent={{100,-122},{8,-102}})));
+
+  Modelica.Thermal.HeatTransfer.Components.Convection htfToTan[nSeg] if
+        (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Convection coefficient between the heat transfer fluid and the surrounding medium"
+    annotation (Placement(transformation(extent={{-6,-4},{14,-24}})));
 equation
   for i in 1:(nSeg - 1) loop
     connect(vol[i].ports[2], vol[i + 1].ports[1]);
@@ -220,8 +232,17 @@ equation
       points={{21,110},{50,110},{50,-14},{30,-14},{30,-8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(htfToTan.solid, vol.heatPort) annotation (Line(points={{-6,-14},{-36,-14},
+          {-36,-30},{-32,-30}}, color={191,0,0}));
+  connect(htfToTan.fluid, port) annotation (Line(points={{14,-14},{88,-14},{88,-150},
+          {0,-150}}, color={191,0,0}));
+  connect(hA_series.y, htfToTan.Gc) annotation (Line(points={{3.4,-112},{3.4,
+          -30},{4,-30},{4,-24}},
+                            color={0,0,127}));
+  connect(htfToTan.fluid, temSenSur.port) annotation (Line(points={{14,-14},{14,
+          -14},{14,28},{14,32},{20,32}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -150},{100,150}}), graphics), Icon(coordinateSystem(
+            -150},{100,150}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-150},{100,150}}), graphics={
         Rectangle(
           extent={{-66,64},{74,-96}},
@@ -282,7 +303,14 @@ equation
           </p>
           </html>",
           revisions="<html>
-          <ul>
+<ul>
+<li>
+June 30, 2015, by Filip Jorissen:<br/>
+Simplified implementation when energyDynamics are steady state.
+This leads to smaller algebraic loops.
+This is to correct issue 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/432\">#432</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code>.
