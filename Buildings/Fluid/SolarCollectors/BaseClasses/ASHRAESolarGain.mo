@@ -52,7 +52,7 @@ protected
   constant Modelica.SIunits.Temperature dTMax = 1
     "Safety temperature difference to prevent TFlu > Medium.T_max";
   final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
-    "Medium temperature below which there will be no heat loss computed to prevent TFlu > Medium.T_max";
+    "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
   final parameter Real iamSky(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro(fixed = false)

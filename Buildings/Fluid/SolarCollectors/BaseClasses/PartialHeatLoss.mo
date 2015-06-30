@@ -40,7 +40,7 @@ protected
   constant Modelica.SIunits.Temperature dTMin = 1
     "Safety temperature difference to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.Temperature TMedMin = Medium.T_min + dTMin
-    "Medium temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
+    "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
