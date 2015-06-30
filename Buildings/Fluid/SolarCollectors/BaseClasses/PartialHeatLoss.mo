@@ -37,6 +37,10 @@ block PartialHeatLoss
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  constant Modelica.SIunits.Temperature dTMin = 1
+    "Safety temperature difference to prevent TFlu < Medium.T_min";
+  final parameter Modelica.SIunits.Temperature TMedMin = Medium.T_min + dTMin
+    "Medium temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
@@ -53,8 +57,10 @@ protected
 
 equation
   for i in 1:nSeg loop
-    QLos[i] = QLosInt[i] * Buildings.Utilities.Math.Functions.smoothHeaviside(
-     TFlu[i]-(Medium.T_min+1), 1);
+    QLos[i] = QLosInt[i] *
+      smooth(1, if TFlu[i] > TMedMin
+        then 1
+        else Buildings.Utilities.Math.Functions.smoothHeaviside(TFlu[i]-TMedMin, dTMin));
   end for;
 
   annotation (
@@ -70,7 +76,13 @@ equation
         detailed information is available in the documentation for the extending classes.
       </p>
     </html>", revisions="<html>
-      <ul>
+    <ul>
+<li>
+June 29, 2015, by Michael Wetter:<br/>
+Revised implementation of heat loss near <code>Medium.T_min</code>
+to make it more efficient.
+</li>
+
         <li>
           November 20, 2014, by Michael Wetter:<br/>
           Added missing <code>each</code> keyword.

@@ -49,6 +49,10 @@ block ASHRAESolarGain
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  constant Modelica.SIunits.Temperature dTMax = 1
+    "Safety temperature difference to prevent TFlu > Medium.T_max";
+  final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
+    "Medium temperature below which there will be no heat loss computed to prevent TFlu > Medium.T_max";
   final parameter Real iamSky(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro(fixed = false)
@@ -115,8 +119,9 @@ equation
   for i in 1 : nSeg loop
     QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
     shaCoe_internal) + HSkyDifTil + HGroDifTil))*
-    Buildings.Utilities.Math.Functions.smoothHeaviside(
-     (Medium.T_max-1)-TFlu[i],1);
+      smooth(1, if TFlu[i] < TMedMax
+        then 1
+        else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
   end for;
 
   annotation (
@@ -218,7 +223,12 @@ equation
       </p>
     </html>",
     revisions="<html>
-<ul>
+    <ul>
+<li>
+June 29, 2015, by Michael Wetter:<br/>
+Revised implementation of heat loss near <code>Medium.T_max</code>
+to make it more efficient.
+</li>
 <li>
 June 29, 2015, by Filip Jorissen:<br/>
 Fixed sign mistake causing model to fail under high
