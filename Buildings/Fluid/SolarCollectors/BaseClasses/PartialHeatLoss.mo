@@ -41,6 +41,8 @@ protected
     "Safety temperature difference to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.Temperature TMedMin = Medium.T_min + dTMin
     "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
+  final parameter Modelica.SIunits.Temperature TMedMin2 = TMedMin + dTMin
+    "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
     "Useful heat gain at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
@@ -58,7 +60,7 @@ protected
 equation
   for i in 1:nSeg loop
     QLos[i] = QLosInt[i] *
-      smooth(1, if TFlu[i] > TMedMin
+      smooth(1, if TFlu[i] > TMedMin2
         then 1
         else Buildings.Utilities.Math.Functions.smoothHeaviside(TFlu[i]-TMedMin, dTMin));
   end for;

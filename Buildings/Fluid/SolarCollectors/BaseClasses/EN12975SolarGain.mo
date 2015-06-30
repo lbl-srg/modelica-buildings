@@ -47,6 +47,8 @@ protected
     "Safety temperature difference to prevent TFlu > Medium.T_max";
   final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
     "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
+  final parameter Modelica.SIunits.Temperature TMedMax2 = TMedMax-dTMax
+    "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
   Real iamBea "Incidence angle modifier for director solar radiation";
   Modelica.Blocks.Interfaces.RealInput shaCoe_internal "Internally used shaCoe";
 
@@ -70,7 +72,7 @@ equation
   for i in 1 : nSeg loop
   QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
   HSkyDifTil))*
-      smooth(1, if TFlu[i] < TMedMax
+      smooth(1, if TFlu[i] < TMedMax2
         then 1
         else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
   end for;
