@@ -62,10 +62,13 @@ model StratifiedEnhancedInternalHex
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Formulation of energy balance for heat exchanger internal fluid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
-    energyDynamicsHex "Formulation of mass balance"
+    energyDynamicsHex "Formulation of mass balance for heat exchanger"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.SIunits.Length lHex=
@@ -126,7 +129,8 @@ model StratifiedEnhancedInternalHex
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversalHex,
-    final m_flow_small=1e-4*abs(mHex_flow_nominal))
+    final m_flow_small=1e-4*abs(mHex_flow_nominal),
+    final energyDynamicsSolid=energyDynamicsHexSolid)
     "Heat exchanger inside the tank"
      annotation (Placement(
         transformation(
@@ -159,6 +163,7 @@ protected
 
   final parameter Integer nSegHex = nSegHexTan*hexSegMult
     "Number of heat exchanger segments";
+
 initial equation
   assert(hHex_a >= 0 and hHex_a <= hTan,
     "The parameter hHex_a is outside its valid range.");
@@ -245,6 +250,13 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Added parameter <code>energyDynamicsHexSolid</code>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
+#434</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>.
