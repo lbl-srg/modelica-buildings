@@ -26,8 +26,8 @@ model SmallOfficeControlled
   parameter Real nOcc=1/19 "Number of zone occupants per unit area";
   parameter Modelica.SIunits.HeatFlux PLig=14
     "Lights power per zone per unit area";
-  parameter Real patternWeekPlug[24]={0.2,0.2,0.2,0.2,0.2,0.2,0.3,0.7,0.8,0.9,1.0,
-      1.0,0.8,1.0,0.9,0.7,0.7,0.6,0.4,0.2,0.2,0.2,0.2,0.2}
+  parameter Real patternWeekPlug[24]={0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.7,0.8,0.9,1.0,
+      1.0,0.8,1.0,0.9,0.7,0.6,0.5,0.4,0.4,0.4,0.3,0.3,0.3}
     "Pattern for plug loads during week days (fraction of P_nominal)";
   parameter Real patternWeekendPlug[24]={0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,
       0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}
@@ -37,11 +37,11 @@ model SmallOfficeControlled
     "Pattern for occupancy during week days (fraction of nominal occupancy)";
   parameter Real patternWeekendOcc[24]=zeros(24)
     "Pattern for occupancy during weekend days (fraction of nominal occupancy)";
-  parameter Real patternWeekLight[24]={0.1,0.1,0.1,0.1,0.1,0.4,0.6,0.7,0.6,0.5,0.4,
-      0.4,0.4,0.4,0.4,0.6,0.8,0.5,0.4,0.3,0.2,0.1,0.1,0.1}
+  parameter Real patternWeekLight[24]={0.3,0.3,0.3,0.3,0.3,0.4,0.4,0.5,0.7,0.6,0.5,
+      0.4,0.4,0.4,0.4,0.4,0.5,0.5,0.4,0.4,0.3,0.3,0.3,0.3}
     "Pattern for lights during week days (fraction of P_nominal)";
-  parameter Real patternWeekendLight[24]={0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,
-      0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1}
+  parameter Real patternWeekendLight[24]={0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,
+      0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2}
     "Pattern for lights during weekend days (fraction of P_nominal)";
 
   SmallOfficeBuilding bui(
@@ -71,9 +71,9 @@ model SmallOfficeControlled
     each patternWeekLight=patternWeekLight,
     each patternWeekendLight=patternWeekendLight)
     "Block that imposes the temperature set point in each zone"
-    annotation (Placement(transformation(extent={{-60,-6},{-40,14}})));
+    annotation (Placement(transformation(extent={{-48,-6},{-28,14}})));
   Modelica.Blocks.Sources.RealExpression
-                                   temSp(y=T_sp + deltaTsp)
+                                   temSp(y=T_sp + deltaTsp + temSpResFil.y)
     "Temperature set point for the thermal zones"
     annotation (Placement(transformation(extent={{-92,-6},{-72,14}})));
 
@@ -134,6 +134,20 @@ model SmallOfficeControlled
 protected
   Modelica.Blocks.Interfaces.RealInput deltaTsp
     "Inner version of the delta T set point input used by the conditional connector";
+public
+  Modelica.Blocks.Sources.CombiTimeTable temSpRes(
+    tableOnFile=false,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=[0,-2; 6.5*3600,-2; 8*3600,0; 18.5*3600,0; 20*3600,-2; 24*3600,-2])
+    "Temperature set point reset for the thermal zones"
+    annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
+  Modelica.Blocks.Continuous.FirstOrder temSpResFil(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=-2,
+    T=120) "Temperature set point reset filter"
+    annotation (Placement(transformation(extent={{-64,-26},{-52,-14}})));
 equation
   connect(deltaTsp, dTSp);
   if not useDeltaTSP then
@@ -147,9 +161,9 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(zonCtr.roomConnector_out, bui.rooms_conn[1:5])
-    annotation (Line(points={{-40,4},{-32,4},{-20,4}}, color={0,0,120}));
+    annotation (Line(points={{-28,4},{-28,4},{-20,4}}, color={0,0,120}));
   connect(noAct.roomConnector_out, bui.rooms_conn[6]) annotation (Line(points={{-40,50},
-          {-34,50},{-34,4.66667},{-20,4.66667}},         color={0,0,120}));
+          {-24,50},{-24,4.66667},{-20,4.66667}},         color={0,0,120}));
   connect(weaBus, pv.weaBus) annotation (Line(
       points={{-100,80},{32,80},{32,69}},
       color={255,204,51},
@@ -159,7 +173,8 @@ equation
   connect(loa.terminal, term) annotation (Line(points={{78,0},{78,0},{110,0}},
                     color={0,120,120}));
   connect(zonCtr.Q_flow, cooHeaLoad.u)
-    annotation (Line(points={{-41,-7},{-41,-50},{-34,-50}}, color={0,0,127}));
+    annotation (Line(points={{-29,-7},{-29,-24},{-30,-24},{-38,-24},{-38,-50},{
+          -34,-50}},                                        color={0,0,127}));
   connect(cooHeaLoad.y, cooPowToElePow.P_cool)
     annotation (Line(points={{-11,-50},{-11,-50},{-4,-50}}, color={0,0,127}));
   connect(inv.y, loa.Pow)
@@ -169,7 +184,8 @@ equation
   connect(pv.P, PPv) annotation (Line(points={{21,67},{-96,67},{-96,-96},{80,-96},
           {80,-80},{110,-80}}, color={0,0,127}));
   connect(zonCtr.PEl, elPow.u)
-    annotation (Line(points={{-43,-7},{-43,-80},{-34,-80}}, color={0,0,127}));
+    annotation (Line(points={{-31,-7},{-31,-20},{-32,-20},{-44,-20},{-44,-80},{
+          -34,-80}},                                        color={0,0,127}));
   connect(add.y, inv.u)
     annotation (Line(points={{30.6,0},{34.4,0},{34.4,0}}, color={0,0,127}));
   connect(cooPowToElePow.P_el, add.u1) annotation (Line(points={{13,-50},{20,-50},
@@ -179,15 +195,17 @@ equation
   connect(elPow.y, PLigPlu) annotation (Line(points={{-11,-80},{24,-80},{24,-40},
           {110,-40}}, color={0,0,127}));
   connect(temSp.y, zonCtr[1].TZon)
-    annotation (Line(points={{-71,4},{-66.5,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-60.5,4},{-50,4}}, color={0,0,127}));
   connect(temSp.y, zonCtr[2].TZon)
-    annotation (Line(points={{-71,4},{-66.5,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-60.5,4},{-50,4}}, color={0,0,127}));
   connect(temSp.y, zonCtr[3].TZon)
-    annotation (Line(points={{-71,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-60.5,4},{-50,4}}, color={0,0,127}));
   connect(temSp.y, zonCtr[4].TZon)
-    annotation (Line(points={{-71,4},{-66.5,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-60.5,4},{-50,4}}, color={0,0,127}));
   connect(temSp.y, zonCtr[5].TZon)
-    annotation (Line(points={{-71,4},{-66.5,4},{-62,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-60.5,4},{-50,4}}, color={0,0,127}));
+  connect(temSpRes.y[1], temSpResFil.u)
+    annotation (Line(points={{-71,-20},{-65.2,-20}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}},
         initialScale=0.2)),     Icon(coordinateSystem(preserveAspectRatio=false,

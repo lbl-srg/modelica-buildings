@@ -3,7 +3,7 @@ model SmallOfficeControlled
   "Example with a small office with temperature controlled"
   extends Modelica.Icons.Example;
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data used for the example"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled office(

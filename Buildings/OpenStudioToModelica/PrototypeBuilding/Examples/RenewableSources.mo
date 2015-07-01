@@ -4,18 +4,18 @@ model RenewableSources
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Frequency f = 60 "Nominal grid frequency";
-  parameter Modelica.SIunits.Voltage V_nominal = 480 "Nominal grid voltage";
+  parameter Modelica.SIunits.Voltage V_nominal = 1200 "Nominal grid voltage";
   parameter Modelica.SIunits.Power P_hvac_nominal = 20e3
     "Nominal HVAC cooling/heating power";
-  parameter Real COP_nominal = 4
+  parameter Real COP_nominal = 3
     "Nominal coefficient of performance of HVAC systems";
-  parameter Modelica.SIunits.Power PPluLig_nominal = 11.5e3
+  parameter Modelica.SIunits.Power PPluLig_nominal = 12e3
     "Nominal power consumption of plug loads and lights";
   parameter Modelica.SIunits.Power PLoa_nominal = P_hvac_nominal/COP_nominal + PPluLig_nominal
     "Nominal power of a building load";
-  parameter Modelica.SIunits.Power PWin = PLoa_nominal*4
+  parameter Modelica.SIunits.Power PWin = PLoa_nominal*5
     "Nominal power of the wind turbine";
-  parameter Modelica.SIunits.Power PSun = PLoa_nominal*1.5
+  parameter Modelica.SIunits.Power PSun = PLoa_nominal*2.0
     "Nominal power of the PV";
   parameter Modelica.SIunits.DensityOfHeatFlowRate W_m2_nominal = 1000
     "Nominal solar power per unit area";
@@ -23,6 +23,8 @@ model RenewableSources
     "Nominal solar power conversion efficiency (this should consider converion efficiency, area covered, AC/DC losses)";
   parameter Modelica.SIunits.Area A_PV = PSun/eff_PV/W_m2_nominal
     "Nominal area of a P installation";
+  parameter Real frac_PV[7] = {0.5, 0.2, 1.7, 1.8, 0.2, 2.5, 0.3}
+    "Redistribution of the PV among the different buildings";
 
   Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(
     f=f,
@@ -30,45 +32,60 @@ model RenewableSources
     phiSou=0) "Grid model that provides power to the system"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line1(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=7*(PLoa_nominal) + PWin,
-    l=1000) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=1500) "Electrical line"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line2(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=3*(PLoa_nominal),
-    l=200) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{-18,2},{2,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line3(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=2*(PLoa_nominal),
-    l=200) "Electrical line"
-    annotation (Placement(transformation(extent={{40,2},{60,22}})));
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
+    annotation (Placement(transformation(extent={{34,2},{54,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line4(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=(PLoa_nominal),
-    l=200) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{142,2},{162,22}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line5(
     V_nominal=V_nominal,
     P_nominal=3*(PLoa_nominal) + PWin,
-    l=200) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{-46,18},{-26,38}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line6(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=2*(PLoa_nominal) + PWin,
-    l=200) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{-4,18},{16,38}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line7(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=(PLoa_nominal) + PWin,
-    l=200) "Electrical line"
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{70,18},{90,38}})));
   Electrical.AC.ThreePhasesBalanced.Sources.WindTurbine winTur(
     V_nominal=V_nominal,
@@ -81,10 +98,12 @@ model RenewableSources
     scale=PWin) "Wind turbine model"
     annotation (Placement(transformation(extent={{216,10},{236,30}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line8(
-    mode=Buildings.Electrical.Types.CableMode.automatic,
     V_nominal=V_nominal,
     P_nominal=PWin,
-    l=200)
+    mode=Buildings.Electrical.Types.CableMode.commercial,
+    redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
+          commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
+    l=300) "Electrical line"
     annotation (Placement(transformation(extent={{150,18},{170,38}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -96,10 +115,10 @@ model RenewableSources
   Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen1(V_nominal=V_nominal,
       perUnit=true) "Voltage probe"
     annotation (Placement(transformation(extent={{-70,0},{-50,-20}})));
-  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen2(V_nominal=V_nominal,
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen7(V_nominal=V_nominal,
       perUnit=true) "Voltage probe" annotation (Placement(transformation(extent=
            {{-10,10},{10,-10}}, origin={170,-10})));
-  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen3(V_nominal=V_nominal,
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen8(V_nominal=V_nominal,
       perUnit=true) "Voltage probe" annotation (Placement(transformation(extent=
            {{-10,10},{10,-10}}, origin={200,-10})));
   Modelica.Blocks.Continuous.Integrator EWin
@@ -130,9 +149,9 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
     pfPV=0.85,
     pf=0.8,
+    A=frac_PV[1]*A_PV,
     til_pv=0.5235987755983) "Office building 1"
     annotation (Placement(transformation(extent={{-32,40},{-52,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui3(
@@ -143,11 +162,11 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
-    til_pv=0.34906585039887,
     azi_pv=Buildings.Types.Azimuth.W,
     pfPV=0.8,
-    pf=0.8) "Office building 3"
+    pf=0.8,
+    A=frac_PV[3]*A_PV,
+    til_pv=0.34906585039887) "Office building 3"
     annotation (Placement(transformation(extent={{48,40},{28,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui5(
     lon=weaDat.lon,
@@ -157,11 +176,11 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
-    til_pv=0.61086523819802,
     azi_pv=Buildings.Types.Azimuth.W,
     pfPV=0.95,
-    pf=0.95) "Office building 5"
+    pf=0.95,
+    A=frac_PV[5]*A_PV,
+    til_pv=0.61086523819802) "Office building 5"
     annotation (Placement(transformation(extent={{128,40},{108,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui7(
     lon=weaDat.lon,
@@ -172,10 +191,10 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
-    til_pv=0.5235987755983,
     pfPV=0.97,
-    pf=0.75) "Office building 7"
+    pf=0.75,
+    A=frac_PV[7]*A_PV,
+    til_pv=0.5235987755983) "Office building 7"
     annotation (Placement(transformation(extent={{208,40},{188,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui2(
     lon=weaDat.lon,
@@ -186,10 +205,10 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
-    til_pv=0.5235987755983,
     azi_pv=Buildings.Types.Azimuth.E,
-    pfPV=0.8) "Office building 2"
+    pfPV=0.8,
+    A=frac_PV[2]*A_PV,
+    til_pv=0.5235987755983) "Office building 2"
     annotation (Placement(transformation(extent={{8,40},{-12,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui4(
     lon=weaDat.lon,
@@ -200,9 +219,9 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
     pfPV=0.9,
     pf=0.88,
+    A=frac_PV[4]*A_PV,
     til_pv=0.5235987755983) "Office building 4"
     annotation (Placement(transformation(extent={{88,40},{68,60}})));
   Buildings.OpenStudioToModelica.PrototypeBuilding.SmallOfficeControlled bui6(
@@ -213,11 +232,11 @@ model RenewableSources
     P_hvac_nominal=P_hvac_nominal,
     COP_nominal=COP_nominal,
     a=a,
-    A=A_PV,
-    til_pv=0.43633231299858,
     azi_pv=Buildings.Types.Azimuth.E,
     pfPV=0.9,
-    pf=0.8) "Office building 6"
+    pf=0.8,
+    A=frac_PV[6]*A_PV,
+    til_pv=0.43633231299858) "Office building 6"
     annotation (Placement(transformation(extent={{168,40},{148,60}})));
   Modelica.Blocks.Sources.RealExpression PSol(y=bui1.PPv + bui2.PPv + bui3.PPv +
         bui4.PPv + bui5.PPv + bui6.PPv + bui7.PPv)
@@ -225,6 +244,21 @@ model RenewableSources
     annotation (Placement(transformation(extent={{242,66},{262,86}})));
   parameter Real a[:]={0.3,0.7}
     "Coefficients for efficiency curve (need p(a=a, y=1)=1)";
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen4(V_nominal=V_nominal,
+      perUnit=true) "Voltage probe"
+    annotation (Placement(transformation(extent={{50,0},{70,-20}})));
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen5(V_nominal=V_nominal,
+      perUnit=true) "Voltage probe"
+    annotation (Placement(transformation(extent={{90,0},{110,-20}})));
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen6(V_nominal=V_nominal,
+      perUnit=true) "Voltage probe"
+    annotation (Placement(transformation(extent={{130,0},{150,-20}})));
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen2(V_nominal=V_nominal,
+      perUnit=true) "Voltage probe" annotation (Placement(transformation(extent=
+           {{-10,10},{10,-10}}, origin={-20,-10})));
+  Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen3(V_nominal=V_nominal,
+      perUnit=true) "Voltage probe" annotation (Placement(transformation(extent=
+           {{-10,10},{10,-10}}, origin={20,-10})));
 equation
   connect(gri.terminal, line1.terminal_n) annotation (Line(
       points={{-90,40},{-90,20},{-80,20}},
@@ -235,11 +269,11 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   connect(line2.terminal_p, line3.terminal_n) annotation (Line(
-      points={{2,12},{40,12}},
+      points={{2,12},{34,12}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(line3.terminal_p, line4.terminal_n) annotation (Line(
-      points={{60,12},{142,12}},
+      points={{54,12},{142,12}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(line1.terminal_p, line5.terminal_n) annotation (Line(
@@ -274,7 +308,7 @@ equation
       points={{-60,-1},{-60,20}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(sen2.term, line4.terminal_p) annotation (Line(
+  connect(sen7.term, line4.terminal_p) annotation (Line(
       points={{170,-1},{170,12},{162,12}},
       color={0,120,120},
       smooth=Smooth.None));
@@ -319,7 +353,7 @@ equation
       points={{-80,84},{-26,84},{48,84},{48,58}},
       color={255,204,51},
       thickness=0.5));
-  connect(line3.terminal_p, bui5.term) annotation (Line(points={{60,12},{100,12},
+  connect(line3.terminal_p, bui5.term) annotation (Line(points={{54,12},{100,12},
           {100,50},{107,50}}, color={0,120,120}));
   connect(line4.terminal_p,bui7. term) annotation (Line(points={{162,12},{180,12},
           {180,50},{187,50}},
@@ -340,7 +374,7 @@ equation
           {60,50},{67,50}}, color={0,120,120}));
   connect(line1.terminal_p, bui1.term) annotation (Line(points={{-60,20},{-60,20},
           {-60,50},{-53,50}}, color={0,120,120}));
-  connect(sen3.term, winTur.terminal) annotation (Line(points={{200,-1},{200,-1},
+  connect(sen8.term, winTur.terminal) annotation (Line(points={{200,-1},{200,-1},
           {200,20},{216,20}},color={0,120,120}));
   connect(weaDat.weaBus, bui2.weaBus) annotation (Line(
       points={{-80,84},{-36,84},{8,84},{8,58}},
@@ -360,6 +394,16 @@ equation
           {140,50},{147,50}}, color={0,120,120}));
   connect(line8.terminal_p, winTur.terminal) annotation (Line(points={{170,28},{
           200,28},{200,20},{216,20}}, color={0,120,120}));
+  connect(sen4.term, line7.terminal_n) annotation (Line(points={{60,-1},{60,20},
+          {60,28},{70,28}}, color={0,120,120}));
+  connect(sen5.term, bui5.term)
+    annotation (Line(points={{100,-1},{100,50},{107,50}}, color={0,120,120}));
+  connect(sen6.term, line8.terminal_n)
+    annotation (Line(points={{140,-1},{140,28},{150,28}}, color={0,120,120}));
+  connect(sen2.term, line6.terminal_n)
+    annotation (Line(points={{-20,-1},{-20,28},{-4,28}}, color={0,120,120}));
+  connect(sen3.term, line3.terminal_n)
+    annotation (Line(points={{20,-1},{20,12},{34,12}}, color={0,120,120}));
   annotation (
     Documentation(revisions="<html>
 <ul>
@@ -405,8 +449,10 @@ causing possible instabilities to the electrical grid.
 </p>
 </html>"),
 experiment(
-      StopTime=31536000,
-      Tolerance=1e-06),
+      StopTime=3.1536e+07,
+      Interval=1800,
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Radau"),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/RenewableSources.mos"
         "Simulate and plot"),
