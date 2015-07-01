@@ -186,6 +186,14 @@ its class name ends with the string <code>Beta</code>.
                           which causes a simpler energy balance to be used.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TemperatureTwoPort
+       </td>
+       <td valign=\"top\">Added option to simulate thermal loss, which is
+                        useful if the sensor is used to measure
+                        the fluid temperature in a system with on/off control
+                        for the mass flow rate.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                           Buildings.Fluid.SolarCollectors.EN12975
        </td>
