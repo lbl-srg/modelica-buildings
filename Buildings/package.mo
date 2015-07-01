@@ -186,6 +186,16 @@ its class name ends with the string <code>Beta</code>.
                           which causes a simpler energy balance to be used.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
+       </td>
+       <td valign=\"top\">Corrected sign error in computation of heat loss
+                          that prevents the medium to exceed <code>Medium.T_min</code>
+                          or <code>Medium.T_max</code>. With the previous implementation,
+                          an assertion may be generated unnecessarily rather than
+                          the model guiding against the violation of these bounds.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                           Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
 
