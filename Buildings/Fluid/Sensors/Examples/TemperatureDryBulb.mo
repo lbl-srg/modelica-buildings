@@ -11,58 +11,45 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
      annotation (Placement(
         transformation(extent={{10,-10},{-10,10}},
                                                  rotation=180,
-        origin={-2,-40})));
+        origin={-2,-60})));
   Buildings.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=true,
     use_m_flow_in=true,
     nPorts=1) "Flow boundary condition"  annotation (Placement(transformation(
-          extent={{-36,-2},{-16,18}})));
+          extent={{-30,-22},{-10,-2}})));
   Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
-                 annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Modelica.Blocks.Sources.Ramp XHum(
-    height=(0.0133 - 0.0175),
-    offset=0.0175,
-    duration=60) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-100,-60},{-80,
-            -40}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-   annotation (Placement(transformation(
-          extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Math.Feedback dif
-    "Difference, used to compute the mass fraction of dry air"
-    annotation (Placement(transformation(
-          extent={{-70,-20},{-50,0}})));
+                 annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSteSta(
    redeclare package Medium = Medium,
    m_flow_nominal=2,
    tau=0) "Steady state temperature sensor"
-    annotation (Placement(transformation(extent={{0,-2},{20,18}})));
+    annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
 
     Modelica.Blocks.Sources.Pulse m_flow1(
     period=30,
     offset=0,
     amplitude=-1) "Mass flow rate"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     initType=Modelica.Blocks.Types.Init.InitialState,
     T_start=293.15) "Dynamic temperature sensor"
-    annotation (Placement(transformation(extent={{30,-2},{50,18}})));
+    annotation (Placement(transformation(extent={{30,-22},{50,-2}})));
   RelativeTemperature senRelTem(redeclare package Medium = Medium)
     "Temperature difference sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        origin={38,-40})));
+        origin={40,-60})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    nPorts=2,
-    T=293.15) "Flow boundary condition"
+    T=293.15,
+    nPorts=2) "Flow boundary condition"
      annotation (Placement(
-        transformation(extent={{110,-4},{90,16}})));
+        transformation(extent={{110,-24},{90,-4}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temDynLoss(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
@@ -71,52 +58,44 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
     T_start=293.15,
     TAmb=293.15,
     tauHeaTra=30) "Dynamic temperature sensor with heat transfer"
-    annotation (Placement(transformation(extent={{56,-2},{76,18}})));
+    annotation (Placement(transformation(extent={{56,-22},{76,-2}})));
   Modelica.Blocks.Math.Add add_m_flow
     "Add two pulse functions for mass flow rate"
-    annotation (Placement(transformation(extent={{-70,62},{-50,82}})));
+    annotation (Placement(transformation(extent={{-68,40},{-48,60}})));
     Modelica.Blocks.Sources.Pulse m_flow2(
     amplitude=1,
     offset=0,
     period=45) "Mass flow rate"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 equation
-  connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
-          {-60,12},{-38,12}}, color={0,0,127}));
-  connect(const.y, dif.u1)      annotation (Line(points={{-79,-10},{-68,-10}},
-        color={0,0,127}));
-  connect(XHum.y, dif.u2)      annotation (Line(points={{-79,-50},{-60,-50},{
-          -60,-18}}, color={0,0,127}));
-  connect(XHum.y, masFloRat.X_in[1])    annotation (Line(points={{-79,-50},{-40,
-          -50},{-40,4},{-38,4}},         color={0,0,127}));
-  connect(dif.y, masFloRat.X_in[2])         annotation (Line(points={{-51,-10},
-          {-44,-10},{-44,4},{-38,4}},         color={0,0,127}));
+  connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,-8},{-60,-8},
+          {-32,-8}},          color={0,0,127}));
   connect(masFloRat.ports[1], temSteSta.port_a) annotation (Line(
-      points={{-16,8},{-5.55112e-16,8}},
+      points={{-10,-12},{0,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temSteSta.port_b, temDyn.port_a) annotation (Line(
-      points={{20,8},{30,8}},
+      points={{20,-12},{30,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(amb.ports[1], senRelTem.port_a) annotation (Line(
-      points={{8,-40},{28,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senRelTem.port_b, sin.ports[1]) annotation (Line(
-      points={{48,-40},{86,-40},{86,8},{90,8}},
+      points={{8,-60},{30,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temDyn.port_b, temDynLoss.port_a)
-    annotation (Line(points={{50,8},{56,8}}, color={0,127,255}));
-  connect(temDynLoss.port_b, sin.ports[2])
-    annotation (Line(points={{76,8},{84,8},{84,4},{90,4}}, color={0,127,255}));
-  connect(masFloRat.m_flow_in, add_m_flow.y) annotation (Line(points={{-36,16},
-          {-36,16},{-40,16},{-40,72},{-49,72}}, color={0,0,127}));
+    annotation (Line(points={{50,-12},{56,-12}},
+                                             color={0,127,255}));
+  connect(masFloRat.m_flow_in, add_m_flow.y) annotation (Line(points={{-30,-4},{
+          -30,-4},{-40,-4},{-40,50},{-47,50}},  color={0,0,127}));
   connect(add_m_flow.u1, m_flow1.y)
-    annotation (Line(points={{-72,78},{-72,90},{-79,90}}, color={0,0,127}));
-  connect(m_flow2.y, add_m_flow.u2) annotation (Line(points={{-79,60},{-76,60},
-          {-76,66},{-72,66}}, color={0,0,127}));
+    annotation (Line(points={{-70,56},{-70,56},{-74,56},{-74,70},{-79,70}},
+                                                          color={0,0,127}));
+  connect(m_flow2.y, add_m_flow.u2) annotation (Line(points={{-79,40},{-76,40},{
+          -76,44},{-70,44}},  color={0,0,127}));
+  connect(sin.ports[1], temDynLoss.port_b)
+    annotation (Line(points={{90,-12},{84,-12},{76,-12}}, color={0,127,255}));
+  connect(sin.ports[2], senRelTem.port_b) annotation (Line(points={{90,-16},{80,
+          -16},{80,-60},{50,-60}}, color={0,127,255}));
     annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
         "Simulate and plot"),
@@ -126,6 +105,7 @@ This example tests the dry bulb temperature sensors.
 One sensor is configured to be a steady-state model,
 a second sensor is configured to be a dynamic sensor and
 the third sensors is a dynamic sensor with heat transfer.
+There is also a sensor that measures the temperature difference.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -139,6 +119,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
+            100}})));
 end TemperatureDryBulb;
