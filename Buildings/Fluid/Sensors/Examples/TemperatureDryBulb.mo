@@ -2,8 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
- package Medium = Buildings.Media.Air
-    "Medium model";
+ package Medium = Buildings.Media.Air "Medium model";
   Buildings.Fluid.Sources.Boundary_pT amb(
     redeclare package Medium = Medium,
     T=298.15,
@@ -43,11 +42,11 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
    tau=0) "Steady state temperature sensor"
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
 
-    Modelica.Blocks.Sources.Pulse m_flow(
-    offset=-1,
-    amplitude=2,
-    period=30) "Mass flow rate"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    Modelica.Blocks.Sources.Pulse m_flow1(
+    period=30,
+    offset=0,
+    amplitude=-1) "Mass flow rate"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
@@ -63,7 +62,24 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
     nPorts=2,
     T=293.15) "Flow boundary condition"
      annotation (Placement(
-        transformation(extent={{88,-4},{68,16}})));
+        transformation(extent={{110,-4},{90,16}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort temDynLoss(
+    redeclare package Medium = Medium,
+    m_flow_nominal=2,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    transferHeat=true,
+    T_start=293.15,
+    TAmb=293.15,
+    tauHeaTra=30) "Dynamic temperature sensor with heat transfer"
+    annotation (Placement(transformation(extent={{56,-2},{76,18}})));
+  Modelica.Blocks.Math.Add add_m_flow
+    "Add two pulse functions for mass flow rate"
+    annotation (Placement(transformation(extent={{-70,62},{-50,82}})));
+    Modelica.Blocks.Sources.Pulse m_flow2(
+    amplitude=1,
+    offset=0,
+    period=45) "Mass flow rate"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 equation
   connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
           {-60,12},{-38,12}}, color={0,0,127}));
@@ -79,26 +95,28 @@ equation
       points={{-16,8},{-5.55112e-16,8}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(m_flow.y, masFloRat.m_flow_in) annotation (Line(
-      points={{-79,70},{-58,70},{-58,16},{-36,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temSteSta.port_b, temDyn.port_a) annotation (Line(
       points={{20,8},{30,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(temDyn.port_b, sin.ports[1]) annotation (Line(
-      points={{50,8},{68,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(amb.ports[1], senRelTem.port_a) annotation (Line(
       points={{8,-40},{28,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senRelTem.port_b, sin.ports[2]) annotation (Line(
-      points={{48,-40},{62,-40},{62,4},{68,4}},
+  connect(senRelTem.port_b, sin.ports[1]) annotation (Line(
+      points={{48,-40},{86,-40},{86,8},{90,8}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(temDyn.port_b, temDynLoss.port_a)
+    annotation (Line(points={{50,8},{56,8}}, color={0,127,255}));
+  connect(temDynLoss.port_b, sin.ports[2])
+    annotation (Line(points={{76,8},{84,8},{84,4},{90,4}}, color={0,127,255}));
+  connect(masFloRat.m_flow_in, add_m_flow.y) annotation (Line(points={{-36,16},
+          {-36,16},{-40,16},{-40,72},{-49,72}}, color={0,0,127}));
+  connect(add_m_flow.u1, m_flow1.y)
+    annotation (Line(points={{-72,78},{-72,90},{-79,90}}, color={0,0,127}));
+  connect(m_flow2.y, add_m_flow.u2) annotation (Line(points={{-79,60},{-76,60},
+          {-76,66},{-72,66}}, color={0,0,127}));
     annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
         "Simulate and plot"),
@@ -106,14 +124,21 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sens
 <p>
 This example tests the dry bulb temperature sensors.
 One sensor is configured to be a steady-state model,
-and the other sensor is configured to be a dynamic sensor.
+a second sensor is configured to be a dynamic sensor and
+the third sensors is a dynamic sensor with heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 19, 2015 by Filip Jorissen:<br/>
+Extended example with demonstration of thermal losses.
+</li>
 <li>
 September 10, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end TemperatureDryBulb;

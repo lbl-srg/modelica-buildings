@@ -595,6 +595,7 @@ This package contains a <i>thermally perfect</i> model of moist air.
 </p>
 <p>
 A medium is called thermally perfect if
+</p>
 <ul>
 <li>
 it is in thermodynamic equilibrium,

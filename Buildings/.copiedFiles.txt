@@ -821,7 +821,6 @@ Buildings/Resources/src/convertEPW/doc/stylesheet.css
 Buildings/Resources/src/convertEPW/src/ConvertWeatherData.java
 Buildings/Resources/src/convertEPW/src/Makefile
 Buildings/Resources/src/convertEPW/src/Manifest.txt
-Buildings/Resources/weatherdata/STEP_TMY3.mos
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
