@@ -6,6 +6,12 @@ model StaticTwoPortConservationEquation
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
+  parameter Boolean prescribedHeatFlowRate
+    "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature."
+       annotation(Evaluate=true,
+     Dialog(tab="Assumptions",
+      group="Heat transfer"));
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -40,20 +46,18 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-  constant Boolean use_safeDivision=true
-    "Set to true to improve numerical robustness";
-protected
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
-
-  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
-    "Mass flow rates of independent substances added to the medium";
-
   // Parameters that is used to construct the vector mXi_flow
+protected
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
+
+  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
+    "Mass flow rates of independent substances added to the medium";
 
 initial equation
   // Assert that the substance with name 'water' has been found.
@@ -66,11 +70,11 @@ equation
  // Species flow rate from connector mWat_flow
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
- if use_safeDivision then
-    m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
- else
-     m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
- end if;
+
+ // m_flowInv is only used if prescribedHeatFlowRate == true
+ m_flowInv = if prescribedHeatFlowRate
+             then Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3)
+             else 0;
 
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
@@ -96,49 +100,92 @@ equation
   //////////////////////////////////////////////////////////////////////////////////////////
   // Energy balance and mass balance
   if sensibleOnly then
+    //////////////////////////////////////////////////////////////////////////
+    // Case with sensible heat exchange only
+
     // Mass balance
     port_a.m_flow = -port_b.m_flow;
     // Energy balance
-    if use_safeDivision then
+    if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      if allowFlowReversal then
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      else
+        port_a.h_outflow = Medium.h_default;
+      end if;
     else
+      // Case with prescribedHeatFlowRate == false.
+      // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
+      // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
+      // Q_flow * m_flowInv = 0.
       port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
-      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      if allowFlowReversal then
+        port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      else
+        // If allowFlowReversal == false, the downstream enthalpy does not matter.
+        // Therefore a dummy value is used to avoid the creating of algebraic loops.
+        // See https://github.com/iea-annex60/modelica-annex60/issues/281
+        port_a.h_outflow = Medium.h_default;
+      end if;
     end if;
-    // Transport of species
-    port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+    // Transport of species and trace substances
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-    // Transport of trace substances
-    port_a.C_outflow = inStream(port_b.C_outflow);
     port_b.C_outflow = inStream(port_a.C_outflow);
+    if allowFlowReversal then
+      port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+      port_a.C_outflow = inStream(port_b.C_outflow);
+    else
+      port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
+      port_a.C_outflow =  zeros(Medium.nC);
+    end if;
   else
+    //////////////////////////////////////////////////////////////////////////
+    // Case with latent heat exchange
+
     // Mass balance (no storage)
     port_a.m_flow + port_b.m_flow = -mWat_flow;
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow << m_flow, the error is small.
-    if use_safeDivision then
+    if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-      // Transport of species
       port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-      port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
-     else
-      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
-      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
-      // Transport of species
-      port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
+      if allowFlowReversal then
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
+      else
+        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
+        port_a.C_outflow =  zeros(Medium.nC);
+      end if;
+    else
+      // Case with prescribedHeatFlowRate == false.
+      // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
+      // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
+      // Q_flow * m_flowInv = 0.
+      // The same applies for port_b.Xi_outflow and mXi_flow.
+      port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
       port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
-     end if;
+      if allowFlowReversal then
+        port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
+        port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
+      else
+        //When allowFlowReversal = false the downstream enthalpy should not matter
+        //therefore a dummy value is used to avoid the creating of algebraic loops
+        port_a.h_outflow = Medium.h_default;
+        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
+      end if;
+    end if;
 
     // Transport of trace substances
-   port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
-   port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
-
+    port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
+    if allowFlowReversal then
+      port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
+    else
+      port_a.C_outflow = zeros(Medium.nC);
+    end if;
   end if; // sensibleOnly
 
-  //////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
   port_a.p = port_b.p;
 
@@ -171,9 +218,57 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
+<p>
+To increase the numerical robustness of the model, the parameter
+<code>prescribedHeatFlowRate</code> must be set.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
+</li>
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
+</li>
+</ul>
+<p>
+If <code>prescribedHeatFlow=true</code>, then energy and mass balance
+equations are formulated to guard against numerical problems near
+zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
+are the results of an iterative solver.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 2, 2015 by Michael Wetter:<br/>
+Revised implementation of conservation equations,
+added default values for outlet quantities at <code>port_a</code>
+if <code>allowFlowReversal=false</code> and
+updated documentation.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">
+issue 281</a> for a discussion.
+</li>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Revised implementation so that equations are always consistent
+and do not lead to division by zero,
+also when connecting a <code>prescribedHeatFlowRate</code>
+to <code>MixingVolume</code> instances.
+Renamed <code>use_safeDivision</code> into <code>prescribedHeatFlowRate</code>.
+See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
+for a discussion.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.

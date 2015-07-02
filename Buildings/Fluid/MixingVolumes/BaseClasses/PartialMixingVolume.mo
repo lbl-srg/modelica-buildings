@@ -20,11 +20,13 @@ partial model PartialMixingVolume
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
-  parameter Boolean prescribedHeatFlowRate=false
+  // We set prescribedHeatFlowRate(start=false) so that the
+  // volume works without the user having to set this advanced parameter,
+  // but to get high robustness, a user can set it to the approriate value
+  // as described in the info section.
+  parameter Boolean prescribedHeatFlowRate(start=false)
     "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false."
-   annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
+   annotation(Evaluate=true);
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -45,7 +47,8 @@ protected
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
-    final m_flow_small = m_flow_small) if
+    final m_flow_small = m_flow_small,
+    final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
@@ -80,6 +83,9 @@ protected
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
   // See info section for why prescribedHeatFlowRate is used here.
+  // The condition below may only be changed if StaticTwoPortConservationEquation
+  // contains a correct solution for all foreseeable parameters/inputs.
+  // See issue 282 for a discussion.
   final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
       (prescribedHeatFlowRate or (not allowFlowReversal)) and (
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
@@ -184,8 +190,8 @@ the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 <p>
 If the model is (i) operated in steady-state,
 (ii) has two fluid ports connected, and
-(iii) <code>prescribedHeatFlowRate=true</code>, then
-the model uses
+(iii) <code>prescribedHeatFlowRate=true</code> or <code>allowFlowReversal=false</code>, 
+then the model uses
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 in order to use
@@ -241,14 +247,23 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 1, 2015, by Filip Jorissen:<br/>
+Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for 
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
+This results in equations that are solved more easily. 
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> for a discussion.
+</li>
+<li>
 June 9, 2015 by Michael Wetter:<br/>
 Set start value for <code>heatPort.T</code> and changed
 type of <code>T</code> to <code>Medium.Temperature</code> rather than
 <code>Modelica.SIunits.Temperature</code>
 to avoid an
 error because of conflicting start values if
-<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>
+<code>Buildings.Fluid.Chillers.Carnot</code>
 is translated using pedantic mode in Dymola 2016.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.

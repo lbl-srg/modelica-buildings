@@ -158,6 +158,7 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
+Buildings/ConstantEffectivenessHex.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -354,6 +355,7 @@ Buildings/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mo
+Buildings/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mo
 Buildings/Fluid/MixingVolumes/Examples/package.mo
 Buildings/Fluid/MixingVolumes/Examples/package.order
 Buildings/Fluid/MixingVolumes/MixingVolume.mo
@@ -610,7 +612,6 @@ Buildings/Resources/Images/iea-ebc-logo.png
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_MultipleFloorsVectors.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_TwoFloors.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_ZoneStepResponse.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_ResistanceVolumeFlowReversal.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -714,6 +715,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMass
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsSeries.mos
@@ -1009,6 +1011,11 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
+Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log
