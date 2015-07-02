@@ -217,6 +217,15 @@ its class name ends with the string <code>Beta</code>.
                           the model guiding against the violation of these bounds.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+       </td>
+       <td valign=\"top\">Added option to set dynamics of heat exchanger material
+                        separately from the dynamics of the fluid inside the heat
+                        exchanger.
+                        This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#434</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                           Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
 

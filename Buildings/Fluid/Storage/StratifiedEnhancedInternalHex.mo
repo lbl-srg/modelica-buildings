@@ -67,7 +67,7 @@ model StratifiedEnhancedInternalHex
   parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
     energyDynamicsHex "Formulation of mass balance for heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=energyDynamicsHex
     "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
@@ -110,6 +110,8 @@ model StratifiedEnhancedInternalHex
         iconTransformation(extent={{-110,-90},{-90,-70}})));
 
   BaseClasses.IndirectTankHeatExchanger indTanHex(
+    redeclare final package MediumTan = Medium,
+    redeclare final package MediumHex = MediumHex,
     final nSeg=nSegHex,
     final CHex=CHex,
     final volHexFlu=volHexFlu,
@@ -118,19 +120,17 @@ model StratifiedEnhancedInternalHex
     final THex_nominal=THex_nominal,
     final r_nominal=r_nominal,
     final dExtHex=dExtHex,
-    redeclare final package MediumTan = Medium,
-    redeclare final package MediumHex = MediumHex,
     final dp_nominal=dpHex_nominal,
     final m_flow_nominal=mHex_flow_nominal,
     final energyDynamics=energyDynamicsHex,
+    final energyDynamicsSolid=energyDynamicsHexSolid,
     final massDynamics=massDynamicsHex,
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
     final linearizeFlowResistance=linearizeFlowResistance,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversalHex,
-    final m_flow_small=1e-4*abs(mHex_flow_nominal),
-    final energyDynamicsSolid=energyDynamicsHexSolid)
+    final m_flow_small=1e-4*abs(mHex_flow_nominal))
     "Heat exchanger inside the tank"
      annotation (Placement(
         transformation(
@@ -184,11 +184,11 @@ equation
      end for;
    end for;
   connect(portHex_a, indTanHex.port_a) annotation (Line(
-      points={{-100,-38},{-74,-38},{-74,32},{-77,32}},
+      points={{-100,-38},{-68,-38},{-68,32},{-77,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(indTanHex.port_b, portHex_b) annotation (Line(
-      points={{-97,32},{-100,32},{-100,20},{-76,20},{-76,-80},{-100,-80}},
+      points={{-97,32},{-98,32},{-98,18},{-70,18},{-70,-80},{-100,-80}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -250,6 +250,13 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 2, 2015, by Michael Wetter:<br/>
+Set the default value <code>energyDynamicsHexSolid=energyDynamicsHex</code>
+rather than
+<code>energyDynamicsHexSolid=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code>
+as users are not likely to want different settings.
+</li>
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
 Added parameter <code>energyDynamicsHexSolid</code>.
