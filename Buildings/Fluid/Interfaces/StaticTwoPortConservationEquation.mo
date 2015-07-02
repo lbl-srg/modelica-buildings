@@ -6,7 +6,7 @@ model StaticTwoPortConservationEquation
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
-  parameter Boolean prescribedHeatFlowRate
+  parameter Boolean prescribedHeatFlowRate(start=false)
     "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature."
        annotation(Evaluate=true,
      Dialog(tab="Assumptions",

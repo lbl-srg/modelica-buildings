@@ -7,7 +7,7 @@ model StaticTwoPortHeatMassExchanger
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
-  parameter Boolean prescribedHeatFlowRate
+  parameter Boolean prescribedHeatFlowRate(start=false)
     "Set to true if the heat flow rate is not a function of the component temperature."
    annotation(Evaluate=true,
      Dialog(tab="Assumptions",
