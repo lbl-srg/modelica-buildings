@@ -158,7 +158,6 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
-Buildings/ConstantEffectivenessHex.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -1011,11 +1010,6 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
-Buildings/dsfinal.txt
-Buildings/dsin.txt
-Buildings/dslog.txt
-Buildings/dsmodel.c
-Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log
