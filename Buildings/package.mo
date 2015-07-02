@@ -174,6 +174,19 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System5<br/>
+                        Buildings.Examples.Tutorial.Boiler.System6<br/>
+                        Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Changed control input for <code>conPIDBoi</code> and set
+                        <code>reverseAction=true</code>
+                        to address issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
