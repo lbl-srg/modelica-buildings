@@ -271,6 +271,7 @@ The model implements the configuration shown below.</p>
 This model has been used for a comparative model validation between CONTAM and
 the <code>Buildings</code> library.
 See Wetter (2006) for details of the validation.
+</p>
 <h4>References</h4>
 <p>
 Michael Wetter.

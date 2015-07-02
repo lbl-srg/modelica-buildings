@@ -7,7 +7,7 @@ partial model PartialFlowSensor
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
     "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(group="Advanced"));
+    annotation(Dialog(tab="Advanced"));
 equation
   // mass balance
   port_b.m_flow = -port_a.m_flow;
@@ -29,6 +29,13 @@ species or substance balance, and it has no flow friction.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 19, 2015, by Michael Wetter:<br/>
+Moved <code>m_flow_small</code> to the <code>Advanced</code> tab
+as it usually need not be changed by the user.
+Other models such as heat exchangers also have this parameter
+on the <code>Advanced</code> tab.
+</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

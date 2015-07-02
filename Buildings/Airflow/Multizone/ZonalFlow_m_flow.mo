@@ -17,6 +17,7 @@ This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A</i>.
+</p>
 </html>",
 revisions="<html>
 <ul>

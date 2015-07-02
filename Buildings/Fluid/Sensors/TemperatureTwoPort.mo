@@ -15,7 +15,22 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
+  parameter Boolean transferHeat = false
+    "if true, temperature T converges towards TAmb when no flow"
+    annotation(Evaluate=true, Dialog(group="Heat transfer"));
+  parameter Modelica.SIunits.Temperature TAmb=Medium.T_default
+    "Fixed ambient temperature for heat transfer"
+    annotation(Dialog(enable=transferHeat, group="Heat transfer"));
+  parameter Modelica.SIunits.Time tauHeaTra(min=1)=1200
+    "Time constant for heat transfer, default 20 minutes"
+    annotation(Dialog(enable=transferHeat, group="Heat transfer"));
+
 protected
+  parameter Real tauHeaTraInv(final unit = "1/s")=
+    if tauHeaTra<1E-10 then 0 else 1/tauHeaTra
+    "Dummy parameter to avoid division by tauLoss";
+  parameter Real tauInv(final unit = "1/s") = if tau<1E-10 then 0 else 1/tau
+    "Dummy parameter to avoid division by tau";
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
@@ -49,12 +64,17 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(T) = (TMed-T)*k/tau;
+    if transferHeat then
+      der(T) = (TMed-T)*k*tauInv + (TAmb-T)*tauHeaTraInv;
+    else
+      der(T) = (TMed-T)*k*tauInv;
+    end if;
   else
     T = TMed;
   end if;
 annotation (defaultComponentName="senTem",
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+         graphics={
         Line(points={{-100,0},{92,0}}, color={0,128,255}),
         Ellipse(
           extent={{-20,-58},{20,-20}},
@@ -87,19 +107,63 @@ annotation (defaultComponentName="senTem",
           points={{12,60},{12,-24}},
           color={0,0,0},
           thickness=0.5),
-        Line(points={{0,100},{0,50}}, color={0,0,127})}),
+        Line(points={{0,100},{0,50}}, color={0,0,127}),
+    Line(
+    origin={-77.5,-22.3333},
+    points={{43.5,8.3333},{37.5,0.3333},{21.5,-3.6667},{37.5,-17.6667},{7.5,-17.6667},
+              {19.5,-37.6667},{3.5,-38.3333},{-2.5,-48.3333}},
+      smooth=Smooth.Bezier,
+      visible=transferHeat),
+        Polygon(
+          points={{-90,-80},{-84,-66},{-76,-74},{-90,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0},
+          visible=transferHeat)}),
     Documentation(info="<html>
 <p>
 This model outputs the temperature of the medium in the flow
 between its fluid ports. The sensor does not influence the fluid.
-If the parameter <code>tau</code> is non-zero, then its output
-is computed using a first order differential equation.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+If the parameter <code>tau</code> is non-zero, then its output <i>T</i>
+converges to the temperature of the incoming fluid using
+a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
 Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
+<p>
+If <code>transferHeat = true</code>, then heat transfer with the ambient is 
+approximated and <i>T</i> converges towards the fixed ambient
+temperature <i>T<sub>Amb</sub></i> using a first order approximation
+with a time constant of <code>tauHeaTra</code>.
+Note that no energy is exchanged with the fluid as the
+sensor does not influence the fluid temperature.
+</p>
+<p>
+Setting <code>transferHeat = true</code> is useful, for example,
+if the sensor is used to measure the fluid temperature in
+a system with on/off control on the mass flow rate.
+If <code>transferHeat</code> were <code>false</code>, then the sensor output <i>T</i>
+would remain constant if the mass flow rate is set to zero, and hence
+the controller may never switch the mass flow rate on again.
+</p>
+<p>
+In general, applications in which the sensor output is not used to switch
+the mass flow rate on should set <code>transferHeat=false</code>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 19, 2015 by Michael Wetter:<br/>
+Revised model and documentation.
+</li>
+<li>
+June 18, 2015 by Filip Jorissen:<br/>
+Added option for simulating thermal losses.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that

@@ -174,6 +174,19 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System5<br/>
+                        Buildings.Examples.Tutorial.Boiler.System6<br/>
+                        Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Changed control input for <code>conPIDBoi</code> and set
+                        <code>reverseAction=true</code>
+                        to address issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -184,6 +197,24 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Set parameter <code>prescribedHeatFlowRate=true</code>
                           which causes a simpler energy balance to be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TemperatureTwoPort
+       </td>
+       <td valign=\"top\">Added option to simulate thermal loss, which is
+                        useful if the sensor is used to measure
+                        the fluid temperature in a system with on/off control
+                        for the mass flow rate.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
+       </td>
+       <td valign=\"top\">Corrected sign error in computation of heat loss
+                          that prevents the medium to exceed <code>Medium.T_min</code>
+                          or <code>Medium.T_max</code>. With the previous implementation,
+                          an assertion may be generated unnecessarily rather than
+                          the model guiding against the violation of these bounds.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>

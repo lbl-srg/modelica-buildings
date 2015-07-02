@@ -187,6 +187,7 @@ Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
+</p>
 </html>",
 revisions="<html>
 <ul>

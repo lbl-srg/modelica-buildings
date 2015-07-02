@@ -5,6 +5,7 @@ model ErrorControl "Interface that defines parameters for error control"
   annotation (Documentation(info="<html>
 <p>
 This is an interface that defines parameters used for error control.
+</p>
 <p>
 Dymola does error control on state variables, such as temperature, pressure and
 species concentration.
@@ -13,11 +14,14 @@ This can give large errors in flow variables, as long as the error on the volume
 that are coupled to the flow variables is small.
 Obtaining accurate flow variables can be achieved by imposing an error control
 on the exchanged mass, which can be defined as
+</p>
 <pre>
   dm/dt = m_flow.
 </pre>
+<p>
 By setting <code>enforceErrorControlOnFlow = true</code>, such an equation is imposed
 by models that extend this class.
+</p>
 </html>",
 revisions="<html>
 <ul>

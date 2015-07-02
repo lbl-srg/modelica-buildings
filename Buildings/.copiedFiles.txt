@@ -158,6 +158,7 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
+Buildings/ConstantEffectivenessHex.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -265,6 +266,9 @@ Buildings/Fluid/Delays/Examples/package.mo
 Buildings/Fluid/Delays/Examples/package.order
 Buildings/Fluid/Delays/package.mo
 Buildings/Fluid/Delays/package.order
+Buildings/Fluid/Examples/ResistanceVolumeFlowReversal.mo
+Buildings/Fluid/Examples/package.mo
+Buildings/Fluid/Examples/package.order
 Buildings/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mo
 Buildings/Fluid/FixedResistances/Examples/FixedResistancesParallel.mo
 Buildings/Fluid/FixedResistances/Examples/FixedResistancesSeries.mo
@@ -351,6 +355,7 @@ Buildings/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mo
 Buildings/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mo
+Buildings/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mo
 Buildings/Fluid/MixingVolumes/Examples/package.mo
 Buildings/Fluid/MixingVolumes/Examples/package.order
 Buildings/Fluid/MixingVolumes/MixingVolume.mo
@@ -604,6 +609,9 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_MultipleFloorsVectors.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_TwoFloors.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_ZoneStepResponse.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -680,6 +688,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParamete
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/InverseFlowFunction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos
@@ -706,6 +715,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMass
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsSeries.mos
@@ -821,7 +831,6 @@ Buildings/Resources/src/convertEPW/doc/stylesheet.css
 Buildings/Resources/src/convertEPW/src/ConvertWeatherData.java
 Buildings/Resources/src/convertEPW/src/Makefile
 Buildings/Resources/src/convertEPW/src/Manifest.txt
-Buildings/Resources/weatherdata/STEP_TMY3.mos
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
@@ -1002,5 +1011,12 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
+Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
+Buildings/simulator.log
+Buildings/unitTests.log
