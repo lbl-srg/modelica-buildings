@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.Sensors.Examples.TemperatureDryBulb", stopTime=60, method="dassl", resultFile="TemperatureDryBulb");
 createPlot(id = 5,
  position = {23, 1, 677, 498},
- y = {"masFloRat.T", "temSteSta.T", "temDyn.T"},
+ y = {"masFloRat.T", "temSteSta.T", "temDyn.T", "temDynLoss.T"},
  range = {0.0, 65.0, 10.0, 50.0},
  autoscale = true,
  autoerase = true,
@@ -13,7 +13,7 @@ createPlot(id = 5,
  filename = "TemperatureDryBulb.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}, {255,0,0}, {0,128,0}});
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {28,108,200}});
 createPlot(id = 5,
  position = {23, 1, 677, 162},
  y = {"masFloRat.ports[1].m_flow"},
