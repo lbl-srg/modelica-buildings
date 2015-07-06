@@ -127,11 +127,161 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-   class Version_2_0_1 "Version 2.0.1"
+   class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <p>
-   Version 2.0.1 is ... xxx
+   Version 3.0.0 is ... xxx
+   </p>
+   <!-- New libraries -->
+   <p>
+   The following <b style=\"color:blue\">new libraries</b> have been added:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx
+       </td>
+       </tr>
+   </table>
+   <!-- New components for existing libraries -->
+   <p>
+   The following <b style=\"color:blue\">new components</b> have been added
+   to <b style=\"color:blue\">existing</b> libraries:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td> 
+       </tr>
+   </table>
+   <!-- Backward compatible changes -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+       </td>
+       <td valign=\"top\">Added option to set dynamics of heat exchanger material
+                        separately from the dynamics of the fluid inside the heat
+                        exchanger.
+                        This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#434</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
+                          Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
+
+       </td>
+       <td valign=\"top\">Propagated parameter <code>allowFlowReversal</code>
+                          which can cause a simpler energy balance to be used.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Set <code>start</code> and <code>fixed</code>
+                          attributes in
+                          <code>u[nWri](start=_uStart, each fixed=true)</code>
+                          to avoid a warning in Dymola 2016 about unspecified initial conditions.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
+       </td>
+   </tr>
+   </table>
+   <!-- Non-backward compatible changes to existing components -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">non-backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <!-- Errors that have been fixed -->
+   <p>
+   The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+   that can lead to wrong simulation results):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx
+       </td>
+   </tr>
+   </table>
+   <!-- Uncritical errors -->
+   <p>
+   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+   units are wrong or errors in documentation):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <p>
+   Note:
+   </p>
+   <ul>
+   <li> 
+   xxx
+   </li>
+   </ul>
+   </html>"));
+   end Version_3_0_0;
+
+   class Version_2_1_0 "Version 2.1.0"
+     extends Modelica.Icons.ReleaseNotes;
+       annotation (Documentation(info="<html>
+   <p>
+   Version 2.1.0 is fully compatible with version 2.0.0.
+   It adds the package <code>Buildings.Fluid.FMI</code> that provides containers
+   for exporting thermofluid flow components as FMUs.
+   It also updates the temperature sensor to optionally simulate heat losses,
+   and it contains bug fixes for the trace substance sensor if used without flow reversal.
+   Improvements have been made to various models to reduce the simulation time, and
+   to <code>Buildings.Examples.Tutorial.Boiler</code> to simplify the control implementation.
    </p>
    <!-- New libraries -->
    <p>
@@ -153,20 +303,7 @@ its class name ends with the string <code>Beta</code>.
        </tr>
    </table>
    <!-- New components for existing libraries -->
-   <p>
-   The following <b style=\"color:blue\">new components</b> have been added
-   to <b style=\"color:blue\">existing</b> libraries:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td> 
-       </tr>
-   </table>
+
    <!-- Backward compatible changes -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
@@ -217,23 +354,6 @@ its class name ends with the string <code>Beta</code>.
                           the model guiding against the violation of these bounds.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
-       </td>
-       <td valign=\"top\">Added option to set dynamics of heat exchanger material
-                        separately from the dynamics of the fluid inside the heat
-                        exchanger.
-                        This is for issue
-                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#434</a>.
-       </td>
-   </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
-                          Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
-
-       </td>
-       <td valign=\"top\">Propagated parameter <code>allowFlowReversal</code>
-                          which can cause a simpler energy balance to be used.
-       </td>
-   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
 
 
@@ -245,36 +365,9 @@ its class name ends with the string <code>Beta</code>.
                           as an FMU.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDExchange
-       </td>
-       <td valign=\"top\">Set <code>start</code> and <code>fixed</code>
-                          attributes in
-                          <code>u[nWri](start=_uStart, each fixed=true)</code>
-                          to avoid a warning in Dymola 2016 about unspecified initial conditions.
-                          This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
-       </td>
-   </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
-   <p>
-   The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
-   <b style=\"color:blue\">non-backward compatible</b> way:
-   </p>
-   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-   </table>
+
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -300,31 +393,18 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                           Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
        <td valign=\"top\">Corrected documentation.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li> 
-   xxx
-   </li>
-   </ul>
    </html>"));
-   end Version_2_0_1;
+   end Version_2_1_0;
 
     class Version_2_0_0 "Version 2.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -5085,12 +5165,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="2.0.1",
-versionDate="2015-05-04",
-dateModified = "2015-05-04",
+version="2.1.0",
+versionDate="2015-07-06",
+dateModified = "2015-07-06",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
+ noneFromVersion="2.0.0",
  from(version="1.6",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_2.0.mos"),
  from(version="1.5",
