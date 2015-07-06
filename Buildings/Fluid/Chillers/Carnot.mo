@@ -1,9 +1,10 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(
-    vol1(final prescribedHeatFlowRate = true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
+ extends Interfaces.FourPortHeatMassExchanger(vol1(
+      prescribedHeatFlowRate = true),
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+      prescribedHeatFlowRate = true));
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume
@@ -54,10 +55,8 @@ model Carnot
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
-  Modelica.SIunits.Temperature TCon
-    "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva
-    "Evaporator temperature used to compute efficiency";
+  Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
+  Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
@@ -319,6 +318,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2015 by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=true</code> for <code>vol2</code>.
+</li>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
 Reimplemented the computation of the port states to avoid using
