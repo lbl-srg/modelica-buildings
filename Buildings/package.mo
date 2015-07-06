@@ -4672,6 +4672,9 @@ on the Buildings library.
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_1\">Version 2.0.1</a>(xxx, 2015)
 </li>
 <li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a>(July 6, 2015)
+</li>
+<li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(May 4, 2015)
 </li>
 <li>
