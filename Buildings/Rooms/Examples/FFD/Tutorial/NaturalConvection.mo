@@ -53,9 +53,6 @@ model NaturalConvection "Tutorial for Natural Convection case"
     lat=0.012787839282646,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
-  HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow[nSurBou - 2](each Q_flow=0)
-    annotation (Placement(transformation(extent={{26,-102},
-            {46,-82}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -91,32 +88,12 @@ equation
       points={{120,-110},{76.2,-110},{76.2,-52}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fixedHeatFlow[1].port, roo.surf_surBou[3])
-    annotation (Line(
-      points={{46,-92},{76.2,-92},{76.2,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(fixedHeatFlow[2].port, roo.surf_surBou[4])
-    annotation (Line(
-      points={{46,-92},{76.2,-92},{76.2,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(fixedHeatFlow[3].port, roo.surf_surBou[5])
-    annotation (Line(
-      points={{46,-92},{76.2,-92},{76.2,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(fixedHeatFlow[4].port, roo.surf_surBou[6])
-    annotation (Line(
-      points={{46,-92},{76.2,-92},{76.2,-52}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
       points={{140,50},{154,50},{154,-20.1},{97.9,-20.1}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-180},{240,100}},
+  annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
@@ -207,13 +184,10 @@ This block is used to combine three scalar signals to a vector. Name it as <code
 Two models are needed to specify the temperatures on the east and west walls.
 Name them as <code>TeasWal</code> and <code>TwesWal</code>, respectively.
 </li>
-<li>
-<a href=\"modelica://Buildings.HeatTransfer.Source.FixedHeatFlow\">Buildings.HeatTransfer.Source.FixedHeatFlow</a>.
-This model is used to specify that the other four walls are adiabatic. Please note that it is necessary
-to declare it as a vector with <i>4</i> elements.
-Define it as <code>fixedHeatFlow[nSurBou - 2]</code>.
-</li>
 </ul>
+Note that for the other four walls with adiabatic boundary conditions, we do not need to specify
+a zero heat flow boundary condition because the heat flow rate transfered through a heat port
+from the outside is zero if the heat port is not connected from the outside.
 </li>
 <li>
 <p>
@@ -273,7 +247,7 @@ surBou(
 </li>
 <li>
 <p>
-Connect components as shown in the figure below.
+Connect the component as shown in the figure below.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/Tutorial/NaturalConvectionModel.png\"/>
@@ -284,9 +258,6 @@ Set the values for the following components:
 <ul>
 <li>
 Set <code>qRadGai_flow</code>, <code>qConGai_flow</code> and <code>qLatGai_flow</code> to <i>0</i>.
-</li>
-<li>
-Set <code>fixedHeatFlow</code> to <i>0</i>.
 </li>
 <li>
 Set <code>TEasWal</code> to <i>273.15</i> Kelvin.
@@ -337,7 +308,7 @@ Revise the FFD parameter input file <code>NaturalConvection.ffd</code> (an examp
   init.w 0.0 // Initial condition for velocity w
 </pre>
 <p>
-Please note that some of the physical properties were manipulated to obtaine the desired Rayleigh Number of <i>10<sup>5</sup></i>.
+Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</sup></i>.
 </p>
 </li>
 <li>
@@ -356,6 +327,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+July 7, 2015 by Michael Wetter:<br/>
+Removed model for prescribed heat flow boundary condition
+as the value was zero and hence the model is not needed.
+This is for <a href=\"/https://github.com/lbl-srg/modelica-buildings/issues/439\">issue 439</a>.
+</li>
 <li>
 July 25, 2014, by Michael Wetter:<br/>
 Revised documentation.
