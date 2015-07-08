@@ -3,10 +3,10 @@ block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
   extends TwoPort(redeclare package Medium = Buildings.Media.Air);
 
-  parameter Modelica.SIunits.Volume V(start=1) "Volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
+  parameter Modelica.SIunits.Volume V=1 "Volume";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(start=100)
+  parameter Modelica.SIunits.Pressure dp_nominal=100
     "Nominal pressure drop";
 
   Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
