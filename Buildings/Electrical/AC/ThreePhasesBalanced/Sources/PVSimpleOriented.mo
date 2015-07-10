@@ -11,6 +11,10 @@ model PVSimpleOriented "Model of a simple PV panel with orientation"
     Documentation(revisions="<html>
 <ul>
 <li>
+July 9, 2015, by Michael Wetter:<br/>
+Added option to use power factor from the input connector.
+</li>
+<li>
 August 24, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>

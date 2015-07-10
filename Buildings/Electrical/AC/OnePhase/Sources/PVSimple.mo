@@ -7,8 +7,25 @@ model PVSimple "Simple PV model"
     V_nominal(start = 110));
   parameter Boolean linearized=false
     "If =true, introduce a linearization in the load";
+
+  parameter Boolean use_pf_in=false
+    "If true, the power factor is defined by an input";
+
+  Modelica.Blocks.Interfaces.RealInput pf_in(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in) "Power factor"
+                   annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,60}), iconTransformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,80})));
+
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    final use_pf_in=use_pf_in,
     final pf=pf,
     final V_nominal=V_nominal,
     final P_nominal=0,
@@ -35,6 +52,8 @@ equation
       points={{1,0},{-20,0}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(pf_in, load.pf_in) annotation (Line(points={{-120,60},{-20,60},{-20,20},
+          {-10,20},{-10,6},{-20,6}}, color={0,0,127}));
   annotation (
 defaultComponentName="pv",
 Documentation(info="<html>
@@ -73,6 +92,10 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 9, 2015, by Michael Wetter:<br/>
+Added option to use power factor from the input connector.
+</li>
+<li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.
 </li>
@@ -81,5 +104,14 @@ August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Text(
+          extent={{-181,104},{-78,140}},
+          lineColor={0,0,127},
+          textString="pf",
+          visible=use_pf_in)}));
 end PVSimple;

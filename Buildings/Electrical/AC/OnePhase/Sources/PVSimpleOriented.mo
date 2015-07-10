@@ -5,21 +5,51 @@ model PVSimpleOriented "Simple PV model with orientation"
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
       V_nominal(start = 110),
       redeclare Interfaces.Terminal_p terminal,
-      redeclare replaceable Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel(
-        pf=pf,
-        eta_DCAC=eta_DCAC,
-        V_nominal=V_nominal,
-        linearized=linearized));
+      redeclare replaceable Buildings.Electrical.AC.OnePhase.Sources.PVSimple panel
+        constrainedby Buildings.Electrical.AC.OnePhase.Sources.PVSimple(
+          final pf=pf,
+          final use_pf_in = use_pf_in,
+          final eta_DCAC=eta_DCAC,
+          V_nominal=V_nominal,
+          final linearized=linearized));
   parameter Boolean linearized=false "If =true, linearize the load";
+
+  parameter Boolean use_pf_in=false
+    "If true, the power factor is defined by an input";
+
+  Modelica.Blocks.Interfaces.RealInput pf_in(
+    min=0,
+    max=1,
+    unit="1") if (use_pf_in) "Power factor"
+                   annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,60}), iconTransformation(
+        extent={{20,-20},{-20,20}},
+        rotation=180,
+        origin={-120,80})));
+
+equation
+  connect(panel.pf_in, pf_in) annotation (Line(points={{-12,8},{-30,8},{-80,8},{
+          -80,28},{-96,28},{-96,60},{-120,60}}, color={0,0,127}));
   annotation (
 defaultComponentName="pv",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
-        Line(points={{-90,0},{-59,0}}, color={0,0,0})}),
+        Line(points={{-90,0},{-59,0}}, color={0,0,0}),
+        Text(
+          extent={{-181,104},{-78,140}},
+          lineColor={0,0,127},
+          textString="pf",
+          visible=use_pf_in)}),
     Documentation(revisions="<html>
     <ul>
+<li>
+July 9, 2015, by Michael Wetter:<br/>
+Added option to use power factor from the input connector.
+</li>    
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.
@@ -62,5 +92,7 @@ specified by the surface tilt, latitude and azimuth.
 This active power is equal to <i>P</i>, while the reactive power is equal to <i>Q = P &nbsp; tan(acos(pf))</i>,
 where <i>pf</i> is the power factor.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PVSimpleOriented;

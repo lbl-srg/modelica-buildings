@@ -2,7 +2,6 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Sources;
 model PVSimple "Model of a simple PV panel"
   extends Buildings.Electrical.AC.OnePhase.Sources.PVSimple(
     redeclare Interfaces.Terminal_p terminal,
-    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Capacitive load,
     V_nominal(start=480));
 
   annotation (
@@ -23,5 +22,7 @@ See <a href=\"modelica://Buildings.Electrical.AC.OnePhase.Sources.PVSimple\">
 Buildings.Electrical.AC.OnePhase.Sources.PVSimple</a> for
 more information.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PVSimple;
