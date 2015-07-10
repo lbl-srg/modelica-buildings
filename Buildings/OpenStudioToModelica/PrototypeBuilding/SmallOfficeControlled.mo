@@ -93,7 +93,7 @@ public
     eta_DCAC=0.89,
     pf=pfPV,
     use_pf_in=use_pfControl) "PV model"
-    annotation (Placement(transformation(extent={{18,50},{-2,70}})));
+    annotation (Placement(transformation(extent={{6,50},{-14,70}})));
   Electrical.AC.ThreePhasesBalanced.Loads.Inductive loa(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=V_nominal,
@@ -157,7 +157,7 @@ public
     y_start=0,
     k=-1) "Filter to decouple dTRoo/dt from electrical network"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Controls.SetPoints.Table conPF(table=[1.08,pf; 1.10,max(pf, 0.98)]) if
+  Controls.SetPoints.Table conPF(table=[1.08,pfPV; 1.10,min(pfPV, 0.5)]) if
        use_pfControl "Controller for power factor of load"
     annotation (Placement(transformation(extent={{74,70},{54,90}})));
   Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen(V_nominal=V_nominal,
@@ -167,8 +167,9 @@ public
     initType=Modelica.Blocks.Types.Init.InitialState,
     T=10,
     k=1,
-    y_start=pf) if use_pfControl "Filter for power factor"
-    annotation (Placement(transformation(extent={{44,74},{32,86}})));
+    y_start=pfPV) if
+                   use_pfControl "Filter for power factor"
+    annotation (Placement(transformation(extent={{40,70},{20,90}})));
 equation
   connect(deltaTsp, dTSp);
   if not useDeltaTSP then
@@ -186,11 +187,12 @@ equation
   connect(noAct.roomConnector_out, bui.rooms_conn[6]) annotation (Line(points={{-40,50},
           {-24,50},{-24,4.66667},{-20,4.66667}},         color={0,0,120}));
   connect(weaBus, pv.weaBus) annotation (Line(
-      points={{-100,80},{8,80},{8,69}},
+      points={{-100,80},{-4,80},{-4,69}},
       color={255,204,51},
       thickness=0.5));
-  connect(pv.terminal, term) annotation (Line(points={{18,60},{94,60},{94,0},{110,
-          0}}, color={0,120,120}));
+  connect(pv.terminal, term) annotation (Line(points={{6,60},{94,60},{94,0},{
+          110,0}},
+               color={0,120,120}));
   connect(loa.terminal, term) annotation (Line(points={{90,0},{90,0},{110,0}},
                     color={0,120,120}));
   connect(zonCtr.Q_flow, cooHeaLoad.u)
@@ -200,8 +202,9 @@ equation
     annotation (Line(points={{-49,-50},{-49,-50},{-36,-50}},color={0,0,127}));
   connect(cooPowToElePow.P_el, PHvac) annotation (Line(points={{-19,-50},{80,-50},
           {80,-60},{110,-60}}, color={0,0,127}));
-  connect(pv.P, PPv) annotation (Line(points={{-3,67},{-96,67},{-96,-96},{80,-96},
-          {80,-80},{110,-80}}, color={0,0,127}));
+  connect(pv.P, PPv) annotation (Line(points={{-15,67},{-96,67},{-96,-96},{80,
+          -96},{80,-80},{110,-80}},
+                               color={0,0,127}));
   connect(zonCtr.PEl, elPow.u)
     annotation (Line(points={{-31,-7},{-31,-30},{-32,-30},{-88,-30},{-88,-80},{-82,
           -80}},                                            color={0,0,127}));
@@ -234,9 +237,10 @@ equation
           {84,87},{87,87}},
                 color={0,0,127}));
   connect(PPfFil.u, conPF.y)
-    annotation (Line(points={{45.2,80},{53,80}}, color={0,0,127}));
-  connect(PPfFil.y, pv.pf_in) annotation (Line(points={{31.4,80},{26,80},{26,68},
-          {20,68}}, color={0,0,127}));
+    annotation (Line(points={{42,80},{42,80},{53,80}},
+                                                 color={0,0,127}));
+  connect(PPfFil.y, pv.pf_in) annotation (Line(points={{19,80},{14,80},{14,68},
+          {8,68}},  color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}},
         initialScale=0.2)),     Icon(coordinateSystem(preserveAspectRatio=false,
