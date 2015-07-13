@@ -4672,7 +4672,7 @@ on the Buildings library.
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a>(xxx, 2015)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a>(July 6, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a>(July 13, 2015)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(May 4, 2015)
@@ -5168,9 +5168,9 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="2.1.0",
-versionDate="2015-07-06",
-dateModified = "2015-07-06",
+version="3.0.0",
+versionDate="2015-07-13",
+dateModified = "2015-07-13",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
