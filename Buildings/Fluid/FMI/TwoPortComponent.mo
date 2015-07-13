@@ -84,14 +84,14 @@ sets a constant pressure. In such a situation, use
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPort\">
 Buildings.Fluid.FMI.TwoPort</a>
 together with
-<a href=\"modelica://Buildings.Fluid.FMI.Inlet\">
-Buildings.Fluid.FMI.Inlet</a>
+<a href=\"modelica://Buildings.Fluid.FMI.InletAdaptor\">
+Buildings.Fluid.FMI.InletAdaptor</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
-Buildings.Fluid.FMI.Outlet</a>
+<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
+Buildings.Fluid.FMI.OutletAdaptor</a>
 and set the pressure to be equal to the port <code>p</code> of
-<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
-Buildings.Fluid.FMI.Outlet</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
+Buildings.Fluid.FMI.OutletAdaptor</a>.
 </p>
 </html>", revisions="<html>
 <ul>
