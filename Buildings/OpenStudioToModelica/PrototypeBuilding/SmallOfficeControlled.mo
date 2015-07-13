@@ -11,6 +11,10 @@ model SmallOfficeControlled
   parameter Modelica.SIunits.Temperature T_sp = 273.15 + 22
     "Set point temperature for the thermal zones";
   parameter Modelica.SIunits.Area A "Surface area of the PV";
+  parameter Real fAct=0.9 "Fraction of surface area with active solar cells";
+  parameter Real eta=0.12 "PV module conversion efficiency";
+  parameter Real eta_DCAC=0.9 "Efficiency of DC/AC conversion";
+
   parameter Modelica.SIunits.Angle til_pv "Titl angle of the PVs";
   parameter Modelica.SIunits.Angle azi_pv "Azimuth angle of the PVs";
   parameter Real pfPV=0.8 "Power factor of the pv after dc/ac conversion";
@@ -82,7 +86,7 @@ public
 
   InternalHeatGains.ZeroInternalHeatGain noAct
     "Boundary conditions for Attic zone (not controlled)"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 
   Electrical.AC.ThreePhasesBalanced.Sources.PVSimpleOriented pv(
     A=A,
@@ -90,18 +94,20 @@ public
     lat=lat,
     azi=azi_pv,
     V_nominal=V_nominal,
-    eta_DCAC=0.89,
     pf=pfPV,
-    use_pf_in=use_pfControl) "PV model"
-    annotation (Placement(transformation(extent={{6,50},{-14,70}})));
+    use_pf_in=false,
+    eta_DCAC=eta_DCAC,
+    fAct=fAct,
+    eta=eta) "PV model"
+    annotation (Placement(transformation(extent={{58,76},{38,96}})));
   Electrical.AC.ThreePhasesBalanced.Loads.Inductive loa(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=V_nominal,
     pf=pf,
     initMode=Buildings.Electrical.Types.InitMode.zero_current,
     use_pf_in=false) "Electric load representing the building"
-                                                     annotation (Placement(transformation(extent={{90,-10},
-            {70,10}})));
+                                                     annotation (Placement(transformation(extent={{80,-10},
+            {60,10}})));
   Electrical.AC.ThreePhasesBalanced.Interfaces.Terminal_n term
     "Electric connector of the building"                                                            annotation (
       Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(
@@ -153,23 +159,36 @@ public
     annotation (Placement(transformation(extent={{-64,-22},{-52,-10}})));
   Modelica.Blocks.Continuous.FirstOrder PEleFil(
     initType=Modelica.Blocks.Types.Init.InitialState,
-    T=10,
     y_start=0,
-    k=-1) "Filter to decouple dTRoo/dt from electrical network"
+    k=-1,
+    T=600) "Filter to decouple dTRoo/dt from electrical network"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Controls.SetPoints.Table conPF(table=[1.08,pfPV; 1.10,min(pfPV, 0.5)]) if
-       use_pfControl "Controller for power factor of load"
-    annotation (Placement(transformation(extent={{74,70},{54,90}})));
   Electrical.AC.ThreePhasesBalanced.Sensors.Probe sen(V_nominal=V_nominal,
       perUnit=true) "Voltage probe" annotation (Placement(transformation(extent=
-           {{10,-10},{-10,10}}, origin={94,84})));
-  Modelica.Blocks.Continuous.FirstOrder PPfFil(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    T=10,
-    k=1,
-    y_start=pfPV) if
-                   use_pfControl "Filter for power factor"
-    annotation (Placement(transformation(extent={{40,70},{20,90}})));
+           {{10,-10},{-10,10}}, origin={0,130})));
+  Electrical.AC.ThreePhasesBalanced.Loads.Capacitive reaPow(
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+    V_nominal=V_nominal,
+    initMode=Buildings.Electrical.Types.InitMode.zero_current,
+    use_pf_in=false,
+    pf=0.005) if use_pfControl "Electric load representing the building"
+    annotation (Placement(transformation(extent={{82,148},{58,172}})));
+  Controls.Continuous.LimPID conPID(
+    reverseAction=true,
+    y_start=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    Ti=60,
+    k=10) if
+        use_pfControl " Controller for reactive power"
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
+  Modelica.Blocks.Math.Gain gain(k=1000*A*fAct*eta*eta_DCAC/3/100) if
+        use_pfControl "Gain for reactive power"
+    annotation (Placement(transformation(extent={{20,150},{40,170}})));
+  Modelica.Blocks.Sources.Constant puMax(k=1.09) if  use_pfControl
+    "Maximum voltage pu"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+
 equation
   connect(deltaTsp, dTSp);
   if not useDeltaTSP then
@@ -184,16 +203,15 @@ equation
       extent={{6,3},{6,3}}));
   connect(zonCtr.roomConnector_out, bui.rooms_conn[1:5])
     annotation (Line(points={{-28,4},{-28,4},{-20,4}}, color={0,0,120}));
-  connect(noAct.roomConnector_out, bui.rooms_conn[6]) annotation (Line(points={{-40,50},
-          {-24,50},{-24,4.66667},{-20,4.66667}},         color={0,0,120}));
+  connect(noAct.roomConnector_out, bui.rooms_conn[6]) annotation (Line(points={{-40,40},
+          {-24,40},{-24,4.66667},{-20,4.66667}},         color={0,0,120}));
   connect(weaBus, pv.weaBus) annotation (Line(
-      points={{-100,80},{-4,80},{-4,69}},
+      points={{-100,80},{-60,80},{-60,104},{48,104},{48,95}},
       color={255,204,51},
       thickness=0.5));
-  connect(pv.terminal, term) annotation (Line(points={{6,60},{94,60},{94,0},{
-          110,0}},
-               color={0,120,120}));
-  connect(loa.terminal, term) annotation (Line(points={{90,0},{90,0},{110,0}},
+  connect(pv.terminal, term) annotation (Line(points={{58,86},{94,86},{94,0},{110,
+          0}}, color={0,120,120}));
+  connect(loa.terminal, term) annotation (Line(points={{80,0},{80,0},{110,0}},
                     color={0,120,120}));
   connect(zonCtr.Q_flow, cooHeaLoad.u)
     annotation (Line(points={{-29,-7},{-29,-34},{-28,-34},{-78,-34},{-78,-50},{-72,
@@ -202,9 +220,8 @@ equation
     annotation (Line(points={{-49,-50},{-49,-50},{-36,-50}},color={0,0,127}));
   connect(cooPowToElePow.P_el, PHvac) annotation (Line(points={{-19,-50},{80,-50},
           {80,-60},{110,-60}}, color={0,0,127}));
-  connect(pv.P, PPv) annotation (Line(points={{-15,67},{-96,67},{-96,-96},{80,
-          -96},{80,-80},{110,-80}},
-                               color={0,0,127}));
+  connect(pv.P, PPv) annotation (Line(points={{37,93},{20,93},{20,-76},{20,-80},
+          {110,-80}},          color={0,0,127}));
   connect(zonCtr.PEl, elPow.u)
     annotation (Line(points={{-31,-7},{-31,-30},{-32,-30},{-88,-30},{-88,-80},{-82,
           -80}},                                            color={0,0,127}));
@@ -228,23 +245,26 @@ equation
     annotation (Line(points={{-71,-16},{-71,-16},{-65.2,-16}},
                                                      color={0,0,127}));
   connect(PEleFil.y, loa.Pow) annotation (Line(points={{41,-20},{48,-20},{48,0},
-          {48,-20},{48,0},{70,0}},        color={0,0,127}));
+          {48,-20},{48,0},{60,0}},        color={0,0,127}));
   connect(add.y, PEleFil.u)
     annotation (Line(points={{10.6,-20},{18,-20}},          color={0,0,127}));
-  connect(sen.term, loa.terminal) annotation (Line(points={{94,75},{94,20},{94,0},
-          {90,0}},            color={0,120,120}));
-  connect(conPF.u, sen.V) annotation (Line(points={{76,80},{80,80},{80,86},{84,86},
-          {84,87},{87,87}},
-                color={0,0,127}));
-  connect(PPfFil.u, conPF.y)
-    annotation (Line(points={{42,80},{42,80},{53,80}},
-                                                 color={0,0,127}));
-  connect(PPfFil.y, pv.pf_in) annotation (Line(points={{19,80},{14,80},{14,68},
-          {8,68}},  color={0,0,127}));
+  connect(puMax.y, conPID.u_s)
+    annotation (Line(points={{-59,160},{-42,160}},           color={0,0,127}));
+  connect(sen.V, conPID.u_m)
+    annotation (Line(points={{-7,133},{-30,133},{-30,148}}, color={0,0,127}));
+  connect(reaPow.terminal, pv.terminal) annotation (Line(points={{82,160},{94,
+          160},{94,86},{58,86}},
+                            color={0,120,120}));
+  connect(conPID.y, gain.u)
+    annotation (Line(points={{-19,160},{18,160}},         color={0,0,127}));
+  connect(sen.term, term) annotation (Line(points={{0,121},{0,112},{94,112},{94,
+          0},{110,0}}, color={0,120,120}));
+  connect(gain.y, reaPow.Pow)
+    annotation (Line(points={{41,160},{58,160}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}},
+            -100},{100,180}},
         initialScale=0.2)),     Icon(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}},
+          extent={{-100,-100},{100,180}},
         initialScale=0.2),                 graphics={
         Polygon(
           points={{0,98},{-30,68},{50,28},{80,58},{0,98}},

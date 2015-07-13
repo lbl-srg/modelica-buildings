@@ -13,7 +13,7 @@ model RenewableSources
     "Nominal power consumption of plug loads and lights";
   parameter Modelica.SIunits.Power PLoa_nominal = P_hvac_nominal/COP_nominal + PPluLig_nominal
     "Nominal power of a building load";
-  parameter Modelica.SIunits.Power PWin = PLoa_nominal*5
+  parameter Modelica.SIunits.Power PWin = PLoa_nominal*3
     "Nominal power of the wind turbine";
   parameter Modelica.SIunits.Power PSun = PLoa_nominal*2.0
     "Nominal power of the PV";
@@ -99,11 +99,11 @@ model RenewableSources
     annotation (Placement(transformation(extent={{216,10},{236,30}})));
   Electrical.AC.ThreePhasesBalanced.Lines.Line line8(
     V_nominal=V_nominal,
-    P_nominal=PWin,
     mode=Buildings.Electrical.Types.CableMode.commercial,
     redeclare Buildings.Electrical.Transmission.MediumVoltageCables.Generic
           commercialCable = Buildings.Electrical.Transmission.MediumVoltageCables.Annealed_Al_10(),
-    l=300) "Electrical line"
+    l=300,
+    P_nominal=PWin) "Electrical line"
     annotation (Placement(transformation(extent={{150,18},{170,38}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -343,61 +343,68 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dot));
-  connect(bui3.term, line2.terminal_p) annotation (Line(points={{27,50},{27,50},
-          {20,50},{20,12},{2,12}}, color={0,120,120}));
+  connect(bui3.term, line2.terminal_p) annotation (Line(points={{27,47.1429},{
+          27,50},{20,50},{20,12},{2,12}},
+                                   color={0,120,120}));
   connect(weaDat.weaBus, bui1.weaBus) annotation (Line(
-      points={{-80,84},{-32,84},{-32,58}},
+      points={{-80,84},{-32,84},{-32,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, bui3.weaBus) annotation (Line(
-      points={{-80,84},{-26,84},{48,84},{48,58}},
+      points={{-80,84},{-26,84},{48,84},{48,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(line3.terminal_p, bui5.term) annotation (Line(points={{54,12},{100,12},
-          {100,50},{107,50}}, color={0,120,120}));
-  connect(line4.terminal_p,bui7. term) annotation (Line(points={{162,12},{180,12},
-          {180,50},{187,50}},
+          {100,47.1429},{107,47.1429}},
+                              color={0,120,120}));
+  connect(line4.terminal_p,bui7. term) annotation (Line(points={{162,12},{180,
+          12},{180,47.1429},{187,47.1429}},
                             color={0,120,120}));
   connect(PSol.y, ESol.u)
     annotation (Line(points={{263,76},{263,76},{280,76}}, color={0,0,127}));
   connect(weaDat.weaBus,bui7. weaBus) annotation (Line(
-      points={{-80,84},{16,84},{208,84},{208,58}},
+      points={{-80,84},{16,84},{208,84},{208,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, bui5.weaBus) annotation (Line(
-      points={{-80,84},{-2,84},{128,84},{128,58}},
+      points={{-80,84},{-2,84},{128,84},{128,52.8571}},
       color={255,204,51},
       thickness=0.5));
-  connect(line5.terminal_p, bui2.term) annotation (Line(points={{-26,28},{-20,28},
-          {-20,50},{-13,50}}, color={0,120,120}));
+  connect(line5.terminal_p, bui2.term) annotation (Line(points={{-26,28},{-20,
+          28},{-20,47.1429},{-13,47.1429}},
+                              color={0,120,120}));
   connect(line6.terminal_p, bui4.term) annotation (Line(points={{16,28},{60,28},
-          {60,50},{67,50}}, color={0,120,120}));
-  connect(line1.terminal_p, bui1.term) annotation (Line(points={{-60,20},{-60,20},
-          {-60,50},{-53,50}}, color={0,120,120}));
+          {60,47.1429},{67,47.1429}},
+                            color={0,120,120}));
+  connect(line1.terminal_p, bui1.term) annotation (Line(points={{-60,20},{-60,
+          20},{-60,47.1429},{-53,47.1429}},
+                              color={0,120,120}));
   connect(sen8.term, winTur.terminal) annotation (Line(points={{200,-1},{200,-1},
           {200,20},{216,20}},color={0,120,120}));
   connect(weaDat.weaBus, bui2.weaBus) annotation (Line(
-      points={{-80,84},{-36,84},{8,84},{8,58}},
+      points={{-80,84},{-36,84},{8,84},{8,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, bui4.weaBus) annotation (Line(
-      points={{-80,84},{4,84},{88,84},{88,58}},
+      points={{-80,84},{4,84},{88,84},{88,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, bui6.weaBus) annotation (Line(
-      points={{-80,84},{44,84},{168,84},{168,58}},
+      points={{-80,84},{44,84},{168,84},{168,52.8571}},
       color={255,204,51},
       thickness=0.5));
   connect(line7.terminal_p, line8.terminal_n)
     annotation (Line(points={{90,28},{120,28},{150,28}}, color={0,120,120}));
   connect(line7.terminal_p, bui6.term) annotation (Line(points={{90,28},{140,28},
-          {140,50},{147,50}}, color={0,120,120}));
+          {140,47.1429},{147,47.1429}},
+                              color={0,120,120}));
   connect(line8.terminal_p, winTur.terminal) annotation (Line(points={{170,28},{
           200,28},{200,20},{216,20}}, color={0,120,120}));
   connect(sen4.term, line7.terminal_n) annotation (Line(points={{60,-1},{60,20},
           {60,28},{70,28}}, color={0,120,120}));
   connect(sen5.term, bui5.term)
-    annotation (Line(points={{100,-1},{100,50},{107,50}}, color={0,120,120}));
+    annotation (Line(points={{100,-1},{100,47.1429},{107,47.1429}},
+                                                          color={0,120,120}));
   connect(sen6.term, line8.terminal_n)
     annotation (Line(points={{140,-1},{140,28},{150,28}}, color={0,120,120}));
   connect(sen2.term, line6.terminal_n)

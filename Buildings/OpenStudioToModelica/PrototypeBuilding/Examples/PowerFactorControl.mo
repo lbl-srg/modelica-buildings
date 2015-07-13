@@ -126,14 +126,16 @@ extends Modelica.Icons.Example;
     V_nominal=V_nominal,
     initMode=Buildings.Electrical.Types.InitMode.zero_current,
     use_pf_in=false,
-    pf=0.01) "Electric load representing the building"
+    pf=0.001) "Electric load representing the building"
                                                      annotation (Placement(transformation(extent={{158,48},
             {182,72}})));
   Controls.Continuous.LimPID conPID(
     k=100,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true,
-    Ti=1)
+    y_start=0,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=10,
+    initType=Modelica.Blocks.Types.InitPID.InitialOutput)
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Modelica.Blocks.Math.Gain gain(k=0.0001*1e3*500)
     annotation (Placement(transformation(extent={{220,100},{240,120}})));
@@ -207,12 +209,12 @@ equation
           {246,60},{182,60}},      color={0,0,127}));
   connect(conPID.y, PPfFil1.u)
     annotation (Line(points={{141,110},{150,110},{158,110}}, color={0,0,127}));
-  connect(PPfFil1.y, gain.u) annotation (Line(points={{181,110},{199.5,110},{218,
-          110}}, color={0,0,127}));
   connect(const5.y, pv.G) annotation (Line(points={{261,-110},{188,-110},{50,
           -110},{50,52},{20,52},{20,40}}, color={0,0,127}));
   connect(const5.y, pv1.G) annotation (Line(points={{261,-110},{158,-110},{50,
           -110},{50,-70},{20,-70},{20,-80}}, color={0,0,127}));
+  connect(PPfFil1.y, gain.u)
+    annotation (Line(points={{181,110},{200,110},{218,110}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,
             -160},{300,160}})),
     experiment(
