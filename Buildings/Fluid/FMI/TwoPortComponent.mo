@@ -14,13 +14,13 @@ block TwoPortComponent
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected
-  Inlet bouIn(
+  Buildings.Fluid.FMI.InletAdaptor bouIn(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Outlet bouOut(
+  Buildings.Fluid.FMI.OutletAdaptor bouOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary component for outlet"
