@@ -406,15 +406,14 @@ thermal expansion of the fluid.</p>
 </div>
 <p>When this model is used with a medium model that models
 <a class="reference internal" href="glossary.html#term-compressible-flow"><em class="xref std std-term">compressible flow</em></a>, such as
-the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir">Buildings.Media.IdealGases.SimpleAir</a>,
+the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air">Buildings.Media.Air</a>,
 then the model is well defined because the gas medium implements the
 equation <span class="math">\(p=\rho \, R \, T\)</span>,
 where <span class="math">\(p\)</span> is the static pressure, <span class="math">\(\rho\)</span> is the mass density,
 <span class="math">\(R\)</span> is the gas constant and <span class="math">\(T\)</span> is the absolute temperature.</p>
 <p>However, when the medium model is changed to a model that models
 <a class="reference internal" href="glossary.html#term-incompressible-flow"><em class="xref std std-term">incompressible flow</em></a>, such as
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir">Buildings.Media.GasesConstantDensity.SimpleAir</a> or
-<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater">Buildings.Media.ConstantPropertyLiquidWater</a>,
+<a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water">Buildings.Media.Water</a>,
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:</p>
@@ -425,7 +424,7 @@ The number of scalar Real unknown elements are 58.
 The number of scalar Real equation elements are 58.
 </pre></div>
 </div>
-<p>Similarly, if the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph">Modelica.Media.Water.WaterIF97OnePhase_ph</a>,
+<p>Similarly, if the medium model <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity">Buildings.Media.Specialized.Water.TemperatureDependentDensity</a>,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature
