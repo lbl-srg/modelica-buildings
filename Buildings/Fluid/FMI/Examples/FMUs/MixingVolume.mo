@@ -7,11 +7,11 @@ block MixingVolume "Container to export a control volume as an FMU"
     "Nominal mass flow rate";
 
 protected
-  Inlet bouIn(
+  Buildings.Fluid.FMI.InletAdaptor bouIn(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Outlet bouOut(
+  Buildings.Fluid.FMI.OutletAdaptor bouOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal) "Boundary component for outlet"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
