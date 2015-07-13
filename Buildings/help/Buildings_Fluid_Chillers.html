@@ -280,10 +280,11 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 <div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Carnot <span style="color: #006400; font-weight: normal; font-style: normal;">
   &quot;Chiller with performance curve adjusted based on Carnot efficiency&quot;</span>
  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
->Interfaces.FourPortHeatMassExchanger</a>(
-    vol1(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>prescribedHeatFlowRate = true),
+>Interfaces.FourPortHeatMassExchanger</a>(vol1(
+      prescribedHeatFlowRate = true),
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</a> vol2);
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol2(
+      prescribedHeatFlowRate = true));
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="Buildings_Fluid_Types.html#Buildings.Fluid.Types.EfficiencyInput"
 >Buildings.Fluid.Types.EfficiencyInput</a> effInpEva=
@@ -331,12 +332,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> P(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>quantity=&quot;Power&quot;, unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Electric power consumed by compressor&quot;</span>;
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</a> TCon <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Condenser temperature used to compute efficiency&quot;</span>;
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</a> TEva <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Evaporator temperature used to compute efficiency&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Medium1.Temperature</a> TCon <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Condenser temperature used to compute efficiency&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Medium2.Temperature</a> TEva <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Evaporator temperature used to compute efficiency&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
   <a href="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
 >Buildings.HeatTransfer.Sources.PrescribedHeatFlow</a> preHeaFloEva <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -1026,7 +1025,7 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:20:14 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:23:58 2015.
 </address>
 </body>
 </html>

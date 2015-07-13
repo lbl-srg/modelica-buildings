@@ -1,0 +1,492 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.FMI.Examples</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- begin header -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- end header -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI.Examples"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.Examples</h2>
+<p>
+<b>Collection of models that illustrate model use and test models</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>
+Buildings.Fluid.FMI</a>.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examples.HeaterFanS.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFan"
+>HeaterFan</a>
+</td>
+<td>Heater and fan in series, model configured to allow flow reversal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examples.HeaterFanS.png" alt="Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven"
+>HeaterFanPressureDriven</a>
+</td>
+<td>Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examples.HeaterFanS.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow"
+>HeaterFan_noReverseFlow</a>
+</td>
+<td>Heater and fan in series, model configured to not allow flow reversal</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examples.FMUsS.png" alt="Buildings.Fluid.FMI.Examples.FMUs" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>FMUs</a>
+</td>
+<td>Collection of models that can be exported as FMUs</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeaterFan<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examples.HeaterFanI.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.HeaterFan"></a><a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples"
+>Buildings.Fluid.FMI.Examples</a>.HeaterFan</h2>
+<p>
+<b>Heater and fan in series, model configured to allow flow reversal</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examples.HeaterFanD.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to configure a model with a heater
+and a fan that causes a pressure rise in the air stream.
+Note that the mass flow rate and the absolute pressure are
+set by the component <code>sou</code>.
+Therefore, the fan simply increases the pressure of the medium,
+and it also computes how much power is needed for this pressure rise,
+which is an input to the fan model.
+</p>
+<p>
+For a model with that computes the mass flow rate based on the pressure drop, see
+<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven"
+>
+Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven</a>.
+</p>
+<p>
+For this example, the models are not exported as FMUs. However, the
+thermofluid flow models are wrapped using input/output blocks.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>Q_flow_nominal/1000/10</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>2000</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nominal</td><td>1000</td><td>Heat flow rate at u=1, positive for heating [W]</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> HeaterFan <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Heater and fan in series, model configured to allow flow reversal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=Q_flow_nominal/1000/10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=2000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow rate at u=1, positive for heating&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.Fan"
+>FMUs.Fan</a> floMac(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow machine with pressure raise as an input&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"
+>FMUs.HeaterCooler_u</a> hea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heater&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> dp(k=dp_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise of fan&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> uHea(k=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control signal for heater&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Source_T"
+>Source_T</a> sou(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Source for mass flow rate and pressure&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Sink_T"
+>Sink_T</a> sin(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sink for flow rate, and source for backflow properties&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> m_flow(k=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> pIn(k=100000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet pressure&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TIn(k=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet temperature&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> X_w_in(k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet mass fraction&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TBac(k=303.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of backward flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> X_w_bac(k=0.015) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Moisture mass fraction for back flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> CBac[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0.01) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     Medium.nC &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trace substances for back flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> C[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0.01) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     Medium.nC &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trace substances for forward flow&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uHea.y, hea.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp.y, floMac.dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.outlet, hea.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hea.outlet, floMac.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.inlet, floMac.outlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.T_in, TBac.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(CBac.y, sin.C_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow.y, sou.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.p_in, pIn.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(C.y, sou.C_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in.y, sou.X_w_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.X_w_in, X_w_bac.y);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeaterFan;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeaterFanPressureDriven<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examples.HeaterFanI.png" alt="Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven"></a><a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples"
+>Buildings.Fluid.FMI.Examples</a>.HeaterFanPressureDriven</h2>
+<p>
+<b>Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp57537bddb849dfb3rivenD.png" alt="Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to configure a model with a heater
+and a fan that causes a pressure rise in the air stream.
+The fan increases the pressure of the medium,
+and it also computes how much power is needed for this pressure rise,
+which is an input to the fan model.
+</p>
+<p>
+The component <code>invBloCon</code> at the bottom of the model sets up
+an equality constraint on the pressure between the sink and the source.
+It also outputs a signal for the mass flow rate. Hence, this component is
+used to declare how to break the algebraic loop in this signal flow diagram.
+For a model with prescribed mass flow rate, see
+<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFan"
+>
+Buildings.Fluid.FMI.Examples.HeaterFan</a>.
+</p>
+<p>
+For this example, the models are not exported as FMUs. However, the
+thermofluid flow models are wrapped using input/output blocks.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>Q_flow_nominal/1000/10</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>2000</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nominal</td><td>1000</td><td>Heat flow rate at u=1, positive for heating [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> HeaterFanPressureDriven <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=Q_flow_nominal/1000/10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=2000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow rate at u=1, positive for heating&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set to true, as this model computes the mass flow rate based on the pressure drop&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.Fan"
+>FMUs.Fan</a> floMac(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow machine with pressure raise as an input&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"
+>FMUs.HeaterCooler_u</a> hea(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heater&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> dp(k=dp_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise of fan&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> uHea(k=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control signal for heater&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Source_T"
+>Source_T</a> sou(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Source for mass flow rate and pressure&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Sink_T"
+>Sink_T</a> sin(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Sink for flow rate, and source for backflow properties&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> m_flow(k=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> pIn(k=100000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet pressure&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TIn(k=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet temperature&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> X_w_in(k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet mass fraction&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TBac(k=303.15) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of backward flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> X_w_bac(k=0.015) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Moisture mass fraction for back flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> CBac[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0.01) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     Medium.nC &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trace substances for back flow&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> C[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0.01) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     Medium.nC &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trace substances for forward flow&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.InverseBlockConstraints"
+>Modelica.Blocks.Math.InverseBlockConstraints</a> invBloCon <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Block to set up residual function for nonlinear system of equation for pressure drop and mass flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uHea.y, hea.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp.y, floMac.dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.outlet, hea.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hea.outlet, floMac.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.inlet, floMac.outlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.T_in, TBac.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(CBac.y, sin.C_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.p_in, pIn.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(C.y, sou.C_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pIn.y, invBloCon.u1);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.p, invBloCon.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(invBloCon.y1, sou.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in.y, sou.X_w_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_bac.y, sin.X_w_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeaterFanPressureDriven;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeaterFan_noReverseFlow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examples.HeaterFanI.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow"></a><a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples"
+>Buildings.Fluid.FMI.Examples</a>.HeaterFan_noReverseFlow</h2>
+<p>
+<b>Heater and fan in series, model configured to not allow flow reversal</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp5a6ac144d2a8f548eFlowD.png" alt="Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to configure a model with a heater
+and a fan that causes a pressure rise in the air stream.
+The model is identical with
+<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFan"
+>
+Buildings.Fluid.FMI.Examples.HeaterFan</a>
+except that reverse flow is not allowed due to the parameter
+<code>allowFlowReversal=false</code>.
+Consequently, the connectors for the fluid properties for the reverse flow
+are removed, and the blocks on the right hand side of the model 
+<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples.HeaterFan"
+>
+Buildings.Fluid.FMI.Examples.HeaterFan</a>
+have been deleted.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>false</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>Q_flow_nominal/1000/10</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>2000</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nominal</td><td>1000</td><td>Heat flow rate at u=1, positive for heating [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> HeaterFan_noReverseFlow <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Heater and fan in series, model configured to not allow flow reversal&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = false <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=Q_flow_nominal/1000/10 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=2000 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nominal = 1000 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow rate at u=1, positive for heating&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.Fan"
+>FMUs.Fan</a> floMac(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow machine with pressure raise as an input&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"
+>FMUs.HeaterCooler_u</a> hea(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heater&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> dp(k=1000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure raise of fan&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> uHea(k=0.2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control signal for heater&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Source_T"
+>Source_T</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Source for mass flow rate and pressure&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> m_flow(k=m_flow_nominal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> pIn(k=100000) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet pressure&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> TIn(k=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet temperature&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> X_w_in(k=0.01) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet mass fraction&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> C[Medium.nC](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>k=0.01) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     Medium.nC &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Trace substances for forward flow&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(uHea.y, hea.u);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp.y, floMac.dp_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.outlet, hea.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hea.outlet, floMac.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow.y, sou.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.p_in, pIn.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TIn.y, sou.T_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(C.y, sou.C_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in.y, sou.X_w_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeaterFan_noReverseFlow;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:24:18 2015.
+</address>
+</body>
+</html>

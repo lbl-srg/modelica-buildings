@@ -739,7 +739,9 @@ This example tests the specific entropy sensors.
 <p>
 This example tests the dry bulb temperature sensors.
 One sensor is configured to be a steady-state model,
-and the other sensor is configured to be a dynamic sensor.
+a second sensor is configured to be a dynamic sensor and
+the third sensors is a dynamic sensor with heat transfer.
+There is also a sensor that measures the temperature difference.
 </p>
 
 <p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
@@ -769,16 +771,6 @@ and the other sensor is configured to be a dynamic sensor.
     height=10,
     duration=1,
     offset=273.15 + 30) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dry bulb temperature&quot;</span>;
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
->Modelica.Blocks.Sources.Ramp</a> XHum(
-    height=(0.0133 - 0.0175),
-    offset=0.0175,
-    duration=60) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Humidity concentration&quot;</span>;
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
->Modelica.Blocks.Sources.Constant</a> const(k=1);
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
->Modelica.Blocks.Math.Feedback</a> dif <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Difference, used to compute the mass fraction of dry air&quot;</span>;
   <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</a> temSteSta(
    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
@@ -786,10 +778,10 @@ and the other sensor is configured to be a dynamic sensor.
    tau=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Steady state temperature sensor&quot;</span>;
 
     <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
->Modelica.Blocks.Sources.Pulse</a> m_flow(
-    offset=-1,
-    amplitude=2,
-    period=30) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
+>Modelica.Blocks.Sources.Pulse</a> m_flow1(
+    period=30,
+    offset=0,
+    amplitude=-1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
   <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
 >Buildings.Fluid.Sensors.TemperatureTwoPort</a> temDyn(
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
@@ -802,20 +794,36 @@ and the other sensor is configured to be a dynamic sensor.
   <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
 >Buildings.Fluid.Sources.Boundary_pT</a> sin(
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
-    nPorts=2,
-    T=293.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow boundary condition&quot;</span>;
+    T=293.15,
+    nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow boundary condition&quot;</span>;
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</a> temDynLoss(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=2,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    transferHeat=true,
+    T_start=293.15,
+    TAmb=293.15,
+    tauHeaTra=30) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Dynamic temperature sensor with heat transfer&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</a> add_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Add two pulse functions for mass flow rate&quot;</span>;
+    <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</a> m_flow2(
+    amplitude=1,
+    offset=0,
+    period=45) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass flow rate&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TDryBul.y, masFloRat.T_in);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, dif.u1);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(XHum.y, dif.u2);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(XHum.y, masFloRat.X_in[1]);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dif.y, masFloRat.X_in[2]);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat.ports[1], temSteSta.port_a);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow.y, masFloRat.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temSteSta.port_b, temDyn.port_a);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temDyn.port_b, sin.ports[1]);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(amb.ports[1], senRelTem.port_a);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senRelTem.port_b, sin.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temDyn.port_b, temDynLoss.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(masFloRat.m_flow_in, add_m_flow.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(add_m_flow.u1, m_flow1.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow2.y, add_m_flow.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.ports[1], temDynLoss.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sin.ports[2], senRelTem.port_b);
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>TemperatureDryBulb;
 </div>
 <hr>
@@ -974,8 +982,7 @@ to the outside air concentration.
     nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fresh air supply&quot;</span>;
   <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary"
 >Sources.FixedBoundary</a> mSin(
-    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
-    nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exhaust air&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium, nPorts=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Exhaust air&quot;</span>;
   <a href="Buildings_Fluid_Sensors_Conversions.html#Buildings.Fluid.Sensors.Conversions.To_VolumeFraction"
 >Buildings.Fluid.Sensors.Conversions.To_VolumeFraction</a> masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -995,18 +1002,25 @@ to the outside air concentration.
     dp_nominal=10,
     m_flow_nominal=0.005,
     linearized=true);
+  <a href="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TraceSubstancesTwoPort"
+>Buildings.Fluid.Sensors.TraceSubstancesTwoPort</a> senTraSubNoFlorRev(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=false,
+    tau=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Sensor at exhaust air, configured to not allow flow reversal&quot;</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(m_flow.y, mSou.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senSou.C, masFraSou.m);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senVol.C, masFraVol.m);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], senSou.port);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(step.y, sou.m_flow_in);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mSin.ports[1], senTraSub.port_b);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[2], vol.ports[1]);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(mSou.ports[1], vol.ports[2]);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res.port_a, senTraSub.port_a);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res.port_b, vol.ports[3]);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senVol.port, vol.ports[4]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTraSubNoFlorRev.port_a, senTraSub.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(senTraSubNoFlorRev.port_b, mSin.ports[1]);
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>TraceSubstances;
 </div>
 <hr>
@@ -1082,7 +1096,7 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:21 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:26:00 2015.
 </address>
 </body>
 </html>

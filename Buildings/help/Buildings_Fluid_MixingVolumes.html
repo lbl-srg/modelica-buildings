@@ -207,7 +207,7 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Heat transfer</td></tr>
-<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort</td></tr>
+<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
@@ -310,7 +310,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Heat transfer</td></tr>
-<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort</td></tr>
+<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
@@ -394,7 +394,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:21:58 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:25:39 2015.
 </address>
 </body>
 </html>

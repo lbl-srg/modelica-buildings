@@ -1615,7 +1615,8 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a>(
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
->Buildings.Fluid.MixingVolumes.MixingVolume</a> vol,
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol(
+      prescribedHeatFlowRate=true),
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>showDesignFlowDirection=false);
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
@@ -1980,7 +1981,7 @@ Modelica.Media.Air.MoistAir</a>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:20:41 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:24:27 2015.
 </address>
 </body>
 </html>

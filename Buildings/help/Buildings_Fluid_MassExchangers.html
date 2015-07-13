@@ -392,10 +392,12 @@ in the species vector.
   &quot;Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction&quot;</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a>(
-    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</a>,
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> vol);
+>Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> vol(
+      prescribedHeatFlowRate=true));
 
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_T_in= false <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Get the temperature from the input connector&quot;</span>;
@@ -436,7 +438,7 @@ in the species vector.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:21:56 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:25:36 2015.
 </address>
 </body>
 </html>

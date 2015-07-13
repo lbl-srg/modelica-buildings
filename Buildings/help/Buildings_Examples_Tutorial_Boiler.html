@@ -1914,7 +1914,8 @@ We configured the controller as
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.1,
     Ti=120,
-    Td=1) "Controller for valve in boiler loop";
+    Td=1,
+    reverseAction=true) "Controller for valve in boiler loop";
 </pre>
 <p>
 We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
@@ -1925,6 +1926,14 @@ Otherwise, we would need to retune the controller, which is
 usually easiest by configuring the controller as a P-controller, then tuning the
 proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
+</p>
+<p>
+Note that we also set <code>reverseAction=true</code> because 
+if the control error, e.g., the difference between set point and measured
+temperature, is positive, the valve needs to close (<i>y=0</i>)
+because in this condition, the boiler inlet temperature is not yet high enough.
+Once it is high enough, the control error will be negative and the valve
+can open.
 </p>
 </li>
 <li>
@@ -2266,7 +2275,8 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
     Td=1,
     Ti=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
+    k=0.1,
+    reverseAction=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
 <span style="color: #006400; font-weight: normal; font-style: normal;">//--------------------------------------------------------------------------------//</span>
 
 <span style="color: #006400; font-weight: normal; font-style: normal;">//----------------------Step 3: Radiator loop valve control-----------------------//</span>
@@ -2326,8 +2336,6 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hysPum.y,not1. u);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.y, and1.u1);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(and1.y, booToReaRad.u);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T,conPIDBoi. u_s);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y,conPIDBoi. u_m);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRoo.T, TSetSup.u);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetSup.y, conPIDRad.u_s);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temSup.T, conPIDRad.u_m);
@@ -2335,6 +2343,8 @@ Buildings.Examples.Tutorial.Boiler.System4</a>.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad.y, pumRad.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad1.y, pumBoi.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPIDBoi.y, valBoi.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y, conPIDBoi.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T, conPIDBoi.u_m);
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>System5;
 </div>
 <hr>
@@ -2714,7 +2724,8 @@ maintained at their set point.
     Td=1,
     Ti=120,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
+    k=0.1,
+    reverseAction=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
 <span style="color: #006400; font-weight: normal; font-style: normal;">//--------------------------------------------------------------------------------//</span>
 
   <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
@@ -2783,8 +2794,6 @@ maintained at their set point.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(hysPum.y,not1. u);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(not1.y, and1.u1);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(and1.y, booToReaRad.u);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T,conPIDBoi. u_s);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y,conPIDBoi. u_m);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRoo.T, TSetSup.u);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetSup.y, conPIDRad.u_s);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temSup.T, conPIDRad.u_m);
@@ -2796,6 +2805,8 @@ maintained at their set point.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPIDRad.y, valRad.y);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad1.y, pumBoi.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPIDBoi.y, valBoi.y);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y, conPIDBoi.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T, conPIDBoi.u_m);
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>System6;
 </div>
 <hr>
@@ -3153,7 +3164,8 @@ response shown below should be seen.
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
+    Ti=120,
+    reverseAction=true) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Controller for valve in boiler loop&quot;</span>;
   <a href="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.Table"
 >Controls.SetPoints.Table</a> TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21]) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -3258,8 +3270,6 @@ response shown below should be seen.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(rad.port_b, spl2.port_1);
 
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad2.y, boi.y);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T,conPIDBoi. u_s);
-  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y,conPIDBoi. u_m);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRoo.T, TSetSup.u);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetSup.y, conPIDRad.u_s);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temSup.T, conPIDRad.u_m);
@@ -3301,11 +3311,13 @@ response shown below should be seen.
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad.y, pumRad.m_flow_in);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(conPIDBoi.y, valBoi.y);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(booToReaRad1.y, pumBoi.m_flow_in);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TSetBoiRet.y, conPIDBoi.u_s);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(temRet.T, conPIDBoi.u_m);
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>System7;
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:27:59 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:31:23 2015.
 </address>
 </body>
 </html>

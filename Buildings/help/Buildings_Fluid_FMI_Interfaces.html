@@ -1,0 +1,532 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.FMI.Interfaces</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with interfaces for models that serves as an FMU container&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- begin header -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- end header -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Interfaces<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI.Interfaces"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.Interfaces</h2>
+<p>
+<b>Package with interfaces for models that serves as an FMU container</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains connectors that are used to export fluid flow models
+as Functional Mockup Units.
+</p>
+<p>
+The connectors 
+<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>
+Buildings.Fluid.FMI.Interfaces.Inlet</a>
+and
+<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>
+Buildings.Fluid.FMI.Interfaces.Outlet</a>
+are hierarchical. This was done for the exported FMUs to have hierarchical
+names for their input and output signals.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
+>Modelica.Icons.InterfacesPackage</a> (Icon for packages containing interfaces).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Inter7d68fefc8f9cb128rtiesS.png" alt="Buildings.Fluid.FMI.Interfaces.FluidProperties" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>FluidProperties</a>
+</td>
+<td>Type definition for fluid properties</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Interfaces.InletS.png" alt="Buildings.Fluid.FMI.Interfaces.Inlet" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a>
+</td>
+<td>Connector for fluid inlet</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Interd8162eb264930e41ectorS.png" alt="Buildings.Fluid.FMI.Interfaces.MassFractionConnector" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>MassFractionConnector</a>
+</td>
+<td>Mass fraction of water vapor per kg total mass as a connector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Interfaces.OutletS.png" alt="Buildings.Fluid.FMI.Interfaces.Outlet" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a>
+</td>
+<td>Connector for fluid outlet</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Inter3a651a442635393bInputS.png" alt="Buildings.Fluid.FMI.Interfaces.PressureInput" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>PressureInput</a>
+</td>
+<td>Input pressure as a connector</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Inter423e19ebcb153332utputS.png" alt="Buildings.Fluid.FMI.Interfaces.PressureOutput" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>PressureOutput</a>
+</td>
+<td>Output pressure as a connector</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FluidProperties<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI.Interfaces.FluidProperties"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.FluidProperties</h2>
+<p>
+<b>Type definition for fluid properties</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This is a connector that declares the following fluid properties:
+</p>
+<ul>
+<li>
+The temperature <code>T</code>.
+</li>
+<li>
+The mass fraction of water vapor <code>X_w</code> per kg of total air,
+unless <code>Medium.nXi=0</code>.
+Note that the mass fraction is not per kg of dry air, but rather
+per kg of total air as is customary in Modelica.
+</li>
+<li>
+The trace substances
+<code>C</code>, 
+unless <code>Medium.nC=0</code>.
+</li>
+</ul>
+<p>
+These quantities are used in the connectors
+<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>
+Buildings.Fluid.FMI.Interfaces.Inlet</a>
+and
+<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>
+Buildings.Fluid.FMI.Interfaces.Outlet</a>.
+</p>
+<p>
+Note that none of these quantities is declared to be an
+<code>input</code> or <code>output</code>, because the role
+is reversed whether the properties are in inlet or
+outlet connector.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model</td></tr>
+</table>
+<h3>Contents</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Contents">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Temperature</a></td><td>T</td><td>Temperature [K]</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>MassFractionConnector</a></td><td>X_w</td><td>Water vapor mass fractions per kg total air [1]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>ExtraProperty</a></td><td>C[Medium.nC]</td><td>Properties c_i/m</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> FluidProperties <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Type definition for fluid properties&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium model&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Medium.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       Medium.nXi &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Water vapor mass fractions per kg total air&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.ExtraProperty"
+>Medium.ExtraProperty</a> C[Medium.nC] <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Properties c_i/m&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FluidProperties;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Inlet<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Interfaces.InletI.png" alt="Buildings.Fluid.FMI.Interfaces.Inlet" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Interfaces.Inlet"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.Inlet</h2>
+<p>
+<b>Connector for fluid inlet</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This is a connector for a fluid inlet.
+The connector takes as an input the 
+following quantities:
+</p>
+<ul>
+<li>
+The mass flow rate <code>m_flow</code>.
+</li>
+<li>
+The pressure <code>p</code>,
+unless <code>use_p_in=false</code>.
+</li>
+<li>
+The temperature of the inflowing fluid
+<code>forward.T</code>, 
+e.g., the temperature of the fluid that streams out of the component if <code>m_flow &gt; 0</code>.
+</li>
+<li>
+The mass fraction of the inflowing fluid
+<code>forward.Xi</code>,
+unless <code>Medium.nXi=0</code>.
+</li>
+<li>
+The trace substances of the inflowing fluid
+<code>forward.C</code>, 
+unless <code>Medium.nC=0</code>.
+</li>
+</ul>
+<p>
+If <code>allowFlowReversal = true</code>,
+the connector also outputs the following quantities.
+</p>
+<ul>
+<li>
+The temperature of the outflowing fluid
+<code>backward.T</code>,
+e.g., if <code>m_flow &le; 0</code>.
+</li>
+<li>
+The mass fraction of the outflowing fluid
+<code>backward.Xi</code>,
+unless <code>Medium.nXi=0</code>.
+</li>
+<li>
+The trace substances of the outflowing fluid 
+<code>backward.C</code>,
+unless <code>Medium.nC=0</code>.
+</li>
+</ul>
+<p>
+If <code>allowFlowReversal = false</code>, then these outputs are not present.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Contents</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Contents">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow</td><td>Mass flow rate from the connection point into the component [kg/s]</td></tr>
+<tr><td>input <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>PressureInput</a></td><td>p</td><td>Thermodynamic pressure in the connection point [Pa]</td></tr>
+<tr><td>input <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>FluidProperties</a></td><td>forward</td><td>Inflowing properties</td></tr>
+<tr><td>output <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>FluidProperties</a></td><td>backward</td><td>Outflowing properties</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="3"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> Inlet <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector for fluid inlet&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>Medium.MassFlowRate</a> m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate from the connection point into the component&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>Buildings.Fluid.FMI.Interfaces.PressureInput</a> p <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermodynamic pressure in the connection point&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> forward(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Interfaces_Medium.html#Buildings.Fluid.FMI.Interfaces.Inlet.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inflowing properties&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> backward(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Interfaces_Medium.html#Buildings.Fluid.FMI.Interfaces.Inlet.Medium"
+>Medium</a>) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       allowFlowReversal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outflowing properties&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Inlet;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MassFractionConnector<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI.Interfaces.MassFractionConnector"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.MassFractionConnector</h2>
+<p>
+<b>Mass fraction of water vapor per kg total mass as a connector</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Interd8162eb264930e41ectorD.png" alt="Buildings.Fluid.FMI.Interfaces.MassFractionConnector">
+</p>
+<h3>Information</h3>
+
+<p>
+Connector with variable of type <code>Modelica.SIunits.MassFraction</code>.
+Note that the mass fraction is in kg water vapor per total mass
+of air, rathern than per kg of dry air.
+</p>
+<p>
+This connector has been implemented to conditionally remove
+the mass fraction if the medium has only one species.
+While this could have been done using a vector of mass fractions
+with zero length, as is used in fluid connectors,
+this implemantation uses a scalar to avoid vectorized inputs
+and outputs of FMUs.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a>.</p>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> MassFractionConnector =
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Mass fraction of water vapor per kg total mass as a connector&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Outlet<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Interfaces.OutletI.png" alt="Buildings.Fluid.FMI.Interfaces.Outlet" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Interfaces.Outlet"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.Outlet</h2>
+<p>
+<b>Connector for fluid outlet</b>
+</p>
+<h3>Information</h3>
+
+<p>
+This is a connector for a fluid outlet.
+The connector produces as an output the 
+following quantities:
+</p>
+<ul>
+<li>
+The mass flow rate <code>m_flow</code>.
+</li>
+<li>
+The pressure <code>p</code>,
+unless <code>use_p_in=false</code>.
+</li>
+<li>
+The temperature of the inflowing fluid
+<code>forward.T</code>, 
+e.g., the temperature of the fluid that streams out of the component if <code>m_flow &gt; 0</code>.
+</li>
+<li>
+The mass fraction of the inflowing fluid
+<code>forward.Xi</code>,
+unless <code>Medium.nXi=0</code>.
+</li>
+<li>
+The trace substances of the inflowing fluid
+<code>forward.C</code>, 
+unless <code>Medium.nC=0</code>.
+</li>
+</ul>
+<p>
+If <code>allowFlowReversal = true</code>,
+the connector requires as input the following quantities.
+</p>
+<ul>
+<li>
+The temperature of the outflowing fluid
+<code>backward.T</code>,
+e.g., if <code>m_flow &le; 0</code>.
+</li>
+<li>
+The mass fraction of the outflowing fluid
+<code>backward.Xi</code>,
+unless <code>Medium.nXi=0</code>.
+</li>
+<li>
+The trace substances of the outflowing fluid 
+<code>backward.C</code>,
+unless <code>Medium.nC=0</code>.
+</li>
+</ul>
+<p>
+If <code>allowFlowReversal = false</code>, then these inputs are not present
+and hence not required to be provided.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Contents</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Contents">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow</td><td>Mass flow rate from the connection point into the component [kg/s]</td></tr>
+<tr><td>output <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>PressureOutput</a></td><td>p</td><td>Thermodynamic pressure in the connection point [Pa]</td></tr>
+<tr><td>input <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>FluidProperties</a></td><td>backward</td><td>Inflowing properties</td></tr>
+<tr><td>output <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>FluidProperties</a></td><td>forward</td><td>Outflowing properties</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="3"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> Outlet <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Connector for fluid outlet&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium model&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>Medium.MassFlowRate</a> m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Mass flow rate from the connection point into the component&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Thermodynamic pressure in the connection point&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> backward(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Interfaces_Medium.html#Buildings.Fluid.FMI.Interfaces.Outlet.Medium"
+>Medium</a>) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       allowFlowReversal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inflowing properties&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> forward(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Interfaces_Medium.html#Buildings.Fluid.FMI.Interfaces.Outlet.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Outflowing properties&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Outlet;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PressureInput<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Inter3a651a442635393bInputI.png" alt="Buildings.Fluid.FMI.Interfaces.PressureInput" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Interfaces.PressureInput"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.PressureInput</h2>
+<p>
+<b>Input pressure as a connector</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Inter3a651a442635393bInputD.png" alt="Buildings.Fluid.FMI.Interfaces.PressureInput">
+</p>
+<h3>Information</h3>
+
+<p>
+Connector with one input signal of type <code>Modelica.SIunits.AbsolutePressure</code>.
+This connector has been implemented to conditionally remove
+the pressure if no pressure drop calculation is requested.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</a>.</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>&nbsp;</td><td>displayUnit</td><td>&quot;Pa&quot;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> PressureInput =
+  <span style="color: blue; font-weight: normal; font-style: normal;">input </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</a>(displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Input pressure as a connector&quot;</span>;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE PressureOutput<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Inter423e19ebcb153332utputI.png" alt="Buildings.Fluid.FMI.Interfaces.PressureOutput" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Interfaces.PressureOutput"></a><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Buildings.Fluid.FMI.Interfaces</a>.PressureOutput</h2>
+<p>
+<b>Output pressure as a connector</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Inter423e19ebcb153332utputD.png" alt="Buildings.Fluid.FMI.Interfaces.PressureOutput">
+</p>
+<h3>Information</h3>
+
+<p>
+Connector with one output signal of type <code>Modelica.SIunits.AbsolutePressure</code>.
+This connector has been implemented to conditionally remove
+the pressure if no pressure drop calculation is requested.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</a>.</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td>&nbsp;</td><td>displayUnit</td><td>&quot;Pa&quot;</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">connector</span> PressureOutput =
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</a>(displayUnit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Output pressure as a connector&quot;</span>;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:24:20 2015.
+</address>
+</body>
+</html>

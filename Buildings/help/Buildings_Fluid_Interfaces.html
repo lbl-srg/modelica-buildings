@@ -251,7 +251,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>mWat_flow</td><td>Moisture mass flow rate added to the medium [kg/s]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</a></td><td>hOut</td><td>Leaving enthalpy of the component [J/kg]</td></tr>
+>RealOutput</a></td><td>hOut</td><td>Leaving specific enthalpy of the component [J/kg]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>XiOut[Medium.nXi]</td><td>Leaving species concentration of the component [1]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
@@ -276,20 +276,20 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Set nominal attributes where literal values can be used.</span>
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.BaseProperties"
 >Medium.BaseProperties</a> medium(
-    preferredMediumStates= <span style="color: blue; font-weight: normal; font-style: normal;">not </span>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start,
-      stateSelect=<span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>(massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;">
-                     then </span>StateSelect.prefer<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>StateSelect.default),
+    p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi],
-       <span style="color: blue; font-weight: normal; font-style: normal;">each </span>stateSelect=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>(<span style="color: blue; font-weight: normal; font-style: normal;">not </span>(substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))<span style="color: blue; font-weight: normal; font-style: normal;">
-                     then </span>StateSelect.prefer<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>StateSelect.default),
+    Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
-    d(start=rho_nominal)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium properties&quot;</span>;
+    d(start=rho_start)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium properties&quot;</span>;
 
   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Energy"
->Modelica.SIunits.Energy</a> U <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internal energy of fluid&quot;</span>;
+>Modelica.SIunits.Energy</a> U(start=fluidVolume*rho_start*
+    <span style="color: red; font-weight: normal; font-style: normal;">Medium.specificInternalEnergy</span>(<span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
+     T=T_start,
+     p=p_start,
+     X=X_start[1:Medium.nXi])) +
+    (T_start - Medium.reference_T)*CSen) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internal energy of fluid&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
 >Modelica.SIunits.Mass</a> m <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Mass of fluid&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
@@ -333,7 +333,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> hOut(unit=&quot;J/kg&quot;,
                                              start=hStart) <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Leaving enthalpy of the component&quot;</span>;
+    &quot;Leaving specific enthalpy of the component&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> XiOut[Medium.nXi](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;1&quot;,
                                                           <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0,
@@ -354,7 +354,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
   <span style="color: red; font-weight: normal; font-style: normal;">Medium.specificHeatCapacityCp</span>(state=state_default) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Heat capacity, to compute additional dry mass&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Density"
->Modelica.SIunits.Density</a> rho_nominal=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
+>Modelica.SIunits.Density</a> rho_start=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
    <span style="color: red; font-weight: normal; font-style: normal;">Medium.setState_pTX</span>(
      T=T_start,
      p=p_start,
@@ -372,7 +372,8 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 >Modelica.SIunits.Density</a> rho_default=<span style="color: red; font-weight: normal; font-style: normal;">Medium.density</span>(
     state=state_default) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Density, used to compute fluid mass&quot;</span>;
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Parameter that is used to construct the vector mXi_flow</span>
-  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real s[Medium.nXi] = {<span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Strings.isEqual</span>(string1=Medium.substanceNames[i],
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real s[Medium.nXi] = {<span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: red; font-weight: normal; font-style: normal;">Modelica.Utilities.Strings.isEqual</span>(
+                                            string1=Medium.substanceNames[i],
                                             string2=&quot;Water&quot;,
                                             caseSensitive=false)<span style="color: blue; font-weight: normal; font-style: normal;">
                                             then </span>1<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0 <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nXi} <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -439,7 +440,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: #006400; font-weight: normal; font-style: normal;">// Total quantities</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
-    m = fluidVolume*rho_nominal;
+    m = fluidVolume*rho_start;
   <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
     m = fluidVolume*medium.d;
   <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
@@ -456,12 +457,19 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
   COut = C;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nPorts<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
-    ports_H_flow[i]     = ports[i].m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(ports[i].h_outflow) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    <span style="color: #006400; font-weight: normal; font-style: normal;">//The semiLinear function should be used for the equations below</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">//for allowing min/max simplifications.</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">//See https://github.com/iea-annex60/modelica-annex60/issues/216 for a discussion and motivation</span>
+    ports_H_flow[i]     =<span style="color: red; font-weight: normal; font-style: normal;"> semiLinear</span>(ports[i].m_flow,<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(ports[i].h_outflow), ports[i].h_outflow) <span style="color: #006400; font-weight: normal; font-style: normal;">
       &quot;Enthalpy flow&quot;</span>;
-    ports_mXi_flow[i,:] = ports[i].m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(ports[i].Xi_outflow) <span style="color: #006400; font-weight: normal; font-style: normal;">
-      &quot;Component mass flow&quot;</span>;
-    ports_mC_flow[i,:]  = ports[i].m_flow *<span style="color: red; font-weight: normal; font-style: normal;"> actualStream</span>(ports[i].C_outflow) <span style="color: #006400; font-weight: normal; font-style: normal;">
-      &quot;Trace substance mass flow&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nXi<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      ports_mXi_flow[i,j] =<span style="color: red; font-weight: normal; font-style: normal;"> semiLinear</span>(ports[i].m_flow,<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(ports[i].Xi_outflow[j]), ports[i].Xi_outflow[j]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Component mass flow&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">for </span>j<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nC<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+      ports_mC_flow[i,j]  =<span style="color: red; font-weight: normal; font-style: normal;"> semiLinear</span>(ports[i].m_flow,<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(ports[i].C_outflow[j]),  ports[i].C_outflow[j]) <span style="color: #006400; font-weight: normal; font-style: normal;">
+        &quot;Trace substance mass flow&quot;</span>;
+    <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
 
   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:Medium.nXi<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
@@ -2017,7 +2025,7 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 <tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >RealInput</a></td><td>mWat_flow</td><td>Moisture mass flow rate added to the medium [kg/s]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
->RealOutput</a></td><td>hOut</td><td>Leaving temperature of the component [J/kg]</td></tr>
+>RealOutput</a></td><td>hOut</td><td>Leaving specific enthalpy of the component [J/kg]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >RealOutput</a></td><td>XiOut[Medium.nXi]</td><td>Leaving species concentration of the component [1]</td></tr>
 <tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
@@ -2046,7 +2054,7 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
                                                      p=Medium.p_default,
                                                      T=Medium.T_default,
                                                      X=Medium.X_default)) <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Leaving temperature of the component&quot;</span>;
+    &quot;Leaving specific enthalpy of the component&quot;</span>;
 
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
 >Modelica.Blocks.Interfaces.RealOutput</a> XiOut[Medium.nXi](<span style="color: blue; font-weight: normal; font-style: normal;">each </span>unit=&quot;1&quot;,
@@ -2835,7 +2843,7 @@ already declares it.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:37 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:26:14 2015.
 </address>
 </body>
 </html>

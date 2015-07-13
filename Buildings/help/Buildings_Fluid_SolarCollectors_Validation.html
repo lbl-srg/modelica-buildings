@@ -62,12 +62,166 @@ used for continuous validation whenever models in the library change.
 <th>Description</th>
 </tr>
 <tr>
+<td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Validation.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions"
+>ExtremeAmbientConditions</a>
+</td>
+<td>Validation model for to ensure that collectors do not freeze or boil</td>
+</tr>
+<tr>
 <td><img src="Buildings.Fluid.SolarColl850367d0f2a3dcd4atingS.png" alt="Buildings.Fluid.SolarCollectors.Validation.FlatPlate" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_SolarCollectors_Validation.html#Buildings.Fluid.SolarCollectors.Validation.FlatPlate"
 >FlatPlate</a>
 </td>
 <td>Validation model for FlatPlate</td>
 </tr>
 </table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ExtremeAmbientConditions<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.SolarColle5b551b76f20978dtionsI.png" alt="Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions"></a><a href="Buildings_Fluid_SolarCollectors_Validation.html#Buildings.Fluid.SolarCollectors.Validation"
+>Buildings.Fluid.SolarCollectors.Validation</a>.ExtremeAmbientConditions</h2>
+<p>
+<b>Validation model for to ensure that collectors do not freeze or boil</b>
+<br>
+<br><img src="Buildings.Fluid.SolarColle5b551b76f20978dtionsD.png" alt="Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions">
+</p>
+<h3>Information</h3>
+
+<p>
+This model validates the correct implementation of the heat transfer
+to the collector when ambient temperatures are very low or irradiation is very
+large.
+It applies a ramp boundary condition that reduces the ambient temperature
+to <i>-60</i>&circ;C to verify that the collector fluid temperature does not
+drop below <code>Medium.T_min</code>.
+Afterwards, the solar irradiation is increased to overheat the collector.
+If the fluid temperature approaches <code>Medium.T_max</code>,
+then the solar heat gain is reduced to zero.
+Ensuring these bounds is important as otherwise, the collector model
+would trigger an assertion and the simulation would stop.
+The tested collector models are
+<a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>
+Buildings.Fluid.SolarCollectors.ASHRAE93</a>
+and
+<a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.EN12975"
+>
+Buildings.Fluid.SolarCollectors.EN12975</a>.
+</p>
+<p>
+Note that the medium has been declared
+as <code>Buildings.Media.Water(T_min=273.15, T_max=273.15+100)</code>
+to set the two bounds for the water temperature.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a> (Icon for runnable examples).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Buildings.Media.Water (T_min...</td><td>Medium in the system</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the system</td></tr>
+<tr><td><a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</a></td><td>weaBus</td><td>&nbsp;</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> ExtremeAmbientConditions <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Validation model for to ensure that collectors do not freeze or boil&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="../../msl/Modelica%203.2.1/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</a>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Water.html#Buildings.Media.Water"
+>Buildings.Media.Water</a>(T_min=273.15, T_max=273.15+100) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Medium in the system&quot;</span>;
+
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>ASHRAE93</a> solAsh(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Validation_Medium.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions.Medium"
+>Medium</a>,
+    shaCoe=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95</span>(),
+    nPanels=1,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5,
+    T_start=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model using the ASHRAE model&quot;</span>;
+  <a href="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.EN12975"
+>EN12975</a> solEn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Validation_Medium.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions.Medium"
+>Medium</a>,
+    shaCoe=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rho=0.2,
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    nPanels=1,
+    lat=0.73097781993588,
+    azi=0.3,
+    til=0.5,
+    per=<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Fluid.SolarCollectors.Data.Concentrating.C_VerificationModel</span>(),
+    T_start=313.15) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flat plate solar collector model using the EN 12975 model&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</a> sou(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Validation_Medium.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions.Medium"
+>Medium</a>,
+    nPorts=1,
+    m_flow=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet boundary conditions&quot;</span>;
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Sources.Boundary_pT</a> sou1(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Validation_Medium.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions.Medium"
+>Medium</a>,
+    p(displayUnit=&quot;Pa&quot;),
+    use_p_in=false,
+    nPorts=2) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet boundary conditions&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> TAmb(
+    offset=273.15 + 40,
+    height=-100,
+    duration=10*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Ambient temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</a> HSol(
+    duration=12*3600,
+    height=1000,
+    startTime=10*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar irradiation&quot;</span>;
+
+  <a href="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</a> sou2(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_SolarCollectors_Validation_Medium.html#Buildings.Fluid.SolarCollectors.Validation.ExtremeAmbientConditions.Medium"
+>Medium</a>,
+    nPorts=1,
+    m_flow=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Inlet boundary conditions&quot;</span>;
+  <a href="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</a> weaBus;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> const(k=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Constant that outputs zero&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</a> solTim(k=12*3600) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Solar time&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou.ports[1], solAsh.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(sou2.ports[1], solEn.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solAsh.port_b, sou1.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solEn.port_b, sou1.ports[2]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus, solAsh.weaBus);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(TAmb.y, weaBus.TDryBul);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HSol.y, weaBus.HDifHor);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HSol.y, weaBus.HGloHor);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, weaBus.solZen);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(const.y, weaBus.cloTim);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solTim.y, weaBus.solTim);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(HSol.y, weaBus.HDirNor);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(solEn.weaBus, weaBus);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ExtremeAmbientConditions;
+</div>
 <hr>
 <!--[if supportFields]><span style="mso-element:field-begin"></span>
 <span style="mso-spacerun:yes"></span>XE FlatPlate<![endif]-->
@@ -181,7 +335,7 @@ used for continuous validation whenever models in the library change.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:24 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:26:02 2015.
 </address>
 </body>
 </html>

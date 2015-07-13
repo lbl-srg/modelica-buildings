@@ -80,13 +80,86 @@ It is used as the base class for all fluid volumes of the package
 >
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-
+<p>
+To increase the numerical robustness of the model, the parameter
+<code>prescribedHeatFlowRate</code> can be set by the user.
+This parameter only has an effect if the model has exactly two fluid ports connected,
+and if it is used as a steady-state model.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
+</li>
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
+</li>
+</ul>
 <h4>Implementation</h4>
 <p>
-If the model is operated in steady-state and has two fluid ports connected,
-then the same energy and mass balance implementation is used as in
-steady-state component models, i.e., the use of <code>actualStream</code>
-is not used for the properties at the port.
+If the model is (i) operated in steady-state,
+(ii) has two fluid ports connected, and
+(iii) <code>prescribedHeatFlowRate=true</code>, then
+the model uses
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
+>
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+in order to use
+the same energy and mass balance implementation as is used as in
+steady-state component models.
+In this situation, the functions <code>inStream</code> are used for the two
+flow directions rather than the function
+<code>actualStream</code>, which is less efficient.
+However, the use of <code>inStream</code> has the disadvantage
+that <code>hOut</code> has to be computed, in
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
+>
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>,
+using
+</p>
+<pre>
+if allowFlowReversal then
+  hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
+                                                           neg=port_a.h_outflow,
+                                                           x=port_a.m_flow,
+                                                           deltax=m_flow_small/1E3);
+else
+  hOut = port_b.h_outflow;
+end if;
+</pre>
+<p>
+Hence, for <code>allowFlowReversal=true</code>, if <code>hOut</code>
+were to be used to compute the temperature that
+drives heat transfer such as by conduction,
+then the heat transfer would depend on upstream and the <i>downstream</i>
+temperatures for small mass flow rates.
+This can give wrong results. Consider for example a mass flow rate that is positive
+but very close to zero. Suppose the upstream temperature is <i>20</i>&circ;C,
+the downstream temperature is <i>10</i>&circ;C, and the heat port is
+connected through a heat conductor to a boundary condition of <i>20</i>&circ;C.
+Then, <code>hOut = (port_b.h_outflow + port_a.h_outflow)/2</code> and hence
+the temperature <code>heatPort.T</code>
+is <i>15</i>&circ;C. Therefore, heat is added to the component.
+As the mass flow rate is by assumption very small, the fluid that leaves the component
+will have a very high temperature, violating the 2nd law.
+To avoid this situation, if
+<code>prescribedHeatFlowRate=false</code>, then the model
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.ConservationEquation"
+>
+Buildings.Fluid.Interfaces.ConservationEquation</a>
+is used instead of
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation"
+>
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
 </p>
 <p>
 For simple models that uses this model, see
@@ -131,7 +204,7 @@ Buildings.Fluid.MixingVolumes</a>.
 <tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
 <tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal in medium, false restricts to design direction (ports[1] -&gt; ports[2]). Used only if model has two ports.</td></tr>
 <tr style="background-color: #e0e0e0"><td colspan="4">Heat transfer</td></tr>
-<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort</td></tr>
+<tr><td>Boolean</td><td>prescribedHeatFlowRate</td><td>false</td><td>Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false.</td></tr>
 </table>
 <h3>Connectors</h3>
 <table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
@@ -163,16 +236,16 @@ Buildings.Fluid.MixingVolumes</a>.
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
 >Modelica.SIunits.Volume</a> V <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean prescribedHeatFlowRate=false <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Set to true if the model has a prescribed heat flow at its heatPort&quot;</span>;
+    &quot;Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false.&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
 >Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</a> ports[nPorts](
       <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_Interfaces_Medium.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations.Medium"
 >Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid inlets and outlets&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
->Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Heat port for sensible heat input&quot;</span>;
-  <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
->Modelica.SIunits.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the fluid&quot;</span>;
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</a> heatPort(
+    T(start=T_start)) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Heat port for sensible heat input&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_Types.html#Modelica.Media.Interfaces.Types.Temperature"
+>Medium.Temperature</a> T <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Temperature of the fluid&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
 >Modelica.SIunits.Pressure</a> p <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure of the fluid&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
@@ -207,8 +280,6 @@ Buildings.Fluid.MixingVolumes</a>.
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    U(start=V*rho_start*<span style="color: red; font-weight: normal; font-style: normal;">Medium.specificInternalEnergy</span>(state_start) + (T_start -
-          Medium.reference_T)*dynBal.CSen),
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mSenFac=mSenFac) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
         <span style="color: blue; font-weight: normal; font-style: normal;">not </span>useSteadyStateTwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Model for dynamic energy balance&quot;</span>;
 
@@ -230,8 +301,9 @@ Buildings.Fluid.MixingVolumes</a>.
       T=T_start,
       p=p_start,
       X=X_start[1:Medium.nXi]) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium state at start values&quot;</span>;
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// See info section for why prescribedHeatFlowRate is used here.</span>
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean useSteadyStateTwoPort=(nPorts == 2)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>
-      prescribedHeatFlowRate<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
+      (prescribedHeatFlowRate<span style="color: blue; font-weight: normal; font-style: normal;"> or </span>(<span style="color: blue; font-weight: normal; font-style: normal;">not </span>allowFlowReversal))<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
       massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
       substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>(
@@ -294,7 +366,7 @@ Buildings.Fluid.MixingVolumes</a>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:02 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:25:42 2015.
 </address>
 </body>
 </html>

@@ -2309,7 +2309,8 @@ for an explanation of the model.
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a>(
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = Medium,
     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir"
->Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> vol,
+>Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> vol(
+      prescribedHeatFlowRate=true),
     <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
@@ -3209,7 +3210,7 @@ These parameters are required to determine the apparatus dew point at the nomina
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:21:25 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:25:09 2015.
 </address>
 </body>
 </html>

@@ -392,13 +392,14 @@ inside the model <code>con</code>.
   <a href="Buildings_Examples_ChillerPlant_BaseClasses.html#Buildings.Examples.ChillerPlant.BaseClasses.DataCenterContinuousTimeControl"
 >BaseClasses.DataCenterContinuousTimeControl</a> dataCenterContinuousTimeControl;
   <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.WindTurbine"
->Buildings.Electrical.DC.Sources.WindTurbine</a> winTur(scale=200e3, h=50) <span style="color: #006400; font-weight: normal; font-style: normal;">
-    &quot;Wind turbines&quot;</span>;
+>Buildings.Electrical.DC.Sources.WindTurbine</a> winTur(scale=200e3, h=50,
+    V_nominal=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Wind turbines&quot;</span>;
   <a href="Buildings_Electrical_DC_Sources.html#Buildings.Electrical.DC.Sources.PVSimpleOriented"
 >Electrical.DC.Sources.PVSimpleOriented</a> pv(A=200e3/800/0.12,
     til=0.34906585039887,
     lat=0.65798912800186,
-    azi=-0.78539816339745) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PV array&quot;</span>;
+    azi=-0.78539816339745,
+    V_nominal=480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;PV array&quot;</span>;
   <a href="Buildings_Electrical_DC_Storage.html#Buildings.Electrical.DC.Storage.Battery"
 >Buildings.Electrical.DC.Storage.Battery</a> bat(EMax=500e3*4*3600, V_nominal=
         480) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery&quot;</span>;
@@ -416,10 +417,11 @@ inside the model <code>con</code>.
   <a href="Buildings_Examples_ChillerPlant_BaseClasses_Controls.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl"
 >BaseClasses.Controls.BatteryControl</a> con <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Battery controller&quot;</span>;
   <a href="Buildings_Electrical_DC_Loads.html#Buildings.Electrical.DC.Loads.Conductor"
->Buildings.Electrical.DC.Loads.Conductor</a> dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input);
+>Buildings.Electrical.DC.Loads.Conductor</a> dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+      V_nominal=480);
   <a href="Buildings_Electrical_AC_OnePhase_Loads.html#Buildings.Electrical.AC.OnePhase.Loads.Inductive"
 >Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> acLoad(
-    mode=Buildings.Electrical.Types.Load.VariableZ_P_input);
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input, V_nominal=480);
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dataCenterContinuousTimeControl.weaBus, weaBus);
   <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(weaBus.winSpe, winTur.vWin);
@@ -439,7 +441,7 @@ inside the model <code>con</code>.
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:28:10 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:31:34 2015.
 </address>
 </body>
 </html>

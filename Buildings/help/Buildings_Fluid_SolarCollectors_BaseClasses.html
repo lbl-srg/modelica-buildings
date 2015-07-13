@@ -471,6 +471,16 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
     &quot;Solar heat gain&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dTMax = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Safety temperature difference to prevent TFlu &gt; Medium.T_max&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMax = Medium.T_max-dTMax <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature above which there will be no heat gain computed to prevent TFlu &gt; Medium.T_max&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMax2 = TMedMax-dTMax <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature below which there will be no heat loss computed to prevent TFlu &lt; Medium.T_min&quot;</span>;
+
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real iamSky(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Incident angle modifier for diffuse solar radiation from the sky&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Real iamGro(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
@@ -541,8 +551,9 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1 : nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
     QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
     shaCoe_internal) + HSkyDifTil + HGroDifTil))*
-    <span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
-     (Medium.T_max+1)-TFlu[i],1);
+      <span style="color: red; font-weight: normal; font-style: normal;">smooth</span>(1, <span style="color: blue; font-weight: normal; font-style: normal;">if </span>TFlu[i] &lt; TMedMax2<span style="color: blue; font-weight: normal; font-style: normal;">
+        then </span>1<span style="color: blue; font-weight: normal; font-style: normal;">
+        else </span><span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(TMedMax-TFlu[i], dTMax));
   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>ASHRAESolarGain;
@@ -882,6 +893,15 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
      quantity=&quot;Temperature&quot;);
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dTMax = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Safety temperature difference to prevent TFlu &gt; Medium.T_max&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMax = Medium.T_max-dTMax <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature above which there will be no heat gain computed to prevent TFlu &gt; Medium.T_max&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMax2 = TMedMax-dTMax <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature below which there will be no heat loss computed to prevent TFlu &lt; Medium.T_min&quot;</span>;
   Real iamBea <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Incidence angle modifier for director solar radiation&quot;</span>;
   <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
 >Modelica.Blocks.Interfaces.RealInput</a> shaCoe_internal <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Internally used shaCoe&quot;</span>;
@@ -905,7 +925,10 @@ table   { border: 1px solid #808080; border-collapse: collapse; }
 
   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1 : nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
   QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe_internal) + iamDiff *
-  HSkyDifTil))*<span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>((Medium.T_max+1)-TFlu[i],1);
+  HSkyDifTil))*
+      <span style="color: red; font-weight: normal; font-style: normal;">smooth</span>(1, <span style="color: blue; font-weight: normal; font-style: normal;">if </span>TFlu[i] &lt; TMedMax2<span style="color: blue; font-weight: normal; font-style: normal;">
+        then </span>1<span style="color: blue; font-weight: normal; font-style: normal;">
+        else </span><span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(TMedMax-TFlu[i], dTMax));
   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>EN12975SolarGain;
 </div>
@@ -1081,6 +1104,15 @@ October 13, 2011.
     <span style="color: blue; font-weight: normal; font-style: normal;">each </span>displayUnit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Limited heat loss rate at current conditions&quot;</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">constant </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> dTMin = 1 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Safety temperature difference to prevent TFlu &lt; Medium.T_min&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMin = Medium.T_min + dTMin <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature below which there will be no heat loss computed to prevent TFlu &lt; Medium.T_min&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> TMedMin2 = TMedMin + dTMin <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Fluid temperature below which there will be no heat loss computed to prevent TFlu &lt; Medium.T_min&quot;</span>;
   <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
 >Modelica.SIunits.HeatFlowRate</a> QUse_nominal(fixed = false) <span style="color: #006400; font-weight: normal; font-style: normal;">
     &quot;Useful heat gain at nominal conditions&quot;</span>;
@@ -1102,8 +1134,10 @@ October 13, 2011.
 
 <span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
   <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nSeg<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
-    QLos[i] = QLosInt[i] *<span style="color: red; font-weight: normal; font-style: normal;"> Buildings.Utilities.Math.Functions.smoothHeaviside</span>(
-     TFlu[i]-(Medium.T_min+1), 1);
+    QLos[i] = QLosInt[i] *
+      <span style="color: red; font-weight: normal; font-style: normal;">smooth</span>(1, <span style="color: blue; font-weight: normal; font-style: normal;">if </span>TFlu[i] &gt; TMedMin2<span style="color: blue; font-weight: normal; font-style: normal;">
+        then </span>1<span style="color: blue; font-weight: normal; font-style: normal;">
+        else </span><span style="color: red; font-weight: normal; font-style: normal;">Buildings.Utilities.Math.Functions.smoothHeaviside</span>(TFlu[i]-TMedMin, dTMin));
   <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
 
 <span style="color: blue; font-weight: normal; font-style: normal;">end </span>PartialHeatLoss;
@@ -1456,7 +1490,7 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </div>
 <hr>
 <address>
-<a href="http://www.3ds.com/">Automatically generated</a> Mon May  4 10:22:25 2015.
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:26:03 2015.
 </address>
 </body>
 </html>

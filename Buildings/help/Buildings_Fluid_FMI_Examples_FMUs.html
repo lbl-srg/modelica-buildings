@@ -1,0 +1,954 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.FMI.Examples.FMUs</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Collection of models that can be exported as FMUs&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- begin header -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- end header -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FMUs<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI.Examples.FMUs"></a><a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples"
+>Buildings.Fluid.FMI.Examples</a>.FMUs</h2>
+<p>
+<b>Collection of models that can be exported as FMUs</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package demonstrates how to configure thermofluid flow models
+so that they can be exported as FMUs.
+</p>
+<p>
+In Dymola, to export the models as an FMU,
+select from the pull down menu <code>Commands - Export FMU</code>.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</a> (Icon for packages containing runnable examples).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examples.FMUs.FanS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Fan" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.Fan"
+>Fan</a>
+</td>
+<td>FMU declaration for a fixed resistance</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Exampdda0eca747f04ae9ceDpMS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM"
+>FixedResistanceDpM</a>
+</td>
+<td>FMU declaration for a fixed resistance</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp2e21997adcf84c04ter_uS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FlowSplitter_u" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.FlowSplitter_u"
+>FlowSplitter_u</a>
+</td>
+<td>FMU declaration for a flow splitter</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp6c9fbc77fc728f40ler_TS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T"
+>HeaterCooler_T</a>
+</td>
+<td>FMU declaration for an ideal heater or cooler with prescribed outlet temperature</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp6c9fbc98fc728f61ler_uS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"
+>HeaterCooler_u</a>
+</td>
+<td>FMU declaration for an ideal heater or cooler with prescribed heat flow rate</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp6c9fbc98fc728f61ler_uS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Humidifier_u" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.Humidifier_u"
+>Humidifier_u</a>
+</td>
+<td>FMU declaration for an ideal humidifier</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Exampbc1bff86d6c7f0a4_flowS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow"
+>IdealSource_m_flow</a>
+</td>
+<td>FMU declaration for a fixed resistance</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Exampdd1dd4ff558dc36bolumeS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.MixingVolume" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.MixingVolume"
+>MixingVolume</a>
+</td>
+<td>Container to export a control volume as an FMU</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp6c41c7ee3ee89b73olumeS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume"
+>ResistanceVolume</a>
+</td>
+<td>Container to export a flow resistance and control volume as an FMU</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Examp437fd3a600b6394droughS.png" alt="Buildings.Fluid.FMI.Examples.FMUs.TwoPortPassThrough" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.TwoPortPassThrough"
+>TwoPortPassThrough</a>
+</td>
+<td>FMU declaration for a block that simply passes all the inputs to the outputs</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Fan<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examples.FMUs.FanI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Fan" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.Fan"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.Fan</h2>
+<p>
+<b>FMU declaration for a fixed resistance</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examples.FMUs.FanD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Fan">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a fluid flow component.
+The FMU has an instance of
+<a href="modelica://Buildings.Fluid.FixedResistances.FlowMachine_dp">
+Buildings.Fluid.FixedResistances.FlowMachine_dp</a>.
+</p>
+<p>
+See
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>
+Buildings.Fluid.FMI.UsersGuide</a> for why there is no model that exports
+<a href="modelica://Buildings.Fluid.Movers.FlowMachine_m_flow">
+Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a> (Container to export thermofluid flow models with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>500</td><td>Pressure drop at nominal mass flow rate [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>dp_in</td><td>Prescribed pressure rise [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Fan <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;FMU declaration for a fixed resistance&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =  <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_dp"
+>Movers.FlowControlled_dp</a> com(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dynamicBalance=false,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>filteredSpeed=false));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal(displayUnit=&quot;Pa&quot;)=500 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at nominal mass flow rate&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> dp_in(min=0, <span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;Pa&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed pressure rise&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dp_in, com.dp_in);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Fan;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FixedResistanceDpM<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Exampdda0eca747f04ae9ceDpMI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.FixedResistanceDpM</h2>
+<p>
+<b>FMU declaration for a fixed resistance</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Exampdda0eca747f04ae9ceDpMD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a fluid flow component.
+The FMU has an instance of
+<a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a> (Container to export thermofluid flow models with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>100</td><td>Pressure drop at nominal mass flow rate [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> FixedResistanceDpM <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;FMU declaration for a fixed resistance&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> com(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=100 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Pressure drop at nominal mass flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FixedResistanceDpM;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowSplitter_u<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp2e21997adcf84c04ter_uI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FlowSplitter_u" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.FlowSplitter_u"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.FlowSplitter_u</h2>
+<p>
+<b>FMU declaration for a flow splitter</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp2e21997adcf84c04ter_uD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.FlowSplitter_u">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a fluid flow component.
+The FMU is an instance of
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.FlowSplitter_u"
+>
+Buildings.Fluid.FMI.FlowSplitter_u</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.FlowSplitter_u"
+>Buildings.Fluid.FMI.FlowSplitter_u</a> (Container to export a flow splitter as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal[nout]</td><td>{0.1,0.2}</td><td>Nominal mass flow rate for each outlet [kg/s]</td></tr>
+<tr><td>Integer</td><td>nout</td><td>2</td><td>Number of outlets</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet[nout]</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nout]</td><td>Control signal for the mass flow rates [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> FlowSplitter_u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;FMU declaration for a flow splitter&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.FlowSplitter_u"
+>Buildings.Fluid.FMI.FlowSplitter_u</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+        nout=2,
+        m_flow_nominal={0.1, 0.2},
+        allowFlowReversal(start=false));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowSplitter_u;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeaterCooler_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp6c9fbc77fc728f40ler_TI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.HeaterCooler_T</h2>
+<p>
+<b>FMU declaration for an ideal heater or cooler with prescribed outlet temperature</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp6c9fbc77fc728f40ler_TD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a heater
+that takes as an input signal the leaving fluid temperature.
+The FMU has an instance of
+<a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_T"
+>
+Buildings.Fluid.HeatExchangers.HeaterCooler_T</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a> (Container to export thermofluid flow models with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_maxHeat</td><td>Modelica.Constants.inf</td><td>Maximum heat flow rate for heating (positive) [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_maxCool</td><td>-Modelica.Constants.inf</td><td>Maximum heat flow rate for cooling (negative) [W]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>0</td><td>Pressure [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>TSet</td><td>Set point temperature of the fluid that leaves port_b [K]</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>Q_flow</td><td>Heat added to the fluid (if flow is from port_a to port_b) [W]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> HeaterCooler_T <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;FMU declaration for an ideal heater or cooler with prescribed outlet temperature&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+        <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_T"
+>Buildings.Fluid.HeatExchangers.HeaterCooler_T</a> com(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>Q_flow_maxHeat=Q_flow_maxHeat,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>Q_flow_maxCool=Q_flow_maxCool,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_maxHeat=Modelica.Constants.inf <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum heat flow rate for heating (positive)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_maxCool=-Modelica.Constants.inf <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Maximum heat flow rate for cooling (negative)&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal(displayUnit=&quot;Pa&quot;)=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> TSet(unit=&quot;K&quot;, displayUnit=&quot;degC&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Set point temperature of the fluid that leaves port_b&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> Q_flow(unit=&quot;W&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat added to the fluid (if flow is from port_a to port_b)&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.TSet, TSet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.Q_flow, Q_flow);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeaterCooler_T;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE HeaterCooler_u<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp6c9fbc98fc728f61ler_uI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.HeaterCooler_u</h2>
+<p>
+<b>FMU declaration for an ideal heater or cooler with prescribed heat flow rate</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp6c9fbc98fc728f61ler_uD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a heater
+that takes as an input signal the normalized heat flow rate.
+The FMU has an instance of
+<a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u"
+>
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>user's guide</a>
+for the rationale.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a> (Container to export thermofluid flow models with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>0</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>HeatFlowRate</a></td><td>Q_flow_nominal</td><td>100</td><td>Heat flow rate at u=1, positive for heating [W]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Control input [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> HeaterCooler_u <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;FMU declaration for an ideal heater or cooler with prescribed heat flow rate&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u"
+>Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> com(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>Q_flow_nominal=Q_flow_nominal,
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal(displayUnit=&quot;Pa&quot;)=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</a> Q_flow_nominal=100 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Heat flow rate at u=1, positive for heating&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u(min=0, max=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Control input&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.u, u);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>HeaterCooler_u;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Humidifier_u<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp6c9fbc98fc728f61ler_uI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Humidifier_u" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.Humidifier_u"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.Humidifier_u</h2>
+<p>
+<b>FMU declaration for an ideal humidifier</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp885e375fb71bf968ier_uD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.Humidifier_u">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a humidifier
+that takes as an input signal the normalized mass flow rate of water that
+will be added to the medium.
+The FMU has an instance of
+<a href="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u"
+>
+Buildings.Fluid.MassExchangers.Humidifier_u</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>user's guide</a>
+for the rationale.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a> (Container to export thermofluid flow models with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>0</td><td>Pressure [Pa]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</a></td><td>T</td><td>293.15</td><td>Temperature of water that is added to the fluid stream (used if use_T_in=false) [K]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>mWat_flow_nominal</td><td>0.01*0.005</td><td>Water mass flow rate at u=1, positive for humidification [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u</td><td>Control input [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> Humidifier_u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;FMU declaration for an ideal humidifier&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>Buildings.Fluid.FMI.TwoPortComponent</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>,
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><a href="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u"
+>Buildings.Fluid.MassExchangers.Humidifier_u</a> com(
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>mWat_flow_nominal=mWat_flow_nominal,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>T=T,
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal(displayUnit=&quot;Pa&quot;)=0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</a> T = 293.15 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Temperature of water that is added to the fluid stream (used if use_T_in=false)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mWat_flow_nominal=0.01*0.005 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Water mass flow rate at u=1, positive for humidification&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u(min=0, max=1, unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Control input&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.u, u);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Humidifier_u;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE IdealSource_m_flow<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Exampbc1bff86d6c7f0a4_flowI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.IdealSource_m_flow</h2>
+<p>
+<b>FMU declaration for a fixed resistance</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Exampbc1bff86d6c7f0a4_flowD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU that sets the mass flow rate.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>Buildings.Fluid.FMI.TwoPort</a> (Container to export a thermofluid flow model with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow rate [kg/s]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> IdealSource_m_flow <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;FMU declaration for a fixed resistance&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>Buildings.Fluid.FMI.TwoPort</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>);
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> m_flow_in(<span style="color: blue; font-weight: normal; font-style: normal;">final </span>unit=&quot;kg/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed mass flow rate&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(inlet.m_flow-outlet.m_flow) &lt; 1E-2,
+  &quot;The mass flow rate of port_a and port_b is not conserved.
+  This indicates a wrong configuration of your system model.&quot;);
+  outlet.m_flow = m_flow_in;
+  outlet.p = inlet.p;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// We use connect statements, in particular</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// because outlet.backward and inlet.backward</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// is removed if allowFlowReversal=false</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.forward, outlet.forward);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.backward, inlet.backward);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>IdealSource_m_flow;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE MixingVolume<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Exampdd1dd4ff558dc36bolumeI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.MixingVolume" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.MixingVolume"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.MixingVolume</h2>
+<p>
+<b>Container to export a control volume as an FMU</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Exampdd1dd4ff558dc36bolumeD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.MixingVolume">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a
+control volume.
+The FMU has an instance of
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>user's guide</a>
+for the rationale.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a> (Container to export a thermofluid flow model with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>1</td><td>Volume [m3]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> MixingVolume <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Container to export a control volume as an FMU&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a>(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>Buildings.Fluid.FMI.InletAdaptor</a> bouIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary model for inlet&quot;</span>;
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>Buildings.Fluid.FMI.OutletAdaptor</a> bouOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary component for outlet&quot;</span>;
+
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V=V,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control volume&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet, bouIn.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouOut.outlet, outlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.p, bouOut.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.port_b, vol.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.ports[2], bouOut.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>MixingVolume;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE ResistanceVolume<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp6c41c7ee3ee89b73olumeI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.ResistanceVolume</h2>
+<p>
+<b>Container to export a flow resistance and control volume as an FMU</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp6c41c7ee3ee89b73olumeD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU with a
+flow resistance and a control volume.
+The FMU has an instance of
+<a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
+<a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>
+Buildings.Fluid.MixingVolumes.MixingVolume</a>.
+</p>
+<p>
+The mass dynamics has been set to
+<code>massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+See the
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>user's guide</a>
+for the rationale.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a> (Container to export a thermofluid flow model with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</a></td><td>V</td><td>1</td><td>Volume [m3]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal</td><td>0.01</td><td>Nominal mass flow rate [kg/s]</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</a></td><td>dp_nominal</td><td>100</td><td>Nominal pressure drop [Pa]</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> ResistanceVolume <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Container to export a flow resistance and control volume as an FMU&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a>(<span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</a> V=1 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Volume&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal=0.01 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Nominal mass flow rate&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</a> dp_nominal=100 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal pressure drop&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> dpCom(y=res.port_a.p - res.port_b.p) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop of the component&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>Buildings.Fluid.FMI.InletAdaptor</a> bouIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary model for inlet&quot;</span>;
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>Buildings.Fluid.FMI.OutletAdaptor</a> bouOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary component for outlet&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> pOut <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure at component outlet&quot;</span>;
+
+  <a href="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</a> res(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>dp_nominal=<span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then </span>dp_nominal<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Flow resistance&quot;</span>;
+  <a href="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</a> vol(
+    nPorts=2,
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>m_flow_nominal=m_flow_nominal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>V=V,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control volume&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet, bouIn.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouOut.outlet, outlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pOut.u1, bouIn.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pOut.y, bouOut.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(res.port_b, vol.ports[1]);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouIn.port_b, res.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpCom.y, pOut.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(vol.ports[2], bouOut.port_a);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>ResistanceVolume;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoPortPassThrough<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Examp437fd3a600b6394droughI.png" alt="Buildings.Fluid.FMI.Examples.FMUs.TwoPortPassThrough" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Examples.FMUs.TwoPortPassThrough"></a><a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs"
+>Buildings.Fluid.FMI.Examples.FMUs</a>.TwoPortPassThrough</h2>
+<p>
+<b>FMU declaration for a block that simply passes all the inputs to the outputs</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Examp437fd3a600b6394droughD.png" alt="Buildings.Fluid.FMI.Examples.FMUs.TwoPortPassThrough">
+</p>
+<h3>Information</h3>
+
+<p>
+This example demonstrates how to export an FMU
+that simply passes all its inputs to its outputs.
+Such an FMU could for example be used in a block diagram as a place-holder
+for another FMU that provides an actual implementation of a component.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>Buildings.Fluid.FMI.TwoPort</a> (Container to export a thermofluid flow model with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TwoPortPassThrough <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;FMU declaration for a block that simply passes all the inputs to the outputs&quot;</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>Buildings.Fluid.FMI.TwoPort</a>(
+     <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Media_Air.html#Buildings.Media.Air"
+>Buildings.Media.Air</a>);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet, outlet);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoPortPassThrough;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:24:20 2015.
+</address>
+</body>
+</html>

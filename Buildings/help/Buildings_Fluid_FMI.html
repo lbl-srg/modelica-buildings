@@ -1,0 +1,1027 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Buildings.Fluid.FMI</title>
+<meta name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="&quot;Package with base classes that facilitate exporting models as an FMU&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial, sans-serif; }
+.modelica, .modelica * { font-size: 9pt; font-family: Courier, monospace; white-space: pre; }
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address { font-weight: normal; }
+td      { border: 1px solid #808080; vertical-align: top; }
+th      { border: 1px solid #808080; vertical-align: top; font-weight: bold; }
+table   { border: 1px solid #808080; border-collapse: collapse; }
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- begin header -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- end header -->
+
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FMI<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><a name="Buildings.Fluid.FMI"></a><a href="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</a>.FMI</h2>
+<p>
+<b>Package with base classes that facilitate exporting models as an FMU</b><br>
+</p>
+<h3>Information</h3>
+
+<p>
+This package contains blocks that serve as containers for exporting
+models from <code>Buildings.Fluid</code> as a Functional Mockup Unit (FMU).
+</p>
+<p>
+This allows using models from <code>Buildings.Fluid</code>, add them
+to a block that only has input and output signals, but no acausal connectors,
+and then export the model as a Functional Mockup Unit.
+Models can be individual models or systems that are composed of various
+models.
+For more information, see the
+<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>User's Guide</a>.
+</p>
+
+<p>Extends from <a href="../../msl/Modelica%203.2.1/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</a> (Icon for package containing variants).</p>
+<h3>Package Content</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Package Content">
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.UsersGuideS.png" alt="Buildings.Fluid.FMI.UsersGuide" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_UsersGuide.html#Buildings.Fluid.FMI.UsersGuide"
+>UsersGuide</a>
+</td>
+<td>User&#39;s Guide</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.FlowSplitter_uS.png" alt="Buildings.Fluid.FMI.FlowSplitter_u" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.FlowSplitter_u"
+>FlowSplitter_u</a>
+</td>
+<td>Container to export a flow splitter as an FMU</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.InletAdaptorS.png" alt="Buildings.Fluid.FMI.InletAdaptor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>InletAdaptor</a>
+</td>
+<td>Model for exposing a fluid inlet to the FMI interface</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.OutletAdaptorS.png" alt="Buildings.Fluid.FMI.OutletAdaptor" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>OutletAdaptor</a>
+</td>
+<td>Model for exposing a fluid outlet to the FMI interface</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Sink_TS.png" alt="Buildings.Fluid.FMI.Sink_T" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Sink_T"
+>Sink_T</a>
+</td>
+<td>FMI model for a sink with temperature for reverse flow as an input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.Source_TS.png" alt="Buildings.Fluid.FMI.Source_T" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.Source_T"
+>Source_T</a>
+</td>
+<td>FMI model for a boundary with mass flow rate, pressure and temperature as an input</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.TwoPortS.png" alt="Buildings.Fluid.FMI.TwoPort" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a>
+</td>
+<td>Container to export a thermofluid flow model with two ports as an FMU</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.TwoPortS.png" alt="Buildings.Fluid.FMI.TwoPortComponent" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>TwoPortComponent</a>
+</td>
+<td>Container to export thermofluid flow models with two ports as an FMU</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.ExamplesS.png" alt="Buildings.Fluid.FMI.Examples" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Examples.html#Buildings.Fluid.FMI.Examples"
+>Examples</a>
+</td>
+<td>Collection of models that illustrate model use and test models</td>
+</tr>
+<tr>
+<td><img src="Buildings.Fluid.FMI.InterfacesS.png" alt="Buildings.Fluid.FMI.Interfaces" width="20" height="20" align="top">&nbsp;<a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces"
+>Interfaces</a>
+</td>
+<td>Package with interfaces for models that serves as an FMU container</td>
+</tr>
+</table>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE FlowSplitter_u<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.FlowSplitter_uI.png" alt="Buildings.Fluid.FMI.FlowSplitter_u" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.FlowSplitter_u"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.FlowSplitter_u</h2>
+<p>
+<b>Container to export a flow splitter as an FMU</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.FlowSplitter_uD.png" alt="Buildings.Fluid.FMI.FlowSplitter_u">
+</p>
+<h3>Information</h3>
+
+<p>
+Block that takes as an input the inflowing fluid at the port <code>inlet</code>
+and a vector of control signals for the mass flow rates <code>u</code>.
+The mass flow of all outlet ports <code>i</code>
+is set to the value of <code>u[i] m_flow_nominal[i]</code>.
+If the inflowing mass flow rate at the port <code>inlet</code> is not equal
+to the sum of <code>u[i] m_flow_in[i]</code>, the simulation stops with an assert.
+</p>
+<h4>Assumptions and limitations</h4>
+<p>
+The mass flow rates at all outlet ports must be non-negative.
+Reverse flow is not yet implemented.
+If either of these limitations are violated, then
+the model stops with an error.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</a></td><td>m_flow_nominal[nout]</td><td>&nbsp;</td><td>Nominal mass flow rate for each outlet [kg/s]</td></tr>
+<tr><td>Integer</td><td>nout</td><td>&nbsp;</td><td>Number of outlets</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet[nout]</td><td>Fluid outlet</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>u[nout]</td><td>Control signal for the mass flow rates [1]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> FlowSplitter_u <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Container to export a flow splitter as an FMU&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the component&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> m_flow_nominal[nout](
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span>min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Nominal mass flow rate for each outlet&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Integer nout(min=1) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Number of outlets&quot;</span>;
+
+ <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in=true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Interfaces.Inlet</a> inlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.FlowSplitter_u.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid inlet&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Interfaces.Outlet</a> outlet[nout](
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.FlowSplitter_u.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">each </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid outlet&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> u[nout](
+    unit=&quot;1&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Control signal for the mass flow rates&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">parameter </span><a href="../../msl/Modelica%203.2.1/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</a> mAve_flow_nominal=
+      <span style="color: red; font-weight: normal; font-style: normal;">sum</span>(m_flow_nominal)/nout <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Average nominal mass flow rate&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> bacPro_internal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.FlowSplitter_u.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for fluid properties for back flow&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_out_internal = 0 <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of backward flow properties&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nout<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(m_flow_nominal[i] &gt; 0,
+      &quot;Nominal mass flow rate must be bigger than zero.&quot;);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">for </span>i<span style="color: blue; font-weight: normal; font-style: normal;"> in </span>1:nout<span style="color: blue; font-weight: normal; font-style: normal;"> loop</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(u[i] &gt;= 0, &quot;Control signal must be non-negative.&quot;);
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// Dymola 2015 FD01 (on Linux 64) does not automatically</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// remove the conditional equation below. We thus have to manually check</span>
+    <span style="color: #006400; font-weight: normal; font-style: normal;">// if use_p_in is true before connecting the inlet and outlet pressures.</span>
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.p, outlet[i].p);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+    outlet[i].m_flow = u[i]*m_flow_nominal[i];
+    outlet[i].forward = inlet.forward;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end for</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// As reverse flow is not supported, we assign</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// default values for the inlet.backward properties</span>
+  bacPro_internal.T = Medium.T_default;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bacPro_internal.X_w, X_w_out_internal);
+  bacPro_internal.C  =<span style="color: red; font-weight: normal; font-style: normal;"> zeros</span>(Medium.nC);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bacPro_internal, inlet.backward);
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Stop if mass is not conserved in the system</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">assert</span>(<span style="color: red; font-weight: normal; font-style: normal;">abs</span>(inlet.m_flow-<span style="color: red; font-weight: normal; font-style: normal;">sum</span>(outlet.m_flow)) &gt; 1E-2 * mAve_flow_nominal,
+    &quot;Mass flow rate is not conserved.
+  inlet.m_flow       = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(inlet.m_flow) + &quot;
+  sum(outlet.m_flow) = &quot; +<span style="color: red; font-weight: normal; font-style: normal;"> String</span>(<span style="color: red; font-weight: normal; font-style: normal;">sum</span>(outlet.m_flow)));
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>FlowSplitter_u;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE InletAdaptor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.InletAdaptorI.png" alt="Buildings.Fluid.FMI.InletAdaptor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.InletAdaptor"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.InletAdaptor</h2>
+<p>
+<b>Model for exposing a fluid inlet to the FMI interface</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.InletAdaptorD.png" alt="Buildings.Fluid.FMI.InletAdaptor">
+</p>
+<h3>Information</h3>
+
+<p>
+Model that is used to connect an input signal to a fluid port.
+The model needs to be used in conjunction with an instance of
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>
+Buildings.Fluid.FMI.OutletAdaptor</a> in order for
+fluid mass flow rate and pressure to be properly assigned to
+the acausal fluid models.
+</p>
+<p>
+See 
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>
+Buildings.Fluid.FMI.TwoPortComponent</a>
+or
+<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume"
+>
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for how to use this model.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model within the source</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model within the source</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</a></td><td>port_b</td><td>Fluid port</td></tr>
+<tr><td>output <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> InletAdaptor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model for exposing a fluid inlet to the FMI interface&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model within the source&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Buildings.Fluid.FMI.Interfaces.Inlet</a> inlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.InletAdaptor.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid inlet&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>Modelica.Fluid.Interfaces.FluidPort_b</a> port_b(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.InletAdaptor.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid port&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</a> p(unit=&quot;Pa&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> bacPro_internal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.InletAdaptor.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for fluid properties for back flow&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for pressure&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of forward flow properties&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_out_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of backward flow properties&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(Medium.nXi &lt; 2,
+   &quot;The medium must have zero or one independent mass fraction Medium.nXi.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// To locally balance the model, the pressure is only imposed at the</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// outlet model.</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// The sign is negative because inlet.m_flow &gt; 0</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// means that fluid flows out of this component</span>
+  -port_b.m_flow     = inlet.m_flow;
+
+  port_b.h_outflow  =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.specificEnthalpy_pTX</span>(
+                        p=  p_in_internal,
+                        T=  inlet.forward.T,
+                        X=<span style="color: red; font-weight: normal; font-style: normal;">  fill</span>(X_w_in_internal, Medium.nXi));
+
+  port_b.C_outflow  = inlet.forward.C;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector for mass fraction for forward flow</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi == 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    X_w_in_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in_internal, inlet.forward.X_w);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  port_b.Xi_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> fill</span>(X_w_in_internal, Medium.nXi);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector for flow reversal</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.backward, bacPro_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Mass fraction for reverse flow</span>
+  X_w_out_internal = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then </span><span style="color: red; font-weight: normal; font-style: normal;">inStream</span>(port_b.Xi_outflow[1])<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bacPro_internal.X_w, X_w_out_internal);
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    bacPro_internal.T  =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.temperature_phX</span>(
+                           p=  p_in_internal,
+                           h=<span style="color: red; font-weight: normal; font-style: normal;">  inStream</span>(port_b.h_outflow),
+                           X=<span style="color: red; font-weight: normal; font-style: normal;">  inStream</span>(port_b.Xi_outflow));
+    bacPro_internal.C  =<span style="color: red; font-weight: normal; font-style: normal;"> inStream</span>(port_b.C_outflow);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    bacPro_internal.T  = Medium.T_default;
+    bacPro_internal.C  =<span style="color: red; font-weight: normal; font-style: normal;"> fill</span>(0, Medium.nC);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors for pressure</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.p, p_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    p_in_internal = Medium.p_default;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p, p_in_internal);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>InletAdaptor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE OutletAdaptor<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.OutletAdaptorI.png" alt="Buildings.Fluid.FMI.OutletAdaptor" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.OutletAdaptor"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.OutletAdaptor</h2>
+<p>
+<b>Model for exposing a fluid outlet to the FMI interface</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.OutletAdaptorD.png" alt="Buildings.Fluid.FMI.OutletAdaptor">
+</p>
+<h3>Information</h3>
+
+<p>
+Model that is used to connect a fluid port with an output signal.
+The model needs to be used in conjunction with an instance of
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>
+Buildings.Fluid.FMI.InletAdaptor</a> in order for
+fluid mass flow rate and pressure to be properly assigned to
+the acausal fluid models.
+</p>
+<p>
+See 
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPortComponent"
+>
+Buildings.Fluid.FMI.TwoPortComponent</a>
+or
+<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume"
+>
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for how to use this model.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium model within the source</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium model within the source</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+<tr><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</a></td><td>port_a</td><td>Fluid port</td></tr>
+<tr><td>input <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>PressureInput</a></td><td>p</td><td>Pressure to be sent to outlet [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> OutletAdaptor <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Model for exposing a fluid outlet to the FMI interface&quot;</span>
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium model within the source&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Buildings.Fluid.FMI.Interfaces.Outlet</a> outlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.OutletAdaptor.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid outlet&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>Modelica.Fluid.Interfaces.FluidPort_a</a> port_a(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.OutletAdaptor.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid port&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>Buildings.Fluid.FMI.Interfaces.PressureInput</a> p <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure to be sent to outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> bacPro_internal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.OutletAdaptor.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for fluid properties for back flow&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for pressure&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of forward flow properties&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_out_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of backward flow properties&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(Medium.nXi &lt; 2,
+   &quot;The medium must have zero or one independent mass fraction Medium.nXi.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  port_a.m_flow = outlet.m_flow;
+
+  outlet.forward.T =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.temperature_phX</span>(
+    p=  p_in_internal,
+    h=<span style="color: red; font-weight: normal; font-style: normal;">  inStream</span>(port_a.h_outflow),
+    X=<span style="color: red; font-weight: normal; font-style: normal;">  inStream</span>(port_a.Xi_outflow));
+  <span style="color: red; font-weight: normal; font-style: normal;">inStream</span>(port_a.C_outflow)  = outlet.forward.C;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Mass fraction for forward flow</span>
+  X_w_in_internal = <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then </span><span style="color: red; font-weight: normal; font-style: normal;">inStream</span>(port_a.Xi_outflow[1])<span style="color: blue; font-weight: normal; font-style: normal;"> else </span>0;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.forward.X_w, X_w_in_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector for mass fraction for backward flow</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_out_internal, outlet.backward.X_w);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    X_w_out_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  port_a.Xi_outflow =<span style="color: red; font-weight: normal; font-style: normal;"> fill</span>(X_w_out_internal, Medium.nXi);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector for flow reversal</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.backward, bacPro_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span><span style="color: blue; font-weight: normal; font-style: normal;">not </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    bacPro_internal.T  = Medium.T_default;
+    bacPro_internal.C  =<span style="color: red; font-weight: normal; font-style: normal;"> fill</span>(0, Medium.nC);
+    <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// This test for nXi is needed for Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow</span>
+      <span style="color: #006400; font-weight: normal; font-style: normal;">// to work with Buildings.Media.Water</span>
+      <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bacPro_internal.X_w, X_w_out_internal);
+    <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  bacPro_internal.T  =<span style="color: red; font-weight: normal; font-style: normal;"> Medium.temperature_phX</span>(
+    p=  p_in_internal,
+    h=  port_a.h_outflow,
+    X=  port_a.Xi_outflow);
+  bacPro_internal.C  = port_a.C_outflow;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors for pressure</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.p, p_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    p_in_internal = Medium.p_default;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p, p_in_internal);
+  port_a.p = p_in_internal;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>OutletAdaptor;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Sink_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Sink_TI.png" alt="Buildings.Fluid.FMI.Sink_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Sink_T"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.Sink_T</h2>
+<p>
+<b>FMI model for a sink with temperature for reverse flow as an input</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Sink_TD.png" alt="Buildings.Fluid.FMI.Sink_T">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a sink that takes as an input the medium properties
+temperature, mass fractions (if <code>Medium.nXi &gt; 0</code>)
+and trace substances (if <code>Medium.nC &gt; 0</code>).
+These properties are used during reverse flow.
+</p>
+<p>
+For a system of components with the connectors of the
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>
+Buildings.Fluid.FMI</a>
+package, this component is required to set the medium properties
+for the reverse flow.
+</p>
+<p>
+If the parameter <code>use_p_in</code> is set to <code>true</code>,
+then the model as an output connector <code>p</code>.
+This can be used to obtain the pressure of the sink, which
+may be needed to iteratively solve for the mass flow rate.
+</p>
+
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T_in</td><td>Prescribed boundary temperature [K]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>X_w_in</td><td>Prescribed boundary composition [1]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>C_in[Medium.nC]</td><td>Prescribed boundary composition</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid port</td></tr>
+<tr><td>output <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>PressureOutput</a></td><td>p</td><td>Pressure [Pa]</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Sink_T <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;FMI model for a sink with temperature for reverse flow as an input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the component&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T_in(unit=&quot;K&quot;,
+                                            displayUnit=&quot;degC&quot;,
+                                            min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed boundary temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> X_w_in(unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       Medium.nXi &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed boundary composition&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> C_in[Medium.nC] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed boundary composition&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Interfaces.Inlet</a> inlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.Sink_T.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid port&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+     use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.FluidProperties"
+>Buildings.Fluid.FMI.Interfaces.FluidProperties</a> bacPro_internal(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.Sink_T.Medium"
+>Medium</a>) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for fluid properties for back flow&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for pressure&quot;</span>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">output </span><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of forward flow properties&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+ <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connector for flow reversal</span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.backward, bacPro_internal);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bacPro_internal.X_w, X_w_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> and </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in_internal, X_w_in);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    X_w_in_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>allowFlowReversal<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    bacPro_internal.T  = T_in;
+    bacPro_internal.C  = C_in;
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    bacPro_internal.T = Medium.T_default;
+    bacPro_internal.C  =<span style="color: red; font-weight: normal; font-style: normal;"> fill</span>(0, Medium.nC);
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Propagate pressure to output signal connector</span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// using conditional connectors</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet.p, p_in_internal);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    p_in_internal = Medium.p_default;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(p, p_in_internal);
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Sink_T;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE Source_T<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.Source_TI.png" alt="Buildings.Fluid.FMI.Source_T" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.Source_T"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.Source_T</h2>
+<p>
+<b>FMI model for a boundary with mass flow rate, pressure and temperature as an input</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.Source_TD.png" alt="Buildings.Fluid.FMI.Source_T">
+</p>
+<h3>Information</h3>
+
+<p>
+Model of a source that takes as an input the mass flow rate,
+pressure and the medium properties
+temperature, mass fractions (if <code>Medium.nXi &gt; 0</code>)
+and trace substances (if <code>Medium.nC &gt; 0</code>).
+</p>
+<p>
+For a system of components with the connectors of the
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>
+Buildings.Fluid.FMI</a>
+package, this component is required to set the pressure
+and the mass flow rate of the system.
+</p>
+
+<p>Extends from <a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a> (Base icon).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>m_flow_in</td><td>Prescribed mass flow source [kg/s]</td></tr>
+<tr><td>input <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>PressureInput</a></td><td>p_in</td><td>Prescribed boundary pressure [Pa]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>T_in</td><td>Prescribed boundary temperature [K]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>X_w_in</td><td>Prescribed boundary composition [1]</td></tr>
+<tr><td>input <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</a></td><td>C_in[Medium.nC]</td><td>Prescribed boundary composition</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid port</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">model</span> Source_T <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;FMI model for a boundary with mass flow rate, pressure and temperature as an input&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the component&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> m_flow_in(unit=&quot;kg/s&quot;) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed mass flow source&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureInput"
+>Buildings.Fluid.FMI.Interfaces.PressureInput</a> p_in <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed boundary pressure&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> T_in(unit=&quot;K&quot;,
+                                            displayUnit=&quot;degC&quot;,
+                                            min=0) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed boundary temperature&quot;</span>;
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> X_w_in(unit=&quot;1&quot;) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       Medium.nXi &gt; 0 <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Prescribed boundary composition&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</a> C_in[Medium.nC] <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Prescribed boundary composition&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Interfaces.Outlet</a> outlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.Source_T.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid port&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.PressureOutput"
+>Buildings.Fluid.FMI.Interfaces.PressureOutput</a> p_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for pressure&quot;</span>;
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.MassFractionConnector"
+>Buildings.Fluid.FMI.Interfaces.MassFractionConnector</a> X_w_in_internal <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Internal connector for mass fraction of forward flow properties&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">initial </span><span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;"> assert</span>(Medium.nXi &lt; 2,
+   &quot;The medium must have zero or one independent mass fraction Medium.nXi.&quot;);
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: #006400; font-weight: normal; font-style: normal;"> // Conditional connect statements for pressure</span>
+   <span style="color: blue; font-weight: normal; font-style: normal;">if </span>use_p_in<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;"> connect</span>(p_in, p_in_internal);
+   <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+     p_in_internal = Medium.p_default;
+   <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;"> connect</span>(outlet.p, p_in_internal);
+
+  <span style="color: #006400; font-weight: normal; font-style: normal;">// Conditional connectors for mass fraction</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">if </span>Medium.nXi &gt; 0<span style="color: blue; font-weight: normal; font-style: normal;"> then</span>
+    <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(X_w_in_internal, X_w_in);
+  <span style="color: blue; font-weight: normal; font-style: normal;">else</span>
+    X_w_in_internal = 0;
+  <span style="color: blue; font-weight: normal; font-style: normal;">end if</span>;
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.forward.X_w, X_w_in_internal);
+
+  outlet.m_flow = m_flow_in;
+
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(outlet.p, p_in);
+  outlet.forward.T  = T_in;
+  outlet.forward.C  = C_in;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>Source_T;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoPort<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.TwoPortI.png" alt="Buildings.Fluid.FMI.TwoPort" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.TwoPort"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.TwoPort</h2>
+<p>
+<b>Container to export a thermofluid flow model with two ports as an FMU</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.TwoPortD.png" alt="Buildings.Fluid.FMI.TwoPort">
+</p>
+<h3>Information</h3>
+
+<p>
+Partial model that can be used to export thermofluid flow models as an FMU.
+This model only declares the inlet and outlet ports, the medium and
+whether flow reversal is allowed.
+</p>
+<p>
+See
+<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume"
+>
+Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+for a block that extends this partial block.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Modelica.Media.Interfaces.Pa...</td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td>Medium in the component</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">partial </span><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TwoPort <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Container to export a thermofluid flow model with two ports as an FMU&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium =
+      <a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</a> <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Medium in the component&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean allowFlowReversal = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)&quot;</span>;
+
+  <span style="color: blue; font-weight: normal; font-style: normal;">parameter </span>Boolean use_p_in = true <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;= true to use a pressure from connector, false to output Medium.p_default&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Interfaces.Inlet</a> inlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid inlet&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Interfaces.Outlet</a> outlet(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Fluid outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoPort;
+</div>
+<hr>
+<!--[if supportFields]><span style="mso-element:field-begin"></span>
+<span style="mso-spacerun:yes"></span>XE TwoPortComponent<![endif]-->
+<!--[if supportFields]><span style="mso-element:field-end"></span><![endif]-->
+<h2><img src="Buildings.Fluid.FMI.TwoPortI.png" alt="Buildings.Fluid.FMI.TwoPortComponent" align="right" style="border: 1px solid" width="80" height="80">
+<a name="Buildings.Fluid.FMI.TwoPortComponent"></a><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI"
+>Buildings.Fluid.FMI</a>.TwoPortComponent</h2>
+<p>
+<b>Container to export thermofluid flow models with two ports as an FMU</b>
+<br>
+<br><img src="Buildings.Fluid.FMI.TwoPortComponentD.png" alt="Buildings.Fluid.FMI.TwoPortComponent">
+</p>
+<h3>Information</h3>
+
+<p>
+Block that serves as a container to export a thermofluid flow component.
+This block contains a replaceable model <code>com</code> that needs to
+be redeclared to export any model that has as its base class
+<a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPort"
+>
+Buildings.Fluid.Interfaces.PartialTwoPort</a>.
+This allows exporting a large variety of thermofluid flow models
+with a simple redeclare.
+</p>
+<p>
+See for example
+<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM"
+>
+Buildings.Fluid.FMI.Examples.FMUs.FixedResistanceDpM</a>
+or
+<a href="Buildings_Fluid_FMI_Examples_FMUs.html#Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u"
+>
+Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_u</a>
+for how to use this block.
+</p>
+<p>
+Note that this block must not be used if the instance <code>com</code>
+sets a constant pressure. In such a situation, use
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>
+Buildings.Fluid.FMI.TwoPort</a>
+together with
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>
+Buildings.Fluid.FMI.InletAdaptor</a>
+and
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>
+Buildings.Fluid.FMI.OutletAdaptor</a>
+and set the pressure to be equal to the port <code>p</code> of
+<a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>
+Buildings.Fluid.FMI.OutletAdaptor</a>.
+</p>
+
+<p>Extends from <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a> (Container to export a thermofluid flow model with two ports as an FMU).</p>
+<h3>Parameters</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Parameters">
+<tr><th>Type</th><th>Name</th><th>Default</th><th>Description</th></tr>
+<tr><td colspan="2">replaceable package Medium</td><td><a href="../../msl/Modelica%203.2.1/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</a></td><td>Medium in the component</td></tr>
+<tr><td>Boolean</td><td>use_p_in</td><td>true</td><td>= true to use a pressure from connector, false to output Medium.p_default</td></tr>
+<tr><td><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPort"
+>PartialTwoPort</a></td><td>com</td><td>redeclare Buildings.Fluid.In...</td><td>Component that holds the actual model</td></tr>
+<tr style="background-color: #c0c0c0"><td colspan="4"><b>Assumptions</b></td></tr>
+<tr><td>Boolean</td><td>allowFlowReversal</td><td>true</td><td>= true to allow flow reversal, false restricts to design direction (inlet -&gt; outlet)</td></tr>
+</table>
+<h3>Connectors</h3>
+<table border="1" cellspacing="0" cellpadding="2" summary="Connectors">
+<tr><th>Type</th><th>Name</th><th>Description</th></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Inlet"
+>Inlet</a></td><td>inlet</td><td>Fluid inlet</td></tr>
+<tr><td><a href="Buildings_Fluid_FMI_Interfaces.html#Buildings.Fluid.FMI.Interfaces.Outlet"
+>Outlet</a></td><td>outlet</td><td>Fluid outlet</td></tr>
+</table>
+<h3>Modelica definition</h3>
+<div class="modelica"><span style="color: blue; font-weight: normal; font-style: normal;">block</span> TwoPortComponent <span style="color: #006400; font-weight: normal; font-style: normal;">
+  &quot;Container to export thermofluid flow models with two ports as an FMU&quot;</span>
+  <span style="color: blue; font-weight: normal; font-style: normal;">extends </span><a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.TwoPort"
+>TwoPort</a>;
+  <span style="color: blue; font-weight: normal; font-style: normal;">replaceable </span><a href="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPort"
+>Buildings.Fluid.Interfaces.PartialTwoPort</a> com
+    <span style="color: blue; font-weight: normal; font-style: normal;">constrainedby </span>Buildings.Fluid.Interfaces.PartialTwoPort(
+      <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium = <a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+      <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal) <span style="color: #006400; font-weight: normal; font-style: normal;">
+    &quot;Component that holds the actual model&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</a> dpCom(y=com.port_a.p - com.port_b.p) <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure drop of the component&quot;</span>;
+
+<span style="color: blue; font-weight: normal; font-style: normal;">protected </span>
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.InletAdaptor"
+>Buildings.Fluid.FMI.InletAdaptor</a> bouIn(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary model for inlet&quot;</span>;
+
+  <a href="Buildings_Fluid_FMI.html#Buildings.Fluid.FMI.OutletAdaptor"
+>Buildings.Fluid.FMI.OutletAdaptor</a> bouOut(
+    <span style="color: blue; font-weight: normal; font-style: normal;">redeclare </span><span style="color: blue; font-weight: normal; font-style: normal;">final </span><span style="color: blue; font-weight: normal; font-style: normal;">package</span> Medium=<a href="Buildings_Fluid_FMI_Medium.html#Buildings.Fluid.FMI.TwoPort.Medium"
+>Medium</a>,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>allowFlowReversal=allowFlowReversal,
+    <span style="color: blue; font-weight: normal; font-style: normal;">final </span>use_p_in=use_p_in) <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Boundary component for outlet&quot;</span>;
+
+  <a href="../../msl/Modelica%203.2.1/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Feedback"
+>Modelica.Blocks.Math.Feedback</a> pOut <span style="color: blue; font-weight: normal; font-style: normal;">if </span>
+       use_p_in <span style="color: #006400; font-weight: normal; font-style: normal;">&quot;Pressure at component outlet&quot;</span>;
+<span style="color: blue; font-weight: normal; font-style: normal;">equation </span>
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pOut.u1, bouIn.p);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.port_a, bouIn.port_b);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(com.port_b, bouOut.port_a);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(inlet, bouIn.inlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(bouOut.outlet, outlet);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(dpCom.y, pOut.u2);
+  <span style="color: red; font-weight: normal; font-style: normal;">connect</span>(pOut.y, bouOut.p);
+<span style="color: blue; font-weight: normal; font-style: normal;">end </span>TwoPortComponent;
+</div>
+<hr>
+<address>
+<a href="http://www.3ds.com/">Automatically generated</a> Mon Jul 13 14:24:16 2015.
+</address>
+</body>
+</html>
