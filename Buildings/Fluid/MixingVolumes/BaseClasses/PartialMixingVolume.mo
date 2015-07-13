@@ -21,18 +21,18 @@ partial model PartialMixingVolume
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
   parameter Boolean prescribedHeatFlowRate=false
-    "Set to true if the model has a prescribed heat flow at its heatPort"
-   annotation(Evaluate=true, Dialog(tab="Assumptions",
-      enable=use_HeatTransfer,
+    "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false."
+   annotation(Evaluate=true,
+     Dialog(tab="Assumptions",
       group="Heat transfer"));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port for sensible heat input"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=T_start)) "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.SIunits.Temperature T "Temperature of the fluid";
+  Medium.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
   Modelica.SIunits.MassFraction Xi[Medium.nXi]
     "Species concentration of the fluid";
@@ -61,8 +61,6 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
-          Medium.reference_T)*dynBal.CSen),
     final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -81,8 +79,9 @@ protected
       T=T_start,
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
+  // See info section for why prescribedHeatFlowRate is used here.
   final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
-      prescribedHeatFlowRate and (
+      (prescribedHeatFlowRate or (not allowFlowReversal)) and (
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
       massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
       substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
@@ -123,7 +122,7 @@ equation
       smooth=Smooth.None));
 
   connect(steBal.port_b, ports[2]) annotation (Line(
-      points={{5.55112e-16,10},{8,10},{8,10},{8,-88},{0,-88},{0,-100}},
+      points={{5.55112e-16,10},{8,10},{8,-88},{0,-88},{0,-100}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -157,13 +156,82 @@ It is used as the base class for all fluid volumes of the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-
+<p>
+To increase the numerical robustness of the model, the parameter
+<code>prescribedHeatFlowRate</code> can be set by the user.
+This parameter only has an effect if the model has exactly two fluid ports connected,
+and if it is used as a steady-state model.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
+</li>
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
+</li>
+</ul>
 <h4>Implementation</h4>
 <p>
-If the model is operated in steady-state and has two fluid ports connected,
-then the same energy and mass balance implementation is used as in
-steady-state component models, i.e., the use of <code>actualStream</code>
-is not used for the properties at the port.
+If the model is (i) operated in steady-state,
+(ii) has two fluid ports connected, and
+(iii) <code>prescribedHeatFlowRate=true</code>, then
+the model uses
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+in order to use
+the same energy and mass balance implementation as is used as in
+steady-state component models.
+In this situation, the functions <code>inStream</code> are used for the two
+flow directions rather than the function
+<code>actualStream</code>, which is less efficient.
+However, the use of <code>inStream</code> has the disadvantage
+that <code>hOut</code> has to be computed, in
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>,
+using
+</p>
+<pre>
+if allowFlowReversal then
+  hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
+                                                           neg=port_a.h_outflow,
+                                                           x=port_a.m_flow,
+                                                           deltax=m_flow_small/1E3);
+else
+  hOut = port_b.h_outflow;
+end if;
+</pre>
+<p>
+Hence, for <code>allowFlowReversal=true</code>, if <code>hOut</code>
+were to be used to compute the temperature that
+drives heat transfer such as by conduction,
+then the heat transfer would depend on upstream and the <i>downstream</i>
+temperatures for small mass flow rates.
+This can give wrong results. Consider for example a mass flow rate that is positive
+but very close to zero. Suppose the upstream temperature is <i>20</i>&circ;C,
+the downstream temperature is <i>10</i>&circ;C, and the heat port is
+connected through a heat conductor to a boundary condition of <i>20</i>&circ;C.
+Then, <code>hOut = (port_b.h_outflow + port_a.h_outflow)/2</code> and hence
+the temperature <code>heatPort.T</code>
+is <i>15</i>&circ;C. Therefore, heat is added to the component.
+As the mass flow rate is by assumption very small, the fluid that leaves the component
+will have a very high temperature, violating the 2nd law.
+To avoid this situation, if
+<code>prescribedHeatFlowRate=false</code>, then the model
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a>
+is used instead of
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
 </p>
 <p>
 For simple models that uses this model, see
@@ -172,6 +240,51 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Set start value for <code>heatPort.T</code> and changed
+type of <code>T</code> to <code>Medium.Temperature</code> rather than
+<code>Modelica.SIunits.Temperature</code>
+to avoid an
+error because of conflicting start values if
+<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
+Buildings.Fluid.Chillers.Carnot</a>
+is translated using pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Moved assignment of <code>dynBal.U.start</code>
+from instance <code>dynBal</code> to the actual model implementation.
+This is required for a pedantic model check in Dymola 2016.
+It addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">
+issue 266</a>.
+</li>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Improved documentation and changed the test
+<pre>
+ final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
+ prescribedHeatFlowRate and ...
+</pre>
+to
+<pre>
+ final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
+ (prescribedHeatFlowRate or (not allowFlowReversal)) and ...
+</pre>
+The reason is that if there is no flow reversal, then
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+computes <code>hOut =  port_b.h_outflow;</code>, and hence
+it is correct to use <code>hOut</code> to compute
+temperature-driven heat flow, such as by conduction or convection.
+See also the model documentation.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">
+#412</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a

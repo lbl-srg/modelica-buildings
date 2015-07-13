@@ -16,19 +16,19 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
-    preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start,
-      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-                     then StateSelect.prefer else StateSelect.default),
+    p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi],
-       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
-                     then StateSelect.prefer else StateSelect.default),
+    Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
-    d(start=rho_nominal)) "Medium properties";
+    d(start=rho_start)) "Medium properties";
 
-  Modelica.SIunits.Energy U "Internal energy of fluid";
+  Modelica.SIunits.Energy U(start=fluidVolume*rho_start*
+    Medium.specificInternalEnergy(Medium.setState_pTX(
+     T=T_start,
+     p=p_start,
+     X=X_start[1:Medium.nXi])) +
+    (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
@@ -61,7 +61,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
                                              start=hStart)
-    "Leaving enthalpy of the component"
+    "Leaving specific enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
@@ -84,7 +84,7 @@ protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
   Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
+  parameter Modelica.SIunits.Density rho_start=Medium.density(
    Medium.setState_pTX(
      T=T_start,
      p=p_start,
@@ -101,7 +101,8 @@ protected
   final parameter Modelica.SIunits.Density rho_default=Medium.density(
     state=state_default) "Density, used to compute fluid mass";
   // Parameter that is used to construct the vector mXi_flow
-  final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+  final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(
+                                            string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
@@ -167,7 +168,7 @@ initial equation
 equation
   // Total quantities
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    m = fluidVolume*rho_nominal;
+    m = fluidVolume*rho_start;
   else
     m = fluidVolume*medium.d;
   end if;
@@ -184,12 +185,19 @@ equation
   COut = C;
 
   for i in 1:nPorts loop
-    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
+    //The semiLinear function should be used for the equations below
+    //for allowing min/max simplifications.
+    //See https://github.com/iea-annex60/modelica-annex60/issues/216 for a discussion and motivation
+    ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
       "Enthalpy flow";
-    ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
-      "Component mass flow";
-    ports_mC_flow[i,:]  = ports[i].m_flow * actualStream(ports[i].C_outflow)
-      "Trace substance mass flow";
+    for j in 1:Medium.nXi loop
+      ports_mXi_flow[i,j] = semiLinear(ports[i].m_flow, inStream(ports[i].Xi_outflow[j]), ports[i].Xi_outflow[j])
+        "Component mass flow";
+    end for;
+    for j in 1:Medium.nC loop
+      ports_mC_flow[i,j]  = semiLinear(ports[i].m_flow, inStream(ports[i].C_outflow[j]),  ports[i].C_outflow[j])
+        "Trace substance mass flow";
+    end for;
   end for;
 
   for i in 1:Medium.nXi loop
@@ -274,6 +282,67 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015 by Michael Wetter:<br/>
+Removed <code>preferredMediumStates= false</code> in
+the instance <code>medium</code> as the default
+is already <code>false</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
+<li>
+June 5, 2015 by Filip Jorissen:<br/>
+Removed <pre>
+Xi(start=X_start[1:Medium.nXi],
+       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+       then StateSelect.prefer else StateSelect.default),
+</pre>
+and set
+<code>preferredMediumStates = false</code>
+because the previous declaration led to more equations and 
+translation problems in large models.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Moved assignment of <code>dynBal.U.start</code>
+from instance <code>dynBal</code> of <code>PartialMixingVolume</code>
+to this model implementation.
+This is required for a pedantic model check in Dymola 2016.
+It addresses
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">
+issue 266</a>.
+This revison also renames the protected variable
+<code>rho_nominal</code> to <code>rho_start</code>
+as it depends on the start values and not the nominal values.
+</li>
+<li>
+May 22, 2015 by Michael Wetter:<br/>
+Removed <pre>
+p(stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+then StateSelect.prefer else StateSelect.default)
+</pre>
+because the previous declaration led to the translation error
+<pre>
+The model requires derivatives of some inputs as listed below:
+1 inlet.m_flow
+1 inlet.p
+</pre>
+when translating
+<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+with a dynamic energy balance.
+</li>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Corrected documentation.
+</li>
+<li>
+April 13, 2015, by Filip Jorissen:<br/>
+Now using <code>semiLinear()</code> function for calculation of
+<code>ports_H_flow</code>. This enables Dymola to simplify based on
+the <code>min</code> and <code>max</code> attribute of the mass flow rate.
+</li>
 <li>
 February 16, 2015, by Filip Jorissen:<br/>
 Fixed SteadyState massDynamics implementation for compressible media.
