@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
+      final prescribedHeatFlowRate=true));
   extends Buildings.BaseClasses.BaseIcon;
   Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
@@ -82,6 +83,13 @@ For a wet cooling tower, this is equal to the wet-bulb temperature.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=true</code> for the control volume.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> of the Annex 60 library.
+</li>
 <li>
 July 12, 2011, by Michael Wetter:<br/>
 Introduced common base class for
