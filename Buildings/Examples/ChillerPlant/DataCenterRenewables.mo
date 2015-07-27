@@ -4,13 +4,14 @@ model DataCenterRenewables
   extends Modelica.Icons.Example;
   BaseClasses.DataCenterContinuousTimeControl dataCenterContinuousTimeControl
     annotation (Placement(transformation(extent={{-66,-60},{-46,-40}})));
-  Buildings.Electrical.DC.Sources.WindTurbine winTur(scale=200e3, h=50)
-    "Wind turbines"
+  Buildings.Electrical.DC.Sources.WindTurbine winTur(scale=200e3, h=50,
+    V_nominal=480) "Wind turbines"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
   Electrical.DC.Sources.PVSimpleOriented pv(A=200e3/800/0.12,
     til=0.34906585039887,
     lat=0.65798912800186,
-    azi=-0.78539816339745) "PV array"
+    azi=-0.78539816339745,
+    V_nominal=480) "PV array"
     annotation (Placement(transformation(extent={{-22,50},{-42,70}})));
   Buildings.Electrical.DC.Storage.Battery bat(EMax=500e3*4*3600, V_nominal=
         480) "Battery"
@@ -27,10 +28,11 @@ model DataCenterRenewables
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   BaseClasses.Controls.BatteryControl con "Battery controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-  Buildings.Electrical.DC.Loads.Conductor dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
+  Buildings.Electrical.DC.Loads.Conductor dcLoad(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
+      V_nominal=480)
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive acLoad(
-    mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
+    mode=Buildings.Electrical.Types.Load.VariableZ_P_input, V_nominal=480)
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
 equation
   connect(dataCenterContinuousTimeControl.weaBus, weaBus) annotation (Line(
@@ -103,6 +105,10 @@ equation
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 7, 2015, by Michael Wetter:<br/>
+Set missing nominal voltages.
+</li>
 <li>
 January 10, 2013, by Michael Wetter:<br/>
 First implementation.

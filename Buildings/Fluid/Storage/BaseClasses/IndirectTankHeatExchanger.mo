@@ -41,10 +41,13 @@ model IndirectTankHeatExchanger
     "Exterior diameter of the heat exchanger pipe";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Formulation of energy balance for heat exchanger internal fluid mass"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
+    "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
+    "Formulation of mass balance for heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -78,15 +81,16 @@ model IndirectTankHeatExchanger
     each X_start=X_start,
     each C_start=C_start,
     each C_nominal=C_nominal,
+    each final prescribedHeatFlowRate = false,
     each final allowFlowReversal=allowFlowReversal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](each C=CHex/
-        nSeg,
-        T(each start=T_start,
-          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-        der_T(
-          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
+     each C=CHex/nSeg,
+     T(each start=T_start,
+       each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+     der_T(
+       each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+             not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
@@ -283,6 +287,17 @@ equation
           </html>",
           revisions="<html>
           <ul>
+<li>
+July 2, 2015, by Michael Wetter:<br/>
+Set <code>prescribedHeatFlowRate=false</code> in control volume.
+</li>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Added parameter <code>energyDynamicsSolid</code>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
+#434</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code>.
