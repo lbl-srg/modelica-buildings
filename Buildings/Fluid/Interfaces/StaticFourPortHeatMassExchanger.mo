@@ -6,19 +6,14 @@ model StaticFourPortHeatMassExchanger
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
 
+  constant Boolean prescribedHeatFlowRate1 = false
+    "Set to true if the heat flow rate into fluid 1 is not a function of the component temperature";
+  constant Boolean prescribedHeatFlowRate2 = false
+    "Set to true if the heat flow rate into fluid 2 is not a function of the component temperature";
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Boolean prescribedHeatFlowRate1(start=false)
-    "Set to true if the heat flow rate into fluid 1 is not a function of the component temperature."
-   annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
-  parameter Boolean prescribedHeatFlowRate2(start=false)
-    "Set to true if the heat flow rate into fluid 2 is not a function of the component temperature."
-   annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
   input Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow

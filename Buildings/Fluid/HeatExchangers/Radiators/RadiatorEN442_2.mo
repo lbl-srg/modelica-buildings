@@ -60,7 +60,6 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
 
   Fluid.MixingVolumes.MixingVolume[nEle] vol(
     redeclare each package Medium = Medium,
-    each prescribedHeatFlowRate = false,
     each nPorts = 2,
     each V=VWat/nEle,
     each final m_flow_nominal = m_flow_nominal,

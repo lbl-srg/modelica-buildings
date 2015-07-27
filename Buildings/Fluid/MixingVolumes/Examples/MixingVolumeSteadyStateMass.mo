@@ -21,7 +21,6 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
     m_flow_nominal=0.01,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
-    prescribedHeatFlowRate=false,
     nPorts=2,
     mSenFac=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

@@ -10,8 +10,7 @@ model MixingVolumeZeroFlow
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=false,
-    prescribedHeatFlowRate=false)
+    allowFlowReversal=false)
     "Steady state mixing volume requiring solution of non-linear system"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
@@ -50,8 +49,7 @@ model MixingVolumeZeroFlow
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=false,
-    prescribedHeatFlowRate=false)
+    allowFlowReversal=false)
     "Steady state mixing volume with prescribed temperature input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou3(
@@ -196,8 +194,8 @@ This model verifies whether the equations in
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a> 
 are consisent for all foreseeable cases.
 All <code>MixingVolume</code> instances contain the correct 
-parameter setting for <code>prescribedHeatFlowRate</code>.
-Switching the parameter value will result in an error in each case.
+setting for <code>prescribedHeatFlowRate</code>.
+Switching the value will result in an error in each case.
 This error either is a non-physical solution to the (non-)linear system
 or a division by zero, which halts the simulation.
 </p>

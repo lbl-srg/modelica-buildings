@@ -8,13 +8,12 @@ function basicFlowFunction_m_flow "Basic class for flow models"
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-protected
- Real kSquInv(unit="1/(kg.m)") "Flow coefficient";
 algorithm
- kSquInv:=1/k^2;
- dp :=Modelica.Fluid.Utilities.regSquare2(x=m_flow, x_small=m_flow_turbulent, k1=kSquInv, k2=kSquInv);
+ dp :=smooth(2, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
+                if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
+                   (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2);
 
- annotation (LateInline=true,
+ annotation (Inline=true,
              inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
              smoothOrder=2,
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -48,6 +47,14 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 15, 2015, by Filip Jorissen:<br/>
+New, more efficient implementation based on regularisation using simple polynomial.
+Expanded common subexpressions for function inlining to be possible.
+Set <code>Inline=true</code> for inlining to occur.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
+</li>
 <li>
 August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,

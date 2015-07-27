@@ -7,11 +7,9 @@ model StaticTwoPortHeatMassExchanger
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
-  parameter Boolean prescribedHeatFlowRate(start=false)
-    "Set to true if the heat flow rate is not a function of the component temperature."
-   annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
+  constant Boolean prescribedHeatFlowRate
+    "Set to true if the heat flow rate is not a function of the component temperature";
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -126,8 +124,8 @@ Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 <p>
-To increase the numerical robustness of the model, the parameter
-<code>prescribedHeatFlowRate</code> must be set.
+To increase the numerical robustness of the model, the constant
+<code>prescribedHeatFlowRate</code> can be set.
 Use the following settings:
 </p>
 <ul>

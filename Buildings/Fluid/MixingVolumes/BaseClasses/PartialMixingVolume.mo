@@ -7,6 +7,16 @@ partial model PartialMixingVolume
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
 
+  // We set prescribedHeatFlowRate=false so that the
+  // volume works without the user having to set this advanced parameter,
+  // but to get high robustness, a user can set it to the approriate value
+  // as described in the info section.
+  constant Boolean prescribedHeatFlowRate = false
+    "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false";
+
+  constant Boolean simplify_mWat_flow = true
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -20,13 +30,6 @@ partial model PartialMixingVolume
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
-  // We set prescribedHeatFlowRate(start=false) so that the
-  // volume works without the user having to set this advanced parameter,
-  // but to get high robustness, a user can set it to the approriate value
-  // as described in the info section.
-  parameter Boolean prescribedHeatFlowRate(start=false)
-    "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false."
-   annotation(Evaluate=true);
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -43,6 +46,7 @@ partial model PartialMixingVolume
    // Models for the steady-state and dynamic energy balance.
 protected
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
+    final simplify_mWat_flow = simplify_mWat_flow,
     sensibleOnly = true,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
@@ -52,6 +56,7 @@ protected
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
+    final simplify_mWat_flow = simplify_mWat_flow,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -137,7 +142,7 @@ equation
     connect(COut_internal,  steBal.COut);
   else
       connect(dynBal.ports, ports) annotation (Line(
-      points={{50,-5.55112e-16},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
+      points={{50,0},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -162,10 +167,35 @@ It is used as the base class for all fluid volumes of the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
 </p>
+
+
+<h4>Typical use and important parameters</h4>
 <p>
-To increase the numerical robustness of the model, the parameter
+Set the constant <code>sensibleOnly=true</code> if the model that extends
+or instantiates this model sets <code>mWat_flow = 0</code>.
+</p>
+<p>
+Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = - mWat_flow;
+</pre>
+<p>
+to
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = 0;
+</pre>
+<p>
+This causes an error in the mass balance of about <i>0.5%</i>, but generally leads to
+simpler equations because the pressure drop equations are then decoupled from the
+mass exchange in this component.
+</p>
+
+<p>
+To increase the numerical robustness of the model, the constant
 <code>prescribedHeatFlowRate</code> can be set by the user.
-This parameter only has an effect if the model has exactly two fluid ports connected,
+This constant only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
 </p>
@@ -246,6 +276,11 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
+calculation on the moisture balance.
+</li>
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
 Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for 
