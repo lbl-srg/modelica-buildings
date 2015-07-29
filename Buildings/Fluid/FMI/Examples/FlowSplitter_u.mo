@@ -75,7 +75,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{140,100}}), graphics), Documentation(info="<html>
 <p>
-This example demonstrates how to configure a model with a splitter.
+This example demonstrates how to configure a model with a flow splitter.
 </p>
 <p>
 For this example, the model is not exported as an FMU. However, the
