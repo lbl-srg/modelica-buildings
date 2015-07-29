@@ -155,7 +155,7 @@ the model stops with an error.
 <ul>
 <li>
 July 28, 2015, by Thierry S. Nouidui:<br/>
-Corrected wrong assert statement check.
+Corrected wrong <code>assert</code> statement.
 </li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>

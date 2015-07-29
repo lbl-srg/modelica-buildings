@@ -251,7 +251,7 @@ its class name ends with the string <code>Beta</code>.
    </tr> 
    <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
        </td>
-       <td valign=\"top\">Corrected wrong assert statement check. This closes
+       <td valign=\"top\">Corrected wrong assert statement. This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
    </tr>    
