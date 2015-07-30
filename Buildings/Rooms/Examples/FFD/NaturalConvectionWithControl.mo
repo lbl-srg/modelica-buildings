@@ -15,8 +15,8 @@ model NaturalConvectionWithControl
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
-    yMax=1,
-    k=0.001)
+    k=1,
+    yMax=2)
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -45,7 +45,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{
-            220,120}}),        graphics),
+            220,120}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
