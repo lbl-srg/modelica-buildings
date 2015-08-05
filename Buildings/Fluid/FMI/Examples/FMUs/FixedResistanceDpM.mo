@@ -6,9 +6,9 @@ block FixedResistanceDpM "FMU declaration for a fixed resistance"
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(start=100)
+  parameter Modelica.SIunits.Pressure dp_nominal=100
     "Pressure drop at nominal mass flow rate";
   annotation (
   Documentation(info="<html>
