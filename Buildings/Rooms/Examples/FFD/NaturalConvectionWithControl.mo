@@ -10,7 +10,7 @@ model NaturalConvectionWithControl
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   HeatTransfer.Sources.PrescribedHeatFlow preHeatFlo
-    annotation (Placement(transformation(extent={{30,-8},{50,12}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Controls.Continuous.LimPID conPID(
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -28,7 +28,8 @@ model NaturalConvectionWithControl
         origin={90,50})));
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
-      points={{101,-26.5},{106,-26.5},{106,20},{50,20},{50,38}},
+      points={{101,-26.5},{100,-26.5},{100,-26},{110,-26},{110,20},{50,20},{50,
+          38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet.y, conPID.u_s) annotation (Line(
@@ -36,16 +37,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeatFlo.port, roo.heaPorAir) annotation (Line(
-      points={{50,2},{76,2},{76,-38},{79,-38}},
+      points={{50,0},{76,0},{76,-38},{79,-38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPID.y, preHeatFlo.Q_flow) annotation (Line(
-      points={{39,50},{20,50},{20,2},{30,2}},
+      points={{39,50},{20,50},{20,0},{30,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{
-            220,120}}),        graphics),
+            220,120}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
@@ -81,6 +82,12 @@ Figure (a)
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2015 by Michael Wetter:<br/>
+Removed model for prescribed heat flow boundary condition
+as the value was zero and hence the model is not needed.
+This is for <a href=\"/https://github.com/lbl-srg/modelica-buildings/issues/439\">issue 439</a>.
+</li>
 <li>
 July 25, 2014 by Wangda Zuo and Michael Wetter:<br/>
 Removed the <code>initial equation</code> section as the assignment of
