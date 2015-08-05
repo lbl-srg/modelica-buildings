@@ -15,8 +15,8 @@ model NaturalConvectionWithControl
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=120,
-    yMax=1,
-    k=0.001)
+    k=1,
+    yMax=2)
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
