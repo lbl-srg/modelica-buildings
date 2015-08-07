@@ -24,9 +24,16 @@ equation
   if NSta < 2 then
     uSta_internal = 0;
     H = HSta[1];
+  elseif NSta == 2 then
+    connect(uSta, uSta_internal);
+    // Linear interpolation. y=0 means off-state, in which case HSta[1] needs to
+    // be assigned to the output.
+    H = uSta_internal*HSta[2]+(1-uSta_internal)*HSta[1];
   else
     connect(uSta, uSta_internal);
-    H = HSta[1]; // fixme Add interpolation here
+    H = HSta[1];
+    // fixme
+    assert(false, "Electrochromic windows are not yet implemented for more than two states.");
   end if;
 
   annotation (
