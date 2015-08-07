@@ -35,7 +35,11 @@ package GlazingSystems
       "Solar absorptivity of window frame";
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
-
+    final parameter Boolean haveControllableWindow=
+      Modelica.Math.BooleanVectors.anyTrue(
+        {size(glass[iGla].tauSol, 1) > 1 for iGla in 1:size(glass,1)})
+      "Flag, true if the window allows multiple states, such as for electrochromic windows"
+      annotation(Evalute=true);
     annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datGlaSys",
