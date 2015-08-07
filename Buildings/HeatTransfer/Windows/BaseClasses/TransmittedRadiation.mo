@@ -1,17 +1,18 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block TransmittedRadiation "Transmitted radiation through window"
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation;
-  Modelica.Blocks.Interfaces.RealOutput QTra_flow(final quantity="Power",
-      final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QTra_flow[NSta](
+    each final quantity="Power",
+    each final unit="W")
     "Transmitted exterior radiation through the window. (1: no shade; 2: shade)"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
-  final parameter Real traCoeRoo(fixed=false)
+  final parameter Real traCoeRoo[NSta](each fixed=false)
     "Transmitivity of the window glass for interior radiation without shading";
 
-  output Modelica.SIunits.Power QTraUns_flow
+  output Modelica.SIunits.Power QTraUns_flow[NSta]
     "Transmitted solar radiation through unshaded part of window";
-  output Modelica.SIunits.Power QTraSha_flow
+  output Modelica.SIunits.Power QTraSha_flow[NSta]
     "Transmitted solar radiation through shaded part of window";
 
 protected
@@ -22,9 +23,7 @@ protected
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](each fixed=false);
-  Real tmpNoSha;
-  Real tmpSha;
+  final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2, NSta](each fixed=false);
   Real incAng2;
 
 initial equation
@@ -36,55 +35,56 @@ initial equation
   // Glass
   for j in 1:HEM loop
     // Properties for glass without shading
-    coeTraWinExtIrr[NoShade, j + 1] =  radDat.traRef[1, 1, N, j];
+    coeTraWinExtIrr[NoShade, j + 1, 1:NSta] =  radDat.traRef[1, 1, N, j, 1:NSta];
     // Properties for glass with shading
     if haveInteriorShade then
-      coeTraWinExtIrr[Shade, j + 1] =  radDat.winTraExtIrrIntSha[j];
+      coeTraWinExtIrr[Shade, j + 1, 1:NSta] =  radDat.winTraExtIrrIntSha[j, 1:NSta];
     elseif haveExteriorShade then
-      coeTraWinExtIrr[Shade, j + 1] =  radDat.winTraExtIrrExtSha[j];
+      coeTraWinExtIrr[Shade, j + 1, 1:NSta] =  radDat.winTraExtIrrExtSha[j, 1:NSta];
     else
       // No Shade
-      coeTraWinExtIrr[Shade, j + 1] =  0.0;
+      coeTraWinExtIrr[Shade, j + 1, 1:NSta] =  zeros(NSta);
     end if;
   end for;
   // Dummy variables at 1 and HEM+2
   for k in NoShade:Shade loop
-    coeTraWinExtIrr[k, 1] =  coeTraWinExtIrr[k, 2];
-    coeTraWinExtIrr[k, HEM + 2] =  coeTraWinExtIrr[k, HEM + 1];
+    coeTraWinExtIrr[k, 1, 1:NSta] =  coeTraWinExtIrr[k, 2, 1:NSta];
+    coeTraWinExtIrr[k, HEM + 2, 1:NSta] =  coeTraWinExtIrr[k, HEM + 1, 1:NSta];
   end for;
 
   //**************************************************************
   // Glass: transmissivity for interior irradiation
   //**************************************************************
-  traCoeRoo =  radDat.traRef[1, N, 1, HEM];
+  traCoeRoo =  radDat.traRef[1, N, 1, HEM, 1:NSta];
 
-algorithm
-  QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM +
-    1];
-  QTraSha_flow := AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1];
-
+equation
   //**************************************************************
   // Glass, Device: add absorbed radiation (angular part) from exterior sources
   //**************************************************************
   // Use min() instead of if() to avoid event
-  incAng2 := min(incAng, 0.5*Modelica.Constants.pi);
-  x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi
-    "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR-1";
-  x := x + 2;
+  incAng2 = min(incAng, 0.5*Modelica.Constants.pi);
+  x = (2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi)+2
+    "x=(index-1)*incAng/(0.5pi)+2, 0<=x<=NDIR-1";
 
   // Window unshaded parts: add transmitted radiation for angular radiation
-  tmpNoSha :=
-    Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
-    coeTraWinExtIrr[NoShade, k] for k in 1:(HEM + 2)}, x);
-  QTraUns_flow := QTraUns_flow + AWin*HDir*(1 - uSha_internal)*tmpNoSha;
+  for iSta in 1:NSta loop
+    QTraUns_flow[iSta] = AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM + 1, iSta]
+                 + AWin*HDir*(1 - uSha_internal)*
+                 Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
+                    coeTraWinExtIrr[NoShade, k, iSta] for k in 1:(HEM + 2)}, x);
+  end for;
 
   // Window shaded parts: add transmitted radiation for angular radiation
-  tmpSha := Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
-    {coeTraWinExtIrr[Shade, k] for k in 1:(HEM + 2)}, x);
-  QTraSha_flow := QTraSha_flow + AWin*HDir*uSha_internal*tmpSha;
+  for iSta in 1:NSta loop
+    QTraSha_flow[iSta] = AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1, iSta]
+               + AWin*HDir*uSha_internal*
+               Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
+                 {coeTraWinExtIrr[Shade, k, iSta] for k in 1:(HEM + 2)}, x);
+
+  end for;
 
   // Assign quantities to output connectors
-  QTra_flow := QTraUns_flow + QTraSha_flow;
+  QTra_flow = QTraUns_flow + QTraSha_flow;
   annotation (
     Documentation(info="<html>
 The model calculates solar radiation through the window.
@@ -119,6 +119,12 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed <code>initial algorithm</code>

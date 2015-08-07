@@ -5,11 +5,11 @@ package Glasses "Package with thermophysical properties for window glas"
       extends Modelica.Icons.Record;
    parameter Modelica.SIunits.Length x=0.003 "Thickness";
    parameter Modelica.SIunits.ThermalConductivity k=1 "Thermal conductivity";
-   parameter Modelica.SIunits.TransmissionCoefficient tauSol = 0.6
+   parameter Modelica.SIunits.TransmissionCoefficient tauSol[:] = {0.6}
       "Solar transmittance";
-   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_a = 0.075
+   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_a[:] = {0.075}
       "Solar reflectance of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_b = 0.075
+   parameter Modelica.SIunits.ReflectionCoefficient rhoSol_b[:] = {0.075}
       "Solar reflectance of surface b (usually room-facing surface)";
    parameter Modelica.SIunits.TransmissionCoefficient tauIR = 0
       "Infrared transmissivity of glass";
@@ -20,10 +20,98 @@ package Glasses "Package with thermophysical properties for window glas"
     annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datGla",
-    Documentation(info=
-"<html>
+    Documentation(info="<html>
 <p>
-This record implements thermophysical properties for window glas.
+This record implements thermophysical properties for window glass.
+See
+<a href=\"modelica://Buildings.HeatTransfer.Data.Glasses\">
+Buildings.HeatTransfer.Data.Glasses</a>
+for instructions.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
+<li>
+December 09, 2011, by Wangda Zuo:<br/>
+Compare the variable names with those in Window 6 and correct the variable names <i>Emis1</i> and <i>Emis2</i> in documentation.
+</li>
+<li>
+Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Generic;
+
+  record ID100 = Buildings.HeatTransfer.Data.Glasses.Generic (
+      x=0.0031,
+      k=1.0,
+      tauSol={0.646},
+      rhoSol_a={0.062},
+      rhoSol_b={0.063},
+      tauIR=0,
+      absIR_a=0.84,
+      absIR_b=0.84) "Generic Bronze Glass 3.1mm. Manufacturer: Generic."
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID101 = Buildings.HeatTransfer.Data.Glasses.Generic (
+      x=0.0057,
+      k=1.0,
+      tauSol={0.486},
+      rhoSol_a={0.053},
+      rhoSol_b={0.053},
+      tauIR=0,
+      absIR_a=0.84,
+      absIR_b=0.84) "Generic Bronze Glass 5.7mm. Manufacturer: Generic."
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID102 = Buildings.HeatTransfer.Data.Glasses.Generic (
+      x=0.003,
+      k=1.0,
+      tauSol={0.834},
+      rhoSol_a={0.075},
+      rhoSol_b={0.075},
+      tauIR=0,
+      absIR_a=0.84,
+      absIR_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic."
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+  record ID103 = Buildings.HeatTransfer.Data.Glasses.Generic (
+      x=0.0057,
+      k=1.0,
+      tauSol={0.771},
+      rhoSol_a={0.070},
+      rhoSol_b={0.070},
+      tauIR=0,
+      absIR_a=0.84,
+      absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic."
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGla");
+
+annotation(preferredView="info",
+Documentation(info="<html>
+<p>
+This package implements thermophysical properties for window glass.
+</p>
+<p>
+Since the infrared transmissivity is part of the Window 6 data and since
+it depends on the glass thickness, the glass thickness is a parameter
+that is set for all glass layers.
+This configuration is different from the records for gas properties,
+which do not yet set the value for the thickness of the gas gap.
 </p>
 <p>
 The table below compares the data of this record with the variables used in the WINDOW 6 output file.
@@ -45,7 +133,7 @@ whereas the model in this library uses averages over the whole solar or infrared
 </li>
 </ul>
 
-<table summary=\"summary\" border=\"1\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <thead>
  <tr>
    <th>Buildings library variable name</th>
@@ -73,85 +161,15 @@ whereas the model in this library uses averages over the whole solar or infrared
 </tr>
 </tbody>
 </table>
-
-</html>",
-  revisions="<html>
-<ul>
-<li>
-December 09, 2011, by Wangda Zuo:<br/>
-Compare the variable names with those in Window 6 and correct the variable names <i>Emis1</i> and <i>Emis2</i> in documentation.
-</li>
-<li>
-Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-  end Generic;
-
-  record ID100 = Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.0031,
-      k=1.0,
-      tauSol=0.646,
-      rhoSol_a=0.062,
-      rhoSol_b=0.063,
-      tauIR=0,
-      absIR_a=0.84,
-      absIR_b=0.84) "Generic Bronze Glass 3.1mm. Manufacturer: Generic."
-    annotation(
-      defaultComponentPrefixes="parameter",
-      defaultComponentName="datGla");
-
-  record ID101 = Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.0057,
-      k=1.0,
-      tauSol=0.486,
-      rhoSol_a=0.053,
-      rhoSol_b=0.053,
-      tauIR=0,
-      absIR_a=0.84,
-      absIR_b=0.84) "Generic Bronze Glass 5.7mm. Manufacturer: Generic."
-    annotation(
-      defaultComponentPrefixes="parameter",
-      defaultComponentName="datGla");
-
-  record ID102 = Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.003,
-      k=1.0,
-      tauSol=0.834,
-      rhoSol_a=0.075,
-      rhoSol_b=0.075,
-      tauIR=0,
-      absIR_a=0.84,
-      absIR_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic."
-    annotation(
-      defaultComponentPrefixes="parameter",
-      defaultComponentName="datGla");
-
-  record ID103 = Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.0057,
-      k=1.0,
-      tauSol=0.771,
-      rhoSol_a=0.070,
-      rhoSol_b=0.070,
-      tauIR=0,
-      absIR_a=0.84,
-      absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic."
-    annotation(
-      defaultComponentPrefixes="parameter",
-      defaultComponentName="datGla");
-
-annotation(preferredView="info",
-Documentation(info="<html>
 <p>
-This package implements thermophysical properties for window glas.
-</p>
-<p>
-Since the infrared transmissivity is part of the Window 5 data and since
-it depends on the glass thickness, the glass thickness is a parameter
-that is set for all glass layers.
-This configuration is different from the records fo gas properties,
-which do not yet set the value for the thickness of the gas gap.
+The solar transmittance <code>tauSol</code> and the solar reflectances
+<code>rhoSol_a</code> and <code>rhoSol_b</code> are vectors.
+For regular glass, these vectors have only one element.
+For electrochromic glass, users can enter an arbitrary number of elements,
+where each element is for a particular window state.
+The dimension of the three vectors <code>tauSol</code>,
+<code>rhoSol_a</code> and <code>rhoSol_b</code> must be equal.
+fixme: Describe how they are used in the control.
 </p>
 </html>",
 revisions="<html>
