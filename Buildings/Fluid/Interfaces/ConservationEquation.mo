@@ -185,12 +185,19 @@ equation
   COut = C;
 
   for i in 1:nPorts loop
-    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
+    //The semiLinear function should be used for the equations below
+    //for allowing min/max simplifications.
+    //See https://github.com/iea-annex60/modelica-annex60/issues/216 for a discussion and motivation
+    ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
       "Enthalpy flow";
-    ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
-      "Component mass flow";
-    ports_mC_flow[i,:]  = ports[i].m_flow * actualStream(ports[i].C_outflow)
-      "Trace substance mass flow";
+    for j in 1:Medium.nXi loop
+      ports_mXi_flow[i,j] = semiLinear(ports[i].m_flow, inStream(ports[i].Xi_outflow[j]), ports[i].Xi_outflow[j])
+        "Component mass flow";
+    end for;
+    for j in 1:Medium.nC loop
+      ports_mC_flow[i,j]  = semiLinear(ports[i].m_flow, inStream(ports[i].C_outflow[j]),  ports[i].C_outflow[j])
+        "Trace substance mass flow";
+    end for;
   end for;
 
   for i in 1:Medium.nXi loop
@@ -329,6 +336,12 @@ with a dynamic energy balance.
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.
+</li>
+<li>
+April 13, 2015, by Filip Jorissen:<br/>
+Now using <code>semiLinear()</code> function for calculation of
+<code>ports_H_flow</code>. This enables Dymola to simplify based on
+the <code>min</code> and <code>max</code> attribute of the mass flow rate.
 </li>
 <li>
 February 16, 2015, by Filip Jorissen:<br/>

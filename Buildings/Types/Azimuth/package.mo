@@ -1,5 +1,5 @@
 within Buildings.Types;
-package Azimuth "Enumeration for surface azimuth"
+package Azimuth "List of possible constant values for surface azimuth"
    extends Modelica.Icons.TypesPackage;
 
    constant Modelica.SIunits.Angle E = -Modelica.Constants.pi/2
@@ -11,10 +11,11 @@ package Azimuth "Enumeration for surface azimuth"
    constant Modelica.SIunits.Angle W = +Modelica.Constants.pi/2
   "Azimuth for an exterior wall whose outer surface faces west";
 
+
   annotation(preferredView="info",
 Documentation(info="<html>
 <p>
-Enumeration to define the azimuth of a surface.
+Possible constant values to define the azimuth of a surface.
 For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use
  <code>Buildings.Types.Azimuth.S</code>.

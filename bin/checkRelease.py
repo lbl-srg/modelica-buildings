@@ -46,6 +46,8 @@ REQUIRED_IN_MO=["documentation"]
 #########################################################
 def reportError(message):
     print "*** Error: ", message
+    global IERR
+    IERR=IERR+1
 
 #########################################################
 def reportErrorIfContains(fileName, listOfStrings):
@@ -91,6 +93,9 @@ def reportErrorIfMissing(fileName, listOfStrings):
 # Name of top-level package file
 maiPac=LIBHOME.split(os.path.sep)[-1] + os.path.sep + 'package.mo'
 
+# Number of errors found
+IERR=0
+
 # Walk the directory tree, but skip the userGuide folder as it contains .mo models
 # that have the uses(...) annotation
 for (path, dirs, files) in os.walk(LIBHOME):
@@ -117,7 +122,9 @@ for (path, dirs, files) in os.walk(LIBHOME):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
                 if not filFulNam.endswith(maiPac):
                     reportErrorIfContains(filFulNam, ["uses("])
-        
 
-
-
+# Terminate if there was an error.
+# This allows other scripts to check the return value
+if IERR != 0:
+    print "*** Terminating due to found errors in examined files."
+    sys.exit(2)

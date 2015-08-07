@@ -7,9 +7,9 @@ block Fan "FMU declaration for a fixed resistance"
       final dynamicBalance=false,
       final filteredSpeed=false));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa", start=500)
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=500
     "Pressure drop at nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")

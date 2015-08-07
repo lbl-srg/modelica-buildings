@@ -82,7 +82,7 @@ A similar model is also used in the CONTAM software (Dols and Walton, 2002).
 Dols and Walton (2002) recommend to use for the flow exponent
 <i>m=0.6</i> to <i>m=0.7</i> if the flow exponent is not
 reported with the test results.
-
+</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -90,6 +90,7 @@ reported with the test results.
 <i>ASHRAE Fundamentals</i>,
 American Society of Heating, Refrigeration and Air-Conditioning
 Engineers, 1997.
+</li>
 <li>
 <b>Dols and Walton, 2002.</b>
 W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual,
@@ -98,6 +99,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
+</li>
 </ul>
 </html>",
 revisions="<html>

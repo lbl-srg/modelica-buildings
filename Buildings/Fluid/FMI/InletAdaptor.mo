@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI;
-model Inlet "Model for exposing a fluid inlet to the FMI interface"
+model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
@@ -150,8 +150,8 @@ equation
 <p>
 Model that is used to connect an input signal to a fluid port.
 The model needs to be used in conjunction with an instance of
-<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
-Buildings.Fluid.FMI.Outlet</a> in order for
+<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
+Buildings.Fluid.FMI.OutletAdaptor</a> in order for
 fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
@@ -184,4 +184,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end Inlet;
+end InletAdaptor;

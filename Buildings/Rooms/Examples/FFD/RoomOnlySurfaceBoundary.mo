@@ -30,8 +30,6 @@ model RoomOnlySurfaceBoundary
         extent={{10,-10},{-10,10}},
         origin={110,-30})));
 
-  HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow[nSurBou - 2](each Q_flow=0)
-    annotation (Placement(transformation(extent={{6,-24},{26,-4}})));
   HeatTransfer.Sources.FixedTemperature TEasWal(each T=313.15)
     "Temperature of the east wall"
     annotation (Placement(transformation(
@@ -39,11 +37,6 @@ model RoomOnlySurfaceBoundary
         origin={110,10})));
 equation
   for i in 1:nSurBou - 2 loop
-    connect(fixedHeatFlow[i].port, roo.surf_surBou[i+2])
-    annotation (Line(
-      points={{26,-14},{62.2,-14},{62.2,26}},
-      color={191,0,0},
-      smooth=Smooth.None));
   end for;
 
   connect(TEasWal.port, roo.surf_surBou[1]) annotation (Line(
@@ -103,6 +96,12 @@ Figure (b)
 <p align=\"left\">
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2015 by Michael Wetter:<br/>
+Removed model for prescribed heat flow boundary condition
+as the value was zero and hence the model is not needed.
+This is for <a href=\"/https://github.com/lbl-srg/modelica-buildings/issues/439\">issue 439</a>.
+</li>
 <li>
 December 31, 2013, by Wangda Zuo:<br/>
 First implementation.

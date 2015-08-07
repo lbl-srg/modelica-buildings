@@ -183,7 +183,7 @@ model System7
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,-250})));
+        origin={60,-230})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
         MediumW, m_flow_nominal=mBoi_flow_nominal) "Return water temperature"
                                           annotation (Placement(transformation(
@@ -198,7 +198,7 @@ model System7
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-50,-250})));
+        origin={-50,-230})));
 
 //------------------------------------------------------------------------------------//
 
@@ -216,13 +216,14 @@ model System7
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
-    annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
+    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=120) "Controller for valve in boiler loop"
-    annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
+    Ti=120,
+    reverseAction=true) "Controller for valve in boiler loop"
+    annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
   Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
@@ -340,11 +341,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(
-      points={{-50,-270},{-50,-260}},
+      points={{-50,-270},{-50,-240}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl1.port_2, spl.port_1) annotation (Line(
-      points={{-50,-240},{-50,-200}},
+      points={{-50,-220},{-50,-200}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl.port_2, valRad.port_1)
@@ -359,12 +360,12 @@ equation
       smooth=Smooth.None));
   connect(spl1.port_3, valBoi.port_3)
                                     annotation (Line(
-      points={{-40,-250},{50,-250}},
+      points={{-40,-230},{50,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valBoi.port_2, temRet.port_a)
                                       annotation (Line(
-      points={{60,-260},{60,-270}},
+      points={{60,-240},{60,-270}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRet.port_b, boi.port_a) annotation (Line(
@@ -377,7 +378,7 @@ equation
       smooth=Smooth.None));
   connect(mix2.port_2, valBoi.port_1)
                                     annotation (Line(
-      points={{60,-200},{60,-240}},
+      points={{60,-200},{60,-220}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl4.port_2, mix2.port_1) annotation (Line(
@@ -412,14 +413,6 @@ equation
 
   connect(booToReaRad2.y, boi.y) annotation (Line(
       points={{-79,-330},{40,-330},{40,-302},{22,-302}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(temRet.T,conPIDBoi. u_s) annotation (Line(
-      points={{71,-280},{158,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetBoiRet.y,conPIDBoi. u_m) annotation (Line(
-      points={{141,-310},{170,-310},{170,-292}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
@@ -577,13 +570,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
-      points={{181,-280},{200,-280},{200,-250},{72,-250}},
+      points={{181,-260},{200,-260},{200,-230},{72,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
       points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TSetBoiRet.y, conPIDBoi.u_s)
+    annotation (Line(points={{141,-260},{158,-260}}, color={0,0,127}));
+  connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{120,-280},
+          {170,-280},{170,-272}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model changes the implementation of the control in
@@ -669,6 +666,13 @@ response shown below should be seen.
 </html>", revisions="<html>
 <ul>
 <li>
+July 2, 2015, by Michael Wetter:<br/>
+Changed control input for <code>conPIDBoi</code> and set
+<code>reverseAction=true</code>
+to address issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
+</li>
+<li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
@@ -689,7 +693,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{240,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"
