@@ -160,10 +160,12 @@ equation
           {40,-74},{40,-120}}, color={0,0,127}));
   connect(staIntQAbsIntSha_flow.uSta, uSta)
     annotation (Line(points={{58,-24},{40,-24},{40,-120}}, color={0,0,127}));
-  connect(staIntQAbsGlaSha_flow[:].uSta, uSta)
+  for i in 1:N loop
+    connect(staIntQAbsGlaSha_flow[i].uSta, uSta)
     annotation (Line(points={{58,6},{40,6},{40,-120}}, color={0,0,127}));
-  connect(staIntQAbsGlaUns_flow[:].uSta, uSta) annotation (Line(points={{58,56},
+    connect(staIntQAbsGlaUns_flow[i].uSta, uSta) annotation (Line(points={{58,56},
           {48,56},{40,56},{40,-120}}, color={0,0,127}));
+  end for;
   annotation (
     Documentation(info="<html>
 <p>
