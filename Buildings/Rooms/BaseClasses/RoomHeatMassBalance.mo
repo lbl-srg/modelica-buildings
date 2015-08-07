@@ -728,6 +728,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(uWin, conExtWinRad.uSta) annotation (Line(points={{-280,140},{-240,
+          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color
+        ={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
             200}})),
