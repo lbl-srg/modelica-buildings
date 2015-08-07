@@ -1,0 +1,109 @@
+last-generated=2015-08-07
+statistics-fmu-dependencies=
+{
+  "Outputs": {
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ], 
+    "CPUtime": [], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "inlet.p", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "dp_in"
+    ], 
+    "EventCounter": [], 
+    "inlet.backward.X_w": [
+      "outlet.backward.X_w"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.p", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "dp_in"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.forward.X_w"
+    ], 
+    "outlet.p": [
+      "inlet.p", 
+      "dp_in"
+    ]
+  }, 
+  "InitialUnknowns": {
+    "outlet.m_flow": [
+      "inlet.m_flow"
+    ], 
+    "CPUtime": [], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "inlet.p", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "com.p_start", 
+      "com.T_start", 
+      "com.X_start[1]", 
+      "com.X_start[2]", 
+      "com.tau", 
+      "com.motorCooledByFluid", 
+      "com.per.hydraulicEfficiency.V_flow[1]", 
+      "com.per.hydraulicEfficiency.eta[1]", 
+      "com.per.motorEfficiency.V_flow[1]", 
+      "com.per.motorEfficiency.eta[1]", 
+      "com.per.power.V_flow[1]", 
+      "com.per.power.P[1]", 
+      "com.per.motorCooledByFluid", 
+      "com.per.use_powerCharacteristic", 
+      "com.riseTime", 
+      "com.init", 
+      "com.dp_nominal", 
+      "m_flow_nominal", 
+      "dp_nominal", 
+      "dp_in"
+    ], 
+    "EventCounter": [], 
+    "inlet.backward.X_w": [
+      "outlet.backward.X_w"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.p", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "com.p_start", 
+      "com.T_start", 
+      "com.X_start[1]", 
+      "com.X_start[2]", 
+      "com.tau", 
+      "com.motorCooledByFluid", 
+      "com.per.hydraulicEfficiency.V_flow[1]", 
+      "com.per.hydraulicEfficiency.eta[1]", 
+      "com.per.motorEfficiency.V_flow[1]", 
+      "com.per.motorEfficiency.eta[1]", 
+      "com.per.power.V_flow[1]", 
+      "com.per.power.P[1]", 
+      "com.per.motorCooledByFluid", 
+      "com.per.use_powerCharacteristic", 
+      "com.riseTime", 
+      "com.init", 
+      "com.dp_nominal", 
+      "m_flow_nominal", 
+      "dp_nominal", 
+      "dp_in"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.forward.X_w"
+    ], 
+    "outlet.p": [
+      "inlet.p", 
+      "dp_in"
+    ]
+  }, 
+  "Derivatives": {}
+}
