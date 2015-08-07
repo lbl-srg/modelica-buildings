@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses;
 model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort;
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real k "Gain for mass flow rate";
 initial equation
@@ -40,6 +40,15 @@ having the same mass flow rate and temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2015 by Michael Wetter:<br/>
+Changed base class from
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
+Modelica.Fluid.Interfaces.PartialTwoPort</a>
+to
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPort\">
+Buildings.Fluid.Interfaces.PartialTwoPort</a>.
+</li>
 <li>
 March 27, 2013, by Michael Wetter:<br/>
 Changed implementation to extend from <code>Modelica.Fluid</code>.

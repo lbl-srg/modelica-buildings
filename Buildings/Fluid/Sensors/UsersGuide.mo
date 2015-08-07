@@ -107,6 +107,7 @@ The table below summarizes the recommendations for the use of sensors.
 </table>
 
 <h4>Sensor Dynamics</h4>
+<h5>Dynamic response to fluid flowing through the sensor</h5>
 <p>
 If a sensor is configured as a dynamic sensor by setting <code>tau &gt; 0</code>,
 then the measured quantity, say the temperature <i>T</i>, is
@@ -127,7 +128,48 @@ with a sensor that outputs the temperature of this volume. In this situation, th
 be <i>V=&tau; &nbsp; m&#775;<sub>0</sub> &frasl; &rho;</i>, where
 <i>&rho;</i> is the density of the fluid.
 </p>
-
+<h5>Dynamic response to ambient temperature</h5>
+<p>
+For the sensor 
+<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+Buildings.Fluid.Sensors.TemperatureTwoPort</a>,
+by setting <code>transferHeat = true</code>, heat transfer to a
+fixed ambient can be approximated. The heat transfer is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &tau;<sub>HeaTra</sub> &nbsp; dT &frasl; dt = (T<sub>Amb</sub>-T),
+</p>
+<p>
+where <i>&tau;<sub>HeaTra</sub></i> is a fixed time constant and
+<i>T<sub>Amb</sub></i> is a fixed ambient temperature.
+Setting <code>transferHeat = true</code> is useful if the sensor output <i>T</i>
+is used to switch the mass flow rate on again. If <code>transferHeat = false</code>,
+then the sensor output <i>T</i> remains constant if the mass flow rate is zero
+and hence a fan or pump controller that uses this signal may never switch the device
+on again.
+If the sensor ouput <i>T</i> is not used to switch on the mass flow rate, then
+in general one can use <code>transferHeat=false</code>.
+</p>
+<p>
+Note that since in practice the heat transfer is due to a combination of ambient
+temperature and upstream or downstream fluid temperature, for example by two-way
+buoyancy-driven flow inside the duct or pipe, the model uses as an approximation
+a fixed ambient temperature.
+Since the sensor is not affecting the temperature of the medium, this approximation
+of the heat transfer does not add or remove heat from the fluid.
+</p>
+<h5>Combined dynamic response</h5>
+<p>
+For the sensor 
+<a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
+Buildings.Fluid.Sensors.TemperatureTwoPort</a>,
+if both dynamic effects are enabled, then 
+the output <i>T</i> is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+dT &frasl; dt = |m&#775;| &frasl; m&#775;<sub>0</sub> &nbsp; (&theta;-T) &frasl; &tau; + 
+(T<sub>Amb</sub>-T) &frasl;  &tau;<sub>HeaTra</sub>.
+</p>
 <h4>Implementation</h4>
 <p>
 The above equation is implemented in such a way that it is differentiable in the mass flow rate.

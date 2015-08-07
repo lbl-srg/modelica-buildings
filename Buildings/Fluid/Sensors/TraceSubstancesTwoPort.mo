@@ -17,22 +17,17 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
 protected
   Real CMed(min=0, start=C_start, nominal=sum(Medium.C_nominal))
     "Medium trace substance to which the sensor is exposed";
-  parameter Real s[Medium.nC](each fixed=false)
-    "Vector with zero everywhere except where the trace substance is";
-initial algorithm
-  for i in 1:Medium.nC loop
+  parameter Real s[:]= {
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName,
-                                            caseSensitive=false)) then
-      s[i] :=1;
-    else
-      s[i] :=0;
-    end if;
-  end for;
-  assert(abs(1-sum(s))<1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:Medium.nC}
+    "Vector with zero everywhere except where species is";
+initial equation
+  assert(max(s) > 0.9, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
-initial equation
+
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
       der(C) = 0;
@@ -79,6 +74,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 10, 2015, by Michael Wetter:<br/>
+Reformulated assignment of <code>s</code> and <code>assert</code>
+statement. The reformulation of the assignment of <code>s</code> was
+done to allow a model check in non-pedantic mode.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/268\">issue 268</a>.
+</li>
 <li>
 May 22, 2015, by Michael Wetter:<br/>
 Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.

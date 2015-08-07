@@ -93,6 +93,7 @@ Use the model
 <a href=\"modelica://Buildings.Airflow.Multizone.Crack\">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
+</p>
 </html>",
 revisions="<html>
 <ul>

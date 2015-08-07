@@ -10,7 +10,9 @@ package Air
      final fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                              Modelica.Media.IdealGases.Common.FluidData.N2},
      reference_T=273.15,
-     reference_p=101325);
+     reference_p=101325,
+     AbsolutePressure(start=p_default),
+     Temperature(start=T_default));
   extends Modelica.Icons.Package;
 
   constant Integer Water=1
@@ -107,7 +109,7 @@ redeclare function extends dynamicViscosity
     "Return the dynamic viscosity of dry air"
 algorithm
   eta := 4.89493640395e-08 * state.T + 3.88335940547e-06;
-  annotation(
+  annotation (
   smoothOrder=99,
   Inline=true,
 Documentation(info="<html>
@@ -158,7 +160,7 @@ redeclare replaceable function extends enthalpyOfGas
 algorithm
   h := enthalpyOfCondensingGas(T)*X[Water]
        + enthalpyOfDryAir(T)*(1.0-X[Water]);
-annotation(
+annotation (
   Inline=true);
 end enthalpyOfGas;
 
@@ -166,7 +168,7 @@ redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 algorithm
   h := (T - reference_T)*cpWatLiq;
-  annotation(
+  annotation (
     smoothOrder=5,
     Inline=true,
     derivative=der_enthalpyOfLiquid);
@@ -180,7 +182,7 @@ redeclare function enthalpyOfNonCondensingGas
   output SpecificEnthalpy h "enthalpy";
 algorithm
   h := enthalpyOfDryAir(T);
-  annotation(
+  annotation (
   smoothOrder=5,
   Inline=true,
   derivative=der_enthalpyOfNonCondensingGas);
@@ -190,7 +192,7 @@ redeclare function extends enthalpyOfVaporization
     "Enthalpy of vaporization of water"
 algorithm
   r0 := h_fg;
-  annotation(
+  annotation (
     Inline=true);
 end enthalpyOfVaporization;
 
@@ -199,7 +201,7 @@ redeclare function extends gasConstant
 
 algorithm
     R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
-  annotation(
+  annotation (
     smoothOrder=2,
     Inline=true,
     Documentation(info="<html>
@@ -212,7 +214,7 @@ redeclare function extends pressure
 
 algorithm
   p := state.p;
-  annotation(
+  annotation (
   smoothOrder=2,
   Inline=true,
   Documentation(info="<html>
@@ -224,7 +226,7 @@ redeclare function extends isobaricExpansionCoefficient
     "Isobaric expansion coefficient beta"
 algorithm
   beta := 0;
-  annotation(
+  annotation (
     smoothOrder=5,
     Inline=true,
 Documentation(info="<html>
@@ -257,7 +259,7 @@ redeclare function extends isothermalCompressibility
     "Isothermal compressibility factor"
 algorithm
   kappa := -1/state.p;
-  annotation(
+  annotation (
     smoothOrder=5,
     Inline=true,
     Documentation(info="<html>
@@ -291,7 +293,7 @@ redeclare function extends saturationPressure
 
 algorithm
   psat := Buildings.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(
+  annotation (
   smoothOrder=5,
   Inline=true);
 end saturationPressure;
@@ -308,7 +310,7 @@ algorithm
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)*state.p/reference_p) for i in 1:2);
-  annotation(
+  annotation (
   Inline=true,
     Documentation(info="<html>
 <p>
@@ -379,7 +381,7 @@ redeclare function extends density_derp_T
     "Return the partial derivative of density with respect to pressure at constant temperature"
 algorithm
   ddpT := dStp/pStp;
-  annotation(
+  annotation (
   Inline=true,
 Documentation(info="<html>
 <p>
@@ -402,7 +404,7 @@ redeclare function extends density_derT_p
 algorithm
   ddTp := 0;
 
-  annotation(
+  annotation (
   smoothOrder=99,
   Inline=true,
   Documentation(info=
@@ -426,7 +428,7 @@ redeclare function extends density_derX
     "Return the partial derivative of density with respect to mass fractions at constant pressure and temperature"
 algorithm
   dddX := fill(0, nX);
-annotation(
+annotation (
   smoothOrder=99,
   Inline=true,
   Documentation(info="<html>
@@ -451,7 +453,7 @@ redeclare replaceable function extends specificHeatCapacityCp
     "Specific heat capacity of gas mixture at constant pressure"
 algorithm
   cp := dryair.cp*(1-state.X[Water]) +steam.cp*state.X[Water];
-    annotation(
+    annotation (
   smoothOrder=99,
   Inline=true,
   derivative=der_specificHeatCapacityCp);
@@ -461,7 +463,7 @@ redeclare replaceable function extends specificHeatCapacityCv
     "Specific heat capacity of gas mixture at constant volume"
 algorithm
   cv:= dryair.cv*(1-state.X[Water]) +steam.cv*state.X[Water];
-  annotation(
+  annotation (
     smoothOrder=99,
     Inline=true,
     derivative=der_specificHeatCapacityCv);
@@ -483,7 +485,7 @@ algorithm
                ThermodynamicState(p=d*pStp/dStp,
                                   T=T,
                                   X=cat(1, X, {1 - sum(X)}));
-    annotation(
+    annotation (
     smoothOrder=2,
     Inline=true,
     Documentation(info="<html>
@@ -501,7 +503,7 @@ algorithm
     ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=X)
  else
     ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=cat(1, X, {1 - sum(X)}));
-  annotation(
+  annotation (
   smoothOrder=2,
   Inline=true,
   Documentation(info="<html>
@@ -517,7 +519,7 @@ algorithm
                 ThermodynamicState(p=p, T=T, X=X)
              else
                 ThermodynamicState(p=p, T=T, X=cat(1, X, {1 - sum(X)}));
-    annotation(
+    annotation (
   smoothOrder=2,
   Inline=true,
   Documentation(info="<html>
@@ -551,7 +553,7 @@ algorithm
                                 T=T,
                                 X=X_int);
 
-annotation(
+annotation (
 Inline=true,
 Documentation(info="<html>
 <p>
@@ -579,7 +581,7 @@ redeclare replaceable function extends specificEnthalpy
 algorithm
   h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
        ((state.T-reference_T) * steam.cp + h_fg) * state.X[Water];
-  annotation(
+  annotation (
    smoothOrder=5,
    Inline=true);
 end specificEnthalpy;
@@ -617,7 +619,7 @@ redeclare replaceable function extends specificGibbsEnergy
     "Specific Gibbs energy"
 algorithm
   g := specificEnthalpy(state) - state.T*specificEntropy(state);
-  annotation(
+  annotation (
     Inline=true);
 end specificGibbsEnergy;
 
@@ -625,7 +627,7 @@ redeclare replaceable function extends specificHelmholtzEnergy
     "Specific Helmholtz energy"
 algorithm
   f := specificEnthalpy(state) - gasConstant(state)*state.T - state.T*specificEntropy(state);
-  annotation(
+  annotation (
     Inline=true);
 end specificHelmholtzEnergy;
 
@@ -635,7 +637,7 @@ algorithm
             p=p_downstream,
             s=specificEntropy(refState),
             X=refState.X));
-annotation(
+annotation (
   Inline=true,
   Documentation(info="<html>
 <p>
@@ -659,7 +661,7 @@ redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
   u := specificEnthalpy(state) - pStp/dStp;
-  annotation(
+  annotation (
     Inline=true);
 end specificInternalEnergy;
 
@@ -667,7 +669,7 @@ redeclare function extends temperature
     "Return temperature of ideal gas as a function of the thermodynamic state record"
 algorithm
   T := state.T;
-  annotation(
+  annotation (
   smoothOrder=2,
   Inline=true,
   Documentation(info="<html>
@@ -678,7 +680,7 @@ end temperature;
 redeclare function extends molarMass "Return the molar mass"
 algorithm
     MM := 1/(state.X[Water]/MMX[Water]+(1.0-state.X[Water])/MMX[Air]);
-    annotation(
+    annotation (
 Inline=true,
 smoothOrder=99,
 Documentation(info="<html>
@@ -753,7 +755,7 @@ protected
       "Specific heat capacity at constant pressure";
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
-    annotation(
+    annotation (
       preferredView="info",
       defaultComponentName="gas",
       Documentation(info="<html>
@@ -812,7 +814,7 @@ replaceable function der_enthalpyOfLiquid
   output Real der_h "Derivative of liquid enthalpy";
 algorithm
   der_h := cpWatLiq*der_T;
-  annotation(
+  annotation (
     Inline=true);
 end der_enthalpyOfLiquid;
 
@@ -824,7 +826,7 @@ function der_enthalpyOfCondensingGas
   output Real der_h "Derivative of steam enthalpy";
 algorithm
   der_h := steam.cp*der_T;
-  annotation(
+  annotation (
     Inline=true);
 end der_enthalpyOfCondensingGas;
 
@@ -836,7 +838,7 @@ replaceable function enthalpyOfDryAir
   output SpecificEnthalpy h "Dry air enthalpy";
 algorithm
   h := (T - reference_T)*dryair.cp;
-  annotation(
+  annotation (
     smoothOrder=5,
     Inline=true,
     derivative=der_enthalpyOfDryAir);
@@ -850,7 +852,7 @@ replaceable function der_enthalpyOfDryAir
   output Real der_h "Derivative of dry air enthalpy";
 algorithm
   der_h := dryair.cp*der_T;
-  annotation(
+  annotation (
     Inline=true);
 end der_enthalpyOfDryAir;
 
@@ -862,7 +864,7 @@ replaceable function der_enthalpyOfNonCondensingGas
   output Real der_h "Derivative of steam enthalpy";
 algorithm
   der_h := der_enthalpyOfDryAir(T, der_T);
-  annotation(
+  annotation (
     Inline=true);
 end der_enthalpyOfNonCondensingGas;
 
@@ -875,7 +877,7 @@ replaceable function der_specificHeatCapacityCp
       "Derivative of specific heat capacity";
 algorithm
   der_cp := (steam.cp-dryair.cp)*der_state.X[Water];
-  annotation(
+  annotation (
     Inline=true);
 end der_specificHeatCapacityCp;
 
@@ -888,7 +890,7 @@ replaceable function der_specificHeatCapacityCv
       "Derivative of specific heat capacity";
 algorithm
   der_cv := (steam.cv-dryair.cv)*der_state.X[Water];
-  annotation(
+  annotation (
     Inline=true);
 end der_specificHeatCapacityCv;
 
@@ -933,6 +935,7 @@ is a function of temperature.
 </p>
 <p>
 Note that models in this package implement the equation for the internal energy as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   u = h - p<sub>stp</sub> &frasl; &rho;<sub>stp</sub>,
 </p>
@@ -963,6 +966,22 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </html>", revisions="<html>
 <ul>
 <li>
+June 6, 2015, by Michael Wetter:<br/>
+Set <code>AbsolutePressure(start=p_default)</code> to avoid
+a translation error if
+<a href=\"modelica://Buildings.Fluid.Sources.Examples.TraceSubstancesFlowSource\">
+Buildings.Fluid.Sources.Examples.TraceSubstancesFlowSource</a>
+is translated in pedantic mode in Dymola 2016.
+The reason is that pressures use <code>Medium.p_default</code> as start values,
+but
+<a href=\"modelica://Modelica.Media.Interfaces.Types\">
+Modelica.Media.Interfaces.Types</a>
+sets a default value of <i>1E-5</i>.
+A similar change has been done for pressure.
+This fixes
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
 June 5, 2015, by Michael Wetter:<br/>
 Added <code>stateSelect</code> attribute in <code>BaseProperties.T</code>
 to allow correct use of <code>preferredMediumState</code> as
@@ -971,7 +990,7 @@ described in
 Modelica.Media.Interfaces.PartialMedium</a>.
 Note that the default is <code>preferredMediumState=false</code>
 and hence the same states are used as were used before.
-This is for 
+This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
 </li>
 <li>

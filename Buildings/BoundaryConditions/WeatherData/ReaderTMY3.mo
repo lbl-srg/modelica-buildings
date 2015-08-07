@@ -644,13 +644,6 @@ equation
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{261,-210},{280,-210},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
           0},{300,0}},
@@ -1219,6 +1212,18 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 6, 2015, by Michael Wetter:<br/>
+Removed redundant but consistent
+<code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
+statement.
+This avoids a warning if 
+<a href=\"modelica://Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness\">
+Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
+is translated in pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
 <li>
 March 26, 2015, by Michael Wetter:<br/>
 Added option to obtain the black body sky temperature

@@ -92,6 +92,7 @@ is explained in the function
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
 Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
 that is called by this model.
+</p>
 <p>
 The pressure <i>p</i> at the port <code>ports</code> is computed as
 </p>

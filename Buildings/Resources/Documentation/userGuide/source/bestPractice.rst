@@ -266,7 +266,7 @@ Consider the flow circuit shown below that consists of a pump or fan, a flow res
 
 When this model is used with a medium model that models
 :term:`compressible flow`, such as
-the medium model `Buildings.Media.IdealGases.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir>`_,
+the medium model `Buildings.Media.Air <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air>`_,
 then the model is well defined because the gas medium implements the
 equation :math:`p=\rho \, R \, T`,
 where :math:`p` is the static pressure, :math:`\rho` is the mass density,
@@ -274,8 +274,7 @@ where :math:`p` is the static pressure, :math:`\rho` is the mass density,
 
 However, when the medium model is changed to a model that models
 :term:`incompressible flow`, such as
-`Buildings.Media.GasesConstantDensity.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir>`_ or
-`Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
+`Buildings.Media.Water <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water>`_,
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:
@@ -288,7 +287,7 @@ In this situation, attempting to translate the model leads, in Dymola, to the fo
    The number of scalar Real unknown elements are 58.
    The number of scalar Real equation elements are 58.
 
-Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_,
+Similarly, if the medium model `Buildings.Media.Specialized.Water.TemperatureDependentDensity <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity>`_,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature

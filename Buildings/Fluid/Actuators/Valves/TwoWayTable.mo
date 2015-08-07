@@ -1,5 +1,5 @@
 within Buildings.Fluid.Actuators.Valves;
-model TwoWayTable "Two way valve with linear flow characteristics"
+model TwoWayTable "Two way valve with table-specified flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
     phi=phiLooUp.y[1],
     final l = phiLooUp.table[1, 2]);
