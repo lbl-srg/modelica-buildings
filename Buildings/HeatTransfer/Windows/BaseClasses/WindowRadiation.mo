@@ -91,6 +91,10 @@ protected
     final NSta=NSta) "Interpolator for the window state"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
+  Modelica.Blocks.Routing.Replicator replicator(final nout=N) if
+     NSta > 1
+    "Signal replicator for signals that have an element for each glass pane"
+    annotation (Placement(transformation(extent={{16,-68},{36,-48}})));
 equation
   if noShade then
     assert(uSha_internal < 1E-6,
@@ -134,14 +138,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(abs.QAbsExtSha_flow, staIntQAbsExtSha_flow.HSta) annotation (Line(
-        points={{-19,-22},{8,-22},{8,-22},{36,-22},{36,74},{58,74}}, color={0,0,
+        points={{-19,-22},{8,-22},{36,-22},{36,74},{58,74}},         color={0,0,
           127}));
   connect(staIntQAbsExtSha_flow.H, QAbsExtSha_flow) annotation (Line(points={{81,
           80},{92,80},{92,90},{110,90}}, color={0,0,127}));
   connect(abs.QAbsGlaUns_flow, staIntQAbsGlaUns_flow.HSta) annotation (Line(
         points={{-19,-26},{14,-26},{40,-26},{40,44},{58,44}}, color={0,0,127}));
   connect(staIntQAbsGlaUns_flow.H, QAbsGlaUns_flow)
-    annotation (Line(points={{81,50},{110,50},{110,50}}, color={0,0,127}));
+    annotation (Line(points={{81,50},{110,50}},          color={0,0,127}));
   connect(staIntQAbsGlaSha_flow.HSta, abs.QAbsGlaSha_flow) annotation (Line(
         points={{58,-6},{44,-6},{44,-34},{-19,-34}}, color={0,0,127}));
   connect(staIntQAbsGlaSha_flow.H, QAbsGlaSha_flow) annotation (Line(points={{81,
@@ -149,23 +153,24 @@ equation
   connect(abs.QAbsIntSha_flow, staIntQAbsIntSha_flow.HSta) annotation (Line(
         points={{-19,-38},{18,-38},{18,-36},{58,-36}}, color={0,0,127}));
   connect(staIntQAbsIntSha_flow.H, QAbsIntSha_flow)
-    annotation (Line(points={{81,-30},{110,-30},{110,-30}}, color={0,0,127}));
+    annotation (Line(points={{81,-30},{110,-30}},           color={0,0,127}));
   connect(tra.QTra_flow, staIntQTra_flow.HSta) annotation (Line(points={{-19,50},
-          {12,50},{12,-86},{58,-86}}, color={0,0,127}));
+          {4,50},{4,-86},{58,-86}},   color={0,0,127}));
   connect(staIntQTra_flow.H, QTra_flow)
     annotation (Line(points={{81,-80},{110,-80}},           color={0,0,127}));
   connect(uSta, staIntQAbsExtSha_flow.uSta) annotation (Line(points={{40,-120},{
-          40,-120},{40,-96},{40,-96},{40,86},{58,86}}, color={0,0,127}));
+          40,-120},{40,-96},{40,86},{58,86}},          color={0,0,127}));
   connect(staIntQTra_flow.uSta, uSta) annotation (Line(points={{58,-74},{48,-74},
           {40,-74},{40,-120}}, color={0,0,127}));
   connect(staIntQAbsIntSha_flow.uSta, uSta)
     annotation (Line(points={{58,-24},{40,-24},{40,-120}}, color={0,0,127}));
-  for i in 1:N loop
-    connect(staIntQAbsGlaSha_flow[i].uSta, uSta)
-    annotation (Line(points={{58,6},{40,6},{40,-120}}, color={0,0,127}));
-    connect(staIntQAbsGlaUns_flow[i].uSta, uSta) annotation (Line(points={{58,56},
-          {48,56},{40,56},{40,-120}}, color={0,0,127}));
-  end for;
+
+  connect(uSta, replicator.u) annotation (Line(points={{40,-120},{40,-74},{8,-74},
+          {8,-58},{14,-58}}, color={0,0,127}));
+  connect(replicator.y, staIntQAbsGlaUns_flow.uSta) annotation (Line(points={{37,
+          -58},{48,-58},{48,56},{58,56}}, color={0,0,127}));
+  connect(replicator.y, staIntQAbsGlaSha_flow.uSta) annotation (Line(points={{37,
+          -58},{44,-58},{48,-58},{48,6},{58,6}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
