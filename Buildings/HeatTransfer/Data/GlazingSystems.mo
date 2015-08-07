@@ -86,6 +86,24 @@ First implementation.
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGlaSys");
 
+  record DoubleElectrochromicAir13Clear =
+      Buildings.HeatTransfer.Data.GlazingSystems.Generic (
+      final glass={Glasses.Electrochromic(),
+                   Buildings.HeatTransfer.Data.Glasses.Generic(
+                     x=0.006,
+                     k=0.9,
+                     tauSol={0.775},
+                     rhoSol_a={0.071},
+                     rhoSol_b={0.071},
+                     tauIR=0,
+                     absIR_a=0.84,
+                     absIR_b=0.84)},
+      final gas={Gases.Air(x=0.0127)},
+      UFra=1.4) "Double pane, electrochromic 6mm, air 12.7, clear glass 6mm"
+    annotation (
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datGlaSys");
+
   record TripleClearAir13ClearAir13Clear =
       Buildings.HeatTransfer.Data.GlazingSystems.Generic (
       final glass={Glasses.ID102(),Glasses.ID102(),Glasses.ID102()},
