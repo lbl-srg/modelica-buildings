@@ -73,7 +73,8 @@ protected
        inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1)) if
+  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1), index(
+        fixed=true, start=0)) if
        inputType == Buildings.Fluid.Types.InputType.Stage
     "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
@@ -137,7 +138,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extractor.index, stage) annotation (Line(
-      points={{-40,62},{-40,90},{0,90},{0,120},{0,120}},
+      points={{-40,62},{-40,90},{0,90},{0,120}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
