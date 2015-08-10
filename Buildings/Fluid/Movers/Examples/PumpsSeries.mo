@@ -19,7 +19,6 @@ model PumpsSeries "Two flow machines in series"
     T=293.15,
     nPorts=1) annotation (Placement(transformation(extent={{-92,50},{-72,70}})));
 
-
   parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -32,7 +31,7 @@ model PumpsSeries "Two flow machines in series"
     per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
     dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    constInput=1) "Model of a flow machine"
+    normalized_speed=1) "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.Step const1(
     height=-1,
@@ -78,7 +77,8 @@ However, <code>flowMac2.dp</code> is always negative, as this pump has a constan
 <ul>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using parameter as demonstration case.
+Set constant speed for pump using parameter 
+instead of <code>realInput</code>.
 </li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>

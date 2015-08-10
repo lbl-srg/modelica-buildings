@@ -10,9 +10,15 @@ model SpeedControlled_Nrpm
               dp =     per.pressure.dp),
             motorCooledByFluid=per.motorCooledByFluid,
             use_powerCharacteristic=per.use_powerCharacteristic),
-    stageInputs(each final unit="1/min"),
-    constInput(final unit="1/min"));
+    final stageInputs(each final unit="1/min") = speeds,
+    final constInput(final unit="1/min") = speed);
 
+  parameter Real speed(final unit="1/min") = 0
+    "Speed set point when using constant set point"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Real[:] speeds(each final unit="1/min")= {0}
+    "Vector of speed set points when using stages"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
   replaceable parameter Data.SpeedControlled_Nrpm per
     "Record with performance data"
     annotation (choicesAllMatching=true,
@@ -74,7 +80,12 @@ equation
             Text(
               visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
               extent={{20,126},{118,104}},
-              textString="Nrpm [rpm]")}),
+              textString="Nrpm [rpm]"),
+            Text(
+          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
+          extent={{-80,136},{78,102}},
+          lineColor={0,0,255},
+          textString="%speed")}),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
