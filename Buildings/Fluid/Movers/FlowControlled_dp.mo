@@ -26,7 +26,7 @@ model FlowControlled_dp
 
   parameter Modelica.SIunits.Pressure[:] normalizedHeads= {0}
     "Vector of normalized head set points, used when inputType=Stage"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"

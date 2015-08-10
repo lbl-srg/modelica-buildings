@@ -18,7 +18,7 @@ model SpeedControlled_y
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
   parameter Real[:] normalized_speeds= {0}
     "Vector of normalized speed set points when using stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   replaceable parameter Data.SpeedControlled_y per
     "Record with performance data"
     annotation (choicesAllMatching=true,

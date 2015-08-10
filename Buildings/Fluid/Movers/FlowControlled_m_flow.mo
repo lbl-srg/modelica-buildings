@@ -22,7 +22,7 @@ model FlowControlled_m_flow
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
   parameter Real[:] normalizedMassFlowRates = {0}
     "Vector of normalized mass flow rate set points, used when inputType=Stage"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
                                                  nominal=m_flow_nominal) if
        inputType == Buildings.Fluid.Types.InputType.Continuous

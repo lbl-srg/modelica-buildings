@@ -53,7 +53,7 @@ partial model PartialFlowMachine
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
   Modelica.Blocks.Interfaces.IntegerInput stage if
-       inputType == Buildings.Fluid.Types.InputType.Stage
+       inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
         transformation(
@@ -66,9 +66,9 @@ protected
       T=T_start, p=p_start, X=X_start) "Medium state at start values";
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
-  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(k=
-        stageInputs) if
-       inputType == Buildings.Fluid.Types.InputType.Stage "Stage input values"
+  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
+    k=stageInputs) if
+       inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(k=constInput) if
        inputType == Buildings.Fluid.Types.InputType.Constant
@@ -76,7 +76,7 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1), index(
         fixed=true, start=0)) if
-       inputType == Buildings.Fluid.Types.InputType.Stage
+       inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
   Modelica.Blocks.Routing.RealPassThrough inputSwitch

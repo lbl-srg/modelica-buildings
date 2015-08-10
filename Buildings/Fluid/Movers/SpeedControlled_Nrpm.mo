@@ -18,7 +18,7 @@ model SpeedControlled_Nrpm
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
   parameter Real[:] speeds(each final unit="1/min")= {0}
     "Vector of speed set points when using stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   replaceable parameter Data.SpeedControlled_Nrpm per
     "Record with performance data"
     annotation (choicesAllMatching=true,

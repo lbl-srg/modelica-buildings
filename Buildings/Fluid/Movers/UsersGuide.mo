@@ -217,7 +217,7 @@ the head is <code>dp=dp_nominal</code>, where <code>dp_nominal</code> is a param
 </li>
 <li>
 <p>
-If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stage</code>,
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stages</code>,
 the head is <code>dp=dp_nominal*{0, normalizedHeads}</code>, where <code>dp_nominal</code> is a scalar parameter
 and <code>normalizedHeads</code> is a vectorized parameter. For example, if a mover has
 two stages and the head of the first stage should be <i>60%</i> of the nominal head
@@ -266,7 +266,7 @@ the mass flow rate is <code>m_flow=m_flow_nominal</code>, where <code>m_flow_nom
 </li>
 <li>
 <p>
-If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stage</code>,
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stages</code>,
 the mass flow rate is <code>m_flow=m_flow_nominal*{0, normalizedMassFlowRates}</code>, where <code>m_flow_nominal</code> is a scalar parameter
 and <code>normalizedMassFlowRates</code> is a vectorized parameter. For example, if a mover has
 two stages and the mass flow rate of the first stage should be <i>60%</i> of the nominal mass flow rate

@@ -9,7 +9,7 @@ model MoverStages "Example model of mover using stages"
   FlowControlled_m_flow floMac(
     redeclare package Medium = Medium,
     dynamicBalance=false,
-    inputType=Buildings.Fluid.Types.InputType.Stage,
+    inputType=Buildings.Fluid.Types.InputType.Stages,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     normalizedMassFlowRates={1/2,1}) "Model of a flow machine"
