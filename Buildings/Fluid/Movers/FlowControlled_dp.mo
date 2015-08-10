@@ -4,8 +4,8 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start),
-  final stageInputs(each final unit="Pa") = heads,
-  final constInput(final unit="Pa") = head);
+  final stageInputs(each final unit="Pa") = dp_nominal*cat(1, {0}, normalizedHeads),
+  final constInput(final unit="Pa") = dp_nominal);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -23,11 +23,9 @@ model FlowControlled_dp
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalize filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.Pressure head = 0
-    "Head set point when using constant set point"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Modelica.SIunits.Pressure[:] heads= {0}
-    "Vector of head set points when using stages"
+
+  parameter Modelica.SIunits.Pressure[:] normalizedHeads= {0}
+    "Vector of normalized head set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous

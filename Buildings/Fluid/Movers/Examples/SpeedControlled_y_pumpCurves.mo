@@ -165,8 +165,8 @@ avoid a singularity at the origin.
 <ul>
 <li>
 June 14, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using parameter 
-instead of <code>realInput</code>.
+Set constant speed for pump using a <code>parameter</code> 
+instead of a <code>realInput</code>.
 </li>
 <li>March 24 2010, by Michael Wetter:<br/>
 First implementation.

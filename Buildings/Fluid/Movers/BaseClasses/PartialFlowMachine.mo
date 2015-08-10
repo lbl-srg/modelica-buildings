@@ -66,7 +66,8 @@ protected
       T=T_start, p=p_start, X=X_start) "Medium state at start values";
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
-  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageVals(k=stageInputs) if
+  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(k=
+        stageInputs) if
        inputType == Buildings.Fluid.Types.InputType.Stage "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(k=constInput) if
@@ -125,7 +126,7 @@ equation
           5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(stageVals.y, extractor.u) annotation (Line(
+  connect(stageValues.y, extractor.u) annotation (Line(
       points={{-59,50},{-52,50}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -194,6 +194,107 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
 This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.
+</p>
+<p>
+These models can be configured for three different control inputs.
+For
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>,
+the head is as follows:
+</p>
+<ul>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Continuous</code>,
+the head is <code>dp=dp_in</code>, where <code>dp_in</code> is an input connector.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Constant</code>,
+the head is <code>dp=dp_nominal</code>, where <code>dp_nominal</code> is a parameter.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stage</code>,
+the head is <code>dp=dp_nominal*{0, normalizedHeads}</code>, where <code>dp_nominal</code> is a scalar parameter
+and <code>normalizedHeads</code> is a vectorized parameter. For example, if a mover has
+two stages and the head of the first stage should be <i>60%</i> of the nominal head
+and the second stage equal to <code>dp_nominal</code>, set
+<code>normalizedHeads={0.6, 1}</code>.
+Then, the mover will have the following heads:
+</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr>
+      <th>input signal <code>stage</code></th>
+      <th>Head [Pa]</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.6*dp_nominal</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>dp_nominal</td>
+    </tr>
+</table>
+</li>
+</ul>
+<p>
+Similarly, for
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>,
+the head is as follows:
+</p>
+<ul>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Continuous</code>,
+the mass flow rate is <code>m_flow=m_flow_in</code>, where <code>m_flow_in</code> is an input connector.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Constant</code>,
+the mass flow rate is <code>m_flow=m_flow_nominal</code>, where <code>m_flow_nominal</code> is a parameter.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stage</code>,
+the mass flow rate is <code>m_flow=m_flow_nominal*{0, normalizedMassFlowRates}</code>, where <code>m_flow_nominal</code> is a scalar parameter
+and <code>normalizedMassFlowRates</code> is a vectorized parameter. For example, if a mover has
+two stages and the mass flow rate of the first stage should be <i>60%</i> of the nominal mass flow rate
+and the second stage equal to <code>m_flow_nominal</code>, set
+<code>normalizedMassFlowRates={0.6, 1}</code>.
+Then, the mover will have the following mass flow rates:
+</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr>
+      <th>input signal <code>stage</code></th>
+      <th>Mass flow rates [kg/s]</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.6*m_flow_nominal</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>m_flow_nominal</td>
+    </tr>
+</table>
+</li>
+</ul>
+<p>
 These two models do not have a performance curve for the flow
 characteristics.
 The reason for not using a performance curve for the flow characteristics is that</p>

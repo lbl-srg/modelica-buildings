@@ -4,8 +4,8 @@ model FlowControlled_m_flow
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
-    final stageInputs(each final unit="kg/s")=flow_rates,
-    final constInput(final unit="kg/s")=flow_rate);
+    final stageInputs(each final unit="kg/s")=m_flow_nominal*cat(1, {0}, normalizedMassFlowRates),
+    final constInput(final unit="kg/s")=m_flow_nominal);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -20,11 +20,8 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.MassFlowRate flow_rate = 0
-    "Mass flow rate set point when using constant set point"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Modelica.SIunits.MassFlowRate[:] flow_rates = {0}
-    "Vector of mass flow rate set points when using stages"
+  parameter Real[:] normalizedMassFlowRates = {0}
+    "Vector of normalized mass flow rate set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
                                                  nominal=m_flow_nominal) if
@@ -154,7 +151,7 @@ Revised implementation to allow zero flow rate.
           visible=inputType == Buildings.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%flow_rate")}),
+          textString="%m_flow_nominal")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
 end FlowControlled_m_flow;

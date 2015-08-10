@@ -77,8 +77,8 @@ However, <code>flowMac2.dp</code> is always negative, as this pump has a constan
 <ul>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using parameter 
-instead of <code>realInput</code>.
+Set constant speed for pump using a <code>parameter</code> 
+instead of a <code>realInput</code>.
 </li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>

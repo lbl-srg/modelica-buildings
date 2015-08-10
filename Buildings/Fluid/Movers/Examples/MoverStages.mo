@@ -3,8 +3,8 @@ model MoverStages "Example model of mover using stages"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     2 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=2
+    "Nominal mass flow rate";
 
   FlowControlled_m_flow floMac(
     redeclare package Medium = Medium,
@@ -12,7 +12,7 @@ model MoverStages "Example model of mover using stages"
     inputType=Buildings.Fluid.Types.InputType.Stage,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
-    flow_rates={0,m_flow_nominal/2,m_flow_nominal}) "Model of a flow machine"
+    normalizedMassFlowRates={1/2,1}) "Model of a flow machine"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -48,9 +48,15 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
+<!-- 
+fixme: There also need to be a unit test for 
+inputType==Buildings.Fluid.Types.InputType.Constant
+and similar tests for Buildings.Fluid.Movers.FlowControlled_dp
+-->
 This example demonstrates the use of the <code>Integer</code> 
 stage connector for a mover model.
-Note that integer input 1 (not 0) refers to the first stage.
+Note that integer input <i>1</i> refers to the first stage, whereas
+input <i>0</i> switches the mover off.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -60,6 +66,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-06),
-    __Dymola_experimentSetupOutput(events=false));
+    experiment(Tolerance=1e-06));
 end MoverStages;
