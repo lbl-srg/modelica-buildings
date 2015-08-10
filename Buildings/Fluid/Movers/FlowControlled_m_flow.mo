@@ -4,8 +4,8 @@ model FlowControlled_m_flow
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
-    stageInputs(each final unit="kg/s"),
-    constInput(final unit="kg/s"));
+    final stageInputs(each final unit="kg/s")=flow_rates,
+    final constInput(final unit="kg/s")=flow_rate);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -20,6 +20,12 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.MassFlowRate flow_rate = 0
+    "Mass flow rate set point when using constant set point"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Modelica.SIunits.MassFlowRate[:] flow_rates = {0}
+    "Vector of mass flow rate set points when using stages"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
                                                  nominal=m_flow_nominal) if
        inputType == Buildings.Fluid.Types.InputType.Continuous
@@ -143,7 +149,12 @@ Revised implementation to allow zero flow rate.
           smooth=Smooth.None),
         Text(extent={{50,68},{100,54}},
           lineColor={0,0,127},
-          textString="m_flow")}),
+          textString="m_flow"),
+        Text(
+          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
+          extent={{-80,136},{78,102}},
+          lineColor={0,0,255},
+          textString="%flow_rate")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
 end FlowControlled_m_flow;

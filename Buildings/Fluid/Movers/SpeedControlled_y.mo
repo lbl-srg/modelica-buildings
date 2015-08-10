@@ -10,11 +10,17 @@ model SpeedControlled_y
               dp =     per.pressure.dp),
             motorCooledByFluid=per.motorCooledByFluid,
             use_powerCharacteristic=per.use_powerCharacteristic),
-    stageInputs(each final unit="1"),
-    constInput(final unit="1"));
-	
-  replaceable parameter Data.SpeedControlled_y per 
-  "Record with performance data"
+    final stageInputs(each final unit="1") = normalized_speeds,
+    final constInput(final unit="1")=normalized_speed);
+
+  parameter Real normalized_speed = 0
+    "Normalized speed set point when using constant set point"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Real[:] normalized_speeds= {0}
+    "Vector of normalized speed set points when using stages"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+  replaceable parameter Data.SpeedControlled_y per
+    "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
@@ -68,7 +74,12 @@ equation
             Text(
               visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
               extent={{10,124},{102,102}},
-              textString="y [0, 1]")}),
+              textString="y [0, 1]"),
+            Text(
+          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
+          extent={{-80,136},{78,102}},
+          lineColor={0,0,255},
+          textString="%normalized_speed")}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.

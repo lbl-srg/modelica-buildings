@@ -4,8 +4,8 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start),
-  stageInputs(each final unit="Pa"),
-  constInput(final unit="Pa"));
+  final stageInputs(each final unit="Pa") = heads,
+  final constInput(final unit="Pa") = head);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -23,6 +23,12 @@ model FlowControlled_dp
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalize filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Modelica.SIunits.Pressure head = 0
+    "Head set point when using constant set point"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Modelica.SIunits.Pressure[:] heads= {0}
+    "Vector of head set points when using stages"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
@@ -62,11 +68,10 @@ protected
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-
 equation
   assert(dp_in >= -1E-3,
     "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
-	
+
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
       points={{34.7,88},{36,88},{36,50}},
@@ -169,6 +174,11 @@ Revised implementation to allow zero flow rate.
           points={{32,50},{100,50}},
           color={0,0,0},
           smooth=Smooth.None),
+        Text(
+          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
+          extent={{-80,136},{78,102}},
+          lineColor={0,0,255},
+          textString="%head"),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),

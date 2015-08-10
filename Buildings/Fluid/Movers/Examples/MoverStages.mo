@@ -11,8 +11,8 @@ model MoverStages "Example model of mover using stages"
     dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Stage,
     m_flow_nominal=m_flow_nominal,
-    stageInputs={0,m_flow_nominal},
-    filteredSpeed=false) "Model of a flow machine"
+    filteredSpeed=false,
+    flow_rates={0,m_flow_nominal/2,m_flow_nominal}) "Model of a flow machine"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -24,8 +24,8 @@ model MoverStages "Example model of mover using stages"
     redeclare package Medium = Medium,
     nPorts=1) "Pressure sink"
               annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Modelica.Blocks.Sources.IntegerStep integerStep(height=1, startTime=0.5,
-    offset=1) "Integer step input, 1 is off, 2 is on"
+  Modelica.Blocks.Sources.IntegerTable integerTable(table=[0,1; 0.3,2; 0.6,3])
+    "Integer step input, 1 is off, 2 is on"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   connect(sou.ports[1], floMac.port_a) annotation (Line(
@@ -36,7 +36,7 @@ equation
       points={{10,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(integerStep.y, floMac.stage) annotation (Line(
+  connect(integerTable.y, floMac.stage) annotation (Line(
       points={{-19,50},{0,50},{0,12}},
       color={255,127,0},
       smooth=Smooth.None));
@@ -50,6 +50,7 @@ equation
 <p>
 This example demonstrates the use of the <code>Integer</code> 
 stage connector for a mover model.
+Note that integer input 1 (not 0) refers to the first stage.
 </p>
 </html>", revisions="<html>
 <ul>

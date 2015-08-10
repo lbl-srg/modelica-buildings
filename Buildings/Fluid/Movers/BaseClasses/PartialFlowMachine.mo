@@ -22,16 +22,15 @@ partial model PartialFlowMachine
     "Control input type for this mover";
   parameter Real constInput = 0 "Constant input set point"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Real stageInputs[:]= {0}
-    "Vector of input set points corresponding to stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stage));
+
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.SIunits.Time tau=1
     "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
-
+  parameter Real stageInputs[:]
+    "Vector of input set points corresponding to stages";
   // Models
   Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
@@ -63,6 +62,10 @@ partial model PartialFlowMachine
         origin={0,120})));
 
 protected
+  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+      T=T_start, p=p_start, X=X_start) "Medium state at start values";
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+    "Start value for outflowing enthalpy";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageVals(k=stageInputs) if
        inputType == Buildings.Fluid.Types.InputType.Stage "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
@@ -70,7 +73,8 @@ protected
        inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1)) if
+  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1), index(
+        fixed=true, start=0)) if
        inputType == Buildings.Fluid.Types.InputType.Stage
     "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
@@ -92,11 +96,6 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start) "Medium state at start values";
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
 
 equation
   // For computing the density, we assume that the fan operates in the design flow direction.
@@ -139,7 +138,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extractor.index, stage) annotation (Line(
-      points={{-40,62},{-40,90},{0,90},{0,120},{0,120}},
+      points={{-40,62},{-40,90},{0,90},{0,120}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
@@ -191,12 +190,7 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold}),
-        Text(
-          visible=inputType == Buildings.Fluid.Types.InputType.Constant,
-          extent={{-80,136},{78,102}},
-          lineColor={0,0,255},
-          textString="%constInput")}),
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface
