@@ -6,7 +6,8 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
 
-  Real m_condens;
+  Modelica.SIunits.MassFlowRate m_condens = min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]))
+    "Water vapor mass flow rate";
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     nPorts=2,
     ports(m_flow(min={0,-Modelica.Constants.inf})),
@@ -46,7 +47,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     "Air sink" annotation (Placement(transformation(extent={{78,6},{58,26}})));
   Modelica.Blocks.Sources.RealExpression mCond(y=m_condens)
     annotation (Placement(transformation(extent={{-40,40},{-20,20}})));
-  Utilities.Psychrometrics.X_pTphi xSat(use_p_in=false)
+  Buildings.Utilities.Psychrometrics.X_pTphi xSat(use_p_in=false)
     "Block for converting relative humidity into absolute humidity"
     annotation (Placement(transformation(extent={{30,52},{50,32}})));
   Modelica.Blocks.Sources.Constant phiSat(k=1) "Humidity of 100%"
@@ -71,8 +72,6 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     tau=0) "Temperature sensor"
            annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
 equation
-
-  m_condens=min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]));
   connect(phiSat.y, xSat.phi) annotation (Line(
       points={{-11.2,48},{28,48}},
       color={0,0,127},
@@ -126,6 +125,11 @@ equation
             {100,100}}, preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+July 28, 2015, by Michael Wetter:<br/>
+Moved assignment of <code>m_condens</code> from equation section to
+declaration to avoid graphical and textual equations.
+</li>    
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.

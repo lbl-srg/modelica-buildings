@@ -58,6 +58,29 @@ protected
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
+  // Parameters for inverseXRegularized.
+  // These are assigned here for efficiency reason.
+  // Otherwise, they would need to be computed each time
+  // the function is invocated.
+  final parameter Real deltaReg = m_flow_small/1E3
+    "Smoothing region for inverseXRegularized";
+
+  final parameter Real deltaInvReg = 1/deltaReg
+    "Inverse value of delta for inverseXRegularized";
+
+  final parameter Real aReg = -15*deltaInvReg
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real bReg = 119*deltaInvReg^2
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real cReg = -361*deltaInvReg^3
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real dReg = 534*deltaInvReg^4
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real eReg = -380*deltaInvReg^5
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real fReg = 104*deltaInvReg^6
+    "Polynomial coefficient for inverseXRegularized";
+
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -72,7 +95,10 @@ equation
 
  // m_flowInv is only used if prescribedHeatFlowRate == true
  m_flowInv = if prescribedHeatFlowRate
-             then Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3)
+             then Buildings.Utilities.Math.Functions.inverseXRegularized(
+                    x=port_a.m_flow,
+                    delta=deltaReg, deltaInv=deltaInvReg,
+                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg)
              else 0;
 
  if allowFlowReversal then
@@ -264,6 +290,16 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 11, 2015, by Michael Wetter:<br/>
+Refactored implementation of
+<a href=\"modelica://Buildings.Utilities.Math.Functions.inverseXRegularized\">
+Buildings.Utilities.Math.Functions.inverseXRegularized</a>
+to allow function to be inlined and to factor out the computation
+of arguments that only depend on parameters.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">issue 302</a>.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Corrected bug for situation with latent heat exchange and flow reversal not

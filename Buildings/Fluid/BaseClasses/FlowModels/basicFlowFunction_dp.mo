@@ -1,21 +1,29 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_dp "Basic class for flow models"
+function basicFlowFunction_dp
+  "Function that computes mass flow rate for given pressure drop"
 
   input Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
+  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
-
+protected
+  Modelica.SIunits.Pressure dp_turbulent = m_flow_turbulent^2/k/k
+    "Pressure where flow changes to turbulent";
 algorithm
-      m_flow := smooth(2, if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
-                          if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
-                          (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3);
-annotation(Inline=true,
-           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
+   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(dp)
+             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(-dp)
+             else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
+
+  annotation(LateInline=true,
            smoothOrder=2,
+           derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
+             Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
+           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -46,6 +54,13 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 28, 2015, by Michael Wetter:<br/>
+Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</a>.
+</li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
 New, more efficient implementation based on regularisation using simple polynomial.

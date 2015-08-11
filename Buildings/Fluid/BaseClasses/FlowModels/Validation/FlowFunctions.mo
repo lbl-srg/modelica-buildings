@@ -16,6 +16,7 @@ equation
   p1 = p1_nominal + (time-0.5)/dTime * 20;
   m1_flow = m2_flow;
   p2-p1 = dp1 + dp2;
+  // fixme: from_dp causes only half of the function to be tested.
   if from_dp then
     m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
     m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
