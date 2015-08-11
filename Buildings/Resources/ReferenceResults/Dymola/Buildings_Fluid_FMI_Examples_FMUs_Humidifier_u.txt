@@ -1,10 +1,9 @@
-last-generated=2015-08-07
+last-generated=2015-08-11
 statistics-fmu-dependencies=
 {
   "Outputs": {
     "outlet.m_flow": [
-      "inlet.m_flow", 
-      "u"
+      "inlet.m_flow"
     ], 
     "CPUtime": [], 
     "inlet.backward.T": [
@@ -36,9 +35,7 @@ statistics-fmu-dependencies=
   }, 
   "InitialUnknowns": {
     "outlet.m_flow": [
-      "inlet.m_flow", 
-      "mWat_flow_nominal", 
-      "u"
+      "inlet.m_flow"
     ], 
     "CPUtime": [], 
     "inlet.backward.T": [

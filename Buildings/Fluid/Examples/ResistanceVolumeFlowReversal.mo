@@ -116,7 +116,7 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the sizes
+This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the size
 of nonlinear systems of equations. The user can change the parameter value in the <code>allowFlowReversal</code>
 block and rerun the simulation. The results are also demonstrated below for <code>nRes.k = 10</code>, 
 which is the number of parallel branches containing one pressure drop element and one mixing volume each.
@@ -141,16 +141,16 @@ two cases the Newton solver of the nonlinear system does not converge.
 These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04
 and with <code>Evaluate=false</code>.
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = true
-</h3>
+</h4>
 <p>
 Sizes of nonlinear systems of equations: {6, 11, <b>56</b>}<br/>
 Sizes after manipulation of the nonlinear systems: {1, 9, <b>12</b>}
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = false
-</h3>
+</h4>
 <p>
 <b>Old implementation</b>
 </p>
