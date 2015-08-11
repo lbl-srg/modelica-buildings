@@ -23,7 +23,6 @@ model LBNL_71T_RoomB
     nSurBou=nSurBou,
     linearizeRadiation=false,
     nPorts=3,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=T_start,
     datConExtWin(
       layers={matExtWal},
@@ -41,7 +40,9 @@ model LBNL_71T_RoomB
           Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
     AFlo=13.94,
     hRoo=3.37,
-    lat=0.65484753534827) "Room model"
+    lat=0.65484753534827,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
     annotation (Placement(transformation(extent={{66,40},{106,80}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
@@ -237,35 +238,9 @@ model LBNL_71T_RoomB
     annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-114,-28},{-94,-8}})));
-  Controls.Continuous.LimPID conHea(
-    k=0.1,
-    Ti=300,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    "Controller for heating"
-    annotation (Placement(transformation(extent={{-80,-122},{-60,-102}})));
-  Controls.Continuous.LimPID conCoo(
-    k=0.1,
-    Ti=300,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
-    "Controller for cooling"
-    annotation (Placement(transformation(extent={{-80,-166},{-60,-146}})));
-  Modelica.Blocks.Sources.Constant THea(k=24 + 273.15) "Heating setpoint"
-    annotation (Placement(transformation(extent={{-126,-122},{-106,-102}})));
-  Modelica.Blocks.Sources.Constant TCoo(k=24.5 + 273.15) "Cooling setpoint"
-    annotation (Placement(transformation(extent={{-122,-166},{-102,-146}})));
-  Modelica.Blocks.Math.Gain gaiHea(k=1e6)
-    annotation (Placement(transformation(extent={{-30,-122},{-10,-102}})));
-  Modelica.Blocks.Math.Gain gaiCoo(k=-1e6)
-    annotation (Placement(transformation(extent={{-28,-166},{-8,-146}})));
-  Modelica.Blocks.Math.Sum sum(nin=2)
-    annotation (Placement(transformation(extent={{50,-146},{70,-126}})));
-  Modelica.Blocks.Routing.Multiplex2 mux
-    annotation (Placement(transformation(extent={{12,-146},{32,-126}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{92,-146},{112,-126}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    "Room air temperature sensor"
-    annotation (Placement(transformation(extent={{114,-186},{94,-166}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=297.15)
+    "Prescribed room air temperature"
+    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 equation
   for i in 2:nConBou loop
     connect(TBou[1].port, roo.surf_conBou[i]) annotation (Line(points={{164,-68},
@@ -331,30 +306,8 @@ equation
           {-88,-18},{-88,10},{-74,10},{-74,13}}, color={0,0,127}));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(points={{-51,20},{-51,
           20},{38,20},{38,68},{64,68}}, color={0,0,127}));
-  connect(THea.y, conHea.u_s) annotation (Line(points={{-105,-112},{-105,-112},
-          {-82,-112}},color={0,0,127}));
-  connect(TCoo.y, conCoo.u_s) annotation (Line(points={{-101,-156},{-101,-156},
-          {-82,-156}}, color={0,0,127}));
-  connect(gaiHea.u, conHea.y) annotation (Line(points={{-32,-112},{-44,-112},{-59,
-          -112}}, color={0,0,127}));
-  connect(gaiCoo.u, conCoo.y)
-    annotation (Line(points={{-30,-156},{-59,-156}}, color={0,0,127}));
-  connect(gaiHea.y, mux.u1[1]) annotation (Line(points={{-9,-112},{2,-112},{2,-130},
-          {10,-130}}, color={0,0,127}));
-  connect(sum.u, mux.y)
-    annotation (Line(points={{48,-136},{33,-136}}, color={0,0,127}));
-  connect(preHeaFlo.Q_flow, sum.y)
-    annotation (Line(points={{92,-136},{71,-136}}, color={0,0,127}));
-  connect(temSen.T, conCoo.u_m) annotation (Line(points={{94,-176},{14,-176},{-70,
-          -176},{-70,-168}}, color={0,0,127}));
-  connect(temSen.T, conHea.u_m) annotation (Line(points={{94,-176},{26,-176},{-46,
-          -176},{-46,-132},{-70,-132},{-70,-124}}, color={0,0,127}));
-  connect(roo.heaPorAir, preHeaFlo.port) annotation (Line(points={{85,60},{85,-110},
-          {120,-110},{120,-136},{112,-136}}, color={191,0,0}));
-  connect(temSen.port, preHeaFlo.port) annotation (Line(points={{114,-176},{120,
-          -176},{120,-136},{112,-136}}, color={191,0,0}));
-  connect(gaiCoo.y, mux.u2[1]) annotation (Line(points={{-7,-156},{0,-156},{0,
-          -142},{10,-142}}, color={0,0,127}));
+  connect(roo.heaPorAir, preTem.port) annotation (Line(points={{85,60},{85,-110},
+          {86,-110},{86,-130},{60,-130}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{
             220,200}})),
