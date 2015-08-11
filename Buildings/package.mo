@@ -246,11 +246,16 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td valign=\"top\">xxx
+      <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
-       <td valign=\"top\">xxx.
+   </tr> 
+   <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
        </td>
-   </tr>
+       <td valign=\"top\">Corrected wrong assert statement. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
+       </td>
+   </tr>    
+       
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>

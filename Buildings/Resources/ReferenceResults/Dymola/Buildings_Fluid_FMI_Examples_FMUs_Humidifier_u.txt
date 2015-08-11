@@ -1,0 +1,78 @@
+last-generated=2015-08-07
+statistics-fmu-dependencies=
+{
+  "Outputs": {
+    "outlet.m_flow": [
+      "inlet.m_flow", 
+      "u"
+    ], 
+    "CPUtime": [], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "u"
+    ], 
+    "EventCounter": [], 
+    "inlet.backward.X_w": [
+      "inlet.m_flow", 
+      "outlet.backward.X_w", 
+      "u"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "u"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.m_flow", 
+      "inlet.forward.X_w", 
+      "u"
+    ], 
+    "outlet.p": [
+      "inlet.p"
+    ]
+  }, 
+  "InitialUnknowns": {
+    "outlet.m_flow": [
+      "inlet.m_flow", 
+      "mWat_flow_nominal", 
+      "u"
+    ], 
+    "CPUtime": [], 
+    "inlet.backward.T": [
+      "inlet.m_flow", 
+      "outlet.backward.T", 
+      "outlet.backward.X_w", 
+      "T", 
+      "mWat_flow_nominal", 
+      "u"
+    ], 
+    "EventCounter": [], 
+    "inlet.backward.X_w": [
+      "inlet.m_flow", 
+      "outlet.backward.X_w", 
+      "mWat_flow_nominal", 
+      "u"
+    ], 
+    "outlet.forward.T": [
+      "inlet.m_flow", 
+      "inlet.forward.T", 
+      "inlet.forward.X_w", 
+      "T", 
+      "mWat_flow_nominal", 
+      "u"
+    ], 
+    "outlet.forward.X_w": [
+      "inlet.m_flow", 
+      "inlet.forward.X_w", 
+      "mWat_flow_nominal", 
+      "u"
+    ], 
+    "outlet.p": [
+      "inlet.p"
+    ]
+  }, 
+  "Derivatives": {}
+}
