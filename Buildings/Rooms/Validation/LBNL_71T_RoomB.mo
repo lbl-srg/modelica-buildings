@@ -22,7 +22,7 @@ model LBNL_71T_RoomB
     nConBou=nConBou,
     nSurBou=nSurBou,
     linearizeRadiation=false,
-    nPorts=4,
+    nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=T_start,
     datConExtWin(
@@ -45,7 +45,6 @@ model LBNL_71T_RoomB
     annotation (Placement(transformation(extent={{66,40},{106,80}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
-
     relHum=0,
     TDewPoi(displayUnit="K"),
     HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.File,
@@ -289,13 +288,14 @@ equation
   connect(inf.y, pro.u1)
     annotation (Line(points={{-49,-24},{-24,-24}}, color={0,0,127}));
   connect(senDen.port, roo.ports[1]) annotation (Line(points={{-4,-78},{-4,-78},
-          {62,-78},{62,47},{71,47}}, color={0,127,255}));
+          {62,-78},{62,47.3333},{71,47.3333}},
+                                     color={0,127,255}));
   connect(senDen.d, pro.u2) annotation (Line(points={{-15,-68},{-24,-68},{-36,-68},
           {-36,-36},{-24,-36}}, color={0,0,127}));
   connect(pro.y, masSou.m_flow_in)
     annotation (Line(points={{-1,-30},{10,-30},{16,-30}}, color={0,0,127}));
   connect(masSou.ports[1], roo.ports[2]) annotation (Line(points={{36,-38},{66,
-          -38},{66,49},{71,49}}, color={0,127,255}));
+          -38},{66,50},{71,50}}, color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{146,78},{140,78},{140,77.9},{103.9,77.9}},
       color={255,204,51},
@@ -321,7 +321,8 @@ equation
   connect(res.port_a, bou.ports[1])
     annotation (Line(points={{6,50},{-22,50},{-22,52}}, color={0,127,255}));
   connect(res.port_b, roo.ports[3]) annotation (Line(points={{26,50},{26,50},{
-          26,51},{71,51}}, color={0,127,255}));
+          26,52.6667},{71,52.6667}},
+                           color={0,127,255}));
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-91,60},
           {-84,60},{-84,62},{-84,27},{-74,27}}, color={0,0,127}));
   connect(qConGai_flow.y, multiplex3_1.u2[1])
