@@ -283,6 +283,9 @@ model LBNL_71T_RoomB
       annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
     Modelica.Blocks.Math.Product mAct_flow "Mass flow rate"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    Modelica.Blocks.Math.Gain ter(k=(270/10)^0.14*((3.35/2)/370)^0.22)
+      "Wind speed correction for terrain and zone height"
+      annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   equation
     connect(m.u1, V.y) annotation (Line(points={{-10,56},{-50,56},{-50,80},{-59,
             80}}, color={0,0,127}));
@@ -308,8 +311,6 @@ model LBNL_71T_RoomB
             -62}}, color={0,0,127}));
     connect(gainB.u, dTAbs.y)
       annotation (Line(points={{10,-62},{-9,-62}}, color={0,0,127}));
-    connect(gainC.u, weaBus.winSpe) annotation (Line(points={{10,-90},{-94,-90},
-            {-92,-90},{-92,0},{-100,0}}, color={0,0,127}));
     connect(add3_1.u1, ACoef.y) annotation (Line(points={{58,-52},{46,-52},{46,
             -30},{33,-30}}, color={0,0,127}));
     connect(add3_1.u2, gainB.y) annotation (Line(points={{58,-60},{46,-60},{46,
@@ -322,8 +323,12 @@ model LBNL_71T_RoomB
             {90,-20},{50,-20},{50,-6},{50,-6},{58,-6}}, color={0,0,127}));
     connect(m.y, mAct_flow.u1) annotation (Line(points={{13,50},{30,50},{30,6},
             {58,6}}, color={0,0,127}));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}})));
+    connect(ter.y, gainC.u)
+      annotation (Line(points={{-19,-90},{10,-90}}, color={0,0,127}));
+    connect(ter.u, weaBus.winSpe) annotation (Line(points={{-42,-90},{-100,-90},
+            {-100,0}}, color={0,0,127}));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}})));
   end Infiltration;
   Infiltration inf(
     V_flow=0.001,
