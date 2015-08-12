@@ -231,7 +231,7 @@ model LBNL_71T_RoomB
     annotation (Placement(transformation(extent={{-72,10},{-52,30}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
-  Modelica.Blocks.Sources.Constant qConGai_flow(k=100) "Convective heat gain"
+  Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-114,-28},{-94,-8}})));
