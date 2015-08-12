@@ -194,6 +194,18 @@ its class name ends with the string <code>Beta</code>.
                           which can cause a simpler energy balance to be used.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
+                        Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow
+
+       </td>
+       <td valign=\"top\">Refactored for a more efficient implementation.
+                        Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+                        and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">Annex 60 issue 301</a>
+                        and for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">Annex 60 issue 279</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
@@ -207,7 +219,15 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
        </td>
    </tr>
-   </table>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
+       </td>
+       <td valign=\"top\">Refactored <code>Buildings.Utilities.Math.Functions.inverseXRegularized</code>
+                        to make it more efficient as it is used in many steady-state energy balances.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">Annex 60 issue 302</a>.
+       </td>
+   </tr>
+  </table>
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
@@ -215,12 +235,29 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">
+                        Revised implementation of conservation equations and
+                        added default values for outlet quantities at <code>port_a</code>
+                        if <code>allowFlowReversal=false</code>.
+                        This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">Annex 60 issue 281</a>.
+                        Also, revised implementation so that equations are always consistent
+                        and do not lead to division by zero,
+                        also when connecting a <code>prescribedHeatFlowRate</code>
+                        to <code>MixingVolume</code> instances.
+                        Renamed <code>use_safeDivision</code> to <code>prescribedHeatFlowRate</code>.
+                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">Annex 60 issue 282</a>
+                        for a discussion.
+                        For users who simply instantiate existing component models, this change is backward
+                        compatible.
+                        However, developers who implement component models that extend from
+                        <code>Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</code> may need to update
+                        the parameter <code>use_safeDivision</code> and use instead <code>prescribedHeatFlowRate</code>.
+                        See the model documentation.
        </td>
    </tr>
    </table>

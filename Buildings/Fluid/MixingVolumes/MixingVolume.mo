@@ -36,9 +36,9 @@ The volume can exchange heat through its <code>heatPort</code>.
 The volume can be parameterized as a steady-state model or as
 dynamic model.</p>
 <p>
-To increase the numerical robustness of the model, the parameter
+To increase the numerical robustness of the model, the constant
 <code>prescribedHeatFlowRate</code> can be set by the user.
-This parameter only has an effect if the model has exactly two fluid ports connected,
+This constant only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
 </p>

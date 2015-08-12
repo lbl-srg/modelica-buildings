@@ -1,5 +1,5 @@
-within Buildings.Fluid.BaseClasses.FlowModels.Examples;
-model InverseFlowFunction "Test model for flow function and its inverse"
+within Buildings.Fluid.BaseClasses.FlowModels.Validation;
+model InverseFlowFunctions "Test model for flow function and its inverse"
   extends Modelica.Icons.Example;
  Modelica.SIunits.MassFlowRate m_flow;
  Modelica.SIunits.Pressure dp(displayUnit="Pa") "Pressure difference";
@@ -17,7 +17,7 @@ equation
   deltaDp = dp - dpCalc;
 annotation (
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/InverseFlowFunction.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InverseFlowFunctions.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 <p>
@@ -44,4 +44,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end InverseFlowFunction;
+end InverseFlowFunctions;
