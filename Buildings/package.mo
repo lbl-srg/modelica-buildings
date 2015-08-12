@@ -127,28 +127,20 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-   class Version_2_0_1 "Version 2.0.1"
+   class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <p>
-   Version 2.0.1 is ... xxx
+   Version 3.0.0 is ... xxx
    </p>
    <!-- New libraries -->
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">Buildings.Fluid.FMI
+   <tr><td valign=\"top\">xxx
        </td>
-       <td valign=\"top\">This package contains blocks that serve as containers for exporting
-                          models from <code>Buildings.Fluid</code> as a Functional Mockup Unit (FMU).<br/>
-                          This allows using models from <code>Buildings.Fluid</code>, add them
-                          to a block that only has input and output signals, but no acausal connectors,
-                          and then export the model as a Functional Mockup Unit.
-                          Models can be individual models or systems that are composed of various
-                          models.
-                          For more information, see the
-                          <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">User's Guide</a>.
+       <td valign=\"top\">xxx
        </td>
        </tr>
    </table>
@@ -174,16 +166,24 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil<br/>
-                          Buildings.Fluid.HeatExchangers.HeaterCooler_u<br/>
-                          Buildings.Fluid.MassExchangers.Humidifier_u
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
        </td>
-       <td valign=\"top\">Set parameter <code>prescribedHeatFlowRate=true</code>
-                          which causes a simpler energy balance to be used.
+       <td valign=\"top\">Added option to set dynamics of heat exchanger material
+                        separately from the dynamics of the fluid inside the heat
+                        exchanger.
+                        This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#434</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
@@ -194,15 +194,16 @@ its class name ends with the string <code>Beta</code>.
                           which can cause a simpler energy balance to be used.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
-
+   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
+                        Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow
 
        </td>
-       <td valign=\"top\">Added test on <code>allowFlowReversal</code> in criteria
-                          about what energy balance implementation to use.
-                          This causes simpler models, for example when exporting
-                          <code>Buildings.Fluid.HeatExchangers.HeaterCooler_u</code>
-                          as an FMU.
+       <td valign=\"top\">Refactored for a more efficient implementation.
+                        Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+                        and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">Annex 60 issue 301</a>
+                        and for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">Annex 60 issue 279</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
@@ -218,7 +219,15 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
        </td>
    </tr>
-   </table>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
+       </td>
+       <td valign=\"top\">Refactored <code>Buildings.Utilities.Math.Functions.inverseXRegularized</code>
+                        to make it more efficient as it is used in many steady-state energy balances.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">Annex 60 issue 302</a>.
+       </td>
+   </tr>
+  </table>
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
@@ -226,7 +235,65 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+       </td>
+       <td valign=\"top\">
+                        Revised implementation of conservation equations and
+                        added default values for outlet quantities at <code>port_a</code>
+                        if <code>allowFlowReversal=false</code>.
+                        This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">Annex 60 issue 281</a>.
+                        Also, revised implementation so that equations are always consistent
+                        and do not lead to division by zero,
+                        also when connecting a <code>prescribedHeatFlowRate</code>
+                        to <code>MixingVolume</code> instances.
+                        Renamed <code>use_safeDivision</code> to <code>prescribedHeatFlowRate</code>.
+                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">Annex 60 issue 282</a>
+                        for a discussion.
+                        For users who simply instantiate existing component models, this change is backward
+                        compatible.
+                        However, developers who implement component models that extend from
+                        <code>Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</code> may need to update
+                        the parameter <code>use_safeDivision</code> and use instead <code>prescribedHeatFlowRate</code>.
+                        See the model documentation.
+       </td>
+   </tr>
+   </table>
+   <!-- Errors that have been fixed -->
+   <p>
+   The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+   that can lead to wrong simulation results):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx
+       </td>
+   </tr>
+   </table>
+   <!-- Uncritical errors -->
+   <p>
+   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+   units are wrong or errors in documentation):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+      <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr> 
+   <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
+       </td>
+       <td valign=\"top\">Corrected wrong assert statement. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
+       </td>
+   </tr>    
+       
+   <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
    <tr><td valign=\"top\">xxx
@@ -235,6 +302,114 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
    </table>
+   <p>
+   Note:
+   </p>
+   <ul>
+   <li> 
+   xxx
+   </li>
+   </ul>
+   </html>"));
+   end Version_3_0_0;
+
+   class Version_2_1_0 "Version 2.1.0"
+     extends Modelica.Icons.ReleaseNotes;
+       annotation (Documentation(info="<html>
+   <p>
+   Version 2.1.0 is fully compatible with version 2.0.0.
+   It adds the package <code>Buildings.Fluid.FMI</code> that provides containers
+   for exporting thermofluid flow components as FMUs.
+   It also updates the temperature sensor to optionally simulate heat losses,
+   and it contains bug fixes for the trace substance sensor if used without flow reversal.
+   Improvements have been made to various models to reduce the simulation time, and
+   to <code>Buildings.Examples.Tutorial.Boiler</code> to simplify the control implementation.
+   </p>
+   <!-- New libraries -->
+   <p>
+   The following <b style=\"color:blue\">new libraries</b> have been added:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">Buildings.Fluid.FMI
+       </td>
+       <td valign=\"top\">This package contains blocks that serve as containers for exporting
+                          models from <code>Buildings.Fluid</code> as a Functional Mockup Unit (FMU).<br/>
+                          This allows using models from <code>Buildings.Fluid</code>, add them
+                          to a block that only has input and output signals, but no acausal connectors,
+                          and then export the model as a Functional Mockup Unit.
+                          Models can be individual models or systems that are composed of various
+                          models.
+                          For more information, see the
+                          <a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">User's Guide</a>.
+       </td>
+       </tr>
+   </table>
+   <!-- New components for existing libraries -->
+
+   <!-- Backward compatible changes -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.Tutorial.Boiler.System5<br/>
+                        Buildings.Examples.Tutorial.Boiler.System6<br/>
+                        Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Changed control input for <code>conPIDBoi</code> and set
+                        <code>reverseAction=true</code>
+                        to address issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/436\">#436</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil<br/>
+                          Buildings.Fluid.HeatExchangers.HeaterCooler_u<br/>
+                          Buildings.Fluid.MassExchangers.Humidifier_u
+       </td>
+       <td valign=\"top\">Set parameter <code>prescribedHeatFlowRate=true</code>
+                          which causes a simpler energy balance to be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.TemperatureTwoPort
+       </td>
+       <td valign=\"top\">Added option to simulate thermal loss, which is
+                        useful if the sensor is used to measure
+                        the fluid temperature in a system with on/off control
+                        for the mass flow rate.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                          Buildings.Fluid.SolarCollectors.EN12975
+       </td>
+       <td valign=\"top\">Corrected sign error in computation of heat loss
+                          that prevents the medium to exceed <code>Medium.T_min</code>
+                          or <code>Medium.T_max</code>. With the previous implementation,
+                          an assertion may be generated unnecessarily rather than
+                          the model guiding against the violation of these bounds.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
+
+
+       </td>
+       <td valign=\"top\">Added test on <code>allowFlowReversal</code> in criteria
+                          about what energy balance implementation to use.
+                          This causes simpler models, for example when exporting
+                          <code>Buildings.Fluid.HeatExchangers.HeaterCooler_u</code>
+                          as an FMU.
+       </td>
+   </tr>
+   </table>
+   <!-- Non-backward compatible changes to existing components -->
+
    <!-- Errors that have been fixed -->
    <p>
    The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -260,31 +435,18 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                           Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
        <td valign=\"top\">Corrected documentation.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li> 
-   xxx
-   </li>
-   </ul>
    </html>"));
-   end Version_2_0_1;
+   end Version_2_1_0;
 
     class Version_2_0_0 "Version 2.0.0"
       extends Modelica.Icons.ReleaseNotes;
@@ -4549,67 +4711,70 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_1\">Version 2.0.1</a>(xxx, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (xxx, 2015)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a>(May 4, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a> (July 13, 2015)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_6_build1\">Version 1.6 build1</a>(June 19, 2014)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_0_0\">Version 2.0.0</a> (May 4, 2015)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build3\">Version 1.5 build3</a>(February 12, 2014)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_6_build1\">Version 1.6 build1</a> (June 19, 2014)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build2\">Version 1.5 build2</a>(December 13, 2013)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build3\">Version 1.5 build3</a> (February 12, 2014)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a>(October 24, 2013)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build2\">Version 1.5 build2</a> (December 13, 2013)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a>(May 15, 2013)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">Version 1.5 build1</a> (October 24, 2013)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">Version 1.3 build1</a>(January 8, 2013)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">Version 1.4 build1</a> (May 15, 2013)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">Version 1.2 build1</a>(July 26, 2012)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">Version 1.3 build1</a> (January 8, 2013)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">Version 1.1 build1</a>(February 29, 2012)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">Version 1.2 build1</a> (July 26, 2012)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">Version 1.0 build2</a>(December 8, 2011)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">Version 1.1 build1</a> (February 29, 2012)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">Version 1.0 build1</a>(November 4, 2011)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">Version 1.0 build2</a> (December 8, 2011)
 </li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a>(May 6, 2011)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">Version 1.0 build1</a> (November 4, 2011)
+</li>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a>(March 17, 2011)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">Version 0.12.0 </a> (May 6, 2011)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a>(July 30, 2010)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">Version 0.11.0 </a> (March 17, 2011)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a>(June 24, 2010)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">Version 0.10.0 </a> (July 30, 2010)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a>(June 11, 2010)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">Version 0.9.1 </a> (June 24, 2010)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a>(February 6, 2010)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">Version 0.9.0 </a> (June 11, 2010)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a>(September 29, 2009)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">Version 0.8.0 </a> (February 6, 2010)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a>(May 15, 2009)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">Version 0.7.0 </a> (September 29, 2009)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a>(February 19, 2009)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">Version 0.6.0 </a> (May 15, 2009)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a>(October 31, 2008)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">Version 0.5.0 </a> (February 19, 2009)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a>(September 30, 2008)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">Version 0.4.0 </a> (October 31, 2008)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a>(June 17, 2008)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">Version 0.3.0 </a> (September 30, 2008)
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a>(May 27, 2008)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">Version 0.2.0 </a> (June 17, 2008)
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">Version 0.1.0 </a> (May 27, 2008)
 </li>
 </ul>
 
@@ -5045,12 +5210,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="2.0.1",
-versionDate="2015-05-04",
-dateModified = "2015-05-04",
+version="3.0.0",
+versionDate="2015-07-13",
+dateModified = "2015-07-13",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
+ noneFromVersion="2.0.0",
  from(version="1.6",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_2.0.mos"),
  from(version="1.5",

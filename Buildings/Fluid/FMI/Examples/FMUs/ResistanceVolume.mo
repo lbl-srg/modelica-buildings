@@ -3,23 +3,22 @@ block ResistanceVolume
   "Container to export a flow resistance and control volume as an FMU"
   extends TwoPort(redeclare package Medium = Buildings.Media.Air);
 
-  parameter Modelica.SIunits.Volume V(start=1) "Volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
+  parameter Modelica.SIunits.Volume V=1 "Volume";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(start=100)
-    "Nominal pressure drop";
+  parameter Modelica.SIunits.Pressure dp_nominal=100 "Nominal pressure drop";
 
   Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
        use_p_in "Pressure drop of the component"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected
-  Inlet bouIn(
+  Buildings.Fluid.FMI.InletAdaptor bouIn(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Outlet bouOut(
+  Buildings.Fluid.FMI.OutletAdaptor bouOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary component for outlet"

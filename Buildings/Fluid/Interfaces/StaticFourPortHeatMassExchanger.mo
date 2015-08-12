@@ -6,6 +6,11 @@ model StaticFourPortHeatMassExchanger
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
 
+  constant Boolean prescribedHeatFlowRate1 = false
+    "Set to true if the heat flow rate into fluid 1 is not a function of the component temperature";
+  constant Boolean prescribedHeatFlowRate2 = false
+    "Set to true if the heat flow rate into fluid 2 is not a function of the component temperature";
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -21,10 +26,13 @@ model StaticFourPortHeatMassExchanger
     "Set to true if sensible exchange only for medium 1";
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
+
 //protected -- fixme: made public for numerical experiments
+
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
     final sensibleOnly = sensibleOnly1,
     redeclare final package Medium=Medium1,
+    final prescribedHeatFlowRate=prescribedHeatFlowRate1,
     final m_flow_nominal = m1_flow_nominal,
     final dp_nominal = dp1_nominal,
     final allowFlowReversal = allowFlowReversal1,
@@ -39,6 +47,7 @@ model StaticFourPortHeatMassExchanger
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
     final sensibleOnly = sensibleOnly2,
     redeclare final package Medium=Medium2,
+    final prescribedHeatFlowRate=prescribedHeatFlowRate2,
     final m_flow_nominal = m2_flow_nominal,
     final dp_nominal = dp2_nominal,
     final allowFlowReversal = allowFlowReversal2,

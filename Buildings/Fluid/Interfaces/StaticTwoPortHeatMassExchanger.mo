@@ -6,6 +6,10 @@ model StaticTwoPortHeatMassExchanger
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+  constant Boolean prescribedHeatFlowRate
+    "Set to true if the heat flow rate is not a function of the component temperature";
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -16,9 +20,9 @@ model StaticTwoPortHeatMassExchanger
 
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
-    sensibleOnly = sensibleOnly,
-    use_safeDivision = use_safeDivision,
     redeclare final package Medium = Medium,
+    final sensibleOnly = sensibleOnly,
+    final prescribedHeatFlowRate = prescribedHeatFlowRate,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_small=m_flow_small)
@@ -48,9 +52,6 @@ model StaticTwoPortHeatMassExchanger
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
     "Leaving trace substances of the component";
 
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
-  constant Boolean use_safeDivision=true
-    "Set to true to improve numerical robustness";
 protected
   Modelica.Blocks.Sources.RealExpression heaInp(y=Q_flow)
     "Block to set heat input into volume"
@@ -122,8 +123,54 @@ The following inputs need to be assigned:
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
+<p>
+To increase the numerical robustness of the model, the constant
+<code>prescribedHeatFlowRate</code> can be set.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
+</li>
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
+</li>
+</ul>
+<p>
+If <code>prescribedHeatFlow=true</code>, then energy and mass balance
+equations are formulated to guard against numerical problems near
+zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
+are the results of an iterative solver.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 2, 2015 by Michael Wetter:<br/>
+Revised implementation of conservation equations,
+added default values for outlet quantities at <code>port_a</code>
+if <code>allowFlowReversal=false</code> and
+updated documentation.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">
+issue 281</a> for a discussion.
+</li>
+<li>
+July 1, 2015 by Filip Jorissen:<br/>
+Renamed <code>use_safeDivision</code> into
+<code>prescribedHeatFlowRate</code>.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> for a discussion.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Added parameter <code>homotopyInitialization</code> as

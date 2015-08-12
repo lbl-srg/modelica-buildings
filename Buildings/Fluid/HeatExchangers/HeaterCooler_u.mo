@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers;
 model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
-      prescribedHeatFlowRate=true),
+    final prescribedHeatFlowRate=true),
     final showDesignFlowDirection=false);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal

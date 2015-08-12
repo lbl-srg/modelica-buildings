@@ -1214,7 +1214,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <ul>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
-Removed redundant by consistent
+Removed redundant but consistent
 <code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
 statement.
 This avoids a warning if 
