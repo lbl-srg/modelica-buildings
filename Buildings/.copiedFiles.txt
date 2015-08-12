@@ -635,6 +635,10 @@ Buildings/Resources/Images/iea-ebc-logo.png
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_MultipleFloorsVectors.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_TwoFloors.txt
 Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_ZoneStepResponse.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_BaseClasses_FlowModels_Validation_InvertingBasicFlowFunction_dp.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_BaseClasses_FlowModels_Validation_InvertingBasicFlowFunction_m_flow.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_InverseXDerivativeCheck.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_InverseXDerivative_2_Check.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -712,12 +716,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/Basic
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck2.mos
-Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/FirstDerivative.mos
-Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/FlowFunctions.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InverseFlowFunctions.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_dp.mos
 Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/InvertingBasicFlowFunction_m_flow.mos
-Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/SecondDerivative.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v1.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos
@@ -1064,4 +1065,3 @@ Buildings/Utilities/package.order
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log
-Buildings/unitTests.log
