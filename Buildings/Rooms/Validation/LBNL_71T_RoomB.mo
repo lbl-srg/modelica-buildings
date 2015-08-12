@@ -22,7 +22,7 @@ model LBNL_71T_RoomB
     nConBou=nConBou,
     nSurBou=nSurBou,
     linearizeRadiation=false,
-    nPorts=3,
+    nPorts=2,
     T_start=T_start,
     datConExtWin(
       layers={matExtWal},
@@ -50,7 +50,8 @@ model LBNL_71T_RoomB
     TDewPoi(displayUnit="K"),
     HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.File,
     filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.File)
     annotation (Placement(transformation(extent={{144,160},{164,180}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0)
@@ -79,7 +80,7 @@ model LBNL_71T_RoomB
         nStaRef=nStaRef))
     "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(extent={{122,-44},{142,-24}})));
-  Fluid.Sources.Outside bou(redeclare package Medium = MediumA, nPorts=1)
+  Fluid.Sources.Outside bou(redeclare package Medium = MediumA, nPorts=2)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-42,42},{-22,62}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
@@ -215,13 +216,9 @@ model LBNL_71T_RoomB
     nPorts=1,
     redeclare package Medium = MediumA) "infiltration mass flow source"
     annotation (Placement(transformation(extent={{16,-48},{36,-28}})));
-  Modelica.Blocks.Sources.Constant inf(k=-13.94*3.35*0.07/3600)
-    "Infiltration rate"
+  Modelica.Blocks.Sources.Constant VInf_flow(k=-0.001, y(unit="m3/s"))
+    "Infiltration rate in m3/s at current outdoor air density"
     annotation (Placement(transformation(extent={{-70,-34},{-50,-14}})));
-  Modelica.Blocks.Math.Product pro
-    annotation (Placement(transformation(extent={{-22,-40},{-2,-20}})));
-  Fluid.Sensors.Density senDen(redeclare package Medium = MediumA)
-    annotation (Placement(transformation(extent={{6,-78},{-14,-58}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{134,66},{158,90}}), iconTransformation(extent={
             {-116,36},{-96,56}})));
@@ -241,6 +238,101 @@ model LBNL_71T_RoomB
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=297.15)
     "Prescribed room air temperature"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+  Fluid.Sensors.Density senDen(redeclare package Medium = MediumA)
+    "Outdoor air density"
+    annotation (Placement(transformation(extent={{-2,70},{-22,90}})));
+  block Infiltration
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.VolumeFlowRate V_flow
+      "Infiltration flow rate at current outdoor air density";
+    parameter Real A "Constant term coefficient";
+    parameter Real B(unit="1/K") "Temperature term coefficient";
+    parameter Real C(unit="s/m") "Velocity term coefficient";
+
+    BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
+             {{-120,-20},{-80,20}})));
+    Modelica.Blocks.Interfaces.RealOutput m_flow "Infiltration mass flow rate"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+          iconTransformation(extent={{100,-10},{120,10}})));
+
+    Modelica.Blocks.Interfaces.RealInput TRoo(unit="K") "Room air temperature"
+      annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
+    Modelica.Blocks.Math.Add dT(k2=-1) "Temperature difference"
+      annotation (Placement(transformation(extent={{-60,-72},{-40,-52}})));
+    Modelica.Blocks.Math.Product m "Mass flow rate"
+      annotation (Placement(transformation(extent={{-8,40},{12,60}})));
+    Modelica.Blocks.Sources.Constant V(k=V_flow) "Volume flow rate"
+      annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    Utilities.Psychrometrics.Density_pTX rho "Density"
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=true)
+      annotation (Placement(transformation(extent={{-72,-42},{-52,-22}})));
+    Modelica.Blocks.Math.Abs dTAbs "Temperature difference"
+      annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
+    Modelica.Blocks.Sources.Constant ACoef(k=A) "Constant coefficient"
+      annotation (Placement(transformation(extent={{12,-40},{32,-20}})));
+    Modelica.Blocks.Math.Gain gainB(k=B)
+      "Gain for temperature dependent effect"
+      annotation (Placement(transformation(extent={{12,-72},{32,-52}})));
+    Modelica.Blocks.Math.Gain gainC(k=C) "Gain for wind dependent effect"
+      annotation (Placement(transformation(extent={{12,-100},{32,-80}})));
+    Modelica.Blocks.Math.Add3 add3_1
+      annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    Modelica.Blocks.Math.Product mAct_flow "Mass flow rate"
+      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  equation
+    connect(m.u1, V.y) annotation (Line(points={{-10,56},{-50,56},{-50,80},{-59,
+            80}}, color={0,0,127}));
+    connect(rho.T, weaBus.TDryBul) annotation (Line(points={{-41,18},{-80,18},{
+            -80,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.p_in, weaBus.pAtm) annotation (Line(points={{-74,-26},{-84,
+            -26},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.T, weaBus.TDryBul) annotation (Line(points={{-74,-32},{-84,
+            -32},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.phi, weaBus.relHum) annotation (Line(points={{-74,-38},{-84,
+            -38},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(rho.X_w, x_pTphi.X[1]) annotation (Line(points={{-41,10},{-48,10},{
+            -48,-32},{-51,-32}}, color={0,0,127}));
+    connect(rho.p, weaBus.pAtm) annotation (Line(points={{-41,2},{-68,2},{-68,0},
+            {-100,0}}, color={0,0,127}));
+    connect(rho.d, m.u2) annotation (Line(points={{-19,10},{-14,10},{-14,44},{
+            -10,44}}, color={0,0,127}));
+    connect(dT.u1, TRoo) annotation (Line(points={{-62,-56},{-62,-56},{-82,-56},
+            {-84,-56},{-84,60},{-120,60}}, color={0,0,127}));
+    connect(dT.u2, weaBus.TDryBul) annotation (Line(points={{-62,-68},{-84,-68},
+            {-84,0},{-100,0}}, color={0,0,127}));
+    connect(dT.y, dTAbs.u) annotation (Line(points={{-39,-62},{-35.5,-62},{-32,
+            -62}}, color={0,0,127}));
+    connect(gainB.u, dTAbs.y)
+      annotation (Line(points={{10,-62},{-9,-62}}, color={0,0,127}));
+    connect(gainC.u, weaBus.winSpe) annotation (Line(points={{10,-90},{-94,-90},
+            {-92,-90},{-92,0},{-100,0}}, color={0,0,127}));
+    connect(add3_1.u1, ACoef.y) annotation (Line(points={{58,-52},{46,-52},{46,
+            -30},{33,-30}}, color={0,0,127}));
+    connect(add3_1.u2, gainB.y) annotation (Line(points={{58,-60},{46,-60},{46,
+            -62},{33,-62}}, color={0,0,127}));
+    connect(add3_1.u3, gainC.y) annotation (Line(points={{58,-68},{46,-68},{46,
+            -90},{33,-90}}, color={0,0,127}));
+    connect(mAct_flow.y, m_flow)
+      annotation (Line(points={{81,0},{81,0},{110,0}}, color={0,0,127}));
+    connect(add3_1.y, mAct_flow.u2) annotation (Line(points={{81,-60},{90,-60},
+            {90,-20},{50,-20},{50,-6},{50,-6},{58,-6}}, color={0,0,127}));
+    connect(m.y, mAct_flow.u1) annotation (Line(points={{13,50},{30,50},{30,6},
+            {58,6}}, color={0,0,127}));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}})));
+  end Infiltration;
+  Infiltration inf(
+    V_flow=0.001,
+    A=0.606,
+    B=0.03636,
+    C=0.1177) "Outdoor air infiltration"
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
+    annotation (Placement(transformation(extent={{76,-100},{56,-80}})));
 equation
   for i in 2:nConBou loop
     connect(TBou[1].port, roo.surf_conBou[i]) annotation (Line(points={{164,-68},
@@ -260,17 +352,8 @@ equation
     annotation (Line(points={{162,-34},{142,-34}}, color={191,0,0}));
   connect(soil.port_a, roo.surf_conBou[1]) annotation (Line(points={{122,-34},{
           122,-34},{92,-34},{92,44}}, color={191,0,0}));
-  connect(inf.y, pro.u1)
-    annotation (Line(points={{-49,-24},{-24,-24}}, color={0,0,127}));
-  connect(senDen.port, roo.ports[1]) annotation (Line(points={{-4,-78},{-4,-78},
-          {62,-78},{62,47.3333},{71,47.3333}},
-                                     color={0,127,255}));
-  connect(senDen.d, pro.u2) annotation (Line(points={{-15,-68},{-24,-68},{-36,-68},
-          {-36,-36},{-24,-36}}, color={0,0,127}));
-  connect(pro.y, masSou.m_flow_in)
-    annotation (Line(points={{-1,-30},{10,-30},{16,-30}}, color={0,0,127}));
-  connect(masSou.ports[1], roo.ports[2]) annotation (Line(points={{36,-38},{66,
-          -38},{66,50},{71,50}}, color={0,127,255}));
+  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,-38},
+          {66,48},{71,48}},      color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{146,78},{140,78},{140,77.9},{103.9,77.9}},
       color={255,204,51},
@@ -294,10 +377,9 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(res.port_a, bou.ports[1])
-    annotation (Line(points={{6,50},{-22,50},{-22,52}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[3]) annotation (Line(points={{26,50},{26,50},{
-          26,52.6667},{71,52.6667}},
-                           color={0,127,255}));
+    annotation (Line(points={{6,50},{-22,50},{-22,54}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[2]) annotation (Line(points={{26,50},{26,50},{26,
+          52},{71,52}},    color={0,127,255}));
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-91,60},
           {-84,60},{-84,62},{-84,27},{-74,27}}, color={0,0,127}));
   connect(qConGai_flow.y, multiplex3_1.u2[1])
@@ -308,6 +390,19 @@ equation
           20},{38,20},{38,68},{64,68}}, color={0,0,127}));
   connect(roo.heaPorAir, preTem.port) annotation (Line(points={{85,60},{85,-110},
           {86,-110},{86,-130},{60,-130}}, color={191,0,0}));
+  connect(senDen.port, bou.ports[2])
+    annotation (Line(points={{-12,70},{-12,50},{-22,50}}, color={0,127,255}));
+  connect(inf.weaBus, weaBus) annotation (Line(
+      points={{-20,-70},{-64,-70},{-128,-70},{-128,136},{176,136},{176,78},{146,
+          78}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(temperatureSensor.port, preTem.port) annotation (Line(points={{76,-90},
+          {82,-90},{86,-90},{86,-130},{60,-130}}, color={191,0,0}));
+  connect(temperatureSensor.T, inf.TRoo) annotation (Line(points={{56,-90},{20,
+          -90},{-32,-90},{-32,-64},{-22,-64}}, color={0,0,127}));
+  connect(inf.m_flow, masSou.m_flow_in) annotation (Line(points={{1,-70},{6,-70},
+          {6,-30},{16,-30}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{
             220,200}})),
