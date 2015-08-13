@@ -56,9 +56,9 @@ model LBNL_71T_RoomB
 
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-48,92},{-28,112}})));
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
-    annotation (Placement(transformation(extent={{6,92},{26,112}})));
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
   HeatTransfer.Sources.FixedTemperature TSoi(each T=T_start)
     "Boundary condition for construction" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}}, origin={172,-34})));
@@ -203,11 +203,10 @@ model LBNL_71T_RoomB
         d=800,
         nStaRef=nStaRef)}) "71T: North Wall"
     annotation (Placement(transformation(extent={{90,162},{110,182}})));
-  // FIXME: The glass of the window system (glaSys) should be replaced
-  // with electrochromic windows.
-  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+
+  // Fixme: The frame ratio and U value has not yet been updated.
+  parameter HeatTransfer.Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys(
     UFra=2,
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{-44,162},{-24,182}})));
@@ -338,6 +337,9 @@ model LBNL_71T_RoomB
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{76,-100},{56,-80}})));
+  Modelica.Blocks.Sources.Constant uWin(k=1)
+    "Control signal for electrochromic window"
+    annotation (Placement(transformation(extent={{8,70},{28,90}})));
 equation
   for i in 2:nConBou loop
     connect(TBou[1].port, roo.surf_conBou[i]) annotation (Line(points={{164,-68},
@@ -345,11 +347,11 @@ equation
   end for;
 
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-27,102},{4,102}},
+      points={{-19,120},{-2,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{64,76},{64,102},{27,102}},
+      points={{64.4,78},{64.4,120},{21,120}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -392,7 +394,8 @@ equation
   connect(qLatGai_flow.y, multiplex3_1.u3[1]) annotation (Line(points={{-93,-18},
           {-88,-18},{-88,10},{-74,10},{-74,13}}, color={0,0,127}));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(points={{-51,20},{-51,
-          20},{38,20},{38,68},{64,68}}, color={0,0,127}));
+          20},{38,20},{38,68},{64.4,68}},
+                                        color={0,0,127}));
   connect(roo.heaPorAir, preTem.port) annotation (Line(points={{85,60},{85,-110},
           {86,-110},{86,-130},{60,-130}}, color={191,0,0}));
   connect(senDen.port, bou.ports[2])
@@ -408,6 +411,8 @@ equation
           -90},{-32,-90},{-32,-64},{-22,-64}}, color={0,0,127}));
   connect(inf.m_flow, masSou.m_flow_in) annotation (Line(points={{1,-70},{6,-70},
           {6,-30},{16,-30}}, color={0,0,127}));
+  connect(uWin.y, roo.uWin[1]) annotation (Line(points={{29,80},{46,80},{46,73},
+          {64.4,73}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{
             220,200}})),
