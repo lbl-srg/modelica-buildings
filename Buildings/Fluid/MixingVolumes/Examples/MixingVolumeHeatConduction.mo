@@ -32,7 +32,6 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
-    prescribedHeatFlowRate=false,
     nPorts=2) annotation (Placement(transformation(extent={{30,20},{50,40}})));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,

@@ -113,9 +113,9 @@ functionality, use
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 <p>
-To increase the numerical robustness of the model, the parameter
+To increase the numerical robustness of the model, the constant
 <code>prescribedHeatFlowRate</code> can be set by the user.
-This parameter only has an effect if the model has exactly two fluid ports connected,
+This constant only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
 </p>

@@ -11,9 +11,15 @@ algorithm
 <p>
 Once Lipschitz continuously differentiable approximation to the
 <code>Heaviside(.,.)</code> function.
+See Example <a href=\"modelica://Buildings.Utilities.Math.Examples.SmoothHeaviside\">
+Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Marcus Fuchs:<br/>
+Add link to example.
+</li>
 <li>
 February 5, 2015, by Filip Jorissen:<br/>
 Added <code>smoothOrder = 1</code>.

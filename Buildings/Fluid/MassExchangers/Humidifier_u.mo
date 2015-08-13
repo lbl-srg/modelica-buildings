@@ -5,7 +5,7 @@ model Humidifier_u
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
-      prescribedHeatFlowRate=true));
+    final prescribedHeatFlowRate=true));
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
