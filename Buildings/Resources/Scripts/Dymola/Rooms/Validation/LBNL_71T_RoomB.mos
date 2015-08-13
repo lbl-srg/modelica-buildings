@@ -1,0 +1,5 @@
+simulateModel("Buildings.Rooms.Validation.LBNL_71T_RoomB", stopTime=604800, method="Radau", tolerance=1e-05, resultFile="LBNL_71T_RoomB");
+createPlot(id=1, position={15, 10, 592, 378},
+y={"roo.conExtWin[1].QAbsUns_flow[1]", "roo.conExtWin[1].QAbsUns_flow[2]"},
+range={0.0, 650000.0, -500.0, 5500.0}, grid=true, filename="LBNL_71T_RoomB.mat", colors={{28,108,200}, {238,46,47}});
+

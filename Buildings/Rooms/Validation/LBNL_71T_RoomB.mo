@@ -429,5 +429,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=31536000));
+    experiment(StopTime=604800));
 end LBNL_71T_RoomB;
