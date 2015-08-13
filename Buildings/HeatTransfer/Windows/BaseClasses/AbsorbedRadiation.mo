@@ -7,32 +7,37 @@ block AbsorbedRadiation "Absorbed radiation by window"
         transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(
           extent={{-130,-91},{-100,-61}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QAbsExtSha_flow(final quantity="Power",
-      final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QAbsExtSha_flow[NSta](
+    each final quantity="Power",
+    each final unit="W")
     "Absorbed interior and exterior radiation by exterior shading device"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput QAbsIntSha_flow(final quantity="Power",
-      final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QAbsIntSha_flow[NSta](
+    each final quantity="Power",
+    each final unit="W")
     "Absorbed interior and exterior radiation by interior shading device"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput QAbsGlaUns_flow[N](each quantity=
-        "Power", each final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QAbsGlaUns_flow[N, NSta](
+    each quantity="Power",
+    each final unit="W")
     "Absorbed interior and exterior radiation by unshaded part of glass"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
         iconTransformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.RealOutput QAbsGlaSha_flow[N](each quantity=
-        "Power", each final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QAbsGlaSha_flow[N, NSta](
+    each quantity="Power",
+    each final unit="W")
     "Absorbed interior and exterior radiation by shaded part of glass"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2] "Absorbed interior and exterior radiation.
-      (absRad[2,1]: exterior shading device,
-      absRad[1,2 to N+1]: glass (unshaded part),
-      absRad[2,2 to N+1]: glass (shaded part),
-      absRad[2,N+2]: interior shading device)";
+  output Modelica.SIunits.Power absRad[2, N + 2, NSta] "Absorbed interior and exterior radiation.
+      (absRad[2,1,iSta]: exterior shading device,
+      absRad[1,2 to N+1,iSta]: glass (unshaded part),
+      absRad[2,2 to N+1,iSta]: glass (shaded part),
+      absRad[2,N+2,iSta]: interior shading device)
+      with iSta being the state of the (electrochromic) window";
 
 protected
   constant Integer k=1;
@@ -43,22 +48,21 @@ protected
   constant Integer Shade=2;
   constant Integer Interior=1;
   constant Integer Exterior=2;
-  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2](each fixed=false);
-  final parameter Real coeRefExtPan1[radDat.HEM + 2](each fixed=false)
+  final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2, NSta](each fixed=false);
+  final parameter Real coeRefExtPan1[radDat.HEM + 2, NSta](each fixed=false)
     "Reflectivity of pane 1";
-  final parameter Real coeAbsIn[2, radDat.N](each fixed=false);
-  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2](each fixed=false)
+  final parameter Real coeAbsIn[2, radDat.N, NSta](each fixed=false);
+  final parameter Real coeAbsDevExtIrrIntSha[radDat.HEM + 2, NSta](each fixed=false)
     "Absorptivity of interior shading device for exterior radiation";
   final parameter Real coeAbsDevExtIrrExtSha=1 - radDat.traRefShaDev[1, 1] -
       radDat.traRefShaDev[2, 1]
     "Absorptivity of exterior shading device for exterior radiation";
-  final parameter Real coeAbsDevIntIrrIntSha=radDat.devAbsIntIrrIntSha
+  final parameter Real coeAbsDevIntIrrIntSha[NSta]=radDat.devAbsIntIrrIntSha
     "Absorptivity of interior shading device for interior radiation";
-  final parameter Real coeAbsDevIntIrrExtSha=1 - radDat.winTraRefIntIrrExtSha[1]
-       - radDat.winTraRefIntIrrExtSha[2]
+  final parameter Real coeAbsDevIntIrrExtSha[NSta]=
+    {1 - radDat.winTraRefIntIrrExtSha[1, iSta]
+       - radDat.winTraRefIntIrrExtSha[2, iSta] for iSta}
     "Absorptivity of exterior shading device for interior radiation";
-  Real tmpNoSha;
-  Real tmpSha;
   Real incAng2;
 
 initial equation
@@ -69,133 +73,136 @@ initial equation
   //**************************************************************
   // Glass
   for i in 1:N loop
-    coeAbsIn[NoShade, i] =  radDat.absIntIrrNoSha[i];
+    coeAbsIn[NoShade, i, 1:NSta] =  radDat.absIntIrrNoSha[i, 1:NSta];
     // Properties for glass with shading
     if haveInteriorShade then
-      coeAbsIn[Shade, i] =  radDat.absIntIrrIntSha[i];
+      coeAbsIn[Shade, i, 1:NSta] =  radDat.absIntIrrIntSha[i, 1:NSta];
     elseif haveExteriorShade then
-      coeAbsIn[Shade, i] =  radDat.absIntIrrExtSha[i];
+      coeAbsIn[Shade, i, 1:NSta] =  radDat.absIntIrrExtSha[i, 1:NSta];
     else
       // No Shade
-      coeAbsIn[Shade, i] =  0.0;
+      coeAbsIn[Shade, i, 1:NSta] =  zeros(NSta);
     end if;
 
     for j in 1:HEM loop
       // Properties for glass without shading
-      coeAbsEx[NoShade, i, j + 1] =  radDat.absExtIrrNoSha[i, j];
+      coeAbsEx[NoShade, i, j + 1, 1:NSta] =  radDat.absExtIrrNoSha[i, j, 1:NSta];
       // Properties for glass with shading
       if haveInteriorShade then
-        coeAbsEx[Shade, i, j + 1] =  radDat.absExtIrrIntSha[i, j];
+        coeAbsEx[Shade, i, j + 1, 1:NSta] =  radDat.absExtIrrIntSha[i, j, 1:NSta];
       elseif haveExteriorShade then
-        coeAbsEx[Shade, i, j + 1] =  radDat.absExtIrrExtSha[i, j];
+        coeAbsEx[Shade, i, j + 1, 1:NSta] =  radDat.absExtIrrExtSha[i, j, 1:NSta];
       else
         // No Shade
-        coeAbsEx[Shade, i, j + 1] =  0.0;
+        coeAbsEx[Shade, i, j + 1, 1:NSta] =  zeros(NSta);
       end if;
     end for;
     // Dummy variables at 1 and HEM+2
     for k in NoShade:Shade loop
-      coeAbsEx[k, i, 1] =  coeAbsEx[k, i, 2];
-      coeAbsEx[k, i, HEM + 2] =  coeAbsEx[k, i, HEM + 1];
+      coeAbsEx[k, i, 1, 1:NSta] =  coeAbsEx[k, i, 2, 1:NSta];
+      coeAbsEx[k, i, HEM + 2, 1:NSta] =  coeAbsEx[k, i, HEM + 1, 1:NSta];
     end for;
   end for;
 
   // Glass Pane 1: Reflectivity
   for j in 1:HEM loop
-    coeRefExtPan1[j + 1] =  radDat.traRef[2, 1, N, j];
+    coeRefExtPan1[j + 1, 1:NSta] =  radDat.traRef[2, 1, N, j, 1:NSta];
   end for;
 
   // Interior shades
   for j in 1:HEM loop
-    coeAbsDevExtIrrIntSha[j + 1] =  radDat.devAbsExtIrrIntShaDev[j];
+    coeAbsDevExtIrrIntSha[j + 1, 1:NSta] =  radDat.devAbsExtIrrIntShaDev[j, 1:NSta];
   end for;
 
   // Dummy variables at 1 and HEM+2
-  coeRefExtPan1[1] =  coeRefExtPan1[2];
-  coeRefExtPan1[HEM + 2] =  coeRefExtPan1[HEM + 1];
-  coeAbsDevExtIrrIntSha[1] =  coeAbsDevExtIrrIntSha[2];
-  coeAbsDevExtIrrIntSha[HEM + 2] =  coeAbsDevExtIrrIntSha[HEM + 1];
+  coeRefExtPan1[1, 1:NSta] =  coeRefExtPan1[2, 1:NSta];
+  coeRefExtPan1[HEM + 2, 1:NSta] =  coeRefExtPan1[HEM + 1, 1:NSta];
+  coeAbsDevExtIrrIntSha[1, 1:NSta] =  coeAbsDevExtIrrIntSha[2, 1:NSta];
+  coeAbsDevExtIrrIntSha[HEM + 2, 1:NSta] =  coeAbsDevExtIrrIntSha[HEM + 1, 1:NSta];
 
 algorithm
-  absRad[NoShade, 1] := 0.0;
-  absRad[NoShade, N + 2] := 0.0;
-  absRad[Shade, 1] := 0.0;
-  absRad[Shade, N + 2] := 0.0;
+  absRad[NoShade, 1,     1:NSta] := zeros(NSta);
+  absRad[NoShade, N + 2, 1:NSta] := zeros(NSta);
+  absRad[Shade,   1,     1:NSta] := zeros(NSta);
+  absRad[Shade,   N + 2, 1:NSta] := zeros(NSta);
 
-  //**************************************************************
+  // **************************************************************
   // Glass: absorbed diffusive radiation from exterior and interior sources
-  //**************************************************************
+  // **************************************************************
   for i in 1:N loop
-    absRad[NoShade, i + 1] := AWin*(1 - uSha_internal)*(HDif*coeAbsEx[NoShade,
-      i, HEM + 1] + HRoo*coeAbsIn[NoShade, i]);
-    absRad[Shade, i + 1] := AWin*uSha_internal*(HDif*coeAbsEx[Shade, i, HEM + 1]
-       + HRoo*coeAbsIn[Shade, i]);
+    absRad[NoShade, i + 1, 1:NSta] := AWin*(1 - uSha_internal)*
+       (HDif*coeAbsEx[NoShade, i, HEM + 1, 1:NSta] + HRoo*coeAbsIn[NoShade, i, 1:NSta]);
+    absRad[Shade, i + 1, 1:NSta] := AWin*uSha_internal*(HDif*coeAbsEx[Shade, i, HEM + 1, 1:NSta]
+       + HRoo*coeAbsIn[Shade, i, 1:NSta]);
   end for;
 
-  //**************************************************************
+  // **************************************************************
   // Shading device: absorbed radiation from exterior source
-  //**************************************************************
+  // **************************************************************
   // Exterior Shading Device:
   // direct radiation: 1. direct absorption;
   // diffusive radiation: 1. direct absorption 2. absorption from back reflection
-  if haveExteriorShade then
-    absRad[Shade, 1] := AWin*uSha_internal*coeAbsDevExtIrrExtSha*(HDif + HDir
-       + HDif*radDat.traRefShaDev[1, 1]*radDat.traRef[2, 1, N, HEM]);
+  for iSta in 1:NSta loop
+    if haveExteriorShade then
+      absRad[Shade, 1, iSta] := AWin*uSha_internal*coeAbsDevExtIrrExtSha*
+        (HDif + HDir + HDif*radDat.traRefShaDev[1, 1]*radDat.traRef[2, 1, N, HEM, iSta]);
     // Interior Shading Device: diffusive radiation from both interior and exterior
-  elseif haveInteriorShade then
-    absRad[Shade, N + 2] := AWin*uSha_internal*(HDif*radDat.devAbsExtIrrIntShaDev[
-      HEM] + HRoo*coeAbsDevIntIrrIntSha);
-  end if;
+     elseif haveInteriorShade then
+     absRad[Shade, N + 2, iSta] := AWin*uSha_internal*
+        (HDif*radDat.devAbsExtIrrIntShaDev[HEM, iSta] + HRoo*coeAbsDevIntIrrIntSha[iSta]);
+    end if;
+  end for;
 
-  //**************************************************************
+  // **************************************************************
   // Glass, Device: add absorbed direct radiation from exterior sources
-  //**************************************************************
+  // **************************************************************
   // Use min() instead of if() to avoid event
   incAng2 := min(incAng, 0.5*Modelica.Constants.pi);
 
-  x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi
-    "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR";
-  x := x + 2;
+  x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi + 2
+    "x=(index-1)*incAng/(0.5pi)+2, 0<=x<=NDIR";
 
   for i in 1:N loop
     // Glass without shading: Add absorbed direct radiation
-    tmpNoSha :=
-      Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
-      coeAbsEx[NoShade, i, k] for k in 1:(HEM + 2)}, x);
-    absRad[NoShade, i + 1] := absRad[NoShade, i + 1] + AWin*HDir*(1 -
-      uSha_internal)*tmpNoSha;
+    for iSta in 1:NSta loop
+      absRad[NoShade, i + 1, iSta] := absRad[NoShade, i + 1, iSta] +
+        AWin*HDir*(1 - uSha_internal)*
+          Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
+          {coeAbsEx[NoShade, i, k, iSta] for k in 1:(HEM + 2)}, x);
 
-    // Glass with shading: add absorbed direct radiation
-    tmpSha :=
-      Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
-      coeAbsEx[Shade, i, k] for k in 1:(HEM + 2)}, x);
-    absRad[Shade, i + 1] := absRad[Shade, i + 1] + AWin*HDir*uSha_internal*
-      tmpSha;
+      // Glass with shading: add absorbed direct radiation
+      absRad[Shade, i + 1, iSta] := absRad[Shade, i + 1, iSta]
+                                 + AWin*HDir*uSha_internal
+        *Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
+           {coeAbsEx[Shade, i, k, iSta] for k in 1:(HEM + 2)}, x);
+    end for;
   end for;
 
   // Interior shading device: add absorbed direct radiation
   if haveInteriorShade then
-    tmpSha :=
-      Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
-      coeAbsDevExtIrrIntSha[k] for k in 1:(HEM + 2)}, x);
-    absRad[Shade, N + 2] := absRad[Shade, N + 2] + AWin*HDir*uSha_internal*
-      tmpSha;
+    for iSta in 1:NSta loop
+      absRad[Shade, N + 2, iSta] := absRad[Shade, N + 2, iSta]
+                                  + AWin*HDir*uSha_internal
+          *Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
+              {coeAbsDevExtIrrIntSha[k, iSta] for k in 1:(HEM + 2)}, x);
+    end for;
   end if;
 
   // Exterior shading device: add absorbed reflection of direct radiation from exterior source
   if haveExteriorShade then
-    tmpNoSha :=
-      Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
-      coeRefExtPan1[k] for k in 1:(HEM + 2)}, x);
-    absRad[Shade, 1] := absRad[Shade, 1] + AWin*HDir*uSha_internal*
-      coeAbsDevExtIrrExtSha*tmpNoSha;
+    for iSta in 1:NSta loop
+      absRad[Shade, 1, iSta] := absRad[Shade, 1, iSta]
+                              + AWin*HDir*uSha_internal*coeAbsDevExtIrrExtSha
+                              *Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
+          {coeRefExtPan1[k, iSta] for k in 1:(HEM + 2)}, x);
+    end for;
   end if;
 
   // Assign quantities to output connectors
-  QAbsExtSha_flow := absRad[2, 1];
-  QAbsIntSha_flow := absRad[2, N + 2];
-  QAbsGlaUns_flow[:] := absRad[1, 2:N + 1];
-  QAbsGlaSha_flow[:] := absRad[2, 2:N + 1];
+  QAbsExtSha_flow[1:NSta]    := absRad[2, 1,       1:NSta];
+  QAbsIntSha_flow[1:NSta]    := absRad[2, N + 2,   1:NSta];
+  QAbsGlaUns_flow[:, 1:NSta] := absRad[1, 2:N + 1, 1:NSta];
+  QAbsGlaSha_flow[:, 1:NSta] := absRad[2, 2:N + 1, 1:NSta];
   annotation (
     Documentation(info="<html>
 <p>
@@ -274,6 +281,12 @@ Dissertation. University of California at Berkeley. 2004.
 </html>", revisions="<html>
 <ul>
 <li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
+<li>
 January 21, 2015, by Michael Wetter:<br/>
 Changed <code>initial algorithm</code> to
 <code>initial equation</code> section and removed
@@ -286,7 +299,7 @@ Added missing <code>each</code> keywords in parameter declarations.
 </li>
 <li>
 March 4, 2011, by Wangda Zuo:<br/>
-Remove the if-statement and integer function that can trigger events.
+Removed the if-statement and integer function that can trigger events.
 </li>
 <li>
 February 2, 2010, by Michael Wetter:<br/>
