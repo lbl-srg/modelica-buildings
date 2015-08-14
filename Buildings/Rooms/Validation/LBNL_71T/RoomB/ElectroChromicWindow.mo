@@ -1,5 +1,5 @@
-within Buildings.Rooms.Validation;
-model LBNL_71T_RoomB
+within Buildings.Rooms.Validation.LBNL_71T.RoomB;
+model ElectroChromicWindow
   "Validation model for the correct implementation of Electrochromic Window"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
@@ -417,7 +417,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{
             220,200}})),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/LBNL_71T_RoomB.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/LBNL_71T/RoomB/ElectroChromicWindow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>This model tests the correct implementation of electrochromic window. <span style=\"font-family: Sans Serif;\">This model represents the middle test cell (RoomB) of the window test facility 71T.</span></p>
@@ -430,4 +430,4 @@ First implementation.
 </ul>
 </html>"),
     experiment(StopTime=604800));
-end LBNL_71T_RoomB;
+end ElectroChromicWindow;
