@@ -424,7 +424,7 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-Augurst 07, 2015, by Thierry S. Nouidui:<br/>
+August 07, 2015, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
