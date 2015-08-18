@@ -28,9 +28,9 @@ model ElectroChromicWindow
       layers={matExtWal},
       each A=10.22,
       glaSys={glaSys},
-      each hWin=3.35,
-      each wWin=3.04,
-      each fFra=0.1477,
+      each hWin=3.13,
+      each wWin=2.782751,
+      each fFra=0.000001,
       each til=Buildings.Types.Tilt.Wall,
       azi={Buildings.Types.Azimuth.S}),
     datConBou(
