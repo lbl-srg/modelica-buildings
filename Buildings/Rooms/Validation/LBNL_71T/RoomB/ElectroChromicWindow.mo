@@ -22,7 +22,7 @@ model ElectroChromicWindow
     nConBou=nConBou,
     nSurBou=nSurBou,
     linearizeRadiation=false,
-    nPorts=2,
+    nPorts=1,
     T_start=T_start,
     datConExtWin(
       layers={matExtWal},
@@ -80,9 +80,6 @@ model ElectroChromicWindow
         nStaRef=nStaRef))
     "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(extent={{122,-44},{142,-24}})));
-  Fluid.Sources.Outside bou(redeclare package Medium = MediumA, nPorts=2)
-    "Boundary condition"
-    annotation (Placement(transformation(extent={{-42,42},{-22,62}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
     nLay=3,
     absIR_a=0.9,
@@ -215,17 +212,9 @@ model ElectroChromicWindow
     nPorts=1,
     redeclare package Medium = MediumA) "infiltration mass flow source"
     annotation (Placement(transformation(extent={{16,-48},{36,-28}})));
-  Modelica.Blocks.Sources.Constant VInf_flow(k=-0.001, y(unit="m3/s"))
-    "Infiltration rate in m3/s at current outdoor air density"
-    annotation (Placement(transformation(extent={{-70,-34},{-50,-14}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{134,66},{158,90}}), iconTransformation(extent={
             {-116,36},{-96,56}})));
-  Fluid.FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = MediumA,
-    dp_nominal=1,
-    m_flow_nominal=13.94*3.35*0.07/3600*1.2)
-    annotation (Placement(transformation(extent={{6,40},{26,60}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-72,10},{-52,30}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
@@ -237,9 +226,6 @@ model ElectroChromicWindow
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=297.15)
     "Prescribed room air temperature"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Fluid.Sensors.Density senDen(redeclare package Medium = MediumA)
-    "Outdoor air density"
-    annotation (Placement(transformation(extent={{-2,70},{-22,90}})));
   block Infiltration
     extends Modelica.Blocks.Icons.Block;
 
@@ -359,8 +345,8 @@ equation
     annotation (Line(points={{162,-34},{142,-34}}, color={191,0,0}));
   connect(soil.port_a, roo.surf_conBou[1]) annotation (Line(points={{122,-34},{
           122,-34},{92,-34},{92,44}}, color={191,0,0}));
-  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,-38},
-          {66,48},{71,48}},      color={0,127,255}));
+  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,
+          -38},{66,50},{71,50}}, color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{146,78},{140,78},{140,77.9},{103.9,77.9}},
       color={255,204,51},
@@ -375,18 +361,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(bou.weaBus, weaBus) annotation (Line(
-      points={{-42,52.2},{-42,52.2},{-64,52.2},{-64,136},{176,136},{176,78},{
-          146,78}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(res.port_a, bou.ports[1])
-    annotation (Line(points={{6,50},{-22,50},{-22,54}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[2]) annotation (Line(points={{26,50},{26,50},{26,
-          52},{71,52}},    color={0,127,255}));
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-91,60},
           {-84,60},{-84,62},{-84,27},{-74,27}}, color={0,0,127}));
   connect(qConGai_flow.y, multiplex3_1.u2[1])
@@ -398,8 +372,6 @@ equation
                                         color={0,0,127}));
   connect(roo.heaPorAir, preTem.port) annotation (Line(points={{85,60},{85,-110},
           {86,-110},{86,-130},{60,-130}}, color={191,0,0}));
-  connect(senDen.port, bou.ports[2])
-    annotation (Line(points={{-12,70},{-12,50},{-22,50}}, color={0,127,255}));
   connect(inf.weaBus, weaBus) annotation (Line(
       points={{-20,-70},{-64,-70},{-128,-70},{-128,136},{176,136},{176,78},{146,
           78}},
