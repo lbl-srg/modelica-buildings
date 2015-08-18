@@ -65,10 +65,6 @@ model ElectroChromicWindow
   HeatTransfer.Sources.FixedTemperature TBou[1](each T=T_start)
     "Boundary condition for construction" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}}, origin={174,-68})));
-  constant Integer nStaRef=3 "Number of states in a reference material";
-  // FIXME - Bug in Dymola 2016?: If the constant is defined
-  // before it is used then the model will fail to translate.
-
   HeatTransfer.Conduction.SingleLayer soil(
     each steadyStateInitial=true,
     each A=13.94,
@@ -76,9 +72,7 @@ model ElectroChromicWindow
         x=2,
         k=1.3,
         c=0,
-        d=0,
-        nStaRef=nStaRef))
-    "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
+        d=0)) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(extent={{122,-44},{142,-24}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
     nLay=3,
@@ -90,18 +84,15 @@ model ElectroChromicWindow
         x=0.000701,
         k=45.345,
         c=502.416,
-        d=7833.028,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=7833.028),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.0127,
         k=0.12,
         c=1210,
-        d=540,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=540),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.133,
         k=0.047,
         c=1006,
-        d=93.84,
-        nStaRef=nStaRef)}) "71T: South Wall"
+        d=93.84)}) "71T: South Wall"
     annotation (Placement(transformation(extent={{-16,162},{4,182}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matCeil(
     nLay=3,
@@ -113,18 +104,15 @@ model ElectroChromicWindow
         x=0.009525,
         k=0.12,
         c=1210,
-        d=540,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=540),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.133,
         k=0.047,
         c=1006,
-        d=93.84,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=93.84),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.015875,
         k=0.17,
         c=1090,
-        d=800,
-        nStaRef=nStaRef)}) "71T: Ceiling"
+        d=800)}) "71T: Ceiling"
     annotation (Placement(transformation(extent={{40,162},{60,182}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matFlo(
     final nLay=4,
@@ -136,23 +124,19 @@ model ElectroChromicWindow
         x=5.28,
         k=1,
         c=0,
-        d=0,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=0),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.01905,
         k=0.15,
         c=1630,
-        d=608,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=608),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.01905,
         k=0.12,
         c=1210,
-        d=540,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=540),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.22,
         k=1,
         c=0,
-        d=0,
-        nStaRef=nStaRef)}) "71T: Floor"
+        d=0)}) "71T: Floor"
     annotation (Placement(transformation(extent={{64,162},{84,182}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matEWWal(
     final nLay=2,
@@ -164,13 +148,11 @@ model ElectroChromicWindow
         x=0.133,
         k=0.047,
         c=1006,
-        d=93.84,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=93.84),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.015875,
         k=0.17,
         c=1090,
-        d=800,
-        nStaRef=nStaRef)}) "71T: East West Wall"
+        d=800)}) "71T: East West Wall"
     annotation (Placement(transformation(extent={{14,162},{34,182}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matNWal(
     final nLay=4,
@@ -182,23 +164,19 @@ model ElectroChromicWindow
         x=0.015875,
         k=0.17,
         c=1090,
-        d=800,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=800),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.009525,
         k=0.12,
         c=1210,
-        d=540,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=540),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.133,
         k=0.047,
         c=1006,
-        d=93.84,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
+        d=93.84),Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.015875,
         k=0.17,
         c=1090,
-        d=800,
-        nStaRef=nStaRef)}) "71T: North Wall"
+        d=800)}) "71T: North Wall"
     annotation (Placement(transformation(extent={{90,162},{110,182}})));
 
   // Fixme: The frame ratio and U value has not yet been updated.
@@ -345,8 +323,8 @@ equation
     annotation (Line(points={{162,-34},{142,-34}}, color={191,0,0}));
   connect(soil.port_a, roo.surf_conBou[1]) annotation (Line(points={{122,-34},{
           122,-34},{92,-34},{92,44}}, color={191,0,0}));
-  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,
-          -38},{66,50},{71,50}}, color={0,127,255}));
+  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,-38},
+          {66,50},{71,50}},      color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{146,78},{140,78},{140,77.9},{103.9,77.9}},
       color={255,204,51},
@@ -386,8 +364,8 @@ equation
   connect(uWin.y, roo.uWin[1]) annotation (Line(points={{29,80},{46,80},{46,73},
           {64.4,73}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-220},{
-            220,200}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{220,
+            200}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/LBNL_71T/RoomB/ElectroChromicWindow.mos"
         "Simulate and plot"),
