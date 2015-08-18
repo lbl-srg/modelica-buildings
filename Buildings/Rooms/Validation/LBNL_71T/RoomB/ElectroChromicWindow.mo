@@ -40,9 +40,9 @@ model ElectroChromicWindow
           Buildings.Types.Tilt.Wall,Buildings.Types.Tilt.Wall}),
     AFlo=13.94,
     hRoo=3.37,
-    lat=0.65484753534827,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    lat=0.65484753534827) "Room model"
     annotation (Placement(transformation(extent={{66,40},{106,80}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
@@ -59,21 +59,10 @@ model ElectroChromicWindow
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  HeatTransfer.Sources.FixedTemperature TSoi(each T=T_start)
-    "Boundary condition for construction" annotation (Placement(transformation(
-          extent={{10,-10},{-10,10}}, origin={172,-34})));
-  HeatTransfer.Sources.FixedTemperature TBou[1](each T=T_start)
-    "Boundary condition for construction" annotation (Placement(transformation(
+  HeatTransfer.Sources.FixedTemperature TBou[1](each T(displayUnit="K") =
+      297.15) "Boundary condition for construction"
+                                          annotation (Placement(transformation(
           extent={{10,-10},{-10,10}}, origin={174,-68})));
-  HeatTransfer.Conduction.SingleLayer soil(
-    each steadyStateInitial=true,
-    each A=13.94,
-    material=Buildings.HeatTransfer.Data.Solids.Generic(
-        x=2,
-        k=1.3,
-        c=0,
-        d=0)) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(extent={{122,-44},{142,-24}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
     nLay=3,
     absIR_a=0.9,
@@ -299,7 +288,7 @@ model ElectroChromicWindow
     B=0.03636,
     C=0.1177) "Outdoor air infiltration"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     annotation (Placement(transformation(extent={{76,-100},{56,-80}})));
   Modelica.Blocks.Sources.Constant uWin(k=1)
     "Control signal for electrochromic window"
@@ -319,10 +308,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(TSoi.port, soil.port_b)
-    annotation (Line(points={{162,-34},{142,-34}}, color={191,0,0}));
-  connect(soil.port_a, roo.surf_conBou[1]) annotation (Line(points={{122,-34},{
-          122,-34},{92,-34},{92,44}}, color={191,0,0}));
   connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,-38},
           {66,50},{71,50}},      color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
@@ -355,10 +340,10 @@ equation
           78}},
       color={255,204,51},
       thickness=0.5));
-  connect(temperatureSensor.port, preTem.port) annotation (Line(points={{76,-90},
-          {82,-90},{86,-90},{86,-130},{60,-130}}, color={191,0,0}));
-  connect(temperatureSensor.T, inf.TRoo) annotation (Line(points={{56,-90},{20,
-          -90},{-32,-90},{-32,-64},{-22,-64}}, color={0,0,127}));
+  connect(temSen.port, preTem.port) annotation (Line(points={{76,-90},{82,-90},
+          {86,-90},{86,-130},{60,-130}}, color={191,0,0}));
+  connect(temSen.T, inf.TRoo) annotation (Line(points={{56,-90},{20,-90},{-32,-90},
+          {-32,-64},{-22,-64}}, color={0,0,127}));
   connect(inf.m_flow, masSou.m_flow_in) annotation (Line(points={{1,-70},{6,-70},
           {6,-30},{16,-30}}, color={0,0,127}));
   connect(uWin.y, roo.uWin[1]) annotation (Line(points={{29,80},{46,80},{46,73},
