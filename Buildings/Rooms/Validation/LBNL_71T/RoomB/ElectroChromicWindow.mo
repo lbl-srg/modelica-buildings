@@ -293,6 +293,15 @@ model ElectroChromicWindow
   Modelica.Blocks.Sources.Constant uWin(k=1)
     "Control signal for electrochromic window"
     annotation (Placement(transformation(extent={{8,70},{28,90}})));
+  Modelica.Blocks.Sources.CombiTimeTable datRea(
+    tableOnFile=true,
+    tableName="EnergyPlus",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
+
+    columns=2:2)
+    "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
+    annotation (Placement(transformation(extent={{-126,-118},{-106,-98}})));
 equation
   for i in 2:nConBou loop
     connect(TBou[1].port, roo.surf_conBou[i]) annotation (Line(points={{164,-68},
