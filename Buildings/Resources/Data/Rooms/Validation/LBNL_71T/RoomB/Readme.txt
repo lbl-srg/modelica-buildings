@@ -5,3 +5,4 @@ This folder contains
 and write the heating and cooling power needed to maintain the setpoint. 
 3. EnergyPlusHeatingCoolingPower.txt: The reference results which can be compared to the results of the Modelica
 model, specifically of the variable roo.heaPorAir.Q_flow.
+4. plotHeatingCoolingPower.pdf: A comparison between the combined heating and cooling calculated by Energyplus and the Modelica model.
