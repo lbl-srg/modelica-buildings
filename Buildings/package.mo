@@ -194,6 +194,15 @@ its class name ends with the string <code>Beta</code>.
                           which can cause a simpler energy balance to be used.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPortTransport
+
+       </td>
+       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code> 
+                          and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">Annex 60 issue 305</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
                         Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow
 
@@ -293,6 +302,51 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>    
        
+   <tr><td colspan=\"2\"><b>Buildings.Media</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+       </td>
+       <td valign=\"top\">Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_2_regNonZeroPower<br/>
+                          Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial<br/>
+                          Buildings.Utilities.Math.Functions.BaseClasses.der_regNonZeroPower
+
+       </td>
+       <td valign=\"top\">Corrected wrong derivative implementation and improved their regression tests.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Density_pTX
+       </td>
+       <td valign=\"top\">Corrected wrong default component name.
+       </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.saturationPressure
+       </td>
+       <td valign=\"top\">Changed <code>smoothOrder</code> from <i>5</i> to <i>1</i> as
+                         <a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
+                         Buildings.Utilities.Math.Functions.spliceFunction</a> is only once
+                         continuously differentiable.
+                         Inlined the function.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
@@ -301,6 +355,8 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">xxx.
        </td>
    </tr>
+
+
    </table>
    <p>
    Note:

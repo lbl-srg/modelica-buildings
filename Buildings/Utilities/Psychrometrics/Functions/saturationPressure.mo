@@ -14,8 +14,8 @@ algorithm
              Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat),
              TSat-273.16,
              1.0);
-  annotation(Inline=false,
-    smoothOrder=5,
+  annotation(Inline=true,
+    smoothOrder=1,
     Documentation(info="<html>
 <p>
 Saturation pressure of water, computed from temperature,
@@ -34,6 +34,14 @@ http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 19, 2015 by Michael Wetter:<br/>
+Changed <code>smoothOrder</code> from <i>5</i> to <i>1</i> as
+<a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
+Buildings.Utilities.Math.Functions.spliceFunction</a> is only once
+continuously differentiable.
+Inlined the function.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 First implementation, moved from <code>Buildings.Media</code>.

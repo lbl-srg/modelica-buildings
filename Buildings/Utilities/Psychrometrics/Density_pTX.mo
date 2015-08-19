@@ -32,7 +32,7 @@ equation
     X_w=X_w);
 
   annotation (
-  defaultComponentName="phi",
+  defaultComponentName="den",
     Documentation(info="<html>
 <p>
 Block to compute the mass density of air for given
@@ -45,6 +45,10 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 19, 2015, by Michael Wetter:<br/>
+Corrected default component name.
+</li>
 <li>
 February 24, 2015, by Michael Wetter:<br/>
 First implementation.
