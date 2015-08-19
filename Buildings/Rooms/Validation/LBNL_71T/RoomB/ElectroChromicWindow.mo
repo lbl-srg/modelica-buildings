@@ -4,7 +4,7 @@ model ElectroChromicWindow
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Temperature T_start=273.15 - 15 "Initial value";
+  parameter Modelica.SIunits.Temperature T_start=273.15 + 24 "Initial value";
 
   parameter Integer nConExtWin=1 "Number of constructions with a window";
   parameter Integer nConExt=0 "Number of constructions without a window";
@@ -22,7 +22,6 @@ model ElectroChromicWindow
     nConBou=nConBou,
     nSurBou=nSurBou,
     linearizeRadiation=false,
-    nPorts=1,
     T_start=T_start,
     datConExtWin(
       layers={matExtWal},
@@ -42,27 +41,25 @@ model ElectroChromicWindow
     hRoo=3.37,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.65484753534827) "Room model"
-    annotation (Placement(transformation(extent={{66,40},{106,80}})));
+    lat=0.65484753534827,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
+    "Room model"
+    annotation (Placement(transformation(extent={{62,-16},{102,24}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
-    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover,
     relHum=0,
     TDewPoi(displayUnit="K"),
-    HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.File,
     filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.File)
-    annotation (Placement(transformation(extent={{144,160},{164,180}})));
+    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.File,
+    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
+    annotation (Placement(transformation(extent={{140,104},{160,124}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+    annotation (Placement(transformation(extent={{-44,54},{-24,74}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  HeatTransfer.Sources.FixedTemperature TBou[1](each T(displayUnit="K") =
-      297.15) "Boundary condition for construction"
-                                          annotation (Placement(transformation(
-          extent={{10,-10},{-10,10}}, origin={174,-68})));
+    annotation (Placement(transformation(extent={{-4,54},{16,74}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matExtWal(
     nLay=3,
     absIR_a=0.9,
@@ -82,7 +79,7 @@ model ElectroChromicWindow
         k=0.047,
         c=1006,
         d=93.84)}) "71T: South Wall"
-    annotation (Placement(transformation(extent={{-16,162},{4,182}})));
+    annotation (Placement(transformation(extent={{-20,106},{0,126}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matCeil(
     nLay=3,
     absIR_a=0.9,
@@ -102,7 +99,7 @@ model ElectroChromicWindow
         k=0.17,
         c=1090,
         d=800)}) "71T: Ceiling"
-    annotation (Placement(transformation(extent={{40,162},{60,182}})));
+    annotation (Placement(transformation(extent={{36,106},{56,126}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matFlo(
     final nLay=4,
     absIR_a=0.9,
@@ -126,7 +123,7 @@ model ElectroChromicWindow
         k=1,
         c=0,
         d=0)}) "71T: Floor"
-    annotation (Placement(transformation(extent={{64,162},{84,182}})));
+    annotation (Placement(transformation(extent={{60,106},{80,126}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matEWWal(
     final nLay=2,
     absIR_a=0.9,
@@ -142,7 +139,7 @@ model ElectroChromicWindow
         k=0.17,
         c=1090,
         d=800)}) "71T: East West Wall"
-    annotation (Placement(transformation(extent={{14,162},{34,182}})));
+    annotation (Placement(transformation(extent={{10,106},{30,126}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic matNWal(
     final nLay=4,
     absIR_a=0.9,
@@ -166,33 +163,28 @@ model ElectroChromicWindow
         k=0.17,
         c=1090,
         d=800)}) "71T: North Wall"
-    annotation (Placement(transformation(extent={{90,162},{110,182}})));
+    annotation (Placement(transformation(extent={{86,106},{106,126}})));
 
   // Fixme: The frame ratio and U value has not yet been updated.
   parameter HeatTransfer.Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys(
     UFra=2,
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
-    annotation (Placement(transformation(extent={{-44,162},{-24,182}})));
-  Fluid.Sources.MassFlowSource_T masSou(
-    use_m_flow_in=true,
-    nPorts=1,
-    redeclare package Medium = MediumA) "infiltration mass flow source"
-    annotation (Placement(transformation(extent={{16,-48},{36,-28}})));
+    annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{134,66},{158,90}}), iconTransformation(extent={
+        transformation(extent={{130,10},{154,34}}), iconTransformation(extent={
             {-116,36},{-96,56}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-72,10},{-52,30}})));
+    annotation (Placement(transformation(extent={{-56,-26},{-36,-6}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
+    annotation (Placement(transformation(extent={{-94,16},{-74,36}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
+    annotation (Placement(transformation(extent={{-96,-26},{-76,-6}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-114,-28},{-94,-8}})));
+    annotation (Placement(transformation(extent={{-96,-66},{-76,-46}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=297.15)
     "Prescribed room air temperature"
-    annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
+    annotation (Placement(transformation(extent={{8,-72},{28,-52}})));
   block Infiltration
     extends Modelica.Blocks.Icons.Block;
 
@@ -282,84 +274,63 @@ model ElectroChromicWindow
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}})));
   end Infiltration;
-  Infiltration inf(
-    V_flow=0.001,
-    A=0.606,
-    B=0.03636,
-    C=0.1177) "Outdoor air infiltration"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
-    annotation (Placement(transformation(extent={{76,-100},{56,-80}})));
   Modelica.Blocks.Sources.Constant uWin(k=1)
     "Control signal for electrochromic window"
-    annotation (Placement(transformation(extent={{8,70},{28,90}})));
-  Modelica.Blocks.Sources.CombiTimeTable datRea(
+    annotation (Placement(transformation(extent={{4,14},{24,34}})));
+  Modelica.Blocks.Sources.CombiTimeTable refRes(
     tableOnFile=true,
     tableName="EnergyPlus",
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
-
     columns=2:2)
     "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
-    annotation (Placement(transformation(extent={{-126,-118},{-106,-98}})));
+    annotation (Placement(transformation(extent={{8,-108},{28,-88}})));
+
 equation
   for i in 2:nConBou loop
-    connect(TBou[1].port, roo.surf_conBou[i]) annotation (Line(points={{164,-68},
-            {114,-68},{114,44},{92,44}}, color={191,0,0}));
   end for;
 
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-19,120},{-2,120}},
+      points={{-23,64},{-6,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{64.4,78},{64.4,120},{21,120}},
+      points={{60.4,22},{60.4,64},{17,64}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(masSou.ports[1], roo.ports[1]) annotation (Line(points={{36,-38},{66,-38},
-          {66,50},{71,50}},      color={0,127,255}));
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{146,78},{140,78},{140,77.9},{103.9,77.9}},
+      points={{142,22},{136,22},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
-      points={{146,78},{146,76},{200,76},{200,170},{164,170}},
+      points={{142,22},{142,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-91,60},
-          {-84,60},{-84,62},{-84,27},{-74,27}}, color={0,0,127}));
+  connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(points={{-73,26},
+          {-68,26},{-68,-9},{-58,-9}},          color={0,0,127}));
   connect(qConGai_flow.y, multiplex3_1.u2[1])
-    annotation (Line(points={{-91,20},{-82.5,20},{-74,20}}, color={0,0,127}));
-  connect(qLatGai_flow.y, multiplex3_1.u3[1]) annotation (Line(points={{-93,-18},
-          {-88,-18},{-88,10},{-74,10},{-74,13}}, color={0,0,127}));
-  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(points={{-51,20},{-51,
-          20},{38,20},{38,68},{64.4,68}},
+    annotation (Line(points={{-75,-16},{-66.5,-16},{-58,-16}},
+                                                            color={0,0,127}));
+  connect(qLatGai_flow.y, multiplex3_1.u3[1]) annotation (Line(points={{-75,-56},
+          {-72,-56},{-72,-26},{-58,-26},{-58,-23}},
+                                                 color={0,0,127}));
+  connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(points={{-35,-16},{
+          -35,-16},{38,-16},{38,12},{60.4,12}},
                                         color={0,0,127}));
-  connect(roo.heaPorAir, preTem.port) annotation (Line(points={{85,60},{85,-110},
-          {86,-110},{86,-130},{60,-130}}, color={191,0,0}));
-  connect(inf.weaBus, weaBus) annotation (Line(
-      points={{-20,-70},{-64,-70},{-128,-70},{-128,136},{176,136},{176,78},{146,
-          78}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(temSen.port, preTem.port) annotation (Line(points={{76,-90},{82,-90},
-          {86,-90},{86,-130},{60,-130}}, color={191,0,0}));
-  connect(temSen.T, inf.TRoo) annotation (Line(points={{56,-90},{20,-90},{-32,-90},
-          {-32,-64},{-22,-64}}, color={0,0,127}));
-  connect(inf.m_flow, masSou.m_flow_in) annotation (Line(points={{1,-70},{6,-70},
-          {6,-30},{16,-30}}, color={0,0,127}));
-  connect(uWin.y, roo.uWin[1]) annotation (Line(points={{29,80},{46,80},{46,73},
-          {64.4,73}}, color={0,0,127}));
+  connect(roo.heaPorAir, preTem.port) annotation (Line(points={{81,4},{81,-62},
+          {78,-62},{28,-62}},             color={191,0,0}));
+  connect(uWin.y, roo.uWin[1]) annotation (Line(points={{25,24},{42,24},{42,17},
+          {60.4,17}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{220,
-            200}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{
+            220,160}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/LBNL_71T/RoomB/ElectroChromicWindow.mos"
         "Simulate and plot"),
