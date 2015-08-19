@@ -1471,23 +1471,6 @@ OtherEquipment,
     0;                       !- Fraction Lost
 
 
-!-   ===========  ALL OBJECTS IN CLASS: ZONEINFILTRATION:DESIGNFLOWRATE ===========
-
-ZoneInfiltration:DesignFlowRate,
-    Infil 1 Room 102,        !- Name
-    Room 102,                !- Zone or ZoneList Name
-    Room 102 Infiltration Schedule,  !- Schedule Name
-    Flow/Zone,               !- Design Flow Rate Calculation Method
-    0.001,                   !- Design Flow Rate {m3/s}
-    ,                        !- Flow per Zone Floor Area {m3/s-m2}
-    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
-    ,                        !- Air Changes per Hour {1/hr}
-    0.606,                   !- Constant Term Coefficient
-    0.03636,                 !- Temperature Term Coefficient
-    0.1177,                  !- Velocity Term Coefficient
-    0.;                      !- Velocity Squared Term Coefficient
-
-
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:THERMOSTAT ===========
 
 HVACTemplate:Thermostat,
