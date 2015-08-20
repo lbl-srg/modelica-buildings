@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "y",
-    "y_comp"
+    "a",
+    "b"
   };

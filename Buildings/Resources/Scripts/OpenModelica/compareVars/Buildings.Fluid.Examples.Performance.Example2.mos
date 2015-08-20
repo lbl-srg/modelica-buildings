@@ -1,5 +1,4 @@
 compareVars :=
   {
-    "y",
-    "y_comp"
+    "pump_dp.m_flow"
   };
