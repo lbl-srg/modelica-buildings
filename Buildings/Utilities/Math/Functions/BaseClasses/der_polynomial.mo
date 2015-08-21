@@ -11,8 +11,7 @@ algorithm
   for i in 1:n loop
      b[i] :=a[i+1]*i;
   end for;
-  y := Buildings.Utilities.Math.Functions.polynomial(
-                                           a=b, x=x);
+  y := Buildings.Utilities.Math.Functions.polynomial(a=b, x=x)*dx;
   annotation (Documentation(info="<html>
 This function computes the first derivative of a polynomial of arbitrary order.
 The original polynomial has the form<br/>
@@ -33,6 +32,12 @@ Buildings.Utilities.Math.polynomial</a>
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 17, 2015 by Michael Wetter:<br/>
+Corrected wrong derivative implementation which omitted the <code>dx</code> term.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+</li>
 <li>
 April 5, 2009 by Michael Wetter:<br/>
 First implementation.

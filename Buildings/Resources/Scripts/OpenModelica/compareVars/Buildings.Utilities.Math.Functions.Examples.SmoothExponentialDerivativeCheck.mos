@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "x",
+    "y_comp",
     "y",
     "ex",
-    "der(x)",
+    "der(y_comp)",
     "der(y)"
   };
