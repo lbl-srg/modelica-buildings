@@ -87,7 +87,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverStages.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverParameter.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

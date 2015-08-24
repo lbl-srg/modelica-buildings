@@ -30,8 +30,10 @@ equation
           70},{-59,70}}, color={0,0,127}));
   connect(pump_y.y, ramp.y) annotation (Line(points={{-0.2,-28},{-18,-28},{-50,
           -28},{-50,70},{-59,70}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Documentation(info="<html>
 <p>
 This example demonstrates the use of a <code>RealInput</code> 
 connector for a mover model.
@@ -43,5 +45,8 @@ August 24, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverContinuous.mos"
+        "Simulate and plot"));
 end MoverContinuous;
