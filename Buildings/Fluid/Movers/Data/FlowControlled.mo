@@ -7,23 +7,24 @@ record FlowControlled
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency";
+      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)";
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
       V_flow={0},
-      eta={0.7}) "Electric motor efficiency";
+      eta={0.7})
+    "Electric motor efficiency (used if use_powerCharacteristic=false)";
 
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow
   parameter BaseClasses.Characteristics.powerParameters power(V_flow={0}, P={0})
-    "Volume flow rate vs. electrical power consumption"
+    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
     annotation (Dialog(enable=use_powerCharacteristic));
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
-    "Use powerCharacteristic instead of efficiencyCharacteristic";
+    "Use power data instead of motor efficiency";
 
   annotation(defaultComponentPrefixes = "parameter",
              defaultComponentName = "per",
@@ -69,6 +70,11 @@ Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Improved documentation for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+issue 457</a>.
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised record for OpenModelica.
