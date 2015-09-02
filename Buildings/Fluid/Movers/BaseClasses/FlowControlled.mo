@@ -6,11 +6,11 @@ model FlowControlled
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-   _perPow(hydraulicEfficiency=per.hydraulicEfficiency,
-            motorEfficiency=per.motorEfficiency,
-            power=per.power,
-            motorCooledByFluid=per.motorCooledByFluid,
-            use_powerCharacteristic = per.use_powerCharacteristic),
+   _perPow(final hydraulicEfficiency=per.hydraulicEfficiency,
+           final motorEfficiency=per.motorEfficiency,
+           final power=per.power,
+           final motorCooledByFluid=per.motorCooledByFluid,
+           final use_powerCharacteristic = per.use_powerCharacteristic),
             delta_V_flow = 1E-3*V_flow_max,
      final rho_default = Medium.density(sta_default));
 
@@ -66,6 +66,11 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Changed assignments of parameters of record <code>_perPow</code> to be <code>final</code>
+as we want users to change the performance record and not the low level declaration.
+</li>      
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
