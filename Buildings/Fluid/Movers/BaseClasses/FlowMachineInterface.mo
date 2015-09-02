@@ -166,7 +166,7 @@ protected
                                                                                      strict=false))
    else
      zeros(size(_per_y.power.V_flow,1))
-    "Coefficients for polynomial of pressure vs. flow rate";
+    "Coefficients for polynomial of power vs. flow rate";
 
   parameter Boolean haveMinimumDecrease=
     Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[i + 1] -
