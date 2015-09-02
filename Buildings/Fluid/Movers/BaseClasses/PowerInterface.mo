@@ -4,14 +4,6 @@ partial model PowerInterface
 
   import Modelica.Constants;
 
-  parameter Boolean use_powerCharacteristic = false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-     annotation(Evaluate=true,Dialog(group="Characteristics"));
-
-  parameter Boolean motorCooledByFluid = true
-    "If true (and if addPowerToMedium = true), then motor heat is added to fluid stream"
-    annotation(Dialog(group="Characteristics"));
-
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -32,7 +24,7 @@ partial model PowerInterface
 
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-  //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
+
 protected
   parameter Data.FlowControlled _perPow
     "Record with performance data for power";
@@ -40,9 +32,9 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
   final parameter Real motDer[size(_perPow.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate";
+    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
   final parameter Real hydDer[size(_perPow.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate";
+    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
@@ -113,6 +105,15 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Removed parameters <code>use_powerCharacteristic</code> and
+<code>motorCooledByFluid</code> as these declarations are used from
+the performance data record <code>_perPow</code>.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+issue 457</a>.
+</li>      
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
