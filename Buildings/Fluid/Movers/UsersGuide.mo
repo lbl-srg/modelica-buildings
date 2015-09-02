@@ -334,7 +334,8 @@ and the two efficiencies
 and <i>&eta;<sub>mot</sub></i> are computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
+  &eta;<sub>hyd</sub> = 1,<br/>
+  &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
 However, if <code>per.use_powerCharacteristic=false</code>, then
