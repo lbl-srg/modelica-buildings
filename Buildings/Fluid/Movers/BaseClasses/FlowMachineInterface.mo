@@ -568,7 +568,7 @@ equation
                         simplified=cha.efficiency(per=_per_y.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
       etaHyd = cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
-      etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=V_flow_max, d=motDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
@@ -638,6 +638,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Corrected computation of
+<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=VMachine_flow, d=motDer, r_N=fixme, delta=1E-4)</code>
+which previously used <code>V_flow_max</code> instead of <code>VMachine_flow</code>.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.
