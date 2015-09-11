@@ -87,9 +87,9 @@ model IndirectTankHeatExchanger
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
      each C=CHex/nSeg,
      T(each start=T_start,
-       each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial)),
      der_T(
-       each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
              not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
