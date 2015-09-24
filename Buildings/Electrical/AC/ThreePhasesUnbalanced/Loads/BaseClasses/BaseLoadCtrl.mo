@@ -12,7 +12,9 @@ partial model BaseLoadCtrl
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal(start=0, fixed=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input)
+  parameter Modelica.SIunits.Power P_nominal(
+     start=0,
+     fixed=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)

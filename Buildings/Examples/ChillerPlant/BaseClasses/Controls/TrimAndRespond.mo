@@ -1,19 +1,18 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 block TrimAndRespond "Trim and respond logic"
-  extends Modelica.Blocks.Interfaces.DiscreteSISO;
+  extends Modelica.Blocks.Interfaces.DiscreteSISO(firstTrigger(start=false, fixed=true));
   parameter Real uTri "Value to triggering the request for actuator";
   parameter Real yEqu0 "y setpoint when equipment starts";
   parameter Real yDec(max=0) "y decrement (must be negative)";
   parameter Real yInc(min=0) "y increment (must be positive)";
 
-  Modelica.Blocks.Logical.GreaterEqualThreshold
-                                           incY(threshold=0)
+  Modelica.Blocks.Logical.GreaterEqualThreshold incY(threshold=0)
     "Outputs true if y needs to be increased"
     annotation (extent=[-20, 98; 0, 118], Placement(transformation(extent={{-20,
             50},{0,70}})));
   Modelica.Blocks.Logical.Switch swi annotation (extent=[100, 110; 120, 130],
       Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Discrete.Sampler sam(samplePeriod=samplePeriod) "Sampler"
+  Sampler sam(samplePeriod=samplePeriod) "Sampler"
     annotation (extent=[-60, 90; -40, 110], Placement(transformation(extent={{-60,
             50},{-40,70}})));
 
@@ -23,7 +22,7 @@ block TrimAndRespond "Trim and respond logic"
   Modelica.Blocks.Sources.Constant conYInc(k=yInc) "y increase"
     annotation (extent=[-20, 124; 0, 144], Placement(transformation(extent={{20,70},
             {40,90}})));
-  Modelica.Blocks.Discrete.UnitDelay uniDel1(
+  UnitDelay uniDel1(
     y_start=yEqu0,
     samplePeriod=samplePeriod,
     startTime=samplePeriod)
@@ -34,6 +33,24 @@ block TrimAndRespond "Trim and respond logic"
   Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=0) "State limiter"
     annotation (extent=[20, -20; 40, 0], Placement(transformation(extent={{20,-10},
             {40,10}})));
+
+  // The UnitDelay and Sampler is reimplemented to avoid in Dymola 2016 the translation warning
+  //   The initial conditions for variables of type Boolean are not fully specified.
+  //   Dymola has selected default initial conditions.
+  //   Assuming fixed default start value for the discrete non-states:
+  //     ...firstTrigger(start = false)
+  //     ...
+
+protected
+  block UnitDelay
+    extends Modelica.Blocks.Discrete.UnitDelay(
+      firstTrigger(start=false, fixed=true));
+  end UnitDelay;
+
+  block Sampler
+    extends Modelica.Blocks.Discrete.Sampler(
+      firstTrigger(start=false, fixed=true));
+  end Sampler;
 equation
   connect(lim.y, y) annotation (Line(
       points={{41,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{110,5.55112e-16}},
@@ -93,6 +110,12 @@ equation
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Implemented <code>UnitDelay</code> and <code>Sampler</code> to avoid a translation warning
+because these blocks do not set the <code>fixed</code> attribute of <code>firstTrigger</code>
+in MSL 3.2.1.
+</li>
 <li>
 December 5, 2012, by Michael Wetter:<br/>
 Simplified implementation.
