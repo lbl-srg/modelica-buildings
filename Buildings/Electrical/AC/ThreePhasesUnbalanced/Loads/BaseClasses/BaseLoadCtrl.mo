@@ -12,7 +12,7 @@ partial model BaseLoadCtrl
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal(start=0)
+  parameter Modelica.SIunits.Power P_nominal(start=0, fixed=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input)
     "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)
@@ -156,6 +156,10 @@ partial model BaseLoadCtrl
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
 
+initial equation
+  if not mode <> Buildings.Electrical.Types.Load.VariableZ_P_input then
+    P_nominal=0;
+  end if;
 equation
   // Connections enabled when the input provided is y (between 0 and 1)
   if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
@@ -357,6 +361,14 @@ voltage controller can be found
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Provided value for <code>P_nominal</code> if
+<code>mode &lt;&gt; Buildings.Electrical.Types.Load.VariableZ_P_input</code>.
+This avoids a warning during translation of
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive</a>.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Created model and documentation.
