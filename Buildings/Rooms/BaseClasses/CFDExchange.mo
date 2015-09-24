@@ -1,6 +1,8 @@
 within Buildings.Rooms.BaseClasses;
 block CFDExchange "Block that exchanges data with the CFD code"
-  extends Modelica.Blocks.Interfaces.DiscreteBlock;
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    firstTrigger(start=false,
+                 fixed=true));
   parameter String cfdFilNam "CFD input file name" annotation (Dialog(
         __Dymola_loadSelector(caption=
             "Select CFD input file")));
