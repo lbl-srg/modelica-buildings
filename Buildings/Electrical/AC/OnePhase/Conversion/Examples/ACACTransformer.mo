@@ -18,7 +18,6 @@ model ACACTransformer
         origin={-70,50})));
   Buildings.Electrical.AC.OnePhase.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    P_nominal=-2000,
     pf=0.8,
     V_nominal=60) "Load model"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
@@ -92,6 +91,14 @@ The example shows three different configurations:
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
