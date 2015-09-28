@@ -4,7 +4,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This user's guide describes the FMI package.
+This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export
 of thermofluid flow models as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
@@ -161,5 +161,14 @@ balance must be presented, and the medium needs to be compressible.
 </p>
 </li>
 </ol>
+<h4>References</h4>
+<p>
+Michael Wetter, Marcus Fuchs and Thierry Stephane Nouidui.<br>
+<a href=\"modelica://Buildings/Resources/Images/Fluid/FMI/UsersGuide/2015-WetterFuchsNouidui.pdf\">
+Design choices for thermofluid flow components and systems that are exported as Functional Mockup Units</a>.<br>
+<i>Proc. of the 11th International Modelica Conference</i>,
+   p. 31-41,
+   Versailles, France, September 2015.
+</p>
 </html>"));
 end UsersGuide;
