@@ -225,7 +225,14 @@ its class name ends with the string <code>Beta</code>.
                           <code>u[nWri](start=_uStart, each fixed=true)</code>
                           to avoid a warning in Dymola 2016 about unspecified initial conditions.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.<br/>
+                          Set <code>start</code> and <code>fixed</code>
+                          attributes in
+                          <code>firstTrigger(start=false, fixed=true)</code>,
+                          <code>retVal(start=0, fixed=true)</code> and <code>modTimRea(fixed=false)</code>
+                          to avoid such a warning in the pedantic Modelica check in Dymola 2016.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.                          
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
