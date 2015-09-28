@@ -1,6 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 block CFDExchange "Block that exchanges data with the CFD code"
-  extends Modelica.Blocks.Interfaces.DiscreteBlock;
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    firstTrigger(start=false, fixed=true));
   parameter String cfdFilNam "CFD input file name" annotation (Dialog(
         __Dymola_loadSelector(caption=
             "Select CFD input file")));
@@ -53,9 +54,10 @@ protected
   final parameter Real _uStart[nWri]={if (flaWri[i] <= 1) then uStart[i] else
       uStart[i]*samplePeriod for i in 1:nWri}
     "Initial input signal, used during first data transfer with CFD";
-  output Modelica.SIunits.Time modTimRea "Current model time received from CFD";
+  output Modelica.SIunits.Time modTimRea(fixed=false)
+    "Current model time received from CFD";
 
-  output Integer retVal "Return value from CFD";
+  output Integer retVal(start=0, fixed=true) "Return value from CFD";
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
@@ -272,6 +274,8 @@ end if;
   // block after they have been assigned.
   uWri = fill(0, nWri);
   y=yFixed;
+
+  modTimRea = time;
 equation
   for i in 1:nWri loop
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
@@ -369,6 +373,13 @@ Buildings.Rooms.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 28, 2015, by Michael Wetter:<br/>
+Provided start value for all variables to avoid warning
+in the pedantic Modelica check in Dymola 2016 about unspecified initial conditions.
+This closes
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
+</li>
 <li>
 June 4, 2015, by Michael Wetter:<br/>
 Set <code>start</code> and <code>fixed</code>
