@@ -133,11 +133,7 @@ equation
     // Energy balance
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      if allowFlowReversal then
-        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-      else
-        port_a.h_outflow = Medium.h_default;
-      end if;
+      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
@@ -156,13 +152,8 @@ equation
     // Transport of species and trace substances
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
     port_b.C_outflow = inStream(port_a.C_outflow);
-    if allowFlowReversal then
-      port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-      port_a.C_outflow = inStream(port_b.C_outflow);
-    else
-      port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
-      port_a.C_outflow =  zeros(Medium.nC);
-    end if;
+    port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else  Medium.X_default[1:Medium.nXi];
+    port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
   else
     //////////////////////////////////////////////////////////////////////////
     // Case with latent heat exchange
@@ -175,13 +166,8 @@ equation
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-      if allowFlowReversal then
-        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
-      else
-        port_a.h_outflow =  Medium.h_default;
-        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
-      end if;
+      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
+      port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv else Medium.X_default[1:Medium.nXi];
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
@@ -290,6 +276,10 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 14, 2015, by Filip Jorissen:<br/>
+Rewrote some equations for better readability.
+</li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>
 Refactored implementation of
