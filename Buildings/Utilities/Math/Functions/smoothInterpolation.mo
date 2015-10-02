@@ -1,6 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function smoothInterpolation
-  "Interpolate using a cubic Hermite spline with linear extrapolation for a vector xSup[] and y[] and variable x"
+  "Interpolate using a cubic Hermite spline with linear extrapolation for a vector xSup[], ySup[] and independent variable x"
   input Real x "Abscissa value";
   input Real xSup[:] "Support points (strictly increasing)";
   input Real ySup[size(xSup,1)] "Function values at xSup";

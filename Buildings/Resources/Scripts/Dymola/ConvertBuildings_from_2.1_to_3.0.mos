@@ -1,0 +1,15 @@
+// Conversion script for Buildings library
+//  from: Version 2.1
+//  to:   Version 3.0
+clear
+
+convertClear();
+
+// Changes for new window materials which are now a vector
+// to allow for electrochromic glass.
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"tauSol=0.6"}, {"tauSol={%tauSol%}"});
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"rhoSol_a=0.6"}, {"rhoSol_a={%rhoSol_a%}"});
+convertModifiers("Buildings.HeatTransfer.Data.Glasses",
+                 {"rhoSol_b=0.6"}, {"rhoSol_b={%rhoSol_b%}"});
