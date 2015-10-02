@@ -29,7 +29,7 @@ algorithm
         i := j;
        end if;
      end for;
-
+     assert(xSup[i] < xSup[i+1], "Support points xSup must be increasing.");
      yInt:=cubicHermiteLinearExtrapolation(
         x=x,
         x1=xSup[i],
@@ -47,8 +47,9 @@ algorithm
   annotation(smoothOrder=1,
       Documentation(info="<html>
 <p>
-For <i>xSup<sub>1</sub> &lt; x &lt; xSup<sub>n</sub></i>,
-where <i>n</i> is the size of <i>xSup</i>,
+For <i>xSup<sub>1</sub> &le; x &le; xSup<sub>n</sub></i>,
+where <i>n</i> is the size of the support points <i>xSup</i>,
+which must be strictly monotonically increasing,
 this function interpolates
 using cubic hermite spline. For <i>x</i> outside this interval, the function
 linearly extrapolates.
@@ -63,6 +64,11 @@ or constants, then
 <a href=\"modelica://Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
 Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
 will be more efficient.
+In contrast to the function
+<a href=\"modelica://Modelica.Math.Vectors.interpolate\">
+Modelica.Math.Vectors.interpolate</a>
+which provides linear interpolation, this function does
+not trigger events.
 </p>
 <p>
 For how to use this function, see
