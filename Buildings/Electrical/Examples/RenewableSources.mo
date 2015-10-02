@@ -272,8 +272,8 @@ model RenewableSources
   Modelica.Blocks.Continuous.Integrator ESol
     "Energy produced by the solar panels"
     annotation (Placement(transformation(extent={{200,60},{220,80}})));
-  Modelica.Blocks.Sources.RealExpression PLoa(y=PLoa_nominal*(loa1.y + loa2.y +
-        loa3.y + loa4.y + loa5.y + loa6.y + loa7.y))
+  Modelica.Blocks.Sources.RealExpression PLoa(
+    y=PLoa_nominal*(pow1.y[1] + pow2.y[1] + pow3.y[1] + pow4.y[1] + pow5.y[1] + pow6.y[1] + pow7.y[1]))
     "Total power consumed by the loads"
     annotation (Placement(transformation(extent={{170,-70},{190,-50}})));
   Modelica.Blocks.Continuous.Integrator ELoa(y_start=1E-10)
@@ -542,7 +542,13 @@ equation
       pattern=LinePattern.Dot));
   annotation (
     Documentation(revisions="<html>
-<ul>
+    <ul>
+<li>
+October 2, 2015, by Michael Wetter:<br/>
+Changed signals for post-processing to avoid using the conditionally
+enabled connector <code>loa1.y</code> outside of a <code>connect</code>
+statement.
+</li>
 <li>
 March 27, 2015, by Michael Wetter:<br/>
 Revised model.
