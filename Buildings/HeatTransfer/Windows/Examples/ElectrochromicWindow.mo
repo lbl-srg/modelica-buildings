@@ -1,7 +1,8 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model ElectrochromicWindow "Electrochromic window"
-  extends Window(redeclare Data.GlazingSystems.DoubleElectrochromicAir13Clear
-      glaSys, uSha(
+  extends Window(
+    redeclare Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys,
+    uSha(
       height=0,
       duration=0,
       startTime=0));
