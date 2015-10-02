@@ -1,10 +1,10 @@
-within Buildings.Rooms.Validation.LBNL_71T.RoomB;
+within Buildings.Rooms.Examples;
 model ElectroChromicWindow
-  "Validation model for the correct implementation of Electrochromic Window"
+  "Model that illustrates the use of electrochromic windows"
   extends Modelica.Icons.Example;
-  package MediumA = Buildings.Media.Air "Medium model";
+  package MediumA = Buildings.Media.Air(T_default=T_start) "Medium model";
 
-  parameter Modelica.SIunits.Temperature T_start=273.15 + 24 "Initial value";
+  constant Modelica.SIunits.Temperature T_start=273.15 + 20 "Initial value";
 
   parameter Integer nConExtWin=1 "Number of constructions with a window";
   parameter Integer nConExt=0 "Number of constructions without a window";
@@ -41,9 +41,10 @@ model ElectroChromicWindow
     hRoo=3.37,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    each conBou(opa(T(each start = T_start))),
+    nPorts=2,
     lat=0.65484753534827,
-    each conBou(opa(T(each start = T_start)))) "Room model"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
     annotation (Placement(transformation(extent={{62,-16},{102,24}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat1(
     relHum=0,
@@ -164,14 +165,13 @@ model ElectroChromicWindow
         d=800)}) "71T: North Wall"
     annotation (Placement(transformation(extent={{86,106},{106,126}})));
 
-  // Fixme: The frame ratio and U value has not yet been updated.
   parameter HeatTransfer.Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys(
     UFra=2,
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{-48,106},{-28,126}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{130,10},{154,34}}), iconTransformation(extent={
+        transformation(extent={{138,8},{162,32}}),  iconTransformation(extent={
             {-116,36},{-96,56}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-56,-26},{-36,-6}})));
@@ -181,9 +181,6 @@ model ElectroChromicWindow
     annotation (Placement(transformation(extent={{-96,-26},{-76,-6}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-96,-66},{-76,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature preTem(T=297.15)
-    "Prescribed room air temperature"
-    annotation (Placement(transformation(extent={{8,-72},{28,-52}})));
   block Infiltration
     extends Modelica.Blocks.Icons.Block;
 
@@ -211,7 +208,7 @@ model ElectroChromicWindow
       annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
     Utilities.Psychrometrics.Density_pTX rho "Density"
       annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=true)
+    Utilities.Psychrometrics.X_pTphi x_pTphiValidation( use_p_in=true)
       annotation (Placement(transformation(extent={{-72,-42},{-52,-22}})));
     Modelica.Blocks.Math.Abs dTAbs "Temperature difference"
       annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
@@ -273,18 +270,31 @@ model ElectroChromicWindow
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}})));
   end Infiltration;
-  Modelica.Blocks.Sources.Constant uWin(k=1)
-    "Control signal for electrochromic window"
-    annotation (Placement(transformation(extent={{-10,6},{10,26}})));
-  Modelica.Blocks.Sources.CombiTimeTable refRes(
-    tableOnFile=true,
-    tableName="EnergyPlus",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
-    columns=2:2)
-    "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
-    annotation (Placement(transformation(extent={{8,-108},{28,-88}})));
 
+  Controls.ElectrochromicWindow conWin
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
+    "Room air temperature"
+    annotation (Placement(transformation(extent={{110,-6},{130,14}})));
+  Fluid.Sources.MassFlowSource_T
+                              boundary(
+    redeclare package Medium = MediumA,
+    m_flow=-47*6/3600*1.2,
+    T=293.15,
+    nPorts=1) "Boundary condition"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Fluid.Sources.Outside freshAir(redeclare package Medium = MediumA, nPorts=1)
+    "Boundary condition"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Fluid.FixedResistances.FixedResistanceDpM duc(
+    redeclare package Medium = MediumA,
+    allowFlowReversal=false,
+    linearized=true,
+    from_dp=true,
+    dp_nominal=100,
+    m_flow_nominal=47*6/3600*1.2)
+    "Duct resistance (to decouple room and outside pressure)"
+    annotation (Placement(transformation(extent={{34,-46},{46,-34}})));
 equation
   for i in 2:nConBou loop
   end for;
@@ -299,14 +309,14 @@ equation
       smooth=Smooth.None));
 
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{142,22},{136,22},{136,21.9},{99.9,21.9}},
+      points={{150,20},{136,20},{136,21.9},{99.9,21.9}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, weaDat1.weaBus) annotation (Line(
-      points={{142,22},{142,20},{196,20},{196,114},{160,114}},
+      points={{150,20},{150,20},{196,20},{196,114},{160,114}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -323,25 +333,44 @@ equation
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(points={{-35,-16},{
           -35,-16},{38,-16},{38,12},{60.4,12}},
                                         color={0,0,127}));
-  connect(roo.heaPorAir, preTem.port) annotation (Line(points={{81,4},{81,-62},
-          {78,-62},{28,-62}},             color={191,0,0}));
-  connect(uWin.y, roo.uWin[1]) annotation (Line(points={{11,16},{34,16},{34,17},
+  connect(roo.heaPorAir, TRooAir.port)
+    annotation (Line(points={{81,4},{94,4},{108,4},{110,4}}, color={191,0,0}));
+  connect(TRooAir.T, conWin.T) annotation (Line(points={{130,4},{134,4},{134,30},
+          {-10,30},{-10,14},{-1.5,14}}, color={0,0,127}));
+  connect(conWin.H, weaBus.HGloHor) annotation (Line(points={{-1.5,6},{-12,6},{-12,
+          34},{150,34},{150,20}}, color={0,0,127}));
+  connect(conWin.y, roo.uWin[1]) annotation (Line(points={{21,10},{30,10},{30,17},
           {60.4,17}}, color={0,0,127}));
+  connect(freshAir.weaBus, weaBus) annotation (Line(
+      points={{0,-39.8},{-8,-39.8},{-8,-40},{-20,-40},{-20,-92},{150,-92},{150,20}},
+      color={255,204,51},
+      thickness=0.5));
+
+  connect(freshAir.ports[1], duc.port_a)
+    annotation (Line(points={{20,-40},{34,-40}}, color={0,127,255}));
+  connect(boundary.ports[1], roo.ports[1]) annotation (Line(points={{20,-70},{44,
+          -70},{62,-70},{62,-8},{67,-8}}, color={0,127,255}));
+  connect(duc.port_b, roo.ports[2]) annotation (Line(points={{46,-40},{58,-40},{
+          58,-4},{67,-4}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{
-            220,160}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{220,
+            160}})),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Validation/LBNL_71T/RoomB/ElectroChromicWindow.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/ElectroChromicWindow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This model tests the correct implementation of electrochromic window.
-The model represents the middle test cell (RoomB) of the window test facility 71T.
+<p>
+This model illustrates the use of an electrochromic window.
+It uses a model of the test cell 71T, room B at LBNL,
+and controls the window state based on room air temperature and solar irradiation.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 07, 2015, by Thierry S. Nouidui:<br/>
-First implementation.
+October 2, 2015, by Michael Wetter:<br/>
+First implementation, based on
+<a href=\"modelica://Buildings.Rooms.Validation.LBNL_71T.RoomB.ElectroChromicWindow\">
+Buildings.Rooms.Validation.LBNL_71T.RoomB.ElectroChromicWindow</a>.
 </li>
 </ul>
 </html>"),

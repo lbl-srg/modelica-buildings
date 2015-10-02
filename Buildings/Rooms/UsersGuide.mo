@@ -992,7 +992,10 @@ However, its icon may still be visible as the visual rendering engine may not ev
 the equations that are needed to determine whether there are controllable windows.
 </p>
 <p>
-fixme: add a link to an example that shows how to configure electrochromic windows.
+The model
+<a href=\"modelica://Buildings.Rooms.Examples.ElectroChromicWindow\">
+Buildings.Rooms.Examples.ElectroChromicWindow</a>
+shows how to configure electrochromic windows.
 </p>
 </html>"));
 end UsersGuide;
