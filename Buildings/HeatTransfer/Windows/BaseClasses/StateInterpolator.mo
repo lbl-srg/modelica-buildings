@@ -31,7 +31,7 @@ equation
     // Linear interpolation. y=0 means off-state, in which case HSta[1] needs to
     // be assigned to the output.
     H = uSta_internal*HSta[2]+(1-uSta_internal)*HSta[1];
-      Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+      Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=uSta_internal,
         xSup=uSup,
         ySup=HSta,

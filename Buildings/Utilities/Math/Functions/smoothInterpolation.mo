@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions;
-function cubicHermiteLinearExtrapolationVector
+function smoothInterpolation
   "Interpolate using a cubic Hermite spline with linear extrapolation for a vector xSup[] and y[] and variable x"
   input Real x "Abscissa value";
   input Real xSup[:] "Support points (strictly increasing)";
@@ -72,8 +72,8 @@ not trigger events.
 </p>
 <p>
 For how to use this function, see
-<a href=\"modelica://Buildings.Utilities.Math.Functions.Examples.CubicHermiteLinearExtrapolationVector\">
-Buildings.Utilities.Math.Functions.Examples.CubicHermiteLinearExtrapolationVector</a>.
+<a href=\"modelica://Buildings.Utilities.Math.Functions.Examples.SmoothInterpolation\">
+Buildings.Utilities.Math.Functions.Examples.SmoothInterpolation</a>.
 </p>
 </html>",
 revisions="<html>
@@ -84,4 +84,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end cubicHermiteLinearExtrapolationVector;
+end smoothInterpolation;

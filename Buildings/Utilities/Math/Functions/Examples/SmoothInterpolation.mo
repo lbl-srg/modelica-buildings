@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions.Examples;
-model CubicHermiteLinearExtrapolationVector
+model SmoothInterpolation
   "Test problem for cubic hermite splines that takes a vector of values as an argument"
   extends Modelica.Icons.Example;
   parameter Real[:] xSup={-1,1,5,6} "Support points";
@@ -18,41 +18,41 @@ model CubicHermiteLinearExtrapolationVector
 algorithm
   x := xSup[1] + time*1.2*(xSup[size(xSup, 1)] - xSup[1]) - 0.5;
   // Extrapolate or interpolate the data
-  y := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  y := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup=xSup,
     ySup=ySup,
     ensureMonotonicity=false);
-  yMonotone := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  yMonotone := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup=xSup,
     ySup=ySup,
     ensureMonotonicity=true);
   // Case with n = 2
-  y2 := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  y2 := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup=xSup[1:2],
     ySup=ySup[1:2],
     ensureMonotonicity=false);
-  y2Monotone := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  y2Monotone := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup=xSup[1:2],
     ySup=ySup[1:2],
     ensureMonotonicity=true);
   // Case with n = 1
-  y1 := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  y1 := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup={xSup[1]},
     ySup={ySup[1]},
     ensureMonotonicity=false);
-  y1Monotone := Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolationVector(
+  y1Monotone := Buildings.Utilities.Math.Functions.smoothInterpolation(
     x=x,
     xSup={xSup[1]},
     ySup={ySup[1]},
     ensureMonotonicity=true);
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermiteLinearExtrapolationVector.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothInterpolation.mos"
         "Simulate and plot"),
     experiment(StopTime=1.0),
     Documentation(info="<html>
@@ -80,4 +80,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CubicHermiteLinearExtrapolationVector;
+end SmoothInterpolation;
