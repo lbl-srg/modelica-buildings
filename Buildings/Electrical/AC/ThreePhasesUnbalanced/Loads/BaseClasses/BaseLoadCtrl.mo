@@ -12,11 +12,12 @@ partial model BaseLoadCtrl
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal(
-     start=0,
-     fixed=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input)
-    "Nominal power (negative if consumed, positive if generated)"  annotation(Dialog(group="Nominal conditions",
+
+  parameter Modelica.SIunits.Power P_nominal=0
+    "Nominal power (negative if consumed, positive if generated)"
+    annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)
     "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
   parameter Boolean voltageCtrl = false "This flag enables the voltage control"
@@ -33,31 +34,31 @@ partial model BaseLoadCtrl
   replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
-    P_nominal=P_nominal,
-    linearized=linearized,
-    mode=mode,
-    V_nominal=V_nominal/sqrt(3),
-    initMode=initMode) if
+    final linearized=linearized,
+    final mode=mode,
+    final P_nominal = P_nominal,
+    final V_nominal=V_nominal/sqrt(3),
+    final initMode=initMode) if
        plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   replaceable Buildings.Electrical.Interfaces.Load load2(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
-    P_nominal=P_nominal,
-    linearized=linearized,
-    mode=mode,
-    V_nominal=V_nominal/sqrt(3),
-    initMode=initMode) if
+    final linearized=linearized,
+    final mode=mode,
+    final P_nominal = P_nominal,
+    final V_nominal=V_nominal/sqrt(3),
+    final initMode=initMode) if
        plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   replaceable Buildings.Electrical.Interfaces.Load load3(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
-    P_nominal=P_nominal,
-    linearized=linearized,
-    mode=mode,
-    V_nominal=V_nominal/sqrt(3),
-    initMode=initMode) if
+    final linearized=linearized,
+    final mode=mode,
+    final P_nominal = P_nominal,
+    final V_nominal=V_nominal/sqrt(3),
+    final initMode=initMode) if
        plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Modelica.Blocks.Interfaces.RealInput y1 if  plugPhase1 and
@@ -158,10 +159,6 @@ partial model BaseLoadCtrl
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
 
-initial equation
-  if not mode <> Buildings.Electrical.Types.Load.VariableZ_P_input then
-    P_nominal=0;
-  end if;
 equation
   // Connections enabled when the input provided is y (between 0 and 1)
   if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then

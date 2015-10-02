@@ -11,11 +11,12 @@ model Load "Partial model for a generic load"
     max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal(
-     fixed=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input)
+
+  parameter Modelica.SIunits.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated)"
-    annotation(Evaluate=true,Dialog(group="Nominal conditions",
+    annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"
     annotation (
@@ -73,8 +74,12 @@ protected
     "Small number used to avoid a singularity if the power is zero";
 
 initial equation
-  if not mode <> Buildings.Electrical.Types.Load.VariableZ_P_input then
-    P_nominal=0;
+  if mode == Buildings.Electrical.Types.Load.VariableZ_P_input then
+    assert(abs(P_nominal) < 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + ", but this value will be ignored.",
+           AssertionLevel.warning);
+  else
+    assert(abs(P_nominal) > 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + " is close to zero. You may require to set this parameter.",
+           AssertionLevel.warning);
   end if;
 
 equation
@@ -88,7 +93,7 @@ equation
   if mode==Buildings.Electrical.Types.Load.FixedZ_steady_state or
      mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     y_internal   = 1;
-    P_internal = P_nominal;
+    P_internal = 0;
   elseif mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
     P_internal = 0;
   elseif mode==Buildings.Electrical.Types.Load.VariableZ_P_input then

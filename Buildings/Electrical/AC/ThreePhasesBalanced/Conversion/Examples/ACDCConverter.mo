@@ -23,7 +23,6 @@ model ACDCConverter
         origin={-62,10})));
   Buildings.Electrical.DC.Loads.Conductor load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    P_nominal=-200,
     V_nominal=120) "Variable resistive load"
     annotation (Placement(
         transformation(
@@ -62,6 +61,11 @@ The transformer model assumes a linear loss when transmitting the power.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 1, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>load.P_nominal</code> as it is
+not required and leads to dublicate assignments.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.
