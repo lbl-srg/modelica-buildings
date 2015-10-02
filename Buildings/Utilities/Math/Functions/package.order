@@ -3,6 +3,7 @@ bicubic
 biquadratic
 booleanReplicator
 cubicHermiteLinearExtrapolation
+cubicHermiteLinearExtrapolationVector
 integerReplicator
 inverseXRegularized
 isMonotonic
