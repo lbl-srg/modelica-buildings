@@ -9,7 +9,7 @@ model Example1v2 "Example 1 model with mixing volume"
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
     each tau=tau,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volumes for adding states in enthalpy circuit"
     annotation (Placement(transformation(extent={{80,-8},{60,12}})));
 
@@ -65,6 +65,11 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+August 31, 2015, by Michael Wetter:<br/>
+Added missing <code>each</code> in declaration of the energy balance
+for the volume.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.

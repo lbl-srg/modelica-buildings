@@ -3,8 +3,9 @@ model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(layers.material[i].R for i in 1:size(layers.material, 1)));
-  Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300)
-    "Temperature at the states";
+  Modelica.SIunits.Temperature T[sum(nSta)](
+    each nominal = 300,
+    each start=293.15) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
@@ -155,6 +156,12 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set the start value of <code>T</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 March 18, 2015, by Michael Wetter:<br/>
 Replaced <code>nLay</code> in the <code>sum()</code> of the parameter assignment

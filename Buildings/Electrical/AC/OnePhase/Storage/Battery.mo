@@ -44,7 +44,6 @@ protected
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Resistive bat
     constrainedby Buildings.Electrical.Interfaces.Load(
     final initMode = initMode,
-    final P_nominal=0,
     final mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final V_nominal=V_nominal,
     final linearized=linearized) "Power exchanged with battery pack"
@@ -186,6 +185,14 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Corrected problem, the losses due to AC/DC conversion have to
