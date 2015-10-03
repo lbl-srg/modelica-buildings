@@ -21,8 +21,6 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(StopTime=100000),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -36,12 +34,12 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This example illustrates the impact of 
+This example illustrates the impact of
 Modelica code formulations on the C-code.
 </p>
 <p>
-Compare the C-code in dsmodel.c when setting the parameter 
-<code>efficient</code> to <code>true</code> or <code>false</code> 
+Compare the C-code in dsmodel.c when setting the parameter
+<code>efficient</code> to <code>true</code> or <code>false</code>
 and when adding <code>annotation(Evaluate=true)</code> to the parameter <code>efficient</code>.
 </p>
 <p>

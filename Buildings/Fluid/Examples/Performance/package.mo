@@ -5,7 +5,7 @@ extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-This package contains examples that illustrate the Modelica conference paper 
+This package contains examples that illustrate the Modelica conference paper
 by Jorissen et al. (2015)
 about speed optimization.
 </p>

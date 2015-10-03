@@ -144,21 +144,17 @@ algorithm
     Icon(graphics={
         Line(
           points={{-62,-68},{-38,-20},{-14,-70}},
-          color={0,0,255},
-          smooth=Smooth.None),
+          color={0,0,255}),
         Line(
           points={{-38,-20},{-38,44}},
-          color={0,0,255},
-          smooth=Smooth.None),
+          color={0,0,255}),
         Ellipse(extent={{-54,74},{-22,44}}, lineColor={0,0,255}),
         Line(
           points={{-66,22},{-38,36}},
-          color={0,0,255},
-          smooth=Smooth.None),
+          color={0,0,255}),
         Line(
           points={{-38,36},{-6,20}},
-          color={0,0,255},
-          smooth=Smooth.None),
+          color={0,0,255}),
         Text(
           extent={{34,74},{90,50}},
           lineColor={0,0,255},

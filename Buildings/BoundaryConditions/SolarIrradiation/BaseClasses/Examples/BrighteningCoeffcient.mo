@@ -22,65 +22,54 @@ model BrighteningCoeffcient "Test model for brightening coeffcients"
 equation
   connect(zen.y, skyCle.zen) annotation (Line(
       points={{-19,-10},{-16,-10},{-16,24},{38,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
       points={{11,-10},{30,-10},{30,-26},{38,-26}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zen.y, relAirMas.zen) annotation (Line(
       points={{-19,-10},{-12,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(skyBri.skyBri, briCoe.skyBri) annotation (Line(
       points={{61,-30},{68,-30},{68,-10},{78,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(skyCle.skyCle, briCoe.skyCle) annotation (Line(
       points={{61,30},{68,30},{68,-4},{78,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zen.y, briCoe.zen) annotation (Line(
       points={{-19,-10},{-16,-10},{-16,-60},{72,-60},{72,-16},{78,-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-70,70},{-50,70}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
       points={{-50,70},{20,70},{20,36},{38,36}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyCle.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,30},{38,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
       points={{-50,70},{20,70},{20,-34},{38,-34}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus, zen.weaBus) annotation (Line(
       points={{-50,70},{-50,70},{-50,28},{-50,28},{-50,-10},{-40,-10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

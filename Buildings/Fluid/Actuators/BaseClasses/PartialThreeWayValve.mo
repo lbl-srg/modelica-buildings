@@ -73,9 +73,7 @@ equation
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Line(
-          points={{0,70},{40,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,70},{40,70}}),
         Rectangle(
           extent={{-100,44},{100,-36}},
           lineColor={0,0,0},
@@ -124,13 +122,9 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-30,46},{30,46}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-30,46},{30,46}}),
         Line(
-          points={{0,100},{0,-2}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,100},{0,-2}}),
         Rectangle(
           visible=filteredOpening,
           extent={{-36,36},{36,100}},

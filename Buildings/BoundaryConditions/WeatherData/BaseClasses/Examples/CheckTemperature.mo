@@ -35,28 +35,22 @@ public
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-39,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[1], from_degC.u) annotation (Line(
       points={{1,9.03448},{10,9.03448},{10,30},{17.8,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(from_degC.y, cheTemDryBul.TIn) annotation (Line(
       points={{43.1,30},{58,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[2], from_degC1.u) annotation (Line(
       points={{1,9.10345},{10,9.10345},{10,-10},{17.8,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(from_degC1.y, cheTemDewPoi.TIn) annotation (Line(
       points={{43.1,-10},{58,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 Documentation(info="<html>
 <p>

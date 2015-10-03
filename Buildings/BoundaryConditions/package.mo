@@ -21,20 +21,16 @@ Buildings.Fluid.Sources</a>.
         fillColor={255,255,255}),
       Line(
         points={{32,-24},{76,-82}},
-        color={95, 95, 95},
-        smooth=Smooth.None),
+        color={95, 95, 95}),
       Line(
         points={{4,-24},{48,-82}},
-        color={95, 95, 95},
-        smooth=Smooth.None),
+        color={95, 95, 95}),
       Line(
         points={{-26,-24},{18,-82}},
-        color={95, 95, 95},
-        smooth=Smooth.None),
+        color={95, 95, 95}),
       Line(
         points={{-56,-24},{-12,-82}},
-        color={95, 95, 95},
-        smooth=Smooth.None),
+        color={95, 95, 95}),
       Polygon(
         points={{64,6},{50,-2},{40,-18},{70,-24},{78,-52},{26,-52},{-6,-54},{
             -72,-52},{-72,-22},{-52,-10},{-42,10},{-78,34},{-44,52},{40,56},{76,

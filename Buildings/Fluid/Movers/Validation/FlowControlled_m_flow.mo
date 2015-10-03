@@ -18,12 +18,10 @@ model FlowControlled_m_flow
 equation
   connect(gain.y, floMacSta.m_flow_in) annotation (Line(
       points={{-25,100},{29.8,100},{29.8,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacDyn.m_flow_in) annotation (Line(
       points={{-25,100},{10,100},{10,30},{29.8,30},{29.8,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

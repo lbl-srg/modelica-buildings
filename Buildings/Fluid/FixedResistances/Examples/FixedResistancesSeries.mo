@@ -43,12 +43,10 @@ equation
           -42,38}}, color={0,0,127}));
   connect(sin.ports[1], res[nRes].port_b) annotation (Line(
       points={{36,30},{20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[1], res[1].port_a) annotation (Line(
       points={{-20,30},{-5.55112e-16,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
         "Simulate and plot"));

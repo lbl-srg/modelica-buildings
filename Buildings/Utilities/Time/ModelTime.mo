@@ -26,11 +26,9 @@ equation
         Line(points={{-38,70},{-28,51}}, color={160,160,164}),
         Line(
           points={{0,0},{-50,50}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{0,0},{40,0}},
-          color={0,0,0},
           thickness=0.5)}),
     Documentation(info="<html>
 <p>This component outputs the model time, which starts at the value at which the simulation starts. For example, if a simulation starts at <i>t=-1</i>, then this block outputs first <i>t=-1</i>, and its output is advanced at the same rate as the simulation time. </p>

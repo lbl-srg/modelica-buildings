@@ -18,18 +18,15 @@ equation
   connect(zen.zen, y) annotation (Line(
       points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaBus.solDec, zen.decAng) annotation (Line(
       points={{-100,0},{-40,0},{-40,5.4},{-2,5.4}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(weaBus.solHouAng, zen.solHouAng) annotation (Line(
       points={{-100,0},{-40,0},{-40,-4.8},{-2,-4.8}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   annotation (
     defaultComponentName="zen",
     Documentation(info="<html>

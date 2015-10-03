@@ -129,13 +129,11 @@ equation
   if useSteadyStateTwoPort then
   connect(steBal.port_a, ports[1]) annotation (Line(
       points={{-20,10},{-22,10},{-22,-60},{0,-60},{0,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(steBal.port_b, ports[2]) annotation (Line(
       points={{5.55112e-16,10},{8,10},{8,-88},{0,-88},{0,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
     connect(hOut_internal,  steBal.hOut);
     connect(XiOut_internal, steBal.XiOut);
@@ -143,8 +141,7 @@ equation
   else
       connect(dynBal.ports, ports) annotation (Line(
       points={{50,0},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
@@ -220,7 +217,7 @@ the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 <p>
 If the model is (i) operated in steady-state,
 (ii) has two fluid ports connected, and
-(iii) <code>prescribedHeatFlowRate=true</code> or <code>allowFlowReversal=false</code>, 
+(iii) <code>prescribedHeatFlowRate=true</code> or <code>allowFlowReversal=false</code>,
 then the model uses
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
@@ -283,10 +280,10 @@ calculation on the moisture balance.
 </li>
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
-Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for 
+Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
-This results in equations that are solved more easily. 
+This results in equations that are solved more easily.
 See
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
 issue 282</a> for a discussion.

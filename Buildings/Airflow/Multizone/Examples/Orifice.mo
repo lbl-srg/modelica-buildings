@@ -43,28 +43,22 @@ equation
           {42,-26}}, color={0,0,255}));
   connect(Pre.y, roo1.p_in) annotation (Line(
       points={{-79,-10},{-70,-10},{-70,38},{-62,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Add1.y, roo2.p_in) annotation (Line(
       points={{65,-20},{90,-20},{90,22},{82,22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(roo1.ports[1], den1.port_a) annotation (Line(
       points={{-40,30},{-30,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(den1.port_b, ori.port_a) annotation (Line(
       points={{-10,30},{-5.55112e-16,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ori.port_b, den2.port_a) annotation (Line(
       points={{20,30},{30,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(den2.port_b, roo2.ports[1]) annotation (Line(
       points={{50,30},{60,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
 experiment(StopTime=1),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Orifice.mos"

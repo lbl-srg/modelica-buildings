@@ -77,52 +77,40 @@ equation
 
   connect(TSetHeat.y,heaHigPow. TSet) annotation (Line(
       points={{-39,136},{-30,136},{-30,94},{-12,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TSetCool.y,cooLimPow. TSet) annotation (Line(
       points={{-37,46},{-22,46},{-22,8},{-12,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TSetCoolHeat.y,heaCooUnl. TSet) annotation (Line(
       points={{-37,-44},{-24,-44},{-24,-76},{-12,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(m_flow.y, sou1.m_flow_in) annotation (Line(
       points={{-109,8},{-100,8},{-100,94},{-90,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(m_flow.y, sou2.m_flow_in) annotation (Line(
       points={{-109,8},{-90,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(m_flow.y, sou3.m_flow_in) annotation (Line(
       points={{-109,8},{-100,8},{-100,-76},{-90,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou1.ports[1], heaHigPow.port_a) annotation (Line(
       points={{-70,86},{-10,86}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou2.ports[1], cooLimPow.port_a) annotation (Line(
       points={{-70,0},{-10,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou3.ports[1], heaCooUnl.port_a) annotation (Line(
       points={{-70,-84},{-10,-84}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaCooUnl.port_b, sin.ports[1]) annotation (Line(
       points={{10,-84},{50,-84},{50,-2.66667},{90,-2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(cooLimPow.port_b, sin.ports[2]) annotation (Line(
       points={{10,0},{52,0},{52,1.33227e-15},{90,1.33227e-15}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaHigPow.port_b, sin.ports[3]) annotation (Line(
       points={{10,86},{50,86},{50,2.66667},{90,2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
     experiment(StopTime=1200),

@@ -24,8 +24,6 @@ equation
           textString="See code")}),
     experiment(
       StopTime=100),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -39,8 +37,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-See 
-<a href=\"modelica://Buildings.Fluid.Examples.PerformanceExamples.Example6\"> 
+See
+<a href=\"modelica://Buildings.Fluid.Examples.PerformanceExamples.Example6\">
 Buildings.Fluid.Examples.PerformanceExamples.Example6</a>.
 </p>
 </html>"),

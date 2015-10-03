@@ -7,8 +7,7 @@ equation
   for i in 1:nRes.k loop
     connect(res[i].port_b, val.port_3) annotation (Line(
       points={{90,30},{100,30},{100,-10},{20,-10},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   end for;
   annotation (experiment(
       StopTime=10000),
@@ -20,51 +19,51 @@ equation
           fillColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-This model demonstrates the impact of the <code>allowFlowReversal</code> 
-and <code>from_dp</code> parameters on the sizes of nonlinear algebraic loops. 
-The user can change the parameter value in the respective 
-<code>BooleanConstant</code> blocks and rerun the simulation to compare the performance. 
-The results are also demonstrated below for <code>nRes.k = 20</code>, 
-the number of parallel branches, which contain one pressure drop element each. 
+This model demonstrates the impact of the <code>allowFlowReversal</code>
+and <code>from_dp</code> parameters on the sizes of nonlinear algebraic loops.
+The user can change the parameter value in the respective
+<code>BooleanConstant</code> blocks and rerun the simulation to compare the performance.
+The results are also demonstrated below for <code>nRes.k = 20</code>,
+the number of parallel branches, which contain one pressure drop element each.
 </p>
 <p>
-These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04. 
+These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04.
 </p>
 <h4>Default case:</h4>
 <p>
-<code>AllowFlowReversal = true</code> and <code>from_dp = false</code> 
+<code>AllowFlowReversal = true</code> and <code>from_dp = false</code>
 </p>
 <p>
 Sizes of nonlinear systems of equations: {6, 21, <b>46</b>}
 </p>
 <p>
-Sizes after manipulation of the nonlinear systems: {1, 19, <b>22</b>} 
+Sizes after manipulation of the nonlinear systems: {1, 19, <b>22</b>}
 </p>
 <h4>Change 1: </h4>
 <p>
-<code>AllowFlowReversal = false</code> and <code>from_dp = false</code> 
+<code>AllowFlowReversal = false</code> and <code>from_dp = false</code>
 </p>
 <p>
 Sizes of nonlinear systems of equations: {6, 21}
 </p>
 <p>
-Sizes after manipulation of the nonlinear systems: {1, 19} 
+Sizes after manipulation of the nonlinear systems: {1, 19}
 </p>
 <h4>Change 2: </h4>
 <p>
-<code>AllowFlowReversal = false</code> and <code>from_dp = true</code> 
+<code>AllowFlowReversal = false</code> and <code>from_dp = true</code>
 </p>
 <p>
 Sizes of nonlinear systems of equations: {6, 21}
 </p>
 <p>
-Sizes after manipulation of the nonlinear systems: {1, <b>1</b>} 
+Sizes after manipulation of the nonlinear systems: {1, <b>1</b>}
 </p>
 <p>
 These changes also have a significant impact on the computational speed.
-</p> 
+</p>
 <p>
-Following script can be used in Dymola to compare the CPU times. 
+Following script can be used in Dymola to compare the CPU times.
 For this script to work, make sure that Dymola stores at least 4 results.
 </p>
 <p>
@@ -108,8 +107,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v1.mos"
         "Simulate and plot"));

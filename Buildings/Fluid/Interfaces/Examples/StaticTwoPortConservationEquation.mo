@@ -21,22 +21,22 @@ extends Modelica.Icons.Example;
     redeclare package Medium = MediumW,
     sensibleOnly=true,
     allowFlowReversal=true) "Submodel for energy and mass balance" annotation (
-      Placement(transformation(rotation=0, extent={{-10,40},{10,60}})));
+      Placement(transformation(extent={{-10,40},{10,60}})));
   SubModel modWatNoRev(
     redeclare package Medium = MediumW,
     sensibleOnly=true,
     allowFlowReversal=false) "Submodel for energy and mass balance" annotation (
-     Placement(transformation(rotation=0, extent={{-10,10},{10,30}})));
+     Placement(transformation(extent={{-10,10},{10,30}})));
   SubModel modAirRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=true,
     sensibleOnly=false) "Submodel for energy and mass balance"     annotation (
-      Placement(transformation(rotation=0, extent={{-10,-40},{10,-20}})));
+      Placement(transformation(extent={{-10,-40},{10,-20}})));
   SubModel modAirNoRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     sensibleOnly=false) "Submodel for energy and mass balance"      annotation (
-     Placement(transformation(rotation=0, extent={{-10,-70},{10,-50}})));
+     Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
   connect(QSen_flow.y, modWatRev.Q_flow) annotation (Line(points={{-59,70},{-36,
@@ -69,9 +69,9 @@ protected
       annotation (Placement(transformation(extent={{82,-8},{62,12}})));
 
     Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") annotation (Placement(
-          transformation(rotation=0, extent={{-120,70},{-100,90}})));
+          transformation(extent={{-120,70},{-100,90}})));
     Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") annotation (
-        Placement(transformation(rotation=0, extent={{-118,30},{-98,50}})));
+        Placement(transformation(extent={{-118,30},{-98,50}})));
     constant Boolean sensibleOnly "Set to true if sensible exchange only";
     parameter Boolean allowFlowReversal=true
       "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
@@ -80,8 +80,7 @@ protected
       annotation (Line(points={{12,0},{62,0},{62,2}}, color={0,127,255}));
     connect(conEqn.port_a, bou.ports[1]) annotation (Line(
         points={{-8,0},{-58,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
     connect(Q_flow, conEqn.Q_flow) annotation (Line(points={{-110,80},{-110,80},
             {-20,80},{-10,80},{-10,8}}, color={0,0,127}));
     connect(mWat_flow, conEqn.mWat_flow) annotation (Line(points={{-108,40},{-108,
@@ -120,7 +119,5 @@ July 17, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end StaticTwoPortConservationEquation;

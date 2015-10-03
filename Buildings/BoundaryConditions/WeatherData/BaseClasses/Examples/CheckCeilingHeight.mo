@@ -23,16 +23,13 @@ public
 equation
   connect(datRea.y[20], cheCeiHei.ceiHeiIn) annotation (Line(
       points={{21,-9.65517},{30,-9.65517},{30,-10},{38,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-59,-10},{-42,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-19,-10},{-2,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 Documentation(info="<html>
 <p>

@@ -74,62 +74,48 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
 equation
   connect(phiSat.y, xSat.phi) annotation (Line(
       points={{-11.2,48},{28,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mCond.y, vol.mWat_flow) annotation (Line(
       points={{-19,30},{-16,30},{-16,34},{-2,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Tin.y, bou.T_in) annotation (Line(
       points={{-73,40},{-80,40},{-80,10},{-72,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res.port_b, sin.ports[1]) annotation (Line(
       points={{50,16},{58,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem.port_b, vol.ports[1]) annotation (Line(
       points={{-4,16},{8,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem.T, vol.TWat) annotation (Line(
       points={{-10,22.6},{-10,30.8},{-2,30.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem.T, xSat.T) annotation (Line(
       points={{-10,22.6},{-10,42},{28,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(vol.ports[2], res.port_a) annotation (Line(
       points={{12,16},{30,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hex.port_a1, sou.ports[1]) annotation (Line(
       points={{-20,4},{0,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hex.port_a2, bou.ports[1]) annotation (Line(
       points={{-40,16},{-46,16},{-46,8},{-50,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hex.port_b1, bou.ports[2]) annotation (Line(
       points={{-40,4},{-50,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hex.port_b2, senTem.port_a) annotation (Line(
       points={{-20,16},{-16,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-20},
-            {80,60}}),         graphics), Icon(coordinateSystem(extent={{-100,-100},
-            {100,100}}, preserveAspectRatio=false)),
-    Documentation(revisions="<html>
+            {80,60}}),         graphics),    Documentation(revisions="<html>
 <ul>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Moved assignment of <code>m_condens</code> from equation section to
 declaration to avoid graphical and textual equations.
-</li>    
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.
@@ -141,9 +127,9 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This example generates a non-linear algebraic loop 
-that consists of <i>12</i> equations before manipulation. 
-This loop can be decoupled and removed by changing the equation 
+This example generates a non-linear algebraic loop
+that consists of <i>12</i> equations before manipulation.
+This loop can be decoupled and removed by changing the equation
 </p>
 <pre>
 port_a.m_flow + port_b.m_flow = -mWat_flow;

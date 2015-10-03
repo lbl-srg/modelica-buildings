@@ -84,7 +84,7 @@ this base class.
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
-<code>port_a.h_outflow</code> 
+<code>port_a.h_outflow</code>
 and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">#281</a>.

@@ -125,88 +125,67 @@ model ReverseBuoyancy3Zones
 equation
   connect(dooOpeClo.port_b2, volWes.ports[1]) annotation (Line(
       points={{-61,-51},{-104,-51},{-104,-50},{-156.667,-50},{-156.667,-27}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dooOpeClo.port_a1, volWes.ports[2]) annotation (Line(
       points={{-61,-39},{-108,-39},{-108,-40},{-154,-40},{-154,-27}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dooOpeClo.port_b1, volEas.ports[1]) annotation (Line(
       points={{-41,-39},{-25.2,-39},{-25.2,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dooOpeClo.port_a2, volEas.ports[2]) annotation (Line(
       points={{-41,-51},{-23.6,-51},{-23.6,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colWesTop.port_b, oriWesTop.port_a) annotation (Line(
       points={{-120,79},{-120,57}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriWesTop.port_b, colWesBot.port_a) annotation (Line(
       points={{-120,37},{-120,31}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colWesBot.port_b, volWes.ports[3]) annotation (Line(
       points={{-120,11},{-120,-34},{-151.333,-34},{-151.333,-27}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasTop.port_b, oriEasTop.port_b) annotation (Line(
       points={{-10,79},{-10,59}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriEasTop.port_a, col1EasBot.port_a) annotation (Line(
       points={{-10,39},{-10,31}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInBot.port_a, volEas.ports[3]) annotation (Line(
       points={{20,-50},{-22,-50},{-22,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInTop.port_b, volEas.ports[4]) annotation (Line(
       points={{21,-30},{21,-38},{-20.4,-38},{-20.4,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(col1EasBot.port_b, volEas.ports[5]) annotation (Line(
       points={{-10,11},{-10,-34},{-18.8,-34},{-18.8,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutTop.port_b, volOut.ports[1]) annotation (Line(
       points={{101,-30},{100,-30},{100,-36},{137,-36},{137,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volOut.ports[2], colOutBot.port_a) annotation (Line(
       points={{141,-30},{141,-40},{100,-40},{100,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutBot.port_b, oriOutBot.port_b) annotation (Line(
       points={{100,-70},{100,-78},{58,-78},{58,-76}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriOutBot.port_a, colEasInBot.port_b) annotation (Line(
       points={{38,-76},{38,-74},{20,-74},{20,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(
       points={{21,-10},{20,-10},{20,6.10623e-16},{39,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(
       points={{59,6.10623e-16},{101,6.10623e-16},{101,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ope.y, dooOpeClo.y) annotation (Line(
       points={{-81,-13},{-72,-13},{-72,-45},{-62,-45}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(colWesTop.port_a, volTop.ports[1]) annotation (Line(
       points={{-120,99},{-120,110},{-62,110},{-62,120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasTop.port_a, volTop.ports[2]) annotation (Line(
       points={{-10,99},{-10,110},{-58,110},{-58,120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{160,
             200}}), graphics={Rectangle(

@@ -91,11 +91,10 @@ First implementation.
         Line(points={{-4,24},{64,60}}, color={255,0,0}),
         Line(
           points={{-78,24},{78,24}},
-          color={0,0,0},
           pattern=LinePattern.Dot),
         Line(points={{-86,4},{-18,24}}, color={0,0,255}),
         Line(points={{-18,24},{66,54}}, color={255,0,0}),
-        Line(points={{-78,-50},{78,-50}}, color={0,0,0}),
-        Line(points={{70,-46},{78,-50}}, color={0,0,0}),
-        Line(points={{70,-54},{78,-50}}, color={0,0,0})}));
+        Line(points={{-78,-50},{78,-50}}),
+        Line(points={{70,-46},{78,-50}}),
+        Line(points={{70,-54},{78,-50}})}));
 end NumberOfRequests;

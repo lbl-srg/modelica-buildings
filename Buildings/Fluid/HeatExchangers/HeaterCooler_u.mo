@@ -22,20 +22,16 @@ protected
 equation
   connect(u, gai.u) annotation (Line(
       points={{-120,60},{-82,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gai.y, preHea.Q_flow) annotation (Line(
       points={{-59,60},{-40,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(preHea.port, vol.heatPort) annotation (Line(
       points={{-20,60},{-9,60},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(gai.y, Q_flow) annotation (Line(
       points={{-59,60},{-50,60},{-50,80},{80,80},{80,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

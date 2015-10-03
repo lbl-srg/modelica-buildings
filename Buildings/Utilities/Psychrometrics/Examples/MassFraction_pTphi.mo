@@ -27,27 +27,22 @@ equation
   connect(T.y, masFra1.T)
                          annotation (Line(
       points={{-59,-10},{-34,-10},{-34,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Phi.y, masFra1.phi)
                              annotation (Line(
       points={{-59,-50},{-44,-50},{-44,4},{-22,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(T.y, masFra2.T)
                          annotation (Line(
       points={{-59,-10},{-34,-10},{-34,-30},{-22,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Phi.y, masFra2.phi)
                              annotation (Line(
       points={{-59,-50},{-44,-50},{-44,-36},{-22,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(P.y, masFra1.p_in) annotation (Line(
       points={{-59,30},{-42,30},{-42,16},{-22,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"

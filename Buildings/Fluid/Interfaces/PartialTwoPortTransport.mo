@@ -124,7 +124,7 @@ users have not used this global definition to assign parameters.
 <ul>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
-Implemented more efficient computation of <code>port_a.Xi_outflow</code> 
+Implemented more efficient computation of <code>port_a.Xi_outflow</code>
 and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">#305</a>.

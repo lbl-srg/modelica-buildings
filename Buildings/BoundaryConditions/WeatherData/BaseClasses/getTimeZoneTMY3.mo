@@ -33,8 +33,8 @@ This function returns the time zone of the TMY3 weather data file.
 <ul>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
-Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code> 
-for MSL compliancy as reported by @tbeu at 
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+for MSL compliancy as reported by @tbeu at
 <a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
 </li>
 <li>

@@ -21,34 +21,29 @@ model IncidenceAngle "Test model for incidence angle"
 equation
   connect(decAng.decAng, incAng.decAng) annotation (Line(
       points={{21,30},{30,30},{30,5.4},{37.8,5.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, incAng.solHouAng) annotation (Line(
       points={{21,-30},{28,-30},{28,-4.8},{38,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,5.82867e-16},{-54,5.82867e-16},{-54,1.13798e-15},{-48,
           1.13798e-15},{-48,5.55112e-16},{-36,5.55112e-16}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-36,5.55112e-16},{-20,5.55112e-16},{-20,30},{-2,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-36,5.55112e-16},{-20,5.55112e-16},{-20,-30},{-2,-30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

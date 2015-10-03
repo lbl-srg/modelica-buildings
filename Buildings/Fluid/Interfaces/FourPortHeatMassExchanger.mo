@@ -190,28 +190,22 @@ initial algorithm
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol2.ports[2], port_b2) annotation (Line(
       points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a1, preDro1.port_a) annotation (Line(
       points={{-100,60},{-90,60},{-90,80},{-80,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
       points={{-60,80},{-2,80},{-2,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a2, preDro2.port_a) annotation (Line(
       points={{100,-60},{90,-60},{90,-80},{80,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
       points={{60,-80},{2,-80},{2,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>

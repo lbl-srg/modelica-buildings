@@ -178,7 +178,7 @@ equation
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised example.
-</li>    
+</li>
 <li>
 June 30, 2015 by Filip Jorissen:<br/>
 First implementation
@@ -189,19 +189,19 @@ issue 282</a>.
 </ul>
 </html>", info="<html>
 <p>
-This model verifies whether the equations in 
+This model verifies whether the equations in
 <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
-Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a> 
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 are consisent for all foreseeable cases.
-All <code>MixingVolume</code> instances contain the correct 
+All <code>MixingVolume</code> instances contain the correct
 setting for <code>prescribedHeatFlowRate</code>.
 Switching the value will result in an error in each case.
 This error either is a non-physical solution to the (non-)linear system
 or a division by zero, which halts the simulation.
 </p>
 <p>
-If you use Dymola, set <code>Advanced.Define.AimForHighAccuracy = false</code> to 
-increase the chance of the error being produced for this simple example. 
+If you use Dymola, set <code>Advanced.Define.AimForHighAccuracy = false</code> to
+increase the chance of the error being produced for this simple example.
 </p>
 </html>"),
     __Dymola_Commands(file=

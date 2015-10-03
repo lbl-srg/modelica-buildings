@@ -40,28 +40,23 @@ equation
   if filteredSpeed then
     connect(gaiSpe.y, filter.u) annotation (Line(
       points={{-3.4,70},{10,70},{10,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, y_actual) annotation (Line(
       points={{34.7,88},{60.35,88},{60.35,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, y_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   else
     connect(gaiSpe.y, y_actual) annotation (Line(
       points={{-3.4,70},{10,70},{10,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   end if;
 
   connect(gaiSpe.u, Nrpm) annotation (Line(
       points={{-17.2,70},{-32,70},{-32,94},{0,94},{0,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={Text(extent={{20,126},{118,104}},textString=

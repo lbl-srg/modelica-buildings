@@ -37,33 +37,26 @@ model Example2 "Example 2 model with series pressure components"
 equation
   connect(pump_dp.port_a, bou.ports[1]) annotation (Line(
       points={{-60,0},{-80,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(pump_dp.dp_in, pulse.y) annotation (Line(
       points={{-50.2,12},{-50.2,30},{-79,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res[1].port_a, pump_dp.port_b) annotation (Line(
       points={{-20,0},{-40,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nRes.k-1 loop
     connect(res[i].port_b, res[i+1].port_a) annotation (Line(
       points={{0,0},{-20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   end for;
 
   connect(res[nRes.k].port_b, pump_dp.port_a) annotation (Line(
       points={{0,0},{10,0},{10,-18},{-60,-18},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics),
     experiment(StopTime=1000),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(info="<html>
 <p>
 This example demonstrates that the use of the parameter <code>from_dp</code>
@@ -84,7 +77,7 @@ Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br/>
 This can have a large impact on computational speed.
 </p>
 <p>
-Following script can be used in Dymola to compare the CPU times. 
+Following script can be used in Dymola to compare the CPU times.
 </p>
 <p>
 <code>

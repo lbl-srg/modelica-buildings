@@ -65,32 +65,25 @@ model SpeedControlled_y_linear
 equation
   connect(pumFixDp.port_b, sou1.ports[1]) annotation (Line(
       points={{60,90},{118,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_b, pumFixDp.port_a) annotation (Line(
       points={{5.55112e-16,90},{40,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,90},{-42,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pumFixM_flow.port_b, sou3.ports[1]) annotation (Line(
       points={{60,50},{118,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou2.ports[1], pumFixM_flow.port_a) annotation (Line(
       points={{-42,50},{40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, pumFixDp.y) annotation (Line(
       points={{-59,130},{50,130},{50,102}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y.y, pumFixM_flow.y) annotation (Line(
       points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

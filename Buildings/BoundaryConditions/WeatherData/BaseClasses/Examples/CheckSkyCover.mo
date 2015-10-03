@@ -34,28 +34,22 @@ protected
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-39,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[17], conTotSkyCov.u) annotation (Line(
       points={{1,10.1379},{1,10},{10,10},{10,30},{18,30},{18,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[18], conOpaSkyCov1.u) annotation (Line(
       points={{1,10.2069},{10,10.2069},{10,-10},{18,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTotSkyCov.y, cheTotSkyCov.nIn) annotation (Line(
       points={{41,30},{58,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conOpaSkyCov1.y, cheOpaSkyCov.nIn) annotation (Line(
       points={{41,-10},{58,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 Documentation(info="<html>
 <p>

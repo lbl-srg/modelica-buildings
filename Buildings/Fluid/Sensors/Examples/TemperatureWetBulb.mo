@@ -61,12 +61,10 @@ equation
           28}}, color={0,0,127}));
   connect(sou.ports[1], senWetBul.port_a)          annotation (Line(
       points={{-10,20},{10,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senWetBul.port_b, sin.ports[1]) annotation (Line(
       points={{30,20},{54,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=120),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
         "Simulate and plot"),

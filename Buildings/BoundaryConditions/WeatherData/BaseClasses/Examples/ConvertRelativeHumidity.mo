@@ -25,16 +25,13 @@ protected
 equation
   connect(datRea.y[3], conRelHum.relHumIn) annotation (Line(
       points={{21,-0.827586},{30,-0.827586},{30,0},{38,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-59,0},{-42,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-19,0},{-2,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

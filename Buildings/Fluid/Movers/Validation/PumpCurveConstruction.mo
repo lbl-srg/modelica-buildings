@@ -107,86 +107,66 @@ model PumpCurveConstruction
 equation
   connect(yPum.y, pum.y) annotation (Line(
       points={{21,100},{50,100},{50,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pum.port_a, val1.port_b) annotation (Line(
       points={{40,80},{0,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,80},{-40,80},{-40,17.5},{-62,17.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(yVal.y, val1.y) annotation (Line(
       points={{-39,100},{-10,100},{-10,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pum_dp.port_a, val2.port_b) annotation (Line(
       points={{40,30},{0,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum_m_flow.port_a, val3.port_b) annotation (Line(
       points={{40,-20},{0,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], val2.port_a) annotation (Line(
       points={{-62,16.5},{-38,16.5},{-38,30},{-20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val3.port_a, sou.ports[3]) annotation (Line(
       points={{-20,-20},{-38,-20},{-38,15.5},{-62,15.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(yVal.y, val2.y) annotation (Line(
       points={{-39,100},{-32,100},{-32,56},{-10,56},{-10,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(yVal.y, val3.y) annotation (Line(
       points={{-39,100},{-32,100},{-32,4},{-10,4},{-10,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(yPum.y, pum_dp.y) annotation (Line(
       points={{21,100},{30,100},{30,58},{50,58},{50,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(yPum.y, pum_m_flow.y) annotation (Line(
       points={{21,100},{30,100},{30,4},{50,4},{50,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(val4.port_a, sou.ports[4]) annotation (Line(
       points={{-20,-60},{-40,-60},{-40,14.5},{-62,14.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val4.port_b, pum_no.port_a) annotation (Line(
       points={{0,-60},{40,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(yVal.y, val4.y) annotation (Line(
       points={{-39,100},{-32,100},{-32,-40},{-10,-40},{-10,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(yPum.y, pum_no.y) annotation (Line(
       points={{21,100},{30,100},{30,-40},{50,-40},{50,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pum_no.port_b, sou.ports[5]) annotation (Line(
       points={{60,-60},{68,-60},{68,-80},{-42,-80},{-42,13.5},{-62,13.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum_m_flow.port_b, sou.ports[6]) annotation (Line(
       points={{60,-20},{68,-20},{68,-20},{72,-20},{72,-84},{-44,-84},{-44,12.5},
           {-62,12.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum_dp.port_b, sou.ports[7]) annotation (Line(
       points={{60,30},{76,30},{76,-88},{-46,-88},{-46,11.5},{-62,11.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum.port_b, sou.ports[8]) annotation (Line(
       points={{60,80},{80,80},{80,-92},{-48,-92},{-48,10.5},{-62,10.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos"

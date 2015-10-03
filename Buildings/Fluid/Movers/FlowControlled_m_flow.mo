@@ -61,26 +61,21 @@ equation
   if filteredSpeed then
     connect(m_flow_in, filter.u) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{34.7,88},{38,88},{38,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   else
     connect(m_flow_in, m_flow_actual) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   end if;
     connect(filter.y, m_flow_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
       points={{110,50},{60,50},{60,40},{24,40},{24,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   annotation (defaultComponentName="fan",
   Documentation(
@@ -125,9 +120,7 @@ Revised implementation to allow zero flow rate.
 </html>"),
     Icon(graphics={Text(extent={{22,146},{114,102}},textString="m_flow_in"),
         Line(
-          points={{32,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{32,50},{100,50}}),
         Text(extent={{50,68},{100,54}},
           lineColor={0,0,127},
           textString="m_flow")}));
