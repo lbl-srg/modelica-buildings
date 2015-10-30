@@ -79,13 +79,27 @@ equation
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
+<h4>Heat loss calculation</h4>
 <p>
+There are two possible configurations:
+</p>
+<ol>
+<li>
 If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port
-for the heat exchange with the environment.
-If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
+for the heat exchange with the environment. Note that if the heat port
+is unconnected, then all volumes are still connected through the heat conduction elements
+<code>conPipWal</code>.
+Therefore, they exchange a small amount of heat, which is not physical.
+To avoid this, set <code>useMultipleHeatPorts=true</code>.
+</li>
+<li>
+If <code>useMultipleHeatPorts=true</code>,
+then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
 If the heat port is unconnected, then the pipe has no heat loss.
-</p>
+</li>
+</ol>
+<h4>Pressure drop calculation</h4>
 <p>
 The default value for the parameter <code>diameter</code> is computed such that the flow velocity
 is equal to <code>v_nominal=0.15</code> for a mass flow rate of <code>m_flow_nominal</code>.
@@ -110,6 +124,11 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 30, 2015, by Michael Wetter:<br/>
+Improved documentation for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/455\">#455</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Renamed <code>res</code> to <code>preDro</code> for
