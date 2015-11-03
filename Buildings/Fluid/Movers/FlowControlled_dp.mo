@@ -21,10 +21,10 @@ model FlowControlled_dp
     "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
-    "Nominal pressure raise, used to normalize filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+    "Nominal pressure raise"
+    annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure[:] normalizedHeads= {0}
+  parameter Real[:] normalizedHeads= {0}
     "Vector of normalized head set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
@@ -67,8 +67,8 @@ protected
         iconTransformation(extent={{60,50},{80,70}})));
 
 equation
-  assert(dp_in >= -1E-3,
-    "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
+  assert(inputSwitch.u >= -1E-3,
+    "pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
@@ -176,7 +176,7 @@ Revised implementation to allow zero flow rate.
           visible=inputType == Buildings.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%head"),
+          textString="%dp_nominal"),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),
