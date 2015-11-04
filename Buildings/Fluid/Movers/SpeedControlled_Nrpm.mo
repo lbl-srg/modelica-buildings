@@ -16,7 +16,7 @@ model SpeedControlled_Nrpm
   parameter Real speed(final unit="1/min") = 0
     "Speed set point when using constant set point"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Real[:] speeds(each final unit="1/min")= {0}
+  parameter Real[:] speeds(each final unit="1/min") = {0}
     "Vector of speed set points when using stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   replaceable parameter Data.SpeedControlled_Nrpm per

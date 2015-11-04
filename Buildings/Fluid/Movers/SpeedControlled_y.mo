@@ -16,7 +16,7 @@ model SpeedControlled_y
   parameter Real normalized_speed = 0
     "Normalized speed set point when using constant set point"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Real[:] normalized_speeds= {0}
+  parameter Real[:] normalized_speeds(each final unit="1") = {0}
     "Vector of normalized speed set points when using stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   replaceable parameter Data.SpeedControlled_y per

@@ -24,7 +24,7 @@ model FlowControlled_dp
     "Nominal pressure raise"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Real[:] normalizedHeads= {0}
+  parameter Real[:] normalizedHeads(each final unit="1") = {0}
     "Vector of normalized head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
