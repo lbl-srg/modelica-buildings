@@ -28,8 +28,8 @@ equation
           70},{-59,70}}, color={0,0,127}));
   connect(gai_dp.u, ramp.y) annotation (Line(points={{-42,-60},{-50,-60},{-50,
           70},{-59,70}}, color={0,0,127}));
-  connect(pump_y.y, ramp.y) annotation (Line(points={{-0.2,-28},{-18,-28},{-50,
-          -28},{-50,70},{-59,70}}, color={0,0,127}));
+  connect(pump_y.y, ramp.y) annotation (Line(points={{-0.2,-28},{-0.2,-20},{-50,
+          -20},{-50,70},{-59,70}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
