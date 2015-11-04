@@ -185,7 +185,7 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
 
-<h5>Models that have idealized perfect controls</h5>
+<h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a> and
@@ -194,6 +194,9 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
 This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.
+Using these models that take as an input the head or the mass flow rate often leads
+to smaller system of equations compared to using the models that take
+as an input the speed.
 </p>
 <p>
 These models can be configured for three different control inputs.
@@ -307,7 +310,24 @@ is defined by the flow resistance of the duct or piping network, and
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
-
+<p>
+The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+both have a parameter <code>m_flow_nominal</code>. For 
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
+is used for convenience to set a default value for the parameters
+<code>constantMassFlowRate</code> and
+<code>massFlowRates</code>.
+For both models, the value is also used to compute the
+size of the fluid volume that can be used to approximate the
+inertia of the mover (if <code>dynamicBalance == true</code>).
+It is also used for regularization of the equations near zero flow rate.
+However, otherwise it does not affect the mass flow rate of the mover as
+the mass flow rate is determined by the input signal or the above explained parameters.
+</p>
 <h5>Start-up and shut-down transients</h5>
 <p>
 All models have a parameter <code>filteredSpeed</code>. This
