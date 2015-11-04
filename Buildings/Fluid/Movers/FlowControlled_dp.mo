@@ -25,7 +25,7 @@ model FlowControlled_dp
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real[:] normalizedHeads= {0}
-    "Vector of normalized head set points, used when inputType=Stage"
+    "Vector of normalized head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
@@ -68,7 +68,7 @@ protected
 
 equation
   assert(inputSwitch.u >= -1E-3,
-    "pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
+    "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
