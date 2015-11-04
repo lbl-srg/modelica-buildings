@@ -19,11 +19,14 @@ equation
   connect(integerTable.y, pump_Nrpm.stage)
     annotation (Line(points={{-39,80},{0,80},{0,52}}, color={255,127,0}));
   connect(integerTable.y, pump_m_flow.stage)
-    annotation (Line(points={{-39,80},{0,80},{0,12}}, color={255,127,0}));
+    annotation (Line(points={{-39,80},{-30,80},{-30,20},{-30,20},{-30,20},{0,20},
+          {0,12}},                                    color={255,127,0}));
   connect(integerTable.y, pump_y.stage)
-    annotation (Line(points={{-39,80},{0,80},{0,-28}}, color={255,127,0}));
+    annotation (Line(points={{-39,80},{-30,80},{-30,-16},{-30,-16},{-30,-20},{0,
+          -20},{0,-28}},                               color={255,127,0}));
   connect(integerTable.y, pump_dp.stage)
-    annotation (Line(points={{-39,80},{0,80},{0,-68}}, color={255,127,0}));
+    annotation (Line(points={{-39,80},{-30,80},{-30,-60},{0,-60},{0,-68}},
+                                                       color={255,127,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),
