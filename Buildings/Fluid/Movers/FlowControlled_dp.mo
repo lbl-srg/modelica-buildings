@@ -4,7 +4,7 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start),
-  final stageInputs(each final unit="Pa") = dp_nominal*cat(1, {0}, normalizedHeads),
+  final stageInputs(each final unit="Pa") = dp_nominal*normalizedHeads,
   final constInput(final unit="Pa") = dp_nominal);
 
   // Classes used to implement the filtered speed

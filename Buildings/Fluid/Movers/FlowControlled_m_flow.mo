@@ -4,7 +4,7 @@ model FlowControlled_m_flow
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
-    final stageInputs(each final unit="kg/s")=m_flow_nominal*cat(1, {0}, normalizedMassFlowRates),
+    final stageInputs(each final unit="kg/s")=m_flow_nominal*normalizedMassFlowRates,
     final constInput(final unit="kg/s")=m_flow_nominal);
 
   // Classes used to implement the filtered speed
