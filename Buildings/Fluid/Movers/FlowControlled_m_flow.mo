@@ -4,8 +4,8 @@ model FlowControlled_m_flow
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
-    final stageInputs(each final unit="kg/s")=m_flow_nominal*normalizedMassFlowRates,
-    final constInput(final unit="kg/s")=m_flow_nominal);
+    final stageInputs(each final unit="kg/s")=massFlowRates,
+    final constInput(final unit="kg/s")=constantMassFlowRate);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -20,9 +20,15 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Real[:] normalizedMassFlowRates = {0}
-    "Vector of normalized mass flow rate set points, used when inputType=Stage"
+
+  parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
+    "Constant pump mass flow rate, used when inputType=Constant"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+
+  parameter Modelica.SIunits.MassFlowRate[:] massFlowRates = m_flow_nominal*{0}
+    "Vector of mass flow rate set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
                                                  nominal=m_flow_nominal) if
        inputType == Buildings.Fluid.Types.InputType.Continuous

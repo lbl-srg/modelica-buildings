@@ -12,7 +12,7 @@ model MoverParameter
     dynamicBalance=false,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
-    normalizedMassFlowRates={0,0.5,1},
+    massFlowRates={0,0.5,1}*m_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Pump with m_flow input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -40,7 +40,7 @@ model MoverParameter
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
     dynamicBalance=false,
     filteredSpeed=false,
-    normalizedHeads={0,0.5,1},
+    heads={0,0.5,1}*dp_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     dp_nominal=dp_nominal) "Pump with pressure head input"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));

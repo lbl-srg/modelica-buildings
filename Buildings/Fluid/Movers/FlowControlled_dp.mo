@@ -4,8 +4,8 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start),
-  final stageInputs(each final unit="Pa") = dp_nominal*normalizedHeads,
-  final constInput(final unit="Pa") = dp_nominal);
+  final stageInputs(each final unit="Pa") = heads,
+  final constInput(final unit="Pa") = constantHead);
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -20,13 +20,19 @@ model FlowControlled_dp
   parameter Modelica.SIunits.Pressure dp_start(min=0, displayUnit="Pa")=0
     "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
-    "Nominal pressure raise"
+    "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Real[:] normalizedHeads(each final unit="1") = {0}
-    "Vector of normalized head set points, used when inputType=Stages"
+  parameter Modelica.SIunits.Pressure constantHead(min=0, displayUnit="Pa")=dp_nominal
+    "Constant pump head, used when inputType=Constant"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+
+  parameter Modelica.SIunits.Pressure[:] heads(each min=0, each displayUnit="Pa") = dp_nominal*{0}
+    "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
@@ -38,7 +44,7 @@ model FlowControlled_dp
         rotation=-90,
         origin={-2,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa", displayUnit="Pa")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
