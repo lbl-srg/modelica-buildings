@@ -17,8 +17,7 @@ model FlowControlled
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   // what to control
-  constant Boolean control_m_flow "= false to control head instead of m_flow"
-    annotation(Evaluate=true);
+  constant Boolean control_m_flow "= false to control head instead of m_flow";
 
   replaceable parameter Data.FlowControlled per "Record with performance data"
     annotation (choicesAllMatching=true,
