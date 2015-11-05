@@ -1,0 +1,17 @@
+last-generated=2015-11-03
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1, 1, 1"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+pump_y.m_flow=[1.60097193717956542969, 1.60097193717956542969]
+pump_Nrpm.m_flow=[1.77888250350952148438, 1.77888250350952148438]
+pump_dp.m_flow=[2., 2.]
+pump_m_flow.m_flow=[2., 2.]
+time=[0., 1.]

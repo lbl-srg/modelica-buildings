@@ -43,8 +43,6 @@ model PumpsParallel "Two flow machines in parallel"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
@@ -54,8 +52,9 @@ model PumpsParallel "Two flow machines in parallel"
   Buildings.Fluid.Movers.SpeedControlled_y floMac2(
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Model of a flow machine"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=1) "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpOut2(
     redeclare package Medium = Medium,
@@ -70,44 +69,51 @@ model PumpsParallel "Two flow machines in parallel"
 equation
   connect(dpIn1.port_b, floMac1.port_a) annotation (Line(
       points={{5.55112e-16,110},{20,110}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(floMac1.port_b, dpOut1.port_a) annotation (Line(
       points={{40,110},{58,110}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(sou.ports[1], dpIn.port_a) annotation (Line(
       points={{-72,60},{-60,60}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpIn.port_b, dpIn1.port_a) annotation (Line(
       points={{-40,60},{-30,60},{-30,110},{-20,110}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpOut1.port_b, dpOut3.port_a) annotation (Line(
       points={{78,110},{90,110},{90,60},{100,60}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpOut3.port_b, sou.ports[2]) annotation (Line(
       points={{120,60},{140,60},{140,-20},{-66,-20},{-66,56},{-72,56}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpIn2.port_b,floMac2. port_a) annotation (Line(
       points={{5.55112e-16,10},{20,10}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(floMac2.port_b,dpOut2. port_a) annotation (Line(
       points={{40,10},{58,10}},
-      color={0,127,255}));
-  connect(const2.y, floMac2.y)
-                              annotation (Line(
-      points={{21,40},{30,40},{30,22}},
-      color={0,0,127}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpIn.port_b, dpIn2.port_a) annotation (Line(
       points={{-40,60},{-30,60},{-30,10},{-20,10}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(dpOut2.port_b, dpOut3.port_a) annotation (Line(
       points={{78,10},{90,10},{90,60},{100,60}},
-      color={0,127,255}));
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(const1.y, floMac1.y) annotation (Line(
-      points={{21,140},{30,140},{30,122}},
-      color={0,0,127}));
+      points={{21,140},{29.8,140},{29.8,122}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
+            160}}), graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsParallel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -118,6 +124,11 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2015, by Filip Jorissen:<br/>
+Set constant speed for pump using a <code>parameter</code> 
+instead of a <code>realInput</code>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>,
