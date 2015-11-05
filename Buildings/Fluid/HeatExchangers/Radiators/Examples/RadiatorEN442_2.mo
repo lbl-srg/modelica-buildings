@@ -68,48 +68,37 @@ model RadiatorEN442_2 "Test model for radiator"
 equation
   connect(sou.ports[1], rad1.port_a) annotation (Line(
       points={{-44,-56},{-40,-56},{-40,8},{-10,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], rad2.port_a) annotation (Line(
       points={{-44,-60},{-10,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(rad1.port_b, res1.port_a) annotation (Line(
       points={{10,8},{20,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(rad2.port_b, res2.port_a) annotation (Line(
       points={{10,-60},{20,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, sin.ports[1]) annotation (Line(
       points={{40,8},{56,8},{56,-56},{70,-56}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res2.port_b, sin.ports[2]) annotation (Line(
       points={{40,-60},{70,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(step.y, sou.p_in) annotation (Line(
       points={{-79,-50},{-66,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TBCRad2.port, rad2.heatPortRad) annotation (Line(
       points={{-20,-14},{2,-14},{2,-52.8}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TBCRad1.port, rad1.heatPortRad) annotation (Line(
       points={{-20,54},{2,54},{2,15.2}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TBCCon2.port, rad2.heatPortCon) annotation (Line(
       points={{-20,-34},{-2,-34},{-2,-52.8}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TBCCon1.port, rad1.heatPortCon) annotation (Line(
       points={{-20,34},{-2,34},{-2,15.2}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
         "Simulate and plot"),

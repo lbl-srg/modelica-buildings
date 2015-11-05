@@ -36,8 +36,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
 equation
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
       points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-5.55112e-16},{-2,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou.ports[1], vol.ports[2])
     annotation (Line(points={{40,0},{2,0}}, color={0,127,255}));
   annotation (Documentation(

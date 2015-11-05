@@ -128,35 +128,27 @@ First implementation.
           textString="v"),
         Line(
           points={{-80,-74},{-8,-74}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{-8,22},{80,22}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{-50,-18},{-50,-74}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{30,22},{30,-18}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{-32,-69},{-22,-74},{-32,-79}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{16,27},{6,22},{16,17}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{-55,-46},{-50,-56},{-44,-46}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{25,-4},{30,7},{35,-4}},
-          color={0,0,0},
           thickness=0.5),
         Text(
           extent={{19,-35},{44,-18}},
@@ -168,11 +160,9 @@ First implementation.
           textString="-delta"),
         Line(
           points={{-8,22},{-8,-74}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{-50,-18},{30,-18}},
-          color={0,0,0},
           thickness=0.5),
         Text(
           extent={{-37,12},{-10,32}},
@@ -184,10 +174,8 @@ First implementation.
           textString="vClose"),
         Line(
           points={{-20,-13},{-30,-18},{-20,-23}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{6,-13},{16,-18},{6,-23}},
-          color={0,0,0},
           thickness=0.5)}));
 end IdealMotor;

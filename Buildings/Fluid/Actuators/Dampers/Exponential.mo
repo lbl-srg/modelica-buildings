@@ -144,10 +144,8 @@ First implementation.
           fillColor={0,127,255}),  Polygon(
           points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid), Polygon(
           points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid)}));
 end Exponential;

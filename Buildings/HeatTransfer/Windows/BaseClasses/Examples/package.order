@@ -1,4 +1,5 @@
 AbsorbedRadiation
+AbsorbedRadiationElectrochromic
 CenterOfGlass
 GasConvection
 GlassLayer
@@ -8,3 +9,4 @@ Shade
 SideFins
 TransmittedRadiation
 WindowRadiation
+WindowRadiationElectrochromic

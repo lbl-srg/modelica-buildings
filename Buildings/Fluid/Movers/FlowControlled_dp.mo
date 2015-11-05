@@ -63,31 +63,25 @@ equation
   if filteredSpeed then
     connect(dp_in, filter.u) annotation (Line(
       points={{0,120},{10,120},{10,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, dp_actual) annotation (Line(
       points={{34.7,88},{38,88},{38,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, dp_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   else
     connect(dp_in, dp_actual) annotation (Line(
       points={{0,120},{18,120},{18,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   end if;
 
   connect(gain.y, preSou.dp_in) annotation (Line(
       points={{21,30},{36,30},{36,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.u, dp_actual) annotation (Line(
       points={{-2,30},{-10,30},{-10,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
@@ -152,12 +146,8 @@ Revised implementation to allow zero flow rate.
 </html>"),
     Icon(graphics={Text(extent={{20,142},{104,108}},textString="dp_in"),
         Line(
-          points={{32,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{32,50},{100,50}}),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
-          textString="dp")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+          textString="dp")}));
 end FlowControlled_dp;

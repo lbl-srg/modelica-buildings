@@ -70,53 +70,41 @@ model PumpsParallel "Two flow machines in parallel"
 equation
   connect(dpIn1.port_b, floMac1.port_a) annotation (Line(
       points={{5.55112e-16,110},{20,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(floMac1.port_b, dpOut1.port_a) annotation (Line(
       points={{40,110},{58,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[1], dpIn.port_a) annotation (Line(
       points={{-72,60},{-60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpIn.port_b, dpIn1.port_a) annotation (Line(
       points={{-40,60},{-30,60},{-30,110},{-20,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpOut1.port_b, dpOut3.port_a) annotation (Line(
       points={{78,110},{90,110},{90,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpOut3.port_b, sou.ports[2]) annotation (Line(
       points={{120,60},{140,60},{140,-20},{-66,-20},{-66,56},{-72,56}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpIn2.port_b,floMac2. port_a) annotation (Line(
       points={{5.55112e-16,10},{20,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(floMac2.port_b,dpOut2. port_a) annotation (Line(
       points={{40,10},{58,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const2.y, floMac2.y)
                               annotation (Line(
       points={{21,40},{30,40},{30,22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dpIn.port_b, dpIn2.port_a) annotation (Line(
       points={{-40,60},{-30,60},{-30,10},{-20,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpOut2.port_b, dpOut3.port_a) annotation (Line(
       points={{78,10},{90,10},{90,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const1.y, floMac1.y) annotation (Line(
       points={{21,140},{30,140},{30,122}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

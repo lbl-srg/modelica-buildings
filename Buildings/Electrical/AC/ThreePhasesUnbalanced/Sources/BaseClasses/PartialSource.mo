@@ -7,8 +7,7 @@ partial model PartialSource
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   OnePhase.Basics.Ground ground "Ground reference"
     annotation (Placement(transformation(extent={{10,-60},{30,-40}})));
-  Interfaces.Terminal_p terminal
-    "Connector for three-phase unbalanced systems"
+  Interfaces.Terminal_p terminal "Connector for three-phase unbalanced systems"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
 
@@ -16,7 +15,9 @@ equation
       points={{60,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
-  connect(ground.terminal,connection3to4. terminal4.phase[4]) annotation (Line(
+  // fixme: the statement below is not valid, check this model using pedantic modelica mode
+  // to see the error message
+  connect(ground.terminal, connection3to4.terminal4.phase[4]) annotation (Line(
       points={{20,-40},{20,0},{40,0}},
       color={127,0,127},
       smooth=Smooth.None));

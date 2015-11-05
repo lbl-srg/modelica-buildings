@@ -87,86 +87,66 @@ model SpeedControlled_y_pumpCurves
 equation
   connect(dp1.port_b, pum.port_a)      annotation (Line(
       points={{5.55112e-16,90},{40,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,90},{-31,90},{-31,91},{-50,91}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y1.y, pum.y)      annotation (Line(
       points={{41,130},{50,130},{50,102}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y.y, dp1.y) annotation (Line(
       points={{-59,130},{-10,130},{-10,102}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp2.port_b, pum1.port_a)     annotation (Line(
       points={{5.55112e-16,48},{40,48}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y,dp2. y) annotation (Line(
       points={{-59,130},{-26,130},{-26,68},{-10,68},{-10,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[2], dp2.port_a) annotation (Line(
       points={{-50,89},{-32,89},{-32,48},{-20,48}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y2.y, pum1.y) annotation (Line(
       points={{29,70},{50,70},{50,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp3.port_b, pum2.port_a)     annotation (Line(
       points={{5.55112e-16,6.10623e-16},{10,6.10623e-16},{10,0},{20,0},{20,
           6.10623e-16},{40,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y,dp3. y) annotation (Line(
       points={{-59,130},{-26,130},{-26,20},{-10,20},{-10,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y3.y, pum2.y) annotation (Line(
       points={{29,22},{50,22},{50,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp3.port_a, sou.ports[3]) annotation (Line(
       points={{-20,6.10623e-16},{-28,0},{-36,0},{-36,86},{-50,86},{-50,87}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp4.port_b, pum3.port_a)     annotation (Line(
       points={{5.55112e-16,-50},{40,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y,dp4. y) annotation (Line(
       points={{-59,130},{-26,130},{-26,-30},{-10,-30},{-10,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y4.y, pum3.y) annotation (Line(
       points={{29,-28},{50,-28},{50,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp4.port_a, sou.ports[4]) annotation (Line(
       points={{-20,-50},{-38,-50},{-38,85},{-50,85}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum3.port_b, sou1.ports[1]) annotation (Line(
       points={{60,-50},{110,-50},{110,85},{118,85}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum2.port_b, sou1.ports[2]) annotation (Line(
       points={{60,6.10623e-16},{80,6.10623e-16},{80,0},{106,0},{106,87},{118,87}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(pum1.port_b, sou1.ports[3]) annotation (Line(
       points={{60,48},{104,48},{104,89},{118,89}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pum.port_b, sou1.ports[4]) annotation (Line(
       points={{60,90},{89,90},{89,91},{118,91}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

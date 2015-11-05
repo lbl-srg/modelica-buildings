@@ -34,23 +34,19 @@ model SpeedControlled_y
 equation
   connect(filter.y, y_filtered) annotation (Line(
       points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   if filteredSpeed then
     connect(y, filter.u) annotation (Line(
       points={{0,120},{0,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(filter.y, y_actual) annotation (Line(
       points={{34.7,88},{38,88},{38,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   else
     connect(y, y_actual) annotation (Line(
       points={{0,120},{0,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   end if;
 
   annotation (defaultComponentName="fan",

@@ -9,8 +9,7 @@ model CheckRelativeHumidity "Test model for CheckRelativeHumidity"
 equation
   connect(conRelHum.relHumOut, cheRelHum.relHumIn) annotation (Line(
       points={{41,10},{58,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

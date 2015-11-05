@@ -60,36 +60,28 @@ equation
           {10,-28},{10,-38}}, color={0,0,127}));
   connect(sou.ports[1], valLin.port_1) annotation (Line(
       points={{-30,2},{-5.55112e-16,2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], valEquPerLin.port_1) annotation (Line(
       points={{-30,-2},{-24,-2},{-24,-50},{-5.55112e-16,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valLin.port_2, sin.ports[1]) annotation (Line(
       points={{20,2},{50,2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valEquPerLin.port_2, sin.ports[2]) annotation (Line(
       points={{20,-50},{37,-50},{37,-2},{50,-2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(PSou.y, ret.p_in) annotation (Line(
       points={{-67,8},{-60,8},{-60,-88},{90,-88},{90,-62},{76,-62}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(ret.ports[1], valLin.port_3) annotation (Line(
       points={{54,-68},{40,-68},{40,-20},{10,-20},{10,-8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ret.ports[2], valEquPerLin.port_3) annotation (Line(
       points={{54,-72},{10,-72},{10,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(PSou.y, sou.p_in) annotation (Line(
       points={{-67,8},{-52,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     experiment(StopTime=1.0),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ThreeWayValves.mos"

@@ -19,34 +19,29 @@ model ZenithAngle "Test model for zenith angle"
 equation
   connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{41,30},{50,30},{50,5.4},{58,5.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-30},{50,-30},{50,-4.8},{58,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,5.82867e-16},{-53.5,5.82867e-16},{-53.5,1.13798e-15},{-47,
           1.13798e-15},{-47,5.55112e-16},{-34,5.55112e-16}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,30},{18,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,-30},{18,-30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

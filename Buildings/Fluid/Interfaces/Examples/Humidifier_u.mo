@@ -531,52 +531,40 @@ equation
           -256},{338,-256}}, color={0,0,127}));
   connect(sin_1.ports[1], res_12.port_a) annotation (Line(
       points={{-148,147},{-106,147},{-106,144},{-100,144}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[2], res_3.port_a) annotation (Line(
       points={{-148,145},{-124,145},{-124,64},{-100,64}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[1], res_11.port_a) annotation (Line(
       points={{-148,105},{-107,105},{-107,102},{-100,102}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[2], res_2.port_a) annotation (Line(
       points={{-148,103},{-126,103},{-126,22},{-100,22}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[3], res_1.port_a) annotation (Line(
       points={{-148,143},{-130,143},{-130,-100},{-100,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[4], res_6.port_a) annotation (Line(
       points={{-148,141},{-132,141},{-132,-180},{-100,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[3], res_5.port_a) annotation (Line(
       points={{-148,101},{-140,101},{-140,-58},{-100,-58}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[4], res_7.port_a) annotation (Line(
       points={{-148,99},{-142,99},{-142,-138},{-100,-138}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea3.port_b, mix1.ports[1]) annotation (Line(
       points={{-34,22},{-12,22}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mix1.ports[2], res_4.port_a) annotation (Line(
       points={{-8,22},{20,22},{20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea7.port_b, mix2.ports[1]) annotation (Line(
       points={{-34,-180},{-12,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mix2.ports[2], res_8.port_a) annotation (Line(
       points={{-8,-180},{20,-180},{20,-172}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
             -320},{360,200}}), graphics={
         Text(

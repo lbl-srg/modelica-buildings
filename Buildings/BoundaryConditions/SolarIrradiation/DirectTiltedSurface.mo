@@ -27,32 +27,27 @@ protected
 equation
   connect(incAng.y, HDirTil.incAng) annotation (Line(
       points={{-29,-20},{-12,-20},{-12,-12},{-4,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(weaBus.HDirNor, HDirTil.HDirNor) annotation (Line(
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,12},{-4,12}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(incAng.y, inc) annotation (Line(
       points={{-29,-20},{-20,-20},{-20,-40},{110,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(HDirTil.HDirTil, H) annotation (Line(
       points={{42,1.22125e-15},{72,1.22125e-15},{72,5.55112e-16},{110,
           5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(weaBus, incAng.weaBus) annotation (Line(
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-19.6},{-50,-19.6}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

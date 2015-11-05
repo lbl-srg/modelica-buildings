@@ -1,7 +1,5 @@
 within Buildings.Fluid.Interfaces;
-model FourPort "Partial model with four ports"
-
-
+partial model FourPort "Partial model with four ports"
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -76,6 +74,10 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 30, 2015, by Matthis Thorade:<br/>
+Added <code>partial</code> keyword to model declaration.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in ports to be final.

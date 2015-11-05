@@ -8,7 +8,6 @@ model WindTurbine
 protected
   Loads.Conductor con(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    P_nominal=0,
     V_nominal=V_nominal)
     "Conductor, used to interface the power with the electrical circuit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -69,6 +68,14 @@ Below and above these wind speeds, the generated power is zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 January 10, 2013, by Michael Wetter:<br/>
 First implementation.

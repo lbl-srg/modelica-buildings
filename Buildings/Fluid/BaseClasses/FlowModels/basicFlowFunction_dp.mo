@@ -28,7 +28,6 @@ algorithm
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
           color={0,0,255},
-          smooth=Smooth.None,
           thickness=1), Text(
           extent={{-40,-40},{40,-80}},
           lineColor={0,0,0},

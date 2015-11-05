@@ -19,12 +19,10 @@ model SpeedControlled_Nrpm "Fan with zero mass flow rate and speed as input"
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacDyn.Nrpm) annotation (Line(
       points={{-25,100},{10,100},{10,30},{30,30},{30,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),

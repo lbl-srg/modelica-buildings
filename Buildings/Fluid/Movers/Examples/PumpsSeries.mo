@@ -49,24 +49,19 @@ equation
   connect(const2.y, floMac2.y)
                               annotation (Line(
       points={{61,90},{70,90},{70,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const1.y, floMac1.y) annotation (Line(
       points={{-19,90},{-10,90},{-10,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(floMac1.port_b, floMac2.port_a) annotation (Line(
       points={{5.55112e-16,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[1], floMac1.port_a) annotation (Line(
       points={{-72,60},{-20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(floMac2.port_b, sou1.ports[1]) annotation (Line(
       points={{80,60},{136,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

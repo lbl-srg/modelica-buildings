@@ -55,8 +55,7 @@ equation
 
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>

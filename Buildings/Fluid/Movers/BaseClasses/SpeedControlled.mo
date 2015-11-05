@@ -26,12 +26,10 @@ equation
 
   connect(preSou.dp_in, dpMac.y) annotation (Line(
       points={{36,8},{36,30},{21,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>This is the base model for fans and pumps that take as

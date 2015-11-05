@@ -580,9 +580,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(
-          points={{0,50},{100,50}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,50},{100,50}}),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="y")}),

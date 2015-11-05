@@ -15,13 +15,16 @@ equation
   "The mass flow rate of port_a and port_b is not conserved.
   This indicates a wrong configuration of your system model.");
   outlet.m_flow = m_flow_in;
-  outlet.p = inlet.p;
 
-  // We use connect statements, in particular
+  // We use connect statements
   // because outlet.backward and inlet.backward
-  // is removed if allowFlowReversal=false
+  // is removed if allowFlowReversal=false.
+  // The connect is applied on the components of the port
+  // to avoid also connecting the mass flow rate which would
+  // yield an overdetermined system of equations.
   connect(inlet.forward, outlet.forward);
   connect(outlet.backward, inlet.backward);
+  connect(outlet.p, inlet.p);
 
   annotation (
   Documentation(info="<html>
@@ -30,6 +33,11 @@ This example demonstrates how to export an FMU that sets the mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Changed assignment of pressure to a <code>connect</code> statement
+because the pressure can be conditionally removed.
+</li>
 <li>
 November 3, 2014 by Michael Wetter:<br/>
 First implementation.

@@ -52,40 +52,31 @@ initial algorithm
 equation
   connect(mWat_flow, steBal.mWat_flow) annotation (Line(
       points={{-120,80},{-80,80},{-80,14},{-22,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
       points={{-120,80},{-80,80},{-80,26},{24,26},{24,12},{38,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow,QLat_flow. u2) annotation (Line(
       points={{-120,80},{-80,80},{-80,60},{-2,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hLiq.y,QLat_flow. u1) annotation (Line(
       points={{-18,72},{-2,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Q_flow.y, steBal.Q_flow) annotation (Line(
       points={{89,74},{94,74},{94,40},{-32,40},{-32,18},{-22,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Q_flow.y, dynBal.Q_flow) annotation (Line(
       points={{89,74},{94,74},{94,40},{30,40},{30,16},{38,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(XLiq.y, X_w) annotation (Line(
       points={{83.1,-40},{120,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(QLat_flow.y, Q_flow.u2) annotation (Line(
       points={{21,66},{50,66},{50,68},{66,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(QSen_flow.y, Q_flow.u1) annotation (Line(
       points={{-39,88},{50,88},{50,80},{66,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability

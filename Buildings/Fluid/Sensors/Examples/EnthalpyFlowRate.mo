@@ -43,40 +43,31 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
       points={{-79,-2},{-60,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,-10},{-30,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.port_b, senH.port_a) annotation (Line(
       points={{-10,-10},{-5.55112e-16,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH.port_b, senM_flow.port_a) annotation (Line(
       points={{20,-10},{28,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flow.port_b, sin.ports[1]) annotation (Line(
       points={{48,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.H_flow, assEqu.u1) annotation (Line(
       points={{-20,1},{-20,82},{28,82},{28,76},{38,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senH.h_out, pro.u1) annotation (Line(
       points={{10,1},{10,28},{-14,28},{-14,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flow.m_flow, pro.u2) annotation (Line(
       points={{38,1},{38,36},{-10,36},{-10,58},{-2,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pro.y, assEqu.u2) annotation (Line(
       points={{21,64},{38,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"

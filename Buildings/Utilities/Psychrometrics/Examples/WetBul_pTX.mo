@@ -21,16 +21,13 @@ model WetBul_pTX "Model to test the wet bulb temperature computation"
 equation
   connect(TDryBul.y, wetBul_TDryBulX.TDryBul) annotation (Line(
       points={{-59,70},{-40,70},{-40,58},{-21,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(XDryBul.y, wetBul_TDryBulX.XDryBul) annotation (Line(
       points={{-59,30},{-52,30},{-52,50},{-21,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(p.y, wetBul_TDryBulX.p) annotation (Line(
       points={{-59,-10},{-40,-10},{-40,42},{-21,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/WetBul_pTX.mos"
         "Simulate and plot"),

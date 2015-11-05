@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block IncidenceAngle "The solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="degree")
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";

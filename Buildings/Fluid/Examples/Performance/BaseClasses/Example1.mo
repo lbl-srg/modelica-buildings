@@ -9,7 +9,6 @@ partial model Example1 "Example 1 partial model"
     redeclare package Medium = Medium,
     nPorts=1) "Boundary for pressure boundary condition"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-50,20})));
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
@@ -67,41 +66,32 @@ partial model Example1 "Example 1 partial model"
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-40,20},{-30,20},{-30,30},{-20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
       points={{-39,80},{-22,80},{-22,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{49.8,42},{49.8,80},{21,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.u,pulse. y) annotation (Line(
       points={{-2,80},{-39,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hea.port_b,val. port_1) annotation (Line(
       points={{0,30},{10,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val.port_2, pump.port_a) annotation (Line(
       points={{30,30},{40,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const.y,val. y) annotation (Line(
       points={{-39,50},{20,50},{20,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(val.port_3,hea. port_a) annotation (Line(
       points={{20,20},{20,-10},{-30,-10},{-30,30},{-20,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nRes.k loop
     connect(pump.port_b, res[i].port_a) annotation (Line(
         points={{60,30},{70,30}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
@@ -126,7 +116,5 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+</html>"));
 end Example1;

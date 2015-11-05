@@ -10,8 +10,7 @@ model SmoothExponential "Test model for smoothExponential function "
 equation
   connect(x1.y, smoothExponential.u) annotation (Line(
       points={{-39,0},{-10,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (  experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothExponential.mos"
         "Simulate and plot"), Documentation(info="<html>

@@ -63,6 +63,5 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_experimentSetupOutput);
+</html>"));
 end WaterDerivativeCheck;

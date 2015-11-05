@@ -331,7 +331,7 @@ Xi(start=X_start[1:Medium.nXi],
 </pre>
 and set
 <code>preferredMediumStates = false</code>
-because the previous declaration led to more equations and 
+because the previous declaration led to more equations and
 translation problems in large models.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.

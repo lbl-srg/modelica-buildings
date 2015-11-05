@@ -46,24 +46,19 @@ equation
       color={0,0,127}));
   connect(valTab.port_a, sou.ports[1]) annotation (Line(
       points={{-10,20},{-60,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valTab.port_b, sin.ports[1]) annotation (Line(
       points={{10,20},{40,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valLin.y, y.y) annotation (Line(
       points={{8.88178e-16,-8},{8.88178e-16,-2},{-28,-2},{-28,50},{-39,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[2], valLin.port_a) annotation (Line(
       points={{-60,16},{-34,16},{-34,-20},{-10,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valLin.port_b, sin.ports[2]) annotation (Line(
       points={{10,-20},{28,-20},{28,16},{40,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mos"
         "Simulate and plot"),

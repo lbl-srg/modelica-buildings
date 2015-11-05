@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckTemperature "Check the validity of temperature data"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput TIn(
     final quantity="ThermodynamicTemperature",
     final unit="K",

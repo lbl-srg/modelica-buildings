@@ -3,7 +3,7 @@ model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.Air;
+      Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
@@ -1020,6 +1020,17 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set default temperature for medium to avoid conflicting
+start values for alias variables of the temperature
+of the building and the ambient air.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ClosedLoop.mos"
         "Simulate and plot"),

@@ -30,7 +30,7 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>    
+<li>
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for

@@ -5,13 +5,12 @@ block PartialInputCheck "Assert when condition is violated"
     "Start time for activating the assert";
   parameter Real threShold(min=0)=1E-2 "Threshold for equality comparison";
   parameter String message = "Inputs differ by more than threShold";
-protected
-  parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
-public
   Modelica.Blocks.Interfaces.RealInput u1 "Value to check"
        annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput u2 "Value to check"
        annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+protected
+  parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
 initial equation
   t0 = time + startTime;
 

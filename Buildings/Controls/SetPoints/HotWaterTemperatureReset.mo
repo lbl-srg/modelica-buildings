@@ -117,16 +117,12 @@ First implementation.
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-80,-82},{60,32}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-80,-82},{60,32}}),
         Line(
           points={{-80,-82},{-42,-38},{4,2},{60,32}},
-          color={0,0,0},
           smooth=Smooth.Bezier),
         Line(
           points={{-80,-82},{-58,-42},{-4,8},{60,32}},
-          color={0,0,0},
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},

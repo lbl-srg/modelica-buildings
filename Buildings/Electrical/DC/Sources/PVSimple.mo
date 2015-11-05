@@ -6,7 +6,6 @@ model PVSimple "Simple PV model"
 protected
    Loads.Conductor con(
     mode=Types.Load.VariableZ_P_input,
-    P_nominal=0,
     V_nominal=V_nominal)
     "Conductor, used to interface power with electrical circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -36,6 +35,14 @@ equation
           textString="-")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 January 4, 2013, by Michael Wetter:<br/>
 First implementation.

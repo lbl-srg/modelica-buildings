@@ -2,7 +2,7 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 function getTimeZoneTMY3 "Gets the time zone from a TMY3 weather data file"
  input String filNam "Name of weather data file"
  annotation (Dialog(
-        __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
+        loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
  output Modelica.SIunits.Time timZon "Time zone from the weather file";
 protected
@@ -31,6 +31,12 @@ algorithm
 This function returns the time zone of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015, by Marcus Fuchs:<br/>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+for MSL compliancy as reported by @tbeu at
+<a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
+</li>
 <li>
 March 5, 2011, by Michael Wetter:<br/>
 First implementation.

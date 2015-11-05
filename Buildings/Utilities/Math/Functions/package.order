@@ -12,6 +12,7 @@ quadraticLinear
 regNonZeroPower
 smoothExponential
 smoothHeaviside
+smoothInterpolation
 smoothLimit
 smoothMax
 smoothMin

@@ -12,13 +12,11 @@ model RelativeAirMass "Test model for relative air mass"
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(
       points={{1,10},{18,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, zen.weaBus) annotation (Line(
       points={{-40,10},{-20,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   annotation (
 Documentation(info="<html>
 <p>

@@ -11,8 +11,6 @@ model Example8 "Common subexpression elimination example"
           textString="See code")}),
     experiment(
       StopTime=100),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -26,7 +24,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This is a very simple example demonstrating common subexpression elimination. 
+This is a very simple example demonstrating common subexpression elimination.
 The Dymola generated <code>C-code</code> of this model is:
 </p>
 <pre>

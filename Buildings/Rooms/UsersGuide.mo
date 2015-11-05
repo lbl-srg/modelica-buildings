@@ -948,7 +948,7 @@ Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, 
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <b>Buildings.Rooms</b> contains models for heat transfer
+The package <a href=\"modelica://Buildings.Rooms\">Buildings.Rooms</a> contains models for heat transfer
 through the building envelope.
 Multiple instances of these models can be connected to create
 a multi-zone building model.
@@ -961,6 +961,41 @@ The room models can also be linked to models of HVAC systems
 that are composed of the components in the package
 <a href=\"modelica://Buildings.Fluid\">
 Buildings.Fluid</a>.
+</p>
+<p>
+There are two different room models, one assumes the room air to be completely
+mixed, and the other implements a computuational fluid dynamic model to compute
+air flow, temperature and species distribution inside the room.
+These models are further described in their respective user's guide,
+<a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Buildings.Rooms.UsersGuide.MixedAir</a>
+and
+<a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>.
+</p>
+<h4>Modeling of conventional and electrochromic windows</h4>
+<p>
+Both models have the option of modeling electrochromic windows.
+The window properties are specified in a record
+<a href=\"modelica://Buildings.HeatTransfer.Data.GlazingSystems\">Buildings.HeatTransfer.Data.GlazingSystems</a>
+which contains for the glass layer the record
+<a href=\"modelica//Buildings.HeatTransfer.Data.Glasses\">Buildings.HeatTransfer.Data.Glasses</a>.
+If any glass layer has multiple properties, then the glass is assumed to be controllable,
+and the room model will have an input connector
+<code>uWin</code> that is used for the control input signal of the glass.
+This connnector is a vector in which each element is a control signal,
+with value between <i>0</i> and <i>1</i>, for a particular window.
+Hence, either all or none of the windows must be electrochromic.
+(If your room has a mixture of conventional and electrochromic windows, then set
+all windows to be electrochromic, but simply use a constant control signal for the
+conventional windows, and set it to the off-state.)
+If all windows are conventional, then the connector <code>uWin</code> is removed.
+However, its icon may still be visible as the visual rendering engine may not evaluate
+the equations that are needed to determine whether there are controllable windows.
+</p>
+<p>
+The model
+<a href=\"modelica://Buildings.Rooms.Examples.ElectroChromicWindow\">
+Buildings.Rooms.Examples.ElectroChromicWindow</a>
+shows how to configure electrochromic windows.
 </p>
 </html>"));
 end UsersGuide;

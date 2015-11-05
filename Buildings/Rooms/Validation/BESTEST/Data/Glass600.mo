@@ -1,20 +1,13 @@
 within Buildings.Rooms.Validation.BESTEST.Data;
-record Glass600 "Thermal properties of window glass"
-    extends Modelica.Icons.Record;
- parameter Modelica.SIunits.Length x=0.003175 "Thickness";
- parameter Modelica.SIunits.ThermalConductivity k=1.06 "Thermal conductivity";
- parameter Modelica.SIunits.TransmissionCoefficient tauSol = 0.86156
-    "Solar transimittance. It is tauSol in WINDOW5.";
- parameter Modelica.SIunits.ReflectionCoefficient rhoSol_a = 0.0434
-    "Solar reflectance of surface a (usually outside-facing surface). It is Rsol1 in WINDOW5.";
- parameter Modelica.SIunits.ReflectionCoefficient rhoSol_b = 0.0434
-    "Solar reflectance of surface b (usually room-facing surface). It is Rsol2 in WINDOW5.";
- parameter Modelica.SIunits.TransmissionCoefficient tauIR = 0
-    "Infrared infrared transmissivity of glass. It is Tir in WINDOW5.";
- parameter Modelica.SIunits.Emissivity absIR_a = 0.9
-    "Infrared infrared absorptivity of surface a (usually outside-facing surface). It is Emis1 in WINDOW5.";
- parameter Modelica.SIunits.Emissivity absIR_b = 0.9
-    "Infrared infrared absorptivity of surface b (usually room-facing surface). It is Emis2 in WINDOW5.";
+record Glass600 = Buildings.HeatTransfer.Data.Glasses.Generic (
+    x=0.003175,
+    k=1.06,
+    tauSol={0.86156},
+    rhoSol_a={0.0434},
+    rhoSol_b={0.0434},
+    tauIR=0,
+    absIR_a=0.9,
+    absIR_b=0.9) "Thermal properties of window glass"
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datGla",
@@ -26,9 +19,15 @@ This record declares the glass properties for the BESTEST model.
 revisions="<html>
 <ul>
 <li>
+August 7, 2015, by Michael Wetter:<br/>
+Reimplemented the record by extending its base class, rather
+than newly redefining the record.
+This was needed as the record definition changed when implementing
+electrochromic windows.
+</li>
+<li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Glass600;
