@@ -61,44 +61,34 @@ partial model Heater "Base class for example model for the heater and cooler"
 equation
   connect(theCon.port_a, TBou.port) annotation (Line(
       points={{0,70},{-20,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(vol.heatPort, theCon.port_b) annotation (Line(
       points={{40,0},{30,0},{30,70},{20,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(vol.heatPort, TVol.port) annotation (Line(
       points={{40,0},{20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TOut.y, TBou.T) annotation (Line(
       points={{-59,70},{-42,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TVol.T, conPI.u_m) annotation (Line(
       points={{0,0},{-50,0},{-50,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TSet.y, conPI.u_s) annotation (Line(
       points={{-69,30},{-62,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mFan_flow.y, fan.m_flow_in) annotation (Line(
       points={{-69,-10},{-60.2,-10},{-60.2,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(THeaOut.port_b, vol.ports[1]) annotation (Line(
       points={{40,-40},{48,-40},{48,-10},{47.3333,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], fan.port_a) annotation (Line(
       points={{50,-10},{50,-70},{-80,-70},{-80,-40},{-70,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou.ports[1], vol.ports[3]) annotation (Line(
       points={{70,-20},{52,-20},{52,-10},{52.6667,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This partial model is used to construct the models

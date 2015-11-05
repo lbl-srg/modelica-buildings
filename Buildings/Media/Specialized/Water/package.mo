@@ -17,13 +17,11 @@ should be used as it leads generally to faster simulation.
           points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Polygon(
           points={{10,34},{26,44},{30,36},{14,26},{10,34}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Ellipse(
           extent={{-82,52},{24,-54}},

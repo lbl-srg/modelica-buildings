@@ -187,61 +187,48 @@ initial equation
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
       points={{-28,-38},{-20,-38},{-20,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(preRad.port, vol.heatPort)       annotation (Line(
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(port_a, vol[1].ports[1]) annotation (Line(
       points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
           -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
       points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
           1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
         points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
             {1,5.55112e-16},{-1,5.55112e-16}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
   end for;
   connect(QCon.y, preCon.Q_flow)                  annotation (Line(
       points={{-79,-38},{-48,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sumCon.u, QCon.y)          annotation (Line(
       points={{18,-50},{-60,-50},{-60,-38},{-79,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sumCon.y, preSumCon.Q_flow)     annotation (Line(
       points={{41,-50},{52,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(preSumCon.port, heatPortCon)       annotation (Line(
       points={{72,-50},{80,-50},{80,40},{-20,40},{-20,72}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(QRad.y, preRad.Q_flow)       annotation (Line(
       points={{-79,-70},{-48,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(QRad.y, sumRad.u) annotation (Line(
       points={{-79,-70},{-60,-70},{-60,-80},{18,-80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sumRad.y, preSumRad.Q_flow)        annotation (Line(
       points={{41,-80},{52,-80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(preSumRad.port, heatPortRad)        annotation (Line(
       points={{72,-80},{86,-80},{86,50},{20,50},{20,72}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
@@ -271,25 +258,15 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-66,30},{66,30}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-66,30},{66,30}}),
         Line(
-          points={{-66,2},{66,2}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-66,2},{66,2}}),
         Line(
-          points={{-66,-30},{66,-30}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-66,-30},{66,-30}}),
         Line(
-          points={{-66,60},{-66,-60}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-66,60},{-66,-60}}),
         Line(
-          points={{66,60},{66,-60}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+          points={{66,60},{66,-60}})}),
     defaultComponentName="rad",
     Documentation(info="<html>
 <p>
@@ -353,7 +330,7 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 <ul>
 <li>
 April 11, 2015, by Filip Jorissen:<br/>
-Propagated <code>vol.massDynamics</code> to  
+Propagated <code>vol.massDynamics</code> to
 top level parameter <code>massDynamics</code> instead of <code>energyDynamics</code>.
 </li>
 <li>

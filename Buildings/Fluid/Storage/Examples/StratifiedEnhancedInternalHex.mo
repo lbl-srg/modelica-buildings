@@ -4,8 +4,7 @@ model StratifiedEnhancedInternalHex
   extends Modelica.Icons.Example;
 
   package MediumTan = Buildings.Media.Water "Medium in the tank";
-  package MediumHex = Modelica.Media.Incompressible.Examples.Glycol47
-    "Medium in the heat exchanger";
+  package MediumHex = Buildings.Media.Water "Medium in the heat exchanger";
 
  parameter Modelica.SIunits.Pressure dpHex_nominal=2500
     "Pressure drop across the heat exchanger at nominal conditions";
@@ -178,6 +177,15 @@ fixme: Verify that the tank temperatures do not change during this time for each
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 28, 2015 by Michael Wetter:<br/>
+Changed medium in heat exchanger from
+<a href=\"modelica://Modelica.Media.Incompressible.Examples.Glycol47\">
+Modelica.Media.Incompressible.Examples.Glycol47</a> to
+<a href=\"modelica://Buildings.Media.Water\">
+Buildings.Media.Water</a>
+to avoid numerical derivative in regression tests.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Modified example to test dynamic versus steady-state heat exchanger

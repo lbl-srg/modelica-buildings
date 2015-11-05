@@ -34,12 +34,10 @@ equation
       color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-48,20},{-5.55112e-16,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[1], res.port_b) annotation (Line(
       points={{54,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),

@@ -3,7 +3,6 @@ block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic sky model"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
-public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
@@ -28,42 +27,35 @@ equation
   connect(weaBus.HGloHor, HDifTilIso.HGloHor) annotation (Line(
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,4},{-22,4}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, HDifTilIso.HDifHor) annotation (Line(
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,-4},{-22,-4}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
   connect(HDifTilIso.HSkyDifTil, add.u1) annotation (Line(
       points={{1,4},{24,4},{24,6},{38,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(HDifTilIso.HGroDifTil, add.u2) annotation (Line(
       points={{1,-4},{24,-4},{24,-6},{38,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(add.y, H) annotation (Line(
       points={{61,6.10623e-16},{81.5,6.10623e-16},{81.5,5.55112e-16},{110,
           5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(HDifTilIso.HSkyDifTil, HSkyDifTil) annotation (Line(
       points={{1,4},{14,4},{14,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(HDifTilIso.HGroDifTil, HGroDifTil) annotation (Line(
       points={{1,-4},{14,-4},{14,-60},{110,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     defaultComponentName="HDifTilIso",
     Documentation(info="<html>

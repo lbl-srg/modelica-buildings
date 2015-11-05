@@ -100,7 +100,7 @@ equation
   annotation (    experiment(
       StopTime=604800,
       Tolerance=1e-05),
-    Commands(file=
+      __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterRenewables.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

@@ -28,13 +28,11 @@ protected
 equation
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(tab.y[1], y) annotation (Line(
       points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   annotation (
 defaultComponentName="tab",

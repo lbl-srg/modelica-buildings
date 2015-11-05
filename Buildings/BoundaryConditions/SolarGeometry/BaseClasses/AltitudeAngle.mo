@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block AltitudeAngle "Solar altitude angle"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
 annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

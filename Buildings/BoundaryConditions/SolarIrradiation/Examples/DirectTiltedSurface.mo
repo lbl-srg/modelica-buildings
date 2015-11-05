@@ -29,27 +29,22 @@ model DirectTiltedSurface
 equation
   connect(assEqu.u1, HDirFlo.H) annotation (Line(
       points={{58,-50},{41,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, assEqu.u2) annotation (Line(
       points={{-19,-62},{58,-62}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, HDirRoo.weaBus) annotation (Line(
       points={{-40,30},{20,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(HDirWal.weaBus, weaDat.weaBus) annotation (Line(
       points={{20,-10},{-10,-10},{-10,30},{-40,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(HDirFlo.weaBus, weaDat.weaBus) annotation (Line(
       points={{20,-50},{-10,-50},{-10,30},{-40,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   annotation (
 experiment(StartTime=1.82304e+07, StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos"

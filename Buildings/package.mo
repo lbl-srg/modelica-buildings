@@ -131,7 +131,8 @@ its class name ends with the string <code>Beta</code>.
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <p>
-   Version 3.0.0 is ... xxx
+   Version 3.0.0 is a major new release. The option to model electrochromic windows has
+   been added.
    </p>
    <!-- New libraries -->
    <p>
@@ -150,12 +151,14 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.smoothInterpolation
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Function that interpolates for vectors <code>xSup[]</code>, <code>ySup[]</code>
+                          and independent variable <code>x</code>.
+                          The interpolation is done using a cubic Hermite spline with linear extrapolation.
        </td> 
        </tr>
    </table>
@@ -194,6 +197,27 @@ its class name ends with the string <code>Beta</code>.
                           which can cause a simpler energy balance to be used.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPortTransport
+
+       </td>
+       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code> 
+                          and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">Annex 60 issue 305</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
+                        Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow
+
+       </td>
+       <td valign=\"top\">Refactored for a more efficient implementation.
+                        Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+                        and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">Annex 60 issue 301</a>
+                        and for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">Annex 60 issue 279</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
@@ -204,10 +228,25 @@ its class name ends with the string <code>Beta</code>.
                           <code>u[nWri](start=_uStart, each fixed=true)</code>
                           to avoid a warning in Dymola 2016 about unspecified initial conditions.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/422\">issue 422</a>.<br/>
+                          Set <code>start</code> and <code>fixed</code>
+                          attributes in
+                          <code>firstTrigger(start=false, fixed=true)</code>,
+                          <code>retVal(start=0, fixed=true)</code> and <code>modTimRea(fixed=false)</code>
+                          to avoid such a warning in the pedantic Modelica check in Dymola 2016.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.                          
        </td>
    </tr>
-   </table>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
+       </td>
+       <td valign=\"top\">Refactored <code>Buildings.Utilities.Math.Functions.inverseXRegularized</code>
+                        to make it more efficient as it is used in many steady-state energy balances.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">Annex 60 issue 302</a>.
+       </td>
+   </tr>
+  </table>
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
@@ -215,12 +254,43 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">
+                        Revised implementation of conservation equations and
+                        added default values for outlet quantities at <code>port_a</code>
+                        if <code>allowFlowReversal=false</code>.
+                        This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">Annex 60 issue 281</a>.
+                        Also, revised implementation so that equations are always consistent
+                        and do not lead to division by zero,
+                        also when connecting a <code>prescribedHeatFlowRate</code>
+                        to <code>MixingVolume</code> instances.
+                        Renamed <code>use_safeDivision</code> to <code>prescribedHeatFlowRate</code>.
+                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">Annex 60 issue 282</a>
+                        for a discussion.
+                        For users who simply instantiate existing component models, this change is backward
+                        compatible.
+                        However, developers who implement component models that extend from
+                        <code>Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</code> may need to update
+                        the parameter <code>use_safeDivision</code> and use instead <code>prescribedHeatFlowRate</code>.
+                        See the model documentation.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   <tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
+                          Buildings.Rooms.CFD
+       </td>
+       <td valign=\"top\">These models can now be used with electrochromic windows.
+                          This required to change the glass properties
+                          <code>tauSol</code>, <code>rhoSol_a</code> and <code>rhoSol_b</code>
+                          to be arrays. For example, to convert an existing model, use
+                          <code>tauSol={0.6}</code> instead of <code>tauSol=0.6</code>.
+                          For Dymola, the conversion script will automatically
+                          update existing models.
        </td>
    </tr>
    </table>
@@ -256,6 +326,51 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>    
        
+   <tr><td colspan=\"2\"><b>Buildings.Media</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Media.Specialized.Water.TemperatureDependentDensity
+       </td>
+       <td valign=\"top\">Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.BaseClasses.der_2_regNonZeroPower<br/>
+                          Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial<br/>
+                          Buildings.Utilities.Math.Functions.BaseClasses.der_regNonZeroPower
+
+       </td>
+       <td valign=\"top\">Corrected wrong derivative implementation and improved their regression tests.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Density_pTX
+       </td>
+       <td valign=\"top\">Corrected wrong default component name.
+       </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.saturationPressure
+       </td>
+       <td valign=\"top\">Changed <code>smoothOrder</code> from <i>5</i> to <i>1</i> as
+                         <a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
+                         Buildings.Utilities.Math.Functions.spliceFunction</a> is only once
+                         continuously differentiable.
+                         Inlined the function.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
@@ -264,6 +379,8 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">xxx.
        </td>
    </tr>
+
+
    </table>
    <p>
    Note:
@@ -5179,21 +5296,8 @@ dateModified = "2015-07-13",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
- noneFromVersion="2.0.0",
- from(version="1.6",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.6_to_2.0.mos"),
- from(version="1.5",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.5_to_1.6.mos"),
- from(version="1.4",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.4_to_1.5.mos"),
- noneFromVersion="1.3",
- noneFromVersion="1.2",
- from(version="1.1",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.1_to_1.2.mos"),
- from(version="1.0",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.0_to_1.1.mos"),
- from(version="0.12",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos")),
+ from(version={"2.0.0", "2.1.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),
 revisionId="$Id$",
 preferredView="info",
 Documentation(info="<html>

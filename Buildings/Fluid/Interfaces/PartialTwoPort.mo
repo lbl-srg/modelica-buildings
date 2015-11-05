@@ -70,21 +70,18 @@ First implementation.
         Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
           lineColor={0,128,255},
-          smooth=Smooth.None,
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=showDesignFlowDirection),
         Polygon(
           points={{20,-75},{50,-85},{20,-95},{20,-75}},
           lineColor={255,255,255},
-          smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowFlowReversal),
         Line(
           points={{55,-85},{-60,-85}},
           color={0,128,255},
-          smooth=Smooth.None,
           visible=showDesignFlowDirection),
         Text(
           extent={{-149,-114},{151,-154}},

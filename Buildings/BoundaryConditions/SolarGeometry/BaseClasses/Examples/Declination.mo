@@ -9,8 +9,7 @@ model Declination "Test model for declination"
 equation
   connect(modTim.y, decAng.nDay) annotation (Line(
       points={{1,10},{18,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

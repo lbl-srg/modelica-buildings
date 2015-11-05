@@ -375,13 +375,13 @@ end density_derp_T;
 redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
-  ddTp := smooth(1, if state.T < 278.15 then
+  ddTp := if state.T < 278.15 then
             -0.042860825
           elseif state.T < 373.15 then
             (0.0000450270000000000*state.T^2 - 0.0362697701000000*state.T +
             6.56195279540750)
           else
-           -0.7025109);
+           -0.7025109;
   annotation (
   smoothOrder=1,
   Inline=true,
@@ -394,6 +394,12 @@ at constant pressure.
 </html>", revisions=
 "<html>
 <ul>
+<li>
+August 17, 2015, by Michael Wetter:<br/>
+Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+</li>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
 First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
@@ -875,13 +881,11 @@ First implementation.
           points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Polygon(
           points={{10,34},{26,44},{30,36},{14,26},{10,34}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Ellipse(
           extent={{-82,52},{24,-54}},

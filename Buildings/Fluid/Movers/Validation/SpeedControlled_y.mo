@@ -20,12 +20,10 @@ model SpeedControlled_y
 equation
   connect(gain.y, floMacDyn.y) annotation (Line(
       points={{-25,100},{8,100},{8,30},{30,30},{30,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacSta.y) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

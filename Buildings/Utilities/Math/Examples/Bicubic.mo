@@ -14,12 +14,10 @@ equation
 
   connect(x1.y, bicubic.u1) annotation (Line(
       points={{-59,70},{-52,70},{-52,56},{-42,56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(x2.y, bicubic.u2) annotation (Line(
       points={{-59,30},{-50,30},{-50,44},{-42,44}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Bicubic.mos"
         "Simulate and plot"),

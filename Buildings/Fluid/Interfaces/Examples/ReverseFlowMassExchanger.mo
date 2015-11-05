@@ -163,148 +163,112 @@ package Medium = Buildings.Media.Air;
 equation
   connect(res1.port_b, sink1.ports[1]) annotation (Line(
       points={{10,100},{30,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
       points={{8,46},{16,46},{16,96},{30,96}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem1.T, assTem.u1) annotation (Line(
       points={{-13,150},{0,150},{0,126},{70,126},{70,16},{158,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt1.h_out, assEnt.u1) annotation (Line(
       points={{31,150},{34,150},{34,124},{146,124},{146,-14},{158,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas1.X, assMas.u1) annotation (Line(
       points={{71,150},{140,150},{140,-44},{158,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem2.T, assTem.u2) annotation (Line(
       points={{37,-50},{48,-50},{48,4},{158,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt2.h_out, assEnt.u2) annotation (Line(
       points={{81,-50},{88,-50},{88,-26},{158,-26}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas2.X, assMas.u2) annotation (Line(
       points={{121,-50},{140,-50},{140,-56},{158,-56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masExcFor.port_b1, res1.port_a) annotation (Line(
       points={{-30,100},{-10,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_a1, source1.ports[1]) annotation (Line(
       points={{-50,100},{-140,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a1, res2.port_a) annotation (Line(
       points={{-30,46},{-12,46}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(source2.ports[1], masExcFor.port_a2) annotation (Line(
       points={{28,70},{20,70},{20,88},{-30,88}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a1, senTem2.port) annotation (Line(
       points={{-30,46},{-20,46},{-20,-70},{30,-70},{30,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a1, senEnt2.port) annotation (Line(
       points={{-30,46},{-20,46},{-20,-70},{70,-70},{70,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a1, senMas2.port) annotation (Line(
       points={{-30,46},{-20,46},{-20,-70},{110,-70},{110,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b1, senTem1.port) annotation (Line(
       points={{-30,100},{-20,100},{-20,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b1, senEnt1.port) annotation (Line(
       points={{-30,100},{-20,100},{-20,132},{20,132},{20,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b1, senMas1.port) annotation (Line(
       points={{-30,100},{-20,100},{-20,132},{60,132},{60,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b2, res3.port_a) annotation (Line(
       points={{-50,88},{-88,88}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a2, res4.port_a) annotation (Line(
       points={{-50,34},{-88,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res3.port_b, sink2.ports[1]) annotation (Line(
       points={{-108,88},{-128,88},{-128,28},{-142,28}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res4.port_b, sink2.ports[2]) annotation (Line(
       points={{-108,34},{-126,34},{-126,32},{-142,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem3.T, assTem1.u1) annotation (Line(
       points={{-333,150},{-312,150},{-312,-4},{-202,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem4.T, assTem1.u2) annotation (Line(
       points={{-333,70},{-320,70},{-320,-16},{-202,-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt3.h_out, assEnt1.u1) annotation (Line(
       points={{-289,150},{-272,150},{-272,-34},{-202,-34}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt4.h_out, assEnt1.u2) annotation (Line(
       points={{-289,70},{-280,70},{-280,-46},{-202,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas3.X, assMas1.u1) annotation (Line(
       points={{-249,150},{-230,150},{-230,-64},{-202,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas4.X, assMas1.u2) annotation (Line(
       points={{-249,70},{-240,70},{-240,-76},{-202,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masExcFor.port_b2, senTem3.port) annotation (Line(
       points={{-50,88},{-70,88},{-70,128},{-340,128},{-340,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b2, senEnt3.port) annotation (Line(
       points={{-50,88},{-70,88},{-70,128},{-300,128},{-300,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcFor.port_b2, senMas3.port) annotation (Line(
       points={{-50,88},{-70,88},{-70,128},{-260,128},{-260,140}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a2, senTem4.port) annotation (Line(
       points={{-50,34},{-70,34},{-70,50},{-340,50},{-340,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a2, senEnt4.port) annotation (Line(
       points={{-50,34},{-70,34},{-70,50},{-300,50},{-300,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masExcRev.port_a2, senMas4.port) annotation (Line(
       points={{-50,34},{-70,34},{-70,50},{-260,50},{-260,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(source3.ports[1], masExcRev.port_b1) annotation (Line(
       points={{-140,70},{-120,70},{-120,46},{-50,46}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(source4.ports[1], masExcRev.port_b2) annotation (Line(
       points={{28,30},{0,30},{0,34},{-30,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"

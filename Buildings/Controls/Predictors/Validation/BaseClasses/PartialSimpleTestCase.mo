@@ -23,6 +23,18 @@ partial model PartialSimpleTestCase
   Modelica.Blocks.Logical.Not notEventDay
     "Output true if it is not an event day"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
+  // The Sampler is reimplemented to avoid in Dymola 2016 the translation warning
+  // for the models in the parent package:
+  //   The initial conditions for variables of type Boolean are not fully specified.
+  //   Dymola has selected default initial conditions.
+  //   Assuming fixed default start value for the discrete non-states:
+  //     ...firstTrigger(start = false)
+  //     ...
+protected
+  block Sampler
+    extends Modelica.Blocks.Discrete.Sampler(
+      firstTrigger(start=false, fixed=true));
+  end Sampler;
 equation
   connect(tri.y, notEventDay.u) annotation (Line(
       points={{-19,80},{-2,80}},
@@ -47,6 +59,12 @@ of the load prediction model based on a simple input scenario.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Implemented <code>Sampler</code> to avoid a translation warning
+because <code>Sampler.firstTrigger</code> does not set the <code>fixed</code>
+attribute in MSL 3.2.1.
+</li>
 <li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.

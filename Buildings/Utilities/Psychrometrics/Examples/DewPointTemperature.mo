@@ -18,16 +18,13 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
 equation
   connect(XHum.y, humRat.X_w) annotation (Line(
       points={{-59,10},{-41,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(humRat.p_w, TDewPoi.p_w) annotation (Line(
       points={{-19,10},{-1,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TDewPoi.T, watVapPre.T) annotation (Line(
       points={{21,10},{39,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos"

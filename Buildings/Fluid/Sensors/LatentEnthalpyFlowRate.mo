@@ -88,17 +88,17 @@ annotation (defaultComponentName="senLatEnt",
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,0},{9.02,28.6}}, color={0,0,0}),
+        Line(points={{0,0},{9.02,28.6}}),
         Polygon(
           points={{-0.48,31.6},{18,26},{18,57.2},{-0.48,31.6}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Line(points={{0,70},{0,40}}, color={0,0,0}),
-        Line(points={{-22.9,32.8},{-40.2,57.3}}, color={0,0,0}),
-        Line(points={{-37.6,13.7},{-65.8,23.9}}, color={0,0,0}),
-        Line(points={{22.9,32.8},{40.2,57.3}}, color={0,0,0}),
-        Line(points={{37.6,13.7},{65.8,23.9}}, color={0,0,0})}),
+        Line(points={{0,70},{0,40}}),
+        Line(points={{-22.9,32.8},{-40.2,57.3}}),
+        Line(points={{-37.6,13.7},{-65.8,23.9}}),
+        Line(points={{22.9,32.8},{40.2,57.3}}),
+        Line(points={{37.6,13.7},{65.8,23.9}})}),
   Documentation(info="<html>
 <p>
 This model outputs the <i>latent</i> enthalphy flow rate of the medium in the flow

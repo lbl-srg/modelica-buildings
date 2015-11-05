@@ -90,15 +90,13 @@ annotation (
           lineThickness=0.5),
         Line(
           points={{-14,44},{-14,-60}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{10,44},{10,-60}},
-          color={0,0,0},
           thickness=0.5),
-        Line(points={{-42,-16},{-14,-16}}, color={0,0,0}),
-        Line(points={{-42,24},{-14,24}}, color={0,0,0}),
-        Line(points={{-42,64},{-14,64}}, color={0,0,0}),
+        Line(points={{-42,-16},{-14,-16}}),
+        Line(points={{-42,24},{-14,24}}),
+        Line(points={{-42,64},{-14,64}}),
         Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},

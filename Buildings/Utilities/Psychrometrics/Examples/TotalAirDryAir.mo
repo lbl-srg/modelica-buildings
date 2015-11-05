@@ -19,20 +19,16 @@ model TotalAirDryAir
 equation
   connect(toTotalAir.XiDry, XHum.y) annotation (Line(
       points={{-41,10},{-59,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(toTotalAir.XiTotalAir, toDryAir.XiTotalAir) annotation (Line(
       points={{-19,10},{-1,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(toDryAir.XiDry, assertEquality.u1) annotation (Line(
       points={{21,10},{28,10},{28,-4},{38,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(assertEquality.u2, XHum.y) annotation (Line(
       points={{38,-16},{-50,-16},{-50,10},{-59,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos"

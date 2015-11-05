@@ -23,16 +23,13 @@ protected
 equation
   connect(datRea.y[16], cheWinSpe.winSpeIn) annotation (Line(
       points={{41,10.069},{50,10.069},{50,10},{58,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-39,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{1,10},{18,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 Documentation(info="<html>
 <p>

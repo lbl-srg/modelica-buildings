@@ -87,56 +87,43 @@ model Power "Power calculation comparison among three mover types"
 equation
   connect(bou.ports[1], pump_Nrpm.port_a) annotation (Line(
       points={{-82,22.6667},{-82,60},{-60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_dp.port_a, bou.ports[2]) annotation (Line(
       points={{-60,20},{-82,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_m_flow.port_a, bou.ports[3]) annotation (Line(
       points={{-60,-20},{-82,-20},{-82,17.3333}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_Nrpm.port_b, res[1].port_a) annotation (Line(
       points={{-40,60},{0,60},{0,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_dp.port_b, res[2].port_a) annotation (Line(
       points={{-40,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_m_flow.port_b, res[3].port_a) annotation (Line(
       points={{-40,-20},{0,-20},{0,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sink.ports[1:3], res.port_b) annotation (Line(
       points={{80,17.3333},{60,17.3333},{60,20},{40,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ramp.y, pump_Nrpm.Nrpm) annotation (Line(
       points={{-59,80},{-50,80},{-50,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(m_flowSet.y, pump_m_flow.m_flow_in) annotation (Line(
       points={{2.2,0},{-50.2,0},{-50.2,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u1[1], pump_Nrpm.P) annotation (Line(
       points={{18,-43},{-30,-43},{-30,68},{-39,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u2[1], pump_dp.P) annotation (Line(
       points={{18,-50},{-30,-50},{-30,28},{-39,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
       points={{18,-57},{-30,-57},{-30,-12},{-39,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
       points={{2.2,40},{-50.2,40},{-50.2,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (    experiment(StopTime=200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Power.mos"
         "Simulate and plot"),

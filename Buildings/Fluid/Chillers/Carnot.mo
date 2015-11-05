@@ -307,6 +307,14 @@ where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
+This polynomial has the form
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+</p>
+<p>
+where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
+are declared by the parameter <code>a</code>.
 </p>
 <p>
 On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
@@ -318,6 +326,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 3, 2015 by Michael Wetter:<br/>
+Expanded documentation.
+</li>
 <li>
 May 6, 2015 by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=true</code> for <code>vol2</code>.

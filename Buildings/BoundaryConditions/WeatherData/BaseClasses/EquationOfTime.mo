@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block EquationOfTime "Equation of time"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
     "Zero-based day number in seconds (January 1=0, January 2=86400)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

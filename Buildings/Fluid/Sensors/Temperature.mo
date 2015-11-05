@@ -55,15 +55,13 @@ Implementation is based on <code>Modelica.Fluid</code>.
           lineThickness=0.5),
         Line(
           points={{-12,40},{-12,-64}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{12,40},{12,-64}},
-          color={0,0,0},
           thickness=0.5),
-        Line(points={{-40,-20},{-12,-20}}, color={0,0,0}),
-        Line(points={{-40,20},{-12,20}}, color={0,0,0}),
-        Line(points={{-40,60},{-12,60}}, color={0,0,0}),
+        Line(points={{-40,-20},{-12,-20}}),
+        Line(points={{-40,20},{-12,20}}),
+        Line(points={{-40,60},{-12,60}}),
         Line(points={{12,0},{60,0}}, color={0,0,127})}),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
@@ -85,15 +83,13 @@ Implementation is based on <code>Modelica.Fluid</code>.
           lineThickness=0.5),
         Line(
           points={{-12,50},{-12,-54}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{12,50},{12,-54}},
-          color={0,0,0},
           thickness=0.5),
-        Line(points={{-40,-10},{-12,-10}}, color={0,0,0}),
-        Line(points={{-40,30},{-12,30}}, color={0,0,0}),
-        Line(points={{-40,70},{-12,70}}, color={0,0,0}),
+        Line(points={{-40,-10},{-12,-10}}),
+        Line(points={{-40,30},{-12,30}}),
+        Line(points={{-40,70},{-12,70}}),
         Text(
           extent={{126,-30},{6,-60}},
           lineColor={0,0,0},

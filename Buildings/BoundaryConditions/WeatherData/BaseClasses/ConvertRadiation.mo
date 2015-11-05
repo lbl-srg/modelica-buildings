@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertRadiation
   "Convert the unit of solar radiation received from the TMY3 data file"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput HIn(final unit="W.h/m2")
     "Input radiation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

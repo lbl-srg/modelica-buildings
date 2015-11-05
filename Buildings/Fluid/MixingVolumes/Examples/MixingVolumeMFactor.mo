@@ -42,12 +42,10 @@ model MixingVolumeMFactor
 equation
   connect(boundaryMFactor.ports[1],volMFactor. ports[1]) annotation (Line(
       points={{-40,-40},{-2,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(boundary.ports[1], vol1.ports[1]) annotation (Line(
       points={{-40,-80},{-2,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou.ports[2], volMFactor.ports[2]) annotation (Line(points={{40,
           1.33227e-15},{20,1.33227e-15},{20,-40},{2,-40}}, color={0,127,255}));
   connect(bou.ports[3], vol1.ports[2]) annotation (Line(points={{40,1.33227e-15},

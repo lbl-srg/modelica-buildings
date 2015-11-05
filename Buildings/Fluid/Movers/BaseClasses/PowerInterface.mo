@@ -94,9 +94,7 @@ equation
         Text(extent={{64,100},{114,86}},  textString="P",
           lineColor={0,0,127}),
         Line(
-          points={{0,80},{100,80}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+          points={{0,80},{100,80}})}),
     Documentation(info="<html>
 <p>This is an interface that implements the functions to compute the power draw and the
 heat dissipation of fans and pumps. It is used by the model

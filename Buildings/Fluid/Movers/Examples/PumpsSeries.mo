@@ -3,8 +3,8 @@ model PumpsSeries "Two flow machines in series"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     1 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
 
   Buildings.Fluid.Movers.SpeedControlled_y floMac1(
     redeclare package Medium = Medium,
@@ -51,16 +51,13 @@ equation
       smooth=Smooth.None));
   connect(floMac1.port_b, floMac2.port_a) annotation (Line(
       points={{5.55112e-16,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[1], floMac1.port_a) annotation (Line(
       points={{-72,60},{-20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(floMac2.port_b, sou1.ports[1]) annotation (Line(
       points={{80,60},{136,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),

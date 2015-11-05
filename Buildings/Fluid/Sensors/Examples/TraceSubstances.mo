@@ -72,40 +72,31 @@ equation
         color={0,0,127}));
   connect(sou.ports[1], senSou.port) annotation (Line(
       points={{18,42},{34,42},{34,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(step.y, sou.m_flow_in) annotation (Line(
       points={{-59,40},{-4.1,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[2], vol.ports[1]) annotation (Line(
       points={{18,38},{81,38},{81,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mSou.ports[1], vol.ports[2]) annotation (Line(
       points={{20,-12},{83,-12},{83,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res.port_a, senTraSub.port_a) annotation (Line(
       points={{60,-52},{50,-52}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res.port_b, vol.ports[3]) annotation (Line(
       points={{80,-52},{85,-52},{85,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senVol.port, vol.ports[4]) annotation (Line(
       points={{110,50},{110,40},{87,40},{87,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTraSubNoFlorRev.port_a, senTraSub.port_b) annotation (Line(
       points={{18,-52},{30,-52}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTraSubNoFlorRev.port_b, mSin.ports[1]) annotation (Line(
       points={{-2,-52},{-22,-52}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (
 experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"

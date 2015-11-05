@@ -82,31 +82,25 @@ model MediumColumnDynamic
 equation
   connect(colBot.port_a, vol.ports[1]) annotation (Line(
       points={{0,-40},{0,-40},{0,-2},{-10,-2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], colTop.port_b) annotation (Line(
       points={{-10,2},{0,2},{0,40},{0,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colTop.port_a, port_a) annotation (Line(
       points={{0,60},{0,80},{0,80},{0,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(colBot.port_b, port_b) annotation (Line(
       points={{0,-60},{0,-60},{0,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heatPort, vol.heatPort) annotation (Line(
       points={{-100,0},{-60,0},{-60,-20},{-20,-20},{-20,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
 
   annotation (
     Icon(graphics={
         Line(
-          points={{0,100},{0,-100},{0,-98}},
-          smooth=Smooth.None),
+          points={{0,100},{0,-100},{0,-98}}),
         Text(
           extent={{24,-78},{106,-100}},
           lineColor={0,0,127},
@@ -163,8 +157,7 @@ equation
         Line(
           visible=use_HeatTransfer,
           points={{-90,0},{-40,0}},
-          color={255,0,0},
-          smooth=Smooth.None)}),
+          color={255,0,0})}),
 defaultComponentName="col",
 Documentation(info="<html>
 <p>

@@ -21,7 +21,6 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
     m_flow_nominal=0.01,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=true,
-    prescribedHeatFlowRate=false,
     nPorts=2,
     mSenFac=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -43,24 +42,19 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
 equation
   connect(ramp.y, gain.u) annotation (Line(
       points={{-69,-10},{-62,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, sou.m_flow_in) annotation (Line(
       points={{-39,-10},{-31.5,-10},{-31.5,-2},{-20,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
       points={{0,-10},{38,-10},{38,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], res.port_a) annotation (Line(
       points={{42,20},{42,-10},{50,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res.port_b, bou.ports[1]) annotation (Line(
       points={{70,-10},{82,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (Documentation(
         info="<html>
 <p>

@@ -38,7 +38,7 @@ public
        haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-        iconTransformation(extent={{-240,140},{-200,180}})));
+        iconTransformation(extent={{-232,164},{-200,196}})));
 equation
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(
       points={{-222,100},{-252,100},{-252,80},{-280,80}},
@@ -176,5 +176,10 @@ December 14, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},
+            {200,200}}), graphics={
+        Text(
+          extent={{-198,198},{-122,166}},
+          lineColor={0,0,127},
+          textString="uSha")}));
 end MixedAir;

@@ -12,12 +12,10 @@ equation
 
   connect(conGloRad.HOut, cheGloRad.HIn) annotation (Line(
       points={{41,30},{58,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conDifRad.HOut, cheDifRad.HIn) annotation (Line(
       points={{41,-10},{58,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
   Documentation(info="<html>
 <p>

@@ -55,45 +55,35 @@ extends Modelica.Icons.Example;
 equation
   connect(QSen_flow.y, dyn.Q_flow) annotation (Line(
       points={{-59,70},{-48,70},{-48,46},{-12,46}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow.y, dyn.mWat_flow) annotation (Line(
       points={{-59,30},{-40,30},{-40,42},{-12,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(bou.ports[1], dyn.ports[1]) annotation (Line(
       points={{-60,-56},{-54,-56},{-54,20},{-2,20},{-2,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, sin.ports[1]) annotation (Line(
       points={{40,0},{52,0},{52,-56},{60,-56}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(QSen_flow.y, ste.Q_flow) annotation (Line(
       points={{-59,70},{-48,70},{-48,-52},{-12,-52}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow.y, ste.mWat_flow) annotation (Line(
       points={{-59,30},{-40,30},{-40,-56},{-12,-56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res2.port_b, sin.ports[2]) annotation (Line(
       points={{40,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ste.port_a, bou.ports[2]) annotation (Line(
       points={{-10,-60},{-60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ste.port_b, res2.port_a) annotation (Line(
       points={{10,-60},{20,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dyn.ports[2], res1.port_a) annotation (Line(
       points={{2,30},{0,30},{0,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
   experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ConservationEquation.mos"

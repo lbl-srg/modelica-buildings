@@ -104,23 +104,19 @@ equation
        Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-50,20},{-44,20},{-44,10},{-40,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
       points={{-40,10},{-40,-80},{-60,-80}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(port_a, vol.ports[1]) annotation (Line(
       points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,-5.55112e-16},{-32,
           -5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], preSou.port_a) annotation (Line(
       points={{-28,-5.55112e-16},{-5,-5.55112e-16},{-5,6.10623e-16},{20,
           6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preSou.port_b, port_b) annotation (Line(
       points={{40,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
           5.55112e-16}},
@@ -147,9 +143,7 @@ equation
     graphics={
         Line(
           visible=not filteredSpeed,
-          points={{0,100},{0,40}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,100},{0,40}}),
         Rectangle(
           extent={{-100,16},{100,-14}},
           lineColor={0,0,0},

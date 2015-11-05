@@ -13,16 +13,13 @@ equation
 
   connect(sine.y, splice.x) annotation (Line(
       points={{-39,10},{-2,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const1.y, splice.u2) annotation (Line(
       points={{-39,-30},{-22,-30},{-22,4},{-2,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, splice.u1) annotation (Line(
       points={{-39,50},{-20.5,50},{-20.5,16},{-2,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),

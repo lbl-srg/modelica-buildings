@@ -90,70 +90,54 @@ model ChimneyShaftNoVolume
 equation
   connect(TSet.y, con.u_s) annotation (Line(
       points={{-69,30},{-62,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(temSen.T, con.u_m) annotation (Line(
       points={{-70,6.10623e-16},{-50,6.10623e-16},{-50,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.u, con.y) annotation (Line(
       points={{-30,30},{-39,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, preHea.Q_flow) annotation (Line(
       points={{-7,30},{2.50304e-15,30},{2.50304e-15,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sha.port_a, oriChiTop.port_a) annotation (Line(
       points={{70,-10},{70,1}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sha.port_b, oriChiBot.port_b) annotation (Line(
       points={{70,-30},{70,-39}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(staOut.port_b, oriBot.port_a) annotation (Line(
       points={{110,-1},{110,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preHea.port, roo.heatPort) annotation (Line(
       points={{-1.22629e-15,1.22125e-15},{-1.22629e-15,-20},{0,-20},{0,-50},{20,
           -50}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(roo.heatPort, temSen.port) annotation (Line(
       points={{20,-50},{-40,-50},{-40,-20},{-96,-20},{-96,6.10623e-16},{-90,
           6.10623e-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(bou0.ports[1], oriChiTop.port_b)  annotation (Line(
       points={{92,40},{88,40},{88,34},{70,34},{70,21}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou0.ports[2], staOut.port_a) annotation (Line(
       points={{88,40},{92,40},{92,34},{110,34},{110,19}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriBot.port_b, staIn.port_a)   annotation (Line(
       points={{110,-30},{110,-39}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mRoo_flow.y[1], boundary.m_flow_in) annotation (Line(
       points={{-69,-72},{-40,-72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(boundary.ports[1], roo.ports[1]) annotation (Line(
       points={{-20,-80},{27.3333,-80},{27.3333,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(roo.ports[2], staIn.port_b)   annotation (Line(
       points={{30,-60},{30,-80},{110,-80},{110,-59}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(roo.ports[3], oriChiBot.port_a) annotation (Line(
       points={{32.6667,-60},{32.6667,-72},{70,-72},{70,-59}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {140,100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos"

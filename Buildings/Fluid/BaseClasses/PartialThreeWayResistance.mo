@@ -90,13 +90,11 @@ equation
     if not dynamicBalance then
        connect(res1.port_a, port_internal) annotation (Line(
       points={{-60,0},{-60,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res1.port_a, vol.ports[1]) annotation (Line(
       points={{-60,0},{-2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
             0}},                                                                      color={0,127,255}));
@@ -104,13 +102,11 @@ equation
     if not dynamicBalance then
        connect(res1.port_b, port_internal) annotation (Line(
       points={{-40,0},{-40,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res1.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{-2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,0}}, color={0,127,255}));
   end if;
@@ -119,26 +115,22 @@ equation
     if not dynamicBalance then
        connect(res2.port_a, port_internal) annotation (Line(
       points={{60,0},{60,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res2.port_a, vol.ports[2]) annotation (Line(
       points={{60,0},{2.22045e-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_2, res2.port_b) annotation (Line(points={{100,0},{100,0},{40,0}},    color={0,127,255}));
   else
     if not dynamicBalance then
        connect(res2.port_b, port_internal) annotation (Line(
       points={{40,0},{40,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res2.port_b, vol.ports[2]) annotation (Line(
       points={{40,0},{2.22045e-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_2, res2.port_a) annotation (Line(points={{100,0},{100,0},{60,0}},    color={0,127,255}));
   end if;
@@ -147,26 +139,22 @@ equation
     if not dynamicBalance then
        connect(res3.port_a, port_internal) annotation (Line(
       points={{-4.44089e-16,-60},{20,-60},{20,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res3.port_a, vol.ports[3]) annotation (Line(
       points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
     if not dynamicBalance then
        connect(res3.port_b, port_internal) annotation (Line(
       points={{4.44089e-16,-40},{20,-40},{20,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res3.port_b, vol.ports[3]) annotation (Line(
       points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
@@ -203,7 +191,5 @@ June 11, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics));
+</html>"));
 end PartialThreeWayResistance;

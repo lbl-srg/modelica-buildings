@@ -2,7 +2,8 @@ within Buildings.Examples.HydronicHeating;
 model TwoRoomsWithStorage
   "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
- replaceable package MediumA = Buildings.Media.Air "Medium model for air";
+ replaceable package MediumA = Buildings.Media.Air(T_default=293.15)
+    "Medium model for air";
  replaceable package MediumW = Buildings.Media.Water "Medium model";
  parameter Integer nRoo = 2 "Number of rooms";
  parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
@@ -1234,6 +1235,14 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set default temperature for medium to avoid conflicting
+start values for alias variables of the temperature
+of the building and the ambient air.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 January 12, 2015 by Michael Wetter:<br/>
 Made media instances replaceable.

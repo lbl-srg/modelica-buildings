@@ -13,16 +13,13 @@ model Heater_u "Example model for the heater with prescribed heat input"
 equation
   connect(fan.port_b, hea.port_a) annotation (Line(
       points={{-50,-40},{-20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea.port_b, THeaOut.port_a) annotation (Line(
       points={{0,-40},{20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(conPI.y, hea.u) annotation (Line(
       points={{-39,30},{-30,30},{-30,-34},{-22,-34}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an

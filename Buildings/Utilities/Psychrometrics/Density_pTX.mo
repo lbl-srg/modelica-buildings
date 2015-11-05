@@ -32,7 +32,7 @@ equation
     X_w=X_w);
 
   annotation (
-  defaultComponentName="phi",
+  defaultComponentName="den",
     Documentation(info="<html>
 <p>
 Block to compute the mass density of air for given
@@ -45,6 +45,10 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 19, 2015, by Michael Wetter:<br/>
+Corrected default component name.
+</li>
 <li>
 February 24, 2015, by Michael Wetter:<br/>
 First implementation.
@@ -64,11 +68,10 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
-        Line(points={{-74,86},{-74,-72}}, color={0,0,0}),
+        Line(points={{-74,86},{-74,-72}}),
         Line(points={{-74,-46},{-60,-42},{-30,-30},{2,-2},{14,22},{22,54},{26,74}},
-                    color={0,0,0},
-          smooth=Smooth.Bezier),
-        Line(points={{74,-72},{-74,-72}}, color={0,0,0}),
+                    smooth=Smooth.Bezier),
+        Line(points={{74,-72},{-74,-72}}),
         Polygon(
           points={{78,-72},{68,-70},{68,-74},{78,-72}},
           lineColor={0,0,0},
@@ -88,6 +91,5 @@ First implementation.
           textString="density"),
         Line(
           points={{36,-72},{6,6}},
-          color={255,0,0},
-          smooth=Smooth.None)}));
+          color={255,0,0})}));
 end Density_pTX;

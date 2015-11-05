@@ -11,10 +11,12 @@ model Load "Partial model for a generic load"
     max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
-  parameter Modelica.SIunits.Power P_nominal
+
+  parameter Modelica.SIunits.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated)"
-    annotation(Evaluate=true,Dialog(group="Nominal conditions",
+    annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
     "Nominal voltage (V_nominal >= 0)"
     annotation (
@@ -70,6 +72,16 @@ protected
     "Small number used to avoid a singularity if the power is zero";
   constant Real oneEps = 1-eps
     "Small number used to avoid a singularity if the power is zero";
+
+initial equation
+  if mode == Buildings.Electrical.Types.Load.VariableZ_P_input then
+    assert(abs(P_nominal) < 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + ", but this value will be ignored.",
+           AssertionLevel.warning);
+  else
+    assert(abs(P_nominal) > 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + " is close to zero. You may require to set this parameter.",
+           AssertionLevel.warning);
+  end if;
+
 equation
   assert(y_internal>=0 and y_internal<=1+eps, "The power load fraction P (input of the model) must be within [0,1]");
 
@@ -81,7 +93,7 @@ equation
   if mode==Buildings.Electrical.Types.Load.FixedZ_steady_state or
      mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     y_internal   = 1;
-    P_internal = P_nominal;
+    P_internal = 0;
   elseif mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
     P_internal = 0;
   elseif mode==Buildings.Electrical.Types.Load.VariableZ_P_input then
@@ -107,7 +119,16 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
-<li>September 4, 2014, by Michael Wetter:<br/>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Provided value for <code>P_nominal</code> if
+<code>mode &lt;&gt; Buildings.Electrical.Types.Load.VariableZ_P_input</code>.
+This avoids a warning during translation of
+<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterRenewables\">
+Buildings.Examples.ChillerPlant.DataCenterRenewables</a>.
+</li>
+<li>
+September 4, 2014, by Michael Wetter:<br/>
 Changed the parameter from <code>linear</code> to <code>linearized</code>
 because <code>Buildings.Fluid</code> also uses <code>linearized</code>.
 This change has been done to use a consistent naming across the library.

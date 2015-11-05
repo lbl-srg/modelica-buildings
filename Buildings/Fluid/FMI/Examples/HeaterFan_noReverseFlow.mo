@@ -99,8 +99,7 @@ equation
       points={{-39,-20},{-30,-20},{-30,-5},{-22,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation(Evaluate=true,
-              Documentation(info="<html>
+    annotation(Documentation(info="<html>
 <p>
 This example demonstrates how to configure a model with a heater
 and a fan that causes a pressure rise in the air stream.

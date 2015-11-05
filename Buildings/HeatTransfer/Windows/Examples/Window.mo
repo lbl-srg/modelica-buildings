@@ -46,10 +46,11 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={312,68})));
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  replaceable parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear         glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
-    haveInteriorShade=true)
+    haveInteriorShade=true) constrainedby Data.GlazingSystems.Generic
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,

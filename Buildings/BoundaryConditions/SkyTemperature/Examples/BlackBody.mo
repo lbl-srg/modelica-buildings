@@ -15,32 +15,27 @@ equation
   connect(weaBus, weaDat.weaBus) annotation (Line(
       points={{10,10},{-20,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
       points={{10,10},{24,10},{24,13},{38,13}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(weaBus.nOpa, TBlaSky.nOpa) annotation (Line(
       points={{10,10},{24,10},{24,7},{38,7}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
 
   connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
       points={{10,10},{24,10},{24,18},{38,18}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
       points={{10,10},{24,10},{24,2},{38,2}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
