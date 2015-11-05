@@ -159,7 +159,7 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Function that interpolates for vectors <code>xSup[]</code>, <code>ySup[]</code>
                           and independent variable <code>x</code>.
                           The interpolation is done using a cubic Hermite spline with linear extrapolation.
-       </td> 
+       </td>
        </tr>
    </table>
    <!-- Backward compatible changes -->
@@ -180,6 +180,20 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+    </td>
+    <td valign=\"top\">Added the parameter <code>inputType</code> which allows
+                       to set the input as an continuous input signal,
+                       to set the input as an integer input signal that selects the stage of the mover,
+                       or to remove the input connector and use a parameter
+                       to assign the control signal.
+    </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
        </td>
        <td valign=\"top\">Added option to set dynamics of heat exchanger material
@@ -200,7 +214,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPortTransport
 
        </td>
-       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code> 
+       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code>
                           and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
                           This is for
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">Annex 60 issue 305</a>.
@@ -235,7 +249,7 @@ its class name ends with the string <code>Beta</code>.
                           <code>retVal(start=0, fixed=true)</code> and <code>modTimRea(fixed=false)</code>
                           to avoid such a warning in the pedantic Modelica check in Dymola 2016.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.                          
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
@@ -256,6 +270,19 @@ its class name ends with the string <code>Beta</code>.
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+     </td>
+     <td valign=\"top\">Removed the parameters <code>use_powerCharacteristics</code>
+                        and <code>motorCooledByFluid</code> as these are already
+                        declared in the performance data record <code>per</code>.
+                        This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#457</a>.
+                        For Dymola, the conversion script removes these parameters.
+     </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
@@ -318,14 +345,14 @@ its class name ends with the string <code>Beta</code>.
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
       <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
-   </tr> 
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
        </td>
        <td valign=\"top\">Corrected wrong assert statement. This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
-   </tr>    
-       
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
@@ -386,7 +413,7 @@ its class name ends with the string <code>Beta</code>.
    Note:
    </p>
    <ul>
-   <li> 
+   <li>
    xxx
    </li>
    </ul>
