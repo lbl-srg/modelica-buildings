@@ -10,7 +10,6 @@ partial model FlowMachineInterface
             motorCooledByFluid=_per_y.motorCooledByFluid,
             use_powerCharacteristic=_per_y.use_powerCharacteristic));
 
-  import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
