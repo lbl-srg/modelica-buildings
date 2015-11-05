@@ -136,6 +136,31 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+November 5, 2015, by Michael Wetter:<br/>
+Removed the parameters <code>use_powerCharacteristics</code> and <code>power</code>
+from the performance data record <code>per</code>
+because
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+fix the flow rate or head, which can give a flow work that is higher
+than the power consumption specified in this record.
+Hence, users should use the efficiency data for this model.
+The record has been moved to
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
+Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
+as it makes sense to use it for the movers
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_Nrpm\">
+Buildings.Fluid.Movers.FlowControlled_Nrpm</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_y\">
+Buildings.Fluid.Movers.FlowControlled_y</a>.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+issue 457</a>.
+<li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
 </li>

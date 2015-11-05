@@ -288,7 +288,8 @@ its class name ends with the string <code>Beta</code>.
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.Data.FlowControlled
      </td>
-     <td valign=\"top\">Removed the performance record <code>power</code> in the
+     <td valign=\"top\">Removed the performance record <code>power</code> and the
+                        parameter <code>use_powerCharacteristic</code> in the
                         data record <code>Buildings.Fluid.Movers.Data.FlowControlled</code> because
                         <code>Buildings.Fluid.Movers.FlowControlled_dp</code>
                         and
@@ -296,7 +297,7 @@ its class name ends with the string <code>Beta</code>.
                         fix the flow rate or head, which can give a flow work that is higher
                         than the power consumption specified in this record.
                         Hence, users should use the efficiency data for this model.
-                        The record has been moved to
+                        The record and parameter was moved to
                         <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
                         as it makes sense to use it for the movers
                         <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>

@@ -17,8 +17,6 @@ record FlowControlled
 
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
-  parameter Boolean use_powerCharacteristic=false
-    "Use power data instead of motor efficiency";
 
   annotation(defaultComponentPrefixes = "parameter",
              defaultComponentName = "per",
@@ -66,7 +64,9 @@ revisions="<html>
 <ul>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
-Removed the performance record <code>power</code> because
+Removed the performance record <code>power</code> and
+<code>use_powerCharacteristic</code>
+because
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a>
 and
