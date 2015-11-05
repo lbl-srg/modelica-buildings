@@ -79,6 +79,22 @@ model PIDHysteresisTimer
     final yMax=yMax,
     reverseAction=reverseAction) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+  OffTimer offHys
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Modelica.Blocks.Logical.Timer onTimer
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Modelica.Blocks.Logical.Timer offTimer
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+         Modelica.Blocks.Interfaces.BooleanOutput on
+    "Outputs true if boiler is on"        annotation (Placement(
+        transformation(extent={{100,-90},{120,-70}})));
+  Modelica.Blocks.Math.Feedback feeBac
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+  Modelica.Blocks.Logical.Hysteresis hys(
+    pre_y_start=pre_y_start,
+    uLow=eOff,
+    uHigh=eOn) "Hysteresis element to switch controller on and off"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 protected
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
@@ -89,31 +105,10 @@ protected
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Logical.And and3
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-public
-  OffTimer offHys
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Logical.Timer onTimer
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-protected
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-public
-  Modelica.Blocks.Logical.Timer offTimer
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
-         Modelica.Blocks.Interfaces.BooleanOutput on
-    "Outputs true if boiler is on"        annotation (Placement(
-        transformation(extent={{100,-90},{120,-70}})));
-protected
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-public
-  Modelica.Blocks.Math.Feedback feeBac
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Modelica.Blocks.Logical.Hysteresis hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) "Hysteresis element to switch controller on and off"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(u_m, con.u_m) annotation (Line(
       points={{-1.11022e-15,-120},{-1.11022e-15,-105.5},{-6.66131e-16,-105.5},{

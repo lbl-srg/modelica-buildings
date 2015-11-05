@@ -1,19 +1,17 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Angle",
     final unit="rad",
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  WeatherData.Bus weaBus
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
    Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat=lat)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-public
-  WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   connect(zen.zen, y) annotation (Line(
       points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,

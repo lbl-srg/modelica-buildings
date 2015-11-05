@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckTemperature "Test model for CheckTemperature"
   extends Modelica.Icons.Example;
-public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -11,6 +10,15 @@ public
   Buildings.Utilities.Time.ModelTime modTim
     "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+    "Block that converts time"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+    "Block that converts temperature"
+    annotation (Placement(transformation(extent={{20,20},{42,40}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC1
+    "Block that converts temperature"
+    annotation (Placement(transformation(extent={{20,-20},{42,0}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
@@ -21,17 +29,6 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
-public
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
-    "Block that converts time"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degC
-    "Block that converts temperature"
-    annotation (Placement(transformation(extent={{20,20},{42,40}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degC1
-    "Block that converts temperature"
-    annotation (Placement(transformation(extent={{20,-20},{42,0}})));
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},

@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckCeilingHeight
   "Ensures that the ceiling height is above a lower bound"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit=
            "m") "Input ceiling height"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
