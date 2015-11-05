@@ -4,11 +4,11 @@ partial model FlowMachineInterface
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     delta_V_flow = 1E-3*V_flow_max,
-    _perPow(hydraulicEfficiency=_per_y.hydraulicEfficiency,
-            motorEfficiency=_per_y.motorEfficiency,
-            power=_per_y.power,
-            motorCooledByFluid=_per_y.motorCooledByFluid,
-            use_powerCharacteristic=_per_y.use_powerCharacteristic));
+    _perPow(final hydraulicEfficiency=_per_y.hydraulicEfficiency,
+            final motorEfficiency=_per_y.motorEfficiency,
+            final power=_per_y.power,
+            final motorCooledByFluid=_per_y.motorCooledByFluid,
+            final use_powerCharacteristic=_per_y.use_powerCharacteristic));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
@@ -603,7 +603,7 @@ operating points.
 <li>
 If <code>_per_y.use_powerCharacteristic = false</code>, then the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency,
-and then the power consumption. The default is a constant efficiency of 0.7.
+and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
 </li>
 <li>
 If <code>_per_y.use_powerCharacteristic = true</code>, then the data points for

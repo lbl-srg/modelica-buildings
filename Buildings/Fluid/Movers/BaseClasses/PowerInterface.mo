@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.BaseClasses;
 partial model PowerInterface
   "Partial model to compute power draw and heat dissipation of fans and pumps"
 
-  import Modelica.Constants;
+  import Modelica.Constants; // fixme: remove this
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));

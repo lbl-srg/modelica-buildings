@@ -2,14 +2,14 @@ within Buildings.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
-    _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
-            motorEfficiency=per.motorEfficiency,
-            power=per.power,
-            pressure(
-              V_flow = per.pressure.V_flow,
-              dp =     per.pressure.dp),
-            motorCooledByFluid=per.motorCooledByFluid,
-            use_powerCharacteristic=per.use_powerCharacteristic),
+    _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
+           final motorEfficiency=per.motorEfficiency,
+           final power=per.power,
+           pressure(
+             final V_flow = per.pressure.V_flow,
+             final dp =     per.pressure.dp),
+           final motorCooledByFluid=per.motorCooledByFluid,
+           final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1/min") = speeds,
     final constInput(final unit="1/min") = speed);
 
