@@ -27,3 +27,6 @@ convertElement({"Buildings.Fluid.Movers.FlowControlled_dp",
                 "Buildings.Fluid.Movers.FlowControlled_Nrpm",
                 "Buildings.Fluid.Movers.FlowControlled_y"},
                 "motorCooledByFluid", fill("",0));
+
+convertElement({"Buildings.Fluid.Movers.Data.FlowControlled"},
+                "power", fill("",0));

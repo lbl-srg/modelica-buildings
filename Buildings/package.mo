@@ -284,6 +284,25 @@ its class name ends with the string <code>Beta</code>.
                         For Dymola, the conversion script removes these parameters.
      </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.Data.FlowControlled
+     </td>
+     <td valign=\"top\">Removed the performance record <code>power</code> in the
+                        data record <code>Buildings.Fluid.Movers.Data.FlowControlled</code> because
+                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>
+                        and
+                        <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
+                        fix the flow rate or head, which can give a flow work that is higher
+                        than the power consumption specified in this record.
+                        Hence, users should use the efficiency data for this model.
+                        The record has been moved to
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
+                        as it makes sense to use it for the movers
+                        <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
+                        and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
+     </td>
+   </tr>   
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
        <td valign=\"top\">

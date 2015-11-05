@@ -38,7 +38,7 @@ flowParameters</a></td>
 pressure</a></td>
 </tr>
 <tr>
-<td>Relative volumetric flow rate</td>
+<td>Volume flow rate</td>
 <td>Efficiency</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
 efficiencyParameters</a></td>
@@ -47,13 +47,21 @@ efficiency</a></td>
 </tr>
 <tr>
 <td>Volume flow rate</td>
-<td>Power</td>
+<td>Power*</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
 powerParameters</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 power</a></td>
 </tr>
 </table>
+<p>*Note: This record is not available for the movers that take as a control signal
+the mass flow rate or the head.
+The reason is that these movers prescribe the mass flow rate and head based
+on the control signal and the system pressure drop curve.
+If the electrical power versus flow rate were specified, then
+the electrical power could be lower than the flow work,
+which would be physically impossible.
+</p>
 <p>
 These performance curves are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">

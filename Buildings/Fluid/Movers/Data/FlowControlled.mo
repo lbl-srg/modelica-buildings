@@ -15,12 +15,6 @@ record FlowControlled
       eta={0.7})
     "Electric motor efficiency (used if use_powerCharacteristic=false)";
 
-  // Power requires default values to avoid in Dymola the message
-  // Failed to expand the variable Power.V_flow
-  parameter BaseClasses.Characteristics.powerParameters power(V_flow={0}, P={0})
-    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
-    annotation (Dialog(enable=use_powerCharacteristic));
-
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
   parameter Boolean use_powerCharacteristic=false
@@ -70,6 +64,30 @@ Buildings.Fluid.Movers.Data.Generic_Nrpm</a>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 5, 2015, by Michael Wetter:<br/>
+Removed the performance record <code>power</code> because
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+fix the flow rate or head, which can give a flow work that is higher
+than the power consumption specified in this record.
+Hence, users should use the efficiency data for this model.
+The record has been moved to
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
+Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
+as it makes sense to use it for the movers
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_Nrpm\">
+Buildings.Fluid.Movers.FlowControlled_Nrpm</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_y\">
+Buildings.Fluid.Movers.FlowControlled_y</a>.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
+issue 457</a>.
+</li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Improved documentation for
