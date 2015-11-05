@@ -4,11 +4,7 @@ partial model FlowMachineInterface
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     delta_V_flow = 1E-3*V_flow_max,
-    _perPow(final hydraulicEfficiency=_per_y.hydraulicEfficiency,
-            final motorEfficiency=_per_y.motorEfficiency,
-            final power=_per_y.power,
-            final motorCooledByFluid=_per_y.motorCooledByFluid,
-            final use_powerCharacteristic=_per_y.use_powerCharacteristic));
+    final motorCooledByFluid = _per_y.motorCooledByFluid);
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
@@ -41,7 +37,13 @@ partial model FlowMachineInterface
   Real r_N(min=0, start=y_start, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
+ // Derivatives for cubic spline
 protected
+  final parameter Real motDer[size(_per_y.motorEfficiency.V_flow, 1)](each fixed=false)
+    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
+  final parameter Real hydDer[size(_per_y.hydraulicEfficiency.V_flow,1)](each fixed=false)
+    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+
   Modelica.Blocks.Interfaces.RealOutput y_filtered(min=0, start=y_start) if
        filteredSpeed "Filtered speed in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -429,6 +431,19 @@ the simulation stops.");
       kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 
   end if;
+
+ // Compute derivatives for cubic spline
+ motDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.motorEfficiency.V_flow,
+    1)) elseif (size(_per_y.motorEfficiency.V_flow, 1) == 1) then {0} else
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=_per_y.motorEfficiency.V_flow,
+    y=_per_y.motorEfficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.motorEfficiency.eta,
+      strict=false));
+  hydDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.hydraulicEfficiency.V_flow,
+    1)) elseif (size(_per_y.hydraulicEfficiency.V_flow, 1) == 1) then {0}
+     else Buildings.Utilities.Math.Functions.splineDerivatives(x=_per_y.hydraulicEfficiency.V_flow,
+    y=_per_y.hydraulicEfficiency.eta);
 
 equation
 

@@ -11,10 +11,8 @@ model Power "Power calculation comparison among three mover types"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   parameter Data.FlowControlled perMod(
-    use_powerCharacteristic = true,
     hydraulicEfficiency=efficiency,
-    motorEfficiency=efficiency,
-    power=per.power)
+    motorEfficiency=efficiency)
     "Pump performance data with data from the instance efficiency"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
@@ -142,33 +140,23 @@ and
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>,
 we had to assign the efficiencies (otherwise the default constant
 efficiency of <i>0.7</i> would have been used).
-We also had to set <code>use_powerCharacteristic=true</code>.
-Otherwise, the power consumption would have been computed
+In these models, the power consumption is computed
 using similarity laws, but using the mass flow rate as opposed
 to the speed, because speed is not known in these two models.
-This would yield an error at operating points in which
+This is an approximation at operating points in which
 the speed is different from the nominal speed <code>N_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
-To see the error, change the assignment
 </p>
-<pre>
-  parameter Data.FlowControlled perMod(
-    use_powerCharacteristic = true,
-    hydraulicEfficiency=efficiency,
-    motorEfficiency=efficiency,
-    power=per.power)
-    \"Pump performance data with data from the instance efficiency\";
-</pre>
-<p>
-to
-</p>
-<pre>
-  parameter Data.FlowControlled perMod
-    \"Pump performance data with data from the instance efficiency\";
-</pre>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2015, by Michael Wetter:<br/>
+Changed parameters since the power is no longer a parameter for the movers
+that take mass flow rate or head as an input.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 Revised implementation.

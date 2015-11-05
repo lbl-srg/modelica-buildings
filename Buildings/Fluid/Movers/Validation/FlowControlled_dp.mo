@@ -7,9 +7,7 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      per(use_powerCharacteristic=true,
-          power(V_flow={0,0.5, 1.0}*1.2, P={0,250, 1000}))),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
@@ -36,13 +34,15 @@ This example demonstrates and tests the use of a flow machine whose mass flow ra
 <p>
 The fans have been configured as steady-state models.
 This ensures that the actual speed is equal to the input signal.
-The fan <code>floMacSta</code> computes the power consumption based
-on its performance data, whereas
-<code>floMacDyn</code> computes it based on the flow work
-and the hydraulic and motor efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2015, by Michael Wetter:<br/>
+Changed parameters of fan since the power is no longer a parameter.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Changed example so that the fans use different powers, one being computed

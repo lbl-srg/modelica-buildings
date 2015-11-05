@@ -6,13 +6,9 @@ model FlowControlled
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-   _perPow(final hydraulicEfficiency=per.hydraulicEfficiency,
-           final motorEfficiency=per.motorEfficiency,
-           final power=per.power,
-           final motorCooledByFluid=per.motorCooledByFluid,
-           final use_powerCharacteristic = per.use_powerCharacteristic),
-            delta_V_flow = 1E-3*V_flow_max,
-     final rho_default = Medium.density(sta_default));
+    final motorCooledByFluid=per.motorCooledByFluid,
+    delta_V_flow = 1E-3*V_flow_max,
+    final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
@@ -38,10 +34,36 @@ protected
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
+ // Derivatives for cubic spline
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
+    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
+    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
     "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
+initial equation
+   // Compute derivatives for cubic spline
+ motDer = if (size(per.motorEfficiency.V_flow, 1) == 1)
+          then
+            {0}
+          else
+            Buildings.Utilities.Math.Functions.splineDerivatives(
+              x=per.motorEfficiency.V_flow,
+              y=per.motorEfficiency.eta,
+              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+                x=per.motorEfficiency.eta,
+                strict=false));
+
+  hydDer = if (size(per.hydraulicEfficiency.V_flow, 1) == 1)
+           then
+             {0}
+           else
+             Buildings.Utilities.Math.Functions.splineDerivatives(
+               x=per.hydraulicEfficiency.V_flow,
+               y=per.hydraulicEfficiency.eta);
 equation
   r_V = VMachine_flow/V_flow_max;
   etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);

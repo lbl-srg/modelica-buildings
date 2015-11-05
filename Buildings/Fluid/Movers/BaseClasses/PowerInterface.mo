@@ -26,41 +26,14 @@ partial model PowerInterface
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
 
 protected
-  parameter Data.FlowControlled _perPow
-    "Record with performance data for power";
+  parameter Boolean motorCooledByFluid
+    "Flag, true if the motor is cooled by the fluid stream";
 
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(_perPow.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(_perPow.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
 
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
-
-initial algorithm
- // Compute derivatives for cubic spline
- motDer :=
-   if _perPow.use_powerCharacteristic then
-     zeros(size(_perPow.motorEfficiency.V_flow, 1))
-   elseif ( size(_perPow.motorEfficiency.V_flow, 1) == 1)  then
-       {0}
-   else
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=_perPow.motorEfficiency.V_flow,
-      y=_perPow.motorEfficiency.eta,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_perPow.motorEfficiency.eta,
-                                                                        strict=false));
-  hydDer :=
-     if _perPow.use_powerCharacteristic then
-       zeros(size(_perPow.hydraulicEfficiency.V_flow, 1))
-     elseif ( size(_perPow.hydraulicEfficiency.V_flow, 1) == 1)  then
-       {0}
-     else
-       Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=_perPow.hydraulicEfficiency.V_flow,
-                   y=_perPow.hydraulicEfficiency.eta);
 
 equation
   eta = etaHyd * etaMot;
@@ -69,7 +42,7 @@ equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if _perPow.motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if motorCooledByFluid then P else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then
