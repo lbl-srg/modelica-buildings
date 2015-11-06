@@ -148,6 +148,14 @@ the speed is different from the nominal speed <code>N_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
 </p>
+<p>
+The figure below shows the approximation error for the
+power calculation where the speed <i>N<sub>rpm</sub></i> differs from
+the nominal speed <i>N<sub>nominal</sub></i>.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/Power.png\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
