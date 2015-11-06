@@ -653,7 +653,7 @@ revisions="<html>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Corrected computation of
-<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=VMachine_flow, d=motDer, r_N=fixme, delta=1E-4)</code>
+<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
 which previously used <code>V_flow_max</code> instead of <code>VMachine_flow</code>.
 </li>
 <li>
