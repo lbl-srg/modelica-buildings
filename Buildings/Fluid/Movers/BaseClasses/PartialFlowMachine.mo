@@ -15,7 +15,24 @@ partial model PartialFlowMachine
       final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
       final showDesignFlowDirection=false);
 
-  Delays.DelayFirstOrder vol(
+  parameter Boolean dynamicBalance = true
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
+  parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
+    "Control input type for this mover";
+  parameter Real constInput = 0 "Constant input set point"
+    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+
+  parameter Boolean addPowerToMedium=true
+    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+
+  parameter Modelica.SIunits.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+  parameter Real stageInputs[:]
+    "Vector of input set points corresponding to stages";
+  // Models
+  Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final tau=tau,
     final energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -30,24 +47,45 @@ partial model PartialFlowMachine
     final allowFlowReversal=allowFlowReversal,
     final nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-   parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
 
-  parameter Boolean addPowerToMedium=true
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
-
-  parameter Modelica.SIunits.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
-
-  // Models
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+       inputType == Buildings.Fluid.Types.InputType.Stages
+    "Stage input signal for the pressure head"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,120})));
 
 protected
+  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+      T=T_start, p=p_start, X=X_start) "Medium state at start values";
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+    "Start value for outflowing enthalpy";
+  Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
+    k=stageInputs) if
+       inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.Constant setConst(k=constInput) if
+       inputType == Buildings.Fluid.Types.InputType.Constant
+    "Constant input set point"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1), index(
+        fixed=true, start=0)) if
+       inputType == Buildings.Fluid.Types.InputType.Stages
+    "Stage input extractor"
+    annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
+  Modelica.Blocks.Routing.RealPassThrough inputSwitch
+    "Dummy connection for easy connection of input options"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-10,50})));
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
@@ -59,11 +97,6 @@ protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start) "Medium state at start values";
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
 
 equation
   // For computing the density, we assume that the fan operates in the design flow direction.
@@ -87,8 +120,25 @@ equation
   connect(preSou.port_b, port_b) annotation (Line(
       points={{40,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
           5.55112e-16}},
-      color={0,127,255}));
-  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(stageValues.y, extractor.u) annotation (Line(
+      points={{-59,50},{-52,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extractor.y, inputSwitch.u) annotation (Line(
+      points={{-29,50},{-22,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(setConst.y, inputSwitch.u) annotation (Line(
+      points={{-59,80},{-26,80},{-26,50},{-22,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extractor.index, stage) annotation (Line(
+      points={{-40,62},{-40,90},{0,90},{0,120}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
         Line(
@@ -162,6 +212,11 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>
+April 2, 2015, by Filip Jorissen:<br/>
+Added code for supporting stage input and constant input.
+Added code for displaying constant set point in symbol.
+</li>
+<li>
 January 24, 2015, by Michael Wetter:<br/>
 Propagated <code>m_flow_small</code> of instance <code>vol</code> and made
 all its parameters final.
@@ -182,5 +237,7 @@ Redesigned model to fix bug in medium balance.
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end PartialFlowMachine;

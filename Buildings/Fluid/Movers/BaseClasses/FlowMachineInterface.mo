@@ -4,13 +4,8 @@ partial model FlowMachineInterface
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
     delta_V_flow = 1E-3*V_flow_max,
-    _perPow(hydraulicEfficiency=_per_y.hydraulicEfficiency,
-            motorEfficiency=_per_y.motorEfficiency,
-            power=_per_y.power,
-            motorCooledByFluid=_per_y.motorCooledByFluid,
-            use_powerCharacteristic=_per_y.use_powerCharacteristic));
+    final motorCooledByFluid = _per_y.motorCooledByFluid);
 
-  import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
@@ -42,7 +37,13 @@ partial model FlowMachineInterface
   Real r_N(min=0, start=y_start, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
+ // Derivatives for cubic spline
 protected
+  final parameter Real motDer[size(_per_y.motorEfficiency.V_flow, 1)](each fixed=false)
+    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
+  final parameter Real hydDer[size(_per_y.hydraulicEfficiency.V_flow,1)](each fixed=false)
+    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+
   Modelica.Blocks.Interfaces.RealOutput y_filtered(min=0, start=y_start) if
        filteredSpeed "Filtered speed in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -166,7 +167,7 @@ protected
                                                                                      strict=false))
    else
      zeros(size(_per_y.power.V_flow,1))
-    "Coefficients for polynomial of pressure vs. flow rate";
+    "Coefficients for polynomial of power vs. flow rate";
 
   parameter Boolean haveMinimumDecrease=
     Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[i + 1] -
@@ -431,6 +432,19 @@ the simulation stops.");
 
   end if;
 
+ // Compute derivatives for cubic spline
+ motDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.motorEfficiency.V_flow,
+    1)) elseif (size(_per_y.motorEfficiency.V_flow, 1) == 1) then {0} else
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=_per_y.motorEfficiency.V_flow,
+    y=_per_y.motorEfficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.motorEfficiency.eta,
+      strict=false));
+  hydDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.hydraulicEfficiency.V_flow,
+    1)) elseif (size(_per_y.hydraulicEfficiency.V_flow, 1) == 1) then {0}
+     else Buildings.Utilities.Math.Functions.splineDerivatives(x=_per_y.hydraulicEfficiency.V_flow,
+    y=_per_y.hydraulicEfficiency.eta);
+
 equation
 
   // Hydraulic equations
@@ -568,7 +582,7 @@ equation
                         simplified=cha.efficiency(per=_per_y.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
       etaHyd = cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
-      etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=V_flow_max, d=motDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
@@ -604,7 +618,7 @@ operating points.
 <li>
 If <code>_per_y.use_powerCharacteristic = false</code>, then the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency,
-and then the power consumption. The default is a constant efficiency of 0.7.
+and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
 </li>
 <li>
 If <code>_per_y.use_powerCharacteristic = true</code>, then the data points for
@@ -636,6 +650,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Corrected computation of
+<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
+which previously used <code>V_flow_max</code> instead of <code>VMachine_flow</code>.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.

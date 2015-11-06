@@ -38,6 +38,19 @@ This ensures that the actual speed is equal to the input signal.
 </html>", revisions="<html>
 <ul>
 <li>
+November 5, 2015, by Michael Wetter:<br/>
+Changed parameters of fan since the power is no longer a parameter.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Changed example so that the fans use different powers, one being computed
+based on efficiency, the other based on the specified power.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
+<li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
 </li>
