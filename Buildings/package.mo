@@ -4898,6 +4898,18 @@ The development of the Buildings library is organized by<br/>
  </li>
  </ul>
 <p>
+The core of this library is the Annex 60 library,
+a free open-source library with basic models that codify best practices for
+the implementation of models for building and community energy and control systems.
+The Annex 60 library is developed at
+<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+https://github.com/iea-annex60/modelica-annex60</a>
+within the Annex 60 project
+(<a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>)
+of the International Energy Agency's
+<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities</a> Programme.
+</p>
+ <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
   was contributed by the United Technologies Research Center, which also contributed to the
