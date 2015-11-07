@@ -13,7 +13,7 @@ model SpeedControlled_y
     final stageInputs(each final unit="1") = normalized_speeds,
     final constInput(final unit="1")=normalized_speed);
 
-  parameter Real normalized_speed = 0
+  parameter Real normalized_speed(final unit="1") = 0
     "Normalized speed set point when using constant set point"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
   parameter Real[:] normalized_speeds(each final unit="1") = {0}
