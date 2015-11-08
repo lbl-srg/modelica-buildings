@@ -199,7 +199,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                    graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+                              Bitmap(extent={{-114,98},{122,-100}},
 fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="overhang",
 Documentation(info="<html>
