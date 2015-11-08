@@ -206,7 +206,7 @@ equation
           lineColor={0,0,127},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
-                              Bitmap(extent={{-114,98},{122,-100}},
+                              Bitmap(extent={{-114,98},{122,-94}},
 fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="overhang",
 Documentation(info="<html>
