@@ -11,12 +11,14 @@ partial model PartialTwoPort "Partial component with two ports"
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0))
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+     h_outflow(start = Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+     h_outflow(start = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
@@ -53,6 +55,14 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Assinged <code>start</code> attribute for leaving
+enthalpy at <code>port_a</code> and <code>port_b</code>.
+This was done to make the model similar to
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\">
+Buildings.Fluid.Interfaces.PartialFourPort</a>.
+</li>
 <li>
 November 12, 2015, by Michael Wetter:<br/>
 Removed import statement.
