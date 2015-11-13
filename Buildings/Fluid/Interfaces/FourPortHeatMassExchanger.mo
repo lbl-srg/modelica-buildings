@@ -2,10 +2,10 @@ within Buildings.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    port_a1(h_outflow(start=h1_outflow_start)),
+    port_b1(h_outflow(start=h1_outflow_start)),
+    port_a2(h_outflow(start=h2_outflow_start)),
+    port_b2(h_outflow(start=h2_outflow_start)));
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -232,6 +232,12 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Changed assignments of start values in <code>extends</code> statement.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+</li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in

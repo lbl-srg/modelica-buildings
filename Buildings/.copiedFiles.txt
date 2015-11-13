@@ -343,10 +343,10 @@ Buildings/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mo
 Buildings/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mo
 Buildings/Fluid/Interfaces/Examples/package.mo
 Buildings/Fluid/Interfaces/Examples/package.order
-Buildings/Fluid/Interfaces/FourPort.mo
 Buildings/Fluid/Interfaces/FourPortFlowResistanceParameters.mo
 Buildings/Fluid/Interfaces/FourPortHeatMassExchanger.mo
 Buildings/Fluid/Interfaces/LumpedVolumeDeclarations.mo
+Buildings/Fluid/Interfaces/PartialFourPort.mo
 Buildings/Fluid/Interfaces/PartialFourPortInterface.mo
 Buildings/Fluid/Interfaces/PartialTwoPort.mo
 Buildings/Fluid/Interfaces/PartialTwoPortInterface.mo
@@ -633,6 +633,9 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_MultipleFloorsVectors.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_TwoFloors.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Experimental_Benchmarks_AirFlow_Examples_ZoneStepResponse.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1062,4 +1065,3 @@ Buildings/Utilities/package.order
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log
-Buildings/unitTests.log
