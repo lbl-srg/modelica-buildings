@@ -16,17 +16,40 @@ convertModifiers("Buildings.HeatTransfer.Data.Glasses",
 
 // We remove the parameter setting below because this parameter is
 // already assigned in the performance record per.
-convertElement({"Buildings.Fluid.Movers.FlowControlled_dp",
-                "Buildings.Fluid.Movers.FlowControlled_m_flow",
-                "Buildings.Fluid.Movers.FlowControlled_Nrpm",
-                "Buildings.Fluid.Movers.FlowControlled_y"},
-                "use_powerCharacteristic", fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_Nrpm",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_y"},
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
 
-convertElement({"Buildings.Fluid.Movers.FlowControlled_dp",
-                "Buildings.Fluid.Movers.FlowControlled_m_flow",
-                "Buildings.Fluid.Movers.FlowControlled_Nrpm",
-                "Buildings.Fluid.Movers.FlowControlled_y"},
-                "motorCooledByFluid", fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_Nrpm",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertElement("Buildings.Fluid.Movers.FlowControlled_y"},
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
 
-convertElement({"Buildings.Fluid.Movers.Data.FlowControlled"},
-                "power", fill("",0));
+convertElement("Buildings.Fluid.Movers.Data.FlowControlled",
+                {"power"}, fill("",0));
+
+// Refactoring of base class
+convertModifiers("Buildings.Fluid.Interfaces.FourPort",
+                 {"h_outflow_a1_start",
+                  "h_outflow_b1_start",
+                  "h_outflow_a2_start",
+                  "h_outflow_b2_start"}, fill("", 0), true);
+convertClass("Buildings.Fluid.Interfaces.FourPort",
+             "Buildings.Fluid.Interfaces.PartialFourPort");
