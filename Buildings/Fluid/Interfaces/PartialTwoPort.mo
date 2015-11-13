@@ -1,6 +1,5 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPort "Partial component with two ports"
-  import Modelica.Constants;
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -12,14 +11,15 @@ partial model PartialTwoPort "Partial component with two ports"
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-     m_flow(min=if allowFlowReversal then -Constants.inf else 0))
+     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Constants.inf else 0))
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}), iconTransformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+
   // Model structure, e.g., used for visualization
 protected
   parameter Boolean port_a_exposesState = false
@@ -54,6 +54,10 @@ users have not used this global definition to assign parameters.
 </html>", revisions="<html>
 <ul>
 <li>
+November 12, 2015, by Michael Wetter:<br/>
+Removed import statement.
+</li>
+<li>
 October 21, 2014, by Michael Wetter:<br/>
 Revised implementation.
 Declared medium in ports to be <code>final</code>.
@@ -68,17 +72,17 @@ First implementation.
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}), graphics={
         Polygon(
-          points={{20,-70},{60,-85},{20,-100},{20,-70}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
-        Polygon(
           points={{20,-75},{50,-85},{20,-95},{20,-75}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowFlowReversal),
+        Polygon(
+          points={{20,-70},{60,-85},{20,-100},{20,-70}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          visible=showDesignFlowDirection),
         Line(
           points={{55,-85},{-60,-85}},
           color={0,128,255},

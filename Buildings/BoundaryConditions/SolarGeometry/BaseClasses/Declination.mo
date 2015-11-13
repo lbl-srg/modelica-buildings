@@ -17,11 +17,15 @@ equation
     defaultComponentName="decAng",
     Documentation(info="<html>
 <p>
-This component computes the solar declinatino, which is
+This component computes the solar declination, which is
 the angle between the equatorial plane and the solar beam.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 11, 2015, by Michael Wetter:<br/>
+Corrected typo in documentation.
+</li>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>
 Rewrote equation in explicit form to avoid nonlinear equations in room model.

@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-partial model FourPort "Partial model with four ports"
+partial model PartialFourPort "Partial model with four ports"
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -15,48 +15,27 @@ partial model FourPort "Partial model with four ports"
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a1_start = Medium1.h_default
-    "Start value for enthalpy flowing out of port a1"
-    annotation (Dialog(tab="Advanced", group="Initialization"));
-
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b1_start = Medium1.h_default
-    "Start value for enthalpy flowing out of port b1"
-    annotation (Dialog(tab="Advanced", group="Initialization"));
-
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a2_start = Medium2.h_default
-    "Start value for enthalpy flowing out of port a2"
-    annotation (Dialog(tab="Advanced", group="Initialization"));
-
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b2_start = Medium2.h_default
-    "Start value for enthalpy flowing out of port b2"
-    annotation (Dialog(tab="Advanced", group="Initialization"));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare final package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_a1_start))
+                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare final package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_b1_start))
+                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}), iconTransformation(extent={{110,50},{90,70}})));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare final package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_a2_start))
+                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare final package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_b2_start))
+                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}),
-                iconTransformation(extent={{-90,-70},{-110,-50}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
     preferredView="info",
@@ -70,10 +49,32 @@ this model to treat flow reversal.
 <p>
 This model is identical to
 <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
-Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
+Modelica.Fluid.Interfaces.PartialTwoPort</a>, except for the
+fowllowing:
 </p>
+<ol>
+<li>it has four ports, and
+</li>
+<li>
+the parameters <code>port_a_exposesState</code>,
+<code>port_b_exposesState</code> and
+<code>showDesignFlowDirection</code>
+are not implemented as
+they are not yet used by other models.
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2015, by Michael Wetter:<br/>
+Renamed model from <code>FourPort</code> to
+<code>PartialFourPort</code>.
+Removed parameters
+<code>h_outflow_a1_start</code>,
+<code>h_outflow_b1_start</code>,
+<code>h_outflow_a2_start</code> and
+<code>h_outflow_b2_start</code>.
+</li>
 <li>
 October 30, 2015, by Matthis Thorade:<br/>
 Added <code>partial</code> keyword to model declaration.
@@ -117,4 +118,4 @@ are often iteration variables in nonlinear equation systems.
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}));
-end FourPort;
+end PartialFourPort;
