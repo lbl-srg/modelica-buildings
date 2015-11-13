@@ -74,6 +74,8 @@ Removed parameters
 <code>h_outflow_b1_start</code>,
 <code>h_outflow_a2_start</code> and
 <code>h_outflow_b2_start</code>.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
 </li>
 <li>
 October 30, 2015, by Matthis Thorade:<br/>
