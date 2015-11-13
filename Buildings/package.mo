@@ -303,7 +303,22 @@ its class name ends with the string <code>Beta</code>.
                         <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
                         and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
      </td>
-   </tr>   
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPort
+     </td>
+     <td valign=\"top\">Renamed model to <code>Buildings.Fluid.Interfaces.PartialFourPort</code> and
+                        removed the parameters
+                        <code>h_outflow_a1_start</code>,
+                        <code>h_outflow_b1_start</code>,
+                        <code>h_outflow_a2_start</code> and
+                        <code>h_outflow_b2_start</code>
+                        to make the model similar to <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
+                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">Annex 60 issue 299</a>
+                        for a discussion.
+                        For Dymola, the conversion script updates models
+                        that extend from <code>Buildings.Fluid.Interfaces.FourPort</code>.
+     </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
        <td valign=\"top\">
