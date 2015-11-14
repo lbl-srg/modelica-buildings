@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block ProjectedShadowLength "Lenght of shadow projected onto a direction"
+  // fixme: the icon needs to be updated
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Length h "Height of object";
@@ -46,8 +47,7 @@ protected
     final threshold=0.5*Modelica.Constants.pi)
     "Output zero if sun is below horizon"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Logical.Switch switch1
-    "Switch to select the output signal"
+  Modelica.Blocks.Logical.Switch switch1 "Switch to select the output signal"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 protected
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero output"
