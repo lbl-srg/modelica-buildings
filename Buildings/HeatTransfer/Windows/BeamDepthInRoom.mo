@@ -63,6 +63,23 @@ initial equation
   assert(h > 0, "The aperature is below the workplane, hence the solar beam never hits the workplane.",
     AssertionLevel.warning);
 
+
+equation
+  connect(proShaLen.decAng, decAng) annotation (Line(points={{-42,4},{-70,4},{-70,
+          40},{-120,40}}, color={0,0,127}));
+  connect(proShaLen.solTim, solTim) annotation (Line(points={{-42,-4},{-56,-4},{
+          -70,-4},{-70,-40},{-120,-40}}, color={0,0,127}));
+  connect(proShaLen.y, depInRoo.u2) annotation (Line(points={{-19,0},{-8,0},{-8,
+          -6},{-2,-6}}, color={0,0,127}));
+  connect(depth.y, depInRoo.u1)
+    annotation (Line(points={{-19,40},{-10,40},{-10,6},{-2,6}},
+                                                             color={0,0,127}));
+  connect(zer.y, max.u2) annotation (Line(points={{41,-30},{48,-30},{48,-6},{58,
+          -6}}, color={0,0,127}));
+  connect(max.u1, depInRoo.y)
+    annotation (Line(points={{58,6},{40,6},{40,0},{21,0}}, color={0,0,127}));
+  connect(max.y, y)
+    annotation (Line(points={{81,0},{92,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="beaDep",
     Documentation(info="<html>
@@ -126,21 +143,4 @@ First implementation.
               "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-
-equation
-  connect(proShaLen.decAng, decAng) annotation (Line(points={{-42,4},{-70,4},{-70,
-          40},{-120,40}}, color={0,0,127}));
-  connect(proShaLen.solTim, solTim) annotation (Line(points={{-42,-4},{-56,-4},{
-          -70,-4},{-70,-40},{-120,-40}}, color={0,0,127}));
-  connect(proShaLen.y, depInRoo.u2) annotation (Line(points={{-19,0},{-8,0},{-8,
-          -6},{-2,-6}}, color={0,0,127}));
-  connect(depth.y, depInRoo.u1)
-    annotation (Line(points={{-19,40},{-10,40},{-10,6},{-2,6}},
-                                                             color={0,0,127}));
-  connect(zer.y, max.u2) annotation (Line(points={{41,-30},{48,-30},{48,-6},{58,
-          -6}}, color={0,0,127}));
-  connect(max.u1, depInRoo.y)
-    annotation (Line(points={{58,6},{40,6},{40,0},{21,0}}, color={0,0,127}));
-  connect(max.y, y)
-    annotation (Line(points={{81,0},{92,0},{110,0}}, color={0,0,127}));
 end BeamDepthInRoom;

@@ -9,8 +9,8 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
   parameter Modelica.SIunits.Length gapOve=0.5
     "Gap between upper height of aperature and lower height of overhang (set to 0 if no overhang)";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
-    "Weather data"
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+      computeWetBulbTemperature=false) "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
