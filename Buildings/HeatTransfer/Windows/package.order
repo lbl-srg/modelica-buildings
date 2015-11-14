@@ -1,3 +1,4 @@
+BeamDepthInRoom
 ExteriorHeatTransfer
 FixedShade
 InteriorHeatTransferConvective
@@ -7,4 +8,3 @@ Window
 Functions
 Examples
 BaseClasses
-BeamDepthInRoom
