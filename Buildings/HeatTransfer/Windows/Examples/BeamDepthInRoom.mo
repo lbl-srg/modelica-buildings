@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.Examples;
 model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Length hUppApe = 2.0
+  parameter Modelica.SIunits.Length hApe = 2.0
     "Upper height of aperature above ground";
   parameter Modelica.SIunits.Length depOve=1.0
     "Depth of overhang, meausured from other exterior surface of aperature (set to 0 if no overhang)";
@@ -16,28 +16,28 @@ model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winEas(
     azi=Buildings.Types.Azimuth.E,
-    hUppApe=hUppApe,
+    hApe=hApe,
     depOve=depOve,
     gapOve=gapOve,
     lat=0.73268921998722) "Beam depth at window in East wall"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winSou(
     azi=Buildings.Types.Azimuth.S,
-    hUppApe=hUppApe,
+    hApe=hApe,
     depOve=depOve,
     gapOve=gapOve,
     lat=0.73268921998722) "Beam depth at window in South wall"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winWes(
     azi=Buildings.Types.Azimuth.W,
-    hUppApe=hUppApe,
+    hApe=hApe,
     depOve=depOve,
     gapOve=gapOve,
     lat=0.73268921998722) "Beam depth at window in West wall"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winNor(
     azi=Buildings.Types.Azimuth.N,
-    hUppApe=hUppApe,
+    hApe=hApe,
     depOve=depOve,
     gapOve=gapOve,
     lat=0.73268921998722) "Beam depth at window in North wall"

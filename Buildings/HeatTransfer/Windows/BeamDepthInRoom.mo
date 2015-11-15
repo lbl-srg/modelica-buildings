@@ -63,7 +63,6 @@ initial equation
   assert(h > 0, "The aperature is below the workplane, hence the solar beam never hits the workplane.",
     AssertionLevel.warning);
 
-
 equation
   connect(proShaLen.decAng, decAng) annotation (Line(points={{-42,4},{-70,4},{-70,
           40},{-120,40}}, color={0,0,127}));
@@ -92,9 +91,10 @@ For example, if the window faces south, set
 <code>azi=Buildings.Types.Azimuth.S</code>.
 The figure below explains the parameters.
 </p>
-<p>
-fixme: add figure.
+<p align=\"center\">
+<img alt=\"Figure for beam depth parameters\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoom.png\" border=\"1\" />
 </p>
+
 <p>
 For a definition of the parameters, see the User's Guide
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">
