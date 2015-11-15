@@ -72,8 +72,7 @@ equation
   connect(proShaLen.y, depInRoo.u2) annotation (Line(points={{-19,0},{-8,0},{-8,
           -6},{-2,-6}}, color={0,0,127}));
   connect(depth.y, depInRoo.u1)
-    annotation (Line(points={{-19,40},{-10,40},{-10,6},{-2,6}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-19,40},{-10,40},{-10,6},{-2,6}}, color={0,0,127}));
   connect(zer.y, max.u2) annotation (Line(points={{41,-30},{48,-30},{48,-6},{58,
           -6}}, color={0,0,127}));
   connect(max.u1, depInRoo.y)
