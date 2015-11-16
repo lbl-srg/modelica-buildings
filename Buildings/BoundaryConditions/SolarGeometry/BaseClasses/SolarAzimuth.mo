@@ -14,7 +14,7 @@ block SolarAzimuth "Solar azimuth"
     displayUnit="deg") "Solar Azimuth"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
-    "Decline angle"
+    "Declination angle"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 protected

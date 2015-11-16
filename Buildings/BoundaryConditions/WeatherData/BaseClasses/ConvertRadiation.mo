@@ -5,8 +5,9 @@ block ConvertRadiation
   Modelica.Blocks.Interfaces.RealInput HIn(final unit="W.h/m2")
     "Input radiation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput HOut(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2") "Radiation"
+  Modelica.Blocks.Interfaces.RealOutput HOut(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Radiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

@@ -4,7 +4,7 @@ block DiffusePerez
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-  parameter Real rho=0.2 "Ground reflectance";
+  parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Boolean outSkyCon=false
@@ -12,30 +12,32 @@ block DiffusePerez
   parameter Boolean outGroCon=false
     "Output contribution of diffuse irradiation from ground";
 
-  Modelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add add "Block to add radiations"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if (outSkyCon)
+  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
     "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput HGroDifTil if (outGroCon)
+  Modelica.Blocks.Interfaces.RealOutput HGroDifTil if outGroCon
     "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  BaseClasses.DiffusePerez HDifTil(final til=til, final rho=rho)
+  BaseClasses.DiffusePerez HDifTil(
+    final til=til,
+    final rho=rho) "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{0,-21},{42,21}})));
-  BaseClasses.SkyClearness skyCle
+  BaseClasses.SkyClearness skyCle "Sky clearness"
     annotation (Placement(transformation(extent={{-62,16},{-54,24}})));
-  BaseClasses.BrighteningCoefficient briCoe
+  BaseClasses.BrighteningCoefficient briCoe "Brightening coefficient"
     annotation (Placement(transformation(extent={{-40,-34},{-32,-26}})));
-  BaseClasses.RelativeAirMass relAirMas
+  BaseClasses.RelativeAirMass relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{-80,-44},{-72,-36}})));
-  BaseClasses.SkyBrightness skyBri
+  BaseClasses.SkyBrightness skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{-60,-54},{-52,-46}})));
   SolarGeometry.IncidenceAngle incAng(
-    lat=lat,
-    azi=azi,
-    til=til)
+    final lat=lat,
+    final azi=azi,
+    final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{-86,-96},{-76,-86}})));
 
 equation
@@ -165,6 +167,11 @@ Solar Energy, 44(5):271-289.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2015, by Michael Wetter:<br/>
+Added <code>min</code>, <code>max</code> and <code>unit</code>
+attributes for <code>rho</code>.
+</li>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
 Added contributions from sky and ground that were separated in base class.

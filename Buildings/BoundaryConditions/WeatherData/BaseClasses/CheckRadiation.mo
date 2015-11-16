@@ -1,11 +1,13 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRadiation "Ensure that the radiation is not smaller than 0"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput HIn(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2") "Input radiation"
+  Modelica.Blocks.Interfaces.RealInput HIn(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Input radiation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput HOut(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2") "Radiation"
+  Modelica.Blocks.Interfaces.RealOutput HOut(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Radiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   constant Modelica.SIunits.RadiantEnergyFluenceRate HMin=0.0001

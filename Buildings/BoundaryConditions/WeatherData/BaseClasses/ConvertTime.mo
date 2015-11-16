@@ -2,11 +2,13 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
   "Converts the simulation time to calendar time in scale of 1 year (365 days)"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput modTim(final quantity="Time", final unit=
-       "s") "Simulation time"
+  Modelica.Blocks.Interfaces.RealInput modTim(
+    final quantity="Time",
+    final unit="s") "Simulation time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput calTim(final quantity="Time", final
-      unit="s") "Calendar time"
+  Modelica.Blocks.Interfaces.RealOutput calTim(
+    final quantity="Time",
+    final unit="s") "Calendar time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

@@ -7,15 +7,15 @@ block ZenithAngle "Zenith angle"
     final unit="rad",
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  WeatherData.Bus weaBus
+  WeatherData.Bus weaBus "Weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
    Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat=lat)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(zen.zen, y) annotation (Line(
-      points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
-          1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
+      points={{21,0},{88.25,0},{88.25,0},{95.5,
+          0},{95.5,0},{110,0}},
       color={0,0,127}));
   connect(weaBus.solDec, zen.decAng) annotation (Line(
       points={{-100,0},{-40,0},{-40,5.4},{-2,5.4}},
