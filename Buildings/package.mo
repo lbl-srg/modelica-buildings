@@ -151,6 +151,24 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.SolarGeometry</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
+       </td>
+       <td valign=\"top\">Block that computes the length of a shadow projected onto a horizontal plane
+                          into the direction that is perpendicular to the azimuth of a surface.
+       </td>
+       </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Block that computes the maximum distance at which
+                          a solar beam that enters the window hits the workplane.
+       </td>
+       </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
