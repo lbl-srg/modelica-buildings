@@ -9,9 +9,11 @@ block Declination "Declination angle"
     final unit="rad",
     displayUnit="deg") "Declination angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
+  constant Real k2 = 2*Modelica.Constants.pi/365.25 "Constant";
 equation
-  decAng = Modelica.Math.asin(-sin(23.45*2*Modelica.Constants.pi/360)*
-    Modelica.Math.cos((nDay/86400 + 10)*2*Modelica.Constants.pi/365.25))
+  decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((nDay/86400 + 10)*k2))
     "(A4.5)";
   annotation (
     defaultComponentName="decAng",

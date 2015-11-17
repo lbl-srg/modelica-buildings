@@ -2,11 +2,13 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckPressure
   "Ensures that the interpolated pressure is between prescribed bounds"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput PIn(final quantity="Pressure", final unit=
-           "Pa") "Input pressure"
+  Modelica.Blocks.Interfaces.RealInput PIn(
+    final quantity="Pressure",
+    final unit="Pa") "Input pressure"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput POut(final quantity="Pressure", final unit=
-           "Pa") "Atmospheric pressure"
+  Modelica.Blocks.Interfaces.RealOutput POut(
+    final quantity="Pressure",
+    final unit="Pa") "Atmospheric pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
   constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";

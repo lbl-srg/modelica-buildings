@@ -11,7 +11,7 @@ block IncidenceAngle "Solar incidence angle on a tilted surface"
     displayUnit="deg") "Incidence angle" annotation (Placement(transformation(
           extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{
             120,10}})));
-  WeatherData.Bus weaBus
+  WeatherData.Bus weaBus "Weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
