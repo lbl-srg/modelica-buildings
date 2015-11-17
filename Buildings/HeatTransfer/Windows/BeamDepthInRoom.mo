@@ -7,7 +7,7 @@ block BeamDepthInRoom "Depth of solar beam in the room"
   parameter Modelica.SIunits.Length hWorPla = 0.75
     "Height of workplane above ground";
 
-  parameter Modelica.SIunits.Length hUpp
+  parameter Modelica.SIunits.Length hApe
     "Upper height of aperature above ground"
     annotation (Dialog(group="Aperture"));
   parameter Modelica.SIunits.Length depApe = 0.15
@@ -37,7 +37,7 @@ block BeamDepthInRoom "Depth of solar beam in the room"
 protected
   parameter Modelica.SIunits.Length dep = depApe + depOve
     "Depth of outer corner that throws the shade, measured from interior surface";
-  parameter Modelica.SIunits.Length h = hUpp - hWorPla + gapOve
+  parameter Modelica.SIunits.Length h = hApe - hWorPla + gapOve
     "Height of outer corner that throws the shade measure from the workplane height";
 
   BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLen(
