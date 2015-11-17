@@ -1,7 +1,24 @@
 within Buildings.HeatTransfer.Windows;
 block BeamDepthInRoom "Depth of solar beam in the room"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
+
+  parameter String filNam=""
+    "Name of weather data file (used to read longitude, latitude and time zone)"
+    annotation (Dialog(
+        loadSelector(filter="Weather files (*.mos)",
+        caption="Select weather file"),
+        group="Location"));
+
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
+    filNam) "Longitude" annotation (Dialog(group="Location"));
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
+    filNam) "Latitude" annotation (Dialog(group="Location"));
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
+    "Time zone" annotation (Dialog(group="Location"));
+
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
   parameter Modelica.SIunits.Length hWorPla = 0.75
@@ -21,13 +38,6 @@ block BeamDepthInRoom "Depth of solar beam in the room"
     "Gap between upper height of aperature and lower height of overhang (set to 0 if no overhang)"
     annotation (Dialog(group="Overhang"));
 
-  Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
-    "Declination angle"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
-    "Solar time" annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-                    iconTransformation(extent={{-140,-60},{-100,-20}})));
-
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Length",
     final unit="m")
@@ -41,20 +51,23 @@ protected
     "Height of outer corner that throws the shade measure from the workplane height";
 
   BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLen(
-    final lat=lat,
     final h=h,
-    final azi=azi) "Projected length of shadow"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    final lat=lat,
+    final azi=azi,
+    final filNam="",
+    final lon=lon,
+    final timZon=timZon) "Projected length of shadow"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
   Modelica.Blocks.Math.Add depInRoo(
     final k2=-1) "Depth of beam in room"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant depth(final k=-dep)
     "Distance outer corner that throws shade minus room-side surface"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
   Modelica.Blocks.Math.Max max "Limiter to avoid negative distance"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
 protected
   Modelica.Blocks.Sources.Constant zer(final k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -63,20 +76,18 @@ initial equation
     AssertionLevel.warning);
 
 equation
-  connect(proShaLen.decAng, decAng) annotation (Line(points={{-42,4},{-70,4},{-70,
-          40},{-120,40}}, color={0,0,127}));
-  connect(proShaLen.solTim, solTim) annotation (Line(points={{-42,-4},{-56,-4},{
-          -70,-4},{-70,-40},{-120,-40}}, color={0,0,127}));
-  connect(proShaLen.y, depInRoo.u2) annotation (Line(points={{-19,0},{-8,0},{-8,
-          -6},{-2,-6}}, color={0,0,127}));
+  connect(proShaLen.y, depInRoo.u2) annotation (Line(points={{-39,-20},{-20,-20},
+          {-20,-6},{-12,-6}},
+                        color={0,0,127}));
   connect(depth.y, depInRoo.u1)
-    annotation (Line(points={{-19,40},{-10,40},{-10,6},{-2,6}}, color={0,0,127}));
-  connect(zer.y, max.u2) annotation (Line(points={{41,-30},{48,-30},{48,-6},{58,
+    annotation (Line(points={{-39,20},{-20,20},{-20,6},{-12,6},{-12,6}},
+                                                                color={0,0,127}));
+  connect(zer.y, max.u2) annotation (Line(points={{41,-30},{48,-30},{48,-6},{70,
           -6}}, color={0,0,127}));
   connect(max.u1, depInRoo.y)
-    annotation (Line(points={{58,6},{40,6},{40,0},{21,0}}, color={0,0,127}));
+    annotation (Line(points={{70,6},{40,6},{40,0},{11,0}}, color={0,0,127}));
   connect(max.y, y)
-    annotation (Line(points={{81,0},{92,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{93,0},{93,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="beaDep",
     Documentation(info="<html>
@@ -103,10 +114,11 @@ Buildings.BoundaryConditions.UsersGuide</a>.
 The surface azimuth is defined in
 <a href=\"modelica://Buildings.Types.Azimuth\">
 Buildings.Types.Azimuth</a>.
-The inputs declination angle and solar time can be obtained from the
-weather data bus of the weather data reader
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
-Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</p>
+<p>
+The component requires as parameters the longitude, latitude and time zone.
+These can automatically be assigned by setting the parameter <code>filNam</code>
+to a weather data file, in which case these values are read from the weather data file.
 </p>
 <h4>Assumptions and approximations</h4>
 <p>

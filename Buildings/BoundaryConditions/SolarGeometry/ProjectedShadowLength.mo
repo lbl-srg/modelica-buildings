@@ -1,96 +1,144 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block ProjectedShadowLength "Lenght of shadow projected onto a direction"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Length h "Height of object";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
-  Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
-    "Declination angle"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
-    "Solar time" annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-                    iconTransformation(extent={{-140,-60},{-100,-20}})));
+  parameter String filNam=""
+    "Name of weather data file (used to read longitude, latitude and time zone)"
+    annotation (Dialog(
+        loadSelector(filter="Weather files (*.mos)",
+        caption="Select weather file"),
+        group="Location"));
+
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
+    filNam) "Longitude" annotation (Dialog(group="Location"));
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
+    filNam) "Latitude" annotation (Dialog(group="Location"));
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
+    "Time zone" annotation (Dialog(group="Location"));
+
+  parameter Modelica.SIunits.Length h "Height of surface";
+  parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Length",
     final unit="m") "Projected shadow length"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{180,-10},{200,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
+  WeatherData.BaseClasses.LocalCivilTime locTim(
+      final lon=lon, final timZon=timZon) "Local civil time"
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+  WeatherData.BaseClasses.EquationOfTime eqnTim "Equation of time"
+    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
+  WeatherData.BaseClasses.SolarTime solTim "Solar time"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
+  Utilities.Time.ModelTime modTim "Model time"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+   BaseClasses.Declination decAng "Declination angle"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(
     final lat=lat) "Solar zenith angle"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
   Modelica.Blocks.Math.Tan tan "Tangent of solar zenith angle"
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
   Modelica.Blocks.Math.Gain shaLen(k=-h) "Length of shadow"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   BaseClasses.SolarAzimuth solAzi(
     final lat=lat) "Solar azimuth"
-    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
   Modelica.Blocks.Sources.Constant surAzi(final k=azi) "Surface azimuth"
-    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
+    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Modelica.Blocks.Math.Add add(
     final k1=1,
     final k2=-1) "Angle between surface azimuth and solar azimuth"
-    annotation (Placement(transformation(extent={{10,40},{30,60}})));
+    annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Modelica.Blocks.Math.Cos cos "Cosine"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Math.Product proShaLen "Projected shadow length"
-    annotation (Placement(transformation(extent={{32,-10},{52,10}})));
+    annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
 
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
   Modelica.Blocks.Logical.LessThreshold lessThreshold(
     final threshold=0.5*Modelica.Constants.pi)
     "Output zero if sun is below horizon"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-30,-120},{-10,-100}})));
   Modelica.Blocks.Logical.Switch switch1 "Switch to select the output signal"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-protected
+    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
+
   Modelica.Blocks.Sources.Constant zer(final k=0) "Zero output"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
 equation
   connect(tan.u, zen.zen)
-    annotation (Line(points={{-32,0},{-32,0},{-49,0}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{-32,-80},{-32,-80},{-49,-80}},
+                     color={0,0,127}));
   connect(tan.y, shaLen.u)
-    annotation (Line(points={{-9,0},{-9,0},{-2,0}},
-                                                  color={0,0,127}));
-  connect(solAzi.zen, zen.zen) annotation (Line(points={{-32,36},{-40,36},{-40,0},
-          {-49,0}}, color={0,0,127}));
+    annotation (Line(points={{-9,-80},{-9,-80},{-2,-80}},
+                     color={0,0,127}));
+  connect(solAzi.zen, zen.zen) annotation (Line(points={{-32,-44},{-40,-44},{-40,
+          -80},{-49,-80}},
+                    color={0,0,127}));
   connect(add.u1, surAzi.y)
-    annotation (Line(points={{8,56},{0,56},{0,70},{-9,70}}, color={0,0,127}));
+    annotation (Line(points={{8,-24},{0,-24},{0,-10},{-9,-10}},
+                     color={0,0,127}));
   connect(solAzi.solAzi, add.u2)
-    annotation (Line(points={{-9,30},{0,30},{0,44},{8,44}}, color={0,0,127}));
+    annotation (Line(points={{-9,-50},{0,-50},{0,-36},{8,-36}},
+                     color={0,0,127}));
   connect(add.y, cos.u)
-    annotation (Line(points={{31,50},{38,50}}, color={0,0,127}));
+    annotation (Line(points={{31,-30},{38,-30}},
+                     color={0,0,127}));
   connect(shaLen.y, proShaLen.u2)
-    annotation (Line(points={{21,0},{26,0},{26,-6},{30,-6}}, color={0,0,127}));
+    annotation (Line(points={{21,-80},{40,-80},{40,-86},{68,-86}},
+                     color={0,0,127}));
   connect(proShaLen.u1, cos.y)
-    annotation (Line(points={{30,6},{24,6},{24,20},{64,20},{64,50},{61,50}},
-                                                             color={0,0,127}));
-  connect(solAzi.decAng, decAng) annotation (Line(points={{-32,30},{-68,30},{-68,
-          40},{-120,40}}, color={0,0,127}));
-  connect(solAzi.solTim, solTim) annotation (Line(points={{-32,24},{-60,24},{-90,
-          24},{-90,-40},{-120,-40}}, color={0,0,127}));
-  connect(zen.decAng, decAng) annotation (Line(points={{-72,5.4},{-84,5.4},{-84,
-          40},{-120,40}}, color={0,0,127}));
-  connect(solHouAng.solTim, solTim)
-    annotation (Line(points={{-82,-40},{-120,-40}}, color={0,0,127}));
-  connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(points={{-59,-40},
-          {-50,-40},{-50,-20},{-80,-20},{-80,-4.8},{-72,-4.8}}, color={0,0,127}));
-  connect(lessThreshold.u, zen.zen) annotation (Line(points={{-22,-30},{-40,-30},
-          {-40,0},{-49,0}}, color={0,0,127}));
+    annotation (Line(points={{68,-74},{64,-74},{64,-60},{64,-60},{64,-30},{61,-30}},
+                     color={0,0,127}));
+  connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(points={{81,120},
+          {100,120},{100,80},{-80,80},{-80,-84},{-72,-84},{-72,-84.8}},
+                     color={0,0,127}));
+  connect(lessThreshold.u, zen.zen) annotation (Line(points={{-32,-110},{-40,-110},
+          {-40,-80},{-49,-80}},
+                     color={0,0,127}));
   connect(lessThreshold.y, switch1.u2)
-    annotation (Line(points={{1,-30},{58,-30},{58,-30}}, color={255,0,255}));
-  connect(switch1.u1, proShaLen.y) annotation (Line(points={{58,-22},{54,-22},{
-          54,0},{53,0}}, color={0,0,127}));
-  connect(zer.y, switch1.u3) annotation (Line(points={{41,-50},{48,-50},{48,-38},
-          {58,-38}}, color={0,0,127}));
-  connect(switch1.y, y) annotation (Line(points={{81,-30},{88,-30},{88,0},{110,
-          0}}, color={0,0,127}));
+    annotation (Line(points={{-9,-110},{-9,-110},{118,-110}},
+                     color={255,0,255}));
+  connect(switch1.u1, proShaLen.y) annotation (Line(points={{118,-102},{100,-102},
+          {100,-80},{91,-80}},
+                         color={0,0,127}));
+  connect(zer.y, switch1.u3) annotation (Line(points={{81,-130},{100,-130},{100,
+          -118},{118,-118}},
+                     color={0,0,127}));
+  connect(switch1.y, y) annotation (Line(points={{141,-110},{160,-110},{160,0},{
+          190,0}},
+               color={0,0,127}));
+  connect(modTim.y,locTim. cloTim) annotation (Line(
+      points={{-139,0},{-50,0},{-50,100},{-22,100}},
+      color={0,0,127}));
+  connect(modTim.y,eqnTim. nDay) annotation (Line(
+      points={{-139,0},{-128,0},{-128,140},{-22,140}},
+      color={0,0,127}));
+  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(points={{1,140},{12,140},
+          {12,126},{18,126}}, color={0,0,127}));
+  connect(locTim.locTim, solTim.locTim) annotation (Line(points={{1,100},{12,100},
+          {12,114.6},{18,114.6}}, color={0,0,127}));
+  connect(solHouAng.solTim, solTim.solTim)
+    annotation (Line(points={{58,120},{56,120},{41,120}}, color={0,0,127}));
+  connect(decAng.nDay, modTim.y) annotation (Line(points={{-122,-50},{-128,-50},
+          {-128,60},{-128,0},{-139,0}},
+                                      color={0,0,127}));
+  connect(zen.decAng, decAng.decAng) annotation (Line(points={{-72,-74.6},{-88,-74.6},
+          {-88,-50},{-99,-50}},
+                              color={0,0,127}));
+  connect(solAzi.decAng, decAng.decAng) annotation (Line(points={{-32,-50},{-88,
+          -50},{-99,-50}},         color={0,0,127}));
+  connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
+          -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",
     Documentation(info="<html>
@@ -120,10 +168,11 @@ Buildings.BoundaryConditions.UsersGuide</a>.
 The surface azimuth is defined in
 <a href=\"modelica://Buildings.Types.Azimuth\">
 Buildings.Types.Azimuth</a>.
-The inputs declination angle and solar time can be obtained from the
-weather data bus of the weather data reader
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
-Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</p>
+<p>
+The component requires as parameters the longitude, latitude and time zone.
+These can automatically be assigned by setting the parameter <code>filNam</code>
+to a weather data file, in which case these values are read from the weather data file.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -133,8 +182,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-                    graphics={
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -162,6 +211,6 @@ First implementation.
         Line(points={{-14,100},{54,-16}}, color={255,255,0}),
         Line(points={{2,100},{66,-10}}, color={255,255,0}),
         Line(points={{16,100},{76,-4}}, color={255,255,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
+            160}})));
 end ProjectedShadowLength;
