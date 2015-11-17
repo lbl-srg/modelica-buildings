@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Length hApe = 2.0
     "Upper height of aperature above ground";
@@ -75,7 +74,6 @@ hits the workplane.
 The figure below shows this length for January 1 in Chicago
 for windows with different orientations.
 The spike at sunset is a numerical artifact that has no physical significance.
-fixme: check if this can be avoided if we schedule a time event at sunrise and sunset.
 </p>
 <p align=\"center\">
 <img alt=\"Simulation results\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Examples/BeamDepthInRoom.png\" border=\"1\" />

@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model ProjectedShadowLength "Test model for projected shadow length"
-  import Buildings;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Length h = 2 "Height of object";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
