@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows;
 block BeamDepthInRoom "Depth of solar beam in the room"
-  // fixme: the icon needs to be updated
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
@@ -92,7 +91,9 @@ For example, if the window faces south, set
 The figure below explains the parameters.
 </p>
 <p align=\"center\">
-<img alt=\"Figure for beam depth parameters\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoom.png\" border=\"1\" />
+<img alt=\"Figure for beam depth parameters\"
+     src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoom.png\"
+     border=\"1\" />
 </p>
 
 <p>
@@ -134,12 +135,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-150,110},{150,150}},
-          textString="%name",
-          lineColor={0,0,255}), Bitmap(extent={{-90,90},{90,-92}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}),
+    Icon(graphics={Bitmap(extent={{-88,90},{96,-94}},
+            fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BeamDepthInRoomIcon.png")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end BeamDepthInRoom;

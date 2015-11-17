@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block ProjectedShadowLength "Lenght of shadow projected onto a direction"
-  // fixme: the icon needs to be updated
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Length h "Height of object";
@@ -96,7 +95,7 @@ equation
     defaultComponentName="proShaLen",
     Documentation(info="<html>
 <p>
-This component computes the length of a shadow projected
+This component computes the length of a shadow projected onto a horizontal plane
 into the direction that is perpendicular to the surface azimuth <code>azi</code>.
 </p>
 <p>
@@ -134,12 +133,35 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
+                    graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={240,240,240}),
+                              Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}), Bitmap(extent={{-90,90},{90,-92}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}),
+          lineColor={0,0,255}),
+        Polygon(
+          points={{-50,-34},{38,6},{36,66},{-52,36},{-50,-34}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,0,0}),
+        Polygon(
+          points={{-50,-34},{38,6},{76,-4},{-4,-46},{-50,-34}},
+          lineColor={175,175,175},
+          fillPattern=FillPattern.Sphere,
+          fillColor={175,175,175}),
+        Line(points={{-90,100},{-4,-44}}, color={255,255,0}),
+        Line(points={{-74,100},{8,-40}}, color={255,255,0}),
+        Line(points={{-60,100},{20,-34}}, color={255,255,0}),
+        Line(points={{-44,100},{32,-28}}, color={255,255,0}),
+        Line(points={{-30,100},{44,-22}}, color={255,255,0}),
+        Line(points={{-14,100},{54,-16}}, color={255,255,0}),
+        Line(points={{2,100},{66,-10}}, color={255,255,0}),
+        Line(points={{16,100},{76,-4}}, color={255,255,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
 end ProjectedShadowLength;
