@@ -8,7 +8,23 @@ model FlowControlled
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
     final motorCooledByFluid=per.motorCooledByFluid,
     delta_V_flow = 1E-3*V_flow_max,
-    final rho_default = Medium.density(sta_default));
+    final rho_default = Medium.density(sta_default),
+    etaHyd = cha.efficiency(
+      per=per.hydraulicEfficiency,
+      V_flow=VMachine_flow,
+      d=hydDer,
+      r_N=1,
+      delta=1E-4),
+    etaMot = cha.efficiency(
+      per=per.motorEfficiency,
+      V_flow=VMachine_flow,
+      d=motDer,
+      r_N=1,
+      delta=1E-4),
+    eta = etaHyd * etaMot,
+    dpMachine= -dp,
+    VMachine_flow = port_a.m_flow/rho_in,
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
@@ -19,14 +35,14 @@ model FlowControlled
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Real r_V(start=1)
+  Real r_V(start=1) = VMachine_flow/V_flow_max
     "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
 
- parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
     "Maximum volume flow rate";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
@@ -64,16 +80,8 @@ initial equation
              Buildings.Utilities.Math.Functions.splineDerivatives(
                x=per.hydraulicEfficiency.V_flow,
                y=per.hydraulicEfficiency.eta);
-equation
-  r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
-  etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
-  dpMachine = -dp;
-  VMachine_flow = port_a.m_flow/rho_in;
-  // To compute the electrical power, we set a lower bound for eta to avoid
-  // a division by zero.
-  P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
+equation
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
       color={0,0,127}));

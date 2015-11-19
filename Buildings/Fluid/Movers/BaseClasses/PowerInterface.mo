@@ -11,19 +11,19 @@ partial model PowerInterface
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Modelica.SIunits.Power",
     final unit="W") "Electrical power consumed"
-  annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
   Modelica.SIunits.Power WFlo "Flow work";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
-  Real eta(min=0, max=1, unit="1") "Global efficiency";
-  Real etaHyd(min=0, max=1, unit="1") "Hydraulic efficiency";
-  Real etaMot(min=0, max=1, unit="1") "Motor efficiency";
+  input Real eta(min=0, max=1, unit="1") "Global efficiency";
+  input Real etaHyd(min=0, max=1, unit="1") "Hydraulic efficiency";
+  input Real etaMot(min=0, max=1, unit="1") "Motor efficiency";
 
-  Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
-  Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-
+  input Modelica.SIunits.Pressure dpMachine(displayUnit="Pa")
+    "Pressure increase";
+  input Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
 protected
   parameter Boolean motorCooledByFluid
     "Flag, true if the motor is cooled by the fluid stream";
@@ -31,27 +31,29 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
 
+  input Modelica.SIunits.Power PEle "Electrical power consumed";
+
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
 
 equation
-  eta = etaHyd * etaMot;
   // Flow work
   WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
-  if homotopyInitialization then
-    Q_flow = homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
-                     simplified=0);
-  else
-    Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
+  Q_flow = if homotopyInitialization then
+    homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
+                     x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
+                     simplified=0)
+    else
+      Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
                        x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow);
-  end if;
+
+  P = PEle;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
