@@ -222,6 +222,10 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 <ul>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
 Removed assignment of <code>min</code> and <code>max</code> attributes
 of the port mass flow rate as this is already done in the base class.
 Removed <code>import</code> statement.

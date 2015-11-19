@@ -1,9 +1,7 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortTransport
   "Partial element transporting fluid between two ports without storage of mass or energy"
-  extends Buildings.Fluid.Interfaces.PartialTwoPort(
-    final port_a_exposesState=false,
-    final port_b_exposesState=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
@@ -122,6 +120,14 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignments of parameters
+<code>port_a_exposesState</code> and
+<code>port_b_exposesState</code> in base class.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">#351</a>.
+</li>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>

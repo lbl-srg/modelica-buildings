@@ -63,8 +63,7 @@ fowllowing:
 the parameters <code>port_a_exposesState</code>,
 <code>port_b_exposesState</code> and
 <code>showDesignFlowDirection</code>
-are not implemented as
-they are not yet used by other models.
+are not implemented.
 </li>
 </ol>
 </html>", revisions="<html>

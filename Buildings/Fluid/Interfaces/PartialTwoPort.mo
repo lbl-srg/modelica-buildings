@@ -22,26 +22,12 @@ partial model PartialTwoPort "Partial component with two ports"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
-  // Model structure, e.g., used for visualization
-protected
-  parameter Boolean port_a_exposesState = false
-    "= true if port_a exposes the state of a fluid volume";
-  parameter Boolean port_b_exposesState = false
-    "= true if port_b.p exposes the state of a fluid volume";
-  parameter Boolean showDesignFlowDirection = true
-    "= false to hide the arrow in the model icon";
-
   annotation (
     Documentation(info="<html>
 <p>
 This partial model defines an interface for components with two ports.
 The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
 The component may transport fluid and may have internal storage for a given fluid <code>Medium</code>.
-</p>
-<p>
-An extending model providing direct access to internal storage of mass or energy through <code>port_a</code> or <code>port_b</code>
-should redefine the protected parameters <code>port_a_exposesState</code> and <code>port_b_exposesState</code> appropriately.
-This will be visualized at the port icons, in order to improve the understanding of fluid model diagrams.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -55,6 +41,16 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed parameters
+<code>port_a_exposesState</code> and
+<code>port_b_exposesState</code>
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">#351</a>
+and
+<code>showDesignFlowDirection</code>
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 November 13, 2015, by Michael Wetter:<br/>
 Assinged <code>start</code> attribute for leaving
@@ -82,35 +78,17 @@ First implementation.
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}), graphics={
         Polygon(
-          points={{20,-75},{50,-85},{20,-95},{20,-75}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal),
-        Polygon(
           points={{20,-70},{60,-85},{20,-100},{20,-70}},
           lineColor={0,128,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
+          visible=not allowFlowReversal),
         Line(
           points={{55,-85},{-60,-85}},
           color={0,128,255},
-          visible=showDesignFlowDirection),
+          visible=not allowFlowReversal),
         Text(
           extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
-          textString="%name"),
-        Ellipse(
-          extent={{-110,26},{-90,-24}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_a_exposesState),
-        Ellipse(
-          extent={{90,25},{110,-25}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_b_exposesState)}));
+          textString="%name")}));
 end PartialTwoPort;

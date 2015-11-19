@@ -1,8 +1,7 @@
 within Buildings.Fluid.Interfaces;
 model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
   constant Boolean simplify_mWat_flow = true
@@ -276,6 +275,13 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 September 14, 2015, by Filip Jorissen:<br/>
 Rewrote some equations for better readability.

@@ -421,6 +421,9 @@ Buildings/Fluid/Movers/Data/SpeedControlled_y.mo
 Buildings/Fluid/Movers/Data/package.mo
 Buildings/Fluid/Movers/Data/package.order
 Buildings/Fluid/Movers/Examples/ClosedLoop_y.mo
+Buildings/Fluid/Movers/Examples/MoverContinuous.mo
+Buildings/Fluid/Movers/Examples/MoverParameter.mo
+Buildings/Fluid/Movers/Examples/MoverStages.mo
 Buildings/Fluid/Movers/Examples/PumpsParallel.mo
 Buildings/Fluid/Movers/Examples/PumpsSeries.mo
 Buildings/Fluid/Movers/Examples/SpeedControlled_y_pumpCurves.mo
@@ -562,7 +565,6 @@ Buildings/Media/Specialized/package.order
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
-Buildings/ReaderTMY3.mat
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png
@@ -611,6 +613,7 @@ Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png
+Buildings/Resources/Images/Fluid/Movers/Validation/Power.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.tiff
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png
@@ -753,6 +756,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePres
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverContinuous.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverParameter.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverStages.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsParallel.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/PumpsSeries.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/SpeedControlled_y_pumpCurves.mos
@@ -1058,11 +1064,6 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
-Buildings/dsfinal.txt
-Buildings/dsin.txt
-Buildings/dslog.txt
-Buildings/dsmodel.c
-Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log

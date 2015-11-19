@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Radiators;
 model RadiatorEN442_2 "Dynamic radiator for space heating"
    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-   showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
    extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
@@ -328,6 +327,13 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 April 11, 2015, by Filip Jorissen:<br/>
 Propagated <code>vol.massDynamics</code> to
