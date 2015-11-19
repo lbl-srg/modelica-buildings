@@ -3,7 +3,6 @@ model Pipe
   "Model of a pipe with finite volume discretization along the flow path"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false,
   final show_T=true);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));

@@ -12,7 +12,6 @@ model IndirectTankHeatExchanger
       redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
-    showDesignFlowDirection=false,
     final show_T=false);
 
   parameter Integer nSeg(min=2) "Number of segments in the heat exchanger";

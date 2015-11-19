@@ -322,6 +322,19 @@ its class name ends with the string <code>Beta</code>.
                         and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
      </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
+     </td>
+     <td valign=\"top\">Renamed the protected parameters
+                        <code>port_a_exposesState</code>, <code>port_b_exposesState</code> and
+                        <code>showDesignFlowDirection</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">Annex 60 issue 349</a>
+                        and
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">Annex 60 issue 351</a>.
+                        For Dymola, the conversion script updates models
+                        that extend from <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
+     </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPort
      </td>
      <td valign=\"top\">Renamed model to <code>Buildings.Fluid.Interfaces.PartialFourPort</code> and
