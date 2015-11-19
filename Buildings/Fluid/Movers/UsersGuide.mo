@@ -350,7 +350,7 @@ Thus, a step change in the input signal causes a step change in the fan speed (o
 </li>
 <li>
 <p>
-If <code>filteredSpeed=false</code>, which is the default,
+If <code>filteredSpeed=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
