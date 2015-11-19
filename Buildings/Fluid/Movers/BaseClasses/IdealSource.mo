@@ -3,7 +3,7 @@ model IdealSource
   "Base class for pressure and mass flow source with optional power input"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
-  // what to control
+  // Quantity to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
     annotation(Evaluate = true);
   Modelica.Blocks.Interfaces.RealInput m_flow_in if control_m_flow
@@ -30,8 +30,8 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput dp_internal
     "Needed to connect to conditional connector";
-equation
 
+equation
   // Ideal control
   if control_m_flow then
     m_flow = m_flow_internal;

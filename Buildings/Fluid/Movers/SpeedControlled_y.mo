@@ -24,7 +24,9 @@ model SpeedControlled_y
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, unit="1") if
+  Modelica.Blocks.Interfaces.RealInput y(
+    min=0,
+    unit="1") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
@@ -34,12 +36,6 @@ model SpeedControlled_y
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-2,120})));
-
-  // We set the nominal value to 3000 as this is the
-  // right order of magnitude. Using per.N_nominal
-  // would yield to a translation warning
-  // Non-literal value.
-  // In nominal attribute for fan.filter.u.
 
 equation
   connect(filter.y, y_filtered) annotation (Line(
@@ -127,12 +123,13 @@ Redesigned model to fix bug in medium balance.
 <li>March 24, 2010, by Michael Wetter:<br/>
 Revised implementation to allow zero flow rate.
 </li>
-<li>October 1, 2009,
-    by Michael Wetter:<br/>
-       Model added to the Buildings library. Changed control signal from rpm to normalized value between 0 and 1</li>
-<li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
-       Model added to the Fluid library</li>
+<li>
+October 1, 2009, by Michael Wetter:<br/>
+Model added to the Buildings library. Changed control signal from rpm to normalized value between 0 and 1</li>
+<li>
+October 31, 2005 by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
+Model added to the Fluid library
+</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

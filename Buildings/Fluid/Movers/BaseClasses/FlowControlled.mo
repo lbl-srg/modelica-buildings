@@ -12,7 +12,7 @@ model FlowControlled
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
-  // what to control
+  // Quantity to control
   constant Boolean control_m_flow "= false to control head instead of m_flow";
 
   replaceable parameter Data.FlowControlled per "Record with performance data"
@@ -40,7 +40,7 @@ protected
   final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
 
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if addPowerToMedium
     "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 

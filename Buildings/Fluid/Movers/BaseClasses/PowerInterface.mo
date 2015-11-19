@@ -8,17 +8,18 @@ partial model PowerInterface
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
 
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
-   unit="W") "Electrical power consumed"
+  Modelica.Blocks.Interfaces.RealOutput P(
+    quantity="Modelica.SIunits.Power",
+    final unit="W") "Electrical power consumed"
   annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
   Modelica.SIunits.Power WFlo "Flow work";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
-  Real eta(min=0, max=1) "Global efficiency";
-  Real etaHyd(min=0, max=1) "Hydraulic efficiency";
-  Real etaMot(min=0, max=1) "Motor efficiency";
+  Real eta(min=0, max=1, unit="1") "Global efficiency";
+  Real etaHyd(min=0, max=1, unit="1") "Hydraulic efficiency";
+  Real etaMot(min=0, max=1, unit="1") "Motor efficiency";
 
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
@@ -82,7 +83,7 @@ the performance data record <code>_perPow</code>.
 This is for
 <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
 issue 457</a>.
-</li>      
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.

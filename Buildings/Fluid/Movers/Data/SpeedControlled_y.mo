@@ -12,7 +12,9 @@ record SpeedControlled_y
 
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow
-  parameter BaseClasses.Characteristics.powerParameters power(V_flow={0}, P={0})
+  parameter BaseClasses.Characteristics.powerParameters power(
+    V_flow={0},
+    P={0})
     "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
    annotation (Dialog(enable=use_powerCharacteristic));
 

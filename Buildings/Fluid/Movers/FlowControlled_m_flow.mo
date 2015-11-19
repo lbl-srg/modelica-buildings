@@ -29,8 +29,9 @@ model FlowControlled_m_flow
     "Vector of mass flow rate set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s",
-                                                 nominal=m_flow_nominal) if
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(
+    final unit="kg/s",
+    nominal=m_flow_nominal) if
        inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
@@ -40,8 +41,9 @@ model FlowControlled_m_flow
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-2,120})));
-  Modelica.Blocks.Interfaces.RealOutput m_flow_actual(final unit="kg/s",
-                                                       nominal=m_flow_nominal)
+  Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
+    final unit="kg/s",
+    nominal=m_flow_nominal)
     "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));

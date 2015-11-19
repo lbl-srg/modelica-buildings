@@ -323,7 +323,7 @@ The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a> and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>
-both have a parameter <code>m_flow_nominal</code>. For 
+both have a parameter <code>m_flow_nominal</code>. For
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
 is used for convenience to set a default value for the parameters

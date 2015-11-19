@@ -3,17 +3,14 @@ partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
-  import Modelica.Constants;
 
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    show_T=false,
     port_a(
-      h_outflow(start=h_outflow_start),
-      final m_flow(min = if allowFlowReversal then -Constants.inf else 0)),
+      h_outflow(start=h_outflow_start)),
     port_b(
       h_outflow(start=h_outflow_start),
-      p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
-      final showDesignFlowDirection=false);
+      p(start=p_start)));
 
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
@@ -31,6 +28,16 @@ partial model PartialFlowMachine
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
+
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+       inputType == Buildings.Fluid.Types.InputType.Stages
+    "Stage input signal for the pressure head"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,120})));
+
   // Models
   Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
@@ -52,30 +59,28 @@ partial model PartialFlowMachine
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-       inputType == Buildings.Fluid.Types.InputType.Stages
-    "Stage input signal for the pressure head"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,120})));
 
 protected
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
-      T=T_start, p=p_start, X=X_start) "Medium state at start values";
+    T=T_start,
+    p=p_start,
+    X=X_start) "Medium state at start values";
+
   parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
-    k=stageInputs) if
+    final k=stageInputs) if
        inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.Constant setConst(k=constInput) if
+  Modelica.Blocks.Sources.Constant setConst(
+    final k=constInput) if
        inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(nin=size(stageInputs, 1), index(
-        fixed=true, start=0)) if
+  Modelica.Blocks.Routing.Extractor extractor(
+    final nin=size(stageInputs, 1),
+    index(fixed=true,
+          start=0)) if
        inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
@@ -86,7 +91,13 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,50})));
-  Modelica.SIunits.Density rho_in "Density of inflowing fluid";
+
+  // For computing the density, we assume that the fan operates in the design flow direction.
+  Modelica.SIunits.Density rho_in = Medium.density(
+       Medium.setState_phX(port_a.p,
+                           inStream(port_a.h_outflow),
+                           inStream(port_a.Xi_outflow)))
+    "Density of inflowing fluid";
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -99,9 +110,6 @@ protected
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
 equation
-  // For computing the density, we assume that the fan operates in the design flow direction.
-  rho_in = Medium.density(
-       Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-50,20},{-44,20},{-44,10},{-40,10}},
       color={191,0,0}));
@@ -138,6 +146,7 @@ equation
       points={{-40,62},{-40,90},{0,90},{0,120}},
       color={255,127,0},
       smooth=Smooth.None));
+
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
@@ -211,6 +220,12 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>min</code> and <code>max</code> attributes
+of the port mass flow rate as this is already done in the base class.
+Removed <code>import</code> statement.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.

@@ -1,16 +1,16 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model SpeedControlled
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      final m_flow_nominal = max(_per_y.pressure.V_flow)*rho_default,
-      preSou(final control_m_flow=false));
-
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
     V_flow_max(start=V_flow_nominal),
     final rho_default = Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default));
+
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+      final m_flow_nominal = max(_per_y.pressure.V_flow)*rho_default,
+      preSou(final control_m_flow=false));
 
 protected
   Modelica.Blocks.Sources.RealExpression dpMac(y=-dpMachine)
@@ -39,6 +39,11 @@ or the normalized pump speed <code>y=Nrpm/per.N_nominal</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Switched the two <code>extends</code> statements to get the
+inherited graphic objects on the correct layer.
+</li>      
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.
