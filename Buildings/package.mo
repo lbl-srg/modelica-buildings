@@ -845,7 +845,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
-    <td valign=\"top\">Reformulated the model to avoid an translation error
+    <td valign=\"top\">Reformulated the model to avoid a translation error
                        if glycol is used.<br/>
                        Propagated parameters for initialization in base class
                        <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
