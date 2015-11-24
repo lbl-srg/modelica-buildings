@@ -1,5 +1,5 @@
 within Buildings.Electrical;
-package UserGuide "Electrical package user's guide"
+package UsersGuide "Electrical package user's guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
 Documentation(info="<html>
@@ -131,7 +131,7 @@ by the load is <i>P<sub>LOAD</sub></i>, the equation that describes the circuit 
 </p>
 
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/UserGuide/nonlinearEq.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Electrical/UsersGuide/nonlinearEq.png\"/>
 </p>
 
 <p>
@@ -235,7 +235,7 @@ info section of each model or sub-packages.
 
 <h4>Awards</h4>
 <p>
-The paper titled <a href=\"modelica://Buildings/Resources/Papers/Bausim2014_ElectricalPackage.pdf\">
+The paper titled <a href=\"modelica://Buildings/Resources/Images/Electrical/UsersGuide/2014-BauSim-BonviniWetterNouidui.pdf\">
 A Modelica package for building-to-electrical grid integration</a> won the best paper
 award at the BauSIM 2014 conference.
 </p>
@@ -244,7 +244,7 @@ award at the BauSIM 2014 conference.
 <p>
 <a name=\"BonviniEtAl2014\"/>
 Marco Bonvini, Michael Wetter, and Thierry Stephane Nouidui.<br/>
-<a href=\"modelica://Buildings/Resources/Papers/Bausim2014_ElectricalPackage.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/Electrical/UsersGuide/2014-BauSim-BonviniWetterNouidui.pdf\">
 A Modelica package for building-to-electrical grid integration</a><br/>
 <i>BauSIM 2014 Conference</i>, Aachen, Germany, September 2014.<br/>
 </p>
@@ -272,4 +272,4 @@ Created User's guide.
 </li>
 </ul>
 </html>"));
-end UserGuide;
+end UsersGuide;
