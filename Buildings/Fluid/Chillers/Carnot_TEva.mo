@@ -47,7 +47,7 @@ model Carnot_TEva
     "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool=-Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(max=0)=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
 
   parameter Modelica.SIunits.Pressure dp1_nominal
@@ -160,7 +160,7 @@ protected
     final linearizeFlowResistance=linearizeFlowResistance2,
     final deltaM=deltaM2,
     final Q_flow_maxHeat=0,
-    final Q_flow_maxCool=Q_flow_maxCool,
+    final Q_flow_maxCool=QEva_flow_min,
     final tau=tau2,
     final T_start=T2_start,
     final energyDynamics=energyDynamics2,
@@ -447,6 +447,24 @@ or steady-state response.
 The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+When using this component, make sure that the condenser has sufficient mass flow rate.
+Based on the evaporator mass flow rate, temperature difference and the efficiencies,
+the model computes how much heat will be added to the condenser.
+If the mass flow rate is too small, very high outlet temperatures can result.
+</p>
+<p>
+The evaporator heat flow rate <code>QEva_flow_nominal</code> is used to assign
+the default value for the mass flow rates, which are used for the pressure drop
+calculations.
+It is also used to compute the part load efficiency.
+Hence, make sure that <code>QEva_flow_nominal</code> is set to a reasonable value.
+</p>
+<p>
+The maximum cooling capacity is set by the parameter <code>QEva_flow_min</code>,
+which is by default set to infinity.
 </p>
 </html>",
 revisions="<html>

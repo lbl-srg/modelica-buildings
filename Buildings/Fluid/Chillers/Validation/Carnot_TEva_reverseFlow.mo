@@ -1,5 +1,5 @@
-within Buildings.Fluid.Chillers.Examples;
-model Carnot_TEva
+within Buildings.Fluid.Chillers.Validation;
+model Carnot_TEva_reverseFlow
   "Test model for chiller based on Carnot efficiency and evaporator outlet temperature control signal"
   extends Modelica.Icons.Example;
  package Medium1 = Buildings.Media.Water "Medium model";
@@ -30,11 +30,11 @@ model Carnot_TEva
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
     QEva_flow_nominal=QEva_flow_nominal,
-    allowFlowReversal1=false,
-    allowFlowReversal2=false,
+    allowFlowReversal1=true,
+    allowFlowReversal2=true,
     dp1_nominal=6000,
     dp2_nominal=6000) "Chiller model"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     m_flow=m1_flow_nominal,
@@ -46,8 +46,9 @@ model Carnot_TEva
     redeclare package Medium = Medium2,
     m_flow=m2_flow_nominal,
     use_T_in=false,
+    use_m_flow_in=true,
     T=295.15)
-    annotation (Placement(transformation(extent={{80,-16},{60,4}})));
+    annotation (Placement(transformation(extent={{60,-16},{40,4}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
@@ -61,17 +62,15 @@ model Carnot_TEva
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-40,-30})));
-  Modelica.Blocks.Sources.Ramp TEvaLvg(
-    duration=60,
-    startTime=1800,
-    offset=273.15 + 6,
-    height=10) "Control signal for evaporator leaving temperature"
+  Modelica.Blocks.Sources.Constant
+                               TEvaLvg(k=273.15 + 10)
+    "Control signal for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Math.Gain mCon_flow(k=1/cp1_default/dTEva_nominal)
     "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
   Modelica.Blocks.Math.Add QCon_flow(k2=-1) "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{48,-50},{68,-30}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -79,34 +78,44 @@ model Carnot_TEva
       Medium1.T_default,
       Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
+  Modelica.Blocks.Sources.Ramp mEva_flow(
+    duration=60,
+    startTime=1800,
+    height=-2*m2_flow_nominal,
+    offset=m2_flow_nominal) "Mass flow rate for evaporater"
+    annotation (Placement(transformation(extent={{92,-8},{72,12}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
-      points={{-30,6},{10,6}},
+      points={{-30,6},{-2,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], chi.port_a2)    annotation (Line(
-      points={{60,-6},{30,-6}},
+      points={{40,-6},{18,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin2.ports[1], chi.port_b2)    annotation (Line(
-      points={{-30,-30},{0,-30},{0,-6},{10,-6}},
+      points={{-30,-30},{-12,-30},{-12,-6},{-2,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-10,40},{-10,
-          9},{8,9}},
+  connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-12,40},{-12,10},
+          {-12,9},{-4,9}},
                   color={0,0,127}));
-  connect(chi.P, QCon_flow.u1) annotation (Line(points={{31,9},{40,9},{40,-34},{
-          46,-34}}, color={0,0,127}));
-  connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{31,-9},{36,-9},
-          {36,-46},{46,-46}}, color={0,0,127}));
-  connect(QCon_flow.y, mCon_flow.u) annotation (Line(points={{69,-40},{80,-40},
-          {80,-60},{-92,-60},{-92,14},{-82,14}},color={0,0,127}));
+  connect(chi.P, QCon_flow.u1) annotation (Line(points={{19,9},{34,9},{34,8},{34,
+          -34},{38,-34}},
+                    color={0,0,127}));
+  connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{19,-9},{26,-9},
+          {26,-10},{26,-46},{38,-46}},
+                              color={0,0,127}));
+  connect(QCon_flow.y, mCon_flow.u) annotation (Line(points={{61,-40},{80,-40},{
+          80,-60},{-92,-60},{-92,14},{-82,14}}, color={0,0,127}));
   connect(mCon_flow.y, sou1.m_flow_in)
     annotation (Line(points={{-59,14},{-50,14}},          color={0,0,127}));
-  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{30,6},{50,6},{
-          50,30},{70,30}}, color={0,127,255}));
+  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{18,6},{30,6},{30,
+          30},{70,30}},    color={0,127,255}));
+  connect(mEva_flow.y, sou2.m_flow_in)
+    annotation (Line(points={{71,2},{60,2},{60,2}}, color={0,0,127}));
   annotation (experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_TEva.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_reverseFlow.mos"
         "Simulate and plot"),
     Documentation(
 info="<html>
@@ -126,6 +135,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
-end Carnot_TEva;
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
+end Carnot_TEva_reverseFlow;
