@@ -24,14 +24,14 @@ model Carnot_TEva
     redeclare package Medium2 = Medium2,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    use_eta_Carnot=true,
-    etaCar=0.3,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
     QEva_flow_nominal=QEva_flow_nominal,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
+    use_eta_Carnot=true,
+    etaCar=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000) "Chiller model"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
