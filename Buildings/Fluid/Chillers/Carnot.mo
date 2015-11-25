@@ -276,8 +276,11 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is model of a chiller whose coefficient of performance (COP) changes
+This is a model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
+The input signal is the control signal for the compressor.
+</p>
+<p>
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
