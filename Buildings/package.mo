@@ -418,6 +418,13 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+       </td>
+       <td valign=\"top\">Corrected wrong assert statement for test on the efficiency function. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">issue 468</a>.
+       </td>
+   </tr>
+
 
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>

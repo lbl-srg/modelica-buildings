@@ -85,7 +85,7 @@ initial equation
     etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
   end if;
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-         a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
+         a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
@@ -326,6 +326,13 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 25, 2015 by Michael Wetter:<br/>
+Corrected <code>assert</code> statement for the efficiency curve.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/468\">
+issue 468</a>.
+</li>
 <li>
 September 3, 2015 by Michael Wetter:<br/>
 Expanded documentation.
