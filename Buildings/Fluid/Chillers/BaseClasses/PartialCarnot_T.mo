@@ -330,11 +330,6 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{18-QEva_flow/COPc,22},{62,-20}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(extent={{80,46},{130,32}},   textString="P",
           lineColor={0,0,127}),
         Line(points={{62,0},{100,0}},                 color={0,0,255}),
