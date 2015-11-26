@@ -5,7 +5,7 @@ model Carnot_TCon_reverseFlow
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator inlet-outlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
@@ -33,7 +33,7 @@ model Carnot_TCon_reverseFlow
     height=-2*m1_flow_nominal,
     offset=m1_flow_nominal) "Mass flow rate for condenser"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Carnot_TCon                           heaPum(
+  Carnot_TCon heaPum(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dTEva_nominal=dTEva_nominal,
@@ -49,31 +49,32 @@ model Carnot_TCon_reverseFlow
     dp1_nominal=6000,
     dp2_nominal=6000) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Sources.MassFlowSource_T                 sou1(nPorts=1,
+  Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_m_flow_in=true,
     T=293.15)
     annotation (Placement(transformation(extent={{-52,-4},{-32,16}})));
-  Sources.MassFlowSource_T                 sou2(nPorts=1,
+  Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=false,
     use_m_flow_in=true,
     T=288.15)
     annotation (Placement(transformation(extent={{52,-14},{32,6}})));
-  Sources.FixedBoundary                 sin1(
+  Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={64,32})));
-  Sources.FixedBoundary                 sin2(nPorts=1,
+  Sources.FixedBoundary sin2(
+    nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-56,-28})));
-  Modelica.Blocks.Math.Gain mEva_flow(k=1/cp2_default/dTEva_nominal)
+  Modelica.Blocks.Math.Gain mEva_flow(k=-1/cp2_default/dTEva_nominal)
     "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{34,-88},{54,-68}})));
   Modelica.Blocks.Math.Add QEva_flow(k2=-1) "Evaporator heat flow rate"

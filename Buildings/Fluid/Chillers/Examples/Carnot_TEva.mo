@@ -5,15 +5,15 @@ model Carnot_TEva
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
-    "Temperature difference evaporator inlet-outlet";
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+    "Temperature difference evaporator outlet-inlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal = -100E3
     "Evaporator heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    -QEva_flow_nominal/dTEva_nominal/4200
+    QEva_flow_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
@@ -67,7 +67,7 @@ model Carnot_TEva
     offset=273.15 + 6,
     height=10) "Control signal for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Math.Gain mCon_flow(k=1/cp1_default/dTEva_nominal)
+  Modelica.Blocks.Math.Gain mCon_flow(k=-1/cp1_default/dTEva_nominal)
     "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
   Modelica.Blocks.Math.Add QCon_flow(k2=-1) "Condenser heat flow rate"
@@ -95,7 +95,7 @@ equation
   connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-10,40},{-10,
           9},{8,9}},
                   color={0,0,127}));
-  connect(chi.P, QCon_flow.u1) annotation (Line(points={{31,9},{40,9},{40,-34},{
+  connect(chi.P, QCon_flow.u1) annotation (Line(points={{31,0},{40,0},{40,-34},{
           46,-34}}, color={0,0,127}));
   connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{31,-9},{36,-9},
           {36,-46},{46,-46}}, color={0,0,127}));
