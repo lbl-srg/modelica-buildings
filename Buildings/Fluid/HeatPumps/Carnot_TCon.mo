@@ -82,7 +82,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TCon"),
-        Line(points={{-100,90},{-82,90},{79.8418,90},{80,64}},
+        Line(points={{-100,90},{-82,90},{80,90},{80,64}},
                                                     color={0,0,255}),
         Line(points={{0,80},{0,84},{90,84},{90,90},{100,90}},
                                                  color={0,0,255})}),
