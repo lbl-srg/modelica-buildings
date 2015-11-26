@@ -17,10 +17,15 @@ model Carnot
   parameter Modelica.SIunits.Power P_nominal
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal = 10
-    "Temperature difference evaporator inlet-outlet"
+
+  // fixme: dTEve_nominal and dTCon_nominal are not used.
+  // Consider using them to assign m_flow_nominal as in PartialCarnot_T
+  // fixme: the change in sign convention for dTEva_nominal need to be added
+  //        to the revision notes if this parameter is not removed
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
+    "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal = 10
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
     "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   // Efficiency
@@ -77,13 +82,15 @@ protected
   Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
 
 initial equation
-  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
-  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
-  if use_eta_Carnot then
-    COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
-  else
-    etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
-  end if;
+  // Because in Buildings 2.1, dTEve_nominal was positive, we just
+  // write a warning for now.
+  assert(dTEva_nominal < 0,
+        "Parameter dTEva_nominal must be negative. In the future, this will trigger  an error.",
+        level=AssertionLevel.warning);
+  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
+
+  COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
+
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
          a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
@@ -276,7 +283,7 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is model of a chiller whose coefficient of performance (COP) changes
+This is model of a chiller whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
