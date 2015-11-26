@@ -5,7 +5,7 @@ model Carnot_TEva_reverseFlow
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator inlet-outlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
@@ -13,7 +13,7 @@ model Carnot_TEva_reverseFlow
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal = -100E3
     "Evaporator heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    -QEva_flow_nominal/dTEva_nominal/4200
+    QEva_flow_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
@@ -66,7 +66,7 @@ model Carnot_TEva_reverseFlow
                                TEvaLvg(k=273.15 + 10)
     "Control signal for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Math.Gain mCon_flow(k=1/cp1_default/dTEva_nominal)
+  Modelica.Blocks.Math.Gain mCon_flow(k=-1/cp1_default/dTEva_nominal)
     "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
   Modelica.Blocks.Math.Add QCon_flow(k2=-1) "Condenser heat flow rate"
