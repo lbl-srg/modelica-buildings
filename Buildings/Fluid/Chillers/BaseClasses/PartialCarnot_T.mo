@@ -30,8 +30,7 @@ partial model PartialCarnot_T
   parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
     "Carnot effectiveness (=COP/COP_Carnot)"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COPc_nominal(unit="1") "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+
   parameter Modelica.SIunits.Temperature TCon_nominal "Condenser temperature"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
   parameter Modelica.SIunits.Temperature TEva_nominal "Evaporator temperature"
@@ -104,13 +103,6 @@ partial model PartialCarnot_T
     Buildings.Utilities.Math.Functions.polynomial(
       a=a,
       x=yPL) "Efficiency due to part load of compressor (etaPL(yPL=1)=1)";
-  Real COPc(min=0) = etaCar * COPcCar * etaPL "Coefficient of performance";
-  Real COPcCar(min=0)=
-    TEva /
-    Buildings.Utilities.Math.Functions.smoothMax(
-      x1=1,
-      x2=TCon-TEva,
-      deltaX=0.25) "Carnot efficiency";
 
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=

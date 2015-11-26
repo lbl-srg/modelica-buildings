@@ -4,9 +4,8 @@ model Carnot_TCon
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
    QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    PEle(y=QCon_flow/COP),
-   final COPc_nominal = COP_nominal-1,
-   TCon_nominal = 273.15+35,
-   TEva_nominal = 273.15+5,
+   TCon_nominal = 303.15,
+   TEva_nominal = 278.15,
    yPL = con.Q_flow/QCon_flow_nominal,
    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
    effInpCon=Buildings.Fluid.Types.EfficiencyInput.volume,
@@ -52,9 +51,14 @@ model Carnot_TCon
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Real COP(min=0) = COPc + 1 "Coefficient of performance";
-  Real COPCar(min=0)= COPcCar + 1 "Carnot efficiency";
+  Real COP(min=0, unit="1") = etaCar * COPCar * etaPL
+    "Coefficient of performance";
 
+  Real COPCar(min=0, unit="1") = TCon /
+    Buildings.Utilities.Math.Functions.smoothMax(
+      x1=1,
+      x2=TCon-TEva,
+      deltaX=0.25) "Carnot efficiency";
   Modelica.SIunits.HeatFlowRate QEva_flow = P - QCon_flow
     "Evaporator heat input";
 
