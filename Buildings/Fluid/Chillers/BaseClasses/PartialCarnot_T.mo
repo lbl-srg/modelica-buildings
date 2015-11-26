@@ -41,10 +41,10 @@ partial model PartialCarnot_T
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.Pressure dp1_nominal
+  parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp2_nominal
+  parameter Modelica.SIunits.Pressure dp2_nominal(displayUnit="Pa")
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
@@ -95,38 +95,35 @@ partial model PartialCarnot_T
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
-    final unit="W")
-    "Electric power consumed by compressor"
+    final unit="W") "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
   input Real yPL(final unit="1") "Part load ratio";
-  Real etaPL(final unit = "1") =
+  Real etaPL(final unit = "1")=
     Buildings.Utilities.Math.Functions.polynomial(
       a=a,
-      x=yPL)
-    "Efficiency due to part load of compressor (etaPL(yPL=1)=1)";
+      x=yPL) "Efficiency due to part load of compressor (etaPL(yPL=1)=1)";
   Real COPc(min=0) = etaCar * COPcCar * etaPL "Coefficient of performance";
   Real COPcCar(min=0)=
     TEva /
     Buildings.Utilities.Math.Functions.smoothMax(
       x1=1,
       x2=TCon-TEva,
-      deltaX=0.25)
-    "Carnot efficiency";
+      deltaX=0.25) "Carnot efficiency";
 
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      p = Medium1.p_default,
-      T = Medium1.T_default,
-      X = Medium1.X_default))
+      p=  Medium1.p_default,
+      T=  Medium1.T_default,
+      X=  Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      p = Medium2.p_default,
-      T = Medium2.T_default,
-      X = Medium2.X_default))
+      p=  Medium2.p_default,
+      T=  Medium2.T_default,
+      X=  Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
   Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
@@ -267,7 +264,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Rectangle(
-          extent={{-72,80},{68,-80}},
+          extent={{-68,80},{72,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
