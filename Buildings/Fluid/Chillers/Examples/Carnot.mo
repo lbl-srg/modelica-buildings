@@ -6,14 +6,14 @@ model Carnot "Test model for chiller based on Carnot efficiency"
 
   parameter Modelica.SIunits.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
-    "Temperature difference evaporator inlet-outlet";
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+    "Temperature difference evaporator outlet-inlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
 
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     P_nominal*COPc_nominal/dTEva_nominal/4200
+     -P_nominal*COPc_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
@@ -46,13 +46,15 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     m_flow=m2_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
-      = Medium1)                                     annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin1(
+    nPorts=1,
+    redeclare package Medium = Medium1)                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
-      = Medium2)                                     annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin2(
+    nPorts=1,
+    redeclare package Medium = Medium2)                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-50,-20})));
@@ -108,6 +110,10 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 25, 2015 by Michael Wetter:<br/>
+Changed sign of <code>dTEva_nominal</code> to be consistent.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
