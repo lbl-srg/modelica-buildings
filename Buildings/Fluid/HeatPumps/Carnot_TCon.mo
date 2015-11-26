@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps;
 model Carnot_TCon
   "Heat pump with prescribed condenser leaving temperature and performance curve adjusted based on Carnot efficiency"
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
-   QEva_flow_nominal = -QCon_flow_nominal*COP_nominal/(COP_nominal-1),
+   QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    PEle(y=QCon_flow/COP),
    final COPc_nominal = COP_nominal-1,
    TCon_nominal = 273.15+35,
@@ -33,8 +33,9 @@ model Carnot_TCon
     final Q_flow_nominal=QEva_flow_nominal));
 
   // Efficiency
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance"
+  parameter Real COP_nominal(
+    fixed=not use_eta_Carnot,
+    final unit="1") "Coefficient of performance"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
 
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
