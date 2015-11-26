@@ -16,10 +16,10 @@ partial model PartialCarnot_T
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)
     "Nominal heating flow rate";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal = 10
-    "Temperature difference evaporator inlet-outlet"
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
+    "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal = 10
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
     "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
 
@@ -27,10 +27,10 @@ partial model PartialCarnot_T
   parameter Boolean use_eta_Carnot = true
     "Set to true to use Carnot efficiency"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(fixed=use_eta_Carnot)
+  parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
     "Carnot effectiveness (=COP/COP_Carnot)"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COPc_nominal "Coefficient of performance"
+  parameter Real COPc_nominal(unit="1") "Coefficient of performance"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
   parameter Modelica.SIunits.Temperature TCon_nominal "Condenser temperature"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
@@ -38,7 +38,7 @@ partial model PartialCarnot_T
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
 
   parameter Real a[:] = {1}
-    "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
+    "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
   parameter Modelica.SIunits.Pressure dp1_nominal
@@ -65,17 +65,17 @@ partial model PartialCarnot_T
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
 
-  parameter Real deltaM1=0.1
+  parameter Real deltaM1(final unit="1")=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance", group="Condenser"));
-  parameter Real deltaM2=0.1
+  parameter Real deltaM2(final unit="1")=0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation (Dialog(tab="Flow resistance", group="Evaporator"));
 
-  parameter Modelica.SIunits.Time tau1=10
+  parameter Modelica.SIunits.Time tau1=60
     "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Time tau2=10
+  parameter Modelica.SIunits.Time tau2=60
     "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
@@ -93,31 +93,40 @@ partial model PartialCarnot_T
     "Formulation of energy balance"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(
+    final quantity="Power",
+    final unit="W")
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  input Real yPL "Part load ratio";
-  Real etaPL = Buildings.Utilities.Math.Functions.polynomial(a=a, x=yPL)
-    "Efficiency due to part load of compressor (etaPL(y=1)=1";
+  input Real yPL(final unit="1") "Part load ratio";
+  Real etaPL(final unit = "1") =
+    Buildings.Utilities.Math.Functions.polynomial(
+      a=a,
+      x=yPL)
+    "Efficiency due to part load of compressor (etaPL(yPL=1)=1)";
   Real COPc(min=0) = etaCar * COPcCar * etaPL "Coefficient of performance";
   Real COPcCar(min=0)=
-    TEva / Buildings.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25)
+    TEva /
+    Buildings.Utilities.Math.Functions.smoothMax(
+      x1=1,
+      x2=TCon-TEva,
+      deltaX=0.25)
     "Carnot efficiency";
 
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      Medium1.p_default,
-      Medium1.T_default,
-      Medium1.X_default))
+      p = Medium1.p_default,
+      T = Medium1.T_default,
+      X = Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
   final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
     Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      Medium2.p_default,
-      Medium2.T_default,
-      Medium2.X_default))
+      p = Medium2.p_default,
+      T = Medium2.T_default,
+      X = Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
   Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
@@ -131,26 +140,27 @@ protected
   Modelica.Blocks.Sources.RealExpression PEle "Electrical power consumption"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  replaceable Interfaces.PartialTwoPortInterface eva
-    constrainedby Interfaces.PartialTwoPortInterface(
-      redeclare final package Medium = Medium2,
-      final allowFlowReversal=allowFlowReversal2,
-      final m_flow_nominal=m2_flow_nominal,
-      final m_flow_small=m2_flow_small,
-      final show_T=false) "Evaporator"
+    replaceable Interfaces.PartialTwoPortInterface con
+      constrainedby Interfaces.PartialTwoPortInterface(
+        redeclare final package Medium = Medium1,
+        final allowFlowReversal=allowFlowReversal1,
+        final m_flow_nominal=m1_flow_nominal,
+        final m_flow_small=m1_flow_small,
+        final show_T=false) "Condenser"
+      annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
+    replaceable Interfaces.PartialTwoPortInterface eva
+      constrainedby Interfaces.PartialTwoPortInterface(
+        redeclare final package Medium = Medium2,
+        final allowFlowReversal=allowFlowReversal2,
+        final m_flow_nominal=m2_flow_nominal,
+        final m_flow_small=m2_flow_small,
+        final show_T=false) "Evaporator"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
-  replaceable Interfaces.PartialTwoPortInterface con
-    constrainedby Interfaces.PartialTwoPortInterface(
-      redeclare final package Medium = Medium1,
-      final allowFlowReversal=allowFlowReversal1,
-      final m_flow_nominal=m1_flow_nominal,
-      final m_flow_small=m1_flow_small,
-      final show_T=false) "Condenser"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 initial equation
-  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
-  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
+  assert(dTEva_nominal < 0, "Parameter dTEva_nominal must be negative.");
+  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
 
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");

@@ -46,27 +46,23 @@ model Carnot_TEva
 
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="HeatFlowRate",
-    unit="W") "Actual cooling heat flow rate removed from fluid 2"
+    final unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  Real COP(min=0) = COPc "Coefficient of performance";
-  Real COPCar(min=0)= COPcCar "Carnot efficiency";
+  Real COP(min=0, unit="1") = COPc "Coefficient of performance";
+  Real COPCar(min=0, unit="1")= COPcCar "Carnot efficiency";
 
   Modelica.SIunits.HeatFlowRate QCon_flow = P - QEva_flow
     "Condenser heat input";
 
 protected
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow/
-        QCon_flow_nominal) "Condenser heat flow rate"
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in(
+    final y=QCon_flow/QCon_flow_nominal) "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
-  if use_eta_Carnot then
-    COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
-  else
-    etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
-  end if;
+  COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
 
 equation
   connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{40,90},{40,
@@ -88,7 +84,7 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is a model of a chiller whose coefficient of performance (COP) changes
+This is a model of a chiller whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 The control input is the setpoint of the evaporator leaving temperature, which
 is met exactly at steady state if the chiller has sufficient capacity.

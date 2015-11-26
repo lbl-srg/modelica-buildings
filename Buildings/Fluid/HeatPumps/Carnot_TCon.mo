@@ -37,7 +37,8 @@ model Carnot_TCon
     "Coefficient of performance"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
 
-  parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(min=0)=Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
+    min=0)=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
@@ -46,7 +47,7 @@ model Carnot_TCon
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="HeatFlowRate",
-    unit="W") "Actual heating heat flow rate added to fluid 1"
+    final unit="W") "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
@@ -57,28 +58,24 @@ model Carnot_TCon
     "Evaporator heat input";
 
 protected
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow/
-        QEva_flow_nominal) "Evaporator heat flow rate"
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in(
+    final y=QEva_flow/QEva_flow_nominal) "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
-  if use_eta_Carnot then
-    COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
-  else
-    etaCar = COP_nominal / (TCon_nominal/(TCon_nominal-TEva_nominal));
-  end if;
+
+  COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
 
 equation
-
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
-          -80,66},{-12,66}},
-                          color={0,0,127}));
+          -80,66},{-12,66}}, color={0,0,127}));
   connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{80,66},{80,90},
-          {110,90}},       color={0,0,127}));
+          {110,90}}, color={0,0,127}));
   connect(QEva_flow_in.y, eva.u) annotation (Line(points={{41,-40},{52,-40},{52,
           -54},{12,-54}},color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),       graphics={
+            {100,100}}),
+            graphics={
         Text(
           extent={{-148,156},{-92,114}},
           lineColor={0,0,127},
@@ -92,7 +89,7 @@ equation
 defaultComponentName="heaPum",
 Documentation(info="<html>
 <p>
-This is a model of a heat pump whose coefficient of performance (COP) changes
+This is a model of a heat pump whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 The control input is the setpoint of the condenser leaving temperature, which
 is met exactly at steady state if the heat pump has sufficient capacity.
@@ -110,7 +107,7 @@ case
 where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
 On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator (or condenser) temperature. The options
+will be used as the evaporator and condenser temperatures. The options
 are the temperature of the fluid volume, of <code>port_a</code>, of
 <code>port_b</code>, or the average temperature of <code>port_a</code> and
 <code>port_b</code>.
