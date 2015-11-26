@@ -15,16 +15,12 @@ model Carnot_TEva
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
     QEva_flow_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
-    "Nominal mass flow rate at condenser water wide";
 
   Buildings.Fluid.Chillers.Carnot_TEva chi(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
     QEva_flow_nominal=QEva_flow_nominal,
@@ -37,7 +33,6 @@ model Carnot_TEva
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
-    m_flow=m1_flow_nominal,
     use_T_in=false,
     use_m_flow_in=true,
     T=298.15)

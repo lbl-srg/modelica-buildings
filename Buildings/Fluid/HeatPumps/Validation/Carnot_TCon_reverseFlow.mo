@@ -13,8 +13,6 @@ model Carnot_TCon_reverseFlow
     "Evaporator heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     QCon_flow_nominal/dTCon_nominal/4200 "Nominal mass flow rate at condenser";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    m1_flow_nominal "Nominal mass flow rate at evaporator";
 
   Modelica.Blocks.Sources.Constant TConLvg(k=273.15 + 40)
     "Control signal for condenser leaving temperature"
@@ -38,7 +36,6 @@ model Carnot_TCon_reverseFlow
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
     show_T=true,
     use_eta_Carnot=true,
     etaCar=0.3,

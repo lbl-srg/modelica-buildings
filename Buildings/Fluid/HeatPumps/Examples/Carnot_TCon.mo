@@ -13,8 +13,6 @@ model Carnot_TCon
     "Evaporator heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     QCon_flow_nominal/dTCon_nominal/4200 "Nominal mass flow rate at condenser";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-    m1_flow_nominal "Nominal mass flow rate at evaporator";
 
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium1,
@@ -22,7 +20,6 @@ model Carnot_TCon
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
     show_T=true,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
