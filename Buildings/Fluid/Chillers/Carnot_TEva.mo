@@ -8,6 +8,8 @@ model Carnot_TEva
    TCon_nominal = 303.15,
    TEva_nominal = 278.15,
    yPL = eva.Q_flow/QEva_flow_nominal,
+   effInpEva=Buildings.Fluid.Types.EfficiencyInput.volume,
+   effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a,
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
@@ -42,8 +44,9 @@ model Carnot_TEva
     "Evaporator leaving water temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
-      unit="W") "Actual cooling heat flow rate removed from fluid 2"
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final quantity="HeatFlowRate",
+    unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
@@ -66,13 +69,8 @@ initial equation
   end if;
 
 equation
-
   connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{40,90},{40,
           -54},{12,-54}}, color={0,0,127}));
-  connect(port_a1, con.port_a)
-    annotation (Line(points={{-100,60},{-56,60},{-10,60}}, color={0,127,255}));
-  connect(con.port_b, port_b1)
-    annotation (Line(points={{10,60},{100,60}},          color={0,127,255}));
   connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-40,-54},{-40,
           -90},{110,-90}}, color={0,0,127}));
   connect(QCon_flow_in.y, con.u) annotation (Line(points={{-39,72},{-28,72},{-28,
@@ -85,8 +83,6 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TEva"),
-        Text(extent={{64,106},{114,92}},  textString="P",
-          lineColor={0,0,127}),
         Line(points={{-100,90},{-82,90},{-82,-56}}, color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255})}),
 defaultComponentName="chi",
@@ -159,35 +155,27 @@ Hence, make sure that <code>QEva_flow_nominal</code> is set to a reasonable valu
 </p>
 <p>
 The maximum cooling capacity is set by the parameter <code>QEva_flow_min</code>,
-which is by default set to infinity.
+which is by default set to negative infinity.
+</p>
+<p>
+By default, the coefficient of performance depends on the
+evaporator leaving temperature and the condenser entering
+temperature.
+This can be changed with the parameters
+<code>effInpEva</code> and
+<code>effInpCon</code>.
+</p>
+<h4>Notes</h4>
+<p>
+For a similar model that can be used as a heat pump, see
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Examples.Carnot_TCon\">
+Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 3, 2015 by Michael Wetter:<br/>
-Expanded documentation.
-</li>
-<li>
-May 6, 2015 by Michael Wetter:<br/>
-Added <code>prescribedHeatFlowRate=true</code> for <code>vol2</code>.
-</li>
-<li>
-October 9, 2013 by Michael Wetter:<br/>
-Reimplemented the computation of the port states to avoid using
-the conditionally removed variables <code>sta_a1</code>,
-<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>.
-</li>
-<li>
-May 10, 2013 by Michael Wetter:<br/>
-Added electric power <code>P</code> as an output signal.
-</li>
-<li>
-October 11, 2010 by Michael Wetter:<br/>
-Fixed bug in energy balance.
-</li>
-<li>
-March 3, 2009 by Michael Wetter:<br/>
+November 25, 2015 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

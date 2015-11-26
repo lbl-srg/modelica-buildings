@@ -5,12 +5,10 @@ partial model PartialCarnot_T
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
    m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
-    Buildings.Fluid.Types.EfficiencyInput.volume
+  parameter Buildings.Fluid.Types.EfficiencyInput effInpEva
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpCon=
-    Buildings.Fluid.Types.EfficiencyInput.port_a
+  parameter Buildings.Fluid.Types.EfficiencyInput effInpCon
     "Temperatures of condenser fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
@@ -97,8 +95,8 @@ partial model PartialCarnot_T
 
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
   input Real yPL "Part load ratio";
   Real etaPL = Buildings.Utilities.Math.Functions.polynomial(a=a, x=yPL)
@@ -131,7 +129,7 @@ protected
   Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 
   Modelica.Blocks.Sources.RealExpression PEle "Electrical power consumption"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   replaceable Interfaces.PartialTwoPortInterface eva
     constrainedby Interfaces.PartialTwoPortInterface(
@@ -246,7 +244,7 @@ equation
     TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
   end if;
 
-  connect(PEle.y, P) annotation (Line(points={{81,80},{92,80},{92,90},{110,90}},
+  connect(PEle.y, P) annotation (Line(points={{81,0},{92,0},{110,0}},
         color={0,0,127}));
   connect(port_a2, eva.port_a)
     annotation (Line(points={{100,-60},{56,-60},{10,-60}}, color={0,127,255}));
@@ -330,15 +328,9 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-148,156},{-92,114}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="TEva"),
-        Text(extent={{64,106},{114,92}},  textString="P",
+        Text(extent={{80,46},{130,32}},   textString="P",
           lineColor={0,0,127}),
-        Line(points={{62,0},{80,0},{80,90},{100,90}}, color={0,0,255}),
+        Line(points={{62,0},{100,0}},                 color={0,0,255}),
         Ellipse(
           extent={{18,22},{62,-20}},
           lineColor={0,0,0},

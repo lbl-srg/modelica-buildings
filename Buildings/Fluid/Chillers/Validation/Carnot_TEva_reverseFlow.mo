@@ -100,8 +100,8 @@ equation
   connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-12,40},{-12,10},
           {-12,9},{-4,9}},
                   color={0,0,127}));
-  connect(chi.P, QCon_flow.u1) annotation (Line(points={{19,9},{34,9},{34,8},{34,
-          -34},{38,-34}},
+  connect(chi.P, QCon_flow.u1) annotation (Line(points={{19,0},{34,0},{34,0},{
+          34,-34},{38,-34}},
                     color={0,0,127}));
   connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{19,-9},{26,-9},
           {26,-10},{26,-46},{38,-46}},
@@ -113,7 +113,7 @@ equation
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{18,6},{30,6},{30,
           30},{70,30}},    color={0,127,255}));
   connect(mEva_flow.y, sou2.m_flow_in)
-    annotation (Line(points={{71,2},{60,2},{60,2}}, color={0,0,127}));
+    annotation (Line(points={{71,2},{60,2}},        color={0,0,127}));
   annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_reverseFlow.mos"
         "Simulate and plot"),
