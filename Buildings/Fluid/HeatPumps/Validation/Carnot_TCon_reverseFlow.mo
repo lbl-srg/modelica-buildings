@@ -9,7 +9,6 @@ model Carnot_TCon_reverseFlow
     "Temperature difference evaporator inlet-outlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Real COPh_nominal = 5 "Heat pump COP";
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal = 100E3
     "Evaporator heat flow rate";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
