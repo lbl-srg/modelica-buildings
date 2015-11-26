@@ -198,7 +198,22 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-
+   
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+    </td>
+    <td valign=\"top\">Changed the sign convention for <code>dTEva_nominal</code>.
+                       Now, this quantity needs to be negative.
+                       This change was done to be consistent with other models.
+                       In this version, a warning will be written if the sign
+                       is not updated, but the results will be the same.
+                       In future versions the warning will be
+                       changed to an error.<br/>
+                       The parameters <code>dTEva_nominal</code> and
+                       <code>dTCon_nominal</code> are now used
+                       to assign default values for the nominal mass flow rates.
+    </td>
+   </tr>
+   
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>

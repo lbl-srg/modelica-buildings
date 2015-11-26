@@ -29,8 +29,6 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     etaCar=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -48,13 +46,15 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
     nPorts=1,
-    redeclare package Medium = Medium1)                                     annotation (Placement(
+    redeclare package Medium = Medium1)
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,40})));
   Buildings.Fluid.Sources.FixedBoundary sin2(
     nPorts=1,
-    redeclare package Medium = Medium2)                                     annotation (Placement(
+    redeclare package Medium = Medium2)
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-50,-20})));

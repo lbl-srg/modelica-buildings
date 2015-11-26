@@ -1,10 +1,14 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(vol1(
-      prescribedHeatFlowRate = true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
-      prescribedHeatFlowRate = true));
+ extends Interfaces.FourPortHeatMassExchanger(
+   m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
+   m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
+   vol1(prescribedHeatFlowRate = true),
+   redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+     prescribedHeatFlowRate = true));
+   // Above, we use -abs(dTEva_nominal) because in Buildings 2.1,
+   // dTEva_nominal was a positive quantity.
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume
@@ -18,8 +22,13 @@ model Carnot
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
 
-  // fixme: dTEve_nominal and dTCon_nominal are not used.
-  // Consider using them to assign m_flow_nominal as in PartialCarnot_T
+  final parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)=
+    -P_nominal * COP_nominal
+    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)=
+    P_nominal - QEva_flow_nominal "Nominal heating flow rate";
+
   // fixme: the change in sign convention for dTEva_nominal need to be added
   //        to the revision notes if this parameter is not removed
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
@@ -63,6 +72,19 @@ model Carnot
   Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
   Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
+    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      p=  Medium1.p_default,
+      T=  Medium1.T_default,
+      X=  Medium1.X_default))
+    "Specific heat capacity of medium 1 at default medium state";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      p=  Medium2.p_default,
+      T=  Medium2.T_default,
+      X=  Medium2.X_default))
+    "Specific heat capacity of medium 2 at default medium state";
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
@@ -333,6 +355,13 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 25, 2015 by Michael Wetter:<br/>
+Changed sign convention for <code>dTEva_nominal</code> to be consistent with
+other models.
+The model will still work with the old values for <code>dTEva_nominal</code>,
+but it will write a warning so that users can transition their models.
+</li>
 <li>
 September 3, 2015 by Michael Wetter:<br/>
 Expanded documentation.
