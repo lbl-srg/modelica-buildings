@@ -5,7 +5,7 @@ function efficiency "Flow vs. efficiency characteristics for fan or pump"
   input Characteristics.efficiencyParameters per "Efficiency performance data";
   input Real r_V(unit="1") "Volumetric flow rate divided by nominal flow rate";
   input Real d[:] "Derivatives at support points for spline interpolation";
-  output Real eta(min=0, unit="1") "Efficiency";
+  output Modelica.SIunits.Efficiency eta(max=1) "Efficiency";
 protected
 Integer n = size(per.r_V, 1) "Number of data points";
 Integer i "Integer to select data interval";

@@ -19,7 +19,7 @@ model ACACConverter "AC AC converter single phase systems (YY)"
       ground_2=ground_2));
   parameter Real conversionFactor
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
-  parameter Real eta(min=0, max=1)
+  parameter Modelica.SIunits.Efficiency eta(max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
