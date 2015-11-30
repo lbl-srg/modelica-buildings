@@ -198,6 +198,16 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayLinear
+    </td>
+    <td valign=\"top\">Changed the default value for valve leakage
+                       parameter <code>l</code> from <code>0</code> to <code>0.0001</code>.
+                       This is the same value as is used for the two-way valves,
+                       and avoids an assertion that would be triggered if <code>l=0</code>.
+    </td>
+   </tr>
    
    <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
     </td>
@@ -213,7 +223,7 @@ its class name ends with the string <code>Beta</code>.
                        to assign default values for the nominal mass flow rates.
     </td>
    </tr>
-   
+
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
@@ -433,6 +443,13 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+       </td>
+       <td valign=\"top\">Corrected wrong assert statement for test on the efficiency function. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">issue 468</a>.
+       </td>
+   </tr>
+
 
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>

@@ -1064,6 +1064,11 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/ZoneStepResponse.mat
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
 Buildings/legal.html
 Buildings/package.order
 Buildings/simulator.log

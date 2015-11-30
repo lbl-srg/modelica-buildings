@@ -187,7 +187,7 @@ Since the shaft <code>sha</code> is filled with
 direction; up the shaft, and down the other flow path.
 Next, until <i>t=2400</i> seconds, air is extracted from
 the volume <code>roo</code>, and then the flow rate
-of <code>bondary</code> is set to zero. Since the
+of <code>boundary</code> is set to zero. Since the
 shaft <code>sha</code> is now filed with air at 0&deg;C,
 there is a counter clock-wise flow; down the shaft, and
 up the other flow path.

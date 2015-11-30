@@ -61,7 +61,7 @@ Changed model to avoid an event at solar noon.
 </li>
 <li>
 February 28, 2012, by Wangda Zuo:<br/>
-Add solar time convertion since it is removed from <code>solTim</code>.
+Add solar time conversion since it is removed from <code>solTim</code>.
 </li>
 <li>
 May 18, 2010, by Wangda Zuo:<br/>

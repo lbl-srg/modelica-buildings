@@ -1,9 +1,9 @@
 within Buildings.Electrical.DC.Storage.BaseClasses;
 model Charge "Model to compute the battery charge"
   extends Modelica.Blocks.Icons.Block;
-  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
+  parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
-  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
+  parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(min=0, max=1, unit="1")=0.1
     "Initial state of charge";

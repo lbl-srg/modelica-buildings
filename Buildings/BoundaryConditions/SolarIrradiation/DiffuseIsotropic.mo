@@ -13,10 +13,10 @@ block DiffuseIsotropic
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
-    "Diffuse solar irradiation on a tilted surfce from the sky"
+    "Diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil if outGroCon
-    "Diffuse solar irradiation on a tilted surfce from the ground"
+    "Diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 protected
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic

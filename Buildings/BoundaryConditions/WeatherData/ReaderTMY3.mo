@@ -1268,7 +1268,7 @@ October 27, 2011, by Wangda Zuo:<br/>
 Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
 </li>
 <li>
-Separate the unit convertion for TMY3 data and data validity check.
+Separate the unit conversion for TMY3 data and data validity check.
 </li>
 </ol>
 </li>

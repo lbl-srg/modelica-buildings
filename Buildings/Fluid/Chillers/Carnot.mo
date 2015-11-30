@@ -114,7 +114,7 @@ initial equation
   COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
 
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-         a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
+         a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
@@ -307,6 +307,9 @@ Documentation(info="<html>
 <p>
 This is model of a chiller whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
+The input signal is the control signal for the compressor.
+</p>
+<p>
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
@@ -361,6 +364,11 @@ Changed sign convention for <code>dTEva_nominal</code> to be consistent with
 other models.
 The model will still work with the old values for <code>dTEva_nominal</code>,
 but it will write a warning so that users can transition their models.
+<br/>
+Corrected <code>assert</code> statement for the efficiency curve.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/468\">
+issue 468</a>.
 </li>
 <li>
 September 3, 2015 by Michael Wetter:<br/>
