@@ -3,8 +3,7 @@ record efficiencyParameters "Record for efficiency parameters"
   extends Modelica.Icons.Record;
   parameter Real r_V[:](each min=0, each unit="1")
     "Volumetric flow rate divided by nominal flow rate at user-selected operating points";
-  parameter Real eta[size(r_V,1)](
-     each min=0, each max=1, each displayUnit="1")
+  parameter Modelica.SIunits.Efficiency eta[size(r_V,1)](each max=1)
     "Fan efficiency at these flow rates";
   annotation (Documentation(info="<html>
 <p>

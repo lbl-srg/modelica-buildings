@@ -17,9 +17,9 @@ partial model PowerInterface
     "Hydraulic power input (converted to flow work and heat)";
   Modelica.SIunits.Power WFlo "Flow work";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
-  input Real eta(min=0, max=1, unit="1") "Global efficiency";
-  input Real etaHyd(min=0, max=1, unit="1") "Hydraulic efficiency";
-  input Real etaMot(min=0, max=1, unit="1") "Motor efficiency";
+  input Modelica.SIunits.Efficiency eta(max=1) "Global efficiency";
+  input Modelica.SIunits.Efficiency etaHyd(max=1) "Hydraulic efficiency";
+  input Modelica.SIunits.Efficiency etaMot(max=1) "Motor efficiency";
 
   input Modelica.SIunits.Pressure dpMachine(displayUnit="Pa")
     "Pressure increase";

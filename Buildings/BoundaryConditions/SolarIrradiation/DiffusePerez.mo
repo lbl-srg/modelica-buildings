@@ -15,10 +15,10 @@ block DiffusePerez
   Modelica.Blocks.Math.Add add "Block to add radiations"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil if outGroCon
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected

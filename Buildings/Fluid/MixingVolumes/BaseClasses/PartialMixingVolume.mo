@@ -433,7 +433,7 @@ which now uses the same equations as this model.
 </li>
 <li>
 Another revision was the removal of the parameter <code>use_HeatTransfer</code> as there is
-no noticable overhead in always having the <code>heatPort</code> connector present.
+no noticeable overhead in always having the <code>heatPort</code> connector present.
 </li>
 </ul>
 </li>

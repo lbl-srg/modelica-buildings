@@ -36,7 +36,7 @@ the simulation will stop with an error.
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
-Delete the unit convertion part and name it from ConvertTemperature to CheckTemperature.
+Delete the unit conversion part and name it from ConvertTemperature to CheckTemperature.
 </li>
 <li>
 March 23, 2011, by Michael Wetter:<br/>

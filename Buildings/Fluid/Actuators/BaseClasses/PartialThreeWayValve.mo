@@ -46,7 +46,7 @@ partial model PartialThreeWayValve "Partial three way valve"
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
-  parameter Real[2] l(each min=0, each max=1) = {0, 0}
+  parameter Real[2] l(each min=0, each max=1) = {0.0001, 0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
@@ -174,6 +174,10 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 23, 2015 by Filip Jorissen:<br/>
+Corrected valve leakage value to avoid warnings.
+</li>
 <li>
 February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters.
