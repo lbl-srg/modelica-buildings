@@ -191,14 +191,14 @@ protected
   // on one line, and because they need to be assigned as inputs in the
   // base class PowerInterface, we introduce intermediate protected variables
   // with the same name as in PowerInterface, but a leading underscore
-  Real _etaHyd(min=0, max=1, unit="1") "Hydraulic efficiency";
-  Real _etaMot(min=0, max=1, unit="1") "Motor efficiency";
+  Modelica.SIunits.Efficiency _etaHyd(max=1) "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency _etaMot(max=1) "Motor efficiency";
 
   Modelica.SIunits.Pressure _dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.Power _PEle "Electrical power consumed";
 
   // _eta is needed as in some configuration, _etaMot needs to be set equal to _eta
-  Real _eta(min=0, max=1, unit="1") "Overall efficiency";
+  Modelica.SIunits.Efficiency _eta(max=1) "Overall efficiency";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure

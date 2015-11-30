@@ -101,7 +101,7 @@ Improved documentation.
 </li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Moved assignemnt of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
+Moved assignment of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
 from <code>initial algorithm</code> to the variable declaration, to avoid a division
 by zero in OpenModelica.
 </li>

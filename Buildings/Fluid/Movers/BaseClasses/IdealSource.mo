@@ -72,7 +72,7 @@ equation
           textString="m")}),
     Documentation(info="<html>
 <p>
-Model of a fictious pipe that is used as a base class
+Model of a fictitious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
 </p>
 <p>

@@ -15,7 +15,7 @@ block IncidenceAngle "The solar incidence angle on a tilted surface"
   Modelica.Blocks.Interfaces.RealOutput incAng(
     final quantity="Angle",
     final unit="rad",
-    displayUnit="deg") "Incidence angle on a tilted surfce"
+    displayUnit="deg") "Incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Real dec_c=Modelica.Math.cos(decAng) "Cosine of declination angle";
