@@ -63,8 +63,8 @@ model Carnot_TCon
     "Evaporator heat input";
 
 protected
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(
-    final y=QEva_flow/QEva_flow_nominal) "Evaporator heat flow rate"
+  Modelica.Blocks.Sources.RealExpression yEva(final y=QEva_flow/
+        QEva_flow_nominal) "Normalized evaporator heat flow rate"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
@@ -76,8 +76,8 @@ equation
           -80,66},{-12,66}}, color={0,0,127}));
   connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{80,66},{80,90},
           {110,90}}, color={0,0,127}));
-  connect(QEva_flow_in.y, eva.u) annotation (Line(points={{41,-40},{52,-40},{52,
-          -54},{12,-54}},color={0,0,127}));
+  connect(yEva.y, eva.u) annotation (Line(points={{41,-40},{52,-40},{52,-54},{
+          12,-54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),
             graphics={

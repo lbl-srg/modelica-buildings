@@ -61,8 +61,8 @@ model Carnot_TEva
     "Condenser heat input";
 
 protected
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(
-    final y=QCon_flow/QCon_flow_nominal) "Condenser heat flow rate"
+  Modelica.Blocks.Sources.RealExpression yCon(final y=QCon_flow/
+        QCon_flow_nominal) "Normalized condenser heat flow rate"
     annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
@@ -73,8 +73,8 @@ equation
           -54},{12,-54}}, color={0,0,127}));
   connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-40,-54},{-40,
           -90},{110,-90}}, color={0,0,127}));
-  connect(QCon_flow_in.y, con.u) annotation (Line(points={{-39,72},{-28,72},{-28,
-          66},{-12,66}}, color={0,0,127}));
+  connect(yCon.y, con.u) annotation (Line(points={{-39,72},{-28,72},{-28,66},{-12,
+          66}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Text(
