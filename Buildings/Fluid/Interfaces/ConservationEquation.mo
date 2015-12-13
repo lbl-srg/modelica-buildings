@@ -2,6 +2,7 @@ within Buildings.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+
   constant Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
@@ -191,14 +192,14 @@ equation
     //The semiLinear function should be used for the equations below
     //for allowing min/max simplifications.
     //See https://github.com/iea-annex60/modelica-annex60/issues/216 for a discussion and motivation
-    ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
-      "Enthalpy flow";
+    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
+        "Enthalpy flow";
     for j in 1:Medium.nXi loop
-      ports_mXi_flow[i,j] = semiLinear(ports[i].m_flow, inStream(ports[i].Xi_outflow[j]), ports[i].Xi_outflow[j])
+      ports_mXi_flow[i,j] = ports[i].m_flow * actualStream(ports[i].Xi_outflow[j])
         "Component mass flow";
     end for;
     for j in 1:Medium.nC loop
-      ports_mC_flow[i,j]  = semiLinear(ports[i].m_flow, inStream(ports[i].C_outflow[j]),  ports[i].C_outflow[j])
+      ports_mC_flow[i,j]  = ports[i].m_flow * actualStream(ports[i].C_outflow[j])
         "Trace substance mass flow";
     end for;
   end for;
@@ -309,6 +310,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 13, 2015, by Michael Wetter:<br/>
+Changed <code>semiLinear</code> to <code>actualStream</code> due to a bug in
+Dymola 2015 FD01.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
