@@ -176,6 +176,14 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
+December 17, 2015, by Michael Wetter:<br/>
+Added assignment <code>redeclare final package Medium=Medium</code>
+as this is required for OpenModelica.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
+https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
+</li>
+<li>
 April 13 2015, by Filip Jorissen:<br/>
 Exposed options for flow reversal to users and added corresponding implementation.
 </li>
