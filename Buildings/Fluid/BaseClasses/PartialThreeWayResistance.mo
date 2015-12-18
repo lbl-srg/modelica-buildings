@@ -44,19 +44,22 @@ partial model PartialThreeWayResistance
     "Flow direction for port_3"
    annotation(Dialog(tab="Advanced"));
 
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(
         origin={0,-50},
