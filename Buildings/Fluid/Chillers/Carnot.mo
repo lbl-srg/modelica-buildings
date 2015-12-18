@@ -129,7 +129,7 @@ equation
                           homotopy(actual=actualStream(port_b1.h_outflow),
                                    simplified=port_b1.h_outflow),
                           homotopy(actual=actualStream(port_b1.Xi_outflow),
-                            simplified=port_b1.Xi_outflow));
+                                   simplified=port_b1.Xi_outflow));
 
     else
       staA1=Medium1.setState_phX(port_a1.p,
@@ -144,8 +144,8 @@ equation
                              inStream(port_a1.h_outflow),
                              inStream(port_a1.Xi_outflow));
     staB1=Medium1.setState_phX(port_b1.p,
-                             inStream(port_b1.h_outflow),
-                             inStream(port_b1.Xi_outflow));
+                               port_b1.h_outflow,
+                               port_b1.Xi_outflow);
   end if;
   if allowFlowReversal2 then
     if homotopyInitialization then
@@ -170,11 +170,11 @@ equation
     end if; // homotopyInitialization
   else // reverse flow not allowed
     staA2=Medium2.setState_phX(port_a2.p,
-                             inStream(port_a2.h_outflow),
-                             inStream(port_a2.Xi_outflow));
+                               inStream(port_a2.h_outflow),
+                               inStream(port_a2.Xi_outflow));
     staB2=Medium2.setState_phX(port_b2.p,
-                             inStream(port_b2.h_outflow),
-                             inStream(port_b2.Xi_outflow));
+                               port_b2.h_outflow,
+                               port_b2.Xi_outflow);
   end if;
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
@@ -358,6 +358,15 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2015, by Michael Wetter:<br/>
+Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
+which mistakenly used the <code>inStream</code> operator
+for the configuration without flow reversal.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+issue 476</a>.
+</li>
 <li>
 November 25, 2015 by Michael Wetter:<br/>
 Changed sign convention for <code>dTEva_nominal</code> to be consistent with
