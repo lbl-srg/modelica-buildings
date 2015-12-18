@@ -1,44 +1,41 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialThreeWayValve "Partial three way valve"
   extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
-      final mDyn_flow_nominal = m_flow_nominal,
-        redeclare replaceable
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
-            res1 constrainedby
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-               deltaM=deltaM,
-               dp(start=dpValve_nominal/2),
-               from_dp=from_dp,
-               redeclare final package Medium = Medium,
-               final l=l[1],
-               final linearized=linearized[1],
-               final homotopyInitialization=homotopyInitialization,
-               final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-               final m_flow_nominal=m_flow_nominal,
-               final dpValve_nominal=dpValve_nominal,
-               final dpFixed_nominal=dpFixed_nominal[1],
-               final filteredOpening=false),
-        redeclare FixedResistances.LosslessPipe res2(
-          redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal),
-        redeclare replaceable
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
-            res3 constrainedby
-      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-               deltaM=deltaM,
-               dp(start=dpValve_nominal/2),
-               from_dp=from_dp,
-               redeclare final package Medium = Medium,
-               final l=l[2],
-               final linearized=linearized[2],
-               final homotopyInitialization=homotopyInitialization,
-               final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-               final m_flow_nominal=m_flow_nominal,
-               final dpValve_nominal=dpValve_nominal/fraK^2,
-               final dpFixed_nominal=dpFixed_nominal[2],
-               final filteredOpening=false));
+    final mDyn_flow_nominal = m_flow_nominal,
+      redeclare replaceable
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1
+        constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+          deltaM=deltaM,
+          dp(start=dpValve_nominal/2),
+          from_dp=from_dp,
+          final l=l[1],
+          final linearized=linearized[1],
+          final homotopyInitialization=homotopyInitialization,
+          final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+          final m_flow_nominal=m_flow_nominal,
+          final dpValve_nominal=dpValve_nominal,
+          final dpFixed_nominal=dpFixed_nominal[1],
+          final filteredOpening=false),
+      redeclare FixedResistances.LosslessPipe res2(
+        m_flow_nominal=m_flow_nominal),
+      redeclare replaceable
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res3
+        constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+          deltaM=deltaM,
+          dp(start=dpValve_nominal/2),
+          from_dp=from_dp,
+          final l=l[2],
+          final linearized=linearized[2],
+          final homotopyInitialization=homotopyInitialization,
+          final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+          final m_flow_nominal=m_flow_nominal,
+          final dpValve_nominal=dpValve_nominal/fraK^2,
+          final dpFixed_nominal=dpFixed_nominal[2],
+          final filteredOpening=false));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+
   parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
@@ -66,11 +63,10 @@ protected
     "Outputs one for bypass valve"
     annotation (Placement(transformation(extent={{-92,40},{-80,52}})));
 equation
-
   connect(uni.y, inv.u1)
     annotation (Line(points={{-79.4,46},{-72.8,46}},
                      color={0,0,127}));
-  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Line(
           points={{0,70},{40,70}}),
