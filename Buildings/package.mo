@@ -292,7 +292,12 @@ its class name ends with the string <code>Beta</code>.
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in a
+   have been <b style=\"color:blue\">improved</b> in aCorrected wrong computation of <code>staB1</code> and <code>staB2</code>
++which mistakenly used the <code>inStream</code> operator
++for the configuration without flow reversal.
++This is for
++<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
++issue 476</a>
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -403,12 +408,18 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
        </td>
-       <td valign=\"top\">xxx
+       <td valign=\"top\">Corrected wrong computation of state of leaving fluid
+                          <code>staB1</code> and <code>staB2</code>
+                          for the configuration without flow reversal.
+                          The previous implementation mistakenly used the <code>inStream</code> operator.
+                          This is for
+                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+                          issue 476</a>
        </td>
    </tr>
    </table>
