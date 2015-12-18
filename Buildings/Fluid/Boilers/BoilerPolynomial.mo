@@ -26,7 +26,7 @@ model BoilerPolynomial
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
-  Real eta(min=0) "Boiler efficiency";
+  Modelica.SIunits.Efficiency eta "Boiler efficiency";
 
   Modelica.SIunits.Power QFue_flow "Heat released by fuel";
   Modelica.SIunits.Power QWat_flow "Heat transfer from gas into water";

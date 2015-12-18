@@ -44,19 +44,22 @@ partial model PartialThreeWayResistance
     "Flow direction for port_3"
    annotation(Dialog(tab="Advanced"));
 
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(
         origin={0,-50},
@@ -172,6 +175,14 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 17, 2015, by Michael Wetter:<br/>
+Added assignment <code>redeclare final package Medium=Medium</code>
+as this is required for OpenModelica.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
+https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
+</li>
 <li>
 April 13 2015, by Filip Jorissen:<br/>
 Exposed options for flow reversal to users and added corresponding implementation.
