@@ -168,7 +168,7 @@ equation
                           homotopy(actual=actualStream(port_b1.h_outflow),
                                    simplified=port_b1.h_outflow),
                           homotopy(actual=actualStream(port_b1.Xi_outflow),
-                            simplified=port_b1.Xi_outflow));
+                                   simplified=port_b1.Xi_outflow));
 
     else
       staA1=Medium1.setState_phX(port_a1.p,
@@ -180,11 +180,11 @@ equation
     end if; // homotopyInitialization
   else // reverse flow not allowed
     staA1=Medium1.setState_phX(port_a1.p,
-                             inStream(port_a1.h_outflow),
-                             inStream(port_a1.Xi_outflow));
+                              inStream(port_a1.h_outflow),
+                              inStream(port_a1.Xi_outflow));
     staB1=Medium1.setState_phX(port_b1.p,
-                             inStream(port_b1.h_outflow),
-                             inStream(port_b1.Xi_outflow));
+                               port_b1.h_outflow,
+                               port_b1.Xi_outflow);
   end if;
   if allowFlowReversal2 then
     if homotopyInitialization then
@@ -197,7 +197,7 @@ equation
                           homotopy(actual=actualStream(port_b2.h_outflow),
                                    simplified=port_b2.h_outflow),
                           homotopy(actual=actualStream(port_b2.Xi_outflow),
-                            simplified=port_b2.Xi_outflow));
+                                   simplified=port_b2.Xi_outflow));
 
     else
       staA2=Medium2.setState_phX(port_a2.p,
@@ -209,11 +209,11 @@ equation
     end if; // homotopyInitialization
   else // reverse flow not allowed
     staA2=Medium2.setState_phX(port_a2.p,
-                             inStream(port_a2.h_outflow),
-                             inStream(port_a2.Xi_outflow));
+                               inStream(port_a2.h_outflow),
+                               inStream(port_a2.Xi_outflow));
     staB2=Medium2.setState_phX(port_b2.p,
-                             inStream(port_b2.h_outflow),
-                             inStream(port_b2.Xi_outflow));
+                               port_b2.h_outflow,
+                               port_b2.Xi_outflow);
   end if;
 
   // Set temperatures that will be used to compute Carnot efficiency
@@ -351,6 +351,12 @@ and accordingly assign <code>COPc</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2015, by Michael Wetter:<br/>
+Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
+which mistakenly used the <code>inStream</code> operator
+for the configuration without flow reversal.
+</li>
 <li>
 September 3, 2015 by Michael Wetter:<br/>
 Expanded documentation.
