@@ -1,8 +1,10 @@
 within Buildings.Experimental.DistrictHeatingCooling.SubStations;
 model Heating "Heating substation"
-  extends Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
+  extends
+    Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
     final m_flow_nominal = -Q_flow_nominal/4200/dTHex,
     mPum_flow(final k=-1/(cp_default*dTHex)));
+
   parameter Modelica.SIunits.TemperatureDifference dTHex(
     max=-0.5,
     displayUnit="K") = -4

@@ -5,13 +5,13 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
     final dp(start=0),
     final allowFlowReversal=false);
 
-  Modelica.Blocks.Interfaces.RealOutput PPum
-    "Electrical power consumed by pump"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
     "Pressure difference at nominal flow rate"
     annotation(Dialog(group="Design parameter"));
+
+  Modelica.Blocks.Interfaces.RealOutput PPum(unit="W")
+    "Electrical power consumed by pump"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
@@ -23,25 +23,28 @@ protected
     "Specific heat capacity of the fluid";
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
-    redeclare package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    from_dp=false,
-    linearizeFlowResistance=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    show_T=true,
-    Q_flow_nominal=-1,
-    dp_nominal=dp_nominal) "Component to remove heat from or add heat to fluid"
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final from_dp=false,
+    final linearizeFlowResistance=true,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final show_T=false,
+    final Q_flow_nominal=-1,
+    final dp_nominal=dp_nominal)
+    "Component to remove heat from or add heat to fluid"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m_flow_nominal,
-    dynamicBalance=false,
-    inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false) "Pump"
+    redeclare final package Medium = Medium,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_nominal=m_flow_nominal,
+    final dynamicBalance=false,
+    final inputType=Buildings.Fluid.Types.InputType.Continuous,
+    final filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
   Modelica.Blocks.Math.Gain mPum_flow "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
