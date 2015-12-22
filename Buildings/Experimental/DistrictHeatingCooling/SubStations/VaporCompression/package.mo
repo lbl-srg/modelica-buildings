@@ -3,7 +3,6 @@ package VaporCompression "Package with substations that have a vapor compression
   extends Modelica.Icons.Package;
 
 
-
   annotation (Icon(graphics={
         Ellipse(
           extent={{16,22},{60,-20}},

@@ -7,11 +7,11 @@ model HeatingCoolingHotWaterSmall
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1E6
     "Nominal heat flow rate, positive for heating, negative for cooling";
 
-  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+8
+  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+12
     "Set point for leaving fluid temperature warm supply"
     annotation(Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+14
+  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+16
     "Set point for leaving fluid temperature cold supply"
     annotation(Dialog(group="Design parameter"));
 
@@ -30,7 +30,9 @@ model HeatingCoolingHotWaterSmall
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal) "Heating and cooling plant"
+    Q_flow_nominal=Q_flow_nominal,
+    TSetHeaLea=TSetHeaLea,
+    TSetCooLea=TSetCooLea) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
   Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
       nPorts=1) "Model to set the reference pressure"
@@ -65,7 +67,7 @@ model HeatingCoolingHotWaterSmall
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff(
       redeclare package Medium = Medium,
       filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-      TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15) "Large office"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
@@ -82,7 +84,7 @@ equation
           -60},{-150,-60}},
                       color={0,127,255}));
   connect(weaDat.weaBus, larOff.weaBus) annotation (Line(
-      points={{-180,110},{-136,110},{-60,110},{-60,16.3636}},
+      points={{-180,110},{-136,110},{-60,110},{-60,16.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(pip.port_b, larOff.port_a) annotation (Line(points={{-120,60},{-100,60},

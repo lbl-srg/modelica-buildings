@@ -16,7 +16,8 @@ model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
   Modelica.Blocks.Sources.Constant TWar(k=273.15 + 18)
     "Temperature of warm supply"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT subSta(
+  Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT
+                                                                                                        subSta(
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
     redeclare package Medium = Medium,
@@ -42,7 +43,7 @@ equation
   connect(TCoo.y, coo1.T_in)
     annotation (Line(points={{-59,-70},{36,-70},{36,-62}}, color={0,0,127}));
   connect(weaDat.weaBus, subSta.weaBus) annotation (Line(
-      points={{-60,10},{-34,10},{10,10},{10,7.5}},
+      points={{-60,10},{-34,10},{10,10},{10,8.35714}},
       color={255,204,51},
       thickness=0.5));
   connect(subSta.port_a, war.ports[1]) annotation (Line(points={{0,0},{-10,0},{

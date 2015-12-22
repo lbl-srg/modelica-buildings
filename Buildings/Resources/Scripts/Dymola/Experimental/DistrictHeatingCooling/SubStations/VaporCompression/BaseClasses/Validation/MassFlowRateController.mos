@@ -1,0 +1,6 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.MassFlowRateController", method="dassl", resultFile="MassFlowRateController");
+createPlot(id=1, position={35, 30, 592, 606}, y={"TUpChi.y", "conMasChil.TUp_limit"}, range={0.0, 1.0, -5.0, 25.0}, grid=true, filename="MassFlowRateController.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 592, 300}, y={"conMasChil.m_flow"}, range={0.0, 1.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={657, 30, 592, 608}, y={"TUpHea.y", "conMasHea.TUp_limit"}, range={0.0, 1.0, -5.0, 25.0}, grid=true, filename="MassFlowRateController.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={657, 30, 592, 301}, y={"conMasHea.m_flow"}, range={0.0, 1.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+

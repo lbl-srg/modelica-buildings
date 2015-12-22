@@ -7,11 +7,11 @@ model HeatingCoolingHotWater3Clusters
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 3*2E6
     "Nominal heat flow rate, positive for heating, negative for cooling";
 
-  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+8
+  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+12
     "Set point for leaving fluid temperature warm supply"
     annotation(Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+14
+  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+16
     "Set point for leaving fluid temperature cold supply"
     annotation(Dialog(group="Design parameter"));
 
@@ -30,7 +30,9 @@ model HeatingCoolingHotWater3Clusters
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal) "Heating and cooling plant"
+    Q_flow_nominal=Q_flow_nominal,
+    TSetHeaLea=TSetHeaLea,
+    TSetCooLea=TSetCooLea) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-520,130},{-500,150}})));
   Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
       nPorts=1) "Model to set the reference pressure"
