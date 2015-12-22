@@ -178,39 +178,39 @@ equation
           -200},{60,20},{-470,20}},
                                 color={0,127,255}));
   connect(weaDat.weaBus, hos.weaBus) annotation (Line(
-      points={{-520,190},{-476,190},{-400,190},{-400,96.3636}},
+      points={{-520,190},{-476,190},{-400,190},{-400,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, larOff1.weaBus) annotation (Line(
-      points={{-520,190},{-406,190},{-280,190},{-280,96.3636}},
+      points={{-520,190},{-406,190},{-280,190},{-280,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, ret1.weaBus) annotation (Line(
-      points={{-520,190},{-346,190},{-160,190},{-160,96.3636}},
+      points={{-520,190},{-346,190},{-160,190},{-160,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus,larOff2. weaBus) annotation (Line(
-      points={{-520,190},{-186,190},{-40,190},{-40,96.3636}},
+      points={{-520,190},{-186,190},{-40,190},{-40,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, apa1.weaBus) annotation (Line(
-      points={{-520,190},{-94,190},{240,190},{240,96.3636}},
+      points={{-520,190},{-94,190},{240,190},{240,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, sch.weaBus) annotation (Line(
-      points={{-520,190},{380,190},{380,96.3636}},
+      points={{-520,190},{380,190},{380,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, larOff3.weaBus) annotation (Line(
-      points={{-520,190},{10,190},{520,190},{520,96.3636}},
+      points={{-520,190},{10,190},{520,190},{520,96.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, apa2.weaBus) annotation (Line(
-      points={{-520,190},{-222,190},{120,190},{120,-44},{240,-44},{240,-123.636}},
+      points={{-520,190},{-222,190},{120,190},{120,-44},{240,-44},{240,-123.286}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, ret2.weaBus) annotation (Line(
-      points={{-520,190},{-196,190},{120,190},{120,-44},{380,-44},{380,-123.636}},
+      points={{-520,190},{-196,190},{120,190},{120,-44},{380,-44},{380,-123.286}},
       color={255,204,51},
       thickness=0.5));
   connect(hos.port_a, pip.port_b) annotation (Line(points={{-420,80},{-440,80},
@@ -249,7 +249,7 @@ equation
           -200},{280,-140},{259.857,-140}}, color={0,127,255}));
   connect(pip5.port_a, ret2.port_b) annotation (Line(points={{160,-200},{270,
           -200},{420,-200},{420,-140},{399.857,-140}}, color={0,127,255}));
-  annotation(experiment(StopTime=86400),
+  annotation(experiment(StopTime=2.6784e+06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(
