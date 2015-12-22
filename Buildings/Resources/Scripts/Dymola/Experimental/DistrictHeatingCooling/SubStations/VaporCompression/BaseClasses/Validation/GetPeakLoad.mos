@@ -1,0 +1,1 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad", method="dassl", resultFile="GetPeakLoad");
