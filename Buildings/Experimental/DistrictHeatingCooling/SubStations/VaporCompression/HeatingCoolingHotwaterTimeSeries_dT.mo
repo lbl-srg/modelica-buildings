@@ -102,8 +102,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
     annotation (Placement(transformation(extent={{290,-10},{270,10}}),
         iconTransformation(extent={{298,-20},{258,20}})));
 
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
-    annotation (Placement(transformation(extent={{-10,350},{10,370}})));
 
   Medium.ThermodynamicState staHea_a2=
       Medium.setState_phX(heaPum.port_a2.p,
@@ -382,6 +380,10 @@ protected
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{250,10},{270,30}})));
 
+public
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-20,360},{20,400}}), iconTransformation(extent=
+            {{-10,224},{10,244}})));
 initial equation
   assert(abs((cp_default-cp_default_check)/cp_default) < 0.1, "Wrong cp_default value. Check cp_default constant.");
   assert(QCoo_flow_nominal < 0,
@@ -504,10 +506,6 @@ equation
                              color={0,0,127}));
   connect(TChiSup.y, chi.TSet) annotation (Line(points={{-159,-334},{-82,-334},
           {-82,-335}},color={0,0,127}));
-  connect(weaBus.TDryBul, TSupHeaSet.TOut) annotation (Line(
-      points={{0,360},{-230,360},{-230,256},{-222,256}},
-      color={255,204,51},
-      thickness=0.5));
   connect(dTHeaAct.y, smoothMax.u1) annotation (Line(points={{-199,170},{-199,
           170},{-182,170}},     color={0,0,127}));
   connect(dTHeaPumConMin.y, smoothMax.u2) annotation (Line(points={{-199,130},{
@@ -560,6 +558,10 @@ equation
   connect(deMul.y1[1], mChiEvaFlow.u) annotation (Line(points={{-179,417},{-106,
           417},{-106,46},{-220,46},{-220,-220},{60,-220},{60,-342},{42,-342}},
         color={0,0,127}));
+  connect(weaBus.TDryBul, TSupHeaSet.TOut) annotation (Line(
+      points={{0,380},{-106,380},{-232,380},{-232,256},{-222,256}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
@@ -608,10 +610,10 @@ of the substation, and they also generally avoid nonlinear system
 of equations if multiple substations are connected to each other.
 </p>
 </html>"),
-    Icon(coordinateSystem(extent={{-280,-440},{280,440}}, preserveAspectRatio=false),
+    Icon(coordinateSystem(extent={{-280,-280},{280,280}}, preserveAspectRatio=false),
                                                            graphics={
                                 Rectangle(
-        extent={{-280,-320},{280,320}},
+        extent={{-280,-280},{280,280}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -620,12 +622,6 @@ of equations if multiple substations are connected to each other.
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-      Polygon(
-        points={{-2,280},{-220,180},{218,180},{-2,280}},
-        lineColor={95,95,95},
-        smooth=Smooth.None,
-        fillPattern=FillPattern.Solid,
-        fillColor={95,95,95}),
         Text(
           extent={{-169,-344},{131,-384}},
           lineColor={0,0,255},
@@ -666,7 +662,13 @@ of equations if multiple substations are connected to each other.
         extent={{40,-122},{112,-50}},
         lineColor={255,255,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(extent={{-280,-440},{280,440}},
+        fillPattern=FillPattern.Solid),
+      Polygon(
+        points={{0,264},{-218,164},{220,164},{0,264}},
+        lineColor={95,95,95},
+        smooth=Smooth.None,
+        fillPattern=FillPattern.Solid,
+        fillColor={95,95,95})}),
+    Diagram(coordinateSystem(extent={{-280,-460},{280,460}},
           preserveAspectRatio=false)));
 end HeatingCoolingHotwaterTimeSeries_dT;
