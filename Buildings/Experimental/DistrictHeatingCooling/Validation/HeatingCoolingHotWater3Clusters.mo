@@ -136,7 +136,8 @@ model HeatingCoolingHotWater3Clusters
     redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15,
+    show_T=true) "Large office"
     annotation (Placement(transformation(extent={{500,60},{540,100}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa2(
