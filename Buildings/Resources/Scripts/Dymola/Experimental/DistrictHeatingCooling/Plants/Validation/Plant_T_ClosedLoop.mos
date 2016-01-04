@@ -1,0 +1,6 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.Plants.Validation.Plant_T_ClosedLoop", stopTime=864000, method="dassl", resultFile="Plant_T_ClosedLoop");
+createPlot(id=1, position={15, 10, 1394, 1087}, y={"vol.T"}, range={0.0, 880000.0, 6.0, 22.0}, grid=true, filename="Plant_T_ClosedLoop.mat", colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 1394, 268}, y={"pum.m_flow"}, range={0.0, 880000.0, -0.30000000000000004, 0.30000000000000004}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={15, 10, 1394, 267}, y={"pla.QHea_flow", "pla.QCoo_flow"}, range={0.0, 880000.0, -3000.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={15, 10, 1394, 267}, y={"pla.sta_a.T", "pla.sta_b.T", "vol.T"}, range={0.0, 880000.0, 6.0, 22.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
