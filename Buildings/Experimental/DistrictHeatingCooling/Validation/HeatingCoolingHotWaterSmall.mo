@@ -128,7 +128,7 @@ equation
           -60},{-30,-60}}, color={0,127,255}));
   connect(splRet.port_2, ret.port_b) annotation (Line(points={{-10,-60},{50,-60},
           {80,-60},{80,0},{59.8571,0}}, color={0,127,255}));
-  annotation(experiment(StopTime=86400),
+  annotation(experiment(StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
     Documentation(
