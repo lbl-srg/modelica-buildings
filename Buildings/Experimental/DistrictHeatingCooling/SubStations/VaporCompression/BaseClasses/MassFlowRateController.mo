@@ -44,19 +44,20 @@ protected
 equation
   if consumer == Buildings.Experimental.DistrictHeatingCooling.Types.Consumer.Cooling then
     // Chiller.
-    // If the upstream temperature is too cold, then increase the flow rate
+    // If the upstream temperature is too warm, then increase the flow rate
     // in order to draw in water from the main distribution.
-    dTCor = noEvent(max(0, k * (TUp_limit-TUp)));
-    dTHex = noEvent(max(dT_min, dT_nominal-dTCor));
+    dTCor = 0;//noEvent(max(0, k * (TUp-TUp_limit)));
+    dTHex = 0;//noEvent(max(dT_min, dT_nominal-dTCor));
   else
     // Heat pump.
-    // If the upstream temperature is too warm, then increase the flow rate.
+    // If the upstream temperature is too cold, then increase the flow rate.
     // dT_nominal < 0.
-    dTCor = noEvent(max(0, k * (TUp-TUp_limit)));
-    dTHex = noEvent(min(dT_min, dT_nominal + dTCor));
+    dTCor = 0;//noEvent(max(0, k * (TUp_limit-TUp)));
+    dTHex = 0;//noEvent(min(dT_min, dT_nominal + dTCor));
    end if;
-
-   m_flow = Q_flow/(cp_default * dTHex);
+   // fixme: This controller seems not to be required
+   //m_flow = Q_flow/(cp_default * dTHex);
+   m_flow = Q_flow/(cp_default*dT_nominal);
 
   annotation (
   defaultComponentName="conMas",
