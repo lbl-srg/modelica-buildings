@@ -418,7 +418,7 @@ equation
           -200},{270,-200}}, color={0,127,255}));
   connect(splRet7.port_2, ret2.port_b) annotation (Line(points={{290,-200},{342,
           -200},{420,-200},{420,-140},{399.857,-140}}, color={0,127,255}));
-  annotation(experiment(StopTime=2.6784e+06),
+  annotation(experiment(StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(

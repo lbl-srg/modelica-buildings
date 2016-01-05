@@ -1,8 +1,7 @@
-simulateModel("Buildings.Experimental.DistrictHeatingCooling.Validation.HeatingCoolingHotWater3Clusters", stopTime=2.6784e+06, method="dassl", resultFile="HeatingCoolingHotWater3Clusters");
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.Validation.HeatingCoolingHotWater3Clusters", stopTime=31536000, method="dassl", resultFile="HeatingCoolingHotWater3Clusters");
 createPlot(id=1, position={55, 50, 1082, 970}, y={"weaDat.weaBus.TDryBul"}, range={0.0, 2700000.0, 0.0, 18.0}, grid=true, filename="HeatingCoolingHotWater3Clusters.mat", colors={{28,108,200}});
 createPlot(id=1, position={55, 50, 1082, 320}, y={"pla.sta_a.T", "pla.sta_b.T"}, range={0.0, 2700000.0, 2.0, 22.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={55, 50, 1082, 319}, y={"pla.m_flow"}, range={0.0, 2700000.0, -100.0, 200.0}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=2, position={1171, 53, 930, 818}, y={"larOff3.staCoo_a1.T", "larOff3.staCoo_b1.T", "larOff3.staHea_a2.T", 
+createPlot(id=2, position={1171, 53, 930, 818}, y={"larOff3.staCoo_a1.T", "larOff3.staCoo_b1.T", "larOff3.staHea_a2.T",
 "larOff3.staHea_b2.T"}, range={0.0, 2800000.0, 2.0, 22.0}, grid=true, filename="HeatingCoolingHotWater3Clusters.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
 createPlot(id=2, position={1171, 53, 930, 406}, y={"larOff3.port_a.m_flow"}, range={0.0, 2700000.0, -15.0, 40.0}, grid=true, subPlot=2, colors={{28,108,200}});
-
