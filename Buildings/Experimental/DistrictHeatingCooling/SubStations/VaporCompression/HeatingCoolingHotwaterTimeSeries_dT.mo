@@ -94,6 +94,16 @@ model HeatingCoolingHotwaterTimeSeries_dT
     "Electrical power consumed for space cooling"
     annotation (Placement(transformation(extent={{280,190},{300,210}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QHea(unit="W")
+    "Space heating thermal load"
+    annotation (Placement(transformation(extent={{280,130},{300,150}})));
+  Modelica.Blocks.Interfaces.RealOutput QHotWat(unit="W")
+    "Hot water thermal load"
+    annotation (Placement(transformation(extent={{280,90},{300,110}})));
+  Modelica.Blocks.Interfaces.RealOutput QCoo(unit="W")
+    "Space cooling thermal load"
+    annotation (Placement(transformation(extent={{280,50},{300,70}})));
+
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-20,360},{20,400}}), iconTransformation(extent=
             {{-10,224},{10,244}})));
@@ -161,21 +171,22 @@ model HeatingCoolingHotwaterTimeSeries_dT
     dT_nominal=dTHeaEva_nominal,
     consumer=Buildings.Experimental.DistrictHeatingCooling.Types.Consumer.Heating,
     cp_default=cp_default,
-    TUp_limit=THotMax) "Controller for pump of heat pump"
+    TUp_limit=TColMin - dTHeaEva_nominal) "Controller for pump of heat pump"
     annotation (Placement(transformation(extent={{12,310},{32,330}})));
 
   BaseClasses.MassFlowRateController conMasHeaPumHotWat(
     dT_nominal=dTHeaEva_nominal,
     consumer=Buildings.Experimental.DistrictHeatingCooling.Types.Consumer.Heating,
     cp_default=cp_default,
-    TUp_limit=THotMax) "Controller for pump of heat pump for hot water"
+    TUp_limit=TColMin - dTHeaEva_nominal)
+    "Controller for pump of heat pump for hot water"
     annotation (Placement(transformation(extent={{12,20},{32,40}})));
 
   BaseClasses.MassFlowRateController conMasChi(
     cp_default=cp_default,
     consumer=Buildings.Experimental.DistrictHeatingCooling.Types.Consumer.Cooling,
     dT_nominal=dTCooCon_nominal,
-    TUp_limit=TColMin) "Controller for pump of chiller"
+    TUp_limit=THotMax - dTCooCon_nominal) "Controller for pump of chiller"
     annotation (Placement(transformation(extent={{40,-370},{20,-350}})));
 
 protected
@@ -410,6 +421,7 @@ protected
   Modelica.Blocks.Math.Gain gaiQChi_flow(k=-1)
     "Gain to invert sign of chiller load"
     annotation (Placement(transformation(extent={{86,-344},{66,-324}})));
+
 initial equation
   assert(abs((cp_default-cp_default_check)/cp_default) < 0.1, "Wrong cp_default value. Check cp_default constant.");
   assert(QCoo_flow_nominal < 0,
@@ -597,6 +609,12 @@ equation
           417},{-106,-220},{120,-220},{120,-334},{88,-334}}, color={0,0,127}));
   connect(gaiQChi_flow.y, conMasChi.Q_flow) annotation (Line(points={{65,-334},{
           54,-334},{54,-354},{42,-354}}, color={0,0,127}));
+  connect(deMul.y2[1], QHea) annotation (Line(points={{-179,410},{-179,408},{
+          240,408},{240,140},{290,140}}, color={0,0,127}));
+  connect(deMul.y3[1], QHotWat) annotation (Line(points={{-179,403},{-179,404},
+          {236,404},{236,100},{290,100}}, color={0,0,127}));
+  connect(deMul.y1[1], QCoo) annotation (Line(points={{-179,417},{232,417},{232,
+          60},{290,60}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
