@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "winEas.y",
+    "winSou.y",
+    "winWes.y",
+    "winNor.y"
+  };

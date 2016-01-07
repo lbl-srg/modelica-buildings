@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "zone.T",
+    "hysRad.y",
+    "hysAir.y"
+  };
