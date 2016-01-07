@@ -4,7 +4,7 @@
 # only checks the html syntax.
 #
 # To run the unit tests, this script
-# - creates temporary directories for each processors,
+# - creates temporary directories for each processor,
 # - copies the library directory into these
 #   temporary directories,
 # - creates run scripts that run all unit tests,
