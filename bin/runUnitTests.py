@@ -64,7 +64,7 @@ def _runUnitTests(batch, single_package, n_pro):
     if single_package is not None:
         ut.setSinglePackage(single_package)
     ut.setNumberOfThreads(n_pro)
-    ut.pedanticModelica(True)
+    ut.pedanticModelica(False)
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
 #    ut.setNumberOfThreads(1)
