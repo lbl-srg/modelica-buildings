@@ -52,7 +52,7 @@ model IndirectTankHeatExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-   parameter Boolean hA_flowDependent=true
+  parameter Boolean hA_flowDependent = true
     "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
     annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
   parameter Boolean hA_temperatureDependent = true
@@ -93,15 +93,16 @@ model IndirectTankHeatExchanger
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
      each C=CHex/nSeg,
      der_T(
-       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
+      each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
     T(each start=T_start,
       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial))) if
          not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex,
-      allowFlowReversal=allowFlowReversal)
+  Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumHex,
+    allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
@@ -110,9 +111,9 @@ protected
   Modelica.Thermal.HeatTransfer.Components.Convection HexToTan[nSeg]
     "Convection coefficient between the heat exchanger and the surrounding medium"
     annotation (Placement(transformation(extent={{20,12},{40,-8}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
-                                     temSenHex[nSeg]
-    "Temperature of the heat transfer fluid"                                                  annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenHex[nSeg]
+    "Temperature of the heat transfer fluid"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-20,-70})));
@@ -132,7 +133,7 @@ protected
     each final flowDependent=hA_flowDependent,
     each final temperatureDependent=hA_temperatureDependent)
     "Computation of convection coefficients inside the coil"
-                                                   annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-80})));
@@ -143,11 +144,12 @@ protected
     each final TFlu_nominal=TTan_nominal,
     each final TSur_nominal=TTan_nominal-(r_nominal/(1+r_nominal))*(TTan_nominal-THex_nominal))
     "Calculates an hA value for each side of the heat exchanger"
-                                    annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
-    "Temperature at the external surface of the heat exchanger" annotation (
+    "Temperature at the external surface of the heat exchanger"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -300,8 +302,7 @@ January 7, 2016, by Filip Jorissen:<br/>
 Propagated <code>flowDependent</code> and <code>temperatureDependent</code>
 in <code>hAPipIns</code>.
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/454\">
-          #454</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/454\">#454</a>.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
