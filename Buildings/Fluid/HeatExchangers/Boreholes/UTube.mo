@@ -212,8 +212,6 @@ coordinates for the spatial domain <i>r<sub>bor</sub> &le; r &le; r<sub>ext</sub
 In the radial direction, the spatial domain is discretized into
 <i>n<sub>hor</sub></i> segments with uniform material properties.
 Thermal properties can be specified separately for each horizontal layer.
-The vertical heat flow is assumed to be zero, and there is assumed to be
-no ground water flow.
 </p>
 <p>
 The far-field temperature, i.e., the temperature at the radius
@@ -249,6 +247,14 @@ For the temperature of the grout, the same equations are applied, with
 <i>T<sup>i</sup><sub>fil,start</sub></i>.
 The default setting uses the same temperature for the soil and the filling material.
 </p>
+<h4>Assumptions and limitations</h4>
+<p>
+The vertical heat flow is assumed to be zero and hence there is no heat flow from
+the ground surface to the soil that could be used to regenerate the soil temperature.
+</p>
+<p>
+There is no ground water flow.
+</p>
 <h4>Implementation</h4>
 <p>
 Each horizontal layer is modeled using an instance of
@@ -282,6 +288,10 @@ International Journal Of Energy Research, 35:312&ndash;320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 23, 2015, by Michael Wetter:<br/>
+Updated documentation and added section about model assumptions and limitations.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

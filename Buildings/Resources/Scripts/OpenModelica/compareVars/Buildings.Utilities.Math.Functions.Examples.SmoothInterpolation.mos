@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "y",
+    "yMonotone",
+    "y2",
+    "y2Monotone",
+    "y1",
+    "y1Monotone"
+  };

@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "conWin.T",
+    "weaBus.TDryBul",
+    "conWin.H",
+    "conWin.y"
+  };
