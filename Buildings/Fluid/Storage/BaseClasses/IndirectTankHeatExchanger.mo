@@ -52,6 +52,13 @@ model IndirectTankHeatExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
+   parameter Boolean hA_flowDependent=true
+    "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
+  parameter Boolean hA_temperatureDependent = true
+    "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of temperature"
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[nSeg]
     "Heat port connected to water inside the tank"
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}}),
@@ -121,7 +128,9 @@ protected
   HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
     each m_flow_nominal=m_flow_nominal,
     each hA_nominal=UA_nominal/nSeg*(r_nominal + 1)/r_nominal,
-    each T_nominal=THex_nominal)
+    each T_nominal=THex_nominal,
+    each final flowDependent=hA_flowDependent,
+    each final temperatureDependent=hA_temperatureDependent)
     "Computation of convection coefficients inside the coil"
                                                    annotation (Placement(
         transformation(
@@ -286,6 +295,14 @@ equation
           </html>",
           revisions="<html>
 <ul>
+<li>
+January 7, 2016, by Filip Jorissen:<br/>
+Propagated <code>flowDependent</code> and <code>temperatureDependent</code>
+in <code>hAPipIns</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/454\">
+          #454</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Set <code>fixed</code> attribute in <code>cap.T</code> to avoid
