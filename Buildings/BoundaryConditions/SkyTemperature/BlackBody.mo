@@ -17,14 +17,15 @@ block BlackBody "Calculate black body sky temperature"
     final unit="K",
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
+  Modelica.Blocks.Interfaces.RealInput nOpa( min=0, max=1, unit="1")
+    "Opaque sky cover [0, 1]"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHorIR(
+  Modelica.Blocks.Interfaces.RealInput HHorIR(
     unit="W/m2",
     min=0,
     nominal=100) "Horizontal infrared irradiation"
@@ -32,7 +33,7 @@ block BlackBody "Calculate black body sky temperature"
 protected
   Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
-  Real nOpa10(min=0, max=10) "Opaque sky cover";
+  Real nOpa10(min=0, max=10) "Opaque sky cover in [0, 10]";
 equation
   if calTSky == Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
     TDewPoiK =  Buildings.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);
@@ -44,7 +45,7 @@ equation
     TDewPoiK =  273.15;
     nOpa10   =  0.0;
     epsSky   =  0.0;
-    TBlaSky  =  (radHorIR/Modelica.Constants.sigma)^0.25;
+    TBlaSky  =  (HHorIR/Modelica.Constants.sigma)^0.25;
   end if;
   annotation (
     defaultComponentName="TBlaSky",
@@ -58,6 +59,12 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2016, by Moritz Lauster:<br/>
+Changed unit and comment of input <code>nOpa</code> for correct display of units
+in <code>weaBus</code> and input <code>radHorIR</code> to <code>HHorIR</code>
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
 Converted <code>algorithm</code> section into
@@ -117,5 +124,7 @@ First implementation.
         Text(
           extent={{-88,-24},{-64,-36}},
           lineColor={0,0,127},
-          textString="nOpa")}));
+          textString="nOpa")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end BlackBody;

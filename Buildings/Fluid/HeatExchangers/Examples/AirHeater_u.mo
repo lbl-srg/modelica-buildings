@@ -1,7 +1,11 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model Heater_u "Example model for the heater with prescribed heat input"
+model AirHeater_u
+  "Example model for the heater with prescribed heat input and air as the medium"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.Heater;
+  extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
+    redeclare package Medium = Buildings.Media.Air,
+    m_flow_nominal=V*1.2*6/3600,
+    Q_flow_nominal=30*6*6);
 
   HeaterCooler_u hea(
     redeclare package Medium = Medium,
@@ -11,15 +15,14 @@ model Heater_u "Example model for the heater with prescribed heat input"
     Q_flow_nominal=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 equation
-  connect(fan.port_b, hea.port_a) annotation (Line(
-      points={{-50,-40},{-20,-40}},
-      color={0,127,255}));
   connect(hea.port_b, THeaOut.port_a) annotation (Line(
       points={{0,-40},{20,-40}},
       color={0,127,255}));
   connect(conPI.y, hea.u) annotation (Line(
       points={{-39,30},{-30,30},{-30,-34},{-22,-34}},
       color={0,0,127}));
+  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-36,-40},
+          {-20,-40}}, color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an
@@ -33,21 +36,27 @@ which the air temperature is above the set point.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.Heater_T\">
-Buildings.Fluid.HeatExchangers.Examples.Heater_T</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.AirHeater_T\">
+Buildings.Fluid.HeatExchangers.Examples.AirHeater_T</a>
 for a model that takes the leaving air temperature as an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/Heater_u.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/AirHeater_u.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05));
-end Heater_u;
+      Tolerance=1e-05),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
+end AirHeater_u;
