@@ -30,7 +30,7 @@ model IdealSmallSystem3Clusters
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal) "Heating and cooling plant"
+    m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
   Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
       nPorts=1) "Model to set the reference pressure"
@@ -176,6 +176,14 @@ model IdealSmallSystem3Clusters
         -50E3; 12*3600,-20E3; 18*3600,-150E3; 24*3600,-150E3], extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{240,-120},{260,-100}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-320,70},{-300,90}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-320,100},{-300,120}})));
 equation
 
   connect(pla.port_b, pip.port_a) annotation (Line(points={{-240,60},{-232,60},{
@@ -291,6 +299,10 @@ equation
           {60,60},{-208,60}},           color={0,127,255}));
   connect(pip5.port_b, pip1.port_a) annotation (Line(points={{80,-240},{40,-240},
           {40,-40},{-210,-40}}, color={0,127,255}));
+  connect(TSetH.y, pla.TSetHea) annotation (Line(points={{-299,110},{-270,110},{
+          -270,68},{-262,68}}, color={0,0,127}));
+  connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-299,80},{-290,80},{-290,
+          64},{-262,64}}, color={0,0,127}));
   annotation(experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem3Clusters.mos"
         "Simulate and plot"),
@@ -310,7 +322,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,-260},{460,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{460,
             140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IdealSmallSystem3Clusters;

@@ -32,7 +32,7 @@ model IdealSmallSystem "Validation model for a small system"
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal) "Heating and cooling plant"
+    m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
       nPorts=1) "Model to set the reference pressure"
@@ -138,6 +138,14 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{150,-30},{170,-50}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
 equation
 
   connect(pla.port_b, pip.port_a) annotation (Line(points={{-100,60},{-92,60},{-88,
@@ -187,6 +195,10 @@ equation
           {160,0},{180,0}}, color={0,127,255}));
   connect(spl5.port_2, coo2.port_a) annotation (Line(points={{170,-40},{208,-40},
           {240,-40},{240,0},{260,0}}, color={0,127,255}));
+  connect(TSetH.y, pla.TSetHea) annotation (Line(points={{-139,120},{-130,120},
+          {-130,68},{-122,68}}, color={0,0,127}));
+  connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-139,90},{-134,90},{
+          -134,64},{-122,64}}, color={0,0,127}));
   annotation(experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem.mos"
         "Simulate and plot"),
@@ -206,7 +218,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{300,
-            140}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{
+            300,140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IdealSmallSystem;

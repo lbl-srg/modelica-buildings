@@ -34,16 +34,14 @@ model HeatingCoolingHotWaterSmall
   Plants.Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal,
-    TSetHeaLea=TSetHeaLea,
-    TSetCooLea=TSetCooLea) "Heating and cooling plant"
-    annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
+    m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
+    annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
   Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
       nPorts=1) "Model to set the reference pressure"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-200,-90})));
+        origin={-260,-90})));
   Buildings.Fluid.FixedResistances.Pipe pip(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -55,7 +53,7 @@ model HeatingCoolingHotWaterSmall
     dp_nominal=0,
     useMultipleHeatPorts=true,
     nSeg=1)
-    annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
+    annotation (Placement(transformation(extent={{-130,50},{-110,70}})));
   Buildings.Fluid.FixedResistances.Pipe pip1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -67,7 +65,7 @@ model HeatingCoolingHotWaterSmall
     dp_nominal=0,
     useMultipleHeatPorts=true,
     nSeg=1)
-    annotation (Placement(transformation(extent={{-130,-70},{-150,-50}})));
+    annotation (Placement(transformation(extent={{-112,-70},{-132,-50}})));
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff(
       redeclare package Medium = Medium,
       filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
@@ -76,7 +74,7 @@ model HeatingCoolingHotWaterSmall
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
       computeWetBulbTemperature=false) "File reader that reads weather data"
-    annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
+    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret(
     redeclare package Medium = Medium,
     filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgStand-aloneRetailNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
@@ -99,24 +97,30 @@ model HeatingCoolingHotWaterSmall
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-30,-50},{-10,-70}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
+public
+  Plants.LakeWaterHeatExchanger_T bayWatHex(
+    dp_nominal=0,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal) "Bay water heat exchanger"
+    annotation (Placement(transformation(extent={{-170,-10},{-150,10}})));
 equation
-  connect(pla.port_b, pip.port_a) annotation (Line(points={{-160,60},{-140,60}},
-                         color={0,127,255}));
-  connect(pla.port_a, pip1.port_b) annotation (Line(points={{-180,60},{-200,60},
-          {-200,-60},{-150,-60}},
-                           color={0,127,255}));
-  connect(pSet.ports[1], pip1.port_b) annotation (Line(points={{-200,-80},{-200,
-          -60},{-150,-60}},
-                      color={0,127,255}));
   connect(weaDat.weaBus, larOff.weaBus) annotation (Line(
-      points={{-180,110},{-136,110},{-60,110},{-60,16.7143}},
+      points={{-140,110},{-140,112},{-60,112},{-60,16.7143}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, ret.weaBus) annotation (Line(
-      points={{-180,110},{-114,110},{40,110},{40,16.7143}},
+      points={{-140,110},{-140,112},{40,112},{40,16.7143}},
       color={255,204,51},
       thickness=0.5));
-  connect(pip.port_b, splSup.port_1) annotation (Line(points={{-120,60},{-110,
+  connect(pip.port_b, splSup.port_1) annotation (Line(points={{-110,60},{-110,
           60},{-100,60}}, color={0,127,255}));
   connect(splSup.port_3, larOff.port_a) annotation (Line(points={{-90,50},{-90,
           50},{-90,0},{-80,0}}, color={0,127,255}));
@@ -124,10 +128,28 @@ equation
           {0,60},{0,0},{20,0}}, color={0,127,255}));
   connect(larOff.port_b, splRet.port_3) annotation (Line(points={{-40.1429,0},{
           -20,0},{-20,-50}}, color={0,127,255}));
-  connect(pip1.port_a, splRet.port_1) annotation (Line(points={{-130,-60},{-80,
+  connect(pip1.port_a, splRet.port_1) annotation (Line(points={{-112,-60},{-112,
           -60},{-30,-60}}, color={0,127,255}));
   connect(splRet.port_2, ret.port_b) annotation (Line(points={{-10,-60},{50,-60},
           {80,-60},{80,0},{59.8571,0}}, color={0,127,255}));
+  connect(TSetH.y, pla.TSetHea) annotation (Line(points={{-239,110},{-228,110},{
+          -228,68},{-222,68}}, color={0,0,127}));
+  connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-239,80},{-232,80},{-232,
+          64},{-222,64}}, color={0,0,127}));
+  connect(pip.port_a, bayWatHex.port_b1) annotation (Line(points={{-130,60},{
+          -144,60},{-144,6},{-150,6}}, color={0,127,255}));
+  connect(bayWatHex.port_a1, pla.port_b) annotation (Line(points={{-170,6},{
+          -190,6},{-190,60},{-200,60}}, color={0,127,255}));
+  connect(bayWatHex.port_b2, pla.port_a) annotation (Line(points={{-170,-6},{
+          -188,-6},{-230,-6},{-230,60},{-220,60}}, color={0,127,255}));
+  connect(bayWatHex.port_a2, pip1.port_b) annotation (Line(points={{-150,-6},{
+          -140,-6},{-140,-60},{-132,-60}}, color={0,127,255}));
+  connect(bayWatHex.TSetHea, TSetH.y) annotation (Line(points={{-172,12},{-178,
+          12},{-178,110},{-239,110}}, color={0,0,127}));
+  connect(TSetC.y, bayWatHex.TSetCoo) annotation (Line(points={{-239,80},{-214,
+          80},{-184,80},{-184,8},{-172,8}}, color={0,0,127}));
+  connect(pSet.ports[1], pla.port_a) annotation (Line(points={{-260,-80},{-260,
+          -80},{-260,-42},{-260,60},{-220,60}}, color={0,127,255}));
   annotation(experiment(StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
