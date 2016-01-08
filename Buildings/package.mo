@@ -292,12 +292,7 @@ its class name ends with the string <code>Beta</code>.
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in aCorrected wrong computation of <code>staB1</code> and <code>staB2</code>
-+which mistakenly used the <code>inStream</code> operator
-+for the configuration without flow reversal.
-+This is for
-+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
-+issue 476</a>
+   have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
