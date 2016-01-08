@@ -72,16 +72,13 @@ equation
           {-32,-8}},          color={0,0,127}));
   connect(masFloRat.ports[1], temSteSta.port_a) annotation (Line(
       points={{-10,-12},{0,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(temSteSta.port_b, temDyn.port_a) annotation (Line(
       points={{20,-12},{30,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(amb.ports[1], senRelTem.port_a) annotation (Line(
       points={{8,-60},{30,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(temDyn.port_b, temDynLoss.port_a)
     annotation (Line(points={{50,-12},{56,-12}},
                                              color={0,127,255}));

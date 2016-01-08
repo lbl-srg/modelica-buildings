@@ -77,30 +77,24 @@ equation
                                                  color={0,0,127}));
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
       points={{-40,46},{0,46},{0,12},{6,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
       points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
           -60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(POut.y, sin_2.p_in) annotation (Line(
       points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
       points={{26,12},{45,12},{45,12},{64,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_2.ports[1], hex.port_b2) annotation (Line(
       points={{-38,6.66134e-16},{-27,6.66134e-16},{-27,1.22125e-15},{-16,
           1.22125e-15},{-16,5.55112e-16},{6,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(trapezoid.y, sin_1.p_in) annotation (Line(
       points={{61,72},{94,72},{94,20},{86,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation(experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos"
         "Simulate and plot"),

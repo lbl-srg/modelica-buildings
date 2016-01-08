@@ -3,5 +3,6 @@ compareVars :=
     "masFraSou.V",
     "masFraVol.V",
     "vol.C[1]",
-    "senTraSub.C"
+    "senTraSub.C",
+    "senTraSubNoFlorRev.C"
   };

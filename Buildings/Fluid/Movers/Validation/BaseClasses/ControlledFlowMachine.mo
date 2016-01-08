@@ -104,112 +104,85 @@ equation
 
   connect(fan1.port_a, relPre.port_b) annotation (Line(
       points={{-20,60},{-20,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan1.port_b, relPre.port_a) annotation (Line(
       points={{5.55112e-16,60},{5.55112e-16,46},{0,32},{5.55112e-16,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan1.port_b, dp1.port_a) annotation (Line(
       points={{5.55112e-16,60},{16,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan2.port_b, dp2.port_a) annotation (Line(
       points={{5.55112e-16,-20},{16,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan3.port_b, dp3.port_a) annotation (Line(
       points={{5.55112e-16,-60},{16,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan4.port_b, dp4.port_a) annotation (Line(
       points={{5.55112e-16,110},{16,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(gain.y, fan4.Nrpm) annotation (Line(
       points={{-39,140},{-10,140},{-10,122}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masFloRat1.m_flow, fan2.m_flow_in) annotation (Line(
       points={{70,71},{70,86},{42,86},{42,4},{-10.2,4},{-10.2,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(relPre.p_rel, fan3.dp_in) annotation (Line(
       points={{-10,23},{-10,8},{-24,8},{-24,-40},{-10.2,-40},{-10.2,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp8.port_b, fan4.port_a) annotation (Line(
       points={{-32,110},{-20,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp5.port_b, fan1.port_a) annotation (Line(
       points={{-32,60},{-20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp6.port_b, fan2.port_a) annotation (Line(
       points={{-32,-20},{-20,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp7.port_b, fan3.port_a) annotation (Line(
       points={{-32,-60},{-20,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, fan1.y) annotation (Line(
       points={{-119,80},{-10,80},{-10,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y.y, gain.u) annotation (Line(
       points={{-119,80},{-80,80},{-80,140},{-62,140}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dp8.port_a, sou.ports[1]) annotation (Line(
       points={{-52,110},{-62,110},{-62,33},{-70,33}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp5.port_a, sou.ports[2]) annotation (Line(
       points={{-52,60},{-60,60},{-60,31},{-70,31}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp6.port_a, sou.ports[3]) annotation (Line(
       points={{-52,-20},{-60,-20},{-60,29},{-70,29}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp7.port_a, sou.ports[4]) annotation (Line(
       points={{-52,-60},{-62,-60},{-62,27},{-70,27}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp4.port_b, masFloRat4.port_a) annotation (Line(
       points={{36,110},{60,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_b, masFloRat1.port_a) annotation (Line(
       points={{36,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp2.port_b, masFloRat2.port_a) annotation (Line(
       points={{36,-20},{60,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp3.port_b, masFloRat3.port_a) annotation (Line(
       points={{36,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFloRat4.port_b, sin.ports[1]) annotation (Line(
       points={{80,110},{102,110},{102,33},{122,33}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFloRat1.port_b, sin.ports[2]) annotation (Line(
       points={{80,60},{100,60},{100,31},{122,31}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFloRat2.port_b, sin.ports[3]) annotation (Line(
       points={{80,-20},{100,-20},{100,29},{122,29}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFloRat3.port_b, sin.ports[4]) annotation (Line(
       points={{80,-60},{102,-60},{102,27},{122,27}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
             160}})),

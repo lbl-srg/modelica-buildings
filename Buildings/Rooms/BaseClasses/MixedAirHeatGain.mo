@@ -16,14 +16,14 @@ model MixedAirHeatGain "Model to convert internal heat gain signals"
             {110,10}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput QRad_flow "Radiative heat gain"
+  Modelica.Blocks.Interfaces.RealOutput QRad_flow(unit="W")
+    "Radiative heat gain"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b QLat_flow(redeclare final package
-      Medium =
-        Medium) "Latent heat gain"
+  Modelica.Fluid.Interfaces.FluidPort_b QLat_flow(
+    redeclare final package Medium = Medium) "Latent heat gain"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 protected
   Modelica.SIunits.MassFlowRate mWat_flow
@@ -161,6 +161,10 @@ between the surfaces, require access to the area and absorptivity of the surface
         revisions="<html>
 <ul>
 <li>
+November 3, by Michael Wetter:<br/>
+Added <code>unit</code> attributes to input signals.
+</li>
+<li>
 June 25, by Michael Wetter:<br/>
 Added missing <code>each</code> attribute.
 </li>
@@ -173,5 +177,7 @@ June 8 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end MixedAirHeatGain;

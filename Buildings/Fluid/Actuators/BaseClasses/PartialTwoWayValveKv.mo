@@ -61,14 +61,10 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,40},{0,-4}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,40},{0,-4}}),
         Line(
           visible=not filteredOpening,
-          points={{0,100},{0,40}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+          points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
 Partial model for valves with different opening characteristics,

@@ -10,12 +10,13 @@ initial equation
    y=x;
 equation
   x=Buildings.Utilities.Math.Functions.regNonZeroPower(
-                                             time,n, delta);
+                                             time^3,n, delta);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
 
- annotation(experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mos" "Simulate and plot"),
+ annotation(experiment(StartTime=-1, StopTime=1.0, Tolerance=1E-08),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -24,6 +25,12 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 17, 2015 by Michael Wetter:<br/>
+Updated regression test to have slope that is different from one.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+</li>
 <li>
 April 14, 2008, by Michael Wetter:<br/>
 First implementation.

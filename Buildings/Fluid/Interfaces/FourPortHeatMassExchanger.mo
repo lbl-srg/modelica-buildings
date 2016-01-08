@@ -2,10 +2,10 @@ within Buildings.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    port_a1(h_outflow(start=h1_outflow_start)),
+    port_b1(h_outflow(start=h1_outflow_start)),
+    port_a2(h_outflow(start=h2_outflow_start)),
+    port_b2(h_outflow(start=h2_outflow_start)));
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -190,28 +190,22 @@ initial algorithm
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol2.ports[2], port_b2) annotation (Line(
       points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a1, preDro1.port_a) annotation (Line(
       points={{-100,60},{-90,60},{-90,80},{-80,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
       points={{-60,80},{-2,80},{-2,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a2, preDro2.port_a) annotation (Line(
       points={{100,-60},{90,-60},{90,-80},{80,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
       points={{60,-80},{2,-80},{2,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -238,6 +232,12 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Changed assignments of start values in <code>extends</code> statement.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+</li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in

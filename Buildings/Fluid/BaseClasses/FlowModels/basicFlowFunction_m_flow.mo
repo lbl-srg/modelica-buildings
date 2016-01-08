@@ -1,27 +1,30 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_m_flow "Basic class for flow models"
+function basicFlowFunction_m_flow
+  "Function that computes pressure drop for given mass flow rate"
 
   input Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
   input Real k(unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
+  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-protected
- Real kSquInv(unit="1/(kg.m)") "Flow coefficient";
 algorithm
- kSquInv:=1/k^2;
- dp :=Modelica.Fluid.Utilities.regSquare2(x=m_flow, x_small=m_flow_turbulent, k1=kSquInv, k2=kSquInv);
+ dp :=if (m_flow>m_flow_turbulent) then (m_flow/k)^2
+      elseif (m_flow<-m_flow_turbulent) then -(m_flow/k)^2
+      else (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
  annotation (LateInline=true,
-             inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
              smoothOrder=2,
+             derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
+               Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der,
+             inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
           color={0,0,255},
-          smooth=Smooth.None,
           thickness=1), Text(
           extent={{-40,-40},{40,-80}},
           lineColor={0,0,0},
@@ -48,6 +51,21 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 28, 2015, by Michael Wetter:<br/>
+Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</a>.
+</li>
+<li>
+July 15, 2015, by Filip Jorissen:<br/>
+New, more efficient implementation based on regularisation using simple polynomial.
+Expanded common subexpressions for function inlining to be possible.
+Set <code>Inline=true</code> for inlining to occur.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
+</li>
 <li>
 August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,

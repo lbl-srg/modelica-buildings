@@ -14,12 +14,10 @@ model Table "Test model for table that determines set points"
 equation
   connect(TRoo.y, tabLinExt.u) annotation (Line(
       points={{-59,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TRoo.y, tabConExt.u) annotation (Line(
       points={{-59,10},{-50,10},{-50,50},{-22,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos"

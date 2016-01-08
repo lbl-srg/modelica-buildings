@@ -65,44 +65,34 @@ model TwoWayValvePressureIndependent
 equation
   connect(valInd.y, y.y) annotation (Line(
       points={{0,52},{0,66},{-20,66},{-20,80},{-39,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], valInd.port_a) annotation (Line(
       points={{-50,2.66667},{-30,2.66667},{-30,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valInd.port_b, sin.ports[1]) annotation (Line(
       points={{10,40},{32,40},{32,2.66667},{52,2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp.y, sou.p_in) annotation (Line(
       points={{-79,8},{-72,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(valIndDpFix.port_a, sou.ports[2]) annotation (Line(
       points={{-10,0},{-30,0},{-30,-2.22045e-16},{-50,-2.22045e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valIndDpFix.port_b, sin.ports[2]) annotation (Line(
       points={{10,0},{32,0},{32,-2.22045e-16},{52,-2.22045e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valIndFromMflow.port_a, sou.ports[3]) annotation (Line(
       points={{-10,-40},{-30,-40},{-30,-2.66667},{-50,-2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valIndFromMflow.port_b, sin.ports[3]) annotation (Line(
       points={{10,-40},{32,-40},{32,-2.66667},{52,-2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, valIndDpFix.y) annotation (Line(
       points={{-39,80},{-20,80},{-20,20},{0,20},{0,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y.y, valIndFromMflow.y) annotation (Line(
       points={{-39,80},{-20,80},{-20,-20},{0,-20},{0,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=2),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mos"

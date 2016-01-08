@@ -85,11 +85,9 @@ First implementation.
         Polygon(
           points={{-24,8},{24,50},{24,38},{-24,-4},{-24,8}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid)}));
 end VAVBoxExponential;

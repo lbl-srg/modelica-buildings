@@ -29,25 +29,20 @@ equation
 
   connect(sou.m_flow_in, pulse.y)                             annotation (Line(
       points={{-102.1,-70},{-119,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], volWes.ports[4])
     annotation (Line(
       points={{-80,-70},{-74,-70},{-74,-38},{-80,-38},{-80,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(CO2SenWes.port, volWes.ports[5]) annotation (Line(
       points={{-92,10},{-92,0},{-72,0},{-72,-34},{-80,-34},{-80,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(CO2SenTop.port, volTop.ports[3]) annotation (Line(
       points={{30,120},{30,108},{-10,108},{-10,120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(CO2SenEas.port, volEas.ports[6]) annotation (Line(
       points={{68,10},{68,-30},{90,-30},{90,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
             250}})),

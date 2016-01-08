@@ -2,8 +2,7 @@ within Buildings.Examples.DualFanDualDuct;
 model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA =
-      Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
@@ -1264,6 +1263,14 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set default temperature for medium to avoid conflicting
+start values for alias variables of the temperature
+of the building and the ambient air.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 June 10, 2015, by Michael Wetter:<br/>
 In air handler unit, changed all coil controllers to proportional controllers,

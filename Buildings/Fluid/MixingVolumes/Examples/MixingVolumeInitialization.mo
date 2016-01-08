@@ -38,20 +38,16 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
 equation
   connect(sou1.ports[1], pipe1.port_a) annotation (Line(
       points={{-40,20},{-20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pipe1.port_b, vol1.ports[1]) annotation (Line(
       points={{0,20},{28,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol1.ports[2], pipe2.port_a) annotation (Line(
       points={{32,20},{60,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pipe2.port_b, sin1.ports[1]) annotation (Line(
       points={{80,20},{100,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=0.001,

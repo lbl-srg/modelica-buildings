@@ -15,17 +15,14 @@ model Average "Test model for average function"
 equation
   connect(x1.y, multiplex2_1.u1[1]) annotation (Line(
       points={{-39,20},{-28,20},{-28,6},{-22,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(x2.y, multiplex2_1.u2[1]) annotation (Line(
       points={{-39,-20},{-28,-20},{-28,-6},{-22,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(multiplex2_1.y, average.u)
                                  annotation (Line(
       points={{1,0},{18,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation ( experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
         "Simulate and plot"), Documentation(info="<html>

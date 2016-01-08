@@ -44,19 +44,22 @@ partial model PartialThreeWayResistance
     "Flow direction for port_3"
    annotation(Dialog(tab="Advanced"));
 
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(
-    redeclare package Medium = Medium,
-    allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare final package Medium = Medium,
+      allowFlowReversal=portFlowDirection_3 == Modelica.Fluid.Types.PortFlowDirection.Bidirectional)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(
         origin={0,-50},
@@ -90,13 +93,11 @@ equation
     if not dynamicBalance then
        connect(res1.port_a, port_internal) annotation (Line(
       points={{-60,0},{-60,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res1.port_a, vol.ports[1]) annotation (Line(
       points={{-60,0},{-2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
             0}},                                                                      color={0,127,255}));
@@ -104,13 +105,11 @@ equation
     if not dynamicBalance then
        connect(res1.port_b, port_internal) annotation (Line(
       points={{-40,0},{-40,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res1.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{-2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,0}}, color={0,127,255}));
   end if;
@@ -119,26 +118,22 @@ equation
     if not dynamicBalance then
        connect(res2.port_a, port_internal) annotation (Line(
       points={{60,0},{60,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res2.port_a, vol.ports[2]) annotation (Line(
       points={{60,0},{2.22045e-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_2, res2.port_b) annotation (Line(points={{100,0},{100,0},{40,0}},    color={0,127,255}));
   else
     if not dynamicBalance then
        connect(res2.port_b, port_internal) annotation (Line(
       points={{40,0},{40,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res2.port_b, vol.ports[2]) annotation (Line(
       points={{40,0},{2.22045e-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_2, res2.port_a) annotation (Line(points={{100,0},{100,0},{60,0}},    color={0,127,255}));
   end if;
@@ -147,26 +142,22 @@ equation
     if not dynamicBalance then
        connect(res3.port_a, port_internal) annotation (Line(
       points={{-4.44089e-16,-60},{20,-60},{20,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res3.port_a, vol.ports[3]) annotation (Line(
       points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
     if not dynamicBalance then
        connect(res3.port_b, port_internal) annotation (Line(
       points={{4.44089e-16,-40},{20,-40},{20,60},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     else
        connect(res3.port_b, vol.ports[3]) annotation (Line(
       points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     end if;
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
@@ -184,6 +175,14 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 17, 2015, by Michael Wetter:<br/>
+Added assignment <code>redeclare final package Medium=Medium</code>
+as this is required for OpenModelica.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
+https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
+</li>
 <li>
 April 13 2015, by Filip Jorissen:<br/>
 Exposed options for flow reversal to users and added corresponding implementation.
@@ -203,7 +202,5 @@ June 11, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics));
+</html>"));
 end PartialThreeWayResistance;

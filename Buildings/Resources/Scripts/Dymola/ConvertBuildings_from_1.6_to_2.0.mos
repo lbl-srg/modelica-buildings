@@ -114,7 +114,7 @@ convertClass("Buildings.Fluid.Movers.FlowMachine_y",
 // Buildings.Fluid.FixedResistances.Pipe and
 // Buildings.Fluid.FixedResistances.BaseClasses.Pipe
 // Renamed res to preDro
-convertElement({"Buildings.Fluid.FixedResistances.Pipe"},
+convertElement({"Buildings.Fluid.FixedResistances.Pipe",
                 "Buildings.Fluid.FixedResistances.BaseClasses.Pipe"},
                 "res", "preDro");
 

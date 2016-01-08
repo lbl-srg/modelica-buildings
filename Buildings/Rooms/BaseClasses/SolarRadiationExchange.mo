@@ -4,10 +4,10 @@ model SolarRadiationExchange
   extends Buildings.Rooms.BaseClasses.PartialSurfaceInterfaceRadiative(
   final epsConExt = datConExt.layers.absSol_b,
   final epsConExtWinOpa = datConExtWin.layers.absSol_b,
-  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol
-                     -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b) for i in 1:NConExtWin},
-  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol
-                       -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b) for i in 1:NConExtWin},
+  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1]
+                     -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b[1]) for i in 1:NConExtWin},
+  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1]
+                       -datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].rhoSol_b[1]) for i in 1:NConExtWin},
   final epsConExtWinFra = datConExtWin.glaSys.absSolFra,
   final epsConPar_a = datConPar.layers.absSol_a,
   final epsConPar_b = datConPar.layers.absSol_b,
@@ -117,6 +117,12 @@ initial equation
   for i in 1:NConExtWin loop
     // We simplify and assume that the shaded and unshaded part of the window
     // have the same solar absorbtance.
+    // A further simplification is that the window is assumed to have the
+    // optical properties of state 1, which for electrochromic windows is
+    // the uncontrolled state. The error should be small as in the controlled state,
+    // there is little solar radiation entering the room, and with this simplification,
+    // the main error is that the radiation that is reflected in the room and hits the
+    // window is larger than it otherwise would be.
     // This simplification allows lumping the solar distribution into
     // a parameter.
     eps[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = epsConExtWinUns[i];
@@ -331,9 +337,33 @@ For the glass of the windows, the heat flow rate
 <i>J<sub>out</sub><sup>i</sup></i>
 that will strike the glass or the window shade as diffuse solar
 radiation.
+</p>
+<h4>Main assumptions</h4>
+<p>
+The main assumptions or simplifications are that the shaded and unshaded part of the window
+have the same solar absorbtance.
+Furthermore, if the room has electrochromic windows, the optical properties
+are taken from the state 1, which generally is
+the uncontrolled state. The error should be small as in the controlled state,
+there is little solar radiation entering the room, and with this simplification,
+the main error is that the radiation that is reflected in the room and hits the
+window is larger than it otherwise would be.
+This simplification allows lumping the solar distribution into
+a parameter.
+</p>
+<p>
+The model also assumes that all radiation first hits the floor from
+which it is diffusely distributed to the other surfaces.
+</p>
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

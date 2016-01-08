@@ -121,72 +121,55 @@ equation
                           color={0,0,127}));
   connect(sou.ports[1], res1.port_a) annotation (Line(
       points={{-50,60.6667},{-43,60.6667},{-43,60},{-36,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], res11.port_a) annotation (Line(
       points={{-50,58},{-44,58},{-44,10},{-40,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[3], res21.port_a) annotation (Line(
       points={{-50,55.3333},{-46,55.3333},{-46,-82},{-40,-82}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[1], res2.port_b) annotation (Line(
       points={{110,60.6667},{104,60.6667},{104,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[2], res12.port_b) annotation (Line(
       points={{110,58},{104,58},{104,10},{100,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res22.port_b, sin.ports[3]) annotation (Line(
       points={{100,-82},{106,-82},{106,55.3333},{110,55.3333}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, vol.ports[1]) annotation (Line(
       points={{-16,60},{8.8,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], entFloRat.port_a) annotation (Line(
       points={{13.2,60},{40,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res11.port_b, vol1.ports[1]) annotation (Line(
       points={{-20,10},{8,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol1.ports[2], entFloRat1.port_a) annotation (Line(
       points={{12,10},{40,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res21.port_b, vol2.ports[1]) annotation (Line(
       points={{-20,-82},{8,-82}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol2.ports[2], entFloRat2.port_a) annotation (Line(
       points={{12,-82},{40,-82}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(entFloRat2.port_b, res22.port_a) annotation (Line(
       points={{60,-82},{80,-82}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(entFloRat1.port_b, res12.port_a) annotation (Line(
       points={{60,10},{80,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(entFloRat.H_flow, assertEquality.u1) annotation (Line(
       points={{50,71},{50,88},{158,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(entFloRat.H_flow, assertEquality1.u1) annotation (Line(
       points={{50,71},{50,88},{140,88},{140,26},{154,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(entFloRat1.H_flow, assertEquality.u2) annotation (Line(
       points={{50,21},{50,40},{146,40},{146,76},{158,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),

@@ -144,7 +144,7 @@ and, through the fluid port, to the air conditioning system.
 Currently, the supported CFD program is the
 Fast Fluid Dynamics (FFD) program <a href=\"#ZUO2010\">(Zuo 2010)</a>.
 See
-<a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
+<a href=\"modelica://Buildings.Rooms.UsersGuide\">Buildings.Rooms.UsersGuide</a>
 for detailed explanations.
 </p>
 <h4>References</h4>

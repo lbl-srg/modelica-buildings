@@ -6,6 +6,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
 
+  constant Boolean simplify_mWat_flow = true
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
+
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
@@ -219,9 +222,9 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + mWat_flow;
+    0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow);
   else
-    der(m) = mb_flow + mWat_flow;
+    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -251,6 +254,30 @@ Basic model for an ideally mixed fluid volume with the ability to store mass and
 It implements a dynamic or a steady-state conservation equation for energy and mass fractions.
 The model has zero pressure drop between its ports.
 </p>
+
+<h4>Typical use and important parameters</h4>
+<p>
+Set the constant <code>sensibleOnly=true</code> if the model that extends
+or instantiates this model sets <code>mWat_flow = 0</code>.
+</p>
+<p>
+Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = - mWat_flow;
+</pre>
+<p>
+to
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = 0;
+</pre>
+<p>
+This causes an error in the mass balance of about <i>0.5%</i>, but generally leads to
+simpler equations because the pressure drop equations are then decoupled from the
+mass exchange in this component.
+</p>
+
 <h4>Implementation</h4>
 <p>
 When extending or instantiating this model, the input
@@ -283,6 +310,11 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 17, 2015, by Michael Wetter:<br/>
+Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
+calculation on the moisture balance.
+</li>
+<li>
 June 5, 2015 by Michael Wetter:<br/>
 Removed <code>preferredMediumStates= false</code> in
 the instance <code>medium</code> as the default
@@ -299,7 +331,7 @@ Xi(start=X_start[1:Medium.nXi],
 </pre>
 and set
 <code>preferredMediumStates = false</code>
-because the previous declaration led to more equations and 
+because the previous declaration led to more equations and
 translation problems in large models.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.

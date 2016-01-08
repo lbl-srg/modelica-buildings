@@ -1,8 +1,7 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal=rho_default*k*dp_turbulent,
-    final showDesignFlowDirection=false);
+    final m_flow_nominal=rho_default*k*dp_turbulent);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
   parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
@@ -133,6 +132,13 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 January 21, 2015 by Michael Wetter:<br/>
 Changed type of <code>mExc</code> as <code>Modelica.SIunits.Mass</code>

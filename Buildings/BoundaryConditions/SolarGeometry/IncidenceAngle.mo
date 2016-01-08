@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry;
 block IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   parameter Modelica.SIunits.Angle til "Surface tilt";
@@ -12,6 +11,8 @@ public
     displayUnit="deg") "Incidence angle" annotation (Placement(transformation(
           extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{
             120,10}})));
+  WeatherData.Bus weaBus "Weather data"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 protected
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
@@ -24,36 +25,28 @@ protected
     final azi=azi,
     final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-public
-  WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
   connect(incAng.incAng, y) annotation (Line(
       points={{61,0},{88.25,0},{88.25,1.16573e-015},{95.5,1.16573e-015},{95.5,0},
           {110,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.decAng, incAng.decAng) annotation (Line(
       points={{-19,40},{20,40},{20,5.4},{37.8,5.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, incAng.solHouAng) annotation (Line(
       points={{-19,-40},{20,-40},{20,-4.8},{38,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-100,0},{-80,0},{-80,40},{-42,40}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-100,0},{-80,0},{-80,-40},{-42,-40}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

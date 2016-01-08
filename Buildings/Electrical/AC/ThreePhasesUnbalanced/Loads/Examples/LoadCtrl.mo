@@ -15,7 +15,6 @@ model LoadCtrl
     voltageCtrl=true,
     plugPhase2=false,
     plugPhase3=false,
-    P_nominal=0,
     V_nominal=480) "Voltage controlled load"
               annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Lines.Line_N line1(
@@ -30,7 +29,6 @@ model LoadCtrl
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     plugPhase2=false,
     plugPhase3=false,
-    P_nominal=0,
     V_nominal=480) "Load"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
   Lines.Line_N line(
@@ -88,6 +86,12 @@ compare the difference in the voltages and powers when the load is unplugged.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>P_nominal</code> to avoid the warning
+\"The following parameters with fixed = false also have a binding\"
+in Dymola 2016.
+</li>
 <li>
 March 10, 2015, by Marco Bonvini:<br/>
 Revised documentation of the example.

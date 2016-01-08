@@ -42,50 +42,39 @@ model LimPID "Test model for PID controller with optional reverse action"
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
       points={{-59,40},{-22,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pulse.y, limPIDRev.u_s) annotation (Line(
       points={{-59,40},{-45.5,40},{-45.5,-10},{-22,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, limPID.u_m) annotation (Line(
       points={{-59,10},{-10,10},{-10,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, limPIDRev.u_m) annotation (Line(
       points={{-59,10},{-52,10},{-52,-30},{-10,-30},{-10,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(limPIDRev.y, gain.u) annotation (Line(
       points={{1,-10},{18,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, assertEquality.u2) annotation (Line(
       points={{41,-10},{50,-10},{50,24},{58,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(limPID.y, assertEquality.u1) annotation (Line(
       points={{1,40},{30,40},{30,36},{58,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pulse.y, limPIDOri.u_s)
                                annotation (Line(
       points={{-59,40},{-45.5,40},{-45.5,80},{-22,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, limPIDOri.u_m)
                                annotation (Line(
       points={{-59,10},{-52,10},{-52,60},{-10,60},{-10,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(assertEquality1.u1, limPIDOri.y) annotation (Line(
       points={{58,76},{30,76},{30,80},{1,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(assertEquality1.u2, limPID.y) annotation (Line(
       points={{58,64},{30,64},{30,40},{1,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
  annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
         "Simulate and plot"),

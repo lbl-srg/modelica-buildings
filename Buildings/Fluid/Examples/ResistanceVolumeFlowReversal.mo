@@ -64,73 +64,60 @@ model ResistanceVolumeFlowReversal
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-60,-20},{-40,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pulse.y,hea. TSet) annotation (Line(
       points={{-59,50},{-50,50},{-50,-14},{-42,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{29.8,-8},{29.8,50},{-19,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.u,pulse. y) annotation (Line(
       points={{-42,50},{-59,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hea.port_b,val. port_1) annotation (Line(
       points={{-20,-20},{-10,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(val.port_2, pump.port_a) annotation (Line(
       points={{10,-20},{20,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const.y,val. y) annotation (Line(
       points={{-19,10},{0,10},{0,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(val.port_3,hea. port_a) annotation (Line(
       points={{0,-30},{0,-70},{-50,-70},{-50,-20},{-40,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   for i in 1:nRes.k loop
     connect(pump.port_b, res[i].port_a) annotation (Line(
         points={{40,-20},{56,-20}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
     connect(res[i].port_b, vol[i].ports[1]) annotation (Line(
       points={{76,-20},{80,-20},{80,-70},{52,-70},{52,-66}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     connect(vol[i].ports[2], val.port_3) annotation (Line(
       points={{48,-66},{48,-70},{0,-70},{0,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   end for;
   annotation (experiment(
       StopTime=10000),
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
     Documentation(info="<html>
 <p>
-This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the sizes
+This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the size
 of nonlinear systems of equations. The user can change the parameter value in the <code>allowFlowReversal</code>
-block and rerun the simulation. The results are also demonstrated below for <code>nRes.k = 10</code>, 
+block and rerun the simulation. The results are also demonstrated below for <code>nRes.k = 10</code>,
 which is the number of parallel branches containing one pressure drop element and one mixing volume each.
 </p>
 <p>
-This model was created to demonstrate the influence of a new implementation of 
+This model was created to demonstrate the influence of a new implementation of
 <a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquationcode\">
 Buildings.Fluid.Interfaces.ConservationEquationcode</a>.
 The old implementation used the <code>actualStream()</code> function
 whereas the new implementation uses the <code>semiLinear()</code>
 function. This change allows Dymola to exploit knowledge about the <code>min</code> and <code>max</code> attributes
 of <code>m_flow</code>.
-When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed. 
-This is illustrated by the results below. 
+When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed.
+This is illustrated by the results below.
 See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/216\">issue 216</a> for a discussion.
 </p>
 <p>
@@ -141,16 +128,16 @@ two cases the Newton solver of the nonlinear system does not converge.
 These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04
 and with <code>Evaluate=false</code>.
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = true
-</h3>
+</h4>
 <p>
 Sizes of nonlinear systems of equations: {6, 11, <b>56</b>}<br/>
 Sizes after manipulation of the nonlinear systems: {1, 9, <b>12</b>}
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = false
-</h3>
+</h4>
 <p>
 <b>Old implementation</b>
 </p>

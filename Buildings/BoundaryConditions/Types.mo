@@ -10,7 +10,7 @@ package Types "Package with type definitions"
 Enumeration to define the data source used in the weather data reader.
 </p>
 </html>", revisions=
-          "<html>
+"<html>
 <ul>
 <li>
 July 20, 2011, by Michael Wetter:<br/>
@@ -33,7 +33,7 @@ First implementation.
 Enumeration to define the data source used in the weather data reader.
 </p>
 </html>", revisions=
-          "<html>
+"<html>
 <ul>
 <li>
 August 13, 2012, by Wangda Zuo:<br/>
@@ -42,16 +42,17 @@ First implementation.
 </ul>
 </html>"));
   type SkyTemperatureCalculation = enumeration(
-      HorizontalRadiation "Use horizontal irradiation",
+      HorizontalRadiation
+        "Use horizontal irradiation",
       TemperaturesAndSkyCover
         "Use dry-bulb and dew-point temperatures and sky cover")
-    "Enumeration for computation of sky temperature" annotation (Documentation(
-        info =                "<html>
+    "Enumeration for computation of sky temperature"
+annotation (Documentation(info="<html>
 <p>
 Enumeration to define the method used to compute the sky temperature.
 </p>
 </html>", revisions=
-          "<html>
+"<html>
 <ul>
 <li>
 October 3, 2011, by Michael Wetter:<br/>

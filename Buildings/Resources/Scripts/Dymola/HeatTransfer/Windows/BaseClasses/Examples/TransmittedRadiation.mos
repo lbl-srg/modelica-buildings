@@ -5,7 +5,7 @@ simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.TransmittedRa
 removePlots();
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"winTra.HDif", "winTra.HDir", "winTra.QTraUns_flow", "winTra.QTraSha_flow"},
+ y = {"winTra.HDif", "winTra.HDir", "winTra.QTraUns_flow[1]", "winTra.QTraSha_flow[1]"},
  filename = "TransmittedRadiation.mat",
  autoscale = true,
  autoreplot = true,

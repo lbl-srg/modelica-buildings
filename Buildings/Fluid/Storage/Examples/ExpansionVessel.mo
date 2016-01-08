@@ -30,20 +30,16 @@ equation
   connect(pulse.y, preTem.T) annotation (Line(
       points={{-59,0},{-54.75,0},{-54.75,1.27676e-015},{-50.5,1.27676e-015},{-50.5,
           0},{-42,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(preTem.port, theCon.port_a) annotation (Line(
       points={{-20,0},{-15,0},{-15,1.22125e-015},{-10,1.22125e-015},{-10,0},{0,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{20,0},{22.5,0},{22.5,1.22125e-015},{25,1.22125e-015},{25,0},{30,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(vol.ports[1], expVes.port_a) annotation (Line(
       points={{40,-10},{40,-20},{70,-20},{70,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos"
         "Simulate and plot"),

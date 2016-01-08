@@ -10,8 +10,7 @@ model BooleanReplicator "Test model for boolean replicator"
 equation
   connect(booTab.y, booRep.u) annotation (Line(
       points={{-19,10},{-2,10}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
 annotation (experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),

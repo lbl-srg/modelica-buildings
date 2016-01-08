@@ -119,40 +119,31 @@ equation
   connect(sou.ports[1], mIn_flow.port_a) annotation (Line(
       points={{-20,0},{-13.5,0},{-13.5,1.27676e-015},{-7,1.27676e-015},{-7,0},{
           6,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heatFlowSensor.port_b, vol1.heatPort) annotation (Line(
       points={{84,130},{86,130},{86,40},{50,40},{50,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TSen.port, vol1.heatPort) annotation (Line(
       points={{-68,92},{-72,92},{-72,40},{50,40},{50,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(mIn_flow.port_b, vol1.ports[1]) annotation (Line(
       points={{26,0},{58,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mOut_flow.port_a, vol1.ports[2]) annotation (Line(
       points={{84,0},{62,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(PI.y, gai.u) annotation (Line(
       points={{-19,130},{0,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(humRat.p_w, dewPoi.p_w) annotation (Line(
       points={{1,-110},{11,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mOut_flow.port_b, res1.port_a) annotation (Line(
       points={{104,0},{120,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, sin.ports[1]) annotation (Line(
       points={{140,0},{150,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
 experiment(StopTime=600,

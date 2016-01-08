@@ -1,9 +1,7 @@
 within Buildings.Fluid.Interfaces;
 partial model PartialTwoPortTransport
   "Partial element transporting fluid between two ports without storage of mass or energy"
-  extends Buildings.Fluid.Interfaces.PartialTwoPort(
-    final port_a_exposesState=false,
-    final port_b_exposesState=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
@@ -83,10 +81,10 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Transport of substances
-  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 
-  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
   port_b.C_outflow = inStream(port_a.C_outflow);
 
   annotation (
@@ -122,6 +120,21 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignments of parameters
+<code>port_a_exposesState</code> and
+<code>port_b_exposesState</code> in base class.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">#351</a>.
+</li>
+<li>
+August 15, 2015, by Filip Jorissen:<br/>
+Implemented more efficient computation of <code>port_a.Xi_outflow</code>
+and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">#305</a>.
+</li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Removed protected conditional variables <code>state_a</code> and <code>state_b</code>,

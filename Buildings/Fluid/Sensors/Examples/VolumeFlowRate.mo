@@ -37,20 +37,16 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
 equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
       points={{-69,8},{-50,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masFloRat.ports[1], senDyn.port_a) annotation (Line(
       points={{-30,4.44089e-16},{-20,4.44089e-16},{-20,0},{-10,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senDyn.port_b, senSteSta.port_a) annotation (Line(
       points={{10,0},{28,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senSteSta.port_b, sin.ports[1]) annotation (Line(
       points={{48,0},{60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
         "Simulate and plot"),

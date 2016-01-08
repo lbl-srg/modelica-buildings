@@ -11,10 +11,8 @@ model Power "Power calculation comparison among three mover types"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   parameter Data.FlowControlled perMod(
-    use_powerCharacteristic = true,
     hydraulicEfficiency=efficiency,
-    motorEfficiency=efficiency,
-    power=per.power)
+    motorEfficiency=efficiency)
     "Pump performance data with data from the instance efficiency"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
@@ -87,56 +85,43 @@ model Power "Power calculation comparison among three mover types"
 equation
   connect(bou.ports[1], pump_Nrpm.port_a) annotation (Line(
       points={{-82,22.6667},{-82,60},{-60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_dp.port_a, bou.ports[2]) annotation (Line(
       points={{-60,20},{-82,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_m_flow.port_a, bou.ports[3]) annotation (Line(
       points={{-60,-20},{-82,-20},{-82,17.3333}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_Nrpm.port_b, res[1].port_a) annotation (Line(
       points={{-40,60},{0,60},{0,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_dp.port_b, res[2].port_a) annotation (Line(
       points={{-40,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump_m_flow.port_b, res[3].port_a) annotation (Line(
       points={{-40,-20},{0,-20},{0,20},{20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sink.ports[1:3], res.port_b) annotation (Line(
       points={{80,17.3333},{60,17.3333},{60,20},{40,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ramp.y, pump_Nrpm.Nrpm) annotation (Line(
       points={{-59,80},{-50,80},{-50,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(m_flowSet.y, pump_m_flow.m_flow_in) annotation (Line(
       points={{2.2,0},{-50.2,0},{-50.2,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u1[1], pump_Nrpm.P) annotation (Line(
       points={{18,-43},{-30,-43},{-30,68},{-39,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u2[1], pump_dp.P) annotation (Line(
       points={{18,-50},{-30,-50},{-30,28},{-39,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(result.u3[1], pump_m_flow.P) annotation (Line(
       points={{18,-57},{-30,-57},{-30,-12},{-39,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
       points={{2.2,40},{-50.2,40},{-50.2,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (    experiment(StopTime=200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Power.mos"
         "Simulate and plot"),
@@ -155,33 +140,31 @@ and
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>,
 we had to assign the efficiencies (otherwise the default constant
 efficiency of <i>0.7</i> would have been used).
-We also had to set <code>use_powerCharacteristic=true</code>.
-Otherwise, the power consumption would have been computed
+In these models, the power consumption is computed
 using similarity laws, but using the mass flow rate as opposed
 to the speed, because speed is not known in these two models.
-This would yield an error at operating points in which
+This is an approximation at operating points in which
 the speed is different from the nominal speed <code>N_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
-To see the error, change the assignment
 </p>
-<pre>
-  parameter Data.FlowControlled perMod(
-    use_powerCharacteristic = true,
-    hydraulicEfficiency=efficiency,
-    motorEfficiency=efficiency,
-    power=per.power)
-    \"Pump performance data with data from the instance efficiency\";
-</pre>
 <p>
-to
+The figure below shows the approximation error for the
+power calculation where the speed <i>N<sub>rpm</sub></i> differs from
+the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
-<pre>
-  parameter Data.FlowControlled perMod
-    \"Pump performance data with data from the instance efficiency\";
-</pre>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/Power.png\"/>
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2015, by Michael Wetter:<br/>
+Changed parameters since the power is no longer a parameter for the movers
+that take mass flow rate or head as an input.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
 Revised implementation.

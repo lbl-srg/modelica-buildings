@@ -33,17 +33,17 @@ protected
     "Absolute value of nominal pressure";
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
-  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
   port_b.h_outflow = inStream(port_a.h_outflow);
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
 
   // Transport of substances
-  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else Medium.X_default[1:Medium.nXi];
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 
-  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
   port_b.C_outflow = inStream(port_a.C_outflow);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -81,6 +81,14 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 15, 2015, by Filip Jorissen:<br/>
+Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
+<code>port_a.h_outflow</code>
+and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">#281</a>.
+</li>
 <li>
 January 13, 2015, by Marcus Fuchs:<br/>
 Revised revisions section (there were two revisions statements)

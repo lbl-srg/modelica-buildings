@@ -16,7 +16,7 @@ protected
   Real yPP_d "=d^2y(delta)/dx^2";
 algorithm
   if abs(x) > delta then
-   der_y := sign(x)*n*abs(x)^(n-1);
+   der_y := sign(x)*n*abs(x)^(n-1)*der_x;
   else
    delta2 :=delta*delta;
    x2 :=x*x;
@@ -25,9 +25,9 @@ algorithm
    yPP_d :=n*(n - 1)*delta^(n - 2);
    a1 := -(yP_d/delta - yPP_d)/delta2/8;
    a3 := (yPP_d - 12 * a1 * delta2)/2;
-   der_y := x * ( 4 * a1 * x * x + 2 * a3);
+   der_y := x * ( 4 * a1 * x * x + 2 * a3) * der_x;
   end if;
- annotation(derivative(zeroDerivative=n, zeroDerivative=delta)=der_2_regNonZeroPower,
+ annotation(derivative(order=2, zeroDerivative=n, zeroDerivative=delta)=der_2_regNonZeroPower,
 Documentation(
 info="<html>
 <p>
@@ -38,6 +38,12 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 17, 2015 by Michael Wetter:<br/>
+Corrected wrong derivative implementation which omitted the <code>der_x</code> term.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+</li>
 <li>
 March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.

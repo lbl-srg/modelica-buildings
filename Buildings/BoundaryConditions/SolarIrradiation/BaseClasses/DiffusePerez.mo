@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DiffusePerez
   "Hemispherical diffuse irradiation on a tilted surface with Perez's anisotropic model"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
   Modelica.Blocks.Interfaces.RealInput briCof1 "Brightening Coeffcient F1"
@@ -30,11 +29,11 @@ public
 
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 protected
   Real a;

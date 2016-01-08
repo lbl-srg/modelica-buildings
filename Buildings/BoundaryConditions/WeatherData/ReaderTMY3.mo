@@ -202,7 +202,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   //--------------------------------------------------------------
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
-        __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
+        loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
@@ -434,8 +434,7 @@ equation
   else
     connect(conTotSkyCov.u, datRea.y[13]) annotation (Line(
       points={{118,-30},{-59,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(conTotSkyCov.y, totSkyCov_in_internal);
   end if;
   connect(totSkyCov_in_internal, cheTotSkyCov.nIn);
@@ -448,8 +447,7 @@ equation
   else
     connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
       points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
   connect(opaSkyCov_in_internal, cheOpaSkyCov.nIn);
@@ -568,271 +566,219 @@ equation
 
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
       points={{181,-30},{220,-30},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
       points={{183,-150},{220,-150},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
       points={{181,170},{220,170},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
       points={{181,130},{220,130},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
       points={{181,210},{220,210},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
       points={{181,-110},{220,-110},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
       points={{181,-70},{220,-70},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheHorRad.HOut, weaBus.radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
       points={{181,-270},{280,-270},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut,TBlaSkyCom. nOpa) annotation (Line(
       points={{183,-150},{220,-150},{220,-213},{238,-213}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheHorRad.HOut,TBlaSkyCom. radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
           0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(modTim.y, add.u2) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,164},{-142,164}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(con30mins.y, add.u1) annotation (Line(
       points={{-159,202},{-150,202},{-150,176},{-142,176}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(add.y, conTim1.modTim) annotation (Line(
       points={{-119,170},{-112,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim1.calTim, datRea1.u) annotation (Line(
       points={{-89,170},{-82,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-99,-30},{-82,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
       points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(locTim.locTim, solTim.locTim) annotation (Line(
       points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
       points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{300,
           0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
       points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheTemDryBul.TOut,TBlaSkyCom. TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
       points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
       points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
       points={{-59,170.25},{20,170.25},{20,210},{118,210}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
       points={{-59,169.75},{30,169.75},{30,170},{118,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
       points={{-59,170.75},{20,170.75},{20,130},{118,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
       points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
       points={{181,-190},{280,-190},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
                                   annotation (Line(
       points={{-119,-210},{-82,-210},{-82,-210.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, zenAng.solHouAng)                                              annotation (Line(
       points={{-119,-240},{-100,-240},{-100,-220.8},{-82,-220.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solTim, solTim.solTim) annotation (Line(
       points={{-142,-240},{-154,-240},{-154,-172},{-20,-172},{-20,-130},{-59,-130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.nDay, modTim.y) annotation (Line(
       points={{-142,-210},{-150,-210},{-150,-180},{0,-180},{0,6.10623e-16},{
           -159,6.10623e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zenAng.zen, altAng.zen) annotation (Line(
       points={{-59,-216},{-40,-216},{-40,-270},{-32,-270}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   // Connectors for wet bulb temperature.
   // These are removed if computeWetBulbTemperature = false
   connect(chePre.POut, tWetBul_TDryBulXi.p) annotation (Line(
       points={{181,70},{220,70},{220,-64},{243,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
       points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
           0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, tWetBul_TDryBulXi.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-48},{243,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheRelHum.relHumOut, tWetBul_TDryBulXi.phi) annotation (Line(
       points={{181,30},{208,30},{208,-56},{243,-56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(altAng.alt, weaBus.solAlt) annotation (Line(
       points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zenAng.zen, weaBus.solZen) annotation (Line(
       points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.decAng, weaBus.solDec) annotation (Line(
       points={{-119,-210},{-110,-210},{-110,-208},{-100,-208},{-100,-290},{290,
           -290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
       points={{-119,-240},{-108,-240},{-108,-238},{-100,-238},{-100,-290},{290,
           -290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(longitude.y, weaBus.lon) annotation (Line(
       points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(latitude.y, weaBus.lat) annotation (Line(
       points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -1213,11 +1159,17 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+September 24, 2015, by Marcus Fuchs:<br/>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+for MSL compliancy as reported by @tbeu at
+<a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
 Removed redundant but consistent
 <code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
 statement.
-This avoids a warning if 
+This avoids a warning if
 <a href=\"modelica://Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness\">
 Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
 is translated in pedantic mode in Dymola 2016.
@@ -1316,7 +1268,7 @@ October 27, 2011, by Wangda Zuo:<br/>
 Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
 </li>
 <li>
-Separate the unit convertion for TMY3 data and data validity check.
+Separate the unit conversion for TMY3 data and data validity check.
 </li>
 </ol>
 </li>

@@ -30,12 +30,10 @@ equation
           127}));
   connect(TDryBul.y, wetBulPhi.TDryBul) annotation (Line(
       points={{-79,70},{-32,70},{-32,58},{-1,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(phi.y, wetBulPhi.phi) annotation (Line(
       points={{-79,30},{-46,30},{-46,50},{-1,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(p.y, wetBulPhiApp.p)
                          annotation (Line(points={{-79,-10},{-40,-10},{-40,2},{
           -1,2}},                                                   color={0,0,
@@ -43,13 +41,11 @@ equation
   connect(TDryBul.y, wetBulPhiApp.TDryBul)
                                         annotation (Line(
       points={{-79,70},{-32,70},{-32,18},{-1,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(phi.y, wetBulPhiApp.phi)
                                 annotation (Line(
       points={{-79,30},{-46,30},{-46,10},{-1,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulPhi.mos"
         "Simulate and plot"),

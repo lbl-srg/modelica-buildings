@@ -3,7 +3,6 @@ model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    showDesignFlowDirection=false,
     final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";

@@ -21,33 +21,28 @@ model SkyBrightness "Test model for sky brightness"
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(
       points={{1,30},{8,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
       points={{31,30},{40,30},{40,-2},{58,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,-10},{-40,-10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
       points={{-40,-10},{58,-10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(zen.weaBus, weaBus) annotation (Line(
       points={{-20,30},{-30,30},{-30,-10},{-40,-10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));

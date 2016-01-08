@@ -16,13 +16,21 @@ model SpeedControlled_y_pumpCurves
                   dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
 
-  pumpModel pum(filteredSpeed=false) "Pump"
+  pumpModel pum(filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=1) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  pumpModel pum1(filteredSpeed=false) "Pump"
+  pumpModel pum1(filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=0.5) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
-  pumpModel pum2(filteredSpeed=false) "Pump"
+  pumpModel pum2(filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=0.05) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  pumpModel pum3(filteredSpeed=false) "Pump"
+  pumpModel pum3(filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    normalized_speed=0.01) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Modelica.Blocks.Sources.Ramp y(
@@ -52,9 +60,6 @@ model SpeedControlled_y_pumpCurves
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Modelica.Blocks.Sources.Constant
-                               y1(k=1) "Input signal"
-                 annotation (Placement(transformation(extent={{20,120},{40,140}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
@@ -62,9 +67,6 @@ model SpeedControlled_y_pumpCurves
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
-  Modelica.Blocks.Sources.Constant
-                               y2(k=0.5) "Input signal"
-                 annotation (Placement(transformation(extent={{8,60},{28,80}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
@@ -72,18 +74,12 @@ model SpeedControlled_y_pumpCurves
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Sources.Constant
-                               y3(k=0.05) "Input signal"
-                 annotation (Placement(transformation(extent={{8,12},{28,32}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Sources.Constant
-                               y4(k=0.01) "Input signal"
-                 annotation (Placement(transformation(extent={{8,-38},{28,-18}})));
 equation
   connect(dp1.port_b, pum.port_a)      annotation (Line(
       points={{5.55112e-16,90},{40,90}},
@@ -92,10 +88,6 @@ equation
   connect(dp1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,90},{-31,90},{-31,91},{-50,91}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(y1.y, pum.y)      annotation (Line(
-      points={{41,130},{50,130},{50,102}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(y.y, dp1.y) annotation (Line(
       points={{-59,130},{-10,130},{-10,102}},
@@ -113,10 +105,6 @@ equation
       points={{-50,89},{-32,89},{-32,48},{-20,48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(y2.y, pum1.y) annotation (Line(
-      points={{29,70},{50,70},{50,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(dp3.port_b, pum2.port_a)     annotation (Line(
       points={{5.55112e-16,6.10623e-16},{10,6.10623e-16},{10,0},{20,0},{20,
           6.10623e-16},{40,6.10623e-16}},
@@ -124,10 +112,6 @@ equation
       smooth=Smooth.None));
   connect(y.y,dp3. y) annotation (Line(
       points={{-59,130},{-26,130},{-26,20},{-10,20},{-10,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(y3.y, pum2.y) annotation (Line(
-      points={{29,22},{50,22},{50,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp3.port_a, sou.ports[3]) annotation (Line(
@@ -140,10 +124,6 @@ equation
       smooth=Smooth.None));
   connect(y.y,dp4. y) annotation (Line(
       points={{-59,130},{-26,130},{-26,-30},{-10,-30},{-10,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(y4.y, pum3.y) annotation (Line(
-      points={{29,-28},{50,-28},{50,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp4.port_a, sou.ports[4]) annotation (Line(
@@ -168,7 +148,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}})),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/SpeedControlled_y_pumpCurves.mos"
@@ -183,6 +163,11 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2015, by Filip Jorissen:<br/>
+Set constant speed for pump using a <code>parameter</code> 
+instead of a <code>realInput</code>.
+</li>
 <li>March 24 2010, by Michael Wetter:<br/>
 First implementation.
 </li>

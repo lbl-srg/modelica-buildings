@@ -5,6 +5,15 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
   parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
 
+  replaceable parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
+    UFra=2,
+    haveExteriorShade=false,
+    haveInteriorShade=true) constrainedby Data.GlazingSystems.Generic
+    "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
@@ -23,10 +32,11 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
   Modelica.Blocks.Sources.Constant shaCon(k=if (glaSys.haveShade) then 0.5 else
               0)
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+
   Buildings.HeatTransfer.Windows.BaseClasses.AbsorbedRadiation winAbs(
     AWin=1,
     N=size(glaSys.glass, 1),
-    tauGlaSol=glaSys.glass.tauSol,
+    tauGlaSol = glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
     xGla=glaSys.glass.x,
@@ -37,12 +47,7 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
-    UFra=2,
-    haveExteriorShade=false,
-    haveInteriorShade=true) "Parameters for glazing system"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+
   Modelica.Blocks.Sources.Constant HRoo(k=10)
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
@@ -98,6 +103,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed assignment of <code>nLay</code> to avoid a translation error

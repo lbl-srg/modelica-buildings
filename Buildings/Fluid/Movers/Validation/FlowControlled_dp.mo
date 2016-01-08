@@ -17,12 +17,10 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
 equation
   connect(gain.y, floMacSta.dp_in) annotation (Line(
       points={{-25,100},{29.8,100},{29.8,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacDyn.dp_in) annotation (Line(
       points={{-25,100},{10,100},{10,30},{29.8,30},{29.8,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
@@ -39,6 +37,19 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 5, 2015, by Michael Wetter:<br/>
+Changed parameters of fan since the power is no longer a parameter.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Changed example so that the fans use different powers, one being computed
+based on efficiency, the other based on the specified power.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

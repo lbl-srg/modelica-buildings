@@ -41,33 +41,26 @@ model Pressure "Test model for the pressure sensor"
 equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
       points={{-69,8},{-52,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masFloRat.ports[1], dp.port_a) annotation (Line(
       points={{-32,0},{-18,0},{-18,6.66134e-16},{-2,6.66134e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp.port_b, sin.ports[1]) annotation (Line(
       points={{18,6.66134e-16},{28,6.66134e-16},{28,8.88178e-16},{42,8.88178e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(senPre_a.port, dp.port_a) annotation (Line(
       points={{-12,20},{-12,0},{-2,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senPre_b.port, dp.port_b) annotation (Line(
       points={{30,20},{30,0},{18,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senRelPre.port_a, dp.port_a) annotation (Line(
       points={{-2,-40},{-12,-40},{-12,0},{-2,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senRelPre.port_b, dp.port_b) annotation (Line(
       points={{18,-40},{30,-40},{30,0},{18,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Pressure.mos"
         "Simulate and plot"),

@@ -113,8 +113,7 @@ equation
   annotation (
     Icon(graphics={
         Line(
-          points={{0,100},{0,-100},{0,-98}},
-          smooth=Smooth.None),
+          points={{0,100},{0,-100},{0,-98}}),
         Text(
           extent={{24,-78},{106,-100}},
           lineColor={0,0,127},

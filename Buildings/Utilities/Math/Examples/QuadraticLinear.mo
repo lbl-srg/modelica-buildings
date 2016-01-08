@@ -13,12 +13,10 @@ model QuadraticLinear "Test model for quadraticLinear function "
 equation
   connect(x2.y, quadraticLinear.u2) annotation (Line(
       points={{-39,-20},{-28,-20},{-28,-6},{-12,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(x1.y, quadraticLinear.u1) annotation (Line(
       points={{-39,20},{-28,20},{-28,6},{-12,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation ( experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/QuadraticLinear.mos"
         "Simulate and plot"), Documentation(info="<html>

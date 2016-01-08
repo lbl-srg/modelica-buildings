@@ -45,7 +45,6 @@ partial model PartialStaticTwoPortCoolingTower
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
-    prescribedHeatFlowRate=true,
     V=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));

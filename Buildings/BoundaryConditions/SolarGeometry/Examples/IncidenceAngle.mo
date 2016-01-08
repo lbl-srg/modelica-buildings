@@ -34,28 +34,23 @@ equation
   connect(weaDat.weaBus, incAngHor.weaBus) annotation (Line(
       points={{-40,0},{-20,0},{-20,80},{0,80}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(incAngNor.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,40},{-20,40},{-20,0},{-40,0}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(incAngWes.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,0},{-40,0}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(incAngSou.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,-40},{-20,-40},{-20,0},{-40,0}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(incAngEas.weaBus, weaDat.weaBus) annotation (Line(
       points={{0,-80},{-20,-80},{-20,0},{-40,0}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   annotation (
   Documentation(info="<html>
 <p>

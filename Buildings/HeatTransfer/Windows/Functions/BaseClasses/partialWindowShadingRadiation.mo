@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.Functions.BaseClasses;
 partial function partialWindowShadingRadiation
   "Partial function for window radiation property with shading device"
-  input Real traRef[3, N, N, HEM](each min=0, each max=1)
+  input Real traRef[3, N, N, HEM, NSta](each min=0, each max=1)
     "Transmittance and reflectance with exterior irradiation and no shading";
   input Real traRefShaDev[2, 2](each min=0, each max=1)
     "Transmittance and reflectance of shading device";
@@ -21,6 +21,12 @@ protected
 This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and parameters.
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Corrected wrong <code>max</code> value for <code>traRef</code> and

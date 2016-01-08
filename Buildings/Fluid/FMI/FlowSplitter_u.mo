@@ -68,7 +68,7 @@ equation
   // Conditional connector
   connect(bacPro_internal, inlet.backward);
   // Stop if mass is not conserved in the system
-  assert(abs(inlet.m_flow-sum(outlet.m_flow)) > 1E-2 * mAve_flow_nominal,
+  assert(abs(inlet.m_flow-sum(outlet.m_flow)) < 1E-2 * mAve_flow_nominal,
     "Mass flow rate is not conserved.
   inlet.m_flow       = " + String(inlet.m_flow) + "
   sum(outlet.m_flow) = " + String(sum(outlet.m_flow)));
@@ -154,9 +154,14 @@ the model stops with an error.
 </html>", revisions="<html>
 <ul>
 <li>
+July 28, 2015, by Thierry S. Nouidui:<br/>
+Corrected wrong <code>assert</code> statement.
+</li>
+<li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector
 if <code>use_p_in=false</code>.
+</li>
 <li>
 April 15, 2015 by Michael Wetter:<br/>
 Changed connector variable to be temperature instead of

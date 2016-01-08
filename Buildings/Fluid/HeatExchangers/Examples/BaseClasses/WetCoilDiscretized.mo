@@ -170,7 +170,19 @@ partial model WetCoilDiscretized
     startTime=180,
     height=1.1*m1_flow_nominal,
     offset=-m1_flow_nominal) "Water mass flow rate" annotation (Placement(
-        transformation(extent={{90,60},{70,80}})));
+        transformation(extent={{90,68},{70,88}})));
+    Modelica.Blocks.Sources.Ramp m1_flow1(
+    duration=60,
+    startTime=180,
+    height=1.1*m1_flow_nominal,
+    offset=-m1_flow_nominal) "Water mass flow rate" annotation (Placement(
+        transformation(extent={{90,8},{70,28}})));
+    Modelica.Blocks.Sources.Ramp m1_flow2(
+    duration=60,
+    startTime=180,
+    height=1.1*m1_flow_nominal,
+    offset=-m1_flow_nominal) "Water mass flow rate" annotation (Placement(
+        transformation(extent={{90,-52},{70,-32}})));
 equation
   connect(TWat.y, sou_1.T_in)
     annotation (Line(points={{-79,74},{-79,74},{-52,74}},
@@ -242,17 +254,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m1_flow.y, sin_1.m_flow_in) annotation (Line(
-      points={{69,70},{60,70},{60,78},{50,78}},
+      points={{69,78},{50,78}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m1_flow.y, sin_4.m_flow_in) annotation (Line(
-      points={{69,70},{60,70},{60,18},{50,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(m1_flow.y, sin_6.m_flow_in) annotation (Line(
-      points={{69,70},{60,70},{60,-42},{50,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(m1_flow1.y, sin_4.m_flow_in)
+    annotation (Line(points={{69,18},{50,18}}, color={0,0,127}));
+  connect(m1_flow2.y, sin_6.m_flow_in)
+    annotation (Line(points={{69,-42},{50,-42},{50,-42}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This is the base model that is used to test the initialization of the coil model.
@@ -261,6 +269,16 @@ for the initial conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Changed the signal s <code>start</code> attributes in <code>SimpleRoom</code> so
+that
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.WetCoilDiscretizedInitializationPerfectGases\">
+Buildings.Fluid.HeatExchangers.Validation.WetCoilDiscretizedInitializationPerfectGases</a>
+translates when using the pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
@@ -272,5 +290,6 @@ June 28, 2014, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})));
 end WetCoilDiscretized;

@@ -15,7 +15,8 @@ algorithm
      + Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R*X_w;
   d := p/(R*T);
 
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=99,
+  Documentation(info="<html>
 <p>
 Function to compute the density of moist air for given
 pressure, temperature and water vapor mass fraction.
@@ -26,6 +27,10 @@ total air.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 23, 2015 by Filip Jorissen:<br/>
+Added derivative information for avoiding numerical Jacobians.
+</li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
 First implementation.
