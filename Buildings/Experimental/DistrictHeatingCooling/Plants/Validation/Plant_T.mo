@@ -29,7 +29,7 @@ model Plant_T "Validation model for plant with ideal temperature control"
   Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal) "Heating and cooling plant"
+    m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T war(
     redeclare package Medium = Medium,
@@ -61,6 +61,13 @@ model Plant_T "Validation model for plant with ideal temperature control"
     height=2*m_flow_nominal,
     offset=-m_flow_nominal) "Mass flow rate in warm pipe"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetH(k=273.15 + 12)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Modelica.Blocks.Sources.Constant TSetC(k=273.15 + 16)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 equation
   connect(TWar.y,war. T_in) annotation (Line(points={{-59,50},{44,50},{44,42}},
                      color={0,0,127}));
@@ -74,6 +81,10 @@ equation
           80},{48,40}}, color={0,0,127}));
   connect(coo.ports[1], pla.port_a) annotation (Line(points={{-20,-30},{-20,-30},
           {-20,0},{0,0}}, color={0,127,255}));
+  connect(pla.TSetHea, TSetH.y) annotation (Line(points={{-2,8},{-40,8},{-40,10},
+          {-59,10}}, color={0,0,127}));
+  connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-59,-20},{-40,-20},{-40,
+          4},{-2,4}}, color={0,0,127}));
   annotation(experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_T.mos"
         "Simulate and plot"),
@@ -91,6 +102,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end Plant_T;

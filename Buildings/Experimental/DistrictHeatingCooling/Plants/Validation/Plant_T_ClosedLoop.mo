@@ -30,9 +30,7 @@ model Plant_T_ClosedLoop
   Ideal_T pla(
     redeclare package Medium = Medium,
     show_T=true,
-    Q_flow_nominal=Q_flow_nominal,
-    TSetHeaLea=TSetHeaLea,
-    TSetCooLea=TSetCooLea) "Heating and cooling plant"
+    m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Sources.Boundary_pT pre(
     redeclare package Medium = Medium,
@@ -57,14 +55,21 @@ model Plant_T_ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Pulse pulse(period=86400, offset=-0.5)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Math.Gain Q_flow(k=-4200) "Heat input to volume"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Modelica.Blocks.Math.Gain m_flow(k=-m_flow_nominal) "Pump mass flow rate"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{58,70},{78,90}})));
+protected
+  Modelica.Blocks.Sources.Constant TSetH(k=273.15 + 12)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+  Modelica.Blocks.Sources.Constant TSetC(k=273.15 + 16)
+    "Set point temperature for leaving water"
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
 equation
 
   connect(pre.ports[1], pla.port_a) annotation (Line(points={{-60,-52},{-60,-52},
@@ -77,15 +82,20 @@ equation
   connect(vol.ports[2], pla.port_a) annotation (Line(points={{50,-32},{0,-32},{-56,
           -32},{-56,0},{-50,0}}, color={0,127,255}));
   connect(pulse.y, m_flow.u)
-    annotation (Line(points={{-59,50},{-42,50}},          color={0,0,127}));
+    annotation (Line(points={{-59,80},{-42,80}},          color={0,0,127}));
   connect(m_flow.y, Q_flow.u)
-    annotation (Line(points={{-19,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{-19,80},{18,80}}, color={0,0,127}));
   connect(heaFlo.Q_flow, Q_flow.y)
-    annotation (Line(points={{60,50},{41,50}}, color={0,0,127}));
-  connect(heaFlo.port, vol.heatPort) annotation (Line(points={{80,50},{90,50},{90,
+    annotation (Line(points={{58,80},{58,80},{41,80}},
+                                               color={0,0,127}));
+  connect(heaFlo.port, vol.heatPort) annotation (Line(points={{78,80},{90,80},{90,
           20},{60,20},{60,-20}}, color={191,0,0}));
   connect(m_flow.y, pum.m_flow_in)
-    annotation (Line(points={{-19,50},{-0.2,50},{-0.2,12}}, color={0,0,127}));
+    annotation (Line(points={{-19,80},{-0.2,80},{-0.2,12}}, color={0,0,127}));
+  connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-69,10},{-62,10},{-62,
+          4},{-52,4}}, color={0,0,127}));
+  connect(pla.TSetHea, TSetH.y) annotation (Line(points={{-52,8},{-60,8},{-60,40},
+          {-69,40}}, color={0,0,127}));
   annotation(experiment(StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_T_ClosedLoop.mos"
         "Simulate and plot"),

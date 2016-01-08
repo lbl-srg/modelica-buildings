@@ -2,29 +2,12 @@ within Buildings.Experimental.DistrictHeatingCooling.Plants;
 model Ideal_T
   "Ideal heating and cooling plant with leaving temperature as set point"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal = Q_flow_nominal/4200/dT_nominal,
     final m_flow(start=0),
     final allowFlowReversal = true,
     final dp(start=0));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Nominal capacity (either heating or cooling), used to compute nominal mass flow rate";
-
-  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+8
-    "Set point for leaving fluid temperature warm supply"
-    annotation(Dialog(group="Design parameter"));
-
-  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+14
-    "Set point for leaving fluid temperature cold supply"
-    annotation(Dialog(group="Design parameter"));
-
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
     "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(
-    min=0.5,
-    displayUnit="K") = TSetCooLea-TSetHeaLea
-    "Temperature difference between warm and cold pipe, used to compute nominal mass flow rate"
     annotation(Dialog(group="Design parameter"));
 
   parameter Boolean linearizeFlowResistance=false
@@ -71,28 +54,25 @@ protected
     tau=60) "Heat supply"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
-    "Set point temperature for leaving water"
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
-  Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
-    "Set point temperature for leaving water"
-    annotation (Placement(transformation(extent={{80,12},{60,32}})));
 
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+public
+  Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
+    "Temperature set point for heating"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+  Modelica.Blocks.Interfaces.RealInput TSetCoo(unit="K")
+    "Temperature set point for cooling"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 equation
-  connect(TSetH.y, hea.TSet) annotation (Line(points={{-69,30},{-60,30},{-60,6},
-          {-42,6}},           color={0,0,127}));
   connect(QHea_flow, hea.Q_flow) annotation (Line(points={{110,60},{-10,60},{
           -10,6},{-19,6}},  color={0,0,127}));
   connect(coo.Q_flow, QCoo_flow) annotation (Line(points={{19,6},{10,6},{10,20},
           {10,40},{110,40}},             color={0,0,127}));
-  connect(TSetC.y, coo.TSet) annotation (Line(points={{59,22},{54,22},{50,22},{
-          50,6},{42,6}},         color={0,0,127}));
   connect(port_a, hea.port_a)
     annotation (Line(points={{-100,0},{-40,0}},         color={0,127,255}));
   connect(coo.port_a, port_b)
@@ -101,6 +81,10 @@ equation
     annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={0,127,255}));
   connect(senTem.port_b, coo.port_b)
     annotation (Line(points={{10,0},{15,0},{20,0}}, color={0,127,255}));
+  connect(hea.TSet, TSetHea) annotation (Line(points={{-42,6},{-58,6},{-58,80},
+          {-120,80}}, color={0,0,127}));
+  connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{-102,40},{-80,
+          40},{-80,20},{52,20},{52,6},{42,6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
