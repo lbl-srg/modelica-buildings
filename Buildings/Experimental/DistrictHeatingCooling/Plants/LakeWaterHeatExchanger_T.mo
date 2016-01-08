@@ -15,6 +15,9 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   parameter Boolean disableHeatExchanger = false
     "Set to true to disable the heat exchanger";
 
+  parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 0.5
+    "Approach temperature difference";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -33,7 +36,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     y(unit="K"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-80,216},{-60,236}})));
   Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
     "Temperature set point for heating"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}})));
@@ -58,7 +61,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
         p=port_b1.p,
         h=inStream(port_b1.h_outflow),
         X=inStream(port_b1.Xi_outflow))) "Warm water inlet temperature"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-40,156},{-20,176}})));
   Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -77,15 +80,24 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
         p=port_a2.p,
         h=inStream(port_a2.h_outflow),
         X=inStream(port_a2.Xi_outflow))) "Cold water inlet temperature"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-40,98},{-20,118}})));
   Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{8,104},{28,124}})));
   Utilities.Math.SmoothMin minHeaLvg(deltaX=0.1) "Minimum leaving temperature"
-    annotation (Placement(transformation(extent={{20,-24},{40,-4}})));
+    annotation (Placement(transformation(extent={{52,116},{72,136}})));
   Utilities.Math.SmoothMax maxCooLea(deltaX=0.1) "Maximum leaving temperature"
-    annotation (Placement(transformation(extent={{20,16},{40,36}})));
+    annotation (Placement(transformation(extent={{52,156},{72,176}})));
   Utilities.Math.SmoothMin minCooLvg(deltaX=0.1) "Minimum leaving temperature"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{8,150},{28,170}})));
+  Modelica.Blocks.Sources.Constant TAppHex(k=TApp)
+    "Approach temperature difference"
+    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
+  Modelica.Blocks.Math.Add TWatHea
+    "Heat exchanger outlet, taking into account approach"
+    annotation (Placement(transformation(extent={{-30,186},{-10,206}})));
+  Modelica.Blocks.Math.Add TWatCoo(k2=-1)
+    "Heat exchanger outlet, taking into account approach"
+    annotation (Placement(transformation(extent={{-30,220},{-10,240}})));
 equation
   connect(coo.port_b, port_a1)
     annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
@@ -95,26 +107,37 @@ equation
                  color={0,127,255}));
   connect(hea.port_a, port_a2) annotation (Line(points={{10,-60},{100,-60}},
                  color={0,127,255}));
-  connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-59,-30},{-52,-30},{
-          -52,-26},{-42,-26}}, color={0,0,127}));
-  connect(watTem.y[1], maxHeaLea.u1) annotation (Line(points={{-59,0},{-50,0},{-50,
-          -14},{-42,-14}}, color={0,0,127}));
+  connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-19,108},{-19,108},{
+          6,108}},             color={0,0,127}));
   connect(maxHeaLea.y, minHeaLvg.u2)
-    annotation (Line(points={{-19,-20},{0,-20},{18,-20}}, color={0,0,127}));
-  connect(TSetHea, minHeaLvg.u1) annotation (Line(points={{-120,120},{-100,120},
-          {-46,120},{-46,-4},{10,-4},{10,-8},{18,-8}}, color={0,0,127}));
-  connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{41,-14},{50,-14},{50,
+    annotation (Line(points={{29,114},{42,114},{42,120},{44,120},{50,120}},
+                                                          color={0,0,127}));
+  connect(TSetHea, minHeaLvg.u1) annotation (Line(points={{-120,120},{-60,120},{
+          -60,132},{50,132}},                          color={0,0,127}));
+  connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,126},{86,126},{86,
           -54},{12,-54}}, color={0,0,127}));
-  connect(watTem.y[1], minCooLvg.u2) annotation (Line(points={{-59,0},{-52,0},{-52,
-          14},{-42,14}}, color={0,0,127}));
-  connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-59,30},{-50,30},{-50,
-          26},{-42,26}}, color={0,0,127}));
+  connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
+          6,166}},       color={0,0,127}));
   connect(minCooLvg.y, maxCooLea.u2)
-    annotation (Line(points={{-19,20},{18,20}}, color={0,0,127}));
-  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,80},{-76,80},{-30,
-          80},{-30,40},{0,40},{0,32},{18,32}}, color={0,0,127}));
-  connect(maxCooLea.y, coo.TSet) annotation (Line(points={{41,26},{50,26},{50,66},
-          {12,66}}, color={0,0,127}));
+    annotation (Line(points={{29,160},{29,160},{50,160}},
+                                                color={0,0,127}));
+  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,80},{44,80},{44,
+          172},{50,172}},                      color={0,0,127}));
+  connect(maxCooLea.y, coo.TSet) annotation (Line(points={{73,166},{80,166},{80,
+          66},{12,66}},
+                    color={0,0,127}));
+  connect(watTem.y[1], TWatHea.u1) annotation (Line(points={{-59,226},{-50,226},
+          {-50,202},{-40,202},{-32,202}}, color={0,0,127}));
+  connect(TAppHex.y, TWatHea.u2)
+    annotation (Line(points={{-59,190},{-32,190}}, color={0,0,127}));
+  connect(TAppHex.y, TWatCoo.u2) annotation (Line(points={{-59,190},{-40,190},{-40,
+          224},{-32,224}}, color={0,0,127}));
+  connect(TWatCoo.u1, watTem.y[1]) annotation (Line(points={{-32,236},{-50,236},
+          {-50,226},{-59,226}}, color={0,0,127}));
+  connect(TWatCoo.y, minCooLvg.u2) annotation (Line(points={{-9,230},{0,230},{0,
+          154},{6,154}}, color={0,0,127}));
+  connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{-9,196},{-4,196},{-4,
+          120},{6,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})));
+            -100},{100,180}})), Icon(coordinateSystem(extent={{-100,-100},{100,180}})));
 end LakeWaterHeatExchanger_T;
