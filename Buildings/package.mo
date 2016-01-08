@@ -296,6 +296,22 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br/>
+                          Buildings.BoundaryConditions.WeatherData.Bus
+     </td>
+       <td valign=\"top\">Renamed the connector from <code>radHorIR</code> to <code>HHorIR</code>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">Annex 60 issue 376</a>.
+                          For Dymola, the conversion script updates these connections.
+                          However, this also results in a renaming of the weather bus variable
+                          <code>weaBus.radHorIR</code> to <code>HHorIR</code>, which may
+                          require a manual update.
+       </td>
+     </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
