@@ -6,8 +6,10 @@ model BlackBody "Test model for black body sky temperature"
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.SkyTemperature.BlackBody TBlaSky
+    "Black body sky temperature"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+                       annotation (
       Placement(transformation(extent={{0,0},{20,20}}), iconTransformation(
           extent={{0,0},{2,2}})));
 equation
@@ -32,7 +34,7 @@ equation
       points={{10,10},{24,10},{24,18},{38,18}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
+  connect(weaBus.HHorIR, TBlaSky.HHorIR) annotation (Line(
       points={{10,10},{24,10},{24,2},{38,2}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -48,6 +50,13 @@ for Chicago.
 </html>", revisions="<html>
 <ul>
 <li>
+January 7, 2016, by Michael Wetter:<br/>
+Changed <code>connect</code> statement for infrared radiation due renaming of the
+variable. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">issue 376</a>.
+Added comments.
+</li>
+<li>
 June 1, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
@@ -55,5 +64,7 @@ First implementation.
 </html>"),
 experiment(StopTime=86400),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end BlackBody;
