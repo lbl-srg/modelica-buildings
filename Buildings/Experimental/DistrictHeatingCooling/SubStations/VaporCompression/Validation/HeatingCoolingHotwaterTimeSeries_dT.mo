@@ -37,7 +37,6 @@ model HeatingCoolingHotwaterTimeSeries_dT "Validation model for substation"
         rotation=90,
         origin={40,-50})));
 equation
-
   connect(TWar.y,war. T_in) annotation (Line(points={{-59,70},{14,70},{14,62}},
                      color={0,0,127}));
   connect(TCoo.y, coo1.T_in)

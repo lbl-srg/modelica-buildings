@@ -58,6 +58,8 @@ equation
           {-30.2,12}}, color={0,0,127}));
   connect(pum.P, PPum) annotation (Line(points={{-19,8},{-10,8},{-10,40},{60,40},
           {60,60},{110,60}}, color={0,0,127}));
+
+  // fixme: add documentation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(graphics={
                                 Rectangle(

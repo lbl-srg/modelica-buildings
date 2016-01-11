@@ -2,8 +2,8 @@ within Buildings.Experimental.DistrictHeatingCooling.SubStations;
 package VaporCompression "Package with substations that have a vapor compression engine for heating or cooling"
   extends Modelica.Icons.Package;
 
-
-  annotation (Icon(graphics={
+  annotation (preferredView="info",
+Icon(graphics={
         Ellipse(
           extent={{16,22},{60,-20}},
           lineColor={0,0,0},
@@ -51,5 +51,9 @@ package VaporCompression "Package with substations that have a vapor compression
           extent={{-46,50},{-42,10}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+Documentation(info="<html>
+This package contains models for district heating and cooling substations
+that provide heating or cooling using vapor compression engines.
+        </html>"));
 end VaporCompression;

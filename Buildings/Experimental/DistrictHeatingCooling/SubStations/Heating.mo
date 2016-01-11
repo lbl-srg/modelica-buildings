@@ -25,4 +25,5 @@ equation
           6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})));
+// fixme: add documentation            
 end Heating;

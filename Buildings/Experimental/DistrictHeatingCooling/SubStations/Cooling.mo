@@ -48,4 +48,5 @@ equation
         lineColor={255,255,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}));
+// fixme: add documentation
 end Cooling;

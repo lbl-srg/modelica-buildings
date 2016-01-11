@@ -46,4 +46,5 @@ algorithm
     startIndex=nexInd,
     message="Failed to read double value when reading peak load in '" + filNam + "'.");
 
+// fixme: add documentation
 end getPeakLoad;
