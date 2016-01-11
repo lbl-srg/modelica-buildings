@@ -307,15 +307,26 @@ its class name ends with the string <code>Beta</code>.
    <!-- Non-backward compatible changes to existing components -->
    <p>
    The following <b style=\"color:blue\">existing components</b>
-   have been <b style=\"color:blue\">improved</b> in aCorrected wrong computation of <code>staB1</code> and <code>staB2</code>
-+which mistakenly used the <code>inStream</code> operator
-+for the configuration without flow reversal.
-+This is for
-+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
-+issue 476</a>
+   have been <b style=\"color:blue\">improved</b> in a
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br/>
+                          Buildings.BoundaryConditions.WeatherData.Bus
+     </td>
+       <td valign=\"top\">Renamed the connector from <code>radHorIR</code> to <code>HHorIR</code>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">Annex 60 issue 376</a>.
+                          For Dymola, the conversion script updates these connections.
+                          However, this also results in a renaming of the weather bus variable
+                          <code>weaBus.radHorIR</code> to <code>HHorIR</code>, which may
+                          require a manual update.
+       </td>
+     </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>

@@ -62,3 +62,11 @@ convertElement("Buildings.Fluid.Interfaces.PartialTwoPort",
                 "port_b_exposesState=false",
                 "showDesignFlowDirection=false"},
                 fill("",0));
+
+// Rename of infrared radiation
+convertElement("Buildings.BoundaryConditions.SkyTemperature.BlackBody",
+               "radHorIR",
+               "HHorIR");
+convertElement("Buildings.BoundaryConditions.WeatherData.Bus",
+               "radHorIR",
+               "HHorIR");

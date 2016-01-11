@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckSkyCover "Constrains the sky cover to [0, 1]"
   extends Modelica.Blocks.Icons.Block;
-  Modelica.Blocks.Interfaces.RealInput nIn(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput nIn(min=0, max=1)
     "Input sky cover [0, 10]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput nOut(min=0, max=1, unit="1")
@@ -26,6 +26,10 @@ This component constrains the interpolated sky cover between <i>0</i> and <i>1</
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 4, 2015, by Michael Wetter:<br/>
+Removed wrong unit string for input signal.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Changed model as

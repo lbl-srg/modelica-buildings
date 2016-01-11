@@ -138,6 +138,8 @@ model StratifiedEnhancedInternalHex
         rotation=180,
         origin={-87,32})));
 
+  Modelica.SIunits.HeatFlowRate QHex_flow = -sum(indTanHex.port.Q_flow)
+    "Heat transfered from the heat exchanger to the tank";
 protected
   final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
     "Tank segment in which port a1 of the heat exchanger is located in"
