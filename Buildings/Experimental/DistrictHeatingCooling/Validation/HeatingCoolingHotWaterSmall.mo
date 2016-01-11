@@ -110,7 +110,7 @@ public
     dp_nominal=0,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Bay water heat exchanger"
-    annotation (Placement(transformation(extent={{-170,-10},{-150,10}})));
+    annotation (Placement(transformation(extent={{-166,-10},{-152,10}})));
 equation
   connect(weaDat.weaBus, larOff.weaBus) annotation (Line(
       points={{-140,110},{-140,112},{-60,112},{-60,16.7143}},
@@ -137,17 +137,23 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-239,80},{-232,80},{-232,
           64},{-222,64}}, color={0,0,127}));
   connect(pip.port_a, bayWatHex.port_b1) annotation (Line(points={{-130,60},{
-          -144,60},{-144,6},{-150,6}}, color={0,127,255}));
-  connect(bayWatHex.port_a1, pla.port_b) annotation (Line(points={{-170,6},{
-          -190,6},{-190,60},{-200,60}}, color={0,127,255}));
-  connect(bayWatHex.port_b2, pla.port_a) annotation (Line(points={{-170,-6},{
-          -188,-6},{-230,-6},{-230,60},{-220,60}}, color={0,127,255}));
-  connect(bayWatHex.port_a2, pip1.port_b) annotation (Line(points={{-150,-6},{
-          -140,-6},{-140,-60},{-132,-60}}, color={0,127,255}));
-  connect(bayWatHex.TSetHea, TSetH.y) annotation (Line(points={{-172,12},{-178,
-          12},{-178,110},{-239,110}}, color={0,0,127}));
+          -144,60},{-144,-1.11111},{-152,-1.11111}},
+                                       color={0,127,255}));
+  connect(bayWatHex.port_a1, pla.port_b) annotation (Line(points={{-166,
+          -1.11111},{-190,-1.11111},{-190,60},{-200,60}},
+                                        color={0,127,255}));
+  connect(bayWatHex.port_b2, pla.port_a) annotation (Line(points={{-166,
+          -7.77778},{-188,-7.77778},{-230,-7.77778},{-230,60},{-220,60}},
+                                                   color={0,127,255}));
+  connect(bayWatHex.port_a2, pip1.port_b) annotation (Line(points={{-152,
+          -7.77778},{-140,-7.77778},{-140,-60},{-132,-60}},
+                                           color={0,127,255}));
+  connect(bayWatHex.TSetHea, TSetH.y) annotation (Line(points={{-167.4,4.44444},
+          {-178,4.44444},{-178,110},{-239,110}},
+                                      color={0,0,127}));
   connect(TSetC.y, bayWatHex.TSetCoo) annotation (Line(points={{-239,80},{-214,
-          80},{-184,80},{-184,8},{-172,8}}, color={0,0,127}));
+          80},{-184,80},{-184,1.11111},{-167.4,1.11111}},
+                                            color={0,0,127}));
   connect(pSet.ports[1], pla.port_a) annotation (Line(points={{-260,-80},{-260,
           -80},{-260,-42},{-260,60},{-220,60}}, color={0,127,255}));
   annotation(experiment(StopTime=31536000),

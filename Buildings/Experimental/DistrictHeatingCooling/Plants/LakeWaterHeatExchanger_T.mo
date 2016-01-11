@@ -39,10 +39,12 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     annotation (Placement(transformation(extent={{-80,216},{-60,236}})));
   Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
     "Temperature set point for heating"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}})));
+    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
+        iconTransformation(extent={{-140,140},{-100,180}})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(unit="K")
     "Temperature set point for cooling"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
   Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -112,8 +114,8 @@ equation
   connect(maxHeaLea.y, minHeaLvg.u2)
     annotation (Line(points={{29,114},{42,114},{42,120},{44,120},{50,120}},
                                                           color={0,0,127}));
-  connect(TSetHea, minHeaLvg.u1) annotation (Line(points={{-120,120},{-60,120},{
-          -60,132},{50,132}},                          color={0,0,127}));
+  connect(TSetHea, minHeaLvg.u1) annotation (Line(points={{-120,160},{-60,160},
+          {-60,132},{50,132}},                         color={0,0,127}));
   connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,126},{86,126},{86,
           -54},{12,-54}}, color={0,0,127}));
   connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
@@ -121,8 +123,8 @@ equation
   connect(minCooLvg.y, maxCooLea.u2)
     annotation (Line(points={{29,160},{29,160},{50,160}},
                                                 color={0,0,127}));
-  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,80},{44,80},{44,
-          172},{50,172}},                      color={0,0,127}));
+  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,100},{44,100},{
+          44,172},{50,172}},                   color={0,0,127}));
   connect(maxCooLea.y, coo.TSet) annotation (Line(points={{73,166},{80,166},{80,
           66},{12,66}},
                     color={0,0,127}));
@@ -139,5 +141,65 @@ equation
   connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{-9,196},{-4,196},{-4,
           120},{6,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,180}})), Icon(coordinateSystem(extent={{-100,-100},{100,180}})));
+            -100},{100,260}})), Icon(coordinateSystem(extent={{-100,-100},{100,
+            260}}, preserveAspectRatio=false), graphics={
+                                Rectangle(
+        extent={{-100,-100},{100,260}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),  Rectangle(
+          extent={{-64,244},{70,118}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          radius=10),
+        Rectangle(
+          extent={{-100,65},{101,55}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,-55},{101,-65}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),Rectangle(
+          extent={{-62,84},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-136,214},{-82,176}},
+          lineColor={0,0,127},
+          textString="TSetHea"),
+        Text(
+          extent={{-134,148},{-80,110}},
+          lineColor={0,0,127},
+          textString="TSetCoo"),
+        Text(
+          extent={{-139,-100},{161,-140}},
+          lineColor={0,0,255},
+          textString="%name"),
+        Rectangle(
+          extent={{-18,137},{-10,84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{14,137},{22,84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{12,218},{42,240},{18,182},{48,144},{30,132},{0,138},{-30,132},
+              {-34,162},{-34,202},{-18,208},{12,218}},
+          smooth=Smooth.Bezier,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,255},
+          pattern=LinePattern.None)}));
 end LakeWaterHeatExchanger_T;
