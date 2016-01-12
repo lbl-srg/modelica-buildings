@@ -1,4 +1,4 @@
-within Buildings.Experimental.DistrictHeatingCooling.Validation;
+within Buildings.Experimental.DistrictHeatingCooling.Examples;
 model HeatingCoolingHotWater3Clusters
   "Validation model for a system with three clusters of buildings"
   extends Modelica.Icons.Example;
@@ -418,7 +418,7 @@ equation
   connect(pla.TSink, weaBus.TDryBul) annotation (Line(points={{-512,104},{-520,
           104},{-520,160},{-340,160},{-340,190}}, color={0,0,127}));
   annotation(experiment(StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWater3Clusters.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>

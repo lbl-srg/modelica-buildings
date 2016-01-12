@@ -1,5 +1,5 @@
-within Buildings.Experimental.DistrictHeatingCooling.Validation;
-model IdealSmallSystem3Clusters
+within Buildings.Experimental.DistrictHeatingCooling.Examples;
+model IdealSystem3Clusters
   "Validation model for a small system with three clusters of buildings"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
@@ -304,7 +304,7 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-299,80},{-290,80},{-290,
           64},{-262,64}}, color={0,0,127}));
   annotation(experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem3Clusters.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/IdealSystem3Clusters.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>
@@ -325,4 +325,4 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{460,
             140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end IdealSmallSystem3Clusters;
+end IdealSystem3Clusters;
