@@ -27,7 +27,21 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     annotation (Dialog(
         loadSelector(filter="Temperature file (*.mos)", caption=
             "Select temperature file")));
-
+  Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
+    "Temperature set point for heating"
+    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
+        iconTransformation(extent={{-140,140},{-100,180}})));
+  Modelica.Blocks.Interfaces.RealInput TSetCoo(unit="K")
+    "Temperature set point for cooling"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
+  Modelica.Blocks.Interfaces.RealOutput TWat(unit="K")
+    "Temperature of water reservoir"
+    annotation (Placement(transformation(extent={{100,170},{120,190}})));
+  Modelica.Blocks.Interfaces.RealOutput QWat_flow(unit="W")
+    "Heat exchanged with water reservoir (positive if added to reservoir)"
+    annotation (Placement(transformation(extent={{100,110},{120,130}})));
+protected
   Modelica.Blocks.Sources.CombiTimeTable watTem(
     tableOnFile=true,
     tableName="tab1",
@@ -37,14 +51,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     y(unit="K"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"
     annotation (Placement(transformation(extent={{-80,216},{-60,236}})));
-  Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
-    "Temperature set point for heating"
-    annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
-        iconTransformation(extent={{-140,140},{-100,180}})));
-  Modelica.Blocks.Interfaces.RealInput TSetCoo(unit="K")
-    "Temperature set point for cooling"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
+
   Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -100,6 +107,8 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   Modelica.Blocks.Math.Add TWatCoo(k2=-1)
     "Heat exchanger outlet, taking into account approach"
     annotation (Placement(transformation(extent={{-30,220},{-10,240}})));
+  Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(coo.port_b, port_a1)
     annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
@@ -140,6 +149,14 @@ equation
           154},{6,154}}, color={0,0,127}));
   connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{-9,196},{-4,196},{-4,
           120},{6,120}}, color={0,0,127}));
+  connect(watTem.y[1], TWat) annotation (Line(points={{-59,226},{-50,226},{-50,
+          250},{88,250},{88,180},{110,180}}, color={0,0,127}));
+  connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-20,66},{
+          -20,6},{18,6}}, color={0,0,127}));
+  connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-54},{-16,-54},
+          {-20,-54},{-20,-6},{18,-6}}, color={0,0,127}));
+  connect(QExc_flow.y, QWat_flow) annotation (Line(points={{41,0},{66,0},{90,0},
+          {90,120},{110,120}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,260}})), Icon(coordinateSystem(extent={{-100,-100},{100,
             260}}, preserveAspectRatio=false), graphics={
