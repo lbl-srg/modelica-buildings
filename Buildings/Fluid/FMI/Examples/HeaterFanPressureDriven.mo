@@ -28,10 +28,10 @@ model HeaterFanPressureDriven
     use_p_in=use_p_in) "Heater"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Modelica.Blocks.Sources.Constant dp(k=dp_nominal, unit="Pa") "Pressure raise of fan"
+  Modelica.Blocks.Sources.Constant dp(k=dp_nominal) "Pressure raise of fan"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Modelica.Blocks.Sources.Constant uHea(k=0.2, unit="1") "Control signal for heater"
+  Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Source_T sou(redeclare package Medium = Medium, use_p_in=use_p_in)

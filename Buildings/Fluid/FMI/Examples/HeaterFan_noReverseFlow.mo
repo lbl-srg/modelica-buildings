@@ -35,10 +35,10 @@ model HeaterFan_noReverseFlow
     use_p_in=use_p_in) "Heater"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Modelica.Blocks.Sources.Constant dp(k=1000, unit="Pa") "Pressure raise of fan"
+  Modelica.Blocks.Sources.Constant dp(k=1000) "Pressure raise of fan"
     annotation (Placement(transformation(extent={{22,40},{42,60}})));
 
-  Modelica.Blocks.Sources.Constant uHea(k=0.2, unit="1") "Control signal for heater"
+  Modelica.Blocks.Sources.Constant uHea(k=0.2) "Control signal for heater"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Source_T sou(
