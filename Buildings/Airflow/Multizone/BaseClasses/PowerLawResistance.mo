@@ -11,7 +11,7 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0, displayUnit="Pa") = 0.1
+  parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
   parameter Modelica.SIunits.Length lWet=sqrt(A)
     "Wetted perimeter used for Reynolds number calculation";
@@ -132,6 +132,12 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter

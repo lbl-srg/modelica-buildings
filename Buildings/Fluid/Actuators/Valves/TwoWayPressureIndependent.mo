@@ -13,8 +13,8 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
 
 protected
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
-  Modelica.SIunits.Pressure dp_min
-    "Minimum dp required for delivering requested mass flow rate";
+  Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
+    "Minimum pressure difference required for delivering requested mass flow rate";
 
 equation
   m_flow_set = m_flow_nominal*phi;
@@ -163,6 +163,12 @@ the result when using <code>from_dp = false</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>
 First implementation.

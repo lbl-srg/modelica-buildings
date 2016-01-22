@@ -6,7 +6,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
-   parameter Modelica.SIunits.Pressure dp_nominal = 5
+   parameter Modelica.SIunits.PressureDifference dp_nominal = 5
     "Nominal pressure drop for each resistance";
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
@@ -34,7 +34,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
 
 equation
   for i in 1:nRes-1 loop
-  connect(res[i].port_b, res[i+1].port_a) annotation (Line(points={{20,30},{26,
+    connect(res[i].port_b, res[i+1].port_a) annotation (Line(points={{20,30},{26,
             30},{26,10},{-8,10},{-8,30},{-5.55112e-16,30}},  color={0,127,255}));
   end for;
   connect(PAtm.y, sin.p_in) annotation (Line(points={{61,70},{70,70},{70,38},{

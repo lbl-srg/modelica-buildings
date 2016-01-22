@@ -36,7 +36,7 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
-  parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
     annotation(Dialog(group="Nominal condition"));
@@ -170,6 +170,12 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 17, 2015, by Michael Wetter:<br/>
 Removed assignment <code>redeclare final package Medium=Medium</code>

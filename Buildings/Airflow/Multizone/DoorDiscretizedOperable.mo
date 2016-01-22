@@ -3,7 +3,8 @@ model DoorDiscretizedOperable
   "Door model using discretization along height coordinate"
   extends Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
-   parameter Modelica.SIunits.Pressure dpCloRat(min=0)=4
+   parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
+                                                          displayUnit="Pa") = 4
     "|Closed aperture rating conditions|Pressure drop at rating condition";
   parameter Real CDCloRat(min=0, max=1)=1
     "|Closed aperture rating conditions|Discharge coefficient";
@@ -97,6 +98,12 @@ Buildings.Airflow.Multizone.Crack
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

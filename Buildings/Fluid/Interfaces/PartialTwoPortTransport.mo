@@ -6,7 +6,7 @@ partial model PartialTwoPortTransport
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  parameter Medium.AbsolutePressure dp_start = 0
+  parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
     "Guess value of dp = port_a.p - port_b.p"
     annotation(Dialog(tab = "Advanced", enable=from_dp));
   parameter Medium.MassFlowRate m_flow_start = 0
@@ -30,7 +30,8 @@ partial model PartialTwoPortTransport
   Medium.MassFlowRate m_flow(
      min=if allowFlowReversal then -Modelica.Constants.inf else 0,
      start = m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.Pressure dp(start=dp_start)
+  Modelica.SIunits.PressureDifference dp(start=dp_start,
+                                         displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 
   Modelica.SIunits.VolumeFlowRate V_flow=
@@ -120,6 +121,12 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Henning Francke:<br/>
+Corrected type declaration of pressure.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignments of parameters
