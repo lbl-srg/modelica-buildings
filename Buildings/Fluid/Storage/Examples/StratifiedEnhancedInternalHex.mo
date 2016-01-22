@@ -6,7 +6,7 @@ model StratifiedEnhancedInternalHex
   package MediumTan = Buildings.Media.Water "Medium in the tank";
   package MediumHex = Buildings.Media.Water "Medium in the heat exchanger";
 
- parameter Modelica.SIunits.Pressure dpHex_nominal=2500
+ parameter Modelica.SIunits.PressureDifference dpHex_nominal=2500
     "Pressure drop across the heat exchanger at nominal conditions";
 
   parameter Modelica.SIunits.MassFlowRate mHex_flow_nominal = 0.278
@@ -19,7 +19,7 @@ model StratifiedEnhancedInternalHex
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,-12})));
-  Sources.Boundary_pT                      solColSup(
+  Sources.Boundary_pT solColSup(
     redeclare package Medium = MediumHex,
     nPorts=3,
     use_p_in=true,
@@ -177,6 +177,12 @@ fixme: Verify that the tank temperatures do not change during this time for each
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 28, 2015 by Michael Wetter:<br/>
 Changed medium in heat exchanger from

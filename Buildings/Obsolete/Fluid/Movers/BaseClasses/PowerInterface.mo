@@ -44,7 +44,7 @@ partial model PowerInterface
   Real etaHyd(min=0, max=1) "Hydraulic efficiency";
   Real etaMot(min=0, max=1) "Motor efficiency";
 
-  Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
+  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
 protected
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max(fixed=false)

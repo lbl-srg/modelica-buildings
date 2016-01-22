@@ -5,7 +5,7 @@ package Characteristics "Functions for fan or pump characteristics"
     extends Modelica.Icons.Record;
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[size(V_flow,1)](
+    parameter Modelica.SIunits.PressureDifference dp[size(V_flow,1)](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
     annotation (Documentation(info="<html>
@@ -34,7 +34,7 @@ First implementation.
     parameter Integer n "Number of elements in each array";
     parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[n](
+    parameter Modelica.SIunits.PressureDifference dp[n](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
     annotation (Documentation(info="<html>
@@ -135,11 +135,11 @@ First implementation.
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-    input Modelica.SIunits.Pressure dpDelta "Small pressure";
+    input Modelica.SIunits.PressureDifference dpDelta "Small pressure";
 
     input Modelica.SIunits.VolumeFlowRate V_flow_max
       "Maximum volume flow rate at r_N=1 and dp=0";
-    input Modelica.SIunits.Pressure dpMax(min=0)
+    input Modelica.SIunits.PressureDifference dpMax(min=0)
       "Maximum pressure at r_N=1 and V_flow=0";
 
     input Real d[:] "Derivatives at support points for spline interpolation";
@@ -148,7 +148,7 @@ First implementation.
       "Coefficients for linear approximation of pressure vs. flow rate";
     input Real kRes(unit="kg/(s.m4)")
       "Linear coefficient for fan-internal pressure drop";
-    output Modelica.SIunits.Pressure dp "Pressure raise";
+    output Modelica.SIunits.PressureDifference dp "Pressure raise";
 
   protected
      Integer dimD(min=2)=size(data.V_flow, 1) "Dimension of data vector";
@@ -164,7 +164,7 @@ First implementation.
         "Pressure performance data";
       input Integer dimD "Dimension of data vector";
 
-      output Modelica.SIunits.Pressure dp "Pressure raise";
+      output Modelica.SIunits.PressureDifference dp "Pressure raise";
 
     protected
       Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
@@ -267,11 +267,11 @@ First implementation.
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-    input Modelica.SIunits.Pressure dpDelta "Small pressure";
+    input Modelica.SIunits.PressureDifference dpDelta "Small pressure";
     input Real delta "Small value used to transition to other fan curve";
     input Real cBar[2]
       "Coefficients for linear approximation of pressure vs. flow rate";
-    output Modelica.SIunits.Pressure dp "Pressure raise";
+    output Modelica.SIunits.PressureDifference dp "Pressure raise";
   algorithm
     dp := r_N * dpDelta + r_N^2 * (cBar[1] + cBar[2]*V_flow);
     annotation (Documentation(info="<html>

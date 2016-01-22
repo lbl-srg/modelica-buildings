@@ -142,8 +142,9 @@ model ClosedLoop
     Ti=600,
     k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
-  Buildings.Fluid.Sensors.RelativePressure dpRetFan(redeclare package Medium =
-        MediumA) "Pressure difference over return fan" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpRetFan(
+      redeclare package Medium = MediumA)
+      "Pressure difference over return fan" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -1022,6 +1023,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Set default temperature for medium to avoid conflicting

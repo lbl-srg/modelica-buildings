@@ -18,7 +18,7 @@ partial model DataCenter
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) "Nominal mass flow rate at condenser water";
 
-  parameter Modelica.SIunits.Pressure dp_nominal=500
+  parameter Modelica.SIunits.PressureDifference dp_nominal=500
     "Nominal pressure difference";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -608,6 +608,12 @@ Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 13, 2015 by Michael Wetter:<br/>
 Moved model to <code>BaseClasses</code> because the continuous and discrete time
