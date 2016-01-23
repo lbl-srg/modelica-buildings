@@ -160,6 +160,15 @@ its class name ends with the string <code>Beta</code>.
                           into the direction that is perpendicular to the azimuth of a surface.
        </td>
        </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.PPM<br/>
+                          Buildings.Fluid.Sensors.PPMTwoPort
+       </td>
+       <td valign=\"top\">Sensors that measure trace substances in parts per million.
+       </td>
+       </tr>
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
        </td>
    </tr>
@@ -206,6 +215,15 @@ its class name ends with the string <code>Beta</code>.
                        parameter <code>l</code> from <code>0</code> to <code>0.0001</code>.
                        This is the same value as is used for the two-way valves,
                        and avoids an assertion that would be triggered if <code>l=0</code>.
+    </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+    </td>
+    <td valign=\"top\">Added the parameter <code>use_C_flow</code>. If set
+                       to <code>true</code>, an input connector will be enabled that can be used
+                       to add a trace substance flow rate, such as CO2, to the volume.
     </td>
    </tr>
 
@@ -314,6 +332,15 @@ its class name ends with the string <code>Beta</code>.
 
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+     </td>
+     <td valign=\"top\">Removed the constant <code>sensibleOnly</code> and
+                        introduced instead the parameter <code>use_mWat_flow</code>.
+                        The new parameter, if set to <code>true</code>, will enable an input connector
+                        that can be used to add water to the conservation equation..
+                        For Dymola, the conversion script updates the model for these changes.
+     </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
