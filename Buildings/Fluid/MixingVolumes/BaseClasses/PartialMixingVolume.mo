@@ -16,7 +16,9 @@ partial model PartialMixingVolume
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -37,26 +39,33 @@ partial model PartialMixingVolume
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
     T(start=T_start)) "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Medium.Temperature T "Temperature of the fluid";
-  Modelica.SIunits.Pressure p "Pressure of the fluid";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi]
+  Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
+    "Temperature of the fluid";
+  Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
+    "Pressure of the fluid";
+  Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
     "Species concentration of the fluid";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
+
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     final simplify_mWat_flow = simplify_mWat_flow,
-    sensibleOnly = true,
+    final use_C_flow = use_C_flow,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
     final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
-        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+        annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
+    final use_C_flow = use_C_flow,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -71,7 +80,7 @@ protected
     nPorts=nPorts,
     final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
@@ -109,8 +118,13 @@ protected
 
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
-    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
+    annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
 
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Port temperature"
+    annotation (Placement(transformation(extent={{-68,10},{-88,30}})));
+  Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
+    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -128,11 +142,11 @@ equation
   // then we use the same base class as for all other steady state models.
   if useSteadyStateTwoPort then
   connect(steBal.port_a, ports[1]) annotation (Line(
-      points={{-20,10},{-22,10},{-22,-60},{0,-60},{0,-100}},
+      points={{10,10},{0,10},{0,-60},{0,-100}},
       color={0,127,255}));
 
   connect(steBal.port_b, ports[2]) annotation (Line(
-      points={{5.55112e-16,10},{8,10},{8,-88},{0,-88},{0,-100}},
+      points={{30,10},{40,10},{40,-20},{0,-20},{0,-100}},
       color={0,127,255}));
 
     connect(hOut_internal,  steBal.hOut);
@@ -140,21 +154,25 @@ equation
     connect(COut_internal,  steBal.COut);
   else
       connect(dynBal.ports, ports) annotation (Line(
-      points={{50,0},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
+      points={{70,0},{70,-20},{2.22045e-15,-20},{2.22045e-15,-100}},
       color={0,127,255}));
 
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
   end if;
-  // Medium properties
-  p = if nPorts > 0 then ports[1].p else p_start;
-  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
-  Xi = XiOut_internal;
-  C = COut_internal;
-  // Port properties
-  heatPort.T = T;
 
+  connect(steBal.C_flow, C_flow) annotation (Line(points={{8,6},{-80,6},{-80,
+          -60},{-120,-60}}, color={0,0,127}));
+  connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,6},{50,6},{50,
+          -60},{-120,-60}},
+                      color={0,0,127}));
+
+  connect(portT.y, preTem.T)
+    annotation (Line(points={{-61,20},{-66,20}}, color={0,0,127}));
+  connect(preTem.port, heatPort)
+    annotation (Line(points={{-88,20},{-92,20},{-92,0},{-100,0}},
+                                                           color={191,0,0}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -213,6 +231,10 @@ for example a solar collector that dissipates heat to the ambient and receives h
 the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 </li>
 </ul>
+<p>
+Set the parameter <code>use_C_flow = true</code> to enable an input connector
+for the trace substance flow rate.
+</p>
 <h4>Implementation</h4>
 <p>
 If the model is (i) operated in steady-state,
@@ -273,6 +295,24 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Updated model to use the new parameter <code>use_mWat_flow</code>
+rather than <code>sensibleOnly</code>.
+</li>
+<li>
+January 17, 2016, by Michael Wetter:<br/>
+Removed <code>protected</code> block <code>masExc</code> as
+this revision introduces a conditional connector for the
+moisture flow rate in the energy and mass balance models.
+This change was done to use the same modeling concept for the
+moisture input as is used for the trace substance input.
+</li>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Added conditional input <code>C_flow</code> for
+handling trace substance insertions.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
@@ -469,5 +509,7 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialMixingVolume;

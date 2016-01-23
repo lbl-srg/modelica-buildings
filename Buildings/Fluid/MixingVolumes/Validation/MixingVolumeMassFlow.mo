@@ -1,4 +1,4 @@
-within Buildings.Fluid.MixingVolumes.Examples;
+within Buildings.Fluid.MixingVolumes.Validation;
 model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Air "Medium model";
@@ -79,7 +79,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMassFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=10));
 end MixingVolumeMassFlow;

@@ -63,7 +63,7 @@ equation
      (1-XiActual[i_x]) * Medium.enthalpyOfNonCondensingGas(
        T=Medium.temperature(Medium.setState_phX(p=port_a.p, h=hActual, X=XiActual))));
   if dynamic then
-    der(h_out) = (hMed_out-h_out)*k/tau;
+    der(h_out) = (hMed_out-h_out)*k*tauInv;
   else
     h_out = hMed_out;
   end if;
@@ -139,6 +139,14 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Changed medium declaration in the <code>extends</code> statement

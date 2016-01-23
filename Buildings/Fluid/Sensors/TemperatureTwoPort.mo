@@ -29,8 +29,6 @@ protected
   parameter Real tauHeaTraInv(final unit = "1/s")=
     if tauHeaTra<1E-10 then 0 else 1/tauHeaTra
     "Dummy parameter to avoid division by tauLoss";
-  parameter Real tauInv(final unit = "1/s") = if tau<1E-10 then 0 else 1/tau
-    "Dummy parameter to avoid division by tau";
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
@@ -154,6 +152,12 @@ the mass flow rate on should set <code>transferHeat=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2016 by Filip Jorissen:<br/>
+Removed parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+</li>
 <li>
 June 19, 2015 by Michael Wetter:<br/>
 Revised model and documentation.

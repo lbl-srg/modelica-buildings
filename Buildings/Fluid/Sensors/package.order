@@ -6,6 +6,8 @@ LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction
 MassFractionTwoPort
+PPM
+PPMTwoPort
 Pressure
 RelativeHumidity
 RelativeHumidityTwoPort

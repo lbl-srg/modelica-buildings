@@ -41,7 +41,7 @@ equation
   end if;
   // Specific enthalpy measured by sensor
   if dynamic then
-    der(h_out) = (hMed_out-h_out)*k/tau;
+    der(h_out) = (hMed_out-h_out)*k*tauInv;
   else
     h_out = hMed_out;
   end if;
@@ -78,6 +78,14 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Removed default value <code>tau=0</code> as the base class
