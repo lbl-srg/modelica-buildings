@@ -1,10 +1,12 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model VariableSpeed "Test model for variable speed DX coil"
-  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
+
+  package Medium = Buildings.Media.Air "Medium model";
+
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -133,6 +135,12 @@ The model has open-loop control and time-varying input conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.MixingVolumes.Examples;
+within Buildings.Fluid.MixingVolumes.Validation;
 model MixingVolumeZeroFlow
   "Mixing volume verification around zero flow with heat exchange"
   extends Modelica.Icons.Example;
@@ -205,6 +205,6 @@ increase the chance of the error being produced for this simple example.
 </p>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos"
+          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos"
         "Simulate and plot"));
 end MixingVolumeZeroFlow;

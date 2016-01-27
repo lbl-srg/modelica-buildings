@@ -26,9 +26,10 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
-                                                      min=0,
-                                                      fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+     displayUnit="Pa",
+     min=0,
+     fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Nominal condition",
                enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
@@ -114,6 +115,12 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 12, 2014, by Michael Wetter:<br/>
 Changed attribute <code>min</code> of <code>dpValve_nominal</code>

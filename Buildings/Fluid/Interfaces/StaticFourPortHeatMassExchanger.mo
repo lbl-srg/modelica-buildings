@@ -29,8 +29,8 @@ model StaticFourPortHeatMassExchanger
 
 protected
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
-    final sensibleOnly = sensibleOnly1,
     redeclare final package Medium=Medium1,
+    final sensibleOnly = sensibleOnly1,
     final prescribedHeatFlowRate=prescribedHeatFlowRate1,
     final m_flow_nominal = m1_flow_nominal,
     final dp_nominal = dp1_nominal,
@@ -44,8 +44,8 @@ protected
     final mWat_flow = mWat1_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 1";
   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
-    final sensibleOnly = sensibleOnly2,
     redeclare final package Medium=Medium2,
+    final sensibleOnly = sensibleOnly2,
     final prescribedHeatFlowRate=prescribedHeatFlowRate2,
     final m_flow_nominal = m2_flow_nominal,
     final dp_nominal = dp2_nominal,
@@ -112,6 +112,13 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>bal1</code> and <code>bal2</code>
+as this constant has been removed in
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Added parameter <code>homotopyInitialization</code> as

@@ -12,7 +12,7 @@ model Pipe "Pipe with finite volume discretization along flow path"
     "Velocity at m_flow_nominal (used to compute default diameter)";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
+  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
       rho_a=rho_default,
@@ -52,7 +52,6 @@ model Pipe "Pipe with finite volume discretization along flow path"
     annotation (Placement(transformation(extent={{-10,-70},{11,-50}}),
         iconTransformation(extent={{-30,-60},{30,-40}})));
 equation
-
   connect(conPipWal.port_b, vol.heatPort) annotation (Line(
       points={{-8,-28},{-1,-28}},
       color={191,0,0},
@@ -124,6 +123,12 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 October 30, 2015, by Michael Wetter:<br/>
 Improved documentation for

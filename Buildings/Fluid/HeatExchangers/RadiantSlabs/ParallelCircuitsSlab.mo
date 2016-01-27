@@ -56,7 +56,7 @@ model ParallelCircuitsSlab
 
   Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction) for all circuits combined";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
+  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
@@ -231,6 +231,12 @@ Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 June 9, 2015 by Michael Wetter:<br/>
 Changed base class from

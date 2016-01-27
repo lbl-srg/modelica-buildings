@@ -19,23 +19,23 @@ extends Modelica.Icons.Example;
 
   SubModel modWatRev(
     redeclare package Medium = MediumW,
-    sensibleOnly=true,
-    allowFlowReversal=true) "Submodel for energy and mass balance" annotation (
+    allowFlowReversal=true,
+    use_mWat_flow = false) "Submodel for energy and mass balance" annotation (
       Placement(transformation(extent={{-10,40},{10,60}})));
   SubModel modWatNoRev(
     redeclare package Medium = MediumW,
-    sensibleOnly=true,
-    allowFlowReversal=false) "Submodel for energy and mass balance" annotation (
+    allowFlowReversal=false,
+    use_mWat_flow = false) "Submodel for energy and mass balance" annotation (
      Placement(transformation(extent={{-10,10},{10,30}})));
   SubModel modAirRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=true,
-    sensibleOnly=false) "Submodel for energy and mass balance"     annotation (
+    use_mWat_flow = true) "Submodel for energy and mass balance"     annotation (
       Placement(transformation(extent={{-10,-40},{10,-20}})));
   SubModel modAirNoRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
-    sensibleOnly=false) "Submodel for energy and mass balance"      annotation (
+    use_mWat_flow = true) "Submodel for energy and mass balance"      annotation (
      Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
@@ -57,7 +57,7 @@ protected
       m_flow_nominal=0.01,
       show_T=true,
       allowFlowReversal=allowFlowReversal,
-      sensibleOnly=sensibleOnly,
+      use_mWat_flow=use_mWat_flow,
       prescribedHeatFlowRate=true) "Steady-state conservation equation"
       annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
     Buildings.Fluid.Sources.Boundary_pT sin(
@@ -72,7 +72,8 @@ protected
           transformation(extent={{-120,70},{-100,90}})));
     Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") annotation (
         Placement(transformation(extent={{-118,30},{-98,50}})));
-    constant Boolean sensibleOnly "Set to true if sensible exchange only";
+    parameter Boolean use_mWat_flow
+      "Set to true to enable exchange of moisture";
     parameter Boolean allowFlowReversal=true
       "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   equation
@@ -114,6 +115,11 @@ This example tests the implementation of the steady-state balance.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Updated model to use the new parameter <code>use_mWat_flow</code>
+rather than <code>sensibleOnly</code>.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 First implementation.

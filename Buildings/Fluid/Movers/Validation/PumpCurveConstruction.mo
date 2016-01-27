@@ -10,7 +10,7 @@ model PumpCurveConstruction
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal = m_flow_nominal/1000
     "Nominal mass flow rate at zero pump head";
 
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
     "Nominal pump head at zero mass flow rate";
 
   Actuators.Valves.TwoWayLinear val1(
@@ -182,6 +182,12 @@ of the pumps have different values. This then tests the correct extrapolation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 7, 2015, by Michael Wetter:<br/>
 First implementation.

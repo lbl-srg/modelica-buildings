@@ -8,7 +8,7 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Pulse y(

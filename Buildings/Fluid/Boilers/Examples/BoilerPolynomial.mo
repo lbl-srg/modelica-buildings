@@ -7,7 +7,7 @@ model BoilerPolynomial "Test model"
     "Nominal temperature difference";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp_nominal = 3000
+ parameter Modelica.SIunits.PressureDifference dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -104,6 +104,12 @@ so that <code>boi1</code> is a dynamic model and
 <code>boi2</code> is a steady-state model.
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

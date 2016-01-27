@@ -25,15 +25,15 @@ model TwoRoomsWithStorage
     "Nominal mass flow rate of radiator loop";
  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal = scaFacRad*Q_flow_nominal/dTBoi_nominal/4200
     "Nominal mass flow rate of boiler loop";
- parameter Modelica.SIunits.Pressure dpPip_nominal = 10000
+ parameter Modelica.SIunits.PressureDifference dpPip_nominal = 10000
     "Pressure difference of pipe (without valve)";
- parameter Modelica.SIunits.Pressure dpVal_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpVal_nominal = 1000
     "Pressure difference of valve";
- parameter Modelica.SIunits.Pressure dpRoo_nominal = 6000
+ parameter Modelica.SIunits.PressureDifference dpRoo_nominal = 6000
     "Pressure difference of flow leg that serves a room";
- parameter Modelica.SIunits.Pressure dpThrWayVal_nominal = 6000
+ parameter Modelica.SIunits.PressureDifference dpThrWayVal_nominal = 6000
     "Pressure difference of three-way valve";
- parameter Modelica.SIunits.Pressure dp_nominal=
+ parameter Modelica.SIunits.PressureDifference dp_nominal=
     dpPip_nominal + dpVal_nominal + dpRoo_nominal + dpThrWayVal_nominal
     "Pressure difference of loop";
   // Room model
@@ -1235,6 +1235,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Set default temperature for medium to avoid conflicting

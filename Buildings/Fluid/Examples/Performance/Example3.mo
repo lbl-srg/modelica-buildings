@@ -6,7 +6,7 @@ model Example3
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=1
+  parameter Modelica.SIunits.PressureDifference dp_nominal=1
     "Pressure drop at nominal mass flow rate";
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
@@ -74,6 +74,12 @@ equation
     experiment(StopTime=1000),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.

@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses;
 partial model CoolingTower "Base class for cooling towers"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
-  extends Buildings.BaseClasses.BaseIcon;
+
   Modelica.Blocks.Interfaces.RealOutput TLvg "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.SIunits.HeatFlowRate Q_flow = QWat_flow.y
@@ -62,10 +62,6 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
-          textString="TAir"),
         Rectangle(
           extent={{-102,5},{99,-5}},
           lineColor={0,0,255},

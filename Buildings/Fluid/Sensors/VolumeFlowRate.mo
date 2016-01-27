@@ -62,7 +62,7 @@ equation
   // Output signal of density sensor that is used to compute
   // the volume flow rate
   if dynamic then
-    der(d) = (dMed-d)*k/tau;
+    der(d) = (dMed-d)*k*tauInv;
   else
     d = dMed;
   end if;
@@ -92,6 +92,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Removed default value <code>tau=0</code> as the base class

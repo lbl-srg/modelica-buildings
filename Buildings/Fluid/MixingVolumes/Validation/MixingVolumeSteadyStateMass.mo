@@ -1,4 +1,4 @@
-within Buildings.Fluid.MixingVolumes.Examples;
+within Buildings.Fluid.MixingVolumes.Validation;
 model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
@@ -72,6 +72,6 @@ First implementation.
 </html>"),
 experiment(StopTime=1.0),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeSteadyStateMass.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeSteadyStateMass.mos"
         "Simulate and plot"));
 end MixingVolumeSteadyStateMass;

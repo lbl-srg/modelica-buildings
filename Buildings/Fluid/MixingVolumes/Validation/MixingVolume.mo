@@ -1,5 +1,5 @@
-within Buildings.Fluid.MixingVolumes.Examples;
-model MixingVolume
+within Buildings.Fluid.MixingVolumes.Validation;
+model MixingVolume "Test model for mixing volumes"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;
@@ -173,7 +173,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

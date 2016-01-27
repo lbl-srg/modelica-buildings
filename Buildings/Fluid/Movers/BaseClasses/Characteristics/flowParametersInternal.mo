@@ -5,7 +5,7 @@ record flowParametersInternal "Record for flow parameters with prescribed size"
    annotation(Evaluate=true);
   parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
     "Volume flow rate at user-selected operating points";
-  parameter Modelica.SIunits.Pressure dp[n](
+  parameter Modelica.SIunits.PressureDifference dp[n](
      each min=0, each displayUnit="Pa")
     "Fan or pump total pressure at these flow rates";
   annotation (Documentation(info="<html>
@@ -30,6 +30,12 @@ in the <code>initial algorithm</code> section, which is not supported.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 March 22, 2013, by Michael Wetter:<br/>
 First implementation.

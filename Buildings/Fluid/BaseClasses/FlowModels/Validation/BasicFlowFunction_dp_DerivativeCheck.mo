@@ -10,7 +10,7 @@ model BasicFlowFunction_dp_DerivativeCheck
     "Mass flow rate where transition to turbulent flow occurs";
   Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
   Modelica.SIunits.MassFlowRate m_flow_comp "Comparison value for m_flow";
-  Modelica.SIunits.Pressure dp "Pressure drop";
+  Modelica.SIunits.PressureDifference dp "Pressure drop";
   Modelica.SIunits.MassFlowRate err "Integration error";
 initial equation
  m_flow = m_flow_comp;
@@ -43,6 +43,12 @@ If the derivative implementation is wrong, the simulation will stop with an erro
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation.

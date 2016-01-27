@@ -2,8 +2,7 @@ within Buildings.Fluid.FMI.Examples;
 model HeaterFan_noReverseFlow
   "Heater and fan in series, model configured to not allow flow reversal"
   extends Modelica.Icons.Example;
-  package Medium =
-        Buildings.Media.Air "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   final parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
@@ -14,7 +13,8 @@ model HeaterFan_noReverseFlow
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=2000 "Pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000
+    "Pressure";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
@@ -109,13 +109,19 @@ Buildings.Fluid.FMI.Examples.HeaterFan</a>
 except that reverse flow is not allowed due to the parameter
 <code>allowFlowReversal=false</code>.
 Consequently, the connectors for the fluid properties for the reverse flow
-are removed, and the blocks on the right hand side of the model 
+are removed, and the blocks on the right hand side of the model
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFan\">
 Buildings.Fluid.FMI.Examples.HeaterFan</a>
 have been deleted.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 8, 2014, by Michael Wetter:<br/>
 First implementation.

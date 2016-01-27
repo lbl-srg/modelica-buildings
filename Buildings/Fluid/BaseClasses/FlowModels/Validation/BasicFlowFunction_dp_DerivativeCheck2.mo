@@ -12,7 +12,7 @@ model BasicFlowFunction_dp_DerivativeCheck2
   Real der_m_flow_comp(unit="kg/s2")
     "2nd order derivative of comparison value for m_flow";
 
-  Modelica.SIunits.Pressure dp "Pressure drop";
+  Modelica.SIunits.PressureDifference dp "Pressure drop";
   Modelica.SIunits.MassFlowRate err_m_flow "Integration error for m_flow";
   Real err_der_m_flow(unit="kg/s2") "Integration error for der_m_flow";
 initial equation
@@ -68,6 +68,12 @@ full code coverage of this function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation.

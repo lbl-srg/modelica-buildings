@@ -11,7 +11,7 @@ model TraceSubstances "Test model for the extra property sensor"
     redeclare package Medium = Medium,
     V=2*3*3,
     m_flow_nominal=1E-6,
-    nPorts=4,
+    nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
     annotation (Placement(transformation(extent={{74,50}, {94,70}})));
   Sources.TraceSubstancesFlowSource sou(
@@ -49,7 +49,8 @@ model TraceSubstances "Test model for the extra property sensor"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
+    m_flow_nominal=m_flow_nominal,
+    tau=0) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
   FixedResistances.FixedResistanceDpM res(
@@ -64,6 +65,9 @@ model TraceSubstances "Test model for the extra property sensor"
     allowFlowReversal=false,
     tau=0) "Sensor at exhaust air, configured to not allow flow reversal"
     annotation (Placement(transformation(extent={{18,-62},{-2,-42}})));
+  Buildings.Fluid.Sensors.PPM senPPM(redeclare package Medium = Medium)
+    "PPM sensor"
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -77,19 +81,19 @@ equation
       points={{-59,40},{-4.1,40}},
       color={0,0,127}));
   connect(sou.ports[2], vol.ports[1]) annotation (Line(
-      points={{18,38},{81,38},{81,50}},
+      points={{18,38},{80.8,38},{80.8,50}},
       color={0,127,255}));
   connect(mSou.ports[1], vol.ports[2]) annotation (Line(
-      points={{20,-12},{83,-12},{83,50}},
+      points={{20,-12},{82.4,-12},{82.4,50}},
       color={0,127,255}));
   connect(res.port_a, senTraSub.port_a) annotation (Line(
       points={{60,-52},{50,-52}},
       color={0,127,255}));
   connect(res.port_b, vol.ports[3]) annotation (Line(
-      points={{80,-52},{85,-52},{85,50}},
+      points={{80,-52},{84,-52},{84,50}},
       color={0,127,255}));
   connect(senVol.port, vol.ports[4]) annotation (Line(
-      points={{110,50},{110,40},{87,40},{87,50}},
+      points={{110,50},{110,40},{85.6,40},{85.6,50}},
       color={0,127,255}));
   connect(senTraSubNoFlorRev.port_a, senTraSub.port_b) annotation (Line(
       points={{18,-52},{30,-52}},
@@ -97,12 +101,14 @@ equation
   connect(senTraSubNoFlorRev.port_b, mSin.ports[1]) annotation (Line(
       points={{-2,-52},{-22,-52}},
       color={0,127,255}));
+  connect(senPPM.port, vol.ports[5]) annotation (Line(points={{110,10},{110,4},{
+          86,4},{86,50},{87.2,50}},  color={0,127,255}));
     annotation (
 experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
-            180}}), graphics),
+            180}})),
     Documentation(info="<html>
 <p>
 This example tests the sensors that measure trace substances.

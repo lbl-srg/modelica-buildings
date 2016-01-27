@@ -49,7 +49,7 @@ equation
   XMed = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
   // Output signal of sensor
   if dynamic then
-    der(X)  = (XMed-X)*k/tau;
+    der(X)  = (XMed-X)*k*tauInv;
   else
     X = XMed;
   end if;
@@ -76,6 +76,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Changed <code>min</code> and <code>max</code> values for

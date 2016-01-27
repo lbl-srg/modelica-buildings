@@ -59,7 +59,7 @@ equation
   TMedWetBul = wetBulMod.TWetBul;
   // Output signal of sensor
   if dynamic then
-    der(T) = (TMedWetBul-T)*k/tau;
+    der(T) = (TMedWetBul-T)*k*tauInv;
   else
     T = TMedWetBul;
   end if;
@@ -109,6 +109,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>wetBulMod</code>

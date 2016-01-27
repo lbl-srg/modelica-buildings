@@ -1,9 +1,9 @@
-within Buildings.Fluid.MixingVolumes.Examples;
+within Buildings.Fluid.MixingVolumes.Validation;
 model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Pressure dp_nominal = 10 "Nominal pressure drop";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10 "Nominal pressure drop";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
 
@@ -58,6 +58,12 @@ initial value problem for the pressure of the medium.
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 March 27, 2015 by Michael Wetter:<br/>
 Set the mass dynamics of the volume to
 <code>Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code>
@@ -73,7 +79,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
+ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMassFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=10));
 end MixingVolumeMassFlow;

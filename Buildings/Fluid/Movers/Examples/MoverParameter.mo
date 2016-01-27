@@ -59,7 +59,7 @@ model MoverParameter
     inputType=Buildings.Fluid.Types.InputType.Constant,
     speed=2000) "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  parameter Modelica.SIunits.Pressure dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
 equation
   connect(sou.ports[1], pump_m_flow.port_a) annotation (Line(
       points={{-60,3},{-60,0},{-10,0}},
@@ -91,11 +91,17 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of a <code>Parameter</code> 
+This example demonstrates the use of a <code>Parameter</code>
 set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 24, 2015, by Filip Jorissen:<br/>
 First implementation.

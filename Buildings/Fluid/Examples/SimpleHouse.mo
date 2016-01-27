@@ -10,7 +10,7 @@ model SimpleHouse
   parameter Modelica.SIunits.Volume V_zone = A_wall*3 "Wall area";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*rad.m_flow_nominal
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=200
+  parameter Modelica.SIunits.PressureDifference dp_nominal=200
     "Pressure drop at nominal mass flow rate";
   parameter Boolean allowFlowReversal=false
     "= false because flow will not reverse in these circuits";
@@ -252,6 +252,12 @@ equation
     __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 19, 2015, by Filip Jorissen:<br/>
 First implementation.

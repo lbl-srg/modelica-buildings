@@ -10,7 +10,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
+  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
 
@@ -101,6 +101,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>
 Moved the governing equations to

@@ -17,19 +17,21 @@ model FlowControlled_dp
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.Pressure dp_start(min=0, displayUnit="Pa")=0
+  parameter Modelica.SIunits.PressureDifference dp_start(min=0, displayUnit="Pa")=0
     "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Pressure constantHead(min=0, displayUnit="Pa")=dp_nominal
+  parameter Modelica.SIunits.PressureDifference constantHead(min=0,
+                                                             displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
-  parameter Modelica.SIunits.Pressure[:] heads(each min=0, each displayUnit="Pa") = dp_nominal*{0}
+  parameter Modelica.SIunits.PressureDifference[:] heads(each min=0,
+                                                         each displayUnit="Pa") = dp_nominal*{0}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
@@ -135,6 +137,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
 Removed the parameters <code>use_powerCharacteristics</code> and <code>power</code>

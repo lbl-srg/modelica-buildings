@@ -21,7 +21,7 @@ partial model PowerInterface
   input Modelica.SIunits.Efficiency etaHyd(max=1) "Hydraulic efficiency";
   input Modelica.SIunits.Efficiency etaMot(max=1) "Motor efficiency";
 
-  input Modelica.SIunits.Pressure dpMachine(displayUnit="Pa")
+  input Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")
     "Pressure increase";
   input Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
 protected
@@ -77,6 +77,12 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Removed parameters <code>use_powerCharacteristic</code> and

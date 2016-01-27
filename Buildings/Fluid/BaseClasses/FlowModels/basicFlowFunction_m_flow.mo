@@ -8,7 +8,7 @@ function basicFlowFunction_m_flow
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  output Modelica.SIunits.Pressure dp(displayUnit="Pa")
+  output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 algorithm
  dp :=if (m_flow>m_flow_turbulent) then (m_flow/k)^2
@@ -51,6 +51,12 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>

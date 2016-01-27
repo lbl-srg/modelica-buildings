@@ -6,7 +6,8 @@ model HeaterFanPressureDriven
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=2000 "Pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000
+    "Pressure";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
@@ -156,6 +157,12 @@ thermofluid flow models are wrapped using input/output blocks.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 8, 2014, by Michael Wetter:<br/>
 First implementation.

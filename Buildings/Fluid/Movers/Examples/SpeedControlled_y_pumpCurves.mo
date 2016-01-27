@@ -6,7 +6,7 @@ model SpeedControlled_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
@@ -164,8 +164,14 @@ avoid a singularity at the origin.
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 June 14, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using a <code>parameter</code> 
+Set constant speed for pump using a <code>parameter</code>
 instead of a <code>realInput</code>.
 </li>
 <li>March 24 2010, by Michael Wetter:<br/>

@@ -10,8 +10,9 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean linearized = false
@@ -29,7 +30,7 @@ protected
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
+  final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
     "Absolute value of nominal pressure";
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
@@ -81,6 +82,18 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>,

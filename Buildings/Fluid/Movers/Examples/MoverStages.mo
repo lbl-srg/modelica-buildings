@@ -14,7 +14,7 @@ model MoverStages
   Modelica.Blocks.Sources.IntegerTable integerTable(table=[0,1; 0.3,2; 0.6,3])
     "Integer step input, 1 is off, 2 is on"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  parameter Modelica.SIunits.Pressure dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
 equation
   connect(integerTable.y, pump_Nrpm.stage)
     annotation (Line(points={{-39,80},{0,80},{0,52}}, color={255,127,0}));
@@ -35,13 +35,19 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of the <code>Integer</code> 
+This example demonstrates the use of the <code>Integer</code>
 stage connector for a mover model.
 Note that integer input <i>1</i> refers to the first stage, whereas
 input <i>0</i> switches the mover off.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 24, 2015, by Filip Jorissen:<br/>
 Extended implementation with more movers.

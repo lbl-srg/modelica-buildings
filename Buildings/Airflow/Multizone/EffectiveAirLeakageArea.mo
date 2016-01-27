@@ -4,7 +4,8 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     m=0.65,
     final A=CD/CDRat * L * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.Pressure dpRat(min=0)=4
+  parameter Modelica.SIunits.PressureDifference dpRat(min=0,
+                                                      displayUnit="Pa") = 4
     "|Rating conditions|Pressure drop at rating condition";
   parameter Real CDRat(min=0, max=1)=1
     "|Rating conditions|Discharge coefficient";
@@ -104,6 +105,12 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Changed the parameter <code>useConstantDensity</code> to

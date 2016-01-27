@@ -7,7 +7,7 @@ partial model FlowMachine_ZeroFlow
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Ramp y(
@@ -98,6 +98,12 @@ This is the base class for examples that demonstrates the use of a flow machine 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 20, 2014, by Michael Wetter:<br/>
 Added <code>constrainedby</code> declaration for medium.

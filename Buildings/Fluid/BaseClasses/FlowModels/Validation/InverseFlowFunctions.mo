@@ -2,8 +2,8 @@ within Buildings.Fluid.BaseClasses.FlowModels.Validation;
 model InverseFlowFunctions "Test model for flow function and its inverse"
   extends Modelica.Icons.Example;
  Modelica.SIunits.MassFlowRate m_flow;
- Modelica.SIunits.Pressure dp(displayUnit="Pa") "Pressure difference";
- Modelica.SIunits.Pressure dpCalc(displayUnit="Pa")
+ Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
+ Modelica.SIunits.PressureDifference dpCalc(displayUnit="Pa")
     "Pressure difference computed by the flow functions";
  Modelica.SIunits.Pressure deltaDp(displayUnit="Pa")
     "Pressure difference between input and output to the functions";
@@ -34,6 +34,12 @@ are not invertible.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 8, 2012, by Michael Wetter:<br/>
 Updated documentation.

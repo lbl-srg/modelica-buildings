@@ -6,7 +6,7 @@ model SpeedControlled_y_linear
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
 
   Modelica.Blocks.Sources.Ramp y(
     offset=1,
@@ -105,6 +105,12 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
