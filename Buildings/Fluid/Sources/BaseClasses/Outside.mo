@@ -6,27 +6,35 @@ partial model Outside
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
   parameter Medium.ExtraProperty C[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
+
+  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
+    final quantity=Medium.extraPropertiesNames) if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-18},{-80,22}})));
 protected
-  final parameter Boolean singleSubstance = ( Medium.nX == 1)
+  final parameter Boolean singleSubstance = (Medium.nX == 1)
     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
-       not singleSubstance "Block to compute water vapor concentration";
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi
+    if not singleSubstance "Block to compute water vapor concentration";
+
+  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
+    final unit="kg/kg",
+    final quantity=Medium.substanceNames)
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput T_in_internal
+  Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
+                                                     displayUnit="degC")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput p_in_internal
+  Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
+       quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
 
 equation
@@ -103,6 +111,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>unit</code> and <code>quantity</code> attributes.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

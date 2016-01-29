@@ -13,7 +13,7 @@ model MassFractionTwoPort "Ideal two port mass fraction sensor"
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
                                           start=X_start,
-                                          unit="1")
+                                          final unit="kg/kg")
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
@@ -24,8 +24,8 @@ protected
   Medium.MassFraction XMed(start=X_start)
     "Mass fraction to which the sensor is exposed";
   Medium.MassFraction XiVec[Medium.nXi](
-      quantity=Medium.extraPropertiesNames)
-    "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
+    final quantity=Medium.substanceNames[1:Medium.nXi])
+    "Mass fraction vector, needed because indexed argument for the operator inStream is not supported";
 initial equation
   // Assign initial conditions
   if dynamic then
@@ -77,8 +77,17 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 revisions="<html>
 <ul>
 <li>
+January 26, 2016, by Michael Wetter:<br/>
+Corrected wrong assignment
+<code>XiVec[Medium.nXi](quantity=Medium.extraPropertiesNames)</code>
+to
+<code>XiVec[Medium.nXi](quantity=Medium.substanceNames[1:Medium.nXi])</code>.<br/>
+Changed unit of output signal from <code>1</code> to <code>kg/kg</code>
+to indicate that it is a mass fraction, and declared the assignment final.
+</li>
+<li>
 January 18, 2016 by Filip Jorissen:<br/>
-Using parameter <code>tauInv</code> 
+Using parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for

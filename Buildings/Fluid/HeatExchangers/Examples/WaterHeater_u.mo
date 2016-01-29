@@ -47,6 +47,10 @@ for a model that takes the leaving water temperature as an input.
 </html>", revisions="<html>
 <ul>
 <li>
+January 27, 2016, by Michael Wetter;<br/>
+Removed algorithm specification in experiment annotation.
+</li>
+<li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised implementation.
 </li>
@@ -60,8 +64,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-05),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
 end WaterHeater_u;

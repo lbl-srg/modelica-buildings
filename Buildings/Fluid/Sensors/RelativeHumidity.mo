@@ -3,13 +3,14 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
 
-  Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)
+  Modelica.Blocks.Interfaces.RealOutput phi(final unit="1", min=0)
     "Relative humidity in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Modelica.SIunits.Temperature T "Temperature of the medium";
-  Medium.MassFraction Xi[Medium.nXi] "Mass fraction of the medium";
+  Medium.MassFraction Xi[Medium.nXi](
+    quantity=Medium.substanceNames[1:Medium.nXi]) "Mass fraction of the medium";
 equation
   Xi = inStream(port.Xi_outflow);
   T=Medium.temperature_phX(
@@ -52,6 +53,11 @@ prior to using this model with one fluid port.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016 by Michael Wetter:<br/>
+Added <code>quantity</code> attribute for mass fraction variables.<br/>
+Made unit assignment of output signal final.
+</li>
 <li>
 May 12, 2010 by Michael Wetter:<br/>
 First implementation.

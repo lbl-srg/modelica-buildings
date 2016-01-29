@@ -3,28 +3,29 @@ model Outside_CpLowRise
   "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
   extends Buildings.Fluid.Sources.BaseClasses.Outside;
 
-  parameter Real Cp0(min=0, max=1) = 0.6
+  parameter Real Cp0(min=0, max=1, final unit="1") = 0.6
     "Wind pressure coefficient for wind normal to wall";
-  parameter Real s(min=0)
+  parameter Real s(final min=0, final unit="1")
     "Side ratio, s=length of this wall/length of adjacent wall";
   parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
 
   Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct "Actual wind pressure coefficient";
+  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
   Modelica.SIunits.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 protected
-  Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, unit="Pa")
+  Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
     "Pressure from weather bus";
-  Modelica.Blocks.Interfaces.RealInput vWin(unit="m/s")
+  Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")
     "Wind speed from weather bus";
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")
     "Sum of atmospheric pressure and wind pressure";
   final parameter Real G = Modelica.Math.log(s)
     "Natural logarithm of side ratio";
 
-  Modelica.Blocks.Interfaces.RealInput winDir(unit="rad")
+  Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",
+                                              displayUnit="deg")
     "Wind direction from weather bus";
   Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
@@ -133,6 +134,10 @@ Gaithersburg, MD.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>unit</code> and <code>quantity</code> attributes.
+</li>
 <li>
 October 26, 2011 by Michael Wetter:<br/>
 First implementation.

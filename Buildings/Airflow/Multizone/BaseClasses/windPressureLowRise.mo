@@ -7,11 +7,6 @@ function windPressureLowRise "Wind pressure coefficient for low-rise buildings"
   input Real G "Natural logarithm of side ratio";
   output Real Cp "Wind pressure coefficient";
 protected
-  Modelica.SIunits.Angle aR "alpha, restricted to 0...pi";
-  Modelica.SIunits.Angle incAng2 "0.5*wind incidence angle";
-  Real sinA2 "=sin(alpha/2)";
-  Real cosA2 "=cos(alpha/2)";
-  Real a "Attenuation factor";
   constant Modelica.SIunits.Angle pi2 = 2*Modelica.Constants.pi;
   constant Modelica.SIunits.Angle aRDel = 5*Modelica.Constants.pi/180
     "Lower bound where transition occurs";
@@ -19,9 +14,15 @@ protected
     "Half-width of transition interval";
   constant Modelica.SIunits.Angle aRMax = 175*Modelica.Constants.pi/180
     "Upper bound where transition occurs";
-  constant Real a180 = Modelica.Math.log(1.248 - 0.703 +
-      0.131*Modelica.Math.sin(2*Modelica.Constants.pi*G)^3
-      + 0.071*G^2) "Attenuation factor at 180 degree incidence angle";
+  Real a180 = Modelica.Math.log(1.248 - 0.703 +
+              0.131*Modelica.Math.sin(2*Modelica.Constants.pi*G)^3
+              + 0.071*G^2) "Attenuation factor at 180 degree incidence angle";
+
+  Modelica.SIunits.Angle aR "alpha, restricted to 0...pi";
+  Modelica.SIunits.Angle incAng2 "0.5*wind incidence angle";
+  Real sinA2 "=sin(alpha/2)";
+  Real cosA2 "=cos(alpha/2)";
+  Real a "Attenuation factor";
 algorithm
   // Restrict incAng to [0...pi]
 
@@ -154,6 +155,11 @@ which generally leads to better numeric performance.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Removed <code>constant</code> keyword for <code>a180</code> as its value
+depends on the input of the function.
+</li>
 <li>
 October 27, 2011 by Michael Wetter:<br/>
 First implementation.
