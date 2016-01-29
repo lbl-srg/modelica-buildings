@@ -139,12 +139,6 @@ This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
 </li>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
 April 22, by Filip Jorissen:<br/>
 Added more documentation references to paper
 </li>

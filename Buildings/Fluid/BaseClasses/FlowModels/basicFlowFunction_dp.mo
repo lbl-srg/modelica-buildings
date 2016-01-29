@@ -60,12 +60,6 @@ This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
 </li>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
 July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
 and changed <code>Inline=true</code> to <code>LateInline=true</code>.

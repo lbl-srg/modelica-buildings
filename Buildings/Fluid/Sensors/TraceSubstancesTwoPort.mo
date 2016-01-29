@@ -9,13 +9,16 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
+
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Real C_start(min=0) = 0
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
 protected
-  Real CMed(min=0, start=C_start, nominal=sum(Medium.C_nominal))
+  constant Real sumC_nominal = sum(Medium.C_nominal) "Sum of Medium.C_nominal";
+  Real CMed(min=0, start=C_start, nominal=
+    if sumC_nominal > Modelica.Constants.eps then sumC_nominal else 1)
     "Medium trace substance to which the sensor is exposed";
   parameter Real s[:]= {
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -75,8 +78,13 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>", revisions="<html>
 <ul>
 <li>
+January 26, 2016, by Michael Wetter:<br/>
+Avoided assignment of <code>CMed(nominal=0)</code> as this is
+not allowed.
+</li>
+<li>
 January 18, 2016 by Filip Jorissen:<br/>
-Using parameter <code>tauInv</code> 
+Using parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for

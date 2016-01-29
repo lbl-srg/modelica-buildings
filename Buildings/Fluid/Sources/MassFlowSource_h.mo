@@ -14,41 +14,48 @@ model MassFlowSource_h
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable = not use_m_flow_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in));
-  parameter Medium.MassFraction X[Medium.nX] = Medium.X_default
+  parameter Medium.MassFraction X[Medium.nX](
+    final quantity=Medium.substanceNames) = Medium.X_default
     "Fixed value of composition"
     annotation (Dialog(enable = (not use_X_in) and Medium.nXi > 0));
   parameter Medium.ExtraProperty C[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
+
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if use_m_flow_in
     "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-120,60},{-80,100}})));
-  Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in
+  Modelica.Blocks.Interfaces.RealInput h_in(final unit="J/kg") if use_h_in
     "Prescribed fluid specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
-                                                        use_X_in
-    "Prescribed fluid composition"
+  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX](
+    each final unit = "kg/kg",
+    final quantity=Medium.substanceNames) if use_X_in "Prescribed fluid composition"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
-                                                        use_C_in
+  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
+    final quantity=Medium.extraPropertiesNames) if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-120,-100},{-80,-60}}), iconTransformation(extent={{-120,-100},{-80,-60}})));
+
 protected
-  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
+  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_in_internal
+  Modelica.Blocks.Interfaces.RealInput h_in_internal(final unit="J/kg")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
+    each final unit = "kg/kg",
+    final quantity=Medium.substanceNames)
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
 equation
   Modelica.Fluid.Utilities.checkBoundary(
@@ -163,6 +170,10 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>unit</code> and <code>quantity</code> attributes.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

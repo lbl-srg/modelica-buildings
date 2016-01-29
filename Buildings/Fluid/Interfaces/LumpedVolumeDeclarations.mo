@@ -25,7 +25,8 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Medium.MassFraction X_start[Medium.nX](
+       quantity=Medium.substanceNames) = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
@@ -61,6 +62,10 @@ Buildings.Rooms.BaseClasses.MixedAir</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>quantity=Medium.substanceNames</code> for <code>X_start</code>.
+</li>
 <li>
 October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.

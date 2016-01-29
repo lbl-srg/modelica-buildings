@@ -30,11 +30,12 @@ model TwoPortHeatMassExchanger
   parameter Medium.Temperature T_start = Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Medium.MassFraction X_start[Medium.nX](
+    final quantity=Medium.substanceNames) = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
@@ -140,6 +141,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>final quantity=Medium.substanceNames</code> for <code>X_start</code>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Added missing propagation of <code>allowFlowReversal</code> to

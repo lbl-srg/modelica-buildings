@@ -46,12 +46,6 @@ This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
 </li>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation to avoid in Dymola 2016 the warning
 \"Differentiating ... under the assumption that it is continuous at switching\".

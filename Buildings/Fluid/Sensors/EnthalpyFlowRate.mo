@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -79,8 +79,12 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 revisions="<html>
 <ul>
 <li>
+January 26, 2016, by Michael Wetter:<br/>
+Made unit assignment of output signal final.
+</li>
+<li>
 January 18, 2016 by Filip Jorissen:<br/>
-Using parameter <code>tauInv</code> 
+Using parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for

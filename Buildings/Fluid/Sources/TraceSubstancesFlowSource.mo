@@ -11,16 +11,16 @@ model TraceSubstancesFlowSource
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable = not use_m_flow_in));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in if
-       use_m_flow_in "Prescribed mass flow rate for extra property"
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
+    if use_m_flow_in "Prescribed mass flow rate for extra property"
     annotation (Placement(transformation(extent={{-141,-20},{-101,20}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
+  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal(final unit="kg/s")
     "Needed to connect to conditional connector";
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
-       each fixed=false,
-       quantity=Medium.extraPropertiesNames) "Boundary trace substances"
+    each fixed=false,
+    final quantity=Medium.extraPropertiesNames) "Boundary trace substances"
     annotation (Dialog(enable = Medium.nC > 0));
 initial algorithm
   for i in 1:Medium.nC loop
@@ -72,6 +72,10 @@ which is more efficient than using this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>unit</code> and <code>quantity</code> attributes.
+</li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance
