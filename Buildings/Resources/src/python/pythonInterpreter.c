@@ -7,7 +7,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
                           const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
-			  void (*ModelicaFormatError)(const char *string,...))
+                          void (*ModelicaFormatError)(const char *string,...))
 {
   PyObject *pName, *pModule, *pFunc;
   PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
@@ -15,11 +15,11 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
   Py_ssize_t pIndVal;
   PyObject *pItemDbl, *pItemInt;
   char* arg="";
-  int i;
-  int iArg = 0;
-  int nArg = 0;
-  int iRet = 0;
-  int nRet = 0;
+  Py_ssize_t i;
+  Py_ssize_t iArg = 0;
+  Py_ssize_t nArg = 0;
+  Py_ssize_t iRet = 0;
+  Py_ssize_t nRet = 0;
   ////////////////////////////////////////////////////////////////////////////
   // Initialize Python interpreter
   Py_Initialize();
@@ -126,7 +126,13 @@ The error message is \"%s\"",
 	  (*ModelicaFormatError)("Cannot convert integer argument number %i to Python format.", i);
 	}
 	// pValue reference stolen here
-	PyList_SetItem(pArgsInt, i, pValue);
+        fprintf(stderr, "*** This is a test \n");
+        //        fprintf(stderr, "*** '%i'\n", i);
+        fprintf(stderr, "*** double value '%f'\n", PyLong_AsDouble(pValue));
+        fprintf(stderr, "*** '%p'\n", pValue);
+        //        (*ModelicaFormatError)("Calling PyList 3.", i);
+        PyList_SetItem(pArgsInt, i, pValue);
+        (*ModelicaFormatError)("Returned from PyList 3.", i);
       }
       // If there is only a scalar integer, then don't build a list.
       // Just put the scalar value into the list of arguments
