@@ -105,12 +105,11 @@ The error message is \"%s\"",
     // If there is only a scalar double, then don't build a list.
     // Just put the scalar value into the list of arguments
     if ( nDblWri == 1)
-      PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsDbl, 0));
+      PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsDbl, (Py_ssize_t)0));
     else
       PyTuple_SetItem(pArgs, iArg, pArgsDbl);
     iArg++;
   }
-
   // b) Convert int[]
   if ( nIntWri > 0 ){
       pArgsInt = PyList_New(nIntWri);
@@ -126,23 +125,16 @@ The error message is \"%s\"",
 	  (*ModelicaFormatError)("Cannot convert integer argument number %i to Python format.", i);
 	}
 	// pValue reference stolen here
-        fprintf(stderr, "*** This is a test \n");
-        //        fprintf(stderr, "*** '%i'\n", i);
-        fprintf(stderr, "*** double value '%f'\n", PyLong_AsDouble(pValue));
-        fprintf(stderr, "*** '%p'\n", pValue);
-        //        (*ModelicaFormatError)("Calling PyList 3.", i);
         PyList_SetItem(pArgsInt, i, pValue);
-        (*ModelicaFormatError)("Returned from PyList 3.", i);
       }
       // If there is only a scalar integer, then don't build a list.
       // Just put the scalar value into the list of arguments
       if ( nIntWri == 1)
-	PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsInt, 0));
+	PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsInt, (Py_ssize_t)0));
       else
 	PyTuple_SetItem(pArgs, iArg, pArgsInt);
       iArg++;
     }
-
   // c) Convert char **, an array of character arrays
   if ( nStrWri > 0 ){
     pArgsStr = PyList_New(nStrWri);
@@ -171,11 +163,12 @@ The error message is \"%s\"",
     // If there is only a scalar string, then don't build a list.
     // Just put the scalar value into the list of arguments.
     if ( nStrWri == 1)
-	PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsStr, 0));
+	PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsStr, (Py_ssize_t)0));
       else
 	PyTuple_SetItem(pArgs, iArg, pArgsStr);
     iArg++;
   }
+
   ////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////
   // Call the Python function
@@ -276,9 +269,8 @@ The returned object is \"%s\".",
 	  PyObject *p = PyList_GetItem(pItemDbl, pIndVal);
 	  // Check whether it is a float or an integer.
 	  // (For integers, PyFloat_Check(p) returns false, hence we also call PyInt_Check(p))
-	  if (PyFloat_Check(p) || PyLong_Check(p) || PyInt_Check(p)){
+	  if (PyFloat_Check(p) || PyLong_Check(p) || PyInt_Check(p))
 	    dblValRea[pIndVal] = PyFloat_AsDouble( p );
-	  }
 	  else
 	    (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar double value.\n\
 The returned object is \"%s\".",
