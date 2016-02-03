@@ -530,6 +530,20 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python27</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.exchange
+       </td>
+       <td valign=\"top\">Updated Python implementation to allow compiling code
+                          in 64 bit. Previously, on Linux a segmentation fault
+                          occurred during run-time if 64 bit code rather than
+                          32 bit code was generated. This is now corrected.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/287\">issue 287</a>.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
