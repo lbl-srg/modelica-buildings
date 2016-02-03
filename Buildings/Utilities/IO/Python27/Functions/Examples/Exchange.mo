@@ -10,7 +10,7 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r1",
-      dblWri={2},
+      dblWri={2.0},
       intWri={0},
       nDblWri=1,
       nDblRea=1,
@@ -23,7 +23,7 @@ algorithm
     yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
-      dblWri={2, 3},
+      dblWri={2.0, 3.0},
       intWri={0},
       nDblWri=2,
       nDblRea=1,
@@ -36,7 +36,7 @@ algorithm
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r2",
-      dblWri={2},
+      dblWri={2.0},
       intWri={0},
       nDblWri=1,
       nDblRea=2,
@@ -50,7 +50,7 @@ algorithm
   (yR1, yI1) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i1",
-      dblWri={0},
+      dblWri={0.0},
       intWri={3},
       nDblWri=0,
       nDblRea=0,
@@ -64,7 +64,7 @@ algorithm
   (yR1, yI2) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i2",
-      dblWri={0},
+      dblWri={0.0},
       intWri={2},
       nDblWri=0,
       nDblRea=0,
@@ -94,7 +94,7 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="s2_r1",
-      dblWri={0},
+      dblWri={0.0},
       intWri={0},
       nDblWri=0,
       nDblRea=1,
@@ -120,6 +120,11 @@ the simulation if the return value is different from the expected value.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2016, by Michael Wetter:<br/>
+Changed constant arguments of exchange function from <code>int</code> to <code>double</code>.
+This is required for OpenModelica.
+</li>
 <li>
 January 31, 2013, by Michael Wetter:<br/>
 First implementation.
