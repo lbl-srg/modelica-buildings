@@ -30,11 +30,10 @@
 #endif
 #include <stddef.h>  /* stddef defines size_t */
 
-#ifdef _WIN32
-#include <Python.h>
-#endif
 #ifdef __APPLE__
 #include <Python/Python.h>
+#else
+#include <Python.h>
 #endif
 
 #ifdef __cplusplus
