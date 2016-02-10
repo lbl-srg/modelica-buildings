@@ -30,6 +30,10 @@
 #endif
 #include <stddef.h>  /* stddef defines size_t */
 
+#ifdef __APPLE__
+#include <Python/Python.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
