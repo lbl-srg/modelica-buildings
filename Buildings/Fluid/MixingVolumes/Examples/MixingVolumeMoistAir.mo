@@ -1,5 +1,5 @@
 within Buildings.Fluid.MixingVolumes.Examples;
-model MixingVolumeMoistAir
+model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;

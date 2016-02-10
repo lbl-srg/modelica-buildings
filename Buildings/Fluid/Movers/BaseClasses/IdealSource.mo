@@ -3,10 +3,10 @@ model IdealSource
   "Base class for pressure and mass flow source with optional power input"
   extends Buildings.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);
 
-  // what to control
+  // Quantity to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
     annotation(Evaluate = true);
-  Modelica.Blocks.Interfaces.RealInput m_flow_in if control_m_flow
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(unit="kg/s") if control_m_flow
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -15,7 +15,7 @@ model IdealSource
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-60,80})));
-  Modelica.Blocks.Interfaces.RealInput dp_in if not control_m_flow
+  Modelica.Blocks.Interfaces.RealInput dp_in(unit="Pa") if not control_m_flow
     "Prescribed outlet pressure"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -26,12 +26,12 @@ model IdealSource
         origin={60,80})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput m_flow_internal
+  Modelica.Blocks.Interfaces.RealInput m_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput dp_internal
+  Modelica.Blocks.Interfaces.RealInput dp_internal(unit="Pa")
     "Needed to connect to conditional connector";
-equation
 
+equation
   // Ideal control
   if control_m_flow then
     m_flow = m_flow_internal;
@@ -72,7 +72,7 @@ equation
           textString="m")}),
     Documentation(info="<html>
 <p>
-Model of a fictious pipe that is used as a base class
+Model of a fictitious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
 </p>
 <p>
@@ -84,6 +84,12 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Added units to the signal connectors.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Removed parameter <code>show_V_flow</code>.

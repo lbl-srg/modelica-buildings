@@ -3,7 +3,6 @@ model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    showDesignFlowDirection=false,
     final m_flow_nominal=perPar.mperA_flow_nominal*perPar.A);
   parameter Integer nSeg(min=3) = 3
     "Number of segments used to discretize the collector model";
@@ -129,7 +128,7 @@ protected
     Modelica.Blocks.Interfaces.RealInput shaCoe_internal
     "Internally used shading coefficient";
 
-    final parameter Modelica.SIunits.Pressure dp_nominal_final=
+    final parameter Modelica.SIunits.PressureDifference dp_nominal_final(displayUnit="Pa")=
     if sysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
        nPanels_internal*perPar.dp_nominal
     else
@@ -238,6 +237,12 @@ CEN 2006, European Standard 12975-1:2006, European Committee for Standardization
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 8, 2015, by Filip Jorissen:<br/>
 Propagated multiple parameters from <code>LumpedVolumeDeclarations</code>,

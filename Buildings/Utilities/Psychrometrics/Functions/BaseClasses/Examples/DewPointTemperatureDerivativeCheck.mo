@@ -14,7 +14,7 @@ equation
   y=Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
   der(y)=der(y_comp);
   err = y-y_comp;
- // fixme assert(abs(err) < 1E-2, "Derivative implementation has an error or solver tolerance is too low.");
+  assert(abs(err) < 1E-2, "Derivative implementation has an error or solver tolerance is too low.");
 annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck.mos"
         "Simulate and plot"),

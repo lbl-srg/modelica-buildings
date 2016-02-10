@@ -6,7 +6,7 @@ model FlowMachine_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
 
    model pumpModel = Buildings.Obsolete.Fluid.Movers.FlowMachine_y (
     redeclare package Medium = Medium,

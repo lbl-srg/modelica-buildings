@@ -7,8 +7,10 @@ model FixedBoundary "Boundary source component"
   parameter Medium.AbsolutePressure p=Medium.p_default "Boundary pressure"
     annotation (Dialog(group = "Boundary pressure or Boundary density",
                        enable = use_p));
-  parameter Medium.Density d=Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Boundary density"
+  parameter Medium.Density d=Medium.density_pTX(
+    p = Medium.p_default,
+    T = Medium.T_default,
+    X = Medium.X_default) "Boundary density"
     annotation (Dialog(group = "Boundary pressure or Boundary density",
                        enable=not use_p));
   parameter Boolean use_T=true "select T or h"
@@ -22,12 +24,12 @@ model FixedBoundary "Boundary source component"
     annotation (Dialog(group="Boundary temperature or Boundary specific enthalpy",
                 enable = not use_T));
   parameter Medium.MassFraction X[Medium.nX](
-       quantity=Medium.substanceNames)=Medium.X_default
+    final quantity=Medium.substanceNames) = Medium.X_default
     "Boundary mass fractions m_i/m"
     annotation (Dialog(group = "Only for multi-substance flow", enable=Medium.nXi > 0));
 
   parameter Medium.ExtraProperty C[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Boundary trace substances"
     annotation (Dialog(group = "Only for trace-substance flow", enable=Medium.nC > 0));
 
@@ -80,6 +82,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>unit</code> and <code>quantity</code> attributes.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

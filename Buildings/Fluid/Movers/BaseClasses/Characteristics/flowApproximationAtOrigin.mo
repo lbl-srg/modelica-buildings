@@ -5,11 +5,11 @@ function flowApproximationAtOrigin
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.Pressure dpDelta "Small pressure";
+  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa") "Small pressure";
   input Real delta "Small value used to transition to other fan curve";
   input Real cBar[2]
     "Coefficients for linear approximation of pressure vs. flow rate";
-  output Modelica.SIunits.Pressure dp "Pressure raise";
+  output Modelica.SIunits.PressureDifference dp "Pressure raise";
 algorithm
 
   // see equation 20 in  Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
@@ -26,12 +26,19 @@ It is used to avoid a singularity in the pump or fan curve if the revolution
 approaches zero.
 </p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),   smoothOrder=100);
+</html>"),
+smoothOrder=100);
 end flowApproximationAtOrigin;

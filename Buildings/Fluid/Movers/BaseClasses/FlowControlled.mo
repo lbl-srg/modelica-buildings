@@ -6,32 +6,43 @@ model FlowControlled
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-   _perPow(hydraulicEfficiency=per.hydraulicEfficiency,
-            motorEfficiency=per.motorEfficiency,
-            power=per.power,
-            motorCooledByFluid=per.motorCooledByFluid,
-            use_powerCharacteristic = per.use_powerCharacteristic),
-            delta_V_flow = 1E-3*V_flow_max,
-     final rho_default = Medium.density(sta_default));
+    final motorCooledByFluid=per.motorCooledByFluid,
+    delta_V_flow = 1E-3*V_flow_max,
+    final rho_default = Medium.density(sta_default),
+    etaHyd = cha.efficiency(
+      per=per.hydraulicEfficiency,
+      V_flow=VMachine_flow,
+      d=hydDer,
+      r_N=1,
+      delta=1E-4),
+    etaMot = cha.efficiency(
+      per=per.motorEfficiency,
+      V_flow=VMachine_flow,
+      d=motDer,
+      r_N=1,
+      delta=1E-4),
+    eta = etaHyd * etaMot,
+    dpMachine= -dp,
+    VMachine_flow = port_a.m_flow/rho_in,
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
-  // what to control
-  constant Boolean control_m_flow "= false to control head instead of m_flow"
-    annotation(Evaluate=true);
+  // Quantity to control
+  constant Boolean control_m_flow "= false to control head instead of m_flow";
 
   replaceable parameter Data.FlowControlled per "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Real r_V(start=1)
+  Real r_V(start=1) = VMachine_flow/V_flow_max
     "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
 
- parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
     "Maximum volume flow rate";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
@@ -39,20 +50,38 @@ protected
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
+ // Derivatives for cubic spline
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
+    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
+    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if addPowerToMedium
     "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
-equation
-  r_V = VMachine_flow/V_flow_max;
-  etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
-  etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
-  dpMachine = -dp;
-  VMachine_flow = port_a.m_flow/rho_in;
-  // To compute the electrical power, we set a lower bound for eta to avoid
-  // a division by zero.
-  P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+initial equation
+   // Compute derivatives for cubic spline
+ motDer = if (size(per.motorEfficiency.V_flow, 1) == 1)
+          then
+            {0}
+          else
+            Buildings.Utilities.Math.Functions.splineDerivatives(
+              x=per.motorEfficiency.V_flow,
+              y=per.motorEfficiency.eta,
+              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+                x=per.motorEfficiency.eta,
+                strict=false));
 
+  hydDer = if (size(per.hydraulicEfficiency.V_flow, 1) == 1)
+           then
+             {0}
+           else
+             Buildings.Utilities.Math.Functions.splineDerivatives(
+               x=per.hydraulicEfficiency.V_flow,
+               y=per.hydraulicEfficiency.eta);
+
+equation
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
       color={0,0,127}));
@@ -65,6 +94,11 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 2, 2015, by Michael Wetter:<br/>
+Changed assignments of parameters of record <code>_perPow</code> to be <code>final</code>
+as we want users to change the performance record and not the low level declaration.
+</li>      
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised model for OpenModelica.

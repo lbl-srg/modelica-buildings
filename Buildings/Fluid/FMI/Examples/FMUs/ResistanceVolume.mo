@@ -6,7 +6,7 @@ block ResistanceVolume
   parameter Modelica.SIunits.Volume V=1 "Volume";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=100 "Nominal pressure drop";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=100 "Nominal pressure drop";
 
   Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
        use_p_in "Pressure drop of the component"
@@ -97,6 +97,12 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 8, 2014 by Michael Wetter:<br/>
 First implementation.

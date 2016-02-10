@@ -1,4 +1,4 @@
-last-generated=2015-08-07
+last-generated=2015-11-05
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -49,15 +49,11 @@ statistics-fmu-dependencies=
       "com.X_start[1]", 
       "com.X_start[2]", 
       "com.tau", 
-      "com.motorCooledByFluid", 
       "com.per.hydraulicEfficiency.V_flow[1]", 
       "com.per.hydraulicEfficiency.eta[1]", 
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
-      "com.per.power.V_flow[1]", 
-      "com.per.power.P[1]", 
       "com.per.motorCooledByFluid", 
-      "com.per.use_powerCharacteristic", 
       "com.riseTime", 
       "com.init", 
       "com.dp_nominal", 
@@ -81,15 +77,11 @@ statistics-fmu-dependencies=
       "com.X_start[1]", 
       "com.X_start[2]", 
       "com.tau", 
-      "com.motorCooledByFluid", 
       "com.per.hydraulicEfficiency.V_flow[1]", 
       "com.per.hydraulicEfficiency.eta[1]", 
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
-      "com.per.power.V_flow[1]", 
-      "com.per.power.P[1]", 
       "com.per.motorCooledByFluid", 
-      "com.per.use_powerCharacteristic", 
       "com.riseTime", 
       "com.init", 
       "com.dp_nominal", 

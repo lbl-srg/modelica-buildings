@@ -570,7 +570,7 @@ equation
         Text(
           extent={{30,204},{158,162}},
           lineColor={0,0,255},
-          textString="Asserts for temperture check"),
+          textString="Asserts for temperature check"),
         Text(
           extent={{210,204},{338,162}},
           lineColor={0,0,255},

@@ -61,7 +61,7 @@ required from medium model \""     + mediumName + "\".");
     u = h - R*T;
     d = p/(R*T);
     /* Note, u and d are computed under the assumption that the volume of the liquid
-         water is neglible with respect to the volume of air and of steam
+         water is negligible with respect to the volume of air and of steam
       */
     state.p = p;
     state.T = T;

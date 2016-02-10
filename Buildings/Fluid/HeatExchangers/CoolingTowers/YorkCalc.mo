@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
-  import cha = Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
+  import cha =
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -177,13 +178,8 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,82},{-80,78}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-102,110},{-68,72}},
+          extent={{-102,112},{-68,74}},
           lineColor={0,0,127},
           textString="yFan"),
         Text(
@@ -195,7 +191,13 @@ equation
           lineColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
-          textString="York")}),
+          textString="York"),
+        Rectangle(
+          extent={{-100,81},{-70,78}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
 Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the

@@ -5,13 +5,13 @@ model VAVSystemCTControl
  package Medium = Buildings.Media.Air (                      extraPropertiesNames={"CO2"});
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
-parameter Modelica.SIunits.Pressure dpSuiSup_nominal = 95
+parameter Modelica.SIunits.PressureDifference dpSuiSup_nominal(displayUnit="Pa") = 95
     "Pressure drop supply air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpSuiRet_nominal = 233
+parameter Modelica.SIunits.PressureDifference dpSuiRet_nominal(displayUnit="Pa") = 233
     "Pressure drop return air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpFanSupMIT_nominal = 1050
+parameter Modelica.SIunits.PressureDifference dpFanSupMIT_nominal(displayUnit="Pa") = 1050
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpFanRetMIT_nominal = 347
+parameter Modelica.SIunits.PressureDifference dpFanRetMIT_nominal(displayUnit="Pa") = 347
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
 parameter Real scaM_flow = 1 "Scaling factor for mass flow rate";
 parameter Real scaDpFanSup_nominal = 1
@@ -196,6 +196,16 @@ tracks the volume flow rate of the supply fan, then there would be multiple
 solutions for the control signal as the split between pressure raise
 of the supply fan and pressure raise of the return fan is arbitrary.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+</ul>
 </html>"),
      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/VAVSystemCTControl.mos"
         "Simulate and plot",

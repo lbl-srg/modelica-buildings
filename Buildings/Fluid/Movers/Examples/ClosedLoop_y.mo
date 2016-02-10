@@ -6,7 +6,7 @@ model ClosedLoop_y "Flow machine with feedback control"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Pulse y(
@@ -85,6 +85,12 @@ The fan is controlled to track a required mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 First implementation.

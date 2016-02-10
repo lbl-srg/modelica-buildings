@@ -3,25 +3,24 @@ block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic sky model"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
-public
-  parameter Real rho=0.2 "Ground reflectance";
+  parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false
     "Output contribution of diffuse irradiation from ground";
 
-  Modelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add add "Block to add radiation"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if (outSkyCon)
-    "Diffuse solar irradiation on a tilted surfce from the sky"
+  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
+    "Diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput HGroDifTil if (outGroCon)
-    "Diffuse solar irradiation on a tilted surfce from the ground"
+  Modelica.Blocks.Interfaces.RealOutput HGroDifTil if outGroCon
+    "Diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 protected
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic
-    HDifTilIso(til=til, rho=rho)
+    HDifTilIso(til=til, rho=rho) "Diffuse isotropic irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
@@ -75,6 +74,11 @@ Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2015, by Michael Wetter:<br/>
+Added <code>min</code>, <code>max</code> and <code>unit</code>
+attributes for <code>rho</code>.
+</li>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
 Added contributions from sky and ground that were separated in base class.

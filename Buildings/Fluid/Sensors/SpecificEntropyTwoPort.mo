@@ -49,7 +49,7 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(s) = (sMed-s)*k/tau;
+    der(s) = (sMed-s)*k*tauInv;
   else
     s = sMed;
   end if;
@@ -75,6 +75,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Corrected wrong computation of <code>s</code> and <code>sMed</code>.

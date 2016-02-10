@@ -38,7 +38,7 @@ flowParameters</a></td>
 pressure</a></td>
 </tr>
 <tr>
-<td>Relative volumetric flow rate</td>
+<td>Volume flow rate</td>
 <td>Efficiency</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters\">
 efficiencyParameters</a></td>
@@ -47,13 +47,21 @@ efficiency</a></td>
 </tr>
 <tr>
 <td>Volume flow rate</td>
-<td>Power</td>
+<td>Power*</td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters\">
 powerParameters</a></td>
 <td><a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 power</a></td>
 </tr>
 </table>
+<p>*Note: This record is not available for the movers that take as a control signal
+the mass flow rate or the head.
+The reason is that these movers prescribe the mass flow rate and head based
+on the control signal and the system pressure drop curve.
+If the electrical power versus flow rate were specified, then
+the electrical power could be lower than the flow work,
+which would be physically impossible.
+</p>
 <p>
 These performance curves are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
@@ -185,7 +193,7 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
 
-<h5>Models that have idealized perfect controls</h5>
+<h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a> and
@@ -194,6 +202,110 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 take as an input the pressure difference or the mass flow rate.
 This pressure difference or mass flow rate will be provided by the fan or pump,
 i.e., the fan or pump has idealized perfect control and infinite capacity.
+Using these models that take as an input the head or the mass flow rate often leads
+to smaller system of equations compared to using the models that take
+as an input the speed.
+</p>
+<p>
+These models can be configured for three different control inputs.
+For
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>,
+the head is as follows:
+</p>
+<ul>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Continuous</code>,
+the head is <code>dp=dp_in</code>, where <code>dp_in</code> is an input connector.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Constant</code>,
+the head is <code>dp=constantHead</code>, where <code>constantHead</code> is a parameter.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stages</code>,
+the head is <code>dp=heads</code>, where <code>heads</code> is a
+vectorized parameter. For example, if a mover has
+two stages and the head of the first stage should be <i>60%</i> of the nominal head
+and the second stage equal to <code>dp_nominal</code>, set
+<code>heads={0.6, 1}*dp_nominal</code>.
+Then, the mover will have the following heads:
+</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr>
+      <th>input signal <code>stage</code></th>
+      <th>Head [Pa]</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.6*dp_nominal</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>dp_nominal</td>
+    </tr>
+</table>
+</li>
+</ul>
+<p>
+Similarly, for
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>,
+the mass flow rate is as follows:
+</p>
+<ul>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Continuous</code>,
+the mass flow rate is <code>m_flow=m_flow_in</code>, where <code>m_flow_in</code> is an input connector.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Constant</code>,
+the mass flow rate is <code>m_flow=constantMassFlowRate</code>, where <code>constantMassFlowRate</code> is a parameter.
+</p>
+</li>
+<li>
+<p>
+If the parameter <code>inputType==Buildings.Fluid.Types.InputType.Stages</code>,
+the mass flow rate is <code>m_flow=massFlowRates</code>, where <code>massFlowRates</code> is a
+vectorized parameter. For example, if a mover has
+two stages and the mass flow rate of the first stage should be <i>60%</i> of the nominal mass flow rate
+and the second stage equal to <code>m_flow_nominal</code>, set
+<code>massFlowRates={0.6, 1}*m_flow_nominal</code>.
+Then, the mover will have the following mass flow rates:
+</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr>
+      <th>input signal <code>stage</code></th>
+      <th>Mass flow rates [kg/s]</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.6*m_flow_nominal</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>m_flow_nominal</td>
+    </tr>
+</table>
+</li>
+</ul>
+<p>
 These two models do not have a performance curve for the flow
 characteristics.
 The reason for not using a performance curve for the flow characteristics is that</p>
@@ -206,7 +318,24 @@ is defined by the flow resistance of the duct or piping network, and
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
-
+<p>
+The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+both have a parameter <code>m_flow_nominal</code>. For
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
+is used for convenience to set a default value for the parameters
+<code>constantMassFlowRate</code> and
+<code>massFlowRates</code>.
+For both models, the value is also used to compute the
+size of the fluid volume that can be used to approximate the
+inertia of the mover (if <code>dynamicBalance == true</code>).
+It is also used for regularization of the equations near zero flow rate.
+However, otherwise it does not affect the mass flow rate of the mover as
+the mass flow rate is determined by the input signal or the above explained parameters.
+</p>
 <h5>Start-up and shut-down transients</h5>
 <p>
 All models have a parameter <code>filteredSpeed</code>. This
@@ -221,7 +350,7 @@ Thus, a step change in the input signal causes a step change in the fan speed (o
 </li>
 <li>
 <p>
-If <code>filteredSpeed=false</code>, which is the default,
+If <code>filteredSpeed=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
@@ -334,7 +463,8 @@ and the two efficiencies
 and <i>&eta;<sub>mot</sub></i> are computed as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &radic;&eta;<sub>hyd</sub> = &radic;&eta;<sub>mot</sub> = &eta;.
+  &eta;<sub>hyd</sub> = 1,<br/>
+  &radic;&eta;<sub>mot</sub> = &eta;.
 </p>
 <p>
 However, if <code>per.use_powerCharacteristic=false</code>, then

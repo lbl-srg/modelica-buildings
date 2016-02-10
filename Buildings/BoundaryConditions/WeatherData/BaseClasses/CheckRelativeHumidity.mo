@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRelativeHumidity "Check the validity of relative humidity"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput relHumIn(final unit="1")
     "Input relative humidity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

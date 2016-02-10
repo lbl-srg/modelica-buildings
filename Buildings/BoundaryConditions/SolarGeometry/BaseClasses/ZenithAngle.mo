@@ -1,13 +1,12 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));
   Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
-    "Declination"
+    "Solar declination angle"
     annotation (Placement(transformation(extent={{-142,34},{-102,74}}),
         iconTransformation(extent={{-140,34},{-100,74}})));
   Modelica.Blocks.Interfaces.RealOutput zen(
@@ -28,6 +27,12 @@ Input are the solar hour angle and the declination angle.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 5, 2015, by Michael Wetter:<br/>
+Updated comment of the input connector as this is used in the weather bus connector.
+This is for
+issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">376</a>.
+</li>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>
 Rewrote equation in explicit form to avoid nonlinear equations in room model.

@@ -12,6 +12,45 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
+
+  parameter Boolean use_mWat_flow = false
+    "Set to true to enable input connector for moisture mass flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+    "Sensible plus latent heat flow rate transferred into the medium"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
+                                                 unit="kg/s") if
+       use_mWat_flow "Moisture mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if
+       use_C_flow "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+
+  // Outputs that are needed in models that extend this model
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=hStart)
+    "Leaving specific enthalpy of the component"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,110})));
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
+                                                          each min=0,
+                                                          each max=1)
+    "Leaving species concentration of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,110})));
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
+    "Leaving trace substances of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,110})));
+
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -49,37 +88,11 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.SIunits.EnthalpyFlowRate Hb_flow
     "Enthalpy flow across boundaries or energy source/sink";
 
-  // Inputs that need to be defined by an extending class
+  // Parameters that need to be defined by an extending class
   parameter Modelica.SIunits.Volume fluidVolume "Volume";
   final parameter Modelica.SIunits.HeatCapacity CSen=
     (mSenFac - 1)*rho_default*cp_default*fluidVolume
     "Aditional heat capacity for implementing mFactor";
-  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Sensible plus latent heat flow rate transferred into the medium"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
-    "Moisture mass flow rate added to the medium"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-
-  // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=hStart)
-    "Leaving specific enthalpy of the component"
-     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,110})));
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
-                                                          each min=0,
-                                                          each max=1)
-    "Leaving species concentration of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
-    "Leaving trace substances of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,110})));
 protected
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
@@ -113,6 +126,13 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy hStart=
     Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
     "Start value for specific enthalpy";
+
+  // Conditional connectors
+  Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput C_flow_internal[Medium.nC]
+    "Needed to connect to conditional connector";
+
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -169,6 +189,17 @@ initial equation
   end if;
 
 equation
+  // Conditional connectors
+  connect(mWat_flow, mWat_flow_internal);
+  if not use_mWat_flow then
+    mWat_flow_internal = 0;
+  end if;
+
+  connect(C_flow, C_flow_internal);
+  if not use_C_flow then
+    C_flow_internal = zeros(Medium.nC);
+  end if;
+
   // Total quantities
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     m = fluidVolume*rho_start;
@@ -222,21 +253,21 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow);
+    0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow);
+    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    zeros(Medium.nXi) = mbXi_flow + mWat_flow * s;
+    zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(mXi) = mbXi_flow + mWat_flow * s;
+    der(mXi) = mbXi_flow + mWat_flow_internal * s;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    zeros(Medium.nC)  = mbC_flow;
+    zeros(Medium.nC)  = mbC_flow + C_flow_internal;
   else
-    der(mC)  = mbC_flow;
+    der(mC)  = mbC_flow + C_flow_internal;
   end if;
 
   // Properties of outgoing flows
@@ -257,8 +288,9 @@ The model has zero pressure drop between its ports.
 
 <h4>Typical use and important parameters</h4>
 <p>
-Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mWat_flow = 0</code>.
+Set the parameter <code>use_mWat_flow_in=true</code> to enable an
+input connector for <code>mWat_flow</code>.
+Otherwise, the model uses <code>mWat_flow = 0</code>.
 </p>
 <p>
 Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
@@ -309,6 +341,22 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 17, 2016, by Michael Wetter:<br/>
+Added parameter <code>use_C_flow</code> and converted <code>C_flow</code>
+to a conditionally removed connector.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
+<li>
+December 16, 2015, by Michael Wetter:<br/>
+Added <code>C_flow</code> to the steady-state trace substance balance,
+and removed the units of <code>C_flow</code> to allow for PPM.
+</li>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Added input <code>C_flow</code> and code for handling trace substance insertions.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
@@ -541,5 +589,7 @@ Implemented first version in <code>Buildings</code> library, based on model from
         Text(
           extent={{-155,-120},{145,-160}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end ConservationEquation;

@@ -40,7 +40,7 @@ model StratifiedEnhancedInternalHex
     "Nominal mass flow rate through the heat exchanger"
     annotation(Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Pressure dpHex_nominal(displayUnit="Pa") = 2500
+  parameter Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa") = 2500
     "Pressure drop across the heat exchanger at nominal conditions"
     annotation(Dialog(group="Heat exchanger"));
 
@@ -138,6 +138,8 @@ model StratifiedEnhancedInternalHex
         rotation=180,
         origin={-87,32})));
 
+  Modelica.SIunits.HeatFlowRate QHex_flow = -sum(indTanHex.port.Q_flow)
+    "Heat transfered from the heat exchanger to the tank";
 protected
   final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
     "Tank segment in which port a1 of the heat exchanger is located in"
@@ -251,6 +253,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 July 2, 2015, by Michael Wetter:<br/>
 Set the default value <code>energyDynamicsHexSolid=energyDynamicsHex</code>
 rather than
@@ -260,7 +268,7 @@ as users are not likely to want different settings.
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
 Added parameter <code>energyDynamicsHexSolid</code>.
-This is for 
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
 #434</a>.
 </li>

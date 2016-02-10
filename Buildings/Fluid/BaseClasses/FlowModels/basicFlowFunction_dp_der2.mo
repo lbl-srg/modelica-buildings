@@ -3,7 +3,7 @@ function basicFlowFunction_dp_der2
   "2nd derivative of flow function2nd derivative of function that computes mass flow rate for given pressure drop"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Pressure dp(displayUnit="Pa")
+  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
@@ -17,7 +17,7 @@ function basicFlowFunction_dp_der2
     "2nd derivative of mass flow rate in design flow direction";
 protected
   Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
  m_flow_der2 := if noEvent(dp>dp_turbulent) then
@@ -39,6 +39,12 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation to avoid in Dymola 2016 the warning

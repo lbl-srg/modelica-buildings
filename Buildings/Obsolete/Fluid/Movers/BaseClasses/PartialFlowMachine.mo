@@ -11,8 +11,7 @@ partial model PartialFlowMachine
     port_b(
       h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
-      final showDesignFlowDirection=false);
+      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
 
  Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,

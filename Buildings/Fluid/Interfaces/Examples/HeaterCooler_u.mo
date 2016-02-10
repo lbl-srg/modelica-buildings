@@ -496,7 +496,7 @@ equation
             -400},{200,240}}), graphics={Text(
           extent={{30,234},{158,192}},
           lineColor={0,0,255},
-          textString="Asserts for temperture check"), Text(
+          textString="Asserts for temperature check"), Text(
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),

@@ -10,7 +10,8 @@ record TwoPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
                 tab="Flow resistance"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0,
+                                                           displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance = false
@@ -33,6 +34,12 @@ already declares it.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 April 13, 2009, by Michael Wetter:<br/>
 First implementation.

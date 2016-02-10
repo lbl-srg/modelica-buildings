@@ -34,8 +34,9 @@ model TraceSubstancesFlowSource
                           annotation (Placement(transformation(extent={{100,80},
             {120,100}})));
   Sources.TraceSubstancesFlowSource sou1(
-                                      redeclare package Medium = Medium,
-      use_m_flow_in=true)
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1)
     annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4)
     "Assert that both volumes have the same concentration"
@@ -72,8 +73,9 @@ model TraceSubstancesFlowSource
                           annotation (Placement(transformation(extent={{-16,-40},
             {4,-20}})));
   Sources.TraceSubstancesFlowSource sou2(
-                                      redeclare package Medium = Medium,
-      use_m_flow_in=true)
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1)
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,

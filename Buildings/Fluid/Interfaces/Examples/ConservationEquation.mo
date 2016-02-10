@@ -5,14 +5,15 @@ extends Modelica.Icons.Example;
   Buildings.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium =
         Medium, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,
-    fluidVolume=0.01) "Dynamic conservation equation"
+    fluidVolume=0.01,
+    use_mWat_flow=true) "Dynamic conservation equation"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation ste(
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
-    sensibleOnly=false,
-    show_T=true) "Steady-state conservation equation"
+    show_T=true,
+    use_mWat_flow=true) "Steady-state conservation equation"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   Modelica.Blocks.Sources.Constant mWat_flow(k=0)
@@ -96,6 +97,11 @@ for the heat and mass balance.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Updated model to use the new parameter <code>use_mWat_flow</code>
+rather than <code>sensibleOnly</code>.
+</li>
 <li>
 September 11, 2013, by Michael Wetter:<br/>
 First implementation.

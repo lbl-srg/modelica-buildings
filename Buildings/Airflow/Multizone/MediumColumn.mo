@@ -31,7 +31,7 @@ model MediumColumn
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
   Modelica.SIunits.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
   Modelica.SIunits.Density rho "Density in medium column";
 protected
@@ -215,6 +215,12 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use

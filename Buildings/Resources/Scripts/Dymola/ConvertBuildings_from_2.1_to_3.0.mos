@@ -13,3 +13,67 @@ convertModifiers("Buildings.HeatTransfer.Data.Glasses",
                  {"rhoSol_a=0.6"}, {"rhoSol_a={%rhoSol_a%}"});
 convertModifiers("Buildings.HeatTransfer.Data.Glasses",
                  {"rhoSol_b=0.6"}, {"rhoSol_b={%rhoSol_b%}"});
+
+// We remove the parameter setting below because this parameter is
+// already assigned in the performance record per.
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_Nrpm",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_y",
+               {"use_powerCharacteristic=true, use_powerCharacteristic=false"},
+               fill("",0));
+
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_Nrpm",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_y",
+               {"motorCooledByFluid=true, motorCooledByFluid=false"},
+               fill("",0));
+
+convertModifiers("Buildings.Fluid.Movers.Data.FlowControlled",
+                {"power"}, fill("",0));
+
+// Refactoring of base class
+convertModifiers("Buildings.Fluid.Interfaces.FourPort",
+                 {"h_outflow_a1_start",
+                  "h_outflow_b1_start",
+                  "h_outflow_a2_start",
+                  "h_outflow_b2_start"}, fill("", 0), true);
+convertClass("Buildings.Fluid.Interfaces.FourPort",
+             "Buildings.Fluid.Interfaces.PartialFourPort");
+
+convertModifiers("Buildings.Fluid.Interfaces.PartialTwoPort",
+               {"port_a_exposesState=true",
+                "port_b_exposesState=true",
+                "showDesignFlowDirection=true",
+                "port_a_exposesState=false",
+                "port_b_exposesState=false",
+                "showDesignFlowDirection=false"},
+                fill("",0));
+
+// Rename of infrared radiation
+convertElement("Buildings.BoundaryConditions.SkyTemperature.BlackBody",
+               "radHorIR",
+               "HHorIR");
+convertElement("Buildings.BoundaryConditions.WeatherData.Bus",
+               "radHorIR",
+               "HHorIR");
+
+// Refactor of conservation equation for
+// https://github.com/iea-annex60/modelica-annex60/issues/372
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation", 
+  {"sensibleOnly = true"}, fill("", 0), true);
+convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation", 
+  {"sensibleOnly = false"}, {"use_mWat_flow = true"}, true);

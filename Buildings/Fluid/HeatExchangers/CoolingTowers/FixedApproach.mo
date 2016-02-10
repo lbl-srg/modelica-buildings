@@ -13,10 +13,9 @@ equation
   TAirHT=TAir;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                   graphics={
+            -100},{100,100}}), graphics={
         Text(
-          extent={{-98,70},{-64,32}},
+          extent={{-100,70},{-70,32}},
           lineColor={0,0,127},
           textString="TAir")}),
     Documentation(info="<html>

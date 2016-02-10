@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "senPPMTwoPort.ppm",
+    "senPPMNoRev.ppm",
+    "senPPMVol.ppm",
+    "senPPMRev.ppm",
+    "senPPMSta.ppm",
+    "senPPMIn.ppm",
+    "senPPMVol2.ppm"
+  };

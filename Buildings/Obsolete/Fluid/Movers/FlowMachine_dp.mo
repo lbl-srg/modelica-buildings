@@ -16,10 +16,10 @@ model FlowMachine_dp
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.Pressure dp_start(min=0, displayUnit="Pa")=0
+  parameter Modelica.SIunits.PressureDifference dp_start(min=0, displayUnit="Pa")=0
     "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalize filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")

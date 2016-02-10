@@ -5,8 +5,6 @@ block X_pTphi
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
   package Medium = Buildings.Media.Air "Medium model";
-
-public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
                                            displayUnit="degC",
                                            min = 0) "Temperature"

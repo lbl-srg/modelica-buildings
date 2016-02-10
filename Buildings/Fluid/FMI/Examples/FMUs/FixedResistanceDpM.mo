@@ -8,7 +8,7 @@ block FixedResistanceDpM "FMU declaration for a fixed resistance"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=100
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=100
     "Pressure drop at nominal mass flow rate";
   annotation (
   Documentation(info="<html>
@@ -20,6 +20,12 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 3, 2014 by Michael Wetter:<br/>
 First implementation.

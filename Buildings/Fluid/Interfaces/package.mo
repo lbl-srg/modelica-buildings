@@ -100,8 +100,8 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Buildings.Fluid.Interfaces.FourPort\">
-                          Buildings.Fluid.Interfaces.FourPort</a>
+     <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\">
+                          Buildings.Fluid.Interfaces.PartialFourPort</a>
   </td>
   <td>
      This model defines an interface for components with four ports.
@@ -214,19 +214,6 @@ see the <i>info</i> section of the class.
 </html>"));
 
 end UsersGuide;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 annotation (preferredView="info", Documentation(info="<html>

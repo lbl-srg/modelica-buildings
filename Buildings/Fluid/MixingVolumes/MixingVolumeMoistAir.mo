@@ -4,7 +4,8 @@ model MixingVolumeMoistAir
   extends BaseClasses.PartialMixingVolume(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
-    steBal(final sensibleOnly = false));
+    dynBal(final use_mWat_flow = true),
+    steBal(final use_mWat_flow = true));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -18,7 +19,7 @@ model MixingVolumeMoistAir
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Modelica.Blocks.Math.Product QLat_flow
     "Latent heat flow rate added to the fluid stream"
-    annotation (Placement(transformation(extent={{0,56},{20,76}})));
+    annotation (Placement(transformation(extent={{20,62},{40,82}})));
 protected
   parameter Integer i_w(fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi] = {
@@ -30,10 +31,10 @@ protected
 
   Modelica.Blocks.Sources.RealExpression hLiq(y=Medium.enthalpyOfLiquid(TWat))
     "Enthalpy of water at the given temperature"
-    annotation (Placement(transformation(extent={{-60,60},{-20,84}})));
+    annotation (Placement(transformation(extent={{-40,62},{0,86}})));
   Modelica.Blocks.Math.Add Q_flow(final k1=1, final k2=1)
     "Sensible and latent heat added to the volume"
-    annotation (Placement(transformation(extent={{68,64},{88,84}})));
+    annotation (Placement(transformation(extent={{68,68},{88,88}})));
   Modelica.Blocks.Sources.RealExpression XLiq(y=s*Xi)
     "Species composition of the medium"
     annotation (Placement(transformation(extent={{60,-52},{82,-28}})));
@@ -51,31 +52,31 @@ initial algorithm
 
 equation
   connect(mWat_flow, steBal.mWat_flow) annotation (Line(
-      points={{-120,80},{-80,80},{-80,14},{-22,14}},
+      points={{-120,80},{-50,80},{-50,66},{-10,66},{-10,14},{8,14}},
       color={0,0,127}));
   connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
-      points={{-120,80},{-80,80},{-80,26},{24,26},{24,12},{38,12}},
+      points={{-120,80},{-50,80},{-50,60},{52,60},{52,12},{58,12}},
       color={0,0,127}));
   connect(mWat_flow,QLat_flow. u2) annotation (Line(
-      points={{-120,80},{-80,80},{-80,60},{-2,60}},
+      points={{-120,80},{-50,80},{-50,66},{18,66}},
       color={0,0,127}));
   connect(hLiq.y,QLat_flow. u1) annotation (Line(
-      points={{-18,72},{-2,72}},
+      points={{2,74},{2,74},{4,74},{10,74},{10,78},{18,78}},
       color={0,0,127}));
   connect(Q_flow.y, steBal.Q_flow) annotation (Line(
-      points={{89,74},{94,74},{94,40},{-32,40},{-32,18},{-22,18}},
+      points={{89,78},{94,78},{94,40},{0,40},{0,18},{8,18}},
       color={0,0,127}));
   connect(Q_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{89,74},{94,74},{94,40},{30,40},{30,16},{38,16}},
+      points={{89,78},{94,78},{94,40},{54,40},{54,16},{58,16}},
       color={0,0,127}));
   connect(XLiq.y, X_w) annotation (Line(
       points={{83.1,-40},{120,-40}},
       color={0,0,127}));
   connect(QLat_flow.y, Q_flow.u2) annotation (Line(
-      points={{21,66},{50,66},{50,68},{66,68}},
+      points={{41,72},{50,72},{66,72}},
       color={0,0,127}));
   connect(QSen_flow.y, Q_flow.u1) annotation (Line(
-      points={{-39,88},{50,88},{50,80},{66,80}},
+      points={{-19,88},{50,88},{50,84},{66,84}},
       color={0,0,127}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
@@ -127,8 +128,40 @@ for example a solar collector that dissipates heat to the ambient and receives h
 the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 </li>
 </ul>
+<h4>Options</h4>
+<p>
+The parameter <code>mSenFac</code> can be used to increase the thermal mass of this model
+without increasing its volume. This way, species concentrations are still calculated
+correctly even though the thermal mass increases. The additional thermal mass is calculated
+based on the density and the value of the function <code>HeatCapacityCp</code>
+of the medium state <code>state_default</code>. <br/>
+This parameter can for instance be useful in a pipe model when the developer wants to
+lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
+the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally.
+</p>
+<p>
+Set the parameter <code>use_C_flow = true</code> to enable an input connector for the trace substance flow rate.
+This allows to directly add or subtract trace substances such as
+CO2 to the volume.
+See
+<a href=\"modelica://Buildings.Fluid.Sensors.Examples.PPM\">Buildings.Fluid.Sensors.Examples.PPM</a>
+for an example.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>steBal</code>
+as this constant is no longer used.
+</li>
+<li>
+January 19, 2016, by Michael Wetter:<br/>
+Updated documentation due to the addition of an input for trace substance
+in the mixing volume.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">
+issue 372</a>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Redesigned implementation of latent and sensible heat flow rates

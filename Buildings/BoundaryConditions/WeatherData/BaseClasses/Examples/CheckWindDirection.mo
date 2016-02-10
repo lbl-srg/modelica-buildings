@@ -3,6 +3,15 @@ model CheckWindDirection "Test model for wind direction check"
   extends Modelica.Icons.Example;
   Buildings.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection
+    cheWinDir "Block that constrains the wind direction"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+    "Block that converts time"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Math.UnitConversions.From_deg from_deg
+    "Block that converts temperature"
+    annotation (Placement(transformation(extent={{20,0},{42,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
@@ -13,16 +22,6 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-public
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection
-    cheWinDir "Block that constrains the wind direction"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
-    "Block that converts time"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Math.UnitConversions.From_deg from_deg
-    "Block that converts temperature"
-    annotation (Placement(transformation(extent={{20,0},{42,20}})));
 equation
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-79,10},{-62,10}},

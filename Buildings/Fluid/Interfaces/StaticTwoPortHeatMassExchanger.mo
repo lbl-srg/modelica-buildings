@@ -1,8 +1,7 @@
 within Buildings.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
@@ -21,7 +20,7 @@ model StaticTwoPortHeatMassExchanger
   // Models for conservation equations and pressure drop
   Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
     redeclare final package Medium = Medium,
-    final sensibleOnly = sensibleOnly,
+    final use_mWat_flow = not sensibleOnly,
     final prescribedHeatFlowRate = prescribedHeatFlowRate,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -148,6 +147,20 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>bal1</code> and <code>bal2</code>
+as this constant has been removed in
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</li>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised implementation of conservation equations,

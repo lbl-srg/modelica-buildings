@@ -11,7 +11,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealOutput HDirTil(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Direct solar irradiation on a tilted surfce"
+    "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

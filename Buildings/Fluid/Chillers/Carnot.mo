@@ -1,10 +1,14 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(vol1(
-      prescribedHeatFlowRate = true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
-      prescribedHeatFlowRate = true));
+ extends Interfaces.FourPortHeatMassExchanger(
+   m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
+   m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
+   vol1(prescribedHeatFlowRate = true),
+   redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+     prescribedHeatFlowRate = true));
+   // Above, we use -abs(dTEva_nominal) because in Buildings 2.1,
+   // dTEva_nominal was a positive quantity.
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume
@@ -17,10 +21,20 @@ model Carnot
   parameter Modelica.SIunits.Power P_nominal
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal = 10
-    "Temperature difference evaporator inlet-outlet"
+
+  final parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)=
+    -P_nominal * COP_nominal
+    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal = 10
+  final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)=
+    P_nominal - QEva_flow_nominal "Nominal heating flow rate";
+
+  // fixme: the change in sign convention for dTEva_nominal need to be added
+  //        to the revision notes if this parameter is not removed
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
+    "Temperature difference evaporator outlet-inlet"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
     "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   // Efficiency
@@ -58,6 +72,19 @@ model Carnot
   Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
   Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
+    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      p=  Medium1.p_default,
+      T=  Medium1.T_default,
+      X=  Medium1.X_default))
+    "Specific heat capacity of medium 1 at default medium state";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      p=  Medium2.p_default,
+      T=  Medium2.T_default,
+      X=  Medium2.X_default))
+    "Specific heat capacity of medium 2 at default medium state";
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
@@ -77,15 +104,17 @@ protected
   Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
 
 initial equation
-  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
-  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
-  if use_eta_Carnot then
-    COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
-  else
-    etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
-  end if;
+  // Because in Buildings 2.1, dTEve_nominal was positive, we just
+  // write a warning for now.
+  assert(dTEva_nominal < 0,
+        "Parameter dTEva_nominal must be negative. In the future, this will trigger  an error.",
+        level=AssertionLevel.warning);
+  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
+
+  COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
+
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-         a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
+         a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
@@ -100,7 +129,7 @@ equation
                           homotopy(actual=actualStream(port_b1.h_outflow),
                                    simplified=port_b1.h_outflow),
                           homotopy(actual=actualStream(port_b1.Xi_outflow),
-                            simplified=port_b1.Xi_outflow));
+                                   simplified=port_b1.Xi_outflow));
 
     else
       staA1=Medium1.setState_phX(port_a1.p,
@@ -115,8 +144,8 @@ equation
                              inStream(port_a1.h_outflow),
                              inStream(port_a1.Xi_outflow));
     staB1=Medium1.setState_phX(port_b1.p,
-                             inStream(port_b1.h_outflow),
-                             inStream(port_b1.Xi_outflow));
+                               port_b1.h_outflow,
+                               port_b1.Xi_outflow);
   end if;
   if allowFlowReversal2 then
     if homotopyInitialization then
@@ -141,11 +170,11 @@ equation
     end if; // homotopyInitialization
   else // reverse flow not allowed
     staA2=Medium2.setState_phX(port_a2.p,
-                             inStream(port_a2.h_outflow),
-                             inStream(port_a2.Xi_outflow));
+                               inStream(port_a2.h_outflow),
+                               inStream(port_a2.Xi_outflow));
     staB2=Medium2.setState_phX(port_b2.p,
-                             inStream(port_b2.h_outflow),
-                             inStream(port_b2.Xi_outflow));
+                               port_b2.h_outflow,
+                               port_b2.Xi_outflow);
   end if;
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
@@ -276,8 +305,11 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is model of a chiller whose coefficient of performance (COP) changes
+This is model of a chiller whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
+The input signal is the control signal for the compressor.
+</p>
+<p>
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
@@ -326,6 +358,27 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2015, by Michael Wetter:<br/>
+Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
+which mistakenly used the <code>inStream</code> operator
+for the configuration without flow reversal.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+issue 476</a>.
+</li>
+<li>
+November 25, 2015 by Michael Wetter:<br/>
+Changed sign convention for <code>dTEva_nominal</code> to be consistent with
+other models.
+The model will still work with the old values for <code>dTEva_nominal</code>,
+but it will write a warning so that users can transition their models.
+<br/>
+Corrected <code>assert</code> statement for the efficiency curve.
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/468\">
+issue 468</a>.
+</li>
 <li>
 September 3, 2015 by Michael Wetter:<br/>
 Expanded documentation.

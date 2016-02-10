@@ -151,6 +151,33 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.SolarGeometry</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
+       </td>
+       <td valign=\"top\">Block that computes the length of a shadow projected onto a horizontal plane
+                          into the direction that is perpendicular to the azimuth of a surface.
+       </td>
+       </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.PPM<br/>
+                          Buildings.Fluid.Sensors.PPMTwoPort
+       </td>
+       <td valign=\"top\">Sensors that measure trace substances in parts per million.
+       </td>
+       </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Block that computes the maximum distance at which
+                          a solar beam that enters the window hits the workplane.
+       </td>
+       </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
@@ -159,7 +186,7 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Function that interpolates for vectors <code>xSup[]</code>, <code>ySup[]</code>
                           and independent variable <code>x</code>.
                           The interpolation is done using a cubic Hermite spline with linear extrapolation.
-       </td> 
+       </td>
        </tr>
    </table>
    <!-- Backward compatible changes -->
@@ -180,6 +207,39 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayLinear
+    </td>
+    <td valign=\"top\">Changed the default value for valve leakage
+                       parameter <code>l</code> from <code>0</code> to <code>0.0001</code>.
+                       This is the same value as is used for the two-way valves,
+                       and avoids an assertion that would be triggered if <code>l=0</code>.
+    </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+    </td>
+    <td valign=\"top\">Added the parameter <code>use_C_flow</code>. If set
+                       to <code>true</code>, an input connector will be enabled that can be used
+                       to add a trace substance flow rate, such as CO2, to the volume.
+    </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+    </td>
+    <td valign=\"top\">Added the parameter <code>inputType</code> which allows
+                       to set the input as an continuous input signal,
+                       to set the input as an integer input signal that selects the stage of the mover,
+                       or to remove the input connector and use a parameter
+                       to assign the control signal.
+    </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
        </td>
        <td valign=\"top\">Added option to set dynamics of heat exchanger material
@@ -200,7 +260,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPortTransport
 
        </td>
-       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code> 
+       <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code>
                           and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
                           This is for
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">Annex 60 issue 305</a>.
@@ -235,7 +295,7 @@ its class name ends with the string <code>Beta</code>.
                           <code>retVal(start=0, fixed=true)</code> and <code>modTimRea(fixed=false)</code>
                           to avoid such a warning in the pedantic Modelica check in Dymola 2016.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.                          
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
@@ -254,8 +314,94 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody<br/>
+                          Buildings.BoundaryConditions.WeatherData.Bus
+     </td>
+       <td valign=\"top\">Renamed the connector from <code>radHorIR</code> to <code>HHorIR</code>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">Annex 60 issue 376</a>.
+                          For Dymola, the conversion script updates these connections.
+                          However, this also results in a renaming of the weather bus variable
+                          <code>weaBus.radHorIR</code> to <code>HHorIR</code>, which may
+                          require a manual update.
+       </td>
+     </tr>
+
     <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
+     </td>
+     <td valign=\"top\">Removed the constant <code>sensibleOnly</code> and
+                        introduced instead the parameter <code>use_mWat_flow</code>.
+                        The new parameter, if set to <code>true</code>, will enable an input connector
+                        that can be used to add water to the conservation equation..
+                        For Dymola, the conversion script updates the model for these changes.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+     </td>
+     <td valign=\"top\">Removed the parameters <code>use_powerCharacteristics</code>
+                        and <code>motorCooledByFluid</code> as these are already
+                        declared in the performance data record <code>per</code>.
+                        This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#457</a>.
+                        For Dymola, the conversion script removes these parameters.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.Data.FlowControlled
+     </td>
+     <td valign=\"top\">Removed the performance record <code>power</code> and the
+                        parameter <code>use_powerCharacteristic</code> in the
+                        data record <code>Buildings.Fluid.Movers.Data.FlowControlled</code> because
+                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>
+                        and
+                        <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
+                        fix the flow rate or head, which can give a flow work that is higher
+                        than the power consumption specified in this record.
+                        Hence, users should use the efficiency data for this model.
+                        The record and parameter was moved to
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
+                        as it makes sense to use it for the movers
+                        <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
+                        and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
+     </td>
+     <td valign=\"top\">Renamed the protected parameters
+                        <code>port_a_exposesState</code>, <code>port_b_exposesState</code> and
+                        <code>showDesignFlowDirection</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">Annex 60 issue 349</a>
+                        and
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">Annex 60 issue 351</a>.
+                        For Dymola, the conversion script updates models
+                        that extend from <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.FourPort
+     </td>
+     <td valign=\"top\">Renamed model to <code>Buildings.Fluid.Interfaces.PartialFourPort</code> and
+                        removed the parameters
+                        <code>h_outflow_a1_start</code>,
+                        <code>h_outflow_b1_start</code>,
+                        <code>h_outflow_a2_start</code> and
+                        <code>h_outflow_b2_start</code>
+                        to make the model similar to <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
+                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">Annex 60 issue 299</a>
+                        for a discussion.
+                        For Dymola, the conversion script updates models
+                        that extend from <code>Buildings.Fluid.Interfaces.FourPort</code>.
+     </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation
        </td>
@@ -300,12 +446,18 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
        </td>
-       <td valign=\"top\">xxx
+       <td valign=\"top\">Corrected wrong computation of state of leaving fluid
+                          <code>staB1</code> and <code>staB2</code>
+                          for the configuration without flow reversal.
+                          The previous implementation mistakenly used the <code>inStream</code> operator.
+                          This is for
+                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+                          issue 476</a>
        </td>
    </tr>
    </table>
@@ -318,14 +470,21 @@ its class name ends with the string <code>Beta</code>.
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
       <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
-   </tr> 
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
        </td>
        <td valign=\"top\">Corrected wrong assert statement. This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/442\">issue 442</a>.
        </td>
-   </tr>    
-       
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+       </td>
+       <td valign=\"top\">Corrected wrong assert statement for test on the efficiency function. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">issue 468</a>.
+       </td>
+   </tr>
+
+
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
@@ -386,7 +545,7 @@ its class name ends with the string <code>Beta</code>.
    Note:
    </p>
    <ul>
-   <li> 
+   <li>
    xxx
    </li>
    </ul>
@@ -752,7 +911,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
                        Buildings.Fluid.SolarCollectors.EN12975
     </td>
-    <td valign=\"top\">Reformulated the model to avoid an translation error
+    <td valign=\"top\">Reformulated the model to avoid a translation error
                        if glycol is used.<br/>
                        Propagated parameters for initialization in base class
                        <code>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</code>
@@ -4898,6 +5057,18 @@ The development of the Buildings library is organized by<br/>
  </li>
  </ul>
 <p>
+The core of this library is the Annex 60 library,
+a free open-source library with basic models that codify best practices for
+the implementation of models for building and community energy and control systems.
+The Annex 60 library is developed at
+<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+https://github.com/iea-annex60/modelica-annex60</a>
+within the Annex 60 project
+(<a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>)
+of the International Energy Agency's
+<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities</a> Programme.
+</p>
+ <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
   was contributed by the United Technologies Research Center, which also contributed to the

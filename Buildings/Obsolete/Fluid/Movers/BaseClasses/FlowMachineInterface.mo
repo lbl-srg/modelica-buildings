@@ -72,13 +72,13 @@ protected
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
   parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(fixed=false, start=delta*V_flow_nominal)
     "Small volume flow rate";
-  parameter Modelica.SIunits.Pressure dpDelta(fixed=false, start=100)
+  parameter Modelica.SIunits.PressureDifference dpDelta(fixed=false, start=100)
     "Small pressure";
   parameter Real delta = 0.05
     "Small value used to transition to other fan curve";
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
-  parameter Modelica.SIunits.Pressure dpMax(min=0, fixed=false);
+  parameter Modelica.SIunits.PressureDifference dpMax(min=0, fixed=false);
   parameter Real kRes(min=0, unit="kg/(s.m4)", fixed=false)
     "Coefficient for internal pressure drop of fan or pump";
 

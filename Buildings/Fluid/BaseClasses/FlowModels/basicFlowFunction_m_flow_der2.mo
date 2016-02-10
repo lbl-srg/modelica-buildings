@@ -17,7 +17,7 @@ function basicFlowFunction_m_flow_der2
     "2nd derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 protected
   Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
  dp_der2 :=if (m_flow>m_flow_turbulent) then
@@ -39,6 +39,12 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
 First implementation.

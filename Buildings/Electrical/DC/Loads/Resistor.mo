@@ -4,7 +4,7 @@ model Resistor "Ideal linear electrical resistor"
     redeclare package PhaseSystem = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal,
     final mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
-    final P_nominal=0);
+    final P_nominal=V_nominal^2/max(R, Modelica.Constants.small));
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
   parameter Modelica.SIunits.Resistance R(start=1)
     "Resistance at temperature T_ref";
@@ -44,6 +44,10 @@ The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPor
 </html>",
  revisions="<html>
 <ul>
+<li>November 3, 2015, by Michael Wetter:<br/>
+Set default value for <code>P_nominal</code> to avoid an error when translating
+the model in Dymola's pedantic mode.
+</li>
 <li>May 14, 2015, by Marco Bonvini:<br/>
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order

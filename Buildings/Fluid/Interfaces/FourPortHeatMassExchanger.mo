@@ -2,10 +2,10 @@ within Buildings.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    port_a1(h_outflow(start=h1_outflow_start)),
+    port_b1(h_outflow(start=h1_outflow_start)),
+    port_a2(h_outflow(start=h2_outflow_start)),
+    port_b2(h_outflow(start=h2_outflow_start)));
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -37,11 +37,11 @@ model FourPortHeatMassExchanger
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nXi > 0));
   parameter Medium1.ExtraProperty C1_start[Medium1.nC](
-       quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
+    final quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
   parameter Medium1.ExtraProperty C1_nominal[Medium1.nC](
-       quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
+    final quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
 
@@ -55,11 +55,11 @@ model FourPortHeatMassExchanger
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nXi > 0));
   parameter Medium2.ExtraProperty C2_start[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
+    final quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
   parameter Medium2.ExtraProperty C2_nominal[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
+    final quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
@@ -232,6 +232,16 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Set <code>quantity</code> attributes.
+</li>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Changed assignments of start values in <code>extends</code> statement.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+</li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in

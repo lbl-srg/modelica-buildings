@@ -2,16 +2,21 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     dp(start=0, nominal=dp_nominal_pos),
-     m_flow(nominal=m_flow_nominal_pos),
+     dp(start=0,
+        nominal=if dp_nominal_pos > Modelica.Constants.eps
+          then dp_nominal_pos else 1),
+     m_flow(
+        nominal=if m_flow_nominal_pos > Modelica.Constants.eps
+          then m_flow_nominal_pos else 1),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
+    "Pressure drop at nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean linearized = false
@@ -29,8 +34,8 @@ protected
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
-    "Absolute value of nominal pressure";
+  final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
+    "Absolute value of nominal pressure difference";
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
@@ -81,6 +86,18 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>
+and of <code>m_flow(nominal=0)</code> if <code>m_flow_nominal_pos = 0</code>
+as nominal values are not allowed to be zero.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
