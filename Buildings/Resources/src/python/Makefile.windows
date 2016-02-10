@@ -15,18 +15,20 @@
 # The correct sources will be picked up depending on the target machine
 
 #######################################################
+
+# Define Python sources and libraries.
+PYTHONSrc=C:/Python27/include
+PYTHONLibs=C:/Python27/libs
+
 ## Compilation flags
 CC_FLAGS += -D WIN32
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-  PYTHONSrc=C:/Python27-64bit/include
-  PYTHONLibs=C:/Python27-64bit/libs
+
   CC_FLAGS = -I$(PYTHONSrc)
   # Directory where executable will be copied
   BINDIR = ..\..\Library\win64
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-  PYTHONSrc=C:/Python27/include
-  PYTHONLibs=C:/Python27/libs
   CC_FLAGS += -D IA32 -Wall -I$(PYTHONSrc)
   # Directory where executable will be copied
   BINDIR = ..\..\Library\win32
