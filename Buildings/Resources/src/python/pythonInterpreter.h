@@ -21,7 +21,7 @@
 // Modified: Thierry S. Nouidui, LBNL, 3/26/2013 to suport cross compilation
 // svn-id=$Id: exchangeValues.c 2877 2011-09-11 00:46:02Z mwetter $
 //////////////////////////////////////////////////////////////////////////////
-#ifdef _MSC_VER
+#ifdef _WIN32
 // 3/27/2013- TN: MS_NO_COREDLL prevents the compiler to link to python27_d.lib,
 // the debug version of python which is not available in the release.
 #ifndef MS_NO_COREDLL
@@ -30,6 +30,9 @@
 #endif
 #include <stddef.h>  /* stddef defines size_t */
 
+#ifdef _WIN32
+#include <Python.h>
+#endif
 #ifdef __APPLE__
 #include <Python/Python.h>
 #endif
