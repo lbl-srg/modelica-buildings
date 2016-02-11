@@ -417,7 +417,7 @@ equation
       thickness=0.5));
   connect(pla.TSink, weaBus.TDryBul) annotation (Line(points={{-512,104},{-520,
           104},{-520,160},{-340,160},{-340,190}}, color={0,0,127}));
-  annotation(experiment(StopTime=31536000),
+  annotation(experiment(Tolerance=1E-6, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
     Documentation(

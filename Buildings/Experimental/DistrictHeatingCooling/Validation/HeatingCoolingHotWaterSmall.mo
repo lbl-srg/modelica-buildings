@@ -167,7 +167,7 @@ equation
       points={{-120,110},{-48,110},{40,110},{40,16.7143}},
       color={255,204,51},
       thickness=0.5));
-  annotation(experiment(StopTime=31536000),
+  annotation(experiment(Tolerance=1E-6, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
     Documentation(

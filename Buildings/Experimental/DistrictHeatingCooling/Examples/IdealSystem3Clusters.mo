@@ -303,7 +303,7 @@ equation
           -270,68},{-262,68}}, color={0,0,127}));
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-299,80},{-290,80},{-290,
           64},{-262,64}}, color={0,0,127}));
-  annotation(experiment(StopTime=86400),
+  annotation(experiment(Tolerance=1E-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/IdealSystem3Clusters.mos"
         "Simulate and plot"),
     Documentation(
