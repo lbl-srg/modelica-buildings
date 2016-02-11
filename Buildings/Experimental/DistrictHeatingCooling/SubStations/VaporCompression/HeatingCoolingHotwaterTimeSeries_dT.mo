@@ -94,13 +94,13 @@ model HeatingCoolingHotwaterTimeSeries_dT
     "Electrical power consumed for space cooling"
     annotation (Placement(transformation(extent={{280,190},{300,210}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QHea(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QHea_flow(unit="W")
     "Space heating thermal load"
     annotation (Placement(transformation(extent={{280,130},{300,150}})));
-  Modelica.Blocks.Interfaces.RealOutput QHotWat(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QHotWat_flow(unit="W")
     "Hot water thermal load"
     annotation (Placement(transformation(extent={{280,90},{300,110}})));
-  Modelica.Blocks.Interfaces.RealOutput QCoo(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QCoo_flow(unit="W")
     "Space cooling thermal load"
     annotation (Placement(transformation(extent={{280,50},{300,70}})));
 
@@ -159,13 +159,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
 
   constant Modelica.SIunits.SpecificHeatCapacity cp_default=4184
     "Specific heat capacity of the fluid";
-
-  output Modelica.SIunits.HeatFlowRate QCoo_flow = deMul.y1[1]
-    "Cooling load for space cooling";
-  output Modelica.SIunits.HeatFlowRate QHea_flow = deMul.y2[1]
-    "Heat load for space heating";
-  output Modelica.SIunits.HeatFlowRate QHotWat_flow = deMul.y3[1]
-    "Heat load for hot water";
 
   BaseClasses.MassFlowRateController conMasHeaPum(
     dT_nominal=dTHeaEva_nominal,
@@ -609,12 +602,12 @@ equation
           417},{-106,-220},{120,-220},{120,-334},{88,-334}}, color={0,0,127}));
   connect(gaiQChi_flow.y, conMasChi.Q_flow) annotation (Line(points={{65,-334},{
           54,-334},{54,-354},{42,-354}}, color={0,0,127}));
-  connect(deMul.y2[1], QHea) annotation (Line(points={{-179,410},{-179,408},{
-          240,408},{240,140},{290,140}}, color={0,0,127}));
-  connect(deMul.y3[1], QHotWat) annotation (Line(points={{-179,403},{-179,404},
-          {236,404},{236,100},{290,100}}, color={0,0,127}));
-  connect(deMul.y1[1], QCoo) annotation (Line(points={{-179,417},{232,417},{232,
-          60},{290,60}}, color={0,0,127}));
+  connect(deMul.y2[1], QHea_flow) annotation (Line(points={{-179,410},{-179,408},
+          {240,408},{240,140},{290,140}}, color={0,0,127}));
+  connect(deMul.y3[1], QHotWat_flow) annotation (Line(points={{-179,403},{-179,
+          404},{236,404},{236,100},{290,100}}, color={0,0,127}));
+  connect(deMul.y1[1], QCoo_flow) annotation (Line(points={{-179,417},{232,417},
+          {232,60},{290,60}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>

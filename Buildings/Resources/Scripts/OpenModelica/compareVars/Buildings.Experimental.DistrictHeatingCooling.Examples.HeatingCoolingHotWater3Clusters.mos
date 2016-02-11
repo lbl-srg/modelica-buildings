@@ -4,5 +4,10 @@ compareVars :=
     "pla.sta_a.T",
     "pla.sta_b.T",
     "bayWatHex.TWat",
-    "pla.m_flow"
+    "pla.m_flow",
+    "EEleHea.y",
+    "EEleCoo.y",
+    "ETheHea.y",
+    "ETheCoo.y",
+    "ETheHotWater.y"
   };
