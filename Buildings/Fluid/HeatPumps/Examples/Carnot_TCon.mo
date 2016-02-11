@@ -23,8 +23,8 @@ model Carnot_TCon
     show_T=true,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
-    use_eta_Carnot=true,
-    etaCar=0.3,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000) "Heat pump"
@@ -33,32 +33,32 @@ model Carnot_TCon
     redeclare package Medium = Medium1,
     m_flow=m1_flow_nominal,
     T=293.15)
-    annotation (Placement(transformation(extent={{-66,-4},{-46,16}})));
+    annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=false,
     use_m_flow_in=true,
     T=288.15)
-    annotation (Placement(transformation(extent={{52,-14},{32,6}})));
+    annotation (Placement(transformation(extent={{60,-16},{40,4}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={64,32})));
+        origin={50,30})));
   Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        origin={-56,-28})));
+        origin={-50,-30})));
   Modelica.Blocks.Sources.Ramp TConLvg(
     duration=60,
     startTime=1800,
     height=15,
     offset=273.15 + 35) "Control signal for condenser leaving temperature"
-    annotation (Placement(transformation(extent={{-56,32},{-36,52}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Math.Gain mEva_flow(k=-1/cp2_default/dTEva_nominal)
     "Evaporator mass flow rate"
     annotation (Placement(transformation(extent={{34,-88},{54,-68}})));
@@ -73,27 +73,27 @@ model Carnot_TCon
     "Specific heat capacity of medium 2 at default medium state";
 equation
   connect(sou1.ports[1], heaPum.port_a1) annotation (Line(
-      points={{-46,6},{-10,6}},
+      points={{-40,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], heaPum.port_a2) annotation (Line(
-      points={{32,-4},{24,-4},{24,-6},{10,-6}},
+      points={{40,-6},{10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(
-      points={{-46,-28},{-16,-28},{-16,-6},{-10,-6}},
+      points={{-40,-30},{-16,-30},{-16,-6},{-10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(QEva_flow.y,mEva_flow. u) annotation (Line(points={{53,-38},{64,-38},
           {64,-58},{24,-58},{24,-78},{32,-78}}, color={0,0,127}));
-  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{34,6},
-          {34,32},{54,32}}, color={0,127,255}));
-  connect(TConLvg.y, heaPum.TSet) annotation (Line(points={{-35,42},{-26,42},{
-          -26,9},{-12,9}},
+  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{30,6},
+          {30,30},{40,30}}, color={0,127,255}));
+  connect(TConLvg.y, heaPum.TSet) annotation (Line(points={{-59,50},{-20,50},{
+          -20,9},{-12,9}},
                      color={0,0,127}));
   connect(mEva_flow.y, sou2.m_flow_in) annotation (Line(points={{55,-78},{74,
-          -78},{74,-10},{74,4},{52,4}}, color={0,0,127}));
+          -78},{74,-10},{74,2},{60,2}}, color={0,0,127}));
   connect(QEva_flow.u1, heaPum.QCon_flow) annotation (Line(points={{30,-32},{20,
           -32},{20,9},{11,9}}, color={0,0,127}));
   connect(QEva_flow.u2, heaPum.P) annotation (Line(points={{30,-44},{16,-44},{16,

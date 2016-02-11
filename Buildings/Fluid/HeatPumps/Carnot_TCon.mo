@@ -2,13 +2,11 @@ within Buildings.Fluid.HeatPumps;
 model Carnot_TCon
   "Heat pump with prescribed condenser leaving temperature and performance curve adjusted based on Carnot efficiency"
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
-   QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
-   PEle(y=QCon_flow/COP),
-   TCon_nominal = 303.15,
-   TEva_nominal = 278.15,
-   yPL = con.Q_flow/QCon_flow_nominal,
+   final COP_is_for_cooling = false,
+   final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-   effInpCon=Buildings.Fluid.Types.EfficiencyInput.volume,
+   effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b,
+   PEle(y=QCon_flow/COP),
    redeclare HeatExchangers.HeaterCooler_T con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
@@ -31,53 +29,41 @@ model Carnot_TCon
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QEva_flow_nominal));
 
-  // Efficiency
-  parameter Real COP_nominal(
-    fixed=not use_eta_Carnot,
-    final unit="1") "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
-    min=0)=Modelica.Constants.inf
+    min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Condenser leaving water temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    final quantity="HeatFlowRate",
-    final unit="W") "Actual heating heat flow rate added to fluid 1"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-
-  Real COP(min=0, unit="1") = etaCar * COPCar * etaPL
-    "Coefficient of performance";
-
-  Real COPCar(min=0, unit="1") = TCon /
-    Buildings.Utilities.Math.Functions.smoothMax(
-      x1=1,
-      x2=TCon-TEva,
-      deltaX=0.25) "Carnot efficiency";
-  Modelica.SIunits.HeatFlowRate QEva_flow = P - QCon_flow
-    "Evaporator heat input";
-
 protected
-  Modelica.Blocks.Sources.RealExpression yEva(final y=QEva_flow/
-        QEva_flow_nominal) "Normalized evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Modelica.Blocks.Math.Gain yEva(final k=1/QEva_flow_nominal)
+    "Normalized evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Modelica.Blocks.Math.Add QEva_flow_internal(final k1=-1)
+    "Heat removed by evaporator"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
-
-  COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
+  assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
 
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
           -80,66},{-12,66}}, color={0,0,127}));
   connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{80,66},{80,90},
           {110,90}}, color={0,0,127}));
-  connect(yEva.y, eva.u) annotation (Line(points={{41,-40},{52,-40},{52,-54},{
-          12,-54}}, color={0,0,127}));
+  connect(QEva_flow_internal.u1, con.Q_flow) annotation (Line(points={{-2,-24},{
+          -10,-24},{-10,0},{30,0},{30,66},{11,66}},   color={0,0,127}));
+  connect(QEva_flow_internal.u2, PEle.y) annotation (Line(points={{-2,-36},{-2,-36},
+          {-20,-36},{-20,-14},{90,-14},{90,0},{61,0}}, color={0,0,127}));
+  connect(QEva_flow_internal.y, yEva.u)
+    annotation (Line(points={{21,-30},{30,-30},{38,-30}},
+                                                 color={0,0,127}));
+  connect(QEva_flow, QEva_flow_internal.y) annotation (Line(points={{110,-90},{78,
+          -90},{28,-90},{28,-30},{21,-30}}, color={0,0,127}));
+  connect(yEva.y, eva.u) annotation (Line(points={{61,-30},{70,-30},{70,-54},{12,
+          -54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),
             graphics={
@@ -87,10 +73,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TCon"),
-        Line(points={{-100,90},{-82,90},{80,90},{80,64}},
-                                                    color={0,0,255}),
-        Line(points={{0,80},{0,84},{90,84},{90,90},{100,90}},
-                                                 color={0,0,255})}),
+        Line(points={{-100,90},{-80,90},{-80,84},{80,84},{80,64}},
+                                                    color={0,0,255})}),
 defaultComponentName="heaPum",
 Documentation(info="<html>
 <p>
@@ -100,42 +84,37 @@ The control input is the setpoint of the condenser leaving temperature, which
 is met exactly at steady state if the heat pump has sufficient capacity.
 </p>
 <p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
+The model allows to either specify the Carnot effectivness
+<i>&eta;<sub>Carnot,0</sub></i>, or
+a <i>COP<sub>0</sub></i>
+at the nominal conditions, together with
+the evaporator temperature <i>T<sub>eva,0</sub></i> and
+the condenser temperature <i>T<sub>con,0</sub></i>, in which
+case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>con</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
-</p>
-<p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator and condenser temperatures. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
+&eta;<sub>Carnot,0</sub> = 
+  COP<sub>0</sub>
+&frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
 <p>
 The heat pump COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+  COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
+<i>&eta;<sub>PL</sub></i> is a polynomial in heating part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
 </p>
 <p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
+where the coefficients <i>a<sub>i</sub></i>
 are declared by the parameter <code>a</code>.
 </p>
 <p>
@@ -147,9 +126,9 @@ The heat pump outlet temperatures are equal to the temperatures of these lumped 
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-When using this component, make sure that the evaporater has sufficient mass flow rate.
-Based on the condenser mass flow rate, temperature difference and the efficiencies,
-the model computes how much heat will be removed from the evaporator.
+When using this component, make sure that the condenser has sufficient mass flow rate.
+Based on the evaporator mass flow rate, temperature difference and the efficiencies,
+the model computes how much heat will be removed by to the evaporator.
 If the mass flow rate is too small, very low outlet temperatures can result, possibly below freezing.
 </p>
 <p>
@@ -165,7 +144,7 @@ which is by default set to infinity.
 </p>
 <p>
 By default, the coefficient of performance depends on the
-evaporator leaving temperature and the condenser entering
+evaporator entering temperature and the condenser leaving
 temperature.
 This can be changed with the parameters
 <code>effInpEva</code> and

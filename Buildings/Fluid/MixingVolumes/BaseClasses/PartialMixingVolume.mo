@@ -335,7 +335,7 @@ type of <code>T</code> to <code>Medium.Temperature</code> rather than
 <code>Modelica.SIunits.Temperature</code>
 to avoid an
 error because of conflicting start values if
-<code>Buildings.Fluid.Chillers.Carnot</code>
+<code>Buildings.Fluid.Chillers.Carnot_y</code>
 is translated using pedantic mode in Dymola 2016.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.

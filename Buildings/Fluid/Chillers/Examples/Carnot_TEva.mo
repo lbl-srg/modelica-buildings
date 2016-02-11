@@ -26,8 +26,8 @@ model Carnot_TEva
     QEva_flow_nominal=QEva_flow_nominal,
     allowFlowReversal1=false,
     allowFlowReversal2=false,
-    use_eta_Carnot=true,
-    etaCar=0.3,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000) "Chiller model"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
@@ -49,7 +49,7 @@ model Carnot_TEva
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={80,30})));
+        origin={70,30})));
   Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1,
     redeclare package Medium = Medium2)
     annotation (Placement(
@@ -61,7 +61,7 @@ model Carnot_TEva
     startTime=1800,
     offset=273.15 + 6,
     height=10) "Control signal for evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Math.Gain mCon_flow(k=-1/cp1_default/dTEva_nominal)
     "Condenser mass flow rate"
     annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
@@ -87,7 +87,7 @@ equation
       points={{-30,-30},{0,-30},{0,-6},{10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-10,40},{-10,
+  connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-39,50},{-10,50},{-10,
           9},{8,9}},
                   color={0,0,127}));
   connect(chi.P, QCon_flow.u1) annotation (Line(points={{31,0},{40,0},{40,-34},{
@@ -99,7 +99,7 @@ equation
   connect(mCon_flow.y, sou1.m_flow_in)
     annotation (Line(points={{-59,14},{-50,14}},          color={0,0,127}));
   connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{30,6},{50,6},{
-          50,30},{70,30}}, color={0,127,255}));
+          50,30},{60,30}}, color={0,127,255}));
   annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_TEva.mos"
         "Simulate and plot"),

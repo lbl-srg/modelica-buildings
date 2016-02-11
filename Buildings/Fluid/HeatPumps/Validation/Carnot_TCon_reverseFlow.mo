@@ -37,8 +37,8 @@ model Carnot_TCon_reverseFlow
     dTCon_nominal=dTCon_nominal,
     m1_flow_nominal=m1_flow_nominal,
     show_T=true,
-    use_eta_Carnot=true,
-    etaCar=0.3,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
@@ -111,8 +111,11 @@ info="<html>
 Example that simulates a heat pump whose efficiency is scaled based on the
 Carnot cycle.
 The heat pump takes as an input the condenser leaving water temperature.
-The evaporator mass flow rate is computed in such a way that it has
-a temperature difference equal to <code>dTEva_nominal</code>.
+The condenser mass flow rate is computed in such a way that it has
+a temperature difference equal to <code>dTCon_nominal</code>.
+</p>
+<p>
+This example checks the correct behavior if a mass flow rate attains zero.
 </p>
 </html>",
 revisions="<html>

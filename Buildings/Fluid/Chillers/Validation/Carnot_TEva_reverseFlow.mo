@@ -24,8 +24,8 @@ model Carnot_TEva_reverseFlow
     redeclare package Medium2 = Medium2,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    use_eta_Carnot=true,
-    etaCar=0.3,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
@@ -125,6 +125,9 @@ Carnot cycle.
 The chiller takes as an input the evaporator leaving water temperature.
 The condenser mass flow rate is computed in such a way that it has
 a temperature difference equal to <code>dTEva_nominal</code>.
+</p>
+<p>
+This example checks the correct behavior if a mass flow rate attains zero.
 </p>
 </html>",
 revisions="<html>

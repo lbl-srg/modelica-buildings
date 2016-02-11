@@ -2,13 +2,11 @@ within Buildings.Fluid.Chillers;
 model Carnot_TEva
   "Chiller with prescribed evaporator leaving temperature and performance curve adjusted based on Carnot efficiency"
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
-   QCon_flow_nominal = -QEva_flow_nominal*(1 + COP_nominal)/COP_nominal,
-   PEle(y=-QEva_flow/COP),
-   TCon_nominal = 303.15,
-   TEva_nominal = 278.15,
-   yPL = eva.Q_flow/QEva_flow_nominal,
-   effInpEva=Buildings.Fluid.Types.EfficiencyInput.volume,
+   final COP_is_for_cooling = true,
+   final QCon_flow_nominal = -QEva_flow_nominal*(1 + COP_nominal)/COP_nominal,
+   effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b,
    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a,
+   PEle(y=-QEva_flow/COP),
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
@@ -31,50 +29,39 @@ model Carnot_TEva
     final energyDynamics=energyDynamics2,
     final homotopyInitialization=homotopyInitialization));
 
-  // Efficiency
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(max=0)=-Modelica.Constants.inf
+  parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(
+    max=0) = -Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Evaporator leaving water temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
-    final quantity="HeatFlowRate",
-    final unit="W") "Actual cooling heat flow rate removed from fluid 2"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
-
-  Real COP(min=0, unit="1") = etaCar * COPCar * etaPL
-    "Coefficient of performance";
-  Real COPCar(min=0, unit="1") = TEva /
-    Buildings.Utilities.Math.Functions.smoothMax(
-      x1=1,
-      x2=TCon-TEva,
-      deltaX=0.25) "Carnot efficiency";
-
-  Modelica.SIunits.HeatFlowRate QCon_flow = P - QEva_flow
-    "Condenser heat input";
-
 protected
-  Modelica.Blocks.Sources.RealExpression yCon(final y=QCon_flow/
-        QCon_flow_nominal) "Normalized condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
+  Modelica.Blocks.Math.Gain yCon(final k=1/QCon_flow_nominal)
+    "Normalized condenser heat flow rate"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Modelica.Blocks.Math.Add QCon_flow_internal(final k1=-1)
+    "Heat added to condenser"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
-  COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
 
 equation
-  connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{40,90},{40,
+  connect(TSet, eva.TSet) annotation (Line(points={{-120,90},{-66,90},{28,90},{28,
           -54},{12,-54}}, color={0,0,127}));
   connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-40,-54},{-40,
           -90},{110,-90}}, color={0,0,127}));
-  connect(yCon.y, con.u) annotation (Line(points={{-39,72},{-28,72},{-28,66},{-12,
-          66}}, color={0,0,127}));
+  connect(QCon_flow_internal.y, yCon.u)
+    annotation (Line(points={{-59,40},{-42,40}},          color={0,0,127}));
+  connect(yCon.y, con.u) annotation (Line(points={{-19,40},{-16,40},{-16,42},{-16,
+          64},{-16,66},{-12,66}}, color={0,0,127}));
+  connect(QCon_flow_internal.y, QCon_flow) annotation (Line(points={{-59,40},{-52,
+          40},{-52,80},{80,80},{80,90},{110,90}}, color={0,0,127}));
+  connect(QCon_flow_internal.u1, eva.Q_flow) annotation (Line(points={{-82,46},{
+          -90,46},{-90,-54},{-11,-54}}, color={0,0,127}));
+  connect(QCon_flow_internal.u2, PEle.y) annotation (Line(points={{-82,34},{-88,
+          34},{-88,20},{72,20},{72,0},{61,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={
         Text(
@@ -83,8 +70,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TEva"),
-        Line(points={{-100,90},{-82,90},{-82,-56}}, color={0,0,255}),
-        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255})}),
+        Line(points={{-100,90},{-80,90},{-80,-56}}, color={0,0,255})}),
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
@@ -94,42 +80,41 @@ The control input is the setpoint of the evaporator leaving temperature, which
 is met exactly at steady state if the chiller has sufficient capacity.
 </p>
 <p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
+The model allows to either specify the Carnot effectivness
+<i>&eta;<sub>Carnot,0</sub></i>, or
+a <i>COP<sub>0</sub></i>
+at the nominal conditions, together with
+the evaporator temperature <i>T<sub>eva,0</sub></i> and
+the condenser temperature <i>T<sub>con,0</sub></i>, in which
+case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
+&eta;<sub>Carnot,0</sub> = 
+  COP<sub>0</sub>
+&frasl;  (T<sub>eva,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
 <p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator (or condenser) temperature. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
+On the <code>Advanced</code> tab, a user can specify the temperatures that
+will be used as the evaporator and condenser temperature.
 </p>
 <p>
-The chiller COP is computed as the product
+During the simulation, the chiller COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+  COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
+<i>&eta;<sub>PL</sub></i> is a polynomial in the cooling part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
 </p>
 <p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
+where the coefficients <i>a<sub>i</sub></i>
 are declared by the parameter <code>a</code>.
 </p>
 <p>

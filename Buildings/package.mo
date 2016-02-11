@@ -139,9 +139,17 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps
        </td>
-       <td valign=\"top\">xxx
+       <td valign=\"top\">Library with heat pump models.
+                          This library contains models for idealized heat pumps
+                          whose COP changes proportional to the change in COP of a Carnot cycle.
+                          Optionally, a part load efficiency curve can be specified.
+                          The model <code>Buildings.Fluid.HeatPumps.Carnot_TCon</code>
+                          takes as a control input the leaving
+                          condenser fluid temperature, and the model
+                          <code>Buildings.Fluid.HeatPumps.Carnot_y</code> takes as
+                          a control signal the compressor speed.
        </td>
        </tr>
    </table>
@@ -158,6 +166,18 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Block that computes the length of a shadow projected onto a horizontal plane
                           into the direction that is perpendicular to the azimuth of a surface.
+       </td>
+       </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva
+       </td>
+       <td valign=\"top\">Chiller model whose efficiency changes with temperatures
+                          similarly to a change in Carnot efficiency. The control input signal
+                          is the evaporator leaving fluid temperature.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60, #353</a>.
        </td>
        </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
@@ -357,6 +377,18 @@ its class name ends with the string <code>Beta</code>.
                         For Dymola, the conversion script updates the model for these changes.
      </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+     </td>
+     <td valign=\"top\">Renamed the model to  <code>Buildings.Fluid.Chillers.Carnot_y</code>
+                        due to the addition of the new model <code>Buildings.Fluid.Chillers.Carnot_TEva</code>.
+                        In addition, the following parameter names were changed:
+                        <code>use_eta_Carnot</code> was changed to <code>use_eta_Carnot_nominal</code>, and
+                        <code>etaCar</code> was changed to <code>etaCarnot_nominal</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60 issue 353</a>.
+                        For Dymola, the conversion script removes these parameters.
+     </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
@@ -542,6 +574,20 @@ its class name ends with the string <code>Beta</code>.
                          Buildings.Utilities.Math.Functions.spliceFunction</a> is only once
                          continuously differentiable.
                          Inlined the function.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Python27</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.exchange
+       </td>
+       <td valign=\"top\">Updated Python implementation to allow compiling code
+                          in 64 bit. Previously, on Linux a segmentation fault
+                          occurred during run-time if 64 bit code rather than
+                          32 bit code was generated. This is now corrected.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/287\">issue 287</a>.
        </td>
    </tr>
 
