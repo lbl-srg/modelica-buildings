@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TUpChi.y",
+    "conMasChil.TUp_limit",
+    "conMasChil.m_flow",
+    "TUpHea.y",
+    "conMasHea.TUp_limit",
+    "conMasHea.m_flow"
+  };

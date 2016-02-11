@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "vol.T",
+    "pum.m_flow",
+    "pla.QHea_flow",
+    "pla.QCoo_flow",
+    "pla.sta_a.T",
+    "pla.sta_b.T",
+    "vol.T",
+    "pla.PComHea",
+    "pla.PComCoo"
+  };

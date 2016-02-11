@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "subSta.Q_flow",
+    "subSta.m_flow",
+    "subSta.sta_a.T",
+    "subSta.sta_b.T"
+  };
