@@ -1,7 +1,21 @@
 within Buildings.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_T
   "Partial model for chiller with performance curve adjusted based on Carnot efficiency"
-  extends Carnot;
+  extends Carnot(
+    TCon = if effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
+             Medium1.temperature(staA1)
+           elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b or
+                  effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
+             Medium1.temperature(staB1)
+           else
+             0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1)),
+    TEva = if effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
+             Medium2.temperature(staA2)
+           elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b or
+                  effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
+             Medium2.temperature(staB2)
+           else
+             0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2)));
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
@@ -110,25 +124,6 @@ protected
   annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
 equation
-  // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b or
-         effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TCon = Medium1.temperature(staB1);
-  else
-    TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
-  end if;
-
-  if effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b or
-         effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TEva = Medium2.temperature(staB2);
-  else
-    TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
-  end if;
-
   connect(port_a2, eva.port_a)
     annotation (Line(points={{100,-60},{56,-60},{10,-60}}, color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-10,-60},{-100,-60}},

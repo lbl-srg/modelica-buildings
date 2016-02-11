@@ -10,11 +10,11 @@ partial model Carnot
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"),
-                evaluate=True);
+                Evaluate=True);
   parameter Buildings.Fluid.Types.EfficiencyInput effInpCon
     "Temperatures of condenser fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"),
-                evaluate=True);
+                Evaluate=True);
 
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(
     final max=0) = -10 "Temperature difference evaporator outlet-inlet"
@@ -48,9 +48,9 @@ partial model Carnot
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
-  Modelica.SIunits.Temperature TCon(start=TCon_nominal)
+  input Modelica.SIunits.Temperature TCon(start=TCon_nominal)
     "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva(start=TEva_nominal)
+  input Modelica.SIunits.Temperature TEva(start=TEva_nominal)
     "Evaporator temperature used to compute efficiency";
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(

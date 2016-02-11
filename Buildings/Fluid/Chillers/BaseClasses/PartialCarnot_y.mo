@@ -4,8 +4,22 @@ partial model PartialCarnot_y
   extends Carnot(
     final QCon_flow_nominal= P_nominal - QEva_flow_nominal,
     final QEva_flow_nominal = if COP_is_for_cooling
-      then -P_nominal * COP_nominal
-      else -P_nominal * (COP_nominal-1));
+                              then -P_nominal * COP_nominal
+                              else -P_nominal * (COP_nominal-1),
+    TCon = if effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
+             Medium1.temperature(staA1)
+           elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b or
+                  effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
+             Medium1.temperature(staB1)
+           else
+             0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1)),
+    TEva = if effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
+             Medium2.temperature(staA2)
+           elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b or
+                  effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
+             Medium2.temperature(staB2)
+           else
+             0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2)));
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
    m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal,
@@ -80,24 +94,6 @@ protected
     "Electrical power consumption"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b or
-         effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TCon = Medium1.temperature(staB1);
-  else
-    TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
-  end if;
-
-  if effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b or
-         effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TEva = Medium2.temperature(staB2);
-  else
-    TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
-  end if;
 
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
