@@ -306,7 +306,7 @@ public
   Modelica.Blocks.Continuous.Integrator ETheHea(y(unit="J"))
     "Thermal energy for space heating"
     annotation (Placement(transformation(extent={{640,280},{660,300}})));
-  Modelica.Blocks.Continuous.Integrator ETheHotWater(y(unit="J"))
+  Modelica.Blocks.Continuous.Integrator ETheHotWat(y(unit="J"))
     "Thermal energy for hot water"
     annotation (Placement(transformation(extent={{640,240},{660,260}})));
   Modelica.Blocks.Continuous.Integrator ETheCoo(y(unit="J"))
@@ -611,8 +611,8 @@ equation
           {420,-135.714},{420,-30},{580,-30},{580,206.325},{604,206.325}},
                                                                   color={0,0,127}));
 
-  connect(QHotWat.y, ETheHotWater.u) annotation (Line(points={{617.02,250},{627.51,
-          250},{638,250}}, color={0,0,127}));
+  connect(QHotWat.y, ETheHotWat.u) annotation (Line(points={{617.02,250},{
+          627.51,250},{638,250}}, color={0,0,127}));
   annotation(experiment(Tolerance=1E-6, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3Clusters.mos"
         "Simulate and plot"),
