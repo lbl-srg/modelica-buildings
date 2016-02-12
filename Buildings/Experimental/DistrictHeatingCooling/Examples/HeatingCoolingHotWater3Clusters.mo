@@ -101,7 +101,8 @@ model HeatingCoolingHotWater3Clusters
     redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15)
+    "Large office"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret1(
@@ -114,19 +115,22 @@ model HeatingCoolingHotWater3Clusters
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff2(
       redeclare package Medium = Medium,
       filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15)
+    "Large office"
     annotation (Placement(transformation(extent={{-60,60},{-20,100}})));
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa1(
     redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Midrise apartment"
+    TOut_nominal=273.15)
+    "Midrise apartment"
     annotation (Placement(transformation(extent={{220,60},{260,100}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff3(
     redeclare package Medium = Medium,
     filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15)
+    "Large office"
     annotation (Placement(transformation(extent={{360,60},{400,100}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT larOff4(
@@ -134,14 +138,16 @@ model HeatingCoolingHotWater3Clusters
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
     show_T=true,
-    TOut_nominal=273.15) "Large office"
+    TOut_nominal=273.15)
+    "Large office"
     annotation (Placement(transformation(extent={{500,60},{540,100}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT apa2(
     redeclare package Medium = Medium,
     filNam=
         "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgMidriseApartmentNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos",
-    TOut_nominal=273.15) "Midrise apartment"
+    TOut_nominal=273.15)
+    "Midrise apartment"
     annotation (Placement(transformation(extent={{220,-160},{260,-120}})));
 
   SubStations.VaporCompression.HeatingCoolingHotwaterTimeSeries_dT ret2(
@@ -284,6 +290,7 @@ public
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-348,182},{-332,198}}), iconTransformation(
           extent={{-328,64},{-308,84}})));
+
   Modelica.Blocks.Math.MultiSum PHea(nu=17)
     "Electrical energy use for space heating and hot water"
     annotation (Placement(transformation(extent={{604,364},{616,376}})));
@@ -312,8 +319,14 @@ public
   Modelica.Blocks.Continuous.Integrator ETheCoo(y(unit="J"))
     "Thermal energy for cooling"
     annotation (Placement(transformation(extent={{640,200},{660,220}})));
-equation
 
+  Modelica.Blocks.Sources.RealExpression SPFHea(y=(ETheHea.y + ETheHotWat.y)/
+        max(1, EEleHea.y)) "Seasonal performance factor for heating"
+    annotation (Placement(transformation(extent={{700,340},{720,360}})));
+  Modelica.Blocks.Sources.RealExpression SPFCoo(y=-ETheCoo.y/max(1, EEleCoo.y))
+    "Seasonal performance factor for cooling"
+    annotation (Placement(transformation(extent={{700,280},{720,300}})));
+equation
   connect(weaBus, larOff1.weaBus) annotation (Line(
       points={{-340,190},{-340,190},{-280,190},{-280,96.7143}},
       color={255,204,51},
@@ -632,7 +645,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{
-            720,400}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-580,-260},{780,
+            400}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end HeatingCoolingHotWater3Clusters;
