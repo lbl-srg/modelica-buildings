@@ -11,6 +11,9 @@ model HeatingCoolingHotwaterTimeSeries_dT
   parameter Modelica.SIunits.Temperature THotMax = 273.15+18
     "Maximum temperature of district hot water supply";
 
+  parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
+    "Chilled water leaving temperature at the evaporator";
+
   parameter Modelica.SIunits.TemperatureDifference dTCooCon_nominal(
     min=0.5,
     displayUnit="K") = 4
@@ -207,7 +210,7 @@ protected
     annotation (Placement(transformation(extent={{-260,400},{-240,420}})));
 
   Modelica.Blocks.Routing.DeMultiplex3 deMul "De multiplex"
-    annotation (Placement(transformation(extent={{-200,400},{-180,420}})));
+    annotation (Placement(transformation(extent={{-178,400},{-158,420}})));
 
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
@@ -325,8 +328,8 @@ protected
     dTCon_nominal=dTCooCon_nominal,
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=false,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a) "Chiller"
+    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
+    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Chiller"
     annotation (Placement(transformation(extent={{-80,-354},{-60,-334}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
@@ -360,7 +363,7 @@ protected
   Modelica.Blocks.Math.Add PCooAct "Power consumption for cooling"
     annotation (Placement(transformation(extent={{80,-310},{100,-290}})));
 
-  Modelica.Blocks.Sources.Constant TChiSup(k=273.15 + 18)
+  Modelica.Blocks.Sources.Constant TChiSup(k=TChiSup_nominal)
     "Supply water temperature set point for chilled water loop"
     annotation (Placement(transformation(extent={{-180,-344},{-160,-324}})));
 
@@ -390,7 +393,8 @@ protected
     final m_flow_nominal=(mHeaEva_flow_nominal + mCooCon_flow_nominal + mHotWatEva_flow_nominal)/2,
     final allowFlowReversal=true,
     tau=600,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=if overwriteFluidWithOutsideTemperature then Modelica.Fluid.Types.Dynamics.SteadyState
+         else Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{-270,10},{-250,30}})));
   Buildings.Fluid.Delays.DelayFirstOrder del_b(
@@ -399,7 +403,8 @@ protected
     final m_flow_nominal=(mHeaEva_flow_nominal + mCooCon_flow_nominal + mHotWatEva_flow_nominal)/2,
     final allowFlowReversal=true,
     tau=600,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=if overwriteFluidWithOutsideTemperature then Modelica.Fluid.Types.Dynamics.SteadyState
+         else Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volume to break algebraic loops and to emulate the delay of the substation"
     annotation (Placement(transformation(extent={{250,10},{270,30}})));
 
@@ -415,6 +420,22 @@ protected
     "Gain to invert sign of chiller load"
     annotation (Placement(transformation(extent={{86,-344},{66,-324}})));
 
+  // This is a quick fix to compute a base line that does not use any district heating/cooling
+public
+  parameter Boolean overwriteFluidWithOutsideTemperature = false
+    "Set to true to force the fluid temperature to be equal to the outdoor temperature";
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem_a if
+       overwriteFluidWithOutsideTemperature
+    "fixme: fixes the reservoir temperature"
+    annotation (Placement(transformation(extent={{-200,30},{-220,50}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem_b if
+       overwriteFluidWithOutsideTemperature
+    "fixme: fixes the reservoir temperature"
+    annotation (Placement(transformation(extent={{174,40},{194,60}})));
+  Modelica.Blocks.Math.Gain gaiLoa[3](k={1,1,1})
+    "Gain that can be used to scale the individual loads up or down. Components are cooling, heating and hot water"
+    annotation (Placement(transformation(extent={{-220,400},{-200,420}})));
 initial equation
   assert(abs((cp_default-cp_default_check)/cp_default) < 0.1, "Wrong cp_default value. Check cp_default constant.");
   assert(QCoo_flow_nominal < 0,
@@ -428,8 +449,6 @@ initial equation
     + String(QHotWat_flow_nominal));
 
 equation
-  connect(deMul.u, loa.y) annotation (Line(points={{-202,410},{-202,410},{-239,
-          410}},       color={0,0,127}));
   connect(pumHea.port_b, heaPum.port_a2) annotation (Line(points={{50,300},{50,
           300},{100,300},{100,216},{42,216}},
                                             color={0,127,255}));
@@ -439,9 +458,8 @@ equation
   connect(TSupHeaSet.TRet, dTHeaAct.u2) annotation (Line(points={{-199,244},{
           -186,244},{-186,214},{-186,200},{-238,200},{-238,164},{-222,164}},
                                                 color={0,0,127}));
-  connect(mConFlow.u1, deMul.y2[1]) annotation (Line(points={{-82,176},{-100,
-          176},{-100,350},{-100,382},{-100,410},{-179,410}},
-                                                        color={0,0,127}));
+  connect(mConFlow.u1, deMul.y2[1]) annotation (Line(points={{-82,176},{-100,176},
+          {-100,350},{-100,382},{-100,410},{-157,410}}, color={0,0,127}));
   connect(gainH.y, mConFlow.u2) annotation (Line(points={{-119,164},{-119,164},
           {-82,164}},                color={0,0,127}));
   connect(mConFlow.y, sou.m_flow_in) annotation (Line(points={{-59,170},{-50,
@@ -456,7 +474,7 @@ equation
           232},{-60,244},{-190,244},{-200,244},{-199,244}},
                                color={0,0,127}));
   connect(QEva_flow.u1, deMul.y2[1]) annotation (Line(points={{-22,332},{-100,332},
-          {-100,398},{-100,410},{-179,410}}, color={0,0,127}));
+          {-100,398},{-100,410},{-157,410}}, color={0,0,127}));
   connect(QEva_flow.u2, heaPum.P) annotation (Line(points={{-22,320},{-30,320},{
           -30,300},{-30,280},{48,280},{48,222},{43,222}},
                                                    color={0,0,127}));
@@ -485,7 +503,7 @@ equation
           -80,-90},{-80,-90},{-78,-90},{-70,-90},{-70,-74},{-62,-74}},
                                  color={0,0,127}));
   connect(QEvaHotWat_flow.u1, deMul.y3[1]) annotation (Line(points={{-34,42},{-34,
-          42},{-92,42},{-92,44},{-92,403},{-179,403}},
+          42},{-92,42},{-92,44},{-92,403},{-157,403}},
                                                     color={0,0,127}));
   connect(PHotWatAct.y, PHotWat) annotation (Line(points={{121,20},{160,20},{
           160,240},{290,240}},
@@ -493,9 +511,8 @@ equation
   connect(pumHotWat.port_b, heaPumHotWat.port_a2) annotation (Line(points={{50,0},{
           64,0},{80,0},{80,-88},{40,-88}},        color={0,127,255},
       thickness=0.5));
-  connect(mConHotWatFlow.u1, deMul.y3[1]) annotation (Line(points={{-62,-62},{
-          -92,-62},{-92,403},{-179,403}},
-                                       color={0,0,127}));
+  connect(mConHotWatFlow.u1, deMul.y3[1]) annotation (Line(points={{-62,-62},{-92,
+          -62},{-92,403},{-157,403}},  color={0,0,127}));
   connect(chi.port_b2, sin2.ports[1]) annotation (Line(points={{-80,-350},{-100,
           -350},{-120,-350}},             color={0,127,255}));
   connect(chi.port_a2, sou1.ports[1])
@@ -510,7 +527,7 @@ equation
           -294},{-88,-338},{-80,-338}}, color={0,127,255},
       thickness=0.5));
   connect(QCon_flow.u1, deMul.y1[1]) annotation (Line(points={{-222,-264},{-240,
-          -264},{-240,-220},{-106,-220},{-106,417},{-179,417}},
+          -264},{-240,-220},{-106,-220},{-106,417},{-157,417}},
                                                           color={0,0,127}));
   connect(QCon_flow.u2, chi.P) annotation (Line(points={{-222,-276},{-240,-276},
           {-240,-314},{-50,-314},{-50,-344},{-59,-344}}, color={0,0,127}));
@@ -598,16 +615,37 @@ equation
           {210,-364},{42,-364}}, color={0,0,127}));
   connect(conMasChi.m_flow, sou1.m_flow_in) annotation (Line(points={{19,-354},{
           19,-354},{0,-354},{0,-342},{-18,-342}},          color={0,0,127}));
-  connect(deMul.y1[1], gaiQChi_flow.u) annotation (Line(points={{-179,417},{-106,
+  connect(deMul.y1[1], gaiQChi_flow.u) annotation (Line(points={{-157,417},{-106,
           417},{-106,-220},{120,-220},{120,-334},{88,-334}}, color={0,0,127}));
   connect(gaiQChi_flow.y, conMasChi.Q_flow) annotation (Line(points={{65,-334},{
           54,-334},{54,-354},{42,-354}}, color={0,0,127}));
-  connect(deMul.y2[1], QHea_flow) annotation (Line(points={{-179,410},{-179,408},
+  connect(preTem_a.T, weaBus.TDryBul) annotation (Line(points={{-198,40},{-172,40},
+          {-112,40},{-112,360},{0,360},{0,380}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(preTem_b.T, weaBus.TDryBul) annotation (Line(points={{172,50},{172,50},
+          {170,50},{170,50},{154,50},{154,360},{0,360},{0,380}},
+                                                color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(preTem_a.port, del_a.heatPort) annotation (Line(points={{-220,40},{-238,
+          40},{-276,40},{-276,20},{-270,20}}, color={191,0,0}));
+  connect(preTem_b.port, del_b.heatPort)
+    annotation (Line(points={{194,50},{250,50},{250,20}}, color={191,0,0}));
+
+  connect(deMul.y2[1], QHea_flow) annotation (Line(points={{-157,410},{-157,408},
           {240,408},{240,140},{290,140}}, color={0,0,127}));
-  connect(deMul.y3[1], QHotWat_flow) annotation (Line(points={{-179,403},{-179,
-          404},{236,404},{236,100},{290,100}}, color={0,0,127}));
-  connect(deMul.y1[1], QCoo_flow) annotation (Line(points={{-179,417},{232,417},
+  connect(deMul.y3[1], QHotWat_flow) annotation (Line(points={{-157,403},{-157,404},
+          {236,404},{236,100},{290,100}},      color={0,0,127}));
+  connect(deMul.y1[1], QCoo_flow) annotation (Line(points={{-157,417},{232,417},
           {232,60},{290,60}}, color={0,0,127}));
+
+  connect(loa.y, gaiLoa.u)
+    annotation (Line(points={{-239,410},{-222,410}}, color={0,0,127}));
+  connect(gaiLoa.y, deMul.u)
+    annotation (Line(points={{-199,410},{-180,410}}, color={0,0,127}));
   annotation (
   defaultComponentName="bui",
   Documentation(info="<html>
