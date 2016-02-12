@@ -1,6 +1,6 @@
 within Buildings.Fluid.Chillers.Data;
 package BaseClasses "Base classes for package Data"
-  extends Modelica.Fluid.Icons.BaseClassLibrary;
+  extends Modelica.Icons.BasesPackage;
 
   record Chiller "Base classes for chiller models"
     extends Modelica.Icons.Record;
