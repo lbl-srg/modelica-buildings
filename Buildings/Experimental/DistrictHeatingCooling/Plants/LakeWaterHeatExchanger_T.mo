@@ -15,6 +15,9 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   parameter Boolean disableHeatExchanger = false
     "Set to true to disable the heat exchanger";
 
+  parameter Modelica.SIunits.Temperature TLooMax "Maximum loop temperature";
+  parameter Modelica.SIunits.Temperature TLooMin "Minimum loop temperature";
+
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 0.5
     "Approach temperature difference";
 
@@ -103,12 +106,28 @@ protected
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
   Modelica.Blocks.Math.Add TWatHea
     "Heat exchanger outlet, taking into account approach"
-    annotation (Placement(transformation(extent={{-30,186},{-10,206}})));
+    annotation (Placement(transformation(extent={{40,190},{60,210}})));
   Modelica.Blocks.Math.Add TWatCoo(k2=-1)
     "Heat exchanger outlet, taking into account approach"
-    annotation (Placement(transformation(extent={{-30,220},{-10,240}})));
+    annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+public
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-100,238},{-60,278}}),
+                                                     iconTransformation(extent=
+            {{-10,224},{10,244}})));
+  Utilities.Math.SmoothMax smoothMax(deltaX=0.1)
+    annotation (Placement(transformation(extent={{-10,198},{10,218}})));
+  Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
+    annotation (Placement(transformation(extent={{-10,230},{10,250}})));
+protected
+  Modelica.Blocks.Sources.Constant TMaxDes(k=TLooMax)
+    "Maximum desired outlet temperature"
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+  Modelica.Blocks.Sources.Constant TMinDes(k=TLooMin)
+    "Minimum desired outlet temperature"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 equation
   connect(coo.port_b, port_a1)
     annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
@@ -123,8 +142,6 @@ equation
   connect(maxHeaLea.y, minHeaLvg.u2)
     annotation (Line(points={{29,114},{42,114},{42,120},{44,120},{50,120}},
                                                           color={0,0,127}));
-  connect(TSetHea, minHeaLvg.u1) annotation (Line(points={{-120,160},{-60,160},
-          {-60,132},{50,132}},                         color={0,0,127}));
   connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,126},{86,126},{86,
           -54},{12,-54}}, color={0,0,127}));
   connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
@@ -132,34 +149,47 @@ equation
   connect(minCooLvg.y, maxCooLea.u2)
     annotation (Line(points={{29,160},{29,160},{50,160}},
                                                 color={0,0,127}));
-  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,100},{44,100},{
-          44,172},{50,172}},                   color={0,0,127}));
   connect(maxCooLea.y, coo.TSet) annotation (Line(points={{73,166},{80,166},{80,
           66},{12,66}},
                     color={0,0,127}));
-  connect(watTem.y[1], TWatHea.u1) annotation (Line(points={{-59,226},{-50,226},
-          {-50,202},{-40,202},{-32,202}}, color={0,0,127}));
   connect(TAppHex.y, TWatHea.u2)
-    annotation (Line(points={{-59,190},{-32,190}}, color={0,0,127}));
+    annotation (Line(points={{-59,190},{-40,190},{-40,194},{38,194}},
+                                                   color={0,0,127}));
   connect(TAppHex.y, TWatCoo.u2) annotation (Line(points={{-59,190},{-40,190},{-40,
-          224},{-32,224}}, color={0,0,127}));
-  connect(TWatCoo.u1, watTem.y[1]) annotation (Line(points={{-32,236},{-50,236},
-          {-50,226},{-59,226}}, color={0,0,127}));
-  connect(TWatCoo.y, minCooLvg.u2) annotation (Line(points={{-9,230},{0,230},{0,
-          154},{6,154}}, color={0,0,127}));
-  connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{-9,196},{-4,196},{-4,
-          120},{6,120}}, color={0,0,127}));
-  connect(watTem.y[1], TWat) annotation (Line(points={{-59,226},{-50,226},{-50,
-          250},{88,250},{88,180},{110,180}}, color={0,0,127}));
+          224},{38,224}},  color={0,0,127}));
+  connect(TWatCoo.y, minCooLvg.u2) annotation (Line(points={{61,230},{80,230},{80,
+          182},{0,182},{0,154},{6,154}},
+                         color={0,0,127}));
+  connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{61,200},{68,200},{68,
+          186},{-6,186},{-6,120},{6,120}},
+                         color={0,0,127}));
+  connect(watTem.y[1], TWat) annotation (Line(points={{-59,226},{-50,226},{-50,280},
+          {88,280},{88,180},{110,180}},      color={0,0,127}));
   connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-20,66},{
           -20,6},{18,6}}, color={0,0,127}));
   connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-54},{-16,-54},
           {-20,-54},{-20,-6},{18,-6}}, color={0,0,127}));
   connect(QExc_flow.y, QWat_flow) annotation (Line(points={{41,0},{66,0},{90,0},
           {90,120},{110,120}}, color={0,0,127}));
+  connect(watTem.y[1], smoothMin.u2) annotation (Line(points={{-59,226},{-50,226},
+          {-50,234},{-12,234}}, color={0,0,127}));
+  connect(smoothMin.u1, weaBus.TWetBul) annotation (Line(points={{-12,246},{-44,
+          246},{-44,258},{-80,258}}, color={0,0,127}));
+  connect(smoothMax.y, TWatHea.u1) annotation (Line(points={{11,208},{24,208},{24,
+          206},{38,206}}, color={0,0,127}));
+  connect(smoothMax.u2, watTem.y[1]) annotation (Line(points={{-12,202},{-50,202},
+          {-50,226},{-59,226}}, color={0,0,127}));
+  connect(smoothMax.u1, weaBus.TDryBul) annotation (Line(points={{-12,214},{-44,
+          214},{-44,258},{-80,258}}, color={0,0,127}));
+  connect(smoothMin.y, TWatCoo.u1) annotation (Line(points={{11,240},{20,240},{20,
+          236},{38,236}}, color={0,0,127}));
+  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,100},{40,100},{
+          40,172},{50,172}}, color={0,0,127}));
+  connect(TMaxDes.y, minHeaLvg.u1) annotation (Line(points={{-59,150},{-50,150},
+          {-50,132},{50,132}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,260}})), Icon(coordinateSystem(extent={{-100,-100},{100,
-            260}}, preserveAspectRatio=false), graphics={
+            -100},{100,300}})), Icon(coordinateSystem(extent={{-100,-100},{100,300}},
+                   preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,260}},
         lineColor={0,0,127},

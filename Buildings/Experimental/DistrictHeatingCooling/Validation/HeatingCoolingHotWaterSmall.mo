@@ -15,6 +15,10 @@ model HeatingCoolingHotWaterSmall
     "Set point for leaving fluid temperature cold supply"
     annotation(Dialog(group="Design parameter"));
 
+  parameter Modelica.SIunits.Temperature TLooMax = 273.15+20
+    "Maximum loop temperature";
+  parameter Modelica.SIunits.Temperature TLooMin = 273.15+8
+    "Minimum loop temperature";
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
     "Pressure difference at nominal flow rate"
     annotation(Dialog(group="Design parameter"));
@@ -110,7 +114,9 @@ public
   Plants.LakeWaterHeatExchanger_T bayWatHex(
     dp_nominal=0,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Bay water heat exchanger"
+    m_flow_nominal=m_flow_nominal,
+    TLooMax=TLooMax,
+    TLooMin=TLooMax) "Bay water heat exchanger"
     annotation (Placement(transformation(extent={{-166,-6},{-152,14}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-128,102},{-112,118}}), iconTransformation(
@@ -133,23 +139,19 @@ equation
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-239,70},{-232,70},{
           -232,54},{-212,54}},
                           color={0,0,127}));
-  connect(pip.port_a, bayWatHex.port_b1) annotation (Line(points={{-130,60},{
-          -144,60},{-144,2.88889},{-152,2.88889}},
-                                       color={0,127,255}));
-  connect(bayWatHex.port_a1, pla.port_b) annotation (Line(points={{-166,2.88889},
-          {-180,2.88889},{-180,50},{-190,50}},
-                                        color={0,127,255}));
-  connect(bayWatHex.port_b2, pla.port_a) annotation (Line(points={{-166,
-          -3.77778},{-188,-3.77778},{-230,-3.77778},{-230,50},{-210,50}},
-                                                   color={0,127,255}));
-  connect(bayWatHex.port_a2, pip1.port_b) annotation (Line(points={{-152,
-          -3.77778},{-140,-3.77778},{-140,-60},{-132,-60}},
-                                           color={0,127,255}));
-  connect(bayWatHex.TSetHea, TSetH.y) annotation (Line(points={{-167.4,8.44444},
-          {-170,8.44444},{-170,8},{-172,8},{-172,110},{-239,110}},
+  connect(pip.port_a, bayWatHex.port_b1) annotation (Line(points={{-130,60},{-144,
+          60},{-144,2},{-152,2}},      color={0,127,255}));
+  connect(bayWatHex.port_a1, pla.port_b) annotation (Line(points={{-166,2},{-180,
+          2},{-180,50},{-190,50}},      color={0,127,255}));
+  connect(bayWatHex.port_b2, pla.port_a) annotation (Line(points={{-166,-4},{-188,
+          -4},{-230,-4},{-230,50},{-210,50}},      color={0,127,255}));
+  connect(bayWatHex.port_a2, pip1.port_b) annotation (Line(points={{-152,-4},{-140,
+          -4},{-140,-60},{-132,-60}},      color={0,127,255}));
+  connect(bayWatHex.TSetHea, TSetH.y) annotation (Line(points={{-167.4,7},{-170,
+          7},{-170,8},{-172,8},{-172,110},{-239,110}},
                                       color={0,0,127}));
-  connect(TSetC.y, bayWatHex.TSetCoo) annotation (Line(points={{-239,70},{-214,
-          70},{-176,70},{-176,6},{-172,6},{-172,5.11111},{-167.4,5.11111}},
+  connect(TSetC.y, bayWatHex.TSetCoo) annotation (Line(points={{-239,70},{-214,70},
+          {-176,70},{-176,6},{-172,6},{-172,4},{-167.4,4}},
                                             color={0,0,127}));
   connect(pSet.ports[1], pla.port_a) annotation (Line(points={{-260,-80},{-260,
           -80},{-260,-42},{-260,50},{-210,50}}, color={0,127,255}));
@@ -167,6 +169,14 @@ equation
       points={{-120,110},{-48,110},{40,110},{40,16.7143}},
       color={255,204,51},
       thickness=0.5));
+  connect(weaBus, bayWatHex.weaBus) annotation (Line(
+      points={{-120,110},{-120,110},{-120,86},{-120,88},{-159,88},{-159,10.7}},
+
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation(experiment(Tolerance=1E-6, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
