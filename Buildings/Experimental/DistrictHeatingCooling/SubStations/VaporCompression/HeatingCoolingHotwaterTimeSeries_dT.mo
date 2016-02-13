@@ -11,9 +11,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
   parameter Modelica.SIunits.Temperature THotMax = 273.15+18
     "Maximum temperature of district hot water supply";
 
-  parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
-    "Chilled water leaving temperature at the evaporator";
-
   parameter Modelica.SIunits.TemperatureDifference dTCooCon_nominal(
     min=0.5,
     displayUnit="K") = 4
@@ -50,12 +47,17 @@ model HeatingCoolingHotwaterTimeSeries_dT
       filNam=filNam) "Design heat flow rate for domestic hot water"
     annotation(Dialog(group="Design parameter"));
 
+  parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
+    "Chilled water leaving temperature at the evaporator"
+     annotation (Dialog(group="Nominal conditions"));
+
   parameter Modelica.SIunits.Temperature THeaSup_nominal = 273.15+30
     "Supply temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature THeaRet_nominal = 273.15+25
     "Return temperature space heating system at TOut_nominal"
     annotation (Dialog(group="Nominal conditions"));
+
   parameter Modelica.SIunits.Temperature TOut_nominal
     "Outside design temperature for heating"
     annotation (Dialog(group="Nominal conditions"));
@@ -196,33 +198,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
     TUp_limit=THotMax - dTCooCon_nominal) "Controller for pump of chiller"
     annotation (Placement(transformation(extent={{40,-370},{20,-350}})));
 
-protected
-  constant Boolean allowFlowReversal = false
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
-    T=Medium.T_default,
-    p=Medium.p_default,
-    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default_check=
-    Medium.specificHeatCapacityCp(sta_default)
-    "Specific heat capacity of the fluid";
-
-  Modelica.Blocks.Sources.CombiTimeTable loa(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    y(each unit="W"),
-    offset={0,0,0},
-    columns={2,3,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Loads"
-    annotation (Placement(transformation(extent={{-260,400},{-240,420}})));
-
-  Modelica.Blocks.Routing.DeMultiplex3 deMul "De multiplex"
-    annotation (Placement(transformation(extent={{-178,400},{-158,420}})));
-
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -256,6 +231,87 @@ protected
     TOut_nominal=TOut_nominal) "Set points for heating supply temperature"
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
 
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumHotWat(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=mHotWatEva_flow_nominal,
+    allowFlowReversal=allowFlowReversal,
+    dynamicBalance=false,
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    filteredSpeed=false,
+    addPowerToMedium=false) "Pump"
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+
+  Buildings.Fluid.HeatPumps.Carnot_TCon heaPumHotWat(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    dTEva_nominal=dTHeaEva_nominal,
+    allowFlowReversal1=false,
+    allowFlowReversal2=allowFlowReversal,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
+    dp1_nominal=dp_nominal,
+    dp2_nominal=dp_nominal,
+    QCon_flow_nominal=QHotWat_flow_nominal,
+    dTCon_nominal=dTHotWatCon_nominal,
+    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
+    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Heat pump"
+    annotation (Placement(transformation(extent={{20,-92},{40,-72}})));
+
+  Buildings.Fluid.Chillers.Carnot_TEva chi(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    use_eta_Carnot_nominal=true,
+    etaCarnot_nominal=0.3,
+    dp1_nominal=dp_nominal,
+    dp2_nominal=dp_nominal,
+    QEva_flow_nominal=QCoo_flow_nominal,
+    dTEva_nominal=dTCooEva_nominal,
+    dTCon_nominal=dTCooCon_nominal,
+    allowFlowReversal1=allowFlowReversal,
+    allowFlowReversal2=false,
+    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
+    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Chiller"
+    annotation (Placement(transformation(extent={{-80,-354},{-60,-334}})));
+
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumChi(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    allowFlowReversal=allowFlowReversal,
+    dynamicBalance=false,
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
+    filteredSpeed=false,
+    m_flow_nominal=mCooCon_flow_nominal,
+    addPowerToMedium=false) "Pump"
+    annotation (Placement(transformation(extent={{-122,-304},{-102,-284}})));
+
+protected
+  constant Boolean allowFlowReversal = false
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
+    T=Medium.T_default,
+    p=Medium.p_default,
+    X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default_check=
+    Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity of the fluid";
+
+  Modelica.Blocks.Sources.CombiTimeTable loa(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each unit="W"),
+    offset={0,0,0},
+    columns={2,3,4},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Loads"
+    annotation (Placement(transformation(extent={{-260,400},{-240,420}})));
+
+  Modelica.Blocks.Routing.DeMultiplex3 deMul "De multiplex"
+    annotation (Placement(transformation(extent={{-178,400},{-158,420}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -280,36 +336,12 @@ protected
   Modelica.Blocks.Math.Add PHeaAct "Power consumption for heating"
     annotation (Placement(transformation(extent={{80,310},{100,330}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumHotWat(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=mHotWatEva_flow_nominal,
-    allowFlowReversal=allowFlowReversal,
-    dynamicBalance=false,
-    inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false,
-    addPowerToMedium=false) "Pump"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Math.Add QEvaHotWat_flow(k1=-1)
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-32,26},{-12,46}})));
   Modelica.Blocks.Math.Add PHotWatAct "Power consumption for heating"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Buildings.Fluid.HeatPumps.Carnot_TCon heaPumHotWat(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    dTEva_nominal=dTHeaEva_nominal,
-    allowFlowReversal1=false,
-    allowFlowReversal2=allowFlowReversal,
-    use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
-    dp1_nominal=dp_nominal,
-    dp2_nominal=dp_nominal,
-    QCon_flow_nominal=QHotWat_flow_nominal,
-    dTCon_nominal=dTHotWatCon_nominal,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Heat pump"
-    annotation (Placement(transformation(extent={{20,-92},{40,-72}})));
+
   Buildings.Fluid.Sources.FixedBoundary sinHotWat(
     redeclare package Medium = Medium,
     nPorts=1) "Pressure source" annotation (Placement(transformation(
@@ -327,22 +359,6 @@ protected
     "Gain for hot water"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Fluid.Chillers.Carnot_TEva chi(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
-    dp1_nominal=dp_nominal,
-    dp2_nominal=dp_nominal,
-    QEva_flow_nominal=QCoo_flow_nominal,
-    dTEva_nominal=dTCooEva_nominal,
-    dTCon_nominal=dTCooCon_nominal,
-    allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=false,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Chiller"
-    annotation (Placement(transformation(extent={{-80,-354},{-60,-334}})));
-
   Buildings.Fluid.Sources.FixedBoundary sin2(
     redeclare package Medium = Medium,
     nPorts=1)
@@ -356,16 +372,7 @@ protected
     use_m_flow_in=true,
     use_T_in=true) "Mass flow source"
     annotation (Placement(transformation(extent={{-18,-360},{-38,-340}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumChi(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=allowFlowReversal,
-    dynamicBalance=false,
-    inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false,
-    m_flow_nominal=mCooCon_flow_nominal,
-    addPowerToMedium=false) "Pump"
-    annotation (Placement(transformation(extent={{-122,-304},{-102,-284}})));
+
   Modelica.Blocks.Math.Gain mPumCoo_flow(k=1/(cp_default*dTCooCon_nominal))
     "Mass flow rate for cooling loop"
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
