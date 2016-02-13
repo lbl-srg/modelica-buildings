@@ -3,14 +3,14 @@ model HeatingCoolingHotWater3ClustersBaseCase
   "Base case for model of a system with 3 clusters"
   extends
     Buildings.Experimental.DistrictHeatingCooling.Examples.BaseClasses.HeatingCoolingHotWater3Clusters(
-    larOff1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    ret1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    larOff2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    apa1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    larOff3(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    larOff4(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    apa2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
-    ret2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+      larOff1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      ret1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      larOff2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      apa1(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      larOff3(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      larOff4(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      apa2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+      ret2(mixingVolumeEnergyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   extends Modelica.Icons.Example;
 
