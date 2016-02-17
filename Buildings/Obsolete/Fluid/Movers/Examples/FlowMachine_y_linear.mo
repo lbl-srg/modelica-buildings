@@ -6,7 +6,8 @@ model FlowMachine_y_linear
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
   Modelica.Blocks.Sources.Ramp y(
     offset=1,

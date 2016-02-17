@@ -38,7 +38,8 @@ model MassFlowSource_h
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX](
     each final unit = "kg/kg",
-    final quantity=Medium.substanceNames) if use_X_in "Prescribed fluid composition"
+    final quantity=Medium.substanceNames) if use_X_in
+    "Prescribed fluid composition"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
     final quantity=Medium.extraPropertiesNames) if use_C_in

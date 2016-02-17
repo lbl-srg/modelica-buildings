@@ -2,6 +2,7 @@ within Buildings.HeatTransfer;
 package Sources "Thermal sources"
 extends Modelica.Icons.SourcesPackage;
 
+
   annotation (   Documentation(info="<html>
 This package is identical to
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources\">

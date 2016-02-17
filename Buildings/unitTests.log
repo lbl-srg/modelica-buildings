@@ -1,0 +1,6 @@
+*** Warning: Regression tests are only run for 'Fluid\HeatExchangers\ActiveBeams'.
+*** Warning: ActiveBeam.mat: beam.HeatToRoom.Q_flow has absolute and relative error = 3.032e+01, 2.485e-02.
+             Maximum error is at t = 320.0
+
+Script that runs unit tests had 2 warnings and 0 errors.
+

@@ -212,7 +212,7 @@ equation
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          visible = glaSys.haveInteriorShade,
+          visible=  glaSys.haveInteriorShade,
           points={{48,60},{48,-40},{116,-104},{116,-4},{48,60}},
           lineColor={0,0,0},
           smooth=Smooth.None,
@@ -263,7 +263,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{-102,60},{-102,-40},{-34,-104},{-34,-4},{-102,60}},
           lineColor={0,0,0},
           smooth=Smooth.None,
@@ -274,42 +274,42 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{56,-80},{290,-80}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{-290,-80},{-56,-80}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{-294,-120},{-44,-120}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{60,-120},{296,-120}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{-60,-200},{-60,-260}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{84,-218},{84,-260}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{84,-260},{302,-260}},
           color={160,0,0},
           smooth=Smooth.None),
         Line(
-          visible = glaSys.haveExteriorShade,
+          visible=  glaSys.haveExteriorShade,
           points={{-292,-260},{-60,-260}},
           color={160,0,0},
           smooth=Smooth.None),

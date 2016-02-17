@@ -58,14 +58,17 @@ model HeaterCooler_T
     offset=m_flow_nominal,
     startTime=1000) "Mass flow rate"
     annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,110},{12,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-6,24},{14,44}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package
+      Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
   Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,

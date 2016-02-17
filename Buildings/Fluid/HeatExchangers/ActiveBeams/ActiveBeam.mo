@@ -20,7 +20,7 @@ model ActiveBeam
     choicesAllMatching=true,
     Placement(transformation(extent={{40,-92},{60,-72}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow HeatToRoom annotation (
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow HeaToRoom annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -131,7 +131,7 @@ equation
           -100,-60}},       color={0,127,255}));
   connect(port_a2, senMasFlo_WaterHea.port_a)
     annotation (Line(points={{-100,20},{-68,20}}, color={0,127,255}));
-  connect(HeatToRoom.port, port_b4)
+  connect(HeaToRoom.port, port_b4)
     annotation (Line(points={{0,-40},{0,-40},{0,-88}}, color={191,0,0}));
   connect(temperatureSensor.port, port_b4)
     annotation (Line(points={{-12,-48},{0,-48},{0,-88}}, color={191,0,0}));
@@ -175,7 +175,7 @@ equation
          {{-62,78.4},{-62,81.1},{-15.4,81.1}}, color={0,0,127}));
   connect(add.y, gain3.u) annotation (Line(points={{78.6,44},{84,44},{84,-10},{50.8,
           -10}}, color={0,0,127}));
-  connect(gain3.y, HeatToRoom.Q_flow) annotation (Line(points={{41.6,-10},{22,-10},
+  connect(gain3.y, HeaToRoom.Q_flow) annotation (Line(points={{41.6,-10},{22,-10},
           {0,-10},{0,-20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-100,-100},
             {100,100}}),       graphics={

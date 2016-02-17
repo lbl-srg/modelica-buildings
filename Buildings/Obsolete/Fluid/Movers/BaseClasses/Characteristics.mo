@@ -293,7 +293,9 @@ First implementation.
 
   function power "Flow vs. electrical power characteristics for fan or pump"
     extends Modelica.Icons.Function;
-    input Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters data
+    input
+      Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters
+                                                                                      data
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";

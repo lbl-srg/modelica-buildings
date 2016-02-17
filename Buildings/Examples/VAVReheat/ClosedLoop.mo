@@ -143,8 +143,8 @@ model ClosedLoop
     k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
   Buildings.Fluid.Sensors.RelativePressure dpRetFan(
-      redeclare package Medium = MediumA)
-      "Pressure difference over return fan" annotation (Placement(
+      redeclare package Medium = MediumA) "Pressure difference over return fan"
+                                            annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,

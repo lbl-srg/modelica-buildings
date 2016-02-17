@@ -8,7 +8,8 @@ model MassFraction "Ideal one port mass fraction sensor"
 
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
-                                          final unit="kg/kg") "Mass fraction in port"
+                                          final unit="kg/kg")
+    "Mass fraction in port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Medium.MassFraction XiVec[Medium.nXi](

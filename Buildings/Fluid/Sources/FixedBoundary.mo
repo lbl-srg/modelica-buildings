@@ -8,9 +8,9 @@ model FixedBoundary "Boundary source component"
     annotation (Dialog(group = "Boundary pressure or Boundary density",
                        enable = use_p));
   parameter Medium.Density d=Medium.density_pTX(
-    p = Medium.p_default,
-    T = Medium.T_default,
-    X = Medium.X_default) "Boundary density"
+    p=  Medium.p_default,
+    T=  Medium.T_default,
+    X=  Medium.X_default) "Boundary density"
     annotation (Dialog(group = "Boundary pressure or Boundary density",
                        enable=not use_p));
   parameter Boolean use_T=true "select T or h"

@@ -1,7 +1,8 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothMin "Test model for smooth minimum"
   extends Modelica.Icons.Example;
-  Buildings.Utilities.Math.SmoothMin smoLim[2](deltaX={0.1,0.02}) "Smooth limit"
+  Buildings.Utilities.Math.SmoothMin smoLim[2](deltaX={0.1,0.02})
+    "Smooth limit"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp ramp(height=1, duration=1) "Ramp input"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));

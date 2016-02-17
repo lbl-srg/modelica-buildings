@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses;
 partial model Slab "Base class for radiant slab"
-  parameter
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
+  parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
      sysTyp "Radiant system type";
 
   parameter Modelica.SIunits.Distance disPip "Pipe distance";

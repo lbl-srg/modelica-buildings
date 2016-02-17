@@ -2,8 +2,7 @@ within Buildings.Fluid.Sensors.Examples;
 model Density "Test model for the density sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air
-    "Medium model";
+  package Medium = Buildings.Media.Air "Medium model";
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

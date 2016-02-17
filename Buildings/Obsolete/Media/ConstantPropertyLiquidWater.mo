@@ -1,5 +1,6 @@
 within Buildings.Obsolete.Media;
-package ConstantPropertyLiquidWater "Package with model for liquid water with constant properties"
+package ConstantPropertyLiquidWater
+  "Package with model for liquid water with constant properties"
   extends Buildings.Obsolete.Media.Interfaces.PartialSimpleMedium(
     mediumName="SimpleLiquidWater",
     cp_const=4184,
@@ -15,13 +16,11 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     fluidConstants=Modelica.Media.Water.simpleWaterConstants,
     ThermoStates=Buildings.Obsolete.Media.Interfaces.Choices.IndependentVariables.T);
 
-
  redeclare replaceable function extends specificInternalEnergy
-  "Return specific internal energy"
+    "Return specific internal energy"
  algorithm
    u := cv_const * (state.T-T0);
  end specificInternalEnergy;
-
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>

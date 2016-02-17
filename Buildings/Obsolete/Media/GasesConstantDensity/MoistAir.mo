@@ -86,7 +86,8 @@ required from medium model \""     + mediumName + "\".");
 
   end BaseProperties;
 
-  function Xsaturation = Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation
+  function Xsaturation =
+      Buildings.Obsolete.Media.PerfectGases.MoistAir.Xsaturation
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
 
   redeclare function setState_pTX

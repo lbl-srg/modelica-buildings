@@ -3,7 +3,6 @@ connector FluidProperties "Type definition for fluid properties"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-
   Medium.Temperature T "Temperature";
   Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w if
        Medium.nXi > 0 "Water vapor mass fractions per kg total air";

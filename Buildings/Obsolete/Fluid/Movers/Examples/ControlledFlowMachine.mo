@@ -1,7 +1,8 @@
 within Buildings.Obsolete.Fluid.Movers.Examples;
 model ControlledFlowMachine "Fans with different control signals as input"
   extends Modelica.Icons.Example;
-  extends Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
+  extends
+    Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
     fan4(addPowerToMedium=false, filteredSpeed=false),
     fan1(addPowerToMedium=false, filteredSpeed=false),
     fan2(addPowerToMedium=false, filteredSpeed=false),

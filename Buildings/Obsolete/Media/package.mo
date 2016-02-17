@@ -2,6 +2,7 @@ within Buildings.Obsolete;
 package Media "Package with medium models"
   extends Modelica.Icons.Package;
 
+
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains obsolete media models.
@@ -25,7 +26,7 @@ sufficient for building HVAC applications.
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(
-          points = {{-76,-80},{-62,-30},{-32,40},{4,66},{48,66},{73,45},{62,-8},{48,-50},{38,-80}},
+          points=  {{-76,-80},{-62,-30},{-32,40},{4,66},{48,66},{73,45},{62,-8},{48,-50},{38,-80}},
           color={64,64,64},
           smooth=Smooth.Bezier),
         Line(

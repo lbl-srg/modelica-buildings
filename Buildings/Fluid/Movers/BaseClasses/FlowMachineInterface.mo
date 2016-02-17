@@ -71,7 +71,7 @@ protected
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
 
-  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa") =
+  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")=
     if haveDPMax then
       _per_y.pressure.dp[1]
     else

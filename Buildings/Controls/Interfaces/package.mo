@@ -1,6 +1,7 @@
 within Buildings.Controls;
 package Interfaces "Package with interfaces for demand response models"
   extends Modelica.Icons.InterfacesPackage;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains interfaces that are used to build

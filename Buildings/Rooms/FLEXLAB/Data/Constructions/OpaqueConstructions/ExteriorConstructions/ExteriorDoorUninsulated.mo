@@ -4,7 +4,7 @@ record ExteriorDoorUninsulated =
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.01588)},
     final nLay=2) "Model of an uninsulated exterior door"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>

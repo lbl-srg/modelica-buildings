@@ -2,7 +2,8 @@ within Buildings.Obsolete.Fluid.Movers.Examples;
 model ControlledFlowMachineDynamic
   "Fans with different control signals as input and a dynamic speed signal"
   extends Modelica.Icons.Example;
-  extends Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
+  extends
+    Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
     fan4(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan1(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan2(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),

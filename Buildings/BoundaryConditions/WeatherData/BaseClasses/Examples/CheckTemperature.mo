@@ -7,8 +7,7 @@ model CheckTemperature "Test model for CheckTemperature"
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDewPoi "Check dew point temperature"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Utilities.Time.ModelTime modTim
-    "Block that outputs the model time"
+  Buildings.Utilities.Time.ModelTime modTim "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     "Block that converts time"

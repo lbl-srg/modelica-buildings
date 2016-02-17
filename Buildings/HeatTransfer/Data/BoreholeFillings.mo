@@ -1,12 +1,11 @@
 within Buildings.HeatTransfer.Data;
-package BoreholeFillings
-  "Package with materials for borehole fillings"
+package BoreholeFillings "Package with materials for borehole fillings"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
   record Generic =
       Buildings.HeatTransfer.Data.BaseClasses.ThermalProperties
     "Generic filling material"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFil");
 
@@ -15,7 +14,7 @@ package BoreholeFillings
       k=1.15,
       d=1600,
       c=800) "Bentonite (k=1.15)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFil");
 
@@ -24,7 +23,7 @@ package BoreholeFillings
       k=3.1,
       d=2000,
       c=840) "Concrete (k=3.1)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datFil");
 

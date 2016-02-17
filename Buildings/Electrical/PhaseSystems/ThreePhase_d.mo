@@ -1,7 +1,7 @@
 within Buildings.Electrical.PhaseSystems;
-package ThreePhase_d "AC system covering only resistive loads with three symmetric phases"
+package ThreePhase_d
+  "AC system covering only resistive loads with three symmetric phases"
   extends DirectCurrent(phaseSystemName="ThreePhase_d");
-
 
   redeclare function phaseVoltages "Return phase to neutral voltages"
     extends Modelica.Icons.Function;
@@ -12,16 +12,14 @@ package ThreePhase_d "AC system covering only resistive loads with three symmetr
     v := {V}/sqrt(3);
   end phaseVoltages;
 
-
   redeclare function systemVoltage
-  "Return system voltage as function of phase voltages"
+    "Return system voltage as function of phase voltages"
     extends Modelica.Icons.Function;
     input SI.Voltage v[n];
     output SI.Voltage V;
   algorithm
     V := sqrt(3)*v[1];
   end systemVoltage;
-
 
   annotation (Icon(graphics={
         Line(

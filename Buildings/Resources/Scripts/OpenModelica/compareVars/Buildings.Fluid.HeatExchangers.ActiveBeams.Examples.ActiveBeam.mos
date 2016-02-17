@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "beam.HeatToRoom.Q_flow"
+  };
