@@ -43,8 +43,7 @@ model FlowControlled_m_flow
         origin={-2,120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
-    nominal=m_flow_nominal)
-    "Actual mass flow rate"
+    nominal=m_flow_nominal) "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
@@ -145,7 +144,7 @@ Revised implementation to allow zero flow rate.
 </html>"),
     Icon(graphics={
         Text(
-          visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
+          visible=  inputType == Buildings.Fluid.Types.InputType.Continuous,
           extent={{22,146},{114,102}},
           textString="m_flow_in"),
         Line(

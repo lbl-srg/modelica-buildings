@@ -79,5 +79,6 @@ equation
       points={{30,51},{30,64},{38,64}},
       color={0,0,127}));
     annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos"
+        "Simulate and plot"));
 end FixedResistancesParallel;

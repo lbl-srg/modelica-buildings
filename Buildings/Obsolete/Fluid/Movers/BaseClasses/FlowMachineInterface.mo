@@ -14,11 +14,14 @@ partial model FlowMachineInterface
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     pressure.V_flow[size(pressure.V_flow,1)]
     "Nominal volume flow rate, used for homotopy";
-  parameter Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
+  parameter
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters         pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Placement(transformation(extent={{20,-80},{40,-60}})),
                Dialog(group="Characteristics"));
-  parameter Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters power
+  parameter
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.powerParameters
+                                                                                        power
     "Volume flow rate vs. electrical power consumption"
     annotation(Placement(transformation(extent={{20,-40},{40,-20}})),
                Dialog(group="Characteristics", enable = use_powerCharacteristic));
@@ -87,17 +90,20 @@ protected
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
   parameter
-    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
+                                                                                       pCur1(
     final n = nOri,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
+                                                                                       pCur2(
    final n = nOri + 1,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter
-    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
+                                                                                       pCur3(
    final n = nOri + 2,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
@@ -128,7 +134,9 @@ protected
   Modelica.SIunits.Density rho "Medium density";
 
 function getPerformanceDataAsString
-  input Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
+  input
+      Buildings.Obsolete.Fluid.Movers.BaseClasses.Characteristics.flowParameters
+                                                                                   pressure
       "Performance data";
   input Real derivative[:](unit="kg/(s.m4)") "Derivative";
   input Integer minimumLength =  6 "Minimum width of result";

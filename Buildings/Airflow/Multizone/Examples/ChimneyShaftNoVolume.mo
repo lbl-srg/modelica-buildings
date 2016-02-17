@@ -79,7 +79,8 @@ model ChimneyShaftNoVolume
   Modelica.Blocks.Math.Gain gain(k=3000)
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   Buildings.Airflow.Multizone.MediumColumn sha(redeclare package Medium = Medium,
-      densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual) "Shaft of chimney"
+      densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.actual)
+    "Shaft of chimney"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   MediumColumn staIn(
     redeclare package Medium = Medium,

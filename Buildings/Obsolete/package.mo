@@ -2,6 +2,7 @@ within Buildings;
 package Obsolete "Package with obsolete models that will be removed"
   extends Modelica.Icons.InternalPackage;
 
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains obsolete models.

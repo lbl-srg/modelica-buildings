@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 package Validation "Collection of models that validate the heat exchanger models"
 extends Modelica.Icons.ExamplesPackage;
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the heat exchanger models.

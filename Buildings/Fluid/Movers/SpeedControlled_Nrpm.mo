@@ -78,7 +78,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
             Text(
-              visible = inputType == Buildings.Fluid.Types.InputType.Continuous,
+              visible=  inputType == Buildings.Fluid.Types.InputType.Continuous,
               extent={{20,126},{118,104}},
               textString="Nrpm [rpm]"),
             Text(

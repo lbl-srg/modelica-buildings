@@ -13,7 +13,7 @@ record C_CogenraSunDeck =
     final B1=0,
     final mDry=484,
     final slope=0) "C - Cogenra Solar, Inc., SunDeck 1.0"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>

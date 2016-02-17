@@ -5,8 +5,7 @@ function AverageResistance
   input Modelica.SIunits.Diameter dPipOut "pipe outside diameter";
   input Modelica.SIunits.ThermalConductivity k
     "pipe level construction element thermal conductivity";
-  input
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
+  input Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
      sysTyp "Type of radiant system";
   input Modelica.SIunits.ThermalConductivity kIns
     "floor slab insulation thermal conductivity";

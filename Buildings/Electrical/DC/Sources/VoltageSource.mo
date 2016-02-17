@@ -35,7 +35,7 @@ equation
           extent={{50,-12},{150,-62}},
           lineColor={0,0,0},
           textString="-"),
-        Text(visible = not use_V_in,
+        Text(visible=  not use_V_in,
           extent={{-150,60},{150,100}},
           lineColor={0,0,0},
           textString="V=%V")}),    Documentation(info="<html>

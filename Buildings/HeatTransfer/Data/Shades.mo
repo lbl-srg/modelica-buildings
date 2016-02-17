@@ -21,10 +21,9 @@ package Shades "Package with thermophysical properties for window shades"
       "Infrared transmissivity of surface b (surface that faces the glass)";
 
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSha",
-Documentation(info=
-"<html>
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSha",
+      Documentation(info="<html>
 Records that implements thermophysical properties for window shades.
 </html>",
   revisions="<html>
@@ -44,7 +43,7 @@ First implementation.
       rhoSol_b = 0.25,
       absIR_a = 0.25,
       absIR_b = 0.25) "Gray"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSha");
 

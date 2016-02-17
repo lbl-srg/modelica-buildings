@@ -59,7 +59,7 @@ def _setEnvironmentVariables(var, value):
 def _runUnitTests(batch, single_package, n_pro):
     import buildingspy.development.regressiontest as u
 
-    ut = u.Tester()
+    ut = u.Tester(check_html=False)
     ut.batchMode(batch)
     if single_package is not None:
         ut.setSinglePackage(single_package)

@@ -4,8 +4,6 @@ partial model FlowMachine_ZeroFlow
 
   package Medium = Buildings.Media.Air;
 
-
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
   parameter Modelica.SIunits.PressureDifference dp_nominal = 500
@@ -36,7 +34,8 @@ partial model FlowMachine_ZeroFlow
       dynamicBalance=false) "Static model of a flow machine"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
-    constrainedby Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    constrainedby
+    Buildings.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Dynamic model of a flow machine"

@@ -16,7 +16,7 @@ record T_JiaxingDiyiC0130 =
     final C2=0,
     final G_nominal=1000,
     final dT_nominal=10) "T - Jiaxing Diyi New Energy Co., Ltd., DIYI-C01-30"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>

@@ -3,7 +3,8 @@ package Conduction "Package with models for heat conduction"
   extends Modelica.Icons.VariantsPackage;
 
   constant Integer nSupPCM = 6
-    "Number of support points to approximate u(T) releation, used only for phase change material";
+  "Number of support points to approximate u(T) releation, used only for phase change material";
+
 
 annotation (Documentation(info="<html>
 <p>

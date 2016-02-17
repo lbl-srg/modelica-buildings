@@ -2,24 +2,21 @@ within Buildings.Electrical.PhaseSystems;
 package ThreePhase_dq0 "AC system in dqo representation"
   extends PartialPhaseSystem(phaseSystemName="ThreePhase_dqo", n=3, m=2);
 
-
   redeclare function extends j
-  "Rotation(pi/2) of vector around {0,0,1} and projection on North plane"
+    "Rotation(pi/2) of vector around {0,0,1} and projection on North plane"
   algorithm
     y := cat(1, {-x[2], x[1]}, zeros(size(x,1)-2));
     annotation(Inline=true);
   end j;
 
-
   redeclare function extends rotate
-  "Rotate a vector of an angle Theta (anti-counterclock)"
+    "Rotate a vector of an angle Theta (anti-counterclock)"
   algorithm
     y[1] := cos(theta)*x[1] - sin(theta)*x[2];
     y[2] := sin(theta)*x[1] + cos(theta)*x[2];
     y[3] := x[3];
     annotation(Inline=true);
   end rotate;
-
 
   redeclare function jj "Vectorized version of j"
   extends Modelica.Icons.Function;
@@ -30,22 +27,19 @@ package ThreePhase_dq0 "AC system in dqo representation"
     annotation(Inline=true);
   end jj;
 
-
   redeclare function extends thetaRel
-  "Return absolute angle of rotating system as offset to thetaRef"
+    "Return absolute angle of rotating system as offset to thetaRef"
   algorithm
     thetaRel := theta[1];
     annotation(Inline=true);
   end thetaRel;
 
-
   redeclare function extends thetaRef
-  "Return absolute angle of rotating reference system"
+    "Return absolute angle of rotating reference system"
   algorithm
     thetaRef := theta[2];
     annotation(Inline=true);
   end thetaRef;
-
 
   redeclare function extends phase "Return phase"
   algorithm
@@ -53,15 +47,13 @@ package ThreePhase_dq0 "AC system in dqo representation"
     annotation(Inline=true);
   end phase;
 
-
   redeclare function extends phaseVoltages "Return phase to neutral voltages"
-protected
+  protected
     Voltage neutral_v = 0;
   algorithm
     v := {V*cos(phi), V*sin(phi), sqrt(3)*neutral_v}/sqrt(3);
     annotation(Inline=true);
   end phaseVoltages;
-
 
   redeclare function extends phaseCurrents "Return phase currents"
   algorithm
@@ -69,13 +61,11 @@ protected
     annotation(Inline=true);
   end phaseCurrents;
 
-
   redeclare function extends phasePowers "Return phase powers"
   algorithm
     p := {P, P*tan(phi), 0};
     annotation(Inline=true);
   end phasePowers;
-
 
   redeclare function extends phasePowers_vi "Return phase powers"
   algorithm
@@ -83,30 +73,26 @@ protected
     annotation(Inline=true);
   end phasePowers_vi;
 
-
   redeclare function extends systemVoltage
-  "Return system voltage as function of phase voltages"
+    "Return system voltage as function of phase voltages"
   algorithm
     V := Modelica.Fluid.Utilities.regRoot(v*v, delta=  1e-5);
     annotation(Inline=true);
   end systemVoltage;
 
-
   redeclare function extends systemCurrent
-  "Return system current as function of phase currents"
+    "Return system current as function of phase currents"
   algorithm
     I := Modelica.Fluid.Utilities.regRoot(i*i, delta=  1e-5);
     annotation(Inline=true);
   end systemCurrent;
 
-
   redeclare function extends activePower
-  "Return total power as function of phase powers"
+    "Return total power as function of phase powers"
   algorithm
     P := v[1]*i[1];
     annotation(Inline=true);
   end activePower;
-
 
   annotation (Icon(graphics={
         Line(

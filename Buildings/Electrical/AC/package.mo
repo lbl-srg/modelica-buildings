@@ -2,6 +2,7 @@ within Buildings.Electrical;
 package AC "Package for electrical systems in which the frequency is modeled as quasi-stationary"
   extends Modelica.Icons.Package;
 
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -128,6 +129,7 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.<br/>
 
 </html>"));
 end UsersGuide;
+
 
   annotation (Icon(graphics={ Line(points={{-92,-10},{-80.7,24.2},{-73.5,43.1},{
               -67.1,56.4},{-61.4,64.6},{-55.8,69.1},{-50.2,69.8},{-44.6,66.6},{-38.9,

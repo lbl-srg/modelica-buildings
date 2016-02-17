@@ -59,7 +59,8 @@ model MoverParameter
     inputType=Buildings.Fluid.Types.InputType.Constant,
     speed=2000) "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10000
+    "Nominal pressure raise";
 equation
   connect(sou.ports[1], pump_m_flow.port_a) annotation (Line(
       points={{-60,3},{-60,0},{-10,0}},

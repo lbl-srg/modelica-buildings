@@ -10,8 +10,7 @@ block ASHRAEHeatLoss
 protected
   final parameter Modelica.SIunits.ThermalConductance UA(
       start = -slope*A_c,
-      fixed = false)
-    "Coefficient describing heat loss to ambient conditions";
+      fixed = false) "Coefficient describing heat loss to ambient conditions";
 initial equation
    //Identifies useful heat gain at nominal conditions
    QUse_nominal = G_nominal * A_c * y_intercept + slope * A_c * (dT_nominal);

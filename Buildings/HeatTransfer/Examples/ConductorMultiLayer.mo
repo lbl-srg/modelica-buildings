@@ -38,7 +38,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer.mos" "Simulate and plot"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates how to use a solid material, set its heat capacity to zero,
 and then use this material in a multi-layer construction.

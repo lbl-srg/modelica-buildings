@@ -20,7 +20,8 @@ block DiffuseIsotropic
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 protected
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic
-    HDifTilIso(til=til, rho=rho) "Diffuse isotropic irradiation on tilted surface"
+    HDifTilIso(til=til, rho=rho)
+    "Diffuse isotropic irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation

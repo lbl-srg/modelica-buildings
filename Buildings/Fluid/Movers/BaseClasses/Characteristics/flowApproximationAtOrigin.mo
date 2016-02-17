@@ -5,7 +5,8 @@ function flowApproximationAtOrigin
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa") "Small pressure";
+  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa")
+    "Small pressure";
   input Real delta "Small value used to transition to other fan curve";
   input Real cBar[2]
     "Coefficients for linear approximation of pressure vs. flow rate";

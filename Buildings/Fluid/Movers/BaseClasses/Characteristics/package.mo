@@ -2,14 +2,6 @@ within Buildings.Fluid.Movers.BaseClasses;
 package Characteristics "Functions for fan or pump characteristics"
 
 
-
-
-
-
-
-
-
-
   annotation (Documentation(info="<html>
 <p>
 This package implements performance curves for fans and pumps,

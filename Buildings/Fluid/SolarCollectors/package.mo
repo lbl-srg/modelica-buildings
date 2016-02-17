@@ -1,5 +1,5 @@
 within Buildings.Fluid;
-package SolarCollectors
+package SolarCollectors 
 extends Modelica.Icons.VariantsPackage;
 
 

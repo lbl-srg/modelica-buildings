@@ -1,7 +1,8 @@
 within Buildings.Fluid.Movers.BaseClasses.Characteristics;
 function efficiency "Flow vs. efficiency characteristics for fan or pump"
   extends Modelica.Icons.Function;
-  input Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters per
+  input Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+                                                                                per
     "Efficiency performance data";
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real d[:] "Derivatives at support points for spline interpolation";

@@ -1,7 +1,8 @@
 within Buildings.Obsolete.Fluid.Movers.Examples;
 model FlowMachine_Nrpm "Fan with zero mass flow rate and speed as input"
   extends Modelica.Icons.Example;
- extends Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
+ extends
+    Buildings.Obsolete.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=1500),
     redeclare Buildings.Obsolete.Fluid.Movers.FlowMachine_Nrpm floMacSta(
       redeclare package Medium = Medium,

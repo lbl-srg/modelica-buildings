@@ -4,7 +4,8 @@ model MoistAirComparison
 
    package PerfectMedium = Buildings.Obsolete.Media.PerfectGases.MoistAir;
    //package IdealMedium =   Modelica.Media.Air.MoistAir;
-   package IdealMedium =   Buildings.Obsolete.Media.GasesConstantDensity.MoistAir;
+   package IdealMedium =
+      Buildings.Obsolete.Media.GasesConstantDensity.MoistAir;
 
     Modelica.SIunits.SpecificEnthalpy hLiqPer "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqIde "Liquid phase enthalpy";

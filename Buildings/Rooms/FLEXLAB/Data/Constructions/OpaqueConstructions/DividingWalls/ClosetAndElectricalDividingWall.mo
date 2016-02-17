@@ -9,7 +9,7 @@ record ClosetAndElectricalDividingWall =
     Buildings.HeatTransfer.Data.Solids.GypsumBoard(x=0.01588)},
     final nLay = 6) "Wall separating FLEXLAB closets from the adjoining
       electrical rooms"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>

@@ -4,7 +4,6 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
 
   package Medium = Buildings.Media.Air;
 
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      3000/1000/20 "Nominal mass flow rate";
 

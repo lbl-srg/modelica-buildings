@@ -3,10 +3,6 @@ package Loads "Package with load models for one phase AC systems"
   extends Modelica.Icons.VariantsPackage;
 
 
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains models that represent different types of AC single phase loads.
