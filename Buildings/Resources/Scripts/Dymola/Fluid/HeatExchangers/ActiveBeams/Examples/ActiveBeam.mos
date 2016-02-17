@@ -1,0 +1,12 @@
+
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.ActiveBeam", stopTime=1000, method="dassl", resultFile="ActiveBeam");
+removePlots();
+plotSetFilesToKeep(5);
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1647, 880}, y={"beam.HeatToRoom.Q_flow"}, range={0.0, 1000.0, -1300.0, 50.0}, grid=true, filename="ActiveBeam.mat", colors={{28,108,200}});
+
