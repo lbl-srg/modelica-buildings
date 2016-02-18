@@ -91,7 +91,6 @@ protected
     redeclare package Medium2 = MediumSin,
     m1_flow_nominal=m_flow_nominal,
     QCon_flow_nominal=m_flow_nominal*cp_default*dTCon_nominal,
-    dp1_nominal=6000,
     dp2_nominal=6000,
     use_eta_Carnot_nominal=true,
     etaCarnot_nominal=0.3,
@@ -99,7 +98,8 @@ protected
     dTCon_nominal=dTSin,
     energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
     energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal2=false) "Heat pump for heating"
+    allowFlowReversal2=false,
+    dp1_nominal=dp_nominal) "Heat pump for heating"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   Fluid.Sensors.TemperatureTwoPort senTem(
@@ -176,7 +176,7 @@ equation
   connect(coo.P, PComCoo) annotation (Line(points={{59,0},{64,0},{64,54},{98,54},
           {98,70},{110,70}}, color={0,0,127}));
   connect(hea.QCon_flow, QHea_flow) annotation (Line(points={{-29,9},{-24,9},{
-          -24,50},{94,50},{94,50},{110,50}}, color={0,0,127}));
+          -24,50},{94,50},{110,50}},         color={0,0,127}));
   connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{32,40},{32,9},
           {36,9}}, color={0,0,127}));
   connect(sou2.ports[1], coo.port_a1) annotation (Line(points={{12,20},{12,20},
