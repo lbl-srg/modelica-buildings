@@ -44,6 +44,30 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   Modelica.Blocks.Interfaces.RealOutput QWat_flow(unit="W")
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
+  Fluid.Actuators.Valves.ThreeWayLinear valCoo(
+    redeclare final package Medium =  Medium,
+    final m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=1000,
+    filteredOpening=false,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    final dpFixed_nominal={if disableHeatExchanger then 0 else dp_nominal,0})
+    "Switching valve for cooling"                                       annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={50,60})));
+  Fluid.Actuators.Valves.ThreeWayLinear valHea(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=1000,
+    filteredOpening=false,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    final dpFixed_nominal={0,0}) "Switching valve for heating"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={50,-60})));
+
 protected
   Modelica.Blocks.Sources.CombiTimeTable watTem(
     tableOnFile=true,
@@ -87,7 +111,7 @@ protected
     Q_flow_maxCool=0,
     Q_flow_maxHeat=if disableHeatExchanger then 0 else Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is heated"
-    annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
   Modelica.Blocks.Sources.RealExpression TColIn(y=Medium.temperature_phX(
         p=port_a2.p,
         h=inStream(port_a2.h_outflow),
@@ -127,30 +151,47 @@ protected
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Modelica.Blocks.Sources.Constant TMinDes(k=TLooMin)
     "Minimum desired outlet temperature"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
+
+  Controller conCoo(final m_flow_nominal=m_flow_nominal)
+    "Controller for hex for cooling" annotation (Placement(transformation(
+          rotation=0, extent={{-40,20},{-20,40}})));
+  Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
+    "Mass flow sensor used for cooling control"
+    annotation (Placement(transformation(extent={{-52,50},{-72,70}})));
+  Fluid.Sensors.MassFlowRate senMasFloHea(redeclare package Medium = Medium)
+    "Mass flow sensor used for heating control"
+    annotation (Placement(transformation(extent={{-42,-50},{-62,-30}})));
+  Controller conHea(final m_flow_nominal=m_flow_nominal)
+    "Controller for hex for heating" annotation (Placement(transformation(
+          rotation=0, extent={{-60,-90},{-40,-70}})));
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splHea(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dp_nominal={0,0,0}) "Flow splitter for heating"
+    annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splCoo(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal*{1,1,1},
+    dp_nominal={0,0,0}) "Flow splitter for cooling"
+    annotation (Placement(transformation(extent={{-40,52},{-20,72}})));
 equation
-  connect(coo.port_b, port_a1)
-    annotation (Line(points={{-10,60},{-100,60}}, color={0,127,255}));
-  connect(coo.port_a, port_b1)
-    annotation (Line(points={{10,60},{100,60}}, color={0,127,255}));
-  connect(hea.port_b, port_b2) annotation (Line(points={{-10,-60},{-100,-60}},
-                 color={0,127,255}));
-  connect(hea.port_a, port_a2) annotation (Line(points={{10,-60},{100,-60}},
-                 color={0,127,255}));
   connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-19,108},{-19,108},{
           6,108}},             color={0,0,127}));
   connect(maxHeaLea.y, minHeaLvg.u2)
     annotation (Line(points={{29,114},{42,114},{42,120},{44,120},{50,120}},
                                                           color={0,0,127}));
   connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,126},{86,126},{86,
-          -54},{12,-54}}, color={0,0,127}));
+          -34},{12,-34}}, color={0,0,127}));
   connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
           6,166}},       color={0,0,127}));
   connect(minCooLvg.y, maxCooLea.u2)
     annotation (Line(points={{29,160},{29,160},{50,160}},
                                                 color={0,0,127}));
   connect(maxCooLea.y, coo.TSet) annotation (Line(points={{73,166},{80,166},{80,
-          66},{12,66}},
+          80},{20,80},{20,66},{12,66}},
                     color={0,0,127}));
   connect(TAppHex.y, TWatHea.u2)
     annotation (Line(points={{-59,190},{-40,190},{-40,194},{38,194}},
@@ -165,10 +206,10 @@ equation
                          color={0,0,127}));
   connect(watTem.y[1], TWat) annotation (Line(points={{-59,226},{-50,226},{-50,280},
           {88,280},{88,180},{110,180}},      color={0,0,127}));
-  connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-20,66},{
-          -20,6},{18,6}}, color={0,0,127}));
-  connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-54},{-16,-54},
-          {-20,-54},{-20,-6},{18,-6}}, color={0,0,127}));
+  connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-16,66},{
+          -16,6},{18,6}}, color={0,0,127}));
+  connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-34},{-11,-34},
+          {-14,-34},{-14,-6},{18,-6}}, color={0,0,127}));
   connect(QExc_flow.y, QWat_flow) annotation (Line(points={{41,0},{66,0},{90,0},
           {90,120},{110,120}}, color={0,0,127}));
   connect(watTem.y[1], smoothMin.u2) annotation (Line(points={{-59,226},{-50,226},
@@ -187,8 +228,112 @@ equation
           40,172},{50,172}}, color={0,0,127}));
   connect(TMaxDes.y, minHeaLvg.u1) annotation (Line(points={{-59,150},{-50,150},
           {-50,132},{50,132}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,300}})), Icon(coordinateSystem(extent={{-100,-100},{100,300}},
+  connect(valCoo.port_2, port_b1)
+    annotation (Line(points={{60,60},{76,60},{100,60}}, color={0,127,255}));
+  connect(conCoo.y, valCoo.y) annotation (Line(points={{-19,30},{30,30},{30,76},
+          {50,76},{50,72}}, color={0,0,127}));
+protected
+  model Controller "Controller for bay water heat exchanger"
+    parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+      "Nominal mass flow rate"
+      annotation(Dialog(group = "Nominal condition"));
+    Modelica.Blocks.Nonlinear.Limiter limTem(        uMax=1, uMin=0)
+      "Signal limiter for switching valve"
+      annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    Modelica.Blocks.Math.Gain gaiTem(k=4) "Control gain for dT"
+      annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
+    Modelica.Blocks.Math.Feedback feeBac "Control error"
+      annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    Modelica.Blocks.Interfaces.RealInput u1 annotation (Placement(transformation(
+            rotation=0, extent={{-120,60},{-100,80}})));
+    Modelica.Blocks.Interfaces.RealInput u2 annotation (Placement(transformation(
+          rotation=90,
+          extent={{-10,-10},{10,10}},
+          origin={0,-10})));
+    Modelica.Blocks.Interfaces.RealOutput y
+      "Control signal (0: bypass hex, 1: use hex)"
+                                            annotation (Placement(transformation(
+            rotation=0, extent={{100,90},{120,110}})));
+    Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow rate" annotation (
+        Placement(transformation(rotation=0, extent={{-120,120},{-100,140}})));
+    Modelica.Blocks.Math.Gain norFlo(final k=1/m_flow_nominal)
+      "Normalized flow rate"
+      annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
+    Modelica.Blocks.Nonlinear.Limiter limFlo(        uMax=1, uMin=0)
+      "Signal limiter for switching valve"
+      annotation (Placement(transformation(extent={{20,120},{40,140}})));
+    Modelica.Blocks.Math.Gain gaiFlo(k=100) "Control gain for flow rate"
+      annotation (Placement(transformation(extent={{-30,120},{-10,140}})));
+    Modelica.Blocks.Math.Product product
+      annotation (Placement(transformation(extent={{60,90},{80,110}})));
+  equation
+    connect(feeBac.y, gaiTem.u)
+      annotation (Line(points={{-41,70},{-32,70}}, color={0,0,127}));
+    connect(gaiTem.y, limTem.u)
+      annotation (Line(points={{-9,70},{22,70},{18,70}}, color={0,0,127}));
+    connect(u1, feeBac.u1) annotation (Line(points={{-110,70},{-110,70},{-58,70}},
+          color={0,0,127}));
+    connect(u2, feeBac.u2) annotation (Line(points={{0,-10},{0,20},{-50,20},{-50,
+            62}},
+          color={0,0,127}));
+    connect(m_flow, norFlo.u)
+      annotation (Line(points={{-110,130},{-82,130}}, color={0,0,127}));
+    connect(norFlo.y, gaiFlo.u) annotation (Line(points={{-59,130},{-46,130},{-32,
+            130}}, color={0,0,127}));
+    connect(gaiFlo.y, limFlo.u)
+      annotation (Line(points={{-9,130},{18,130}}, color={0,0,127}));
+    connect(limFlo.y, product.u1) annotation (Line(points={{41,130},{48,130},{48,
+            106},{58,106}}, color={0,0,127}));
+    connect(limTem.y, product.u2) annotation (Line(points={{41,70},{46,70},{48,70},
+            {48,94},{58,94}}, color={0,0,127}));
+    connect(product.y, y) annotation (Line(points={{81,100},{88,100},{88,100},{88,
+            100},{110,100}}, color={0,0,127}));
+    annotation (Diagram(coordinateSystem(extent={{-100,0},{100,200}},
+            preserveAspectRatio=false)), Icon(coordinateSystem(extent={{-100,0},{100,
+              200}})));
+  end Controller;
+equation
+  connect(valCoo.port_1, coo.port_a)
+    annotation (Line(points={{40,60},{26,60},{10,60}}, color={0,127,255}));
+  connect(senMasFloCoo.m_flow, conCoo.m_flow) annotation (Line(points={{-62,71},
+          {-62,74},{-48,74},{-48,33},{-41,33}}, color={0,0,127}));
+  connect(senMasFloCoo.port_b, port_a1) annotation (Line(points={{-72,60},{-100,
+          60}},           color={0,127,255}));
+  connect(port_b2, senMasFloHea.port_b) annotation (Line(points={{-100,-60},{-80,
+          -60},{-80,-40},{-62,-40}}, color={0,127,255}));
+  connect(conHea.m_flow, senMasFloHea.m_flow) annotation (Line(points={{-61,-77},
+          {-72,-77},{-72,-24},{-52,-24},{-52,-29}}, color={0,0,127}));
+  connect(valHea.port_2, port_a2)
+    annotation (Line(points={{60,-60},{80,-60},{100,-60}}, color={0,127,255}));
+  connect(valHea.port_1, hea.port_a) annotation (Line(points={{40,-60},{30,-60},
+          {30,-40},{10,-40}}, color={0,127,255}));
+  connect(conHea.y, valHea.y) annotation (Line(points={{-39,-80},{-20,-80},{36,-80},
+          {36,-40},{50,-40},{50,-48}}, color={0,0,127}));
+  connect(TColIn.y, conHea.u2) annotation (Line(points={{-19,108},{-10,108},{-10,
+          90},{-86,90},{-86,-96},{-50,-96},{-50,-91}}, color={0,0,127}));
+  connect(conHea.u1, minHeaLvg.y) annotation (Line(points={{-61,-83},{-70,-83},{
+          -70,-94},{86,-94},{86,126},{73,126}}, color={0,0,127}));
+  connect(senMasFloHea.port_a, splHea.port_1) annotation (Line(points={{-42,-40},
+          {-38,-40},{-34,-40}}, color={0,127,255}));
+  connect(splHea.port_3, valHea.port_3) annotation (Line(points={{-24,-50},{-24,
+          -76},{50,-76},{50,-70}}, color={0,127,255}));
+  connect(splHea.port_2, hea.port_b) annotation (Line(points={{-14,-40},{-12,-40},
+          {-10,-40}}, color={0,127,255}));
+  connect(senMasFloCoo.port_a, splCoo.port_1)
+    annotation (Line(points={{-52,60},{-40,60},{-40,62}}, color={0,127,255}));
+  connect(splCoo.port_2, coo.port_b)
+    annotation (Line(points={{-20,62},{-15,60},{-10,60}}, color={0,127,255}));
+  connect(splCoo.port_3, valCoo.port_3) annotation (Line(points={{-30,52},{-30,
+          42},{50,42},{50,50}},
+                            color={0,127,255}));
+  connect(TWarIn.y, conCoo.u1) annotation (Line(points={{-19,166},{-14,166},{
+          -14,128},{-50,128},{-50,27},{-41,27}}, color={0,0,127}));
+  connect(maxCooLea.y, conCoo.u2) annotation (Line(points={{73,166},{80,166},{
+          80,16},{-30,16},{-30,19}}, color={0,0,127}));
+  annotation (
+  defaultComponentName="hex",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            300}})),            Icon(coordinateSystem(extent={{-100,-100},{100,300}},
                    preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,260}},
@@ -248,5 +393,21 @@ equation
           smooth=Smooth.Bezier,
           fillPattern=FillPattern.Solid,
           fillColor={0,0,255},
-          pattern=LinePattern.None)}));
+          pattern=LinePattern.None)}),
+    Documentation(info="<html>
+<p>
+Model for a lake water heat exchanger that either provides heating or cooling.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 16, 2016, by Michael Wetter:<br/>
+Improved controls.
+</li>
+<li>
+December 23, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end LakeWaterHeatExchanger_T;
