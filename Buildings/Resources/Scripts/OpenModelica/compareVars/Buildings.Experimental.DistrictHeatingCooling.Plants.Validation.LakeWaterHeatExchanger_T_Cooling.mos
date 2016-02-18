@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "hex.m1_flow",
+    "hex.TSetHea",
+    "hex.TSetCoo",
+    "temWar.T",
+    "temCol.T",
+    "hex.valCoo.y",
+    "hex.valHea.y",
+    "hex.QWat_flow"
+  };
