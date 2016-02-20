@@ -80,7 +80,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   Fluid.Movers.SpeedControlled_y fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
-    dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -88,7 +87,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   Fluid.Movers.SpeedControlled_y fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
-    dynamicBalance=true,
     r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

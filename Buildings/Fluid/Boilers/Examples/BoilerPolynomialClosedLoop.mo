@@ -33,17 +33,19 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,40})));
-  Movers.FlowControlled_m_flow pumLoa(redeclare package Medium = Medium,
-    dynamicBalance=false,
-    m_flow_nominal=2*m_flow_nominal) "Pump for heating load"
-                                annotation (Placement(transformation(
+  Movers.FlowControlled_m_flow pumLoa(
+    redeclare package Medium = Medium,
+    m_flow_nominal=2*m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Pump for heating load" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Movers.FlowControlled_m_flow pumBoi(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-    dynamicBalance=false) "Pump for boiler loop"
-                                annotation (Placement(transformation(
+  Movers.FlowControlled_m_flow pumBoi(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Pump for boiler loop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-20})));

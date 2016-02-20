@@ -37,9 +37,10 @@ model SpaceCooling "Space cooling with DX coils"
     (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
@@ -95,7 +96,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
@@ -182,9 +183,9 @@ model SpaceCooling "Space cooling with DX coils"
                                      annotation (Placement(transformation(
           extent={{240,40},{260,60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
-                                      redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =

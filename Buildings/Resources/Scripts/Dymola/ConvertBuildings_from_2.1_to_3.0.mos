@@ -93,3 +93,13 @@ convertClass("Buildings.Fluid.Chillers.Carnot",
 
 convertElement("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
                "N_nominal", "speed_rpm_nominal");
+
+// Remove dynamicBalance from Movers
+convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);

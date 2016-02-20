@@ -4,8 +4,8 @@ block Fan "FMU declaration for a fixed resistance"
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
-      final dynamicBalance=false,
-      final filteredSpeed=false));
+      final filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";

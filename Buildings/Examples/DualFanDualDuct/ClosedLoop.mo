@@ -104,22 +104,19 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    dynamicBalance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dynamicBalance=true) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,

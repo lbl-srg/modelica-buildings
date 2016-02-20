@@ -40,19 +40,17 @@ model TwoRoomsWithStorage
 
   Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
-                  dp=(3000+2000)*{2,1})),
-    dynamicBalance=false)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={70,-120})));
+    per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
+
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+      Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-120})));
 
   Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
-    per(pressure(
-          V_flow=mRad_flow_nominal/1000*{0,2},
-          dp=dp_nominal*{2,0})),
-    dynamicBalance=false) "Pump that serves the radiators"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    per(pressure(V_flow=mRad_flow_nominal/1000*{0,2}, dp=dp_nominal*{2,0})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Pump that serves the radiators" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,50})));
 
@@ -383,16 +381,16 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{180,478},{200,498}})));
   Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
-    dynamicBalance=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
   Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
-    dynamicBalance=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
