@@ -49,7 +49,6 @@ Buildings/Airflow/Multizone/package.mo
 Buildings/Airflow/Multizone/package.order
 Buildings/Airflow/package.mo
 Buildings/Airflow/package.order
-Buildings/Annex60.Fluid.Movers.SpeedControlled_y.mof
 Buildings/BoundaryConditions/SkyTemperature/BlackBody.mo
 Buildings/BoundaryConditions/SkyTemperature/Examples/BlackBody.mo
 Buildings/BoundaryConditions/SkyTemperature/Examples/package.mo
@@ -162,7 +161,6 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
-Buildings/ClosedLoop_y.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -197,8 +195,9 @@ Buildings/Controls/SetPoints/package.mo
 Buildings/Controls/SetPoints/package.order
 Buildings/Controls/package.mo
 Buildings/Controls/package.order
-Buildings/FlowControlled_dp.mat
+Buildings/EfficiencyInterface.mat
 Buildings/FlowControlled_m_flow.mat
+Buildings/FlowMachineInterface.mat
 Buildings/Fluid/Actuators/BaseClasses/ActuatorSignal.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/EqualPercentageDerivativeCheck.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/package.mo
@@ -440,12 +439,18 @@ Buildings/Fluid/Movers/BaseClasses/Characteristics/package.order
 Buildings/Fluid/Movers/BaseClasses/Characteristics/power.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/powerParameters.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/pressure.mo
+Buildings/Fluid/Movers/BaseClasses/EfficiencyInterface.mo
 Buildings/Fluid/Movers/BaseClasses/FlowControlled.mo
 Buildings/Fluid/Movers/BaseClasses/FlowMachineInterface.mo
 Buildings/Fluid/Movers/BaseClasses/IdealSource.mo
 Buildings/Fluid/Movers/BaseClasses/PartialFlowMachine.mo
 Buildings/Fluid/Movers/BaseClasses/PowerInterface.mo
 Buildings/Fluid/Movers/BaseClasses/SpeedControlled.mo
+Buildings/Fluid/Movers/BaseClasses/Validation/EfficiencyInterface.mo
+Buildings/Fluid/Movers/BaseClasses/Validation/FlowMachineInterface.mo
+Buildings/Fluid/Movers/BaseClasses/Validation/PowerInterface.mo
+Buildings/Fluid/Movers/BaseClasses/Validation/package.mo
+Buildings/Fluid/Movers/BaseClasses/Validation/package.order
 Buildings/Fluid/Movers/BaseClasses/package.mo
 Buildings/Fluid/Movers/BaseClasses/package.order
 Buildings/Fluid/Movers/Data/FlowControlled.mo
@@ -622,9 +627,8 @@ Buildings/Media/Specialized/package.order
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
-Buildings/MoverContinuous.mat
 Buildings/MoverParameter.mat
-Buildings/MoverStages.mat
+Buildings/PowerInterface.mat
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png
@@ -692,6 +696,9 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_EfficiencyInterface.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_FlowMachineInterface.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_PowerInterface.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -832,6 +839,9 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeSt
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeTraceSubstance.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeTraceSubstanceReverseFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeZeroFlow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EfficiencyInterface.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/FlowMachineInterface.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/PowerInterface.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverContinuous.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverParameter.mos
@@ -960,8 +970,6 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
-Buildings/SpeedControlled_Nrpm.mat
-Buildings/SpeedControlled_y_pumpCurves.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo
@@ -1151,7 +1159,6 @@ Buildings/dsmodel.c
 Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
-Buildings/plot.mos
 Buildings/replaceSubstance.py
 Buildings/simulator.log
 Buildings/unitTests.log
