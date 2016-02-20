@@ -30,8 +30,7 @@ model PumpsSeries "Two flow machines in series"
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
     dynamicBalance=false,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Model of a flow machine"
+    inputType=Buildings.Fluid.Types.InputType.Constant) "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.Step const1(
     height=-1,

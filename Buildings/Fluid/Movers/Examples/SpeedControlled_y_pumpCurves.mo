@@ -6,7 +6,8 @@ model SpeedControlled_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
@@ -18,19 +19,19 @@ model SpeedControlled_y_pumpCurves
 
   pumpModel pum(filteredSpeed=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Pump"
+    per(constantSpeed=1)) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   pumpModel pum1(filteredSpeed=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=0.5) "Pump"
+    per(constantSpeed=0.5)) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
   pumpModel pum2(filteredSpeed=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=0.05) "Pump"
+    per(constantSpeed=0.05)) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   pumpModel pum3(filteredSpeed=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=0.01) "Pump"
+    per(constantSpeed=0.01)) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Modelica.Blocks.Sources.Ramp y(

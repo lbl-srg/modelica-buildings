@@ -407,6 +407,16 @@ its class name ends with the string <code>Beta</code>.
                         and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
      </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm
+     </td>
+     <td valign=\"top\">Changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">Annex 60 issue 396</a>.
+                        For Dymola, the conversion script updates this parameter.
+     </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
      </td>
      <td valign=\"top\">Renamed the protected parameters

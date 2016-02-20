@@ -13,8 +13,7 @@ model MoverParameter
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
-    "Pump with m_flow input"
+    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump with m_flow input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -27,12 +26,13 @@ model MoverParameter
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
-    normalized_speeds={0,0.5,1},
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+      speeds_rpm=1800*{0,0.5,1},
+      constantSpeed_rpm=1800),
     dynamicBalance=false,
     filteredSpeed=false,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Pump with normalised speed input"
+    inputType=Buildings.Fluid.Types.InputType.Constant)
+    "Pump with normalised speed input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
@@ -54,12 +54,13 @@ model MoverParameter
     redeclare package Medium = Medium,
     dynamicBalance=false,
     filteredSpeed=false,
-    speeds={0,1000,2000},
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
-    speed=2000) "Pump with speed input"
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+      speeds_rpm={0,1000,2000},
+      constantSpeed_rpm=2000),
+    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10000
+    "Nominal pressure raise";
 equation
   connect(sou.ports[1], pump_m_flow.port_a) annotation (Line(
       points={{-60,3},{-60,0},{-10,0}},
@@ -96,6 +97,11 @@ set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

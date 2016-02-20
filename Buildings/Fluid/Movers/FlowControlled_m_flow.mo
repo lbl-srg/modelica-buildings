@@ -20,7 +20,6 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-
   parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
@@ -43,8 +42,7 @@ model FlowControlled_m_flow
         origin={-2,120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
-    nominal=m_flow_nominal)
-    "Actual mass flow rate"
+    nominal=m_flow_nominal) "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
@@ -62,21 +60,16 @@ protected
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
         filteredSpeed
     "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
-
-  Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(final unit="kg/s") if
-     filteredSpeed "Filtered mass flow rate"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{16,81},{30,95}})));
 
 equation
   if filteredSpeed then
     connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,88},{18.6,88}},
+      points={{1,50},{10,50},{10,88},{14.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,50},{110,50}},
+      points={{30.7,88},{40,88},{40,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -85,12 +78,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   end if;
-    connect(filter.y, m_flow_filtered) annotation (Line(
-      points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
     connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{60,50},{60,40},{24,40},{24,8}},
+      points={{110,50},{40,50},{40,40},{24,40},{24,8}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -160,6 +149,6 @@ Revised implementation to allow zero flow rate.
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
           textString="%m_flow_nominal")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end FlowControlled_m_flow;

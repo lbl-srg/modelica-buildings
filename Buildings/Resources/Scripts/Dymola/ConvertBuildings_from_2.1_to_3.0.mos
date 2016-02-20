@@ -90,3 +90,6 @@ convertElement("Buildings.Fluid.Chillers.Carnot",
 
 convertClass("Buildings.Fluid.Chillers.Carnot",
              "Buildings.Fluid.Chillers.Carnot_y");
+
+convertElement("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
+               "N_nominal", "speed_rpm_nominal");

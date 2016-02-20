@@ -1,15 +1,37 @@
 within Buildings.Fluid.Movers.Data;
 record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
-  extends SpeedControlled_y;
+  extends SpeedControlled_y(
+    final constantSpeed = constantSpeed_rpm/speed_rpm_nominal,
+    final speeds =        speeds_rpm       /speed_rpm_nominal);
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
     "Nominal rotational speed for flow characteristic";
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=
+    speed_rpm_nominal
+    "Speed set point when using inputType = Buildings.Fluid.Types.InputType.Constant";
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
+    "Vector of speed set points when using inputType = Buildings.Fluid.Types.InputType.Stages";
 
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Changed parameter <code>N_nominal</code> to
+<code>speed_rpm_nominal</code> as it is the same quantity as <code>speeds_rmp</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
+<li>
+January 19, 2016, by Filip Jorissen:<br/>
+Added parameter <code>speeds_rpm</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 February 13, 2015, by Michael Wetter:<br/>
 Updated documentation.
@@ -43,10 +65,9 @@ declaration such as
 </p>
 <pre>
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-  redeclare package Medium = Medium,
-    N_nominal = 1800,
-    per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-                 dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
+    redeclare package Medium = Medium,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
 </pre>
 <p>
 This data record can be used with

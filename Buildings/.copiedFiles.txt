@@ -49,6 +49,7 @@ Buildings/Airflow/Multizone/package.mo
 Buildings/Airflow/Multizone/package.order
 Buildings/Airflow/package.mo
 Buildings/Airflow/package.order
+Buildings/Annex60.Fluid.Movers.SpeedControlled_y.mof
 Buildings/BoundaryConditions/SkyTemperature/BlackBody.mo
 Buildings/BoundaryConditions/SkyTemperature/Examples/BlackBody.mo
 Buildings/BoundaryConditions/SkyTemperature/Examples/package.mo
@@ -161,6 +162,7 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
+Buildings/ClosedLoop_y.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -195,6 +197,8 @@ Buildings/Controls/SetPoints/package.mo
 Buildings/Controls/SetPoints/package.order
 Buildings/Controls/package.mo
 Buildings/Controls/package.order
+Buildings/FlowControlled_dp.mat
+Buildings/FlowControlled_m_flow.mat
 Buildings/Fluid/Actuators/BaseClasses/ActuatorSignal.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/EqualPercentageDerivativeCheck.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/package.mo
@@ -456,6 +460,11 @@ Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos40slash1to12.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos40slash1to8.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos50slash1to12.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos80slash1to12.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS25slash10.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS30slash10.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS30slash5.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS40slash10.mo
+Buildings/Fluid/Movers/Data/Pumps/Wilo/TopS40slash7.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/VeroLine80slash115dash2comma2slash2.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/package.mo
 Buildings/Fluid/Movers/Data/Pumps/Wilo/package.order
@@ -613,6 +622,9 @@ Buildings/Media/Specialized/package.order
 Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
+Buildings/MoverContinuous.mat
+Buildings/MoverParameter.mat
+Buildings/MoverStages.mat
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png
@@ -948,6 +960,8 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
+Buildings/SpeedControlled_Nrpm.mat
+Buildings/SpeedControlled_y_pumpCurves.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo
@@ -1130,6 +1144,11 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
+Buildings/dymosim
 Buildings/legal.html
 Buildings/package.order
 Buildings/plot.mos

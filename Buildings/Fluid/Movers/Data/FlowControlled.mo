@@ -33,7 +33,9 @@ declaration such as
 </p>
 <pre>
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-      redeclare package Medium = Medium) \"Fan\";
+    redeclare package Medium = Medium,
+    per(motorEfficiency(V_flow={0,2.5}, 
+                        eta={0.4,0.7}))) \"Fan\";
 </pre>
 <p>
 This data record can be used with
