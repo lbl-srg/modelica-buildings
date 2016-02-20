@@ -72,7 +72,7 @@ model System3
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,

@@ -62,8 +62,7 @@ model System2
     QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     "Nominal water mass flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                                                         TOut
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
@@ -72,7 +71,7 @@ model System2
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
