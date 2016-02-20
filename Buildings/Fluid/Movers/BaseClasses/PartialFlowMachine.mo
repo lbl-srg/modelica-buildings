@@ -13,9 +13,6 @@ partial model PartialFlowMachine
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
 
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
     "Control input type for this mover";
   parameter Real constInput = 0 "Constant input set point"
@@ -25,10 +22,26 @@ partial model PartialFlowMachine
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.SIunits.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics",
+                        group="Nominal condition",
+                        enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+                               massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
+
+  // Classes used to implement the filtered speed
+  parameter Boolean filteredSpeed=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
   Modelica.Blocks.Interfaces.IntegerInput stage if
        inputType == Buildings.Fluid.Types.InputType.Stages
@@ -39,12 +52,17 @@ partial model PartialFlowMachine
         rotation=270,
         origin={0,120})));
 
+  Modelica.Blocks.Interfaces.RealOutput P(
+    quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+
   // Models
   Buildings.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final tau=tau,
-    final energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
-    final massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
@@ -53,21 +71,26 @@ partial model PartialFlowMachine
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
-    final nPorts=2) "Fluid volume for dynamic model"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    nPorts=2) "Fluid volume for dynamic model"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-
 protected
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+  final parameter Modelica.SIunits.Density rho_default=
+    Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) "Default medium density";
+
+  final parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
     T=T_start,
     p=p_start,
     X=X_start) "Medium state at start values";
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+  final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
@@ -93,41 +116,45 @@ protected
         rotation=0,
         origin={-10,50})));
 
-  // For computing the density, we assume that the fan operates in the design flow direction.
-  Modelica.SIunits.Density rho_in = Medium.density(
-       Medium.setState_phX(port_a.p,
-                           inStream(port_a.h_outflow),
-                           inStream(port_a.Xi_outflow)))
-    "Density of inflowing fluid";
-
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal) "Pressure source"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+  Buildings.Fluid.Movers.BaseClasses.PowerInterface heaDis(
+    rho_default=rho_default) "Heat dissipation into medium"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
+                   addPowerToMedium "Heat and work input into medium"
+    annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-14,-90},{-34,-70}})));
 
+  Modelica.Blocks.Sources.RealExpression rho_inlet(y=
+    Medium.density(
+      Medium.setState_phX(port_a.p,
+                          inStream(port_a.h_outflow),
+                          inStream(port_a.Xi_outflow))))
+    "Density of the inflowing fluid"
+    annotation (Placement(transformation(extent={{-94,-60},{-74,-40}})));
+
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = Medium) "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-50,20},{-44,20},{-44,10},{-40,10}},
+      points={{-34,-80},{-42,-80},{-42,10},{-10,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-40,10},{-40,-80},{-60,-80}},
+      points={{-10,10},{-10,10},{-42,10},{-42,-80},{-60,-80}},
       color={191,0,0}));
-  connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,-5.55112e-16},{-32,
-          -5.55112e-16}},
-      color={0,127,255}));
-  connect(vol.ports[2], preSou.port_a) annotation (Line(
-      points={{-28,-5.55112e-16},{-5,-5.55112e-16},{-5,6.10623e-16},{20,
-          6.10623e-16}},
-      color={0,127,255}));
   connect(preSou.port_b, port_b) annotation (Line(
-      points={{40,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
+      points={{60,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
           5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -148,9 +175,28 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 
+  connect(PToMed.y, prePow.Q_flow) annotation (Line(points={{71,-70},{80,-70},{80,
+          -92},{0,-92},{0,-80},{-14,-80}}, color={0,0,127}));
+  connect(PToMed.u1, heaDis.Q_flow) annotation (Line(points={{48,-64},{44,-64},{
+          44,-50},{41,-50}}, color={0,0,127}));
+
+  connect(port_a, senMasFlo.port_a)
+    annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, vol.ports[1])
+    annotation (Line(points={{-50,0},{-2,0}}, color={0,127,255}));
+  connect(vol.ports[2], preSou.port_a)
+    annotation (Line(points={{2,0},{2,0},{40,0}}, color={0,127,255}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
+        Line(
+          points={{0,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,80},{100,80}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Line(
           visible=not filteredSpeed,
           points={{0,100},{0,40}}),
@@ -174,7 +220,7 @@ equation
           extent={{4,14},{34,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          visible=dynamicBalance,
+          visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199}),
         Rectangle(
           visible=filteredSpeed,
@@ -195,17 +241,20 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(extent={{64,98},{114,84}},
+          lineColor={0,0,127},
+          textString="P")}),
     Documentation(info="<html>
-<p>This is the base model for fans and pumps.
+<p>
+This is the base model for fans and pumps.
 It provides an interface
 between the equations that compute head and power consumption,
 and the implementation of the energy and pressure balance
 of the fluid.
 </p>
 <p>
-Depending on the value of
-the parameter <code>dynamicBalance</code>, the fluid volume
+Optionally, the fluid volume
 is computed using a dynamic balance or a steady-state balance.
 </p>
 <p>
@@ -221,6 +270,16 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 19, 2016, by Michael Wetter:<br/>
+Refactored model to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<br/>
+Removed the parameter <code>dynamicBalance</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">#411</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
@@ -258,6 +317,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialFlowMachine;

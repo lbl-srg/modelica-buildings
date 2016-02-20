@@ -5,7 +5,12 @@ model FlowControlled_dp
   final control_m_flow = false,
   preSou(dp_start=dp_start),
   final stageInputs(each final unit="Pa") = heads,
-  final constInput(final unit="Pa") = constantHead);
+  final constInput(final unit="Pa") = constantHead,
+  filter(
+     final y_start=dp_start,
+     u_nominal=abs(dp_nominal),
+     u(final unit="Pa"),
+     y(final unit="Pa")));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -54,39 +59,25 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={36,38})));
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=dp_start,
-     u_nominal=abs(dp_nominal),
-     x(each stateSelect=StateSelect.always),
-     u(final unit="Pa"),
-     y(final unit="Pa"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if filteredSpeed
-    "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,79},{30,93}})));
-
+        origin={36,30})));
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
-      points={{30.7,86},{36,86},{36,50}},
+      points={{34.7,88},{36,88},{36,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50}},
+      points={{1,50},{36,50},{36,42}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
 
   connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,86},{14.6,86}},
+      points={{1,50},{10,50},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(inputSwitch.u, dp_in) annotation (Line(
@@ -94,13 +85,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{36,8},{36,27}},
+      points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, dp_actual) annotation (Line(
-      points={{36,50},{110,50}},
+      points={{36,42},{36,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
+          14},{20,-10},{-38,-10},{-38,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>

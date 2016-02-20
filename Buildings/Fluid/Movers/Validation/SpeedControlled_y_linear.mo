@@ -6,7 +6,8 @@ model SpeedControlled_y_linear
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
   Modelica.Blocks.Sources.Ramp y(
     offset=1,
@@ -23,7 +24,6 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixDp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -41,8 +41,7 @@ model SpeedControlled_y_linear
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.01*dp_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                      sou2(
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal*0.01,
@@ -50,7 +49,6 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixM_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
@@ -79,10 +77,10 @@ equation
       points={{-42,50},{40,50}},
       color={0,127,255}));
   connect(y.y, pumFixDp.y) annotation (Line(
-      points={{-59,130},{50,130},{50,102}},
+      points={{-59,130},{49.8,130},{49.8,102}},
       color={0,0,127}));
   connect(y.y, pumFixM_flow.y) annotation (Line(
-      points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
+      points={{-59,130},{10,130},{10,70},{49.8,70},{49.8,62}},
       color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,

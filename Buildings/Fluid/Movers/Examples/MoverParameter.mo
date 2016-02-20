@@ -9,11 +9,12 @@ model MoverParameter
 
   FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
-    dynamicBalance=false,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
-    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump with m_flow input"
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump with m_flow input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -29,20 +30,21 @@ model MoverParameter
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
       speeds_rpm=1800*{0,0.5,1},
       constantSpeed_rpm=1800),
-    dynamicBalance=false,
     filteredSpeed=false,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with normalised speed input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
-    dynamicBalance=false,
     filteredSpeed=false,
     heads={0,0.5,1}*dp_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    dp_nominal=dp_nominal) "Pump with pressure head input"
+    dp_nominal=dp_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump with pressure head input"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
@@ -52,12 +54,13 @@ model MoverParameter
     annotation (Placement(transformation(extent={{26,-90},{46,-70}})));
   SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
-    dynamicBalance=false,
     filteredSpeed=false,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
       speeds_rpm={0,1000,2000},
       constantSpeed_rpm=2000),
-    inputType=Buildings.Fluid.Types.InputType.Constant) "Pump with speed input"
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   parameter Modelica.SIunits.PressureDifference dp_nominal=10000
     "Nominal pressure raise";

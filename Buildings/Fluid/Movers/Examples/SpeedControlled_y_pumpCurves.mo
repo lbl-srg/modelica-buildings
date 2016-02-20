@@ -12,7 +12,6 @@ model SpeedControlled_y_pumpCurves
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
                   dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";

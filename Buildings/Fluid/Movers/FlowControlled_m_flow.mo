@@ -5,7 +5,12 @@ model FlowControlled_m_flow
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
     final stageInputs(each final unit="kg/s")=massFlowRates,
-    final constInput(final unit="kg/s")=constantMassFlowRate);
+    final constInput(final unit="kg/s")=constantMassFlowRate,
+    filter(
+     final y_start=m_flow_start,
+     u_nominal=m_flow_nominal,
+     u(final unit="kg/s"),
+     y(final unit="kg/s")));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -47,39 +52,27 @@ model FlowControlled_m_flow
         iconTransformation(extent={{100,40},{120,60}})));
 
 protected
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=m_flow_start,
-     u_nominal=m_flow_nominal,
-     x(each stateSelect=StateSelect.always),
-     u(final unit="kg/s"),
-     y(final unit="kg/s"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
-    "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,81},{30,95}})));
-
+  Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium) "Head of fan"
+    annotation (Placement(transformation(extent={{34,-26},{46,-14}})));
 equation
   if filteredSpeed then
     connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,88},{14.6,88}},
+      points={{1,50},{10,50},{10,88},{18.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{30.7,88},{40,88},{40,50},{110,50}},
+      points={{34.7,88},{40,88},{40,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
-      points={{1,50},{24,50},{24,8}},
+      points={{1,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
     connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{40,50},{40,40},{24,40},{24,8}},
+      points={{110,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -87,6 +80,13 @@ equation
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(senRelPre.port_a, preSou.port_a) annotation (Line(points={{34,-20},{
+          20,-20},{20,0},{40,0}},
+                               color={0,127,255}));
+  connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{46,-20},{
+          60,-20},{60,0}},     color={0,127,255}));
+  connect(senRelPre.p_rel, eff.dp) annotation (Line(points={{40,-25.4},{40,-30},
+          {-36,-30},{-36,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(
    info="<html>
@@ -149,6 +149,6 @@ Revised implementation to allow zero flow rate.
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
           textString="%m_flow_nominal")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowControlled_m_flow;
