@@ -2,8 +2,7 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System1
   "First part of the system model, consisting of the room with heat transfer"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -61,8 +60,7 @@ This section describes step by step how we implemented the model.
 First, to define the medium properties, we added the declaration
 </p>
 <pre>
-  replaceable package MediumA =
-      Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air \"Medium for air\";
 </pre>
 <p>
 This will allow the propagation of the medium model to all models that contain air.

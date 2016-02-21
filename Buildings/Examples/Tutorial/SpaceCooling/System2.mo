@@ -2,11 +2,9 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System2
   "Second part of the system model with air supply and open loop control"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
 
-  replaceable package MediumW =
-      Buildings.Media.Water;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -263,8 +261,7 @@ As this model will also use water as the medium for the water-side
 of the cooling coil, we added the medium declaration
 </p>
 <pre>
-  replaceable package MediumW =
-    Buildings.Media.ConstantPropertyLiquidWater;
+  replaceable package MediumW = Buildings.Media.Water \"Medium for water\";
 </pre>
 </li>
 <li>
@@ -464,7 +461,7 @@ We leave the fan efficiency at its default value of <i>0.7</i>.
 We set the parameter
 </p>
 <pre>
-  dynamicBalance=false
+  energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
 </pre>
 <p>
 to configure the fan to be a steady-state model. This was done as we

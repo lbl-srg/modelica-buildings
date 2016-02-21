@@ -2,11 +2,9 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System3
   "Third part of the system model with air supply and closed loop control"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
 
-  replaceable package MediumW =
-      Buildings.Media.Water;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
