@@ -389,6 +389,18 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+     </td>
+     <td valign=\"top\">Removed the public variable <code>r_N</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.                        For Dymola, the conversion script will remove
+                        For Dymola, the conversion script removes
+                        assignments of <code>r_N(start)</code>.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.Data.FlowControlled
      </td>
      <td valign=\"top\">Removed the performance record <code>power</code> and the
@@ -402,7 +414,7 @@ its class name ends with the string <code>Beta</code>.
                         Hence, users should use the efficiency data for this model.
                         The record and parameter was moved to
                         <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
-                        as it makes sense to use it for the movers
+                        as they are also used for
                         <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
                         and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
      </td>
