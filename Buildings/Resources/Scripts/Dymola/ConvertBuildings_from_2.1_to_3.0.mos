@@ -103,3 +103,12 @@ convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
                  {"dynamicBalance=true"},
                  {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
                  true);
+
+// Remove r_N.start which is no longer a public variable in .Movers
+convertModifiers({"Buildings.Fluid.Movers.SpeedControlled_y",
+                  "Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+                  "Buildings.Fluid.Movers.FlowControlled_m_flow",
+                  "Buildings.Fluid.Movers.FlowControlled_dp"},
+                  {"r_N.start"},
+                  fill("", 0),
+                  true);
