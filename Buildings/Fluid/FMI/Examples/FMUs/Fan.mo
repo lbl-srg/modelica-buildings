@@ -5,7 +5,7 @@ block Fan "FMU declaration for a fixed resistance"
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
       final filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
