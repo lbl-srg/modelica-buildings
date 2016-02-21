@@ -60,7 +60,7 @@ equation
   connect(senMasFlo.m_flow, eff.m_flow) annotation (Line(points={{-60,-11},{-60,
           -30},{-40,-30},{-40,-56},{-32,-56}},                   color={0,0,127}));
   connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{18,-40},
-          {20,-40},{20,-54},{10,-54},{10,-54.2},{-9,-54.2}},
+          {-4,-40},{-4,-54},{-6,-54},{-6,-54},{-8,-54},{-8,-54.2},{-9,-54.2}},
                                                         color={0,0,127}));
   connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{10,-46},
           {10,-44},{10,-41},{-9,-41}},            color={0,0,127}));
@@ -70,7 +70,7 @@ equation
           -60},{12,-47},{-9,-47}},  color={0,0,127}));
   connect(eff.PEle, P) annotation (Line(points={{-9,-47},{12,-47},{12,-34},{90,-34},
           {90,80},{110,80}}, color={0,0,127}));
-  connect(eff.PEle, PToMed.u2) annotation (Line(points={{-9,-47},{12,-47},{12,-76},
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-9,-44},{0,-44},{0,-76},
           {48,-76}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>

@@ -48,7 +48,8 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput V_flow(
     quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{100,68},{120,88}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput dp(
     quantity="Pressure",
@@ -63,28 +64,32 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput PEle(
     quantity="Power",
     final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,0},{120,20}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput eta(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Overall efficiency"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
+        iconTransformation(extent={{100,-40},{120,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Motor efficiency"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 
   // "Shaft rotational speed";
   Real r_N(min=0, unit="1") "Ratio N_actual/N_nominal";
@@ -616,16 +621,16 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={
-        Text(extent={{56,88},{106,74}},
+        Text(extent={{56,66},{106,52}},
           lineColor={0,0,127},
           textString="dp"),
-        Text(extent={{56,36},{106,22}},
+        Text(extent={{56,8},{106,-6}},
           lineColor={0,0,127},
           textString="PEle"),
-        Text(extent={{50,8},{100,-6}},
+        Text(extent={{52,-22},{102,-36}},
           lineColor={0,0,127},
           textString="eta"),
-        Text(extent={{50,-36},{100,-50}},
+        Text(extent={{50,-52},{100,-66}},
           lineColor={0,0,127},
           textString="etaHyd"),
         Text(extent={{50,-72},{100,-86}},
@@ -678,10 +683,10 @@ equation
           smooth=Smooth.Bezier,
           origin={-43,-31},
           rotation=90),
-        Text(extent={{56,66},{106,52}},
+        Text(extent={{56,36},{106,22}},
           lineColor={0,0,127},
           textString="WFlo"),
-        Text(extent={{56,100},{106,86}},
+        Text(extent={{56,94},{106,80}},
           lineColor={0,0,127},
           textString="V_flow"),
         Line(

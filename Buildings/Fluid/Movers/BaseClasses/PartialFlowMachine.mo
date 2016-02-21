@@ -123,7 +123,9 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Movers.BaseClasses.PowerInterface heaDis(
-    rho_default=rho_default) "Heat dissipation into medium"
+    rho_default=rho_default)
+    if addPowerToMedium
+    "Heat dissipation into medium"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if

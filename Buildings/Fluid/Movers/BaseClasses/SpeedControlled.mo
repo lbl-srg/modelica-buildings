@@ -91,12 +91,12 @@ equation
           88},{18.6,88}}, color={0,0,127}));
   connect(y_actual, eff.y_actual) annotation (Line(points={{110,50},{72,50},{72,
           -30},{-38,-30},{-38,-44},{-32,-44}},    color={0,0,127}));
-  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{0,-40},{
-          0,-42},{0,-48},{0,-55},{-9,-55}},        color={0,0,127}));
+  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{0,-40},
+          {0,-42},{0,-48},{0,-56},{-9,-56}},       color={0,0,127}));
   connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{-4,-46},
-          {-4,-42},{-9,-42},{-9,-42.2}},
+          {-4,-42},{-4,-42},{-4,-41},{-9,-41}},
                                      color={0,0,127}));
-  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-9,-49},{14,-49},{14,
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-9,-50},{14,-50},{14,
           -60},{18,-60}}, color={0,0,127}));
   connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-9,-47},{-6,-47},{-6,
           -54},{18,-54}}, color={0,0,127}));
@@ -106,10 +106,11 @@ equation
           -50},{-32,-50}},                color={0,0,127}));
   connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-32,-56},{-60,
           -56},{-60,-18},{-60,-11}},               color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-9,-49},{14,-49},{14,-34},{92,-34},
-          {92,80},{110,80}}, color={0,0,127}));
-  connect(eff.PEle, PToMed.u2) annotation (Line(points={{-9,-49},{14,-49},{14,-76},
-          {48,-76}}, color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-9,-50},{14,-50},{14,-34},{92,
+          -34},{92,80},{110,80}},
+                             color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-9,-47},{-6,-47},{-6,
+          -76},{48,-76}}, color={0,0,127}));
  annotation (
    Documentation(info="<html>
 <p>
