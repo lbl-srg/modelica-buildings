@@ -52,7 +52,10 @@ equation
           visible=inputType == Buildings.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%normalized_speed")}),
+          textString="%normalized_speed"),
+        Text(extent={{64,68},{114,54}},
+          lineColor={0,0,127},
+          textString="y")}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.

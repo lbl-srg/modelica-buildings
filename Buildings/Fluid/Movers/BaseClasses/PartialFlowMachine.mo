@@ -123,9 +123,8 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Movers.BaseClasses.PowerInterface heaDis(
-    rho_default=rho_default)
-    if addPowerToMedium
-    "Heat dissipation into medium"
+    rho_default=rho_default) if
+       addPowerToMedium "Heat dissipation into medium"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
@@ -156,8 +155,7 @@ equation
       points={{-10,10},{-10,10},{-42,10},{-42,-80},{-60,-80}},
       color={191,0,0}));
   connect(preSou.port_b, port_b) annotation (Line(
-      points={{60,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
-          5.55112e-16}},
+      points={{60,0},{70,0},{70,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stageValues.y, extractor.u) annotation (Line(

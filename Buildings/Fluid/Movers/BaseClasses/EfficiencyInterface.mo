@@ -5,7 +5,7 @@ model EfficiencyInterface
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
-  replaceable parameter Data.FlowControlled per "Record with performance data"
+  parameter Data.FlowControlled per "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 

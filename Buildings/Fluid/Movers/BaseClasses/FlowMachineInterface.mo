@@ -5,8 +5,7 @@ model FlowMachineInterface
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
-  replaceable parameter Data.SpeedControlled_y per
-    constrainedby Data.SpeedControlled_y "Record with performance data"
+  parameter Data.SpeedControlled_y per "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 

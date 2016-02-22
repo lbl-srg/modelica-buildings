@@ -54,7 +54,7 @@ model FlowControlled_m_flow
 protected
   Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of fan"
-    annotation (Placement(transformation(extent={{34,-26},{46,-14}})));
+    annotation (Placement(transformation(extent={{45,-25},{55,-15}})));
 equation
   if filteredSpeed then
     connect(inputSwitch.y, filter.u) annotation (Line(
@@ -80,13 +80,13 @@ equation
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senRelPre.port_a, preSou.port_a) annotation (Line(points={{34,-20},{
+  connect(senRelPre.port_a, preSou.port_a) annotation (Line(points={{45,-20},{
           20,-20},{20,0},{40,0}},
                                color={0,127,255}));
-  connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{46,-20},{
-          60,-20},{60,0}},     color={0,127,255}));
-  connect(senRelPre.p_rel, eff.dp) annotation (Line(points={{40,-25.4},{40,-30},
-          {-36,-30},{-36,-44},{-32,-44}}, color={0,0,127}));
+  connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{55,-20},{80,
+          -20},{80,0},{60,0}}, color={0,127,255}));
+  connect(senRelPre.p_rel, eff.dp) annotation (Line(points={{50,-24.5},{50,-30},
+          {-35,-30},{-35,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(
    info="<html>

@@ -62,7 +62,16 @@ protected
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 
   FlowMachineInterface eff(
-    redeclare final parameter Data.SpeedControlled_y per = _per_y,
+    per(
+      final hydraulicEfficiency =     _per_y.hydraulicEfficiency,
+      final motorEfficiency =         _per_y.motorEfficiency,
+      final motorCooledByFluid =      _per_y.motorCooledByFluid,
+      final speed_nominal =           _per_y.speed_nominal,
+      final constantSpeed =           _per_y.constantSpeed,
+      final speeds =                  _per_y.speeds,
+      final pressure =                _per_y.pressure,
+      final use_powerCharacteristic = _per_y.use_powerCharacteristic,
+      final power =                   _per_y.power),
     final nOri = nOri,
     final rho_default=rho_default,
     final haveVMax=haveVMax,

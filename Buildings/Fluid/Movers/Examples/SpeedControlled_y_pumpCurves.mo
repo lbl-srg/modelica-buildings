@@ -6,29 +6,33 @@ model SpeedControlled_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+  // For OpenModelica, changed dp_nominal to a constant. Otherwise
+  // the compilation fails.
+  constant Modelica.SIunits.PressureDifference dp_nominal = 10000
     "Nominal pressure";
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
+    filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
-                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
+    per(
+      pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+               dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
 
-  pumpModel pum(filteredSpeed=false,
+  pumpModel pum(
     inputType=Buildings.Fluid.Types.InputType.Constant,
     per(constantSpeed=1)) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  pumpModel pum1(filteredSpeed=false,
+  pumpModel pum1(
     inputType=Buildings.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.5)) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
-  pumpModel pum2(filteredSpeed=false,
+  pumpModel pum2(
     inputType=Buildings.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.05)) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  pumpModel pum3(filteredSpeed=false,
+  pumpModel pum3(
     inputType=Buildings.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.01)) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));

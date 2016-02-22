@@ -8,13 +8,13 @@ model Power "Power calculation comparison among three mover types"
     "Nominal mass flow rate";
 
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   parameter Data.FlowControlled perMod(
     hydraulicEfficiency=efficiency,
     motorEfficiency=efficiency)
     "Pump performance data with data from the instance efficiency"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
   // Compute the actual efficiencies
   parameter
