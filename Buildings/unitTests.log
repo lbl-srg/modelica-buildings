@@ -1,21 +1,4 @@
-*** Warning: Regression tests are only run for 'Buildings.Examples.Tutorial.SpaceCooling'.
-*** Warning: SpaceCoolingSystem2.mat: cooCoi.sta_a2.T has absolute and relative error = 2.771e-01, 9.305e-04.
-             Maximum error is at t = 9180.0
+Script that runs unit tests had 0 warnings and 0 errors.
 
-*** Warning: SpaceCoolingSystem2.mat: cooCoi.sta_b2.T has absolute and relative error = 1.129e-02, 3.888e-05.
-             Maximum error is at t = 4644.0
-
-*** Warning: SpaceCoolingSystem2.mat: vol.T has absolute and relative error = 3.485e-01, 1.176e-03.
-             Maximum error is at t = 7236.0
-
-*** Warning: SpaceCoolingSystem3.mat: cooCoi.sta_a2.T has absolute and relative error = 1.226e+00, 4.143e-03.
-             Maximum error is at t = 15583104.0
-
-*** Warning: SpaceCoolingSystem3.mat: cooCoi.sta_b2.T has absolute and relative error = 7.332e+00, 2.472e-02.
-             Maximum error is at t = 15587424.0
-
-*** Warning: SpaceCoolingSystem3.mat: vol.T has absolute and relative error = 1.532e+00, 5.175e-03.
-             Maximum error is at t = 15583104.0
-
-Script that runs unit tests had 7 warnings and 0 errors.
+Unit tests completed successfully.
 

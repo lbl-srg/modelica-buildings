@@ -40,7 +40,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
@@ -96,7 +96,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
@@ -185,7 +185,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =

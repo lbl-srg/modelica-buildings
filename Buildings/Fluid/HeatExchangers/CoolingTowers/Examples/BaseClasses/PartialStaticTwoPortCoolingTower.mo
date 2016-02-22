@@ -22,7 +22,7 @@ partial model PartialStaticTwoPortCoolingTower
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
     filteredSpeed=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for chilled water loop"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
