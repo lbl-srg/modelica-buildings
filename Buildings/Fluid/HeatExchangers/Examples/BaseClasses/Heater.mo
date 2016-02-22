@@ -12,9 +12,9 @@ partial model Heater "Base class for example model for the heater and cooler"
     "Nominal heat loss of the room";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
     V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     mSenFac=2,
     nPorts=3)
