@@ -33,7 +33,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   /*--------------------------------------------------------------------------
   | Write data to CFD
   | Command:
-  | -1: feak data
+  | -1: fake data
   |  0: data has been read by the other program
   |  1: data waiting for the other program to read
   --------------------------------------------------------------------------*/
