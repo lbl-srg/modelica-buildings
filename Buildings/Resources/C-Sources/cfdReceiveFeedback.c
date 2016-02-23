@@ -20,7 +20,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 int cfdReceiveFeedback( ) {
   size_t i = 0, imax = 10000;
-  int flag;
 
   // Wait for the feedback from FFD
   while(cosim->para->flag==0 && i<imax) {
@@ -39,11 +38,10 @@ int cfdReceiveFeedback( ) {
     }
     else {
       ModelicaMessage("Successfully stopped the FFD simulation.\n");
-      flag = 0;
     }
   }
   else {
-    ModelicaError("Error: Cannot stop the FFD simulation in required time.\n");
+    ModelicaError("Error: Cannot stop the FFD simulation in required time.");
   }
 
   free(cosim->para);
@@ -51,5 +49,5 @@ int cfdReceiveFeedback( ) {
   free(cosim->ffd);
   free(cosim);
 
-  return flag;
+  return 0;
 } // End of cfdReceiveFeedback()
