@@ -25,9 +25,9 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
+int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
-  int i, j, k;
+  size_t i, j, k;
   int verbose = 0;
 
   /*--------------------------------------------------------------------------

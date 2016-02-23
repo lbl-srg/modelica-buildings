@@ -11,7 +11,7 @@ typedef struct ExternalObjectStructure
   /* array where the data are stored during the simulation */
   double* x;
   /* Number of element in the array */
-  int n;
+  size_t n;
 } ExternalObjectStructure;
 
 #endif
