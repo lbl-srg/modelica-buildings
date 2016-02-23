@@ -119,13 +119,11 @@ model HeatingCoolingHotwaterTimeSeries_dT
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default)) "Fluid connector a"
     annotation (Placement(transformation(extent={{-290,-10},{-270,10}}),
         iconTransformation(extent={{-300,-20},{-260,20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default)) "Fluid connector b"
     annotation (Placement(transformation(extent={{290,-10},{270,10}}),
         iconTransformation(extent={{298,-20},{258,20}})));
@@ -686,6 +684,19 @@ that are exposed by this model. These approximate the dynamics
 of the substation, and they also generally avoid nonlinear system
 of equations if multiple substations are connected to each other.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2016, by Michael Wetter:<br/>
+Removed the wrong attributes <code>port_a.m_flow.min</code> and <code>port_b.m_flow.max</code>,
+which were used by the solver and hence caused non-convergence.
+This is for Dassault SR 312338.
+</li>
+<li>
+December 1, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(extent={{-280,-280},{280,280}}, preserveAspectRatio=false),
                                                            graphics={
