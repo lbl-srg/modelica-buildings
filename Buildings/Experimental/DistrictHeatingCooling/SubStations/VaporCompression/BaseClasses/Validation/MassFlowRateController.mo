@@ -53,7 +53,7 @@ equation
           {-26,-54},{-12,-54}}, color={0,0,127}));
   annotation(experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/BaseClasses/Validation/MassFlowRateController.mos"
-        "Simulate and plot", file="plot.mos" "plot.mos"),
+        "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
