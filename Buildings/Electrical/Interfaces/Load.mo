@@ -12,7 +12,7 @@ model Load "Partial model for a generic load"
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 
-  parameter Modelica.SIunits.Power P_nominal=0
+  parameter Modelica.SIunits.Power P_nominal(start=0)
     "Nominal power (negative if consumed, positive if generated)"
     annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
@@ -77,9 +77,6 @@ initial equation
   if mode == Buildings.Electrical.Types.Load.VariableZ_P_input then
     assert(abs(P_nominal) < 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + ", but this value will be ignored.",
            AssertionLevel.warning);
-  else
-    assert(abs(P_nominal) > 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + " is close to zero. You may require to set this parameter.",
-           AssertionLevel.warning);
   end if;
 
 equation
@@ -119,6 +116,14 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+February 25, 2016, by Michael Wetter:<br/>
+Set <code>start</code> value rather than default value for <code>P_nominal</code>,
+and removed assertion warning.
+This is required for pedantic model check in Dymola.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if
