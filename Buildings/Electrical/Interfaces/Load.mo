@@ -12,8 +12,8 @@ model Load "Partial model for a generic load"
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modelling assumption"));
 
-  parameter Modelica.SIunits.Power P_nominal(start=0)
-    "Nominal power (negative if consumed, positive if generated)"
+  parameter Modelica.SIunits.Power P_nominal = 0
+    "Nominal power (negative if consumed, positive if generated). Used if mode <> Buildings.Electrical.Types.Load.VariableZ_P_input"
     annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
 
@@ -117,8 +117,8 @@ equation
   annotation ( Documentation(revisions="<html>
 <ul>
 <li>
-February 25, 2016, by Michael Wetter:<br/>
-Set <code>start</code> value rather than default value for <code>P_nominal</code>,
+February 26, 2016, by Michael Wetter:<br/>
+Set default value for <code>P_nominal</code>
 and removed assertion warning.
 This is required for pedantic model check in Dymola.
 This is for
