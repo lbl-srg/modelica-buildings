@@ -119,19 +119,19 @@ partial model BaseImpedance
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to grounded wye connection"
     annotation (Placement(transformation(extent={{-64,-20},{-44,0}})));
+protected
+  Interfaces.Adapter3to3 adaDel if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    "Adapter"
+    annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
+  Interfaces.Adapter3to3 adaWye if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    "Adapter"
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation
 
   // Conditional connections to load 1
   if plugPhase1 then
-    connect(wyeToWyeGround.wyeg.phase[1], load1.terminal) annotation (Line(
-      points={{-44,-10},{-20,-10},{-20,40},{-10,40}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-    connect(wyeToDelta.delta.phase[1], load1.terminal) annotation (Line(
-        points={{-44,10},{-36,10},{-36,40},{-10,40}},
-        color={0,120,120},
-        smooth=Smooth.None));
     if use_R_in then
       connect(y_R, load1.y_R) annotation (Line(
       points={{-40,100},{-40,60},{-4,60},{-4,50}},
@@ -153,15 +153,6 @@ equation
   end if;
   // Conditional connections to load 2
   if plugPhase2 then
-    connect(wyeToWyeGround.wyeg.phase[2], load2.terminal) annotation (Line(
-      points={{-44,-10},{-20,-10},{-20,0},{-10,0}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-    connect(wyeToDelta.delta.phase[2], load2.terminal) annotation (Line(
-        points={{-44,10},{-36,10},{-36,0},{-10,0}},
-        color={0,120,120},
-        smooth=Smooth.None));
     if use_R_in then
       connect(y_R, load2.y_R) annotation (Line(
       points={{-40,100},{-40,20},{-4,20},{-4,10}},
@@ -184,15 +175,6 @@ equation
 
   // Conditional connections to load 3
   if plugPhase3 then
-    connect(wyeToWyeGround.wyeg.phase[3], load3.terminal) annotation (Line(
-      points={{-44,-10},{-20,-10},{-20,-40},{-10,-40}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-    connect(wyeToDelta.delta.phase[3], load3.terminal) annotation (Line(
-        points={{-44,10},{-36,10},{-36,-40},{-10,-40}},
-        color={0,120,120},
-        smooth=Smooth.None));
     if use_R_in then
       connect(y_R, load3.y_R) annotation (Line(
       points={{-40,100},{-40,-20},{-4,-20},{-4,-30}},
@@ -212,6 +194,36 @@ equation
         smooth=Smooth.None));
     end if;
   end if;
+
+  // Connection of the single loads to the 3phases connector
+  if plugPhase1 then
+    connect(load1.terminal, adaDel.terminals[1]) annotation (Line(points={{-10,40},
+            {-26,40},{-26,-40.5333},{-40,-40.5333}},
+                                                   color={0,120,120}));
+    connect(load1.terminal, adaWye.terminals[1]) annotation (Line(points={{-10,40},
+            {-26,40},{-26,-70.5333},{-40,-70.5333}},
+                                                   color={0,120,120}));
+  end if;
+
+  if plugPhase2 then
+    connect(load2.terminal, adaDel.terminals[2]) annotation (Line(points={{-10,0},
+            {-22,0},{-22,-40},{-40,-40}}, color={0,120,120}));
+    connect(load2.terminal, adaWye.terminals[2]) annotation (Line(points={{-10,0},
+            {-22,0},{-22,-70},{-40,-70}}, color={0,120,120}));
+  end if;
+  if plugPhase3 then
+    connect(load3.terminal, adaDel.terminals[3]) annotation (Line(points={{-10,-40},
+            {-20,-40},{-20,-40},{-30,-40},{-30,-39.4667},{-40,-39.4667}},
+                                                              color={0,120,120}));
+    connect(load3.terminal, adaWye.terminals[3]) annotation (Line(points={{-10,-40},
+            {-20,-40},{-20,-69.4667},{-40,-69.4667}},
+                                                    color={0,120,120}));
+  end if;
+
+  connect(adaDel.terminal, wyeToDelta.delta) annotation (Line(points={{-60,-40},
+          {-64,-40},{-64,-20},{-28,-20},{-28,10},{-44,10}}, color={0,120,120}));
+  connect(adaWye.terminal, wyeToWyeGround.wyeg) annotation (Line(points={{-60,-70},
+          {-66,-70},{-66,-18},{-30,-18},{-30,-10},{-44,-10}}, color={0,120,120}));
 
   annotation (    Documentation(info="<html>
 <p>
@@ -246,6 +258,11 @@ be used to specify time varying impedances.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Added adapters for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Created model from previus version.

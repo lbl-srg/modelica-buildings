@@ -21,15 +21,15 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
 equation
 
   connect(vPhase[1].terminal, terminal.phase[1]) annotation (Line(
-      points={{-10,6.66134e-16},{20,6.66134e-16},{20,0},{100,0}},
+      points={{-10,0},{20,0},{20,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(vPhase[2].terminal, terminal.phase[2]) annotation (Line(
-      points={{-10,6.66134e-16},{10,6.66134e-16},{10,0},{100,0}},
+      points={{-10,0},{10,0},{10,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(vPhase[3].terminal, terminal.phase[3]) annotation (Line(
-      points={{-10,6.66134e-16},{100,6.66134e-16}},
+      points={{-10,0},{45,0},{45,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (

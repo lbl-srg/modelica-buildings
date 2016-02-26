@@ -1,5 +1,6 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces;
-model Connection3to3Ground_p "Adapter between Terminal4 (3 phases and ground) and Terminal3 P"
+model Connection3to3Ground_p
+  "Adapter between Terminal4 (3 phases and ground) and Terminal3 P"
 
   Terminal_p terminal4 "Connector with neutral" annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));

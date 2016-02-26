@@ -17,20 +17,16 @@ model FixedVoltage "Fixed voltage source"
     definiteReference={definiteReference, false, false},
     phiSou={phiSou,phiSou - angle120,phiSou + angle120},
     each V=V/sqrt(3)) "Voltage sources on the three-phase"
-             annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+             annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+protected
+  Interfaces.Adapter3to3 ada "Adapter between the different connectors"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  connect(vPhase[1].terminal, connection3to4.terminal4.phase[1]) annotation (Line(
-      points={{-10,6.66134e-16},{20,6.66134e-16},{20,0},{40,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(vPhase[2].terminal, connection3to4.terminal4.phase[2]) annotation (Line(
-      points={{-10,6.66134e-16},{10,6.66134e-16},{10,0},{40,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(vPhase[3].terminal, connection3to4.terminal4.phase[3]) annotation (Line(
-      points={{-10,6.66134e-16},{40,6.66134e-16}},
-      color={0,120,120},
-      smooth=Smooth.None));
+
+  connect(vPhase.terminal, ada.terminals)
+    annotation (Line(points={{-30,0},{-20,0},{-10,0}}, color={0,120,120}));
+  connect(ada.terminal, connection3to4.terminal4)
+    annotation (Line(points={{10,0},{25,0},{40,0}}, color={0,120,120}));
   annotation (
   defaultComponentName="sou",
  Icon(graphics={
@@ -70,6 +66,11 @@ Explain, or provide a link to an explanation, for the parameters *Reference.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Added adapter model for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.
