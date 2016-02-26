@@ -11,6 +11,7 @@ model PVSimple "Simple PV model"
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final pf=pf,
     final V_nominal=V_nominal,
+    final P_nominal = 0,
     final linearized=linearized) "Load model"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
@@ -71,6 +72,12 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+In load, set <code>P_nominal = 0</code> as it is not used.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Removed binding of <code>P_nominal</code> as

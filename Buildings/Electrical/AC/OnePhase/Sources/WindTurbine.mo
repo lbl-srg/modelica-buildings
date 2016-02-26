@@ -12,7 +12,8 @@ model WindTurbine "Simple wind turbine model"
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Capacitive load(
     final mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final pf=pf,
-    V_nominal=V_nominal) "Load model"
+    final P_nominal=0,
+    final V_nominal=V_nominal) "Load model"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 protected
   Modelica.Blocks.Math.Gain gain_DCAC(final k=eta_DCAC) annotation (Placement(
@@ -72,6 +73,12 @@ Below and above these wind speeds, the generated power is zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+In load, set <code>P_nominal = 0</code> as it is not used.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.
