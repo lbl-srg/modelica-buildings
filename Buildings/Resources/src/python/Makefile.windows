@@ -4,8 +4,10 @@
 # Makefile to compile Python interface
 # Thierry S. Nouidui (TSNouidui@lbl.gov) March 27, 2013
 # Updated on February 03, 2016. Support for 64 bit compilation.
+# Updated on February 25, 2016. Support for 64 bit disabled because of
+# runtime failures caused by the used of Py_DECREF in the pythonInterpreter.c.
 
-############## NOTES #######################
+############## NOTES ########################################
 # To compile the libraries, we need to have gcc and lib.exe.
 # gcc can be found in the distribution of MINGW. Use the 32 or 64 bit
 # depending on the target operating system.
@@ -13,8 +15,10 @@
 # lib.exe is available in Microsoft Visual Studio.
 # We also need to have the Python sources and python libraries
 # The correct sources will be picked up depending on the target machine
-
-#######################################################
+# The current code can compile libraries for Window 64 bit. However, this compilation
+# has been disabled as the compiled library cannot be run because of an issue with Py_DECREF.
+# If Py_DECREF is used in pythonInterpreter.c code then the code will crash on Windows 64bit machine.
+############################################################
 
 # Define Python sources and libraries.
 PYTHONSrc=C:/Python27/include
@@ -23,10 +27,10 @@ PYTHONLibs=C:/Python27/libs
 ## Compilation flags
 CC_FLAGS += -D WIN32
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-
   CC_FLAGS = -I$(PYTHONSrc)
+  $(error Windows 64bit compilation is not supported yet.  Py_DECREF in pythonInterpreter.c does not work on Windows 64bit)
   # Directory where executable will be copied
-  BINDIR = ..\..\Library\win64
+  # BINDIR = ..\..\Library\win64
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
   CC_FLAGS += -D IA32 -Wall -I$(PYTHONSrc)
