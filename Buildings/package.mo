@@ -536,7 +536,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.exchange
        </td>
        <td valign=\"top\">Updated Python implementation to allow compiling code
-                          in 64 bit. Previously, on Linux a segmentation fault
+                          on 64 bit Linux. Previously, on Linux a segmentation fault
                           occurred during run-time if 64 bit code rather than
                           32 bit code was generated. This is now corrected.
                           This closes
