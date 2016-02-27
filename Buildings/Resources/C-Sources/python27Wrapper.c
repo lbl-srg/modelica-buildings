@@ -19,11 +19,11 @@
 
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,
-                          const double * dblValWri, int nDblWri,
-                          double * dblValRea, int nDblRea,
-                          const int * intValWri, int nIntWri,
-                          int * intValRea, int nIntRea,
-                          const char ** strValWri, int nStrWri)
+                          const double * dblValWri, size_t nDblWri,
+                          double * dblValRea, size_t nDblRea,
+                          const int * intValWri, size_t nIntWri,
+                          int * intValRea, size_t nIntRea,
+                          const char ** strValWri, size_t nStrWri)
 {
   pythonExchangeValuesNoModelica(
    moduleName,
