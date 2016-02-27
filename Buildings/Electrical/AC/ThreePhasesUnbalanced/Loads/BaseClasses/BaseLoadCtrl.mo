@@ -6,12 +6,12 @@ partial model BaseLoadCtrl
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
     "Type of load connection (Yg or D)";
   parameter Boolean linearized = false
-    "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
+    "If =true introduce a linearization in the load" annotation(Dialog(group="Modeling assumption"));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
-    dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
+    dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modeling assumption"));
 
   parameter Modelica.SIunits.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated)"

@@ -16,7 +16,7 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
   Modelica.SIunits.Voltage Vc[2](start = Vc_start, each stateSelect=StateSelect.prefer)
     "Voltage of the Capacitance located in the middle of the line";

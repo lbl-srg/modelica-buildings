@@ -5,12 +5,12 @@ model Load "Partial model for a generic load"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
   parameter Boolean linearized = false "If true, the load model is linearized"
-    annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+    annotation(Evaluate=true,Dialog(group="Modeling assumption"));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 
   parameter Modelica.SIunits.Power P_nominal = 0
     "Nominal power (negative if consumed, positive if generated). Used if mode <> Buildings.Electrical.Types.Load.VariableZ_P_input"
