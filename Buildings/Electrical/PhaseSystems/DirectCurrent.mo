@@ -11,7 +11,7 @@ package DirectCurrent "DC system"
 
 
  redeclare function extends rotate
-  "Rotate a vector of an angle Theta (anti-counterclock)"
+  "Rotate a vector of an angle theta (anti-counterclock)"
  algorithm
     y[n] := x[n];
     annotation(Inline=true);
