@@ -57,7 +57,8 @@ equation
           textString="V = %V")}),
       Documentation(info="<html>
 <p>
-This is a constant voltage source. The complex voltage is specified by the RMS voltage and the phase shift.
+This is a constant voltage source. The complex voltage is specified by the RMS voltage
+and the phase shift.
 </p>
 </html>",
  revisions="<html>
