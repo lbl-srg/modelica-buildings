@@ -6,6 +6,7 @@ Delays
 FMI
 FixedResistances
 HeatExchangers
+HeatPumps
 MassExchangers
 MixingVolumes
 Movers

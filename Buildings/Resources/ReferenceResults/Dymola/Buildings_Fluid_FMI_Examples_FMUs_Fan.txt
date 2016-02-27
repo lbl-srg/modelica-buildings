@@ -1,4 +1,4 @@
-last-generated=2015-11-05
+last-generated=2016-02-12
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -40,25 +40,14 @@ statistics-fmu-dependencies=
     "inlet.backward.T": [
       "inlet.m_flow", 
       "inlet.p", 
-      "inlet.forward.T", 
-      "inlet.forward.X_w", 
       "outlet.backward.T", 
       "outlet.backward.X_w", 
-      "com.p_start", 
-      "com.T_start", 
-      "com.X_start[1]", 
-      "com.X_start[2]", 
-      "com.tau", 
       "com.per.hydraulicEfficiency.V_flow[1]", 
       "com.per.hydraulicEfficiency.eta[1]", 
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
       "com.per.motorCooledByFluid", 
-      "com.riseTime", 
-      "com.init", 
-      "com.dp_nominal", 
       "m_flow_nominal", 
-      "dp_nominal", 
       "dp_in"
     ], 
     "EventCounter": [], 
@@ -70,23 +59,12 @@ statistics-fmu-dependencies=
       "inlet.p", 
       "inlet.forward.T", 
       "inlet.forward.X_w", 
-      "outlet.backward.T", 
-      "outlet.backward.X_w", 
-      "com.p_start", 
-      "com.T_start", 
-      "com.X_start[1]", 
-      "com.X_start[2]", 
-      "com.tau", 
       "com.per.hydraulicEfficiency.V_flow[1]", 
       "com.per.hydraulicEfficiency.eta[1]", 
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
       "com.per.motorCooledByFluid", 
-      "com.riseTime", 
-      "com.init", 
-      "com.dp_nominal", 
       "m_flow_nominal", 
-      "dp_nominal", 
       "dp_in"
     ], 
     "outlet.forward.X_w": [

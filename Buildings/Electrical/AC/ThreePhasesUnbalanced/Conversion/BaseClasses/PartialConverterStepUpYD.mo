@@ -9,6 +9,11 @@ partial model PartialConverterStepUpYD "Model of a transformer with Y connection
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta delta_to_wye
     "Delta to wye connection"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+protected
+  Interfaces.Adapter3to3 ada3to3_n "Adapter for connections"
+    annotation (Placement(transformation(extent={{-30,-10},{-50,10}})));
+  Interfaces.Adapter3to3 ada3to3_p "Adapter for connections"
+    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 equation
 
   connect(delta_to_wye.wye, terminal_p) annotation (Line(
@@ -21,34 +26,30 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
 
-  connect(wye_to_wyeg.wyeg.phase[1], conv1.terminal_n) annotation (Line(
-      points={{-62,0},{-38,0},{-38,52},{-10,52}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(wye_to_wyeg.wyeg.phase[2], conv2.terminal_n) annotation (Line(
-      points={{-62,0},{-10,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(wye_to_wyeg.wyeg.phase[3], conv3.terminal_n) annotation (Line(
-      points={{-62,0},{-38,0},{-38,-60},{-10,-60}},
-      color={0,120,120},
-      smooth=Smooth.None));
-
-  connect(delta_to_wye.delta.phase[1], conv2.terminal_p) annotation (Line(
-      points={{60,4.44089e-16},{36,4.44089e-16},{36,0},{10,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(delta_to_wye.delta.phase[2], conv3.terminal_p) annotation (Line(
-      points={{60,4.44089e-16},{36,4.44089e-16},{36,-60},{10,-60}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(delta_to_wye.delta.phase[3], conv1.terminal_p) annotation (Line(
-      points={{60,4.44089e-16},{36,4.44089e-16},{36,52},{10,52}},
-      color={0,120,120},
-      smooth=Smooth.None));
-
+  connect(conv1.terminal_n,ada3to3_n. terminals[1]) annotation (Line(points={{-10,52},
+          {-20,52},{-20,-0.533333},{-30,-0.533333}},     color={0,0,0}));
+  connect(conv2.terminal_n,ada3to3_n. terminals[2])
+    annotation (Line(points={{-10,0},{-26,0},{-30,0}}, color={0,0,0}));
+  connect(conv3.terminal_n,ada3to3_n. terminals[3]) annotation (Line(points={{-10,-60},
+          {-20,-60},{-20,0.533333},{-30,0.533333}},      color={0,0,0}));
+  connect(wye_to_wyeg.wyeg, ada3to3_n.terminal)
+    annotation (Line(points={{-62,0},{-56,0},{-50,0}}, color={0,120,120}));
+  connect(conv1.terminal_p, ada3to3_p.terminals[3]) annotation (Line(points={{10,52},
+          {20,52},{20,0.533333},{26,0.533333}},     color={0,0,0}));
+  connect(conv2.terminal_p, ada3to3_p.terminals[1]) annotation (Line(points={{10,0},{
+          28,0},{28,-0.533333},{26,-0.533333}},     color={0,0,0}));
+  connect(conv3.terminal_p, ada3to3_p.terminals[2]) annotation (Line(points={{10,
+          -60},{10,-60},{16,-60},{16,-60},{20,-60},{20,0},{26,0},{26,0}}, color=
+         {0,0,0}));
+  connect(ada3to3_p.terminal, delta_to_wye.delta)
+    annotation (Line(points={{46,0},{53,0},{60,0}}, color={0,120,120}));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Added adapter for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.

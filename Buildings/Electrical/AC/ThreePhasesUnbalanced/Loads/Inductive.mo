@@ -13,7 +13,7 @@ model Inductive
       use_pf_in=use_pf_in));
   parameter Boolean use_pf_in = false
     "If true, the power factor is defined by an input"
-    annotation(Dialog(group="Modelling assumption"));
+    annotation(Dialog(group="Modeling assumption"));
   parameter Real pf(min=0, max=1) = 0.8 "Power factor"
   annotation(Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput pf_in_1(

@@ -132,16 +132,27 @@ its class name ends with the string <code>Beta</code>.
        annotation (Documentation(info="<html>
    <p>
    Version 3.0.0 is a major new release. The option to model electrochromic windows has
-   been added.
+   been added. The models in <code>Buildings.Fluid.Movers</code> have been refactored
+   to make their implementation clearer.
+   Various models in particular in the <code>Buildings.Electrical</code>
+   package were reformulated to comply with the Modelica Language Definition.
    </p>
    <!-- New libraries -->
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps
        </td>
-       <td valign=\"top\">xxx
+       <td valign=\"top\">Library with heat pump models.
+                          This library contains models for idealized heat pumps
+                          whose COP changes proportional to the change in COP of a Carnot cycle.
+                          Optionally, a part load efficiency curve can be specified.
+                          The model <code>Buildings.Fluid.HeatPumps.Carnot_TCon</code>
+                          takes as a control input the leaving
+                          condenser fluid temperature, and the model
+                          <code>Buildings.Fluid.HeatPumps.Carnot_y</code> takes as
+                          a control signal the compressor speed.
        </td>
        </tr>
    </table>
@@ -158,6 +169,34 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Block that computes the length of a shadow projected onto a horizontal plane
                           into the direction that is perpendicular to the azimuth of a surface.
+       </td>
+       </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Adapter3to3<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_n<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_p
+       </td>
+       <td valign=\"top\">Adapters for unbalanced three phase systems which are required because
+                        the previous formulation used connect statements that violate the Modelica
+                        Language Definition. This change was required to enable pedantic model check and translation
+                        in Dymola 2016 FD01.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/426\">#426</a>.
+       </td>
+       </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva
+       </td>
+       <td valign=\"top\">Chiller model whose efficiency changes with temperatures
+                          similarly to a change in Carnot efficiency. The control input signal
+                          is the evaporator leaving fluid temperature.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60, #353</a>.
        </td>
        </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
@@ -342,6 +381,18 @@ its class name ends with the string <code>Beta</code>.
                         For Dymola, the conversion script updates the model for these changes.
      </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+     </td>
+     <td valign=\"top\">Renamed the model to  <code>Buildings.Fluid.Chillers.Carnot_y</code>
+                        due to the addition of the new model <code>Buildings.Fluid.Chillers.Carnot_TEva</code>.
+                        In addition, the following parameter names were changed:
+                        <code>use_eta_Carnot</code> was changed to <code>use_eta_Carnot_nominal</code>, and
+                        <code>etaCar</code> was changed to <code>etaCarnot_nominal</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60 issue 353</a>.
+                        For Dymola, the conversion script removes these parameters.
+     </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                           Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
@@ -353,6 +404,18 @@ its class name ends with the string <code>Beta</code>.
                         This is for issue
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">#457</a>.
                         For Dymola, the conversion script removes these parameters.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
+     </td>
+     <td valign=\"top\">Removed the public variable <code>r_N</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.                        For Dymola, the conversion script will remove
+                        For Dymola, the conversion script removes
+                        assignments of <code>r_N(start)</code>.
      </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
@@ -370,11 +433,21 @@ its class name ends with the string <code>Beta</code>.
                         Hence, users should use the efficiency data for this model.
                         The record and parameter was moved to
                         <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
-                        as it makes sense to use it for the movers
+                        as they are also used for
                         <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
                         and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
      </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm
+     </td>
+     <td valign=\"top\">Changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">Annex 60 issue 396</a>.
+                        For Dymola, the conversion script updates this parameter.
+     </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
      </td>
      <td valign=\"top\">Renamed the protected parameters

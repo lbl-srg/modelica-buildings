@@ -16,7 +16,7 @@ model RelativePressure "Ideal relative pressure sensor"
     "Fluid connector of stream b"
     annotation (Placement(transformation(extent={{110,-12},{90,8}}), iconTransformation(extent={{110,-10},{90,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
+  Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="PressureDifference",
                                               final unit="Pa",
                                               displayUnit="Pa")
     "Relative pressure of port_a minus port_b" annotation (Placement(transformation(
@@ -69,6 +69,17 @@ through the sensor is allowed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 19, 2016, by Michael Wetter:<br/>
+Corrected the quantity of the output signal from <code>Pressure</code>
+to <code>PressureDifference</code>.
+This was needed for the model
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+when revising it for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">
+issue 417</a>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.

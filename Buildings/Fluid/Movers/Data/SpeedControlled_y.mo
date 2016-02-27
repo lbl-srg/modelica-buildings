@@ -3,6 +3,15 @@ record SpeedControlled_y
   "Generic data record for pumps and fans that take y as an input signal"
   extends FlowControlled;
 
+  parameter Real speed_nominal(final min=0, final unit="1") = 1
+    "Nominal rotational speed for flow characteristic";
+
+  parameter Real constantSpeed(final min=0, final unit="1") = speed_nominal
+    "Normalized speed set point when using inputType = Buildings.Fluid.Types.InputType.Constant";
+
+  parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
+    "Vector of normalized speed set points when using inputType = Buildings.Fluid.Types.InputType.Stages";
+
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
@@ -18,45 +27,6 @@ record SpeedControlled_y
     "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
    annotation (Dialog(enable=use_powerCharacteristic));
 
-  /*
-  This does not translate in OpenModelica (even if FlowControlled is copied
-  into this model rather than extended).
-
-  parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(
-      V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then
-       {sqrt(power.V_flow[i]*pressure.dp[i]/
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
-          per=power,
-          V_flow=power.V_flow[i],
-          r_N=1,
-          delta=0.01,
-          d=Buildings.Utilities.Math.Functions.splineDerivatives(
-          x=power.V_flow,
-          y=power.P))
-          ) for i in 1:size(power.V_flow, 1)}
-       else {0.7 for i in 1:size(power.V_flow, 1)}) "Hydraulic efficiency";
-
-   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(V_flow=power.V_flow,
-      eta=if use_powerCharacteristic then
-        sqrt(power.V_flow.*pressure.dp./
-        {Buildings.Fluid.Movers.BaseClasses.Characteristics.power(
-          per=power,
-          V_flow=i,
-          r_N=1,
-          delta=0.01,
-          d=Buildings.Utilities.Math.Functions.splineDerivatives(
-          x=power.V_flow,
-          y=power.P))
-          for i in power.V_flow})
-          else
-          {0.7 for i in power.V_flow}) "Electric motor efficiency";
-*/
-
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
@@ -71,7 +41,7 @@ declaration such as
 </p>
 <pre>
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-      redeclare package Medium = Medium,
+    redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                    dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
 </pre>
@@ -91,6 +61,14 @@ Buildings.Fluid.Movers.Data.Generic_Nrpm</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Added parameters <code>speed_nominal</code> and
+<code>speeds</code>. This was done to have the same structure as
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</a>
+as the only difference in these two records are the units.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised record for OpenModelica.

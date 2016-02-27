@@ -1,3 +1,4 @@
+EfficiencyInterface
 FlowControlled
 FlowMachineInterface
 IdealSource
@@ -5,3 +6,4 @@ PartialFlowMachine
 PowerInterface
 SpeedControlled
 Characteristics
+Validation

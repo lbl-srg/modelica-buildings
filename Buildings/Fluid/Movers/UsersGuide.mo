@@ -331,7 +331,7 @@ is used for convenience to set a default value for the parameters
 <code>massFlowRates</code>.
 For both models, the value is also used to compute the
 size of the fluid volume that can be used to approximate the
-inertia of the mover (if <code>dynamicBalance == true</code>).
+inertia of the mover if the energy dynamics is selected to be dynamic.
 It is also used for regularization of the equations near zero flow rate.
 However, otherwise it does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.

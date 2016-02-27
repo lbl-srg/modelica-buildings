@@ -1,42 +1,28 @@
 within Buildings.Fluid.Movers.BaseClasses;
-model FlowControlled
+partial model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
-
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+   heaDis(final motorCooledByFluid = per.motorCooledByFluid,
+          final delta_V_flow = 1E-3*V_flow_max),
    preSou(final control_m_flow=control_m_flow));
-
-  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-    final motorCooledByFluid=per.motorCooledByFluid,
-    delta_V_flow = 1E-3*V_flow_max,
-    final rho_default = Medium.density(sta_default),
-    etaHyd = cha.efficiency(
-      per=per.hydraulicEfficiency,
-      V_flow=VMachine_flow,
-      d=hydDer,
-      r_N=1,
-      delta=1E-4),
-    etaMot = cha.efficiency(
-      per=per.motorEfficiency,
-      V_flow=VMachine_flow,
-      d=motDer,
-      r_N=1,
-      delta=1E-4),
-    eta = etaHyd * etaMot,
-    dpMachine= -dp,
-    VMachine_flow = port_a.m_flow/rho_in,
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   // Quantity to control
   constant Boolean control_m_flow "= false to control head instead of m_flow";
 
-  replaceable parameter Data.FlowControlled per "Record with performance data"
+  replaceable parameter Data.FlowControlled per
+    constrainedby Data.FlowControlled "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+      Placement(transformation(extent={{60,60},{80,80}})));
 
-  Real r_V(start=1) = VMachine_flow/V_flow_max
-    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
+  Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
+  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
+      -eff.dp "Pressure difference";
+
+  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
+  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
 
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
@@ -50,50 +36,57 @@ protected
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
- // Derivatives for cubic spline
-  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
+  Modelica.Blocks.Continuous.Filter filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     final init=init,
+     x(each stateSelect=StateSelect.always),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        filteredSpeed
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if addPowerToMedium
-    "Heat and work input into medium"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-
-initial equation
-   // Compute derivatives for cubic spline
- motDer = if (size(per.motorEfficiency.V_flow, 1) == 1)
-          then
-            {0}
-          else
-            Buildings.Utilities.Math.Functions.splineDerivatives(
-              x=per.motorEfficiency.V_flow,
-              y=per.motorEfficiency.eta,
-              ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-                x=per.motorEfficiency.eta,
-                strict=false));
-
-  hydDer = if (size(per.hydraulicEfficiency.V_flow, 1) == 1)
-           then
-             {0}
-           else
-             Buildings.Utilities.Math.Functions.splineDerivatives(
-               x=per.hydraulicEfficiency.V_flow,
-               y=per.hydraulicEfficiency.eta);
-
+  Buildings.Fluid.Movers.BaseClasses.EfficiencyInterface eff(
+    per(
+      final hydraulicEfficiency = per.hydraulicEfficiency,
+      final motorEfficiency =     per.motorEfficiency,
+      final motorCooledByFluid =  per.motorCooledByFluid))
+    "Flow machine interface"
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 equation
-  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
-      points={{-79,20},{-70,20}},
-      color={0,0,127}));
+  connect(eff.rho, rho_inlet.y) annotation (Line(points={{-32,-50},{-32,-50},{-73,
+          -50}},                color={0,0,127}));
+  connect(senMasFlo.m_flow, eff.m_flow) annotation (Line(points={{-60,-11},{-60,
+          -30},{-40,-30},{-40,-56},{-32,-56}},                   color={0,0,127}));
+  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{18,-40},
+          {-4,-40},{-4,-54},{-6,-54},{-6,-54},{-8,-54},{-8,-54.2},{-9,-54.2}},
+                                                        color={0,0,127}));
+  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{10,-46},
+          {10,-44},{10,-41},{-9,-41}},            color={0,0,127}));
+  connect(heaDis.WFlo, eff.WFlo) annotation (Line(points={{18,-54},{0,-54},{0,-44},
+          {-9,-44}},       color={0,0,127}));
+  connect(heaDis.PEle, eff.PEle) annotation (Line(points={{18,-60},{18,-60},{12,
+          -60},{12,-47},{-9,-47}},  color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-9,-47},{12,-47},{12,-34},{90,-34},
+          {90,80},{110,80}}, color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-9,-44},{0,-44},{0,-76},
+          {48,-76}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>
-This model describes a fan or pump that takes as an input
+Partial model for a fan or pump that takes as an input
 the head or the mass flow rate.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 19, 2016, by Michael Wetter:<br/>
+Refactored model to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Changed assignments of parameters of record <code>_perPow</code> to be <code>final</code>
@@ -142,5 +135,7 @@ March 24, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowControlled;

@@ -5,7 +5,12 @@ model FlowControlled_dp
   final control_m_flow = false,
   preSou(dp_start=dp_start),
   final stageInputs(each final unit="Pa") = heads,
-  final constInput(final unit="Pa") = constantHead);
+  final constInput(final unit="Pa") = constantHead,
+  filter(
+     final y_start=dp_start,
+     u_nominal=abs(dp_nominal),
+     u(final unit="Pa"),
+     y(final unit="Pa")));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -54,43 +59,19 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={36,38})));
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=dp_start,
-     u_nominal=abs(dp_nominal),
-     x(each stateSelect=StateSelect.always),
-     u(final unit="Pa"),
-     y(final unit="Pa"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if filteredSpeed
-    "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
-
-  Modelica.Blocks.Interfaces.RealOutput dp_filtered(min=0, final unit="Pa") if
-     filteredSpeed "Filtered pressure"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
-
+        origin={36,30})));
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{36,88},{36,50}},
+      points={{34.7,88},{36,88},{36,42}},
       color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, dp_filtered) annotation (Line(
-      points={{34.7,88},{50,88}},
-      color={0,0,127},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50}},
+      points={{1,50},{36,50},{36,42}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -104,13 +85,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{36,8},{36,27}},
+      points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, dp_actual) annotation (Line(
-      points={{36,50},{110,50}},
+      points={{36,42},{36,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
+          14},{20,-10},{-38,-10},{-38,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
@@ -219,7 +202,6 @@ Revised implementation to allow zero flow rate.
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end FlowControlled_dp;

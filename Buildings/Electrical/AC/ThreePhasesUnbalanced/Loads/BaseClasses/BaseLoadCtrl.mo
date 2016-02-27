@@ -6,12 +6,12 @@ partial model BaseLoadCtrl
     Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
     "Type of load connection (Yg or D)";
   parameter Boolean linearized = false
-    "If =true introduce a linearization in the load" annotation(Dialog(group="Modelling assumption"));
+    "If =true introduce a linearization in the load" annotation(Dialog(group="Modeling assumption"));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
-    dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modelling assumption"));
+    dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modeling assumption"));
 
   parameter Modelica.SIunits.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated)"
@@ -158,7 +158,15 @@ partial model BaseLoadCtrl
     wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
-
+protected
+  Interfaces.Adapter3to3 adaDel if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    "Adapter"
+    annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
+  Interfaces.Adapter3to3 adaWye if
+       (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    "Adapter"
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation
   // Connections enabled when the input provided is y (between 0 and 1)
   if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
@@ -268,41 +276,6 @@ equation
     end if;
   end if;
 
-  // Connection of the single loads to the 3phases connector
-  if plugPhase2 then
-    connect(wyeToDelta.delta.phase[2], load2.terminal) annotation (Line(
-      points={{-34,10},{-30,10},{-30,-20},{-10,-20}},
-      color={0,120,120},
-      smooth=Smooth.None));
-    connect(wyeToWyeGround.wyeg.phase[2], load2.terminal) annotation (Line(
-      points={{-34,-10},{-26,-10},{-26,-16},{-16,-16},{-16,-20},{-10,-20}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-  end if;
-  if plugPhase3 then
-    connect(wyeToDelta.delta.phase[3], load3.terminal) annotation (Line(
-      points={{-34,10},{-30,10},{-30,-88},{-10,-88}},
-      color={0,120,120},
-      smooth=Smooth.None));
-    connect(wyeToWyeGround.wyeg.phase[3], load3.terminal) annotation (Line(
-      points={{-34,-10},{-26,-10},{-26,-88},{-10,-88}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-  end if;
-  if plugPhase1 then
-    connect(wyeToDelta.delta.phase[1], load1.terminal) annotation (Line(
-      points={{-34,10},{-30,10},{-30,50},{-10,50}},
-      color={0,120,120},
-      smooth=Smooth.None));
-    connect(wyeToWyeGround.wyeg.phase[1], load1.terminal) annotation (Line(
-      points={{-34,-10},{-26,-10},{-26,46},{-16,46},{-16,50},{-10,50}},
-      color={0,120,120},
-      smooth=Smooth.None,
-        pattern=LinePattern.Dash));
-  end if;
-
   // Connections enabled when phase 1 is plugged and voltage ctrl activated
   if plugPhase1 and voltageCtrl then
     connect(load1.terminal, vCTRL_1.terminal)        annotation (Line(
@@ -337,6 +310,35 @@ equation
         smooth=Smooth.None));
   end if;
 
+  // Connection of the single loads to the 3phases connector
+  if plugPhase1 then
+    connect(load1.terminal, adaDel.terminals[1]) annotation (Line(points={{-10,50},
+            {-26,50},{-26,-40.5333},{-40,-40.5333}},
+                                                   color={0,120,120}));
+    connect(load1.terminal, adaWye.terminals[1]) annotation (Line(points={{-10,50},
+            {-26,50},{-26,-70.5333},{-40,-70.5333}},
+                                                   color={0,120,120}));
+  end if;
+
+  if plugPhase2 then
+    connect(load2.terminal, adaDel.terminals[2]) annotation (Line(points={{-10,-20},
+          {-22,-20},{-22,-40},{-40,-40}}, color={0,120,120}));
+    connect(load2.terminal, adaWye.terminals[2]) annotation (Line(points={{-10,-20},
+          {-22,-20},{-22,-70},{-40,-70}}, color={0,120,120}));
+  end if;
+  if plugPhase3 then
+    connect(load3.terminal, adaDel.terminals[3]) annotation (Line(points={{-10,-88},
+            {-16,-88},{-20,-88},{-20,-39.4667},{-40,-39.4667}},
+                                                              color={0,120,120}));
+    connect(load3.terminal, adaWye.terminals[3]) annotation (Line(points={{-10,-88},
+            {-20,-88},{-20,-69.4667},{-40,-69.4667}},
+                                                    color={0,120,120}));
+  end if;
+
+  connect(adaDel.terminal, wyeToDelta.delta) annotation (Line(points={{-60,-40},
+          {-64,-40},{-64,-20},{-28,-20},{-28,10},{-34,10}}, color={0,120,120}));
+  connect(adaWye.terminal, wyeToWyeGround.wyeg) annotation (Line(points={{-60,-70},
+          {-66,-70},{-66,-18},{-30,-18},{-30,-10},{-34,-10}}, color={0,120,120}));
     annotation (    Documentation(info="<html>
 <p>
 This model represents a partial interface for a three-phase AC unbalanced
@@ -360,6 +362,11 @@ voltage controller can be found
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Added adapters for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if

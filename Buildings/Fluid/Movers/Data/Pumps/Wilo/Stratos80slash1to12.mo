@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos80slash1to12 "Pump data for a Wilo Stratos 80/1-12 pump"
   extends SpeedControlled_Nrpm(
-    N_nominal=2610,
+    speed_rpm_nominal=2610,
     use_powerCharacteristic=true,
     power(V_flow={8.79043600562e-06,0.00277777777778,0.00556874120956,
           0.00776635021097,0.00978815049226,0.0113484528833,0.0127329465541,
@@ -30,6 +30,11 @@ Documentation(info="<html>
   </p>
   </html>", revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 December 12, 2014, by Michael Wetter:<br/>
 Added <code>defaultComponentPrefixes</code> and

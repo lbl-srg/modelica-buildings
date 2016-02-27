@@ -77,3 +77,38 @@ convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
   {"sensibleOnly = true"}, fill("", 0), true);
 convertModifiers("Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation", 
   {"sensibleOnly = false"}, {"use_mWat_flow = true"}, true);
+
+
+// Refactor of Carnot chiller
+convertElement("Buildings.Fluid.Chillers.Carnot",
+               "use_eta_Carnot",
+               "use_eta_Carnot_nominal");
+
+convertElement("Buildings.Fluid.Chillers.Carnot",
+               "etaCar",
+               "etaCarnot_nominal");
+
+convertClass("Buildings.Fluid.Chillers.Carnot",
+             "Buildings.Fluid.Chillers.Carnot_y");
+
+convertElement("Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm",
+               "N_nominal", "speed_rpm_nominal");
+
+// Remove dynamicBalance from Movers
+convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
+// Remove r_N.start which is no longer a public variable in .Movers
+convertModifiers({"Buildings.Fluid.Movers.SpeedControlled_y",
+                  "Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+                  "Buildings.Fluid.Movers.FlowControlled_m_flow",
+                  "Buildings.Fluid.Movers.FlowControlled_dp"},
+                  {"r_N.start"},
+                  fill("", 0),
+                  true);

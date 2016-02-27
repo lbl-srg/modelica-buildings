@@ -85,7 +85,7 @@ which is the flow coefficient in SI units, i.e.,
 it is the ratio between mass flow rate in <code>kg/s</code> and square root
 of pressure drop in <code>Pa</code>.
 </p>
-<h4>Modelling options</h4>
+<h4>Modeling options</h4>
 <p>
 This model allows different parameterization of the flow resistance.
 The different parameterizations are described in

@@ -3,10 +3,10 @@ model ControlledFlowMachineDynamic
   "Fans with different control signals as input and a dynamic speed signal"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine(
-    fan4(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    fan1(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    fan2(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    fan3(dynamicBalance=true, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    fan4(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan3(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (
 experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachineDynamic.mos"

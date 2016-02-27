@@ -6,8 +6,8 @@ package Examples "Package with example models"
     Sources.FixedVoltage source(f=60,V=480)
       "Voltage source without neutral cable"
              annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    Loads.Resistive load(V_nominal=480, mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-      P_nominal=-1e4) "Load model"
+    Loads.Resistive load(V_nominal=480, mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
+      "Load model"
       annotation (Placement(transformation(extent={{20,20},{40,40}})));
     ProbeWye probeWye(V_nominal=480) "Probe that measures the phase voltages"
       annotation (Placement(transformation(extent={{-46,48},{-26,68}})));
@@ -17,8 +17,8 @@ package Examples "Package with example models"
     Sources.FixedVoltage_N source_N(f=60, V=480)
       "Voltage source with neutral cable"
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-    Loads.Resistive_N load_N(V_nominal=480, mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-      P_nominal=-1e4) "Load model"
+    Loads.Resistive_N load_N(V_nominal=480, mode=Buildings.Electrical.Types.Load.VariableZ_P_input)
+      "Load model"
       annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
     ProbeWye_N probeWye_N(V_nominal=480)
       annotation (Placement(transformation(extent={{-30,-12},{-10,8}})));
@@ -88,6 +88,10 @@ package Examples "Package with example models"
     annotation ( Documentation(
   revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Removed unused parameter assignment for <code>P_nominal</code>.
+</li>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

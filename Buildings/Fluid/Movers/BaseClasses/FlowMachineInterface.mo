@@ -1,63 +1,105 @@
 within Buildings.Fluid.Movers.BaseClasses;
-partial model FlowMachineInterface
+model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
-  extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-    VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
-    delta_V_flow = 1E-3*V_flow_max,
-    final motorCooledByFluid = _per_y.motorCooledByFluid,
-    dpMachine = _dpMachine,
-    etaHyd =    _etaHyd,
-    etaMot =    _etaMot,
-    eta =       _eta,
-    PEle =      _PEle);
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
+  parameter Data.SpeedControlled_y per "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,-80},{80,-60}})));
+
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    _per_y.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
+    per.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
+
+  parameter Modelica.SIunits.Density rho_default
+    "Fluid density at medium default state";
+
+  parameter Boolean haveVMax
+    "Flag, true if user specified data that contain V_flow_max";
+
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_max
+    "Maximum volume flow rate, used for smoothing";
+
+  parameter Integer nOri(min=1) "Number of data points for pressure curve"
+    annotation(Evaluate=true);
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  // Classes used to implement the filtered speed
-  parameter Boolean filteredSpeed=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+ // Normalized speed
+  Modelica.Blocks.Interfaces.RealInput y_actual(
+    final unit="1",
+    min=0) "Global efficiency"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
-  // Normalized speed
-  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
-                                                 final unit="1")
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
+  Modelica.Blocks.Interfaces.RealInput m_flow(
+    final quantity="MassFlowRate",
+    final unit="kg/s") "Mass flow rate"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Modelica.Blocks.Interfaces.RealInput rho(
+    final quantity="Density",
+    final unit="kg/m3",
+    min=0.0) "Medium density"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput V_flow(
+    quantity="VolumeFlowRate",
+    final unit="m3/s") "Volume flow rate"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput dp(
+    quantity="Pressure",
+    final unit="Pa") "Pressure increase"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput WFlo(
+    quantity="Power",
+    final unit="W") "Flow work"
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PEle(
+    quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput eta(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Overall efficiency"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
+        iconTransformation(extent={{100,-40},{120,-20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput etaHyd(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Hydraulic efficiency"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
+
+  Modelica.Blocks.Interfaces.RealOutput etaMot(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Motor efficiency"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 
   // "Shaft rotational speed";
-  Real r_N(min=0, start=y_start, unit="1") "Ratio N_actual/N_nominal";
+  Real r_N(min=0, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
  // Derivatives for cubic spline
 protected
-  final parameter Real motDer[size(_per_y.motorEfficiency.V_flow, 1)](each fixed=false)
+  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of motor efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(_per_y.hydraulicEfficiency.V_flow,1)](each fixed=false)
+  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
-
-  parameter Data.SpeedControlled_y _per_y "Record with performance data";
-
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
-    if haveVMax then
-      _per_y.pressure.V_flow[nOri]
-     else
-      _per_y.pressure.V_flow[nOri] - (_per_y.pressure.V_flow[nOri] - _per_y.pressure.V_flow[
-      nOri - 1])/((_per_y.pressure.dp[nOri] - _per_y.pressure.dp[nOri - 1]))*_per_y.pressure.dp[nOri]
-    "Maximum volume flow rate, used for smoothing";
 
   parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
     fixed=false,
@@ -71,12 +113,12 @@ protected
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
 
-  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa") =
+  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")=
     if haveDPMax then
-      _per_y.pressure.dp[1]
+      per.pressure.dp[1]
     else
-      _per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
-        _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
+      per.pressure.dp[1] - ((per.pressure.dp[2] - per.pressure.dp[1])/(
+        per.pressure.V_flow[2] - per.pressure.V_flow[1]))*per.pressure.V_flow[1]
     "Maximum head";
 
   parameter Real kRes(min=0, unit="kg/(s.m4)") = dpMax/V_flow_max*delta^2/10
@@ -87,19 +129,16 @@ protected
      elseif haveVMax or haveDPMax then 2
      else 3
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
-  final parameter Integer nOri = size(_per_y.pressure.V_flow, 1)
-    "Number of data points for pressure curve"
-    annotation(Evaluate=true);
 
   final parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
     final V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
-             {_per_y.pressure.V_flow[i] for i in 1:nOri}
+             {per.pressure.V_flow[i] for i in 1:nOri}
              else
              zeros(nOri),
     final dp = if (haveVMax and haveDPMax) or (nOri == 2) then
-             {(_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes) for i in 1:nOri}
+             {(per.pressure.dp[i] + per.pressure.V_flow[i] * kRes) for i in 1:nOri}
              else
              zeros(nOri))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
@@ -110,17 +149,17 @@ protected
     V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
                 zeros(nOri + 1)
              elseif haveVMax then
-              cat(1, {0}, {_per_y.pressure.V_flow[i] for i in 1:nOri})
+              cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri})
              elseif haveDPMax then
-              cat(1, { _per_y.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max})
+              cat(1, { per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max})
              else
               zeros(nOri + 1),
     dp = if (haveVMax and haveDPMax) or (nOri == 2) then
                 zeros(nOri + 1)
              elseif haveVMax then
-              cat(1, {dpMax}, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri})
+              cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri})
              elseif haveDPMax then
-              cat(1, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
+              cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
              else
                zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
@@ -132,13 +171,13 @@ protected
              elseif haveVMax or haveDPMax then
                zeros(nOri + 2)
              else
-               cat(1, {0}, {_per_y.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max}),
+               cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max}),
     dp =     if (haveVMax and haveDPMax) or (nOri == 2) then
                zeros(nOri + 2)
              elseif haveVMax or haveDPMax then
                zeros(nOri + 2)
              else
-               cat(1, {dpMax}, {_per_y.pressure.dp[i] + _per_y.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
+               cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
 
   parameter Real preDer1[nOri](each fixed=false)
@@ -147,61 +186,24 @@ protected
     "Derivatives of flow rate vs. pressure at the support points";
   parameter Real preDer3[nOri+2](each fixed=false)
     "Derivatives of flow rate vs. pressure at the support points";
-  parameter Real powDer[size(_per_y.power.V_flow,1)]=
-   if _per_y.use_powerCharacteristic then
+  parameter Real powDer[size(per.power.V_flow,1)]=
+   if per.use_powerCharacteristic then
      Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=_per_y.power.V_flow,
-                   y=_per_y.power.P,
-                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.power.P,
+                   x=per.power.V_flow,
+                   y=per.power.P,
+                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.power.P,
                                                                                      strict=false))
    else
-     zeros(size(_per_y.power.V_flow,1))
+     zeros(size(per.power.V_flow,1))
     "Coefficients for polynomial of power vs. flow rate";
 
   parameter Boolean haveMinimumDecrease=
-    Modelica.Math.BooleanVectors.allTrue({(_per_y.pressure.dp[i + 1] -
-    _per_y.pressure.dp[i])/(_per_y.pressure.V_flow[i + 1] - _per_y.pressure.V_flow[
+    Modelica.Math.BooleanVectors.allTrue({(per.pressure.dp[i + 1] -
+    per.pressure.dp[i])/(per.pressure.V_flow[i + 1] - per.pressure.V_flow[
     i]) < -kRes for i in 1:nOri - 1}) "Flag used for reporting";
 
-  parameter Boolean haveDPMax = (abs(_per_y.pressure.V_flow[1])  < Modelica.Constants.eps)
+  parameter Boolean haveDPMax = (abs(per.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
-  parameter Boolean haveVMax = (abs(_per_y.pressure.dp[nOri])   < Modelica.Constants.eps)
-    "Flag, true if user specified data that contain V_flow_max";
-
-  Modelica.Blocks.Interfaces.RealOutput y_filtered(min=0, start=y_start) if
-       filteredSpeed "Filtered speed in the range 0..1"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=y_start,
-     x(each stateSelect=StateSelect.always),
-     u_nominal=1,
-     u(final unit="1"),
-     y(final unit="1"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
-    "Second order filter to approximate valve opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
-
-  // Variables
-  input Modelica.SIunits.Density rho "Medium density";
-
-  // Because the computations of the quantities below is too cumbersome
-  // on one line, and because they need to be assigned as inputs in the
-  // base class PowerInterface, we introduce intermediate protected variables
-  // with the same name as in PowerInterface, but a leading underscore
-  Modelica.SIunits.Efficiency _etaHyd(max=1) "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency _etaMot(max=1) "Motor efficiency";
-
-  Modelica.SIunits.Pressure _dpMachine(displayUnit="Pa") "Pressure increase";
-  Modelica.SIunits.Power _PEle "Electrical power consumed";
-
-  // _eta is needed as in some configuration, _etaMot needs to be set equal to _eta
-  Modelica.SIunits.Efficiency _eta(max=1) "Overall efficiency";
 
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
@@ -247,20 +249,20 @@ end getArrayAsString;
 initial algorithm
   // Check validity of data
   assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
-  assert(Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.pressure.V_flow, strict=true) and
-  _per_y.pressure.V_flow[1] > -Modelica.Constants.eps,
+  assert(Buildings.Utilities.Math.Functions.isMonotonic(x=per.pressure.V_flow, strict=true) and
+  per.pressure.V_flow[1] > -Modelica.Constants.eps,
   "The fan pressure rise must be a strictly decreasing sequence with respect to the volume flow rate,
   with the first element for the fan pressure raise being non-zero.
 The following performance data have been entered:
-" + getArrayAsString(_per_y.pressure.V_flow, "pressure.V_flow"));
+" + getArrayAsString(per.pressure.V_flow, "pressure.V_flow"));
 
   if not haveVMax then
-    assert((_per_y.pressure.V_flow[nOri]-_per_y.pressure.V_flow[nOri-1])
-         /((_per_y.pressure.dp[nOri]-_per_y.pressure.dp[nOri-1]))<0,
+    assert((per.pressure.V_flow[nOri]-per.pressure.V_flow[nOri-1])
+         /((per.pressure.dp[nOri]-per.pressure.dp[nOri-1]))<0,
     "The last two pressure points for the fan or pump performance curve must be decreasing.
     You need to set more reasonable parameters.
 Received
-" + getArrayAsString(_per_y.pressure.dp, "dp"));
+" + getArrayAsString(per.pressure.dp, "dp"));
 
   end if;
 
@@ -273,13 +275,13 @@ Warning:
 It is recommended that the volume flow rate versus pressure relation
 of the fan or pump satisfies the minimum decrease condition
 
-        (_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
+        (per.pressure.dp[i+1]-per.pressure.dp[i])
 d[i] = ------------------------------------------------- < " + String(-kRes) + "
-       (_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i])
+       (per.pressure.V_flow[i+1]-per.pressure.V_flow[i])
 
  is
-" + getArrayAsString({(_per_y.pressure.dp[i+1]-_per_y.pressure.dp[i])
-        /(_per_y.pressure.V_flow[i+1]-_per_y.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
+" + getArrayAsString({(per.pressure.dp[i+1]-per.pressure.dp[i])
+        /(per.pressure.V_flow[i+1]-per.pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
 Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
 In this situation, the solver will fail due to non-convergence and
 the simulation stops.");
@@ -454,31 +456,31 @@ the simulation stops.");
   end if;
 
  // Compute derivatives for cubic spline
- motDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.motorEfficiency.V_flow,
-    1)) elseif (size(_per_y.motorEfficiency.V_flow, 1) == 1) then {0} else
+ motDer :=if per.use_powerCharacteristic then zeros(size(per.motorEfficiency.V_flow,
+    1)) elseif (size(per.motorEfficiency.V_flow, 1) == 1) then {0} else
     Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=_per_y.motorEfficiency.V_flow,
-    y=_per_y.motorEfficiency.eta,
-    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_per_y.motorEfficiency.eta,
+    x=per.motorEfficiency.V_flow,
+    y=per.motorEfficiency.eta,
+    ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
       strict=false));
-  hydDer :=if _per_y.use_powerCharacteristic then zeros(size(_per_y.hydraulicEfficiency.V_flow,
-    1)) elseif (size(_per_y.hydraulicEfficiency.V_flow, 1) == 1) then {0}
-     else Buildings.Utilities.Math.Functions.splineDerivatives(x=_per_y.hydraulicEfficiency.V_flow,
-    y=_per_y.hydraulicEfficiency.eta);
+  hydDer :=if per.use_powerCharacteristic then zeros(size(per.hydraulicEfficiency.V_flow,
+    1)) elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1) then {0}
+     else Buildings.Utilities.Math.Functions.splineDerivatives(x=per.hydraulicEfficiency.V_flow,
+    y=per.hydraulicEfficiency.eta);
 
 equation
+  V_flow = m_flow/rho;
 
   // Hydraulic equations
   r_N = y_actual;
-  r_V = VMachine_flow/V_flow_max;
-  // For the homotopy method, we approximate dpMachine by an equation
-  // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
+  r_V = V_flow/V_flow_max;
+  // For the homotopy method, we approximate dp by an equation
+  // that is linear in V_flow, and that goes linearly to 0 as r_N goes to 0.
   // The three branches below are identical, except that we pass either
   // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
   if (curve == 1) then
     if homotopyInitialization then
-       _dpMachine = homotopy(actual=cha.pressure(per=pCur1,
-                                                    V_flow=VMachine_flow, r_N=r_N,
+       dp = homotopy(actual=cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer1, cBar=cBar, kRes=kRes),
@@ -488,7 +490,7 @@ equation
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
-                               +(VMachine_flow-V_flow_nominal)*
+                               +(V_flow-V_flow_nominal)*
                                 (cha.pressure(per=pCur1,
                                                     V_flow=(1+delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
@@ -502,15 +504,14 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       _dpMachine = cha.pressure(per=pCur1, V_flow=VMachine_flow, r_N=r_N,
+       dp = cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer1, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
    elseif (curve == 2) then
     if homotopyInitialization then
-       _dpMachine = homotopy(actual=cha.pressure(per=pCur2,
-                                                    V_flow=VMachine_flow, r_N=r_N,
+       dp = homotopy(actual=cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer2, cBar=cBar, kRes=kRes),
@@ -520,7 +521,7 @@ equation
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
-                               +(VMachine_flow-V_flow_nominal)*
+                               +(V_flow-V_flow_nominal)*
                                 (cha.pressure(per=pCur2,
                                                     V_flow=(1+delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
@@ -534,15 +535,14 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       _dpMachine = cha.pressure(per=pCur2, V_flow=VMachine_flow, r_N=r_N,
+       dp = cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer2, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
   else
     if homotopyInitialization then
-       _dpMachine = homotopy(actual=cha.pressure(per=pCur3,
-                                                    V_flow=VMachine_flow, r_N=r_N,
+       dp = homotopy(actual=cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer3, cBar=cBar, kRes=kRes),
@@ -552,7 +552,7 @@ equation
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
-                               +(VMachine_flow-V_flow_nominal)*
+                               +(V_flow-V_flow_nominal)*
                                 (cha.pressure(per=pCur3,
                                                     V_flow=(1+delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
@@ -566,85 +566,167 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       _dpMachine = cha.pressure(per=pCur3, V_flow=VMachine_flow, r_N=r_N,
+       dp = cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer3, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
   end if;
+
+  // Flow work
+  WFlo = dp*V_flow;
+
   // Power consumption
-  if _per_y.use_powerCharacteristic then
+  if per.use_powerCharacteristic then
     // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      _PEle = homotopy(actual=cha.power(per=_per_y.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta),
-                      simplified=VMachine_flow/V_flow_nominal*
-                            cha.power(per=_per_y.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
+      PEle = homotopy(actual=cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
+                      simplified=V_flow/V_flow_nominal*
+                            cha.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      _PEle = (rho/rho_default)*cha.power(per=_per_y.power, V_flow=VMachine_flow, r_N=r_N, d=powDer, delta=delta);
+      PEle = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
     // This is needed because WFlo can be close to zero when P is zero, thereby
     // causing a division by zero.
     // Earlier versions of the model computed WFlo = eta * P, but this caused
     // a division by zero.
-    _eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=_PEle, x2=1E-5, deltaX=1E-6);
+    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
     // In this configuration, we only now the total power consumption.
     // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
     // cause etaMot=eta, because eta=etaHyd*etaMot.
     // Earlier versions used etaMot=sqrt(eta), but as eta->0, this function has
     // and infinite derivative.
-    _etaHyd = 1;
-    _etaMot = _eta;
+    etaHyd = 1;
+    etaMot = eta;
   else
     if homotopyInitialization then
-      _etaHyd = homotopy(actual=cha.efficiency(per=_per_y.hydraulicEfficiency,     V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
-      _etaMot = homotopy(actual=cha.efficiency(per=_per_y.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta),
-                        simplified=cha.efficiency(per=_per_y.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
+      etaHyd = homotopy(actual=cha.efficiency(per=per.hydraulicEfficiency,     V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow_max,   d=hydDer, r_N=r_N, delta=delta));
+      etaMot = homotopy(actual=cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta),
+                        simplified=cha.efficiency(per=per.motorEfficiency, V_flow=V_flow_max,   d=motDer, r_N=r_N, delta=delta));
     else
-      _etaHyd = cha.efficiency(per=_per_y.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=r_N, delta=delta);
-      _etaMot = cha.efficiency(per=_per_y.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=delta);
+      etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=V_flow, d=hydDer, r_N=r_N, delta=delta);
+      etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=V_flow, d=motDer, r_N=r_N, delta=delta);
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
-    _PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
-    _eta = _etaHyd * _etaMot;
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+    eta = etaHyd * etaMot;
 
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-        Line(
-          points={{0,50},{100,50}}),
-        Text(extent={{64,68},{114,54}},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                    graphics={
+        Text(extent={{56,66},{106,52}},
           lineColor={0,0,127},
-          textString="y")}),
+          textString="dp"),
+        Text(extent={{56,8},{106,-6}},
+          lineColor={0,0,127},
+          textString="PEle"),
+        Text(extent={{52,-22},{102,-36}},
+          lineColor={0,0,127},
+          textString="eta"),
+        Text(extent={{50,-52},{100,-66}},
+          lineColor={0,0,127},
+          textString="etaHyd"),
+        Text(extent={{50,-72},{100,-86}},
+          lineColor={0,0,127},
+          textString="etaMot"),
+        Ellipse(
+          extent={{-78,34},{44,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-62,18},{28,-72}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-26,-18},{-8,-36}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-26,-22},{-32,-8},{-30,10},{-8,20},{-6,14},{-24,6},{-24,-8},{
+              -18,-20},{-26,-22}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-8,-32},{-2,-46},{-4,-64},{-26,-74},{-28,-68},{-10,-60},{-10,
+              -46},{-16,-34},{-8,-32}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{7,21},{13,7},{11,-11},{-11,-21},{-13,-15},{5,-7},{5,7},{-1,19},
+              {7,21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={9,-23},
+          rotation=90),
+        Polygon(
+          points={{-7,-21},{-13,-7},{-11,11},{11,21},{13,15},{-5,7},{-5,-7},{1,-19},
+              {-7,-21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={-43,-31},
+          rotation=90),
+        Text(extent={{56,36},{106,22}},
+          lineColor={0,0,127},
+          textString="WFlo"),
+        Text(extent={{56,94},{106,80}},
+          lineColor={0,0,127},
+          textString="V_flow"),
+        Line(
+          points={{-74,92},{-74,40}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-74,40},{46,40}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-70,86},{-40,84},{8,68},{36,42}},
+          color={0,0,0},
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw
 and efficiency of fans and pumps. It is used by the model
-<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.FlowControlledMachine\">FlowControlledMachine</a>.
+<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.SpeedControlled\">
+Buildings.Fluids.Movers.BaseClasses.SpeedControlled</a>.
 </p>
 <p>
-The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points
-using the data record <code>data</code>, which is an instance of
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
-Buildings.Fluid.Movers.Data.Generic</a>.
-A cubic hermite spline with linear extrapolation is used to compute the performance at other
-operating points.
+The nominal hydraulic characteristic (volume flow rate versus total pressure)
+is given by a set of data points
+using the data record <code>per</code>, which is an instance of
+<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
+Buildings.Fluid.Movers.Data.SpeedControlled_y\</a>.
+A cubic hermite spline with linear extrapolation is used to compute
+the performance at other operating points.
 </p>
-<p>The fan or pump energy balance can be specified in two alternative ways: </p>
-
+<p>
+The fan or pump energy balance can be specified in two alternative ways:
+</p>
 <ul>
 <li>
-If <code>_per_y.use_powerCharacteristic = false</code>, then the data points for
+If <code>per.use_powerCharacteristic = false</code>, then the data points for
 normalized volume flow rate versus efficiency is used to determine the efficiency,
 and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
 </li>
 <li>
-If <code>_per_y.use_powerCharacteristic = true</code>, then the data points for
+If <code>per.use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
@@ -674,6 +756,12 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
+February 19, 2016, by Michael Wetter:<br/>
+Refactored model to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference and reformatted code.
 This is
@@ -682,8 +770,8 @@ for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404<
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Corrected computation of
-<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=VMachine_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
-which previously used <code>V_flow_max</code> instead of <code>VMachine_flow</code>.
+<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=V_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
+which previously used <code>V_flow_max</code> instead of <code>V_flow</code>.
 </li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
@@ -734,7 +822,7 @@ converges to zero.
 </li>
 <li>
 February 20, 2012, by Michael Wetter:<br/>
-Assigned value to nominal attribute of <code>VMachine_flow</code>.
+Assigned value to nominal attribute of <code>V_flow</code>.
 </li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
@@ -755,5 +843,7 @@ March 23 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowMachineInterface;

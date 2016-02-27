@@ -8,7 +8,7 @@ model FlowControlled_m_flow
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,

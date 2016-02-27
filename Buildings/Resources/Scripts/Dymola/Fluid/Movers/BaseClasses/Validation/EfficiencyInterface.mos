@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.EfficiencyInterface", method="dassl", resultFile="EfficiencyInterface");
+createPlot(id=1, position={55, 50, 1244, 833}, y={"eff.V_flow"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, filename="EfficiencyInterface.mat", colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1244, 204}, y={"eff.WFlo"}, range={0.0, 1.0, -100.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1244, 203}, y={"eff.PEle"}, range={0.0, 1.0, -200.0, 600.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1244, 204}, y={"eff.eta", "eff.etaHyd", "eff.etaMot"}, range={0.0, 1.0, 0.4, 0.8}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+

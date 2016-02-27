@@ -5,7 +5,12 @@ model FlowControlled_m_flow
     final control_m_flow=true,
     preSou(m_flow_start=m_flow_start),
     final stageInputs(each final unit="kg/s")=massFlowRates,
-    final constInput(final unit="kg/s")=constantMassFlowRate);
+    final constInput(final unit="kg/s")=constantMassFlowRate,
+    filter(
+     final y_start=m_flow_start,
+     u_nominal=m_flow_nominal,
+     u(final unit="kg/s"),
+     y(final unit="kg/s")));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -20,7 +25,6 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-
   parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
@@ -43,32 +47,14 @@ model FlowControlled_m_flow
         origin={-2,120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
-    nominal=m_flow_nominal)
-    "Actual mass flow rate"
+    nominal=m_flow_nominal) "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
 protected
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=m_flow_start,
-     u_nominal=m_flow_nominal,
-     x(each stateSelect=StateSelect.always),
-     u(final unit="kg/s"),
-     y(final unit="kg/s"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
-    "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
-
-  Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(final unit="kg/s") if
-     filteredSpeed "Filtered mass flow rate"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
-
+  Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium) "Head of fan"
+    annotation (Placement(transformation(extent={{45,-25},{55,-15}})));
 equation
   if filteredSpeed then
     connect(inputSwitch.y, filter.u) annotation (Line(
@@ -76,21 +62,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,50},{110,50}},
+      points={{34.7,88},{40,88},{40,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
-      points={{1,50},{24,50},{24,8}},
+      points={{1,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
-    connect(filter.y, m_flow_filtered) annotation (Line(
-      points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
     connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{60,50},{60,40},{24,40},{24,8}},
+      points={{110,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -98,6 +80,13 @@ equation
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(senRelPre.port_a, preSou.port_a) annotation (Line(points={{45,-20},{
+          20,-20},{20,0},{40,0}},
+                               color={0,127,255}));
+  connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{55,-20},{80,
+          -20},{80,0},{60,0}}, color={0,127,255}));
+  connect(senRelPre.p_rel, eff.dp) annotation (Line(points={{50,-24.5},{50,-30},
+          {-35,-30},{-35,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(
    info="<html>
@@ -161,5 +150,5 @@ Revised implementation to allow zero flow rate.
           lineColor={0,0,255},
           textString="%m_flow_nominal")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end FlowControlled_m_flow;
