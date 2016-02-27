@@ -132,7 +132,10 @@ its class name ends with the string <code>Beta</code>.
        annotation (Documentation(info="<html>
    <p>
    Version 3.0.0 is a major new release. The option to model electrochromic windows has
-   been added.
+   been added. The models in <code>Buildings.Fluid.Movers</code> have been refactored
+   to make their implementation clearer.
+   Various models in particular in the <code>Buildings.Electrical</code>
+   package were reformulated to comply with the Modelica Language Definition.
    </p>
    <!-- New libraries -->
    <p>
@@ -168,6 +171,22 @@ its class name ends with the string <code>Beta</code>.
                           into the direction that is perpendicular to the azimuth of a surface.
        </td>
        </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Adapter3to3<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_n<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_p
+       </td>
+       <td valign=\"top\">Adapters for unbalanced three phase systems which are required because
+                        the previous formulation used connect statements that violate the Modelica
+                        Language Definition. This change was required to enable pedantic model check and translation
+                        in Dymola 2016 FD01.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/426\">#426</a>.
+       </td>
+       </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
