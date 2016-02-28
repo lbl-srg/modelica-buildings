@@ -113,7 +113,7 @@ First implementation.
 </li>
 </ul>
 </html>",
-        info="<html>
+info="<html>
 <p>
 This example shows how different types of sensors and probes can be used
 to measure the voltages, currents and powers in a three-phase
@@ -126,7 +126,7 @@ by consuming <i>10</i> kW for each phase, while at the end of the simulation
 they all produce <i>10</i> kW.
 </p>
 </html>"),
-experiment(Tolerance=1e-05),
+experiment(StopTime=1.0, Tolerance=1e-05),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sensors/Examples/Sensors.mos"
         "Simulate and plot"));
