@@ -54,9 +54,9 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
     "Specific heat capacity of medium 1 at nominal condition";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
     "Specific heat capacity of medium 2 at nominal condition";
   parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 1";
@@ -88,7 +88,6 @@ initial equation
   
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
-
 
   // Heat transferred from fluid 1 to 2 at nominal condition
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
