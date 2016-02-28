@@ -255,6 +255,14 @@ its class name ends with the string <code>Beta</code>.
                        This is the same value as is used for the two-way valves,
                        and avoids an assertion that would be triggered if <code>l=0</code>.
     </td>
+    </tr>
+
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    </td>
+    <td valign=\"top\">Reformulated model to allow translation in OpenModelica.
+                       This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/490\">#490</a>.
+    </td>
    </tr>
 
    <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolume<br/>
