@@ -54,11 +54,11 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal=
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal =
     Medium1.specificHeatCapacityCp(sta1_default)
     "Specific heat capacity of medium 1 at nominal condition";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal=
-   Medium2.specificHeatCapacityCp(sta2_default)
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal =
+    Medium2.specificHeatCapacityCp(sta2_default)
     "Specific heat capacity of medium 2 at nominal condition";
   parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
     "Nominal capacity flow rate of Medium 1";
@@ -87,7 +87,8 @@ initial equation
   assert(m2_flow_nominal > 0,
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
-  // heat transferred from fluid 1 to 2 at nominal condition
+  
+  // Heat transferred from fluid 1 to 2 at nominal condition
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
   Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -212,6 +213,10 @@ instead of this model.
 February 27, 2016 by Michael Wetter:<br/>
 Introduced <code>sta1_default</code> and <code>sta2_default</code>
 to enable translation under OpenModelica.
+Removed <code>max=1</code> attribute for <code>Z</code>. This is needed as near
+zero flow, <code>Z</code> can be larger than one due to the regularization.
+As <code>Z</code> is not used in this model other than for reporting, this bound
+need not be enforced (and the calculation of <code>eps</code> is fine at these small flow rates).
 This is for
 <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/490\">issue 490</a>.
 </li>
