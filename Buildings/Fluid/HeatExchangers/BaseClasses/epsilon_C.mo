@@ -50,12 +50,15 @@ algorithm
     CMax_flow,
     deltaCMax,
     deltaCMax/4);
-  Z :=CMin_flow/CMaxNZ_flow;
+  Z := CMin_flow/CMaxNZ_flow;
   // Gain that goes to zero as CMin_flow gets below deltaCMin
   // This is needed to allow zero flow
   gai := Buildings.Utilities.Math.Functions.spliceFunction(
-                 pos=1, neg=0, x=CMin_flow-deltaCMin, deltax=deltaCMin/2);
-  if ( gai == 0) then
+           pos=1,
+           neg=0,
+           x=CMin_flow-deltaCMin,
+           deltax=deltaCMin/2);
+  if (gai == 0) then
     NTU := 0;
     eps := 1; // around zero flow, eps=Q/(CMin*dT) should be one
   else
