@@ -1,8 +1,8 @@
 #include "testProgram.h"
 
 void ModelicaFormatError(const char* string, const char* fmt, const char* val){
-  printf(string, fmt, val);
-  printf("\n");
+  fprintf(stderr, string, fmt, val);
+  fprintf(stderr, "\n");
   exit(1);
 }
 

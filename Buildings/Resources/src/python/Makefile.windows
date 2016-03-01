@@ -3,23 +3,39 @@
 #######################################################
 # Makefile to compile Python interface
 # Thierry S. Nouidui (TSNouidui@lbl.gov) March 27, 2013
+# Updated on February 03, 2016. Support for 64 bit compilation.
+# Updated on February 25, 2016. Support for 64 bit disabled because of
+# runtime failures caused by the used of Py_DECREF in the pythonInterpreter.c.
 
-# Directory with python include files
+############## NOTES ########################################
+# To compile the libraries, we need to have gcc and lib.exe.
+# gcc can be found in the distribution of MINGW. Use the 32 or 64 bit
+# depending on the target operating system.
+# lib.exe is required to generate the import library.
+# lib.exe is available in Microsoft Visual Studio.
+# We also need to have the Python sources and python libraries
+# The correct sources will be picked up depending on the target machine
+# The current code can compile libraries for Window 64 bit. However, this compilation
+# has been disabled as the compiled library cannot be run because of an issue with Py_DECREF.
+# If Py_DECREF is used in pythonInterpreter.c code then the code will crash on Windows 64bit machine.
+############################################################
+
+# Define Python sources and libraries.
 PYTHONSrc=C:/Python27/include
-# Directory with python libraries
 PYTHONLibs=C:/Python27/libs
 
-
-#######################################################
 ## Compilation flags
 CC_FLAGS += -D WIN32
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-  $(error Windows 64 bit is not implemented yet!)
+  CC_FLAGS = -I$(PYTHONSrc)
+  $(error Windows 64bit compilation is not supported yet.  Py_DECREF in pythonInterpreter.c does not work on Windows 64bit)
+  # Directory where executable will be copied
+  # BINDIR = ..\..\Library\win64
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
   CC_FLAGS += -D IA32 -Wall -I$(PYTHONSrc)
   # Directory where executable will be copied
-  BINDIR = ../../Library/win32
+  BINDIR = ..\..\Library\win32
 endif
 
 CC = gcc
@@ -33,19 +49,35 @@ LIB  = ModelicaBuildingsPython2.7.lib
 DEF  = ModelicaBuildingsPython2.7.def
 EXP  = ModelicaBuildingsPython2.7.exp
 
+# The DLL is a dummy DLL which is required
+# as ModelicaBuildingsPython2.7.dll linked to it.
+DUMMY_SRC = dummy.c
+DUMMY_OBJ = dummy.o
+DUMMY_DLL = python2.7.dll
+#DUMMY_LIB = python2.7.lib
+#DUMMY_DEF = dummy.def
+
 all: clean
 	$(CC) $(CC_FLAGS) -c $(SRCS)
+	$(CC) -c $(DUMMY_SRC)
 	$(CC)  -shared -o $(DLL) $(OBJS) -L$(PYTHONLibs) -lpython27
-	# Note that import library is required on Windows OS.
-	# This set-up requires the library manager (lib.exe) to generate the
-	# import library. lib.exe is available in Microsoft Visual Studio.
+	$(CC)  -shared -o $(DUMMY_DLL) $(DUMMY_OBJ)  
 	$(LM) /def:$(DEF) /OUT:$(LIB)
-	mv $(LIB) $(DLL) $(BINDIR)
+#	$(LM) /def:$(DUMMY_DEF) /OUT:$(DUMMY_LIB)
+	copy $(LIB) $(BINDIR)
+	copy $(DLL) $(BINDIR)
+	copy $(DUMMY_DLL) $(BINDIR)
+#	copy $(DUMMY_LIB) $(BINDIR)
 	@echo "==== libraries generated in $(BINDIR)"
-
 prg: clean
 	$(CC) -g testProgram.c $(SRCS) -o testProgram  $(CC_FLAGS) -L$(PYTHONLibs) -lpython27
 
 clean:
-	rm -f $(OBJS) $(LIB) $(DLL) $(EXP) main.o main
-
+	del $(OBJS) 
+	del $(LIB) 
+	del $(DLL)
+	del $(EXP)     
+	del main.o
+	del main   
+	del dummy.o
+	del python2.7.dll

@@ -4,9 +4,11 @@ model Source "Partial model of a generic source."
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Boolean potentialReference = true "Serve as potential root"
+  parameter Boolean potentialReference = true
+    "Serve as potential root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
-  parameter Boolean definiteReference = false "Serve as definite root"
+  parameter Boolean definiteReference = false
+    "Serve as definite root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   Modelica.SIunits.Power S[PhaseSystem.n]=
     PhaseSystem.phasePowers_vi(terminal.v, terminal.i)
@@ -31,6 +33,11 @@ equation
   annotation ( Documentation(revisions="<html>
 <ul>
 <li>
+February 26, 2016, by Michael Wetter:<br/>
+Updated documentation for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/427\">issue 427</a>.
+</li>
+<li>
 May 15, 2014, by Marco Bonvini:<br/>
 Created documentation.
 </li>
@@ -47,8 +54,9 @@ This model represents a generic source.
 In case the phase system has <code>PhaseSystem.m &gt; 0</code> and
 thus the connectors are over determined,
 the source can be selected to serve as reference point.
-The parameters <code>potentialReference</code> and <code>definiteReference</code> are used to define if the
-source model should be selected as source for the reference angles or not.
+The parameters <code>potentialReference</code> and <code>definiteReference</code>
+are used to define if the source model should be selected as source for
+the reference angles <code>theta</code> or not.
 More information about overdetermined connectors can be found
 in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 </p>
