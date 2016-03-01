@@ -257,7 +257,15 @@ its class name ends with the string <code>Beta</code>.
     </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
+       </td>
+       <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/485\">issue 485</a>.
+       </td>
+    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
     </td>
     <td valign=\"top\">Reformulated model to allow translation in OpenModelica.
                        This is for issue
@@ -343,6 +351,13 @@ its class name ends with the string <code>Beta</code>.
                           to avoid such a warning in the pedantic Modelica check in Dymola 2016.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD
+       </td>
+       <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/485\">issue 485</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
