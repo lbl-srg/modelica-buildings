@@ -71,6 +71,9 @@ The heat flow is then injected into the room through the heat port as convective
 After receving the heat flow from Modelica, the FFD uniformly distributes it into the space.
 </p>
 <p>
+Please note that<code> roo.yCFD[1]</code> is the temperature at the center of the room and <code> roo.yCFD[2]</code> is the velocity magnitude at the center of the room.
+</p>
+<p>
 Figure (a) shows the velocity vectors and temperature contours in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
 </p>
 <p align=\"center\">
