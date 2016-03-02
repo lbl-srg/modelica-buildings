@@ -6,10 +6,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
-  parameter Boolean dynamicBalanceJunction=true
-    "Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations";
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Formulation of energy balance in junction volumes";
+
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)";
   parameter Boolean linearizeFlowResistance=false
@@ -253,8 +250,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_cor,
     VRoo=2698,
-    energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction,
     from_dp=true) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{548,44},{616,112}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
@@ -262,8 +257,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_sou,
     VRoo=568.77,
-    energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction,
     from_dp=true) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{686,42},{758,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
@@ -271,8 +264,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_eas,
     VRoo=360.08,
-    energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction,
     from_dp=true) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{824,46},{892,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
@@ -280,8 +271,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_nor,
     VRoo=568.77,
-    energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction,
     from_dp=true) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{964,46},{1032,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
@@ -289,8 +278,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package MediumA = MediumA,
     m_flow_nominal=m0_flow_wes,
     VRoo=360.08,
-    energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction,
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
@@ -306,86 +293,78 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {30,0,70}) "Splitter for room return"
-    annotation (Placement(transformation(extent={{590,170},{610,150}})));
+    dp_nominal(displayUnit="Pa") = {30,0,70},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
+    annotation (Placement(transformation(extent={{592,170},{612,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,50}) "Splitter for room return"
-    annotation (Placement(transformation(extent={{730,170},{750,150}})));
+    dp_nominal(displayUnit="Pa") = {20,0,50},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
+    annotation (Placement(transformation(extent={{732,170},{752,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,0,30}) "Splitter for room return"
-    annotation (Placement(transformation(extent={{870,170},{890,150}})));
+    dp_nominal(displayUnit="Pa") = {20,0,30},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
+    annotation (Placement(transformation(extent={{872,170},{892,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {20,10,10}) "Splitter for room return"
-    annotation (Placement(transformation(extent={{1010,170},{1030,150}})));
+    dp_nominal(displayUnit="Pa") = {20,10,10},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room return"
+    annotation (Placement(transformation(extent={{1012,170},{1032,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1Hot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80}) "Splitter for room supply"
-    annotation (Placement(transformation(extent={{560,10},{580,-10}})));
+    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
+    annotation (Placement(transformation(extent={{562,10},{582,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-60}) "Splitter for room supply"
+    dp_nominal={20,0,-60},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{700,10},{720,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-40}) "Splitter for room supply"
-    annotation (Placement(transformation(extent={{840,10},{860,-10}})));
+    dp_nominal={20,0,-40},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
+    annotation (Placement(transformation(extent={{842,10},{862,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-20}) "Splitter for room supply"
+    dp_nominal={20,0,-20},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{980,10},{1000,-10}})));
   Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint
     TSetCoo(
@@ -428,12 +407,12 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal(displayUnit="Pa") = {0,0,0},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for cold deck"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    linearized=linearizeFlowResistance,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for cold deck"                                     annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
         origin={200,-40})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valPreHea(
@@ -506,44 +485,40 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1Col(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal(displayUnit="Pa") = {240,0,-80}) "Splitter for room supply"
-    annotation (Placement(transformation(extent={{580,-30},{600,-50}})));
+    dp_nominal(displayUnit="Pa") = {240,0,-80},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
+    annotation (Placement(transformation(extent={{582,-30},{602,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-60}) "Splitter for room supply"
+    dp_nominal={20,0,-60},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{724,-30},{744,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-40}) "Splitter for room supply"
+    dp_nominal={20,0,-40},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{860,-30},{880,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
-    dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dp_nominal={20,0,-20}) "Splitter for room supply"
+    dp_nominal={20,0,-20},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Splitter for room supply"
     annotation (Placement(transformation(extent={{1000,-30},{1020,-50}})));
   Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
@@ -743,32 +718,30 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_1, splRetEas.port_2) annotation (Line(
-      points={{1010,160},{890,160}},
+      points={{1012,160},{892,160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_1, splRetSou.port_2) annotation (Line(
-      points={{870,160},{750,160}},
+      points={{872,160},{752,160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_1, splRetRoo1.port_2) annotation (Line(
-      points={{730,160},{610,160}},
+      points={{732,160},{612,160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupRoo1Hot.port_2, splSupSouHot.port_1)
                                                 annotation (Line(
-      points={{580,-6.10623e-16},{652,3.36456e-22},{652,-6.10623e-16},{700,
-          -6.10623e-16}},
+      points={{582,-6.10623e-16},{700,-6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupSouHot.port_2, splSupEasHot.port_1)
                                                 annotation (Line(
-      points={{720,-6.10623e-16},{790,3.36456e-22},{790,-6.10623e-16},{840,
-          -6.10623e-16}},
+      points={{720,-6.10623e-16},{842,-6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupEasHot.port_2, splSupNorHot.port_1)
                                                 annotation (Line(
-      points={{860,-6.10623e-16},{928,3.36456e-22},{928,-6.10623e-16},{980,
+      points={{862,-6.10623e-16},{928,3.36456e-22},{928,-6.10623e-16},{980,
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -823,7 +796,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{600,170},{600,240},{792,240},{792,352},{928,352},{928,375.873},{
+      points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,375.873},{
           931.2,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -832,7 +805,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{740,170},{740,218},{934,218},{934,323.34},{931.2,323.34}},
+      points={{742,170},{740,218},{934,218},{934,323.34},{931.2,323.34}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
@@ -840,7 +813,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{880,170},{880,210},{1091.26,210},{1091.26,369.307}},
+      points={{882,170},{882,210},{1091.26,210},{1091.26,369.307}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
@@ -848,7 +821,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1020,170},{1020,418},{931.2,418},{931.2,428.407}},
+      points={{1022,170},{1022,418},{931.2,418},{931.2,428.407}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
@@ -856,7 +829,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1030,160},{1130,160},{1130,240},{852.48,240},{852.48,375.873}},
+      points={{1032,160},{1130,160},{1130,240},{852.48,240},{852.48,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -981,7 +954,7 @@ equation
       smooth=Smooth.None));
   connect(splSupRoo1Col.port_2, splSupSouCol.port_1)
                                                 annotation (Line(
-      points={{600,-40},{724,-40}},
+      points={{602,-40},{724,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupSouCol.port_2, splSupEasCol.port_1)
@@ -995,11 +968,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(cor.port_aHot, splSupRoo1Hot.port_3) annotation (Line(
-      points={{570.213,44},{570,44},{570,10}},
+      points={{570.213,44},{572,44},{572,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cor.port_aCol, splSupRoo1Col.port_3) annotation (Line(
-      points={{593.787,44},{590,44},{590,-30}},
+      points={{593.787,44},{592,44},{592,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_aHot, splSupSouHot.port_3) annotation (Line(
@@ -1007,11 +980,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_aCol, splSupSouCol.port_3) annotation (Line(
-      points={{734.48,42},{734.48,6},{734,6},{734,-30}},
+      points={{734.48,42},{734.48,42},{734,42},{734,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_aHot, splSupEasHot.port_3) annotation (Line(
-      points={{846.213,46},{850,46},{850,10}},
+      points={{846.213,46},{852,46},{852,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_aCol, splSupEasCol.port_3) annotation (Line(
@@ -1114,15 +1087,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,230},{350,230},{350,172}},
+      points={{261,230},{350.2,230},{350.2,172}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupHot.y, fanSupHot.y) annotation (Line(
-      points={{141,90},{310,90},{310,12}},
+      points={{141,90},{309.8,90},{309.8,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupCol.y, fanSupCol.y) annotation (Line(
-      points={{121,50},{260,50},{260,-120},{312,-120},{312,-138}},
+      points={{121,50},{260,50},{260,-120},{311.8,-120},{311.8,-138}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaBui_Set.y, conFanRet.u) annotation (Line(
@@ -1130,16 +1103,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TCoiCoo.port_b, splSupRoo1Col.port_1) annotation (Line(
-      points={{422,-150},{480,-150},{480,-40},{580,-40}},
+      points={{422,-150},{480,-150},{480,-40},{582,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TCoiHea.port_b, splSupRoo1Hot.port_1) annotation (Line(
-      points={{420,6.10623e-16},{491,6.10623e-16},{491,-6.10623e-16},{560,
+      points={{420,6.10623e-16},{491,6.10623e-16},{491,-6.10623e-16},{562,
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_1, fanRet.port_a) annotation (Line(
-      points={{590,160},{360,160}},
+      points={{592,160},{360,160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRet.port_a, fanRet.port_b) annotation (Line(
@@ -1152,7 +1125,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
-            1400,600}}), graphics),
+            1400,600}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
@@ -1260,6 +1233,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalanceJunction</code> and <code>energyDynamicsJunction</code>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Set default temperature for medium to avoid conflicting

@@ -41,7 +41,6 @@ model TwoRoomsWithStorage
   Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-120})));
 
@@ -227,9 +226,9 @@ model TwoRoomsWithStorage
     l={0.01,0.01},
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
-    dynamicBalance=false,
-    dpFixed_nominal={100,0}) "Three-way valve"
-                                     annotation (Placement(transformation(
+    dpFixed_nominal={100,0},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,0})));
@@ -731,7 +730,7 @@ equation
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
-      points={{329,-74},{70,-74},{70,-108}},
+      points={{329,-74},{69.8,-74},{69.8,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(off.outPort[1], T1.inPort) annotation (Line(
@@ -909,7 +908,7 @@ equation
       smooth=Smooth.None));
   connect(gai1.y, roo1.qGai_flow) annotation (Line(
       points={{401,560},{410,560},{410,540},{346,540},{346,494},{346,494},{346,494},
-          {354,494},{354,492}},
+          {354.4,494},{354.4,492}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, gai2.u[1]) annotation (Line(
@@ -917,7 +916,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai2.y, roo2.qGai_flow) annotation (Line(
-      points={{401,290},{410,290},{410,260},{350,260},{350,234},{366,234}},
+      points={{401,290},{410,290},{410,260},{350,260},{350,234},{366.4,234}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
@@ -1003,7 +1002,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(conPum.y, pumRad.y) annotation (Line(
-      points={{141,110},{204,110},{204,50},{208,50}},
+      points={{141,110},{204,110},{204,49.8},{208,49.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo1.T, conRoo1.u_m) annotation (Line(
@@ -1233,6 +1232,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalance</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/484\">#484</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

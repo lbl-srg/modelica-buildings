@@ -286,7 +286,6 @@ model ClosedLoop
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -297,7 +296,6 @@ model ClosedLoop
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -308,7 +306,6 @@ model ClosedLoop
         m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -318,7 +315,6 @@ model ClosedLoop
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
