@@ -187,7 +187,7 @@ equation
           rotation=90)}),
     Documentation(info="<html>
 <p>
-Blcok that computes the mover efficiency and power consumption.
+Block that computes the mover efficiency and power consumption.
 It is used by the model
 <a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.FlowControlled\">FlowControlled</a>.
 </p>

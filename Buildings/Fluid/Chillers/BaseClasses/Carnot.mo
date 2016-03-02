@@ -98,7 +98,7 @@ partial model Carnot
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-    Modelica.Fluid.Types.Dynamics.SteadyState "Formulation of energy balance"
+    Modelica.Fluid.Types.Dynamics.SteadyState "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Dialog(tab="Dynamics", group="Evaporator and condenser"));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(

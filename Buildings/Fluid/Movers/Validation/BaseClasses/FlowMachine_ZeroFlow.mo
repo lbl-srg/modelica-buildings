@@ -113,6 +113,9 @@ Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
 fails because water does not implemented the function
 <code>Xsaturation</code>.
 </li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
 <li>
 March 24 2010, by Michael Wetter:<br/>
 First implementation.

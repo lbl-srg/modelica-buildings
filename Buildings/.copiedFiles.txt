@@ -196,6 +196,8 @@ Buildings/Controls/SetPoints/package.order
 Buildings/Controls/package.mo
 Buildings/Controls/package.order
 Buildings/EfficiencyInterface.mat
+Buildings/Example1v2.mat
+Buildings/Example8.mat
 Buildings/FlowControlled_m_flow.mat
 Buildings/FlowMachineInterface.mat
 Buildings/Fluid/Actuators/BaseClasses/ActuatorSignal.mo
@@ -628,7 +630,10 @@ Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
 Buildings/MoverParameter.mat
+Buildings/Power.mat
+Buildings/PowerExact.mat
 Buildings/PowerInterface.mat
+Buildings/ResistanceVolumeFlowReversal.mat
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
 Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png
@@ -696,9 +701,6 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_EfficiencyInterface.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_FlowMachineInterface.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_BaseClasses_Validation_PowerInterface.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -970,6 +972,7 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
+Buildings/SimpleHouse.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo
@@ -1161,5 +1164,5 @@ Buildings/legal.html
 Buildings/package.order
 Buildings/replaceSubstance.py
 Buildings/simulator.log
-Buildings/unitTests.log
+Buildings/update.py
 Buildings/update.sh

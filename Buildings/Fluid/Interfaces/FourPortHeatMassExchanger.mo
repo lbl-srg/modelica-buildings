@@ -20,10 +20,10 @@ model FourPortHeatMassExchanger
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization

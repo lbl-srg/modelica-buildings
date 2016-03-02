@@ -35,9 +35,8 @@ model ResistanceVolumeFlowReversal
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
     l={0.002,0.002},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false) "Three way valve with constant input"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Three way valve with constant input"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -154,6 +153,11 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalance</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+</li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
