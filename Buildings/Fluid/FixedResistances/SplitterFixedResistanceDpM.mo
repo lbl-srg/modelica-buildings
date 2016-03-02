@@ -72,7 +72,7 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
         Ellipse(
-          visible=dynamicBalance,
+          visible=not energyBalance <> Modelica.Fluid.Types.Dynamics.SteadyState,
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
