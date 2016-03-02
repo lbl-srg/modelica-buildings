@@ -104,6 +104,16 @@ convertModifiers("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
                  {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
                  true);
 
+// Remove dynamicBalance from Valves and from SplitterFixedResistanceDpM
+convertModifiers({"Buildings.Fluid.BaseClasses.PartialThreeWayResistance"},
+                 {"dynamicBalance=false"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState"},
+                 true);
+convertModifiers({"Buildings.Fluid.BaseClasses.PartialThreeWayResistance"},
+                 {"dynamicBalance=true"},
+                 {"energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial"},
+                 true);
+
 // Remove r_N.start which is no longer a public variable in .Movers
 convertModifiers({"Buildings.Fluid.Movers.SpeedControlled_y",
                   "Buildings.Fluid.Movers.SpeedControlled_Nrpm",
