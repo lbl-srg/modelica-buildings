@@ -57,7 +57,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
@@ -72,7 +72,7 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
         Ellipse(
-          visible=not energyBalance <> Modelica.Fluid.Types.Dynamics.SteadyState,
+          visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
