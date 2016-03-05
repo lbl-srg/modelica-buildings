@@ -564,7 +564,26 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-      <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.Interfaces.PartialWindTurbine
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer<br/>
+                          Buildings.HeatTransfer.Data.BaseClasses
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
@@ -591,6 +610,17 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAirHeatGain
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+
 
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>

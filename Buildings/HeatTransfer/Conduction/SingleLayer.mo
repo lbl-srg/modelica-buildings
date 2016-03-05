@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Conduction;
 model SingleLayer "Model for single layer heat conductance"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
-   final R=if (material.R == 0) then material.x/material.k/A else material.R/A);
+   final R=if (material.R < Modelica.Constants.eps) then material.x/material.k/A else material.R/A);
    // if material.R == 0, then the material specifies material.k, and this model specifies x
    // For resistances, material.k need not be specified, and hence we use material.R
   // The value T[:].start is used by the solver when finding initial states
@@ -269,6 +269,12 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed test for equality of <code>Real</code> variables.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+</li>
 <li>
 May 21, 2015, by Michael Wetter:<br/>
 Reformulated function to reduce use of the division macro
