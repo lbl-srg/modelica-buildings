@@ -110,8 +110,7 @@ This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
 The fluid volume is modeled if
-<code>dynamicBalance=true</code>, and it is removed if
-<code>dynamicBalance=false</code>.
+<code>energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 The control volume has the size
 </p>
 <pre>
@@ -125,6 +124,13 @@ system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+Removed parameter <code>dynamicBalance</code> that overwrote the setting
+of <code>energyDynamics</code> and <code>massDynamics</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+Annex 60, issue 411</a>.
+</li>
 <li>
 February 1, 2012 by Michael Wetter:<br/>
 Expanded documentation.
