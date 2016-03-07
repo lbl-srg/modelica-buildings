@@ -471,6 +471,24 @@ its class name ends with the string <code>Beta</code>.
      </td>
    </tr>
 
+   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.PartialThreeWayResistance<br/>
+                          Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                          Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage
+     </td>
+     <td valign=\"top\">Removed parameter <code>dynamicBalance</code> that overwrote the setting
+                        of <code>energyDynamics</code> and <code>massDynamics</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+                        Annex 60, issue 411</a>.
+                        For Dymola, the conversion script updates the models.
+     </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
      </td>
      <td valign=\"top\">Renamed the protected parameters
