@@ -1,4 +1,4 @@
-last-generated=2016-02-12
+last-generated=2016-03-09
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -47,7 +47,6 @@ statistics-fmu-dependencies=
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
       "com.per.motorCooledByFluid", 
-      "m_flow_nominal", 
       "dp_in"
     ], 
     "EventCounter": [], 
@@ -64,7 +63,6 @@ statistics-fmu-dependencies=
       "com.per.motorEfficiency.V_flow[1]", 
       "com.per.motorEfficiency.eta[1]", 
       "com.per.motorCooledByFluid", 
-      "m_flow_nominal", 
       "dp_in"
     ], 
     "outlet.forward.X_w": [
