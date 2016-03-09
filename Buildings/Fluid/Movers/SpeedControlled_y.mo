@@ -1,26 +1,23 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
-    _per_y(
-      final hydraulicEfficiency =     per.hydraulicEfficiency,
-      final motorEfficiency =         per.motorEfficiency,
-      final motorCooledByFluid =      per.motorCooledByFluid,
-      final speed_nominal =           per.speed_nominal,
-      final constantSpeed =           per.constantSpeed,
-      final speeds =                  per.speeds,
-      final pressure =                per.pressure,
-      final use_powerCharacteristic = per.use_powerCharacteristic,
-      final power =                   per.power),
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+    final nominalValuesDefineDefaultPressureCurve=false,
+    final computePowerUsingSimilarityLaws=true,
+    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
+    filter(
+      final y_start=y_start,
+      u_nominal=1,
+      u(final unit="1"),
+      y(final unit="1")),
+    eff(
+      per(final pressure = per.pressure,
+          final use_powerCharacteristic = per.use_powerCharacteristic)),
     gaiSpe(u(final unit="1"),
            final k=1/per.speed_nominal));
-
-  replaceable parameter Data.SpeedControlled_y per
-    constrainedby Data.SpeedControlled_y "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{62,70},{82,90}})));
 
   Modelica.Blocks.Interfaces.RealInput y(
     min=0,
@@ -35,12 +32,37 @@ model SpeedControlled_y
         rotation=-90,
         origin={-2,120})));
 
+protected
+  Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={10,-20})));
+initial equation
+  assert(per.havePressureCurve,
+   "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
+
 equation
   connect(gaiSpe.u, y)
     annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
   connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
           {-26,50},{-22,50}}, color={0,0,127}));
-  annotation (defaultComponentName="fan",
+  connect(eff.dp, gain.u)
+    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
+  connect(gain.y, preSou.dp_in)
+    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+                                                     color={0,0,127}));
+
+  if filteredSpeed then
+    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
+            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
+                                      color={0,0,127}));
+  else
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+            26},{-26,26},{-26,-46}},
+                                   color={0,0,127}));
+  end if;
+
+    annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
             graphics={
@@ -76,6 +98,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for

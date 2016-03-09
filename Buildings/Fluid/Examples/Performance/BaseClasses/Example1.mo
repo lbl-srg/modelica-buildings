@@ -15,7 +15,8 @@ partial model Example1 "Example 1 partial model"
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(

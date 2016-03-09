@@ -7,7 +7,8 @@ model WaterHeater_u
     m_flow_nominal=V*1000/3600,
     Q_flow_nominal=100,
     conPI(k=10),
-    vol(V=V/1000));
+    vol(V=V/1000),
+    mov(nominalValuesDefineDefaultPressureCurve=true));
 
   HeaterCooler_u hea(
     redeclare package Medium = Medium,

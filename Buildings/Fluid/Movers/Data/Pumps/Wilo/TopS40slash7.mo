@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record TopS40slash7 "Pump data for a staged Wilo-Top-S 40/7 pump"
-  extends SpeedControlled_Nrpm(
+  extends Generic(
     speed_rpm_nominal=2800,
     use_powerCharacteristic = true,
     power(V_flow={9.97406742472e-07,0.000621384400559,0.00113006183922,

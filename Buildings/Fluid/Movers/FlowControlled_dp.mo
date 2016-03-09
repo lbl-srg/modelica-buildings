@@ -1,42 +1,50 @@
 within Buildings.Fluid.Movers;
 model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowControlled(
-  final control_m_flow = false,
-  preSou(dp_start=dp_start),
-  final stageInputs(each final unit="Pa") = heads,
-  final constInput(final unit="Pa") = constantHead,
-  filter(
-     final y_start=dp_start,
-     u_nominal=abs(dp_nominal),
-     u(final unit="Pa"),
-     y(final unit="Pa")));
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
+    final computePowerUsingSimilarityLaws=per.havePressureCurve,
+    preSou(dp_start=dp_start),
+    final stageInputs(each final unit="Pa") = heads,
+    final constInput(final unit="Pa") = constantHead,
+    filter(
+      final y_start=dp_start,
+      u_nominal=abs(dp_nominal),
+      u(final unit="Pa"),
+      y(final unit="Pa")),
+    eff(
+      per(
+        final pressure = if per.havePressureCurve then
+          per.pressure
+        else
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow=  {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+            dp=      {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
 
-  // Classes used to implement the filtered speed
-  parameter Boolean filteredSpeed=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.PressureDifference dp_start(min=0, displayUnit="Pa")=0
-    "Initial value of pressure raise"
+  parameter Modelica.SIunits.PressureDifference dp_start(
+    min=0,
+    displayUnit="Pa")=0 "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=10000
-    "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
+  // For air, we set dp_nominal = 600 as default, for water we set 10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    min=0,
+    displayUnit="Pa")=
+      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
+        to set default values of constantHead and heads, and 
+        and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference constantHead(min=0,
-                                                             displayUnit="Pa")=dp_nominal
+  parameter Modelica.SIunits.PressureDifference constantHead(
+    min=0,
+    displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
-  parameter Modelica.SIunits.PressureDifference[:] heads(each min=0,
-                                                         each displayUnit="Pa") = dp_nominal*{0}
+  parameter Modelica.SIunits.PressureDifference[:] heads(
+    each min=0,
+    each displayUnit="Pa") = dp_nominal*{1}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
@@ -52,8 +60,8 @@ model FlowControlled_dp
         origin={-2,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa", displayUnit="Pa")
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
@@ -76,10 +84,6 @@ equation
       smooth=Smooth.None));
   end if;
 
-  connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(inputSwitch.u, dp_in) annotation (Line(
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
@@ -88,12 +92,8 @@ equation
       points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.u, dp_actual) annotation (Line(
-      points={{36,42},{36,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
-          14},{20,-10},{-38,-10},{-38,-44},{-32,-44}}, color={0,0,127}));
+  connect(gain.u, dp_actual) annotation (Line(points={{36,42},{60,42},{60,20},{
+          110,20}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
@@ -101,8 +101,10 @@ This model describes a fan or pump with prescribed head.
 The input connector provides the difference between
 outlet minus inlet pressure.
 The efficiency of the device is computed based
-on the efficiency curves that take as an argument
-the actual volume flow rate divided by the maximum possible volume flow rate.
+on the efficiency and pressure curves that are defined
+in record <code>per</code>, which is of type
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
 If <code>filteredSpeed=true</code>, then the parameter <code>dp_nominal</code> is
@@ -120,6 +122,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
@@ -202,6 +210,6 @@ Revised implementation to allow zero flow rate.
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowControlled_dp;

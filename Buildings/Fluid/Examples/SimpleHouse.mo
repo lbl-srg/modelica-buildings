@@ -78,7 +78,8 @@ model SimpleHouse
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=allowFlowReversal)
+    allowFlowReversal=allowFlowReversal,
+    nominalValuesDefineDefaultPressureCurve=true)
     annotation (Placement(transformation(extent={{80,-158},{60,-138}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemZonAir
     "Zone air temperature sensor"
@@ -97,8 +98,9 @@ model SimpleHouse
     m_flow_nominal=0.01,
     dp_nominal=dp_nominal,
     filteredSpeed=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Constant head fan"  annotation (Placement(transformation(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true) "Constant head fan"
+                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,100})));

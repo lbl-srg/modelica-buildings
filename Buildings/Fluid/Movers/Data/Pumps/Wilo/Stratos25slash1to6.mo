@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to6 "Pump data for a Wilo Stratos 25/1-6 pump"
-  extends SpeedControlled_Nrpm(
+  extends Generic(
     speed_rpm_nominal=2540,
     use_powerCharacteristic=true,
     power(V_flow={8.4618254914e-06,0.000274485730449,0.000555832400486,

@@ -14,7 +14,8 @@ model ResistanceVolumeFlowReversal
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(

@@ -5,9 +5,15 @@ model FlowMachineInterface
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
-  parameter Data.SpeedControlled_y per "Record with performance data"
+  parameter Buildings.Fluid.Movers.Data.Generic per
+    "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
+
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable preVar=
+    Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed "Type of prescribed variable";
+  parameter Boolean computePowerUsingSimilarityLaws
+    "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
     per.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
@@ -28,74 +34,98 @@ model FlowMachineInterface
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  // Normalized speed
-  Modelica.Blocks.Interfaces.RealInput y_actual(
+  Modelica.Blocks.Interfaces.RealInput y_in(final unit="1", min=0) if preSpe
+    "Prescribed mover speed"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={-40,120})));
+
+  Modelica.Blocks.Interfaces.RealOutput y_out(
     final unit="1",
-    min=0) "Global efficiency"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    min=0) "Mover speed (prescribed or computed)"
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput rho(
     final quantity="Density",
     final unit="kg/m3",
     min=0.0) "Medium density"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput V_flow(
     quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
+    annotation (Placement(transformation(extent={{100,38},{120,58}}),
+        iconTransformation(extent={{100,38},{120,58}})));
+
+  Modelica.Blocks.Interfaces.RealInput dp_in(
+    quantity="PressureDifference",
+    final unit="Pa") if prePre "Prescribed pressure increase"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={40,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp(
     quantity="Pressure",
-    final unit="Pa") "Pressure increase"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    final unit="Pa") if not prePre "Pressure increase (computed or prescribed)"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput WFlo(
     quantity="Power",
     final unit="W") "Flow work"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     quantity="Power",
     final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{120,0}}),
+        iconTransformation(extent={{100,-20},{120,0}})));
 
   Modelica.Blocks.Interfaces.RealOutput eta(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Overall efficiency"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
+        iconTransformation(extent={{100,-80},{120,-60}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Motor efficiency"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
-        iconTransformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
+        iconTransformation(extent={{100,-110},{120,-90}})));
 
   // "Shaft rotational speed";
-  Real r_N(min=0, unit="1") "Ratio N_actual/N_nominal";
+  Modelica.Blocks.Interfaces.RealOutput r_N(min=0, unit="1")
+    "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
- // Derivatives for cubic spline
 protected
+  final parameter Boolean preSpe=
+    preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
+    "True if speed is a prescribed variable of this block";
+  final parameter Boolean prePre=
+    preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference or
+    preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate
+    "True if pressure head is a prescribed variable of this block";
+
+  // Derivatives for cubic spline
   final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of motor efficiency vs. volume flow rate";
   final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
@@ -205,6 +235,8 @@ protected
   parameter Boolean haveDPMax = (abs(per.pressure.V_flow[1])  < Modelica.Constants.eps)
     "Flag, true if user specified data that contain dpMax";
 
+  Modelica.Blocks.Interfaces.RealOutput dp_internal
+    "If dp is prescribed, use dp_in and solve for r_N, otherwise compute dp using r_N";
 function getPerformanceDataAsString
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
       "Performance data";
@@ -469,18 +501,31 @@ the simulation stops.");
     y=per.hydraulicEfficiency.eta);
 
 equation
+  //assign values of dp and r_N, depending on which variable exists / is prescribed
+  connect(dp_internal,dp);
+  connect(dp_internal,dp_in);
+  connect(r_N, y_in);
+  y_out=r_N;
+
   V_flow = m_flow/rho;
 
   // Hydraulic equations
-  r_N = y_actual;
   r_V = V_flow/V_flow_max;
+
+  // If the speed is not prescribed and we do not require exact power computations, we set r_N = 1.
+  // Similarity laws are then not used, meaning the power computation is less accurate.
+  // This however has the advantage that no non-linear algebraic loop is formed and
+  // it allows an implementation when the pressure curve is unknown.
+  if (computePowerUsingSimilarityLaws == false) and preVar <> Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed then
+    r_N=1;
+  else
   // For the homotopy method, we approximate dp by an equation
   // that is linear in V_flow, and that goes linearly to 0 as r_N goes to 0.
   // The three branches below are identical, except that we pass either
   // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
   if (curve == 1) then
     if homotopyInitialization then
-       dp = homotopy(actual=cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
+       dp_internal = homotopy(actual=cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer1, cBar=cBar, kRes=kRes),
@@ -504,14 +549,14 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       dp = cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
+       dp_internal = cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer1, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
    elseif (curve == 2) then
     if homotopyInitialization then
-       dp = homotopy(actual=cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
+       dp_internal = homotopy(actual=cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer2, cBar=cBar, kRes=kRes),
@@ -535,14 +580,14 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       dp = cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
+       dp_internal = cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer2, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
   else
     if homotopyInitialization then
-       dp = homotopy(actual=cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
+       dp_internal = homotopy(actual=cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
                                                     delta=delta, d=preDer3, cBar=cBar, kRes=kRes),
@@ -566,15 +611,17 @@ equation
                                  /(2*delta*V_flow_nominal)));
 
      else
-       dp = cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
+       dp_internal = cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
                                                 VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
                                                 delta=delta, d=preDer3, cBar=cBar, kRes=kRes);
      end if;
      // end of computation for this branch
   end if;
+    // end of if/else choosing between exact/simplified power computation
+  end if;
 
   // Flow work
-  WFlo = dp*V_flow;
+  WFlo = dp_internal*V_flow;
 
   // Power consumption
   if per.use_powerCharacteristic then
@@ -593,7 +640,7 @@ equation
     // Earlier versions of the model computed WFlo = eta * P, but this caused
     // a division by zero.
     eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
-    // In this configuration, we only now the total power consumption.
+    // In this configuration, we only know the total power consumption.
     // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
     // cause etaMot=eta, because eta=etaHyd*etaMot.
     // Earlier versions used etaMot=sqrt(eta), but as eta->0, this function has
@@ -703,16 +750,14 @@ equation
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw
-and efficiency of fans and pumps. It is used by the model
-<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.SpeedControlled\">
-Buildings.Fluids.Movers.BaseClasses.SpeedControlled</a>.
+and efficiency of fans and pumps.
 </p>
 <p>
 The nominal hydraulic characteristic (volume flow rate versus total pressure)
 is given by a set of data points
 using the data record <code>per</code>, which is an instance of
-<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
-Buildings.Fluid.Movers.Data.SpeedControlled_y\</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
 A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
 </p>
@@ -732,6 +777,11 @@ is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work.
 </li>
 </ul>
+<p>
+For exceptions to this general rule, check the
+<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+User's Guide</a> for more information.
+</p>
 
 <h4>Implementation</h4>
 <p>
@@ -756,7 +806,7 @@ to be used during the simulation.
 revisions="<html>
 <ul>
 <li>
-February 19, 2016, by Michael Wetter:<br/>
+February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
@@ -784,7 +834,7 @@ the <code>max</code> attribute to
 avoid a translation warning.
 </li>
 <li>
-April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
+April 21, 2014, by Filip Jorissen and Michael Wetter:<br/>
 Changed model to use
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
 Buildings.Fluid.Movers.Data.Generic</a>.

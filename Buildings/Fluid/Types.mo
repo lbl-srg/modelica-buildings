@@ -152,7 +152,10 @@ First implementation.
 </li>
 </ul>
 </html>"));
-annotation (preferredView="info", Documentation(info="<html>
+
+ annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;

@@ -6,7 +6,9 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
     rho_default=1.2,
     haveVMax=true,
     V_flow_max=1,
-    nOri=2) "Flow machine interface model"
+    nOri=2,
+    preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+    computePowerUsingSimilarityLaws=true) "Flow machine interface model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -15,15 +17,17 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
   Modelica.Blocks.Sources.Ramp m_flow(height=1.2, duration=1) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(eff.y_actual, y.y) annotation (Line(points={{-12,6},{-24,6},{-24,30},{
-          -39,30}}, color={0,0,127}));
   connect(eff.rho, rho.y)
-    annotation (Line(points={{-12,0},{-39,0}}, color={0,0,127}));
-  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,-30},{-26,-30},{-26,
-          -6},{-12,-6}}, color={0,0,127}));
+    annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
+                                               color={0,0,127}));
+  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,-30},{-26,-30},{
+          -26,4},{-12,4}},
+                         color={0,0,127}));
+  connect(y.y, eff.y_in)
+    annotation (Line(points={{-39,30},{-4,30},{-4,12}},   color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     Documentation(info="<html>
 <p>
 Simple validation model for the flow machine interface model.

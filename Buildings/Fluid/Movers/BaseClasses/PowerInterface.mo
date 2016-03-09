@@ -6,9 +6,6 @@ model PowerInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Density rho_default
-    "Fluid density at medium default state";
-
   parameter Boolean motorCooledByFluid
     "Flag, true if the motor is cooled by the fluid stream";
 
