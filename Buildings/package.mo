@@ -463,6 +463,11 @@ its class name ends with the string <code>Beta</code>.
                         which is used for all four types of movers.
                         This is for
                         <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.
+                        This change allows to correctly compute the fan or pump power also for the models
+                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>,
+                        <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
+                        for speeds that are different from the nominal speed, provided that the user
+                        specifies the pressure curve.
                         For Dymola, the conversion script updates this parameter.<br/><br/>
                         In the previous record
                         <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code>,
