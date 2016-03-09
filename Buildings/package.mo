@@ -442,29 +442,31 @@ its class name ends with the string <code>Beta</code>.
      </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
-                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                          Buildings.Fluid.Movers.Data.FlowControlled
-     </td>
-     <td valign=\"top\">Removed the performance record <code>power</code> and the
-                        parameter <code>use_powerCharacteristic</code> in the
-                        data record <code>Buildings.Fluid.Movers.Data.FlowControlled</code> because
-                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>
-                        and
-                        <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
-                        fix the flow rate or head, which can give a flow work that is higher
-                        than the power consumption specified in this record.
-                        Hence, users should use the efficiency data for this model.
-                        The record and parameter was moved to
-                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
-                        as they are also used for
-                        <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
-                        and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
+                          Buildings.Fluid.Movers.FlowControlled_m_flow
+   </td>
+   <td valign=\"top\">Write a warning if no pressure curve is provided because
+                     the efficiency calculation can only be done correctly if a pressure curve
+                     is provided. The warning can be suppressed by providing a pressure curve, or
+                     by setting <code>nominalValuesDefineDefaultPressureCurve=true</code>.
      </td>
    </tr>
 
-   <tr><td valign=\"top\">Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.Data
      </td>
-     <td valign=\"top\">Changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
+     <td valign=\"top\">Replaced the parameters
+                        <code>Buildings.Fluid.Movers.Data.FlowControlled</code>,
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>, and
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code> by
+                        the parameter
+                        <code>Buildings.Fluid.Movers.Data.Generic</code>
+                        which is used for all four types of movers.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.
+                        For Dymola, the conversion script updates this parameter.<br/><br/>
+                        In the previous record
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code>,
+                        changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
                         This is for
                         <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">Annex 60 issue 396</a>.
                         For Dymola, the conversion script updates this parameter.
