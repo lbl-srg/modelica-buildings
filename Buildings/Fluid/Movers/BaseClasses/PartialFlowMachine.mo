@@ -99,8 +99,18 @@ partial model PartialFlowMachine
 
   // Quantity to control
 protected
-  parameter Types.PrescribedVariable preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
-    "Type of prescribed variable";
+  parameter Types.PrescribedVariable preVar "Type of prescribed variable";
+
+  // The parameter speedIsInput is required to conditionally remove the instance gain.
+  // If the conditional removal of this instance where to use the test
+  // preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+  // then OpenModelica fails to translate the model with the message
+  // .../PartialFlowMachine.mo:185:3-189:70:writable]
+  // Error: Variable Types.PrescribedVariable.Speed not found in scope
+  // Buildings.Fluid.Movers.SpeedControlled_y$floMac1.
+  final parameter Boolean speedIsInput=
+    (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)
+    "Parameter that is true if speed is the controlled variables";
 
   final parameter Integer nOri = size(per.pressure.V_flow, 1)
     "Number of data points for pressure curve"
@@ -183,8 +193,8 @@ protected
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
-       inputType == Buildings.Fluid.Types.InputType.Continuous and
-       preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
+    inputType == Buildings.Fluid.Types.InputType.Continuous and
+    speedIsInput
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 

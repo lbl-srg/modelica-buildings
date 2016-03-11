@@ -4,7 +4,9 @@ model SpeedControlled_y_pumpCurves
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  // For OpenModelica, changed m_flow_nominal to a constant. Otherwise
+  // the translation fails with "Error: Cyclically dependent parameters found"
+  constant Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
   // For OpenModelica, changed dp_nominal to a constant. Otherwise
   // the compilation fails.
@@ -167,6 +169,10 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2016, by Michael Wetter:<br/>
+Reformulated model for OpenModelica.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
