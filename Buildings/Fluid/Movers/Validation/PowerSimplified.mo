@@ -11,13 +11,6 @@ model PowerSimplified
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
-  parameter Data.Pumps.Wilo.Stratos30slash1to8 perFlowControlled(
-  pressure(V_flow={0,0}, dp={0,0}),
-      use_powerCharacteristic=false,
-    hydraulicEfficiency(V_flow={0}, eta={0.3577}))
-    "Pump performance data with pressure curve removed"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     per=per,
@@ -27,7 +20,10 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    per=perFlowControlled,
+    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      use_powerCharacteristic=false,
+    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -36,7 +32,10 @@ model PowerSimplified
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    per=perFlowControlled,
+    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      use_powerCharacteristic=false,
+    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -147,6 +146,14 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2016, by Michael Wetter:<br/>
+Revised implementation by assigning the data record directly in the
+instances <code>pump_dp</code> and <code>pump_m_flow</code>, because
+using a <code>parameter</code> and assigning this <code>parameter</code> leads
+in OpenModelica to the error message
+<code>expected subtype of record Buildings.Fluid.Movers.Data.Generic</code>.
+</li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Revised implementation for
