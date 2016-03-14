@@ -531,7 +531,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Blocks.Logical.Switch swiPumPreCoi "Switch for preheat coil pump"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=273.15 + 10)
+  Modelica.Blocks.Logical.OnOffController preHeaOn(bandwidth=1)
+    "Switch to enable preheat coil"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.Constant mWatPreOn(k=mWatPre_flow_nominal)
     "Water flow rate at preheat coil if on"
@@ -543,6 +544,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Setpoint for static pressure of building"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 
+  Modelica.Blocks.Sources.Constant TPreHeaOn(k=273.15 + 10)
+    "Temperature when preheat coil is switched on."
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(fil.port_b, preHeaCoi.port_a1)
                                       annotation (Line(
@@ -1066,12 +1070,12 @@ equation
       points={{-59,-170},{18,-170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lessThreshold.y, swiPumPreCoi.u2) annotation (Line(
+  connect(preHeaOn.y, swiPumPreCoi.u2) annotation (Line(
       points={{21,-90},{38,-90}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(lessThreshold.u, TMix.T) annotation (Line(
-      points={{-2,-90},{-32,-90},{-32,-20},{40,-20},{40,-29}},
+  connect(preHeaOn.u, TMix.T) annotation (Line(
+      points={{-2,-96},{-32,-96},{-32,-20},{40,-20},{40,-29}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatPreOn.y, swiPumPreCoi.u1) annotation (Line(
@@ -1123,6 +1127,8 @@ equation
       points={{200,-30},{200,0},{250,0},{250,6.10623e-16},{300,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(preHeaOn.reference, TPreHeaOn.y) annotation (Line(points={{-2,-84},{
+          -18,-84},{-18,-70},{-59,-70}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
             1400,600}})),
