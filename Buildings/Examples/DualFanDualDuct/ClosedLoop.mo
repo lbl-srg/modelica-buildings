@@ -141,15 +141,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     TSupSetHea(TOn=284.15, TOff=279.15)
     "Supply air temperature setpoint for heating"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.Continuous.LimPID preHeaCoiCon(
-    yMax=1,
-    yMin=0,
-    Td=60,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
-    Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=1) "Controller for pre-heating coil"
-    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
     reverseAction=true,
     Td=60,
@@ -430,7 +421,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Fluid.Movers.FlowControlled_m_flow pumPreHea(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mWatPre_flow_nominal)
+    m_flow_nominal=mWatPre_flow_nominal,
+    inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Pump for preheat coil (to ensure constant flow through the coil)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -529,24 +521,16 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     xSet_nominal(displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  Modelica.Blocks.Logical.Switch swiPumPreCoi "Switch for preheat coil pump"
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Modelica.Blocks.Logical.OnOffController preHeaOn(bandwidth=1)
-    "Switch to enable preheat coil"
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Modelica.Blocks.Sources.Constant mWatPreOn(k=mWatPre_flow_nominal)
-    "Water flow rate at preheat coil if on"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Modelica.Blocks.Sources.Constant mWatPreOff(k=0)
-    "Water flow rate at preheat coil if off"
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure of building"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 
-  Modelica.Blocks.Sources.Constant TPreHeaOn(k=273.15 + 10)
-    "Temperature when preheat coil is switched on."
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Controls.PreHeatCoil conPreHeatCoi "Controller for preheat coil"
+               annotation (Placement(transformation(rotation=0, extent={{-4,-112},
+            {16,-92}})));
+  Modelica.Blocks.Math.Gain gaiPumPreCoi(k=mWatPre_flow_nominal)
+    "Gain for preheat coil pump"
+    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 equation
   connect(fil.port_b, preHeaCoi.port_a1)
                                       annotation (Line(
@@ -675,11 +659,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TPreHeaCoi.T, preHeaCoiCon.u_m)
-                                       annotation (Line(
-      points={{144,-29},{144,-20},{160,-20},{160,-192},{30,-192},{30,-182}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conEco.yOA, eco.y) annotation (Line(
       points={{-59.3333,152},{-48,152},{-48,-8},{-13,-8},{-13,6.6}},
       color={0,0,127},
@@ -1051,11 +1030,6 @@ equation
       points={{361,-190},{368,-190}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preHeaCoiCon.y, valPreHea.y)
-                                    annotation (Line(
-      points={{41,-170},{108,-170}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TSupSetHea.TSet, conEco.TSupHeaSet) annotation (Line(
       points={{-59,-170},{-52,-170},{-52,-110},{-170,-110},{-170,145.333},{
           -81.3333,145.333}},
@@ -1065,30 +1039,6 @@ equation
       points={{-102.5,-361.5},{-102,-178},{-71.8,-178}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(TSupSetHea.TSet, preHeaCoiCon.u_s) annotation (Line(
-      points={{-59,-170},{18,-170}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaOn.y, swiPumPreCoi.u2) annotation (Line(
-      points={{21,-90},{38,-90}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(preHeaOn.u, TMix.T) annotation (Line(
-      points={{-2,-96},{-32,-96},{-32,-20},{40,-20},{40,-29}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mWatPreOn.y, swiPumPreCoi.u1) annotation (Line(
-      points={{21,-60},{30,-60},{30,-82},{38,-82}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(swiPumPreCoi.y, pumPreHea.m_flow_in) annotation (Line(
-      points={{61,-90},{76,-90},{76,-90.2},{108,-90.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mWatPreOff.y, swiPumPreCoi.u3) annotation (Line(
-      points={{21,-130},{30,-130},{30,-98},{38,-98}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(conFanRet.y, fanRet.y) annotation (Line(
       points={{261,230},{350.2,230},{350.2,172}},
@@ -1127,11 +1077,21 @@ equation
       points={{200,-30},{200,0},{250,0},{250,6.10623e-16},{300,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(preHeaOn.reference, TPreHeaOn.y) annotation (Line(points={{-2,-84},{
-          -18,-84},{-18,-70},{-59,-70}}, color={0,0,127}));
+  connect(gaiPumPreCoi.y, pumPreHea.m_flow_in) annotation (Line(points={{81,-90},
+          {108,-90},{108,-90.2}}, color={0,0,127}));
+  connect(conPreHeatCoi.yPum, gaiPumPreCoi.u) annotation (Line(points={{17,-97},
+          {32,-97},{32,-90},{58,-90}}, color={0,0,127}));
+  connect(conPreHeatCoi.TSupSetHea, TSupSetHea.TSet) annotation (Line(points={{-5,
+          -102},{-52,-102},{-52,-170},{-59,-170}}, color={0,0,127}));
+  connect(conPreHeatCoi.TMix, TMix.T) annotation (Line(points={{-5,-96},{-12,-96},
+          {-12,-20},{40,-20},{40,-29}}, color={0,0,127}));
+  connect(TPreHeaCoi.T, conPreHeatCoi.TAirSup) annotation (Line(points={{144,-29},
+          {144,-29},{144,-16},{-20,-16},{-20,-108},{-5,-108}}, color={0,0,127}));
+  connect(conPreHeatCoi.yVal, valPreHea.y) annotation (Line(points={{17,-107},{40,
+          -107},{40,-170},{108,-170}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{
-            1400,600}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-400},{1400,
+            600}})),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model
