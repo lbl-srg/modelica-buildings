@@ -119,7 +119,8 @@ The control volume has the size
 <p>
 where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density
 of the medium in the volume at nominal condition.
-Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
+Setting <code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
+can help reducing the size of the nonlinear
 system of equations.
 </p>
 </html>", revisions="<html>
