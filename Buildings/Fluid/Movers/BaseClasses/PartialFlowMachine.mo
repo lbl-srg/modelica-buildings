@@ -216,8 +216,7 @@ protected
     addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow(
-    final alpha=0) if
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if
     addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
