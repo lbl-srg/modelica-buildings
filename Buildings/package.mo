@@ -130,13 +130,36 @@ its class name ends with the string <code>Beta</code>.
    class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
+   <div class=\"release-summary\">
    <p>
-   Version 3.0.0 is a major new release. The option to model electrochromic windows has
-   been added. The models in <code>Buildings.Fluid.Movers</code> have been refactored
-   to make their implementation clearer.
-   Various models in particular in the <code>Buildings.Electrical</code>
-   package were reformulated to comply with the Modelica Language Definition.
+   Version 3.0.0 is a major new release.
    </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+     <li>
+       Electrochromic windows have been added. See <code>Buildings.Rooms.Examples.ElectroChromicWindow</code>.
+     </li>
+     <li>
+       The models in <code>Buildings.Fluid.Movers</code> can now be configured to use
+       three different control input signals: a continuous signal (depending on the model either
+       either normalized speed, speed in rpm, prescribed mass flow rate or prescribed head),
+       discrete stages of these quantities, or on/off.
+       The models also have been refactored to make their implementation clearer.
+     </li>
+     <li>
+       The new package <code>Buildings.Fluid.HeatPumps</code> has been added.
+       This package contains models for idealized heat pumps
+       whose COP changes proportional to the change in COP of a Carnot cycle,
+       with an optional correction for the part load efficiency.
+     </li>
+     <li>
+       Various models, in particular in the package <code>Buildings.Electrical</code>
+       were reformulated to comply with the Modelica Language Definition.
+       All models comply with the pedantic Modelica check of Dymola.
+     </li>
+   </ul>
+   </div>
    <!-- New libraries -->
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
