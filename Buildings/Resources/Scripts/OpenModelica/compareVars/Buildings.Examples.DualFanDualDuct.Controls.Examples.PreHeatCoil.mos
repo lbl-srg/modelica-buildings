@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "preHeatCoil.TAirSup",
+    "preHeatCoil.TSupSetHea",
+    "preHeatCoil.TMix",
+    "preHeatCoil.yPum",
+    "preHeatCoil.yVal"
+  };
