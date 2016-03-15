@@ -474,7 +474,6 @@ its class name ends with the string <code>Beta</code>.
      </td>
    </tr>
 
-
    <tr><td valign=\"top\">Buildings.Fluid.Movers.Data
      </td>
      <td valign=\"top\">Replaced the parameters
@@ -581,6 +580,15 @@ its class name ends with the string <code>Beta</code>.
                           <code>tauSol={0.6}</code> instead of <code>tauSol=0.6</code>.
                           For Dymola, the conversion script will automatically
                           update existing models.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+       </td>
+   <tr><td valign=\"top\">Buildings.Obsolete.Fluid.Movers<br/>
+                          Buildings.Obsolete.Media
+       </td>
+       <td valign=\"top\">Removed these packages which have models from
+                          release 2.0.0.
        </td>
    </tr>
    </table>
