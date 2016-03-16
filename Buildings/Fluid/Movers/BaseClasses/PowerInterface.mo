@@ -57,12 +57,18 @@ equation
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   Q_flow = if homotopyInitialization then
-    homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                     x=noEvent(abs(V_flow))-2*delta_V_flow, deltax=delta_V_flow),
-                     simplified=0)
+    homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
+                      y1=QThe_flow,
+                      y2=0,
+                      x=noEvent(abs(V_flow))-2*delta_V_flow,
+                      x_small=delta_V_flow),
+            simplified=0)
     else
-      Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=noEvent(abs(V_flow))-2*delta_V_flow, deltax=delta_V_flow);
+      Buildings.Utilities.Math.Functions.regStep(
+                      y1=QThe_flow,
+                      y2=0,
+                      x=noEvent(abs(V_flow))-2*delta_V_flow,
+                      x_small=delta_V_flow);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
@@ -112,6 +118,12 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 February 19, 2016, by Michael Wetter:<br/>
 First implementation during refactoring of mover models to make implementation clearer.

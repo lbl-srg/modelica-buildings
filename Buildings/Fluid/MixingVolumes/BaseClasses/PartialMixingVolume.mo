@@ -257,10 +257,10 @@ using
 </p>
 <pre>
 if allowFlowReversal then
-  hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
-                                                           neg=port_a.h_outflow,
-                                                           x=port_a.m_flow,
-                                                           deltax=m_flow_small/1E3);
+  hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                  y2=port_a.h_outflow,
+                                                  x=port_a.m_flow,
+                                                  x_small=m_flow_small/1E3);
 else
   hOut = port_b.h_outflow;
 end if;
@@ -295,6 +295,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
 Updated model to use the new parameter <code>use_mWat_flow</code>

@@ -129,20 +129,20 @@ equation
              else 0;
 
  if allowFlowReversal then
-   // Formulate hOut using spliceFunction. This avoids an event iteration.
+   // Formulate hOut using regStep. This avoids an event iteration.
    // The introduced error is small because deltax=m_flow_small/1e3
-   hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
-                                                            neg=port_a.h_outflow,
-                                                            x=port_a.m_flow,
-                                                            deltax=m_flow_small/1E3);
-   XiOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
-                                                            neg=port_a.Xi_outflow,
-                                                            x=port_a.m_flow,
-                                                            deltax=m_flow_small/1E3);
-   COut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.C_outflow,
-                                                            neg=port_a.C_outflow,
-                                                            x=port_a.m_flow,
-                                                            deltax=m_flow_small/1E3);
+   hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                   y2=port_a.h_outflow,
+                                                   x=port_a.m_flow,
+                                                   x_small=m_flow_small/1E3);
+   XiOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.Xi_outflow,
+                                                    y2=port_a.Xi_outflow,
+                                                    x=port_a.m_flow,
+                                                    x_small=m_flow_small/1E3);
+   COut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.C_outflow,
+                                                   y2=port_a.C_outflow,
+                                                   x=port_a.m_flow,
+                                                   x_small=m_flow_small/1E3);
  else
    hOut =  port_b.h_outflow;
    XiOut = port_b.Xi_outflow;
@@ -274,6 +274,12 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Removed <code>constant sensibleOnly</code> as this is no longer used because

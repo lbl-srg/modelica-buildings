@@ -8,6 +8,7 @@ PowerLinearized
 RegNonZeroPower
 RegNonZeroPowerDerivativeCheck
 RegNonZeroPowerDerivative_2_Check
+RegStep
 SmoothExponentialDerivativeCheck
 SmoothInterpolation
 SpliceFunction

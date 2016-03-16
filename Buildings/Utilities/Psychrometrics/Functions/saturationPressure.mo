@@ -9,11 +9,11 @@ function saturationPressure
                                           nominal=1000) "Saturation pressure";
 
 algorithm
-  pSat := Buildings.Utilities.Math.Functions.spliceFunction(
-             Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat),
-             Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat),
-             TSat-273.16,
-             1.0);
+  pSat := Buildings.Utilities.Math.Functions.regStep(
+             y1=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat),
+             y2=Buildings.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat),
+             x=TSat-273.16,
+             x_small=1.0);
   annotation(Inline=true,
     smoothOrder=1,
     Documentation(info="<html>
@@ -34,6 +34,12 @@ http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 August 19, 2015 by Michael Wetter:<br/>
 Changed <code>smoothOrder</code> from <i>5</i> to <i>1</i> as

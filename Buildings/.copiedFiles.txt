@@ -621,6 +621,7 @@ Buildings/Media/Water.mo
 Buildings/Media/package.mo
 Buildings/Media/package.order
 Buildings/Pump_stratos.mat
+Buildings/RegStep.mat
 Buildings/ResistanceVolumeFlowReversal.mat
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.odp
 Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png
@@ -692,6 +693,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_RegStep.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -911,6 +913,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinear
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegStep.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunction.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos
@@ -964,6 +967,10 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
 Buildings/SimpleHouse.mat
+Buildings/SmoothLimit.mat
+Buildings/SmoothMin.mat
+Buildings/SpeedControlled_y_linear.mat
+Buildings/SpliceFunction.mat
 Buildings/Types/Azimuth/package.mo
 Buildings/Types/Azimuth/package.order
 Buildings/Types/Tilt/package.mo
@@ -1019,6 +1026,7 @@ Buildings/Utilities/Math/Functions/Examples/PowerLinearized.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPower.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivative_2_Check.mo
+Buildings/Utilities/Math/Functions/Examples/RegStep.mo
 Buildings/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunction.mo
 Buildings/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mo
@@ -1039,6 +1047,7 @@ Buildings/Utilities/Math/Functions/polynomial.mo
 Buildings/Utilities/Math/Functions/powerLinearized.mo
 Buildings/Utilities/Math/Functions/quadraticLinear.mo
 Buildings/Utilities/Math/Functions/regNonZeroPower.mo
+Buildings/Utilities/Math/Functions/regStep.mo
 Buildings/Utilities/Math/Functions/smoothExponential.mo
 Buildings/Utilities/Math/Functions/smoothHeaviside.mo
 Buildings/Utilities/Math/Functions/smoothLimit.mo
