@@ -14,12 +14,12 @@ int main(int nArgs, char ** args){
   double dblValWri[] = {2.0};
 
   size_t nDblRea = 0;
-  double dblValRea[nDblRea];
+  double dblValRea[1];
 
   int intValWri[] = {1};
   size_t nIntWri = 1;
   size_t nIntRea = 2;
-  int intValRea[nIntRea];
+  int intValRea[2];
   //  char** strValWri = NULL;
   const char * strValWri[] = {"aaa"};
   size_t nStrWri = 0;
