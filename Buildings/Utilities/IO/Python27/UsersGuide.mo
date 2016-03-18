@@ -14,9 +14,7 @@ inside a Python module.
 </p>
 <p>
 The code has been tested with Python 2.7 on
-Linux 32 bit, Linux 64 bit, and Windows 32 bit.
-Windows 64 bit is currently supported if Dymola is run
-as a 32 bit application.
+Linux 32 and 64 bit and Windows 32 and 64 bit.
 </p>
 <h4>Software configuration to use classes from this package</h4>
 <p>
