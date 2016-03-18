@@ -351,13 +351,14 @@ input connector for <code>mWat_flow</code>.
 Otherwise, the model uses <code>mWat_flow = 0</code>.
 </p>
 <p>
-Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+If the constant <code>simplify_mWat_flow = true</code>, which is its default value,
+then the equation
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = - mWat_flow;
 </pre>
 <p>
-to
+is simplified as
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = 0;
@@ -378,12 +379,16 @@ For most components, this can be set to a parameter.
 Input connectors of the model are
 <ul>
 <li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium,
 </li>
 <li>
-<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium, and
+</li>
+<li>
+<code>C_flow</code>, which is the trace substance mass flow rate added to the medium.
 </li>
 </ul>
+
 <p>
 The model can be used as a dynamic model or as a steady-state model.
 However, for a steady-state model with exactly two fluid ports connected,

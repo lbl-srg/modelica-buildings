@@ -33,6 +33,18 @@ Afterwards the added water is removed again.
 The final water concentration, mass flow rate and enthalpy 
 flow rate should then be equal to the initial values.
 </p>
+<p>
+Note, however, that there is some approximation error because
+in its default configuration, the conservation balance
+models simplify the treatment of the water that is added
+to the fluid.
+See <a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+and
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+for a discussion.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

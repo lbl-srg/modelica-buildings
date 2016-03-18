@@ -246,13 +246,14 @@ input connector for <code>mWat_flow</code>.
 Otherwise, the model uses <code>mWat_flow = 0</code>.
 </p>
 <p>
-Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+If the constant <code>simplify_mWat_flow = true</code>, which is its default value,
+then the equation
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = - mWat_flow;
 </pre>
 <p>
-to
+is simplified as
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = 0;
@@ -292,13 +293,18 @@ zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
 are the results of an iterative solver.
 </p>
 <h4>Implementation</h4>
+<p>
 Input connectors of the model are
+</p>
 <ul>
 <li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium,
 </li>
 <li>
-<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium, and
+</li>
+<li>
+<code>C_flow</code>, which is the trace substance mass flow rate added to the medium.
 </li>
 </ul>
 
