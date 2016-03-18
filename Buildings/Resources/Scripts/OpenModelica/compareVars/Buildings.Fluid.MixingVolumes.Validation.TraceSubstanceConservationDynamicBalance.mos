@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "senTraSubIn.C",
+    "senTraSubOut.C"
+  };
