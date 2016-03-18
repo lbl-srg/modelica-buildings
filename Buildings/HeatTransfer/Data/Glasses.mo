@@ -182,7 +182,20 @@ For electrochromic glass, users can enter an arbitrary number of elements,
 where each element is for a particular window state.
 The dimension of the three vectors <code>tauSol</code>,
 <code>rhoSol_a</code> and <code>rhoSol_b</code> must be equal.
-fixme: Describe how they are used in the control.
+</p>
+<p>
+The example
+<a href=\"modelica://Buildings.Rooms.Examples.ElectroChromicWindow\">
+Buildings.Rooms.Examples.ElectroChromicWindow</a> shows
+how these data can be used to darken the window.
+A control signal of <code>uWin=0</code> in the room model corresponds
+to the first entry of the data, which typically is the clear state,
+whereas <code>uWin=1</code> corresponds to the last entry, which
+typically is the dark states. For intermediate control signals,
+the optical properties are interpolated using the
+model
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.StateInterpolator\">
+Buildings.HeatTransfer.Windows.BaseClasses.StateInterpolator</a>.
 </p>
 </html>",
 revisions="<html>
