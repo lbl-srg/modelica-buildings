@@ -24,7 +24,7 @@ model TraceSubstanceConservationDynamicBalance
   Modelica.Blocks.Sources.RealExpression reaExp(y=vol.m*vol.C[1])
     "Mixing volume total species mass"
     annotation (Placement(transformation(extent={{-8,-58},{30,-78}})));
-  Utilities.Diagnostics.AssertEquality assZer(threShold=1E-10)
+  Buildings.Utilities.Diagnostics.AssertEquality assZer(threShold=1E-10)
     "Assert conservation of mass"
     annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
   Modelica.Blocks.Math.Add3 add3(
