@@ -172,7 +172,6 @@ Each tank starts at the same water temperature, and there is no
 water flow through the tank.
 The glycol that flows through the heat exchanger starts with zero
 mass flow rate, and is set to its design flow rate at <i>t=300</i> seconds.
-fixme: Verify that the tank temperatures do not change during this time for each tank.
 </p>
 </html>",
 revisions="<html>

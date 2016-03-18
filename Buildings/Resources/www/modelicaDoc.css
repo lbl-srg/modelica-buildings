@@ -83,9 +83,10 @@ h2 {
 }
 
 h3 {
-    margin: 1em 0 -0.3em 0;
+    margin: 1em 0 0.2em 0;
     font-size: 1.2em;
     color: #022e4d;
+    margin-top: 10px;
 }
 h4 {
     margin: 1em 0 -0.3em 0;
@@ -99,6 +100,15 @@ sub, sup {
 }
 
 
+/* Modelica code */
+.modelica {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: #F3F5F7;
+  line-height: 120%;
+}
 /* Links */
 
 a {color: #750000;}

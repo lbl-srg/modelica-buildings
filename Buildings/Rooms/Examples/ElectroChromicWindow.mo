@@ -296,8 +296,6 @@ model ElectroChromicWindow
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{34,-46},{46,-34}})));
 equation
-  for i in 2:nConBou loop
-  end for;
 
   connect(uSha.y, replicator.u) annotation (Line(
       points={{-23,64},{-6,64}},

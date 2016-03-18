@@ -13,8 +13,8 @@ LIBHOME=os.path.abspath(".")
 # List of invalid strings
 # Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
 # for possible replacements.
-INVALID_IN_ALL=["fixme", "import \"", 
-                "import Buildings;", 
+INVALID_IN_ALL=["fixme", "import \"",
+                "import Buildings;",
                 "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "<--",
                 "realString", "integerString", "structurallyIncomplete",
                 "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
@@ -50,15 +50,35 @@ def reportError(message):
     IERR=IERR+1
 
 #########################################################
+def report_empty_statements(fileName, start_line, next_line):
+    filObj=open(fileName, 'r')
+    filTex=filObj.readlines()
+    found_loop = False
+    iLin = 1;
+    for lin in filTex:
+        if lin.rstrip().endswith(start_line):
+            found_loop = True
+        else:
+            if found_loop and lin.lstrip().startswith(next_line):
+                reportError("File '"
+                            + fileName.replace(LIBHOME, "", 1)
+                            + "' contains an empty '" + start_line + " ... " + next_line +
+                            "' on line '" + str(iLin) + "'.")
+                found_loop = False
+            else:
+                found_loop = False
+        iLin += 1
+
+#########################################################
 def reportErrorIfContains(fileName, listOfStrings):
     filObj=open(fileName, 'r')
     filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
         if (filTex.find(string.lower()) > -1):
-            reportError("File '" 
+            reportError("File '"
                         + fileName.replace(LIBHOME, "", 1)
-                        + "' contains invalid string '" 
+                        + "' contains invalid string '"
                         + string + "'.")
 
 #########################################################
@@ -69,9 +89,9 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
         if match is not None:
-            reportError("File '" 
+            reportError("File '"
                         + fileName.replace(LIBHOME, "", 1)
-                        + "' contains invalid string regular expression '" 
+                        + "' contains invalid string regular expression '"
                         + string + "' in '"
                         + match.group() + "'.")
 
@@ -82,9 +102,9 @@ def reportErrorIfMissing(fileName, listOfStrings):
     filTex=filTex.lower()
     for string in listOfStrings:
         if (filTex.find(string.lower()) == -1):
-            reportError("File '" 
+            reportError("File '"
                         + fileName.replace(LIBHOME, "", 1)
-                        + "' does not contain required string '" 
+                        + "' does not contain required string '"
                         + string + "'.")
 
 #########################################################
@@ -122,6 +142,11 @@ for (path, dirs, files) in os.walk(LIBHOME):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
                 if not filFulNam.endswith(maiPac):
                     reportErrorIfContains(filFulNam, ["uses("])
+                # Check for empty statements, which can happen if connections are deleted
+                report_empty_statements(filFulNam, "loop", "end for")
+                report_empty_statements(filFulNam, "then", "end if")
+                report_empty_statements(filFulNam, "then", "else")
+                report_empty_statements(filFulNam, "else", "end if")
 
 # Terminate if there was an error.
 # This allows other scripts to check the return value

@@ -258,14 +258,6 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx
-       </td>
-   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -726,25 +718,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-
-
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
    end Version_3_0_0;
 
