@@ -10,10 +10,13 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['home/mwetter', 'dymola/Modelica', '///opt/dymola']
+    li = ['home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg']
+    em = ""
     for s in li:
         if s in line:
-            print "*** Error: Invalid string '%s' in file '%s'." % (s, filNam)
+            em += "*** Error: Invalid string '%s' in file '%s'.\n" % (s, filNam)
+    if len(em) > 0:
+        raise ValueError(em)
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -34,7 +37,7 @@ insLoc = None
 with open(tesFil, 'r') as fil:
     lines = fil.readlines()
     for lin in lines:
-        iSta = lin.find('<p>Extends from <a href="file')
+        iSta = lin.find('Extends from <a href="file')
         if iSta > -1:
             s = "Library/"
             iEnd = lin.find(s) + len(s)
@@ -66,8 +69,10 @@ for fil in files:
         for i in range(len(lines)):
             lines[i] = lines[i].replace(old, new)
     filObj=open(filNam, 'w')
-    for lin in lines:
-        # Check if line contains a wrong string
+    filObj.writelines(lines)
+    filObj.close()
+    # Check if line contains a wrong string
+    filObj=open(filNam, 'r')
+    for lin in filObj.readlines():
         validateLine(lin, filNam)
-        filObj.write(lin)
     filObj.close()
