@@ -1,8 +1,7 @@
 within Buildings.Fluid.MixingVolumes.Validation.BaseClasses;
 partial model MixingVolumeReverseFlow
   "Test model for mixing volume with flow reversal"
-  import Buildings;
-  extends Modelica.Icons.Example;
+ extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Air "Medium model";
 
   constant Boolean prescribedHeatFlowRate = false

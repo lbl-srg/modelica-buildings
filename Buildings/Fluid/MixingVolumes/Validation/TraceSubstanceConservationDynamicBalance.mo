@@ -66,7 +66,6 @@ equation
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     experiment(Tolerance=1e-08),
-    __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This test checks if the trace substance flow rate is 

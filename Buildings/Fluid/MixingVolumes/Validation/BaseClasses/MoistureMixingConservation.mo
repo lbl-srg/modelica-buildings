@@ -175,7 +175,6 @@ equation
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-260},{160,100}}), graphics),
     experiment(Tolerance=1e-08),
-    __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
@@ -185,6 +184,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-260},{160,100}}, preserveAspectRatio=
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)));
 end MoistureMixingConservation;

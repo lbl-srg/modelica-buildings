@@ -1,5 +1,6 @@
 within Buildings.Fluid.MixingVolumes.Validation;
 model MoistureMixingConservationDynamicBalance
+  "This test checks if mass and energy is conserved when mixing fluid streams using dynamic balances"
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation(
     mWatFloSol(k={vol.X_start[1],vol1.X_start[1],vol2.X_start[1]}*m_start),
