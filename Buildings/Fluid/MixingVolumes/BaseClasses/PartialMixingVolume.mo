@@ -308,12 +308,6 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-March 15, 2016, by Michael Wetter:<br/>
-Replaced <code>spliceFunction</code> with <code>regStep</code>.
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
-</li>
-<li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs U, m, mXi, mC for being able to
 check conservation of quantities. 

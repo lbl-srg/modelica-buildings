@@ -164,7 +164,7 @@ equation
     // Substance balance
     // a) forward flow
     if use_m_flowInv then
-      port_b.Xi_outflow = (inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv;
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
     else // no water is added
       assert(use_mWat_flow == false, "Wrong implementation for forward flow.");
       port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -173,7 +173,7 @@ equation
     // b) backward flow
     if allowFlowReversal then
       if use_m_flowInv then
-        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
+        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
       else // no water added
         assert(use_mWat_flow == false, "Wrong implementation for reverse flow.");
         port_a.Xi_outflow = inStream(port_b.Xi_outflow);
@@ -187,7 +187,11 @@ equation
     // at both ports. Since mWat_flow_internal << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
+      if allowFlowReversal then
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      else
+        port_a.h_outflow = Medium.h_default;
+      end if;
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
@@ -309,15 +313,11 @@ revisions="<html>
 <ul>
 <li>
 March 17, 2016, by Michael Wetter:<br/>
-Refactored model.
+Refactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
-</li>
-<li>
-March 15, 2016, by Michael Wetter:<br/>
-Replaced <code>spliceFunction</code> with <code>regStep</code>.
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+and for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">#300</a>.
 </li>
 <li>
 September 3, 2015, by Filip Jorissen:<br/>
@@ -325,7 +325,7 @@ Revised implementation of conservation of vapor mass.
 Added new variable <code>mFlow_inv_b</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
-
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Removed <code>constant sensibleOnly</code> as this is no longer used because

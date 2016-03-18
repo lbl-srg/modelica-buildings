@@ -148,6 +148,5 @@ See issue
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>
 </li>
 </ul>
-</html>"),
-    __Dymola_experimentSetupOutput(events=false));
+</html>"));
 end PPM;
