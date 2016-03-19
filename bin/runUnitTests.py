@@ -65,7 +65,7 @@ def _runUnitTests(batch, single_package, n_pro, show_gui):
         ut.setSinglePackage(single_package)
     ut.setNumberOfThreads(n_pro)
     ut.pedanticModelica(True)
-    ut.show_GUI(show_gui)
+    ut.showGUI(show_gui)
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
 #    ut.setNumberOfThreads(1)
@@ -107,7 +107,8 @@ if __name__ == '__main__':
                         default = multiprocessing.cpu_count(),
                         help='Maximum number of processors to be used')
     unit_test_group.add_argument("--show-gui",
-                           action="store_true")
+                        help='Show the GUI of the simulator',
+                        action="store_true")
 
     html_group = parser.add_argument_group("arguments to check html syntax only")
     html_group.add_argument("--validate-html-only",
