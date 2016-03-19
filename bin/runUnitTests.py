@@ -56,7 +56,7 @@ def _setEnvironmentVariables(var, value):
     else:
         os.environ[var] = value
 
-def _runUnitTests(batch, single_package, n_pro):
+def _runUnitTests(batch, single_package, n_pro, show_gui):
     import buildingspy.development.regressiontest as u
 
     ut = u.Tester()
@@ -65,6 +65,7 @@ def _runUnitTests(batch, single_package, n_pro):
         ut.setSinglePackage(single_package)
     ut.setNumberOfThreads(n_pro)
     ut.pedanticModelica(True)
+    ut.show_GUI(show_gui)
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
 #    ut.setNumberOfThreads(1)
@@ -105,6 +106,8 @@ if __name__ == '__main__':
                         type=int,
                         default = multiprocessing.cpu_count(),
                         help='Maximum number of processors to be used')
+    html_group.add_argument("--show-gui",
+                           action="store_true")
 
     html_group = parser.add_argument_group("arguments to check html syntax only")
     html_group.add_argument("--validate-html-only",
@@ -141,7 +144,8 @@ if __name__ == '__main__':
 
     retVal = _runUnitTests(batch = args.batch,
                            single_package = single_package,
-                           n_pro = args.number_of_processors)
+                           n_pro = args.number_of_processors,
+                           show_gui = args.show_gui)
     exit(retVal)
 
 #   _runOpenModelicaUnitTests()
