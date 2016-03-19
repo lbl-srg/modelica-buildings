@@ -7,7 +7,6 @@ model FlatPlate "Test model for FlatPlate"
   Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
-    from_dp=true,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
@@ -17,7 +16,8 @@ model FlatPlate "Test model for FlatPlate"
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
@@ -51,7 +51,7 @@ model FlatPlate "Test model for FlatPlate"
   Modelica.Blocks.Sources.Sine sine(
     freqHz=3/86400,
     amplitude=-solCol.dp_nominal,
-    offset=10000) "Pressure source"
+    offset=1E5) "Pressure source"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
@@ -70,7 +70,7 @@ equation
   connect(TIn.port_b, solCol.port_a)
     annotation (Line(points={{-12,-10},{-6,-10},{0,-10}}, color={0,127,255}));
   connect(TOut.port_b, sin.ports[1])
-    annotation (Line(points={{50,-10},{80,-10},{80,-10}}, color={0,127,255}));
+    annotation (Line(points={{50,-10},{80,-10}},          color={0,127,255}));
   connect(sine.y, sou.p_in) annotation (Line(points={{-79,-10},{-70,-10},{-70,
           -18},{-62,-18}}, color={0,0,127}));
   annotation (
