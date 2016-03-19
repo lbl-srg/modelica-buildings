@@ -74,7 +74,7 @@ def _runUnitTests(batch, single_package, n_pro, show_gui):
 
     ut.writeOpenModelicaResultDictionary()
     # Run the regression tests
-    
+
     retVal = ut.run()
     return retVal
 
@@ -106,7 +106,7 @@ if __name__ == '__main__':
                         type=int,
                         default = multiprocessing.cpu_count(),
                         help='Maximum number of processors to be used')
-    html_group.add_argument("--show-gui",
+    unit_test_group.add_argument("--show-gui",
                            action="store_true")
 
     html_group = parser.add_argument_group("arguments to check html syntax only")
