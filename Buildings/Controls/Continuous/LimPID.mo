@@ -6,7 +6,8 @@ block LimPID
     addD(k1=revAct*wd, k2=-revAct),
     addI(k1=revAct, k2=-revAct),
     yMin=0,
-    yMax=1);
+    yMax=1,
+    strict=true);
 
   parameter Boolean reverseAction = false
     "Set to true for throttling the water flow rate through a cooling coil controller";
@@ -38,6 +39,13 @@ for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code>
+in order to avoid events when the controller saturates.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>.
+</li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 First implementation.
