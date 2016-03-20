@@ -11,13 +11,13 @@ block BeamDepthInRoom "Depth of solar beam in the room"
 
   parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude" annotation (Dialog(group="Location"));
+    filNam) "Longitude" annotation (Evaluate=true, Dialog(group="Location"));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude" annotation (Dialog(group="Location"));
+    filNam) "Latitude" annotation (Evaluate=true, Dialog(group="Location"));
   parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
-    "Time zone" annotation (Dialog(group="Location"));
+    "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
 
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
@@ -141,6 +141,13 @@ The wall is vertical.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2016, by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> for parameters <code>lon</code>,
+<code>lat</code> and <code>timZon</code>.
+This is required for OpenModelica to avoid a compilation error in
+<code>Buildings.BoundaryConditions.SolarGeometry.Examples.ProjectedShadowLength</code>.
+</li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>
 First implementation.
