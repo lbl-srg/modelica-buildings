@@ -12,8 +12,8 @@ When submitting a bug report, please provide:
 
 To report the bug, enter a new issue at https://github.com/lbl-srg/modelica-buildings/issues
 
-For general questions regarding the `Buildings` library,
-send email to https://groups.google.com/forum/#!forum/modelica-buildings.
+For general questions regarding the `Buildings` library, use
+https://unmethours.com/questions/.
 This is an open group and everyone can join it. No invitation is needed.
 
 For questions that are specific to Modelica but not the `Buildings` libray, see http://stackoverflow.com/search?q=modelica
