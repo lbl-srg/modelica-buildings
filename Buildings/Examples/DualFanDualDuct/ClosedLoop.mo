@@ -227,8 +227,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance,
-    filteredOpening=false) "Economizer"
+    filteredOpening=false,
+    linearized=true) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
