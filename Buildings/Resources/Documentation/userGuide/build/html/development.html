@@ -28,12 +28,12 @@
     <link rel="next" title="6. Help" href="help.html" />
     <link rel="prev" title="4. Pre- and Post-Processing" href="prePostProcessing.html" /> 
   </head>
-  <body>
+  <body role="document">
 <div class="headerStyle">
 <img src="_static/lbl-logo.png" alt="LBL logo" />
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -49,11 +49,11 @@
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
 <!--    
-        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
  
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -82,7 +82,7 @@
            target="_blank"
            rel="nofollow">Edit Source on GitHub</a></li>
   </ul>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -101,7 +101,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="development">
 <span id="id1"></span><h1>5. Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
@@ -141,9 +141,9 @@ Models that are contributed need to adhere to the following guidelines, as this 
 See <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide">Buildings.Fluid.Interface.UsersGuide</a> for a description of these classes.
 Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:</p>
 <dl class="docutils">
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed">Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a></dt>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u">Buildings.Fluid.HeatExchangers.HeaterCooler_u</a></dt>
 <dd>For a device that adds heat to a fluid stream.</dd>
-<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed">Buildings.Fluid.MassExchangers.HumidifierPrescribed</a></dt>
+<dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u">Buildings.Fluid.MassExchangers.Humidifier_u</a></dt>
 <dd>For a device that adds humidity to a fluid stream.</dd>
 <dt><a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot">Buildings.Fluid.Chillers.Carnot</a></dt>
 <dd>For a device that exchanges heat between two fluid streams.</dd>
@@ -168,8 +168,8 @@ The governing equation is</p>
 as this can cause Newton-based solvers to stall.
 For fixed flow resistances, <span class="math">\(k\)</span> is typically computed based on nominal
 conditions such as <span class="math">\(k = \dot m_0/\sqrt{\Delta p_0}\)</span>,
-where <span class="math">\(\dot m_0\)</span> is equal to the parameter <tt class="docutils literal"><span class="pre">m_flow_nominal</span></tt> and
-<span class="math">\(\Delta p_0\)</span> is equal to the parameter <tt class="docutils literal"><span class="pre">dp_nominal.</span></tt></p>
+where <span class="math">\(\dot m_0\)</span> is equal to the parameter <code class="docutils literal"><span class="pre">m_flow_nominal</span></code> and
+<span class="math">\(\Delta p_0\)</span> is equal to the parameter <code class="docutils literal"><span class="pre">dp_nominal.</span></code></p>
 <p>All pressure drop models should also provide a parameter that allows replacing
 the equation by a linear model of the form</p>
 <div class="math">
@@ -204,7 +204,7 @@ This often reduces the size of the system of nonlinear equations.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -220,13 +220,13 @@ This often reduces the size of the system of nonlinear equations.</p>
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
 <!--    
-        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
  
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012-2015, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
     </div>
   </body>
 </html>
