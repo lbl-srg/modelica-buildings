@@ -142,7 +142,7 @@ its class name ends with the string <code>Beta</code>.
      </li>
      <li>
        The models in <code>Buildings.Fluid.Movers</code> can now be configured to use
-       three different control input signals: a continuous signal (depending on the model either
+       three different control input signals: a continuous signal (depending on the model
        either normalized speed, speed in rpm, prescribed mass flow rate or prescribed head),
        discrete stages of these quantities, or on/off.
        The models also have been refactored to make their implementation clearer.
@@ -154,8 +154,8 @@ its class name ends with the string <code>Beta</code>.
        with an optional correction for the part load efficiency.
      </li>
      <li>
-       Various models, in particular in the package <code>Buildings.Electrical</code>
-       were reformulated to comply with the Modelica Language Definition.
+       Various models, in particular in the package <code>Buildings.Electrical</code>,
+       have been reformulated to comply with the Modelica Language Definition.
        All models comply with the pedantic Modelica check of Dymola.
      </li>
    </ul>
@@ -5121,7 +5121,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 23, 2016)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 24, 2016)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a> (July 13, 2015)
@@ -5633,8 +5633,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="3.0.0",
-versionDate="2016-03-23",
-dateModified="2016-03-23",
+versionDate="2016-03-24",
+dateModified="2016-03-24",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(
