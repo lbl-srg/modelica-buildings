@@ -217,7 +217,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mHeaEva_flow_nominal,
-    dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     filteredSpeed=false,
     addPowerToMedium=false) "Pump for space heating heat pump"
@@ -234,7 +233,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=mHotWatEva_flow_nominal,
     allowFlowReversal=allowFlowReversal,
-    dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     filteredSpeed=false,
     addPowerToMedium=false) "Pump"
@@ -276,7 +274,6 @@ model HeatingCoolingHotwaterTimeSeries_dT
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
-    dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     filteredSpeed=false,
     m_flow_nominal=mCooCon_flow_nominal,

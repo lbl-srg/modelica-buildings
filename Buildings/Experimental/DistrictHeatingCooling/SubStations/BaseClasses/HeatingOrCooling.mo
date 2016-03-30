@@ -40,7 +40,6 @@ protected
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
-    final dynamicBalance=false,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

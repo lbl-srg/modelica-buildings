@@ -80,8 +80,7 @@ protected
     dp2_nominal=0,
     dTEva_nominal=-dTSin,
     dTCon_nominal=dTCon_nominal,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal1=false) "Chiller"
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));
 
@@ -96,8 +95,7 @@ protected
     etaCarnot_nominal=0.3,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTSin,
-    energyDynamics1=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamics2=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal2=false,
     dp1_nominal=dp_nominal) "Heat pump for heating"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));

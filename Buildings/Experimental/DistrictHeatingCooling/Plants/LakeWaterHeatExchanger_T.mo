@@ -165,18 +165,6 @@ protected
   Controller conHea(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for heating" annotation (Placement(transformation(
           rotation=0, extent={{-60,-90},{-40,-70}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splHea(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0}) "Flow splitter for heating"
-    annotation (Placement(transformation(extent={{-34,-50},{-14,-30}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splCoo(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=m_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0}) "Flow splitter for cooling"
-    annotation (Placement(transformation(extent={{-40,52},{-20,72}})));
 equation
   connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-19,108},{-19,108},{
           6,108}},             color={0,0,127}));
@@ -313,23 +301,18 @@ equation
           90},{-86,90},{-86,-96},{-50,-96},{-50,-91}}, color={0,0,127}));
   connect(conHea.u1, minHeaLvg.y) annotation (Line(points={{-61,-83},{-70,-83},{
           -70,-94},{86,-94},{86,126},{73,126}}, color={0,0,127}));
-  connect(senMasFloHea.port_a, splHea.port_1) annotation (Line(points={{-42,-40},
-          {-38,-40},{-34,-40}}, color={0,127,255}));
-  connect(splHea.port_3, valHea.port_3) annotation (Line(points={{-24,-50},{-24,
-          -76},{50,-76},{50,-70}}, color={0,127,255}));
-  connect(splHea.port_2, hea.port_b) annotation (Line(points={{-14,-40},{-12,-40},
-          {-10,-40}}, color={0,127,255}));
-  connect(senMasFloCoo.port_a, splCoo.port_1)
-    annotation (Line(points={{-52,60},{-40,60},{-40,62}}, color={0,127,255}));
-  connect(splCoo.port_2, coo.port_b)
-    annotation (Line(points={{-20,62},{-15,60},{-10,60}}, color={0,127,255}));
-  connect(splCoo.port_3, valCoo.port_3) annotation (Line(points={{-30,52},{-30,
-          42},{50,42},{50,50}},
-                            color={0,127,255}));
   connect(TWarIn.y, conCoo.u1) annotation (Line(points={{-19,166},{-14,166},{
           -14,128},{-50,128},{-50,27},{-41,27}}, color={0,0,127}));
   connect(maxCooLea.y, conCoo.u2) annotation (Line(points={{73,166},{80,166},{
           80,16},{-30,16},{-30,19}}, color={0,0,127}));
+  connect(coo.port_b, senMasFloCoo.port_a)
+    annotation (Line(points={{-10,60},{-52,60},{-52,60}}, color={0,127,255}));
+  connect(valCoo.port_3, senMasFloCoo.port_a) annotation (Line(points={{50,50},{
+          50,44},{-32,44},{-32,60},{-52,60}}, color={0,127,255}));
+  connect(senMasFloHea.port_a, hea.port_b) annotation (Line(points={{-42,-40},{-26,
+          -40},{-10,-40}}, color={0,127,255}));
+  connect(senMasFloHea.port_a, valHea.port_3) annotation (Line(points={{-42,-40},
+          {-30,-40},{-30,-76},{50,-76},{50,-70}}, color={0,127,255}));
   annotation (
   defaultComponentName="hex",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -400,6 +383,10 @@ Model for a lake water heat exchanger that either provides heating or cooling.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2016, by Michael Wetter:<br/>
+Removed the flow splitters which are no longer needed.
+</li>
 <li>
 February 16, 2016, by Michael Wetter:<br/>
 Improved controls.
