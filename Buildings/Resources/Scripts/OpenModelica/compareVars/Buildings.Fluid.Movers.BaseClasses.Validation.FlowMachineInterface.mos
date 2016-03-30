@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "eff.m_flow",
+    "eff.V_flow",
+    "eff.dp",
+    "eff.y_in",
+    "eff.WFlo",
+    "eff.PEle",
+    "eff.eta",
+    "eff.etaHyd",
+    "eff.etaMot"
+  };

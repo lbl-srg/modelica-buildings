@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
   extends Modelica.Blocks.Icons.Block;
-  import H = Buildings.Utilities.Math.Functions.spliceFunction;
+  import H = Buildings.Utilities.Math.Functions.regStep;
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
@@ -43,46 +43,46 @@ protected
   Real b8;
 equation
   b1 = H(
-    1,
-    0,
-    1.065 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=1.065 - skyCle,
+    x_small=d);
   b2 = H(
-    1,
-    0,
-    1.23 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=1.23 - skyCle,
+    x_small=d);
   b3 = H(
-    1,
-    0,
-    1.50 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=1.50 - skyCle,
+    x_small=d);
   b4 = H(
-    1,
-    0,
-    1.95 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=1.95 - skyCle,
+    x_small=d);
   b5 = H(
-    1,
-    0,
-    2.80 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=2.80 - skyCle,
+    x_small=d);
 
   b6 = H(
-    1,
-    0,
-    4.50 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=4.50 - skyCle,
+    x_small=d);
   b7 = H(
-    1,
-    0,
-    6.20 - skyCle,
-    d);
+    y1=1,
+    y2=0,
+    x=6.20 - skyCle,
+    x_small=d);
   b8 = H(
-    1,
-    0,
-    skyCle - 6.20,
-    d);
+    y1=1,
+    y2=0,
+    x=skyCle - 6.20,
+    x_small=d);
 
   a1 = b1;
   a2 = b2 - b1;
@@ -118,6 +118,12 @@ This component computes the circumsolar and horizon brightening coefficients.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 May 25, 2010, by Wangda Zuo:<br/>
 First implementation.

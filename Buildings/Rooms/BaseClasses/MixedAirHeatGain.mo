@@ -56,7 +56,7 @@ equation
 
   // Interface to fluid port
   // If a medium does not contain water vapor, then h_fg is equal to zero.
-  if Medium.nXi == 0 or (h_fg == 0) then
+  if Medium.nXi == 0 or (h_fg < Modelica.Constants.eps) then
     mWat_flow = 0;
   else
     mWat_flow = qGai_flow[3]*AFlo/h_fg;
@@ -92,6 +92,12 @@ the mass flow rate at the fluid port is equal to zero.
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed test for equality of <code>Real</code> variables.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+</li>
 <li>
 December 6, 2011, by Michael Wetter:<br/>
 Fixed sign error in convective heat gain that is assigned to

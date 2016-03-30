@@ -33,7 +33,8 @@ model DryEffectivenessNTU
     "Model for convective heat transfer coefficient";
   Modelica.SIunits.ThermalConductance UA "UA value";
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
-  Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
+  Real Z(min=0) "Ratio of capacity flow rate (CMin/CMax)";
+
   // NTU has been removed as NTU goes to infinity as CMin goes to zero.
   // This quantity is not good for modeling.
   //  Real NTU(min=0) "Number of transfer units";
@@ -44,6 +45,15 @@ model DryEffectivenessNTU
   final parameter Real eps_nominal(fixed=false)
     "Nominal heat transfer effectiveness";
 protected
+  final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
+     T=T_a1_nominal,
+     p=Medium1.p_default,
+     X=Medium1.X_default[1:Medium1.nXi]) "Default state for medium 1";
+  final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
+     T=T_a2_nominal,
+     p=Medium2.p_default,
+     X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
+
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
     "Specific heat capacity of medium 1 at nominal condition";
   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
@@ -75,15 +85,11 @@ initial equation
   assert(m2_flow_nominal > 0,
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
-  cp1_nominal = Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-    Medium1.p_default,
-    T_a1_nominal,
-    Medium1.X_default));
-  cp2_nominal = Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-    Medium2.p_default,
-    T_a2_nominal,
-    Medium2.X_default));
-  // heat transferred from fluid 1 to 2 at nominal condition
+  
+  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
+  cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
+
+  // Heat transferred from fluid 1 to 2 at nominal condition
   Q_flow_nominal = m1_flow_nominal*cp1_nominal*(T_a1_nominal - T_b1_nominal);
   Q_flow_nominal = -m2_flow_nominal*cp2_nominal*(T_a2_nominal - T_b2_nominal);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -151,7 +157,7 @@ equation
   hA.T_2 = T_in2;
   UA = 1/(1/hA.hA_1 + 1/hA.hA_2);
   // effectiveness
-  (eps,Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
+  (eps, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
@@ -159,6 +165,7 @@ equation
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
@@ -203,6 +210,17 @@ instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 27, 2016 by Michael Wetter:<br/>
+Introduced <code>sta1_default</code> and <code>sta2_default</code>
+to enable translation under OpenModelica.
+Removed <code>max=1</code> attribute for <code>Z</code>. This is needed as near
+zero flow, <code>Z</code> can be larger than one due to the regularization.
+As <code>Z</code> is not used in this model other than for reporting, this bound
+need not be enforced (and the calculation of <code>eps</code> is fine at these small flow rates).
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/490\">issue 490</a>.
+</li>
 <li>
 April 29, 2014 by Michael Wetter:<br/>
 Changed <code>assert</code> statement to avoid comparing

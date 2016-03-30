@@ -16,7 +16,7 @@ model TwoPortRL
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
   Modelica.SIunits.Current i_p[2](start = i_start, each stateSelect=StateSelect.prefer)
     "Current phasor at terminal p";

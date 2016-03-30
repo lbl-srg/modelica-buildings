@@ -9,7 +9,8 @@ model PumpsSeries "Two flow machines in series"
   Buildings.Fluid.Movers.SpeedControlled_y floMac1(
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
-    dynamicBalance=false) "Model of a flow machine"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Model of a flow machine"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -29,9 +30,9 @@ model PumpsSeries "Two flow machines in series"
   Buildings.Fluid.Movers.SpeedControlled_y floMac2(
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
-    dynamicBalance=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Model of a flow machine"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.Step const1(
     height=-1,

@@ -6,30 +6,28 @@ partial model PartialCarnot_y
     final QEva_flow_nominal = if COP_is_for_cooling
                               then -P_nominal * COP_nominal
                               else -P_nominal * (COP_nominal-1),
-    TCon = if effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-             Medium1.temperature(staA1)
-           elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b or
-                  effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
-             Medium1.temperature(staB1)
-           else
-             0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1)),
-    TEva = if effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-             Medium2.temperature(staA2)
-           elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b or
-                  effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
-             Medium2.temperature(staB2)
-           else
-             0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2)));
- extends Interfaces.FourPortHeatMassExchanger(
-   m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
-   m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal,
-   T1_start = TEva_nominal,
-   T2_start = TCon_nominal,
-   vol1(prescribedHeatFlowRate = true),
-   redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
-     prescribedHeatFlowRate = true));
-   // Above, we use -abs(dTEva_nominal) because in Buildings 2.1,
-   // dTEva_nominal was a positive quantity.
+    redeclare HeatExchangers.HeaterCooler_u con(
+      final from_dp=from_dp1,
+      final dp_nominal=dp1_nominal,
+      final linearizeFlowResistance=linearizeFlowResistance1,
+      final deltaM=deltaM1,
+      final tau=tau1,
+      final T_start=T1_start,
+      final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
+      final homotopyInitialization=homotopyInitialization,
+      final Q_flow_nominal=QCon_flow_nominal),
+      redeclare HeatExchangers.HeaterCooler_u eva(
+      final from_dp=from_dp2,
+      final dp_nominal=dp2_nominal,
+      final linearizeFlowResistance=linearizeFlowResistance2,
+      final deltaM=deltaM2,
+      final tau=tau2,
+      final T_start=T2_start,
+      final energyDynamics=energyDynamics,
+      final massDynamics=energyDynamics,
+      final homotopyInitialization=homotopyInitialization,
+      final Q_flow_nominal=QEva_flow_nominal));
 
   parameter Modelica.SIunits.Power P_nominal
     "Nominal compressor power (at y=1)"
@@ -40,54 +38,18 @@ partial model PartialCarnot_y
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      p=  Medium1.p_default,
-      T=  Medium1.T_default,
-      X=  Medium1.X_default))
-    "Specific heat capacity of medium 1 at default medium state";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      p=  Medium2.p_default,
-      T=  Medium2.T_default,
-      X=  Medium2.X_default))
-    "Specific heat capacity of medium 2 at default medium state";
-
-  // State are calculated according to the design condition, as using the Carnot machine
-  // in reverse flow is not meaningful.
-  Medium1.ThermodynamicState staA1 = Medium1.setState_phX(
-    port_a1.p,
-    inStream(port_a1.h_outflow),
-    inStream(port_a1.Xi_outflow)) "Medium properties in port_a1";
-  Medium1.ThermodynamicState staB1 = Medium1.setState_phX(
-    port_b1.p,
-    port_b1.h_outflow,
-    port_b1.Xi_outflow) "Medium properties in port_b1";
-  Medium2.ThermodynamicState staA2 = Medium2.setState_phX(
-    port_a2.p,
-    inStream(port_a2.h_outflow),
-    inStream(port_a2.Xi_outflow)) "Medium properties in port_a2";
-  Medium2.ThermodynamicState staB2 = Medium2.setState_phX(
-    port_b2.p,
-    port_b2.h_outflow,
-    port_b2.Xi_outflow) "Medium properties in port_b2";
-
   Modelica.SIunits.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal)=
     P - QEva_flow_internal "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal)=
     if COP_is_for_cooling then -COP * P else (1-COP)*P "Evaporator heat input";
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow_internal)
-    "Evaporator heat flow rate"
+  Modelica.Blocks.Sources.RealExpression yEva_flow_in(
+    y=QEva_flow_internal/QEva_flow_nominal)
+    "Normalized evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow_internal)
-    "Condenser heat flow rate"
+  Modelica.Blocks.Sources.RealExpression yCon_flow_in(
+    y=QCon_flow_internal/QCon_flow_nominal)
+    "Normalized condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Modelica.Blocks.Math.Gain PEle(final k=P_nominal)
@@ -95,30 +57,18 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
 
-  connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,40},{-39,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
-      points={{-19,40},{-10,40},{-10,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
-      points={{-59,-40},{-39,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(
-      points={{-19,-40},{12,-40},{12,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(PEle.y, P)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
   connect(PEle.u, y) annotation (Line(points={{58,0},{58,0},{40,0},{40,90},{-92,
-          90},{-92,90},{-120,90}}, color={0,0,127}));
-  connect(QCon_flow, QCon_flow_in.y) annotation (Line(points={{110,90},{60,90},
-          {60,86},{-50,86},{-50,40},{-59,40}}, color={0,0,127}));
-  connect(QEva_flow, QEva_flow_in.y) annotation (Line(points={{110,-90},{44,-90},
-          {-50,-90},{-50,-40},{-59,-40}}, color={0,0,127}));
+          90},{-120,90}},          color={0,0,127}));
+  connect(yEva_flow_in.y, eva.u) annotation (Line(points={{-59,-40},{20,-40},{20,
+          -54},{12,-54}}, color={0,0,127}));
+  connect(yCon_flow_in.y, con.u) annotation (Line(points={{-59,40},{-48,40},{-40,
+          40},{-40,66},{-12,66}}, color={0,0,127}));
+  connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{20,66},{80,66},
+          {80,90},{110,90}}, color={0,0,127}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{-11,-54},{-20,-54},{-20,
+          -90},{110,-90}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -276,6 +226,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialCarnot_y;

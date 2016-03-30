@@ -4,11 +4,9 @@ model FlatPlate "Test model for FlatPlate"
   replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
     "Medium in the system";
 
-  Buildings.Fluid.SolarCollectors.ASHRAE93          solCol(
+  Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
@@ -17,7 +15,10 @@ model FlatPlate "Test model for FlatPlate"
     nSeg=9,
     lat=0.73097781993588,
     azi=0.3,
-    til=0.5) "Flat plate solar collector model"
+    til=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -26,23 +27,22 @@ model FlatPlate "Test model for FlatPlate"
     annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    nPorts=1,
-    p(displayUnit="bar") = 100000) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
+    p(displayUnit="bar") = 100000,
+    nPorts=1) "Outlet for water flow"
+    annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{32,-20},{52,0}})));
+    annotation (Placement(transformation(extent={{30,-20},{50,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-32,-20},{-12,0}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(
+  Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
-    use_p_in=true,
-    p(displayUnit="Pa")) "Inlet for water flow"
+    use_p_in=true) "Inlet for water flow"
     annotation (Placement(
       transformation(
       extent={{10,-10},{-10,10}},
@@ -50,20 +50,12 @@ model FlatPlate "Test model for FlatPlate"
       origin={-50,-10})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=3/86400,
-    offset=100000,
-    amplitude=-solCol.dp_nominal)
+    amplitude=-solCol.dp_nominal,
+    offset=1E5) "Pressure source"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
-      points={{20,-10},{32,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TOut.port_b, sin.ports[1]) annotation (Line(
-      points={{52,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TIn.port_b, solCol.port_a) annotation (Line(
-      points={{-12,-10},{0,-10}},
+      points={{20,-10},{30,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], TIn.port_a) annotation (Line(
@@ -75,10 +67,12 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(sine.y, sou.p_in) annotation (Line(
-      points={{-79,-10},{-72,-10},{-72,-18},{-62,-18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(TIn.port_b, solCol.port_a)
+    annotation (Line(points={{-12,-10},{-6,-10},{0,-10}}, color={0,127,255}));
+  connect(TOut.port_b, sin.ports[1])
+    annotation (Line(points={{50,-10},{80,-10}},          color={0,127,255}));
+  connect(sine.y, sou.p_in) annotation (Line(points={{-79,-10},{-70,-10},{-70,
+          -18},{-62,-18}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>

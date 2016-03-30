@@ -8,7 +8,7 @@ model SpeedControlled_Nrpm "Fan with zero mass flow rate and speed as input"
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                   dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacDyn(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,

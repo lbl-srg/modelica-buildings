@@ -2,11 +2,9 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System3
   "Third part of the system model with air supply and closed loop control"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
 
-  replaceable package MediumW =
-      Buildings.Media.Water;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -69,9 +67,10 @@ model System3
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+  Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,

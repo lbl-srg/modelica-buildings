@@ -36,8 +36,6 @@ model RoomOnlySurfaceBoundary
         extent={{10,-10},{-10,10}},
         origin={110,10})));
 equation
-  for i in 1:nSurBou - 2 loop
-  end for;
 
   connect(TEasWal.port, roo.surf_surBou[1]) annotation (Line(
       points={{100,10},{62.2,10},{62.2,26}},

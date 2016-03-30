@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation.BaseClasses;
 model ControlledFlowMachine
 
-  package Medium = Buildings.Media.Air;
+  package Medium = Buildings.Media.Air "Medium model";
 
   Modelica.Blocks.Sources.Pulse y(
     startTime=0,
@@ -26,7 +26,7 @@ model ControlledFlowMachine
   Buildings.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
-    dynamicBalance=false)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   FixedResistances.FixedResistanceDpM dp1(
     m_flow_nominal=6000/3600*1.2,
@@ -38,39 +38,39 @@ model ControlledFlowMachine
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,-30},{36,-10}})));
-  Buildings.Fluid.Sensors.MassFlowRate masFloRat2(redeclare package Medium =
-        Medium)
+  Buildings.Fluid.Sensors.MassFlowRate masFloRat2(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   FixedResistances.FixedResistanceDpM dp3(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,-70},{36,-50}})));
-  Buildings.Fluid.Sensors.MassFlowRate masFloRat3(redeclare package Medium =
-        Medium)
+  Buildings.Fluid.Sensors.MassFlowRate masFloRat3(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan3(
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
-    dynamicBalance=false)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
-    dynamicBalance=false)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   FixedResistances.FixedResistanceDpM dp4(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,100},{36,120}})));
-  Buildings.Fluid.Sensors.MassFlowRate masFloRat4(redeclare package Medium =
-        Medium)
+  Buildings.Fluid.Sensors.MassFlowRate masFloRat4(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,1.8,3}, dp={1000,600,0})),
-    dynamicBalance=false)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=1500) "Converts y to nominal rpm"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -142,7 +142,7 @@ equation
       points={{-32,-60},{-20,-60}},
       color={0,127,255}));
   connect(y.y, fan1.y) annotation (Line(
-      points={{-119,80},{-10,80},{-10,72}},
+      points={{-119,80},{-10.2,80},{-10.2,72}},
       color={0,0,127}));
   connect(y.y, gain.u) annotation (Line(
       points={{-119,80},{-80,80},{-80,140},{-62,140}},

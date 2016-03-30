@@ -5,9 +5,11 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
   parameter Modelica.SIunits.Frequency f(start = 60) "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start = 480) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
-  parameter Boolean potentialReference = true "Serve as potential root"
+  parameter Boolean potentialReference = true
+    "Serve as potential root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
-  parameter Boolean definiteReference = false "Serve as definite root"
+  parameter Boolean definiteReference = false
+    "Serve as definite root for the reference angle theta"
      annotation (Evaluate=true, Dialog(group="Reference Parameters"));
   constant Modelica.SIunits.Angle angle120 = 2*Modelica.Constants.pi/3
     "Phase shift between the phase voltages";
@@ -21,15 +23,15 @@ model FixedVoltage_N "Fixed voltage source with neutral cable"
 equation
 
   connect(vPhase[1].terminal, terminal.phase[1]) annotation (Line(
-      points={{-10,6.66134e-16},{20,6.66134e-16},{20,0},{100,0}},
+      points={{-10,0},{20,0},{20,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(vPhase[2].terminal, terminal.phase[2]) annotation (Line(
-      points={{-10,6.66134e-16},{10,6.66134e-16},{10,0},{100,0}},
+      points={{-10,0},{10,0},{10,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(vPhase[3].terminal, terminal.phase[3]) annotation (Line(
-      points={{-10,6.66134e-16},{100,6.66134e-16}},
+      points={{-10,0},{45,0},{45,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
@@ -68,10 +70,28 @@ voltage by the RMS voltage and the phase shift. The model has also
 the neutral cable, connected to a ground reference by default.
 </p>
 <p>
-Explain, or provide a link to an explanation, for the parameters *Reference.
+The parameters <code>potentialReference</code> and <code>definiteReference</code>
+are used to define if the source model should be selected as source for
+the reference angles <code>theta</code> or not.
+More information about overdetermined connectors can be found
+in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
+</p>
+
+<h4>References</h4>
+<p>
+<a NAME=\"Olsson2008\"/>
+Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
+<a href=\"http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf\">
+Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>
+Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Updated documentation for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/427\">issue 427</a>.
+</li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.

@@ -1,3 +1,7 @@
+// Set Advanced.PedanticModelica=false as Dymola 2016 FD01 has a bug and fails to export in pedantic mode.
+// This should be corrected in Dymola 2017
+buildings_pedantic_old=Advanced.PedanticModelica;
+Advanced.PedanticModelica=false;
 translateModelFMU(
   modelToOpen="Buildings.Fluid.FMI.Examples.FMUs.HeaterCooler_T",
   storeResult=false, 
@@ -5,3 +9,4 @@ translateModelFMU(
   fmiVersion="2", 
   fmiType="me", 
   includeSource=false);
+Advanced.PedanticModelica=buildings_pedantic_old;

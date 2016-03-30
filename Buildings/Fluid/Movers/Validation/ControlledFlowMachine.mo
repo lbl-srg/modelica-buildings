@@ -17,6 +17,7 @@ At steady-state, all flow models have the same mass flow rate and pressure diffe
 Note that <code>addPowerToMedium=false</code> since otherwise,
 Dymola computes the enthalpy change of the component as a fraction <code>(k*m_flow+P_internal)/m_flow</code>
 which leads to an error because of <code>0/0</code> at zero flow rate.
+</html>", revisions="<html>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
             160}})));

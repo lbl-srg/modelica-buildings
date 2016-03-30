@@ -127,13 +127,155 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+   class Version_3_0_1 "Version 3.0.1"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+   <div class=\"release-summary\">
+   <p>
+   Version X.Y.Z is ... xxx
+   </p>
+   </div>
+   <!-- New libraries -->
+   <p>
+   The following <b style=\"color:blue\">new libraries</b> have been added:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+       </tr>
+   </table>
+   <!-- New components for existing libraries -->
+   <p>
+   The following <b style=\"color:blue\">new components</b> have been added
+   to <b style=\"color:blue\">existing</b> libraries:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+       </tr>
+   </table>
+   <!-- Backward compatible changes -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <!-- Non-backward compatible changes to existing components -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">non-backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+    <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <!-- Errors that have been fixed -->
+   <p>
+   The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+   that can lead to wrong simulation results):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <!-- Uncritical errors -->
+   <p>
+   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+   units are wrong or errors in documentation):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <p>
+   Note:
+   </p>
+   <ul>
+   <li>
+   xxx
+   </li>
+   </ul>
+   </html>"));
+   end Version_3_0_1;
+
    class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
+   <div class=\"release-summary\">
    <p>
-   Version 3.0.0 is a major new release. The option to model electrochromic windows has
-   been added.
+   Version 3.0.0 is a major new release.
    </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+     <li>
+       Electrochromic windows have been added. See <code>Buildings.Rooms.Examples.ElectroChromicWindow</code>.
+     </li>
+     <li>
+       The models in <code>Buildings.Fluid.Movers</code> can now be configured to use
+       three different control input signals: a continuous signal (depending on the model
+       either normalized speed, speed in rpm, prescribed mass flow rate or prescribed head),
+       discrete stages of these quantities, or on/off.
+       The models also have been refactored to make their implementation clearer.
+     </li>
+     <li>
+       The new package <code>Buildings.Fluid.HeatPumps</code> has been added.
+       This package contains models for idealized heat pumps
+       whose COP changes proportional to the change in COP of a Carnot cycle,
+       with an optional correction for the part load efficiency.
+     </li>
+     <li>
+       Various models, in particular in the package <code>Buildings.Electrical</code>,
+       have been reformulated to comply with the Modelica Language Definition.
+       All models comply with the pedantic Modelica check of Dymola.
+     </li>
+   </ul>
+   </div>
    <!-- New libraries -->
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
@@ -168,6 +310,22 @@ its class name ends with the string <code>Beta</code>.
                           into the direction that is perpendicular to the azimuth of a surface.
        </td>
        </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Adapter3to3<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_n<br/>
+                        Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Connection3to3Ground_p
+       </td>
+       <td valign=\"top\">Adapters for unbalanced three phase systems which are required because
+                        the previous formulation used connect statements that violate the Modelica
+                        Language Definition. This change was required to enable pedantic model check and translation
+                        in Dymola 2016 FD01.
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/426\">#426</a>.
+       </td>
+       </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
@@ -216,14 +374,6 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx
-       </td>
-   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
@@ -235,6 +385,22 @@ its class name ends with the string <code>Beta</code>.
                        parameter <code>l</code> from <code>0</code> to <code>0.0001</code>.
                        This is the same value as is used for the two-way valves,
                        and avoids an assertion that would be triggered if <code>l=0</code>.
+    </td>
+    </tr>
+
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
+       </td>
+       <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/485\">issue 485</a>.
+       </td>
+    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryEffectivenessNTU
+    </td>
+    <td valign=\"top\">Reformulated model to allow translation in OpenModelica.
+                       This is for issue
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/490\">#490</a>.
     </td>
    </tr>
    
@@ -333,6 +499,13 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD
+       </td>
+       <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/485\">issue 485</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.Functions
        </td>
        <td valign=\"top\">Refactored <code>Buildings.Utilities.Math.Functions.inverseXRegularized</code>
@@ -404,22 +577,68 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                           Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                          Buildings.Fluid.Movers.Data.FlowControlled
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y
      </td>
-     <td valign=\"top\">Removed the performance record <code>power</code> and the
-                        parameter <code>use_powerCharacteristic</code> in the
-                        data record <code>Buildings.Fluid.Movers.Data.FlowControlled</code> because
-                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>
-                        and
+     <td valign=\"top\">Removed the public variable <code>r_N</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.                        For Dymola, the conversion script will remove
+                        For Dymola, the conversion script removes
+                        assignments of <code>r_N(start)</code>.
+     </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow
+   </td>
+   <td valign=\"top\">Write a warning if no pressure curve is provided because
+                     the efficiency calculation can only be done correctly if a pressure curve
+                     is provided. The warning can be suppressed by providing a pressure curve, or
+                     by setting <code>nominalValuesDefineDefaultPressureCurve=true</code>.
+     </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.Data
+     </td>
+     <td valign=\"top\">Replaced the parameters
+                        <code>Buildings.Fluid.Movers.Data.FlowControlled</code>,
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>, and
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code> by
+                        the parameter
+                        <code>Buildings.Fluid.Movers.Data.Generic</code>
+                        which is used for all four types of movers.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.
+                        This change allows to correctly compute the fan or pump power also for the models
+                        <code>Buildings.Fluid.Movers.FlowControlled_dp</code>,
                         <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
-                        fix the flow rate or head, which can give a flow work that is higher
-                        than the power consumption specified in this record.
-                        Hence, users should use the efficiency data for this model.
-                        The record and parameter was moved to
-                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_y</code>
-                        as it makes sense to use it for the movers
-                        <code>Buildings.Fluid.Movers.FlowControlled_Nrpm</code>
-                        and  <code>Buildings.Fluid.Movers.FlowControlled_y</code>.
+                        for speeds that are different from the nominal speed, provided that the user
+                        specifies the pressure curve.
+                        For Dymola, the conversion script updates this parameter.<br/><br/>
+                        In the previous record
+                        <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code>,
+                        changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">Annex 60 issue 396</a>.
+                        For Dymola, the conversion script updates this parameter.
+     </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.PartialThreeWayResistance<br/>
+                          Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                          Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.FlowControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.FlowControlled_y<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage
+     </td>
+     <td valign=\"top\">Removed parameter <code>dynamicBalance</code> that overwrote the setting
+                        of <code>energyDynamics</code> and <code>massDynamics</code>.
+                        This is for
+                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+                        Annex 60, issue 411</a>.
+                        For Dymola, the conversion script updates the models.
      </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialTwoPort
@@ -486,6 +705,15 @@ its class name ends with the string <code>Beta</code>.
                           update existing models.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+       </td>
+   <tr><td valign=\"top\">Buildings.Obsolete.Fluid.Movers<br/>
+                          Buildings.Obsolete.Media
+       </td>
+       <td valign=\"top\">Removed these packages which have models from
+                          release 2.0.0.
+       </td>
+   </tr>
    </table>
    <!-- Errors that have been fixed -->
    <p>
@@ -515,7 +743,26 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-      <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.Interfaces.PartialWindTurbine
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer<br/>
+                          Buildings.HeatTransfer.Data.BaseClasses
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FMI.FlowSplitter_u
@@ -542,6 +789,17 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAirHeatGain
+       </td>
+       <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+       </td>
+   </tr>
+
 
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
@@ -583,33 +841,16 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.Utilities.IO.Python27.exchange
        </td>
        <td valign=\"top\">Updated Python implementation to allow compiling code
-                          in 64 bit. Previously, on Linux a segmentation fault
+                          on 64 bit Linux. Previously, on Linux a segmentation fault
                           occurred during run-time if 64 bit code rather than
-                          32 bit code was generated. This is now corrected.
+                          32 bit code was generated. This is now corrected.<br/>
+                          Also, Windows 64 bit binaries have been added.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/287\">issue 287</a>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
-
-
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
    end Version_3_0_0;
 
@@ -5011,7 +5252,10 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (xxx, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_1\">Version 3.0.1</a> (xxx, 2016)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 29, 2016)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a> (July 13, 2015)
@@ -5523,8 +5767,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="3.0.0",
-versionDate="2015-07-13",
-dateModified = "2015-07-13",
+versionDate="2016-03-29",
+dateModified="2016-03-29",
 uses(Modelica(version="3.2.1"),
      Modelica_StateGraph2(version="2.0.2")),
 conversion(

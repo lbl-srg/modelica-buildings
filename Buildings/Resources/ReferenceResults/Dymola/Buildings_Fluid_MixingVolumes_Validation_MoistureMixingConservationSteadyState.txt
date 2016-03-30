@@ -1,0 +1,5 @@
+last-generated=2015-05-29
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+senMasFlo.m_flow=[3., 3.]
+time=[0., 1.]
+senSpeEnt.H_flow=[135902.828125, 135902.828125]

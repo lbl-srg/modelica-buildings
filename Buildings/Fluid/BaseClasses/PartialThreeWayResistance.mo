@@ -22,15 +22,16 @@ partial model PartialThreeWayResistance
            max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Third port, can be either inlet or outlet"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Dialog(tab="Dynamics", group="Equations"));
+
   parameter Modelica.SIunits.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+    annotation(Dialog(tab="Dynamics", group="Nominal condition",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
-    annotation (Dialog(tab="Dynamics", group="Equations", enable=dynamicBalance));
+    annotation(Dialog(tab="Dynamics", group="Equations",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -79,18 +80,21 @@ partial model PartialThreeWayResistance
     final C_start=C_start,
     final allowFlowReversal=true,
     final prescribedHeatFlowRate=false) if
-       dynamicBalance "Fluid volume to break algebraic loop"
+       have_controlVolume "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
 protected
+  parameter Boolean have_controlVolume=
+      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+       massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+    "Boolean flag used to remove conditional components";
   Modelica.Fluid.Interfaces.FluidPort_a port_internal(
-    redeclare package Medium = Medium) if not dynamicBalance
+    redeclare package Medium = Medium) if not have_controlVolume
     "Internal dummy port for easier connection of conditional connections"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 equation
-
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res1.port_a, port_internal) annotation (Line(
       points={{-60,0},{-60,60},{0,60}},
       color={0,127,255}));
@@ -102,7 +106,7 @@ equation
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
             0}},                                                                      color={0,127,255}));
   else
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res1.port_b, port_internal) annotation (Line(
       points={{-40,0},{-40,60},{0,60}},
       color={0,127,255}));
@@ -115,7 +119,7 @@ equation
   end if;
 
   if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res2.port_a, port_internal) annotation (Line(
       points={{60,0},{60,60},{0,60}},
       color={0,127,255}));
@@ -126,7 +130,7 @@ equation
     end if;
     connect(port_2, res2.port_b) annotation (Line(points={{100,0},{100,0},{40,0}},    color={0,127,255}));
   else
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res2.port_b, port_internal) annotation (Line(
       points={{40,0},{40,60},{0,60}},
       color={0,127,255}));
@@ -139,7 +143,7 @@ equation
   end if;
 
   if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res3.port_a, port_internal) annotation (Line(
       points={{-4.44089e-16,-60},{20,-60},{20,60},{0,60}},
       color={0,127,255}));
@@ -150,7 +154,7 @@ equation
     end if;
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
-    if not dynamicBalance then
+    if not have_controlVolume then
        connect(res3.port_b, port_internal) annotation (Line(
       points={{4.44089e-16,-40},{20,-40},{20,60},{0,60}},
       color={0,127,255}));
@@ -168,7 +172,8 @@ Partial model for flow resistances with three ports such as a
 flow mixer/splitter or a three way valve.
 </p>
 <p>
-If <code>dynamicBalance=true</code>, then at the junction of the three flows,
+If <code>energyDynamics &ne; Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
 balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
@@ -176,12 +181,24 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </html>", revisions="<html>
 <ul>
 <li>
+February 22, 2016, by Michael Wetter:<br/>
+Conditionally removed control volume <code>vol</code>, and added the conditional connnector
+<code>port_internal</code>.
+This was already done when the parameter <code>dynamicBalance</code> was present, but
+was updated wrong when this parameter was removed.
+Without these conditional components, the regression test for
+<code>Buildings.Fluid.Examples.ResistanceVolumeFlowReversal</code> fails to simulate.
+</li>
+<li>
 December 17, 2015, by Michael Wetter:<br/>
 Added assignment <code>redeclare final package Medium=Medium</code>
 as this is required for OpenModelica.
 This is for
 <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
+</li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 April 13 2015, by Filip Jorissen:<br/>

@@ -54,13 +54,27 @@ powerParameters</a></td>
 power</a></td>
 </tr>
 </table>
-<p>*Note: This record is not available for the movers that take as a control signal
-the mass flow rate or the head.
-The reason is that these movers prescribe the mass flow rate and head based
-on the control signal and the system pressure drop curve.
-If the electrical power versus flow rate were specified, then
-the electrical power could be lower than the flow work,
-which would be physically impossible.
+<p>*Note: This record should not be used
+(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>) 
+for the movers that take as a control signal
+the mass flow rate or the head, 
+unless also values for the record <code>pressure</code> are provided.
+The reason is that for these movers the record <code>pressure</code>
+is required to be able to compute the mover speed,
+which is required to be able to compute the electrical power
+correctly using similarity laws. 
+If a <code>Pressure</code> record is not provided, 
+the model will internally override <code>use_powerCharacteristic=false</code>.
+In this case the efficiency records will be used.
+Note that in this case an error is still introduced, 
+but it is smaller than when using the power records.
+Compare
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
+Buildings.Fluid.Movers.Validation.PowerSimplified</a>
+with
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
+Buildings.Fluid.Movers.Validation.PowerSimplified</a>
+for an illustration of this error. 
 </p>
 <p>
 These performance curves are implemented in
@@ -72,68 +86,7 @@ Buildings.Fluid.Movers.Data</a>.
 The package
 <a href=\"modelica://Buildings.Fluid.Movers.Data\">
 Buildings.Fluid.Movers.Data</a>
-contains different data records. The table below shows
-which data records can be used for what models.
-Note that not all records can be used with all models, as
-the records only declare the minimum set of required data.
-</p>
-<!-- Table for performance data -->
-<table summary=\"Performance data\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr>
-<th></th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Buildings.Fluid.Movers.Data.FlowControlled\">
-Data.FlowControlled</a>
-</th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
-Data.SpeedControlled_y</a>
-</th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm\">
-Data.SpeedControlled_Nrpm</a>
-</th>
-</tr>
-<tr>
-<th style=\"text-align:left\">
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
-FlowControlled_m_flow</a>
-</th>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
-FlowControlled_dp</a>
-</th>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
-SpeedControlled_y</a>
-</th>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-SpeedControlled_Nrpm</a>
-</th>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-</table>
-<p>
-&nbsp;
-<!-- empty paragraph to add spacing below table -->
+contains different data records.
 </p>
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
@@ -145,7 +98,7 @@ Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
 rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
 they compute the pressure rise.
-This pressure rise is computed using user-provided list of operating points that
+This pressure rise is computed using a user-provided list of operating points that
 defines the fan or pump curve at full speed.
 For other speeds, similarity laws are used to scale the performance curves, as
 described in
@@ -306,18 +259,30 @@ Then, the mover will have the following mass flow rates:
 </li>
 </ul>
 <p>
-These two models do not have a performance curve for the flow
+These two models do not need to use a performance curve for the flow
 characteristics.
-The reason for not using a performance curve for the flow characteristics is that</p>
+The reason is that</p>
 <ul>
 <li>
 for given pressure rise (or mass flow rate), the mass flow rate (or pressure rise)
-is defined by the flow resistance of the duct or piping network, and
+is computed from the flow resistance of the duct or piping network, and
 </li>
 <li>
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
+<p>
+However, the computation of the electrical power consumption
+requires the mover speed to be known
+and the computation of the mover speed requires the performance 
+curves for the flow and efficiency/power characteristics.
+Therefore these performance curves do need to be provided 
+if the user desires a correct electrical power computation.
+If the curves are not provided, a simplified computation is used, 
+where the efficiency curve is used and assumed to be correct for all speeds.
+This loss of accuracy has the advantage that it allows to use the 
+mover models without requiring flow and efficiency/power characteristics.
+</p>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a> and
@@ -329,11 +294,29 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
 is used for convenience to set a default value for the parameters
 <code>constantMassFlowRate</code> and
 <code>massFlowRates</code>.
-For both models, the value is also used to compute the
+For both models, the value is also used for the following:
+</p>
+
+<ul>
+<li>
+To compute the
 size of the fluid volume that can be used to approximate the
-inertia of the mover (if <code>dynamicBalance == true</code>).
-It is also used for regularization of the equations near zero flow rate.
-However, otherwise it does not affect the mass flow rate of the mover as
+inertia of the mover if the energy dynamics is selected to be dynamic.
+</li>
+<li>
+To compute a default pressure curve if no pressure curve has been specified
+in the record <code>per.pressure</code>.
+The default pressure curve is the line that intersects
+<code>(dp, V_flow) = (dp_nominal, 0)</code> and
+<code>(dp, V_flow) = (m_flow_nominal/rho_default, 0)</code>.
+</li>
+<li>
+To regularize the equations near zero flow rate to ensure a numerically
+robust model.
+</li>
+</ul>
+<p>
+However, otherwise <code>m_flow_nominal</code> does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.
 </p>
 <h5>Start-up and shut-down transients</h5>
@@ -349,7 +332,6 @@ is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
-<p>
 If <code>filteredSpeed=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
@@ -361,10 +343,8 @@ The filter has a parameter <code>riseTime</code>, which by default is set to
 <i>30</i> seconds.
 The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
-</p>
 </li>
 </ol>
-
 <p>
 The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the
@@ -498,24 +478,17 @@ to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
 The parameter <code>addPowerToMedium</code>, which is by default set to
 <code>true</code>, can be used to simplify the equations.
-If it is set to <code>false</code>, then no enthalpy change occurs between
-inlet and outlet other than the flow work <i>W<sub>flo</sub></i>.
+If <code>addPowerToMedium = false</code>, then no enthalpy change occurs between
+inlet and outlet.
 This can lead to simpler equations, but the temperature rise across the component
-will be underestimated, in particular for fans.
-</p>
-
-<h5>Further description</h5>
-<p>
-For a detailed description of the models with names <code>FlowMachine_*</code>,
-see their base class <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
-Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
+will be zero. In particular for fans, this simplification may not be permissible.
 </p>
 
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
-The models with names <code>FlowMachine_*</code> have similar parameters than the
-models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>.
-However, the models in this package differ primarily in the following points:
+The models in this package differ from
+<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>
+primarily in the following points:
 </p>
 <ul>
 <li>
@@ -541,7 +514,7 @@ we changed the models to use total pressure in Pascals instead of head in meters
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at
+These functions are implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>

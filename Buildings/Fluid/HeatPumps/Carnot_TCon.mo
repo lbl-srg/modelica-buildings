@@ -16,7 +16,7 @@ model Carnot_TCon
     final Q_flow_maxCool=0,
     final tau=tau1,
     final T_start=T1_start,
-    final energyDynamics=energyDynamics1,
+    final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization),
    redeclare HeatExchangers.HeaterCooler_u eva(
     final from_dp=from_dp2,
@@ -25,7 +25,7 @@ model Carnot_TCon
     final deltaM=deltaM2,
     final tau=tau2,
     final T_start=T2_start,
-    final energyDynamics=energyDynamics2,
+    final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QEva_flow_nominal));
 

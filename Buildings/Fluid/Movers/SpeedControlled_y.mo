@@ -1,28 +1,23 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
-    _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
-           final motorEfficiency=per.motorEfficiency,
-           final power=per.power,
-           pressure(
-             final V_flow = per.pressure.V_flow,
-             final dp =     per.pressure.dp),
-           final motorCooledByFluid=per.motorCooledByFluid,
-           final use_powerCharacteristic=per.use_powerCharacteristic),
-    final stageInputs(each final unit="1") = normalized_speeds,
-    final constInput(final unit="1")=normalized_speed);
-
-  parameter Real normalized_speed(final unit="1") = 0
-    "Normalized speed set point when using constant set point"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Real[:] normalized_speeds(each final unit="1") = {0}
-    "Vector of normalized speed set points when using stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
-  replaceable parameter Data.SpeedControlled_y per
-    "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+    final nominalValuesDefineDefaultPressureCurve=false,
+    final computePowerUsingSimilarityLaws=true,
+    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
+    final stageInputs(each final unit="1") = per.speeds,
+    final constInput(final unit="1") =       per.constantSpeed,
+    filter(
+      final y_start=y_start,
+      u_nominal=1,
+      u(final unit="1"),
+      y(final unit="1")),
+    eff(
+      per(final pressure = per.pressure,
+          final use_powerCharacteristic = per.use_powerCharacteristic)),
+    gaiSpe(u(final unit="1"),
+           final k=1/per.speed_nominal));
 
   Modelica.Blocks.Interfaces.RealInput y(
     min=0,
@@ -37,33 +32,37 @@ model SpeedControlled_y
         rotation=-90,
         origin={-2,120})));
 
+protected
+  Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={10,-20})));
+initial equation
+  assert(per.havePressureCurve,
+   "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
+
 equation
-  connect(filter.y, y_filtered) annotation (Line(
-      points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(gaiSpe.u, y)
+    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
+  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
+          {-26,50},{-22,50}}, color={0,0,127}));
+  connect(eff.dp, gain.u)
+    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
+  connect(gain.y, preSou.dp_in)
+    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+                                                     color={0,0,127}));
 
   if filteredSpeed then
-    connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{1,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, y_actual) annotation (Line(
-      points={{34.7,88},{38,88},{38,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
+            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
+                                      color={0,0,127}));
   else
-    connect(inputSwitch.y, y_actual) annotation (Line(
-      points={{1,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+            26},{-26,26},{-26,-46}},
+                                   color={0,0,127}));
   end if;
 
-  connect(inputSwitch.u, y) annotation (Line(
-      points={{-22,50},{-22,80},{0,80},{0,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (defaultComponentName="fan",
+    annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
             graphics={
@@ -75,7 +74,10 @@ equation
           visible=inputType == Buildings.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%normalized_speed")}),
+          textString="%normalized_speed"),
+        Text(extent={{64,68},{114,54}},
+          lineColor={0,0,127},
+          textString="y")}),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -96,6 +98,17 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
@@ -133,5 +146,5 @@ Model added to the Fluid library
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end SpeedControlled_y;

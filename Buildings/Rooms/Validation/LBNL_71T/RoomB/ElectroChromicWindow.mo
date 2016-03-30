@@ -164,7 +164,6 @@ model ElectroChromicWindow
         d=800)}) "71T: North Wall"
     annotation (Placement(transformation(extent={{86,106},{106,126}})));
 
-  // Fixme: The frame ratio and U value has not yet been updated.
   parameter HeatTransfer.Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys(
     UFra=2,
     haveInteriorShade=false,
@@ -286,8 +285,6 @@ model ElectroChromicWindow
     annotation (Placement(transformation(extent={{8,-108},{28,-88}})));
 
 equation
-  for i in 2:nConBou loop
-  end for;
 
   connect(uSha.y, replicator.u) annotation (Line(
       points={{-23,64},{-6,64}},

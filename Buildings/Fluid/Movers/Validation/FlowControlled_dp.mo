@@ -7,7 +7,7 @@ model FlowControlled_dp "Fan with zero mass flow rate and head as input"
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp floMacDyn(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,

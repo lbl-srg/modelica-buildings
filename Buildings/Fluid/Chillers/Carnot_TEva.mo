@@ -14,7 +14,7 @@ model Carnot_TEva
     final deltaM=deltaM1,
     final tau=tau1,
     final T_start=T1_start,
-    final energyDynamics=energyDynamics1,
+    final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QCon_flow_nominal),
    redeclare HeatExchangers.HeaterCooler_T eva(
@@ -26,7 +26,7 @@ model Carnot_TEva
     final Q_flow_maxCool=QEva_flow_min,
     final tau=tau2,
     final T_start=T2_start,
-    final energyDynamics=energyDynamics2,
+    final energyDynamics=energyDynamics,
     final homotopyInitialization=homotopyInitialization));
 
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(

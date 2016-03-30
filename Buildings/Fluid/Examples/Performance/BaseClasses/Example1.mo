@@ -15,7 +15,8 @@ partial model Example1 "Example 1 partial model"
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
@@ -37,8 +38,6 @@ partial model Example1 "Example 1 partial model"
     dpValve_nominal=1000,
     l={0.002,0.002},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredOpening=false,
     portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -107,6 +106,11 @@ and is created to avoid errors in the implementation of the two depending exampl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalance</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.

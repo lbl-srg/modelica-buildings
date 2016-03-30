@@ -12,9 +12,9 @@ partial model Heater "Base class for example model for the heater and cooler"
     "Nominal heat loss of the room";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
     V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     mSenFac=2,
     nPorts=3)
@@ -32,7 +32,7 @@ partial model Heater "Base class for example model for the heater and cooler"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
-    dynamicBalance=false) "Fan or pump"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Fan or pump"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
         2*Modelica.Constants.pi)) "Outdoor temperature"
@@ -123,6 +123,9 @@ and it also is required to account for a variation of density of the fluid.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised implementation.

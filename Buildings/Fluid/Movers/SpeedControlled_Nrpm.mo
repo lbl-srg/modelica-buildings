@@ -1,28 +1,24 @@
 within Buildings.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends Buildings.Fluid.Movers.BaseClasses.SpeedControlled(
-    _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
-           final motorEfficiency=per.motorEfficiency,
-           final power=per.power,
-           pressure(
-             final V_flow = per.pressure.V_flow,
-             final dp =     per.pressure.dp),
-           final motorCooledByFluid=per.motorCooledByFluid,
-           final use_powerCharacteristic=per.use_powerCharacteristic),
-    final stageInputs(each final unit="1/min") = speeds,
-    final constInput(final unit="1/min") = speed);
+  extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+    final nominalValuesDefineDefaultPressureCurve=false,
+    final computePowerUsingSimilarityLaws=true,
+    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
+    final stageInputs(each final unit="1") = per.speeds,
+    final constInput(final unit="1") =       per.constantSpeed,
+    filter(
+      final y_start=y_start,
+      u_nominal=1,
+      u(final unit="1"),
+      y(final unit="1")),
+    eff(
+      per(final pressure = per.pressure,
+          final use_powerCharacteristic = per.use_powerCharacteristic)),
+    gaiSpe(u(final unit="1/min"),
+           final k=1/per.speed_rpm_nominal));
 
-  parameter Real speed(final unit="1/min") = 0
-    "Speed set point when using constant set point"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
-  parameter Real[:] speeds(each final unit="1/min") = {0}
-    "Vector of speed set points when using stages"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
-  replaceable parameter Data.SpeedControlled_Nrpm per
-    "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
   Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="1/min") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed rotational speed"
@@ -33,47 +29,34 @@ model SpeedControlled_Nrpm
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,120})));
+
 protected
-  Modelica.Blocks.Math.Gain gaiSpe(
-    u(min=0,
-      final quantity="AngularVelocity",
-      final unit="1/min",
-      nominal=3000),
-    y(final unit="1",
-      nominal=1),
-    final k=1/per.N_nominal) "Gain for speed input signal"
-    annotation (Placement(transformation(extent={{6,44},{18,56}})));
+  Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={10,-20})));
+initial equation
+  assert(per.havePressureCurve,
+   "SpeedControlled_Nrpm model requires to set the pressure vs. flow rate curve in record 'per'.");
 
 equation
+  connect(Nrpm, gaiSpe.u)
+    annotation (Line(points={{0,120},{0,80},{-2.8,80}}, color={0,0,127}));
+  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
+          {-26,50},{-22,50}}, color={0,0,127}));
+  connect(eff.dp, gain.u) annotation (Line(points={{-11,-50},{2,-50},{10,-50},{10,
+          -32}}, color={0,0,127}));
+  connect(gain.y, preSou.dp_in)
+    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+                                                     color={0,0,127}));
   if filteredSpeed then
-    connect(gaiSpe.y, filter.u) annotation (Line(
-      points={{18.6,50},{18,50},{18,88},{18.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, y_actual) annotation (Line(
-      points={{34.7,88},{60.35,88},{60.35,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, y_filtered) annotation (Line(
-      points={{34.7,88},{50,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
+    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
+            {-26,26},{-26,-46}},      color={0,0,127}));
   else
-    connect(gaiSpe.y, y_actual) annotation (Line(
-      points={{18.6,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+            26},{-26,26},{-26,-46}},
+                                   color={0,0,127}));
   end if;
-
-  connect(inputSwitch.y, gaiSpe.u) annotation (Line(
-      points={{1,50},{4.8,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(inputSwitch.u, Nrpm) annotation (Line(
-      points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
@@ -85,7 +68,10 @@ equation
           visible=inputType == Buildings.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%speed")}),
+          textString="%speed"),
+        Text(extent={{52,70},{102,56}},
+          lineColor={0,0,127},
+          textString="N_rpm")}),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -104,6 +90,23 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
+<li>
+January 19, 2016, by Filip Jorissen:<br/>
+Set default value of parameter: <code>speeds=per.speeds</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
@@ -146,5 +149,5 @@ Revised implementation to allow zero flow rate.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end SpeedControlled_Nrpm;
