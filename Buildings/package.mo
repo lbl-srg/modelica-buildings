@@ -128,8 +128,8 @@ its class name ends with the string <code>Beta</code>.
     extends Modelica.Icons.ReleaseNotes;
 
    class Version_3_0_1 "Version 3.0.1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+     extends Modelica.Icons.ReleaseNotes;
+     annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
    Version X.Y.Z is ... xxx
@@ -168,12 +168,18 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.ClosedLoop
+
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added hysteresis to the economizer control to avoid many events.
+                          This change was done in
+                          <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
