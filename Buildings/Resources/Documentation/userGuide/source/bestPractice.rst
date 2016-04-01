@@ -83,7 +83,6 @@ a fixed boundary condition ``Buildings.Fluid.Sources.FixedBoundary``, connected 
 
 .. figure:: img/MixingVolumeInitialization.png
    :scale: 100%
-   :align: center
 
    Schematic diagram of a flow source, a fluid volume, and a pressure source.
 
@@ -228,8 +227,6 @@ In some situation, such as the configuration below, connecting multiple connecto
 
 .. figure:: img/fluidJunctionMixing.png
    :scale: 100%
-   :align: center
-
 
    Connection of three components without explicitly introducing a mixer or splitter model.
 
@@ -265,7 +262,6 @@ Consider the flow circuit shown below that consists of a pump or fan, a flow res
 
 .. figure:: img/flowCircuitNoExpansion.png
    :scale: 60%
-   :align: center
 
    Schematic diagram of a flow circuit without means
    to set a reference pressure, or to account for
@@ -309,7 +305,6 @@ to form the system model shown below.
 
 .. figure:: img/flowCircuitWithExpansionVessel.png
    :scale: 60%
-   :align: center
 
    Schematic diagram of a flow circuit with expansion vessel that
    adds a pressure source and accounts for the thermal expansion
@@ -328,7 +323,6 @@ However, since the thermal expansion of the fluid is usually small, this effect 
 
 .. figure:: img/flowCircuitWithBoundary.png
    :scale: 60%
-   :align: center
 
    Schematic diagram of a flow circuit with a boundary model that adds
    a fixed pressure source and accounts for any thermal expansion
