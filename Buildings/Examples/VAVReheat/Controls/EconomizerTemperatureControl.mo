@@ -14,8 +14,6 @@ block EconomizerTemperatureControl
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   parameter Real k=1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti "Time constant of Integrator block";
-  Modelica.Blocks.Logical.Greater signGain "Sign of control gain"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Logical.Switch swi2
@@ -32,12 +30,12 @@ block EconomizerTemperatureControl
   Modelica.Blocks.Interfaces.RealInput TMixSet
     "Setpoint for mixed air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+  Modelica.Blocks.Logical.Hysteresis hysConGai(uLow=-0.1, uHigh=0.1)
+    "Hysteresis for control gain"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Modelica.Blocks.Math.Feedback feedback
+    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
 equation
-  connect(signGain.y, swi1.u2)
-                              annotation (Line(
-      points={{-39,60},{-12,60},{-12,6.66134e-16},{-2,6.66134e-16}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(swi1.y, con.u_s)    annotation (Line(
       points={{21,6.10623e-16},{30,0},{40,1.27676e-15},{40,6.66134e-16},{58,
           6.66134e-16}},
@@ -47,21 +45,9 @@ equation
       points={{21,-40},{70,-40},{70,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(signGain.y, swi2.u2) annotation (Line(
-      points={{-39,60},{-12,60},{-12,-40},{-2,-40}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(con.y, yOA)    annotation (Line(
       points={{81,6.10623e-16},{90.5,6.10623e-16},{90.5,5.55112e-16},{110,
           5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(signGain.u1, TRet) annotation (Line(
-      points={{-62,60},{-120,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(signGain.u2, TOut) annotation (Line(
-      points={{-62,52},{-80,52},{-80,20},{-120,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(swi1.u1, TMix) annotation (Line(
@@ -80,6 +66,16 @@ equation
       points={{-2,-32},{-60,-32},{-60,-60},{-120,-60}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(feedback.u1, TRet) annotation (Line(points={{-68,60},{-68,60},{-88,60},
+          {-88,60},{-120,60}}, color={0,0,127}));
+  connect(TOut, feedback.u2)
+    annotation (Line(points={{-120,20},{-60,20},{-60,52}}, color={0,0,127}));
+  connect(feedback.y, hysConGai.u) annotation (Line(points={{-51,60},{-48,60},{
+          -46,60},{-42,60}}, color={0,0,127}));
+  connect(hysConGai.y, swi2.u2) annotation (Line(points={{-19,60},{-12,60},{-12,
+          -40},{-2,-40}}, color={255,0,255}));
+  connect(hysConGai.y, swi1.u2) annotation (Line(points={{-19,60},{-12,60},{-12,
+          0},{-2,0}}, color={255,0,255}));
   annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Text(
