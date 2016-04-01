@@ -127,7 +127,6 @@ Added hysteresis to avoid too many events that stall the simulation.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">#502</a>.
 </li>
-</li>
 <li>
 March 8, 2013, by Michael Wetter:<br/>
 First implementation.
