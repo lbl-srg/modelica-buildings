@@ -97,5 +97,41 @@ equation
         Text(
           extent={{64,14},{90,-14}},
           lineColor={0,0,127},
-          textString="yOA")}));
+          textString="yOA")}), Documentation(info="<html>
+<p>
+This controller outputs the control signal for the outside
+air damper in order to regulate the mixed air temperature
+<code>TMix</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+If the control error <i>T<sub>mix,set</sub> - T<sub>mix</sub> &lt; 0</i>,
+then more outside air is needed provided that <i>T<sub>out</sub> &lt; T<sub>ret</sub></i>,
+where
+<i>T<sub>out</sub></i> is the outside air temperature and
+<i>T<sub>ret</sub></i> is the return air temperature.
+However, if <i>T<sub>out</sub> &ge; T<sub>ret</sub></i>,
+then less outside air is needed.
+Hence, the control gain need to switch sign depending on this difference.
+This is accomplished by taking the difference between these signals,
+and then switching the input of the controller.
+A hysteresis is used to avoid chattering, for example if
+<code>TRet</code> has numerical noise in the simulation, or
+measurement error in a real application.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 1, 2016, by Michael Wetter:<br/>
+Added hysteresis to avoid too many events that stall the simulation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">#502</a>.
+</li>
+</li>
+<li>
+March 8, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EconomizerTemperatureControl;
