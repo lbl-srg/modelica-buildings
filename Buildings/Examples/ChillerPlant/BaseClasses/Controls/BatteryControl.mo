@@ -155,7 +155,7 @@ discharging until it is empty.
 <ul>
 <li>
 April 6, 2016, by Michael Wetter:<br/>
-Replaced use of <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
 </li>
 <li>

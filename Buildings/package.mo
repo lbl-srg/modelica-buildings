@@ -168,6 +168,17 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.DC.Storage.Examples.Battery
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
@@ -180,6 +191,17 @@ its class name ends with the string <code>Beta</code>.
                           <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
+                          Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br/>
+                          Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
+                          Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
@@ -5760,8 +5782,7 @@ preferredView="info",
 version="3.0.0",
 versionDate="2016-03-29",
 dateModified="2016-03-29",
-uses(Modelica(version="3.2.1"),
-     Modelica_StateGraph2(version="2.0.2")),
+uses(Modelica(version="3.2.1")),
 conversion(
  from(version={"2.0.0", "2.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),

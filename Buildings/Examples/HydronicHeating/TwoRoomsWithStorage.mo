@@ -263,7 +263,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Logical.GreaterThreshold greThr(threshold=TSup_nominal + 5)
     annotation (Placement(transformation(extent={{400,-190},{420,-170}})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum "Signal converter for pump"
-    annotation (Placement(transformation(extent={{350,-84},{330,-64}})));
+    annotation (Placement(transformation(extent={{352,-84},{332,-64}})));
   Modelica.Blocks.Logical.Greater lesThr
     annotation (Placement(transformation(extent={{400,-122},{420,-102}})));
   Fluid.Sensors.TemperatureTwoPort temSup(   redeclare package Medium = MediumW,
@@ -326,25 +326,6 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
-  Modelica_StateGraph2.Step off(
-    nOut=1,
-    initialStep=true,
-    use_activePort=false,
-    nIn=1)
-    annotation (Placement(transformation(extent={{476,-4},{484,4}})));
-  Modelica_StateGraph2.Transition T1(use_conditionPort=true, use_firePort=false,
-    delayedTransition=false)
-    annotation (Placement(transformation(extent={{476,-24},{484,-16}})));
-  Modelica_StateGraph2.Step pumOn(
-    nOut=1,
-    use_activePort=true,
-    nIn=1) "True if pump is on prior to switching furnace on"
-    annotation (Placement(transformation(extent={{476,-44},{484,-36}})));
-  Modelica_StateGraph2.Transition T2(
-    use_conditionPort=true,
-    use_firePort=false,
-    delayedTransition=false)
-    annotation (Placement(transformation(extent={{476,-104},{484,-96}})));
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
     use_C_in=false,
@@ -397,23 +378,9 @@ model TwoRoomsWithStorage
   Airflow.Multizone.Orifice lea2(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
     annotation (Placement(transformation(extent={{320,170},{340,190}})));
-  Modelica_StateGraph2.Transition T3(delayedTransition=true, waitTime=10)
-    annotation (Placement(transformation(extent={{476,-64},{484,-56}})));
-  Modelica_StateGraph2.Step boiOn(
-    nOut=1,
-    use_activePort=true,
-    nIn=1) "True if boiler is on prior"
-    annotation (Placement(transformation(extent={{476,-84},{484,-76}})));
-  Modelica_StateGraph2.Step pumOn2(
-    nOut=1,
-    use_activePort=true,
-    nIn=1) "Pump runs for a few seconds after boiler switched off"
-    annotation (Placement(transformation(extent={{476,-124},{484,-116}})));
-  Modelica_StateGraph2.Transition T4(delayedTransition=true, waitTime=10)
-    annotation (Placement(transformation(extent={{476,-144},{484,-136}})));
-  Modelica_StateGraph2.Blocks.MathBoolean.Or pumOnSig(nu=3)
+  Modelica.Blocks.MathBoolean.Or pumOnSig(nu=3)
     "Signal for pump being on"
-    annotation (Placement(transformation(extent={{524,-46},{536,-34}})));
+    annotation (Placement(transformation(extent={{660,-60},{680,-40}})));
   Modelica.Blocks.Math.BooleanToReal booToReaBoi "Signal converter for boiler"
     annotation (Placement(transformation(extent={{352,-50},{332,-30}})));
   Modelica.Blocks.Math.MatrixGain gai1(K=[35; 70; 30])
@@ -496,7 +463,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{400,-20},{420,0}})));
   Modelica.Blocks.Logical.And and1
     "Logical test to enable pump and subsequently the boiler"
-    annotation (Placement(transformation(extent={{440,-30},{460,-10}})));
+    annotation (Placement(transformation(extent={{440,-20},{460,0}})));
 
   block CoolingControl
     "Controller for the free cooling and the mechanical cooling"
@@ -597,6 +564,28 @@ Changed controller to output setpoint for supply air temperature for cooling coi
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
+  Modelica.StateGraph.InitialStep off "Pump and furnace off"
+    annotation (Placement(transformation(extent={{440,20},{460,40}})));
+  Modelica.StateGraph.TransitionWithSignal T1 "Transition to pump on"
+    annotation (Placement(transformation(extent={{470,20},{490,40}})));
+  Modelica.StateGraph.StepWithSignal pumOn "Pump on"
+    annotation (Placement(transformation(extent={{500,20},{520,40}})));
+  Modelica.StateGraph.Transition T3(enableTimer=true, waitTime=10)
+    "Transition to boiler on"
+    annotation (Placement(transformation(extent={{530,20},{550,40}})));
+  Modelica.StateGraph.StepWithSignal boiOn "Boiler on"
+    annotation (Placement(transformation(extent={{560,20},{580,40}})));
+  Modelica.StateGraph.TransitionWithSignal T2
+    "Transition that switches boiler off"
+    annotation (Placement(transformation(extent={{590,20},{610,40}})));
+  Modelica.StateGraph.StepWithSignal pumOn2 "Pump on"
+    annotation (Placement(transformation(extent={{620,20},{640,40}})));
+  Modelica.StateGraph.Transition T4(enableTimer=true, waitTime=10)
+    "Transition to boiler on"
+    annotation (Placement(transformation(extent={{650,20},{670,40}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "Root of the state graph"
+    annotation (Placement(transformation(extent={{380,40},{400,60}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{12,-90},{12,-112.8}},
@@ -730,16 +719,8 @@ equation
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
-      points={{329,-74},{69.8,-74},{69.8,-108}},
+      points={{331,-74},{69.8,-74},{69.8,-108}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(off.outPort[1], T1.inPort) annotation (Line(
-      points={{480,-4.6},{480,-16}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(greThr.y, T2.conditionPort) annotation (Line(
-      points={{421,-180},{460,-180},{460,-100},{475,-100}},
-      color={255,0,255},
       smooth=Smooth.None));
   connect(rad1.heatPortCon, roo1.heaPorAir) annotation (Line(
       points={{400,407.2},{400,484},{375,484}},
@@ -844,52 +825,8 @@ equation
       points={{220,60},{220,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pumOn.outPort[1], T3.inPort) annotation (Line(
-      points={{480,-44.6},{480,-56}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T3.outPort, boiOn.inPort[1]) annotation (Line(
-      points={{480,-65},{480,-76}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(boiOn.outPort[1], T2.inPort) annotation (Line(
-      points={{480,-84.6},{480,-96}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T1.outPort, pumOn.inPort[1]) annotation (Line(
-      points={{480,-25},{480,-36}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T2.outPort, pumOn2.inPort[1]) annotation (Line(
-      points={{480,-105},{480,-116}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(pumOn2.outPort[1], T4.inPort) annotation (Line(
-      points={{480,-124.6},{480,-136}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T4.outPort, off.inPort[1]) annotation (Line(
-      points={{480,-145},{480,-150},{500,-150},{500,12},{480,12},{480,4}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(pumOn.activePort, pumOnSig.u[1]) annotation (Line(
-      points={{484.72,-40},{499.36,-40},{499.36,-37.2},{524,-37.2}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(boiOn.activePort, pumOnSig.u[2]) annotation (Line(
-      points={{484.72,-80},{506,-80},{506,-40},{524,-40}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(pumOn2.activePort, pumOnSig.u[3]) annotation (Line(
-      points={{484.72,-120},{510,-120},{510,-42.8},{524,-42.8}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(boiOn.activePort, booToReaBoi.u) annotation (Line(
-      points={{484.72,-80},{560,-80},{560,28},{370,28},{370,-40},{354,-40}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(booToReaPum.u, pumOnSig.y) annotation (Line(
-      points={{352,-74},{380,-74},{380,20},{550,20},{550,-40},{537.2,-40}},
+      points={{354,-74},{690,-74},{690,-50},{681.5,-50}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
@@ -1115,19 +1052,15 @@ equation
       smooth=Smooth.None));
 
   connect(lesThr.y, and1.u2) annotation (Line(
-      points={{421,-112},{430,-112},{430,-28},{438,-28}},
+      points={{421,-112},{430,-112},{430,-18},{438,-18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(lesThrTRoo.y, and1.u1) annotation (Line(
-      points={{421,-10},{428,-10},{428,-20},{438,-20}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, T1.conditionPort) annotation (Line(
-      points={{461,-20},{475,-20}},
+      points={{421,-10},{438,-10}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(TRoo1.T, lesThrTRoo.u) annotation (Line(
-      points={{500,484},{688,484},{688,42},{388,42},{388,-10},{398,-10}},
+      points={{500,484},{690,484},{690,80},{340,80},{340,-10},{398,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(damHex.port_b, hex.port_a1) annotation (Line(
@@ -1158,9 +1091,38 @@ equation
       points={{121,546},{220,546},{220,516},{238,516}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(and1.y, T1.condition) annotation (Line(points={{461,-10},{480,-10},{480,
+          18}}, color={255,0,255}));
+  connect(greThr.y, T2.condition) annotation (Line(points={{421,-180},{452,-180},
+          {600,-180},{600,18}}, color={255,0,255}));
+  connect(boiOn.active, booToReaBoi.u) annotation (Line(points={{570,19},{570,-40},
+          {354,-40}}, color={255,0,255}));
+  connect(pumOn2.active, pumOnSig.u[1]) annotation (Line(points={{630,19},{630,
+          -45.3333},{660,-45.3333}},
+                           color={255,0,255}));
+  connect(boiOn.active, pumOnSig.u[2]) annotation (Line(points={{570,19},{570,19},
+          {570,-48},{570,-50},{660,-50}}, color={255,0,255}));
+  connect(pumOn.active, pumOnSig.u[3]) annotation (Line(points={{510,19},{510,
+          -54.6667},{660,-54.6667}},
+                           color={255,0,255}));
+  connect(off.outPort[1], T1.inPort)
+    annotation (Line(points={{460.5,30},{468.25,30},{476,30}}, color={0,0,0}));
+  connect(T1.outPort, pumOn.inPort[1])
+    annotation (Line(points={{481.5,30},{499,30},{499,30}}, color={0,0,0}));
+  connect(pumOn.outPort[1], T3.inPort) annotation (Line(points={{520.5,30},{527.25,
+          30},{527.25,30},{536,30}}, color={0,0,0}));
+  connect(T3.outPort, boiOn.inPort[1])
+    annotation (Line(points={{541.5,30},{559,30},{559,30}}, color={0,0,0}));
+  connect(boiOn.outPort[1], T2.inPort)
+    annotation (Line(points={{580.5,30},{596,30},{596,30}}, color={0,0,0}));
+  connect(T2.outPort, pumOn2.inPort[1])
+    annotation (Line(points={{601.5,30},{619,30},{619,30}}, color={0,0,0}));
+  connect(pumOn2.outPort[1], T4.inPort)
+    annotation (Line(points={{640.5,30},{656,30},{656,30}}, color={0,0,0}));
+  connect(T4.outPort, off.inPort[1]) annotation (Line(points={{661.5,30},{680,30},
+          {680,60},{420,60},{420,30},{439,30}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
-            -200},{700,600}}),
-                         graphics),
+            -200},{700,600}})),
 Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
@@ -1232,6 +1194,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2016, by Michael Wetter:<br/>
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code>.
