@@ -132,7 +132,9 @@ its class name ends with the string <code>Beta</code>.
      annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version X.Y.Z is ... xxx
+   Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
+   library. Instead, it uses <code>Modelica.StateGraph</code> which is part
+   of the Modelica Standard Library.
    </p>
    </div>
    <!-- New libraries -->
