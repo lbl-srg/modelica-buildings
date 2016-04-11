@@ -53,7 +53,7 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
-          extent={{-6,-20},{66,-66}},
+          extent={{-25,-20},{80,-66}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
