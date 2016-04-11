@@ -171,7 +171,7 @@ Rather than setting these parameters individually to a numeric value, it is reco
 <p>We will now explain how state variables, such as temperature and pressure, can be initialized.</p>
 <p>Consider a model consisting of a mass flow source <code class="docutils literal"><span class="pre">Modelica.Fluid.Sources.MassFlowSource_T</span></code>, a fluid volume <code class="docutils literal"><span class="pre">Buildings.Fluid.MixingVolumes.MixingVolume</span></code> and
 a fixed boundary condition <code class="docutils literal"><span class="pre">Buildings.Fluid.Sources.FixedBoundary</span></code>, connected in series as shown in the figure below. Note that the instance <code class="docutils literal"><span class="pre">bou</span></code> implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal"><span class="pre">bou.ports.p</span></code> is fixed.</p>
-<div class="figure align-center" id="id8">
+<div class="figure" id="id8">
 <a class="reference internal image-reference" href="_images/MixingVolumeInitialization.png"><img alt="_images/MixingVolumeInitialization.png" src="_images/MixingVolumeInitialization.png" style="width: 371.0px; height: 161.0px;" /></a>
 <p class="caption"><span class="caption-text">Schematic diagram of a flow source, a fluid volume, and a pressure source.</span></p>
 </div>
@@ -373,7 +373,7 @@ Therefore, energy, mass fraction and trace substances have identical equations a
 <h3>2.4.2. Modeling of fluid junctions<a class="headerlink" href="#modeling-of-fluid-junctions" title="Permalink to this headline">¶</a></h3>
 <p>In Modelica, connecting fluid ports as shown below leads to ideal mixing at the junction.
 In some situation, such as the configuration below, connecting multiple connectors to a fluid port represents the physical phenomena that was intended to model.</p>
-<div class="figure align-center" id="id9">
+<div class="figure" id="id9">
 <a class="reference internal image-reference" href="_images/fluidJunctionMixing.png"><img alt="_images/fluidJunctionMixing.png" src="_images/fluidJunctionMixing.png" style="width: 201.0px; height: 240.0px;" /></a>
 <p class="caption"><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span></p>
 </div>
@@ -399,7 +399,7 @@ The proper use sensors is described in the
 <span id="referencepressureincompressiblefluids"></span><h3>2.4.4. Reference pressure for incompressible fluids such as water<a class="headerlink" href="#reference-pressure-for-incompressible-fluids-such-as-water" title="Permalink to this headline">¶</a></h3>
 <p>This section explains how to set a reference pressure for incompressible fluids. For fluids that model density as a function of temperature, the section also shows how to account for the thermal expansion of the fluid.</p>
 <p>Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.</p>
-<div class="figure align-center" id="id11">
+<div class="figure" id="id11">
 <a class="reference internal image-reference" href="_images/flowCircuitNoExpansion.png"><img alt="_images/flowCircuitNoExpansion.png" src="_images/flowCircuitNoExpansion.png" style="width: 449.4px; height: 370.8px;" /></a>
 <p class="caption"><span class="caption-text">Schematic diagram of a flow circuit without means
 to set a reference pressure, or to account for
@@ -436,7 +436,7 @@ use a model that imposes a pressure source and that accounts for the expansion o
 For example, use
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a>
 to form the system model shown below.</p>
-<div class="figure align-center" id="id12">
+<div class="figure" id="id12">
 <a class="reference internal image-reference" href="_images/flowCircuitWithExpansionVessel.png"><img alt="_images/flowCircuitWithExpansionVessel.png" src="_images/flowCircuitWithExpansionVessel.png" style="width: 459.6px; height: 404.4px;" /></a>
 <p class="caption"><span class="caption-text">Schematic diagram of a flow circuit with expansion vessel that
 adds a pressure source and accounts for the thermal expansion
@@ -452,7 +452,7 @@ Note that the medium that flows out of the fluid port of
 is at a fixed temperature, while the model
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel">Buildings.Fluid.Storage.ExpansionVessel</a> conserves energy.
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.</p>
-<div class="figure align-center" id="id13">
+<div class="figure" id="id13">
 <a class="reference internal image-reference" href="_images/flowCircuitWithBoundary.png"><img alt="_images/flowCircuitWithBoundary.png" src="_images/flowCircuitWithBoundary.png" style="width: 475.2px; height: 415.2px;" /></a>
 <p class="caption"><span class="caption-text">Schematic diagram of a flow circuit with a boundary model that adds
 a fixed pressure source and accounts for any thermal expansion
