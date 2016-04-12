@@ -98,14 +98,19 @@ Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.
 </p>
 <p>
 For simple models that uses this model, see
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
-<a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\">
+Buildings.Fluid.HeatExchangers.HeaterCooler_u</a> and
+<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
+Buildings.Fluid.MassExchangers.Humidifier_u</a>.
 </p>
 
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance

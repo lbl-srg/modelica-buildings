@@ -644,12 +644,17 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Buildings.Media.Water.Detailed.specificEntropy\">
-Buildings.Media.Water.Detailed.specificEntropy</a>
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.specificEntropy\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.specificEntropy</a>
 for temperature.
   </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 December 11, 2013, by Michael Wetter:<br/>
 First implementation.
@@ -762,12 +767,17 @@ In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
 as the density and the kinematic viscosity are combined in
-<a href=\"modelica://Buildings.Media.Water.Detailed.dynamicViscosity\">
-Buildings.Media.Water.Detailed.dynamicViscosity</a>.
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.dynamicViscosity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.dynamicViscosity</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
 First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
