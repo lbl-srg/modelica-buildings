@@ -956,8 +956,8 @@ equation
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at
-<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
-http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>. These
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>. These
 data, which are in the EnergyPlus format, need to be converted as described
 in the next paragraph.
 </p>
@@ -1261,8 +1261,8 @@ To add new weather data, proceed as follows:
 <ol>
 <li>
 Download the weather data file with the <code>epw</code> extension from
-<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
-http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>.
 </li>
 <li>
 Add the file to <code>Buildings/Resources/weatherdata</code> (or to any directory
