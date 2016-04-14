@@ -12,7 +12,8 @@ protected
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=0.1,
-    final dp_nominal=200) "Supply air duct"
+    final dp_nominal=200,
+    from_dp=true) "Supply air duct"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
   FixedResistances.FixedResistanceDpM ret(
     redeclare final package Medium = Medium,
@@ -20,6 +21,8 @@ protected
     final m_flow_nominal=0.1,
     final dp_nominal=200) "Return air duct"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
+  Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 equation
   connect(bou.ports[1], sup.port_a) annotation (Line(points={{-20,92},{-16,92},{
           -16,110},{20,110}}, color={0,127,255}));
@@ -29,6 +32,14 @@ equation
           {80,96},{120,96}}, color={0,127,255}));
   connect(ret.port_a, theZonAda.ret) annotation (Line(points={{40,70},{80,70},{80,
           86},{120,86}}, color={0,127,255}));
+  connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
+          -40},{180,-40}}, color={0,0,127}));
+  connect(zero.y, QGaiCon_flow)
+    annotation (Line(points={{121,-90},{142,-90},{180,-90}},
+                                                           color={0,0,127}));
+  connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
+          -140},{180,-140}},
+                           color={0,0,127}));
 annotation (
     Documentation(info="<html>
 <p>
