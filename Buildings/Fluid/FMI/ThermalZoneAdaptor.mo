@@ -168,7 +168,7 @@ equation
     // nevertheless implement an HVAC system that has no return fan, e.g.,
     // an HVAC system where the building static pressure moves the air
     // through the return duct.
-    retP_in_internal =sup.p;
+    connect(supP_in_internal, retP_in_internal);
   end if;
   ret.p = retP_in_internal;
 
