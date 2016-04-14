@@ -1,12 +1,12 @@
 UsersGuide
 FlowSplitter_u
+HVACConvective
 InletAdaptor
 OutletAdaptor
 Sink_T
 Source_T
+ThermalZoneAdaptor
 TwoPort
 TwoPortComponent
 Examples
 Interfaces
-HVACConvective
-ThermalZoneAdaptor
