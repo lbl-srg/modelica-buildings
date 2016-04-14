@@ -8,3 +8,5 @@ TwoPort
 TwoPortComponent
 Examples
 Interfaces
+HVACConvective
+ThermalZoneAdaptor
