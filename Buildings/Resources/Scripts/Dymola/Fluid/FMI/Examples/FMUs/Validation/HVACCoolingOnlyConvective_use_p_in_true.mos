@@ -3,7 +3,7 @@
 buildings_pedantic_old=Advanced.PedanticModelica;
 Advanced.PedanticModelica=false;
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective_use_p_in_true", 
+  modelToOpen="Buildings.Fluid.FMI.Examples.FMUs.Validation.HVACCoolingOnlyConvective_use_p_in_true", 
   storeResult=false, 
   modelName="", 
   fmiVersion="2", 
