@@ -2,7 +2,6 @@ within Buildings.Fluid.FMI.Examples.FMUs.Validation;
 block HVACConvectiveAir1 "Validation model for the convective HVAC system"
   extends Buildings.Fluid.FMI.HVACConvective(
     redeclare package Medium = Buildings.Media.Air,
-    use_p_in = true,
     allowFlowReversal = true);
 protected
   Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=2)

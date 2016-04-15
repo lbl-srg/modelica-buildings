@@ -10,10 +10,6 @@ partial block HVACConvective
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
-    annotation(Evaluate=true);
-
   Modelica.Blocks.Interfaces.RealInput TRadZon(final unit="K")
     "Radiative temperature of the zone" annotation (Placement(transformation(
           extent={{200,-20},{160,20}})));
@@ -21,13 +17,13 @@ partial block HVACConvective
   Interfaces.Outlet supplyAir(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_p_in=use_p_in)
+    final use_p_in=false)
     "Connector that is the inlet into the thermal zone" annotation (Placement(
         transformation(extent={{160,110},{180,130}})));
   Interfaces.Inlet returnAir(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_p_in=use_p_in) "Return air"
+    final use_p_in=false) "Return air"
     annotation (Placement(transformation(extent={{180,50},{160,70}}),
         iconTransformation(extent={{180,50},{160,70}})));
 
@@ -45,8 +41,7 @@ partial block HVACConvective
 
 protected
   ThermalZoneAdaptor theZonAda(
-    redeclare final package Medium = Medium,
-    final use_p_in = use_p_in)
+    redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 equation

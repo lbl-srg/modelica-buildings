@@ -10,10 +10,6 @@ model ThermalZoneAdaptor
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
-    annotation(Evaluate=true);
-
   Modelica.Fluid.Interfaces.FluidPort_a sup(
     redeclare final package Medium = Medium) "Fluid port for supply air"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
@@ -24,13 +20,13 @@ model ThermalZoneAdaptor
   Interfaces.Outlet supAir(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_p_in=use_p_in) "Supply air connector"
+    final use_p_in=false) "Supply air connector"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Buildings.Fluid.FMI.Interfaces.Inlet retAir(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_p_in=use_p_in) "Return air connector"
+    final use_p_in=false) "Return air connector"
     annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput TZon(unit="K",
@@ -58,10 +54,7 @@ protected
     "Internal connector for mass fraction of forward flow properties at return air";
   Buildings.Fluid.FMI.Interfaces.MassFractionConnector retX_w_out_internal
     "Internal connector for mass fraction of backward flow properties at return air";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput supP_in_internal
-    "Internal connector for pressure of supply air";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput retP_in_internal
-    "Internal connector for pressure of return air";
+
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
@@ -109,12 +102,6 @@ equation
     X=sup.Xi_outflow);
   supBacPro_internal.C = sup.C_outflow;
 
-  // Conditional connectors for pressure
-  if use_p_in then
-    connect(supP_in_internal, supAir.p);
-  end if;
-  sup.p = supP_in_internal;
-
   ///////////////////////////////////////////////////////////////////////////
   // Equations for return air
 
@@ -158,19 +145,8 @@ equation
   end if;
 
   ///////////////////////////////////////////////////////////////////////////
-  // Conditional connectors for pressure
-  if use_p_in then
-    // Take the pressure from the FMI interface
-    connect(retP_in_internal, retAir.p);
-  else
-    // Set the return air pressure to be equal to the supply air pressure.
-    // This allows to not propagate the pressure to the room model, and
-    // nevertheless implement an HVAC system that has no return fan, e.g.,
-    // an HVAC system where the building static pressure moves the air
-    // through the return duct.
-    connect(supP_in_internal, retP_in_internal);
-  end if;
-  ret.p = retP_in_internal;
+  // Assign return air pressure to be equal to supply air pressure
+  ret.p = sup.p;
 
   ///////////////////////////////////////////////////////////////////////////
   // Assign temperature to output connector TZon.

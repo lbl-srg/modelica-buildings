@@ -2,8 +2,7 @@ within Buildings.Fluid.FMI.Examples.FMUs.Validation;
 block HVACConvectiveAir2
   "Validation model for the convective HVAC system"
   extends HVACConvectiveAir1(
-    use_p_in = false,
-    allowFlowReversal = true);
+    allowFlowReversal = false);
 annotation (
     Documentation(info="<html>
 <p>

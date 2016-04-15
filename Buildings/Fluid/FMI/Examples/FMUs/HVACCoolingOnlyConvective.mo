@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block HVACCoolingOnlyConvective "Simple convective only HVAC system"
   extends Buildings.Fluid.FMI.HVACConvective(
-    redeclare final package Medium = MediumA,
-    use_p_in = false);
+    redeclare final package Medium = MediumA);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
