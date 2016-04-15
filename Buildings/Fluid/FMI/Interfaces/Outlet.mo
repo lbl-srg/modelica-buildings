@@ -4,7 +4,7 @@ connector Outlet "Connector for fluid outlet"
     "Medium model" annotation (choicesAllMatching=true);
 
   parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
+    "= true to use pressure connector, false to remove it"
     annotation(Evaluate=true);
 
   parameter Boolean allowFlowReversal = true
