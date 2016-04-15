@@ -3,8 +3,7 @@ block HVACConvectiveSimpleAir2
   "Validation model for the convective HVAC system"
   extends HVACConvectiveAir1(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    use_p_in = false,
-    allowFlowReversal = true);
+    allowFlowReversal = false);
 annotation (
     Documentation(info="<html>
 <p>

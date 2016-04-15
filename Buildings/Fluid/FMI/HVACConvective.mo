@@ -6,26 +6,34 @@ partial block HVACConvective
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  // Set allowFlowReversal = false to remove the backward connector.
+  // This is done to avoid that we get the same zone states multiple times.
+  Interfaces.Outlet supAir[size(theZonAda.supAir, 1)](
+    redeclare each final package Medium = Medium,
+    each final use_p_in = false,
+    each final allowFlowReversal = false) "Supply air connector"
+    annotation (Placement(transformation(extent={{160,130},{180,150}})));
 
-  Modelica.Blocks.Interfaces.RealInput TRadZon(final unit="K")
+  Modelica.Blocks.Interfaces.RealInput TAirZon(
+    final unit="K",
+    displayUnit="degC")
+    "Zone air temperature"
+    annotation (Placement(transformation(extent={{200,80},{160,120}})));
+  Modelica.Blocks.Interfaces.RealInput X_wZon(
+    each final unit = "kg/kg") if
+       Medium.nXi > 0
+    "Zone air water mass fraction per total air mass"
+    annotation (Placement(transformation(extent={{200,50},{160,90}})));
+  Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)
+    "Prescribed boundary trace substances"
+    annotation (Placement(transformation(extent={{200,20},{160,60}})));
+
+  Modelica.Blocks.Interfaces.RealInput TRadZon(
+    final unit="K",
+    displayUnit="degC")
     "Radiative temperature of the zone" annotation (Placement(transformation(
           extent={{200,-20},{160,20}})));
-
-  Interfaces.Outlet supplyAir(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final use_p_in=false)
-    "Connector that is the inlet into the thermal zone" annotation (Placement(
-        transformation(extent={{160,110},{180,130}})));
-  Interfaces.Inlet returnAir(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final use_p_in=false) "Return air"
-    annotation (Placement(transformation(extent={{180,50},{160,70}}),
-        iconTransformation(extent={{180,50},{160,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
@@ -39,16 +47,20 @@ partial block HVACConvective
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-protected
   ThermalZoneAdaptor theZonAda(
     redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+    annotation (Placement(transformation(extent={{110,90},{130,110}})));
+
 equation
-  connect(theZonAda.supAir, supplyAir) annotation (Line(points={{141,96},{150,96},
-          {150,120},{170,120}}, color={0,0,255}));
-  connect(theZonAda.retAir, returnAir) annotation (Line(points={{141,86},{150,86},
-          {150,60},{170,60}}, color={0,0,255}));
+  connect(TAirZon, theZonAda.TZon) annotation (Line(points={{180,100},{150,100},
+          {150,100},{132,100}}, color={0,0,127}));
+  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,70},{148,70},{
+          148,96},{132,96}},  color={0,0,127}));
+  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,40},{144,40},{144,
+          92},{132,92}}, color={0,0,127}));
+  connect(theZonAda.supAir, supAir) annotation (Line(points={{131,107},{140,107},
+          {140,140},{170,140}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
           extent={{-160,160},{160,-160}},

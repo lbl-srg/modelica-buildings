@@ -2,9 +2,15 @@ within Buildings.Fluid.FMI.Examples.FMUs.Validation;
 block HVACConvectiveAir1 "Validation model for the convective HVAC system"
   extends Buildings.Fluid.FMI.HVACConvective(
     redeclare package Medium = Buildings.Media.Air,
-    allowFlowReversal = true);
+    theZonAda(nPorts=2));
+
+  parameter Boolean allowFlowReversal = true
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 protected
-  Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=2)
+  Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=2)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   FixedResistances.FixedResistanceDpM sup(
@@ -27,10 +33,6 @@ equation
           -16,110},{20,110}}, color={0,127,255}));
   connect(bou.ports[2], ret.port_b) annotation (Line(points={{-20,88},{-16,88},{
           -16,70},{20,70}}, color={0,127,255}));
-  connect(sup.port_b, theZonAda.sup) annotation (Line(points={{40,110},{80,110},
-          {80,96},{120,96}}, color={0,127,255}));
-  connect(ret.port_a, theZonAda.ret) annotation (Line(points={{40,70},{80,70},{80,
-          86},{120,86}}, color={0,127,255}));
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
   connect(zero.y, QGaiCon_flow)
@@ -39,6 +41,10 @@ equation
   connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -140},{180,-140}},
                            color={0,0,127}));
+  connect(sup.port_b, theZonAda.ports[1]) annotation (Line(points={{40,110},{76,
+          110},{76,100},{110,100}}, color={0,127,255}));
+  connect(ret.port_a, theZonAda.ports[2]) annotation (Line(points={{40,70},{76,70},
+          {76,100},{110,100}}, color={0,127,255}));
 annotation (
     Documentation(info="<html>
 <p>

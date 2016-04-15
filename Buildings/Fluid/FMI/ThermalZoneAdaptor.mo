@@ -6,154 +6,192 @@ model ThermalZoneAdaptor
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Integer nPorts(final min = 1)
+    "Number of ports" annotation(Dialog(connectorSizing=true));
 
-  Modelica.Fluid.Interfaces.FluidPort_a sup(
-    redeclare final package Medium = Medium) "Fluid port for supply air"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b ret(
-    redeclare final package Medium = Medium) "Fluid port for return air"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+  Modelica.Blocks.Interfaces.RealInput TZon(final unit="K",
+                                            displayUnit="degC")
+    "Zone air temperature"
+    annotation (Placement(transformation(extent={{140,-20},{100,20}})));
+  Modelica.Blocks.Interfaces.RealInput X_wZon(
+    final unit = "kg/kg") if
+       Medium.nXi > 0
+    "Zone air water mass fraction per total air mass"
+    annotation (Placement(transformation(extent={{140,-60},{100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)
+    "Prescribed boundary trace substances"
+    annotation (Placement(transformation(extent={{140,-100},{100,-60}})));
 
-  Interfaces.Outlet supAir(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final use_p_in=false) "Supply air connector"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Interfaces.Outlet supAir[nPorts](
+    redeclare each final package Medium = Medium,
+    each final allowFlowReversal=false,
+    each final use_p_in=false) "Supply air connector"
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Buildings.Fluid.FMI.Interfaces.Inlet retAir(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final use_p_in=false) "Return air connector"
-    annotation (Placement(transformation(extent={{120,-50},{100,-30}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+    redeclare each final package Medium = Medium)
+    annotation (Placement(transformation(extent={{-110,40},{-90,-40}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TZon(unit="K",
-                                             displayUnit="degC")
-   "Temperature of room air in thermal zone" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,-110}),  iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,-110})));
+
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties supBacPro_internal(
-    redeclare final package Medium = Medium)
-    "Internal connector for fluid properties for back flow of supply air";
-  Buildings.Fluid.FMI.Interfaces.FluidProperties retBacPro_internal(
-    redeclare final package Medium = Medium)
-    "Internal connector for fluid properties for back flow of return air";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector supX_w_in_internal
-    "Internal connector for mass fraction of forward flow properties at supply air";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector supX_w_out_internal
-    "Internal connector for mass fraction of backward flow properties at supply air";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector retX_w_in_internal
-    "Internal connector for mass fraction of forward flow properties at return air";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector retX_w_out_internal
-    "Internal connector for mass fraction of backward flow properties at return air";
+  Sources.MassFlowSource_T bou(
+    final nPorts=nPorts,
+    redeclare final package Medium = Medium,
+    final use_m_flow_in=false,
+    final use_T_in=true,
+    final use_X_in=Medium.nXi > 0,
+    final use_C_in=Medium.nC > 0,
+    final m_flow=0) "Boundary conditions for HVAC system"
+    annotation (Placement(transformation(extent={{40,-10},{20,10}})));
+
+  ConnectionConverter con[nPorts]
+    "Converter between the different connectors"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  Sensors.MassFlowRate senMasFlo[nPorts](
+    redeclare each package Medium = Medium,
+    each allowFlowReversal=true) "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Modelica.Blocks.Sources.RealExpression TSup[nPorts](
+    y={Medium.temperature_phX(
+        p=ports[i].p,
+        h=inStream(ports[i].h_outflow),
+        X=inStream(ports[i].Xi_outflow)) for i in 1:nPorts}) "Supply air temperature"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Modelica.Blocks.Sources.RealExpression X_wSup[nPorts](final y={sum(inStream(
+        ports[i].Xi_outflow)) for i in 1:nPorts})
+    "Water vapor concentration of supply air"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  RealVectorExpression CSup[nPorts](
+    final y=inStream(ports.C_outflow), n=Medium.nC) if
+       Medium.nC > 0 "Trace substance concentration of supply air"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
+  RealVectorExpression XZon(
+    final n=Medium.nX,
+    final y=cat(
+        1,
+        {X_wZon},
+        {1 - X_wZon})) if
+       Medium.nXi > 0 "Mass fractions of zone air"
+    annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Internal blocks
+  block ConnectionConverter
+    extends Modelica.Blocks.Icons.Block;
+
+    Interfaces.Outlet outlet(
+      redeclare final package Medium = Medium,
+      final allowFlowReversal=false,
+      final use_p_in=false) "Fluid outlet"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+    Modelica.Blocks.Interfaces.RealInput m_flow(
+      final unit="kg/s")
+      "Mass flow rate"
+      annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+
+    Modelica.Blocks.Interfaces.RealInput TSup(
+      final unit="K",
+      displayUnit="degC")
+      "Prescribed fluid temperature"
+      annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    Modelica.Blocks.Interfaces.RealInput X_wSup(
+      final unit = "kg/kg")
+      "Water vapor concentration in kg/kg total air"
+      annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
+    Modelica.Blocks.Interfaces.RealInput CSup[Medium.nC](
+      final quantity=Medium.extraPropertiesNames)
+      "Prescribed boundary trace substances"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  equation
+    outlet.m_flow    = m_flow;
+    outlet.forward.T = TSup;
+    connect(outlet.forward.X_w,  X_wSup);
+    outlet.forward.C  = CSup;
+
+    annotation (Icon(graphics={
+          Polygon(origin={20,0},
+            lineColor={64,64,64},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            points={{-10.0,70.0},{10.0,70.0},{40.0,20.0},{80.0,20.0},{80.0,-20.0},{40.0,-20.0},{10.0,-70.0},{-10.0,-70.0}}),
+          Polygon(fillColor={102,102,102},
+            pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid,
+            points={{-100,20},{-60,20},{-30,70},{-10,70},{-10,-70},{-30,-70},{-60,
+                -20},{-100,-20}})}));
+  end ConnectionConverter;
+
+  block RealVectorExpression "Set vector output signal to a time varying vector Real expression"
+    parameter Integer n "Dimension of output signal";
+    Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
+    annotation (Dialog(group="Time varying output signal"), Placement(
+        transformation(extent={{100,-10},{120,10}}, rotation=0)));
+
+  annotation (Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,46},{94,-34}},
+          lineColor={0,0,0},
+          lineThickness=5.0,
+          fillColor={200,200,200},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+        Rectangle(
+          extent={{-92,30},{100,-44}},
+          lineColor={0,0,0},
+          lineThickness=5.0,
+          fillColor={235,235,235},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+        Text(
+          extent={{-96,15},{96,-15}},
+          lineColor={0,0,0},
+          textString="%y"),
+        Text(
+          extent={{-150,90},{140,50}},
+          textString="%name",
+          lineColor={0,0,255})}), Documentation(info="<html>
+<p>
+The (time varying) vector <code>Real</code> output signal of this block can be defined in its
+parameter menu via variable <code>y</code>. The purpose is to support the
+easy definition of vector-valued Real expressions in a block diagram.
+</p>
+</html>"));
+
+  end RealVectorExpression;
 
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
-  ///////////////////////////////////////////////////////////////////////////
-  // Equations for supply air
-  // To locally balance the model, the pressure is only imposed at the
-  // supplyAir model.
-  // The sign is negative because inlet.m_flow > 0
-  // means that fluid flows out of this component
-  sup.m_flow = supAir.m_flow;
 
-  supAir.forward.T = Medium.temperature_phX(
-    p = sup.p,
-    h = inStream(sup.h_outflow),
-    X = inStream(sup.Xi_outflow));
-  inStream(sup.C_outflow) = supAir.forward.C;
 
-  // Mass fraction for forward flow
-  supX_w_in_internal =if Medium.nXi > 0 then inStream(sup.Xi_outflow[1]) else 0;
-  connect(supAir.forward.X_w, supX_w_in_internal);
-
-  // Conditional connector for mass fraction for backward flow
-  if Medium.nXi > 0 and allowFlowReversal then
-    connect(supX_w_out_internal, supAir.backward.X_w);
-  else
-    supX_w_out_internal = 0;
-  end if;
-  sup.Xi_outflow = fill(supX_w_out_internal, Medium.nXi);
-
-  // Conditional connector for flow reversal
-  connect(supAir.backward, supBacPro_internal);
-  if not allowFlowReversal then
-    supBacPro_internal.T = Medium.T_default;
-    supBacPro_internal.C = fill(0, Medium.nC);
-    if Medium.nXi > 0 then
-      // This test for nXi is needed for Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow
-      // to work with Buildings.Media.Water
-      connect(supBacPro_internal.X_w, supX_w_out_internal);
-    end if;
-  end if;
-  supBacPro_internal.T = Medium.temperature_phX(
-    p=sup.p,
-    h=sup.h_outflow,
-    X=sup.Xi_outflow);
-  supBacPro_internal.C = sup.C_outflow;
-
-  ///////////////////////////////////////////////////////////////////////////
-  // Equations for return air
-
-  // To locally balance the model, the pressure is only imposed at the
-  // supplyAir model.
-  // The sign is negative because inlet.m_flow > 0
-  // means that fluid flows out of this component
-  -ret.m_flow = retAir.m_flow;
-
-  ret.h_outflow = Medium.specificEnthalpy_pTX(
-    p = ret.p,
-    T = retAir.forward.T,
-    X = fill(retX_w_in_internal, Medium.nXi));
-  ret.C_outflow = retAir.forward.C;
-
-  // Conditional connector for mass fraction for forward flow
-  if Medium.nXi == 0 then
-    retX_w_in_internal = 0;
-  else
-    connect(retX_w_in_internal, retAir.forward.X_w);
-  end if;
-  ret.Xi_outflow = fill(retX_w_in_internal, Medium.nXi);
-
-  // Conditional connector for flow reversal
-  connect(retAir.backward, retBacPro_internal);
-
-  // Mass fraction for reverse flow
-  retX_w_out_internal =if Medium.nXi > 0 and allowFlowReversal then inStream(ret.Xi_outflow[
-    1]) else 0;
-  connect(retBacPro_internal.X_w, retX_w_out_internal);
-
-  if allowFlowReversal then
-    retBacPro_internal.T = Medium.temperature_phX(
-      p=ret.p,
-      h=inStream(ret.h_outflow),
-      X=inStream(ret.Xi_outflow));
-    retBacPro_internal.C = inStream(ret.C_outflow);
-  else
-    retBacPro_internal.T = Medium.T_default;
-    retBacPro_internal.C = fill(0, Medium.nC);
-  end if;
-
-  ///////////////////////////////////////////////////////////////////////////
-  // Assign return air pressure to be equal to supply air pressure
-  ret.p = sup.p;
-
-  ///////////////////////////////////////////////////////////////////////////
-  // Assign temperature to output connector TZon.
-  // This propagates the room air temperature, which is useful
-  // to connect a controller.
-  TZon =retAir.forward.T;
-
+  connect(con.outlet, supAir)
+    annotation (Line(points={{81,70},{96,70},{110,70}},
+                                                      color={0,0,255}));
+  connect(senMasFlo.m_flow, con.m_flow) annotation (Line(points={{-70,11},{-70,11},
+          {-70,80},{58,80}},                           color={0,0,127}));
+  connect(TSup.y, con.TSup) annotation (Line(points={{-19,60},{20,60},{20,76},{58,
+          76}}, color={0,0,127}));
+  connect(X_wSup.y, con.X_wSup) annotation (Line(points={{-19,40},{4,40},{28,40},
+          {28,73},{58,73}}, color={0,0,127}));
+  connect(CSup.y, con.CSup) annotation (Line(points={{-19,20},{32,20},{32,70},{58,
+          70}}, color={0,0,127}));
+  connect(TZon, bou.T_in) annotation (Line(points={{120,0},{120,0},{80,0},{80,4},
+          {42,4}},    color={0,0,127}));
+  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{60,-8},{60,-80},{120,
+          -80}},      color={0,0,127}));
+  connect(senMasFlo.port_b, bou.ports)
+    annotation (Line(points={{-60,0},{20,0}},         color={0,127,255}));
+  connect(ports, senMasFlo.port_a)
+    annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
+  connect(XZon.y, bou.X_in) annotation (Line(points={{71,-40},{66,-40},{66,-4},
+          {42,-4}}, color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -168,31 +206,36 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Rectangle(
-          extent={{-100,64},{100,56}},
+          extent={{-100,20},{-42,12}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Text(
-          extent={{2,-76},{24,-94}},
-          lineColor={0,0,255},
-          textString="T"),
-        Line(
-          points={{0,-100},{0,-60}},
-          color={0,0,255},
-          smooth=Smooth.None),
         Rectangle(
-          extent={{-100,-36},{100,-44}},
+          extent={{-100,-8},{-42,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Line(
-          points={{80,-60},{0,-60}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{100,-40},{80,-60}},
-          color={0,0,255},
-          smooth=Smooth.None)}),
+        Rectangle(
+          extent={{-42,-46},{50,46}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-36,40},{44,-40}},
+          pattern=LinePattern.None,
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Sphere),
+        Rectangle(
+          extent={{44,26},{50,-18}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{46,26},{48,-18}},
+          lineColor={95,95,95},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Model that is used to connect an HVAC system to a thermal zone.
