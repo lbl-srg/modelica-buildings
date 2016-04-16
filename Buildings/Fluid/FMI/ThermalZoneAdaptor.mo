@@ -97,11 +97,26 @@ protected
       final quantity=Medium.extraPropertiesNames)
       "Prescribed boundary trace substances"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  protected
+    Modelica.Blocks.Interfaces.RealInput X_wSup_internal(
+      final unit = "kg/kg")
+      "Internall connector for water vapor concentration in kg/kg total air";
   equation
     outlet.m_flow    = m_flow;
-    outlet.forward.T = TSup;
-    connect(outlet.forward.X_w,  X_wSup);
-    outlet.forward.C  = CSup;
+    // If m_flow <= 0, output default properties.
+    // This avoids that changes in state variables of the return
+    // air are propagated to the room model which may trigger an
+    // evaluation of the room ODE, even though Q=max(0, m_flow) c_p (TSup-TZon).
+    X_wSup_internal = if m_flow > 0 then X_wSup else Medium.X_default[1];
+    connect(outlet.forward.X_w,  X_wSup_internal);
+
+    if m_flow > 0 then
+      outlet.forward.T = TSup;
+      outlet.forward.C  = CSup;
+    else
+      outlet.forward.T = Medium.T_default;
+      outlet.forward.C  = zeros(Medium.nC);
+    end if;
 
     annotation (Icon(graphics={
           Polygon(origin={20,0},
