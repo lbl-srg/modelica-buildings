@@ -7,6 +7,8 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains validation models for the classes in
 <a href=\"modelica://Buildings.Fluid.FMI.Examples\">
 Buildings.Fluid.FMI.Examples</a>.
+The test are done for different media, with and without flow
+reversal, and for air with zero, one or two contaminants.
 </p>
 <p>
 Note that most validation models contain simple input data

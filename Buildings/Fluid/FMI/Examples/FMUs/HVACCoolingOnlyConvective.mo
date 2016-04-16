@@ -1,10 +1,14 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block HVACCoolingOnlyConvective "Simple convective only HVAC system"
   extends Buildings.Fluid.FMI.HVACConvective(
-    redeclare final package Medium = MediumA);
+    redeclare final package Medium = MediumA, theZonAda(nPorts=2));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
+
+  parameter Boolean allowFlowReversal = false
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
@@ -65,8 +69,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     dp2_nominal=200,
     eps=eps,
     allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=allowFlowReversal)
-             "Heat recovery"
+    allowFlowReversal2=allowFlowReversal) "Heat recovery"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
   HeatExchangers.WetCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumW,
@@ -92,8 +95,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
         origin={-10,90})));
   Sources.Outside out(
     nPorts=2,
-    redeclare package Medium = MediumA)
-    "Outside air boundary condition"
+    redeclare package Medium = MediumA) "Outside air boundary condition"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
   Sources.MassFlowSource_T souWat(
     nPorts=1,
@@ -117,8 +119,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
   Sensors.TemperatureTwoPort senTemSupAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
-    allowFlowReversal=allowFlowReversal)
-    "Temperature sensor for supply air"
+    allowFlowReversal=allowFlowReversal) "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{26,94},{38,106}})));
   Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
@@ -128,15 +129,15 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     annotation (Placement(transformation(extent={{-146,12},{-126,32}})));
   Modelica.Blocks.Math.BooleanToReal mWat_flow(
     realTrue = 0,
-    realFalse = mW_flow_nominal) "Conversion from boolean to real for water flow rate"
+    realFalse = mW_flow_nominal)
+    "Conversion from boolean to real for water flow rate"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
-    computeWetBulbTemperature=false)
-    "Weather data reader"
+    computeWetBulbTemperature=false) "Weather data reader"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
@@ -217,19 +218,20 @@ equation
                            color={0,0,127}));
   connect(TOut, weaBus.TDryBul)
     annotation (Line(points={{120,140},{-80,140}}, color={0,0,127}));
-  connect(theZonAda.sup, fan.port_b) annotation (Line(points={{120,96},{110,96},
-          {100,96},{100,100},{80,100}}, color={0,127,255}));
-  connect(theZonAda.ret, hex.port_a2) annotation (Line(points={{120,86},{100,86},
-          {100,70},{-52,70},{-52,84},{-70,84}}, color={0,127,255}));
-  connect(theZonAda.TZon, con.u) annotation (Line(points={{130,79},{130,79},{130,
-          0},{-112,0},{-112,10},{-102,10},{-102,10}}, color={0,0,127}));
+  connect(TAirZon, con.u) annotation (Line(points={{180,100},{168,100},{152,100},
+          {152,0},{-110,0},{-110,10},{-102,10}}, color={0,0,127}));
+  connect(fan.port_b, theZonAda.ports[1])
+    annotation (Line(points={{80,100},{96,100},{110,100}}, color={0,127,255}));
+  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-70,84},{-60,
+          84},{-50,84},{-50,70},{100,70},{100,100},{110,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
-This example demonstrates how to export an HVAC system that provides convective only
-cooling to a room. The HVAC system is taken from
+This example demonstrates how to export a model of an HVAC system
+that only provides convective cooling to a thermal zone.
+The HVAC system is taken from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>
@@ -239,15 +241,15 @@ The example extends from
 Buildings.Fluid.FMI.HVACConvective</a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
-The two instances <code>bouSup</code> and <code>bouRet</code>
-are converting the causal signals into fluid ports.
-This example also sets <code>use_p_in = false</code> as
-a constant pressure should be used for the room pressure.
+The instance <code>theZonAda</code> is the thermal zone adapter
+that contains on the left a fluid port, and on the right signal ports
+which are then used to connect at the top-level of the model to signal
+ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 13, 2016 by Michael Wetter:<br/>
+April 16, 2016 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

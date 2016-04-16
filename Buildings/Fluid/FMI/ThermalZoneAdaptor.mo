@@ -6,8 +6,8 @@ model ThermalZoneAdaptor
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  parameter Integer nPorts(final min = 1)
-    "Number of ports" annotation(Dialog(connectorSizing=true));
+  parameter Integer nPorts(final min = 1) "Number of ports"
+                      annotation(Dialog(connectorSizing=true));
 
   Modelica.Blocks.Interfaces.RealInput TZon(final unit="K",
                                             displayUnit="degC")
@@ -15,8 +15,7 @@ model ThermalZoneAdaptor
     annotation (Placement(transformation(extent={{140,-20},{100,20}})));
   Modelica.Blocks.Interfaces.RealInput X_wZon(
     final unit = "kg/kg") if
-       Medium.nXi > 0
-    "Zone air water mass fraction per total air mass"
+       Medium.nXi > 0 "Zone air water mass fraction per total air mass"
     annotation (Placement(transformation(extent={{140,-60},{100,-20}})));
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
@@ -33,7 +32,6 @@ model ThermalZoneAdaptor
     redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,40},{-90,-40}})));
 
-
 protected
   Sources.MassFlowSource_T bou(
     final nPorts=nPorts,
@@ -45,8 +43,7 @@ protected
     final m_flow=0) "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
 
-  ConnectionConverter con[nPorts]
-    "Converter between the different connectors"
+  ConnectionConverter con[nPorts] "Converter between the different connectors"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Sensors.MassFlowRate senMasFlo[nPorts](
@@ -57,26 +54,23 @@ protected
     y={Medium.temperature_phX(
         p=ports[i].p,
         h=inStream(ports[i].h_outflow),
-        X=inStream(ports[i].Xi_outflow)) for i in 1:nPorts}) "Supply air temperature"
+        X=inStream(ports[i].Xi_outflow)) for i in 1:nPorts})
+    "Supply air temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Sources.RealExpression X_wSup[nPorts](final y={sum(inStream(
         ports[i].Xi_outflow)) for i in 1:nPorts})
     "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   RealVectorExpression CSup[nPorts](
-    final y=inStream(ports.C_outflow), n=Medium.nC) if
+    final y={inStream(ports[i].C_outflow) for i in 1:nPorts},
+    each final n=Medium.nC) if
        Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  RealVectorExpression XZon(
-    final n=Medium.nX,
-    final y=cat(
-        1,
-        {X_wZon},
-        {1 - X_wZon})) if
-       Medium.nXi > 0 "Mass fractions of zone air"
-    annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
-
+  X_w_toX x_w_toX(
+    redeclare final package Medium = Medium) if
+       Medium.nXi > 0 "Conversion from X_w to X"
+    annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
   block ConnectionConverter
@@ -89,18 +83,15 @@ protected
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
     Modelica.Blocks.Interfaces.RealInput m_flow(
-      final unit="kg/s")
-      "Mass flow rate"
+      final unit="kg/s") "Mass flow rate"
       annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
 
     Modelica.Blocks.Interfaces.RealInput TSup(
       final unit="K",
-      displayUnit="degC")
-      "Prescribed fluid temperature"
+      displayUnit="degC") "Prescribed fluid temperature"
       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
     Modelica.Blocks.Interfaces.RealInput X_wSup(
-      final unit = "kg/kg")
-      "Water vapor concentration in kg/kg total air"
+      final unit = "kg/kg") "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
     Modelica.Blocks.Interfaces.RealInput CSup[Medium.nC](
       final quantity=Medium.extraPropertiesNames)
@@ -125,7 +116,8 @@ protected
                 -20},{-100,-20}})}));
   end ConnectionConverter;
 
-  block RealVectorExpression "Set vector output signal to a time varying vector Real expression"
+  block RealVectorExpression
+    "Set vector output signal to a time varying vector Real expression"
     parameter Integer n "Dimension of output signal";
     Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
     annotation (Dialog(group="Time varying output signal"), Placement(
@@ -165,11 +157,55 @@ easy definition of vector-valued Real expressions in a block diagram.
 
   end RealVectorExpression;
 
+  block X_w_toX "Conversion from Xi to X"
+    extends Modelica.Blocks.Icons.Block;
+
+    replaceable package Medium =
+        Modelica.Media.Interfaces.PartialMedium
+      "Medium model within the source"
+       annotation (choicesAllMatching=true);
+    Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg") if
+          Medium.nXi > 0 "Water mass fraction per total air mass"
+       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](
+      each final unit="kg/kg",
+      final quantity=Medium.substanceNames) "Prescribed fluid composition"
+      annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  protected
+    Modelica.Blocks.Interfaces.RealInput X_w_internal(final unit="kg/kg")
+      "Internal connector for water mass fraction per total air mass";
+  equation
+    // Conditional connector
+    connect(X_w_internal, X_w);
+    if Medium.nXi == 0 then
+      X_w_internal = 0;
+    end if;
+    // Assign vector to output connector
+   X = cat(1, {X_w_internal}, {1-X_w_internal});
+    annotation (Documentation(revisions="<html>
+<ul>
+<li>
+April 15, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>",   info="<html>
+<p>
+Block that converts a scalar input for the water mass fraction <code>Xi</code>
+to a vector output <code>X</code>.
+This is needed for models in which a scalar input signal <code>Xi</code> that
+may be conditionally removed is to be connected to a model with a vector
+input <code>X</code>, because the conversion from scalar to vector
+needs to access the conditional connector, but conditional connectors
+can only be used in <code>connect</code> statements.
+</p>
+</html>"));
+  end X_w_toX;
+
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
-
 
   connect(con.outlet, supAir)
     annotation (Line(points={{81,70},{96,70},{110,70}},
@@ -180,18 +216,22 @@ equation
           76}}, color={0,0,127}));
   connect(X_wSup.y, con.X_wSup) annotation (Line(points={{-19,40},{4,40},{28,40},
           {28,73},{58,73}}, color={0,0,127}));
-  connect(CSup.y, con.CSup) annotation (Line(points={{-19,20},{32,20},{32,70},{58,
+  for i in 1:nPorts loop
+    connect(CSup[i].y, con[i].CSup) annotation (Line(points={{-19,20},{32,20},{32,70},{58,
           70}}, color={0,0,127}));
+  end for;
   connect(TZon, bou.T_in) annotation (Line(points={{120,0},{120,0},{80,0},{80,4},
           {42,4}},    color={0,0,127}));
-  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{60,-8},{60,-80},{120,
+  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{52,-8},{52,-80},{120,
           -80}},      color={0,0,127}));
   connect(senMasFlo.port_b, bou.ports)
     annotation (Line(points={{-60,0},{20,0}},         color={0,127,255}));
   connect(ports, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(XZon.y, bou.X_in) annotation (Line(points={{71,-40},{66,-40},{66,-4},
-          {42,-4}}, color={0,0,127}));
+  connect(x_w_toX.X_w, X_wZon)
+    annotation (Line(points={{92,-40},{120,-40}},           color={0,0,127}));
+  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{68,-40},{60,-40},{60,
+          -4},{42,-4}},     color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
