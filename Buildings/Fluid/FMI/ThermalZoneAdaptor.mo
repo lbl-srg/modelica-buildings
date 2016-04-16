@@ -278,57 +278,54 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model that is used to connect an HVAC system to a thermal zone.
+Model that is used as an adapter between an HVAC system that uses
+fluid ports, and an interface to a thermal zone that uses input and
+output signals as needed for an FMU.
 </p>
 <p>
-The model has two fluid ports <code>sup</code> and <code>ret</code>
-for the supply and the return air. These quantities are
-converted to the FMI ports <code>supAir</code> and <code>retAir</code>.
-The model also outputs the air temperature of the zone, as obtained
-from the connector <code>retAir</code>. This will always be the
-zone air temperature, even if the return air mass flow rate is
-zero or negative.
+The model has a vector of fluid ports called <code>ports</code>.
+The supply and return air ducts need to be connected to these ports.
+Also, if a thermal zone has interzonal air exchange or air infiltration,
+these flows need also be connected to <code>ports</code>.
+The model sends at the port <code>supAir</code> the mass flow rate for
+each flow that is connected to <code>ports</code>, together with its
+temperature, water vapor mass fraction per total mass of the air (not per kg dry
+air), and the trace substances. These quantities are always as if the flow
+enters the room, even if the flow is zero or negative.
+Inputs to the model are the zone air temperature, water vapor mass fraction
+per total mass of the air and trace substances.
+The outflowing fluid stream(s) at port <code>ports</code> will be at this
+state. All fluid streams at port <code>ports</code> are at the same
+pressure.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
+The mass flow rates at <code>ports</code> sum to zero, hence this
+model conserves mass.
+</p>
+<p>
+This model does not impose any pressure, other than setting the pressure
+of all fluid connections to <code>ports</code> to be equal.
+The reason is that setting a pressure can lead to non-physical system models,
+for example if a mass flow rate is imposed and the HVAC system is connected
+to a model that sets a pressure boundary condition such as
+<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+Buildings.Fluid.Sources.Outside</a>.
+Also, setting a pressure would make it impossible to use multiple instances
+of this model (one for each thermal zone) and build in Modelica an airflow network
+model with pressure driven mass flow rates.
+</p>
+<p>
 The model has no pressure drop. Hence, the pressure drop
 of an air diffuser or of an exhaust grill need to be modelled
-in models that are connected to the ports <code>sup</code>
-or <code>ret</code>.
+in models that are connected to <code>ports</code>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-Set <code>allowFlowReversal = true </code> if the HVAC system
-should model reverse flow. The setting of <code>allowFlowReversal</code>
-affects what quantities are exposed in the FMI interface at the connectors
-<code>supAir</code> and <code>retAir</code>. See also
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
-Buildings.Fluid.FMI.Interfaces.Inlet</a>
-and
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">
-Buildings.Fluid.FMI.Interfaces.Outlet</a>.
-</p>
-<p>
-Also, if <code>allowFlowReversal = false</code>, then the fluid properties
-for the backward flowing medium at the port <code>sup</code> will be
-set to the default values of the medium.
-</p>
-<p>
-If the parameter <code>use_p_in = true</code>, then the pressure
-is sent to the FMI interface for the supply air, and read from the FMI interface
-for the return air.
-If <code>use_p_in = false</code>, then the pressure of the return
-air port <code>ret</code> is set to be the same as the pressure of
-the supply air port <code>sup</code>.
-Setting these equal allows for example to model a pressurized room,
-and also to model systems in which the supply air fan provides the pressure
-needed for the return and exhaust air.
-</p>
-<p>
 See 
-<a href=\"modelica://Buildings.Fluid.FMI.xxx\">
-Buildings.Fluid.FMI.xxx</a>
-for how to use this model.
+<a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
+Buildings.Fluid.FMI.HVACConvective</a>
+for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
