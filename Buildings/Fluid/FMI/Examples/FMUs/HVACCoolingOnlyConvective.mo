@@ -144,8 +144,13 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{100,120},
-            {140,160}}), iconTransformation(extent={{160,140},{180,160}})));
+    "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
+            {20,20}},
+        rotation=90,
+        origin={-80,180}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-80,180})));
 equation
   connect(out.ports[1],hex. port_a1) annotation (Line(
       points={{-100,96},{-90,96}},
@@ -217,7 +222,8 @@ equation
           -140},{180,-140}},
                            color={0,0,127}));
   connect(TOut, weaBus.TDryBul)
-    annotation (Line(points={{120,140},{-80,140}}, color={0,0,127}));
+    annotation (Line(points={{-80,180},{-80,180},{-80,140}},
+                                                   color={0,0,127}));
   connect(TAirZon, con.u) annotation (Line(points={{180,100},{168,100},{152,100},
           {152,0},{-110,0},{-110,10},{-102,10}}, color={0,0,127}));
   connect(fan.port_b, theZonAda.ports[1])
@@ -225,7 +231,12 @@ equation
   connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-70,84},{-60,
           84},{-50,84},{-50,70},{100,70},{100,100},{110,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}})),                                        Diagram(
+            {160,160}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
+              108,200}),
+        Text(
+          extent={{-62,152},{-12,132}},
+          lineColor={0,0,127},
+          textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>

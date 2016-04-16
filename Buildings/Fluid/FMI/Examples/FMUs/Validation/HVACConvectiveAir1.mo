@@ -10,8 +10,7 @@ block HVACConvectiveAir1 "Validation model for the convective HVAC system"
 protected
   Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
-    nPorts=2)
-    "Boundary condition"
+    nPorts=2) "Boundary condition"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   FixedResistances.FixedResistanceDpM sup(
     redeclare final package Medium = Medium,
