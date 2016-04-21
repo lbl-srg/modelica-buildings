@@ -176,7 +176,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement<br/>
                           Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath<br/>
                           Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3<br/>
-                          Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+                          Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                          Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>
                           to make the model work in JModelica.
@@ -220,6 +221,17 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings/HeatTransfer/Windows/BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
