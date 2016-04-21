@@ -170,6 +170,21 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3<br/>
+                          Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                          Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>
+                          to make the model work in JModelica.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
        </td>
    </tr>
@@ -204,6 +219,28 @@ its class name ends with the string <code>Beta</code>.
                           <code>Modelica.StateGraph</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings/HeatTransfer/Windows/BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD<br/>
+                          Buildings.Rooms.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
