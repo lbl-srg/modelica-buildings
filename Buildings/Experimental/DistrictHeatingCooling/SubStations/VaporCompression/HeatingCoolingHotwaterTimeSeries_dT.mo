@@ -6,6 +6,10 @@ model HeatingCoolingHotwaterTimeSeries_dT
       Modelica.Media.Interfaces.PartialMedium "Medium model for water"
       annotation (choicesAllMatching = true);
 
+  parameter Real gaiCoo(min=0) = 1 "Gain to scale cooling load";
+  parameter Real gaiHea(min=0) = gaiCoo "Gain to scale heating load";
+  parameter Real gaiHotWat(min=0) = gaiHea "Gain to scale hot water load";
+
   parameter Modelica.SIunits.Temperature TColMin = 273.15+8
     "Minimum temperature of district cold water supply";
   parameter Modelica.SIunits.Temperature THotMax = 273.15+18
@@ -31,17 +35,17 @@ model HeatingCoolingHotwaterTimeSeries_dT
     loadSelector(filter="Load file (*.mos)",
                  caption="Select load file")));
 
-  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
+  parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)= gaiCoo *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
       filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
-  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+  parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)= gaiHea *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
       filNam=filNam) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
-  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)=
+  parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)= gaiHotWat *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
       filNam=filNam) "Design heat flow rate for domestic hot water"
@@ -431,7 +435,7 @@ protected
     "Gain to invert sign of chiller load"
     annotation (Placement(transformation(extent={{86,-344},{66,-324}})));
 
-  Modelica.Blocks.Math.Gain gaiLoa[3](k={1,1,1})
+  Modelica.Blocks.Math.Gain gaiLoa[3](final k={gaiCoo, gaiHea, gaiHotWat})
     "Gain that can be used to scale the individual loads up or down. Components are cooling, heating and hot water"
     annotation (Placement(transformation(extent={{-220,400},{-200,420}})));
 initial equation
@@ -683,6 +687,10 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Added gains to scale loads and peak load.
+</li>
 <li>
 February 23, 2016, by Michael Wetter:<br/>
 Removed the wrong attributes <code>port_a.m_flow.min</code> and <code>port_b.m_flow.max</code>,
