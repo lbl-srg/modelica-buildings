@@ -243,7 +243,7 @@ end if;
 
   // Send parameters to the CFD interface
   sendParameters(
-    cfdFilNam=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam),
+    cfdFilNam=cfdFilNam,
     name=surIde[:].name,
     A=surIde[:].A,
     til=surIde[:].til,
@@ -374,6 +374,16 @@ Buildings.Rooms.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Movded call to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+from this model to
+<a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
 <li>
 September 28, 2015, by Michael Wetter:<br/>
 Provided start value for all variables to avoid warning
