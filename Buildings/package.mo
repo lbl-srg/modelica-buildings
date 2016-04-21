@@ -175,7 +175,7 @@ its class name ends with the string <code>Beta</code>.
    </tr>
    <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement<br/>
                           Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath<br/>
-                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3</br>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3<br/>
                           Buildings.BoundaryConditions.WeatherData.ReaderTMY3
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>
@@ -223,7 +223,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.CFD</br>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD<br/>
                           Buildings.Rooms.BaseClasses.CFDExchange
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
