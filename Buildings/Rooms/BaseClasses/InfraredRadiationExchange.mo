@@ -23,42 +23,44 @@ protected
   final parameter Integer NTot=NOpa + NWin "Total number of surfaces";
   final parameter Integer nTot=nOpa + nWin "Total number of surfaces";
   final parameter Real epsOpa[nOpa](
-    min=0,
-    max=1,
-    fixed=false) "Absorptivity of opaque surfaces";
+    each min=0,
+    each max=1,
+    each fixed=false) "Absorptivity of opaque surfaces";
   final parameter Real rhoOpa[nOpa](
-    min=0,
-    max=1,
-    fixed=false) "Reflectivity of opaque surfaces";
-  final parameter Modelica.SIunits.Area AOpa[nOpa](fixed=false)
+    each min=0,
+    each max=1,
+    each fixed=false) "Reflectivity of opaque surfaces";
+  final parameter Modelica.SIunits.Area AOpa[nOpa](each fixed=false)
     "Surface area of opaque surfaces";
-  final parameter Modelica.SIunits.Area A[nTot](fixed=false) "Surface areas";
-  final parameter Real kOpa[nOpa](unit="W/K4", fixed=false)
+  final parameter Modelica.SIunits.Area A[nTot](each fixed=false) "Surface areas";
+  final parameter Real kOpa[nOpa](each unit="W/K4", each fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
-  final parameter Real kOpaInv[nOpa](unit="K4/W", fixed=false)
+  final parameter Real kOpaInv[nOpa](each unit="K4/W", each fixed=false)
     "Inverse of kOpa, used to avoid having to use a safe division";
   final parameter Real F[nTot, nTot](
-    min=0,
-    max=1,
-    fixed=false) "View factor from surface i to j";
+    each min=0,
+    each max=1,
+    each fixed=false) "View factor from surface i to j";
 
    Buildings.HeatTransfer.Interfaces.RadiosityInflow JInConExtWin_internal[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window";
 
   Modelica.SIunits.HeatFlowRate J[nTot](
-    max=0,
+    each max=0,
     start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
   Modelica.SIunits.HeatFlowRate G[nTot](
-    min=0,
+    each min=0,
     start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity entering the surface";
   constant Real T30(unit="K3") = 293.15^3 "Nominal temperature";
   constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
-  Modelica.SIunits.Temperature TOpa[nOpa](each start=293.15, each nominal=
-        293.15) "Temperature of opaque surfaces";
+  Modelica.SIunits.Temperature TOpa[nOpa](
+    each start=293.15,
+    each nominal=293.15)
+    "Temperature of opaque surfaces";
   Real T4Opa[nOpa](
     each unit="K4",
     each start=T40,
