@@ -7,7 +7,7 @@ model ThermalZoneAdaptor
      annotation (choicesAllMatching=true);
 
   parameter Integer nPorts(final min = 1) "Number of ports"
-                      annotation(Dialog(connectorSizing=true));
+    annotation(Dialog(connectorSizing=true));
 
   Modelica.Blocks.Interfaces.RealInput TZon(final unit="K",
                                             displayUnit="degC")
@@ -43,27 +43,31 @@ protected
     final m_flow=0) "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
 
-  ConnectionConverter con[nPorts] "Converter between the different connectors"
+  Buildings.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
+      redeclare each final package Medium = Medium)
+    "Converter between the different connectors"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Sensors.MassFlowRate senMasFlo[nPorts](
-    redeclare each package Medium = Medium,
+    redeclare each final package Medium = Medium,
     each allowFlowReversal=true) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Sources.RealExpression TSup[nPorts](
-    y={Medium.temperature_phX(
-        p=ports[i].p,
-        h=inStream(ports[i].h_outflow),
-        X=inStream(ports[i].Xi_outflow)) for i in 1:nPorts})
-    "Supply air temperature"
+
+  Modelica.Blocks.Sources.RealExpression hSup[nPorts](
+    final y={inStream(ports[i].h_outflow) for i in 1:nPorts})
+    "Supply air specific enthalpy"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Sources.RealExpression X_wSup[nPorts](final y={sum(inStream(
-        ports[i].Xi_outflow)) for i in 1:nPorts})
+
+  RealVectorExpression XiSup[nPorts](
+    each final n = Medium.nXi,
+    final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts}) if
+       Medium.nXi > 0
     "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+
   RealVectorExpression CSup[nPorts](
-    final y={inStream(ports[i].C_outflow) for i in 1:nPorts},
-    each final n=Medium.nC) if
+    each final n=Medium.nC,
+    final y={inStream(ports[i].C_outflow) for i in 1:nPorts}) if
        Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
@@ -73,64 +77,6 @@ protected
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
-  block ConnectionConverter
-    extends Modelica.Blocks.Icons.Block;
-
-    Interfaces.Outlet outlet(
-      redeclare final package Medium = Medium,
-      final allowFlowReversal=false,
-      final use_p_in=false) "Fluid outlet"
-      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
-    Modelica.Blocks.Interfaces.RealInput m_flow(
-      final unit="kg/s") "Mass flow rate"
-      annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
-
-    Modelica.Blocks.Interfaces.RealInput TSup(
-      final unit="K",
-      displayUnit="degC") "Prescribed fluid temperature"
-      annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-    Modelica.Blocks.Interfaces.RealInput X_wSup(
-      final unit = "kg/kg") "Water vapor concentration in kg/kg total air"
-      annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-    Modelica.Blocks.Interfaces.RealInput CSup[Medium.nC](
-      final quantity=Medium.extraPropertiesNames)
-      "Prescribed boundary trace substances"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  protected
-    Modelica.Blocks.Interfaces.RealInput X_wSup_internal(
-      final unit = "kg/kg")
-      "Internall connector for water vapor concentration in kg/kg total air";
-  equation
-    outlet.m_flow    = m_flow;
-    // If m_flow <= 0, output default properties.
-    // This avoids that changes in state variables of the return
-    // air are propagated to the room model which may trigger an
-    // evaluation of the room ODE, even though Q=max(0, m_flow) c_p (TSup-TZon).
-    X_wSup_internal = if m_flow > 0 then X_wSup else Medium.X_default[1];
-    connect(outlet.forward.X_w,  X_wSup_internal);
-
-    if m_flow > 0 then
-      outlet.forward.T = TSup;
-      outlet.forward.C  = CSup;
-    else
-      outlet.forward.T = Medium.T_default;
-      outlet.forward.C  = zeros(Medium.nC);
-    end if;
-
-    annotation (Icon(graphics={
-          Polygon(origin={20,0},
-            lineColor={64,64,64},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            points={{-10.0,70.0},{10.0,70.0},{40.0,20.0},{80.0,20.0},{80.0,-20.0},{40.0,-20.0},{10.0,-70.0},{-10.0,-70.0}}),
-          Polygon(fillColor={102,102,102},
-            pattern=LinePattern.None,
-            fillPattern=FillPattern.Solid,
-            points={{-100,20},{-60,20},{-30,70},{-10,70},{-10,-70},{-30,-70},{-60,
-                -20},{-100,-20}})}));
-  end ConnectionConverter;
-
   block RealVectorExpression
     "Set vector output signal to a time varying vector Real expression"
     parameter Integer n "Dimension of output signal";
@@ -226,14 +172,14 @@ equation
     annotation (Line(points={{81,70},{96,70},{110,70}},
                                                       color={0,0,255}));
   connect(senMasFlo.m_flow, con.m_flow) annotation (Line(points={{-70,11},{-70,11},
-          {-70,80},{58,80}},                           color={0,0,127}));
-  connect(TSup.y, con.TSup) annotation (Line(points={{-19,60},{20,60},{20,76},{58,
-          76}}, color={0,0,127}));
-  connect(X_wSup.y, con.X_wSup) annotation (Line(points={{-19,40},{4,40},{28,40},
-          {28,73},{58,73}}, color={0,0,127}));
+          {-70,78},{58,78}},                           color={0,0,127}));
+  connect(hSup.y, con.h) annotation (Line(points={{-19,60},{20,60},{20,74},{58,74}},
+        color={0,0,127}));
   for i in 1:nPorts loop
-    connect(CSup[i].y, con[i].CSup) annotation (Line(points={{-19,20},{32,20},{32,70},{58,
-          70}}, color={0,0,127}));
+   connect(XiSup[i].y, con[i].Xi) annotation (Line(points={{-19,40},{4,40},{28,40},{28,
+          66},{58,66}}, color={0,0,127}));
+    connect(CSup[i].y, con[i].C) annotation (Line(points={{-19,20},{32,20},{32,62},
+            {58,62}}, color={0,0,127}));
   end for;
   connect(TZon, bou.T_in) annotation (Line(points={{120,0},{120,0},{80,0},{80,4},
           {42,4}},    color={0,0,127}));
