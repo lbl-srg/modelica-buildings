@@ -79,12 +79,13 @@ model PIDHysteresis
     final uLow=eOff,
     final uHigh=eOn) "Hysteresis element to switch controller on and off"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Modelica.Blocks.Logical.Switch swi
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+protected
+  Modelica.Blocks.Logical.Switch swi
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
@@ -170,6 +171,14 @@ is small enough.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2016, by Michael Wetter:<br/>
+Set <code>zer(final k=0)</code> and made swi, zer and zer1 protected
+which they are also for
+<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+Buildings.Controls.Continuous.PIDHysteresis</a>.
+These changes are not backwards compatible.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Changed the default value to <code>strict=true</code>
