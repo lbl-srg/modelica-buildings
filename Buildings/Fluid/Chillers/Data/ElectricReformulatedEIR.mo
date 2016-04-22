@@ -1,16 +1,7 @@
 within Buildings.Fluid.Chillers.Data;
 package ElectricReformulatedEIR "Performance data for chiller ElectricReformulatedEIR"
   extends Modelica.Icons.MaterialPropertiesPackage;
- annotation(preferredView="info",
- Documentation(info="<html>
-<p>
-Package with performance data for chillers.
-</p>
-</html>", revisions="<html>
-<p>
-Generated on 12/19/2014 15:30 by mwetter
-</p>
-</html>"));
+
   record Generic "Generic data record for chiller ElectricReformulatedEIR"
     extends Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
         final nCapFunT=6,
@@ -8366,6 +8357,20 @@ Chiller:Electric:ReformulatedEIR,
     ConstantFlow,            !- Chiller Flow Mode Type
     0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
 </pre>
+</html>"));
+
+ annotation(preferredView="info",
+ Documentation(info="<html>
+<p>
+Package with performance data for chillers.
+</p>
+</html>", revisions="<html>
+<p>
+Generated on 12/19/2014 15:30 by mwetter
+</p>
+<p>
+4/22/2016, by Michael Wetter: Moved annotation to end of file as required by JModelica.
+</p>
 </html>"));
 
 end ElectricReformulatedEIR;
