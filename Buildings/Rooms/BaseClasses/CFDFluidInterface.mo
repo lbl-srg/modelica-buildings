@@ -64,9 +64,9 @@ model CFDFluidInterface
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow[nPorts*Medium.nXi](
-  min=0,
-  max=1,
-  unit="1") if
+  each min=0,
+  each max=1,
+  each unit="1") if
      Medium.nXi > 0 "Species concentration if m_flow >= 0"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
@@ -83,9 +83,9 @@ model CFDFluidInterface
 
 protected
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow_internal[max(nPorts, nPorts*Medium.nXi)](
-  min=0,
-  max=1,
-  unit="1") "Species concentration if m_flow >= 0";
+  each min=0,
+  each max=1,
+  each unit="1") "Species concentration if m_flow >= 0";
 
   Modelica.Blocks.Interfaces.RealOutput C_inflow_internal[max(nPorts, nPorts*Medium.nC)](
   each min=0) "Trace substances if m_flow >= 0";

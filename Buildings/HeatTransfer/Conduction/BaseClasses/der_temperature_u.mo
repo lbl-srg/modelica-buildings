@@ -15,7 +15,9 @@ function der_temperature_u
     "Support points for derivatives";
   output Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  output Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](fixed=false, unit="kg.K2/J")
+  output Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](
+    each fixed=false,
+    each unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 protected
   parameter Real scale=0.999 "Used to place points on the phase transition";
