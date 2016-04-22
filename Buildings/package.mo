@@ -259,12 +259,38 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">This function is used to read location coordinates
+                          from the TMY3 weather data file. The call to
+                          <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</code>
+                          has been removed as it calls the function
+                          <a href=\"modelica://Modelica.Utilities.Files.loadResource\">
+                          Modelica.Utilities.Files.loadResource</a>, whose return value needs
+                          to be known at compilation time to store the weather data in the FMU.
+                          This is not supported by JModelica.
+                          Most models should still work as this call has been added at a higher level
+                          of the model hierarchy. If models don't work, add a call to <code>loadResource</code>
+                          at the top-level.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.PIDHysteresis
+       </td>
+       <td valign=\"top\">Set <code>zer(final k=0)</code> and made
+                          <code>swi</code>, <code>zer</code> and
+                          <code>zer1</code> protected, as they are for
+                          <a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+                          Buildings.Controls.Continuous.PIDHysteresis</a>.
+                          Only models that access these instances, which typically is not the case,
+                          are affected by this change.
        </td>
    </tr>
    </table>
