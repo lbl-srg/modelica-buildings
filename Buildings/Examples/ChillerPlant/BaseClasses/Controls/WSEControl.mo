@@ -9,98 +9,94 @@ model WSEControl "Control unit for WSE"
     final unit="K",
     displayUnit="deg")
     "WSE chilled water supply temperature (water entering WSE)" annotation (
-      Placement(transformation(extent={{-60,160},{-20,200}}),
-        iconTransformation(extent={{-60,160},{-20,200}})));
+      Placement(transformation(extent={{-60,100},{-20,140}}),
+        iconTransformation(extent={{-60,100},{-20,140}})));
   Modelica.Blocks.Interfaces.RealOutput y2
     "Control signal for chiller shutoff valve"    annotation (Placement(
-        transformation(extent={{180,-10},{200,10}}),iconTransformation(extent={{180,-10},
-            {200,10}})));
+        transformation(extent={{180,-50},{200,-30}}),
+                                                    iconTransformation(extent={{180,-50},
+            {200,-30}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Wet bulb temperature" annotation (Placement(
-        transformation(extent={{-60,60},{-20,100}}),  iconTransformation(extent={{-60,60},
-            {-20,100}})));
+        transformation(extent={{-60,0},{-20,40}}),    iconTransformation(extent={{-60,0},
+            {-20,40}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg") "Cooling tower approach"
-    annotation (Placement(transformation(extent={{-60,0},{-20,40}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-20,-20}})));
   Modelica.Blocks.Interfaces.RealInput wseCWST(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="deg")
     "WSE condenser water supply temperature (water entering WSE)" annotation (
-     Placement(transformation(extent={{-60,-78},{-20,-38}}),
-        iconTransformation(extent={{-60,-78},{-20,-38}})));
+     Placement(transformation(extent={{-60,-138},{-20,-98}}),
+        iconTransformation(extent={{-60,-138},{-20,-98}})));
   Modelica.Blocks.Math.BooleanToReal booToRea2
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+    annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Modelica.Blocks.Interfaces.RealOutput y1
     "Control signal for WSE shutoff valve"           annotation (Placement(
-        transformation(extent={{180,130},{200,150}}), iconTransformation(extent={{180,150},
-            {200,170}})));
-  Modelica_StateGraph2.Step off(
-    use_activePort=true,
+        transformation(extent={{180,30},{200,50}}),   iconTransformation(extent={{180,30},
+            {200,50}})));
+  Modelica.StateGraph.InitialStepWithSignal off(
     nOut=1,
-    nIn=1,
-    final initialStep=true)
-           annotation (Placement(transformation(extent={{30,172},{48,190}})));
-  Modelica_StateGraph2.Transition T1(delayedTransition=true, waitTime=1200,
-    use_conditionPort=false,
-    condition=wseCHWST > 0.9*TWetBul + towTApp + dTW)
-    annotation (Placement(transformation(extent={{20,100},{58,138}})));
-  Modelica_StateGraph2.Step on(nIn=1, nOut=1,
-    final initialStep=false)
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Modelica_StateGraph2.Transition T2(delayedTransition=true, waitTime=1200,
-    use_conditionPort=false,
-    condition=wseCHWST < wseCWST + dTOff)
-    annotation (Placement(transformation(extent={{22,-20},{58,16}})));
+    nIn=1) annotation (Placement(transformation(extent={{-2,78},{22,102}})));
+  Modelica.StateGraph.Transition T1(                        waitTime=1200,
+    condition=wseCHWST > 0.9*TWetBul + towTApp + dTW,
+    enableTimer=true)
+    annotation (Placement(transformation(extent={{32,72},{68,108}})));
+  Modelica.StateGraph.Step  on(nIn=1, nOut=1)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  Modelica.StateGraph.Transition  T2(                        waitTime=1200,
+    condition=wseCHWST < wseCWST + dTOff,
+    enableTimer=true)
+    annotation (Placement(transformation(extent={{122,72},{158,108}})));
   Modelica.Blocks.Math.BooleanToReal booToRea1(realTrue=0, realFalse=1)
-    annotation (Placement(transformation(extent={{140,130},{160,150}})));
+    annotation (Placement(transformation(extent={{140,30},{160,50}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "Root of the state graph"
+    annotation (Placement(transformation(extent={{0,140},{20,160}})));
 equation
 
   connect(booToRea2.y, y2)
                           annotation (Line(
-      points={{161,4.44089e-16},{168,4.44089e-16},{168,0},{190,0},{190,4.44089e-16}},
+      points={{161,-40},{190,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(off.outPort[1], T1.inPort)   annotation (Line(
-      points={{39,170.65},{39,138}},
+      points={{22.6,90},{42.8,90}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(T1.outPort, on.inPort[1])    annotation (Line(
-      points={{39,95.25},{39,60},{40,60}},
+      points={{52.7,90},{79,90}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(on.outPort[1], T2.inPort)    annotation (Line(
-      points={{40,38.5},{40,16}},
+      points={{100.5,90},{132.8,90}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(T2.outPort, off.inPort[1])   annotation (Line(
-      points={{40,-24.5},{40,-60},{100,-60},{100,220},{39,220},{39,190}},
+      points={{142.7,90},{168,90},{168,130},{-12,130},{-12,90},{-3.2,90}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(off.activePort, booToRea2.u) annotation (Line(
-      points={{49.62,181},{120,181},{120,8.88178e-16},{138,8.88178e-16}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(booToRea1.y, y1) annotation (Line(
-      points={{161,140},{190,140}},
+      points={{161,40},{190,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booToRea1.u, off.activePort) annotation (Line(
-      points={{138,140},{120,140},{120,181},{49.62,181}},
-      color={255,0,255},
-      smooth=Smooth.None));
+  connect(off.active, booToRea1.u)
+    annotation (Line(points={{10,76.8},{10,40},{138,40}}, color={255,0,255}));
+  connect(off.active, booToRea2.u) annotation (Line(points={{10,76.8},{10,-40},{
+          138,-40}}, color={255,0,255}));
   annotation (
     defaultComponentName="wseCon",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-20,-80},{180,240}},
+        extent={{-20,-160},{180,180}},
         initialScale=0.04), graphics={
         Rectangle(
-          extent={{-20,-80},{180,240}},
+          extent={{-20,-160},{180,180}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -139,6 +135,11 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 </html>", revisions="<html>
 <ul>
 <li>
+April 6, 2016, by Michael Wetter:<br/>
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+</li>
+<li>
 April 1, 2013, by Wangda Zuo:<br/>
 Added <code>final</code> attribute to initial state declaration.
 This is required for a successful model check in Dymola 2014 using the pedantic check.
@@ -156,5 +157,5 @@ January 18, 2011, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul></html>"),
-    Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false)));
+    Diagram(coordinateSystem(extent={{-20,-160},{180,180}}, preserveAspectRatio=false)));
 end WSEControl;

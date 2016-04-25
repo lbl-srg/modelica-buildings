@@ -8,9 +8,9 @@ model PreHeatCoil "Controller for preheat coil"
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     Ti=120,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=1,
-    strict=true) "Controller for pre-heating coil"
+    strict=true,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1) "Controller for pre-heating coil"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
@@ -42,7 +42,7 @@ model PreHeatCoil "Controller for preheat coil"
   Modelica.Blocks.Logical.Switch swiValOp
     "Switch to close valve if pump is not running"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Modelica.StateGraph.InitialStep pumOff1 "Pump is off"
+  Modelica.StateGraph.InitialStep pumOff "Pump is off"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.StateGraph.TransitionWithSignal toOn "Switch pump on"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
@@ -83,7 +83,7 @@ equation
   connect(swiValOp.y, yVal)
     annotation (Line(points={{81,-60},{90,-60},{90,-50},{98,-50},{110,-50}},
                                                             color={0,0,127}));
-  connect(pumOff1.outPort[1], toOn.inPort)
+  connect(pumOff.outPort[1], toOn.inPort)
     annotation (Line(points={{-19.5,70},{-11.75,70},{-4,70}}, color={0,0,0}));
   connect(toOn.condition, preHeaOn.y)
     annotation (Line(points={{0,58},{0,30},{-19,30}}, color={255,0,255}));
@@ -95,8 +95,8 @@ equation
     annotation (Line(points={{-19,30},{-19,30},{8,30}}, color={255,0,255}));
   connect(not1.y, toOff.condition)
     annotation (Line(points={{31,30},{70,30},{70,58}}, color={255,0,255}));
-  connect(toOff.outPort, pumOff1.inPort[1]) annotation (Line(points={{71.5,70},
-          {88,70},{88,92},{-50,92},{-50,70},{-41,70}}, color={0,0,0}));
+  connect(toOff.outPort, pumOff.inPort[1]) annotation (Line(points={{71.5,70},{
+          88,70},{88,92},{-50,92},{-50,70},{-41,70}}, color={0,0,0}));
   connect(pumOn.active, swiPumPreCoi.u2) annotation (Line(points={{30,59},{30,
           59},{30,52},{36,52},{48,52},{48,10},{58,10}}, color={255,0,255}));
   connect(pumOn.active, swiValOp.u2) annotation (Line(points={{30,59},{30,52},{

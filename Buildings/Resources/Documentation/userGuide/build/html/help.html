@@ -28,12 +28,12 @@
     <link rel="next" title="7. Glossary" href="glossary.html" />
     <link rel="prev" title="5. Development" href="development.html" /> 
   </head>
-  <body>
+  <body role="document">
 <div class="headerStyle">
 <img src="_static/lbl-logo.png" alt="LBL logo" />
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -49,11 +49,11 @@
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
 <!--    
-        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
  
       </ul>
     </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="development.html"
@@ -69,7 +69,7 @@
            target="_blank"
            rel="nofollow">Edit Source on GitHub</a></li>
   </ul>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -88,7 +88,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="help">
 <h1>6. Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h1>
@@ -101,14 +101,16 @@
 </dd>
 <dt>When submitting a bug report, please provide:</dt>
 <dd><ul class="first last simple">
-<li>A <em>total model</em> that is as small as possible and still reproduces the error. The chances of quickly finding and fixing a bug are much higher if the bug is part of a small test problem. In addition, creating a small test problem may help finding the root cause for the bug yourself, or realizing that there is no bug at all, and hence your problem can be solved much sooner. In Dymola, a <em>total model</em> can be saved by selecting <tt class="docutils literal"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Save</span> <span class="pre">Total</span></tt>.</li>
+<li>A <em>total model</em> that is as small as possible and still reproduces the error. The chances of quickly finding and fixing a bug are much higher if the bug is part of a small test problem. In addition, creating a small test problem may help finding the root cause for the bug yourself, or realizing that there is no bug at all, and hence your problem can be solved much sooner. In Dymola, a <em>total model</em> can be saved by selecting <code class="docutils literal"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Save</span> <span class="pre">Total</span></code>.</li>
 <li>A description of the expected and the observed results.</li>
 <li>Information about the operating system and the used Modelica simulation environment.</li>
 </ul>
 </dd>
 </dl>
 <p>To report the bug, enter a new issue at <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/issues">https://github.com/lbl-srg/modelica-buildings/issues</a></p>
-<p>For general questions regarding the <cite>Buildings</cite> library, send email to <a class="reference external" href="https://groups.google.com/group/modelica-buildings">https://groups.google.com/group/modelica-buildings</a>. This is an open group and everyone can join it. No invitation is needed.</p>
+<p>For general questions regarding the <cite>Buildings</cite> library, use
+<a class="reference external" href="https://unmethours.com/questions/">https://unmethours.com/questions/</a>.
+This is an open group and everyone can join it. No invitation is needed.</p>
 <p>For questions that are specific to Modelica but not the <cite>Buildings</cite> libray, see <a class="reference external" href="http://stackoverflow.com/search?q=modelica">http://stackoverflow.com/search?q=modelica</a></p>
 </div>
 
@@ -118,7 +120,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -134,13 +136,13 @@
     <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
     </br>
 <!--    
-        <li><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
+        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
  
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2012-2013, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2012-2015, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
     </div>
   </body>
 </html>

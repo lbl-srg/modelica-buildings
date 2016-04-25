@@ -25,10 +25,13 @@ partial model PartialThreeWayResistance
 
   parameter Modelica.SIunits.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+    annotation(Dialog(tab="Dynamics", group="Nominal condition",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
-    annotation (Dialog(tab="Dynamics", group="Equations", enable=dynamicBalance));
+    annotation(Dialog(tab="Dynamics", group="Equations",
+               enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -169,7 +172,7 @@ Partial model for flow resistances with three ports such as a
 flow mixer/splitter or a three way valve.
 </p>
 <p>
-If <code>energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+If <code>energyDynamics &ne; Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
 balance, which often breaks algebraic loops.

@@ -37,23 +37,23 @@ protected
 
   final parameter Modelica.SIunits.Area AGla[NWin] = datConExtWin.AGla
     "Surface area of opaque surfaces";
-  final parameter Real epsGla[NWin](min=0, max=1)=
+  final parameter Real epsGla[NWin](each min=0, each max=1)=
     {datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b for i in 1:NWin}
     "Absorptivity of glass";
-  final parameter Real epsSha[NWin](min=0, max=1)=
+  final parameter Real epsSha[NWin](each min=0, each max=1)=
     {datConExtWin[i].glaSys.shade.absIR_a for i in 1:NWin}
     "Absorptivity of shade";
-  final parameter Real tauSha[NWin](min=0, max=1)=
+  final parameter Real tauSha[NWin](each min=0, each max=1)=
     {(if datConExtWin[i].glaSys.haveInteriorShade then
       datConExtWin[i].glaSys.shade.tauIR_a else 1) for i in 1:NWin}
     "Transmissivity of shade";
-  final parameter Modelica.SIunits.Area epsAOpa[NOpa](fixed=false)
+  final parameter Modelica.SIunits.Area epsAOpa[NOpa](each fixed=false)
     "Product of area times absorptivity of opaque surfaces";
-  final parameter Modelica.SIunits.Area epsAGla[NWin](fixed=false)
+  final parameter Modelica.SIunits.Area epsAGla[NWin](each fixed=false)
     "Product of area times absorptivity of window surfaces";
-  final parameter Modelica.SIunits.Area epsASha[NWin](fixed=false)
+  final parameter Modelica.SIunits.Area epsASha[NWin](each fixed=false)
     "Product of area times absorptivity of window shade";
-  final parameter Modelica.SIunits.Area epsTauASha[NWin](fixed=false)
+  final parameter Modelica.SIunits.Area epsTauASha[NWin](each fixed=false)
     "Product of area times glass absorptivity times shade transmittance";
   Modelica.SIunits.Temperature TOpa[NOpa](each start=293.15, each nominal=293.15)
     "Temperature of opaque surfaces";

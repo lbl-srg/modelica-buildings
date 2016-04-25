@@ -39,7 +39,7 @@ model FlatPlate "Validation model for FlatPlate"
     tableOnFile=true,
     tableName="TRNSYS",
     columns=2:5,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Fluid/SolarCollectors/Examples/ValidationData/TRNSYSAnnualData.txt"))
     "Data reader with inlet conditions from TRNSYS"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
@@ -99,6 +99,11 @@ equation
     </html>",
 revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

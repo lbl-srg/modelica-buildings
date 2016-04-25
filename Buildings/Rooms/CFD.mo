@@ -4,7 +4,7 @@ model CFD
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare BaseClasses.CFDAirHeatMassBalance air(
     final massDynamics = massDynamics,
-    final cfdFilNam = cfdFilNam,
+    final cfdFilNam = absCfdFilNam,
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
     final haveSensor=haveSensor,
@@ -46,6 +46,8 @@ model CFD
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220, 130}})));
 protected
+  final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
+    "Absolute path to the CFD file";
   BaseClasses.CFDHeatGain heaGai(final AFlo=AFlo)
     "Model to convert internal heat gains"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
@@ -157,6 +159,17 @@ Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Added parameter <code>absCfdFilNam</code> as the call to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+was removed from
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDExchange\">
+Buildings.Rooms.BaseClasses.CFDExchange</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
 <li>
 August 1, 2013, by Michael Wetter and Wangda Zuo:<br/>
 First Implementation.

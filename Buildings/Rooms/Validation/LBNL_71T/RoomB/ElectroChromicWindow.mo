@@ -164,7 +164,6 @@ model ElectroChromicWindow
         d=800)}) "71T: North Wall"
     annotation (Placement(transformation(extent={{86,106},{106,126}})));
 
-  // Fixme: The frame ratio and U value has not yet been updated.
   parameter HeatTransfer.Data.GlazingSystems.DoubleElectrochromicAir13Clear glaSys(
     UFra=2,
     haveInteriorShade=false,
@@ -279,15 +278,13 @@ model ElectroChromicWindow
   Modelica.Blocks.Sources.CombiTimeTable refRes(
     tableOnFile=true,
     tableName="EnergyPlus",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
     columns=2:2)
     "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
     annotation (Placement(transformation(extent={{8,-108},{28,-88}})));
 
 equation
-  for i in 2:nConBou loop
-  end for;
 
   connect(uSha.y, replicator.u) annotation (Line(
       points={{-23,64},{-6,64}},
@@ -339,6 +336,11 @@ The model represents the middle test cell (RoomB) of the window test facility 71
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 August 07, 2015, by Thierry S. Nouidui:<br/>
 First implementation.

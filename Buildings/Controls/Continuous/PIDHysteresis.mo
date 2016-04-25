@@ -52,35 +52,40 @@ model PIDHysteresis
   parameter Real y_start=0 "Initial value of output"
     annotation (Dialog(group="Initialization"));
 
+  parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+
   LimPID PID(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    yMax=yMax,
-    yMin=yMin,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    limitsAtInit=limitsAtInit,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=y_start,
-    Td=Td,
-    reverseAction=reverseAction) "Controller for room temperature"
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final yMax=yMax,
+    final yMin=yMin,
+    final wp=wp,
+    final wd=wd,
+    final Ni=Ni,
+    final Nd=Nd,
+    final initType=initType,
+    final limitsAtInit=limitsAtInit,
+    final xi_start=xi_start,
+    final xd_start=xd_start,
+    final y_start=y_start,
+    final Td=Td,
+    final reverseAction=reverseAction,
+    final strict=strict) "Controller for room temperature"
     annotation (Placement(transformation(extent={{-30,-2},{-10,18}})));
   Modelica.Blocks.Logical.Hysteresis hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) "Hysteresis element to switch controller on and off"
+    final pre_y_start=pre_y_start,
+    final uLow=eOff,
+    final uHigh=eOn) "Hysteresis element to switch controller on and off"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Modelica.Blocks.Logical.Switch swi
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+protected
+  Modelica.Blocks.Logical.Switch swi
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
@@ -100,7 +105,7 @@ equation
       points={{-9,60},{20,60},{20,6.66134e-16},{58,6.66134e-16}},
       color={255,0,255}));
   connect(PID.y, swi.u1) annotation (Line(
-      points={{-9,8},{24.5,8},{24.5,8},{58,8}},
+      points={{-9,8},{24.5,8},{58,8}},
       color={0,0,127}));
   connect(u_s, feeBac.u1) annotation (Line(
       points={{-120,1.11022e-15},{-80,1.11022e-15},{-80,60},{-68,60}},
@@ -166,6 +171,22 @@ is small enough.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2016, by Michael Wetter:<br/>
+Set <code>zer(final k=0)</code> and made swi, zer and zer1 protected
+which they are also for
+<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+Buildings.Controls.Continuous.PIDHysteresis</a>.
+These changes are not backwards compatible.
+</li>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code>
+in order to avoid events when the controller saturates.
+Also assigned propogated values to be <code>final</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>.
+</li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to

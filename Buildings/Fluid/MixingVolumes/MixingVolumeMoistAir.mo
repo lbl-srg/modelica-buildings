@@ -80,9 +80,11 @@ equation
       color={0,0,127}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
+<p>
 Model for an ideally mixed fluid volume and the ability
 to store mass and energy. The volume is fixed,
 and latent and sensible heat can be exchanged.
+</p>
 <p>
 This model represents the same physics as
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">

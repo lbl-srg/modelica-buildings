@@ -10,10 +10,13 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['home/mwetter', 'dymola/Modelica', '///opt/dymola']
+    li = ['/tmp/', 'home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg', '<a href="http://www.3ds.com/">Automatically generated</a>']
+    em = ""
     for s in li:
         if s in line:
-            print "*** Error: Invalid string '%s' in file '%s'." % (s, filNam)
+            em += "*** Error: Invalid string '%s' in file '%s'.\n" % (s, filNam)
+    if len(em) > 0:
+        raise ValueError(em)
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -26,7 +29,7 @@ files = [ f for f in listdir(helpDir) if f.endswith(".html") ]
 ##########################################
 # Discover the link to the html page of the msl, such as in
 # <p>Extends from <a href="file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library/Modelica%203.2.1/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
-#                          -----------------------------------------------------------------------          
+#                          -----------------------------------------------------------------------
 # This is then used in the text replace below.
 # The test file that we search
 tesFil=os.path.join(LIBHOME, "help", "Buildings.html")
@@ -34,7 +37,7 @@ insLoc = None
 with open(tesFil, 'r') as fil:
     lines = fil.readlines()
     for lin in lines:
-        iSta = lin.find('<p>Extends from <a href="file')
+        iSta = lin.find('Extends from <a href="file')
         if iSta > -1:
             s = "Library/"
             iEnd = lin.find(s) + len(s)
@@ -47,7 +50,7 @@ with open(tesFil, 'r') as fil:
 repExtObj = insLoc[:len(insLoc)-len("Library")-1] + "help/ExternalObject"
 
 replacements = {'</head>':
-               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>', 
+               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>',
                '<body>':
                '<body>\n<!-- begin header -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
                '%s' % (insLoc):
@@ -56,7 +59,23 @@ replacements = {'</head>':
                '/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings':
                '..',
                '<pre></pre>':''}
+# Search for text such as
+# <img alt="image" src="/tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings/Resources/Images/UsersGuide/HydronicHeating.png" border="1"/>
+# in order to update the link.
+with open(tesFil, 'r') as fil:
+    lines = fil.readlines()
+    for lin in lines:
+        iSta = lin.find('Resources/Images/UsersGuide')
+        if iSta > -1:
+            src_tag = 'src="'
+            i_src = lin.find(src_tag)
+            if i_src > -1:
+                 # entry should be /tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings
+                entry = lin[i_src+len(src_tag):iSta]
+                replacements[entry] = '../'
+                break
 
+# Substitute text
 for fil in files:
     filNam = helpDir + os.path.sep + fil
     filObj=open(filNam, 'r')
@@ -66,8 +85,38 @@ for fil in files:
         for i in range(len(lines)):
             lines[i] = lines[i].replace(old, new)
     filObj=open(filNam, 'w')
-    for lin in lines:
-        # Check if line contains a wrong string
+    filObj.writelines(lines)
+    filObj.close()
+
+# Replace certain sections
+for fil in files:
+    filNam = helpDir + os.path.sep + fil
+    filObj=open(filNam, 'r')
+    lines = filObj.readlines()
+    filObj.close()
+    # Dymola writes
+    # <address>
+    # <a href="http://www.3ds.com/">Automatically generated</a> Thu Mar 17 16:10:41 2016.
+    # </address>
+    # This is bad as it gets diff for every file in the version control system.
+    # Also, https://www.w3.org/TR/html5/sections.html#the-address-element says there should
+    # be nothing else than an address information, i.e., no date.
+    # Hence, we change this entry.
+    found = False
+    for iLin in range(len(lines)-2):
+        if "<address>" in lines[iLin].strip() and "</address>" in lines[iLin+2].strip():
+            lines[iLin+1] = "<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>"
+            found = True
+    if found:
+        filObj=open(filNam, 'w')
+        filObj.writelines(lines)
+        filObj.close()
+
+# Validate the new files
+for fil in files:
+    filNam = helpDir + os.path.sep + fil
+    # Check if line contains a wrong string
+    filObj=open(filNam, 'r')
+    for lin in filObj.readlines():
         validateLine(lin, filNam)
-        filObj.write(lin)
     filObj.close()

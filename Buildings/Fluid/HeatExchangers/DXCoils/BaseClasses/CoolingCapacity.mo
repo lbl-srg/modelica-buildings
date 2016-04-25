@@ -108,28 +108,28 @@ equation
       when ( stage == iSta and pre(checkBoundsTEva[stage])) then
         assert( not (TEvaIn > sta[stage].perCur.TEvaInMax or TEvaIn < sta[stage].perCur.TEvaInMin),
         "*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = " + String(time) + ".
-        stage     = " + String(iSta) + "
-        TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" +
-                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
-        TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TEvaIn)) + " degC)
-        TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" +
-                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
-        Extrapolation can introduce large errors.
-        This warning will only be reported once for each stage.",
+    stage     = " + String(iSta) + "
+    TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" +
+        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
+    TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TEvaIn)) + " degC)
+    TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" +
+        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
+    Extrapolation can introduce large errors.
+    This warning will only be reported once for each stage.",
         level=  AssertionLevel.warning);
         checkBoundsTEva[iSta] = false;
       end when;
       when ( stage == iSta and pre(checkBoundsTCon[stage])) then
         assert( not ( TConIn > sta[stage].perCur.TConInMax or TConIn < sta[stage].perCur.TConInMin),
         "*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = " + String(time) + ".
-        stage     = " + String(iSta) + "
-        TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" +
-                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
-        TConIn    = " + String(TConIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TConIn)) + " degC)
-        TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" +
-                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
-        Extrapolation can introduce large errors.
-        This warning will only be reported once for each stage.",
+    stage     = " + String(iSta) + "
+    TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" +
+        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
+    TConIn    = " + String(TConIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TConIn)) + " degC)
+    TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" +
+        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
+    Extrapolation can introduce large errors.
+    This warning will only be reported once for each stage.",
         level=  AssertionLevel.warning);
         checkBoundsTCon[iSta] = false;
       end when;

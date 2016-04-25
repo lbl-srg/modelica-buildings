@@ -28,6 +28,13 @@ Glossary
       In fluid mechanics, incompressible flow refers to flow where the mass
       density is constant within a fluid volume that moves with the fluid.
 
+   iterative solver
+      An iterative solver is a numerical solver that iterates until
+      the approximate solution satisfies a convergence test.
+      Examples include Newton solvers for nonlinear systems of equations,
+      and ordinary differential equation solvers with adaptive time step
+      length.
+
    numerical noise
       In numerical solutions, numerical noise refers to fast but small
       changes in variables whose magnitude is typically smaller than
