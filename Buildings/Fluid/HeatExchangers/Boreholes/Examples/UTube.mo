@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.Boreholes.Examples;
 model UTube "Model that tests the borehole model"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.Water;s
-  Buildings.Fluid.HeatExchangers.Boreholes.UTube borHol(
+ package Medium = Buildings.Media.Water;
+ Buildings.Fluid.HeatExchangers.Boreholes.UTube borHol(
     redeclare package Medium = Medium,
     hBor=150,
     dp_nominal=10000,
