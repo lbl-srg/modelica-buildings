@@ -36,7 +36,7 @@ Changed accuarcy test in assertion to use the relative error because the
 magnitude of <code>y</code> is <i>1E5</i> and hence testing an absolute
 error is too stringent.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 August 17, 2015 by Michael Wetter:<br/>
