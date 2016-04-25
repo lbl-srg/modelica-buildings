@@ -112,7 +112,7 @@ Buildings.Fluid.Actuators.Valves.Examples.TwoWayValves</a>.
 See also
 <a href=\"https://trac.jmodelica.org/ticket/4932\">https://trac.jmodelica.org/ticket/4932</a>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
