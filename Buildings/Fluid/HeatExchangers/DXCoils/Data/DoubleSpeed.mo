@@ -1,18 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data;
 package DoubleSpeed "Performance data for DoubleSpeed DXCoils"
   extends Modelica.Icons.MaterialPropertiesPackage;
- annotation(
- preferredView="info",
-  Documentation(info="<html>
-<p>
-Package with performance data for DX coils.
-</p>
-</html>",
- revisions="<html>
-<p>
-Generated on 12/19/2014 15:08 by tsnouidui.
-</p>
-</html>"));
+
   record Generic "Generic data record for DoubleSpeed DXCoils"
     extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=2);
 annotation(
@@ -411,6 +400,19 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,   !- Normal Mode Stage 1+2 Coil Performance Object Type
     Lennox TCA240S Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
+</html>"));
+
+ annotation(
+ preferredView="info",
+  Documentation(info="<html>
+<p>
+Package with performance data for DX coils.
+</p>
+</html>",
+ revisions="<html>
+<p>
+Generated on 12/19/2014 15:08 by tsnouidui.
+</p>
 </html>"));
 
 end DoubleSpeed;

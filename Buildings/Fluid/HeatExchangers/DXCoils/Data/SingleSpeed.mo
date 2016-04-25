@@ -1,18 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data;
 package SingleSpeed "Performance data for SingleSpeed DXCoils"
   extends Modelica.Icons.MaterialPropertiesPackage;
- annotation(
-  preferredView="info",
-  Documentation(info="<html>
-<p>
-Package with performance data for DX coils.
-</p>
-</html>",
- revisions="<html>
-<p>
-Generated on 12/19/2014 15:08 by tsnouidui.
-</p>
-</html>"));
+
   record Generic "Generic data record for SingleSpeed DXCoils"
     extends Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil(final nSta=1);
 annotation(
@@ -973,6 +962,19 @@ Coil:Cooling:DX:SingleSpeed,
     York Sunline DJ240 EIRFFF,        !- Energy Input Ratio Function of Flow Fraction Curve Name
     York Sunline DJ240 PLFFPLR;       !- Part Load Fraction Correlation Curve Name
 </pre>
+</html>"));
+
+ annotation(
+  preferredView="info",
+  Documentation(info="<html>
+<p>
+Package with performance data for DX coils.
+</p>
+</html>",
+ revisions="<html>
+<p>
+Generated on 12/19/2014 15:08 by tsnouidui.
+</p>
 </html>"));
 
 end SingleSpeed;
