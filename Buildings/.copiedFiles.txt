@@ -955,12 +955,12 @@ Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasse
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/Density_pTX.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/SaturationPressure.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/X_pSatpphi.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi_comparison.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_X.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/phi_pTX.mos
-Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/saturationPressure.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Time/Examples/ModelTime.mos
 Buildings/Resources/src/convertEPW/Makefile
 Buildings/Resources/src/convertEPW/doc/ConvertWeatherData.html
@@ -1171,9 +1171,3 @@ Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/legal.html
 Buildings/package.order
-Buildings/plot.mos
-Buildings/replaceSubstance.py
-Buildings/simulator.log
-Buildings/unitTests.log
-Buildings/update.py
-Buildings/update.sh
