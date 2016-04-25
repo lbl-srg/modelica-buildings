@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "eff.V_flow",
-    "eff.WFlo",
-    "eff.PEle",
-    "eff.eta",
-    "eff.etaHyd",
-    "eff.etaMot"
-  };
