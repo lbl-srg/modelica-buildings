@@ -300,12 +300,16 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
+                          Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.Controls.Economizer
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected the economizer controller which closed
+                          the outside air when there was no freeze concern during summer.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/511\">issue 511</a>.
        </td>
    </tr>
    </table>

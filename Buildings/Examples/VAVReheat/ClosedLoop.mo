@@ -504,7 +504,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(conFanSup.y, fanSup.y) annotation (Line(
-      points={{261,10},{310,10},{310,-28}},
+      points={{261,10},{309.8,10},{309.8,-28}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -671,7 +671,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,150},{300,150},{300,132}},
+      points={{261,150},{300.2,150},{300.2,132}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -1017,6 +1017,13 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2016, by Michael Wetter:<br/>
+Changed controller for freeze protection as the old implementation closed
+the outdoor air damper during summer.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

@@ -1201,6 +1201,13 @@ shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+April 26, 2016, by Michael Wetter:<br/>
+Changed controller for freeze protection as the old implementation closed
+the outdoor air damper during summer.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+</li>
+<li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalanceJunction</code> and <code>energyDynamicsJunction</code>.
 </li>
