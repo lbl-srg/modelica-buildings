@@ -1,8 +1,10 @@
 UsersGuide
 FlowSplitter_u
+HVACAdaptor
 HVACConvective
 InletAdaptor
 OutletAdaptor
+RoomConvective
 Sink_T
 Source_T
 ThermalZoneAdaptor
@@ -11,3 +13,4 @@ TwoPortComponent
 Conversion
 Examples
 Interfaces
+BaseClasses
