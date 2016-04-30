@@ -6,7 +6,8 @@ model HeaterFan
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=Q_flow_nominal/1000/10
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000 "Pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=2000
+    "Pressure";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
