@@ -1,21 +1,17 @@
 within Buildings.Fluid.FMI;
 partial block RoomConvective "Partial block to export a room model as an FMU"
 
-  replaceable package Medium "Medium in the component"
-      extends Modelica.Media.Interfaces.PartialMedium;
-    model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
-
       replaceable package Medium =
           Modelica.Media.Interfaces.PartialMedium
-        "Medium model within the source"
+    "Medium model within the source"
          annotation (choicesAllMatching=true);
-
+    model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
       parameter Boolean allowFlowReversal = true
-        "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+      "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
         annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
       parameter Boolean use_p_in = true
-        "= true to use a pressure from connector, false to output Medium.p_default"
+      "= true to use a pressure from connector, false to output Medium.p_default"
         annotation(Evaluate=true);
 
       Buildings.Fluid.FMI.Interfaces.Inlet inlet(
@@ -36,16 +32,16 @@ partial block RoomConvective "Partial block to export a room model as an FMU"
             extent={{-10,-10},{10,10}},
             rotation=270,
             origin={0,-110})));
-    protected
+  protected
       Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
         redeclare final package Medium = Medium)
-        "Internal connector for fluid properties for back flow";
+      "Internal connector for fluid properties for back flow";
       Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
-        "Internal connector for pressure";
+      "Internal connector for pressure";
       Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
-        "Internal connector for mass fraction of forward flow properties";
+      "Internal connector for mass fraction of forward flow properties";
       Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
-        "Internal connector for mass fraction of backward flow properties";
+      "Internal connector for mass fraction of backward flow properties";
     initial equation
        assert(Medium.nXi < 2,
        "The medium must have zero or one independent mass fraction Medium.nXi.");
@@ -190,8 +186,6 @@ First implementation.
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
                 100}}), graphics));
     end InletAdaptor;
-  end Medium
-      annotation (choicesAllMatching = true);
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
