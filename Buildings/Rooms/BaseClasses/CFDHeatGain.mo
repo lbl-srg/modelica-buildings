@@ -23,7 +23,7 @@ equation
   {QRad_flow, QCon_flow, QLat_flow} = AFlo .* qGai_flow;
 
  annotation(Documentation(info="<html>
-This model computes the radiant, convective and latent heat flow.
+This model computes the radiant, convective and latent heat flow rate.
 Input into this model are these three components in units of [W/m2].
 The inputs need to be positive quantities if heat or moisture is added
 to the room.
