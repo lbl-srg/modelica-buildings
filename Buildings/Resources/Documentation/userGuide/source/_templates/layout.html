@@ -1,17 +1,10 @@
+{# Import the theme's layout. #}
 {% extends "!layout.html" %}
-{% block header %}
-<div class="headerStyle">
-<img src="_static/lbl-logo.png" alt="LBL logo" />
-</div>
+
+{# Custom CSS overrides #}
+{% set bootswatch_css_custom = ['_static/bootstrap_custom.css'] %}
+
+{# Add some extra stuff before and use existing with 'super()' call. #}
+{% block footer %}
+  {{ super() }}
 {% endblock %}
-
-{% block rootrellink %}
-    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
-    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
-    </br>
-<!--    {{ super() }} -->
-{% endblock %}
-
-{% block sidebar1 %}{{ sidebar() }}{% endblock %}
-{% block sidebar2 %}{% endblock %}
-
