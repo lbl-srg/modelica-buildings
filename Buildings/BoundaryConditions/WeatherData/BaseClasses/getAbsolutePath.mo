@@ -9,7 +9,7 @@ protected
     output String path
       "Full path of the resource, or a string of length 0 if it does not exist";
   algorithm
-    path :=ModelicaServices.ExternalReferences.loadResource(name);
+    path :=Modelica.Utilities.Files.loadResource(name);
     if Modelica.Utilities.Strings.length(path) > 0 then
       path := Modelica.Utilities.Files.fullPathName(name=path);
     end if;
@@ -36,7 +36,7 @@ algorithm
       end if;
     end if;
   else
-    path := ModelicaServices.ExternalReferences.loadResource(uri);
+    path := Modelica.Utilities.Files.loadResource(uri);
     path := Modelica.Utilities.Files.fullPathName(name=path);
 
     assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.");
@@ -65,6 +65,11 @@ the files.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Improved algorithm that determines the absolute path of the file.

@@ -68,30 +68,30 @@ protected
    parameter Modelica.SIunits.Time startTime(fixed=false)
     "First sample time instant.";
 
-  parameter Real uStart[kFluIntC_inflow + Medium.nC*nPorts](fixed=false)
+  parameter Real uStart[kFluIntC_inflow + Medium.nC*nPorts](each fixed=false)
     "Values used for uStart in CFDExchange";
 
   // Values that are used for yFixed
-  parameter Real yFixed[kSen + nSen](fixed=false)
+  parameter Real yFixed[kSen + nSen](each fixed=false)
     "Values used for yFixed in CFDExchange";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou + nSurBou]=fill(
-      0, kSurBou + nSurBou) "Surface heat flow rate used for yFixed"
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_fixed[kSurBou + nSurBou]=
+    fill(0, kSurBou + nSurBou) "Surface heat flow rate used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
   parameter Modelica.SIunits.Temperature TRooAve_fixed=Medium.T_default
     "Average room air temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin]=fill(Medium.T_default,
-      NConExtWin) "Shade temperature used for yFixed"
+  parameter Modelica.SIunits.Temperature TSha_fixed[NConExtWin]=
+    fill(Medium.T_default, NConExtWin) "Shade temperature used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts]=fill(Medium.T_default,
-      nPorts)
+  parameter Modelica.SIunits.Temperature T_outflow_fixed[nPorts]=
+    fill(Medium.T_default, nPorts)
     "Temperature of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Real Xi_outflow_fixed[nPorts*Medium.nXi](fixed=false)
+  parameter Real Xi_outflow_fixed[nPorts*Medium.nXi](each fixed=false)
     "Species concentration of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
-  parameter Real C_outflow_fixed[nPorts*Medium.nC](fixed=false)
+  parameter Real C_outflow_fixed[nPorts*Medium.nC](each fixed=false)
     "Trace substances of the fluid that flows into the HVAC system used for yFixed"
     annotation (Dialog(group="Outputs if activateInterface=false"));
 
@@ -380,12 +380,6 @@ protected
   end assignSurfaceIdentifier;
 
 public
-  Modelica.Blocks.Interfaces.RealInput QCon_flow
-    "Convective sensible heat gains of the room"
-    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}})));
-  Modelica.Blocks.Interfaces.RealInput QLat_flow
-    "Latent heat gains for the room"
-    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}})));
   Modelica.Blocks.Math.Add QTotCon_flow
     "Total sensible convective heat flow rate added to the room"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));

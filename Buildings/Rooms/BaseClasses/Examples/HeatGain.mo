@@ -1,12 +1,12 @@
 within Buildings.Rooms.BaseClasses.Examples;
-model CFDHeatGain "Test model for the CFDHeatGain model"
+model HeatGain "Test model for the HeatGain model"
   extends Modelica.Icons.Example;
 
   package MediumA = Buildings.Media.Air "Medium model";
 
   parameter Modelica.SIunits.Area AFlo=50 "Floor area";
 
-  Buildings.Rooms.BaseClasses.CFDHeatGain heatGain(
+  Buildings.Rooms.BaseClasses.HeatGain heatGain(
     AFlo=AFlo)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=10) "Convective heat gain"
@@ -37,7 +37,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/CFDHeatGain.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -46,9 +46,15 @@ This example tests the model for the internal heat gain that is used in the CFD 
 </html>", revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 March 17, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end CFDHeatGain;
+end HeatGain;

@@ -14,50 +14,26 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final conMod=intConMod,
     final hFixed=hIntFixed),
     datConExt(
-    each T_a_start =         T_start,
-    each T_b_start =         T_start),
+      each T_a_start = T_start,
+      each T_b_start = T_start),
     datConExtWin(
-    each T_a_start =            T_start,
-    each T_b_start =            T_start),
+      each T_a_start = T_start,
+      each T_b_start = T_start),
     datConBou(
-    each T_a_start =         T_start,
-    each T_b_start =         T_start),
+      each T_a_start = T_start,
+      each T_b_start = T_start),
     datConPar(
-    each T_a_start =         T_start,
-    each T_b_start =         T_start));
+      each T_a_start = T_start,
+      each T_b_start = T_start));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-protected
-  Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(
-    redeclare package Medium = Medium, final AFlo=AFlo)
-    "Model to convert internal heat gains"
-    annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-
-public
   Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
        haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-232,164},{-200,196}})));
 equation
-  connect(heaGai.qGai_flow, qGai_flow) annotation (Line(
-      points={{-222,100},{-252,100},{-252,80},{-280,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaGai.QRad_flow, add.u2) annotation (Line(
-      points={{-199,106},{-160,106},{-160,114},{-142,114}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaGai.QLat_flow, air.QLat_flow)       annotation (Line(
-      points={{-200,94},{-186,94},{-186,-96},{-18,-96},{-18,-134},{40,-134},{40,
-          -133}},
-      color={0,127,255},
-      smooth=Smooth.None));
 
-  connect(air.heaPorAir, heaGai.QCon_flow) annotation (Line(
-      points={{40,-130},{-10,-130},{-10,-88},{-180,-88},{-180,100},{-200,100}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
   connect(uSha, conExtWin.uSha) annotation (Line(
       points={{-280,180},{308,180},{308,62},{281,62}},
@@ -101,6 +77,12 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
 <li>
 February 12, 2015, by Michael Wetter:<br/>
 Propagated initial states to the fluid volume.

@@ -160,6 +160,19 @@ public class ParserResultObject {
     public void toMoDXSingleSpeedsFile(String fileName) throws IOException {
         // This method prints all the DXSinglsSpeeds objects in the output file.
 
+    	// defines package annotation
+    	String packageAnnotation = "annotation(preferredView=" + "\"" + "info" + "\""
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for DX coils."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
+                + getDateTime()
+                + " by "
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
+                + "\n";	
+    	
         // define the header of the output file
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
@@ -169,18 +182,15 @@ public class ParserResultObject {
                 + "package SingleSpeed \"Performance data for SingleSpeed DXCoils\""
                 + "\n"
                 + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
-                + " annotation(\n  preferredView=" + "\"" + "info" + "\""
-                + ",\n  Documentation(info=\"<html>\n<p>\n"
-                + "Package with performance data for DX coils."
-                + "\n</p>\n</html>\",\n"
-                + " revisions=\"<html>\n"
-                + "<p>\nGenerated on "
-                + getDateTime()
-                + " by "
-                + "tsnouidui."
-                + "\n</p>\n</html>\"));"
-                + "\n"
-
+				/*
+				 * + " annotation(\n  preferredView=" + "\"" + "info" + "\"" +
+				 * ",\n  Documentation(info=\"<html>\n<p>\n" +
+				 * "Package with performance data for DX coils." +
+				 * "\n</p>\n</html>\",\n" + " revisions=\"<html>\n" +
+				 * "<p>\nGenerated on " + getDateTime() + " by " +
+				 * System.getProperty("user.name") + "\n</p>\n</html>\"));" +
+				 * "\n"
+				 */
                 + "  "
                 + "record Generic \"Generic data record for SingleSpeed DXCoils\""
                 + "\n"
@@ -258,7 +268,7 @@ public class ParserResultObject {
         // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
         // The & sign needs to be converted to &amp; as it is inside an html section.
         cleanRecordedDXSingleSpeeds = cleanRecordedDXSingleSpeeds.replaceAll("&", "&amp;");
-        fw.write(fileHeader + cleanRecordedDXSingleSpeeds + fileFooter);
+        fw.write(fileHeader + cleanRecordedDXSingleSpeeds + packageAnnotation + fileFooter);
         fw.close();
     }
 
@@ -273,6 +283,19 @@ public class ParserResultObject {
     public void toMoDXDoubleSpeedsFile(String fileName) throws IOException {
         // This method prints all the DXSinglsSpeeds objects in the output file.
 
+    	// defines package annotation
+    	String packageAnnotation = "annotation(preferredView=" + "\"" + "info" + "\""
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for DX coils."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
+                + getDateTime()
+                + " by "
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
+                + "\n";	
+    	
         // define the header of the output file
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.HeatExchangers.DXCoils.Data;"
@@ -281,17 +304,15 @@ public class ParserResultObject {
                 + "package DoubleSpeed \"Performance data for DoubleSpeed DXCoils\""
                 + "\n"
                 + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
-                + " annotation(\n preferredView=" + "\"" + "info" + "\""
-                + ",\n  Documentation(info=\"<html>\n<p>\n"
-                + "Package with performance data for DX coils."
-                + "\n</p>\n</html>\",\n"
-                + " revisions=\"<html>\n"
-                + "<p>\nGenerated on "
-                + getDateTime()
-                + " by "
-                + "tsnouidui."
-                + "\n</p>\n</html>\"));"
-                + "\n"
+				/*
+				 * + " annotation(\n preferredView=" + "\"" + "info" + "\"" +
+				 * ",\n  Documentation(info=\"<html>\n<p>\n" +
+				 * "Package with performance data for DX coils." +
+				 * "\n</p>\n</html>\",\n" + " revisions=\"<html>\n" +
+				 * "<p>\nGenerated on " + getDateTime() + " by " +
+				 * System.getProperty("user.name") + "\n</p>\n</html>\"));" +
+				 * "\n"
+				 */
                 + "  "
                 + "record Generic \"Generic data record for DoubleSpeed DXCoils\""
                 + "\n"
@@ -370,7 +391,7 @@ public class ParserResultObject {
         // Some E+ fields have string such as Lennox SCA240H4B Stage 1&2.
         // The & sign needs to be converted to &amp; as it is inside an html section.
         cleanRecordedDXDoubleSpeeds = cleanRecordedDXDoubleSpeeds.replaceAll("&", "&amp;");
-        fw.write(fileHeader + cleanRecordedDXDoubleSpeeds + fileFooter);
+        fw.write(fileHeader + cleanRecordedDXDoubleSpeeds + packageAnnotation + fileFooter);
         fw.close();
 
     }
