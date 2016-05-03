@@ -320,6 +320,14 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
+       </td>
+       <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
+                          <code>Buildings.Rooms.BaseClasses.HeatGain</code>.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
    </table>
    <!-- Errors that have been fixed -->
    <p>

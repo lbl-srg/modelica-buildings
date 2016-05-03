@@ -51,7 +51,7 @@ public
     "Shade control signal"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 protected
-  Buildings.Rooms.BaseClasses.CFDHeatGain heaGai(
+  Buildings.Rooms.BaseClasses.HeatGain heaGai(
     final AFlo=5) "Model to convert internal heat gains"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 public

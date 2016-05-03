@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model CFDHeatGain "Model to convert internal heat gain signals"
+model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
   parameter Modelica.SIunits.Area AFlo "Floor area";
@@ -110,4 +110,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CFDHeatGain;
+end HeatGain;

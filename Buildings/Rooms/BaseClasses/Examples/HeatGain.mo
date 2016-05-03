@@ -1,12 +1,12 @@
 within Buildings.Rooms.BaseClasses.Examples;
-model CFDHeatGain "Test model for the CFDHeatGain model"
+model HeatGain "Test model for the HeatGain model"
   extends Modelica.Icons.Example;
 
   package MediumA = Buildings.Media.Air "Medium model";
 
   parameter Modelica.SIunits.Area AFlo=50 "Floor area";
 
-  Buildings.Rooms.BaseClasses.CFDHeatGain heatGain(
+  Buildings.Rooms.BaseClasses.HeatGain heatGain(
     AFlo=AFlo)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=10) "Convective heat gain"
@@ -37,7 +37,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/CFDHeatGain.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -51,4 +51,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CFDHeatGain;
+end HeatGain;
