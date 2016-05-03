@@ -46,6 +46,12 @@ This example tests the model for the internal heat gain that is used in the CFD 
 </html>", revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 March 17, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>

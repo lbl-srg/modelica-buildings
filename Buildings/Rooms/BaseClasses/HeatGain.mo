@@ -40,8 +40,14 @@ the water vapor released into the air.
 </li>
 </ul>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
 <li>
 August 1, 2013, by Michael Wetter:<br/>
 First implementation.

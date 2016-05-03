@@ -140,6 +140,12 @@ Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
 revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 April 21, 2016, by Michael Wetter:<br/>
 Added parameter <code>absCfdFilNam</code> as the call to
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">

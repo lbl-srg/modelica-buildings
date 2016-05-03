@@ -335,6 +335,12 @@ The model assumes a completely mixed air volume.
 revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 March 2, 2015, by Michael Wetter:<br/>
 Refactored model to allow a temperature dependent convective heat transfer
 on the room side.

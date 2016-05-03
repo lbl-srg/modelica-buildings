@@ -78,6 +78,12 @@ for detailed explanations.
 revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 February 12, 2015, by Michael Wetter:<br/>
 Propagated initial states to the fluid volume.
 </li>

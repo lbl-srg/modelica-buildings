@@ -173,6 +173,12 @@ This is a partial model that is used to implement the heat and mass balance of t
 revisions="<html>
 <ul>
 <li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
 July 17, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
