@@ -62,8 +62,14 @@ equation
 
   annotation (defaultComponentName = "con",
     Documentation(info="<html>
-<p>Block that takes an inlet connector of type <span style=\"font-family: Sans Serif;\"><a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Outlet\">Buildings.Fluid.FMI.Interfaces.Inlet</a> and convert it to </span>real outputs for properties of an air-based HVAC system. </p>
-<p>See <a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneAdaptor\">Buildings.Fluid.FMI.HVACAdaptor</a> for its usage. </p>
+<p>Block that takes an inlet connector of type 
+<span style=\"font-family: Sans Serif;\">
+<a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
+Buildings.Fluid.FMI.Interfaces.Inlet</a> and convert 
+it to </span>real outputs for properties of 
+an air-based HVAC system. </p>
+<p>See <a href=\"modelica://Buildings.Fluid.FMI.HVACZoneAdaptor\">
+Buildings.Fluid.FMI.HVACAdaptor</a> for its usage. </p>
 </html>", revisions="<html>
 <ul>
 <li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
