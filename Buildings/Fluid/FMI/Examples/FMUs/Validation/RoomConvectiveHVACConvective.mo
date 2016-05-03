@@ -21,14 +21,12 @@ equation
   connect(hvaCon.X_wZon, rooCon.X_wZon)
     annotation (Line(points={{-60,15},{-5,15},{-5,12},{58,12}},
                                                             color={0,0,127}));
-  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{58,16},{-6,
-          16},{-6,18},{-60,18}},  color={0,0,127}));
-  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-60,12},{-6,12},{
-          -6,8},{58,8}},
-                      color={0,0,127}));
-  connect(hvaCon.supAir, rooCon.supAir) annotation (Line(points={{-61,22},{-4,
-          22},{-4,20},{59,20}},
-                            color={0,0,255}));
+  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{58,16},{-6,16},
+          {-6,18},{-60,18}},      color={0,0,127}));
+  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-60,12},{-6,12},{-6,
+          8},{58,8}}, color={0,0,127}));
+  connect(hvaCon.supAir, rooCon.supAir) annotation (Line(points={{-61,22},{-4,22},
+          {-4,20},{59,20}}, color={0,0,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
@@ -54,7 +52,7 @@ ports which are exposed at the FMU interface. </p>
 <li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/RoomConvectiveHVACConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveHVACConvective.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomConvectiveHVACConvective;

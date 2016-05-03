@@ -71,7 +71,7 @@ block RoomConvective "Simple thermal zone"
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{98,134},{78,154}})));
+    annotation (Placement(transformation(extent={{214,46},{194,66}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{14,134},{34,154}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
@@ -103,7 +103,7 @@ block RoomConvective "Simple thermal zone"
     annotation (Placement(transformation(extent={{86,0},{106,20}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{78,144},{24,144}},
+      points={{194,56},{84,56},{84,144},{24,144}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

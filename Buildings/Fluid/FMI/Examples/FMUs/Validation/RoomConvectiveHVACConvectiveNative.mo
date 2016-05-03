@@ -207,8 +207,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
-      points={{-206,106},{-186,106},{-186,86},{-226,86},{-226,60},{-214,60},{
-          -214,60.2},{-206,60.2}},
+      points={{-206,106},{-186,106},{-186,86},{-226,86},{-226,60},{-214,60},{-214,
+          60.2},{-206,60.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -269,20 +269,18 @@ equation
   connect(TOut1.port,theCon. port_a)
     annotation (Line(points={{144,0},{144,0},{164,0}},
                                                      color={191,0,0}));
-  connect(fan.port_b, vol.ports[1]) annotation (Line(points={{-6,66},{0,66},{0,
-          58},{0,-54},{238,-54},{238,-36}},    color={0,127,255}));
-  connect(hex.port_a2, vol.ports[2]) annotation (Line(points={{-156,50},{-158,
-          50},{-158,38},{22,38},{22,-70},{242,-70},{242,-36}},
-                                                          color={0,127,255}));
-  connect(senTemRoo.T, con.u) annotation (Line(points={{156,-94},{-30,-94},{
-          -208,-94},{-208,-24},{-188,-24}},
+  connect(fan.port_b, vol.ports[1]) annotation (Line(points={{-6,66},{0,66},{0,58},
+          {0,-54},{238,-54},{238,-36}},        color={0,127,255}));
+  connect(hex.port_a2, vol.ports[2]) annotation (Line(points={{-156,50},{-158,50},
+          {-158,38},{22,38},{22,-70},{242,-70},{242,-36}},color={0,127,255}));
+  connect(senTemRoo.T, con.u) annotation (Line(points={{156,-94},{-30,-94},{-208,
+          -94},{-208,-24},{-188,-24}},
                                     color={0,0,127}));
   connect(senTemRoo.port, vol.heatPort) annotation (Line(points={{176,-94},{176,
           -94},{200,-94},{200,-26},{230,-26}},
                                              color={191,0,0}));
-  connect(vol.mWat_flow, mWat_lat.y) annotation (Line(points={{228,-18},{218,
-          -18},{218,30},{279,30}},
-                              color={0,0,127}));
+  connect(vol.mWat_flow, mWat_lat.y) annotation (Line(points={{228,-18},{218,-18},
+          {218,30},{279,30}}, color={0,0,127}));
   connect(TWat_lat.y, vol.TWat) annotation (Line(points={{279,-8},{212,-8},{212,
           -20},{228,-20},{228,-21.2}},
                                     color={0,0,127}));
@@ -294,10 +292,9 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,
-            -120},{340,120}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{340,
-            120}})),
+              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},
+            {340,120}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{340,120}})),
     Documentation(info="<html>
 <p>This example demonstrates the coupling of 
 a convective thermal zone with an air-based HVAC 
@@ -319,7 +316,7 @@ used to connect at the top-level of the model to
 <li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/RoomConvectiveHVACConvectiveNative.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveHVACConvectiveNative.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomConvectiveHVACConvectiveNative;
