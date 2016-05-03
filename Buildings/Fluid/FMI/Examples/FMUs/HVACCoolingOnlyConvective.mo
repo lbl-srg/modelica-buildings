@@ -151,7 +151,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
         origin={-60,178}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-80,140})));
+        origin={-80,180})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -234,10 +234,9 @@ equation
           -120,-18},{120,-18},{120,84},{152,84},{152,100},{132,100}}, color={0,
           0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
-              108,200}),
+            {160,160}}), graphics={
         Text(
-          extent={{-62,152},{-12,132}},
+          extent={{-104,148},{-54,128}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),

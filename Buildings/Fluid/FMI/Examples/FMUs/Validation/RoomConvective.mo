@@ -74,24 +74,11 @@ equation
                                                               color={0,127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
-            {160,180}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
-              108,200}),
+            {160,180}}), graphics={
         Text(
-          extent={{-62,152},{-12,132}},
+          extent={{-30,170},{20,150}},
           lineColor={0,0,127},
-          textString="TOut"),
-        Text(
-          extent={{100,46},{150,26}},
-          lineColor={0,0,127},
-          textString="CZon"),
-        Text(
-          extent={{98,90},{148,70}},
-          lineColor={0,0,127},
-          textString="X_wZon"),
-        Text(
-          extent={{98,116},{148,96}},
-          lineColor={0,0,127},
-          textString="TAirZon")}),                               Diagram(
+          textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p><span style=\"font-family: Sans Serif;\"
