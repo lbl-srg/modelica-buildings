@@ -154,7 +154,7 @@ equation
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
         Text(
-          extent={{-62,176},{-12,156}},
+          extent={{-54,176},{-4,156}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),

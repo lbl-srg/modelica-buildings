@@ -76,7 +76,7 @@ equation
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
         Text(
-          extent={{-30,170},{20,150}},
+          extent={{-26,176},{24,156}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),

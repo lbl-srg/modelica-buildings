@@ -236,7 +236,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
-          extent={{-104,148},{-54,128}},
+          extent={{-106,156},{-56,136}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
