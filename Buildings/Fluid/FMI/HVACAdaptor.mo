@@ -56,9 +56,9 @@ model HVACAdaptor "Model for exposing a room model to the FMI interface"
         origin={40,-160})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
     "Heat port for radiative heat gain and radiative temperature" annotation (
-      Placement(transformation(extent={{-132,-112},{-112,-92}}),
+      Placement(transformation(extent={{-132,-110},{-112,-90}}),
                                                            iconTransformation(
-          extent={{-132,-112},{-112,-92}})));
+          extent={{-132,-110},{-112,-90}})));
    Modelica.Blocks.Interfaces.RealOutput TRad(final unit="K", displayUnit="degC")
     "Zone radiative temperature"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
@@ -293,8 +293,8 @@ equation
           {-74,104},{-100,104},{-100,120},{-122,120}}, color={191,0,0}));
   connect(senTemRad.T, TRad) annotation (Line(points={{62,-40},{72,-40},{80,-40},
           {120,-40}}, color={0,0,127}));
-  connect(heaPorRad, senTemRad.port) annotation (Line(points={{-122,-102},{-102,
-          -102},{-80,-102},{-80,-40},{42,-40}}, color={191,0,0}));
+  connect(heaPorRad, senTemRad.port) annotation (Line(points={{-122,-100},{-102,
+          -100},{-80,-100},{-80,-40},{42,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
     annotation (Line(points={{52,128},{8,128},{-38,128}}, color={0,0,127}));
