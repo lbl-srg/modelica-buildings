@@ -5,6 +5,10 @@ partial block RoomConvective "Partial block to export a room model as an FMU"
           Modelica.Media.Interfaces.PartialMedium
     "Medium model within the source"
          annotation (choicesAllMatching=true);
+  parameter Integer nFluPor( min = 1)
+    "Number of fluid stream coming from the HVAC system."
+    annotation(Dialog(connectorSizing=true));
+
     model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
       parameter Boolean allowFlowReversal = true
       "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -189,115 +193,168 @@ First implementation.
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-  Interfaces.Inlet supAir[size(theHvaAda.supAir, 1)](
-    redeclare each final package Medium = Medium,
-    each final use_p_in=false,
-    each final allowFlowReversal=false)
-    "Supply air connectorSupply air connectorFluid outlet"
-    annotation (Placement(transformation(extent={{-180,130},{-160,150}})));
+   Interfaces.Inlet supAir[nFluPor](
+     redeclare each final package Medium = Medium,
+     each final use_p_in=false,
+     each final allowFlowReversal=false) "Fluid inlet"
+     annotation (Placement(transformation(extent={{-180,150},{-160,170}}),
+        iconTransformation(extent={{-180,150},{-160,170}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon(final unit="K", displayUnit="degC")
     "Zone air temperature"
-    annotation (Placement(transformation(extent={{-160,80},{-200,120}})));
+    annotation (Placement(transformation(extent={{-160,100},{-200,140}}),
+        iconTransformation(extent={{-160,100},{-200,140}})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon(
     each final unit = "kg/kg") if
        Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{-160,40},{-200,80}})));
+    annotation (Placement(transformation(extent={{-160,60},{-200,100}}),
+        iconTransformation(extent={{-160,60},{-200,100}})));
   Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-160,0},{-200,40}})));
+    annotation (Placement(transformation(extent={{-160,20},{-200,60}})));
 
   Modelica.Blocks.Interfaces.RealOutput TRadZon(
     final unit="K",
     displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{-160,-40},{-200,0}})));
+          extent={{-160,-20},{-200,20}}), iconTransformation(extent={{-160,-20},
+            {-200,20}})));
 
   Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{-200,-80},{-160,-40}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
+        iconTransformation(extent={{-200,-60},{-160,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput QGaiCon_flow(final unit="W")
     "Convective sensible heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{-200,-120},{-160,-80}})));
+    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+        iconTransformation(extent={{-200,-100},{-160,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput QGaiLat_flow(final unit="W")
     "Latent heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{-200,-160},{-160,-120}})));
+    annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
+        iconTransformation(extent={{-200,-140},{-160,-100}})));
 
-  HVACAdaptor theHvaAda(redeclare final package Medium = Medium, nPorts=1)
+  HVACAdaptor theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{-98,122},{-118,142}})));
+    annotation (Placement(transformation(extent={{-64,142},{-84,162}})));
 
 equation
-  connect(TAirZon, theHvaAda.TZon) annotation (Line(points={{-180,100},{-160,
-          100},{-140,100},{-140,135.333},{-120,135.333}},
+  connect(TAirZon, theHvaAda.TZon) annotation (Line(points={{-180,120},{-180,
+          120},{-136,120},{-136,156.667},{-85.8182,156.667}},
                                                      color={0,0,127}));
-  connect(X_wZon, theHvaAda.X_wZon) annotation (Line(points={{-180,60},{-160,60},
-          {-134,60},{-134,132},{-120,132}}, color={0,0,127}));
-  connect(CZon, theHvaAda.CZon) annotation (Line(points={{-180,20},{-154,20},{
-          -128,20},{-128,128.667},{-120,128.667}},
+  connect(X_wZon, theHvaAda.X_wZon) annotation (Line(points={{-180,80},{-180,80},
+          {-130,80},{-130,154},{-85.8182,154}},
+                                            color={0,0,127}));
+  connect(CZon, theHvaAda.CZon) annotation (Line(points={{-180,40},{-180,40},{
+          -124,40},{-124,151.333},{-85.8182,151.333}},
                                               color={0,0,127}));
-  connect(TRadZon, theHvaAda.TRad) annotation (Line(points={{-180,-20},{-150,
-          -20},{-124,-20},{-124,125.333},{-120,125.333}},
-                                                     color={0,0,127}));
+  connect(TRadZon, theHvaAda.TRad) annotation (Line(points={{-180,0},{-180,0},{
+          -120,0},{-120,148.667},{-85.8182,148.667}},color={0,0,127}));
   connect(QGaiRad_flow, theHvaAda.QGaiRad_flow) annotation (Line(points={{-180,
-          -60},{-102,-60},{-102,120.333}},
+          -40},{-71.2727,-40},{-71.2727,140.667}},
                                       color={0,0,127}));
   connect(QGaiCon_flow, theHvaAda.QGaiCon_flow) annotation (Line(points={{-180,
-          -100},{-108,-100},{-108,120.333}},
+          -80},{-74.9091,-80},{-74.9091,140.667}},
                                        color={0,0,127}));
   connect(QGaiLat_flow, theHvaAda.QGaiLat_flow) annotation (Line(points={{-180,
-          -140},{-114,-140},{-114,120.333}},
+          -120},{-78.5455,-120},{-78.5455,140.667}},
                                        color={0,0,127}));
-  connect(theHvaAda.supAir, supAir) annotation (Line(points={{-119,138.667},{
-          -142.5,138.667},{-142.5,140},{-170,140}},  color={0,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Rectangle(
-          extent={{-160,160},{160,-160}},
+  connect(theHvaAda.supAir, supAir) annotation (Line(points={{-84.9091,159.333},
+          {-130.5,159.333},{-130.5,160},{-170,160}},
+                                             color={0,0,255}));
+  connect(X_wZon, X_wZon)
+    annotation (Line(points={{-180,80},{-180,80},{-180,80}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
+            {160,180}}), graphics={Rectangle(
+          extent={{-160,180},{160,-140}},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Text(
-          extent={{-156,-14},{-106,-34}},
+          extent={{-154,6},{-104,-14}},
           lineColor={0,0,127},
           textString="TRadZon"),
         Text(
-          extent={{-158,-50},{-108,-70}},
+          extent={{-150,-30},{-100,-50}},
           lineColor={0,0,127},
           textString="QRad"),
         Text(
-          extent={{-158,-88},{-108,-108}},
+          extent={{-150,-70},{-100,-90}},
           lineColor={0,0,127},
           textString="QCon"),
         Text(
-          extent={{-162,-128},{-112,-148}},
+          extent={{-154,-108},{-104,-128}},
           lineColor={0,0,127},
           textString="QLat"),
         Text(
-          extent={{-158,28},{-108,8}},
+          extent={{-156,48},{-106,28}},
           lineColor={0,0,127},
           textString="CZon"),
         Text(
-          extent={{-154,70},{-104,50}},
+          extent={{-152,90},{-102,70}},
           lineColor={0,0,127},
           textString="X_wZon"),
         Text(
-          extent={{-156,110},{-106,90}},
+          extent={{-154,130},{-104,110}},
           lineColor={0,0,127},
-          textString="TAirZon")}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+          textString="TAirZon"),
+        Text(
+          extent={{-62,74},{80,-32}},
+          lineColor={28,108,200},
+          textString="rooCon")}),                                Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p>Model that is used as a container for a thermal zone that is to be exported as an FMU. </p>
+<p>Model that is used as a container for a thermal 
+zone that is to be exported as an FMU. </p>
 <h4>Typical use and important parameters</h4>
-<p>To use this model as a container for an FMU, simply extend from this model, rather than instantiate it, and add your thermal zone. By extending from this model, the top-level signal connectors on the left stay at the top-level, and hence will be visible at the FMI interface. The example <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">Buildings.Fluid.FMI.Examples.FMUs.RoomConvective</a> shows how a simple convective thermal zone system can be implemented and exported as an FMU. The example xxxx shows conceptually how such an FMU can then be connected to a room model that has signal flow. </p>
-<p>The conversion between the fluid ports and signal ports is done in the HVAC adapter <code>theHvaAda</code>. </p>
+This model has a parameter <code>nFluPor</code> which specifies 
+the number of fluid streams coming for instance from an air-based HVAC system. 
+This number should be specified prior of using this model. <code>nFluPor</code> 
+sets the number of <code>ports</code> of the container. 
+Thus to use this model, a user needs to connect the <code>nFluPor</code>  
+<code>ports</code> of the container to a thermal model as described in example 
+ <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective</a>. 
+
+<p>To use this model as a container for an FMU, simply extend from this model, 
+rather than instantiate it, and add your thermal zone. By extending from this model, 
+the top-level signal connectors on the left stay at the top-level, 
+and hence will be visible at the FMI interface.The example
+ <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective</a> 
+shows how a simple convective thermal zone system can be implemented 
+and exported as an FMU. 
+The example 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvectiveHVACConvective</a> 
+shows conceptually how such an FMU can then be connected to a HVAC system
+ that has signal flow. 
+</p>
+<p>The conversion between the fluid ports and signal ports is done in the HVAC 
+adapter <code>theHvaAda</code>. </p>
 <h4>Assumption and limitations</h4>
-<p>The mass flow rates at <code>ports</code> sum to zero, hence this model conserves mass. </p>
-<p>This model does not impose any pressure, other than setting the pressure of all fluid connections to <code>ports</code> to be equal. The reason is that setting a pressure can lead to non-physical system models, for example if a mass flow rate is imposed and the thermal zone modelis connected to a model that sets a pressure boundary condition such as <a href=\"modelica://Buildings.Fluid.Sources.Outside\">Buildings.Fluid.Sources.Outside</a>. </p>
+<p>
+The mass flow rates at <code>ports</code> sum to zero, hence this
+model conserves mass.
+</p>
+<p>
+This model does not impose any pressure, other than setting the pressure
+of all fluid connections to <code>ports</code> to be equal.
+The reason is that setting a pressure can lead to non-physical system models,
+for example if a mass flow rate is imposed and the thermal zone is connected
+to a model that sets a pressure boundary condition such as
+<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+Buildings.Fluid.Sources.Outside</a>.
+</p>
 <h4>Typical use and important parameters</h4>
-<p>See <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">Buildings.Fluid.FMI.RoomConvective</a> for a model that uses this model. </p>
+<p>
+See
+<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective</a>
+for a model that uses this model.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
