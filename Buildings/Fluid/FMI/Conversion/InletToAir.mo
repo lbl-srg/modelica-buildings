@@ -14,7 +14,7 @@ block InletToAir
   Modelica.Blocks.Interfaces.RealOutput T(final unit="K") "Temperature"
     annotation (Placement(transformation(extent={{-100,20},{-140,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput X_w(unit="kg/kg")
+  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="kg/kg")
     "Water mass fraction per total air mass"
     annotation (Placement(transformation(extent={{-100,-60},{-140,-20}})));
 
@@ -28,10 +28,6 @@ block InletToAir
     final allowFlowReversal=false,
     final use_p_in=false) "Fluid outlet"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-
-  //Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
-  //  each final unit = "kg/kg")
-  //  "Internal connector for water vapor concentration in kg/kg total air";
 
 protected
   Modelica.Blocks.Interfaces.RealInput X_w_internal(
@@ -62,14 +58,18 @@ equation
 
   annotation (defaultComponentName = "con",
     Documentation(info="<html>
-<p>Block that takes an inlet connector of type 
+<p>
+Block that takes an inlet connector of type 
 <span style=\"font-family: Sans Serif;\">
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
 Buildings.Fluid.FMI.Interfaces.Inlet</a> and convert 
 it to </span>real outputs for properties of 
-an air-based HVAC system. </p>
-<p>See <a href=\"modelica://Buildings.Fluid.FMI.HVACZoneAdaptor\">
-Buildings.Fluid.FMI.HVACAdaptor</a> for its usage. </p>
+an air-based HVAC system.
+</p>
+<p>
+See <a href=\"modelica://Buildings.Fluid.FMI.HVACZoneAdaptor\">
+Buildings.Fluid.FMI.HVACAdaptor</a> for its usage.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>

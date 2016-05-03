@@ -17,14 +17,14 @@ model InletToAir1
 
   Buildings.Fluid.FMI.Conversion.InletToAir conAir(redeclare package Medium =
         Medium) "Converter for air"
-    annotation (Placement(transformation(extent={{42,0},{22,20}})));
+    annotation (Placement(transformation(extent={{38,0},{18,20}})));
 
   Source_T sou(
     redeclare package Medium = Medium,
     use_p_in=use_p_in,
     allowFlowReversal = allowFlowReversal)
     "Source for mass flow rate and pressure"
-    annotation (Placement(transformation(extent={{-18,0},{2,20}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Sources.Constant pIn(k=100000) "Inlet pressure"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Constant X_w_in(k=0.01) "Inlet mass fraction"
@@ -33,18 +33,21 @@ model InletToAir1
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
 equation
-  connect(m_flow.y, sou.m_flow_in) annotation (Line(points={{-59,80},{-34,80},{-34,
-          20},{-20,20}}, color={0,0,127}));
+  connect(m_flow.y, sou.m_flow_in) annotation (Line(points={{-59,80},{-34,80},{
+          -34,20},{-22,20}},
+                         color={0,0,127}));
   connect(sou.outlet, conAir.inlet)
-    annotation (Line(points={{3,10},{10,10},{21,10}}, color={0,0,255}));
-  connect(sou.T_in, T.y) annotation (Line(points={{-20,10},{-36,10},{-36,0},{-59,
-          0}},  color={0,0,127}));
+    annotation (Line(points={{1,10},{1,10},{17,10}},  color={0,0,255}));
+  connect(sou.T_in, T.y) annotation (Line(points={{-22,10},{-36,10},{-36,0},{
+          -59,0}},
+                color={0,0,127}));
   connect(pIn.y, sou.p_in) annotation (Line(points={{-59,40},{-38,40},{-38,14.8},
-          {-20,14.8}}, color={0,0,127}));
-  connect(X_w_in.y, sou.X_w_in) annotation (Line(points={{-59,-40},{-38,-40},{-38,
-          5},{-20,5}}, color={0,0,127}));
+          {-22,14.8}}, color={0,0,127}));
+  connect(X_w_in.y, sou.X_w_in) annotation (Line(points={{-59,-40},{-32,-40},{
+          -32,5},{-22,5}},
+                       color={0,0,127}));
   connect(C.y, sou.C_in) annotation (Line(points={{-59,-76},{-44,-76},{-28,-76},
-          {-28,0},{-20,0}}, color={0,0,127}));
+          {-28,0},{-22,0}}, color={0,0,127}));
 annotation (
     Documentation(info="<html>
 <p>

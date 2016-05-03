@@ -43,8 +43,8 @@ block RoomConvective "Simple thermal zone"
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
-     1000 "Internal heat gains of the room";
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
+    "Internal heat gains of the room";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal= 0.01;
   /////////////////////////////////////////////////////////
   // HVAC models
@@ -62,7 +62,7 @@ equation
   connect(radTem.y, TRad.T)
     annotation (Line(points={{19,100},{19,100},{0,100}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-22,100},{
-          -40,100},{-40,144.533},{-63.8182,144.533}},
+          -40,100},{-40,144.667},{-63.8182,144.667}},
                                                    color={191,0,0}));
   connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{64,40},{52,
           40},{52,159.333},{-63.8182,159.333}},

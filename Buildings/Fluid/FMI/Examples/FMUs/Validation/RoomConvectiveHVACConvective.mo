@@ -8,6 +8,12 @@ block RoomConvectiveHVACConvective
     annotation (Placement(transformation(extent={{-94,-8},{-62,24}})));
   Buildings.Fluid.FMI.Examples.FMUs.RoomConvective rooCon
     annotation (Placement(transformation(extent={{60,-10},{92,22}})));
+    model BaseCase "Base model used for the validation of the FMI interfaces"
+      extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(
+          energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    end BaseCase;
+  BaseCase baseCase
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
 
   connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-60,-6},

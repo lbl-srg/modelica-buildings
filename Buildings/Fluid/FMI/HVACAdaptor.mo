@@ -250,12 +250,12 @@ equation
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
           {-36,116}},
                 color={0,0,127}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{14,116},{-2.8,
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{52,116},{-2.8,
           116}},      color={0,0,127}));
   connect(bou.C_in, con.C) annotation (Line(points={{-38,112},{-34,112},{-28,112},
           {-28,108},{26,108},{26,112},{52,112}},
                                             color={0,0,127}));
-  connect(bou.T_in, con.T) annotation (Line(points={{-36,124},{-30,124},{52,124}},
+  connect(bou.T_in, con.T) annotation (Line(points={{-36,124},{52,124},{52,124}},
                    color={0,0,127}));
   connect(heaPorAir, heaPorAir)
     annotation (Line(points={{-122,120},{-122,120}},
@@ -297,7 +297,7 @@ equation
           -100},{-80,-100},{-80,-40},{42,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
-    annotation (Line(points={{52,128},{8,128},{-38,128}}, color={0,0,127}));
+    annotation (Line(points={{52,128},{52,128},{-38,128}},color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -361,7 +361,10 @@ as <a href=\"modelica://Buildings.Fluid.Sources.Outside\">Buildings.Fluid.Source
 for a model that uses this model. </p>
 </html>", revisions="<html>
 <ul>
-<li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{100,
