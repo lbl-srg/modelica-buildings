@@ -140,10 +140,10 @@ block RoomConvectiveHVACConvectiveNative
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{-226,96},{-206,116}})));
+    annotation (Placement(transformation(extent={{-268,90},{-248,110}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-142,94},{-122,114}}),
-        iconTransformation(extent={{-142,94},{-122,114}})));
+    annotation (Placement(transformation(extent={{-142,90},{-122,110}}),
+        iconTransformation(extent={{-142,90},{-122,110}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
             {20,20}},
@@ -158,7 +158,7 @@ block RoomConvectiveHVACConvectiveNative
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{242,98},{222,118}})));
+    annotation (Placement(transformation(extent={{242,90},{222,110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut1
     "Outside temperature"
@@ -179,8 +179,8 @@ block RoomConvectiveHVACConvectiveNative
     nPorts=2)
     annotation (Placement(transformation(extent={{230,-36},{250,-16}})));
   BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus"
-    annotation (Placement(transformation(extent={{132,96},{152,116}}),
-        iconTransformation(extent={{132,96},{152,116}})));
+    annotation (Placement(transformation(extent={{134,90},{154,110}}),
+        iconTransformation(extent={{134,90},{154,110}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
     annotation (Placement(transformation(extent={{176,-104},{156,-84}})));
@@ -205,12 +205,6 @@ equation
   connect(cooCoi.port_b1,sinWat. ports[1])    annotation (Line(
       points={{-106,50},{-116,50},{-116,16},{-126,16}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(weaDat.weaBus,out. weaBus) annotation (Line(
-      points={{-206,106},{-186,106},{-186,86},{-226,86},{-226,60},{-214,60},{-214,
-          60.2},{-206,60.2}},
-      color={255,204,51},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(fan.m_flow_in,mAir_flow. y) annotation (Line(
       points={{-16.2,78},{-16.2,92},{-45,92}},
@@ -245,7 +239,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{-206,106},{-196,106},{-196,104},{-132,104}},
+      points={{-248,100},{-132,100}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -253,7 +247,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
-    annotation (Line(points={{-80,140},{-80,104},{-132,104}},
+    annotation (Line(points={{-80,140},{-80,100},{-132,100}},
                                                    color={0,0,127}));
   connect(theCon.port_b,vol. heatPort)
     annotation (Line(points={{184,0},{184,-26},{230,-26}},
@@ -262,7 +256,7 @@ equation
     annotation (Line(points={{220,50},{200,50},{200,-26},{230,-26}},
                                                             color={191,0,0}));
   connect(TOut1.T, weaBus1.TDryBul) annotation (Line(points={{122,0},{78,0},{78,
-          106},{142,106}},      color={0,0,127}), Text(
+          100},{144,100}},      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -285,7 +279,14 @@ equation
           -20},{228,-20},{228,-21.2}},
                                     color={0,0,127}));
   connect(weaDat1.weaBus, weaBus1) annotation (Line(
-      points={{222,108},{142,108},{142,106}},
+      points={{222,100},{144,100}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(out.weaBus, weaBus) annotation (Line(
+      points={{-206,60.2},{-220,60.2},{-220,100},{-132,100}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
