@@ -90,7 +90,11 @@ equation
           extent={{100,124},{160,116}},
           lineColor={0,0,0},
           fillColor={0,127,255},
-          fillPattern=FillPattern.HorizontalCylinder)}),         Diagram(
+          fillPattern=FillPattern.HorizontalCylinder),
+        Text(
+          extent={{-70,60},{72,-46}},
+          lineColor={28,108,200},
+          textString="hvaCon")}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
