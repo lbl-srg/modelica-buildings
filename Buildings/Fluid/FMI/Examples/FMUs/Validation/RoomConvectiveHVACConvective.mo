@@ -16,8 +16,9 @@ equation
           {-8,-1},{-8,-4},{58,-4}},         color={0,0,127}));
   connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{58,0},{
           -8,0},{-8,4},{-60,4}},              color={0,0,127}));
-  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-60,8},{-24,
-          8},{-24,6},{58,6},{58,4}},  color={0,0,127}));
+  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-60,8},{-32,
+          8},{-32,6},{-4,6},{-4,4},{58,4}},
+                                      color={0,0,127}));
   connect(hvaCon.X_wZon, rooCon.X_wZon)
     annotation (Line(points={{-60,15},{-5,15},{-5,12},{58,12}},
                                                             color={0,0,127}));

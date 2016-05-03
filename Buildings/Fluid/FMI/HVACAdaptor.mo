@@ -177,11 +177,11 @@ can only be used in <code>connect</code> statements.
   Sources.MassFlowSource_T bou[nFluPor](
     each final nPorts=1,
     redeclare each final package Medium = Medium,
-    each final use_m_flow_in=false,
     each final use_T_in=true,
     each final use_C_in=Medium.nC > 0,
     each final m_flow=0,
-    each final use_X_in=Medium.nXi > 0) "Boundary conditions for HVAC system"
+    each final use_X_in=Medium.nXi > 0,
+    each final use_m_flow_in=true) "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{-38,110},{-58,130}})));
   Conversion.InletToAir con[nFluPor](
       redeclare each final package Medium = Medium)
@@ -246,8 +246,7 @@ equation
   connect(x_i_toX.X_w, X_wZon)
     annotation (Line(points={{92,40},{92,40},{120,40}},     color={0,0,127}));
   connect(con.inlet, supAir)
-    annotation (Line(points={{75,120},{110,120},{110,120}},
-                                                       color={0,0,255}));
+    annotation (Line(points={{75,120},{110,120}},      color={0,0,255}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
           {-36,116}},
                 color={0,0,127}));
@@ -297,6 +296,8 @@ equation
   connect(heaPorRad, senTemRad.port) annotation (Line(points={{-122,-102},{-102,
           -102},{-80,-102},{-80,-40},{42,-40}}, color={191,0,0}));
 
+  connect(con.m_flow, bou.m_flow_in)
+    annotation (Line(points={{52,128},{8,128},{-38,128}}, color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
