@@ -26,7 +26,7 @@ model MixedAirHeatMassBalance "Test model for air heat and mass balance"
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Convective heat balance of air"
-    annotation (Placement(transformation(extent={{-82,0},{-42,40}})));
+    annotation (Placement(transformation(extent={{-44,-2},{-4,38}})));
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conGlaSha[
     NConExtWin](each G=100) "Heat conductor"
@@ -51,19 +51,18 @@ public
     "Shade control signal"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 protected
-  Buildings.Rooms.BaseClasses.MixedAirHeatGain heaGai(
-    redeclare package Medium = Medium, final AFlo=5)
-    "Model to convert internal heat gains"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+  Buildings.Rooms.BaseClasses.HeatGain heaGai(
+    final AFlo=5) "Model to convert internal heat gains"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
 public
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=0) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
+    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
+    annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-200,-30},{-180,-10}})));
+    annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   Modelica.Blocks.Sources.Constant QRadAbs_flow[NConExtWin](each k=0)
     "Radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
@@ -72,34 +71,34 @@ public
     nPorts=1,
     redeclare package Medium = Medium,
     T=293.15) "Boundary condition"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
 equation
   connect(conConExt.port_a, air.conExt)          annotation (Line(
-      points={{40,90},{30,90},{30,38.3333},{-42,38.3333}},
+      points={{40,90},{30,90},{30,36.3333},{-4,36.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conConExtWin.port_a, air.conExtWin)          annotation (Line(
-      points={{40,60},{30,60},{30,35},{-42,35}},
+      points={{40,60},{30,60},{30,33},{-4,33}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conConExtWinFra.port_a, air.conExtWinFra)          annotation (Line(
-      points={{40,30},{30,30},{30,20},{-41.8333,20}},
+      points={{40,30},{30,30},{30,18},{-3.83333,18}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conConPar_a.port_a, air.conPar_a)          annotation (Line(
-      points={{40,0},{32,0},{32,15},{-41.8333,15}},
+      points={{40,0},{32,0},{32,13},{-3.83333,13}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conConPar_b.port_a, air.conPar_b)          annotation (Line(
-      points={{40,-30},{30,-30},{30,11.6667},{-41.8333,11.6667}},
+      points={{40,-30},{30,-30},{30,9.66667},{-3.83333,9.66667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conConBou.port_a, air.conBou)          annotation (Line(
-      points={{40,-60},{28,-60},{28,6.66667},{-41.8333,6.66667}},
+      points={{40,-60},{28,-60},{28,4.66667},{-3.83333,4.66667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conSurBou.port_a, air.conSurBou)          annotation (Line(
-      points={{40,-90},{24,-90},{24,1.66667},{-41.9167,1.66667}},
+      points={{40,-90},{24,-90},{24,-0.333333},{-3.91667,-0.333333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouConGlaUns.port, conGlaUns.port_b) annotation (Line(
@@ -107,7 +106,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conGlaUns.port_a, air.glaUns) annotation (Line(
-      points={{42,-132},{16,-132},{16,30},{-42,30}},
+      points={{42,-132},{16,-132},{16,28},{-4,28}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouConGlaSha.port, conGlaSha.port_b) annotation (Line(
@@ -115,50 +114,45 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conGlaSha.port_a, air.glaSha) annotation (Line(
-      points={{42,-172},{8,-172},{8,26.6667},{-42,26.6667}},
+      points={{42,-172},{8,-172},{8,24.6667},{-4,24.6667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha.y, air.uSha) annotation (Line(
-      points={{-119,90},{-90,90},{-90,36},{-84,36},{-84,36.6667},{-82.6667,
-          36.6667}},
+      points={{-119,90},{-90,90},{-90,36},{-84,36},{-84,34.6667},{-44.6667,
+          34.6667}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heaGai.QCon_flow, air.heaPorAir) annotation (Line(
-      points={{-100,20},{-82,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaGai.QLat_flow, air.QLat_flow) annotation (Line(
-      points={{-100,14},{-92,14},{-92,15},{-82,15}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(multiplex3_1.y, heaGai.qGai_flow) annotation (Line(
-      points={{-139,20},{-122,20}},
+      points={{-139,-10},{-122,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QRadAbs_flow.y, air.QRadAbs_flow) annotation (Line(
-      points={{-119,50},{-94,50},{-94,28.3333},{-82.8333,28.3333}},
+      points={{-119,50},{-94,50},{-94,26.3333},{-44.8333,26.3333}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(qRadGai_flow.y, multiplex3_1.u1[1]) annotation (Line(
-      points={{-179,60},{-170,60},{-170,27},{-162,27}},
+      points={{-179,30},{-170,30},{-170,-3},{-162,-3}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
-      points={{-179,20},{-162,20}},
+      points={{-179,-10},{-162,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qLatGai_flow.y, multiplex3_1.u3[1]) annotation (Line(
-      points={{-179,-20},{-170,-20},{-170,13},{-162,13}},
+      points={{-179,-50},{-170,-50},{-170,-17},{-162,-17}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(boundary.ports[1], air.ports[1]) annotation (Line(
-      points={{-100,-30},{-62,-30},{-62,0.166667}},
+      points={{-100,-60},{-24,-60},{-24,-1.83333}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(heaGai.QCon_flow, air.QCon_flow) annotation (Line(points={{-98,-10},{
+          -70,-10},{-70,9.66667},{-45.6667,9.66667}}, color={0,0,127}));
+  connect(air.QLat_flow, heaGai.QLat_flow) annotation (Line(points={{-45.6667,
+          4.66667},{-68,4.66667},{-68,-16},{-98,-16}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
-            -200},{140,140}}),
-                      graphics),
+            -200},{140,140}})),
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/MixedAirHeatMassBalance.mos"
         "Simulate and plot"),

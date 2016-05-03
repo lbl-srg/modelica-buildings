@@ -1,7 +1,7 @@
 within Buildings.Rooms.BaseClasses;
 model MixedAirHeatMassBalance
   "Heat and mass balance of the air, assuming completely mixed air"
-  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance(nPorts=1);
+  extends Buildings.Rooms.BaseClasses.PartialAirHeatMassBalance;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -19,7 +19,7 @@ model MixedAirHeatMassBalance
                        enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   // Mixing volume
-  Fluid.MixingVolumes.MixingVolume vol(
+  Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -31,7 +31,7 @@ model MixedAirHeatMassBalance
     final C_nominal=C_nominal,
     final m_flow_nominal = m_flow_nominal,
     final prescribedHeatFlowRate = true,
-    final nPorts=nPorts+1,
+    final nPorts=nPorts,
     m_flow_small=1E-4*abs(m_flow_nominal),
     allowFlowReversal=true) "Room air volume"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
@@ -102,13 +102,37 @@ model MixedAirHeatMassBalance
        haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
 
-  // Fluid port for latent heat gain
-  Modelica.Fluid.Interfaces.FluidPort_a QLat_flow(
-    redeclare final package Medium = Medium) "Connector for latent heat gain"
-    annotation (Placement(transformation(extent={{-250,-70},{-230,-50}})));
+  // Latent and convective sensible heat gains
+protected
+  constant Modelica.SIunits.Temperature TAveSkin = 273.15+37
+    "Average skin temperature";
+
+  parameter Modelica.SIunits.SpecificEnergy h_fg=
+    Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
+    annotation(Evaluate=true);
+
+  Modelica.Blocks.Sources.Constant TSkin(
+    k=TAveSkin,
+    y(final unit="K",
+      final displayUnit="degC"))
+    "Skin temperature at which latent heat is added to the space"
+    annotation (Placement(transformation(extent={{-220,-138},{-200,-118}})));
+
+  Modelica.Blocks.Math.Gain mWat_flow(
+    final k(unit="kg/J")=1/h_fg,
+    u(final unit="W"),
+    y(final unit="kg/s")) "Water flow rate due to latent heat gain"
+    annotation (Placement(transformation(extent={{-220,-170},{-200,-150}})));
+
+  HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
+    "Converter for convective heat flow rate"
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
+
+  HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow
+    "Converter for latent heat flow rate"
+    annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
 
   // Thermal collectors
-protected
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=nConExt) if
        haveConExt
     "Thermal collector to convert from vector to scalar connector"
@@ -159,7 +183,6 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={52,-220})));
-
 equation
   connect(convConPar_a.fluid,theConConPar_a.port_a) annotation (Line(
       points={{100,-60},{62,-60}},
@@ -259,11 +282,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   end for;
-  connect(QLat_flow, vol.ports[nPorts+1]) annotation (Line(
-      points={{-240,-60},{-20,-60},{-20,-218},{-6.66134e-16,-218},{-6.66134e-16,
-          -210}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(heaPorAir, vol.heatPort) annotation (Line(
       points={{-240,0},{20,0},{20,-200},{10,-200}},
       color={191,0,0},
@@ -280,10 +298,26 @@ equation
       points={{108,109},{108,60},{-250,60}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(conQCon_flow.port, vol.heatPort) annotation (Line(points={{-200,-100},
+          {-118,-100},{20,-100},{20,-200},{10,-200}},           color={191,0,0}));
+  connect(QCon_flow, conQCon_flow.Q_flow) annotation (Line(points={{-260,-100},{
+          -240,-100},{-220,-100}}, color={0,0,127}));
+  connect(QLat_flow, mWat_flow.u)
+    annotation (Line(points={{-260,-160},{-222,-160}}, color={0,0,127}));
+  connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-199,-160},{-168,
+          -160},{-168,-212},{-30,-212},{-30,-180},{16,-180},{16,-192},{12,-192}},
+        color={0,0,127}));
+  connect(TSkin.y, vol.TWat) annotation (Line(points={{-199,-128},{-160,-128},{-160,
+          -208},{-34,-208},{-34,-176},{18,-176},{18,-195.2},{12,-195.2}}, color=
+         {0,0,127}));
+  connect(conQLat_flow.Q_flow, QLat_flow) annotation (Line(points={{-220,-80},{-230,
+          -80},{-230,-160},{-260,-160}}, color={0,0,127}));
+  connect(conQLat_flow.port, vol.heatPort) annotation (Line(points={{-200,-80},{
+          -96,-80},{20,-80},{20,-200},{10,-200}}, color={191,0,0}));
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,
-            240}}), graphics),
+            240}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-240,-240},{240,240}}),
                     graphics={
           Rectangle(
@@ -300,6 +334,12 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
 <li>
 March 2, 2015, by Michael Wetter:<br/>
 Refactored model to allow a temperature dependent convective heat transfer
