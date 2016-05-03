@@ -296,21 +296,11 @@ equation
             {340,120}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{340,120}})),
     Documentation(info="<html>
-<p>This example demonstrates the coupling of 
-a convective thermal zone with an air-based HVAC 
-system. The example  zone is taken from 
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>. </p>
-<p>The example is  from <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective</a> which 
-provides the input and output signals that are 
-needed to interface the acausal thermal zone 
-model with causal connectors of FMI. 
-The instance <code>theHvaAda</code> is the HVAC 
-system adapter that contains on the right a fluid 
-port, and on the left signal ports which are then 
-used to connect at the top-level of the model to
- signal ports which are exposed at the FMU interface. </p>
+<p>This example is a reference model which is used 
+to validate the coupling of a convective thermal zone 
+with an air-based HVAC system. The model which is validated is in 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective</a>. </p>
 </html>", revisions="<html>
 <ul>
 <li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
