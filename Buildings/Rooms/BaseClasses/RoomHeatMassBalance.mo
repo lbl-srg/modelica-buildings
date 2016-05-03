@@ -312,13 +312,14 @@ protected
     surBou.isFloor
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
-  CFDHeatGain heaGai(final AFlo=AFlo) "Model to convert internal heat gains"
-    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
-
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
     each final haveShade=haveShade) if
        haveConExtWin "Shading signal"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
+
+  Buildings.Rooms.BaseClasses.HeatGain heaGai(final AFlo=AFlo)
+    "Model to convert internal heat gains"
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
 
   Buildings.Rooms.BaseClasses.RadiationAdapter radiationAdapter
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
