@@ -1,7 +1,8 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block RoomConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.RoomConvective(
-    redeclare final package Medium = MediumA);
+    redeclare final package Medium = MediumA, nFluPor = nFluPorts,
+    theHvaAda(nFluPor=2));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -11,6 +12,9 @@ block RoomConvective "Simple thermal zone"
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  parameter Integer nFluPorts = 2
+    "Number of fluid stream coming from the HVAC system.";
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
@@ -45,6 +49,16 @@ block RoomConvective "Simple thermal zone"
     (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
+  /////////////////////////////////////////////////////////
+  // Water temperatures and mass flow rates
+  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
+    "Water supply temperature";
+  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
+    "Water return temperature";
+  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
+    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
+    "Nominal water mass flow rate";
+
    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
     "Radiative temperature"
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
@@ -64,10 +78,10 @@ block RoomConvective "Simple thermal zone"
     "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
             {20,20}},
         rotation=90,
-        origin={-40,180}), iconTransformation(
+        origin={-28,200}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-40,180})));
+        origin={-28,200})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut1
     "Outside temperature"
@@ -78,14 +92,15 @@ block RoomConvective "Simple thermal zone"
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{100,60},{80,80}})));
-  MixingVolumes.MixingVolume       vol(
+  MixingVolumes.MixingVolumeMoistAir
+                                   vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     mSenFac=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2)
-    annotation (Placement(transformation(extent={{78,22},{98,42}})));
+    annotation (Placement(transformation(extent={{86,0},{106,20}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{78,144},{24,144}},
@@ -96,54 +111,75 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,32},{40,32},{78,32}},
+    annotation (Line(points={{40,32},{40,10},{86,10}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,70},{60,70},{60,32},{78,32}},
+    annotation (Line(points={{80,70},{60,70},{60,10},{86,10}},
                                                             color={191,0,0}));
   connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,32},{-40,32},{-40,
           144},{24,144}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-98,
-          138.333},{-34,138.333},{-34,138},{-18,138},{-18,128},{60,128},{60,32},
-          {78,32}},
-        color={191,0,0}));
   connect(TOut1.port, theCon.port_a)
     annotation (Line(points={{0,32},{0,32},{20,32}}, color={191,0,0}));
-  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-97.8,
-          125.333},{-28,125.333},{-28,90},{-20,90}},
+  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-63.8182,
+          144.533},{-28,144.533},{-28,90},{-20,90}},
                                             color={191,0,0}));
   connect(TRad.T, radTem.y)
     annotation (Line(points={{2,90},{19,90}}, color={0,0,127}));
   connect(weaBus.TDryBul, TOut) annotation (Line(
-      points={{24,144},{-4,144},{-40,144},{-40,180}},
+      points={{24,144},{-4,144},{-28,144},{-28,200}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  connect(theHvaAda.ports, vol.ports[1:2]) annotation (Line(points={{-98,132},{
-          -80,132},{-60,132},{-60,0},{90,0},{90,22}}, color={0,127,255}));
+  connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-85.8182,143.333},
+          {-100,143.333},{-100,14.8},{84,14.8}}, color={0,0,127}));
+  connect(theHvaAda.mWat_flow, vol.mWat_flow) annotation (Line(points={{
+          -85.8182,146},{-108,146},{-108,18},{84,18}},
+                                              color={0,0,127}));
+  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-63.8182,
+          159.333},{0,159.333},{0,120},{60,120},{60,10},{86,10}}, color={191,0,0}));
+  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-64,
+          151.333},{-58,151.333},{-58,152},{-50,152},{-50,-10},{94,-10},{94,0}},
+                                                                        color={0,
+          127,255}));
+  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
+          151.333},{-54,151.333},{-54,-22},{98,-22},{98,0}},
+                                                    color={0,127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
-              108,200}),
+              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
+            {160,180}}), graphics={
         Text(
-          extent={{-62,152},{-12,132}},
+          extent={{-62,176},{-12,156}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p>This example demonstrates how to export a model of a convective thermal zone that will be coupled to an air-based HVAC system. The thermal zone is taken from <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">Buildings.Examples.Tutorial.SpaceCooling.System3</a>. </p>
-<p>The example extends from <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">Buildings.Fluid.FMI.RoomConvective</a> which provides the input and output signals that are needed to interface the acausal thermal zone model with causal connectors of FMI. The instance <code>theHvaAda</code> is the HVAC system adapter that contains on the right a fluid port, and on the left signal ports which are then used to connect at the top-level of the model to signal ports which are exposed at the FMU interface. </p>
+<p>This example demonstrates how to export a model 
+of a convective thermal zone that will be coupled 
+to an air-based HVAC system. The thermal zone is 
+taken from 
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>. </p>
+<p>The example extends from <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective</a> which provides 
+the input and output signals that are needed to interface 
+the acausal thermal zone model with causal connectors of FMI. 
+The instance <code>theHvaAda</code> is the HVAC system 
+adapter that contains on the right a fluid port, and on 
+the left signal ports which are then used to connect at 
+the top-level of the model to signal ports which are 
+exposed at the FMU interface. </p>
 </html>", revisions="<html>
 <ul>
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/RoomConvective.mos"
-        "Export FMU"));
+        "Simulate and plot"),
+    experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomConvective;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs.Validation;
 block RoomConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.RoomConvective(
-    redeclare final package Medium = MediumA, theHvaAda);
+    redeclare final package Medium = MediumA, nFluPor = 1);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -21,10 +21,10 @@ block RoomConvective "Simple thermal zone"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
     "Radiative temperature"
     annotation (Placement(transformation(extent={{-2,90},{-22,110}})));
-  Sources.FixedBoundary       boundary(
+  Sources.FixedBoundary bou(
     redeclare package Medium = MediumA,
     T=293.15,
-    nPorts=2) "Boundary condition"
+    nPorts=1) "Boundary condition"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
   Modelica.Blocks.Sources.Constant TDryBul(k=285.13)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -33,8 +33,6 @@ block RoomConvective "Simple thermal zone"
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
- //  parameter Integer nPorts = nPorts;
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
@@ -54,26 +52,29 @@ block RoomConvective "Simple thermal zone"
     "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
             {20,20}},
         rotation=90,
-        origin={-60,180}), iconTransformation(
+        origin={0,200}),   iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-60,180})));
+        origin={0,200})));
 equation
   connect(rooAir.y, TAir.T)
     annotation (Line(points={{99,40},{99,40},{86,40}},       color={0,0,127}));
   connect(radTem.y, TRad.T)
     annotation (Line(points={{19,100},{19,100},{0,100}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-22,100},{
-          -40,100},{-40,125.333},{-97.8,125.333}}, color={191,0,0}));
+          -40,100},{-40,144.533},{-63.8182,144.533}},
+                                                   color={191,0,0}));
   connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{64,40},{52,
-          40},{52,138.333},{-98,138.333}}, color={191,0,0}));
-  connect(boundary.ports[1:2], theHvaAda.ports) annotation (Line(points={{100,
-          -2},{100,0},{-48,0},{-48,132},{-98,132}}, color={0,127,255}));
-  connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},
-          {-60,148},{-60,180}}, color={0,0,127}));
+          40},{52,159.333},{-63.8182,159.333}},
+                                           color={191,0,0}));
+  connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},{
+          0,148},{0,200}},      color={0,0,127}));
+  connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-64,
+          151.333},{-42,151.333},{-42,152},{-34,152},{-34,0},{100,0}},
+                                                              color={0,127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
+              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
+            {160,180}}), graphics={Line(points={{-80,160},{-80,146}}, color={28,
               108,200}),
         Text(
           extent={{-62,152},{-12,132}},
@@ -91,9 +92,13 @@ equation
           extent={{98,116},{148,96}},
           lineColor={0,0,127},
           textString="TAirZon")}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p><span style=\"font-family: Sans Serif;\">This example validates that <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">Buildings.Fluid.FMI.RoomConvective</a> exports correctly as an FMU.</span></p>
+<p><span style=\"font-family: Sans Serif;\"
+>This example validates that 
+<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective</a> 
+exports correctly as an FMU.</span></p>
 </html>", revisions="<html>
 <ul>
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>

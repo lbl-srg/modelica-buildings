@@ -11,3 +11,5 @@ ResistanceVolume
 TwoPortPassThrough
 Validation
 RoomConvective
+RoomConvectiveHVACConvective
+RoomConvectiveHVACConvectiveNative
