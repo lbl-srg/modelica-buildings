@@ -296,11 +296,8 @@ equation
             {340,120}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{340,120}})),
     Documentation(info="<html>
-<p>This example is a reference model which is used 
-to validate the coupling of a convective thermal zone 
-with an air-based HVAC system. The model which is validated is in 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective</a>. </p>
+<p>This example is a reference model which is used to validate the coupling of a convective thermal zone with an air-based HVAC system. This example is similar to the example provided in the Tutorial in <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">Buildings.Examples.Tutorial.SpaceCooling.System3</a>. For details about the system model, refer to <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">Buildings.Examples.Tutorial.SpaceCooling.System3</a>. </p>
+<p>The model which is validated is in <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective\">Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvective</a>. </p>
 </html>", revisions="<html>
 <ul>
 <li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>

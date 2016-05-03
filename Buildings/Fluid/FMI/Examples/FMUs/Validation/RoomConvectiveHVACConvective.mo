@@ -34,9 +34,11 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>This example validates the coupling of a convective 
-thermal zone with an air-based HVAC system. The native 
-Modelica model which is the reference case from which 
-the component models were taken is in <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative\">
+thermal zone with an air-based HVAC system. 
+The <code>hvaCoo</code> wraps the Modelica models of the air-based system.
+The <code>rooCoo</code> wraps the Modelica models of the thermal zone.
+The Modelica models of the thermal zone and the air-based system are taken from 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative\">
 Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative</a>. </p>
 </html>", revisions="<html>
 <ul>
