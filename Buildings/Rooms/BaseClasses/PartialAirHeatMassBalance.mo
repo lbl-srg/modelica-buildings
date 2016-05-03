@@ -26,6 +26,14 @@ partial model PartialAirHeatMassBalance
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
     annotation (Placement(transformation(extent={{-280,70},{-240,110}}),
         iconTransformation(extent={{-260,90},{-240,110}})));
+
+  Modelica.Blocks.Interfaces.RealInput QCon_flow
+    "Convective sensible heat gains of the room"
+    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}})));
+  Modelica.Blocks.Interfaces.RealInput QLat_flow
+    "Latent heat gains for the room"
+    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}})));
+
   Modelica.Blocks.Interfaces.RealOutput TSha[NConExtWin](
    final unit="K",
    final quantity="ThermodynamicTemperature") if
@@ -144,7 +152,19 @@ protected
           lineColor={0,0,127},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-230,-124},{-180,-74}},
+          lineColor={0,0,127},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="QCon"),
+        Text(
+          extent={{-228,-184},{-178,-134}},
+          lineColor={0,0,127},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="QLat")}),
     Documentation(info="<html>
 <p>
 This is a partial model that is used to implement the heat and mass balance of the air.

@@ -312,6 +312,9 @@ protected
     surBou.isFloor
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
+  CFDHeatGain heaGai(final AFlo=AFlo) "Model to convert internal heat gains"
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
+
   HeatTransfer.Windows.BaseClasses.ShadingSignal shaSig[NConExtWin](
     each final haveShade=haveShade) if
        haveConExtWin "Shading signal"
@@ -342,7 +345,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
        haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
-
 equation
   connect(conBou.opa_a, surf_conBou) annotation (Line(
       points={{282,-122.667},{282,-122},{288,-122},{288,-216},{-240,-216},{-240,
@@ -729,8 +731,24 @@ equation
       smooth=Smooth.None));
 
   connect(uWin, conExtWinRad.uSta) annotation (Line(points={{-280,140},{-240,
-          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color
-        ={0,0,127}));
+          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color=
+         {0,0,127}));
+  connect(qGai_flow,heaGai. qGai_flow) annotation (Line(
+      points={{-280,80},{-222,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QCon_flow,heaGai. QCon_flow) annotation (Line(
+      points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,80},{-198,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QLat_flow,heaGai. QLat_flow) annotation (Line(
+      points={{39,-138},{-18,-138},{-18,-96},{-194,-96},{-194,74},{-198,74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaGai.QRad_flow, add.u2) annotation (Line(
+      points={{-198,86},{-152,86},{-152,114},{-142,114}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
             200}})),

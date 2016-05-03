@@ -67,8 +67,8 @@ These effects are modeled as follows:
 <ol>
 <li>
 The model
-<a href=\"modelica://Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed\">
-Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</a>
+<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance\">
+Buildings.Rooms.BaseClasses.MixedAirHeatMassBalance</a>
 is used to compute heat convection between the room air
 and the surface of opaque constructions. It is also used to compute the
 heat and mass balance of the room air.
