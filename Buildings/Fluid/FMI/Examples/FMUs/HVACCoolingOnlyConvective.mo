@@ -106,8 +106,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-32,6},{-12,26}})));
   Sources.FixedBoundary sinWat(
-    nPorts=2,
-    redeclare package Medium = MediumW) "Sink for water circuit"
+    redeclare package Medium = MediumW, nPorts=1) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
   Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
@@ -172,10 +171,6 @@ equation
       points={{-12,16},{0,16},{0,88},{-12,88}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(cooCoi.port_b1,sinWat. ports[1])    annotation (Line(
-      points={{-32,88},{-40,88},{-40,52},{-52,52}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
       points={{-132,140},{-112,140},{-112,120},{-152,120},{-152,94},{-140,94},{
           -140,94.2},{-132,94.2}},
@@ -225,15 +220,16 @@ equation
   connect(TOut,weaBus. TDryBul)
     annotation (Line(points={{-60,178},{-60,178},{-60,140}},
                                                    color={0,0,127}));
-  connect(fan.port_b, theZonAda.ports[1])
-    annotation (Line(points={{70,100},{70,100},{110,100}}, color={0,127,255}));
-  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
-          -82,84},{-54,84},{-54,74},{100,74},{100,100},{110,100}},
-                                                                 color={0,127,
-          255}));
   connect(con.u, theZonAda.TZon) annotation (Line(points={{-114,10},{-120,10},{
           -120,-20},{120,-20},{120,80},{150,80},{150,100},{132,100}}, color={0,
           0,127}));
+  connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
+          -48,50},{-40,50},{-40,88},{-32,88}}, color={0,127,255}));
+  connect(fan.port_b, theZonAda.ports[1])
+    annotation (Line(points={{70,100},{90,100},{110,100}}, color={0,127,255}));
+  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
+          -70,84},{-58,84},{-58,72},{92,72},{92,100},{110,100}}, color={0,127,
+          255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
