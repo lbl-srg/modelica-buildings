@@ -58,13 +58,26 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This example validates the coupling of a convective 
-thermal zone with an air-based HVAC system. 
-The <code>hvaCoo</code> wraps the Modelica models of the air-based system.
-The <code>rooCoo</code> wraps the Modelica models of the thermal zone.
-The Modelica models of the thermal zone and the air-based system are taken from 
+This example validates the coupling of a convective thermal zone with an air-based HVAC system. 
+</p>
+<ul>
+<li>
+The <code>hvaCoo</code> block wraps the Modelica models of the air-based system.
+</li>
+<li>
+The <code>rooCoo</code> wraps the Modelica models of the thermal zone. 
+</li>
+</ul>
+<p>The Modelica models of the thermal zone and the HVAC air-based system are taken from 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3
+</a>.
+</p>
+<p>
+The coupling is validated against the <code>refMod</code> 
+block which encapsulates the base case model 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective.BaseCase\">
+Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective.BaseCase 
 </a>. 
 </p>
 </html>", revisions="<html>

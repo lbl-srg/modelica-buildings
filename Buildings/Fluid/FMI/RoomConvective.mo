@@ -310,13 +310,9 @@ zone that is to be exported as an FMU.
 </p>
 <h4>Typical use and important parameters</h4>
 This model has a user-defined parameter <code>nFluPor</code>  
-which specifies the number of fluid ports. 
-This number should be specified prior of using this model. 
-
+which sets the number of fluid ports. 
 <p>
-<code>nFluPor</code> 
-sets the number of fluid <code>ports</code> of the container. 
-Thus to use this model, all <code>nFluPor</code>  
+To use this model, all <code>nFluPor</code>  
 <code>ports</code> need to be connected as described in example 
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.RoomConvective<
@@ -361,8 +357,8 @@ Buildings.Fluid.Sources.Outside
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
 </a>
 for a model that uses this model.
 </p>
