@@ -148,7 +148,7 @@ equation
   connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
           151.333},{-54,151.333},{-54,-20},{98,-20},{98,2}},
                                                     color={0,127,255}));
-    annotation(Dialog(tab="Assumptions"), Evaluate=true,
+    annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
         Text(

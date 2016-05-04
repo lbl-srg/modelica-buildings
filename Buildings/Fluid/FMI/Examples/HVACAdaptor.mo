@@ -84,8 +84,7 @@ equation
           -10,-22.6667},{-8.18182,-22.6667}}, color={0,0,127}));
   connect(zero.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-10,-59},{
           -10,-50},{-0.909091,-50},{-0.909091,-22.6667}}, color={0,0,127}));
- annotation (Line(points={{40,70},{76,70},
-          {76,100},{110,100}}, color={0,127,255}),
+ annotation (
     Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
     Documentation(info="<html>

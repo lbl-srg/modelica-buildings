@@ -69,7 +69,7 @@ equation
   connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-64,
           151.333},{-52,151.333},{-52,150},{-40,150},{-40,0},{100,0}}, color={0,
           127,255}));
-    annotation(Dialog(tab="Assumptions"), Evaluate=true,
+    annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
         Text(

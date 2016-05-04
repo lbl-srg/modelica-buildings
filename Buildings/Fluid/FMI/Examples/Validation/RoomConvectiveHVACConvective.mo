@@ -30,7 +30,7 @@ Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
             lineColor={28,108,200},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid,
-            textString="RefMod")}));
+            textString="refMod")}));
     end BaseCase;
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-98,48},{-66,80}})));
