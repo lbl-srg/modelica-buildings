@@ -33,7 +33,7 @@ Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
             textString="refMod")}));
     end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-98,48},{-66,80}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 equation
 
   connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-64,-12},
@@ -52,7 +52,7 @@ equation
           2},{4,2},{4,0},{64,0}}, color={0,0,127}));
   connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-64,6},{-64,6},{
           -6,6},{-6,4},{64,4}}, color={0,0,127}));
-    annotation(Dialog(tab="Assumptions"), Evaluate=true,
+    annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
