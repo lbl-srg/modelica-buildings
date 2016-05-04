@@ -5,11 +5,10 @@ model HVACAdaptor "Model for exposing a room model to the FMI interface"
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  parameter Integer nFluPor(final min = 1)
-    "Number of fluid stream coming from the HVAC system."
+  parameter Integer nFluPor(final min = 1) "Number of fluid ports."
     annotation(Dialog(connectorSizing=true));
 
-  parameter Modelica.SIunits.SpecificEnergy h_fg=
+  final parameter Modelica.SIunits.SpecificEnergy h_fg=
     Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
     annotation(Evaluate=true);
 
@@ -182,7 +181,7 @@ can only be used in <code>connect</code> statements.
     each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
     each final use_m_flow_in=true) "Boundary conditions for HVAC system"
-    annotation (Placement(transformation(extent={{-38,110},{-58,130}})));
+    annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
   Conversion.InletToAir con[nFluPor](
       redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{74,110},{54,130}})));
@@ -235,7 +234,7 @@ initial equation
 equation
 
   for i in 1:nFluPor loop
-      connect(bou[i].ports[1], ports[i]) annotation (Line(points={{-58,120},{-80,120},{-80,0},
+    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{-56,120},{-60,120},{-60,0},
           {-120,0}}, color={0,127,255}));
   end for;
   connect(QGaiCon_flow, mux.u2[1]) annotation (Line(points={{0,-160},{0,-88},{-8.88178e-16,
@@ -248,14 +247,14 @@ equation
   connect(con.inlet, supAir)
     annotation (Line(points={{75,120},{110,120}},      color={0,0,255}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
-          {-36,116}},
+          {-34,116}},
                 color={0,0,127}));
   connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{52,116},{
           -2.8,116}}, color={0,0,127}));
-  connect(bou.C_in, con.C) annotation (Line(points={{-38,112},{-34,112},{-28,
-          112},{-28,108},{26,108},{26,112},{52,112}},
+  connect(bou.C_in, con.C) annotation (Line(points={{-36,112},{-36,112},{-28,112},
+          {-28,108},{26,108},{26,112},{52,112}},
                                             color={0,0,127}));
-  connect(bou.T_in, con.T) annotation (Line(points={{-36,124},{52,124}},
+  connect(bou.T_in, con.T) annotation (Line(points={{-34,124},{52,124}},
                    color={0,0,127}));
   connect(heaPorAir, heaPorAir)
     annotation (Line(points={{-122,120},{-122,120}},
@@ -297,7 +296,7 @@ equation
           -100},{-80,-100},{-80,-40},{42,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
-    annotation (Line(points={{52,128},{52,128},{-38,128}},color={0,0,127}));
+    annotation (Line(points={{52,128},{52,128},{-36,128}},color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,

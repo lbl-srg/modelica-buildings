@@ -5,9 +5,7 @@ partial block RoomConvective "Partial block to export a room model as an FMU"
           Modelica.Media.Interfaces.PartialMedium
     "Medium model within the source"
          annotation (choicesAllMatching=true);
-  parameter Integer nFluPor( min = 1)
-    "Number of fluid stream coming from the HVAC system."
-    annotation(Dialog(connectorSizing=true));
+  parameter Integer nFluPor( min = 1) "Number of fluid ports.";
 
     model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
       parameter Boolean allowFlowReversal = true
@@ -311,15 +309,15 @@ Model that is used as a container for a thermal
 zone that is to be exported as an FMU. 
 </p>
 <h4>Typical use and important parameters</h4>
-This model has a parameter <code>nFluPor</code> which specifies 
-the number of fluid streams coming for instance from an air-based HVAC system. 
+This model has a user-defined parameter <code>nFluPor</code>  
+which specifies the number of fluid ports. 
 This number should be specified prior of using this model. 
 
 <p>
 <code>nFluPor</code> 
-sets the number of <code>ports</code> of the container. 
-Thus to use this model, a user needs to connect the <code>nFluPor</code>  
-<code>ports</code> of the container to a thermal model as described in example 
+sets the number of fluid <code>ports</code> of the container. 
+Thus to use this model, all <code>nFluPor</code>  
+<code>ports</code> need to be connected as described in example 
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.RoomConvective<
 /a>. 

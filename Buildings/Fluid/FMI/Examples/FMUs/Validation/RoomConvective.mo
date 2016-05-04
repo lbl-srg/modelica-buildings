@@ -1,7 +1,8 @@
 within Buildings.Fluid.FMI.Examples.FMUs.Validation;
 block RoomConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.RoomConvective(
-    redeclare final package Medium = MediumA, nFluPor = 1);
+    redeclare final package Medium = MediumA, nFluPor = 1,
+    theHvaAda(nFluPor=1));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -24,8 +25,8 @@ block RoomConvective "Simple thermal zone"
   Sources.FixedBoundary bou(
     redeclare package Medium = MediumA,
     T=293.15,
-    nPorts=2) "Boundary condition"
-    annotation (Placement(transformation(extent={{120,-12},{100,8}})));
+    nPorts=1) "Boundary condition"
+    annotation (Placement(transformation(extent={{120,-10},{100,10}})));
   Modelica.Blocks.Sources.Constant TDryBul(k=285.13)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
@@ -66,11 +67,11 @@ equation
                                            color={191,0,0}));
   connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},{
           0,148},{0,200}},      color={0,0,127}));
-  connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-64,
-          151.333},{-64,151.333},{-48,151.333},{-40,151.333},{-40,0},{100,0}},
-                                                              color={0,127,255}));
   connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-63.8182,
           144.667},{-60,144.667},{-60,100},{-20,100}}, color={191,0,0}));
+  connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-64,
+          151.333},{-52,151.333},{-52,150},{-40,150},{-40,0},{100,0}}, color={0,
+          127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={

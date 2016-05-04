@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
-block RoomConvective "Simple thermal zone"
+model RoomConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.RoomConvective(
-    redeclare final package Medium = MediumA, nFluPor = nFluPorts,
-    theHvaAda(nFluPor=2));
+    redeclare final package Medium = MediumA, nFluPor = nFluPorts);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -13,8 +12,7 @@ block RoomConvective "Simple thermal zone"
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Integer nFluPorts = 2
-    "Number of fluid stream coming from the HVAC system.";
+  parameter Integer nFluPorts = 2 "Number of fluid ports.";
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
@@ -100,7 +98,7 @@ block RoomConvective "Simple thermal zone"
     mSenFac=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2)
-    annotation (Placement(transformation(extent={{86,0},{106,20}})));
+    annotation (Placement(transformation(extent={{86,2},{106,22}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{132,140},{24,140}},
@@ -111,10 +109,10 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,40},{40,10},{86,10}},
+    annotation (Line(points={{40,40},{40,12},{86,12}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,60},{60,60},{60,10},{86,10}},
+    annotation (Line(points={{80,60},{60,60},{60,12},{86,12}},
                                                             color={191,0,0}));
   connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,40},{-40,40},{
           -40,140},{24,140}},
@@ -137,18 +135,18 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-85.8182,143.333},
-          {-100,143.333},{-100,14.8},{84,14.8}}, color={0,0,127}));
+          {-100,143.333},{-100,16.8},{84,16.8}}, color={0,0,127}));
   connect(theHvaAda.mWat_flow, vol.mWat_flow) annotation (Line(points={{
-          -85.8182,146},{-108,146},{-108,18},{84,18}},
+          -85.8182,146},{-108,146},{-108,20},{84,20}},
                                               color={0,0,127}));
   connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-63.8182,
-          159.333},{0,159.333},{0,120},{60,120},{60,10},{86,10}}, color={191,0,0}));
+          159.333},{0,159.333},{0,120},{60,120},{60,12},{86,12}}, color={191,0,0}));
   connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-64,
-          151.333},{-58,151.333},{-58,152},{-50,152},{-50,-10},{94,-10},{94,0}},
+          151.333},{-58,151.333},{-58,152},{-50,152},{-50,-10},{94,-10},{94,2}},
                                                                         color={0,
           127,255}));
   connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
-          151.333},{-54,151.333},{-54,-20},{98,-20},{98,0}},
+          151.333},{-54,151.333},{-54,-20},{98,-20},{98,2}},
                                                     color={0,127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},

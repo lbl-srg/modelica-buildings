@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Examples;
-block HVACAdaptor "Example of an HVACAdaptor model"
+model HVACAdaptor "Example of an HVACAdaptor model"
 extends Modelica.Icons.Example;
   Buildings.Fluid.FMI.HVACAdaptor theHvaAda(redeclare final package Medium =
         MediumA, nFluPor=1)
