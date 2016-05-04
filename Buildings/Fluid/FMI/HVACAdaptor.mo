@@ -27,7 +27,7 @@ model HVACAdaptor "Model for exposing a room model to the FMI interface"
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-   Interfaces.Inlet supAir[nFluPor](
+   Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
     each final use_p_in=false) "Fluid connector"
@@ -244,7 +244,7 @@ equation
                            color={0,0,127}));
   connect(x_i_toX.X_w, X_wZon)
     annotation (Line(points={{92,40},{92,40},{120,40}},     color={0,0,127}));
-  connect(con.inlet, supAir)
+  connect(con.inlet, fluPor)
     annotation (Line(points={{75,120},{110,120}},      color={0,0,255}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
           {-34,116}},

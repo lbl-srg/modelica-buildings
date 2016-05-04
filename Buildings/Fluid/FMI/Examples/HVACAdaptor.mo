@@ -73,7 +73,7 @@ equation
           {73,-30}}, color={0,0,127}));
   connect(sou.C_in, C.y) annotation (Line(points={{56,0},{60,0},{60,-62},{73,
           -62}},     color={0,0,127}));
-  connect(sou.outlet, theHvaAda.supAir[1]) annotation (Line(points={{33,10},{28,
+  connect(sou.outlet, theHvaAda.fluPor[1]) annotation (Line(points={{33,10},{28,
           10},{28,14.6667},{11.8182,14.6667}},
                                           color={0,0,255}));
   connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-98,0},{

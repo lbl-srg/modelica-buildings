@@ -22,7 +22,7 @@ model ThermalZoneAdaptor
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{140,-100},{100,-60}})));
 
-  Interfaces.Outlet supAir[nPorts](
+  Interfaces.Outlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
     each final use_p_in=false) "Supply air connector"
@@ -168,7 +168,7 @@ initial equation
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
 
-  connect(con.outlet, supAir)
+  connect(con.outlet, fluPor)
     annotation (Line(points={{81,70},{96,70},{110,70}},
                                                       color={0,0,255}));
   connect(senMasFlo.m_flow, con.m_flow) annotation (Line(points={{-70,11},{-70,11},
@@ -248,7 +248,7 @@ The model has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
 these flows need also be connected to <code>ports</code>.
-The model sends at the port <code>supAir</code> the mass flow rate for
+The model sends at the port <code>fluPor</code> the mass flow rate for
 each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
 air), and the trace substances. These quantities are always as if the flow

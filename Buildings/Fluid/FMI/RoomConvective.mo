@@ -191,7 +191,7 @@ First implementation.
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-   Interfaces.Inlet supAir[nFluPor](
+   Interfaces.Inlet fluPor[nFluPor](
      redeclare each final package Medium = Medium,
      each final use_p_in=false,
      each final allowFlowReversal=false) "Fluid inlet"
@@ -259,7 +259,7 @@ equation
   connect(QGaiLat_flow, theHvaAda.QGaiLat_flow) annotation (Line(points={{-180,
           -120},{-78.5455,-120},{-78.5455,140.667}},
                                        color={0,0,127}));
-  connect(theHvaAda.supAir, supAir) annotation (Line(points={{-84.9091,159.333},
+  connect(theHvaAda.fluPor, fluPor) annotation (Line(points={{-84.9091,159.333},
           {-130.5,159.333},{-130.5,160},{-170,160}},
                                              color={0,0,255}));
   connect(X_wZon, X_wZon)

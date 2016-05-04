@@ -8,7 +8,7 @@ partial block HVACConvective
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-  Interfaces.Outlet supAir[size(theZonAda.supAir, 1)](
+  Interfaces.Outlet fluPor[size(theZonAda.fluPor, 1)](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
     each final allowFlowReversal = false) "Supply air connector"
@@ -57,7 +57,7 @@ equation
           148,96},{132,96}},  color={0,0,127}));
   connect(CZon, theZonAda.CZon) annotation (Line(points={{180,40},{144,40},{144,
           92},{132,92}}, color={0,0,127}));
-  connect(theZonAda.supAir, supAir) annotation (Line(points={{131,107},{140,107},
+  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{131,107},{140,107},
           {140,140},{170,140}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
@@ -123,7 +123,7 @@ This adapter has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
 these flows need also be connected to <code>ports</code>.
-The model sends at the port <code>supAir</code> the mass flow rate for
+The model sends at the port <code>fluPor</code> the mass flow rate for
 each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
 air), and the trace substances. These quantities are always as if the flow
@@ -138,7 +138,7 @@ Q<sub>sen</sub> = max(0, &#7745;<sub>sup,air</sub>) &nbsp; c<sub>p</sub> &nbsp; 
 where
 <i>Q<sub>sen</sub></i> is the sensible heat flow rate added to the thermal zone,
 <i>&#7745;<sub>sup,air</sub></i> is the supply air mass flow rate from
-the port <code>supAir</code> (which is negative if it is an exhaust),
+the port <code>fluPor</code> (which is negative if it is an exhaust),
 <i>c<sub>p</sub></i> is the specific heat capacity at constant pressure,
 <i>T<sub>sup,air</sub></i> is the supply air temperature and
 <i>T<sub>zon</sub></i> is the zone air temperature.

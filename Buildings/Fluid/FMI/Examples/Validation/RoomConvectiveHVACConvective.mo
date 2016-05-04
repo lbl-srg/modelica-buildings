@@ -46,7 +46,7 @@ equation
     annotation (Line(points={{-60,9},{-5,9},{-5,8},{58,8}}, color={0,0,127}));
   connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{58,12},{-60,
           12}},                   color={0,0,127}));
-  connect(hvaCon.supAir, rooCon.supAir) annotation (Line(points={{-61,16},{-4,
+  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-61,16},{-4,
           16},{59,16}},     color={0,0,255}));
   connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-60,2},{-30,
           2},{4,2},{4,0},{58,0}}, color={0,0,127}));
