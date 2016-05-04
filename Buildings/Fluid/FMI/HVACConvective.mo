@@ -11,7 +11,7 @@ partial block HVACConvective
   Interfaces.Outlet fluPor[size(theZonAda.fluPor, 1)](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
-    each final allowFlowReversal = false) "Supply air connector"
+    each final allowFlowReversal = false) "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
 
   Modelica.Blocks.Interfaces.RealInput TAirZon(

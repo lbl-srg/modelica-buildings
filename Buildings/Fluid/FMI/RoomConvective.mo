@@ -194,7 +194,7 @@ First implementation.
    Interfaces.Inlet fluPor[nFluPor](
      redeclare each final package Medium = Medium,
      each final use_p_in=false,
-     each final allowFlowReversal=false) "Fluid inlet"
+     each final allowFlowReversal=false) "Fluid connector"
      annotation (Placement(transformation(extent={{-180,150},{-160,170}}),
         iconTransformation(extent={{-180,150},{-160,170}})));
 

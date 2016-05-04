@@ -25,7 +25,7 @@ model ThermalZoneAdaptor
   Interfaces.Outlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
-    each final use_p_in=false) "Supply air connector"
+    each final use_p_in=false) "Fluid connector"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
@@ -61,8 +61,7 @@ protected
   RealVectorExpression XiSup[nPorts](
     each final n = Medium.nXi,
     final y={inStream(ports[i].Xi_outflow) for i in 1:nPorts}) if
-       Medium.nXi > 0
-    "Water vapor concentration of supply air"
+       Medium.nXi > 0 "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
   RealVectorExpression CSup[nPorts](
