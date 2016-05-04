@@ -4,9 +4,9 @@ model RoomConvectiveHVACConvective
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
-    annotation (Placement(transformation(extent={{-94,-14},{-62,18}})));
+    annotation (Placement(transformation(extent={{-98,-14},{-66,18}})));
   Buildings.Fluid.FMI.Examples.FMUs.RoomConvective rooCon
-    annotation (Placement(transformation(extent={{60,-14},{92,18}})));
+    annotation (Placement(transformation(extent={{66,-14},{98,18}})));
     model BaseCase "Base model used for the validation of the FMI interfaces"
       extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
@@ -33,25 +33,25 @@ Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
             textString="RefMod")}));
     end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
+    annotation (Placement(transformation(extent={{-98,48},{-66,80}})));
 equation
 
-  connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-60,-12},
-          {-12,-12},{58,-12}},                         color={0,0,127}));
-  connect(hvaCon.QGaiCon_flow, rooCon.QGaiCon_flow) annotation (Line(points={{-60,-7},
-          {-8,-7},{-8,-8},{58,-8}},         color={0,0,127}));
-  connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{58,-4},
-          {-2,-4},{-2,-2},{-60,-2}},          color={0,0,127}));
+  connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-64,-12},
+          {-64,-12},{64,-12}},                         color={0,0,127}));
+  connect(hvaCon.QGaiCon_flow, rooCon.QGaiCon_flow) annotation (Line(points={{-64,-7},
+          {-8,-7},{-8,-8},{64,-8}},         color={0,0,127}));
+  connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{64,-4},
+          {-2,-4},{-2,-2},{-64,-2}},          color={0,0,127}));
   connect(hvaCon.X_wZon, rooCon.X_wZon)
-    annotation (Line(points={{-60,9},{-5,9},{-5,8},{58,8}}, color={0,0,127}));
-  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{58,12},{-60,
+    annotation (Line(points={{-64,9},{-5,9},{-5,8},{64,8}}, color={0,0,127}));
+  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{64,12},{-64,
           12}},                   color={0,0,127}));
-  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-61,16},{-4,
-          16},{59,16}},     color={0,0,255}));
-  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-60,2},{-30,
-          2},{4,2},{4,0},{58,0}}, color={0,0,127}));
-  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-60,6},{-34,6},{
-          -6,6},{-6,4},{58,4}}, color={0,0,127}));
+  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-65,16},{-65,
+          16},{65,16}},     color={0,0,255}));
+  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-64,2},{-64,
+          2},{4,2},{4,0},{64,0}}, color={0,0,127}));
+  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-64,6},{-64,6},{
+          -6,6},{-6,4},{64,4}}, color={0,0,127}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
