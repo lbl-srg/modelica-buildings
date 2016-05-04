@@ -1,0 +1,10 @@
+last-generated=2016-05-04
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+theHvaAda.TZon=[295.1300048828125, 295.1300048828125]
+time=[0., 1.]
+theHvaAda.X_wZon=[0.00999999977648258209, 0.00999999977648258209]
