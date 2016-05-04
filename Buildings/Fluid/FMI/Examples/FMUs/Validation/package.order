@@ -10,4 +10,15 @@ HVACConvectiveSimpleAir3
 HVACConvectiveSimpleAir4
 HVACConvectiveSimpleAir5
 HVACConvectiveSimpleAir6
-RoomConvective
+RoomConvectiveAir1
+RoomConvectiveAir2
+RoomConvectiveAir3
+RoomConvectiveAir4
+RoomConvectiveAir5
+RoomConvectiveAir6
+RoomConvectiveSimpleAir1
+RoomConvectiveSimpleAir2
+RoomConvectiveSimpleAir3
+RoomConvectiveSimpleAir4
+RoomConvectiveSimpleAir5
+RoomConvectiveSimpleAir6

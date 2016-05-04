@@ -1,11 +1,8 @@
 within Buildings.Fluid.FMI.Examples.FMUs.Validation;
-block RoomConvective "Simple thermal zone"
+block RoomConvectiveAir1 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.RoomConvective(
-    redeclare final package Medium = MediumA, nFluPor = 1,
+    redeclare package Medium = Buildings.Media.Air, nFluPor = 1,
     theHvaAda(nFluPor=1));
-
-  replaceable package MediumA = Buildings.Media.Air "Medium for air";
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
 
@@ -23,7 +20,7 @@ block RoomConvective "Simple thermal zone"
     "Radiative temperature"
     annotation (Placement(transformation(extent={{0,90},{-20,110}})));
   Sources.FixedBoundary bou(
-    redeclare package Medium = MediumA,
+    redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Boundary condition"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
@@ -31,7 +28,7 @@ block RoomConvective "Simple thermal zone"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,100})));
-  parameter Boolean allowFlowReversal = false
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -93,6 +90,6 @@ exports correctly as an FMU.
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveAir1.mos"
         "Export FMU"));
-end RoomConvective;
+end RoomConvectiveAir1;
