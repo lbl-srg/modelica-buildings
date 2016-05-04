@@ -306,34 +306,45 @@ equation
           textString="rooCon")}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p>Model that is used as a container for a thermal 
-zone that is to be exported as an FMU. </p>
+<p>
+Model that is used as a container for a thermal 
+zone that is to be exported as an FMU. 
+</p>
 <h4>Typical use and important parameters</h4>
 This model has a parameter <code>nFluPor</code> which specifies 
 the number of fluid streams coming for instance from an air-based HVAC system. 
-This number should be specified prior of using this model. <code>nFluPor</code> 
+This number should be specified prior of using this model. 
+
+<p>
+<code>nFluPor</code> 
 sets the number of <code>ports</code> of the container. 
 Thus to use this model, a user needs to connect the <code>nFluPor</code>  
 <code>ports</code> of the container to a thermal model as described in example 
- <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective</a>. 
-
-<p>To use this model as a container for an FMU, simply extend from this model, 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective<
+/a>. 
+</p>
+<p>
+To use this model as a container for an FMU, simply extend from this model, 
 rather than instantiate it, and add your thermal zone. By extending from this model, 
 the top-level signal connectors on the left stay at the top-level, 
-and hence will be visible at the FMI interface.The example
- <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective</a> 
+and hence will be visible at the FMI interface.The example 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
+</a> 
 shows how a simple convective thermal zone system can be implemented 
 and exported as an FMU. 
 The example 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvectiveHVACConvective</a> 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
+</a> 
 shows conceptually how such an FMU can then be connected to a HVAC system
  that has signal flow. 
 </p>
-<p>The conversion between the fluid ports and signal ports is done in the HVAC 
-adapter <code>theHvaAda</code>. </p>
+<p>
+The conversion between the fluid ports and signal ports is done in the HVAC 
+adapter <code>theHvaAda</code>. 
+</p>
 <h4>Assumption and limitations</h4>
 <p>
 The mass flow rates at <code>ports</code> sum to zero, hence this
@@ -346,13 +357,15 @@ The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the thermal zone is connected
 to a model that sets a pressure boundary condition such as
 <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
-Buildings.Fluid.Sources.Outside</a>.
+Buildings.Fluid.Sources.Outside
+</a>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 See
 <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective</a>
+Buildings.Fluid.FMI.RoomConvective
+</a>
 for a model that uses this model.
 </p>
 </html>", revisions="<html>

@@ -20,12 +20,12 @@ block RoomConvective "Simple thermal zone"
     annotation (Placement(transformation(extent={{40,90},{20,110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
     "Radiative temperature"
-    annotation (Placement(transformation(extent={{-2,90},{-22,110}})));
+    annotation (Placement(transformation(extent={{0,90},{-20,110}})));
   Sources.FixedBoundary bou(
     redeclare package Medium = MediumA,
     T=293.15,
-    nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{120,-10},{100,10}})));
+    nPorts=2) "Boundary condition"
+    annotation (Placement(transformation(extent={{120,-12},{100,8}})));
   Modelica.Blocks.Sources.Constant TDryBul(k=285.13)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
@@ -60,18 +60,17 @@ equation
   connect(rooAir.y, TAir.T)
     annotation (Line(points={{99,40},{99,40},{86,40}},       color={0,0,127}));
   connect(radTem.y, TRad.T)
-    annotation (Line(points={{19,100},{19,100},{0,100}}, color={0,0,127}));
-  connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-22,100},{
-          -40,100},{-40,144.667},{-63.8182,144.667}},
-                                                   color={191,0,0}));
-  connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{64,40},{52,
-          40},{52,159.333},{-63.8182,159.333}},
+    annotation (Line(points={{19,100},{19,100},{2,100}}, color={0,0,127}));
+  connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{64,40},{60,
+          40},{60,159.333},{-63.8182,159.333}},
                                            color={191,0,0}));
   connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},{
           0,148},{0,200}},      color={0,0,127}));
   connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-64,
-          151.333},{-42,151.333},{-42,152},{-34,152},{-34,0},{100,0}},
+          151.333},{-64,151.333},{-48,151.333},{-40,151.333},{-40,0},{100,0}},
                                                               color={0,127,255}));
+  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-63.8182,
+          144.667},{-60,144.667},{-60,100},{-20,100}}, color={191,0,0}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
@@ -81,11 +80,13 @@ equation
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p><span style=\"font-family: Sans Serif;\"
->This example validates that 
+<p>
+This example validates that 
 <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective</a> 
-exports correctly as an FMU.</span></p>
+Buildings.Fluid.FMI.RoomConvective
+</a> 
+exports correctly as an FMU.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>

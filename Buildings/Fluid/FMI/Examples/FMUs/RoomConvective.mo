@@ -71,27 +71,27 @@ block RoomConvective "Simple thermal zone"
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{152,134},{132,154}})));
+    annotation (Placement(transformation(extent={{152,130},{132,150}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{14,134},{34,154}})));
+    annotation (Placement(transformation(extent={{14,130},{34,150}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
             {20,20}},
         rotation=90,
-        origin={-28,200}), iconTransformation(
+        origin={-20,200}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-28,200})));
+        origin={-20,200})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut1
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,22},{0,42}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,22},{40,42}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{100,60},{80,80}})));
+    annotation (Placement(transformation(extent={{100,50},{80,70}})));
   MixingVolumes.MixingVolumeMoistAir
                                    vol(
     redeclare package Medium = MediumA,
@@ -103,7 +103,7 @@ block RoomConvective "Simple thermal zone"
     annotation (Placement(transformation(extent={{86,0},{106,20}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{132,144},{24,144}},
+      points={{132,140},{24,140}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -111,25 +111,25 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,32},{40,10},{86,10}},
+    annotation (Line(points={{40,40},{40,10},{86,10}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,70},{60,70},{60,10},{86,10}},
+    annotation (Line(points={{80,60},{60,60},{60,10},{86,10}},
                                                             color={191,0,0}));
-  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,32},{-40,32},{-40,
-          144},{24,144}}, color={0,0,127}), Text(
+  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,40},{-40,40},{
+          -40,140},{24,140}},
+                          color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
-    annotation (Line(points={{0,32},{0,32},{20,32}}, color={191,0,0}));
+    annotation (Line(points={{0,40},{0,40},{20,40}}, color={191,0,0}));
   connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-63.8182,
-          144.533},{-28,144.533},{-28,90},{-20,90}},
-                                            color={191,0,0}));
+          144.667},{-20,144.667},{-20,90}}, color={191,0,0}));
   connect(TRad.T, radTem.y)
     annotation (Line(points={{2,90},{19,90}}, color={0,0,127}));
   connect(weaBus.TDryBul, TOut) annotation (Line(
-      points={{24,144},{-4,144},{-28,144},{-28,200}},
+      points={{24,140},{-4,140},{-20,140},{-20,200}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -148,7 +148,7 @@ equation
                                                                         color={0,
           127,255}));
   connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
-          151.333},{-54,151.333},{-54,-22},{98,-22},{98,0}},
+          151.333},{-54,151.333},{-54,-20},{98,-20},{98,0}},
                                                     color={0,127,255}));
     annotation(Dialog(tab="Assumptions"), Evaluate=true,
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
@@ -159,21 +159,29 @@ equation
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p>This example demonstrates how to export a model 
+<p>
+This example demonstrates how to export a model 
 of a convective thermal zone that will be coupled 
 to an air-based HVAC system. The thermal zone is 
 taken from 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>. </p>
-<p>The example extends from <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective</a> which provides 
+Buildings.Examples.Tutorial.SpaceCooling.System3
+</a>. 
+</p>
+<p>
+The example extends from 
+<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective
+</a> 
+which provides 
 the input and output signals that are needed to interface 
 the acausal thermal zone model with causal connectors of FMI. 
 The instance <code>theHvaAda</code> is the HVAC system 
 adapter that contains on the right a fluid port, and on 
 the left signal ports which are then used to connect at 
 the top-level of the model to signal ports which are 
-exposed at the FMU interface. </p>
+exposed at the FMU interface. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>

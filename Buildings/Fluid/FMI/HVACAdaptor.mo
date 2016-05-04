@@ -185,7 +185,7 @@ can only be used in <code>connect</code> statements.
     annotation (Placement(transformation(extent={{-38,110},{-58,130}})));
   Conversion.InletToAir con[nFluPor](
       redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{54,110},{74,130}})));
+    annotation (Placement(transformation(extent={{74,110},{54,130}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRad
     "Radiative temperature sensor"
@@ -250,12 +250,12 @@ equation
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
           {-36,116}},
                 color={0,0,127}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{52,116},{-2.8,
-          116}},      color={0,0,127}));
-  connect(bou.C_in, con.C) annotation (Line(points={{-38,112},{-34,112},{-28,112},
-          {-28,108},{26,108},{26,112},{52,112}},
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{52,116},{
+          -2.8,116}}, color={0,0,127}));
+  connect(bou.C_in, con.C) annotation (Line(points={{-38,112},{-34,112},{-28,
+          112},{-28,108},{26,108},{26,112},{52,112}},
                                             color={0,0,127}));
-  connect(bou.T_in, con.T) annotation (Line(points={{-36,124},{52,124},{52,124}},
+  connect(bou.T_in, con.T) annotation (Line(points={{-36,124},{52,124}},
                    color={0,0,127}));
   connect(heaPorAir, heaPorAir)
     annotation (Line(points={{-122,120},{-122,120}},
@@ -343,22 +343,36 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Model that is used as an adapter between a thermal 
+<p>
+Model that is used as an adapter between a thermal 
 zone that uses fluid ports and an HVAC system that 
-uses input and output signals as needed for an FMU. </p>
+uses input and output signals as needed for an FMU. 
+</p>
 <h4>Assumption and limitations</h4>
-<p>The mass flow rates at <code>ports</code> sum to zero, 
-hence this model conserves mass. </p>
-<p>This model does not impose any pressure, other than 
+<p>
+The mass flow rates at <code>ports</code> sum to zero, 
+hence this model conserves mass. 
+</p>
+<p>
+This model does not impose any pressure, other than 
 setting the pressure of all fluid connections 
 to <code>ports</code> to be equal. The reason is that setting 
 a pressure can lead to non-physical system models, 
 for example if a mass flow rate is imposed and the thermal 
 zone is connected to a model that sets a pressure boundary condition such 
-as <a href=\"modelica://Buildings.Fluid.Sources.Outside\">Buildings.Fluid.Sources.Outside</a>.</p>
+as 
+<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+Buildings.Fluid.Sources.Outside
+</a>.
+</p>
 <h4>Typical use and important parameters</h4>
-<p>See <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">Buildings.Fluid.FMI.RoomConvective</a> 
-for a model that uses this model. </p>
+<p>
+See 
+<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective
+</a> 
+for a model that uses this model. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

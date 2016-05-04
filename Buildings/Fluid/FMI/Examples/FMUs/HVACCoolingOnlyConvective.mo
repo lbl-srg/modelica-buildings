@@ -61,7 +61,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal) "Supply air fan"
-    annotation (Placement(transformation(extent={{48,90},{68,110}})));
+    annotation (Placement(transformation(extent={{50,90},{70,110}})));
   HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumA,
@@ -94,7 +94,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-22,90})));
+        origin={-22,94})));
   Sources.Outside out(
     nPorts=2,
     redeclare package Medium = MediumA) "Outside air boundary condition"
@@ -111,7 +111,7 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
   Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
-    annotation (Placement(transformation(extent={{8,116},{28,136}})));
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Sensors.TemperatureTwoPort senTemHXOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -169,11 +169,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1],cooCoi. port_a1)   annotation (Line(
-      points={{-12,16},{8,16},{8,84},{-12,84}},
+      points={{-12,16},{0,16},{0,88},{-12,88}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b1,sinWat. ports[1])    annotation (Line(
-      points={{-32,84},{-42,84},{-42,52},{-52,52}},
+      points={{-32,88},{-40,88},{-40,52},{-52,52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
@@ -183,7 +183,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(fan.m_flow_in,mAir_flow. y) annotation (Line(
-      points={{57.8,112},{57.8,126},{29,126}},
+      points={{59.8,112},{59.8,140},{21,140}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1,senTemHXOut. port_a) annotation (Line(
@@ -191,15 +191,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHXOut.port_b,cooCoi. port_a2) annotation (Line(
-      points={{-56,100},{-42,100},{-42,96},{-32,96}},
+      points={{-56,100},{-32,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2,senTemSupAir. port_a) annotation (Line(
-      points={{-12,96},{2,96},{2,100},{14,100}},
+      points={{-12,100},{14,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemSupAir.port_b,fan. port_a) annotation (Line(
-      points={{26,100},{48,100}},
+      points={{26,100},{50,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRooSetPoi.y,con. reference) annotation (Line(
@@ -226,12 +226,13 @@ equation
     annotation (Line(points={{-60,178},{-60,178},{-60,140}},
                                                    color={0,0,127}));
   connect(fan.port_b, theZonAda.ports[1])
-    annotation (Line(points={{68,100},{82,100},{110,100}}, color={0,127,255}));
+    annotation (Line(points={{70,100},{70,100},{110,100}}, color={0,127,255}));
   connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
-          -70,84},{-56,84},{-56,74},{98,74},{98,100},{110,100}}, color={0,127,
+          -82,84},{-54,84},{-54,74},{100,74},{100,100},{110,100}},
+                                                                 color={0,127,
           255}));
   connect(con.u, theZonAda.TZon) annotation (Line(points={{-114,10},{-120,10},{
-          -120,-18},{120,-18},{120,84},{152,84},{152,100},{132,100}}, color={0,
+          -120,-20},{120,-20},{120,80},{150,80},{150,100},{132,100}}, color={0,
           0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
@@ -245,18 +246,14 @@ equation
 This example demonstrates how to export a model of an HVAC system
 that only provides convective cooling to a thermal zone.
 The HVAC system is taken from
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative\">
-Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative</a> which is 
-similar to the example provided in the Tutorial in 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>. For details
-about the system model, refer to <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>
 </p>
 <p>
 The example extends from
 <a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
-Buildings.Fluid.FMI.HVACConvective</a>
+Buildings.Fluid.FMI.HVACConvective
+</a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
 The instance <code>theZonAda</code> is the thermal zone adapter

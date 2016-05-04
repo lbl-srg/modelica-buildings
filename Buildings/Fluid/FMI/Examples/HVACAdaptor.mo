@@ -1,16 +1,16 @@
 within Buildings.Fluid.FMI.Examples;
-block HVACAdaptor "Validation model for the convective HVAC system"
+block HVACAdaptor "Example of an HVACAdaptor model"
 extends Modelica.Icons.Example;
   Buildings.Fluid.FMI.HVACAdaptor theHvaAda(redeclare final package Medium =
         MediumA, nFluPor=1)
-    annotation (Placement(transformation(extent={{-28,-20},{12,20}})));
+    annotation (Placement(transformation(extent={{-30,-20},{10,20}})));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 protected
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-8,-80})));
+        origin={-10,-70})));
 public
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
@@ -24,7 +24,7 @@ public
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAir
     "Room air temperature"
-    annotation (Placement(transformation(extent={{-62,30},{-42,50}})));
+    annotation (Placement(transformation(extent={{-64,30},{-44,50}})));
   Modelica.Blocks.Sources.Constant radTem(k=298.13)
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
@@ -34,7 +34,7 @@ public
     redeclare package Medium = MediumA,
     T=293.15,
     nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{-118,-8},{-98,12}})));
+    annotation (Placement(transformation(extent={{-118,-10},{-98,10}})));
   Source_T sou(
     redeclare package Medium = MediumA,
     use_p_in=use_p_in,
@@ -53,49 +53,48 @@ public
      MediumA.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{94,-72},{74,-52}})));
 equation
-  connect(zero.y, theHvaAda.QGaiCon_flow)
-    annotation (Line(points={{-8,-69},{-8,-46},{-8,-22.6667},{-6.18182,-22.6667}},
-                                                    color={0,0,127}));
-  connect(zero.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-8,-69},{-8,
-          -56},{1.09091,-56},{1.09091,-22.6667}},
-                                   color={0,0,127}));
-  connect(zero.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-8,-69},{-8,
-          -56},{-13.4545,-56},{-13.4545,-22.6667}},
-                                     color={0,0,127}));
   connect(rooAir.y, TAir.T)
-    annotation (Line(points={{-79,40},{-79,40},{-64,40}}, color={0,0,127}));
-  connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{-42,40},{
-          -38,40},{-38,14.6667},{-28.3636,14.6667}},
+    annotation (Line(points={{-79,40},{-79,40},{-66,40}}, color={0,0,127}));
+  connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{-44,40},{
+          -40,40},{-40,14.6667},{-30.3636,14.6667}},
                                             color={191,0,0}));
   connect(radTem.y, TRad.T)
     annotation (Line(points={{-79,-40},{-68,-40}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-46,-40},{
-          -38,-40},{-38,-14.9333},{-28.3636,-14.9333}},
+          -40,-40},{-40,-14.6667},{-30.3636,-14.6667}},
                                                color={191,0,0}));
-  connect(sou.m_flow_in, m_flow.y) annotation (Line(points={{56,20},{56,20},{62,
-          20},{64,20},{64,70},{73,70}},
-                                color={0,0,127}));
+  connect(sou.m_flow_in, m_flow.y) annotation (Line(points={{56,20},{58,20},{60,
+          20},{60,70},{73,70}}, color={0,0,127}));
   connect(sou.p_in, pIn.y) annotation (Line(points={{56,14.8},{70,14.8},{70,40},
           {73,40}}, color={0,127,127}));
   connect(sou.T_in, TIn.y)
     annotation (Line(points={{56,10},{56,10},{73,10}}, color={0,0,127}));
   connect(sou.X_w_in, X_w_in.y) annotation (Line(points={{56,5},{70,5},{70,-30},
           {73,-30}}, color={0,0,127}));
-  connect(sou.C_in, C.y) annotation (Line(points={{56,0},{66,0},{66,-62},{73,-62}},
-                     color={0,0,127}));
+  connect(sou.C_in, C.y) annotation (Line(points={{56,0},{60,0},{60,-62},{73,
+          -62}},     color={0,0,127}));
   connect(sou.outlet, theHvaAda.supAir[1]) annotation (Line(points={{33,10},{28,
-          10},{28,14.6667},{13.8182,14.6667}},
+          10},{28,14.6667},{11.8182,14.6667}},
                                           color={0,0,255}));
-  connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-28,
-          -1.33333},{-64,-1.33333},{-64,2},{-98,2}}, color={0,127,255}));
+  connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-98,0},{
+          -30,0},{-30,-1.33333}}, color={0,127,255}));
+  connect(zero.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-10,-59},{
+          -10,-50},{-15.4545,-50},{-15.4545,-22.6667}}, color={0,0,127}));
+  connect(zero.y, theHvaAda.QGaiCon_flow) annotation (Line(points={{-10,-59},{
+          -10,-22.6667},{-8.18182,-22.6667}}, color={0,0,127}));
+  connect(zero.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-10,-59},{
+          -10,-50},{-0.909091,-50},{-0.909091,-22.6667}}, color={0,0,127}));
  annotation (Line(points={{40,70},{76,70},
           {76,100},{110,100}}, color={0,127,255}),
     Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
     Documentation(info="<html>
-<p>This example demonstrates how to 
+<p>
+This example demonstrates how to 
 use the <a href=\"modelica://Buildings.Fluid.FMI.HVACAdaptor\">
-Buildings.Fluid.FMI.HVACAdaptor</a>. </p>
+Buildings.Fluid.FMI.HVACAdaptor
+</a>. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>

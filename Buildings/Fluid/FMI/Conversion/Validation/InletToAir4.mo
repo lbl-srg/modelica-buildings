@@ -7,8 +7,12 @@ model InletToAir4
 <p>
 This example validates the conversion model
 <a href=\"modelica://Buildings.Fluid.FMI.Conversion.InletToAir\">
-Buildings.Fluid.FMI.Conversion.InletToAir</a>. 
-The medium used is <a href=\"modelica://Buildings.Media.Air\">Modelica.Media.Air.SimpleAir</a>
+Buildings.Fluid.FMI.Conversion.InletToAir
+</a>. 
+The medium used is 
+<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
+Modelica.Media.Air.SimpleAir
+</a>
 with <code>C02</code> trace substances.
 </p>
 </html>", revisions="<html>

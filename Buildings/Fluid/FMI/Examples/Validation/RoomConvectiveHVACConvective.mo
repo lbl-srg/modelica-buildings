@@ -1,19 +1,39 @@
-within Buildings.Fluid.FMI.Examples.FMUs.Validation;
+within Buildings.Fluid.FMI.Examples.Validation;
 block RoomConvectiveHVACConvective
   "Simple thermal zone with convective HVAC system."
-  import Buildings;
  extends Modelica.Icons.Example;
 
-  HVACCoolingOnlyConvective hvaCon
+  Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
     annotation (Placement(transformation(extent={{-94,-8},{-62,24}})));
   Buildings.Fluid.FMI.Examples.FMUs.RoomConvective rooCon
     annotation (Placement(transformation(extent={{60,-10},{92,22}})));
     model BaseCase "Base model used for the validation of the FMI interfaces"
       extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    annotation (Documentation(info="<html>
+<p>
+This example is the base model which is used to validate 
+the coupling of a convective thermal zone with an air-based HVAC system. 
+</p>
+<p>
+The model which is validated is in 
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
+</a>. 
+</p>
+</html>"), Icon(graphics={Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={28,108,200},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid), Text(
+            extent={{-62,44},{52,-26}},
+            lineColor={28,108,200},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            textString="RefMod")}));
     end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
 equation
 
   connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-60,-6},
@@ -39,19 +59,22 @@ equation
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-<p>This example validates the coupling of a convective 
+<p>
+This example validates the coupling of a convective 
 thermal zone with an air-based HVAC system. 
 The <code>hvaCoo</code> wraps the Modelica models of the air-based system.
 The <code>rooCoo</code> wraps the Modelica models of the thermal zone.
 The Modelica models of the thermal zone and the air-based system are taken from 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative\">
-Buildings.Fluid.FMI.Examples.FMUs.Validation.RoomConvectiveHVACConvectiveNative</a>. </p>
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+Buildings.Examples.Tutorial.SpaceCooling.System3
+</a>. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveHVACConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/Validation/RoomConvectiveHVACConvective.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomConvectiveHVACConvective;

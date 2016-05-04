@@ -17,7 +17,7 @@ model InletToAir1
 
   Buildings.Fluid.FMI.Conversion.InletToAir conAir(redeclare package Medium =
         Medium) "Converter for air"
-    annotation (Placement(transformation(extent={{38,0},{18,20}})));
+    annotation (Placement(transformation(extent={{18,0},{38,20}})));
 
   Source_T sou(
     redeclare package Medium = Medium,
@@ -31,30 +31,34 @@ model InletToAir1
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
-    annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
-  connect(m_flow.y, sou.m_flow_in) annotation (Line(points={{-59,80},{-34,80},{
-          -34,20},{-22,20}},
+  connect(m_flow.y, sou.m_flow_in) annotation (Line(points={{-59,80},{-40,80},{
+          -40,20},{-22,20}},
                          color={0,0,127}));
   connect(sou.outlet, conAir.inlet)
     annotation (Line(points={{1,10},{1,10},{17,10}},  color={0,0,255}));
-  connect(sou.T_in, T.y) annotation (Line(points={{-22,10},{-36,10},{-36,0},{
+  connect(sou.T_in, T.y) annotation (Line(points={{-22,10},{-50,10},{-50,0},{
           -59,0}},
                 color={0,0,127}));
-  connect(pIn.y, sou.p_in) annotation (Line(points={{-59,40},{-38,40},{-38,14.8},
+  connect(pIn.y, sou.p_in) annotation (Line(points={{-59,40},{-50,40},{-50,14.8},
           {-22,14.8}}, color={0,0,127}));
-  connect(X_w_in.y, sou.X_w_in) annotation (Line(points={{-59,-40},{-32,-40},{
-          -32,5},{-22,5}},
+  connect(X_w_in.y, sou.X_w_in) annotation (Line(points={{-59,-40},{-40,-40},{
+          -40,5},{-22,5}},
                        color={0,0,127}));
-  connect(C.y, sou.C_in) annotation (Line(points={{-59,-76},{-44,-76},{-28,-76},
+  connect(C.y, sou.C_in) annotation (Line(points={{-59,-80},{-44,-80},{-28,-80},
           {-28,0},{-22,0}}, color={0,0,127}));
 annotation (
     Documentation(info="<html>
 <p>
 This example validates the conversion model
 <a href=\"modelica://Buildings.Fluid.FMI.Conversion.InletToAir\">
-Buildings.Fluid.FMI.Conversion.InletToAir</a>. The medium used is  
-<a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a>
+Buildings.Fluid.FMI.Conversion.InletToAir
+</a>. 
+The medium used is  
+<a href=\"modelica://Buildings.Media.Air\">
+Buildings.Media.Air
+</a>
 without trace substances.
 </p>
 </html>", revisions="<html>
