@@ -13,7 +13,10 @@ exports correctly as an FMU.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+May 03, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveSimpleAir1.mos"

@@ -97,7 +97,10 @@ Buildings.Fluid.FMI.HVACAdaptor
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+April 28, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HVACAdaptor.mos"

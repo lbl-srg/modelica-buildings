@@ -76,7 +76,10 @@ for its usage.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
     Icon(graphics={

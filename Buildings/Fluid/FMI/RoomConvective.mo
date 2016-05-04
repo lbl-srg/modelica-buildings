@@ -315,8 +315,8 @@ which sets the number of fluid ports.
 To use this model, all <code>nFluPor</code>  
 <code>ports</code> need to be connected as described in example 
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective<
-/a>. 
+Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
+</a>. 
 </p>
 <p>
 To use this model as a container for an FMU, simply extend from this model, 
@@ -332,8 +332,8 @@ The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective\">
 Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
 </a> 
-shows conceptually how such an FMU can then be connected to a HVAC system
- that has signal flow. 
+shows conceptually how such an FMU can then be connected to a HVAC system 
+that has signal flow. 
 </p>
 <p>
 The conversion between the fluid ports and signal ports is done in the HVAC 
@@ -364,7 +364,10 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 27, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end RoomConvective;

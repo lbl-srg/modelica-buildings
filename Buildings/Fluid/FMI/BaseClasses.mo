@@ -82,7 +82,10 @@ can only be used in <code>connect</code> statements.
 
     annotation (Documentation(revisions="<html>
 <ul>
-<li>April 28, 2016, by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+April 28, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>",   info="<html>
 <p>
@@ -90,14 +93,10 @@ Block that converts enthalpy to temperature scalar input.
 </p>
 </html>"));
   end hOut_toT;
-  annotation (Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
 <a href=\"modelica://Buildings.Fluid.FMI\">Buildings.Fluid.FMI</a>.
 </p>
-</html>", revisions="<html>
-<ul>
-<li><span style=\"font-family: Sans Serif;\">April 28, 2016 by Thierry S. Nouidui:<br>First implementation. </span></li>
-</ul>
 </html>"));
 end BaseClasses;

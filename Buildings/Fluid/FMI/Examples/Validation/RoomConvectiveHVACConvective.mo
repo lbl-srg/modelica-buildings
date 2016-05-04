@@ -82,7 +82,10 @@ Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective.BaseCase
 </p>
 </html>", revisions="<html>
 <ul>
-<li>May 02, 2016 by Thierry S. Nouidui:<br>First implementation. </li>
+<li>
+May 03, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/Validation/RoomConvectiveHVACConvective.mos"
