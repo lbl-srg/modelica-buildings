@@ -3,6 +3,5 @@ HVACAdaptor
 HeaterFan
 HeaterFanPressureDriven
 HeaterFan_noReverseFlow
-SpaceCooling
 FMUs
 Validation

@@ -1,8 +1,8 @@
 within Buildings.Fluid.FMI.Examples.FMUs.Validation;
-block RoomConvectiveSimpleAir2 "Validation of simple thermal zone"
+block RoomConvectiveMoistAir5 "Validation of simple thermal zone"
   extends RoomConvectiveAir1(
-    redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    allowFlowReversal = false);
+    redeclare package Medium = Modelica.Media.Air.MoistAir(extraPropertiesNames={"CO2", "VOC"}),
+    allowFlowReversal = true);
   annotation (Documentation(info="<html>
 <p>
 This example validates that 
@@ -19,6 +19,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveSimpleAir2.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/Validation/RoomConvectiveSimpleAir5.mos"
         "Export FMU"));
-end RoomConvectiveSimpleAir2;
+end RoomConvectiveMoistAir5;
