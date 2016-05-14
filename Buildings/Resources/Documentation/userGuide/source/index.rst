@@ -19,8 +19,6 @@ This is the main page
    acknowledgments
    disclaimer
    legal
-   python
-   publication
 
 
 
