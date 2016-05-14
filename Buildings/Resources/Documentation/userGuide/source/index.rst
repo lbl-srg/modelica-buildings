@@ -8,7 +8,6 @@ This is the main page
 .. toctree::
    :hidden:
    
-   download
    userGuideIntro
    gettingStarted
    bestPractice
