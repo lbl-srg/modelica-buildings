@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Modelica Buildings library'
-copyright = u'2012-2015, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
+copyright = u'2012-2016, The Regents of the University of California (through Lawrence Berkeley National Laboratory)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -101,12 +101,13 @@ import sphinx_bootstrap_theme
 # Activate the theme.
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+print "*********** {}".format(html_theme_path)
 html_logo = 'lbl-logo.png'
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
 html_theme_options = {
     # Navigation bar title. (Default: ``project`` value)
-    'navbar_title': "Modelica Buildings library",
+    'navbar_title': " ", # Leave an empty space to avoid title under image.
 
     # Tab name for entire site. (Default: "Site")
     'navbar_site_name': "Site",
@@ -119,13 +120,13 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Home", "index"),
+        ("Home", "http://simulationresearch.lbl.gov/modelica"),
         ("User Guide", "userGuideIntro"),
-        ("Download", "download"),
-        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
-        ("Development", "https://github.com/lbl-srg/modelica-buildings", True),
-        ("Publications", "publications"),
-        ("Help", "help"),
+#        ("Download", "download"),
+#        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
+#        ("Development", "https://github.com/lbl-srg/modelica-buildings", True),
+#        ("Publications", "publications"),
+#        ("Help", "help"),
     ],
 
 #    'navbar_links': [
@@ -157,15 +158,15 @@ html_theme_options = {
 
     # HTML navbar class (Default: "navbar") to attach to <div> element.
     # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar navbar-inverse",
+    'navbar_class': "navbar",
 
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
+    'navbar_fixed_top': "false",
 
     # Location of link to source.
     # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "nav",
+    'source_link_position': "footer",
 
     # Bootswatch (http://bootswatch.com/) theme.
     #
