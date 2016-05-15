@@ -3,6 +3,9 @@ body {
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
                  'Verdana', sans-serif;
    font-weight: normal;
+   padding: 0;
+   margin: 0px;
+   padding-top: 80px;
 }
 
 .starter-template {
@@ -28,12 +31,12 @@ body {
 }
 
 .navbar-default{
-  border-radius: 0px;
-  box-shadow: none;
+  border: none;
 }
+
 .navbar .navbar-nav{
   position: absolute;
-  top: 50px; 
+  top: 50px;
   right: 0;
   left: 0;
   z-index: 100;
@@ -74,15 +77,10 @@ body {
 }
 
 .container {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
 /*    background-color: white;*/
     width: 100%;
-}
-
-body{
-    padding: 0;
-    margin: 0;
 }
 
 .footer{
@@ -90,8 +88,10 @@ body{
   border-color: white; */
   color: #022e4d;
   padding-top: 15px;
-  padding-left: 15px;
   font-size: 75%;
+}
+.footer .narrow{
+  padding-left: 0px;
 }
 
 .float-right{
@@ -152,9 +152,11 @@ blockquote{
 }
 
 /* Add space to allow for space needed by search input form */
+/* For sphinx
 .section:nth-child(1){
   padding-top: 80px;
 }
+*/
 
 span.pre{
   background-color: #f8f8f8;
