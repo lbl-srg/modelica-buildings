@@ -1,5 +1,5 @@
 within Buildings.Rooms.BaseClasses;
-model CFDHeatGain "Model to convert internal heat gain signals"
+model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
   parameter Modelica.SIunits.Area AFlo "Floor area";
@@ -23,7 +23,7 @@ equation
   {QRad_flow, QCon_flow, QLat_flow} = AFlo .* qGai_flow;
 
  annotation(Documentation(info="<html>
-This model computes the radiant, convective and latent heat flow.
+This model computes the radiant, convective and latent heat flow rate.
 Input into this model are these three components in units of [W/m2].
 The inputs need to be positive quantities if heat or moisture is added
 to the room.
@@ -40,8 +40,14 @@ the water vapor released into the air.
 </li>
 </ul>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
 <li>
 August 1, 2013, by Michael Wetter:<br/>
 First implementation.
@@ -110,4 +116,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CFDHeatGain;
+end HeatGain;
