@@ -574,8 +574,11 @@ because the ``if-then-else`` construct triggers an event iteration whenever
 
 .. _sec-example-event-debugging:
 
-Example for how to debug and correct slow simulations due to events
--------------------------------------------------------------------
+Examples for how to debug and correct slow simulations
+------------------------------------------------------
+
+State events
+~~~~~~~~~~~~
 
 This section shows how a simulation that stalls due to events can be debugged
 to find the root cause, and then corrected.
@@ -665,9 +668,71 @@ for the whole year.
    control signal.
 
 
+State variables that dominate the error control
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a development version of the model
+``Buildings.Examples.DualFanDualDuct.ClosedLoop``
+(commit `ef410ee <https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163>`_),
+the simulation time was very slow during part of the
+simulation, as shown in :numref:`fig-dualfan-filtered-speed`.
+
+
+.. _fig-dualfan-filtered-speed:
+
+.. figure:: img/DualFanDualDuctWithFilteredSpeed.*
+   :scale: 100%
+
+   Computing time and number of events.
+
+The number of state events did not increase in that time interval.
+To isolate the problem, we enabled in Dymola under `Simulation -> Setup` the
+option to log which states dominate the error (see `Debug` tab).
+
+Running the simulation again gave the following output:
+
+.. code-block:: none
+
+   Integration terminated successfully at T = 1.66e+07
+     Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
+         0     1     6 cooCoi.temSen_1.T (#  1) 
+        36     0   140 cooCoi.temSen_2.T (#  2) 
+        37     0     0 cooCoi.ele[1].mas.T (#  3) 
+        45     0     0 cooCoi.ele[2].mas.T (#  4) 
+        51     0     0 cooCoi.ele[3].mas.T (#  5) 
+        53     0     0 cooCoi.ele[4].mas.T (#  6) 
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
+       400    47   419 fanSupCol.filter.x[1] (#  9) 
+       420    71   521 fanSupCol.filter.x[2] (# 10) 
+      5082  2736  6732 fanRet.filter.x[1] (# 11) 
+      1979    25  4974 fanRet.filter.x[2] (# 12) 
+        38     0     3 TPreHeaCoi.T (# 13) 
+        30     0     1 TRet.T (# 14) 
+        38     0     3 TMix.T (# 15) 
+        80     0     0 TCoiCoo.T (# 16) 
+       305    22   275 cor.vavHot.filter.x[1] (# 18) 
+
+Hence, the state variables
+
+.. code-block:: none
+
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
+       400    47   419 fanSupCol.filter.x[1] (#  9) 
+       420    71   521 fanSupCol.filter.x[2] (# 10) 
+      5082  2736  6732 fanRet.filter.x[1] (# 11) 
+      1979    25  4974 fanRet.filter.x[2] (# 12) 
+
+limit the step size significantly more often than other variables.
+Therefore, we removed these state variables
+by setting in the fan models the parameter ``filteredSpeed=false``.
+After this change, the model simulates without problems.
+
+
 Numerical solvers
 -----------------
-Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of
+Dymola 2017 is configured to use dassl as a default solver with a tolerance of
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust

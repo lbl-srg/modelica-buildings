@@ -72,7 +72,11 @@
 <li><a class="reference internal" href="#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
 <li><a class="reference internal" href="#avoiding-events">2.6. Avoiding events</a></li>
 <li><a class="reference internal" href="#controls">2.7. Controls</a></li>
-<li><a class="reference internal" href="#example-for-how-to-debug-and-correct-slow-simulations-due-to-events">2.8. Example for how to debug and correct slow simulations due to events</a></li>
+<li><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a><ul>
+<li><a class="reference internal" href="#state-events">2.8.1. State events</a></li>
+<li><a class="reference internal" href="#state-variables-that-dominate-the-error-control">2.8.2. State variables that dominate the error control</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#numerical-solvers">2.9. Numerical solvers</a></li>
 </ul>
 </li>
@@ -173,7 +177,7 @@ Rather than setting these parameters individually to a numeric value, it is reco
 a fixed boundary condition <code class="docutils literal"><span class="pre">Buildings.Fluid.Sources.FixedBoundary</span></code>, connected in series as shown in the figure below. Note that the instance <code class="docutils literal"><span class="pre">bou</span></code> implements an equation that sets the medium pressure at its port, i.e., the port pressure <code class="docutils literal"><span class="pre">bou.ports.p</span></code> is fixed.</p>
 <div class="figure" id="id8">
 <a class="reference internal image-reference" href="_images/MixingVolumeInitialization.png"><img alt="_images/MixingVolumeInitialization.png" src="_images/MixingVolumeInitialization.png" style="width: 371.0px; height: 161.0px;" /></a>
-<p class="caption"><span class="caption-text">Schematic diagram of a flow source, a fluid volume, and a pressure source.</span></p>
+<p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Schematic diagram of a flow source, a fluid volume, and a pressure source.</span></p>
 </div>
 <p>The volume allows configuring balance equations for energy and mass in four different ways.
 Let <span class="math">\(p(\cdot)\)</span> be the pressure of the volume,
@@ -375,14 +379,14 @@ Therefore, energy, mass fraction and trace substances have identical equations a
 In some situation, such as the configuration below, connecting multiple connectors to a fluid port represents the physical phenomena that was intended to model.</p>
 <div class="figure" id="id9">
 <a class="reference internal image-reference" href="_images/fluidJunctionMixing.png"><img alt="_images/fluidJunctionMixing.png" src="_images/fluidJunctionMixing.png" style="width: 201.0px; height: 240.0px;" /></a>
-<p class="caption"><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span></p>
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Connection of three components without explicitly introducing a mixer or splitter model.</span></p>
 </div>
 <p>However, in more complex flow configurations, one may want to explicitly control what branches of a piping or duct network mix. This may be achieved by using an instance of the model
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">SplitterFixedResistanceDpM</a> as shown in the left figure below, which is the test model
 <a class="reference external" href="http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Boilers_Examples.html#Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop">BoilerPolynomialClosedLoop</a></p>
 <div class="figure" id="id10">
 <img alt="_images/fluidJunctionMixingSplitter.png" src="_images/fluidJunctionMixingSplitter.png" />
-<p class="caption"><span class="caption-text">Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.</span></p>
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.</span></p>
 </div>
 <p>In the figure on the left, the mixing points have been correctly defined by use of the three-way model that mixes or splits flow. By setting the nominal pressure drop of the mixer or splitter model to zero, the mixer or splitter model can be simplified so that no equation for the flow resistance is introduced. In addition, in the branch of the splitter that connects to the valve, a pressure drop can be modelled, which then affects the valve authority.
 However, in the figure on the right, the flow that leaves port A is mixing at port B with the return from the volume <code class="docutils literal"><span class="pre">vol</span></code>, and then it flows to port C. Thus, the valve is exposed to the wrong temperature.</p>
@@ -401,7 +405,7 @@ The proper use sensors is described in the
 <p>Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.</p>
 <div class="figure" id="id11">
 <a class="reference internal image-reference" href="_images/flowCircuitNoExpansion.png"><img alt="_images/flowCircuitNoExpansion.png" src="_images/flowCircuitNoExpansion.png" style="width: 449.4px; height: 370.8px;" /></a>
-<p class="caption"><span class="caption-text">Schematic diagram of a flow circuit without means
+<p class="caption"><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Schematic diagram of a flow circuit without means
 to set a reference pressure, or to account for
 thermal expansion of the fluid.</span></p>
 </div>
@@ -438,7 +442,7 @@ For example, use
 to form the system model shown below.</p>
 <div class="figure" id="id12">
 <a class="reference internal image-reference" href="_images/flowCircuitWithExpansionVessel.png"><img alt="_images/flowCircuitWithExpansionVessel.png" src="_images/flowCircuitWithExpansionVessel.png" style="width: 459.6px; height: 404.4px;" /></a>
-<p class="caption"><span class="caption-text">Schematic diagram of a flow circuit with expansion vessel that
+<p class="caption"><span class="caption-number">Fig. 2.5 </span><span class="caption-text">Schematic diagram of a flow circuit with expansion vessel that
 adds a pressure source and accounts for the thermal expansion
 of the medium.</span></p>
 </div>
@@ -454,7 +458,7 @@ is at a fixed temperature, while the model
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.</p>
 <div class="figure" id="id13">
 <a class="reference internal image-reference" href="_images/flowCircuitWithBoundary.png"><img alt="_images/flowCircuitWithBoundary.png" src="_images/flowCircuitWithBoundary.png" style="width: 475.2px; height: 415.2px;" /></a>
-<p class="caption"><span class="caption-text">Schematic diagram of a flow circuit with a boundary model that adds
+<p class="caption"><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Schematic diagram of a flow circuit with a boundary model that adds
 a fixed pressure source and accounts for any thermal expansion
 of the medium.</span></p>
 </div>
@@ -647,7 +651,7 @@ the functions and blocks whose names start with <code class="docutils literal"><
 <h2>2.7. Controls<a class="headerlink" href="#controls" title="Permalink to this headline">¶</a></h2>
 <div class="figure" id="id14">
 <a class="reference internal image-reference" href="_images/controlHysteresis.png"><img alt="_images/controlHysteresis.png" src="_images/controlHysteresis.png" style="width: 270.0px; height: 401.0px;" /></a>
-<p class="caption"><span class="caption-text">Schematic diagram of a controller that switches a coil on and off.
+<p class="caption"><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Schematic diagram of a controller that switches a coil on and off.
 In the top configuration, the hysteresis avoids numerical problems
 (and short-cycling) if the control input remains close to the
 set point. The bottom configuration can cause the integration to
@@ -699,12 +703,14 @@ inequality test</p>
 <li>is obtained from a measurement and hence can contain measurement
 noise.</li>
 </ul>
-<p class="last">See <a class="reference internal" href="#sec-example-event-debugging"><span>Example for how to debug and correct slow simulations due to events</span></a> for what can happen in
+<p class="last">See <a class="reference internal" href="#sec-example-event-debugging"><span>Examples for how to debug and correct slow simulations</span></a> for what can happen in
 such tests.</p>
 </div>
 </div>
-<div class="section" id="example-for-how-to-debug-and-correct-slow-simulations-due-to-events">
-<span id="sec-example-event-debugging"></span><h2>2.8. Example for how to debug and correct slow simulations due to events<a class="headerlink" href="#example-for-how-to-debug-and-correct-slow-simulations-due-to-events" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="examples-for-how-to-debug-and-correct-slow-simulations">
+<span id="sec-example-event-debugging"></span><h2>2.8. Examples for how to debug and correct slow simulations<a class="headerlink" href="#examples-for-how-to-debug-and-correct-slow-simulations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="state-events">
+<h3>2.8.1. State events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
 <p>This section shows how a simulation that stalls due to events can be debugged
 to find the root cause, and then corrected.
 While the details may differ from one tool to another, the principle is the same.
@@ -720,7 +726,7 @@ We run</p>
 there was a spike as shown in the figure below.</p>
 <div class="figure" id="id15">
 <a class="reference internal image-reference" href="_images/DualFanDualDuct-cpu-events.png"><img alt="_images/DualFanDualDuct-cpu-events.png" src="_images/DualFanDualDuct-cpu-events.png" style="width: 352.8px; height: 244.2px;" /></a>
-<p class="caption"><span class="caption-text">Computing time and number of events.</span></p>
+<p class="caption"><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Computing time and number of events.</span></p>
 </div>
 <p>As the number of events increased drastically, we enabled in Dymola in
 <cite>Simulation -&gt; Setup</cite>, under the tab <cite>Debug</cite> the entry <cite>Events during simulation</cite>
@@ -759,7 +765,7 @@ depending on the ambient and return air temperature. The problematic model is
 shown in the figure below.</p>
 <div class="figure" id="id16">
 <span id="fig-dualfan-eco-con-bad"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-bad.svg"><img src="_images/EconomizerTemperatureControl-bad.svg" /></a>
-<p class="caption"><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
+<p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
 control signal. This implementation triggers many events.</span></p>
 </div>
 <p>The events are triggered by the inequality block which changes the control, which then in turn
@@ -775,13 +781,64 @@ We selected a hysteresis of <span class="math">\(0.2\)</span> Kelvin, and now th
 for the whole year.</p>
 <div class="figure" id="id17">
 <span id="fig-dualfan-eco-con-revised"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-revised.svg"><img src="_images/EconomizerTemperatureControl-revised.svg" /></a>
-<p class="caption"><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
+<p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
 control signal.</span></p>
+</div>
+</div>
+<div class="section" id="state-variables-that-dominate-the-error-control">
+<h3>2.8.2. State variables that dominate the error control<a class="headerlink" href="#state-variables-that-dominate-the-error-control" title="Permalink to this headline">¶</a></h3>
+<p>In a development version of the model
+<code class="docutils literal"><span class="pre">Buildings.Examples.DualFanDualDuct.ClosedLoop</span></code>
+(commit <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163">ef410ee</a>),
+the simulation time was very slow during part of the
+simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span>Fig. 2.11</span></a>.</p>
+<div class="figure" id="id18">
+<span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img src="_images/DualFanDualDuctWithFilteredSpeed.svg" /></a>
+<p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Computing time and number of events.</span></p>
+</div>
+<p>The number of state events did not increase in that time interval.
+To isolate the problem, we enabled in Dymola under <cite>Simulation -&gt; Setup</cite> the
+option to log which states dominate the error (see <cite>Debug</cite> tab).</p>
+<p>Running the simulation again gave the following output:</p>
+<div class="highlight-none"><div class="highlight"><pre>Integration terminated successfully at T = 1.66e+07
+  Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
+      0     1     6 cooCoi.temSen_1.T (#  1)
+     36     0   140 cooCoi.temSen_2.T (#  2)
+     37     0     0 cooCoi.ele[1].mas.T (#  3)
+     45     0     0 cooCoi.ele[2].mas.T (#  4)
+     51     0     0 cooCoi.ele[3].mas.T (#  5)
+     53     0     0 cooCoi.ele[4].mas.T (#  6)
+  13555 13201 19064 fanSupHot.filter.x[1] (#  7)
+  11905  2170 12394 fanSupHot.filter.x[2] (#  8)
+    400    47   419 fanSupCol.filter.x[1] (#  9)
+    420    71   521 fanSupCol.filter.x[2] (# 10)
+   5082  2736  6732 fanRet.filter.x[1] (# 11)
+   1979    25  4974 fanRet.filter.x[2] (# 12)
+     38     0     3 TPreHeaCoi.T (# 13)
+     30     0     1 TRet.T (# 14)
+     38     0     3 TMix.T (# 15)
+     80     0     0 TCoiCoo.T (# 16)
+    305    22   275 cor.vavHot.filter.x[1] (# 18)
+</pre></div>
+</div>
+<p>Hence, the state variables</p>
+<div class="highlight-none"><div class="highlight"><pre>13555 13201 19064 fanSupHot.filter.x[1] (#  7)
+11905  2170 12394 fanSupHot.filter.x[2] (#  8)
+  400    47   419 fanSupCol.filter.x[1] (#  9)
+  420    71   521 fanSupCol.filter.x[2] (# 10)
+ 5082  2736  6732 fanRet.filter.x[1] (# 11)
+ 1979    25  4974 fanRet.filter.x[2] (# 12)
+</pre></div>
+</div>
+<p>limit the step size significantly more often than other variables.
+Therefore, we removed these state variables
+by setting in the fan models the parameter <code class="docutils literal"><span class="pre">filteredSpeed=false</span></code>.
+After this change, the model simulates without problems.</p>
 </div>
 </div>
 <div class="section" id="numerical-solvers">
 <h2>2.9. Numerical solvers<a class="headerlink" href="#numerical-solvers" title="Permalink to this headline">¶</a></h2>
-<p>Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of
+<p>Dymola 2017 is configured to use dassl as a default solver with a tolerance of
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust

@@ -165,6 +165,9 @@ html_show_sourcelink = True
 htmlhelp_basename = 'Documentation'
 
 
+# Number figures in html output
+numfig = True
+
 # -- Options for LaTeX output --------------------------------------------------
 
 # The paper size ('letter' or 'a4').
