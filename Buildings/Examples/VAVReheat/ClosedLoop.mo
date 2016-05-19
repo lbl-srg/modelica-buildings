@@ -185,7 +185,7 @@ model ClosedLoop
     nPorts=1,
     redeclare package Medium = MediumW,
     p=3E5 + 12000,
-    T=285.15) "Source for cooling coil" annotation (Placement(transformation(
+    T=279.15) "Source for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={230,-120})));
@@ -1017,6 +1017,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 19, 2016, by Michael Wetter:<br/>
+Changed chilled water supply temperature to <i>6&circ;C</i>.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/509\">#509</a>.
+</li>
 <li>
 April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed

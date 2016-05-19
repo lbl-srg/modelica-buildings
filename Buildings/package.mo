@@ -219,6 +219,14 @@ its class name ends with the string <code>Beta</code>.
 
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
                           Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br/>
                           Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
@@ -233,7 +241,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings/HeatTransfer/Windows/BeamDepthInRoom
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
