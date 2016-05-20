@@ -1,0 +1,10 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples.ModificationFactor", method="dassl", resultFile="ModificationFactor");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1537, 738}, y={"mod.y", "mod.temDif_mod.y","mod.airFlo_mod.y","mod.watFlo_mod.y"}, range={0.0, 1.0, -0.05, 1.05}, grid=true, filename="ModificationFactor.mat", colors={{28,108,200}, {238,46,47}});
+

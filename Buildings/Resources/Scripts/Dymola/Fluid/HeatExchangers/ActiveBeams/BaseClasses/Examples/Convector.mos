@@ -1,0 +1,10 @@
+simulateModel("Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Examples.Convector", stopTime=10, method="dassl", resultFile="Convector");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+Advanced.DefaultAutoErase = true;
+Advanced.Legend.Horizontal = true;
+createPlot(id=1, position={0, 0, 1676, 880}, y={"con.y"}, range={0.0, 10.0, -50.0, 1150.0}, grid=true, filename="Convector.mat", colors={{28,108,200}});
+
