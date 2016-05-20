@@ -1,38 +1,48 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model ModificationFactor
-extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.Block;
+
+  //adding the three blocks of DerivativesCubicSpline for the three variables
+
   DerivativesCubicSpline temDif_mod
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   DerivativesCubicSpline watFlo_mod
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   DerivativesCubicSpline airFlo_mod
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
+
+  //adding the inputs of actual values of the three variables
   Modelica.Blocks.Interfaces.RealInput watTem
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput watFlo
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput airFlo
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-  Modelica.Blocks.Math.Product pro_3
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+  Modelica.Blocks.Interfaces.RealInput rooTem
+    annotation (Placement(transformation(extent={{-140,-108},{-100,-68}})));
+
+   //nominal values
   Modelica.Blocks.Sources.Constant temDif_nom
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
   Modelica.Blocks.Sources.Constant watFlo_nom
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Modelica.Blocks.Interfaces.RealInput rooTem
-    annotation (Placement(transformation(extent={{-140,-108},{-100,-68}})));
-  Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
-    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+  Modelica.Blocks.Sources.Constant airFlo_nom
+    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+
+  //the Product blocks calculate the ratio actual/nominal
+  Modelica.Blocks.Math.Product pro_3
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Blocks.Math.Product pro_2
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Modelica.Blocks.Math.Product pro_1
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Modelica.Blocks.Sources.Constant airFlo_nom
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+
   Modelica.Blocks.Math.MultiProduct mulPro(nu=3)
     annotation (Placement(transformation(extent={{64,-6},{76,6}})));
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 equation
   connect(airFlo, pro_1.u1) annotation (Line(points={{-120,90},{-72,90},{-20,90},
           {-20,86},{-12,86}}, color={0,0,127}));
