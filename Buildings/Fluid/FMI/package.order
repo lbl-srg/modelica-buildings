@@ -1,13 +1,14 @@
 UsersGuide
 FlowSplitter_u
 HVACConvective
-RoomConvective
 Sink_T
 Source_T
+ThermalZoneConvective
 TwoPort
 TwoPortComponent
 Adaptors
 Conversion
 Examples
+Validation
 Interfaces
 BaseClasses

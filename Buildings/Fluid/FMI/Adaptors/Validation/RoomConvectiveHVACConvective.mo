@@ -3,9 +3,9 @@ model RoomConvectiveHVACConvective
   "Simple thermal zone with convective HVAC system."
  extends Modelica.Icons.Example;
 
-  Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
+  Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
     annotation (Placement(transformation(extent={{-98,-14},{-66,18}})));
-  Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective rooCon
+  Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective rooCon
     annotation (Placement(transformation(extent={{66,-14},{98,18}})));
     model BaseCase "Base model used for the validation of the FMI interfaces"
       extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(

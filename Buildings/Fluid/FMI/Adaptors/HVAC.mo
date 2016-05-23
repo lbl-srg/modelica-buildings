@@ -18,49 +18,58 @@ model HVAC "Model for exposing a room model to the FMI interface"
   Modelica.Blocks.Interfaces.RealOutput TZon(final unit="K",
                                             displayUnit="degC")
     "Zone air temperature"
-    annotation (Placement(transformation(extent={{100,60},{140,100}})));
+    annotation (Placement(transformation(extent={{140,60},{180,100}})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon(
     final unit = "kg/kg") "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{140,20},{180,60}})));
   Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{140,-20},{180,20}})));
 
    Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
     each final use_p_in=false) "Fluid connector"
-    annotation (Placement(transformation(extent={{120,110},{100,130}}),
-        iconTransformation(extent={{120,110},{100,130}})));
+    annotation (Placement(transformation(extent={{160,110},{140,130}}),
+        iconTransformation(extent={{160,110},{140,130}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](redeclare each final
       package Medium =       Medium)
-    annotation (Placement(transformation(extent={{-130,40},{-110,-40}})));
+    annotation (Placement(transformation(extent={{-148,40},{-128,-40}})));
 
    Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={-40,-160})));
+        origin={-40,-180}), iconTransformation(
+        extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={-60,-180})));
   Modelica.Blocks.Interfaces.RealInput QGaiCon_flow(final unit="W")
     "Convective sensible heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={0,-160})));
+        origin={0,-180}), iconTransformation(
+        extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={0,-180})));
   Modelica.Blocks.Interfaces.RealInput QGaiLat_flow(final unit="W")
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={40,-160})));
+        origin={40,-180}), iconTransformation(
+        extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={60,-180})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
     "Heat port for radiative heat gain and radiative temperature" annotation (
-      Placement(transformation(extent={{-132,-110},{-112,-90}}),
+      Placement(transformation(extent={{-150,-110},{-130,-90}}),
                                                            iconTransformation(
-          extent={{-132,-110},{-112,-90}})));
+          extent={{-150,-110},{-130,-90}})));
    Modelica.Blocks.Interfaces.RealOutput TRad(final unit="K", displayUnit="degC")
     "Zone radiative temperature"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{140,-60},{180,-20}})));
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
@@ -108,7 +117,7 @@ easy definition of vector-valued Real expressions in a block diagram.
   x_i_toX_w x_i_toX(
     redeclare final package Medium = Medium) if
        Medium.nXi > 0 "Conversion from x_i to X_w"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Routing.Multiplex3 mux annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -168,10 +177,10 @@ can only be used in <code>connect</code> statements.
 
   RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
        Medium.nXi > 0 "Water vapor concentration of supply air"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
   RealVectorExpression CSup(each final n=Medium.nC, final y=inStream(ports[1].C_outflow)) if
        Medium.nC > 0 "Trace substance concentration of supply air"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   Sources.MassFlowSource_T bou[nFluPor](
     each final nPorts=1,
@@ -184,43 +193,43 @@ can only be used in <code>connect</code> statements.
     annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
   Conversion.InletToAir con[nFluPor](
       redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{74,110},{54,130}})));
+    annotation (Placement(transformation(extent={{120,110},{100,130}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRad
     "Radiative temperature sensor"
-    annotation (Placement(transformation(extent={{42,-50},{62,-30}})));
+    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
 
   BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
     if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{-4,110},{-16,122}})));
+    annotation (Placement(transformation(extent={{40,100},{20,120}})));
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port for convective heat gain" annotation (Placement(transformation(
-          extent={{-132,110},{-112,130}}),
-                                        iconTransformation(extent={{-132,110},{-112,
-            130}})));
+          extent={{-150,110},{-130,130}}),
+                                        iconTransformation(extent={{-150,110},{
+            -130,130}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Sources.Constant TSkin(
     k=TAveSkin,
     y(final unit="K",
       final displayUnit="degC"))
     "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
   Modelica.Blocks.Math.Gain mWatFlow(
     final k(unit="kg/J") = 1/h_fg,
     u(final unit="W"),
     y(final unit="kg/s")) "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{58,-90},{78,-70}})));
+    annotation (Placement(transformation(extent={{88,-90},{108,-70}})));
 public
    Modelica.Blocks.Interfaces.RealOutput mWat_flow(final
       unit="kg/s") "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{140,-100},{180,-60}})));
    Modelica.Blocks.Interfaces.RealOutput TWat(displayUnit="degC", final unit="K")
     "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{100,-140},{140,-100}})));
+    annotation (Placement(transformation(extent={{140,-140},{180,-100}})));
 protected
   HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow
     "Converter for latent heat flow rate"
@@ -234,75 +243,82 @@ initial equation
 equation
 
   for i in 1:nFluPor loop
-    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{-56,120},{-60,120},{-60,0},
-          {-120,0}}, color={0,127,255}));
+    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{-56,120},{-60,
+            120},{-60,0},{-138,0}},
+                     color={0,127,255}));
   end for;
-  connect(QGaiCon_flow, mux.u2[1]) annotation (Line(points={{0,-160},{0,-88},{-8.88178e-16,
-          -88}},                    color={0,0,127}));
-  connect(QGaiLat_flow, mux.u3[1]) annotation (Line(points={{40,-160},{40,-120},
-          {7,-120},{7,-88}},
+  connect(QGaiCon_flow, mux.u2[1]) annotation (Line(points={{0,-180},{0,-88},{
+          -8.88178e-16,-88}},       color={0,0,127}));
+  connect(QGaiLat_flow, mux.u3[1]) annotation (Line(points={{40,-180},{40,-140},
+          {7,-140},{7,-88}},
                            color={0,0,127}));
   connect(x_i_toX.X_w, X_wZon)
-    annotation (Line(points={{92,40},{92,40},{120,40}},     color={0,0,127}));
+    annotation (Line(points={{122,40},{122,40},{160,40}},   color={0,0,127}));
   connect(con.inlet, fluPor)
-    annotation (Line(points={{75,120},{110,120}},      color={0,0,255}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-17.2,116},{-17.2,116},
-          {-34,116}},
+    annotation (Line(points={{121,120},{120,120},{150,120}},
+                                                       color={0,0,255}));
+  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,110},{18,110},{6,
+          110},{6,110},{0,110},{0,116},{-34,116}},
                 color={0,0,127}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{52,116},{52,116},{
-          -2.8,116}}, color={0,0,127}));
-  connect(bou.C_in, con.C) annotation (Line(points={{-36,112},{-36,112},{-28,112},
-          {-28,108},{26,108},{26,112},{52,112}},
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{98,116},{98,114},{60,
+          114},{60,110},{42,110}},
+                      color={0,0,127}));
+  connect(bou.C_in, con.C) annotation (Line(points={{-36,112},{-36,112},{-28,
+          112},{-28,90},{78,90},{78,112},{98,112}},
                                             color={0,0,127}));
-  connect(bou.T_in, con.T) annotation (Line(points={{-34,124},{52,124}},
+  connect(bou.T_in, con.T) annotation (Line(points={{-34,124},{18,124},{98,124}},
                    color={0,0,127}));
   connect(heaPorAir, heaPorAir)
-    annotation (Line(points={{-122,120},{-122,120}},
+    annotation (Line(points={{-140,120},{-140,120}},
                                                    color={191,0,0}));
-  connect(senTemAir.port, heaPorAir) annotation (Line(points={{30,80},{-110,80},
-          {-110,120},{-122,120}},
+  connect(senTemAir.port, heaPorAir) annotation (Line(points={{100,80},{-110,80},
+          {-110,120},{-140,120}},
                                color={191,0,0}));
   connect(senTemAir.T, TZon)
-    annotation (Line(points={{50,80},{50,80},{120,80}},
+    annotation (Line(points={{120,80},{120,80},{160,80}},
                                                  color={0,0,127}));
   connect(CSup.y, CZon)
-    annotation (Line(points={{61,0},{61,0},{120,0}},       color={0,0,127}));
+    annotation (Line(points={{91,0},{91,0},{160,0}},       color={0,0,127}));
   connect(XiSup.y, x_i_toX.Xi)
-    annotation (Line(points={{61,40},{68,40}},
+    annotation (Line(points={{91,40},{98,40}},
                                              color={0,0,127}));
 
   connect(mux.y[3], mWatFlow.u) annotation (Line(points={{-0.666667,-65},{
-          -0.666667,0},{20,0},{20,-80},{56,-80}},
+          -0.666667,0},{20,0},{20,-80},{86,-80}},
                                         color={0,0,127}));
   connect(mWatFlow.y, mWat_flow)
-    annotation (Line(points={{79,-80},{80,-80},{120,-80}}, color={0,0,127}));
-  connect(QGaiRad_flow, mux.u1[1]) annotation (Line(points={{-40,-160},{-40,-160},
-          {-40,-120},{-7,-120},{-7,-88}},
+    annotation (Line(points={{109,-80},{109,-80},{160,-80}},
+                                                           color={0,0,127}));
+  connect(QGaiRad_flow, mux.u1[1]) annotation (Line(points={{-40,-180},{-40,
+          -180},{-40,-140},{-7,-140},{-7,-88}},
                                         color={0,0,127}));
   connect(TSkin.y, TWat)
-    annotation (Line(points={{81,-120},{120,-120}}, color={0,0,127}));
+    annotation (Line(points={{111,-120},{160,-120}},color={0,0,127}));
   connect(mux.y[2], conQCon_flow.Q_flow) annotation (Line(points={{6.66134e-16,-65},
           {6.66134e-16,40},{-24,40}}, color={0,0,127}));
-  connect(conQCon_flow.port, heaPorAir) annotation (Line(points={{-44,40},{-84,40},
-          {-84,102},{-106,102},{-106,120},{-122,120}}, color={191,0,0}));
+  connect(conQCon_flow.port, heaPorAir) annotation (Line(points={{-44,40},{-84,
+          40},{-84,80},{-110,80},{-110,120},{-140,120}},
+                                                       color={191,0,0}));
   connect(mux.y[3], conQLat_flow.Q_flow) annotation (Line(points={{-0.666667,
           -65},{0,-65},{0,60},{-26,60}},
                                     color={0,0,127}));
-  connect(conQLat_flow.port, heaPorAir) annotation (Line(points={{-46,60},{-74,60},
-          {-74,104},{-100,104},{-100,120},{-122,120}}, color={191,0,0}));
-  connect(senTemRad.T, TRad) annotation (Line(points={{62,-40},{72,-40},{80,-40},
-          {120,-40}}, color={0,0,127}));
-  connect(heaPorRad, senTemRad.port) annotation (Line(points={{-122,-100},{-102,
-          -100},{-80,-100},{-80,-40},{42,-40}}, color={191,0,0}));
+  connect(conQLat_flow.port, heaPorAir) annotation (Line(points={{-46,60},{-84,
+          60},{-84,80},{-110,80},{-110,120},{-140,120}},
+                                                       color={191,0,0}));
+  connect(senTemRad.T, TRad) annotation (Line(points={{92,-40},{92,-40},{120,
+          -40},{160,-40}},
+                      color={0,0,127}));
+  connect(heaPorRad, senTemRad.port) annotation (Line(points={{-140,-100},{-140,
+          -100},{-80,-100},{-80,-40},{72,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
-    annotation (Line(points={{52,128},{52,128},{-36,128}},color={0,0,127}));
+    annotation (Line(points={{98,128},{98,128},{-36,128}},color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-120,-140},{100,160}}), graphics={
+        extent={{-140,-160},{140,160}}), graphics={
                                    Rectangle(
-          extent={{-120,160},{100,-140}},
+          extent={{-140,160},{140,-160}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
@@ -311,12 +327,12 @@ equation
           textString="%name",
           lineColor={0,0,255}),
         Rectangle(
-          extent={{-110,30},{68,20}},
+          extent={{-128,30},{50,20}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-112,-22},{68,-32}},
+          extent={{-130,-22},{50,-32}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
@@ -366,8 +382,8 @@ Buildings.Fluid.Sources.Outside
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ThermalZoneConvective
 </a>
 for a model that uses this model.
 </p>
@@ -379,6 +395,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{100,
-            160}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{
+            140,160}})));
 end HVAC;

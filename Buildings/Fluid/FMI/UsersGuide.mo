@@ -67,17 +67,17 @@ can do so by extending the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
 Buildings.Fluid.FMI.HVACConvective</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective\"
-Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\"
+Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
 illustrates how this can be accomplished.
 </p>
 <p>
 Conversely, to export a thermal zone, users can extend the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
-Buildings.Fluid.FMI.RoomConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ThermalZoneConvective</a>.
 The example
-<a href=\"modelica://\"Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective</a>
+<a href=\"modelica://\"Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
+Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective</a>
 illustrates how this can be accomplished.
 </p>
 <p>
