@@ -1,5 +1,4 @@
 UsersGuide
-BaseClasses
 FlowSplitter_u
 HVACAdaptor
 HVACConvective
@@ -14,3 +13,4 @@ TwoPortComponent
 Conversion
 Examples
 Interfaces
+BaseClasses
