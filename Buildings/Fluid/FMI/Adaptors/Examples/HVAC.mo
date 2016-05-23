@@ -4,7 +4,7 @@ extends Modelica.Icons.Example;
   Buildings.Fluid.FMI.Adaptors.HVAC theHvaAda(
     redeclare final package Medium = MediumA,
     nFluPor=1)
-    annotation (Placement(transformation(extent={{-24,-18},{4,16}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
    replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -57,13 +57,11 @@ equation
   connect(rooAir.y, TAir.T)
     annotation (Line(points={{-79,40},{-79,40},{-66,40}}, color={0,0,127}));
   connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{-44,40},{
-          -40,40},{-40,11.4667},{-24.2545,11.4667}},
-                                            color={191,0,0}));
+          -40,40},{-40,17.5},{-20,17.5}},   color={191,0,0}));
   connect(radTem.y, TRad.T)
     annotation (Line(points={{-79,-40},{-68,-40}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-46,-40},{
-          -40,-40},{-40,-13.4667},{-24.2545,-13.4667}},
-                                               color={191,0,0}));
+          -40,-40},{-40,3.75},{-20,3.75}},     color={191,0,0}));
   connect(sou.m_flow_in, m_flow.y) annotation (Line(points={{52,20},{52,20},{60,
           20},{60,70},{73,70}}, color={0,0,127}));
   connect(sou.p_in, pIn.y) annotation (Line(points={{52,14.8},{70,14.8},{70,40},
@@ -75,17 +73,16 @@ equation
   connect(sou.C_in, C.y) annotation (Line(points={{52,0},{60,0},{60,-62},{73,
           -62}},     color={0,0,127}));
   connect(sou.outlet, theHvaAda.fluPor[1]) annotation (Line(points={{29,10},{20,
-          10},{20,14},{20,11.4667},{5.27273,11.4667}},
-                                          color={0,0,255}));
+          10},{20,17.5},{0.714286,17.5}}, color={0,0,255}));
   connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-80,0},{
-          -24,0},{-24,-2.13333}}, color={0,127,255}));
+          -19.8571,0},{-19.8571,10}},
+                                  color={0,127,255}));
   connect(zero.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-10,-59},{
-          -10,-50},{-13.8182,-50},{-13.8182,-20.2667}}, color={0,0,127}));
+          -10,-50},{-14.2857,-50},{-14.2857,-1.25}},    color={0,0,127}));
   connect(zero.y, theHvaAda.QGaiCon_flow) annotation (Line(points={{-10,-59},{
-          -10,-40},{-10,-20.2667},{-8.72727,-20.2667}},
-                                              color={0,0,127}));
+          -10,-1.25}},                        color={0,0,127}));
   connect(zero.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-10,-59},{
-          -10,-59},{-10,-50},{-3.63636,-50},{-3.63636,-20.2667}},
+          -10,-59},{-10,-50},{-5.71429,-50},{-5.71429,-1.25}},
                                                           color={0,0,127}));
  annotation (
     Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),

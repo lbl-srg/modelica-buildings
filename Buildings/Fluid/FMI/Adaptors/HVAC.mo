@@ -284,7 +284,7 @@ equation
                                              color={0,0,127}));
 
   connect(mux.y[3], mWatFlow.u) annotation (Line(points={{-0.666667,-65},{
-          -0.666667,0},{20,0},{20,-80},{86,-80}},
+          -0.666667,-66},{0,-66},{0,-60},{20,-60},{20,-80},{86,-80}},
                                         color={0,0,127}));
   connect(mWatFlow.y, mWat_flow)
     annotation (Line(points={{109,-80},{109,-80},{160,-80}},
