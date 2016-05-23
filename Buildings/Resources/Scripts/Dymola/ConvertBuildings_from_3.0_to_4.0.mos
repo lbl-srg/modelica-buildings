@@ -1,0 +1,11 @@
+// Conversion script for Buildings library
+//  from: Version 3.0
+//  to:   Version 4.0
+clear
+
+convertClear();
+
+convertClass("Buildings.Fluid.FMI.InletAdaptor",
+             "Buildings.Fluid.FMI.Adaptors.Inlet");
+convertClass("Buildings.Fluid.FMI.OutletAdaptor",
+             "Buildings.Fluid.FMI.Adaptors.Outlet");
