@@ -89,7 +89,7 @@ First implementation.
 </ul>
 </html>",   info="<html>
 <p>
-Block that converts enthalpy to temperature scalar input.
+Block that converts enthalpy to temperature.
 </p>
 </html>"));
   end hOut_toT;
