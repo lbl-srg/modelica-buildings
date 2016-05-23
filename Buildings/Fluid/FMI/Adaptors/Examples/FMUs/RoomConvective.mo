@@ -73,13 +73,13 @@ model RoomConvective "Simple thermal zone"
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{14,130},{34,150}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
-            {20,20}},
+    "Outdoor temperature" annotation (Placement(transformation(extent={{20,-20},
+            {-20,20}},
         rotation=90,
-        origin={-20,200}), iconTransformation(
-        extent={{-20,-20},{20,20}},
+        origin={0,-160}),  iconTransformation(
+        extent={{20,-20},{-20,20}},
         rotation=90,
-        origin={-20,200})));
+        origin={0,-160})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut1
     "Outside temperature"
@@ -126,13 +126,6 @@ equation
           144.667},{-20,144.667},{-20,90}}, color={191,0,0}));
   connect(TRad.T, radTem.y)
     annotation (Line(points={{2,90},{19,90}}, color={0,0,127}));
-  connect(weaBus.TDryBul, TOut) annotation (Line(
-      points={{24,140},{-4,140},{-20,140},{-20,200}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
 
   connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-85.8182,143.333},
           {-100,143.333},{-100,16.8},{84,16.8}}, color={0,0,127}));
@@ -148,11 +141,13 @@ equation
   connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
           151.333},{-54,151.333},{-54,-20},{98,-20},{98,2}},
                                                     color={0,127,255}));
+  connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
+          -54},{0,-40},{120,-40},{120,140},{24,140}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
         Text(
-          extent={{-54,176},{-4,156}},
+          extent={{-22,-112},{28,-132}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),

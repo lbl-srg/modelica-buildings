@@ -4,7 +4,7 @@ extends Modelica.Icons.Example;
   Buildings.Fluid.FMI.Adaptors.HVAC theHvaAda(
     redeclare final package Medium = MediumA,
     nFluPor=1)
-    annotation (Placement(transformation(extent={{-30,-20},{10,20}})));
+    annotation (Placement(transformation(extent={{-24,-18},{4,16}})));
 
    replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -30,13 +30,13 @@ extends Modelica.Icons.Example;
     redeclare package Medium = MediumA,
     T=293.15,
     nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{-118,-10},{-98,10}})));
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Source_T sou(
     redeclare package Medium = MediumA,
     use_p_in=use_p_in,
     allowFlowReversal = allowFlowReversal)
     "Source for mass flow rate and pressure"
-    annotation (Placement(transformation(extent={{54,0},{34,20}})));
+    annotation (Placement(transformation(extent={{50,0},{30,20}})));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal*3) "Mass flow rate"
     annotation (Placement(transformation(extent={{94,60},{74,80}})));
   Modelica.Blocks.Sources.Constant pIn(k=100000) "Inlet pressure"
@@ -57,34 +57,36 @@ equation
   connect(rooAir.y, TAir.T)
     annotation (Line(points={{-79,40},{-79,40},{-66,40}}, color={0,0,127}));
   connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{-44,40},{
-          -40,40},{-40,14.6667},{-30.3636,14.6667}},
+          -40,40},{-40,11.4667},{-24.2545,11.4667}},
                                             color={191,0,0}));
   connect(radTem.y, TRad.T)
     annotation (Line(points={{-79,-40},{-68,-40}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-46,-40},{
-          -40,-40},{-40,-14.6667},{-30.3636,-14.6667}},
+          -40,-40},{-40,-13.4667},{-24.2545,-13.4667}},
                                                color={191,0,0}));
-  connect(sou.m_flow_in, m_flow.y) annotation (Line(points={{56,20},{58,20},{60,
+  connect(sou.m_flow_in, m_flow.y) annotation (Line(points={{52,20},{52,20},{60,
           20},{60,70},{73,70}}, color={0,0,127}));
-  connect(sou.p_in, pIn.y) annotation (Line(points={{56,14.8},{70,14.8},{70,40},
+  connect(sou.p_in, pIn.y) annotation (Line(points={{52,14.8},{70,14.8},{70,40},
           {73,40}}, color={0,127,127}));
   connect(sou.T_in, TIn.y)
-    annotation (Line(points={{56,10},{56,10},{73,10}}, color={0,0,127}));
-  connect(sou.X_w_in, X_w_in.y) annotation (Line(points={{56,5},{70,5},{70,-30},
+    annotation (Line(points={{52,10},{52,10},{73,10}}, color={0,0,127}));
+  connect(sou.X_w_in, X_w_in.y) annotation (Line(points={{52,5},{70,5},{70,-30},
           {73,-30}}, color={0,0,127}));
-  connect(sou.C_in, C.y) annotation (Line(points={{56,0},{60,0},{60,-62},{73,
+  connect(sou.C_in, C.y) annotation (Line(points={{52,0},{60,0},{60,-62},{73,
           -62}},     color={0,0,127}));
-  connect(sou.outlet, theHvaAda.fluPor[1]) annotation (Line(points={{33,10},{28,
-          10},{28,14.6667},{11.8182,14.6667}},
+  connect(sou.outlet, theHvaAda.fluPor[1]) annotation (Line(points={{29,10},{20,
+          10},{20,14},{20,11.4667},{5.27273,11.4667}},
                                           color={0,0,255}));
-  connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-98,0},{
-          -30,0},{-30,-1.33333}}, color={0,127,255}));
+  connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-80,0},{
+          -24,0},{-24,-2.13333}}, color={0,127,255}));
   connect(zero.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-10,-59},{
-          -10,-50},{-15.4545,-50},{-15.4545,-22.6667}}, color={0,0,127}));
+          -10,-50},{-13.8182,-50},{-13.8182,-20.2667}}, color={0,0,127}));
   connect(zero.y, theHvaAda.QGaiCon_flow) annotation (Line(points={{-10,-59},{
-          -10,-22.6667},{-8.18182,-22.6667}}, color={0,0,127}));
+          -10,-40},{-10,-20.2667},{-8.72727,-20.2667}},
+                                              color={0,0,127}));
   connect(zero.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-10,-59},{
-          -10,-50},{-0.909091,-50},{-0.909091,-22.6667}}, color={0,0,127}));
+          -10,-59},{-10,-50},{-3.63636,-50},{-3.63636,-20.2667}},
+                                                          color={0,0,127}));
  annotation (
     Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})),

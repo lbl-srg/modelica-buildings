@@ -299,9 +299,9 @@ equation
           lineColor={0,0,127},
           textString="TAirZon"),
         Text(
-          extent={{-62,74},{80,-32}},
-          lineColor={28,108,200},
-          textString="rooCon")}),                                Diagram(
+          extent={{-64,270},{78,164}},
+          lineColor={0,0,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>

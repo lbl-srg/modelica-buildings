@@ -81,20 +81,10 @@ equation
           extent={{100,-128},{150,-148}},
           lineColor={0,0,127},
           textString="QLat"),
-        Rectangle(
-          extent={{100,64},{160,56}},
-          lineColor={0,0,0},
-          fillColor={0,127,255},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{100,124},{160,116}},
-          lineColor={0,0,0},
-          fillColor={0,127,255},
-          fillPattern=FillPattern.HorizontalCylinder),
         Text(
-          extent={{-70,60},{72,-46}},
-          lineColor={28,108,200},
-          textString="hvaCon")}),                                Diagram(
+          extent={{-72,252},{70,146}},
+          lineColor={0,0,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>

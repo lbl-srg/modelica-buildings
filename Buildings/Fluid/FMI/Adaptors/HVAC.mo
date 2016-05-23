@@ -307,39 +307,38 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
         Text(
-          extent={{-146,114},{150,150}},
+          extent={{-150,164},{146,200}},
           textString="%name",
           lineColor={0,0,255}),
         Rectangle(
-          extent={{-110,20},{-42,12}},
+          extent={{-110,30},{68,20}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-110,-8},{-42,-16}},
+          extent={{-112,-22},{68,-32}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-        Rectangle(
-          extent={{-42,-46},{50,46}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-36,40},{44,-40}},
-          pattern=LinePattern.None,
-          lineColor={117,148,176},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Sphere),
-        Rectangle(
-          extent={{44,26},{50,-18}},
-          lineColor={95,95,95},
+        Ellipse(
+          extent={{-24,-2},{28,-54}},
+          lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{46,26},{48,-18}},
-          lineColor={95,95,95},
-          fillColor={170,213,255},
+        Polygon(
+          points={{16,-6},{-24,-28},{16,-50},{16,-6}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,52},{32,0}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-8,48},{32,26},{-8,4},{-8,48}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>

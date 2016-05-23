@@ -57,6 +57,28 @@ Users who want to export a single thermofluid flow component, or a
 subsystem of thermofluid flow components, can use the block
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
 Buildings.Fluid.FMI.TwoPortComponent</a>.
+This block has a fluid inlet, a fluid outlet, and a replaceable
+component that can replaced with an HVAC component or system that
+has an inlet and outlet fluid port.
+</p>
+<p>
+Users who want to export a whole HVAC system that serves a single thermal zone
+can do so by extending the partial block
+<a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
+Buildings.Fluid.FMI.HVACConvective</a>.
+The example
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective\"
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective</a>
+illustrates how this can be accomplished.
+</p>
+<p>
+Conversely, to export a thermal zone, users can extend the partial block
+<a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
+Buildings.Fluid.FMI.RoomConvective</a>.
+The example
+<a href=\"modelica://\"Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective</a>
+illustrates how this can be accomplished.
 </p>
 <p>
 The package

@@ -144,13 +144,13 @@ block HVACCoolingOnlyConvective "Simple convective only HVAC system"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}}),
         iconTransformation(extent={{-142,94},{-122,114}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
-            {20,20}},
+    "Outdoor temperature" annotation (Placement(transformation(extent={{20,-20},
+            {-20,20}},
         rotation=90,
-        origin={-60,178}), iconTransformation(
-        extent={{-20,-20},{20,20}},
+        origin={0,-180}),  iconTransformation(
+        extent={{20,-20},{-20,20}},
         rotation=90,
-        origin={-80,180})));
+        origin={0,-180})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -218,8 +218,8 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
-    annotation (Line(points={{-60,178},{-60,178},{-60,140}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{0,-180},{0,-174},{0,-140},{40,-140},{40,120},{-60,
+          120},{-60,140}},                         color={0,0,127}));
   connect(con.u, theZonAda.TZon) annotation (Line(points={{-114,10},{-120,10},{
           -120,-20},{120,-20},{120,80},{150,80},{150,100},{132,100}}, color={0,
           0,127}));
@@ -233,7 +233,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
-          extent={{-106,156},{-56,136}},
+          extent={{-24,-132},{26,-152}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
