@@ -207,7 +207,24 @@ its class name ends with the string <code>Beta</code>.
                           This change was done in
                           <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.<br/>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Set <code>filteredSpeed=false</code> in fan models to avoid a large
+                          increase in computing time when simulated between <i>t=1.60E7</i>
+                          and <i>t=1.66E7</i>.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
@@ -224,7 +241,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings/HeatTransfer/Windows/BeamDepthInRoom
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
@@ -335,12 +352,16 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
+                          Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.Controls.Economizer
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected the economizer controller which closed
+                          the outside air when there was no freeze concern during summer.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/511\">issue 511</a>.
        </td>
    </tr>
    </table>
