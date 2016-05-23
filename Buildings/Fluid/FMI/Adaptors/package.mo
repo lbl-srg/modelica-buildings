@@ -12,24 +12,24 @@ These adaptors are used, for example, to export an HVAC system as a Functional M
 </html>"),
   Icon(graphics={
         Ellipse(
-          origin={-76,22},
+          origin={-70,16},
           fillColor={128,128,128},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{0.0,0.0},{60.0,60.0}}),
         Ellipse(
-          origin={-76,-64},
+          origin={-70,-62},
           fillColor={128,128,128},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{0.0,0.0},{60.0,60.0}}),
       Polygon(
-        points={{32,76},{32,22},{78,50},{32,76}},
+        points={{26,72},{26,18},{72,46},{26,72}},
         fillColor={135,135,135},
         fillPattern=FillPattern.Solid,
         pattern=LinePattern.None),
       Polygon(
-        points={{76,-12},{76,-66},{30,-40},{76,-12}},
+        points={{72,-8},{72,-62},{26,-36},{72,-8}},
         fillColor={135,135,135},
         fillPattern=FillPattern.Solid,
         pattern=LinePattern.None)}));
