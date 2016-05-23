@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.Adaptors;
 model ThermalZoneAdaptor
   "Model for exposing a room supply and return of an HVAC system to the FMI interface"
 
@@ -237,7 +237,7 @@ in models that are connected to <code>ports</code>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
 Buildings.Fluid.FMI.HVACConvective</a>
 for a model that uses this model.

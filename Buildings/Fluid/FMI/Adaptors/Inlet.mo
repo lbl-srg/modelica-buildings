@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.Adaptors;
 model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
 
   replaceable package Medium =
@@ -156,7 +156,7 @@ fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
 Buildings.Fluid.FMI.TwoPortComponent</a>
 or

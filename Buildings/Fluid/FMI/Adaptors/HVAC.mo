@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.Adaptors;
 model HVACAdaptor "Model for exposing a room model to the FMI interface"
 
   replaceable package Medium =
@@ -343,34 +343,34 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model that is used as an adapter between a thermal 
-zone that uses fluid ports and an HVAC system that 
-uses input and output signals as needed for an FMU. 
+Model that is used as an adapter between a thermal
+zone that uses fluid ports and an HVAC system that
+uses input and output signals as needed for an FMU.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
-The mass flow rates at <code>ports</code> sum to zero, 
-hence this model conserves mass. 
+The mass flow rates at <code>ports</code> sum to zero,
+hence this model conserves mass.
 </p>
 <p>
-This model does not impose any pressure, other than 
-setting the pressure of all fluid connections 
-to <code>ports</code> to be equal. The reason is that setting 
-a pressure can lead to non-physical system models, 
-for example if a mass flow rate is imposed and the thermal 
-zone is connected to a model that sets a pressure boundary condition such 
-as 
+This model does not impose any pressure, other than
+setting the pressure of all fluid connections
+to <code>ports</code> to be equal. The reason is that setting
+a pressure can lead to non-physical system models,
+for example if a mass flow rate is imposed and the thermal
+zone is connected to a model that sets a pressure boundary condition such
+as
 <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
 Buildings.Fluid.Sources.Outside
 </a>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.FMI.RoomConvective\">
 Buildings.Fluid.FMI.RoomConvective
-</a> 
-for a model that uses this model. 
+</a>
+for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
