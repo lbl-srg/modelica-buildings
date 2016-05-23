@@ -17,17 +17,31 @@ on the signal flow.
 <p>
 This package implements such blocks and its connectors,
 and it provides thermofluid flow components that can be exported as an FMU.
-It also implements examples that illustrate how these components
-can be connected with each other.
-The blocks can be used to encapsulate various
-acausal thermofluid flow models.
+Adaptors that allow connecting thermofluid flow models with fluid connectors
+to models with input and output signals can be found in
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
+Buildings.Fluid.FMI.Adaptors</a>.
+</p>
+<p>
+The package
+<a href=\"modelica://Buildings.Fluid.FMI\">
+Buildings.Fluid.FMI</a>
+contains examples and validations that illustrate
+how to export thermofluid flow components,
+while the package
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
+Buildings.Fluid.FMI.Adaptors</a>
+contains examples and validations that illustrate
+how whole HVAC systems or thermal zone models.
+</p>
+<p>
 The package
 <a href=\"modelica://Buildings.Fluid.FMI.Examples\">
 Buildings.Fluid.FMI.Examples</a>
 contains system models in which multiple of these containers
 are connected to form a complete model. This package is meant
 as an illustration and for testing the connectivity of these
-containers. If one were to use actual FMU rathern than the
+containers. If one were to use actual FMU rather than the
 input-output blocks, then one would export these input-output blocks
 as FMUs and build a similar system model in the target simulator.
 </p>
@@ -51,6 +65,11 @@ Buildings.Fluid.FMI.Examples.FMUs</a>
 contains various examples that demonstrate how
 thermofluid flow components and subsystems
 can be exported as FMUs.
+The package
+<a href=\"Buildings.Fluid.FMI.Adaptors.Examples.FMUs\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs</a>
+contains examples that export an HVAC system and
+a thermal zone model.
 Each model has a Dymola script that exports the FMU.
 The script can be invoked from the pull
 down menu <code>Commands -&gt; Export FMU</code>.
