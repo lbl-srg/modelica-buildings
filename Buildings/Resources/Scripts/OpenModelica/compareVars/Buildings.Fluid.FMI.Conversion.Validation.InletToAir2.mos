@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "conAir.m_flow",
+    "conAir.T",
+    "conAir.X_w",
+    "conAir.C[1]"
+  };

@@ -1,31 +1,39 @@
-last-generated=2016-04-15
+last-generated=2016-05-23
 statistics-fmu-dependencies=
 {
   "Outputs": {
-    "supAir[1].forward.T": [], 
-    "supAir[1].forward.X_w": [], 
+    "fluPor[1].forward.X_w": [], 
     "QGaiRad_flow": [], 
+    "fluPor[1].forward.T": [], 
     "CPUtime": [], 
-    "supAir[2].forward.T": [], 
+    "fluPor[2].m_flow": [], 
     "QGaiCon_flow": [], 
-    "supAir[2].forward.X_w": [], 
+    "fluPor[2].forward.X_w": [], 
     "EventCounter": [], 
-    "supAir[1].m_flow": [], 
-    "supAir[2].m_flow": [], 
-    "QGaiLat_flow": []
+    "fluPor[1].m_flow": [], 
+    "QGaiLat_flow": [], 
+    "fluPor[2].forward.T": []
   }, 
   "InitialUnknowns": {
-    "supAir[1].forward.T": [], 
-    "supAir[1].forward.X_w": [], 
+    "fluPor[1].forward.X_w": [
+      "TAirZon"
+    ], 
     "QGaiRad_flow": [], 
+    "fluPor[1].forward.T": [
+      "TAirZon"
+    ], 
     "CPUtime": [], 
-    "supAir[2].forward.T": [], 
+    "fluPor[2].m_flow": [], 
     "QGaiCon_flow": [], 
-    "supAir[2].forward.X_w": [], 
+    "fluPor[2].forward.X_w": [
+      "TAirZon"
+    ], 
     "EventCounter": [], 
-    "supAir[1].m_flow": [], 
-    "supAir[2].m_flow": [], 
-    "QGaiLat_flow": []
+    "fluPor[1].m_flow": [], 
+    "QGaiLat_flow": [], 
+    "fluPor[2].forward.T": [
+      "TAirZon"
+    ]
   }, 
   "Derivatives": {}
 }
