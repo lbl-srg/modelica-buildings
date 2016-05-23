@@ -1,11 +1,16 @@
-body {
+
+html{
+  background-color: #f8f8f8;
   color: #022e4d;
-    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
-                 'Verdana', sans-serif;
-   font-weight: normal;
-   padding: 0;
-   margin: 0px;
-   padding-top: 80px;
+  font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
+}
+body{
+    color: #022e4d;
+    padding-top: 100px;
+}
+.page-content {
+   padding-top: 100px;
+   margin-left: 10px;
 }
 
 .starter-template {
@@ -13,57 +18,52 @@ body {
   text-align: center;
 }
 
+.navbar-toggle{
+    position: fixed;
+    right: 0px;
+    top: 5px;
+}
 .navbar {
 /*    background-color: white;*/
-    position: absolute;
-    top:0;
-    right:0;
-    left:0;
+    position: fixed;
+    top: 0px;
     z-index: 100;
-    display:block;
-    margin:0;
-    width:100%;
-/*    height: 80px;
-    max-height: 80px; */
+/*    display:inline;*/
+    /*width:100%;*/
+    height: 60px;
+    max-height: 60px;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;user-select:none;
 }
 
-.navbar-nav{
-  margin: 7.5px -15px;
-  margin-left: 0px;
-}
 .navbar-default{
   border: none;
 }
 
 .navbar .navbar-nav{
-  position: absolute;
-  top: 43px;
-  left: 0px;
+  position: fixed;
+  left: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  top: 70px;
   z-index: 100;
-  display: block;
-  width: 150%;
-  background-image: linear-gradient(#e7e7e7, white, #e7e7e7);
-  border-top: 1px solid #e7e7e7;
-  border-bottom: 1px solid #e7e7e7;
-
+  width: 100%;
+  /*display: block;*/
+  background: linear-gradient(#ddd, white, #ddd);
 }
-.navbar-form{
-   position: absolute;
-   top: 80px;
-   right: 30px;
-   z-index: 200;
-   padding: 0;
 
+.navbar .navbar-nav > input.form-control{
+   position: absolute;
+   top: 30px;
+   right: 0;
 }
 
 /* ---------------------------------- */
 .navbar .navbar-nav > li > a{
     color: #750000;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-decoration: none;
 }
 
@@ -76,26 +76,26 @@ body {
     background-color: white;
     text-decoration: none;
 }
+.navbar-collapse{
+    border-style: none;
+}
 /* ---------------------------------- */
 
 
 .navbar > .container .navbar-brand > img{
+   position: absolute;
+   left: 10px;
    height: 30px;
-}
-
-.container {
-    margin-left: 0px;
-    margin-right: 0px;
-/*    background-color: white;*/
-    width: 100%;
 }
 
 .footer{
 /*  background-color: white;
   border-color: white; */
-  color: #022e4d;
-  padding-top: 15px;
+  background-color: #f8f8f8;
+  padding-top: 25px;
   font-size: 75%;
+  padding-left: 10px;
+
 }
 .footer .narrow{
   padding-left: 0px;
@@ -140,16 +140,16 @@ tr.border_bottom td {
 }
 
 h1{
-  font-size: 1.5em;
+  font-size: 2em;
 }
 .h2, h2{
-  font-size: 1.3em;
+  font-size: 1.7em;
 }
 .h3, h3{
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 .h4, h4{
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 blockquote{
@@ -157,6 +157,7 @@ blockquote{
   border-left: 0pt;
   padding: 0;
 }
+
 
 span.pre{
   background-color: #f8f8f8;
@@ -166,7 +167,12 @@ span.pre{
 table.citation{
   border: none;
 }
+/* End stylesheet from main web site -------------------- */
+/* ------------------------------------------------------ */
 
+div.container{
+    width: 100%;
+}
 
 div.warning {
     border: 1px solid #AFC1C4!important;
@@ -186,9 +192,4 @@ div.note {
 .alert-info{
     background-image: none;
     color: inherit;
-}
-/* background-image: linear-gradient(to bottom, #d9edf7 0%, #b9def0 100%) */
-
-div.related ul {
-/* fixme */
 }
