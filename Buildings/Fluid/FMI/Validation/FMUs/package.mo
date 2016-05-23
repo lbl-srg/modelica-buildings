@@ -1,6 +1,6 @@
 
 within Buildings.Fluid.FMI.Validation;
-package FMUs "fixme: add brief description"
+package FMUs  "Collection of validation models"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
