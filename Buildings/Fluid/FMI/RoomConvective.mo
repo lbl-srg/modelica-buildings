@@ -234,7 +234,7 @@ First implementation.
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-200,-140},{-160,-100}})));
 
-  HVACAdaptor theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
+  Buildings.Fluid.FMI.Adaptors.HVAC theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-64,142},{-84,162}})));
 
