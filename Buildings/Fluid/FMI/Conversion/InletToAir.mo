@@ -84,24 +84,24 @@ First implementation.
 </html>"),
     Icon(graphics={
         Text(
-          extent={{-98,52},{-66,26}},
+          extent={{58,60},{90,34}},
           lineColor={0,0,127},
           textString="T"),
         Text(
-          extent={{-92,94},{-28,68}},
+          extent={{20,96},{84,70}},
           lineColor={0,0,127},
           textString="m_flow"),
         Text(
-          extent={{-104,-26},{-40,-52}},
+          extent={{28,-26},{92,-52}},
           lineColor={0,0,127},
           textString="X_w"),
         Text(
-          extent={{-104,-64},{-40,-90}},
+          extent={{48,-66},{112,-92}},
           lineColor={0,0,127},
           textString="C"),
         Line(points={{-80,0},{40,0}}, color={191,0,0}),
         Polygon(
-          points={{100,0},{40,20},{40,-20},{100,0}},
+          points={{82,0},{22,20},{22,-20},{82,0}},
           lineColor={191,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}));

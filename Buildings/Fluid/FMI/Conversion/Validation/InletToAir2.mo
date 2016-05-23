@@ -1,7 +1,8 @@
 within Buildings.Fluid.FMI.Conversion.Validation;
 model InletToAir2
   "Validation model for inlet to Buildings.Media.Air conversion with C02 trace substances"
-  extends InletToAir1( redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}));
+  extends InletToAir1(
+    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}));
   annotation (
     Documentation(info="<html>
 <p>
