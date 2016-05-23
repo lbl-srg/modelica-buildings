@@ -12,7 +12,7 @@ model RoomConvectiveHVACConvective
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
     annotation (Documentation(info="<html>
 <p>
-This example is the base model which is used to validate 
+This example is the base case model which is used to validate 
 the coupling of a convective thermal zone with an air-based HVAC system. 
 </p>
 <p>
@@ -33,7 +33,7 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
             textString="refMod")}));
     end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
 
   connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-64,-12},
@@ -58,16 +58,15 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This example validates the coupling of a convective thermal zone with an air-based HVAC system. 
+This example validates the coupling of a convective thermal zone with an air-based HVAC system.
+The block <code>rooCoo</code> wraps a thermal zone model, and the block
+<code>hvaCoo</code> wraps an HVAC model.
+Both are encapsulated as input output blocks that can be exported as an FMU.
+These blocks are then connected to simulate the coupled response.
+The system model also contains an instance called <code>refMod</code>
+which contains the same model but without it being encapsulated in the
+FMU adaptor.
 </p>
-<ul>
-<li>
-The <code>hvaCoo</code> block wraps the Modelica models of the air-based system.
-</li>
-<li>
-The <code>rooCoo</code> wraps the Modelica models of the thermal zone. 
-</li>
-</ul>
 <p>The Modelica models of the thermal zone and the HVAC air-based system are taken from 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3

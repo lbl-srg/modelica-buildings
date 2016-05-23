@@ -113,7 +113,10 @@ The example
 Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
-The example xxxx shows conceptually how such an FMU can then be connected
+The example
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
+shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>
 <p>
