@@ -45,7 +45,7 @@ partial block HVACConvective
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  ThermalZoneAdaptor theZonAda(
+  Buildings.Fluid.FMI.Adaptors.ThermalZone theZonAda(
     redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
@@ -109,8 +109,8 @@ and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.HVACCoolingOnlyConvective</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
 The example xxxx shows conceptually how such an FMU can then be connected

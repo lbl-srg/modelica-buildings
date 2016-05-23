@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
+model Inlet "Model for exposing a fluid inlet to the FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
@@ -184,4 +184,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end InletAdaptor;
+end Inlet;

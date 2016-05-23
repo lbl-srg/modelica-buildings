@@ -314,8 +314,8 @@ which sets the number of fluid ports.
 <p>
 To use this model, all <code>nFluPor</code>  
 <code>ports</code> need to be connected as described in example 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective
 </a>. 
 </p>
 <p>
@@ -323,14 +323,14 @@ To use this model as a container for an FMU, simply extend from this model,
 rather than instantiate it, and add your thermal zone. By extending from this model, 
 the top-level signal connectors on the left stay at the top-level, 
 and hence will be visible at the FMI interface.The example 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective
 </a> 
 shows how a simple convective thermal zone system can be implemented 
 and exported as an FMU. 
 The example 
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Examples.Validation.RoomConvectiveHVACConvective
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
 </a> 
 shows conceptually how such an FMU can then be connected to a HVAC system 
 that has signal flow. 
@@ -357,8 +357,8 @@ Buildings.Fluid.Sources.Outside
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.RoomConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.RoomConvective
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective\">
+Buildings.Fluid.FMI.Adaptors.Examples.FMUs.RoomConvective
 </a>
 for a model that uses this model.
 </p>

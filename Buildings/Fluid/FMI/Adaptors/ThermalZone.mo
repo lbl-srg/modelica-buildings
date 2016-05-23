@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model ThermalZoneAdaptor
+model ThermalZone
   "Model for exposing a room supply and return of an HVAC system to the FMI interface"
 
   replaceable package Medium =
@@ -252,4 +252,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end ThermalZoneAdaptor;
+end ThermalZone;
