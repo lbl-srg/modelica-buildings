@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "TRoo.y",
+    "X_wRoo.y"
+  };

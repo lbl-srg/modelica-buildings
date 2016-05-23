@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.FMI.Adaptors.Examples.ThermalZone", stopTime=3600, method="dassl", resultFile="ThermalZone");
+createPlot(id=1, position={55, 50, 1248, 941}, y={"TRoo.y"}, range={0.0, 3600.0, 19.5, 24.5}, grid=true, filename="ThermalZone.mat", colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 1248, 468}, y={"X_wRoo.y"}, range={0.0, 3600.0, 0.0045000000000000005, 0.0105}, grid=true, subPlot=2, colors={{28,108,200}});
+

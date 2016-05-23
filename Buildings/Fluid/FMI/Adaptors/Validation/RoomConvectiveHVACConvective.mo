@@ -4,9 +4,9 @@ model RoomConvectiveHVACConvective
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
-    annotation (Placement(transformation(extent={{-98,-14},{-66,18}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective rooCon
-    annotation (Placement(transformation(extent={{66,-14},{98,18}})));
+    annotation (Placement(transformation(extent={{20,0},{42,20}})));
     model BaseCase "Base model used for the validation of the FMI interfaces"
       extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(
           energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
@@ -25,33 +25,90 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
             extent={{-100,100},{100,-100}},
             lineColor={28,108,200},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Solid), Text(
-            extent={{-62,44},{52,-26}},
-            lineColor={28,108,200},
-            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-72,-14},{56,-24}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={0,127,255}),
+            Ellipse(
+              extent={{-56,-2},{-22,-36}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-72,190},{70,84}},
+              lineColor={0,0,255},
+              textString="%name"),
+            Polygon(
+              points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{26,54},{-20,32},{70,32},{26,54}},
+            lineColor={95,95,95},
+            smooth=Smooth.None,
             fillPattern=FillPattern.Solid,
-            textString="refMod")}));
+            fillColor={95,95,95}),
+          Rectangle(
+            extent={{-12,32},{62,-30}},
+            lineColor={150,150,150},
+            fillPattern=FillPattern.Solid,
+            fillColor={150,150,150}),
+          Rectangle(
+            extent={{-2,-4},{20,26}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{34,-4},{54,26}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{-74,24},{-12,16}},
+              lineColor={0,0,0},
+              fillPattern=FillPattern.HorizontalCylinder,
+              fillColor={0,127,255}),
+            Ellipse(
+              extent={{-58,36},{-24,2}},
+              lineColor={0,0,255},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{-52,32},{-24,20},{-52,6},{-52,32}},
+              lineColor={0,0,255},
+              fillColor={0,0,255},
+              fillPattern=FillPattern.Solid)}));
     end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
 
-  connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-64,-12},
-          {-64,-12},{64,-12}},                         color={0,0,127}));
-  connect(hvaCon.QGaiCon_flow, rooCon.QGaiCon_flow) annotation (Line(points={{-64,-7},
-          {-8,-7},{-8,-8},{64,-8}},         color={0,0,127}));
-  connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{64,-4},
-          {-2,-4},{-2,-2},{-64,-2}},          color={0,0,127}));
+  connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-38.75,
+          1.25},{-38.75,1.25},{18.625,1.25}},          color={0,0,127}));
+  connect(hvaCon.QGaiCon_flow, rooCon.QGaiCon_flow) annotation (Line(points={{-38.75,
+          4.375},{-8,4.375},{-8,3.75},{18.625,3.75}},
+                                            color={0,0,127}));
+  connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{18.625,
+          6.25},{-2,6.25},{-2,7.5},{-38.75,7.5}},
+                                              color={0,0,127}));
   connect(hvaCon.X_wZon, rooCon.X_wZon)
-    annotation (Line(points={{-64,9},{-5,9},{-5,8},{64,8}}, color={0,0,127}));
-  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{64,12},{-64,
-          12}},                   color={0,0,127}));
-  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-65,16},{-65,
-          16},{65,16}},     color={0,0,255}));
-  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-64,2},{-64,
-          2},{4,2},{4,0},{64,0}}, color={0,0,127}));
-  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-64,6},{-64,6},{
-          -6,6},{-6,4},{64,4}}, color={0,0,127}));
+    annotation (Line(points={{-38.75,14.375},{-5,14.375},{-5,13.75},{18.625,
+          13.75}},                                          color={0,0,127}));
+  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{18.625,
+          16.25},{18.625,16.25},{-38.75,16.25}},
+                                  color={0,0,127}));
+  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,18.75},
+          {-39.375,18.75},{19.3125,18.75}},
+                            color={0,0,255}));
+  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-38.75,10},
+          {-38.75,10},{0,10},{18,10},{18.625,10},{18.625,8.75}},
+                                  color={0,0,127}));
+  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-38.75,12.5},{
+          -38.75,12},{10,12},{18,12},{18.625,12},{18.625,11.25}},
+                                color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(

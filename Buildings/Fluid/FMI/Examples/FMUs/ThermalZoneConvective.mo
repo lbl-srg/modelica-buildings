@@ -144,10 +144,31 @@ equation
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
+      Rectangle(
+        extent={{-52,62},{76,-46}},
+        lineColor={150,150,150},
+        fillPattern=FillPattern.Solid,
+        fillColor={150,150,150}),
         Text(
           extent={{-22,-112},{28,-132}},
           lineColor={0,0,127},
-          textString="TOut")}),                                  Diagram(
+          textString="TOut"),
+      Polygon(
+        points={{12,104},{-66,62},{92,62},{12,104}},
+        lineColor={95,95,95},
+        smooth=Smooth.None,
+        fillPattern=FillPattern.Solid,
+        fillColor={95,95,95}),
+      Rectangle(
+        extent={{-38,-6},{2,44}},
+        lineColor={255,255,255},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+      Rectangle(
+        extent={{22,-6},{60,44}},
+        lineColor={255,255,255},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid)}),                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>

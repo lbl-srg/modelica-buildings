@@ -75,7 +75,7 @@ equation
   connect(sou.outlet, theHvaAda.fluPor[1]) annotation (Line(points={{29,10},{20,
           10},{20,17.5},{0.714286,17.5}}, color={0,0,255}));
   connect(bou.ports[1], theHvaAda.ports[1]) annotation (Line(points={{-80,0},{
-          -19.8571,0},{-19.8571,10}},
+          -60,0},{-60,10},{-40,10},{-20,10},{-20,10},{-19.8571,10}},
                                   color={0,127,255}));
   connect(zero.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-10,-59},{
           -10,-50},{-14.2857,-50},{-14.2857,-1.25}},    color={0,0,127}));
