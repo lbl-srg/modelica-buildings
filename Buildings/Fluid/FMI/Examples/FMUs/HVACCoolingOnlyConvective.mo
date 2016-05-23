@@ -1,5 +1,6 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
-block HVACCoolingOnlyConvective "Simple convective only HVAC system"
+block HVACCoolingOnlyConvective
+  "Simple convective only HVAC system that can be exported as an FMU"
   extends Buildings.Fluid.FMI.HVACConvective(
     redeclare final package Medium = MediumA, theZonAda(nPorts=2));
 

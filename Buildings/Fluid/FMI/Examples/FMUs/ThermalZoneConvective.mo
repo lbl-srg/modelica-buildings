@@ -122,25 +122,23 @@ equation
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
     annotation (Line(points={{0,40},{0,40},{20,40}}, color={191,0,0}));
-  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-63.8182,
-          144.667},{-20,144.667},{-20,90}}, color={191,0,0}));
+  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-60,143.75},
+          {-20,143.75},{-20,90}},           color={191,0,0}));
   connect(TRad.T, radTem.y)
     annotation (Line(points={{2,90},{19,90}}, color={0,0,127}));
 
-  connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-85.8182,143.333},
-          {-100,143.333},{-100,16.8},{84,16.8}}, color={0,0,127}));
+  connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-81.4286,142.5},{
+          -100,142.5},{-100,16.8},{84,16.8}},    color={0,0,127}));
   connect(theHvaAda.mWat_flow, vol.mWat_flow) annotation (Line(points={{
-          -85.8182,146},{-108,146},{-108,20},{84,20}},
+          -81.4286,145},{-108,145},{-108,20},{84,20}},
                                               color={0,0,127}));
-  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-63.8182,
-          159.333},{0,159.333},{0,120},{60,120},{60,12},{86,12}}, color={191,0,0}));
-  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-64,
-          151.333},{-58,151.333},{-58,152},{-50,152},{-50,-10},{94,-10},{94,2}},
-                                                                        color={0,
+  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,
+          157.5},{0,157.5},{0,120},{60,120},{60,12},{86,12}},     color={191,0,0}));
+  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60.1429,
+          150},{-58,150},{-58,150},{-50,150},{-50,-10},{94,-10},{94,2}},color={0,
           127,255}));
-  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-64,
-          151.333},{-54,151.333},{-54,-20},{98,-20},{98,2}},
-                                                    color={0,127,255}));
+  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60.1429,
+          150},{-54,150},{-54,-20},{98,-20},{98,2}},color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
           -54},{0,-40},{120,-40},{120,140},{24,140}}, color={0,0,127}));
     annotation (

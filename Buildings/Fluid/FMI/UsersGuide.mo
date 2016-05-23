@@ -27,12 +27,7 @@ The package
 <a href=\"modelica://Buildings.Fluid.FMI\">
 Buildings.Fluid.FMI</a>
 contains examples and validations that illustrate
-how to export thermofluid flow components,
-while the package
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
-Buildings.Fluid.FMI.Adaptors</a>
-contains examples and validations that illustrate
-how whole HVAC systems or thermal zone models.
+how to export thermofluid flow components.
 </p>
 <p>
 The package
@@ -67,7 +62,7 @@ can do so by extending the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
 Buildings.Fluid.FMI.HVACConvective</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\"
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
 illustrates how this can be accomplished.
 </p>
@@ -76,7 +71,7 @@ Conversely, to export a thermal zone, users can extend the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
 Buildings.Fluid.FMI.ThermalZoneConvective</a>.
 The example
-<a href=\"modelica://\"Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
+<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective</a>
 illustrates how this can be accomplished.
 </p>

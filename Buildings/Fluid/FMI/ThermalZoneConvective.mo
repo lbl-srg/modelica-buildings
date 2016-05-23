@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI;
 partial block ThermalZoneConvective
-  "Partial block to export a room model as an FMU"
+  "Partial block to export a model of a thermal zone as an FMU"
 
       replaceable package Medium =
           Modelica.Media.Interfaces.PartialMedium
