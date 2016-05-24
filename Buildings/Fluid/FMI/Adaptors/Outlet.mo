@@ -138,8 +138,8 @@ the acausal fluid models.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
-Buildings.Fluid.FMI.TwoPortComponent</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
+Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
 Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Adaptors.Examples;
 model HVAC "Example of an HVAC model"
 extends Modelica.Icons.Example;
-  Buildings.Fluid.FMI.Adaptors.HVAC theHvaAda(
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(
     redeclare final package Medium = MediumA,
     nFluPor=1)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -85,7 +85,37 @@ equation
           -10,-59},{-10,-50},{-5.71429,-50},{-5.71429,-1.25}},
                                                           color={0,0,127}));
  annotation (
-    Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
+    Diagram(coordinateSystem(extent={{-120,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-116,88},{-26,-88}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{8,88},{98,-88}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{10,90},{60,76}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="Simplified model of"),
+        Text(
+          extent={{10,80},{56,68}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="an HVAC system"),
+        Text(
+          extent={{-114,80},{-68,68}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="an HVAC system"),
+        Text(
+          extent={{-114,90},{-64,76}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="Simplified model of")}),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
     Documentation(info="<html>
 <p>

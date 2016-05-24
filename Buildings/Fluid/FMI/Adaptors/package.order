@@ -1,6 +1,6 @@
-HVAC
+HVACConvective
 Inlet
 Outlet
-ThermalZone
+ThermalZoneConvective
 Examples
 Validation

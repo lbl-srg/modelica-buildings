@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 model ThermalZoneConvective "Simple thermal zone"
-  extends Buildings.Fluid.FMI.ThermalZoneConvective(
+  extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
     redeclare final package Medium = MediumA, nFluPor = nFluPorts);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
@@ -182,8 +182,8 @@ Buildings.Examples.Tutorial.SpaceCooling.System3
 </p>
 <p>
 The example extends from 
-<a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
 </a> 
 which provides 
 the input and output signals that are needed to interface 

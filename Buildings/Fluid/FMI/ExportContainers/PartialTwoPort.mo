@@ -1,6 +1,6 @@
-within Buildings.Fluid.FMI;
-partial block TwoPort
-  "Container to export a thermofluid flow model with two ports as an FMU"
+within Buildings.Fluid.FMI.ExportContainers;
+partial block PartialTwoPort
+  "Partial block to be used as a container to export a thermofluid flow model with two ports"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -63,4 +63,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TwoPort;
+end PartialTwoPort;

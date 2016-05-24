@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block TwoPortPassThrough
   "FMU declaration for a block that simply passes all the inputs to the outputs"
-   extends Buildings.Fluid.FMI.TwoPort(
+   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air);
 
 equation

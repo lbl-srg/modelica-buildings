@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model HVAC "Model for exposing a room model to the FMI interface"
+model HVACConvective "Model for exposing a room model to the FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
@@ -189,7 +189,7 @@ can only be used in <code>connect</code> statements.
     each final use_C_in=Medium.nC > 0,
     each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
-    each final use_m_flow_in=true) "Boundary conditions for HVAC system"
+    each final use_m_flow_in=true) "Boundary conditions for HVACConvective system"
     annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
   Conversion.InletToAir con[nFluPor](
       redeclare each final package Medium = Medium)
@@ -359,7 +359,7 @@ equation
     Documentation(info="<html>
 <p>
 Model that is used as an adapter between a thermal
-zone that uses fluid ports and an HVAC system that
+zone that uses fluid ports and an HVACConvective system that
 uses input and output signals as needed for an FMU.
 </p>
 <h4>Assumption and limitations</h4>
@@ -382,8 +382,8 @@ Buildings.Fluid.Sources.Outside
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
 </a>
 for a model that uses this model.
 </p>
@@ -397,4 +397,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{
             140,160}})));
-end HVAC;
+end HVACConvective;

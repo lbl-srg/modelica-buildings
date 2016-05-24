@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.ExportContainers;
 partial block HVACConvective
   "Partial block to export an HVAC system that has no radiative component as an FMU"
 
@@ -45,7 +45,7 @@ partial block HVACConvective
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZone theZonAda(
+  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(
     redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
@@ -170,8 +170,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
-Buildings.Fluid.FMI.HVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>
 for a model that uses this model.
 </p>
 </html>", revisions="<html>

@@ -6,29 +6,109 @@ package UsersGuide "User's Guide"
 <p>
 This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export
-of thermofluid flow models as Functional Mockup Units (FMUs).
+of thermofluid flow models such as HVAC component, HVAC systems
+and thermal zones as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
 imported in other simulators.
 To export thermofluid flow components, a Modelica block is needed
 in order for the model to only have input and output signals
 rather than fluid connectors, as fluid connectors do not impose any causality
 on the signal flow.
+This package implements such blocks and its connectors.
 </p>
 <p>
-This package implements such blocks and its connectors,
-and it provides thermofluid flow components that can be exported as an FMU.
-Adaptors that allow connecting thermofluid flow models with fluid connectors
-to models with input and output signals can be found in
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
-Buildings.Fluid.FMI.Adaptors</a>.
+The main packages are as follows:
 </p>
-<p>
-The package
-<a href=\"modelica://Buildings.Fluid.FMI\">
-Buildings.Fluid.FMI</a>
-contains examples and validations that illustrate
-how to export thermofluid flow components.
-</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr>
+  <th>Package</th><th>Description</th>
+</tr>
+<tr>
+  <td>
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">
+  Buildings.Fluid.FMI.ExportContainers</a>
+  </td>
+  <td>
+  <p>
+  Package with blocks to export thermofluid flow components and systems.
+  </p>
+  <p>
+  To export an HVAC component or system with inlet and outlet port, instantiate
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.TwoPortComponent\">
+  Buildings.Fluid.FMI.ExportContainers.TwoPortComponent</a>
+  with a replaceable model,
+  or extend from
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPort\">
+  Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</a>
+  and add components.
+  See
+  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Fan\">
+  Buildings.Fluid.FMI.Examples.FMUs.Fan</a>
+  and
+  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
+  Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>.
+  </p>
+  <p>
+  To export an HVAC system, extend from
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
+  Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>
+  and add the HVAC system.
+  See
+  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
+  Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>.
+  </p>
+  <p>
+  To export a thermal zone, extend from
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
+  Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective</a>
+  and add the thermal zone.
+  See
+  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
+  Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective</a>.
+  </p>
+  </td>
+</tr>
+<tr>
+  <td>
+  <a href=\"modelica://Buildings.Fluid.FMI.Adaptors\">
+  Buildings.Fluid.FMI.Adaptors</a>
+  </td>
+  <td>
+  <p>
+  Package with adaptors to connect models with fluid ports to blocks that
+  have input and output signals.
+  </p>
+</td>
+</tr>
+<tr>
+<td>
+  <p>
+  <a href=\"modelica://Buildings.Fluid.FMI.Conversion\">
+  Buildings.Fluid.FMI.Conversion</a>
+  </p>
+</td>
+<td>
+  <p>
+  Package with blocks that convert between the signal connectors of
+  Buildings.Fluid.Interfaces
+  and signal connectors
+  of the Modelica Standard Library.
+  </p>
+</td>
+</tr>
+<tr>
+<td>
+  <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
+  Buildings.Fluid.FMI.Interfaces</a>
+</td>
+<td>
+  <p>
+  Package with composite connectors that have different input and output
+  signals. These connectors are used to export FMUs, and they contain
+  quantities such as mass flow rate, temperature, optional pressure, etc.
+  </p>
+</td>
+</table>
 <p>
 The package
 <a href=\"modelica://Buildings.Fluid.FMI.Examples\">
@@ -36,22 +116,14 @@ Buildings.Fluid.FMI.Examples</a>
 contains system models in which multiple of these containers
 are connected to form a complete model. This package is meant
 as an illustration and for testing the connectivity of these
-containers. If one were to use actual FMU rather than the
-input-output blocks, then one would export these input-output blocks
-as FMUs and build a similar system model in the target simulator.
-</p>
-<p>
-The connectors that define the input and output signals of
-the FMUs can be found in the package
-<a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
-Buildings.Fluid.FMI.Interfaces</a>.
+containers.
 </p>
 <h4>Typical use</h4>
 <p>
 Users who want to export a single thermofluid flow component, or a
 subsystem of thermofluid flow components, can use the block
-<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
-Buildings.Fluid.FMI.TwoPortComponent</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.TwoPortComponent\">
+Buildings.Fluid.FMI.ExportContainers.TwoPortComponent</a>.
 This block has a fluid inlet, a fluid outlet, and a replaceable
 component that can replaced with an HVAC component or system that
 has an inlet and outlet fluid port.
@@ -59,8 +131,8 @@ has an inlet and outlet fluid port.
 <p>
 Users who want to export a whole HVAC system that serves a single thermal zone
 can do so by extending the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.HVACConvective\">
-Buildings.Fluid.FMI.HVACConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
@@ -68,26 +140,16 @@ illustrates how this can be accomplished.
 </p>
 <p>
 Conversely, to export a thermal zone, users can extend the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ThermalZoneConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective</a>.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective</a>
 illustrates how this can be accomplished.
 </p>
 <p>
-The package
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs\">
-Buildings.Fluid.FMI.Examples.FMUs</a>
-contains various examples that demonstrate how
-thermofluid flow components and subsystems
-can be exported as FMUs.
-The package
-<a href=\"Buildings.Fluid.FMI.Adaptors.Examples.FMUs\">
-Buildings.Fluid.FMI.Adaptors.Examples.FMUs</a>
-contains examples that export an HVAC system and
-a thermal zone model.
-Each model has a Dymola script that exports the FMU.
+Each example and validation model has a Dymola script that
+either simulates the model, or exports the model as an FMU.
 The script can be invoked from the pull
 down menu <code>Commands -&gt; Export FMU</code>.
 </p>
@@ -95,7 +157,7 @@ down menu <code>Commands -&gt; Export FMU</code>.
 <p>
 In the
 <a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a> package,
-most models a boolean parameter called <code>allowFlowReversal</code>.
+most models have a boolean parameter called <code>allowFlowReversal</code>.
 If set to <code>true</code>, then the flow can be in either direction,
 otherwise it needs to be from the inlet to the outlet port.
 This parameter is also used in the

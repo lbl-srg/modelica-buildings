@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block IdealSource_m_flow "FMU declaration for a fixed resistance"
-   extends Buildings.Fluid.FMI.TwoPort(
+   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air);
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")

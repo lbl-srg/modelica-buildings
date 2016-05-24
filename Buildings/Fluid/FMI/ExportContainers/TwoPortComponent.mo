@@ -1,7 +1,7 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.ExportContainers;
 block TwoPortComponent
   "Container to export thermofluid flow models with two ports as an FMU"
-  extends TwoPort;
+  extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort;
   replaceable Buildings.Fluid.Interfaces.PartialTwoPort com
     constrainedby Buildings.Fluid.Interfaces.PartialTwoPort(
       redeclare final package Medium = Medium,
@@ -81,8 +81,8 @@ for how to use this block.
 <p>
 Note that this block must not be used if the instance <code>com</code>
 sets a constant pressure. In such a situation, use
-<a href=\"modelica://Buildings.Fluid.FMI.TwoPort\">
-Buildings.Fluid.FMI.TwoPort</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPort\">
+Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</a>
 together with
 <a href=\"modelica://Buildings.Fluid.FMI.InletAdaptor\">
 Buildings.Fluid.FMI.InletAdaptor</a>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI;
+within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZoneConvective
   "Partial block to export a model of a thermal zone as an FMU"
 
@@ -161,8 +161,8 @@ the acausal fluid models.
 </p>
 <p>
 See 
-<a href=\"modelica://Buildings.Fluid.FMI.TwoPortComponent\">
-Buildings.Fluid.FMI.TwoPortComponent</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
+Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
 Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
@@ -235,7 +235,7 @@ First implementation.
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-200,-140},{-160,-100}})));
 
-  Buildings.Fluid.FMI.Adaptors.HVAC theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-60,140},{-80,160}})));
 

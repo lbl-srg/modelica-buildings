@@ -1,10 +1,9 @@
 within Buildings.Fluid.FMI.Adaptors.Examples;
 model ThermalZone "Example of a thermal zone"
-  import Buildings;
   extends Modelica.Icons.Example;
   constant Integer nFlu = 3 "Number of fluid connectors";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZone theZonAda(redeclare final package
+  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(redeclare final package
       Medium = MediumA, nPorts=3) "Adaptor for the thermal zone"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -68,14 +67,44 @@ equation
   connect(theZonAda.fluPor[1:nFlu], con[1:nFlu].inlet) annotation (Line(points={{-19,17},
           {-10,17},{-10,30},{-1,30}},      color={0,0,255}));
  annotation (
-    Diagram(coordinateSystem(extent={{-120,-100},{100,100}})),
+    Diagram(coordinateSystem(extent={{-120,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-110,90},{-44,-80}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-12,90},{98,-80}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{0,92},{50,78}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="Simplified model of"),
+        Text(
+          extent={{0,82},{46,70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="an HVAC system"),
+        Text(
+          extent={{-108,82},{-62,70}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="an HVAC system"),
+        Text(
+          extent={{-108,92},{-58,78}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          textString="Simplified model of")}),
     Icon(coordinateSystem(extent={{-120,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This example demonstrates how to 
+This example demonstrates how to
 use the adaptor
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
-Buildings.Fluid.FMI.Adaptors.ThermalZone</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective\">
+Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective</a>.
 On the left of the adaptor are two supply air inlets and a return air connection.
 On the right of the adaptor is a simple first order differential equation
 for the room air and the room water vapor concentration.
