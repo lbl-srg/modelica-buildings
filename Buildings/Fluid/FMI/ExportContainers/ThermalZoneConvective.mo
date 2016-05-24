@@ -160,7 +160,7 @@ fluid mass flow rate and pressure to be properly assigned to
 the acausal fluid models.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
 Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
@@ -235,7 +235,9 @@ First implementation.
     annotation (Placement(transformation(extent={{-200,-140},{-160,-100}}),
         iconTransformation(extent={{-200,-140},{-160,-100}})));
 
-  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(redeclare final package Medium = Medium, nFluPor=nFluPor)
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(
+    redeclare final package Medium = Medium,
+    nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-60,140},{-80,160}})));
 
@@ -303,39 +305,39 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>
-Model that is used as a container for a thermal 
-zone that is to be exported as an FMU. 
+Model that is used as a container for a thermal
+zone that is to be exported as an FMU.
 </p>
 <h4>Typical use and important parameters</h4>
-This model has a user-defined parameter <code>nFluPor</code>  
-which sets the number of fluid ports. 
+This model has a user-defined parameter <code>nFluPor</code>
+which sets the number of fluid ports.
 <p>
-To use this model, all <code>nFluPor</code>  
-<code>ports</code> need to be connected as described in example 
+To use this model, all <code>nFluPor</code>
+<code>ports</code> need to be connected as described in example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective
-</a>. 
+</a>.
 </p>
 <p>
-To use this model as a container for an FMU, simply extend from this model, 
-rather than instantiate it, and add your thermal zone. By extending from this model, 
-the top-level signal connectors on the left stay at the top-level, 
-and hence will be visible at the FMI interface.The example 
+To use this model as a container for an FMU, simply extend from this model,
+rather than instantiate it, and add your thermal zone. By extending from this model,
+the top-level signal connectors on the left stay at the top-level,
+and hence will be visible at the FMI interface.The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective
-</a> 
-shows how a simple convective thermal zone system can be implemented 
-and exported as an FMU. 
-The example 
+</a>
+shows how a simple convective thermal zone system can be implemented
+and exported as an FMU.
+The example
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
 Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
-</a> 
-shows conceptually how such an FMU can then be connected to a HVAC system 
-that has signal flow. 
+</a>
+shows conceptually how such an FMU can then be connected to a HVAC system
+that has signal flow.
 </p>
 <p>
-The conversion between the fluid ports and signal ports is done in the HVAC 
-adapter <code>theHvaAda</code>. 
+The conversion between the fluid ports and signal ports is done in the HVAC
+adapter <code>theHvaAda</code>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
