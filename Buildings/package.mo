@@ -317,11 +317,22 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.FMI.InletAdaptor<br/>
-                          Buildings.Fluid.FMI.OutletAdaptor
-
+                          Buildings.Fluid.FMI.OutletAdaptor<br/>
+                          Buildings.Fluid.FMI.TwoPort<br/>
+                          Buildings.Fluid.FMI.TwoPortComponent
        </td>
-       <td valign=\"top\">Moved these models to the new package
-                          <code>Buildings.Fluid.FMI.Adaptors</code>.<br/>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FMI.InletAdaptor</code> to
+                          <code>Buildings.Fluid.FMI.Adaptors.Inlet</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.OutletAdaptor</code> to
+                          <code>Buildings.Fluid.FMI.Adaptors.Outlet</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.TwoPort</code> to
+                          <code>Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.TwoPortComponent</code> to
+                          <code>Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</code>.
                           This was due to the restructuring of the <code>Buildings.Fluid.FMI</code>
                           package for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.<br/>

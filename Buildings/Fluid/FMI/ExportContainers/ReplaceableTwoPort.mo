@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers;
-block TwoPortComponent
+block ReplaceableTwoPort
   "Container to export thermofluid flow models with two ports as an FMU"
   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort;
   replaceable Buildings.Fluid.Interfaces.PartialTwoPort com
@@ -101,4 +101,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TwoPortComponent;
+end ReplaceableTwoPort;

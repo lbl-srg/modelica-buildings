@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block Fan "FMU declaration for a fixed resistance"
-   extends Buildings.Fluid.FMI.ExportContainers.TwoPortComponent(
+   extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,

@@ -1,4 +1,4 @@
 HVACConvective
 PartialTwoPort
+ReplaceableTwoPort
 ThermalZoneConvective
-TwoPortComponent

@@ -34,8 +34,8 @@ The main packages are as follows:
   </p>
   <p>
   To export an HVAC component or system with inlet and outlet port, instantiate
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.TwoPortComponent\">
-  Buildings.Fluid.FMI.ExportContainers.TwoPortComponent</a>
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
+  Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>
   with a replaceable model,
   or extend from
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPort\">
@@ -122,8 +122,8 @@ containers.
 <p>
 Users who want to export a single thermofluid flow component, or a
 subsystem of thermofluid flow components, can use the block
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.TwoPortComponent\">
-Buildings.Fluid.FMI.ExportContainers.TwoPortComponent</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
+Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>.
 This block has a fluid inlet, a fluid outlet, and a replaceable
 component that can replaced with an HVAC component or system that
 has an inlet and outlet fluid port.

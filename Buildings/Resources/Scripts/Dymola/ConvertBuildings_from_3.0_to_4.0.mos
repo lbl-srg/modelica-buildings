@@ -9,3 +9,8 @@ convertClass("Buildings.Fluid.FMI.InletAdaptor",
              "Buildings.Fluid.FMI.Adaptors.Inlet");
 convertClass("Buildings.Fluid.FMI.OutletAdaptor",
              "Buildings.Fluid.FMI.Adaptors.Outlet");
+
+convertClass("Buildings.Fluid.FMI.TwoPort",
+             "Buildings.Fluid.FMI.ExportContainers.PartialTwoPort");
+convertClass("Buildings.Fluid.FMI.TwoPortComponent",
+             "Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort");
