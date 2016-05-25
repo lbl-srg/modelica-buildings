@@ -1,9 +1,10 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block HVACConvectiveSingleZone
-  "Simple convective only HVAC system that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
+block HVACConvectiveMultipleZones
+  "Simple convective only HVAC system for two zones that can be exported as an FMU"
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones(
     redeclare final package Medium = MediumA,
-    theZonAda(nPorts=2));
+    nZon = 2,
+    nPorts = 3);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
@@ -56,14 +57,14 @@ block HVACConvectiveSingleZone
     "Nominal water mass flow rate";
   /////////////////////////////////////////////////////////
   // HVAC models
-  Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
+  Modelica.Blocks.Sources.Constant zero[nZon](each k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal) "Supply air fan"
-    annotation (Placement(transformation(extent={{50,90},{70,110}})));
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
   HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumA,
@@ -98,9 +99,9 @@ block HVACConvectiveSingleZone
         rotation=180,
         origin={-22,94})));
   Sources.Outside out(
-    nPorts=2,
+    nPorts=3,
     redeclare package Medium = MediumA) "Outside air boundary condition"
-    annotation (Placement(transformation(extent={{-132,84},{-112,104}})));
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -126,7 +127,7 @@ block HVACConvectiveSingleZone
     annotation (Placement(transformation(extent={{14,94},{26,106}})));
   Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-112,6},{-92,26}})));
+    annotation (Placement(transformation(extent={{-100,6},{-80,26}})));
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-158,12},{-138,32}})));
@@ -153,6 +154,37 @@ block HVACConvectiveSingleZone
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-180})));
+  Modelica.Blocks.Math.Min min
+    annotation (Placement(transformation(extent={{-80,-40},{-100,-20}})));
+  Modelica.Blocks.Routing.DeMultiplex2 deMul
+    "De multiplex for room air temperature"
+    annotation (Placement(transformation(extent={{-40,-40},{-60,-20}})));
+  Movers.FlowControlled_m_flow fan2(
+    redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=mA_flow_nominal/10,
+    inputType=Buildings.Fluid.Types.InputType.Constant)
+    "Supply air fan that extracts a constant amount of outside air"
+    annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
+  FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=0.1*mA_flow_nominal,
+    dp_nominal=200,
+    linearized=true) "Fixed resistance for exhaust air duct"
+    annotation (Placement(transformation(extent={{-60,-80},{-80,-60}})));
+  FixedResistances.FixedResistanceDpM resSup1(
+    redeclare package Medium = MediumA,
+    linearized=true,
+    m_flow_nominal=0.5*mA_flow_nominal,
+    dp_nominal=10) "Fixed resistance for supply air inlet"
+    annotation (Placement(transformation(extent={{70,106},{90,126}})));
+  FixedResistances.FixedResistanceDpM resSup2(
+    redeclare package Medium = MediumA,
+    linearized=true,
+    m_flow_nominal=0.5*mA_flow_nominal,
+    dp_nominal=10) "Fixed resistance for supply air inlet"
+    annotation (Placement(transformation(extent={{70,76},{90,96}})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -162,11 +194,11 @@ equation
           -140},{180,-140}},
                            color={0,0,127}));
   connect(out.ports[1],hex. port_a1) annotation (Line(
-      points={{-112,96},{-102,96}},
+      points={{-120,92.6667},{-114,92.6667},{-114,96},{-102,96}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[2],hex. port_b2) annotation (Line(
-      points={{-112,92},{-102,92},{-102,84}},
+      points={{-120,90},{-110,90},{-110,84},{-102,84}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1],cooCoi. port_a1)   annotation (Line(
@@ -174,13 +206,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
-      points={{-132,140},{-112,140},{-112,120},{-152,120},{-152,94},{-140,94},{
-          -140,94.2},{-132,94.2}},
+      points={{-132,140},{-112,140},{-112,120},{-140,120},{-140,96},{-140,96},{
+          -140,90.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(fan.m_flow_in,mAir_flow. y) annotation (Line(
-      points={{59.8,112},{59.8,140},{21,140}},
+      points={{49.8,112},{49.8,140},{21,140}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1,senTemHXOut. port_a) annotation (Line(
@@ -196,15 +228,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemSupAir.port_b,fan. port_a) annotation (Line(
-      points={{26,100},{50,100}},
+      points={{26,100},{40,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRooSetPoi.y,con. reference) annotation (Line(
-      points={{-137,22},{-114,22}},
+      points={{-137,22},{-102,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y,mWat_flow. u) annotation (Line(
-      points={{-91,16},{-74,16}},
+      points={{-79,16},{-74,16}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mWat_flow.y,souWat. m_flow_in) annotation (Line(
@@ -220,18 +252,40 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
-    annotation (Line(points={{0,-180},{0,-174},{0,-140},{40,-140},{40,120},{-60,
+    annotation (Line(points={{0,-180},{0,-174},{0,-140},{6,-140},{6,120},{-60,
           120},{-60,140}},                         color={0,0,127}));
-  connect(con.u, theZonAda.TZon) annotation (Line(points={{-114,10},{-120,10},{
-          -120,-20},{120,-20},{120,80},{150,80},{150,100},{132,100}}, color={0,
-          0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
           -48,50},{-40,50},{-40,88},{-32,88}}, color={0,127,255}));
-  connect(fan.port_b, theZonAda.ports[1])
-    annotation (Line(points={{70,100},{90,100},{110,100}}, color={0,127,255}));
-  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
-          -70,84},{-58,84},{-58,72},{92,72},{92,100},{110,100}}, color={0,127,
-          255}));
+  connect(deMul.y1[1], min.u1)
+    annotation (Line(points={{-61,-24},{-78,-24}}, color={0,0,127}));
+  connect(deMul.y2[1], min.u2)
+    annotation (Line(points={{-61,-36},{-78,-36}}, color={0,0,127}));
+  connect(deMul.u, TAirZon) annotation (Line(points={{-38,-30},{34,-30},{154,-30},
+          {154,100},{180,100}}, color={0,0,127}));
+  connect(min.y, con.u) annotation (Line(points={{-101,-30},{-128,-30},{-128,10},
+          {-102,10}}, color={0,0,127}));
+  connect(theZonAda[1].ports[2], hex.port_a2) annotation (Line(points={{110,100},
+          {100,100},{102,100},{102,70},{-60,70},{-60,84},{-82,84}},
+                                                                  color={0,127,255}));
+  connect(theZonAda[2].ports[2], hex.port_a2) annotation (Line(points={{110,100},
+          {104,100},{104,68},{-62,68},{-62,84},{-82,84}},
+                                                        color={0,127,255}));
+  connect(fan2.port_a, theZonAda[2].ports[3]) annotation (Line(points={{-20,-70},
+          {-20,-70},{106,-70},{106,100},{110,100}},
+                                                 color={0,127,255}));
+  connect(fan2.port_b, res.port_a) annotation (Line(points={{-40,-70},{-50,-70},
+          {-60,-70}}, color={0,127,255}));
+  connect(res.port_b, out.ports[3]) annotation (Line(points={{-80,-70},{-114,
+          -70},{-114,-70},{-114,80},{-114,80},{-114,87.3333},{-120,87.3333}},
+        color={0,127,255}));
+  connect(fan.port_b, resSup1.port_a) annotation (Line(points={{60,100},{66,100},
+          {66,116},{70,116}}, color={0,127,255}));
+  connect(resSup1.port_b, theZonAda[1].ports[1]) annotation (Line(points={{90,
+          116},{100,116},{100,100},{110,100}}, color={0,127,255}));
+  connect(fan.port_b, resSup2.port_a) annotation (Line(points={{60,100},{66,100},
+          {66,86},{70,86}}, color={0,127,255}));
+  connect(resSup2.port_b, theZonAda[2].ports[1]) annotation (Line(points={{90,
+          86},{100,86},{100,100},{110,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
@@ -242,15 +296,16 @@ equation
     Documentation(info="<html>
 <p>
 This example demonstrates how to export a model of an HVAC system
-that only provides convective cooling to a single thermal zone.
-The HVAC system is taken from
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+that only provides convective cooling to two thermal zones.
+The example is similar to
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+except that is serves two thermal zones rather than one.
 </p>
 <p>
 The example extends from
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
@@ -267,6 +322,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACConvectiveSingleZone.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACConvectiveMultipleZones.mos"
         "Export FMU"));
-end HVACConvectiveSingleZone;
+end HVACConvectiveMultipleZones;

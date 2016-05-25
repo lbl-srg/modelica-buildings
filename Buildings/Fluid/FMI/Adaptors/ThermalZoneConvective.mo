@@ -6,8 +6,10 @@ model ThermalZoneConvective
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  parameter Integer nPorts(final min = 1) "Number of ports"
-    annotation(Dialog(connectorSizing=true));
+  // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
+  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones
+  // the fluid ports can not be assigned between the different zones by the user.
+  parameter Integer nPorts(final min = 1) "Number of ports";
 
   Modelica.Blocks.Interfaces.RealInput TZon(final unit="K",
                                             displayUnit="degC")
@@ -190,7 +192,12 @@ equation
           extent={{46,26},{48,-18}},
           lineColor={95,95,95},
           fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-92,-42},{-6,-98}},
+          lineColor={0,0,127},
+          textString="[%nPorts]",
+          horizontalAlignment=TextAlignment.Left)}),
     Documentation(info="<html>
 <p>
 Model that is used as an adapter between an HVAC system that uses

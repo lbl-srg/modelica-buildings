@@ -8,9 +8,12 @@ partial block HVACConvectiveMultipleZones
   parameter Integer nZon(min=1)
     "Number of thermal zones served by the HVAC system";
 
+  parameter Integer nPorts(min=1)
+    "Number of fluid ports for each zone (must be the same for every zone)";
+
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-  Interfaces.Outlet fluPor[nZon, size(theZonAda.fluPor, 1)](
+  Interfaces.Outlet fluPor[nZon, nPorts](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
     each final allowFlowReversal = false) "Fluid connector"
@@ -50,7 +53,8 @@ partial block HVACConvectiveMultipleZones
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
   Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda[nZon](
-    redeclare each final package Medium = Medium)
+    redeclare each final package Medium = Medium,
+    each final nPorts = nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
 
@@ -61,8 +65,12 @@ equation
           148,96},{132,96}},  color={0,0,127}));
   connect(CZon, theZonAda.CZon) annotation (Line(points={{180,40},{144,40},{144,
           92},{132,92}}, color={0,0,127}));
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{131,107},{140,107},
+  for iZon in 1:nZon loop
+    for iPor in 1:nPorts loop
+      connect(theZonAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(points={{131,107},{140,107},
           {140,140},{170,140}}, color={0,0,255}));
+    end for;
+  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
           extent={{-160,160},{160,-160}},
@@ -126,7 +134,11 @@ equation
           pattern=LinePattern.None),
         Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
         Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
+        graphics={Text(
+          extent={{114,90},{128,84}},
+          lineColor={0,0,127},
+          textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
 <p>
 Model that is used as a container for an HVAC system that is
@@ -151,6 +163,19 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
 xxx (update link)
 shows how such an FMU can be connected
 to a room model that has signal flow.
+</p>
+<p>
+The following two parameters need to be assigned by the user:
+Set <code>nZon</code> to the number of thermal zones to which the
+FMU will be connected.
+Set <code>nPorts</code> to the largest number of fluid ports
+that the thermal zones has. For example,
+if <code>nZon=2</code> and zone <i>1</i> has one inlet and one outlet
+(hence it has 2 ports),
+and zone <i>2</i> has one inlets and two outlets
+(hence it has 3 ports), then
+set <code>nPorts=3</code>. This will add more fluid ports than are needed
+for zone <i>1</i>, but this causes no overhead if they are not connected.
 </p>
 <p>
 The conversion between the fluid ports and signal ports is done
