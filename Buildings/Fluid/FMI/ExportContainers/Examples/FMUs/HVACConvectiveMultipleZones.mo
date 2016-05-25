@@ -107,10 +107,10 @@ block HVACConvectiveMultipleZones
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
-    annotation (Placement(transformation(extent={{-32,6},{-12,26}})));
+    annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
   Sources.FixedBoundary sinWat(
     redeclare package Medium = MediumW, nPorts=1) "Sink for water circuit"
-    annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
@@ -127,15 +127,15 @@ block HVACConvectiveMultipleZones
     annotation (Placement(transformation(extent={{14,94},{26,106}})));
   Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-100,6},{-80,26}})));
+    annotation (Placement(transformation(extent={{-98,-40},{-78,-20}})));
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-158,12},{-138,32}})));
+    annotation (Placement(transformation(extent={{-148,-34},{-128,-14}})));
   Modelica.Blocks.Math.BooleanToReal mWat_flow(
     realTrue = 0,
     realFalse = mW_flow_nominal)
     "Conversion from boolean to real for water flow rate"
-    annotation (Placement(transformation(extent={{-72,6},{-52,26}})));
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
@@ -155,10 +155,10 @@ block HVACConvectiveMultipleZones
         rotation=90,
         origin={0,-180})));
   Modelica.Blocks.Math.Min min
-    annotation (Placement(transformation(extent={{-80,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-100,-60}})));
   Modelica.Blocks.Routing.DeMultiplex2 deMul
     "De multiplex for room air temperature"
-    annotation (Placement(transformation(extent={{-40,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
   Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -166,13 +166,13 @@ block HVACConvectiveMultipleZones
     m_flow_nominal=mA_flow_nominal/10,
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Supply air fan that extracts a constant amount of outside air"
-    annotation (Placement(transformation(extent={{-20,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1*mA_flow_nominal,
     dp_nominal=200,
     linearized=true) "Fixed resistance for exhaust air duct"
-    annotation (Placement(transformation(extent={{-60,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   FixedResistances.FixedResistanceDpM resSup1(
     redeclare package Medium = MediumA,
     linearized=true,
@@ -194,7 +194,8 @@ equation
           -140},{180,-140}},
                            color={0,0,127}));
   connect(out.ports[1],hex. port_a1) annotation (Line(
-      points={{-120,92.6667},{-114,92.6667},{-114,96},{-102,96}},
+      points={{-120,92.6667},{-116,92.6667},{-116,92},{-110,92},{-110,96},{-102,
+          96}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[2],hex. port_b2) annotation (Line(
@@ -202,7 +203,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1],cooCoi. port_a1)   annotation (Line(
-      points={{-12,16},{0,16},{0,88},{-12,88}},
+      points={{-20,-38},{-8,-38},{-8,88},{-12,88}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
@@ -232,15 +233,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRooSetPoi.y,con. reference) annotation (Line(
-      points={{-137,22},{-102,22}},
+      points={{-127,-24},{-100,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y,mWat_flow. u) annotation (Line(
-      points={{-79,16},{-74,16}},
+      points={{-77,-30},{-72,-30}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mWat_flow.y,souWat. m_flow_in) annotation (Line(
-      points={{-51,16},{-42,16},{-42,24},{-32,24}},
+      points={{-49,-30},{-40,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,weaBus)  annotation (Line(
@@ -252,31 +253,33 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
-    annotation (Line(points={{0,-180},{0,-174},{0,-140},{6,-140},{6,120},{-60,
-          120},{-60,140}},                         color={0,0,127}));
-  connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
-          -48,50},{-40,50},{-40,88},{-32,88}}, color={0,127,255}));
+    annotation (Line(points={{0,-180},{0,-174},{0,-140},{0,120},{-60,120},{-60,
+          140}},                                   color={0,0,127}));
+  connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-60,10},{
+          -60,10},{-50,10},{-50,10},{-50,10},{-50,88},{-32,88}},
+                                               color={0,127,255}));
   connect(deMul.y1[1], min.u1)
-    annotation (Line(points={{-61,-24},{-78,-24}}, color={0,0,127}));
+    annotation (Line(points={{-61,-64},{-78,-64}}, color={0,0,127}));
   connect(deMul.y2[1], min.u2)
-    annotation (Line(points={{-61,-36},{-78,-36}}, color={0,0,127}));
-  connect(deMul.u, TAirZon) annotation (Line(points={{-38,-30},{34,-30},{154,-30},
-          {154,100},{180,100}}, color={0,0,127}));
-  connect(min.y, con.u) annotation (Line(points={{-101,-30},{-128,-30},{-128,10},
-          {-102,10}}, color={0,0,127}));
+    annotation (Line(points={{-61,-76},{-78,-76}}, color={0,0,127}));
+  connect(deMul.u, TAirZon) annotation (Line(points={{-38,-70},{120,-70},{120,
+          -20},{154,-20},{154,100},{180,100}},
+                                color={0,0,127}));
+  connect(min.y, con.u) annotation (Line(points={{-101,-70},{-110,-70},{-110,
+          -36},{-100,-36}},
+                      color={0,0,127}));
   connect(theZonAda[1].ports[2], hex.port_a2) annotation (Line(points={{110,100},
           {100,100},{102,100},{102,70},{-60,70},{-60,84},{-82,84}},
                                                                   color={0,127,255}));
   connect(theZonAda[2].ports[2], hex.port_a2) annotation (Line(points={{110,100},
           {104,100},{104,68},{-62,68},{-62,84},{-82,84}},
                                                         color={0,127,255}));
-  connect(fan2.port_a, theZonAda[2].ports[3]) annotation (Line(points={{-20,-70},
-          {-20,-70},{106,-70},{106,100},{110,100}},
-                                                 color={0,127,255}));
-  connect(fan2.port_b, res.port_a) annotation (Line(points={{-40,-70},{-50,-70},
-          {-60,-70}}, color={0,127,255}));
-  connect(res.port_b, out.ports[3]) annotation (Line(points={{-80,-70},{-114,
-          -70},{-114,-70},{-114,80},{-114,80},{-114,87.3333},{-120,87.3333}},
+  connect(fan2.port_a, theZonAda[2].ports[3]) annotation (Line(points={{-20,50},
+          {-20,50},{106,50},{106,100},{110,100}},color={0,127,255}));
+  connect(fan2.port_b, res.port_a) annotation (Line(points={{-40,50},{-50,50},{
+          -60,50}},   color={0,127,255}));
+  connect(res.port_b, out.ports[3]) annotation (Line(points={{-80,50},{-114,50},
+          {-114,82},{-114,87.3333},{-120,87.3333}},
         color={0,127,255}));
   connect(fan.port_b, resSup1.port_a) annotation (Line(points={{60,100},{66,100},
           {66,116},{70,116}}, color={0,127,255}));

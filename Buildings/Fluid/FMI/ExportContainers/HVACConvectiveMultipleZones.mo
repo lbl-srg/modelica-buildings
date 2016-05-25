@@ -152,10 +152,9 @@ and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
-xxxx (update link)
-shows how a simple HVAC system can be implemented and exported as
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>
+shows how a simple HVAC system that serves two rooms can be implemented and exported as
 an FMU.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">

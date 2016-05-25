@@ -59,9 +59,9 @@ model ThermalZoneConvective "Simple thermal zone"
 
    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
     "Radiative temperature"
-    annotation (Placement(transformation(extent={{0,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{0,40},{-20,60}})));
   Modelica.Blocks.Sources.Constant radTem(k=295.13)
-    annotation (Placement(transformation(extent={{40,80},{20,100}})));
+    annotation (Placement(transformation(extent={{40,40},{20,60}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -83,10 +83,10 @@ model ThermalZoneConvective "Simple thermal zone"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
                                                          TOut1
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{-20,82},{0,102}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,82},{40,102}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -109,23 +109,24 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,40},{40,12},{86,12}},
+    annotation (Line(points={{40,92},{40,92},{60,92},{60,12},{86,12}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
     annotation (Line(points={{80,60},{60,60},{60,12},{86,12}},
                                                             color={191,0,0}));
-  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,40},{-40,40},{
+  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,92},{-40,92},{
           -40,140},{24,140}},
                           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
-    annotation (Line(points={{0,40},{0,40},{20,40}}, color={191,0,0}));
+    annotation (Line(points={{0,92},{0,92},{20,92}}, color={191,0,0}));
   connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-60,143.75},
-          {-20,143.75},{-20,90}},           color={191,0,0}));
+          {-48,143.75},{-48,144},{-46,144},{-46,50},{-20,50}},
+                                            color={191,0,0}));
   connect(TRad.T, radTem.y)
-    annotation (Line(points={{2,90},{19,90}}, color={0,0,127}));
+    annotation (Line(points={{2,50},{19,50}}, color={0,0,127}));
 
   connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-81.4286,142.5},{
           -100,142.5},{-100,16.8},{84,16.8}},    color={0,0,127}));
