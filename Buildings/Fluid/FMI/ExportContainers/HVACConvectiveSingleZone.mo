@@ -137,8 +137,8 @@ and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
 The example
@@ -208,8 +208,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective</a>
 for a model that uses this model.
 </p>
 <p>

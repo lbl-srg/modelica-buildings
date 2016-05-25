@@ -314,8 +314,8 @@ which sets the number of fluid ports.
 <p>
 To use this model, all <code>nFluPor</code>
 <code>ports</code> need to be connected as described in example
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective
 </a>.
 </p>
 <p>
@@ -323,8 +323,8 @@ To use this model as a container for an FMU, simply extend from this model,
 rather than instantiate it, and add your thermal zone. By extending from this model,
 the top-level signal connectors on the left stay at the top-level,
 and hence will be visible at the FMI interface.The example
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective
 </a>
 shows how a simple convective thermal zone system can be implemented
 and exported as an FMU.
@@ -357,8 +357,8 @@ Buildings.Fluid.Sources.Outside
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.Examples.FMUs.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective
 </a>
 for a model that uses this model.
 </p>

@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples.FMUs;
+within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZoneConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
     redeclare final package Medium = MediumA, nFluPor = nFluPorts);
@@ -202,7 +202,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/FMUs/ThermalZoneConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZoneConvective.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end ThermalZoneConvective;
