@@ -84,7 +84,44 @@ equation
         Text(
           extent={{-72,252},{70,146}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name"),
+        Rectangle(
+          extent={{-144,-24},{36,-34}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Ellipse(
+          extent={{-68,-4},{-16,-56}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-146,46},{32,36}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Ellipse(
+          extent={{-68,68},{-16,16}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-56,64},{-16,42},{-56,20},{-56,64}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-28,-8},{-68,-30},{-28,-52},{-28,-8}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-124,66},{-88,-56}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
+        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>

@@ -234,40 +234,10 @@ equation
           255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
-        Rectangle(
-          extent={{-110,-24},{70,-34}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Ellipse(
-          extent={{-34,-4},{18,-56}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-24,-132},{26,-152}},
           lineColor={0,0,127},
-          textString="TOut"),
-        Rectangle(
-          extent={{-112,46},{66,36}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Polygon(
-          points={{6,-8},{-34,-30},{6,-52},{6,-8}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-34,68},{18,16}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-22,64},{18,42},{-22,20},{-22,64}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
