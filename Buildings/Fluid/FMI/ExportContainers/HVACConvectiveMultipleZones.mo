@@ -1,53 +1,56 @@
 within Buildings.Fluid.FMI.ExportContainers;
-partial block HVACConvectiveSingleZone
+partial block HVACConvectiveMultipleZones
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
+  parameter Integer nZon(min=1)
+    "Number of thermal zones served by the HVAC system";
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-  Interfaces.Outlet fluPor[size(theZonAda.fluPor, 1)](
+  Interfaces.Outlet fluPor[nZon, size(theZonAda.fluPor, 1)](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
     each final allowFlowReversal = false) "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
 
-  Modelica.Blocks.Interfaces.RealInput TAirZon(
-    final unit="K",
-    displayUnit="degC") "Zone air temperature"
+  Modelica.Blocks.Interfaces.RealInput TAirZon[nZon](
+    each final unit="K",
+    each displayUnit="degC") "Zone air temperatures"
     annotation (Placement(transformation(extent={{200,80},{160,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput TRadZon(
-    final unit="K",
-    displayUnit="degC") "Radiative temperature of the zone"
+  Modelica.Blocks.Interfaces.RealInput TRadZon[nZon](
+    each final unit="K",
+    each displayUnit="degC") "Radiative temperature of the zones"
     annotation (Placement(transformation(
           extent={{200,-20},{160,20}})));
 
-  Modelica.Blocks.Interfaces.RealInput X_wZon(
-    final unit = "kg/kg") if
-    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
+  Modelica.Blocks.Interfaces.RealInput X_wZon[nZon](
+    each final unit = "kg/kg") if
+       Medium.nXi > 0 "Zone air water mass fraction per total air mass"
     annotation (Placement(transformation(extent={{200,50},{160,90}})));
-  Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
+
+  Modelica.Blocks.Interfaces.RealInput CZon[nZon, Medium.nC](
+    each final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{200,20},{160,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(final unit="W")
-    "Radiant heat input into zone (positive if heat gain)"
+  Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
+    "Radiant heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-60},{200,-20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QGaiCon_flow(final unit="W")
-    "Convective sensible heat input into zone (positive if heat gain)"
+  Modelica.Blocks.Interfaces.RealOutput QGaiCon_flow[nZon](each final unit="W")
+    "Convective sensible heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-110},{200,-70}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow(final unit="W")
-    "Latent heat input into zone (positive if heat gain)"
+  Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow[nZon](each final unit="W")
+    "Latent heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(
-    redeclare final package Medium = Medium)
+  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda[nZon](
+    redeclare each final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
 
@@ -127,7 +130,7 @@ equation
     Documentation(info="<html>
 <p>
 Model that is used as a container for an HVAC system that is
-to be exported as an FMU and that serves a single zone.
+to be exported as an FMU and that serves multiple zones.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -139,19 +142,24 @@ will be visible at the FMI interface.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
+xxxx (update link)
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
 Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
+xxx (update link)
 shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>
 <p>
 The conversion between the fluid ports and signal ports is done
 in the thermal zone adapter <code>theZonAda</code>.
+This adapter is vectorized as each component serves one thermal zone.
 This adapter has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts need to be connected to these ports.
+The first index is for the number of the thermal zone, and the second
+index is for the number of fluid inlet or outlet of the thermal zone.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
 these flows need also be connected to <code>ports</code>.
 The model sends at the port <code>fluPor</code> the mass flow rate for
@@ -177,20 +185,23 @@ Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 </p>
 <p>
-Inputs to this container are the zone air temperature, water vapor mass fraction
+Inputs to this container are, for each thermal zone,
+the zone air temperature, water vapor mass fraction
 per total mass of the air and trace substances.
 The outflowing fluid stream(s) at port <code>ports</code> will be at this
-state. All fluid streams at port <code>ports</code> are at the same
-pressure.
+state. For each thermal zone, all fluid streams at port <code>ports</code> are at the same
+pressure, hence, for example, <code>ports[1, 1].p = porst[1, 2].p = ... </code>.
+However, <code>ports[1, 1].p</code> need not be at the same pressure as
+<code>porst[2, 1].p</code>
 </p>
 <h4>Assumption and limitations</h4>
 <p>
 The mass flow rates at <code>ports</code> sum to zero, hence this
-model conserves mass.
+model conserves mass for each thermal zone.
 </p>
 <p>
 This model does not impose any pressure, other than setting the pressure
-of all fluid connections to <code>ports</code> to be equal.
+of all fluid connections to <code>ports[i, :]</code> to be equal.
 The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the HVAC system is connected
 to a model that sets a pressure boundary condition such as
@@ -213,17 +224,17 @@ Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
 for a model that uses this model.
 </p>
 <p>
-For models that multiple thermal zones connected to the HVAC system,
-use the model
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones</a>.
+For models that only have one thermal zone connected to the HVAC system,
+use the simpler model
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 15, 2016, by Michael Wetter:<br/>
+May 25, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end HVACConvectiveSingleZone;
+end HVACConvectiveMultipleZones;
