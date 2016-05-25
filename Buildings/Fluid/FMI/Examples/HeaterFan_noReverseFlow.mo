@@ -18,7 +18,7 @@ model HeaterFan_noReverseFlow
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 1000
     "Heat flow rate at u=1, positive for heating";
 
-  FMUs.Fan floMac(
+  ExportContainers.Examples.FMUs.Fan floMac(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -26,7 +26,7 @@ model HeaterFan_noReverseFlow
     use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  FMUs.HeaterCooler_u hea(
+  ExportContainers.Examples.FMUs.HeaterCooler_u hea(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,

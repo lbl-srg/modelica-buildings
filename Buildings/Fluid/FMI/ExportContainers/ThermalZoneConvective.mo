@@ -164,8 +164,8 @@ See
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent\">
 Buildings.Fluid.FMI.ExportContainers.PartialTwoPortComponent</a>
 or
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
-Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
 for how to use this model.
 </p>
 </html>",     revisions="<html>

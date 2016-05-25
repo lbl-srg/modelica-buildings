@@ -46,8 +46,8 @@ whether flow reversal is allowed.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
-Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>
 for a block that extends this partial block.
 </p>
 </html>", revisions="<html>

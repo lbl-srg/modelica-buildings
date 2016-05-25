@@ -15,13 +15,13 @@ model HeaterFanPressureDriven
     "Set to true, as this model computes the mass flow rate based on the pressure drop"
     annotation(Evaluate=true);
 
-  FMUs.Fan floMac(
+  ExportContainers.Examples.FMUs.Fan floMac(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  FMUs.HeaterCooler_u hea(
+  ExportContainers.Examples.FMUs.HeaterCooler_u hea(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     Q_flow_nominal=Q_flow_nominal,

@@ -15,14 +15,14 @@ model HeaterFan
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
 
-  FMUs.Fan floMac(
+  ExportContainers.Examples.FMUs.Fan floMac(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     use_p_in=use_p_in) "Flow machine with pressure raise as an input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  FMUs.HeaterCooler_u hea(
+  ExportContainers.Examples.FMUs.HeaterCooler_u hea(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,

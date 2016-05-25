@@ -42,11 +42,11 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</a>
   and add components.
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.Fan\">
-  Buildings.Fluid.FMI.Examples.FMUs.Fan</a>
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan</a>
   and
-  <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume\">
-  Buildings.Fluid.FMI.Examples.FMUs.ResistanceVolume</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>.
   </p>
   <p>
   To export an HVAC system, extend from
@@ -188,8 +188,8 @@ used, and the component computes no pressure drop.
 Setting <code>use_p_in=false</code> therefore leads to fewer
 equations, but it requires a component that specifies the mass
 flow rate, such as
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow\">
-Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow</a>.
 </p>
 <h4>Notes</h4>
 <p>
