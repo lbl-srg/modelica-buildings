@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneAir2 "Validation model for the convective HVAC system"
-  extends HVACConvectiveAir1(
+  extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACConvectiveSingleZoneAir1(
     allowFlowReversal = false);
 annotation (
     Documentation(info="<html>
