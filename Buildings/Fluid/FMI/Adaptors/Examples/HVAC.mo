@@ -107,10 +107,10 @@ equation
           lineColor={0,0,127},
           textString="an HVAC system"),
         Text(
-          extent={{-114,80},{-68,68}},
+          extent={{-114,80},{-70,70}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
-          textString="an HVAC system"),
+          textString="a thermal zone"),
         Text(
           extent={{-114,90},{-64,76}},
           pattern=LinePattern.None,

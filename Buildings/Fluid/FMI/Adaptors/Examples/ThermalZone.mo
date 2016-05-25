@@ -3,7 +3,8 @@ model ThermalZone "Example of a thermal zone"
   extends Modelica.Icons.Example;
   constant Integer nFlu = 3 "Number of fluid connectors";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(redeclare final package
+  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(redeclare final
+      package
       Medium = MediumA, nPorts=3) "Adaptor for the thermal zone"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -14,8 +15,8 @@ model ThermalZone "Example of a thermal zone"
    parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*2*1.2/3600
     "Nominal mass flow rate";
 
-  Buildings.Fluid.FMI.Conversion.InletToAir con[nFlu](redeclare package Medium
-      = MediumA) "Signal conversion"
+  Buildings.Fluid.FMI.Conversion.InletToAir con[nFlu](redeclare package Medium =
+        MediumA) "Signal conversion"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.RealExpression der_T(y=
     sum({max(0, con[i].m_flow)*1006*(con[i].T - TRoo.y) for i in 1:nFlu}))
@@ -84,10 +85,10 @@ equation
           lineColor={0,0,127},
           textString="Simplified model of"),
         Text(
-          extent={{0,82},{46,70}},
+          extent={{0,82},{44,72}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
-          textString="an HVAC system"),
+          textString="a thermal zone"),
         Text(
           extent={{-108,82},{-62,70}},
           pattern=LinePattern.None,

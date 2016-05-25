@@ -283,8 +283,8 @@ equation
     annotation (Line(points={{91,40},{98,40}},
                                              color={0,0,127}));
 
-  connect(mux.y[3], mWatFlow.u) annotation (Line(points={{-0.666667,-65},{
-          -0.666667,-66},{0,-66},{0,-60},{20,-60},{20,-80},{86,-80}},
+  connect(mux.y[3], mWatFlow.u) annotation (Line(points={{7.77156e-16,-65},{
+          7.77156e-16,-66},{0,-66},{0,-60},{20,-60},{20,-80},{86,-80}},
                                         color={0,0,127}));
   connect(mWatFlow.y, mWat_flow)
     annotation (Line(points={{109,-80},{109,-80},{160,-80}},
@@ -299,7 +299,7 @@ equation
   connect(conQCon_flow.port, heaPorAir) annotation (Line(points={{-44,40},{-84,
           40},{-84,80},{-110,80},{-110,120},{-140,120}},
                                                        color={191,0,0}));
-  connect(mux.y[3], conQLat_flow.Q_flow) annotation (Line(points={{-0.666667,
+  connect(mux.y[3], conQLat_flow.Q_flow) annotation (Line(points={{7.77156e-16,
           -65},{0,-65},{0,60},{-26,60}},
                                     color={0,0,127}));
   connect(conQLat_flow.port, heaPorAir) annotation (Line(points={{-46,60},{-84,
@@ -337,25 +337,32 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Ellipse(
-          extent={{-24,-2},{28,-54}},
+          extent={{-94,52},{-42,0}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{16,-6},{-24,-28},{16,-50},{16,-6}},
+          points={{-54,48},{-94,26},{-54,4},{-54,48}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-20,52},{32,0}},
+          extent={{-96,-2},{-44,-54}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-8,48},{32,26},{-8,4},{-8,48}},
+          points={{-84,-6},{-44,-28},{-84,-50},{-84,-6}},
           lineColor={0,0,255},
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Rectangle(extent={{-196,124},{-198,128}}, lineColor={28,108,200}),
+        Rectangle(
+          extent={{-10,54},{10,-4}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(points={{10,54},{-10,-4}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
 Model that is used as an adapter between a thermal
