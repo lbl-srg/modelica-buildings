@@ -1,9 +1,9 @@
 Fan
 FixedResistanceDpM
+HVACConvectiveSingleZone
 HeaterCooler_T
 HeaterCooler_u
 Humidifier_u
-HVACCoolingOnlyConvective
 IdealSource_m_flow
 MixingVolume
 ResistanceVolume

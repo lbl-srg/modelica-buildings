@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block HVACCoolingOnlyConvective
+block HVACConvectiveSingleZone
   "Simple convective only HVAC system that can be exported as an FMU"
   extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
     redeclare final package Medium = MediumA,
@@ -267,6 +267,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACCoolingOnlyConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/HVACConvectiveSingleZone.mos"
         "Export FMU"));
-end HVACCoolingOnlyConvective;
+end HVACConvectiveSingleZone;

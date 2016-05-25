@@ -3,7 +3,7 @@ model RoomConvectiveHVACConvective
   "Simple thermal zone with convective HVAC system."
  extends Modelica.Icons.Example;
 
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective hvaCon
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone hvaCon
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
     annotation (Placement(transformation(extent={{20,0},{42,20}})));

@@ -54,8 +54,8 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
   and add the HVAC system.
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>.
   </p>
   <p>
   To export a thermal zone, extend from
@@ -134,8 +134,8 @@ can do so by extending the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
 Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACCoolingOnlyConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
 illustrates how this can be accomplished.
 </p>
 <p>
