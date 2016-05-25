@@ -238,8 +238,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
 for a model that uses this model.
 </p>
 </html>", revisions="<html>

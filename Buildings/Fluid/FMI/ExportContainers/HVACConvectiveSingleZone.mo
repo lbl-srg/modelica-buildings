@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers;
-partial block HVACConvective
+partial block HVACConvectiveSingleZone
   "Partial block to export an HVAC system that has no radiative component as an FMU"
 
   replaceable package Medium =
@@ -219,4 +219,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HVACConvective;
+end HVACConvectiveSingleZone;

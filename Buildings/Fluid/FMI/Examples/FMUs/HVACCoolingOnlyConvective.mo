@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Examples.FMUs;
 block HVACCoolingOnlyConvective
   "Simple convective only HVAC system that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvective(
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
     redeclare final package Medium = MediumA,
     theZonAda(nPorts=2));
 
@@ -249,8 +249,8 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>
 </p>
 <p>
 The example extends from
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.

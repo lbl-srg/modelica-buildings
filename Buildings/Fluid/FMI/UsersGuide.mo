@@ -50,8 +50,8 @@ The main packages are as follows:
   </p>
   <p>
   To export an HVAC system, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
-  Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+  Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
   and add the HVAC system.
   See
   <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
@@ -131,8 +131,8 @@ has an inlet and outlet fluid port.
 <p>
 Users who want to export a whole HVAC system that serves a single thermal zone
 can do so by extending the partial block
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective\">
 Buildings.Fluid.FMI.Examples.FMUs.HVACCoolingOnlyConvective</a>
