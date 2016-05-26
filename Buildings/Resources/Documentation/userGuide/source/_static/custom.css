@@ -6,11 +6,6 @@ html{
 }
 body{
     color: #022e4d;
-    padding-top: 100px;
-}
-.page-content {
-   padding-top: 100px;
-   margin-left: 10px;
 }
 
 .starter-template {
@@ -19,39 +14,23 @@ body{
 }
 
 .navbar-toggle{
-    position: fixed;
     right: 0px;
     top: 5px;
 }
 .navbar {
-/*    background-color: white;*/
-    position: fixed;
-    top: 0px;
-    z-index: 100;
-/*    display:inline;*/
-    /*width:100%;*/
-    height: 60px;
-    max-height: 60px;
+    height: 80px;
+    max-height: 80px;
+    border: none;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;user-select:none;
 }
 
-.navbar-default{
-  border: none;
+.navbar .navbar-nav{
+  background: #f8f8f8;
+  margin-left: -20px;
 }
 
-.navbar .navbar-nav{
-  position: fixed;
-  left: 10px;
-  margin-left: -10px;
-  margin-top: -10px;
-  top: 70px;
-  z-index: 100;
-  width: 100%;
-  /*display: block;*/
-  background: linear-gradient(#ddd, white, #ddd);
-}
 
 .navbar .navbar-nav > input.form-control{
    position: absolute;
@@ -77,12 +56,16 @@ body{
     text-decoration: none;
 }
 .navbar-collapse{
-    border-style: none;
+  border-style: none;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 100;
 }
 /* ---------------------------------- */
 
 
-.navbar > .container .navbar-brand > img{
+.navbar > .container-fluid .navbar-brand > img{
    position: absolute;
    left: 10px;
    height: 30px;
