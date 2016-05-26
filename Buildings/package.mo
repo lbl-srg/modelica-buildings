@@ -207,7 +207,24 @@ its class name ends with the string <code>Beta</code>.
                           This change was done in
                           <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.<br/>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Set <code>filteredSpeed=false</code> in fan models to avoid a large
+                          increase in computing time when simulated between <i>t=1.60E7</i>
+                          and <i>t=1.66E7</i>.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
@@ -224,7 +241,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings/HeatTransfer/Windows/BeamDepthInRoom
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
@@ -293,6 +310,41 @@ its class name ends with the string <code>Beta</code>.
                           are affected by this change.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.MixedAir.Rooms.CFD<br/>
+                          Buildings.MixedAir.Rooms.MixedAir<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.CFDAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.MixedAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.PartialAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.RoomHeatMassBalance
+
+       </td>
+       <td valign=\"top\">Refactored implementation of latent heat gain for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+                          Users who simply use <code>Buildings.MixedAir.Rooms.CFD</code> or
+                          <code>Buildings.MixedAir.Rooms.MixedAir</code> will not be affected by this change,
+                          except if they access variables related to the heat gain.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed<br/>
+                          Buildings.Rooms.BaseClasses.MixedAirHeatGain
+       </td>
+       <td valign=\"top\">Removed models as these are no longer needed due after the refactoring
+                          of the room model for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
+       </td>
+       <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
+                          <code>Buildings.Rooms.BaseClasses.HeatGain</code>.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
    </table>
    <!-- Errors that have been fixed -->
    <p>
@@ -300,12 +352,16 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
+                          Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.Controls.Economizer
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected the economizer controller which closed
+                          the outside air when there was no freeze concern during summer.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/511\">issue 511</a>.
        </td>
    </tr>
    </table>
