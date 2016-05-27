@@ -55,6 +55,9 @@ public
                                           annotation (Placement(
         transformation(extent={{100,70},{120,90}})));
 protected
+  parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
+  "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
@@ -62,6 +65,13 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature of fluid"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
+initial equation
+  if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+    assert(size(a, 1) == 6,
+    "The boiler has the efficiency curve set to 'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear',
+    and hence the parameter 'a' must have exactly 6 elements.
+    However, only " + String(size(a, 1)) + " elements were provided.");
+  end if;
 equation
   if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
     eta  = a[1];
@@ -72,10 +82,11 @@ equation
     eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
                                                           a=a, x=1);
   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+    // For this efficiency curve, a must have 6 elements.
     eta  = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                        a=a, x1=y, x2=T);
+                                                        a=aQuaLin, x1=y, x2=T);
     eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                               a=a, x1=1, x2=T_nominal);
+                                                               a=aQuaLin, x1=1, x2=T_nominal);
   else
     eta  = 0;
     eta_nominal = 999;
@@ -246,6 +257,12 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 
 </html>", revisions="<html>
 <ul>
+<li>
+May 27, 2016, by Michael Wetter:<br/>
+Corrected size of input argument to
+<code>Buildings.Utilities.Math.Functions.quadraticLinear</code>
+for JModelica compliance check.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
