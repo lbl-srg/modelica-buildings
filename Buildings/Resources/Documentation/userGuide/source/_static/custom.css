@@ -1,11 +1,14 @@
-
 html{
   background-color: #f8f8f8;
   color: #022e4d;
   font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
+  padding: 10px;
+  background-color: #BFD1D4;
 }
 body{
-    color: #022e4d;
+  color: #022e4d;
+  border-radius: 4px;
+  box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.4);
 }
 
 .starter-template {
@@ -28,7 +31,6 @@ body{
 
 .navbar .navbar-nav{
   background: #f8f8f8;
-  margin-left: -20px;
   margin-bottom: 0px;
 }
 
@@ -49,10 +51,6 @@ body{
 
 .navbar-default{
   background-image: none;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
 }
@@ -69,7 +67,6 @@ body{
   border-style: none;
   position: absolute;
   top: 50px;
-  width: 100%;
   z-index: 100;
 }
 /* ---------------------------------- */
@@ -85,16 +82,11 @@ body{
 /*  background-color: white;
   border-color: white; */
   background-color: #f8f8f8;
-  padding-top: 0px;
+  padding: 10px;
   font-size: 75%;
   border-width:0px;
   background-image: none;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
+  border-radius: 4px;
 
 }
 .footer .narrow{
@@ -167,29 +159,9 @@ span.pre{
 table.citation{
   border: none;
 }
+
+.page-content{
+  margin: 10px;
+}
 /* End stylesheet from main web site -------------------- */
 /* ------------------------------------------------------ */
-
-div.container{
-    width: 100%;
-}
-
-div.warning {
-    border: 1px solid #AFC1C4!important;
-}
-div.warning p.last{
-   color: #022e4d!important;
-}
-
-div.note {
-    border: 1px solid #AFC1C4!important;
-}
-.alert-warning{
-    background-image: none;
-    color: inherit;
-}
-
-.alert-info{
-    background-image: none;
-    color: inherit;
-}
