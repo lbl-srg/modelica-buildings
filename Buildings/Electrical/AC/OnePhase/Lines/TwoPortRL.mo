@@ -22,6 +22,8 @@ protected
     "Current phasor at terminal p";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+
 initial equation
   if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     i_p = i_start;
