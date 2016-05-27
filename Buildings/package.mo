@@ -352,6 +352,23 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
+       </td>
+       <td valign=\"top\">Corrected the computation of the wet bulb state in the model
+                          that computes the reevaporation of water vapor into the air stream when the coil
+                          is switched off. The results change slightly.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/520\">issue 520</a>
+                          and integrates the change of
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex 60, #474</a>.
+
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
