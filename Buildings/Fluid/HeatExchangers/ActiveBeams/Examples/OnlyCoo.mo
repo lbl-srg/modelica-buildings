@@ -8,10 +8,10 @@ model OnlyCoo
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_2(
     redeclare package Medium = Buildings.Media.Air,
-    m_flow=0.0792,
     use_m_flow_in=false,
-    nPorts=1,
-    T=285.85) annotation (Placement(transformation(extent={{100,10},{80,30}})));
+    m_flow=0.0792,
+    T=285.85,
+    nPorts=1) annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Buildings.Fluid.Sources.FixedBoundary bou(redeclare package Medium =
         Buildings.Media.Air, nPorts=1)
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
@@ -24,12 +24,12 @@ model OnlyCoo
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=301.15)
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    yMax=0.094,
     reverseAction=true,
     Td=0,
     k=0.5,
     Ti=70,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=0.094)
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Buildings.Fluid.Sources.FixedBoundary sou_1(
     redeclare package Medium = Buildings.Media.Water,
@@ -62,14 +62,13 @@ model OnlyCoo
   Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo beaCoo(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
-    conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    mAir_flow_nominal=0.0792,
-    mWatCoo_flow_nominal=0.094,
-    nBeams=1,
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.TroxDID632A_nozzleH_lenght6ft_coo
-      per_coo)
-    annotation (Placement(transformation(extent={{30,50},{50,70}})));
+      per_coo,
+    mWatCoo_flow_nominal=0.094,
+    mAir_flow_nominal=0.0792,
+    conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
+    annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation
   connect(fixedTemperature.port,thermalConductor. port_a)
     annotation (Line(points={{-90,-100},{-60,-100}},         color={191,0,0}));
@@ -94,16 +93,16 @@ equation
           {40,-60},{50,-60}}, color={191,0,0}));
   connect(sine.y, gain.u)
     annotation (Line(points={{-89,-60},{-89,-60},{-70,-60}}, color={0,0,127}));
-  connect(pum.port_b, beaCoo.watCoo_a) annotation (Line(points={{0,100},{20,100},
-          {20,66},{30,66}}, color={0,127,255}));
-  connect(beaCoo.watCoo_b, sin_1.ports[1]) annotation (Line(points={{50,66},{60,
-          66},{60,100},{80,100}}, color={0,127,255}));
-  connect(beaCoo.air_b, vol.ports[2]) annotation (Line(points={{30,54},{26,54},{
-          20,54},{20,-80},{62,-80},{62,-70}}, color={0,127,255}));
-  connect(beaCoo.air_a, sou_2.ports[1]) annotation (Line(points={{50,54},{60,54},
-          {60,20},{80,20}}, color={0,127,255}));
-  connect(beaCoo.heaPor, vol.heatPort)
-    annotation (Line(points={{40,50},{40,-60},{50,-60}}, color={191,0,0}));
+  connect(pum.port_b, beaCoo.watCoo_a) annotation (Line(points={{0,100},{6,100},
+          {10,100},{10,66},{26,66}}, color={0,127,255}));
+  connect(beaCoo.watCoo_b, sin_1.ports[1]) annotation (Line(points={{54,66},{70,
+          66},{70,100},{80,100}}, color={0,127,255}));
+  connect(beaCoo.heaPor, vol.heatPort) annotation (Line(points={{40,48},{40,48},
+          {40,26},{40,-60},{50,-60}}, color={191,0,0}));
+  connect(sou_2.ports[1], beaCoo.air_a) annotation (Line(points={{80,20},{70,20},
+          {70,54},{54,54}}, color={0,127,255}));
+  connect(beaCoo.air_b, vol.ports[2]) annotation (Line(points={{26,54},{12,54},
+          {12,-80},{62,-80},{62,-70}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(StopTime=172800),
             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/OnlyCoo.mos"

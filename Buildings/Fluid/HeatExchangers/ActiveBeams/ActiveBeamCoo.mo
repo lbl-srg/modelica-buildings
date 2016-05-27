@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-model ActiveBeamCoo "model of an active beam unit"
+model ActiveBeamCoo "model of an active beam unit for cooling"
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -41,30 +41,44 @@ model ActiveBeamCoo "model of an active beam unit"
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo annotation (
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
+    "heat tranferred to the room" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-36})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor "heat port"
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 
-  Modelica.Blocks.Math.Sum sum
+  Modelica.Blocks.Math.Sum sum "connector for heating and cooling mode"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.Blocks.Math.Gain gai_1(k=1/nBeams) annotation (Placement(
+  Modelica.Blocks.Math.Gain gai_1(k=1/nBeams)
+    "Air mass flow rate for a single beam" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-70,-30})));
+        origin={-90,-30})));
+  Sensors.MassFlowRate senFlo1(redeclare final package Medium = Medium1)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Sensors.MassFlowRate senFlo(redeclare final package Medium = Medium2)
-    annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-  Modelica.Blocks.Math.Gain gai_2(final k=-nBeams) annotation (Placement(
+  Modelica.Blocks.Math.Gain gai_2(final k=-nBeams)
+    "multiplicator to take into account all the beams" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={50,-20})));
+
+   Modelica.Blocks.Math.Gain gai_3(k=1/nBeams)
+    "Water mass flow rate for a single beam" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,100})));
 
   BaseClasses.Convector conCoo(
     redeclare final package Medium = Medium1,
@@ -77,7 +91,7 @@ model ActiveBeamCoo "model of an active beam unit"
       watFlo_mod(xd=per_coo.water.Normalized_WaterFlow, yd=per_coo.water.ModFactor),
       temDif_mod(xd=per_coo.temp_diff.Normalized_TempDiff, yd=per_coo.temp_diff.ModFactor)),
     final m_flow_nominal=mWatCoo_flow_nominal,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal) "Cooling beam"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a watCoo_a(
@@ -85,26 +99,26 @@ model ActiveBeamCoo "model of an active beam unit"
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default))
     "Fluid connector watCoo_a (positive design flow direction is from watCoo_a to watCoo_b)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b watCoo_b(
                      redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default))
     "Fluid connector watCoo_b (positive design flow direction is from watCoo_a to watCoo_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}})));
+    annotation (Placement(transformation(extent={{150,50},{130,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a air_a(
     redeclare final package Medium = Medium2,
     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default))
     "Fluid connector air_a (positive design flow direction is from air_a to air_b)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b air_b(
     redeclare final package Medium = Medium2,
     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium2.h_default))
     "Fluid connector air_b (positive design flow direction is from air_a to air_b)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
+    annotation (Placement(transformation(extent={{-130,-70},{-150,-50}})));
 
   Medium1.MassFlowRate m1_flow(start=0) = watCoo_a.m_flow
     "Mass flow rate from watCoo_a to watCoo_b (m1_flow > 0 is design flow direction)";
@@ -154,6 +168,7 @@ protected
 public
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+
 equation
 dp1 = watCoo_a.p - watCoo_b.p;
 dp2 = air_a.p - air_b.p;
@@ -165,69 +180,77 @@ dp2 = air_a.p - air_b.p;
         assert(conCoo.mod.temDif_mod.xd[1]<=0.000001 and conCoo.mod.temDif_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
 
   connect(heaToRoo.port, heaPor)
-    annotation (Line(points={{0,-46},{0,-100}},        color={191,0,0}));
+    annotation (Line(points={{0,-46},{0,-120}},        color={191,0,0}));
   connect(senFlo.m_flow, gai_1.u)
-    annotation (Line(points={{-70,-49},{-70,-42}}, color={0,0,127}));
+    annotation (Line(points={{-90,-49},{-90,-49},{-90,-42}},
+                                                   color={0,0,127}));
   connect(sum.y,gai_2. u) annotation (Line(points={{61,30},{66,30},{70,30},{70,-20},
           {62,-20}}, color={0,0,127}));
   connect(gai_2.y,heaToRoo. Q_flow)
     annotation (Line(points={{39,-20},{0,-20},{0,-26}}, color={0,0,127}));
-  connect(senTem.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},{-14,
-          -52},{0,-52},{0,-100}}, color={191,0,0}));
+  connect(senTem.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},{
+          -14,-52},{0,-52},{0,-120}},
+                                  color={191,0,0}));
   connect(air_b, senFlo.port_b)
-    annotation (Line(points={{-100,-60},{-80,-60}}, color={0,127,255}));
+    annotation (Line(points={{-140,-60},{-100,-60}},color={0,127,255}));
   connect(senFlo.port_a, air_a)
-    annotation (Line(points={{-60,-60},{100,-60}}, color={0,127,255}));
-  connect(watCoo_a, conCoo.port_a)
-    annotation (Line(points={{-100,60},{-56,60},{-10,60}}, color={0,127,255}));
+    annotation (Line(points={{-80,-60},{140,-60}}, color={0,127,255}));
   connect(conCoo.port_b, watCoo_b)
-    annotation (Line(points={{10,60},{100,60}}, color={0,127,255}));
-  connect(gai_1.y, conCoo.airFlo) annotation (Line(points={{-70,-19},{-70,-19},{
-          -70,64},{-70,69},{-12,69}}, color={0,0,127}));
-  connect(senTem.T, conCoo.rooTem) annotation (Line(points={{-40,-40},{-40,64.8},
-          {-12,64.8}}, color={0,0,127}));
+    annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.y, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,30},{
           38,30}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-100,-100},
-            {100,100}}),       graphics={Rectangle(
-          extent={{-80,80},{80,-80}},
+  connect(senFlo1.m_flow, gai_3.u) annotation (Line(points={{-110,71},{-110,100},
+          {-82,100}}, color={0,0,127}));
+  connect(gai_3.y, conCoo.watFlow) annotation (Line(points={{-59,100},{-30,100},
+          {-30,69},{-12,69}}, color={0,0,127}));
+  connect(watCoo_a, senFlo1.port_a)
+    annotation (Line(points={{-140,60},{-120,60}}, color={0,127,255}));
+  connect(senFlo1.port_b, conCoo.port_a) annotation (Line(points={{-100,60},{
+          -100,60},{-10,60}}, color={0,127,255}));
+  connect(gai_1.y, conCoo.airFlo) annotation (Line(points={{-90,-19},{-90,-19},
+          {-90,64},{-12,64}}, color={0,0,127}));
+  connect(senTem.T, conCoo.rooTem) annotation (Line(points={{-40,-40},{-50,-40},
+          {-50,54},{-12,54}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-140,
+            -120},{140,120}}), graphics={Rectangle(
+          extent={{-120,100},{120,-100}},
           fillPattern=FillPattern.Solid,
           fillColor={95,95,95},
           pattern=LinePattern.None,
           lineColor={0,0,0}),       Ellipse(
-          extent={{38,58},{-38,-18}},
+          extent={{48,78},{-48,-18}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-80,-34},{0,-44}},
+          extent={{-80,-34},{0,-80}},
           fillColor={255,0,0},
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{0,-34},{80,-44}},
+          extent={{0,-34},{80,-80}},
           fillColor={0,128,255},
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-80,66},{-98,54}},
+          extent={{-120,66},{-132,54}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{98,66},{80,54}},
+          extent={{132,66},{120,54}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-80,-54},{-98,-66}},
+          extent={{-120,-54},{-134,-66}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{98,-54},{80,-66}},
+          extent={{134,-54},{120,-66}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
@@ -237,7 +260,7 @@ dp2 = air_a.p - air_b.p;
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),            defaultComponentName="beaCoo",Diagram(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+          preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
 Documentation(info="<html>
 <p>
 Model of an active beam, based on the EnergyPlus beam model  <code>AirTerminal:SingleDuct:ConstantVolume:FourPipeBeam</code>.

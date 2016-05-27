@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-model ActiveBeamCooHea
+model ActiveBeamCooHea "model of an active beam unit for heating and cooling"
 
   extends Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo(sum(nin=2));
 
@@ -38,7 +38,7 @@ model ActiveBeamCooHea
             per_hea.primaryair.ModFactor),
       watFlo_mod(xd=per_hea.water.Normalized_WaterFlow, yd=per_hea.water.ModFactor),
       temDif_mod(xd=per_hea.temp_diff.Normalized_TempDiff, yd=
-            per_hea.temp_diff.ModFactor)))
+            per_hea.temp_diff.ModFactor))) "Heating beam"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a watHea_a(
@@ -46,13 +46,13 @@ model ActiveBeamCooHea
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default))
     "Fluid connector a (positive design flow direction is from watHea_a to watHea_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b watHea_b(
     redeclare final package Medium = Medium1,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=Medium1.h_default))
     "Fluid connector b (positive design flow direction is from watHea_a to watHea_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{150,-10},{130,10}})));
 
   Modelica.SIunits.MassFlowRate m_flow(start=0) = watHea_a.m_flow
     "Mass flow rate from watHea_a to watHea_b (m_flow > 0 is design flow direction)";
@@ -71,6 +71,13 @@ model ActiveBeamCooHea
                           noEvent(actualStream(watHea_b.Xi_outflow))) if
           show_T "Medium properties in watHea_b";
 
+  Sensors.MassFlowRate senFlo2(redeclare final package Medium = Medium1)
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Math.Gain gai_4(k=1/nBeams) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,30})));
 equation
   dp = watHea_a.p - watHea_b.p;
          assert( conHea.mod.airFlo_mod.xd[1]<=0.000001 and conHea.mod.airFlo_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
@@ -78,29 +85,32 @@ equation
         assert( conHea.mod.watFlo_mod.xd[1]<=0.000001 and conHea.mod.watFlo_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
 
        assert( conHea.mod.temDif_mod.xd[1]<=0.000001 and conHea.mod.temDif_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
-  connect(watHea_a, conHea.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
   connect(conHea.port_b, watHea_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(senTem.T, conCoo.rooTem) annotation (Line(points={{-40,-40},{-40,64.8},
-          {-12,64.8}}, color={0,0,127}));
-  connect(senTem.T, conHea.rooTem)
-    annotation (Line(points={{-40,-40},{-40,4.8},{-12,4.8}}, color={0,0,127}));
-  connect(gai_1.y, conCoo.airFlo)
-    annotation (Line(points={{-70,-19},{-70,69},{-12,69}}, color={0,0,127}));
-  connect(gai_1.y, conHea.airFlo) annotation (Line(points={{-70,-19},{-70,-19},{
-          -70,9},{-12,9}}, color={0,0,127}));
+    annotation (Line(points={{10,0},{140,0}}, color={0,127,255}));
   connect(conHea.y, sum.u[2])
     annotation (Line(points={{11,7},{20,7},{20,30},{38,30}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), defaultComponentName="beaCooHea",Icon(graphics={
+  connect(watHea_a, senFlo2.port_a)
+    annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
+  connect(senFlo2.port_b, conHea.port_a)
+    annotation (Line(points={{-100,0},{-100,0},{-10,0}}, color={0,127,255}));
+  connect(gai_4.y, conHea.watFlow) annotation (Line(points={{-59,30},{-28,30},{
+          -28,9},{-12,9}}, color={0,0,127}));
+  connect(conHea.airFlo, gai_1.y)
+    annotation (Line(points={{-12,4},{-90,4},{-90,-19}}, color={0,0,127}));
+  connect(senFlo2.m_flow, gai_4.u)
+    annotation (Line(points={{-110,11},{-110,30},{-82,30}}, color={0,0,127}));
+  connect(conHea.rooTem, senTem.T) annotation (Line(points={{-12,-6},{-26,-6},{
+          -50,-6},{-50,-40},{-40,-40}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -120},{140,120}})), defaultComponentName="beaCooHea",Icon(
+        coordinateSystem(extent={{-140,-120},{140,120}}),             graphics={
         Rectangle(
-          extent={{-80,6},{-98,-6}},
+          extent={{-120,6},{-138,-6}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{98,6},{80,-6}},
+          extent={{138,6},{120,-6}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),

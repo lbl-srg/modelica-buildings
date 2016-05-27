@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
-model DerivativesCubicSpline "Modification factor"
+model DerivativesCubicSpline "Cubic Spline for interpolation"
   extends Modelica.Blocks.Icons.Block;
   parameter Real[:] xd={0,0.5,1};
   parameter Real[size(xd, 1)] yd={0,0.75,1};
