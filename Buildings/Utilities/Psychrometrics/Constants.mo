@@ -1,7 +1,8 @@
 within Buildings.Utilities.Psychrometrics;
 package Constants "Library of constants for psychometric functions"
   extends Modelica.Icons.Package;
-
+  constant Modelica.SIunits.Temperature T_ref = 273.15
+    "Reference temperature for psychrometric calculations";
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
   constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
