@@ -22,9 +22,6 @@ model HeatingCoolingHotWater3Clusters
     "Maximum loop temperature";
   parameter Modelica.SIunits.Temperature TLooMin = 273.15+8
     "Minimum loop temperature";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
-    "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
 
   parameter Modelica.SIunits.TemperatureDifference dT_nominal(
     min=0.5,
@@ -44,7 +41,7 @@ model HeatingCoolingHotWater3Clusters
     annotation (Placement(transformation(extent={{-510,100},{-490,120}})));
 
   Plants.LakeWaterHeatExchanger_T bayWatHex(
-    dp_nominal=0,
+    dpHex_nominal=0,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     show_T=true,
@@ -349,7 +346,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experiment
     Documentation(
     info="<html>
 <p>
-This model validates a small ideal anergy heating and cooling network.
+This model validates a small ideal bi-directional heating and cooling network.
 The heating and cooling heat flow rates extracted from the district supply
 are prescribed by time series.
 </p>

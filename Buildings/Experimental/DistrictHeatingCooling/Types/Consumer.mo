@@ -4,7 +4,7 @@ type Consumer = enumeration(
     Heating "Heating")
 annotation (
 Documentation(info="<html>
-<p>
+<p>fixme: check if this can be removed.
 Enumeration for the type of consumer.
 </p>
 </html>",

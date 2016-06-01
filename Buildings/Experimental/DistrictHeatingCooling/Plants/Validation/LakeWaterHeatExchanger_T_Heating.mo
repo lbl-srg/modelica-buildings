@@ -16,14 +16,11 @@ model LakeWaterHeatExchanger_T_Heating
 
   parameter Modelica.SIunits.Temperature TLooMax = 273.15+20
     "Maximum loop temperature";
-  parameter Modelica.SIunits.Temperature TLooMin = 273.15+8
-    "Minimum loop temperature";
 
   LakeWaterHeatExchanger_T hex(redeclare package Medium = Medium,
-    dp_nominal=10000,
+    dpHex_nominal=10000,
     m_flow_nominal=m_flow_nominal,
-    TLooMax=TLooMax,
-    TLooMin=TLooMin) "Heat exchanger for free cooling"
+    TLooMax=TLooMax) "Heat exchanger for free cooling"
     annotation (Placement(transformation(extent={{-30,-20},{-10,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3           weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
@@ -108,5 +105,20 @@ equation
             -100},{100,100}})),
     experiment(StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Validation model in which the inlet water temperature on the cold side of the
+heat exchanger is gradually decreased.
+Toward the end of the simulation, the water flow through the heat exchanger
+reverses its direction.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end LakeWaterHeatExchanger_T_Heating;

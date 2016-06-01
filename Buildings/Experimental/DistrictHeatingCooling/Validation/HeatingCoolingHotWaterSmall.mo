@@ -35,8 +35,7 @@ model HeatingCoolingHotWaterSmall
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/4200/dT_nominal
     "Nominal mass flow rate";
 
-  Plants.HeatingCoolingCarnot_T
-                 pla(
+  Plants.HeatingCoolingCarnot_T pla(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
@@ -86,6 +85,18 @@ model HeatingCoolingHotWaterSmall
     TOut_nominal=273.15) "Retail"
     annotation (Placement(transformation(extent={{20,-20},{60,20}})));
 
+  // fixme: dpHex_nominal should be non-zero
+  Plants.LakeWaterHeatExchanger_T bayWatHex(
+    redeclare package Medium = Medium,
+    dpHex_nominal=0,
+    m_flow_nominal=m_flow_nominal,
+    TLooMax=TLooMax,
+    TLooMin=TLooMax) "Bay water heat exchanger"
+    annotation (Placement(transformation(extent={{-166,-6},{-152,14}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-128,102},{-112,118}}), iconTransformation(
+          extent={{-328,64},{-308,84}})));
+
   Fluid.FixedResistances.SplitterFixedResistanceDpM splSup(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
@@ -106,21 +117,9 @@ protected
   Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-protected
   Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
-public
-  Plants.LakeWaterHeatExchanger_T bayWatHex(
-    dp_nominal=0,
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    TLooMax=TLooMax,
-    TLooMin=TLooMax) "Bay water heat exchanger"
-    annotation (Placement(transformation(extent={{-166,-6},{-152,14}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-128,102},{-112,118}}), iconTransformation(
-          extent={{-328,64},{-308,84}})));
 equation
   connect(pip.port_b, splSup.port_1) annotation (Line(points={{-110,60},{-110,
           60},{-100,60}}, color={0,127,255}));
@@ -128,8 +127,8 @@ equation
           50},{-90,0},{-80,0}}, color={0,127,255}));
   connect(splSup.port_2, ret.port_a) annotation (Line(points={{-80,60},{-54,60},
           {0,60},{0,0},{20,0}}, color={0,127,255}));
-  connect(larOff.port_b, splRet.port_3) annotation (Line(points={{-40.1429,0},{
-          -20,0},{-20,-50}}, color={0,127,255}));
+  connect(larOff.port_b, splRet.port_3) annotation (Line(points={{-40.1429,0},
+          {-20,0},{-20,-50}},color={0,127,255}));
   connect(pip1.port_a, splRet.port_1) annotation (Line(points={{-112,-60},{-112,
           -60},{-30,-60}}, color={0,127,255}));
   connect(splRet.port_2, ret.port_b) annotation (Line(points={{-10,-60},{50,-60},
@@ -171,19 +170,19 @@ equation
       thickness=0.5));
   connect(weaBus, bayWatHex.weaBus) annotation (Line(
       points={{-120,110},{-120,110},{-120,86},{-120,88},{-159,88},{-159,10.7}},
-
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+
   annotation(experiment(Tolerance=1E-6, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
-This model validates a small ideal anergy heating and cooling network.
+This model validates a small ideal bi-directional heating and cooling network.
 The heating and cooling heat flow rates extracted from the district supply
 are prescribed by time series.
 </p>

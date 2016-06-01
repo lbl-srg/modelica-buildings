@@ -205,7 +205,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experiment
     Documentation(
     info="<html>
 <p>
-This model validates a small ideal anergy heating and cooling network.
+This model validates a small ideal bi-directional heating and cooling network.
 The heating and cooling heat flow rates extracted from the district supply
 are prescribed by time series.
 </p>

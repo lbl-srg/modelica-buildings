@@ -3,7 +3,7 @@ model HeatingSubstation "Validation model for heating substation"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  Heating subSta(
+  Buildings.Experimental.DistrictHeatingCooling.SubStations.Heating subSta(
     redeclare package Medium = Medium,
     Q_flow_nominal=100E3,
     show_T=true) "Substation"

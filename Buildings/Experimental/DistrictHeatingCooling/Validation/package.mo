@@ -1,5 +1,5 @@
 within Buildings.Experimental.DistrictHeatingCooling;
-package Validation "Package with models for the validation of the anergy system models"
+package Validation "Package with models for the validation of the bi-directional district heating and cooling system models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>

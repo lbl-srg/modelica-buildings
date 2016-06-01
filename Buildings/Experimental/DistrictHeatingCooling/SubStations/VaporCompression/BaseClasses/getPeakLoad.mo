@@ -46,5 +46,43 @@ algorithm
     startIndex=nexInd,
     message="Failed to read double value when reading peak load in '" + filNam + "'.");
 
-// fixme: add documentation
+  annotation (Documentation(info="<html>
+<p>
+Function that reads a double value from a text file.
+</p>
+<p>
+This function scans a file that has a format such as
+</p>
+<pre>
+#1
+#Some other text
+#Peak space cooling load = -383165.6989 Watts
+#Peak space heating load = 893931.4335 Watts
+double tab1(8760,4)
+0,0,5972.314925,16
+3600,0,4925.839944,1750.915684
+...
+</pre>
+<p>
+The parameter <code>string</code> is a string that the function
+searches for, starting at the first line.
+If it finds the string, it expects an equality sign, and
+returns the double value after this equality sign.
+If the function encounters the end of the file, it
+terminates the simulation with an assertion.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad\">
+Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.Validation.GetPeakLoad</a>
+for how to invoke this function.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 1, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end getPeakLoad;

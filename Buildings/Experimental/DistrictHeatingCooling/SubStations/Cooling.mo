@@ -1,7 +1,8 @@
 within Buildings.Experimental.DistrictHeatingCooling.SubStations;
 model Cooling "Cooling substation"
-  extends Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
-    final m_flow_nominal = -Q_flow_nominal/4200/dTHex,
+  extends
+    Buildings.Experimental.DistrictHeatingCooling.SubStations.BaseClasses.HeatingOrCooling(
+    final m_flow_nominal = -Q_flow_nominal/cp_default/dTHex,
     mPum_flow(final k=-1/(cp_default*dTHex)));
   parameter Modelica.SIunits.TemperatureDifference dTHex(
     min=0.5,
@@ -10,10 +11,11 @@ model Cooling "Cooling substation"
     annotation(Dialog(group="Design parameter"));
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)
-    "Nominal heat flow rate added to medium (Q_flow_nominal < 0)";
+    "Nominal heat flow rate added to medium (Q_flow_nominal <= 0)";
 
-  Modelica.Blocks.Interfaces.RealInput Q_flow
-    "Heat flow rate extracted from system (Q_flow <= 0)"
+  Modelica.Blocks.Interfaces.RealInput Q_flow(
+    max=0,
+    final unit="W") "Heat flow rate extracted from system (Q_flow &le; 0)"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
 equation
@@ -21,7 +23,10 @@ equation
           40},{-62,40}}, color={0,0,127}));
   connect(Q_flow, hex.u) annotation (Line(points={{-120,60},{-64,60},{10,60},{
           10,6},{18,6}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+
+  annotation (
+  defaultComponentName="subStaCoo",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(graphics={
       Rectangle(
           extent={{-64,38},{64,-70}},
@@ -47,6 +52,25 @@ equation
         extent={{-42,-54},{-14,-26}},
         lineColor={255,255,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
-// fixme: add documentation
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-106,70},{-62,50}},
+          lineColor={0,0,127},
+          textString="Q")}),
+    Documentation(info="<html>
+<p>
+Substation that adds a prescribed heat flow rate
+to the water that flows through it.
+The substation has a built-in pump that draws as
+much water as needed to maintain the temperature difference
+<code>dTHex</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Cooling;

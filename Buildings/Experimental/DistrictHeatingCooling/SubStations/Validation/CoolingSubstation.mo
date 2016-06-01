@@ -3,7 +3,8 @@ model CoolingSubstation "Validation model for cooling substation"
   extends Modelica.Icons.Example;
     package Medium = Buildings.Media.Water "Fluid in the pipes";
 
-  Cooling subSta(redeclare package Medium = Medium,
+  Buildings.Experimental.DistrictHeatingCooling.SubStations.Cooling subSta(
+    redeclare package Medium = Medium,
     show_T=true,
     Q_flow_nominal=-100E3) "Substation"
                  annotation (Placement(transformation(extent={{-8,0},{12,20}})));
@@ -57,7 +58,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experiment
     Documentation(
     info="<html>
 <p>
-This model tests the heating substation.
+This model tests the cooling substation.
 </p>
 </html>",
 revisions="<html>

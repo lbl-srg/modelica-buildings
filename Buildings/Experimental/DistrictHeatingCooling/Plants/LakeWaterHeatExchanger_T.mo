@@ -1,6 +1,5 @@
 within Buildings.Experimental.DistrictHeatingCooling.Plants;
-model LakeWaterHeatExchanger_T "Heat exchanger with lake"
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -15,8 +14,11 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   parameter Boolean disableHeatExchanger = false
     "Set to true to disable the heat exchanger";
 
+  // fixme: this is not used, but needed for other sites than the bay
+  // in which the water could go below 8 degC
+  parameter Modelica.SIunits.Temperature TLooMin = 273.15+8
+    "Minimum loop temperature";
   parameter Modelica.SIunits.Temperature TLooMax "Maximum loop temperature";
-  parameter Modelica.SIunits.Temperature TLooMin "Minimum loop temperature";
 
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 0.5
     "Approach temperature difference";
@@ -24,6 +26,28 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
+     displayUnit="Pa",
+     min=0) = 1000 "Nominal pressure drop of fully open valve"
+    annotation(Dialog(group="Nominal condition"));
+
+  parameter Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa", min=0) = 0
+    "Pressure drop of heat exchanger pipe and other resistances in the heat exchanger flow leg that are in series with the valve"
+     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
+                tab="Flow resistance"));
+
+  parameter Boolean linearizeFlowResistance = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(enable = computeFlowResistance,
+               tab="Flow resistance"));
+  parameter Real deltaM = 0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation(Dialog(tab="Flow resistance"));
 
   parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"
     "Name of data file with water temperatures"
@@ -50,7 +74,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     dpValve_nominal=1000,
     filteredOpening=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    final dpFixed_nominal={if disableHeatExchanger then 0 else dp_nominal,0})
+    final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
     "Switching valve for cooling"                                       annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -62,7 +86,8 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake"
     dpValve_nominal=1000,
     filteredOpening=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    final dpFixed_nominal={0,0}) "Switching valve for heating"
+    final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
+    "Switching valve for heating"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -149,9 +174,6 @@ protected
   Modelica.Blocks.Sources.Constant TMaxDes(k=TLooMax)
     "Maximum desired outlet temperature"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Modelica.Blocks.Sources.Constant TMinDes(k=TLooMin)
-    "Minimum desired outlet temperature"
-    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
   Controller conCoo(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for cooling" annotation (Placement(transformation(
@@ -306,7 +328,7 @@ equation
   connect(maxCooLea.y, conCoo.u2) annotation (Line(points={{73,166},{80,166},{
           80,16},{-30,16},{-30,19}}, color={0,0,127}));
   connect(coo.port_b, senMasFloCoo.port_a)
-    annotation (Line(points={{-10,60},{-52,60},{-52,60}}, color={0,127,255}));
+    annotation (Line(points={{-10,60},{-52,60}},          color={0,127,255}));
   connect(valCoo.port_3, senMasFloCoo.port_a) annotation (Line(points={{50,50},{
           50,44},{-32,44},{-32,60},{-52,60}}, color={0,127,255}));
   connect(senMasFloHea.port_a, hea.port_b) annotation (Line(points={{-42,-40},{-26,
@@ -379,10 +401,25 @@ equation
           pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>
-Model for a lake water heat exchanger that either provides heating or cooling.
+Model for a heat exchanger that uses water such as from a lake, the ocean or a river to either provide heating or cooling.
+The water temperature of the lake, ocean or river is read from a data file.
+The model has built-in controls in order to exchange heat, up to a maximum approach temperature difference
+set by <code>TApp</code>.
+The parameter <code>TLooMax</code> is used to avoid that the water of the district heating/cooling
+is above a maximum threshold.
+</p>
+<h4>Implementation</h4>
+<p>
+The pressure drop of the heat exchanger is implemented in the valve
+instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 31, 2016, by Michael Wetter:<br/>
+Renamed <code>dp_nominal</code> to <code>dpHex_nominal</code>
+as it is the pressure drop of the heat exchanger flow leg.
+</li>
 <li>
 March 30, 2016, by Michael Wetter:<br/>
 Removed the flow splitters which are no longer needed.

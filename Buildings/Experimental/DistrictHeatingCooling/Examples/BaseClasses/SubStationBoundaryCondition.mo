@@ -4,7 +4,6 @@ model SubStationBoundaryCondition
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
-
   parameter Modelica.SIunits.TemperatureDifference dTApp(min=0) = 2
     "Approach temperature";
   parameter Boolean warmSide
@@ -60,5 +59,19 @@ equation
           lineColor={0,0,0},
           visible=warmSide,
           fillPattern=FillPattern.Sphere,
-          fillColor={255,0,0})}));
+          fillColor={255,0,0})}), Documentation(info="<html>
+<p>
+This is a model for the boundary conditions of the heat pumps
+in the base case. The model sets the leaving fluid temperature,
+and the temperature of its heat port, to be equal to the input
+signal <code>TOut</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 12, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SubStationBoundaryCondition;

@@ -13,6 +13,19 @@ partial model HeatingOrCooling "Base class for heating or cooling substation"
     "Electrical power consumed by pump"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
+  parameter Real deltaM=0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Modelica.SIunits.Time tau=30
+    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Dynamics"));
+
 protected
   final parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -28,10 +41,13 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final from_dp=false,
     final linearizeFlowResistance=true,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final show_T=false,
     final Q_flow_nominal=-1,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=dp_nominal,
+    final deltaM=deltaM,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics)
     "Component to remove heat from or add heat to fluid"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -46,6 +62,7 @@ protected
 
   Modelica.Blocks.Math.Gain mPum_flow "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+
 equation
   connect(port_a, pum.port_a)
     annotation (Line(points={{-100,0},{-70,0},{-40,0}}, color={0,127,255}));
@@ -60,7 +77,9 @@ equation
 
   // fixme: add documentation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(graphics={
+            -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                     graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -96,5 +115,16 @@ equation
         extent={{-42,-54},{-14,-26}},
         lineColor={255,255,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{52,70},{96,50}},
+          lineColor={0,0,127},
+          textString="PPum")}),
+    Documentation(info="<html>
+<p>
+Base class for a heating or cooling substation that draws
+as much water as needed to maintain the prescribed temperature
+difference <code>dTHex</code> over the heat exchanger.
+</p>
+</html>"));
 end HeatingOrCooling;

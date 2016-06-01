@@ -82,7 +82,7 @@ protected
     dTCon_nominal=dTCon_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal1=false) "Chiller"
-    annotation (Placement(transformation(extent={{38,-10},{58,10}})));
+    annotation (Placement(transformation(extent={{38,-4},{58,16}})));
 
   Fluid.HeatPumps.Carnot_TCon hea(
     show_T=true,
@@ -98,7 +98,7 @@ protected
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal2=false,
     dp1_nominal=dp_nominal) "Heat pump for heating"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-52,-16},{-32,4}})));
 
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
@@ -138,56 +138,61 @@ protected
           extent={{10,-10},{-10,10}}, origin={82,20})));
 
 equation
-  connect(hea.TSet, TSetHea) annotation (Line(points={{-52,9},{-60,9},{-60,80},
+  connect(hea.TSet, TSetHea) annotation (Line(points={{-54,3},{-60,3},{-60,80},
           {-120,80}}, color={0,0,127}));
-  connect(port_a, hea.port_a1) annotation (Line(points={{-100,0},{-90,0},{-90,6},
-          {-50,6}},           color={0,127,255}));
+  connect(port_a, hea.port_a1) annotation (Line(points={{-100,0},{-52,0}},
+                              color={0,127,255}));
   connect(hea.port_b1, senTem.port_a)
-    annotation (Line(points={{-30,6},{-30,6},{-20,6},{-20,0},{-6,0}},
+    annotation (Line(points={{-32,0},{-32,0},{-20,0},{-6,0}},
                                                           color={0,127,255}));
-  connect(hea.QCon_flow, addHea.u1) annotation (Line(points={{-29,9},{-24,9},{
+  connect(hea.QCon_flow, addHea.u1) annotation (Line(points={{-31,3},{-24,3},{
           -24,-50},{-70,-50},{-70,-64},{-62,-64}}, color={0,0,127}));
-  connect(hea.P, addHea.u2) annotation (Line(points={{-29,0},{-26,0},{-26,-46},
+  connect(hea.P, addHea.u2) annotation (Line(points={{-31,-6},{-26,-6},{-26,-46},
           {-72,-46},{-72,-76},{-62,-76}},color={0,0,127}));
   connect(mHeaSin_flow.u, addHea.y)
     annotation (Line(points={{-30,-70},{-36,-70},{-39,-70}}, color={0,0,127}));
-  connect(coo.P, addCoo.u2) annotation (Line(points={{59,0},{59,0},{64,0},{64,
-          54},{28,54},{28,64},{38,64}},
+  connect(coo.P, addCoo.u2) annotation (Line(points={{59,6},{59,6},{68,6},{68,
+          54},{30,54},{30,64},{38,64}},
                         color={0,0,127}));
   connect(addCoo.y, mCooSin_flow.u)
     annotation (Line(points={{61,70},{64,70}}, color={0,0,127}));
   connect(sinHea.ports[1], hea.port_b2) annotation (Line(points={{-60,-20},{-60,
-          -20},{-54,-20},{-54,-6},{-50,-6}}, color={0,127,255}));
+          -20},{-54,-20},{-54,-12},{-52,-12}},
+                                             color={0,127,255}));
   connect(mHeaSin_flow.y, souHea.m_flow_in) annotation (Line(points={{-7,-70},{
           -7,-70},{20,-70},{20,-28},{8,-28}},
                                          color={0,0,127}));
   connect(TSink, souHea.T_in) annotation (Line(points={{-120,-60},{-84,-60},{
           -84,-90},{22,-90},{22,-54},{22,-24},{10,-24}},  color={0,0,127}));
   connect(souHea.ports[1], hea.port_a2) annotation (Line(points={{-12,-20},{-20,
-          -20},{-20,-6},{-30,-6}}, color={0,127,255}));
+          -20},{-20,-12},{-32,-12}},
+                                   color={0,127,255}));
   connect(mCooSin_flow.y, sou2.m_flow_in) annotation (Line(points={{87,70},{96,
           70},{96,90},{80,90},{-20,90},{-20,28},{-8,28}}, color={0,0,127}));
   connect(sou2.T_in, TSink) annotation (Line(points={{-10,24},{-84,24},{-84,-60},
           {-120,-60}}, color={0,0,127}));
-  connect(hea.P, PComHea) annotation (Line(points={{-29,0},{-26,0},{-26,98},{98,
-          98},{98,90},{110,90}}, color={0,0,127}));
-  connect(coo.P, PComCoo) annotation (Line(points={{59,0},{64,0},{64,54},{98,54},
-          {98,70},{110,70}}, color={0,0,127}));
-  connect(hea.QCon_flow, QHea_flow) annotation (Line(points={{-29,9},{-24,9},{
+  connect(hea.P, PComHea) annotation (Line(points={{-31,-6},{-26,-6},{-26,98},{
+          98,98},{98,90},{110,90}},
+                                 color={0,0,127}));
+  connect(coo.P, PComCoo) annotation (Line(points={{59,6},{68,6},{68,6},{68,6},
+          {68,54},{98,54},{98,70},{110,70}},
+                             color={0,0,127}));
+  connect(hea.QCon_flow, QHea_flow) annotation (Line(points={{-31,3},{-24,3},{
           -24,50},{94,50},{110,50}},         color={0,0,127}));
-  connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{32,40},{32,9},
-          {36,9}}, color={0,0,127}));
+  connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{32,40},{32,15},
+          {36,15}},color={0,0,127}));
   connect(sou2.ports[1], coo.port_a1) annotation (Line(points={{12,20},{12,20},
-          {20,20},{20,6},{38,6}}, color={0,127,255}));
-  connect(coo.port_b1, sinCoo.ports[1]) annotation (Line(points={{58,6},{58,6},
+          {20,20},{20,12},{38,12}},
+                                  color={0,127,255}));
+  connect(coo.port_b1, sinCoo.ports[1]) annotation (Line(points={{58,12},{58,6},
           {62,6},{62,20},{72,20}}, color={0,127,255}));
   connect(port_b, coo.port_a2) annotation (Line(points={{100,0},{86,0},{72,0},{
-          72,-6},{58,-6}}, color={0,127,255}));
-  connect(coo.port_b2, senTem.port_b) annotation (Line(points={{38,-6},{20,-6},
-          {20,0},{6,0}}, color={0,127,255}));
+          58,0}},          color={0,127,255}));
+  connect(coo.port_b2, senTem.port_b) annotation (Line(points={{38,0},{20,0},{6,
+          0}},           color={0,127,255}));
   connect(addCoo.u1, coo.QEva_flow) annotation (Line(points={{38,76},{28,76},{
-          28,-14},{70,-14},{70,-9},{59,-9}}, color={0,0,127}));
-  connect(coo.QEva_flow, QCoo_flow) annotation (Line(points={{59,-9},{94,-9},{
+          28,-14},{70,-14},{70,-3},{59,-3}}, color={0,0,127}));
+  connect(coo.QEva_flow, QCoo_flow) annotation (Line(points={{59,-3},{94,-3},{
           94,30},{110,30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,

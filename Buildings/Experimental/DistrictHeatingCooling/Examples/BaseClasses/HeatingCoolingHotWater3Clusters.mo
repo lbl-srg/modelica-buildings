@@ -96,7 +96,8 @@ partial model HeatingCoolingHotWater3Clusters
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
       computeWetBulbTemperature=false) "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-400,180},{-380,200}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+     annotation (Placement(
         transformation(extent={{-348,182},{-332,198}}), iconTransformation(
           extent={{-328,64},{-308,84}})));
 

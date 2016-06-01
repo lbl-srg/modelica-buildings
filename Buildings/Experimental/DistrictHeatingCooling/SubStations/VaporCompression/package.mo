@@ -53,7 +53,9 @@ Icon(graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
+<p>
 This package contains models for district heating and cooling substations
 that provide heating or cooling using vapor compression engines.
-        </html>"));
+</p>
+</html>"));
 end VaporCompression;

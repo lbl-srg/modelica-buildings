@@ -220,6 +220,12 @@ This is the base case model for
 <a href=\"modelica://Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters\">
 Buildings.Experimental.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters</a>.
 </p>
+<p>
+Rather than being connected in a bi-directional district heating
+and cooling system, the heat pumps of each building are exposed
+to outside air conditions. Hence, they do not share any waste heat
+with each other.
+</p>
 </html>",
 revisions="<html>
 <ul>
