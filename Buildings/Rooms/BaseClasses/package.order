@@ -1,14 +1,12 @@
-AirHeatMassBalanceMixed
 CFDAirHeatMassBalance
 CFDExchange
 CFDFluidInterface
-CFDHeatGain
 CFDSurfaceInterface
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
+HeatGain
 InfraredRadiationExchange
 InfraredRadiationGainDistribution
-MixedAirHeatGain
 MixedAirHeatMassBalance
 PartialAirHeatMassBalance
 PartialSurfaceInterface

@@ -128,11 +128,13 @@ its class name ends with the string <code>Beta</code>.
     extends Modelica.Icons.ReleaseNotes;
 
    class Version_3_0_1 "Version 3.0.1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+     extends Modelica.Icons.ReleaseNotes;
+     annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version X.Y.Z is ... xxx
+   Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
+   library. Instead, it uses <code>Modelica.StateGraph</code> which is part
+   of the Modelica Standard Library.
    </p>
    </div>
    <!-- New libraries -->
@@ -168,12 +170,94 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3<br/>
+                          Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                          Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>
+                          to make the model work in JModelica.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.DC.Storage.Examples.Battery
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Added hysteresis to the economizer control to avoid many events.
+                          This change was done in
+                          <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.<br/>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Set <code>filteredSpeed=false</code> in fan models to avoid a large
+                          increase in computing time when simulated between <i>t=1.60E7</i>
+                          and <i>t=1.66E7</i>.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
+                          Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br/>
+                          Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
+                          Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD<br/>
+                          Buildings.Rooms.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
@@ -192,12 +276,73 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">This function is used to read location coordinates
+                          from the TMY3 weather data file. The call to
+                          <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</code>
+                          has been removed as it calls the function
+                          <a href=\"modelica://Modelica.Utilities.Files.loadResource\">
+                          Modelica.Utilities.Files.loadResource</a>, whose return value needs
+                          to be known at compilation time to store the weather data in the FMU.
+                          This is not supported by JModelica.
+                          Most models should still work as this call has been added at a higher level
+                          of the model hierarchy. If models don't work, add a call to <code>loadResource</code>
+                          at the top-level.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.PIDHysteresis
+       </td>
+       <td valign=\"top\">Set <code>zer(final k=0)</code> and made
+                          <code>swi</code>, <code>zer</code> and
+                          <code>zer1</code> protected, as they are for
+                          <a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+                          Buildings.Controls.Continuous.PIDHysteresis</a>.
+                          Only models that access these instances, which typically is not the case,
+                          are affected by this change.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.MixedAir.Rooms.CFD<br/>
+                          Buildings.MixedAir.Rooms.MixedAir<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.CFDAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.MixedAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.PartialAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.RoomHeatMassBalance
+
+       </td>
+       <td valign=\"top\">Refactored implementation of latent heat gain for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+                          Users who simply use <code>Buildings.MixedAir.Rooms.CFD</code> or
+                          <code>Buildings.MixedAir.Rooms.MixedAir</code> will not be affected by this change,
+                          except if they access variables related to the heat gain.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed<br/>
+                          Buildings.Rooms.BaseClasses.MixedAirHeatGain
+       </td>
+       <td valign=\"top\">Removed models as these are no longer needed due after the refactoring
+                          of the room model for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
+       </td>
+       <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
+                          <code>Buildings.Rooms.BaseClasses.HeatGain</code>.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
    </table>
@@ -207,12 +352,33 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected the computation of the wet bulb state in the model
+                          that computes the reevaporation of water vapor into the air stream when the coil
+                          is switched off. The results change slightly.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/520\">issue 520</a>
+                          and integrates the change of
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex 60, #474</a>.
+
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
+                          Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.Controls.Economizer
+       </td>
+       <td valign=\"top\">Corrected the economizer controller which closed
+                          the outside air when there was no freeze concern during summer.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/511\">issue 511</a>.
        </td>
    </tr>
    </table>
@@ -5769,8 +5935,7 @@ preferredView="info",
 version="3.0.0",
 versionDate="2016-03-29",
 dateModified="2016-03-29",
-uses(Modelica(version="3.2.1"),
-     Modelica_StateGraph2(version="2.0.2")),
+uses(Modelica(version="3.2.1")),
 conversion(
  from(version={"2.0.0", "2.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),

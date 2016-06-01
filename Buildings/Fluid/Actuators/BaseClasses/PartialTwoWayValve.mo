@@ -27,7 +27,7 @@ protected
  Real k(unit="", min=Modelica.Constants.small)
     "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
+  assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
@@ -101,6 +101,19 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 23, 2016, by Michael Wetter:<br/>
+Changed test in assertion from <code>dpFixed_nominal > -Modelica.Constants.small</code>
+to
+<code>dpFixed_nominal > -Modelica.Constants.eps</code>.
+Otherwise, JModelica evaluates it as <code>true</code> in
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValves\">
+Buildings.Fluid.Actuators.Valves.Examples.TwoWayValves</a>.
+See also
+<a href=\"https://trac.jmodelica.org/ticket/4932\">https://trac.jmodelica.org/ticket/4932</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">Buildings, issue 510</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

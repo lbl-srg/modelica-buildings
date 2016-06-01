@@ -278,7 +278,7 @@ model ElectroChromicWindow
   Modelica.Blocks.Sources.CombiTimeTable refRes(
     tableOnFile=true,
     tableName="EnergyPlus",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Rooms/Validation/LBNL_71T/RoomB/EnergyPlusHeatingCoolingPower.txt"),
     columns=2:2)
     "Data reader with heating and cooling power from EnergyPlus. The output should be compared to roo.heaPorAir.Q_flow."
@@ -336,6 +336,11 @@ The model represents the middle test cell (RoomB) of the window test facility 71
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 August 07, 2015, by Thierry S. Nouidui:<br/>
 First implementation.

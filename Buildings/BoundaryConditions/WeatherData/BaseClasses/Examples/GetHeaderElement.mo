@@ -8,13 +8,18 @@ model GetHeaderElement "Test model to get header element"
   parameter Modelica.SIunits.Time timeZone(fixed=false, displayUnit="h")
     "Time zone";
 
+  parameter String filNam = "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+    "Name of weather data file";
+
+  final parameter String absFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
+    "Absolute path of the file";
 initial equation
   longitude = Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
+    filNam=absFilNam);
   latitude = Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
+    filNam=absFilNam);
   timeZone = Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
+    filNam=absFilNam);
   assert(abs(longitude*180/Modelica.Constants.pi+87.92) < 1,
       "Error when parsing longitude, longitude = " + String(longitude));
   assert(abs(latitude*180/Modelica.Constants.pi-41.98) < 1,
@@ -30,6 +35,17 @@ This example tests getting the header of the TMY3 weather data file.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Added call to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+as this call has been removed from the function
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
 First implementation.

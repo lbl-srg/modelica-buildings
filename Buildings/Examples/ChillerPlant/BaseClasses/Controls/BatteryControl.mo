@@ -1,173 +1,148 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls;
 model BatteryControl "Controller for battery"
- extends Modelica.Blocks.Interfaces.BlockIcon;
+
   Modelica.Blocks.Interfaces.RealInput SOC "State of charge" annotation (
-      Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+      Placement(transformation(extent={{-200,-20},{-160,20}}),
+        iconTransformation(extent={{-200,-20},{-160,20}})));
   Modelica.Blocks.Interfaces.RealOutput y
     "Power charged or discharged from battery" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(
-          extent={{100,-10},{120,10}})));
-  Modelica_StateGraph2.Step off(initialStep=true, nOut=2,
-    nIn=2,
-    use_activePort=true) "Battery is disconnected"
-    annotation (Placement(transformation(extent={{28,28},{36,36}})));
-  Modelica_StateGraph2.Transition T1(
-    use_conditionPort=true,
-    delayedTransition=true,
-    waitTime=1)
-    annotation (Placement(transformation(extent={{16,-4},{24,4}})));
-  Modelica_StateGraph2.Step charge(
-    nOut=1,
-    initialStep=false,
-    use_activePort=true,
-    nIn=1) "Battery is being charged"
-    annotation (Placement(transformation(extent={{16,-34},{24,-26}})));
+        transformation(extent={{160,-10},{180,10}}), iconTransformation(
+          extent={{160,-10},{180,10}})));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=0.5)
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=
        0.99)
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Modelica_StateGraph2.Transition T3(use_conditionPort=true, use_firePort=
-        false)
-    annotation (Placement(transformation(extent={{16,-64},{24,-56}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Modelica.Blocks.Sources.BooleanExpression isDay(y=mod(time, 86400) > 7*3600
          and mod(time, 86400) <= 19*3600) "Outputs true if it is day time"
-    annotation (Placement(transformation(extent={{-92,60},{-72,80}})));
-  Modelica_StateGraph2.Step discharge(
-    nOut=1,
-    initialStep=false,
-    use_activePort=true,
-    nIn=1) "Battery is being discharged"
-    annotation (Placement(transformation(extent={{46,-34},{54,-26}})));
+    annotation (Placement(transformation(extent={{-152,30},{-132,50}})));
   Modelica.Blocks.Logical.Not not1
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica_StateGraph2.Transition T2(
-    use_conditionPort=true,
-    delayedTransition=true,
-    waitTime=1)
-    annotation (Placement(transformation(extent={{46,-4},{54,4}})));
+    annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
   Modelica.Blocks.Logical.And and2
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-80,18},{-60,38}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.8)
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold=
         0.01)
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Modelica_StateGraph2.Transition T4(use_conditionPort=true, use_firePort=
-        false)
-    annotation (Placement(transformation(extent={{46,-64},{54,-56}})));
-  Modelica.Blocks.Math.MultiSwitch multiSwitch1(nu=3, expr={0,200e3,-400e3})
-    annotation (Placement(transformation(extent={{80,-10},{96,10}})));
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
+  Modelica.Blocks.Math.MultiSwitch multiSwitch1(      expr={0,200e3,-400e3}, nu=3)
+    annotation (Placement(transformation(extent={{104,-10},{120,10}})));
+  Modelica.StateGraph.InitialStepWithSignal off "Off state"
+    annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
+  Modelica.StateGraph.Alternative alternative(nBranches=2)
+    "Splitter for alternative branches"
+    annotation (Placement(transformation(extent={{-14,40},{114,140}})));
+  Modelica.StateGraph.TransitionWithSignal t1(enableTimer=true, waitTime=1)
+    "Transition to charge"
+    annotation (Placement(transformation(extent={{10,110},{30,130}})));
+  Modelica.StateGraph.TransitionWithSignal t2(enableTimer=true, waitTime=1)
+    "Transition to discharge"
+    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+  Modelica.StateGraph.StepWithSignal charge "Charge battery"
+    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+  Modelica.StateGraph.StepWithSignal discharge "Discharge battery"
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+  Modelica.StateGraph.TransitionWithSignal t3 "Transition to off"
+    annotation (Placement(transformation(extent={{70,110},{90,130}})));
+  Modelica.StateGraph.TransitionWithSignal t4 "Transition to off"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 equation
 
   connect(lessThreshold.u, SOC) annotation (Line(
-      points={{-62,-20},{-80,-20},{-80,8.88178e-16},{-120,8.88178e-16}},
+      points={{-122,-50},{-140,-50},{-140,0},{-180,0}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(greaterEqualThreshold.y, T3.conditionPort) annotation (Line(
-      points={{-39,-60},{15,-60}},
-      color={255,0,255},
       smooth=Smooth.None));
   connect(greaterEqualThreshold.u, SOC) annotation (Line(
-      points={{-62,-60},{-80,-60},{-80,0},{-120,0}},
+      points={{-122,-90},{-140,-90},{-140,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(charge.outPort[1], T3.inPort) annotation (Line(
-      points={{20,-34.6},{20,-56}},
-      color={0,0,0},
-      smooth=Smooth.None));
   connect(not1.u, isDay.y) annotation (Line(
-      points={{-62,20},{-66,20},{-66,70},{-71,70}},
+      points={{-122,-10},{-126,-10},{-126,40},{-131,40}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and1.u1, not1.y) annotation (Line(
-      points={{-22,0},{-28,0},{-28,0},{-32,0},{-32,20},{-39,20}},
+      points={{-82,-44},{-92,-44},{-92,-10},{-99,-10}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(lessThreshold.y, and1.u2) annotation (Line(
-      points={{-39,-20},{-32,-20},{-32,-8},{-22,-8}},
+      points={{-99,-50},{-90,-50},{-90,-52},{-82,-52}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, T1.conditionPort) annotation (Line(
-      points={{1,0},{15,0}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(charge.inPort[1], T1.outPort) annotation (Line(
-      points={{20,-26},{20,-5}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T2.outPort, discharge.inPort[1]) annotation (Line(
-      points={{50,-5},{50,-26}},
-      color={0,0,0},
       smooth=Smooth.None));
   connect(isDay.y, and2.u1) annotation (Line(
-      points={{-71,70},{-22,70}},
+      points={{-131,40},{-92,40},{-92,28},{-82,28}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(greaterThreshold.u, SOC) annotation (Line(
-      points={{-62,50},{-80,50},{-80,0},{-120,0}},
+      points={{-122,20},{-140,20},{-140,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(greaterThreshold.y, and2.u2) annotation (Line(
-      points={{-39,50},{-30,50},{-30,62},{-22,62}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and2.y, T2.conditionPort) annotation (Line(
-      points={{1,70},{10,70},{10,14},{40,14},{40,0},{45,0}},
+      points={{-99,20},{-82,20}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(lessEqualThreshold.u, SOC) annotation (Line(
-      points={{-62,-90},{-80,-90},{-80,0},{-120,0}},
+      points={{-122,-120},{-140,-120},{-140,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lessEqualThreshold.y, T4.conditionPort) annotation (Line(
-      points={{-39,-90},{40,-90},{40,-60},{45,-60}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(discharge.outPort[1], T4.inPort) annotation (Line(
-      points={{50,-34.6},{50,-56}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T3.outPort, off.inPort[1]) annotation (Line(
-      points={{20,-65},{20,-80},{70,-80},{70,48},{32,48},{32,36},{31,36}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(T4.outPort, off.inPort[2]) annotation (Line(
-      points={{50,-65},{50,-80},{70,-80},{70,48},{32,48},{32,36},{33,36}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(off.outPort[1], T1.inPort) annotation (Line(
-      points={{31,27.4},{31,20},{20,20},{20,4}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(off.outPort[2], T2.inPort) annotation (Line(
-      points={{33,27.4},{33,20},{50,20},{50,4}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(off.activePort, multiSwitch1.u[1]) annotation (Line(
-      points={{36.72,32},{74,32},{74,2},{80,2}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(charge.activePort, multiSwitch1.u[2]) annotation (Line(
-      points={{24.72,-30},{40,-30},{40,-12},{72,-12},{72,4.44089e-16},{80,
-          4.44089e-16}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(discharge.activePort, multiSwitch1.u[3]) annotation (Line(
-      points={{54.72,-30},{74,-30},{74,-2},{80,-2}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(y, y) annotation (Line(
-      points={{110,0},{110,0}},
+      points={{170,0},{170,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiSwitch1.y, y) annotation (Line(
-      points={{96.4,0},{110,0}},
+      points={{120.4,0},{170,0}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(off.outPort[1], alternative.inPort)
+    annotation (Line(points={{-29.5,90},{-22,90},{-15.92,90}},
+                                                        color={0,0,0}));
+  connect(t1.outPort, charge.inPort[1])
+    annotation (Line(points={{21.5,120},{39,120}}, color={0,0,0}));
+  connect(t2.outPort, discharge.inPort[1])
+    annotation (Line(points={{21.5,60},{26,60},{39,60}},
+                                                 color={0,0,0}));
+  connect(charge.outPort[1], t3.inPort)
+    annotation (Line(points={{60.5,120},{76,120}}, color={0,0,0}));
+  connect(discharge.outPort[1], t4.inPort)
+    annotation (Line(points={{60.5,60},{68,60},{76,60}}, color={0,0,0}));
+  connect(alternative.outPort, off.inPort[1]) annotation (Line(points={{115.28,
+          90},{130,90},{130,150},{-60,150},{-60,90},{-51,90}},color={0,0,0}));
+  connect(and1.y, t1.condition) annotation (Line(points={{-59,-44},{10,-44},{10,
+          90},{20,90},{20,108}},               color={255,0,255}));
+  connect(and2.y, t2.condition) annotation (Line(points={{-59,28},{-36,28},{-20,
+          28},{20,28},{20,48}},          color={255,0,255}));
+  connect(greaterEqualThreshold.y, t3.condition) annotation (Line(points={{-99,-90},
+          {-99,-90},{70,-90},{70,92},{80,92},{80,108}},   color={255,0,255}));
+  connect(lessEqualThreshold.y, t4.condition)
+    annotation (Line(points={{-99,-120},{80,-120},{80,48}},
+                                                          color={255,0,255}));
+  connect(t1.inPort, alternative.split[1])
+    annotation (Line(points={{16,120},{8,120},{8,115},{-0.56,115}},
+                                                    color={0,0,0}));
+  connect(t2.inPort, alternative.split[2])
+    annotation (Line(points={{16,60},{8,60},{8,65},{-0.56,65}},
+                                                  color={0,0,0}));
+  connect(t3.outPort, alternative.join[1])
+    annotation (Line(points={{81.5,120},{92,120},{92,115},{100.56,115}},
+                                                       color={0,0,0}));
+  connect(t4.outPort, alternative.join[2])
+    annotation (Line(points={{81.5,60},{92,60},{92,65},{100.56,65}},
+                                                     color={0,0,0}));
+  connect(off.active, multiSwitch1.u[1]) annotation (Line(
+      points={{-40,79},{-40,79},{-40,32},{-40,2},{104,2}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(charge.active, multiSwitch1.u[2]) annotation (Line(
+      points={{50,109},{50,92},{64,92},{64,0},{104,0}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(discharge.active, multiSwitch1.u[3]) annotation (Line(
+      points={{50,49},{50,49},{50,-4},{104,-4},{104,-2}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
   annotation ( Documentation(info="<html>
 <p>
 Block for a battery controller. The battery is charged during night if its charge is below
@@ -179,56 +154,73 @@ discharging until it is empty.
         revisions="<html>
 <ul>
 <li>
+April 6, 2016, by Michael Wetter:<br/>
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+</li>
+<li>
 January 11, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-        Rectangle(
-          extent={{-74,56},{-8,12}},
-          lineColor={0,0,0},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
+                    graphics={     Rectangle(
+          extent={{-160,-160},{160,162}},
+          lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{20,56},{86,12}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,32},{10,40},{10,24},{20,32}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-74,34},{-84,42},{-84,26},{-74,34}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{20,-8},{86,-52}},
+          extent={{-78,64},{-12,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{20,-30},{10,-22},{10,-38},{20,-30}},
+          points={{-80,42},{-104,54},{-104,32},{-80,42}},
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-8,32},{12,32}},
+          points={{-104,44},{-136,44}},
+          color={0,0,0},
+          smooth=Smooth.None),            Text(
+          extent={{-150,204},{150,164}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{36,62},{102,18}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{14,42},{-12,42}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{34,-6},{100,-50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{10,-26},{-50,-26}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{10,-32},{2,-32},{2,32}},
+          points={{-50,20},{-50,-26}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(
-          points={{-78,34},{-96,34}},
-          color={0,0,0},
-          smooth=Smooth.None)}));
+        Polygon(
+          points={{36,42},{12,54},{12,32},{36,42}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{34,-28},{10,-16},{10,-38},{34,-28}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
+    Diagram(coordinateSystem(extent={{-160,-160},{160,160}})));
 end BatteryControl;

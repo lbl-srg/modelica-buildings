@@ -4,7 +4,7 @@ model CFD
   extends Buildings.Rooms.BaseClasses.RoomHeatMassBalance(
   redeclare BaseClasses.CFDAirHeatMassBalance air(
     final massDynamics = massDynamics,
-    final cfdFilNam = cfdFilNam,
+    final cfdFilNam = absCfdFilNam,
     final useCFD=useCFD,
     final samplePeriod=samplePeriod,
     final haveSensor=haveSensor,
@@ -46,10 +46,9 @@ model CFD
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220, 130}})));
 protected
-  BaseClasses.CFDHeatGain heaGai(final AFlo=AFlo)
-    "Model to convert internal heat gains"
-    annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-protected
+  final parameter String absCfdFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(cfdFilNam)
+    "Absolute path to the CFD file";
+
   final parameter Boolean haveSensor = Modelica.Utilities.Strings.length(sensorName[1]) > 0
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
@@ -59,23 +58,6 @@ protected
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
 equation
-  connect(qGai_flow, heaGai.qGai_flow) annotation (Line(
-      points={{-280,80},{-250,80},{-250,100},{-222,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaGai.QRad_flow, add.u2) annotation (Line(
-      points={{-198,106},{-152,106},{-152,114},{-142,114}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(air.QCon_flow, heaGai.QCon_flow) annotation (Line(
-      points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,100},{-198,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(air.QLat_flow, heaGai.QLat_flow) annotation (Line(
-      points={{39,-138},{-18,-138},{-18,-94},{-194,-94},{-194,94},{-198,94},{
-          -198,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(air.yCFD, yCFD) annotation (Line(
       points={{61,-142.5},{61,-206},{440,-206},{440,120},{470,120}},
       color={0,0,127},
@@ -157,6 +139,23 @@ Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Added parameter <code>absCfdFilNam</code> as the call to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+was removed from
+<a href=\"modelica://Buildings.Rooms.BaseClasses.CFDExchange\">
+Buildings.Rooms.BaseClasses.CFDExchange</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
 <li>
 August 1, 2013, by Michael Wetter and Wangda Zuo:<br/>
 First Implementation.

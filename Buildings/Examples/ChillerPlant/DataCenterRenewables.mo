@@ -53,11 +53,11 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(bat.SOC, con.SOC) annotation (Line(
-      points={{-21,-26},{-64,-26},{-64,-10},{-52,-10}},
+      points={{-21,-26},{-64,-26},{-64,-10},{-51.25,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y, bat.P) annotation (Line(
-      points={{-29,-10},{-10,-10},{-10,-22}},
+      points={{-29.375,-10},{-10,-10},{-10,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dataCenterContinuousTimeControl.PDC, dcLoad.Pow) annotation (Line(

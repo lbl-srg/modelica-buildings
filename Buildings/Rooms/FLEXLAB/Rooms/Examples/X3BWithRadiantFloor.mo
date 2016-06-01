@@ -22,7 +22,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-196,54},{-176,74}})));
@@ -100,7 +100,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airConEle(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room (y[1] = m_flow, y[2] = T)"
@@ -110,7 +110,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Modelica.Blocks.Sources.CombiTimeTable airConClo(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet (y[1] = m_flow, y[2] = T)"
@@ -510,6 +510,11 @@ equation
           </html>",
           revisions = "<html>
           <ul>
+          <li>
+          April 21, 2016, by Michael Wetter:<br/>
+          Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+          <code>Modelica.Utilities.Files.loadResource</code>.
+          </li>
           <li>
           December 22, 2014 by Michael Wetter:<br/>
           Removed <code>Modelica.Fluid.System</code>

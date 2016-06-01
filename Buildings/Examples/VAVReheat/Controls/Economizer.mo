@@ -51,7 +51,13 @@ block Economizer "Controller for economizer"
   EconomizerTemperatureControl yOATMix(Ti=Ti, k=k)
     "Control signal for outdoor damper to track mixed air temperature setpoint"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
-  EconomizerTemperatureControl yOATFre(Ti=Ti, k=k)
+  Buildings.Controls.Continuous.LimPID yOATFre(
+    k=k,
+    Ti=Ti,
+    Td=60,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=1,
+    yMin=0)
     "Control signal for outdoor damper to track freeze temperature setpoint"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
   Modelica.Blocks.Math.Min min
@@ -153,34 +159,16 @@ equation
       points={{41,-10},{60,-10},{60,-16},{78,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(min.u1, yOATFre.yOA) annotation (Line(
-      points={{18,-4},{10,-4},{10,50},{50,50},{50,130},{41,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(yOATFre.TRet, TRet) annotation (Line(
-      points={{18,136},{-60,136},{-60,160},{-120,160}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(controlBus.TOut, yOATFre.TOut) annotation (Line(
-      points={{-40,60},{-40,132},{18,132}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(yOATFre.TMix, TMix) annotation (Line(
-      points={{18,128},{-80,128},{-80,100},{-120,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TFre.y, yOATFre.TMixSet) annotation (Line(
-      points={{1,110},{10,110},{10,124},{18,124}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(extractor.y, yOA) annotation (Line(
       points={{141,-10},{170,-10},{170,80},{210,80}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(yOATFre.u_s, TMix) annotation (Line(points={{18,130},{-32,130},{-80,
+          130},{-80,100},{-120,100}}, color={0,0,127}));
+  connect(TFre.y, yOATFre.u_m) annotation (Line(points={{1,110},{14,110},{30,
+          110},{30,118}}, color={0,0,127}));
+  connect(yOATFre.y, min.u1) annotation (Line(points={{41,130},{48,130},{48,30},
+          {10,30},{10,-4},{18,-4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={
@@ -212,5 +200,23 @@ equation
         Text(
           extent={{138,96},{184,62}},
           lineColor={0,0,255},
-          textString="yOA")}));
+          textString="yOA")}),
+    Documentation(info="<html>
+<p>
+This is a controller for an economizer with
+that adjust the outside air dampers to meet the set point
+for the mixing air, taking into account the minimum outside
+air requirement and an override for freeze protection.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 26, 2016, by Michael Wetter:<br/>
+Changed controller for freeze protection as the old implementation closed
+the outdoor air damper during summer.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+</li>
+</ul>
+</html>"));
 end Economizer;

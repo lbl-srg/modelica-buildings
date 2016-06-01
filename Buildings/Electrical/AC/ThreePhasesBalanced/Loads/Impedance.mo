@@ -9,12 +9,16 @@ model Impedance "Model of a resistive load"
       choice=true "Star",
       choice=false "Triangle",
       __Dymola_radioButtons=true));
+
 protected
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
   Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
+
 equation
-  omega = der(PhaseSystem.thetaRef(terminal.theta));
+  theRef = PhaseSystem.thetaRef(terminal.theta);
+  omega = der(theRef);
 
   // Inductance of each line
   if inductive then
@@ -75,7 +79,7 @@ equation
           points={{52,50},{68,0},{52,-50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(visible=  star == true,
+        Line(visible = star == true,
           points={{68,0},{52,0}},
           color={0,0,0},
           smooth=Smooth.None),
@@ -103,15 +107,15 @@ equation
           points={{32,-50},{52,-50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(visible=  star == false,
+        Line(visible = star == false,
           points={{52,50},{52,36},{-50,14},{-50,0}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(visible=  star == false,
+        Line(visible = star == false,
           points={{52,0},{52,-14},{-50,-36},{-50,-50}},
           color={0,0,0},
           smooth=Smooth.None),
-        Line(visible=  star == false,
+        Line(visible = star == false,
           points={{52,-50},{72,-50},{72,68},{-50,68},{-50,50}},
           color={0,0,0},
           smooth=Smooth.None)}),
@@ -139,6 +143,11 @@ does not change.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>
 Revised documentation.

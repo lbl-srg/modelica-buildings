@@ -25,7 +25,7 @@ protected
     if not singleSubstance "Block to compute water vapor concentration";
 
   Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
-    final unit="kg/kg",
+    each final unit="kg/kg",
     final quantity=Medium.substanceNames)
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
@@ -111,6 +111,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April, 25, 2016 by Marcus Fuchs:<br/>
+Introduced missing <code>each</code> keyword. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/454\"> #454</a>,
+to prevent a warning in OpenModelica.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.
