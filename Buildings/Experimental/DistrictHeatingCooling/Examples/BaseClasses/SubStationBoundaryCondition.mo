@@ -3,7 +3,7 @@ model SubStationBoundaryCondition
   "Model with boundary condition for the base case"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.TemperatureDifference dTApp(min=0) = 2
     "Approach temperature";
   parameter Boolean warmSide

@@ -14,13 +14,9 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   parameter Boolean disableHeatExchanger = false
     "Set to true to disable the heat exchanger";
 
-  // fixme: this is not used, but needed for other sites than the bay
-  // in which the water could go below 8 degC
-  parameter Modelica.SIunits.Temperature TLooMin = 273.15+8
-    "Minimum loop temperature";
-  parameter Modelica.SIunits.Temperature TLooMax "Maximum loop temperature";
-
-  parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 0.5
+  parameter Modelica.SIunits.TemperatureDifference TApp(
+     min=0,
+    displayUnit="K") = 0.5
     "Approach temperature difference";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
@@ -32,7 +28,9 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
      min=0) = 1000 "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa", min=0) = 0
+  parameter Modelica.SIunits.PressureDifference dpHex_nominal(
+    displayUnit="Pa",
+    min=0)
     "Pressure drop of heat exchanger pipe and other resistances in the heat exchanger flow leg that are in series with the valve"
      annotation(Dialog(group = "Nominal condition"));
 
@@ -49,22 +47,32 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(tab="Flow resistance"));
 
-  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"
-    "Name of data file with water temperatures"
-    annotation (Dialog(
-        loadSelector(filter="Temperature file (*.mos)", caption=
-            "Select temperature file")));
+  Modelica.Blocks.Interfaces.RealInput TSouWat(
+    unit="K",
+    displayUnit="degC")
+    "Temperature of ocean, lake or river"
+    annotation (Placement(transformation(extent={{-140,260},{-100,300}})));
+
+  Modelica.Blocks.Interfaces.RealInput TSouHea(
+    unit="K",
+    displayUnit="degC")
+    "Source temperature to add heat the loop water (such as outdoor drybulb temperature)"
+    annotation (Placement(transformation(extent={{-140,220},{-100,260}}),
+        iconTransformation(extent={{-140,220},{-100,260}})));
+  Modelica.Blocks.Interfaces.RealInput TSouCoo(
+    unit="K",
+    displayUnit="degC")
+    "Source temperature to reject heat, such as outdoor wet bulb, outdoor drybulb, or else TSouWat"
+    annotation (Placement(transformation(extent={{-140,180},{-100,220}})));
+
   Modelica.Blocks.Interfaces.RealInput TSetHea(unit="K")
     "Temperature set point for heating"
     annotation (Placement(transformation(extent={{-140,140},{-100,180}}),
         iconTransformation(extent={{-140,140},{-100,180}})));
   Modelica.Blocks.Interfaces.RealInput TSetCoo(unit="K")
     "Temperature set point for cooling"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-  Modelica.Blocks.Interfaces.RealOutput TWat(unit="K")
-    "Temperature of water reservoir"
-    annotation (Placement(transformation(extent={{100,170},{120,190}})));
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Modelica.Blocks.Interfaces.RealOutput QWat_flow(unit="W")
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
@@ -94,16 +102,6 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         origin={50,-60})));
 
 protected
-  Modelica.Blocks.Sources.CombiTimeTable watTem(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    y(unit="K"))
-    "Temperature of the water reservoir (such as a river, lake or ocean)"
-    annotation (Placement(transformation(extent={{-80,216},{-60,236}})));
-
   Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -145,7 +143,7 @@ protected
   Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{8,104},{28,124}})));
   Utilities.Math.SmoothMin minHeaLvg(deltaX=0.1) "Minimum leaving temperature"
-    annotation (Placement(transformation(extent={{52,116},{72,136}})));
+    annotation (Placement(transformation(extent={{52,120},{72,140}})));
   Utilities.Math.SmoothMax maxCooLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{52,156},{72,176}})));
   Utilities.Math.SmoothMin minCooLvg(deltaX=0.1) "Minimum leaving temperature"
@@ -161,19 +159,10 @@ protected
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-public
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-100,238},{-60,278}}),
-                                                     iconTransformation(extent=
-            {{-10,224},{10,244}})));
   Utilities.Math.SmoothMax smoothMax(deltaX=0.1)
     annotation (Placement(transformation(extent={{-10,198},{10,218}})));
   Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
-protected
-  Modelica.Blocks.Sources.Constant TMaxDes(k=TLooMax)
-    "Maximum desired outlet temperature"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
   Controller conCoo(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for cooling" annotation (Placement(transformation(
@@ -191,9 +180,9 @@ equation
   connect(TColIn.y, maxHeaLea.u2) annotation (Line(points={{-19,108},{-19,108},{
           6,108}},             color={0,0,127}));
   connect(maxHeaLea.y, minHeaLvg.u2)
-    annotation (Line(points={{29,114},{42,114},{42,120},{44,120},{50,120}},
+    annotation (Line(points={{29,114},{42,114},{42,120},{42,124},{50,124}},
                                                           color={0,0,127}));
-  connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,126},{86,126},{86,
+  connect(minHeaLvg.y, hea.TSet) annotation (Line(points={{73,130},{86,130},{86,
           -34},{12,-34}}, color={0,0,127}));
   connect(TWarIn.y, minCooLvg.u1) annotation (Line(points={{-19,166},{-19,166},{
           6,166}},       color={0,0,127}));
@@ -214,30 +203,19 @@ equation
   connect(TWatHea.y, maxHeaLea.u1) annotation (Line(points={{61,200},{68,200},{68,
           186},{-6,186},{-6,120},{6,120}},
                          color={0,0,127}));
-  connect(watTem.y[1], TWat) annotation (Line(points={{-59,226},{-50,226},{-50,280},
-          {88,280},{88,180},{110,180}},      color={0,0,127}));
   connect(coo.Q_flow, QExc_flow.u1) annotation (Line(points={{-11,66},{-16,66},{
           -16,6},{18,6}}, color={0,0,127}));
   connect(hea.Q_flow, QExc_flow.u2) annotation (Line(points={{-11,-34},{-11,-34},
           {-14,-34},{-14,-6},{18,-6}}, color={0,0,127}));
   connect(QExc_flow.y, QWat_flow) annotation (Line(points={{41,0},{66,0},{90,0},
           {90,120},{110,120}}, color={0,0,127}));
-  connect(watTem.y[1], smoothMin.u2) annotation (Line(points={{-59,226},{-50,226},
-          {-50,234},{-12,234}}, color={0,0,127}));
-  connect(smoothMin.u1, weaBus.TWetBul) annotation (Line(points={{-12,246},{-44,
-          246},{-44,258},{-80,258}}, color={0,0,127}));
   connect(smoothMax.y, TWatHea.u1) annotation (Line(points={{11,208},{24,208},{24,
           206},{38,206}}, color={0,0,127}));
-  connect(smoothMax.u2, watTem.y[1]) annotation (Line(points={{-12,202},{-50,202},
-          {-50,226},{-59,226}}, color={0,0,127}));
-  connect(smoothMax.u1, weaBus.TDryBul) annotation (Line(points={{-12,214},{-44,
-          214},{-44,258},{-80,258}}, color={0,0,127}));
   connect(smoothMin.y, TWatCoo.u1) annotation (Line(points={{11,240},{20,240},{20,
           236},{38,236}}, color={0,0,127}));
-  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,100},{40,100},{
-          40,172},{50,172}}, color={0,0,127}));
-  connect(TMaxDes.y, minHeaLvg.u1) annotation (Line(points={{-59,150},{-50,150},
-          {-50,132},{50,132}}, color={0,0,127}));
+  connect(TSetCoo, maxCooLea.u1) annotation (Line(points={{-120,120},{-88,120},
+          {-88,140},{40,140},{40,172},{50,172}},
+                             color={0,0,127}));
   connect(valCoo.port_2, port_b1)
     annotation (Line(points={{60,60},{76,60},{100,60}}, color={0,127,255}));
   connect(conCoo.y, valCoo.y) annotation (Line(points={{-19,30},{30,30},{30,76},
@@ -322,7 +300,7 @@ equation
   connect(TColIn.y, conHea.u2) annotation (Line(points={{-19,108},{-10,108},{-10,
           90},{-86,90},{-86,-96},{-50,-96},{-50,-91}}, color={0,0,127}));
   connect(conHea.u1, minHeaLvg.y) annotation (Line(points={{-61,-83},{-70,-83},{
-          -70,-94},{86,-94},{86,126},{73,126}}, color={0,0,127}));
+          -70,-94},{86,-94},{86,130},{73,130}}, color={0,0,127}));
   connect(TWarIn.y, conCoo.u1) annotation (Line(points={{-19,166},{-14,166},{
           -14,128},{-50,128},{-50,27},{-41,27}}, color={0,0,127}));
   connect(maxCooLea.y, conCoo.u2) annotation (Line(points={{73,166},{80,166},{
@@ -335,13 +313,24 @@ equation
           -40},{-10,-40}}, color={0,127,255}));
   connect(senMasFloHea.port_a, valHea.port_3) annotation (Line(points={{-42,-40},
           {-30,-40},{-30,-76},{50,-76},{50,-70}}, color={0,127,255}));
+  connect(smoothMin.u2, TSouWat) annotation (Line(points={{-12,234},{-52,234},{
+          -52,280},{-120,280}},       color={0,0,127}));
+  connect(smoothMax.u2, TSouWat) annotation (Line(points={{-12,202},{-30,202},{
+          -52,202},{-52,234},{-52,280},{-120,280}},       color={0,0,127}));
+  connect(smoothMax.u1, TSouHea) annotation (Line(points={{-12,214},{-96,214},{
+          -96,240},{-120,240}},
+                            color={0,0,127}));
+  connect(smoothMin.u1, TSouCoo) annotation (Line(points={{-12,246},{-12,246},{-86,
+          246},{-86,200},{-120,200}}, color={0,0,127}));
+  connect(minHeaLvg.u1, TSetHea) annotation (Line(points={{50,136},{4,136},{-80,
+          136},{-80,160},{-120,160}}, color={0,0,127}));
   annotation (
   defaultComponentName="hex",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             300}})),            Icon(coordinateSystem(extent={{-100,-100},{100,300}},
                    preserveAspectRatio=false), graphics={
                                 Rectangle(
-        extent={{-100,-100},{100,260}},
+        extent={{-100,-100},{100,300}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),  Rectangle(
@@ -369,11 +358,11 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-136,214},{-82,176}},
+          extent={{-94,176},{-40,138}},
           lineColor={0,0,127},
           textString="TSetHea"),
         Text(
-          extent={{-134,148},{-80,110}},
+          extent={{-96,138},{-42,100}},
           lineColor={0,0,127},
           textString="TSetCoo"),
         Text(
@@ -398,15 +387,52 @@ equation
           smooth=Smooth.Bezier,
           fillPattern=FillPattern.Solid,
           fillColor={0,0,255},
-          pattern=LinePattern.None)}),
+          pattern=LinePattern.None),
+        Text(
+          extent={{-90,296},{-36,258}},
+          lineColor={0,0,127},
+          textString="TSouWat"),
+        Text(
+          extent={{-94,218},{-40,180}},
+          lineColor={0,0,127},
+          textString="TSouCoo"),
+        Text(
+          extent={{-94,256},{-40,218}},
+          lineColor={0,0,127},
+          textString="TSouHea")}),
     Documentation(info="<html>
 <p>
-Model for a heat exchanger that uses water such as from a lake, the ocean or a river to either provide heating or cooling.
-The water temperature of the lake, ocean or river is read from a data file.
-The model has built-in controls in order to exchange heat, up to a maximum approach temperature difference
+Model for a heat exchanger that uses water such as from a lake, the ocean or a river,
+or the ambient air to either provide heating or cooling.
+The model has built-in controls in order to exchange heat,
+up to a maximum approach temperature difference
 set by <code>TApp</code>.
-The parameter <code>TLooMax</code> is used to avoid that the water of the district heating/cooling
-is above a maximum threshold.
+<p>
+There are three input signals for the heat or cold source:
+</p>
+<ul>
+<li>
+<code>TSouWat</code> is the temperature of the ocean, lake or river to which
+heat is rejected, or from which heat is extracted from.
+</li>
+<li>
+<code>TSouHea</code> is the temperature used to heat the water.
+This could be set to the outdoor drybulb temperature if there is an air-to-water
+heat exchanger, or else to the same value as is used for <code>TSouWat</code>
+below.
+</li>
+<li>
+<code>TSouCoo</code> is the temperature used to cool the water.
+This could be set to the outdoor wet bulb temperature if there is a wet cooling
+tower,
+to the outdoor dry-bulb temperature if there is a dry cooling tower,
+or else to <code>TSouWat</code>.
+</li>
+</ul>
+<p>
+The parameters <code>TLooMin</code> and <code>TLooMax</code> are used to avoid
+that the water of the district heating/cooling
+is below or above a maximum threshold.
 </p>
 <h4>Implementation</h4>
 <p>

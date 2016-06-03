@@ -75,7 +75,6 @@ equation
   connect(pum.P, PPum) annotation (Line(points={{-19,8},{-10,8},{-10,40},{60,40},
           {60,60},{110,60}}, color={0,0,127}));
 
-  // fixme: add documentation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
@@ -126,5 +125,12 @@ Base class for a heating or cooling substation that draws
 as much water as needed to maintain the prescribed temperature
 difference <code>dTHex</code> over the heat exchanger.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HeatingOrCooling;

@@ -70,12 +70,19 @@ model Plant_Carnot_T_ClosedLoop
   Modelica.Blocks.Sources.Constant TSetC(k=273.15 + 16)
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Modelica.Blocks.Sources.TimeTable TOut(table=[
+  Modelica.Blocks.Sources.CombiTimeTable TOut(table=[
     0,273.15 + 14;
-    3*86400, 273.15+14;
-    3*86400, 273.15+0;
-    6*86400, 273.15+0;
-    6*86400, 273.15+30]) "Outdoor temperature. fixme: try different values"
+    3*3600, 273.15+14;
+    3*3600, 273.15+0;
+    6*3600, 273.15+0;
+    6*3600, 273.15+20;
+    12*3600, 273.15+20;
+    12*3600, 273.15+30;
+    18*3600, 273.15+30;
+    18*3600, 273.15+20],
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    y(each displayUnit="degC", each unit="K"))
+    "Outdoor temperature"
     annotation (Placement(transformation(extent={{-92,-20},{-72,0}})));
 equation
 
@@ -103,9 +110,9 @@ equation
           4},{-52,4}}, color={0,0,127}));
   connect(pla.TSetHea, TSetH.y) annotation (Line(points={{-52,8},{-60,8},{-60,50},
           {-69,50}}, color={0,0,127}));
-  connect(TOut.y, pla.TSink) annotation (Line(points={{-71,-10},{-64,-10},{-64,-6},
-          {-52,-6}}, color={0,0,127}));
-  annotation(experiment(StopTime=864000),
+  connect(TOut.y[1], pla.TSink) annotation (Line(points={{-71,-10},{-62,-10},{-62,
+          -6},{-52,-6}}, color={0,0,127}));
+  annotation(experiment(StopTime=259200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_Carnot_T_ClosedLoop.mos"
         "Simulate and plot"),
     Documentation(

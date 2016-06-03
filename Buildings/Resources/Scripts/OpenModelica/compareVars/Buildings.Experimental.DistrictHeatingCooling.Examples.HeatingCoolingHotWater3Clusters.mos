@@ -3,7 +3,7 @@ compareVars :=
     "weaDat.weaBus.TDryBul",
     "pla.sta_a.T",
     "pla.sta_b.T",
-    "bayWatHex.TWat",
+    "watTem.y[1]",
     "pla.m_flow",
     "EEleHea.y",
     "EEleCoo.y",

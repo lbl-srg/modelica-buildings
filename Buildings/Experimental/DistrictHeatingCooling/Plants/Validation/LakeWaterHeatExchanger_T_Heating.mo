@@ -6,35 +6,17 @@ model LakeWaterHeatExchanger_T_Heating
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 100
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Temperature TSetHeaLea = 273.15+12
-    "Set point for leaving fluid temperature warm supply"
-    annotation(Dialog(group="Design parameter"));
-
-  parameter Modelica.SIunits.Temperature TSetCooLea = 273.15+16
-    "Set point for leaving fluid temperature cold supply"
-    annotation(Dialog(group="Design parameter"));
-
-  parameter Modelica.SIunits.Temperature TLooMax = 273.15+20
-    "Maximum loop temperature";
 
   LakeWaterHeatExchanger_T hex(redeclare package Medium = Medium,
     dpHex_nominal=10000,
-    m_flow_nominal=m_flow_nominal,
-    TLooMax=TLooMax) "Heat exchanger for free cooling"
+    m_flow_nominal=m_flow_nominal) "Heat exchanger for free cooling"
     annotation (Placement(transformation(extent={{-30,-20},{-10,20}})));
-  BoundaryConditions.WeatherData.ReaderTMY3           weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-      computeWetBulbTemperature=true) "File reader that reads weather data"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-protected
-  Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
+  Modelica.Blocks.Sources.Constant TSetH(k=273.15 + 16)
     "Set point temperature for leaving water"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-protected
-  Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Sources.Constant TSetC(k=273.15 + 8)
     "Set point temperature for leaving water"
-    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-public
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -47,21 +29,21 @@ public
     use_m_flow_in=true,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-protected
+
   replaceable Modelica.Blocks.Sources.Ramp TWatCol(
     height=-10,
     duration=900,
     offset=273.15 + 20) constrainedby Modelica.Blocks.Interfaces.SO
     "Water temperature"
     annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
-protected
+
   Modelica.Blocks.Sources.Ramp m_flow(
     duration=900,
     height=-2*m_flow_nominal,
     offset=m_flow_nominal,
     startTime=1800 + 900) "Mass flow rate"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
-public
+
   Fluid.Sensors.TemperatureTwoPort temWar(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -72,19 +54,28 @@ public
     m_flow_nominal=m_flow_nominal,
     tau=0) "Cold water supply leg temperature"
     annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
-public
+
   replaceable Modelica.Blocks.Sources.Constant TWatWar(k=273.15 + 4)
     constrainedby Modelica.Blocks.Interfaces.SO "Water temperature"
     annotation (Placement(transformation(extent={{90,12},{70,32}})));
+
+  Modelica.Blocks.Sources.Constant TWatSou(k=275.15 + 15)
+    "Ocean water temperature"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Modelica.Blocks.Sources.Constant
+                               TSouHea(k=273.15 + 20)
+    "Ambient temperature used to heat up loop"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.Constant TSouCoo(k=273.15 + 18)
+    "Ambient temperature used to cool loop"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
-  connect(weaDat.weaBus, hex.weaBus) annotation (Line(
-      points={{-40,40},{-20,40},{-20,13.4}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(hex.TSetHea, TSetH.y) annotation (Line(points={{-32,6},{-40,6},{-40,20},
-          {-69,20}}, color={0,0,127}));
-  connect(TSetC.y, hex.TSetCoo) annotation (Line(points={{-69,-10},{-50,-10},{-40,
-          -10},{-40,0},{-32,0}},   color={0,0,127}));
+  connect(hex.TSetHea, TSetH.y) annotation (Line(points={{-32,6},{-54,6},{-54,
+          -30},{-59,-30}},
+                     color={0,0,127}));
+  connect(TSetC.y, hex.TSetCoo) annotation (Line(points={{-59,-70},{-59,-70},{
+          -50,-70},{-50,2},{-32,2}},
+                                   color={0,0,127}));
   connect(hex.port_b2, hex.port_a1) annotation (Line(points={{-30,-16},{-36,-16},
           {-36,-4},{-30,-4}}, color={0,127,255}));
   connect(TWatCol.y, floSou.T_in) annotation (Line(points={{69,-60},{60,-60},{
@@ -101,6 +92,13 @@ equation
           {-4,-16},{-10,-16}}, color={0,127,255}));
   connect(TWatWar.y, bou.T_in)
     annotation (Line(points={{69,22},{60,22},{60,4},{54,4}}, color={0,0,127}));
+  connect(TWatSou.y, hex.TSouWat)
+    annotation (Line(points={{-59,80},{-40,80},{-40,18},{-34,18},{-34,18},{-32,
+          18},{-32,18}},                                  color={0,0,127}));
+  connect(TSouHea.y, hex.TSouHea) annotation (Line(points={{-59,50},{-44,50},{
+          -44,14},{-32,14}}, color={0,0,127}));
+  connect(TSouCoo.y, hex.TSouCoo) annotation (Line(points={{-59,20},{-48,20},{
+          -48,10},{-32,10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
     experiment(StopTime=3600),

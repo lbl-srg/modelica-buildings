@@ -15,10 +15,6 @@ model IdealSystem3Clusters
     "Set point for leaving fluid temperature cold supply"
     annotation(Dialog(group="Design parameter"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")=30000
-    "Pressure difference at nominal flow rate"
-    annotation(Dialog(group="Design parameter"));
-
   parameter Modelica.SIunits.TemperatureDifference dT_nominal(
     min=0.5,
     displayUnit="K") = TSetCooLea-TSetHeaLea
@@ -32,8 +28,9 @@ model IdealSystem3Clusters
     show_T=true,
     m_flow_nominal=m_flow_nominal) "Heating and cooling plant"
     annotation (Placement(transformation(extent={{-260,50},{-240,70}})));
-  Buildings.Fluid.Sources.Boundary_pT pSet(redeclare package Medium = Medium,
-      nPorts=1) "Model to set the reference pressure"
+  Buildings.Fluid.Sources.Boundary_pT pSet(
+    redeclare package Medium = Medium,
+    nPorts=1) "Model to set the reference pressure"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -316,6 +313,10 @@ are prescribed by time series.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 2, 2016, by Michael Wetter:<br/>
+Removed top-level parameter <code>dp_nominal</code>.
+</li>
 <li>
 November 20, 2015, by Michael Wetter:<br/>
 First implementation.

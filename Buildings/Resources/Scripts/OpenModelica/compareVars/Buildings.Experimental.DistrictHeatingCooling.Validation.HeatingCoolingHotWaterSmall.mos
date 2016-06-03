@@ -5,5 +5,5 @@ compareVars :=
     "pla.m_flow",
     "pla.sta_a.T",
     "pla.sta_b.T",
-    "bayWatHex.TWat"
+    "watTem.y[1]"
   };
