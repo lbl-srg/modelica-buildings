@@ -142,9 +142,10 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Models for district heating and cooling
+                          with bi-directional flow in the distribution pipes.
        </td>
        </tr>
    </table>
@@ -569,7 +570,7 @@ its class name ends with the string <code>Beta</code>.
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/490\">#490</a>.
     </td>
    </tr>
-   
+
    <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
     </td>
     <td valign=\"top\">Changed the sign convention for <code>dTEva_nominal</code>.
