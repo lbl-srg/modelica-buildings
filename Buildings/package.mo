@@ -311,6 +311,30 @@ its class name ends with the string <code>Beta</code>.
                           are affected by this change.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
+       </td>
+       <td valign=\"top\">Changed the name of the function
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency</code>
+                          to
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower</code>.
+                          Changed the name of the record
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters</code>
+                          to
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan</code>,
+                          and changed the parameter of this record from
+                          <code>eta</code> to <code>r_P</code>.
+                          This change was done as the performance is for the relative power consumption, and not the fan
+                          efficiency, as the old parameter name suggests.
+                          Users who use the default parameters are not affected by this change.
+                          If the default parameters were changed, then for Dymola,
+                          the conversion script will update the model.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
