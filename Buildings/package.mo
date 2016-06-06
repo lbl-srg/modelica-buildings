@@ -5960,7 +5960,7 @@ preferredView="info",
 version="3.0.0",
 versionDate="2016-03-29",
 dateModified="2016-03-29",
-uses(Modelica(version="3.2.1")),
+uses(Modelica(version="3.2.2")),
 conversion(
  from(version={"2.0.0", "2.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),
