@@ -310,7 +310,9 @@ the unusual case that the floor contains a window, is
  Q<sup>i</sup> = H &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
+<p>
 The sum of the radiation that is reflected by the floor is therefore
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  J<sup>f</sup> = H &nbsp;
 &sum;<sub>i=1</sub><sup>N<sup>f</sup></sup>
