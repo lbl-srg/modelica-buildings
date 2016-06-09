@@ -261,6 +261,17 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
+                          Buildings.Rooms.CFD
+       </td>
+       <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation.
+                          Previously, the model assumed that all diffuse irradiation first hits the floor before it is
+                          diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
@@ -334,6 +345,16 @@ its class name ends with the string <code>Beta</code>.
                           the conversion script will update the model.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+       <tr><td valign=\"top\">Buildings.HeatTransfer.BaseClasses.TransmittedRadiation<br/>
+                              Buildings.HeatTransfer.BaseClasses.WindowRadiation
+       </td>
+       <td valign=\"top\">Refactored the model to allow separate treatment for the diffuse and direct irradiation,
+                          which is needed for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+    </tr>
 
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
@@ -361,7 +382,20 @@ its class name ends with the string <code>Beta</code>.
                           of the room model for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
-   </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.RoomHeatMassBalance<br/>
+                           Buildings.Rooms.BaseClasses.SolarRadiationExchange
+       </td>
+       <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation, which required replacing the
+                          input and output signals.
+                          Previously, the model assumed that all diffuse irradiation first hits the floor before it is
+                          diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+    </tr>
+
    <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
        </td>
        <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to

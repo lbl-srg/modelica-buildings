@@ -529,9 +529,9 @@ equation
       points={{249.9,69},{160,69},{160,60},{-60,60},{-60,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solRadExc.JInConExtWin, conExtWinRad.QTra_flow) annotation (Line(
-      points={{-79.5833,53.3333},{-74,53.3333},{-74,52},{14,52},{14,-22},{299,
-          -22}},
+  connect(solRadExc.JInDifConExtWin, conExtWinRad.QTraDif_flow) annotation (
+      Line(
+      points={{-79.5833,53.3333},{20,53.3333},{20,-20},{299,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solRadExc.HOutConExtWin,conExtWinRad.HRoo)  annotation (Line(
@@ -750,6 +750,9 @@ equation
       points={{-198,86},{-152,86},{-152,114},{-142,114}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(conExtWinRad.QTraDir_flow, solRadExc.JInDirConExtWin) annotation (
+      Line(points={{299,-23},{18,-23},{18,51.6667},{-79.5833,51.6667}}, color={
+          0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
             200}})),
