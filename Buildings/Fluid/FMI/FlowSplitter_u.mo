@@ -148,6 +148,13 @@ the model stops with an error.
 </html>", revisions="<html>
 <ul>
 <li>
+June 9, 2016, by Thierry S. Nouidui:
+</li>
+<li>Removed <code>assert()</code> statement which was triggered
+when the model was exported as an FMU
+depending on the execution sequence of the master algorithm.
+</li>
+<li>
 May 27, 2016, by Michael Wetter:<br/>
 Replaced <code>outlet[i].forward = inlet.forward;</code>
 with a <code>connect</code> statement as
