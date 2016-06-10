@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Adaptors;
 model HVACConvective
-  "Model for exposing a room supply and return of an HVAC system to the FMI interface"
+  "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
@@ -219,12 +219,11 @@ equation
             "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
     Documentation(info="<html>
 <p>
-Model that is used as an adapter between an HVAC system that uses
-fluid ports, and an interface to a thermal zone that uses input and
-output signals as needed for an FMU.
+Adaptor that can be used to connect an HVAC system (with acausal ports)
+to input/output signals, which then can be exposed in an FMI interface.
 </p>
 <p>
-The model has a vector of fluid ports called <code>ports</code>.
+The adaptor has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
 these flows need also be connected to <code>ports</code>.

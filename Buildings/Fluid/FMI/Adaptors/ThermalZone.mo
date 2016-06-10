@@ -1,5 +1,7 @@
 within Buildings.Fluid.FMI.Adaptors;
-model ThermalZone "Model for exposing a thermal model to the FMI interface"
+model ThermalZone
+  "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
+
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
@@ -410,12 +412,13 @@ equation
             "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
     Documentation(info="<html>
 <p>
-Model that is used as an adapter between
-a thermal zone that uses fluid ports and an convective HVAC system that
-uses input and output signals as needed for an FMU.
+Adaptor that can be used to connect a model of a thermal zone (with acausal ports)
+to input/output signals, which then can be exposed in an FMI interface.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
+fixme: This needs to be updated.
+
 The mass flow rates at <code>ports</code> sum to zero,
 hence this model conserves mass.
 </p>
