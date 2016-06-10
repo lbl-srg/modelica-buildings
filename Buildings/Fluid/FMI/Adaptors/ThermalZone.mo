@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model ThermalZone "Model for exposing a room model to the FMI interface"
+model ThermalZone "Model for exposing a thermal model to the FMI interface"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
@@ -333,46 +333,81 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
+        Rectangle(
+          extent={{-96,-22},{-50,30}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-56,14},{-50,-8}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-140,-160},{140,160},{140,-160},{-140,-160}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,164},{146,200}},
           textString="%name",
           lineColor={0,0,255}),
         Rectangle(
-          extent={{-128,30},{50,20}},
+          extent={{42,32},{134,22}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-130,-22},{50,-32}},
+          extent={{40,-22},{134,-32}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Ellipse(
-          extent={{-94,52},{-42,0}},
+          extent={{66,52},{118,0}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-54,48},{-94,26},{-54,4},{-54,48}},
+          points={{106,48},{66,26},{106,4},{106,48}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-96,-2},{-44,-54}},
+          extent={{62,-2},{114,-54}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-84,-6},{-44,-28},{-84,-50},{-84,-6}},
+          points={{76,-6},{116,-28},{76,-50},{76,-6}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
+                 Bitmap(extent={{36,-154},{124,-84}},
+                                                    fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
         Rectangle(
-          extent={{-10,54},{10,-4}},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Line(points={{10,54},{-10,-4}}, color={0,0,0})}),
+          extent={{-90,24},{-56,-18}},
+          pattern=LinePattern.None,
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Sphere),
+        Rectangle(
+          extent={{-54,10},{-52,-6}},
+          lineColor={95,95,95},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-128,-6},{-96,-14}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-128,20},{-96,12}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+            Bitmap(extent={{-120,90},{0,154}}, fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
     Documentation(info="<html>
 <p>
 Model that is used as an adapter between

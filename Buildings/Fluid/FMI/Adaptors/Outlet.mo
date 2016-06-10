@@ -51,9 +51,9 @@ equation
   port_a.m_flow = outlet.m_flow;
 
   outlet.forward.T = Medium.temperature_phX(
-    p=  p_in_internal,
-    h=  inStream(port_a.h_outflow),
-    X=  inStream(port_a.Xi_outflow));
+    p = p_in_internal,
+    h = inStream(port_a.h_outflow),
+    X = inStream(port_a.Xi_outflow));
   inStream(port_a.C_outflow)  = outlet.forward.C;
 
   // Mass fraction for forward flow
@@ -80,9 +80,9 @@ equation
     end if;
   end if;
   bacPro_internal.T  = Medium.temperature_phX(
-    p=  p_in_internal,
-    h=  port_a.h_outflow,
-    X=  port_a.Xi_outflow);
+    p = p_in_internal,
+    h = port_a.h_outflow,
+    X = port_a.Xi_outflow);
   bacPro_internal.C  = port_a.C_outflow;
 
   // Conditional connectors for pressure
@@ -122,11 +122,13 @@ equation
         Line(
           points={{0,-60},{0,-100}},
           color={0,0,255},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          visible=use_p_in),
         Text(
           extent={{10,-64},{44,-104}},
           lineColor={0,0,255},
-          textString="p")}),
+          textString="p",
+          visible=use_p_in)}),
     Documentation(info="<html>
 <p>
 Model that is used to connect a fluid port with an output signal.

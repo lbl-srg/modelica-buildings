@@ -270,6 +270,11 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255},
           lineColor={0,0,0}),
+        Rectangle(
+          extent={{-74,-76},{92,114}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-154,6},{-104,-14}},
           lineColor={0,0,127},
@@ -301,7 +306,23 @@ equation
         Text(
           extent={{-64,270},{78,164}},
           lineColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textString="%name"),
+        Rectangle(
+          extent={{-62,100},{80,-62}},
+          pattern=LinePattern.None,
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Sphere),
+        Rectangle(
+          extent={{80,72},{92,-32}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{84,72},{88,-32}},
+          lineColor={95,95,95},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>

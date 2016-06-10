@@ -158,38 +158,43 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
+        Polygon(
+          points={{-100,-100},{100,100},{100,-100},{-100,-100}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255}),
         Rectangle(
-          extent={{-100,20},{-42,12}},
+          extent={{-90,20},{40,14}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-100,-8},{-42,-16}},
+          extent={{-90,-8},{40,-14}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-42,-46},{50,46}},
+          extent={{40,-22},{86,30}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-36,40},{44,-40}},
+          extent={{46,24},{80,-18}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
         Rectangle(
-          extent={{44,26},{50,-18}},
+          extent={{80,14},{86,-8}},
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{46,26},{48,-18}},
+          extent={{82,10},{84,-6}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
@@ -197,7 +202,21 @@ equation
           extent={{-92,-42},{-6,-98}},
           lineColor={0,0,127},
           textString="[%nPorts]",
-          horizontalAlignment=TextAlignment.Left)}),
+          horizontalAlignment=TextAlignment.Left),
+        Ellipse(
+          extent={{-76,36},{-40,0}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-66,34},{-40,18},{-66,2},{-66,34}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+            Bitmap(extent={{30,-102},{92,-40}},fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
+            Bitmap(extent={{-96,52},{-24,108}},fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
     Documentation(info="<html>
 <p>
 Model that is used as an adapter between an HVAC system that uses
