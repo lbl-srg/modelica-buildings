@@ -3,7 +3,7 @@ model ThermalZone "Example of a thermal zone"
   extends Modelica.Icons.Example;
   constant Integer nFlu = 3 "Number of fluid connectors";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda(
     redeclare final package Medium = MediumA,
     nPorts=3) "Adaptor for the thermal zone"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -104,8 +104,8 @@ equation
 <p>
 This example demonstrates how to
 use the adaptor
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective\">
-Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVACConvective\">
+Buildings.Fluid.FMI.Adaptors.HVACConvective</a>.
 On the left of the adaptor are two supply air inlets and a return air connection.
 On the right of the adaptor is a simple first order differential equation
 for the room air and the room water vapor concentration.

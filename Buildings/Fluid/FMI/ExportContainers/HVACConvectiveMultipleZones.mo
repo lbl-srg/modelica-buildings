@@ -52,7 +52,7 @@ partial block HVACConvectiveMultipleZones
     "Latent heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda[nZon](
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda[nZon](
     redeclare each final package Medium = Medium,
     each final nPorts = nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"

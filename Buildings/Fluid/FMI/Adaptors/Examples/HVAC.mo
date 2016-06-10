@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Adaptors.Examples;
 model HVAC "Example of an HVAC model"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(
+  Buildings.Fluid.FMI.Adaptors.ThermalZone theHvaAda(
     redeclare final package Medium = MediumA,
     nFluPor=1)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));

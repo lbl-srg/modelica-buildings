@@ -46,7 +46,7 @@ partial block HVACConvectiveSingleZone
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda(
     redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
