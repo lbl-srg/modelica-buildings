@@ -1,22 +1,46 @@
 within Buildings.Fluid.FMI.Adaptors.Examples;
 model HVAC "Example of an HVAC model"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(redeclare final package
-      Medium = MediumA, nFluPor=1)
+  Buildings.Fluid.FMI.Adaptors.HVACConvective theHvaAda(
+    redeclare final package Medium = MediumA,
+    nFluPor=1)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
   parameter Integer nFluPorts=1 "Number of fluid ports.";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.15
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=V*6/3600
     "Nominal mass flow rate";
-  parameter Boolean use_p_in=false
-    "= true to use a pressure from connector, false to output Medium.p_default"
-    annotation (Evaluate=true);
-  parameter Boolean allowFlowReversal=false
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+
+  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+
+  Sources.MassFlowSource_T hva(
+    nPorts=1,
+    redeclare package Medium = MediumA,
+    m_flow=m_flow_nominal,
+    T=297.15) "Mass flow source"
+    annotation (Placement(transformation(extent={{82,0},{62,20}})));
+  Outlet bouOut(
+    redeclare package Medium = MediumA,
+    final allowFlowReversal=false,
+    final use_p_in=false)
+    annotation (Placement(transformation(extent={{44,0},{24,20}})));
+  MixingVolumes.MixingVolume vol(
+    redeclare package Medium = MediumA,
+    V=V,
+    mSenFac=3,
+    nPorts=1,
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+              annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
+    "Thermal conductance with the ambient"
+    annotation (Placement(transformation(extent={{-82,30},{-62,50}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
+    "Outside temperature"
+    annotation (Placement(transformation(extent={{-112,30},{-92,50}})));
   Modelica.Blocks.Sources.Constant radTem(k=298.13)
     annotation (Placement(transformation(extent={{-112,-16},{-92,4}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
@@ -28,47 +52,20 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-70})));
-public
-  Sources.MassFlowSource_T hva(
-    nPorts=1,
-    redeclare package Medium = MediumA,
-    m_flow=m_flow_nominal,
-    T=297.15) "Mass flow source"
-    annotation (Placement(transformation(extent={{82,0},{62,20}})));
-  Outlet bouOut(
-    redeclare package Medium = MediumA,
-    final allowFlowReversal=allowFlowReversal,
-    final use_p_in=use_p_in)
-    annotation (Placement(transformation(extent={{44,0},{24,20}})));
-  MixingVolumes.MixingVolume vol(
-    redeclare package Medium = MediumA,
-    V=V,
-    mSenFac=3,
-    nPorts=1,
-    m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-              annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
 
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=V*6/3600
-    "Nominal mass flow rate";
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
-    "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{-82,30},{-62,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
-    "Outside temperature"
-    annotation (Placement(transformation(extent={{-112,30},{-92,50}})));
 equation
   connect(radTem.y, TRad.T)
     annotation (Line(points={{-91,-6},{-91,-6},{-84,-6}}, color={0,0,127}));
   connect(TRad.port, theHvaAda.heaPorRad) annotation (Line(points={{-62,-6},{-40,
           -6},{-40,3.75},{-20,3.75}}, color={191,0,0}));
   connect(heaGai.y, theHvaAda.QGaiRad_flow) annotation (Line(points={{-10,-59},
-          {-10,-50},{-14.2857,-50},{-14.2857,-1.25}},color={0,0,127}));
+          {-10,-10},{-14,-10},{-14.2857,-10},{-14.2857,-1.25}},
+                                                     color={0,0,127}));
   connect(heaGai.y, theHvaAda.QGaiCon_flow)
     annotation (Line(points={{-10,-59},{-10,-1.25}}, color={0,0,127}));
   connect(heaGai.y, theHvaAda.QGaiLat_flow) annotation (Line(points={{-10,-59},
-          {-10,-59},{-10,-50},{-5.71429,-50},{-5.71429,-1.25}},color={0,0,127}));
+          {-10,-59},{-10,-10},{-6,-10},{-5.71429,-10},{-5.71429,-1.25}},
+                                                               color={0,0,127}));
   connect(bouOut.port_a, hva.ports[1])
     annotation (Line(points={{44,10},{54,10},{62,10}}, color={0,127,255}));
   connect(theHvaAda.fluPor[1], bouOut.outlet) annotation (Line(points={{
@@ -111,7 +108,7 @@ equation
           lineColor={0,0,127},
           textString="an HVAC system"),
         Text(
-          extent={{-114,80},{-70,70}},
+          extent={{-114,80},{-74,70}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
           textString="a thermal zone"),

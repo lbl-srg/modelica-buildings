@@ -1,6 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
 model HVACConvective "Model for exposing a room model to the FMI interface"
-
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
@@ -8,24 +7,6 @@ model HVACConvective "Model for exposing a room model to the FMI interface"
   parameter Integer nFluPor(final min = 1) "Number of fluid ports."
     annotation(Dialog(connectorSizing=true));
 
-  final parameter Modelica.SIunits.SpecificEnergy h_fg=
-    Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
-    annotation(Evaluate=true);
-
-  constant Modelica.SIunits.Temperature TAveSkin = 273.15+37
-    "Average skin temperature";
-
-  Modelica.Blocks.Interfaces.RealOutput TZon(final unit="K",
-                                            displayUnit="degC")
-    "Zone air temperature"
-    annotation (Placement(transformation(extent={{140,60},{180,100}})));
-  Modelica.Blocks.Interfaces.RealOutput X_wZon(
-    final unit = "kg/kg") "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{140,20},{180,60}})));
-  Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}})));
 
    Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
@@ -33,10 +14,6 @@ model HVACConvective "Model for exposing a room model to the FMI interface"
     each final use_p_in=false) "Fluid connector"
     annotation (Placement(transformation(extent={{160,110},{140,130}}),
         iconTransformation(extent={{160,110},{140,130}})));
-
-  Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](redeclare each final
-      package Medium =       Medium)
-    annotation (Placement(transformation(extent={{-148,40},{-128,-40}})));
 
    Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
@@ -46,6 +23,7 @@ model HVACConvective "Model for exposing a room model to the FMI interface"
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={-60,-180})));
+
   Modelica.Blocks.Interfaces.RealInput QGaiCon_flow(final unit="W")
     "Convective sensible heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
@@ -54,6 +32,7 @@ model HVACConvective "Model for exposing a room model to the FMI interface"
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={0,-180})));
+
   Modelica.Blocks.Interfaces.RealInput QGaiLat_flow(final unit="W")
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
@@ -62,18 +41,122 @@ model HVACConvective "Model for exposing a room model to the FMI interface"
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={60,-180})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
-    "Heat port for radiative heat gain and radiative temperature" annotation (
-      Placement(transformation(extent={{-150,-110},{-130,-90}}),
-                                                           iconTransformation(
-          extent={{-150,-110},{-130,-90}})));
-   Modelica.Blocks.Interfaces.RealOutput TRad(final unit="K", displayUnit="degC")
+
+  Modelica.Blocks.Interfaces.RealOutput TZonAir(
+    final unit="K",
+    displayUnit="degC")
+    "Zone air temperature"
+    annotation (Placement(transformation(extent={{140,60},{180,100}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TZonRad(
+    final unit="K",
+    displayUnit="degC")
     "Zone radiative temperature"
     annotation (Placement(transformation(extent={{140,-60},{180,-20}})));
 
+  Modelica.Blocks.Interfaces.RealOutput X_wZon(
+    final unit = "kg/kg") "Zone air water mass fraction per total air mass"
+    annotation (Placement(transformation(extent={{140,20},{180,60}})));
+
+  Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)
+    "Prescribed boundary trace substances"
+    annotation (Placement(transformation(extent={{140,-20},{180,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(final
+    unit="kg/s") "Water flow rate due to latent heat gain"
+    annotation (Placement(transformation(extent={{140,-100},{180,-60}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TWat(displayUnit="degC", final unit="K")
+    "Skin temperature at which latent heat is added to the space"
+    annotation (Placement(transformation(extent={{140,-140},{180,-100}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
+    "Heat port for convective heat gain" annotation (Placement(transformation(
+          extent={{-150,110},{-130,130}}),
+          iconTransformation(extent={{-150,110},{-130,130}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
+    "Heat port for radiative heat gain and radiative temperature" annotation (
+      Placement(transformation(extent={{-150,-110},{-130,-90}}),
+                iconTransformation(extent={{-150,-110},{-130,-90}})));
+
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
+    redeclare each final package Medium = Medium)
+    annotation (Placement(transformation(extent={{-148,40},{-128,-40}})));
+
+protected
+  constant Modelica.SIunits.Temperature TAveSkin = 273.15+37
+    "Average skin temperature";
+  final parameter Modelica.SIunits.SpecificEnergy h_fg=
+    Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
+    annotation(Evaluate=true);
+
+  x_i_toX_w x_i_toX(
+    redeclare final package Medium = Medium) if
+       Medium.nXi > 0 "Conversion from x_i to X_w"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+
+    Modelica.Blocks.Routing.Multiplex3 mux "Multiplex"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-76})));
+
+  RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
+       Medium.nXi > 0 "Water vapor concentration of supply air"
+    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+
+  RealVectorExpression CSup(each final n=Medium.nC, final y=inStream(ports[1].C_outflow)) if
+       Medium.nC > 0 "Trace substance concentration of supply air"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+
+  Sources.MassFlowSource_T bou[nFluPor](
+    each final nPorts=1,
+    redeclare each final package Medium = Medium,
+    each final use_T_in=true,
+    each final use_C_in=Medium.nC > 0,
+    each final m_flow=0,
+    each final use_X_in=Medium.nXi > 0,
+    each final use_m_flow_in=true) "Boundary conditions for HVACConvective system"
+    annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
+  Conversion.InletToAir con[nFluPor](
+      redeclare each final package Medium = Medium)
+    annotation (Placement(transformation(extent={{120,110},{100,130}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRad
+    "Radiative temperature sensor"
+    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
+    "Room air temperature sensor"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+
+  BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from X_w to X"
+    annotation (Placement(transformation(extent={{40,100},{20,120}})));
+
+  Modelica.Blocks.Sources.Constant TSkin(
+    k=TAveSkin,
+    y(final unit="K",
+      final displayUnit="degC"))
+    "Skin temperature at which latent heat is added to the space"
+    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
+  Modelica.Blocks.Math.Gain mWatFlow(
+    final k(unit="kg/J") = 1/h_fg,
+    u(final unit="W"),
+    y(final unit="kg/s")) "Water flow rate due to latent heat gain"
+    annotation (Placement(transformation(extent={{88,-90},{108,-70}})));
+
+  HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow
+    "Converter for latent heat flow rate"
+    annotation (Placement(transformation(extent={{-26,50},{-46,70}})));
+  HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
+    "Converter for convective heat flow rate"
+    annotation (Placement(transformation(extent={{-24,30},{-44,50}})));
+
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
-protected
   block RealVectorExpression
     "Set vector output signal to a time varying vector Real expression"
     parameter Integer n "Dimension of output signal";
@@ -81,7 +164,7 @@ protected
     annotation (Dialog(group="Time varying output signal"), Placement(
         transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
-  annotation (Icon(coordinateSystem(
+    annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
@@ -114,47 +197,37 @@ easy definition of vector-valued Real expressions in a block diagram.
 </html>"));
   end RealVectorExpression;
 
-  x_i_toX_w x_i_toX(
-    redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from x_i to X_w"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
-  Modelica.Blocks.Routing.Multiplex3 mux annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-76})));
-
   block x_i_toX_w "Conversion from Xi to X"
-  extends Modelica.Blocks.Icons.Block;
+    extends Modelica.Blocks.Icons.Block;
 
-  replaceable package Medium =
+    replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
-     Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg") if
+    Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg") if
          Medium.nXi > 0 "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput X_w(
-    each final unit="kg/kg") "Water vapor concentration in kg/kg total air"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    Modelica.Blocks.Interfaces.RealOutput X_w(
+      each final unit="kg/kg") "Water vapor concentration in kg/kg total air"
+      annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   protected
-    Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
-      each final unit = "kg/kg")
-      "Internal connector for water vapor concentration in kg/kg total air";
+      Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
+        each final unit = "kg/kg")
+        "Internal connector for water vapor concentration in kg/kg total air";
 
       Modelica.Blocks.Interfaces.RealInput X_w_internal(
-      final unit = "kg/kg")
-      "Internal connector for water vapor concentration in kg/kg total air";
+        final unit = "kg/kg")
+        "Internal connector for water vapor concentration in kg/kg total air";
   equation
   // Conditional connector
-    connect(Xi_internal, Xi);
-    if Medium.nXi == 0 then
-      Xi_internal = zeros(Medium.nXi);
-    end if;
+  connect(Xi_internal, Xi);
+  if Medium.nXi == 0 then
+    Xi_internal = zeros(Medium.nXi);
+  end if;
 
-    X_w_internal = sum(Xi_internal);
-    connect( X_w, X_w_internal)
+  X_w_internal = sum(Xi_internal);
+  connect( X_w, X_w_internal)
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
@@ -173,70 +246,10 @@ needs to access the conditional connector, but conditional connectors
 can only be used in <code>connect</code> statements.
 </p>
 </html>"));
+
   end x_i_toX_w;
 
-  RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
-       Medium.nXi > 0 "Water vapor concentration of supply air"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
-  RealVectorExpression CSup(each final n=Medium.nC, final y=inStream(ports[1].C_outflow)) if
-       Medium.nC > 0 "Trace substance concentration of supply air"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
-  Sources.MassFlowSource_T bou[nFluPor](
-    each final nPorts=1,
-    redeclare each final package Medium = Medium,
-    each final use_T_in=true,
-    each final use_C_in=Medium.nC > 0,
-    each final m_flow=0,
-    each final use_X_in=Medium.nXi > 0,
-    each final use_m_flow_in=true) "Boundary conditions for HVACConvective system"
-    annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
-  Conversion.InletToAir con[nFluPor](
-      redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{120,110},{100,130}})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRad
-    "Radiative temperature sensor"
-    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
-
-  BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
-    if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{40,100},{20,120}})));
-public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
-    "Heat port for convective heat gain" annotation (Placement(transformation(
-          extent={{-150,110},{-130,130}}),
-                                        iconTransformation(extent={{-150,110},{
-            -130,130}})));
-protected
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
-    "Room air temperature sensor"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Sources.Constant TSkin(
-    k=TAveSkin,
-    y(final unit="K",
-      final displayUnit="degC"))
-    "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
-  Modelica.Blocks.Math.Gain mWatFlow(
-    final k(unit="kg/J") = 1/h_fg,
-    u(final unit="W"),
-    y(final unit="kg/s")) "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{88,-90},{108,-70}})));
-public
-   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final
-      unit="kg/s") "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{140,-100},{180,-60}})));
-   Modelica.Blocks.Interfaces.RealOutput TWat(displayUnit="degC", final unit="K")
-    "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{140,-140},{180,-100}})));
-protected
-  HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow
-    "Converter for latent heat flow rate"
-    annotation (Placement(transformation(extent={{-26,50},{-46,70}})));
-  HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
-    "Converter for convective heat flow rate"
-    annotation (Placement(transformation(extent={{-24,30},{-44,50}})));
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
@@ -274,9 +287,8 @@ equation
   connect(senTemAir.port, heaPorAir) annotation (Line(points={{100,80},{-110,80},
           {-110,120},{-140,120}},
                                color={191,0,0}));
-  connect(senTemAir.T, TZon)
-    annotation (Line(points={{120,80},{120,80},{160,80}},
-                                                 color={0,0,127}));
+  connect(senTemAir.T, TZonAir)
+    annotation (Line(points={{120,80},{120,80},{160,80}}, color={0,0,127}));
   connect(CSup.y, CZon)
     annotation (Line(points={{91,0},{91,0},{160,0}},       color={0,0,127}));
   connect(XiSup.y, x_i_toX.Xi)
@@ -305,15 +317,14 @@ equation
   connect(conQLat_flow.port, heaPorAir) annotation (Line(points={{-46,60},{-84,
           60},{-84,80},{-110,80},{-110,120},{-140,120}},
                                                        color={191,0,0}));
-  connect(senTemRad.T, TRad) annotation (Line(points={{92,-40},{92,-40},{120,
-          -40},{160,-40}},
-                      color={0,0,127}));
+  connect(senTemRad.T, TZonRad) annotation (Line(points={{92,-40},{92,-40},{120,
+          -40},{160,-40}}, color={0,0,127}));
   connect(heaPorRad, senTemRad.port) annotation (Line(points={{-140,-100},{-140,
           -100},{-80,-100},{-80,-40},{72,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
     annotation (Line(points={{98,128},{98,128},{-36,128}},color={0,0,127}));
-  annotation (defaultComponentName="theZonAda",
+  annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-140,-160},{140,160}}), graphics={
@@ -356,7 +367,6 @@ equation
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(extent={{-196,124},{-198,128}}, lineColor={28,108,200}),
         Rectangle(
           extent={{-10,54},{10,-4}},
           fillColor={135,135,135},
@@ -365,8 +375,8 @@ equation
         Line(points={{10,54},{-10,-4}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
-Model that is used as an adapter between a thermal
-zone that uses fluid ports and an HVACConvective system that
+Model that is used as an adapter between
+a thermal zone that uses fluid ports and an convective HVAC system that
 uses input and output signals as needed for an FMU.
 </p>
 <h4>Assumption and limitations</h4>

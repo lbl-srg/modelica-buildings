@@ -3,9 +3,9 @@ model ThermalZone "Example of a thermal zone"
   extends Modelica.Icons.Example;
   constant Integer nFlu = 3 "Number of fluid connectors";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(redeclare final
-      package
-      Medium = MediumA, nPorts=3) "Adaptor for the thermal zone"
+  Buildings.Fluid.FMI.Adaptors.ThermalZoneConvective theZonAda(
+    redeclare final package Medium = MediumA,
+    nPorts=3) "Adaptor for the thermal zone"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
    replaceable package MediumA = Buildings.Media.Air "Medium for air";

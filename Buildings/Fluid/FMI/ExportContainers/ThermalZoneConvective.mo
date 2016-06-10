@@ -56,9 +56,9 @@ partial block ThermalZoneConvective
       -port_b.m_flow     = inlet.m_flow;
 
       port_b.h_outflow  = Medium.specificEnthalpy_pTX(
-                            p=  p_in_internal,
-                            T=  inlet.forward.T,
-                            X=  fill(X_w_in_internal, Medium.nXi));
+                            p = p_in_internal,
+                            T = inlet.forward.T,
+                            X = fill(X_w_in_internal, Medium.nXi));
 
       port_b.C_outflow  = inlet.forward.C;
 
@@ -79,9 +79,9 @@ partial block ThermalZoneConvective
 
       if allowFlowReversal then
         bacPro_internal.T  = Medium.temperature_phX(
-                               p=  p_in_internal,
-                               h=  inStream(port_b.h_outflow),
-                               X=  inStream(port_b.Xi_outflow));
+                               p = p_in_internal,
+                               h = inStream(port_b.h_outflow),
+                               X = inStream(port_b.Xi_outflow));
         bacPro_internal.C  = inStream(port_b.C_outflow);
       else
         bacPro_internal.T  = Medium.T_default;
@@ -242,15 +242,15 @@ First implementation.
     annotation (Placement(transformation(extent={{-60,140},{-80,160}})));
 
 equation
-  connect(TAirZon, theHvaAda.TZon) annotation (Line(points={{-180,120},{-180,
-          120},{-136,120},{-136,155},{-81.4286,155}},color={0,0,127}));
+  connect(TAirZon, theHvaAda.TZonAir) annotation (Line(points={{-180,120},{-180,
+          120},{-136,120},{-136,155},{-81.4286,155}}, color={0,0,127}));
   connect(X_wZon, theHvaAda.X_wZon) annotation (Line(points={{-180,80},{-180,80},
           {-130,80},{-130,152.5},{-81.4286,152.5}},
                                             color={0,0,127}));
   connect(CZon, theHvaAda.CZon) annotation (Line(points={{-180,40},{-180,40},{
           -124,40},{-124,150},{-81.4286,150}},color={0,0,127}));
-  connect(TRadZon, theHvaAda.TRad) annotation (Line(points={{-180,0},{-180,0},{
-          -120,0},{-120,147.5},{-81.4286,147.5}},    color={0,0,127}));
+  connect(TRadZon, theHvaAda.TZonRad) annotation (Line(points={{-180,0},{-180,0},
+          {-120,0},{-120,147.5},{-81.4286,147.5}}, color={0,0,127}));
   connect(QGaiRad_flow, theHvaAda.QGaiRad_flow) annotation (Line(points={{-180,
           -40},{-65.7143,-40},{-65.7143,138.75}},
                                       color={0,0,127}));
