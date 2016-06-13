@@ -197,20 +197,20 @@ dp2 = air_a.p - air_b.p;
     annotation (Line(points={{-80,-60},{140,-60}}, color={0,127,255}));
   connect(conCoo.port_b, watCoo_b)
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
-  connect(conCoo.y, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,30},{
-          38,30}}, color={0,0,127}));
+  connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
+          30},{38,30}}, color={0,0,127}));
   connect(senFlo1.m_flow, gai_3.u) annotation (Line(points={{-110,71},{-110,100},
           {-82,100}}, color={0,0,127}));
-  connect(gai_3.y, conCoo.watFlow) annotation (Line(points={{-59,100},{-30,100},
-          {-30,69},{-12,69}}, color={0,0,127}));
+  connect(gai_3.y, conCoo.mWat_flow) annotation (Line(points={{-59,100},{-30,
+          100},{-30,69},{-12,69}}, color={0,0,127}));
   connect(watCoo_a, senFlo1.port_a)
     annotation (Line(points={{-140,60},{-120,60}}, color={0,127,255}));
   connect(senFlo1.port_b, conCoo.port_a) annotation (Line(points={{-100,60},{
           -100,60},{-10,60}}, color={0,127,255}));
-  connect(gai_1.y, conCoo.airFlo) annotation (Line(points={{-90,-19},{-90,-19},
+  connect(gai_1.y, conCoo.mAir_flow) annotation (Line(points={{-90,-19},{-90,-19},
           {-90,64},{-12,64}}, color={0,0,127}));
-  connect(senTem.T, conCoo.rooTem) annotation (Line(points={{-40,-40},{-50,-40},
-          {-50,54},{-12,54}}, color={0,0,127}));
+  connect(senTem.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},{
+          -50,54},{-12,54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-140,
             -120},{140,120}}), graphics={Rectangle(
           extent={{-120,100},{120,-100}},

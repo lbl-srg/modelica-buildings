@@ -87,20 +87,20 @@ equation
        assert( conHea.mod.temDif_mod.xd[1]<=0.000001 and conHea.mod.temDif_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
   connect(conHea.port_b, watHea_b)
     annotation (Line(points={{10,0},{140,0}}, color={0,127,255}));
-  connect(conHea.y, sum.u[2])
+  connect(conHea.Q_flow, sum.u[2])
     annotation (Line(points={{11,7},{20,7},{20,30},{38,30}}, color={0,0,127}));
   connect(watHea_a, senFlo2.port_a)
     annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
   connect(senFlo2.port_b, conHea.port_a)
     annotation (Line(points={{-100,0},{-100,0},{-10,0}}, color={0,127,255}));
-  connect(gai_4.y, conHea.watFlow) annotation (Line(points={{-59,30},{-28,30},{
-          -28,9},{-12,9}}, color={0,0,127}));
-  connect(conHea.airFlo, gai_1.y)
+  connect(gai_4.y, conHea.mWat_flow) annotation (Line(points={{-59,30},{-28,30},
+          {-28,9},{-12,9}}, color={0,0,127}));
+  connect(conHea.mAir_flow, gai_1.y)
     annotation (Line(points={{-12,4},{-90,4},{-90,-19}}, color={0,0,127}));
   connect(senFlo2.m_flow, gai_4.u)
     annotation (Line(points={{-110,11},{-110,30},{-82,30}}, color={0,0,127}));
-  connect(conHea.rooTem, senTem.T) annotation (Line(points={{-12,-6},{-26,-6},{
-          -50,-6},{-50,-40},{-40,-40}}, color={0,0,127}));
+  connect(conHea.TRoo, senTem.T) annotation (Line(points={{-12,-6},{-26,-6},{-50,
+          -6},{-50,-40},{-40,-40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{140,120}})), defaultComponentName="beaCooHea",Icon(
         coordinateSystem(extent={{-140,-120},{140,120}}),             graphics={

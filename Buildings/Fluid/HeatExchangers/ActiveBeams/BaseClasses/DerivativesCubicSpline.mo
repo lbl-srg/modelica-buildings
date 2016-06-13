@@ -49,6 +49,17 @@ algorithm
 This model calculates the output based on the cubic hermite interpolation
 and linear extrapolation of predefined values. The predefined values must create a monotone curve.
 
+</html>", revisions="<html>
+<ul>
+<li>
+June 13, 2016, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+May 20, 2016, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
