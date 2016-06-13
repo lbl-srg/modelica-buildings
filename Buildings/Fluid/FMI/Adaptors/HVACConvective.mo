@@ -263,7 +263,6 @@ the port <code>fluPor</code> (which is negative if it is an exhaust),
 Note that without the <i>max(&middot;, &middot;)</i> function, the energy
 balance would be wrong.
 </p>
-</p>
 <p>
 The input signals of this model are the zone air temperature,
 the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
