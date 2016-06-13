@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Validation;
 model HeaterFanPressureDriven
   "Heater and fan in series, model configured to allow flow reversal and pressure driven flow rate"
   extends Modelica.Icons.Example;
@@ -148,8 +148,8 @@ an equality constraint on the pressure between the sink and the source.
 It also outputs a signal for the mass flow rate. Hence, this component is
 used to declare how to break the algebraic loop in this signal flow diagram.
 For a model with prescribed mass flow rate, see
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFan\">
-Buildings.Fluid.FMI.Examples.HeaterFan</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFan\">
+Buildings.Fluid.FMI.Validation.HeaterFan</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the

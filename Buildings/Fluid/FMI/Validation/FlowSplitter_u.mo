@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Validation;
 model FlowSplitter_u "Flow splitter"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";

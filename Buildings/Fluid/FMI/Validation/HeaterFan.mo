@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Validation;
 model HeaterFan
   "Heater and fan in series, model configured to allow flow reversal"
   extends Modelica.Icons.Example;
@@ -137,8 +137,8 @@ which is an input to the fan model.
 </p>
 <p>
 For a model with that computes the mass flow rate based on the pressure drop, see
-<a href=\"modelica://Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven\">
-Buildings.Fluid.FMI.Examples.HeaterFanPressureDriven</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven\">
+Buildings.Fluid.FMI.Validation.HeaterFanPressureDriven</a>.
 </p>
 <p>
 For this example, the models are not exported as FMUs. However, the

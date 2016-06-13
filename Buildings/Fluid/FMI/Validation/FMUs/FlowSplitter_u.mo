@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples.FMUs;
+within Buildings.Fluid.FMI.Validation.FMUs;
 block FlowSplitter_u "FMU declaration for a flow splitter"
    extends Buildings.Fluid.FMI.FlowSplitter_u(
      redeclare replaceable package Medium = Buildings.Media.Air,

@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Examples;
+within Buildings.Fluid.FMI.Validation;
 package FMUs "Collection of models that can be exported as FMUs"
   extends Modelica.Icons.ExamplesPackage;
 

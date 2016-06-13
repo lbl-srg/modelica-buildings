@@ -74,7 +74,7 @@ equation
     bacPro_internal.T  = Medium.T_default;
     bacPro_internal.C  = fill(0, Medium.nC);
     if Medium.nXi > 0 then
-      // This test for nXi is needed for Buildings.Fluid.FMI.Examples.HeaterFan_noReverseFlow
+      // This test for nXi is needed for Buildings.Fluid.FMI.Validation.HeaterFan_noReverseFlow
       // to work with Buildings.Media.Water
       connect(bacPro_internal.X_w, X_w_out_internal);
     end if;

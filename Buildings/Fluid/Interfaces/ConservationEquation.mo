@@ -488,7 +488,7 @@ The model requires derivatives of some inputs as listed below:
 1 inlet.p
 </pre>
 when translating
-<code>Buildings.Fluid.FMI.Examples.FMU.HeaterCooler_u</code>
+<code>Buildings.Fluid.FMI.Validation.FMU.HeaterCooler_u</code>
 with a dynamic energy balance.
 </li>
 <li>
