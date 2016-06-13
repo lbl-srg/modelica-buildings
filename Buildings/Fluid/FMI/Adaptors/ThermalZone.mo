@@ -14,47 +14,14 @@ model ThermalZone
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
     each final use_p_in=false) "Fluid connector"
-    annotation (Placement(transformation(extent={{160,110},{140,130}}),
-        iconTransformation(extent={{160,110},{140,130}})));
-
-   Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(final unit="W")
-    "Radiant heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={-40,-180}), iconTransformation(
-        extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={-60,-180})));
-
-  Modelica.Blocks.Interfaces.RealInput QGaiCon_flow(final unit="W")
-    "Convective sensible heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={0,-180}), iconTransformation(
-        extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={0,-180})));
-
-  Modelica.Blocks.Interfaces.RealInput QGaiLat_flow(final unit="W")
-    "Latent heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={40,-180}), iconTransformation(
-        extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={60,-180})));
+    annotation (Placement(transformation(extent={{160,140},{140,160}}),
+        iconTransformation(extent={{180,120},{140,160}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon(
     final unit="K",
     displayUnit="degC")
     "Zone air temperature"
     annotation (Placement(transformation(extent={{140,60},{180,100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput TZonRad(
-    final unit="K",
-    displayUnit="degC")
-    "Zone radiative temperature"
-    annotation (Placement(transformation(extent={{140,-60},{180,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput X_wZon(
     final unit = "kg/kg") "Zone air water mass fraction per total air mass"
@@ -64,24 +31,6 @@ model ThermalZone
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{140,-20},{180,20}})));
-
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(final
-    unit="kg/s") "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{140,-100},{180,-60}})));
-
-  Modelica.Blocks.Interfaces.RealOutput TWat(displayUnit="degC", final unit="K")
-    "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{140,-140},{180,-100}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
-    "Heat port for convective heat gain" annotation (Placement(transformation(
-          extent={{-150,110},{-130,130}}),
-          iconTransformation(extent={{-150,110},{-130,130}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
-    "Heat port for radiative heat gain and radiative temperature" annotation (
-      Placement(transformation(extent={{-150,-110},{-130,-90}}),
-                iconTransformation(extent={{-150,-110},{-130,-90}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
     redeclare each final package Medium = Medium)
@@ -98,12 +47,6 @@ protected
     redeclare final package Medium = Medium) if
        Medium.nXi > 0 "Conversion from x_i to X_w"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
-    Modelica.Blocks.Routing.Multiplex3 mux "Multiplex"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-76})));
 
   RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
        Medium.nXi > 0 "Water vapor concentration of supply air"
@@ -126,10 +69,6 @@ protected
       redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{120,110},{100,130}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRad
-    "Radiative temperature sensor"
-    annotation (Placement(transformation(extent={{72,-50},{92,-30}})));
-
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
@@ -137,25 +76,6 @@ protected
   BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
     if Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{40,100},{20,120}})));
-
-  Modelica.Blocks.Sources.Constant TSkin(
-    k=TAveSkin,
-    y(final unit="K",
-      final displayUnit="degC"))
-    "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
-  Modelica.Blocks.Math.Gain mWatFlow(
-    final k(unit="kg/J") = 1/h_fg,
-    u(final unit="W"),
-    y(final unit="kg/s")) "Water flow rate due to latent heat gain"
-    annotation (Placement(transformation(extent={{88,-90},{108,-70}})));
-
-  HeatTransfer.Sources.PrescribedHeatFlow conQLat_flow
-    "Converter for latent heat flow rate"
-    annotation (Placement(transformation(extent={{-26,50},{-46,70}})));
-  HeatTransfer.Sources.PrescribedHeatFlow conQCon_flow
-    "Converter for convective heat flow rate"
-    annotation (Placement(transformation(extent={{-24,30},{-44,50}})));
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
@@ -262,16 +182,11 @@ equation
             120},{-60,0},{-138,0}},
                      color={0,127,255}));
   end for;
-  connect(QGaiCon_flow, mux.u2[1]) annotation (Line(points={{0,-180},{0,-88},{
-          -8.88178e-16,-88}},       color={0,0,127}));
-  connect(QGaiLat_flow, mux.u3[1]) annotation (Line(points={{40,-180},{40,-140},
-          {7,-140},{7,-88}},
-                           color={0,0,127}));
   connect(x_i_toX.X_w, X_wZon)
     annotation (Line(points={{122,40},{122,40},{160,40}},   color={0,0,127}));
   connect(con.inlet, fluPor)
-    annotation (Line(points={{121,120},{120,120},{150,120}},
-                                                       color={0,0,255}));
+    annotation (Line(points={{121,120},{130,120},{130,150},{136,150},{136,150},
+          {150,150},{150,150}},                        color={0,0,255}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,110},{18,110},{6,
           110},{6,110},{0,110},{0,116},{-34,116}},
                 color={0,0,127}));
@@ -283,12 +198,6 @@ equation
                                             color={0,0,127}));
   connect(bou.T_in, con.T) annotation (Line(points={{-34,124},{18,124},{98,124}},
                    color={0,0,127}));
-  connect(heaPorAir, heaPorAir)
-    annotation (Line(points={{-140,120},{-140,120}},
-                                                   color={191,0,0}));
-  connect(senTemAir.port, heaPorAir) annotation (Line(points={{100,80},{-110,80},
-          {-110,120},{-140,120}},
-                               color={191,0,0}));
   connect(senTemAir.T, TAirZon)
     annotation (Line(points={{120,80},{120,80},{160,80}}, color={0,0,127}));
   connect(CSup.y, CZon)
@@ -296,33 +205,6 @@ equation
   connect(XiSup.y, x_i_toX.Xi)
     annotation (Line(points={{91,40},{98,40}},
                                              color={0,0,127}));
-
-  connect(mux.y[3], mWatFlow.u) annotation (Line(points={{7.77156e-16,-65},{
-          7.77156e-16,-66},{0,-66},{0,-60},{20,-60},{20,-80},{86,-80}},
-                                        color={0,0,127}));
-  connect(mWatFlow.y, mWat_flow)
-    annotation (Line(points={{109,-80},{109,-80},{160,-80}},
-                                                           color={0,0,127}));
-  connect(QGaiRad_flow, mux.u1[1]) annotation (Line(points={{-40,-180},{-40,
-          -180},{-40,-140},{-7,-140},{-7,-88}},
-                                        color={0,0,127}));
-  connect(TSkin.y, TWat)
-    annotation (Line(points={{111,-120},{160,-120}},color={0,0,127}));
-  connect(mux.y[2], conQCon_flow.Q_flow) annotation (Line(points={{6.66134e-16,-65},
-          {6.66134e-16,40},{-24,40}}, color={0,0,127}));
-  connect(conQCon_flow.port, heaPorAir) annotation (Line(points={{-44,40},{-84,
-          40},{-84,80},{-110,80},{-110,120},{-140,120}},
-                                                       color={191,0,0}));
-  connect(mux.y[3], conQLat_flow.Q_flow) annotation (Line(points={{7.77156e-16,
-          -65},{0,-65},{0,60},{-26,60}},
-                                    color={0,0,127}));
-  connect(conQLat_flow.port, heaPorAir) annotation (Line(points={{-46,60},{-84,
-          60},{-84,80},{-110,80},{-110,120},{-140,120}},
-                                                       color={191,0,0}));
-  connect(senTemRad.T, TZonRad) annotation (Line(points={{92,-40},{92,-40},{120,
-          -40},{160,-40}}, color={0,0,127}));
-  connect(heaPorRad, senTemRad.port) annotation (Line(points={{-140,-100},{-140,
-          -100},{-80,-100},{-80,-40},{72,-40}}, color={191,0,0}));
 
   connect(con.m_flow, bou.m_flow_in)
     annotation (Line(points={{98,128},{98,128},{-36,128}},color={0,0,127}));

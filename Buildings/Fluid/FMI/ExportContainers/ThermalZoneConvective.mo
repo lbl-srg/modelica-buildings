@@ -2,13 +2,13 @@ within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZoneConvective
   "Partial block to export a model of a thermal zone as an FMU"
 
-      replaceable package Medium =
-          Modelica.Media.Interfaces.PartialMedium
-    "Medium model within the source"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model"
          annotation (choicesAllMatching=true);
-  parameter Integer nFluPor( min = 1) "Number of fluid ports.";
+  parameter Integer nFluPor( min = 1) "Number of fluid ports";
 
     model InletAdaptor "Model for exposing a fluid inlet to the FMI interface"
+      // fixme: this seems nowhere used and can be removed
       parameter Boolean allowFlowReversal = true
       "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
         annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -251,16 +251,16 @@ equation
           -124,40},{-124,150},{-81.4286,150}},color={0,0,127}));
   connect(TRadZon, theHvaAda.TZonRad) annotation (Line(points={{-180,0},{-180,0},
           {-120,0},{-120,147.5},{-81.4286,147.5}}, color={0,0,127}));
-  connect(QGaiRad_flow, theHvaAda.QGaiRad_flow) annotation (Line(points={{-180,
-          -40},{-65.7143,-40},{-65.7143,138.75}},
+  connect(QGaiRad_flow, theHvaAda.QGaiRad_flow) annotation (Line(points={{-180,-40},
+          {-65.7143,-40},{-65.7143,138.75}},
                                       color={0,0,127}));
   connect(QGaiCon_flow, theHvaAda.QGaiCon_flow) annotation (Line(points={{-180,
           -80},{-70,-80},{-70,138.75}},color={0,0,127}));
-  connect(QGaiLat_flow, theHvaAda.QGaiLat_flow) annotation (Line(points={{-180,
-          -120},{-74.2857,-120},{-74.2857,138.75}},
+  connect(QGaiLat_flow, theHvaAda.QGaiLat_flow) annotation (Line(points={{-180,-120},
+          {-74.2857,-120},{-74.2857,138.75}},
                                        color={0,0,127}));
-  connect(theHvaAda.fluPor, fluPor) annotation (Line(points={{-80.7143,157.5},{
-          -130.5,157.5},{-130.5,160},{-170,160}},
+  connect(theHvaAda.fluPor, fluPor) annotation (Line(points={{-81.4286,158.75},
+          {-130.5,158.75},{-130.5,160},{-170,160}},
                                              color={0,0,255}));
   connect(X_wZon, X_wZon)
     annotation (Line(points={{-180,80},{-180,80},{-180,80}}, color={0,0,127}));

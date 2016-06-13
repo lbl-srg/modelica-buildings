@@ -20,8 +20,8 @@ model HVACConvective
   Modelica.Blocks.Interfaces.RealInput X_wZon(
     final unit = "kg/kg") if
     Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{138,-70},{98,-30}}),
-        iconTransformation(extent={{118,-50},{98,-30}})),
+    annotation (Placement(transformation(extent={{140,-70},{100,-30}}),
+        iconTransformation(extent={{120,-50},{100,-30}})),
         visible=Medium.nXi > 0);
 
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
@@ -153,7 +153,7 @@ equation
   connect(ports, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
   connect(x_w_toX.X_w, X_wZon)
-    annotation (Line(points={{92,-50},{92,-50},{118,-50}},  color={0,0,127}));
+    annotation (Line(points={{92,-50},{92,-50},{120,-50}},  color={0,0,127}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{68,-50},{60,-50},{60,
           -4},{42,-4}},     color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
