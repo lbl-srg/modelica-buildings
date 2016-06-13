@@ -33,14 +33,14 @@ The main packages are as follows:
   Package with blocks to export thermofluid flow components and systems.
   </p>
   <p>
-  To export an HVAC component or system with inlet and outlet port, instantiate
+  To export an HVAC component or system with a single inlet and outlet port, instantiate
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
   Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>
   with a replaceable model,
   or extend from
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.PartialTwoPort\">
   Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</a>
-  and add components.
+  and add components.<br/>
   See
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan\">
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.Fan</a>
@@ -49,22 +49,40 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume</a>.
   </p>
   <p>
-  To export an HVAC system, extend from
+  To export an HVAC system that serves a single thermal zone, extend from
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
   Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
-  and add the HVAC system.
+  and add the HVAC system.<br/>
   See
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>.
   </p>
   <p>
-  To export a thermal zone, extend from
+  To export an HVAC system that serves multiple thermal zones, extend from
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
+  Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones</a>
+  and add the HVAC system.<br/>
+  See
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>.
+  </p>
+  <p>
+  To export a single thermal zone, extend from
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
   Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective</a>
-  and add the thermal zone.
+  and add the thermal zone.<br/>
   See
   <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
+  </p>
+  <p>
+  To export multiple thermal zones, extend from
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.fixme\">
+  Buildings.Fluid.FMI.ExportContainers.fixme</a>
+  and add the thermal zone models.<br/>
+  See
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.fixme\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.fixme</a>.
   </p>
   </td>
 </tr>
@@ -90,9 +108,9 @@ The main packages are as follows:
 <td>
   <p>
   Package with blocks that convert between the signal connectors of
-  Buildings.Fluid.Interfaces
-  and signal connectors
-  of the Modelica Standard Library.
+  <a href=\"modelica://Buildings.Fluid.FMI.Interfaces\">
+  Buildings.Fluid.FMI.Interfaces</a>
+  and the real input and output signal connectors of the Modelica Standard Library.
   </p>
 </td>
 </tr>
@@ -111,12 +129,10 @@ The main packages are as follows:
 </table>
 <p>
 The package
-<a href=\"modelica://Buildings.Fluid.FMI.Examples\">
-Buildings.Fluid.FMI.Examples</a>
-contains system models in which multiple of these containers
-are connected to form a complete model. This package is meant
-as an illustration and for testing the connectivity of these
-containers.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs</a>
+contains various examples in which HVAC components, HVAC systems
+and thermal zones are exported as an FMU.
 </p>
 <h4>Typical use</h4>
 <p>
@@ -136,7 +152,8 @@ Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
-illustrates how this can be accomplished.
+illustrates how this can be accomplished.<br/>
+Similar export containers and examples are implemented for HVAC systems that serve multiple thermal zones.
 </p>
 <p>
 Conversely, to export a thermal zone, users can extend the partial block
@@ -145,7 +162,8 @@ Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective</a>.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>
-illustrates how this can be accomplished.
+illustrates how this can be accomplished.<br/>
+Similar export containers and examples are implemented for models of multiple thermal zones.
 </p>
 <p>
 Each example and validation model has a Dymola script that
@@ -178,7 +196,7 @@ If <code>allowFlowReversal=true</code>, then the connectors have additional
 signals for the properties of the fluid if it flows backwards.
 </p>
 <p>
-All components have a boolean parameter <code>use_p_in</code>.
+Most components have a boolean parameter <code>use_p_in</code>.
 If <code>use_p_in=true</code>, then the pressure is used from the
 connector, and based on the mass flow rate, the outlet pressure
 is computed and assigned to the outlet connectors.
@@ -193,7 +211,7 @@ Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.IdealSource_m_flow</a>.
 </p>
 <h4>Notes</h4>
 <p>
-Note the following when exporting FMUs:
+Note the following when exporting HVAC component models as an FMU:
 </p>
 <ol>
 <li>
@@ -245,7 +263,7 @@ from the mass flow rate of the inlet connector, the simulation
 will stop with an error.
 </p>
 </li>
-<li>
+</ol>
 <p>
 When connecting fluid flow components in a loop,
 be careful to avoid circular assignments for example for the temperature,
@@ -257,8 +275,6 @@ to its inlet. In this situation, neither pressure, nor mass flow rate or tempera
 can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.
 </p>
-</li>
-</ol>
 <h4>References</h4>
 <p>
 Michael Wetter, Marcus Fuchs and Thierry Stephane Nouidui.<br/>

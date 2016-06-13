@@ -17,22 +17,29 @@ partial block HVACConvectiveSingleZone
   Modelica.Blocks.Interfaces.RealInput TAirZon(
     final unit="K",
     displayUnit="degC") "Zone air temperature"
-    annotation (Placement(transformation(extent={{200,80},{160,120}})));
+    annotation (Placement(transformation(extent={{200,80},{160,120}}),
+        iconTransformation(extent={{180,100},{160,120}})));
 
   Modelica.Blocks.Interfaces.RealInput TRadZon(
     final unit="K",
     displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{200,-20},{160,20}})));
+          extent={{200,50},{160,90}}),  iconTransformation(extent={{180,70},{160,
+            90}})));
 
   Modelica.Blocks.Interfaces.RealInput X_wZon(
     final unit = "kg/kg") if
     Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{200,50},{160,90}})));
+    annotation (Placement(transformation(extent={{200,20},{160,60}}),
+        iconTransformation(extent={{180,40},{160,60}})),
+        visible=Medium.nXi > 0);
+
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{200,20},{160,60}})));
+    annotation (Placement(transformation(extent={{200,-10},{160,30}}),
+        iconTransformation(extent={{180,10},{160,30}})),
+        visible=Medium.nC > 0);
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
@@ -49,17 +56,19 @@ partial block HVACConvectiveSingleZone
   Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda(
     redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{110,90},{130,110}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
 equation
-  connect(TAirZon, theZonAda.TZon) annotation (Line(points={{180,100},{150,100},
-          {132,100}}, color={0,0,127}));
-  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,70},{148,70},{
-          148,96},{132,96}},  color={0,0,127}));
-  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,40},{144,40},{144,
-          92},{132,92}}, color={0,0,127}));
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{131,107},{140,107},
-          {140,140},{170,140}}, color={0,0,255}));
+  connect(TAirZon, theZonAda.TAirZon) annotation (Line(points={{180,100},{156,
+          100},{156,110},{141,110}}, color={0,0,127}));
+  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,40},{152,40},
+          {152,106},{140.8,106}},
+                              color={0,0,127}));
+  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
+          102},{141,102}},
+                         color={0,0,127}));
+  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{141,117},{150,117},
+          {150,140},{170,140}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
           extent={{-160,160},{160,-160}},
@@ -67,9 +76,10 @@ equation
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Text(
-          extent={{100,12},{150,-8}},
+          extent={{100,90},{150,70}},
           lineColor={0,0,127},
-          textString="TRadZon"),
+          textString="TRad",
+          horizontalAlignment=TextAlignment.Left),
         Text(
           extent={{100,-28},{150,-48}},
           lineColor={0,0,127},
@@ -124,9 +134,20 @@ equation
         Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
         Line(points={{-88,66},{-124,-56}}, color={0,0,0}),
         Text(
-          extent={{-224,120},{-190,92}},
-          lineColor={28,108,200},
-          textString="fixme: make connectors smaller")}),        Diagram(
+          extent={{100,30},{150,10}},
+          lineColor={0,0,127},
+          textString="C",
+          horizontalAlignment=TextAlignment.Left),
+        Text(
+          extent={{102,62},{152,42}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="X_w"),
+        Text(
+          extent={{100,120},{150,100}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          textString="TAir")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
@@ -135,7 +156,7 @@ to be exported as an FMU and that serves a single zone.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-To use this model as a container for an FMU, simply extend
+To use this model as a container for an FMU, extend
 from this model, rather than instantiate it,
 and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
@@ -155,35 +176,42 @@ to a room model that has signal flow.
 The conversion between the fluid ports and signal ports is done
 in the thermal zone adapter <code>theZonAda</code>.
 This adapter has a vector of fluid ports called <code>ports</code>.
-The supply and return air ducts need to be connected to these ports.
+The supply and return air ducts, including any resistance model for the inlet
+diffusor or exhaust grill, need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
-these flows need also be connected to <code>ports</code>.
-The model sends at the port <code>fluPor</code> the mass flow rate for
+these flows need to be connected to <code>ports</code>.
+This model outputs at the port <code>fluPor</code> the mass flow rate for
 each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
-air), and the trace substances. These quantities are always as if the flow
+air), and trace substances. These quantities are always as if the flow
+enters the room, even if the flow is zero or negative.
+If a medium has no moisture, e.g., if <code>Medium.nXi=0</code>, or
+if it has no trace substances, e.g., if <code>Medium.nC=0</code>, then
+the output signal for these properties are removed.
+These quantities are always as if the flow
 enters the room, even if the flow is zero or negative.
 Thus, a thermal zone model that uses these signals to compute the
 heat added by the HVAC system need to implement an equation such as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>sen</sub> = max(0, &#7745;<sub>sup,air</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup,air</sub> - T<sub>zon</sub>),
+Q<sub>sen</sub> = max(0, &#7745;<sub>sup</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup</sub> - T<sub>air,zon</sub>),
 </p>
 <p>
 where
 <i>Q<sub>sen</sub></i> is the sensible heat flow rate added to the thermal zone,
-<i>&#7745;<sub>sup,air</sub></i> is the supply air mass flow rate from
+<i>&#7745;<sub>sup</sub></i> is the supply air mass flow rate from
 the port <code>fluPor</code> (which is negative if it is an exhaust),
 <i>c<sub>p</sub></i> is the specific heat capacity at constant pressure,
-<i>T<sub>sup,air</sub></i> is the supply air temperature and
-<i>T<sub>zon</sub></i> is the zone air temperature.
+<i>T<sub>sup</sub></i> is the supply air temperature and
+<i>T<sub>air,zon</sub></i> is the zone air temperature.
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 </p>
 <p>
-Inputs to this container are the zone air temperature, water vapor mass fraction
-per total mass of the air and trace substances.
-The outflowing fluid stream(s) at port <code>ports</code> will be at this
+The input signals of this model are the zone air temperature,
+the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
+and trace substances (unless <code>Medium.nC=0</code>).
+The outflowing fluid stream(s) at the port <code>ports</code> will be at this
 state. All fluid streams at port <code>ports</code> are at the same
 pressure.
 </p>

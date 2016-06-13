@@ -222,15 +222,17 @@ equation
   connect(TOut,weaBus. TDryBul)
     annotation (Line(points={{0,-180},{0,-174},{0,-140},{40,-140},{40,120},{-60,
           120},{-60,140}},                         color={0,0,127}));
-  connect(con.u, theZonAda.TZon) annotation (Line(points={{-114,10},{-120,10},{
-          -120,-20},{120,-20},{120,80},{150,80},{150,100},{132,100}}, color={0,
+  connect(con.u, theZonAda.TAirZon) annotation (Line(points={{-114,10},{-120,10},
+          {-120,-20},{120,-20},{120,80},{150,80},{150,110},{141,110}}, color={0,
           0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
           -48,50},{-40,50},{-40,88},{-32,88}}, color={0,127,255}));
   connect(fan.port_b, theZonAda.ports[1])
-    annotation (Line(points={{70,100},{90,100},{110,100}}, color={0,127,255}));
+    annotation (Line(points={{70,100},{82,100},{82,110},{92,110},{92,110},{120,
+          110},{120,110}},                                 color={0,127,255}));
   connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
-          -70,84},{-58,84},{-58,72},{92,72},{92,100},{110,100}}, color={0,127,
+          -82,84},{-60,84},{-60,72},{100,72},{100,110},{120,110}},
+                                                                 color={0,127,
           255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={

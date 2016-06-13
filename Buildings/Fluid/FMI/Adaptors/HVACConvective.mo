@@ -11,19 +11,25 @@ model HVACConvective
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(final min = 1) "Number of ports";
 
-  Modelica.Blocks.Interfaces.RealInput TZon(final unit="K",
-                                            displayUnit="degC")
-    "Zone air temperature"
-    annotation (Placement(transformation(extent={{140,-20},{100,20}})));
+  Modelica.Blocks.Interfaces.RealInput TAirZon(
+    final unit="K",
+    displayUnit="degC") "Zone air temperature"
+    annotation (Placement(transformation(extent={{140,-30},{100,10}}),
+        iconTransformation(extent={{120,-10},{100,10}})));
+
   Modelica.Blocks.Interfaces.RealInput X_wZon(
     final unit = "kg/kg") if
-       Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{140,-60},{100,-20}})));
+    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
+    annotation (Placement(transformation(extent={{138,-70},{98,-30}}),
+        iconTransformation(extent={{118,-50},{98,-30}})),
+        visible=Medium.nXi > 0);
+
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{140,-100},{100,-60}})));
-
+    annotation (Placement(transformation(extent={{140,-110},{100,-70}}),
+        iconTransformation(extent={{120,-90},{100,-70}})),
+        visible=Medium.nC > 0);
   Interfaces.Outlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
@@ -76,7 +82,7 @@ protected
           x_w_toX(
     redeclare final package Medium = Medium) if
        Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
+    annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
   block RealVectorExpression
@@ -137,17 +143,18 @@ equation
     connect(CSup[i].y, con[i].C) annotation (Line(points={{-19,20},{32,20},{32,62},
             {58,62}}, color={0,0,127}));
   end for;
-  connect(TZon, bou.T_in) annotation (Line(points={{120,0},{120,0},{80,0},{80,4},
-          {42,4}},    color={0,0,127}));
-  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{52,-8},{52,-80},{120,
-          -80}},      color={0,0,127}));
+  connect(TAirZon, bou.T_in) annotation (Line(points={{120,-10},{120,-10},{80,
+          -10},{80,4},{42,4}},
+                         color={0,0,127}));
+  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{52,-8},{52,-90},{
+          120,-90}},  color={0,0,127}));
   connect(senMasFlo.port_b, bou.ports)
     annotation (Line(points={{-60,0},{20,0}},         color={0,127,255}));
   connect(ports, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
   connect(x_w_toX.X_w, X_wZon)
-    annotation (Line(points={{92,-40},{120,-40}},           color={0,0,127}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{68,-40},{60,-40},{60,
+    annotation (Line(points={{92,-50},{92,-50},{118,-50}},  color={0,0,127}));
+  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{68,-50},{60,-50},{60,
           -4},{42,-4}},     color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
@@ -226,15 +233,42 @@ to input/output signals, which then can be exposed in an FMI interface.
 The adaptor has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
-these flows need also be connected to <code>ports</code>.
-The model sends at the port <code>fluPor</code> the mass flow rate for
+these flow paths also need be connected to <code>ports</code>.
+</p>
+<p>
+This model outputs at the port <code>fluPor</code> the mass flow rate for
 each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
-air), and the trace substances. These quantities are always as if the flow
+air), and trace substances. These quantities are always as if the flow
 enters the room, even if the flow is zero or negative.
-Inputs to the model are the zone air temperature, water vapor mass fraction
-per total mass of the air and trace substances.
-The outflowing fluid stream(s) at port <code>ports</code> will be at this
+If a medium has no moisture, e.g., if <code>Medium.nXi=0</code>, or
+if it has no trace substances, e.g., if <code>Medium.nC=0</code>, then
+the output signal for these properties are removed.
+These quantities are always as if the flow
+enters the room, even if the flow is zero or negative.
+Thus, a thermal zone model that uses these signals to compute the
+heat added by the HVAC system need to implement an equation such as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q<sub>sen</sub> = max(0, &#7745;<sub>sup</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup</sub> - T<sub>air,zon</sub>),
+</p>
+<p>
+where
+<i>Q<sub>sen</sub></i> is the sensible heat flow rate added to the thermal zone,
+<i>&#7745;<sub>sup</sub></i> is the supply air mass flow rate from
+the port <code>fluPor</code> (which is negative if it is an exhaust),
+<i>c<sub>p</sub></i> is the specific heat capacity at constant pressure,
+<i>T<sub>sup</sub></i> is the supply air temperature and
+<i>T<sub>air,zon</sub></i> is the zone air temperature.
+Note that without the <i>max(&middot;, &middot;)</i> function, the energy
+balance would be wrong.
+</p>
+</p>
+<p>
+The input signals of this model are the zone air temperature,
+the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
+and trace substances (unless <code>Medium.nC=0</code>).
+The outflowing fluid stream(s) at the port <code>ports</code> will be at this
 state. All fluid streams at port <code>ports</code> are at the same
 pressure.
 </p>

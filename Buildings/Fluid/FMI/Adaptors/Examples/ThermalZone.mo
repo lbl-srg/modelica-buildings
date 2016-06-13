@@ -52,7 +52,7 @@ model ThermalZone "Example of a thermal zone"
 equation
   connect(der_T.y, TRoo.u)
     annotation (Line(points={{51,10},{58,10}}, color={0,0,127}));
-  connect(TRoo.y, hvacAda.TZon) annotation (Line(points={{81,10},{94,10},{94,
+  connect(TRoo.y, hvacAda.TAirZon) annotation (Line(points={{81,10},{94,10},{94,
           -60},{-10,-60},{-10,10},{-18,10}}, color={0,0,127}));
   connect(der_X_w.y, X_wRoo.u)
     annotation (Line(points={{51,-30},{58,-30}},

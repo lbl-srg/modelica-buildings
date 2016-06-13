@@ -21,24 +21,30 @@ partial block HVACConvectiveMultipleZones
 
   Modelica.Blocks.Interfaces.RealInput TAirZon[nZon](
     each final unit="K",
-    each displayUnit="degC") "Zone air temperatures"
-    annotation (Placement(transformation(extent={{200,80},{160,120}})));
+    each displayUnit="degC") "Zone air temperature"
+    annotation (Placement(transformation(extent={{200,80},{160,120}}),
+        iconTransformation(extent={{180,100},{160,120}})));
 
   Modelica.Blocks.Interfaces.RealInput TRadZon[nZon](
     each final unit="K",
-    each displayUnit="degC") "Radiative temperature of the zones"
+    each displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{200,-20},{160,20}})));
+          extent={{200,50},{160,90}}),  iconTransformation(extent={{180,70},{160,
+            90}})));
 
   Modelica.Blocks.Interfaces.RealInput X_wZon[nZon](
     each final unit = "kg/kg") if
-       Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{200,50},{160,90}})));
+    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
+    annotation (Placement(transformation(extent={{200,20},{160,60}}),
+        iconTransformation(extent={{180,40},{160,60}})),
+        visible=Medium.nXi > 0);
 
   Modelica.Blocks.Interfaces.RealInput CZon[nZon, Medium.nC](
     each final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{200,20},{160,60}})));
+    annotation (Placement(transformation(extent={{200,-10},{160,30}}),
+        iconTransformation(extent={{180,10},{160,30}})),
+        visible=Medium.nC > 0);
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
     "Radiant heat input into the zones (positive if heat gain)"
@@ -59,12 +65,13 @@ partial block HVACConvectiveMultipleZones
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
 
 equation
-  connect(TAirZon, theZonAda.TZon) annotation (Line(points={{180,100},{150,100},
-          {132,100}}, color={0,0,127}));
-  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,70},{148,70},{
-          148,96},{132,96}},  color={0,0,127}));
-  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,40},{144,40},{144,
-          92},{132,92}}, color={0,0,127}));
+  connect(TAirZon, theZonAda.TAirZon)
+    annotation (Line(points={{180,100},{131,100},{131,100}}, color={0,0,127}));
+  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,40},{148,40},
+          {148,96},{130.8,96}},
+                              color={0,0,127}));
+  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,10},{144,10},{144,
+          92},{131,92}}, color={0,0,127}));
   for iZon in 1:nZon loop
     for iPor in 1:nPorts loop
       connect(theZonAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(points={{131,107},{140,107},
@@ -98,7 +105,7 @@ equation
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{-144,-24},{36,-34}},
+          extent={{-144,-24},{80,-32}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
@@ -108,7 +115,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-146,46},{32,36}},
+          extent={{-146,46},{80,38}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
@@ -133,7 +140,41 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
-        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
+        Line(points={{-88,66},{-124,-56}}, color={0,0,0}),
+        Rectangle(
+          extent={{30,72},{80,64}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{30,22},{80,14}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{30,0},{80,-8}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{30,-48},{80,-56}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-28,4},{28,-4}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          origin={32,-28},
+          rotation=90),
+        Rectangle(
+          extent={{-29,4},{29,-4}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          origin={32,43},
+          rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
         graphics={Text(
           extent={{114,90},{128,84}},
@@ -179,32 +220,35 @@ for zone <i>1</i>, but this causes no overhead if they are not connected.
 <p>
 The conversion between the fluid ports and signal ports is done
 in the thermal zone adapter <code>theZonAda</code>.
-This adapter is vectorized as each component serves one thermal zone.
 This adapter has a vector of fluid ports called <code>ports</code>.
-The supply and return air ducts need to be connected to these ports.
-The first index is for the number of the thermal zone, and the second
-index is for the number of fluid inlet or outlet of the thermal zone.
+The supply and return air ducts, including any resistance model for the inlet
+diffusor or exhaust grill, need to be connected to these ports.
 Also, if a thermal zone has interzonal air exchange or air infiltration,
-these flows need also be connected to <code>ports</code>.
-The model sends at the port <code>fluPor</code> the mass flow rate for
+these flows need to be connected to <code>ports</code>.
+This model outputs at the port <code>fluPor</code> the mass flow rate for
 each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
-air), and the trace substances. These quantities are always as if the flow
+air), and trace substances. These quantities are always as if the flow
+enters the room, even if the flow is zero or negative.
+If a medium has no moisture, e.g., if <code>Medium.nXi=0</code>, or
+if it has no trace substances, e.g., if <code>Medium.nC=0</code>, then
+the output signal for these properties are removed.
+These quantities are always as if the flow
 enters the room, even if the flow is zero or negative.
 Thus, a thermal zone model that uses these signals to compute the
 heat added by the HVAC system need to implement an equation such as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>sen</sub> = max(0, &#7745;<sub>sup,air</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup,air</sub> - T<sub>zon</sub>),
+Q<sub>sen</sub> = max(0, &#7745;<sub>sup</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup</sub> - T<sub>air,zon</sub>),
 </p>
 <p>
 where
 <i>Q<sub>sen</sub></i> is the sensible heat flow rate added to the thermal zone,
-<i>&#7745;<sub>sup,air</sub></i> is the supply air mass flow rate from
+<i>&#7745;<sub>sup</sub></i> is the supply air mass flow rate from
 the port <code>fluPor</code> (which is negative if it is an exhaust),
 <i>c<sub>p</sub></i> is the specific heat capacity at constant pressure,
-<i>T<sub>sup,air</sub></i> is the supply air temperature and
-<i>T<sub>zon</sub></i> is the zone air temperature.
+<i>T<sub>sup</sub></i> is the supply air temperature and
+<i>T<sub>air,zon</sub></i> is the zone air temperature.
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 </p>
@@ -243,8 +287,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>
 for a model that uses this model.
 </p>
 <p>

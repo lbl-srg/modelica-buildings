@@ -69,11 +69,11 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(floSpl.u[1], uSpl.y) annotation (Line(
-      points={{49,7.5},{20,7.5},{20,50},{1,50}},
+      points={{49,8},{20,8},{20,50},{1,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(floSpl.u[2], uSpl.y) annotation (Line(
-      points={{49,8.5},{20,8.5},{20,50},{1,50}},
+      points={{49,8},{20,8},{20,50},{1,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
