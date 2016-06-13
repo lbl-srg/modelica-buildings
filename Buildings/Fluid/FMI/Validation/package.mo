@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI;
-package Examples "Collection of models that illustrate model use and test models"
+package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
-
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -18,4 +17,4 @@ solutions. These model outputs are stored as reference data and
 used for continuous validation whenever models in the library change.
 </p>
 </html>"));
-end Examples;
+end Validation;
