@@ -11,13 +11,13 @@ block BeamDepthInRoom "Depth of solar beam in the room"
 
   parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude" annotation (Dialog(group="Location"));
+    absFilNam) "Longitude" annotation (Evaluate=true, Dialog(group="Location"));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude" annotation (Dialog(group="Location"));
+    absFilNam) "Latitude" annotation (Evaluate=true, Dialog(group="Location"));
   parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
-    "Time zone" annotation (Dialog(group="Location"));
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
+    "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
 
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
@@ -45,6 +45,9 @@ block BeamDepthInRoom "Depth of solar beam in the room"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  final parameter String absFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
+    "Absolute name of the file";
+
   parameter Modelica.SIunits.Length dep = depApe + depOve
     "Depth of outer corner that throws the shade, measured from interior surface";
   parameter Modelica.SIunits.Length h = hApe - hWorPla + gapOve
@@ -141,6 +144,21 @@ The wall is vertical.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Introduced <code>absFilNam</code> to avoid multiple calls to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
+<li>
+March 19, 2016, by Michael Wetter:<br/>
+Set <code>Evaluate=true</code> for parameters <code>lon</code>,
+<code>lat</code> and <code>timZon</code>.
+This is required for OpenModelica to avoid a compilation error in
+<code>Buildings.BoundaryConditions.SolarGeometry.Examples.ProjectedShadowLength</code>.
+</li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>
 First implementation.

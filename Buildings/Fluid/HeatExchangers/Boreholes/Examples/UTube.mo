@@ -2,25 +2,27 @@ within Buildings.Fluid.HeatExchangers.Boreholes.Examples;
 model UTube "Model that tests the borehole model"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water;
-  Buildings.Fluid.HeatExchangers.Boreholes.UTube borHol(
-    redeclare each package Medium = Medium,
+ Buildings.Fluid.HeatExchangers.Boreholes.UTube borHol(
+    redeclare package Medium = Medium,
     hBor=150,
     dp_nominal=10000,
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=0.3,
-    redeclare each parameter
+    redeclare parameter
       Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
     redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"
     annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
-  Sources.Boundary_ph sin(nPorts=1, redeclare package Medium = Medium) "Sink"
+  Sources.Boundary_ph sin(
+    redeclare package Medium = Medium,
+    nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{56,-10},{36,10}})));
   Sources.MassFlowSource_T sou(
-    nPorts=1,
     redeclare package Medium = Medium,
+    nPorts=1,
     use_m_flow_in=true,
     T=298.15) "Source"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));

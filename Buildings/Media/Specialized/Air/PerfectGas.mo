@@ -172,8 +172,8 @@ algorithm
     Inline=true,
 Documentation(info="<html>
 Derivative function of
-<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGases.saturationPressureLiquid\">
-Buildings.Media.Specialized.Air.PerfectGases.saturationPressureLiquid</a>
+<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid\">
+Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 

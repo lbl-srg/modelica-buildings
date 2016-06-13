@@ -110,8 +110,8 @@ which is the number of parallel branches containing one pressure drop element an
 </p>
 <p>
 This model was created to demonstrate the influence of a new implementation of
-<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquationcode\">
-Buildings.Fluid.Interfaces.ConservationEquationcode</a>.
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a>.
 The old implementation used the <code>actualStream()</code> function
 whereas the new implementation uses the <code>semiLinear()</code>
 function. This change allows Dymola to exploit knowledge about the <code>min</code> and <code>max</code> attributes
@@ -154,6 +154,11 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for

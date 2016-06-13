@@ -101,19 +101,20 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Movers.SpeedControlled_y fanSupHot(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Supply air fan for hot deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false) "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Supply air fan for cold deck"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false) "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -197,9 +198,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         origin={380,-220})));
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
-    Ti=60,
     VOut_flow_min=0.3*m_flow_nominal/1.2,
-    k=0.1) "Controller for economizer"
+    k=1,
+    Ti=60) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -227,7 +228,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Economizer"
+    filteredOpening=false,
+    linearized=true) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
     redeclare package Medium = MediumA,
@@ -406,7 +408,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={200,-40})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valPreHea(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage  valPreHea(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=6000,
@@ -1199,6 +1201,19 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 19, 2016, by Michael Wetter:<br/>
+Set <code>filteredSpeed=false</code> in fan models to avoid a large
+increase in computing time when simulated between <i>t=1.60E7</i>
+and <i>t=1.66E7</i>.
+</li>
+<li>
+April 26, 2016, by Michael Wetter:<br/>
+Changed controller for freeze protection as the old implementation closed
+the outdoor air damper during summer.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalanceJunction</code> and <code>energyDynamicsJunction</code>.

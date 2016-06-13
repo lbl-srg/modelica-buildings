@@ -52,7 +52,7 @@ public class DXDoubleSpeed {
     /**
      * This method sets the found dx coils performance in an array.
      *
-     * @param foundDXCoilPerformances
+     * @param tmpDXCoilPerformances
      *            array list of DXCoilPerformances.
      */
 

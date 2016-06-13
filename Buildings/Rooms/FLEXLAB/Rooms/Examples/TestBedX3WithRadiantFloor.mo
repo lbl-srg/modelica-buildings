@@ -71,7 +71,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -94,7 +94,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -118,7 +118,7 @@ model TestBedX3WithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -137,7 +137,7 @@ model TestBedX3WithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -155,7 +155,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -234,7 +234,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -970,6 +970,11 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        April 21, 2016, by Michael Wetter:<br/>
+        Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+        <code>Modelica.Utilities.Files.loadResource</code>.
+        </li>
         <li>
         December 22, 2014 by Michael Wetter:<br/>
         Removed <code>Modelica.Fluid.System</code>

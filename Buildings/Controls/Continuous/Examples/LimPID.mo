@@ -26,7 +26,8 @@ model LimPID "Test model for PID controller with optional reverse action"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10)
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(
+    threShold=1e-3)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Continuous.LimPID limPIDOri(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -37,7 +38,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(
-                                                                threShold=1e-10)
+    threShold=1e-3)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
@@ -80,6 +81,15 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 26, 2016, by Michael Wetter:<br/>
+Relaxed tolerance of assertions from <i>1E-10</i>
+to <i>1E-3</i> as the default relative tolerance in JModelica
+is <i>1E-4</i>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">
+Buildings, issue 510</a>.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>
 Added documentation.

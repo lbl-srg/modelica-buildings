@@ -14,7 +14,7 @@ equation
   y=Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
   der(y)=der(y_comp);
   err = y-y_comp;
-  assert(abs(err) < 1E-2, "Derivative implementation has an error or solver tolerance is too low.");
+  assert(abs(err)/max(1, abs(y)) < 1E-2, "Derivative implementation has an error or solver tolerance is too low.");
 
 annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck_amb.mos"
@@ -31,6 +31,14 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, 2016, by Michael Wetter:<br/>
+Changed accuarcy test in assertion to use the relative error because the
+magnitude of <code>y</code> is <i>1E5</i> and hence testing an absolute
+error is too stringent.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">Buildings, issue 510</a>.
+</li>
 <li>
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.

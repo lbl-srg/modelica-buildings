@@ -252,7 +252,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Weather inputs")}),
     experiment(StopTime=1e+06),
-    __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
 <li>

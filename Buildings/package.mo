@@ -127,6 +127,271 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+   class Version_3_0_1 "Version 3.0.1"
+     extends Modelica.Icons.ReleaseNotes;
+     annotation (Documentation(info="<html>
+   <div class=\"release-summary\">
+   <p>
+   Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
+   library. Instead, it uses <code>Modelica.StateGraph</code> which is part
+   of the Modelica Standard Library.
+   </p>
+   </div>
+   <!-- New libraries -->
+   <p>
+   The following <b style=\"color:blue\">new libraries</b> have been added:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+       </tr>
+   </table>
+   <!-- New components for existing libraries -->
+   <p>
+   The following <b style=\"color:blue\">new components</b> have been added
+   to <b style=\"color:blue\">existing</b> libraries:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+       </tr>
+   </table>
+   <!-- Backward compatible changes -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath<br/>
+                          Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3<br/>
+                          Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br/>
+                          Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>
+                          to make the model work in JModelica.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.DC.Storage.Examples.Battery
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Added hysteresis to the economizer control to avoid many events.
+                          This change was done in
+                          <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.<br/>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Set <code>filteredSpeed=false</code> in fan models to avoid a large
+                          increase in computing time when simulated between <i>t=1.60E7</i>
+                          and <i>t=1.66E7</i>.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop
+
+       </td>
+       <td valign=\"top\">Changed chilled water supply temperature to <i>6&circ;C</i>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/509\">issue 509</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.BaseClasses.Controls.BatteryControl<br/>
+                          Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl<br/>
+                          Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
+                          Buildings.Examples.Tutorial.Boiler.System7
+       </td>
+       <td valign=\"top\">Replaced <code>Modelica_StateGraph2</code> with
+                          <code>Modelica.StateGraph</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.CFD<br/>
+                          Buildings.Rooms.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <!-- Non-backward compatible changes to existing components -->
+   <p>
+   The following <b style=\"color:blue\">existing components</b>
+   have been <b style=\"color:blue\">improved</b> in a
+   <b style=\"color:blue\">non-backward compatible</b> way:
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3
+       </td>
+       <td valign=\"top\">This function is used to read location coordinates
+                          from the TMY3 weather data file. The call to
+                          <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</code>
+                          has been removed as it calls the function
+                          <a href=\"modelica://Modelica.Utilities.Files.loadResource\">
+                          Modelica.Utilities.Files.loadResource</a>, whose return value needs
+                          to be known at compilation time to store the weather data in the FMU.
+                          This is not supported by JModelica.
+                          Most models should still work as this call has been added at a higher level
+                          of the model hierarchy. If models don't work, add a call to <code>loadResource</code>
+                          at the top-level.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.PIDHysteresis
+       </td>
+       <td valign=\"top\">Set <code>zer(final k=0)</code> and made
+                          <code>swi</code>, <code>zer</code> and
+                          <code>zer1</code> protected, as they are for
+                          <a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+                          Buildings.Controls.Continuous.PIDHysteresis</a>.
+                          Only models that access these instances, which typically is not the case,
+                          are affected by this change.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.MixedAir.Rooms.CFD<br/>
+                          Buildings.MixedAir.Rooms.MixedAir<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.CFDAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.MixedAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.PartialAirHeatMassBalance<br/>
+                          Buildings.MixedAir.Rooms.BaseClasses.RoomHeatMassBalance
+
+       </td>
+       <td valign=\"top\">Refactored implementation of latent heat gain for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+                          Users who simply use <code>Buildings.MixedAir.Rooms.CFD</code> or
+                          <code>Buildings.MixedAir.Rooms.MixedAir</code> will not be affected by this change,
+                          except if they access variables related to the heat gain.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed<br/>
+                          Buildings.Rooms.BaseClasses.MixedAirHeatGain
+       </td>
+       <td valign=\"top\">Removed models as these are no longer needed due after the refactoring
+                          of the room model for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
+       </td>
+       <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
+                          <code>Buildings.Rooms.BaseClasses.HeatGain</code>.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
+       </td>
+   </tr>
+   </table>
+   <!-- Errors that have been fixed -->
+   <p>
+   The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+   that can lead to wrong simulation results):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
+                          Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                          Buildings.Examples.VAVReheat.Controls.Economizer
+       </td>
+       <td valign=\"top\">Corrected the economizer controller which closed
+                          the outside air when there was no freeze concern during summer.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/511\">issue 511</a>.
+       </td>
+   </tr>
+   </table>
+   <!-- Uncritical errors -->
+   <p>
+   The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+   that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+   units are wrong or errors in documentation):
+   </p>
+   <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>xxx</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">xxx
+       </td>
+       <td valign=\"top\">xxx.
+       </td>
+   </tr>
+   </table>
+   <p>
+   Note:
+   </p>
+   <ul>
+   <li>
+   xxx
+   </li>
+   </ul>
+   </html>"));
+   end Version_3_0_1;
+
    class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
@@ -142,7 +407,7 @@ its class name ends with the string <code>Beta</code>.
      </li>
      <li>
        The models in <code>Buildings.Fluid.Movers</code> can now be configured to use
-       three different control input signals: a continuous signal (depending on the model either
+       three different control input signals: a continuous signal (depending on the model
        either normalized speed, speed in rpm, prescribed mass flow rate or prescribed head),
        discrete stages of these quantities, or on/off.
        The models also have been refactored to make their implementation clearer.
@@ -154,8 +419,8 @@ its class name ends with the string <code>Beta</code>.
        with an optional correction for the part load efficiency.
      </li>
      <li>
-       Various models, in particular in the package <code>Buildings.Electrical</code>
-       were reformulated to comply with the Modelica Language Definition.
+       Various models, in particular in the package <code>Buildings.Electrical</code>,
+       have been reformulated to comply with the Modelica Language Definition.
        All models comply with the pedantic Modelica check of Dymola.
      </li>
    </ul>
@@ -5121,7 +5386,10 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (xxx, 2015)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_1\">Version 3.0.1</a> (xxx, 2016)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 29, 2016)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_2_1_0\">Version 2.1.0</a> (July 13, 2015)
@@ -5633,10 +5901,9 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="3.0.0",
-versionDate="2015-07-13",
-dateModified = "2015-07-13",
-uses(Modelica(version="3.2.1"),
-     Modelica_StateGraph2(version="2.0.2")),
+versionDate="2016-03-29",
+dateModified="2016-03-29",
+uses(Modelica(version="3.2.1")),
 conversion(
  from(version={"2.0.0", "2.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),

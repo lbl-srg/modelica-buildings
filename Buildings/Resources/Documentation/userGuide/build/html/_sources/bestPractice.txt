@@ -82,6 +82,7 @@ Consider a model consisting of a mass flow source ``Modelica.Fluid.Sources.MassF
 a fixed boundary condition ``Buildings.Fluid.Sources.FixedBoundary``, connected in series as shown in the figure below. Note that the instance ``bou`` implements an equation that sets the medium pressure at its port, i.e., the port pressure ``bou.ports.p`` is fixed.
 
 .. figure:: img/MixingVolumeInitialization.png
+   :scale: 100%
 
    Schematic diagram of a flow source, a fluid volume, and a pressure source.
 
@@ -225,6 +226,7 @@ In Modelica, connecting fluid ports as shown below leads to ideal mixing at the 
 In some situation, such as the configuration below, connecting multiple connectors to a fluid port represents the physical phenomena that was intended to model.
 
 .. figure:: img/fluidJunctionMixing.png
+   :scale: 100%
 
    Connection of three components without explicitly introducing a mixer or splitter model.
 
@@ -259,6 +261,7 @@ This section explains how to set a reference pressure for incompressible fluids.
 Consider the flow circuit shown below that consists of a pump or fan, a flow resistance and a volume.
 
 .. figure:: img/flowCircuitNoExpansion.png
+   :scale: 60%
 
    Schematic diagram of a flow circuit without means
    to set a reference pressure, or to account for
@@ -266,7 +269,7 @@ Consider the flow circuit shown below that consists of a pump or fan, a flow res
 
 When this model is used with a medium model that models
 :term:`compressible flow`, such as
-the medium model `Buildings.Media.IdealGases.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir>`_,
+the medium model `Buildings.Media.Air <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Air.html#Buildings.Media.Air>`_,
 then the model is well defined because the gas medium implements the
 equation :math:`p=\rho \, R \, T`,
 where :math:`p` is the static pressure, :math:`\rho` is the mass density,
@@ -274,8 +277,7 @@ where :math:`p` is the static pressure, :math:`\rho` is the mass density,
 
 However, when the medium model is changed to a model that models
 :term:`incompressible flow`, such as
-`Buildings.Media.GasesConstantDensity.SimpleAir <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir>`_ or
-`Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
+`Buildings.Media.Water <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Water.html#Buildings.Media.Water>`_,
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:
@@ -288,7 +290,7 @@ In this situation, attempting to translate the model leads, in Dymola, to the fo
    The number of scalar Real unknown elements are 58.
    The number of scalar Real equation elements are 58.
 
-Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_Media_Water_WaterIF97OnePhase_ph.html#Modelica.Media.Water.WaterIF97OnePhase_ph>`_,
+Similarly, if the medium model `Buildings.Media.Specialized.Water.TemperatureDependentDensity <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_Specialized_Water_TemperatureDependentDensity.html#Buildings.Media.Specialized.Water.TemperatureDependentDensity>`_,
 which models density as a function of pressure and enthalpy, is used, then
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature
@@ -302,6 +304,7 @@ For example, use
 to form the system model shown below.
 
 .. figure:: img/flowCircuitWithExpansionVessel.png
+   :scale: 60%
 
    Schematic diagram of a flow circuit with expansion vessel that
    adds a pressure source and accounts for the thermal expansion
@@ -319,6 +322,7 @@ is at a fixed temperature, while the model
 However, since the thermal expansion of the fluid is usually small, this effect can be neglected in most building HVAC applications.
 
 .. figure:: img/flowCircuitWithBoundary.png
+   :scale: 60%
 
    Schematic diagram of a flow circuit with a boundary model that adds
    a fixed pressure source and accounts for any thermal expansion
@@ -507,6 +511,7 @@ Controls
 --------
 
 .. figure:: img/controlHysteresis.png
+   :scale: 100%
 
    Schematic diagram of a controller that switches a coil on and off.
    In the top configuration, the hysteresis avoids numerical problems
@@ -554,9 +559,180 @@ In Dymola 2013, as expected the model stalls at :math:`t=0.1`
 because the ``if-then-else`` construct triggers an event iteration whenever
 :math:`x` crosses zero.
 
+.. warning::
+
+   Never use an inequality comparison without a
+   hysteresis or a time delay if the variable that is used in the
+   inequality test 
+
+   * is computed using an :term:`iterative solver`, or
+   * is obtained from a measurement and hence can contain measurement
+     noise.
+
+   See :ref:`sec-example-event-debugging` for what can happen in
+   such tests.
+
+.. _sec-example-event-debugging:
+
+Examples for how to debug and correct slow simulations
+------------------------------------------------------
+
+State events
+~~~~~~~~~~~~
+
+This section shows how a simulation that stalls due to events can be debugged
+to find the root cause, and then corrected.
+While the details may differ from one tool to another, the principle is the same.
+In our situation, we attempted to simulate ``Buildings.Examples.DualFanDualDuct``
+for one year in Dymola 2016 FD01 using the model from Buildings version 3.0.0.
+We run
+
+.. code-block:: modelica
+
+   simulateModel("Buildings.Examples.DualFanDualDuct.ClosedLoop",
+                  stopTime=31536000, method="radau", 
+                  tolerance=1e-06, resultFile="DualFanDualDuctClosedLoop");
+
+and plotted the computing time and the number of events. Around :math:`t=0.95e7` seconds,
+there was a spike as shown in the figure below.
+
+.. figure:: img/DualFanDualDuct-cpu-events.*
+   :scale: 60%
+
+   Computing time and number of events.
+
+As the number of events increased drastically, we enabled in Dymola in
+`Simulation -> Setup`, under the tab `Debug` the entry `Events during simulation`
+and simulated the model from
+:math:`t=0.9e7` to :math:`t=1.0e7` seconds. It turned out that setting the start time
+to :math:`t=0.9e7` seconds was sufficient to reproduce the behavior;
+otherwise we would
+have had to set it to an earlier time.
+Inspecting Dymola's log file ``dslog.txt`` when the simulation stalls shows that its last entries
+are
+
+.. code-block:: modelica
+
+   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.9441e-08 )
+   Iterating to find consistent restart conditions.
+         during event at Time :  9267949.854873843
+   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94411e-08 )
+   Iterating to find consistent restart conditions.
+         during event at Time :  9267949.855016639
+   Expression TRet.T > amb.x_pTphi.T became true ( (TRet.T)-(amb.x_pTphi.T) = 2.94407e-08 )
+   Iterating to find consistent restart conditions.
+         during event at Time :  9267949.855208419
+   Expression TRet.T > amb.x_pTphi.T became false ( (TRet.T)-(amb.x_pTphi.T) = -2.94406e-08 )
+   Iterating to find consistent restart conditions.
+         during event at Time :  9267949.855351238
+
+Hence, there is an event every few milliseconds, which explains
+why the simulation does not appear to be progessing.
+The solver does the right thing, it stops
+the integration, handles the event, and restarts the integration, just to encounter
+another event a few milliseconds later.
+Hence, we go back to our system model and
+follow the output signal of ``TRet.T`` of the
+return air temperature sensor,
+which shows that it is used in the economizer control
+to switch the sign of the control gain because the economizer can provide heating or cooling,
+depending on the ambient and return air temperature. The problematic model is
+shown in the figure below.
+
+.. _fig-dualfan-eco-con-bad:
+
+.. figure:: img/EconomizerTemperatureControl-bad.*
+   :scale: 100%
+
+   Block diagram of part of the economizer control that computes the outside air damper
+   control signal. This implementation triggers many events.
+
+The events are triggered by the inequality block which changes the control, which then in turn
+seems to cause a slight change in the return air temperature, possibly due
+to :term:`numerical noise` or maybe because the return fan may change its operating point 
+as the dampers are adjusted, and hence change the heat
+added to the medium. Regardless, this is a bad implementation that also
+would cause oscillatory behavior in a real system if the sensor signal had
+measurement noise.
+Therefore, this equality comparison must be replaced by a block with hysteresis,
+which we did as shown in the figure below.
+We selected a hysteresis of :math:`0.2` Kelvin, and now the model runs fine
+for the whole year.
+
+.. _fig-dualfan-eco-con-revised:
+
+.. figure:: img/EconomizerTemperatureControl-revised.*
+   :scale: 100%
+
+   Block diagram of part of the revised economizer control that computes the outside air damper
+   control signal.
+
+
+State variables that dominate the error control
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a development version of the model
+``Buildings.Examples.DualFanDualDuct.ClosedLoop``
+(commit `ef410ee <https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163>`_),
+the simulation time was very slow during part of the
+simulation, as shown in :numref:`fig-dualfan-filtered-speed`.
+
+
+.. _fig-dualfan-filtered-speed:
+
+.. figure:: img/DualFanDualDuctWithFilteredSpeed.*
+   :scale: 100%
+
+   Computing time and number of events.
+
+The number of state events did not increase in that time interval.
+To isolate the problem, we enabled in Dymola under `Simulation -> Setup` the
+option to log which states dominate the error (see `Debug` tab).
+
+Running the simulation again gave the following output:
+
+.. code-block:: none
+
+   Integration terminated successfully at T = 1.66e+07
+     Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
+         0     1     6 cooCoi.temSen_1.T (#  1) 
+        36     0   140 cooCoi.temSen_2.T (#  2) 
+        37     0     0 cooCoi.ele[1].mas.T (#  3) 
+        45     0     0 cooCoi.ele[2].mas.T (#  4) 
+        51     0     0 cooCoi.ele[3].mas.T (#  5) 
+        53     0     0 cooCoi.ele[4].mas.T (#  6) 
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
+       400    47   419 fanSupCol.filter.x[1] (#  9) 
+       420    71   521 fanSupCol.filter.x[2] (# 10) 
+      5082  2736  6732 fanRet.filter.x[1] (# 11) 
+      1979    25  4974 fanRet.filter.x[2] (# 12) 
+        38     0     3 TPreHeaCoi.T (# 13) 
+        30     0     1 TRet.T (# 14) 
+        38     0     3 TMix.T (# 15) 
+        80     0     0 TCoiCoo.T (# 16) 
+       305    22   275 cor.vavHot.filter.x[1] (# 18) 
+
+Hence, the state variables
+
+.. code-block:: none
+
+     13555 13201 19064 fanSupHot.filter.x[1] (#  7) 
+     11905  2170 12394 fanSupHot.filter.x[2] (#  8) 
+       400    47   419 fanSupCol.filter.x[1] (#  9) 
+       420    71   521 fanSupCol.filter.x[2] (# 10) 
+      5082  2736  6732 fanRet.filter.x[1] (# 11) 
+      1979    25  4974 fanRet.filter.x[2] (# 12) 
+
+limit the step size significantly more often than other variables.
+Therefore, we removed these state variables
+by setting in the fan models the parameter ``filteredSpeed=false``.
+After this change, the model simulates without problems.
+
+
 Numerical solvers
 -----------------
-Dymola 2014 FD01 is configured to use dassl as a default solver with a tolerance of
+Dymola 2017 is configured to use dassl as a default solver with a tolerance of
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust

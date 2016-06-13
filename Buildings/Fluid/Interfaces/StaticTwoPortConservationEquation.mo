@@ -55,15 +55,18 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-  // Parameters that is used to construct the vector mXi_flow
 protected
+  final parameter Boolean use_m_flowInv=
+    (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
+    "Flag, true if m_flowInv is used in the model"
+    annotation (Evaluate=true);
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -115,39 +118,42 @@ equation
     C_flow_internal = zeros(Medium.nC);
   end if;
 
- // Species flow rate from connector mWat_flow
- mXi_flow = mWat_flow_internal * s;
+  // Species flow rate from connector mWat_flow
+  mXi_flow = mWat_flow_internal * s;
+
   // Regularization of m_flow around the origin to avoid a division by zero
+  // m_flowInv is only used if prescribedHeatFlowRate == true, or
+  // if the input connectors mWat_flow or C_flow are enabled.
+  if use_m_flowInv then
+    m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(
+                       x=port_a.m_flow,
+                       delta=deltaReg, deltaInv=deltaInvReg,
+                       a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
+  else
+    // m_flowInv is not used.
+    m_flowInv = 0;
+  end if;
 
- // m_flowInv is only used if prescribedHeatFlowRate == true, or
- // if the input connector C_flow is enabled.
- m_flowInv = if (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
-             then Buildings.Utilities.Math.Functions.inverseXRegularized(
-                    x=port_a.m_flow,
-                    delta=deltaReg, deltaInv=deltaInvReg,
-                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg)
-             else 0;
-
- if allowFlowReversal then
-   // Formulate hOut using regStep. This avoids an event iteration.
-   // The introduced error is small because deltax=m_flow_small/1e3
-   hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
-                                                   y2=port_a.h_outflow,
-                                                   x=port_a.m_flow,
-                                                   x_small=m_flow_small/1E3);
-   XiOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.Xi_outflow,
-                                                    y2=port_a.Xi_outflow,
+  if allowFlowReversal then
+    // Formulate hOut using spliceFunction. This avoids an event iteration.
+    // The introduced error is small because deltax=m_flow_small/1e3
+    hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                    y2=port_a.h_outflow,
                                                     x=port_a.m_flow,
                                                     x_small=m_flow_small/1E3);
-   COut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.C_outflow,
-                                                   y2=port_a.C_outflow,
-                                                   x=port_a.m_flow,
-                                                   x_small=m_flow_small/1E3);
- else
-   hOut =  port_b.h_outflow;
-   XiOut = port_b.Xi_outflow;
-   COut =  port_b.C_outflow;
- end if;
+    XiOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.Xi_outflow,
+                                                     y2=port_a.Xi_outflow,
+                                                     x=port_a.m_flow,
+                                                     x_small=m_flow_small/1E3);
+    COut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.C_outflow,
+                                                    y2=port_a.C_outflow,
+                                                    x=port_a.m_flow,
+                                                    x_small=m_flow_small/1E3);
+  else
+    hOut =  port_b.h_outflow;
+    XiOut = port_b.Xi_outflow;
+    COut =  port_b.C_outflow;
+  end if;
 
   //////////////////////////////////////////////////////////////////////////////////////////
   // Energy balance and mass balance
@@ -156,35 +162,66 @@ equation
     port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow_internal;
 
     // Substance balance
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-    port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv else Medium.X_default[1:Medium.nXi];
+    // a) forward flow
+    if use_m_flowInv then
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
+    else // no water is added
+      assert(use_mWat_flow == false, "Wrong implementation for forward flow.");
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+    end if;
+
+    // b) backward flow
+    if allowFlowReversal then
+      if use_m_flowInv then
+        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
+      else // no water added
+        assert(use_mWat_flow == false, "Wrong implementation for reverse flow.");
+        port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+      end if;
+    else // no  flow reversal
+      port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
+    end if;
 
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow_internal << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
+      if allowFlowReversal then
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      else
+        port_a.h_outflow = Medium.h_default;
+      end if;
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
       // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
       // Q_flow * m_flowInv = 0.
       // The same applies for port_b.Xi_outflow and mXi_flow.
-      port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow)     = -Q_flow;
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
       else
-        //When allowFlowReversal = false the downstream enthalpy should not matter
-        //therefore a dummy value is used to avoid algebraic loops
+        // When allowFlowReversal = false, the downstream enthalpy does not matter.
+        // Therefore a dummy value is used to avoid algebraic loops
         port_a.h_outflow = Medium.h_default;
       end if;
     end if;
 
   // Transport of trace substances
-  port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
+  if use_m_flowInv and use_C_flow then
+    port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
+  else // no trace substance added.
+    assert(not use_C_flow, "Wrong implementation of trace substance balance for forward flow.");
+    port_b.C_outflow =  inStream(port_a.C_outflow);
+  end if;
+
   if allowFlowReversal then
-    port_a.C_outflow = inStream(port_b.C_outflow) + C_flow_internal * m_flowInv;
+    if use_C_flow then
+      port_a.C_outflow = inStream(port_b.C_outflow) - C_flow_internal * m_flowInv;
+    else
+      port_a.C_outflow = inStream(port_b.C_outflow);
+    end if;
   else
     port_a.C_outflow = zeros(Medium.nC);
   end if;
@@ -209,13 +246,14 @@ input connector for <code>mWat_flow</code>.
 Otherwise, the model uses <code>mWat_flow = 0</code>.
 </p>
 <p>
-Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+If the constant <code>simplify_mWat_flow = true</code>, which is its default value,
+then the equation
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = - mWat_flow;
 </pre>
 <p>
-to
+is simplified as
 </p>
 <pre>
   port_a.m_flow + port_b.m_flow = 0;
@@ -255,13 +293,18 @@ zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
 are the results of an iterative solver.
 </p>
 <h4>Implementation</h4>
+<p>
 Input connectors of the model are
+</p>
 <ul>
 <li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium,
 </li>
 <li>
-<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium, and
+</li>
+<li>
+<code>C_flow</code>, which is the trace substance mass flow rate added to the medium.
 </li>
 </ul>
 
@@ -275,10 +318,19 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
-March 15, 2016, by Michael Wetter:<br/>
-Replaced <code>spliceFunction</code> with <code>regStep</code>.
+March 17, 2016, by Michael Wetter:<br/>
+Refactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+and for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">#300</a>.
+</li>
+<li>
+September 3, 2015, by Filip Jorissen:<br/>
+Revised implementation of conservation of vapor mass.
+Added new variable <code>mFlow_inv_b</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

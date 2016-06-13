@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "senMasFlo.m_flow",
+    "senSpeEnt.H_flow"
+  };

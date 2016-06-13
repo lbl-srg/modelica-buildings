@@ -10,7 +10,7 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg', '<a href="http://www.3ds.com/">Automatically generated</a>']
+    li = ['/tmp/', 'home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg', '<a href="http://www.3ds.com/">Automatically generated</a>']
     em = ""
     for s in li:
         if s in line:
@@ -59,6 +59,21 @@ replacements = {'</head>':
                '/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings':
                '..',
                '<pre></pre>':''}
+# Search for text such as
+# <img alt="image" src="/tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings/Resources/Images/UsersGuide/HydronicHeating.png" border="1"/>
+# in order to update the link.
+with open(tesFil, 'r') as fil:
+    lines = fil.readlines()
+    for lin in lines:
+        iSta = lin.find('Resources/Images/UsersGuide')
+        if iSta > -1:
+            src_tag = 'src="'
+            i_src = lin.find(src_tag)
+            if i_src > -1:
+                 # entry should be /tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings
+                entry = lin[i_src+len(src_tag):iSta]
+                replacements[entry] = '../'
+                break
 
 # Substitute text
 for fil in files:

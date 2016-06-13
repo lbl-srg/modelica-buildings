@@ -12,7 +12,9 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
          mode.y == Integer(OperationModes.safety)) then
           TCooOn else TCooOff) "Supply air temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-22,-50},{-2,-30}})));
-  Modelica.Blocks.Interfaces.RealInput TSetHea "Set point for heating coil"
+  Modelica.Blocks.Interfaces.RealInput TSetHea(
+    unit="K",
+    displayUnit="degC") "Set point for heating coil"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -25,7 +27,9 @@ block CoolingCoilTemperatureSetpoint "Set point scheduler for cooling coil"
     annotation (Placement(transformation(extent={{-28,-90},{-8,-70}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput TSet "Temperature set point"
+  Modelica.Blocks.Interfaces.RealOutput TSet(
+    unit="K",
+    displayUnit="degC") "Temperature set point"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(dTMin.y, add.u1) annotation (Line(
