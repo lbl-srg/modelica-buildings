@@ -44,7 +44,7 @@ model ThermalZone
         rotation=-90,
         origin={60,-180})));
 
-  Modelica.Blocks.Interfaces.RealOutput TZonAir(
+  Modelica.Blocks.Interfaces.RealOutput TAirZon(
     final unit="K",
     displayUnit="degC")
     "Zone air temperature"
@@ -289,7 +289,7 @@ equation
   connect(senTemAir.port, heaPorAir) annotation (Line(points={{100,80},{-110,80},
           {-110,120},{-140,120}},
                                color={191,0,0}));
-  connect(senTemAir.T, TZonAir)
+  connect(senTemAir.T, TAirZon)
     annotation (Line(points={{120,80},{120,80},{160,80}}, color={0,0,127}));
   connect(CSup.y, CZon)
     annotation (Line(points={{91,0},{91,0},{160,0}},       color={0,0,127}));

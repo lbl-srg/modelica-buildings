@@ -242,7 +242,7 @@ First implementation.
     annotation (Placement(transformation(extent={{-60,140},{-80,160}})));
 
 equation
-  connect(TAirZon, theHvaAda.TZonAir) annotation (Line(points={{-180,120},{-180,
+  connect(TAirZon, theHvaAda.TAirZon) annotation (Line(points={{-180,120},{-180,
           120},{-136,120},{-136,155},{-81.4286,155}}, color={0,0,127}));
   connect(X_wZon, theHvaAda.X_wZon) annotation (Line(points={{-180,80},{-180,80},
           {-130,80},{-130,152.5},{-81.4286,152.5}},
