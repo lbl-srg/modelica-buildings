@@ -169,7 +169,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Examples/HeaterFanPressureDriven.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFanPressureDriven.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
 end HeaterFanPressureDriven;
