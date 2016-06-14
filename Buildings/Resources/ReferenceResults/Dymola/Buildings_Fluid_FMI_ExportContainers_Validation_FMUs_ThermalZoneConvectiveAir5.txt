@@ -1,36 +1,28 @@
-last-generated=2016-05-23
+last-generated=2016-06-14
 statistics-fmu-dependencies=
 {
   "Outputs": {
     "X_wZon": [], 
-    "CPUtime": [], 
     "TAirZon": [], 
     "TOut": [], 
-    "CZon[2]": [], 
-    "EventCounter": [], 
-    "TRadZon": [], 
-    "CZon[1]": []
+    "CZon[1]": [], 
+    "CZon[2]": []
   }, 
   "InitialUnknowns": {
     "X_wZon": [
       "bou.X[1]"
     ], 
-    "CPUtime": [], 
     "TAirZon": [
       "rooAir.k"
     ], 
     "TOut": [
       "TDryBul.k"
     ], 
-    "CZon[2]": [
-      "bou.C[2]"
-    ], 
-    "EventCounter": [], 
-    "TRadZon": [
-      "radTem.k"
-    ], 
     "CZon[1]": [
       "bou.C[1]"
+    ], 
+    "CZon[2]": [
+      "bou.C[2]"
     ]
   }, 
   "Derivatives": {}
