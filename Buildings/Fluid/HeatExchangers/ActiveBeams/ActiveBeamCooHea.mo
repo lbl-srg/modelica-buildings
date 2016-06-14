@@ -3,9 +3,8 @@ model ActiveBeamCooHea "model of an active beam unit for heating and cooling"
 
   extends Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo(sum(nin=2));
 
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic_hea per_hea
-    "Record with performance data" annotation (
+  replaceable parameter Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic
+    per_hea "Record with performance data" annotation (
     Dialog(group="Parameters"),
     choicesAllMatching=true,
     Placement(transformation(extent={{40,-92},{60,-72}})));
@@ -29,16 +28,15 @@ model ActiveBeamCooHea "model of an active beam unit for heating and cooling"
   BaseClasses.Convector conHea(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=mWatCoo_flow_nominal,
-    hex(Q_flow_nominal=-per_hea.Q_flow_nominal_hea),
+    hex(Q_flow_nominal=-per_hea.Q_flow_nominal),
     mod(
       airFlo_nom(k=1/per_hea.mAir_flow_nominal),
-      watFlo_nom(k=1/per_hea.mWat_flow_nominal_hea),
-      temDif_nom(k=1/per_hea.temp_diff_nominal_hea),
-      airFlo_mod(xd=per_hea.primaryair.Normalized_AirFlow, yd=
-            per_hea.primaryair.ModFactor),
-      watFlo_mod(xd=per_hea.water.Normalized_WaterFlow, yd=per_hea.water.ModFactor),
-      temDif_mod(xd=per_hea.temp_diff.Normalized_TempDiff, yd=
-            per_hea.temp_diff.ModFactor))) "Heating beam"
+      watFlo_nom(k=1/per_hea.mWat_flow_nominal),
+      temDif_nom(k=1/per_hea.dT_nominal),
+      airFlo_mod(xd=per_hea.primaryAir.r_V, yd=per_hea.primaryAir.f),
+      watFlo_mod(xd=per_hea.water.r_V, yd=per_hea.water.f),
+      temDif_mod(xd=per_hea.dT.Normalized_TempDiff, yd=per_hea.dT.f)))
+    "Heating beam"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a watHea_a(

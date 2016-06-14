@@ -66,9 +66,6 @@ First implementation.
     Icon(graphics={
     Line(points={{46,-76},{46,58}},
                                   color={192,192,192}),
-        Line(
-          points={{-82,-72},{-40,-72},{-18,-56},{-6,-32},{0,-8},{14,26},{32,46},
-              {46,50},{80,50}}),
     Line(points={{-84,-72},{84,-72}},  color={192,192,192}),
     Line(points={{-40,-78},{-40,-66}},
                                   color={192,192,192}),
@@ -77,5 +74,8 @@ First implementation.
       points={{0,90},{-6,74},{6,74},{0,90}},
       lineColor={192,192,192},
       fillColor={192,192,192},
-      fillPattern=FillPattern.Solid)}));
+      fillPattern=FillPattern.Solid),
+        Line(
+          points={{-82,-72},{-40,-72},{-18,-56},{-6,-32},{0,-8},{14,26},{32,46},
+              {46,50},{80,50}})}));
 end DerivativesCubicSpline;

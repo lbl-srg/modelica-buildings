@@ -2,10 +2,11 @@ within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Characteristics;
 record PerformanceCurve_AirFlow "Record for primary air parameters"
   extends Modelica.Icons.Record;
   parameter Real Normalized_AirFlow[:](
-    each min=0) "variable at user-selected operating points";
+    each min=0,
+    each final unit="1") "Normalized air volume flow rate at user-selected operating points";
   parameter Real ModFactor[size(Normalized_AirFlow,1)](
      each min=0,
-     each displayUnit="1") "modifier f at these flow rates";
+     each final unit="1") "Normalized performance factor at these flow rates";
 
   annotation (Documentation(info="<html>
 <p>

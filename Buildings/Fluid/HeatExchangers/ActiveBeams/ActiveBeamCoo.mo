@@ -9,7 +9,7 @@ model ActiveBeamCoo "model of an active beam unit for cooling"
       annotation (choicesAllMatching = true);
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic_coo per_coo
+    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic per_coo
     "Record with performance data" annotation (
     Dialog(group="Parameters"),
     choicesAllMatching=true,
@@ -82,14 +82,14 @@ model ActiveBeamCoo "model of an active beam unit for cooling"
 
   BaseClasses.Convector conCoo(
     redeclare final package Medium = Medium1,
-    hex(Q_flow_nominal=-per_coo.Q_flow_nominal_coo),
+    hex(Q_flow_nominal=-per_coo.Q_flow_nominal),
     mod(
       airFlo_nom(k=1/per_coo.mAir_flow_nominal),
-      watFlo_nom(k=1/per_coo.mWat_flow_nominal_coo),
-      temDif_nom(k=1/per_coo.temp_diff_nominal_coo),
-      airFlo_mod(xd=per_coo.primaryair.Normalized_AirFlow, yd=per_coo.primaryair.ModFactor),
-      watFlo_mod(xd=per_coo.water.Normalized_WaterFlow, yd=per_coo.water.ModFactor),
-      temDif_mod(xd=per_coo.temp_diff.Normalized_TempDiff, yd=per_coo.temp_diff.ModFactor)),
+      watFlo_nom(k=1/per_coo.mWat_flow_nominal),
+      temDif_nom(k=1/per_coo.dT_nominal),
+      airFlo_mod(xd=per_coo.primaryAir.r_V, yd=per_coo.primaryAir.f),
+      watFlo_mod(xd=per_coo.water.r_V, yd=per_coo.water.f),
+      temDif_mod(xd=per_coo.dT.Normalized_TempDiff, yd=per_coo.dT.f)),
     final m_flow_nominal=mWatCoo_flow_nominal,
     final allowFlowReversal=allowFlowReversal) "Cooling beam"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));

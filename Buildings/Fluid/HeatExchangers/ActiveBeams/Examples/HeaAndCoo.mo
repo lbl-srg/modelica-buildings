@@ -86,14 +86,10 @@ model HeaAndCoo
   Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCooHea beaCooHea(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
-    redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.TroxDID632A_nozzleH_lenght6ft_coo
-      per_coo,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling per_coo,
     mWatCoo_flow_nominal=0.094,
     mAir_flow_nominal=0.0792,
-    redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.TroxDID632A_nozzleH_lenght6ft_hea
-      per_hea,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating per_hea,
     mWatHea_flow_nominal=0.094,
     conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     conHea(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
@@ -152,7 +148,7 @@ equation
 <p>
 The example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCooHea\">
 Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCooHea</a> for both heating and cooling mode. An air volume is maintained at a temperature above 22 degree Celsius and
-below 25 degree Celsius by two controllers regulating the water flow in the active beam. 
+below 25 degree Celsius by two controllers regulating the water flow in the active beam.
 
 
 

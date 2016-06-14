@@ -62,9 +62,7 @@ model OnlyCoo
   Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo beaCoo(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
-    redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.TroxDID632A_nozzleH_lenght6ft_coo
-      per_coo,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling per_coo,
     mWatCoo_flow_nominal=0.094,
     mAir_flow_nominal=0.0792,
     conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
@@ -111,7 +109,7 @@ equation
      Documentation(info="<html>
 <p>
 The example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo</a>. An air volume is maintained at a temperature below 25 degree Celsius by a controller regulating the water flow in the active beam. 
+Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo</a>. An air volume is maintained at a temperature below 25 degree Celsius by a controller regulating the water flow in the active beam.
 
 
 
