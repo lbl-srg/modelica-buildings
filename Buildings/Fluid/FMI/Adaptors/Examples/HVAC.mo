@@ -154,7 +154,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{16,86},{130,-88}},
+          extent={{16,86},{130,-90}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
