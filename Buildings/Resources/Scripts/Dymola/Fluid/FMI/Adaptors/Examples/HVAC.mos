@@ -1,2 +1,2 @@
-simulateModel("Buildings.Fluid.FMI.Adaptors.Examples.HVAC", stopTime=86400, method="dassl", resultFile="HVAC");
-createPlot(id=1, position={75, 70, 592, 421}, y={"vol.T"}, range={0.0, 90000.0, 19.0, 27.0}, grid=true, filename="HVAC.mat", colors={{28,108,200}});
+simulateModel("Buildings.Fluid.FMI.Adaptors.Examples.HVAC", stopTime=172800, method="dassl", resultFile="HVAC");
+createPlot(id=6, position={0, 0, 1614, 874}, y={"TSet.y", "vol.T"}, range={0.0, 175000.0, 288.8, 293.8}, grid=true, colors={{28,108,200}, {238,46,47}});
