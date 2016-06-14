@@ -1,22 +1,13 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model Convector "Heat exchanger for the water stream"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal = mWat_flow_nominal);
+    final m_flow_nominal = per.mWat_flow_nominal);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
-    "Nominal air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
-    "Nominal water mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
-    "Nominal temperature difference water inlet minus room air (positive for heating, negative for cooling)"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Design heat flow rate (positive if heat is added to the room)";
+  parameter Data.Generic per "Performance data"
+    annotation (choicesAllMatching = true,
+    Placement(transformation(extent={{60,-80},{80,-60}})));
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -87,14 +78,12 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final Q_flow_nominal=Q_flow_nominal)
+    final Q_flow_nominal=per.Q_flow_nominal)
     "Heat exchanger for the water stream"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   ModificationFactor mod(
-    final mAir_flow_nominal=mAir_flow_nominal,
-    final mWat_flow_nominal=mWat_flow_nominal,
-    final dT_nominal=dT_nominal)
+    final per=per)
     "Calculator of the modification factors"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 

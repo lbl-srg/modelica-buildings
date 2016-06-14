@@ -2,15 +2,9 @@ within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model ModificationFactor "Factor to modify nominal capacity"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
-    "Nominal air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
-    "Nominal water mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal
-    "Nominal temperature difference water inlet minus room air (positive for heating, negative for cooling)"
-    annotation (Dialog(group="Nominal condition"));
+  parameter Data.Generic per "Performance data"
+    annotation (choicesAllMatching = true,
+    Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput TWat(
     final unit="K",
@@ -38,24 +32,32 @@ model ModificationFactor "Factor to modify nominal capacity"
 
 protected
   Modelica.Blocks.Sources.Constant temDif_nom(
-    final k=1/dT_nominal)
+    final k=1/per.dT_nominal)
     "Nominal temperature difference between water and room air"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
   Modelica.Blocks.Sources.Constant watFlo_nom(
-    final k=1/mWat_flow_nominal)
+    final k=1/per.mWat_flow_nominal)
     "Nominal water mass flow rate"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Modelica.Blocks.Sources.Constant airFlo_nom(
-    final k=1/mAir_flow_nominal)
+    final k=1/per.mAir_flow_nominal)
     "Nominal water mass flow rate"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  DerivativesCubicSpline temDif_mod
-    "DerivativesCubicSpline for the temperature difference between room and water"
+  DerivativesCubicSpline temDif_mod(
+    final xd=per.dT.r_dT,
+    final yd=per.dT.f)
+    "Derivatives of the cubic spline for the temperature difference between room and water"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  DerivativesCubicSpline watFlo_mod "DerivativesCubicSpline for the water flow"
+  DerivativesCubicSpline watFlo_mod(
+    final xd=per.water.r_V,
+    final yd=per.water.f)
+    "Derivatives of the cubic spline for the water flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  DerivativesCubicSpline airFlo_mod "DerivativesCubicSpline for the air flow"
+  DerivativesCubicSpline airFlo_mod(
+    final xd=per.primaryAir.r_V,
+    final yd=per.primaryAir.f)
+   "Derivatives of the cubic spline for the air flow"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Modelica.Blocks.Math.Product pro_3
@@ -66,13 +68,14 @@ protected
   Modelica.Blocks.Math.Product pro_1 "Ratio of actual/nominal air flow rate"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Modelica.Blocks.Math.MultiProduct mulPro(nu=3)
+  Modelica.Blocks.Math.MultiProduct mulPro(final nu=3)
     "Product of the three modification factors"
     annotation (Placement(transformation(extent={{64,-6},{76,6}})));
 
-  Modelica.Blocks.Math.Add add(k1=+1, k2=-1)
+  Modelica.Blocks.Math.Add add(final k1=+1, final k2=-1)
     "Temperature difference between water and room air"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+
 equation
   connect(mAir_flow, pro_1.u1) annotation (Line(points={{-120,30},{-72,30},{-20,
           30},{-20,26},{-12,26}}, color={0,0,127}));

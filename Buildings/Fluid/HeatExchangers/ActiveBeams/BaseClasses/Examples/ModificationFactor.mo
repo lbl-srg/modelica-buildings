@@ -16,10 +16,14 @@ model ModificationFactor
     offset=20)
      "Ramp input signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor mod(
-    mAir_flow_nominal = 0.0792,
-    mWat_flow_nominal = 0.094,
-    dT_nominal = 27.8)
+  Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor mod(per(
+      Q_flow_nominal=0.094*2*4200,
+      mAir_flow_nominal=0.0792,
+      mWat_flow_nominal=0.094,
+      dT_nominal=27.8,
+      primaryAir(r_V={0,0.5,1}, f={0,0.75,1}),
+      water(r_V={0,0.5,1}, f={0,0.75,1}),
+      dT(r_dT={0,0.5,1}, f={0,0.75,1})))
       "Modification factor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

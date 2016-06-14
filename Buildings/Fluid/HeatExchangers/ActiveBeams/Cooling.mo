@@ -42,7 +42,7 @@ model Cooling "model of an active beam unit for cooling"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
-    "heat tranferred to the room" annotation (
+    "Heat tranferred to the room" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

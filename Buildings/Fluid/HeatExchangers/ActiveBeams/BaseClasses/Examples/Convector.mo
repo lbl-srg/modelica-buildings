@@ -22,12 +22,16 @@ model Convector
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector con(
     redeclare package Medium = Medium,
-    mAir_flow_nominal = 0.0792,
-    mWat_flow_nominal = 0.094,
-    dT_nominal = -10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal=10000,
-    Q_flow_nominal=1092)
+    per(
+      mAir_flow_nominal=0.0792,
+      mWat_flow_nominal=0.094,
+      dT_nominal=-10,
+      Q_flow_nominal=1092,
+      primaryAir(r_V={0,0.5,1}, f={0,0.75,1}),
+      water(r_V={0,0.5,1}, f={0,0.75,1}),
+      dT(r_dT={0,0.5,1}, f={0,0.75,1})))
     "Convector model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(

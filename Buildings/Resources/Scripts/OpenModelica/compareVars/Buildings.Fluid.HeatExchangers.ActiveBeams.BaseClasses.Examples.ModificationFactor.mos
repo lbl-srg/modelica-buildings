@@ -1,7 +1,7 @@
 compareVars :=
   {
     "mod.TWat",
-    "mod.rooTem",
+    "mod.TRoo",
     "mod.mWat_flow",
     "mod.mAir_flow",
     "mod.y"
