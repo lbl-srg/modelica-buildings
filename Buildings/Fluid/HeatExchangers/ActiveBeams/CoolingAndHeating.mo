@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-model ActiveBeamCooHea "model of an active beam unit for heating and cooling"
+model CoolingAndHeating "model of an active beam unit for heating and cooling"
 
-  extends Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo(sum(nin=2));
+  extends Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling(sum(nin=2));
 
   replaceable parameter Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic
     per_hea "Record with performance data" annotation (
@@ -114,7 +114,7 @@ equation
           fillPattern=FillPattern.Solid)}),
           Documentation(info="<html>
 <p>
-This model is similar to <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo\">Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo</a>. An additional fluid stream is added to allow for
+This model is similar to <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>. An additional fluid stream is added to allow for
 the heating mode.
 <p>
 In this model, the temperature difference <i><code>&#916;</code>T</i> used for the calculation of the modification factor <i>f<sub><code>&#916;</code>T</sub>( )</i> is:
@@ -125,4 +125,4 @@ In this model, the temperature difference <i><code>&#916;</code>T</i> used for t
    <p>
 
 </html>"));
-end ActiveBeamCooHea;
+end CoolingAndHeating;

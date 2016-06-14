@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-model ActiveBeamCoo "model of an active beam unit for cooling"
+model Cooling "model of an active beam unit for cooling"
 
   replaceable package Medium1 =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
@@ -265,8 +265,8 @@ Documentation(info="<html>
 <p>
 Model of an active beam, based on the EnergyPlus beam model  <code>AirTerminal:SingleDuct:ConstantVolume:FourPipeBeam</code>.
 </p>
-This model operates only in cooling mode. For a model that operates in both heating and cooling mode use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCooHea\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCooHea</a>
+This model operates only in cooling mode. For a model that operates in both heating and cooling mode use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea</a>
 <p> The model proposed is a simple empirical model. Sets of data for rated capacities under corresponding rated operating 
 conditions are adjusted by modification factors applied to account for how performance differs when operating away from the design point.
 The model assumes that the total power of the active beam unit is the sum of the power provided by the primary air <i>Q<sub>SA</sub></i> and the power provided by the beam convector <i>Q<sub>Beam</sub></i>. 
@@ -319,4 +319,4 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </li>
 </ul>
 </html>"));
-end ActiveBeamCoo;
+end Cooling;

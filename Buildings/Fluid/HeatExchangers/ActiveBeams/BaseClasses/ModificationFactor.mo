@@ -109,8 +109,8 @@ equation
             -100},{100,100}})), defaultComponentName="mod",
             Documentation(info="<html>
 <p>
-This model determines the three modification factors described in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo</a> by comparing the actual values of air mass flow rate, water mass flow rate and room-water temperature difference with the rated values.
+This model determines the three modification factors described in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a> by comparing the actual values of air mass flow rate, water mass flow rate and room-water temperature difference with the rated values.
 The three modification factors are then multiplied.
 
 </html>", revisions="<html>
