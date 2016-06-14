@@ -20,10 +20,7 @@ model ModificationFactor
       Q_flow_nominal=0.094*2*4200,
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,
-      dT_nominal=27.8,
-      primaryAir(r_V={0,0.5,1}, f={0,0.75,1}),
-      water(r_V={0,0.5,1}, f={0,0.75,1}),
-      dT(r_dT={0,0.5,1}, f={0,0.75,1})))
+      dT_nominal=27.8))
       "Modification factor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation

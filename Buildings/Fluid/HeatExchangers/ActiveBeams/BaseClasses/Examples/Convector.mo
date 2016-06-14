@@ -28,10 +28,7 @@ model Convector
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,
       dT_nominal=-10,
-      Q_flow_nominal=1092,
-      primaryAir(r_V={0,0.5,1}, f={0,0.75,1}),
-      water(r_V={0,0.5,1}, f={0,0.75,1}),
-      dT(r_dT={0,0.5,1}, f={0,0.75,1})))
+      Q_flow_nominal=1092))
     "Convector model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
