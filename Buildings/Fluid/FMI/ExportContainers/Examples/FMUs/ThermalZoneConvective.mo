@@ -15,9 +15,6 @@ model ThermalZoneConvective "Simple thermal zone"
   parameter Integer nFluPorts = 2 "Number of fluid ports.";
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  //////////////////////////////////////////////////////////
-  // Heat recovery effectiveness
-  parameter Real eps = 0.8 "Heat recovery effectiveness";
 
   /////////////////////////////////////////////////////////
   // Air temperatures at design conditions
@@ -27,9 +24,6 @@ model ThermalZoneConvective "Simple thermal zone"
     "Nominal room air temperature";
   parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
     "Design outlet air temperature";
-  parameter Modelica.SIunits.Temperature THeaRecLvg=
-    TOut_nominal - eps*(TOut_nominal-TRooSet)
-    "Air temperature leaving the heat recovery";
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
@@ -41,27 +35,6 @@ model ThermalZoneConvective "Simple thermal zone"
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
     1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
-  parameter Modelica.SIunits.TemperatureDifference dTFan = 2
-    "Estimated temperature raise across fan that needs to be made up by the cooling coil";
-  parameter Modelica.SIunits.HeatFlowRate QCoiC_flow_nominal=4*
-    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
-    "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
-
-  /////////////////////////////////////////////////////////
-  // Water temperatures and mass flow rates
-  parameter Modelica.SIunits.Temperature TWSup_nominal = 273.15+16
-    "Water supply temperature";
-  parameter Modelica.SIunits.Temperature TWRet_nominal = 273.15+12
-    "Water return temperature";
-  parameter Modelica.SIunits.MassFlowRate mW_flow_nominal=
-    QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
-    "Nominal water mass flow rate";
-
-   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRad
-    "Radiative temperature"
-    annotation (Placement(transformation(extent={{0,40},{-20,60}})));
-  Modelica.Blocks.Sources.Constant radTem(k=295.13)
-    annotation (Placement(transformation(extent={{40,40},{20,60}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -80,18 +53,16 @@ model ThermalZoneConvective "Simple thermal zone"
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-160})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                                                         TOut1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,82},{0,102}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,82},{40,102}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
-        QRooInt_flow) "Prescribed heat flow"
+    QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
-  MixingVolumes.MixingVolumeMoistAir
-                                   vol(
+  MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
@@ -99,6 +70,10 @@ model ThermalZoneConvective "Simple thermal zone"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2)
     annotation (Placement(transformation(extent={{86,2},{106,22}})));
+  Modelica.Blocks.Sources.Constant mWat_flow(k=0.0) "mass flow rate"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{132,140},{24,140}},
@@ -122,26 +97,20 @@ equation
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
     annotation (Line(points={{0,92},{0,92},{20,92}}, color={191,0,0}));
-  connect(theHvaAda.heaPorRad, TRad.port) annotation (Line(points={{-60,143.75},
-          {-48,143.75},{-48,144},{-46,144},{-46,50},{-20,50}},
-                                            color={191,0,0}));
-  connect(TRad.T, radTem.y)
-    annotation (Line(points={{2,50},{19,50}}, color={0,0,127}));
 
-  connect(theHvaAda.TWat, vol.TWat) annotation (Line(points={{-81.4286,142.5},{
-          -100,142.5},{-100,16.8},{84,16.8}},    color={0,0,127}));
-  connect(theHvaAda.mWat_flow, vol.mWat_flow) annotation (Line(points={{
-          -81.4286,145},{-108,145},{-108,20},{84,20}},
-                                              color={0,0,127}));
-  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,
-          157.5},{0,157.5},{0,120},{60,120},{60,12},{86,12}},     color={191,0,0}));
-  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60.1429,
-          150},{-58,150},{-58,150},{-50,150},{-50,-10},{94,-10},{94,2}},color={0,
+  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,144},
+          {0,144},{0,120},{60,120},{60,12},{86,12}},              color={191,0,0}));
+  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,152},{
+          -58,152},{-58,150},{-50,150},{-50,-10},{94,-10},{94,2}},      color={0,
           127,255}));
-  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60.1429,
-          150},{-54,150},{-54,-20},{98,-20},{98,2}},color={0,127,255}));
+  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,152},{
+          -54,152},{-54,-20},{98,-20},{98,2}},      color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
           -54},{0,-40},{120,-40},{120,140},{24,140}}, color={0,0,127}));
+  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{84,20},{66,20},{
+          48,20},{48,50},{21,50}}, color={0,0,127}));
+  connect(TWat.y, vol.TWat) annotation (Line(points={{21,20},{30,20},{30,16.8},{
+          84,16.8}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
