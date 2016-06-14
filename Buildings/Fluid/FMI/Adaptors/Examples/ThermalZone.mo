@@ -4,7 +4,7 @@ model ThermalZone "Example of a thermal zone"
   constant Integer nFlu = 3 "Number of fluid connectors";
 
   Buildings.Fluid.FMI.Adaptors.HVACConvective hvacAda(redeclare final package
-      Medium = MediumA, nPorts=3)
+    Medium = MediumA, nPorts=3)
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -53,12 +53,12 @@ equation
   connect(der_T.y, TRoo.u)
     annotation (Line(points={{51,10},{58,10}}, color={0,0,127}));
   connect(TRoo.y, hvacAda.TAirZon) annotation (Line(points={{81,10},{94,10},{94,
-          -60},{-10,-60},{-10,10},{-18,10}}, color={0,0,127}));
+          -60},{-10,-60},{-10,10},{-19,10}}, color={0,0,127}));
   connect(der_X_w.y, X_wRoo.u)
     annotation (Line(points={{51,-30},{58,-30}},
                                                color={0,0,127}));
-  connect(X_wRoo.y, hvacAda.X_wZon) annotation (Line(points={{81,-30},{90,-30},
-          {90,-56},{-6,-56},{-6,6},{-18,6}}, color={0,0,127}));
+  connect(X_wRoo.y, hvacAda.X_wZon) annotation (Line(points={{81,-30},{90,-30},{
+          90,-56},{-6,-56},{-6,6},{-19,6}},  color={0,0,127}));
   connect(sup1.ports[1], hvacAda.ports[1]) annotation (Line(points={{-70,38},{
           -54,38},{-54,12.6667},{-40,12.6667}}, color={0,127,255}));
   connect(ret.ports[1], hvacAda.ports[2])

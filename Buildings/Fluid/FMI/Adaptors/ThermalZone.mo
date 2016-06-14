@@ -2,59 +2,51 @@ within Buildings.Fluid.FMI.Adaptors;
 model ThermalZone
   "Adaptor for connecting a thermal zone to signal ports which then can be exposed at an FMI interface"
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
-     annotation (choicesAllMatching=true);
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model within the source" annotation (choicesAllMatching=true);
 
-  parameter Integer nFluPor(final min = 1) "Number of fluid ports."
-    annotation(Dialog(connectorSizing=true));
+  parameter Integer nFluPor(final min=1) "Number of fluid ports."
+    annotation (Dialog(connectorSizing=true));
 
-
-   Interfaces.Inlet fluPor[nFluPor](
+  Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=false,
-    each final use_p_in=false) "Fluid connector"
-    annotation (Placement(transformation(extent={{160,140},{140,160}}),
-        iconTransformation(extent={{180,120},{140,160}})));
+    each final use_p_in=false) "Fluid connector" annotation (Placement(
+        transformation(extent={{-120,50},{-100,70}}), iconTransformation(
+          extent={{-142,60},{-102,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon(
-    final unit="K",
-    displayUnit="degC")
-    "Zone air temperature"
-    annotation (Placement(transformation(extent={{140,60},{180,100}})));
+    final unit="K", displayUnit="degC") "Zone air temperature" annotation (Placement(transformation(extent={{-100,
+            0},{-140,40}}), iconTransformation(extent={{-102,8},{-142,48}})));
 
-  Modelica.Blocks.Interfaces.RealOutput X_wZon(
-    final unit = "kg/kg") "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{140,20},{180,60}})));
+  Modelica.Blocks.Interfaces.RealOutput X_wZon(final unit="kg/kg")
+    "Zone air water mass fraction per total air mass" annotation (Placement(
+        transformation(extent={{-100,-40},{-142,2}}), iconTransformation(
+          extent={{-102,-38},{-142,2}})));
 
   Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{140,-20},{180,20}})));
+    "Prescribed boundary trace substances" annotation (Placement(
+        transformation(extent={{-100,-80},{-140,-40}}), iconTransformation(
+          extent={{-102,-90},{-142,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
-    redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{-148,40},{-128,-40}})));
+    redeclare each final package Medium = Medium) annotation (Placement(transformation(extent={{90,
+            40},{110,-40}}), iconTransformation(extent={{90,40},{110,-40}})));
 
 protected
-  constant Modelica.SIunits.Temperature TAveSkin = 273.15+37
-    "Average skin temperature";
-  final parameter Modelica.SIunits.SpecificEnergy h_fg=
-    Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
-    annotation(Evaluate=true);
-
   x_i_toX_w x_i_toX(
     redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from x_i to X_w"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    Medium.nXi > 0 "Conversion from x_i to X_w"
+    annotation (Placement(transformation(extent={{-42,-30},{-62,-10}})));
 
   RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
-       Medium.nXi > 0 "Water vapor concentration of supply air"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    Medium.nXi > 0 "Water vapor concentration of supply air"
+    annotation (Placement(transformation(extent={{20,-30},{0,-10}})));
 
   RealVectorExpression CSup(each final n=Medium.nC, final y=inStream(ports[1].C_outflow)) if
-       Medium.nC > 0 "Trace substance concentration of supply air"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    Medium.nC > 0 "Trace substance concentration of supply air"
+    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
   Sources.MassFlowSource_T bou[nFluPor](
     each final nPorts=1,
@@ -64,18 +56,18 @@ protected
     each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
     each final use_m_flow_in=true) "Boundary conditions for ThermalZone system"
-    annotation (Placement(transformation(extent={{-36,110},{-56,130}})));
+    annotation (Placement(transformation(extent={{56,50},{76,70}})));
   Conversion.InletToAir con[nFluPor](
-      redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{120,110},{100,130}})));
+    redeclare each final package Medium = Medium)
+    annotation (Placement(transformation(extent={{-84,50},{-64,70}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
 
   BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
     if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{40,100},{20,120}})));
+    annotation (Placement(transformation(extent={{-12,46},{8,66}})));
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
@@ -85,7 +77,6 @@ protected
     Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
     annotation (Dialog(group="Time varying output signal"), Placement(
         transformation(extent={{100,-10},{120,10}}, rotation=0)));
-
     annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
@@ -126,7 +117,7 @@ easy definition of vector-valued Real expressions in a block diagram.
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
     Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg") if
-         Medium.nXi > 0 "Water vapor concentration in kg/kg total air"
+      Medium.nXi > 0 "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
           iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -134,13 +125,13 @@ easy definition of vector-valued Real expressions in a block diagram.
       each final unit="kg/kg") "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   protected
-      Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
-        each final unit = "kg/kg")
-        "Internal connector for water vapor concentration in kg/kg total air";
+    Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
+      each final unit = "kg/kg")
+      "Internal connector for water vapor concentration in kg/kg total air";
 
-      Modelica.Blocks.Interfaces.RealInput X_w_internal(
-        final unit = "kg/kg")
-        "Internal connector for water vapor concentration in kg/kg total air";
+    Modelica.Blocks.Interfaces.RealInput X_w_internal(
+      final unit = "kg/kg")
+      "Internal connector for water vapor concentration in kg/kg total air";
   equation
   // Conditional connector
   connect(Xi_internal, Xi);
@@ -168,52 +159,55 @@ needs to access the conditional connector, but conditional connectors
 can only be used in <code>connect</code> statements.
 </p>
 </html>"));
-
   end x_i_toX_w;
 
-
+public
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
+    "Heat port for sensible heat input" annotation (Placement(transformation(
+          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-90},{110,
+            -70}})));
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
 
   for i in 1:nFluPor loop
-    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{-56,120},{-60,
-            120},{-60,0},{-138,0}},
-                     color={0,127,255}));
+    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{76,60},{76,0},{
+            100,0}}, color={0,127,255}));
   end for;
-  connect(x_i_toX.X_w, X_wZon)
-    annotation (Line(points={{122,40},{122,40},{160,40}},   color={0,0,127}));
   connect(con.inlet, fluPor)
-    annotation (Line(points={{121,120},{130,120},{130,150},{136,150},{136,150},
-          {150,150},{150,150}},                        color={0,0,255}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,110},{18,110},{6,
-          110},{6,110},{0,110},{0,116},{-34,116}},
-                color={0,0,127}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{98,116},{98,114},{60,
-          114},{60,110},{42,110}},
+    annotation (Line(points={{-85,60},{-85,60},{-110,60}},
+                                                       color={0,0,255}));
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-62,56},{-62,56},{-58,
+          56},{-14,56}},
                       color={0,0,127}));
-  connect(bou.C_in, con.C) annotation (Line(points={{-36,112},{-36,112},{-28,
-          112},{-28,90},{78,90},{78,112},{98,112}},
-                                            color={0,0,127}));
-  connect(bou.T_in, con.T) annotation (Line(points={{-34,124},{18,124},{98,124}},
-                   color={0,0,127}));
   connect(senTemAir.T, TAirZon)
-    annotation (Line(points={{120,80},{120,80},{160,80}}, color={0,0,127}));
+    annotation (Line(points={{50,-60},{50,20},{-120,20}}, color={0,0,127}));
   connect(CSup.y, CZon)
-    annotation (Line(points={{91,0},{91,0},{160,0}},       color={0,0,127}));
-  connect(XiSup.y, x_i_toX.Xi)
-    annotation (Line(points={{91,40},{98,40}},
-                                             color={0,0,127}));
+    annotation (Line(points={{-1,-60},{-1,-60},{-120,-60}},color={0,0,127}));
 
-  connect(con.m_flow, bou.m_flow_in)
-    annotation (Line(points={{98,128},{98,128},{-36,128}},color={0,0,127}));
+  connect(x_w_toX.X, bou.X_in)
+    annotation (Line(points={{10,56},{54,56}}, color={0,0,127}));
+  connect(con.C, bou.C_in) annotation (Line(points={{-62,52},{-62,52},{-44,52},{
+          -44,40},{32,40},{32,52},{56,52}}, color={0,0,127}));
+  connect(con.m_flow, bou.m_flow_in) annotation (Line(points={{-62,68},{-50,68},
+          {-40,68},{-40,80},{46,80},{46,68},{56,68}}, color={0,0,127}));
+  connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{92,-80},
+          {92,-60},{70,-60}}, color={191,0,0}));
+  connect(XiSup.y, x_i_toX.Xi)
+    annotation (Line(points={{-1,-20},{-40,-20}}, color={0,0,127}));
+  connect(TAirZon, TAirZon) annotation (Line(points={{-120,20},{-114,20},{-114,20},
+          {-120,20}}, color={0,0,127}));
+  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-64,-20},{-121,-20},{-121,
+          -19}}, color={0,0,127}));
+  connect(con.T, bou.T_in) annotation (Line(points={{-62,64},{-46,64},{-30,64},{
+          -30,76},{36,76},{36,64},{54,64}}, color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-140,-160},{140,160}}), graphics={
+        preserveAspectRatio=false, initialScale=0.1),
+                                         graphics={
                                    Rectangle(
-          extent={{-140,160},{140,-160}},
+          extent={{-102,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
@@ -227,96 +221,111 @@ equation
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-146,104},{150,140}},
+          textString="%name",
+          lineColor={0,0,255}),
         Polygon(
-          points={{-140,-160},{140,160},{140,-160},{-140,-160}},
+          points={{100,-100},{-102,100},{-102,-100},{100,-100}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-150,164},{146,200}},
-          textString="%name",
-          lineColor={0,0,255}),
-        Rectangle(
-          extent={{42,32},{134,22}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Rectangle(
-          extent={{40,-22},{134,-32}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Ellipse(
-          extent={{66,52},{118,0}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{106,48},{66,26},{106,4},{106,48}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{62,-2},{114,-54}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{76,-6},{116,-28},{76,-50},{76,-6}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-                 Bitmap(extent={{36,-154},{124,-84}},
+                 Bitmap(extent={{-96,-98},{-30,-50}},
                                                     fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/FMI_icon.png"),
+            Bitmap(extent={{0,50},{100,98}},   fileName=
+            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png"),
         Rectangle(
-          extent={{-90,24},{-56,-18}},
+          extent={{44,-22},{90,30}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{50,24},{84,-18}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
         Rectangle(
-          extent={{-54,10},{-52,-6}},
+          extent={{84,14},{90,-8}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{86,10},{88,-6}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-128,-6},{-96,-14}},
+          extent={{-74,-8},{44,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-128,20},{-96,12}},
+          extent={{-74,24},{44,16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
-            Bitmap(extent={{-120,90},{0,154}}, fileName=
-            "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png")}),
+        Rectangle(
+          extent={{-62,44},{-40,-38}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(points={{-40,44},{-62,-38}},  color={0,0,0}),
+        Ellipse(
+          extent={{-14,36},{16,6}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-4,34},{14,22},{-4,8},{-4,34}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-14,2},{16,-28}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{6,0},{-12,-12},{6,-26},{6,0}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Adaptor that can be used to connect a model of a thermal zone (with acausal ports)
-to input/output signals, which then can be exposed in an FMI interface.
+to input/output signals, which can be exposed in an FMI interface.
 </p>
-<h4>Assumption and limitations</h4>
 <p>
-fixme: This needs to be updated.
+This model gets a vector <code>fluPor</code> of <code>nFluPor</code> FMI connector 
+for fluid inlets.
+These connectors contain for each fluid inlet the mass flow rate, the temperature, 
+the water vapor mass fraction per total mass of the air, 
+and trace substances. 
+</p>
 
-The mass flow rates at <code>ports</code> sum to zero,
-hence this model conserves mass.
-</p>
 <p>
-This model does not impose any pressure, other than
-setting the pressure of all fluid connections
-to <code>ports</code> to be equal. The reason is that setting
-a pressure can lead to non-physical system models,
-for example if a mass flow rate is imposed and the thermal
-zone is connected to a model that sets a pressure boundary condition such
-as
-<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
-Buildings.Fluid.Sources.Outside
-</a>.
+The model uses a mass flow source
+<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
+Buildings.Fluid.FMI.Sources.MassFlowSource_pT
+</a> to transfer these quantities to the signal <code>ports</code>.
 </p>
-<h4>Typical use and important parameters</h4>
+
+<p>
+The signal <code>ports</code> are used to connect the model with a thermal zone.
+The number of connection of the signal <code>ports</code> must 
+match the number of <code>nFlupor</code>.
+</p>
+
+<p>
+The output signals of this model are the zone air temperature,
+the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
+and trace substances (unless <code>Medium.nC=0</code>). The outflowing fluid stream(s) 
+at the port <code>ports</code> are at this state.
+</p>
+
+<h4>Typical use</h4>
 <p>
 See
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
@@ -332,6 +341,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{
-            140,160}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)));
 end ThermalZone;

@@ -6,10 +6,10 @@ model RoomConvectiveHVACConvective
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone hvaCon
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
-    annotation (Placement(transformation(extent={{20,0},{42,20}})));
-    model BaseCase "Base model used for the validation of the FMI interfaces"
-      extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(
-          energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+    annotation (Placement(transformation(extent={{40,-2},{62,18}})));
+  model BaseCase "Base model used for the validation of the FMI interfaces"
+    extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics
+          =Modelica.Fluid.Types.Dynamics.FixedInitial));
     annotation (Documentation(info="<html>
 <p>
 This example is the base case model which is used to validate 
@@ -21,30 +21,31 @@ The model which is validated is in
 Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
 </a>. 
 </p>
-</html>"), Icon(graphics={Rectangle(
+</html>"), Icon(graphics={
+          Rectangle(
             extent={{-100,100},{100,-100}},
             lineColor={28,108,200},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-72,-14},{56,-24}},
-              lineColor={0,0,0},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={0,127,255}),
-            Ellipse(
-              extent={{-56,-2},{-22,-36}},
-              lineColor={0,0,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-72,190},{70,84}},
-              lineColor={0,0,255},
-              textString="%name"),
-            Polygon(
-              points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},
-              lineColor={0,0,255},
-              fillColor={0,0,255},
-              fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-72,-14},{56,-24}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={0,127,255}),
+          Ellipse(
+            extent={{-56,-2},{-22,-36}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-72,190},{70,84}},
+            lineColor={0,0,255},
+            textString="%name"),
+          Polygon(
+            points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
           Polygon(
             points={{26,54},{-20,32},{70,32},{26,54}},
             lineColor={95,95,95},
@@ -66,49 +67,38 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
             lineColor={255,255,255},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
-            Rectangle(
-              extent={{-74,24},{-12,16}},
-              lineColor={0,0,0},
-              fillPattern=FillPattern.HorizontalCylinder,
-              fillColor={0,127,255}),
-            Ellipse(
-              extent={{-58,36},{-24,2}},
-              lineColor={0,0,255},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-            Polygon(
-              points={{-52,32},{-24,20},{-52,6},{-52,32}},
-              lineColor={0,0,255},
-              fillColor={0,0,255},
-              fillPattern=FillPattern.Solid)}));
-    end BaseCase;
+          Rectangle(
+            extent={{-74,24},{-12,16}},
+            lineColor={0,0,0},
+            fillPattern=FillPattern.HorizontalCylinder,
+            fillColor={0,127,255}),
+          Ellipse(
+            extent={{-58,36},{-24,2}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-52,32},{-24,20},{-52,6},{-52,32}},
+            lineColor={0,0,255},
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid)}));
+  end BaseCase;
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Sources.Constant rooRad(k=295.13) "Radiative temperature"
+    annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
 equation
 
-  connect(hvaCon.QGaiLat_flow, rooCon.QGaiLat_flow) annotation (Line(points={{-38.75,
-          1.25},{-38.75,1.25},{18.625,1.25}},          color={0,0,127}));
-  connect(hvaCon.QGaiCon_flow, rooCon.QGaiCon_flow) annotation (Line(points={{-38.75,
-          4.375},{-8,4.375},{-8,3.75},{18.625,3.75}},
-                                            color={0,0,127}));
-  connect(rooCon.QGaiRad_flow,hvaCon. QGaiRad_flow) annotation (Line(points={{18.625,
-          6.25},{-2,6.25},{-2,7.5},{-38.75,7.5}},
-                                              color={0,0,127}));
-  connect(hvaCon.X_wZon, rooCon.X_wZon)
-    annotation (Line(points={{-38.75,14.375},{-5,14.375},{-5,13.75},{18.625,
-          13.75}},                                          color={0,0,127}));
-  connect(rooCon.TAirZon,hvaCon. TAirZon) annotation (Line(points={{18.625,
-          16.25},{18.625,16.25},{-38.75,16.25}},
-                                  color={0,0,127}));
+  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-39.375,11.25},{0,
+          11.25},{0,0.5},{38.625,0.5}}, color={0,0,127}));
+  connect(hvaCon.X_wZon, rooCon.X_wZon) annotation (Line(points={{-39.375,13.125},
+          {4,13.125},{4,3},{38.625,3}}, color={0,0,127}));
   connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,18.75},
-          {-39.375,18.75},{19.3125,18.75}},
-                            color={0,0,255}));
-  connect(hvaCon.TRadZon, rooCon.TRadZon) annotation (Line(points={{-38.75,10},
-          {-38.75,10},{0,10},{18,10},{18.625,10},{18.625,8.75}},
-                                  color={0,0,127}));
-  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-38.75,12.5},{
-          -38.75,12},{10,12},{18,12},{18.625,12},{18.625,11.25}},
-                                color={0,0,127}));
+          {0.3125,18.75},{0.3125,16.75},{39.3125,16.75}}, color={0,0,255}));
+  connect(hvaCon.TAirZon, rooCon.TAirZon) annotation (Line(points={{-39.375,16.875},
+          {-4,16.875},{-4,14},{24,14},{24,5.5},{38.625,5.5}}, color={0,0,127}));
+  connect(hvaCon.TRadZon, rooRad.y) annotation (Line(points={{-39.375,15},{0,15},
+          {0,-30},{39,-30}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
