@@ -16,6 +16,8 @@ record Generic "Generic data record for active beam"
     f={0,0.5,1})
     "Performance data for normalized temperature difference room minus water inlet";
 
+    // fixme: for mAir_flow, mWat_flow_nominal and Q_flow_nominal, state whether
+    //        it is per beam or total.
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Nominal air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 

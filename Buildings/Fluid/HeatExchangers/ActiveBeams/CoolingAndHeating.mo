@@ -3,9 +3,9 @@ model CoolingAndHeating "model of an active beam unit for heating and cooling"
 
   extends Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling(sum(nin=2));
 
-  replaceable parameter Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic
-    per_hea "Record with performance data" annotation (
-    Dialog(group="Parameters"),
+  replaceable parameter Data.Generic perHea "Performance data for heating"
+                                           annotation (
+    Dialog(group="Nominal condition"),
     choicesAllMatching=true,
     Placement(transformation(extent={{40,-92},{60,-72}})));
 
@@ -26,29 +26,29 @@ model CoolingAndHeating "model of an active beam unit for heating and cooling"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   BaseClasses.Convector conHea(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumWat,
     final m_flow_nominal=mWatCoo_flow_nominal,
-    hex(Q_flow_nominal=-per_hea.Q_flow_nominal),
+    hex(Q_flow_nominal=-perHea.Q_flow_nominal),
     mod(
-      airFlo_nom(k=1/per_hea.mAir_flow_nominal),
-      watFlo_nom(k=1/per_hea.mWat_flow_nominal),
-      temDif_nom(k=1/per_hea.dT_nominal),
-      airFlo_mod(xd=per_hea.primaryAir.r_V, yd=per_hea.primaryAir.f),
-      watFlo_mod(xd=per_hea.water.r_V, yd=per_hea.water.f),
-      temDif_mod(xd=per_hea.dT.Normalized_TempDiff, yd=per_hea.dT.f)))
+      airFlo_nom(k=1/perHea.mAir_flow_nominal),
+      watFlo_nom(k=1/perHea.mWat_flow_nominal),
+      temDif_nom(k=1/perHea.dT_nominal),
+      airFlo_mod(xd=perHea.primaryAir.r_V, yd=perHea.primaryAir.f),
+      watFlo_mod(xd=perHea.water.r_V, yd=perHea.water.f),
+      temDif_mod(xd=perHea.dT.Normalized_TempDiff, yd=perHea.dT.f)))
     "Heating beam"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a watHea_a(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium1.h_default))
+    h_outflow(start=MediumWat.h_default))
     "Fluid connector a (positive design flow direction is from watHea_a to watHea_b)"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b watHea_b(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium1.h_default))
+    h_outflow(start=MediumWat.h_default))
     "Fluid connector b (positive design flow direction is from watHea_a to watHea_b)"
     annotation (Placement(transformation(extent={{150,-10},{130,10}})));
 
@@ -57,19 +57,19 @@ model CoolingAndHeating "model of an active beam unit for heating and cooling"
   Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa")
     "Pressure difference between watHea_a and watHea_b";
 
-  Medium1.ThermodynamicState sta_a=
-      Medium1.setState_phX(watHea_a.p,
+  MediumWat.ThermodynamicState sta_a=
+      MediumWat.setState_phX(watHea_a.p,
                           noEvent(actualStream(watHea_a.h_outflow)),
                           noEvent(actualStream(watHea_a.Xi_outflow))) if
          show_T "Medium properties in watHea_a";
 
-  Medium1.ThermodynamicState sta_b=
-      Medium1.setState_phX(watHea_b.p,
+  MediumWat.ThermodynamicState sta_b=
+      MediumWat.setState_phX(watHea_b.p,
                           noEvent(actualStream(watHea_b.h_outflow)),
                           noEvent(actualStream(watHea_b.Xi_outflow))) if
           show_T "Medium properties in watHea_b";
 
-  Sensors.MassFlowRate senFlo2(redeclare final package Medium = Medium1)
+  Sensors.MassFlowRate senFlo2(redeclare final package Medium = MediumWat)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Math.Gain gai_4(k=1/nBeams) annotation (Placement(
         transformation(

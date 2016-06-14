@@ -1,41 +1,68 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
 model Cooling "model of an active beam unit for cooling"
 
-  replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
-  replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
+  replaceable package MediumWat = Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
+    annotation (choicesAllMatching = true);
+  replaceable package MediumAir = Modelica.Media.Interfaces.PartialMedium
+    "Medium 2 in the component"
+    annotation (choicesAllMatching = true);
 
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Generic per_coo
-    "Record with performance data" annotation (
-    Dialog(group="Parameters"),
-    choicesAllMatching=true,
-    Placement(transformation(extent={{72,-92},{92,-72}})));
+  replaceable parameter Data.Generic perCoo "Performance data for cooling"
+    annotation (
+      Dialog(group="Nominal condition"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{72,-92},{92,-72}})));
 
-  parameter Real nBeams=1 "number of beams";
+  parameter Real nBeams(min=1)=1 "Number of beams";
 
-  parameter Boolean allowFlowReversal1 = true
-    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
+  parameter Boolean allowFlowReversalWat=true
+    "= true to allow flow reversal in water circuit, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal2 = true
-    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
+  parameter Boolean allowFlowReversalAir=true
+    "= true to allow flow reversal in air circuit, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.MassFlowRate mWatCoo_flow_nominal(final min=0)
-    "Water nominal mass flow rate for cooling"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
-    "Air nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(mWatCoo_flow_nominal)
+  parameter Modelica.SIunits.Time tau = 30
+    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+
+  // Advanced
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium.Temperature T_start = Medium.T_default
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium.MassFraction X_start[Medium.nX](
+    final quantity=Medium.substanceNames) = Medium.X_default
+    "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
+  parameter Medium.ExtraProperty C_start[Medium.nC](
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    "Start value of trace substances"
+    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+
+
+  parameter MediumWat.MassFlowRate mWat_flow_small(min=0) = 1E-4*abs(perCoo.mWat_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(mAir_flow_nominal)
+  parameter MediumAir.MassFlowRate mAir_flow_small(min=0) = 1E-4*abs(perCoo.mAir_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
+
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
@@ -58,10 +85,10 @@ model Cooling "model of an active beam unit for cooling"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-90,-30})));
-  Sensors.MassFlowRate senFlo1(redeclare final package Medium = Medium1)
+  Sensors.MassFlowRate senFloWatCoo(redeclare final package Medium = MediumWat)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Sensors.MassFlowRate senFlo(redeclare final package Medium = Medium2)
+  Sensors.MassFlowRate senFloAir(redeclare final package Medium = MediumAir)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
@@ -81,93 +108,96 @@ model Cooling "model of an active beam unit for cooling"
         origin={-70,100})));
 
   BaseClasses.Convector conCoo(
-    redeclare final package Medium = Medium1,
-    hex(Q_flow_nominal=-per_coo.Q_flow_nominal),
-    mod(
-      airFlo_nom(k=1/per_coo.mAir_flow_nominal),
-      watFlo_nom(k=1/per_coo.mWat_flow_nominal),
-      temDif_nom(k=1/per_coo.dT_nominal),
-      airFlo_mod(xd=per_coo.primaryAir.r_V, yd=per_coo.primaryAir.f),
-      watFlo_mod(xd=per_coo.water.r_V, yd=per_coo.water.f),
-      temDif_mod(xd=per_coo.dT.Normalized_TempDiff, yd=per_coo.dT.f)),
-    final m_flow_nominal=mWatCoo_flow_nominal,
-    final allowFlowReversal=allowFlowReversal) "Cooling beam"
+    redeclare final package Medium = MediumWat,
+    final per=per,
+    final m_flow_nominal=perCoo.mWat_flow_nominal,
+    final allowFlowReversal=allowFlowReversalWat,
+    final m_flow_small=mWat_flow_small,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final from_dp=from_dp,
+    final dp_nominal=dp_nominal,
+    final linearizeFlowResistance=linearizeFlowResistance,
+    final deltaM=deltaM,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start) "Cooling beam"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a watCoo_a(
-                     redeclare final package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+    redeclare final package Medium = MediumWat,
+    m_flow(min=if allowFlowReversalWat then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumWat.h_default))
     "Fluid connector watCoo_a (positive design flow direction is from watCoo_a to watCoo_b)"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b watCoo_b(
-                     redeclare final package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(start = Medium1.h_default))
+    redeclare final package Medium = MediumWat,
+    m_flow(max=if allowFlowReversalWat then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumWat.h_default))
     "Fluid connector watCoo_b (positive design flow direction is from watCoo_a to watCoo_b)"
     annotation (Placement(transformation(extent={{150,50},{130,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a air_a(
-    redeclare final package Medium = Medium2,
-    m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default))
+    redeclare final package Medium = MediumAir,
+    m_flow(min=if allowFlowReversalAir then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAir.h_default))
     "Fluid connector air_a (positive design flow direction is from air_a to air_b)"
     annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b air_b(
-    redeclare final package Medium = Medium2,
-    m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default))
+    redeclare final package Medium = MediumAir,
+    m_flow(max=if allowFlowReversalAir then +Modelica.Constants.inf else 0),
+    h_outflow(start=MediumAir.h_default))
     "Fluid connector air_b (positive design flow direction is from air_a to air_b)"
     annotation (Placement(transformation(extent={{-130,-70},{-150,-50}})));
 
-  Medium1.MassFlowRate m1_flow(start=0) = watCoo_a.m_flow
+  MediumWat.MassFlowRate m1_flow(start=0) = watCoo_a.m_flow
     "Mass flow rate from watCoo_a to watCoo_b (m1_flow > 0 is design flow direction)";
   Modelica.SIunits.PressureDifference dp1(start=0, displayUnit="Pa")
     "Pressure difference between watCoo_a and watCoo_b";
 
-  Medium2.MassFlowRate m2_flow(start=0) = air_a.m_flow
+  MediumAir.MassFlowRate m2_flow(start=0) = air_a.m_flow
     "Mass flow rate from air_a to air_b (m2_flow > 0 is design flow direction)";
   Modelica.SIunits.PressureDifference dp2(start=0, displayUnit="Pa")
     "Pressure difference between air_a and air_b";
 
-  Medium1.ThermodynamicState sta_a1=
-      Medium1.setState_phX(watCoo_a.p,
+  MediumWat.ThermodynamicState sta_a1=
+      MediumWat.setState_phX(watCoo_a.p,
                            noEvent(actualStream(watCoo_a.h_outflow)),
                            noEvent(actualStream(watCoo_a.Xi_outflow))) if
          show_T "Medium properties in watCoo_a";
-  Medium1.ThermodynamicState sta_b1=
-      Medium1.setState_phX(watCoo_b.p,
+  MediumWat.ThermodynamicState sta_b1=
+      MediumWat.setState_phX(watCoo_b.p,
                            noEvent(actualStream(watCoo_b.h_outflow)),
                            noEvent(actualStream(watCoo_b.Xi_outflow))) if
          show_T "Medium properties in watCoo_b";
-  Medium2.ThermodynamicState sta_a2=
-      Medium2.setState_phX(air_a.p,
+  MediumAir.ThermodynamicState sta_a2=
+      MediumAir.setState_phX(air_a.p,
                            noEvent(actualStream(air_a.h_outflow)),
                            noEvent(actualStream(air_a.Xi_outflow))) if
          show_T "Medium properties in air_a";
-  Medium2.ThermodynamicState sta_b2=
-      Medium2.setState_phX(air_b.p,
+  MediumAir.ThermodynamicState sta_b2=
+      MediumAir.setState_phX(air_b.p,
                            noEvent(actualStream(air_b.h_outflow)),
                            noEvent(actualStream(air_b.Xi_outflow))) if
          show_T "Medium properties in air_b";
 
 protected
-  Medium1.ThermodynamicState state_a1_inflow=
-    Medium1.setState_phX(watCoo_a.p, inStream(watCoo_a.h_outflow), inStream(watCoo_a.Xi_outflow))
+  MediumWat.ThermodynamicState state_a1_inflow=
+    MediumWat.setState_phX(watCoo_a.p, inStream(watCoo_a.h_outflow), inStream(watCoo_a.Xi_outflow))
     "state for medium inflowing through watCoo_a";
-  Medium1.ThermodynamicState state_b1_inflow=
-    Medium1.setState_phX(watCoo_b.p, inStream(watCoo_b.h_outflow), inStream(watCoo_b.Xi_outflow))
+  MediumWat.ThermodynamicState state_b1_inflow=
+    MediumWat.setState_phX(watCoo_b.p, inStream(watCoo_b.h_outflow), inStream(watCoo_b.Xi_outflow))
     "state for medium inflowing through watCoo_b";
-  Medium2.ThermodynamicState state_a2_inflow=
-    Medium2.setState_phX(air_a.p, inStream(air_a.h_outflow), inStream(air_a.Xi_outflow))
+  MediumAir.ThermodynamicState state_a2_inflow=
+    MediumAir.setState_phX(air_a.p, inStream(air_a.h_outflow), inStream(air_a.Xi_outflow))
     "state for medium inflowing through air_a";
-  Medium2.ThermodynamicState state_b2_inflow=
-    Medium2.setState_phX(air_b.p, inStream(air_b.h_outflow), inStream(air_b.Xi_outflow))
+  MediumAir.ThermodynamicState state_b2_inflow=
+    MediumAir.setState_phX(air_b.p, inStream(air_b.h_outflow), inStream(air_b.Xi_outflow))
     "state for medium inflowing through air_b";
-
-public
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
 
 equation
 dp1 = watCoo_a.p - watCoo_b.p;
@@ -181,9 +211,8 @@ dp2 = air_a.p - air_b.p;
 
   connect(heaToRoo.port, heaPor)
     annotation (Line(points={{0,-46},{0,-120}},        color={191,0,0}));
-  connect(senFlo.m_flow, gai_1.u)
-    annotation (Line(points={{-90,-49},{-90,-49},{-90,-42}},
-                                                   color={0,0,127}));
+  connect(senFloAir.m_flow, gai_1.u)
+    annotation (Line(points={{-90,-49},{-90,-49},{-90,-42}}, color={0,0,127}));
   connect(sum.y,gai_2. u) annotation (Line(points={{61,30},{66,30},{70,30},{70,-20},
           {62,-20}}, color={0,0,127}));
   connect(gai_2.y,heaToRoo. Q_flow)
@@ -191,22 +220,22 @@ dp2 = air_a.p - air_b.p;
   connect(senTem.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},{
           -14,-52},{0,-52},{0,-120}},
                                   color={191,0,0}));
-  connect(air_b, senFlo.port_b)
-    annotation (Line(points={{-140,-60},{-100,-60}},color={0,127,255}));
-  connect(senFlo.port_a, air_a)
+  connect(air_b, senFloAir.port_b)
+    annotation (Line(points={{-140,-60},{-100,-60}}, color={0,127,255}));
+  connect(senFloAir.port_a, air_a)
     annotation (Line(points={{-80,-60},{140,-60}}, color={0,127,255}));
   connect(conCoo.port_b, watCoo_b)
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
           30},{38,30}}, color={0,0,127}));
-  connect(senFlo1.m_flow, gai_3.u) annotation (Line(points={{-110,71},{-110,100},
-          {-82,100}}, color={0,0,127}));
+  connect(senFloWatCoo.m_flow, gai_3.u) annotation (Line(points={{-110,71},{-110,
+          100},{-82,100}}, color={0,0,127}));
   connect(gai_3.y, conCoo.mWat_flow) annotation (Line(points={{-59,100},{-30,
           100},{-30,69},{-12,69}}, color={0,0,127}));
-  connect(watCoo_a, senFlo1.port_a)
+  connect(watCoo_a, senFloWatCoo.port_a)
     annotation (Line(points={{-140,60},{-120,60}}, color={0,127,255}));
-  connect(senFlo1.port_b, conCoo.port_a) annotation (Line(points={{-100,60},{
-          -100,60},{-10,60}}, color={0,127,255}));
+  connect(senFloWatCoo.port_b, conCoo.port_a) annotation (Line(points={{-100,60},
+          {-100,60},{-10,60}}, color={0,127,255}));
   connect(gai_1.y, conCoo.mAir_flow) annotation (Line(points={{-90,-19},{-90,-19},
           {-90,64},{-12,64}}, color={0,0,127}));
   connect(senTem.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},{

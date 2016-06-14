@@ -96,10 +96,12 @@ protected
     "state for medium inflowing through port_a1";
 
 equation
-  connect(hex.Q_flow, Q_flow) annotation (Line(points={{61,6},{70,6},{70,70},{110,
-          70}}, color={0,0,127}));
+  connect(hex.Q_flow, Q_flow) annotation (Line(points={{61,6},{70,6},{70,70},{
+          110,70}},
+                color={0,0,127}));
   connect(hex.port_b, port_b)
-    annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{60,0},{82,0},{100,0}},
+                                              color={0,127,255}));
   connect(mod.y, hex.u)
     annotation (Line(points={{11,60},{20,60},{20,6},{38,6}}, color={0,0,127}));
   connect(senTem.y, mod.TWat) annotation (Line(points={{-39,10},{-30,10},{-30,57},

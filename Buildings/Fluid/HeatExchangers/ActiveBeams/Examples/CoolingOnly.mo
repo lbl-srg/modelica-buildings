@@ -62,7 +62,9 @@ model CoolingOnly
   Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling beaCoo(
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Air,
-    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling per_coo,
+    redeclare
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
+      perCoo,
     mWatCoo_flow_nominal=0.094,
     mAir_flow_nominal=0.0792,
     conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
