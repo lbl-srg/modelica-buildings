@@ -4,18 +4,19 @@ block AirToOutlet
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
-
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+    annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealInput m_flow(
     final unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Modelica.Blocks.Interfaces.RealInput h(final unit="J/kg") "Specific enthalpy"
+  Modelica.Blocks.Interfaces.RealInput h(final unit="J/kg")
+    "Specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](each final unit="kg/kg")
+  Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](
+    each final unit="kg/kg")
     "Water vapor concentration in kg/kg total air"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
@@ -46,7 +47,7 @@ equation
     Xi_internal = zeros(Medium.nXi);
   end if;
 
-  outlet.m_flow    = m_flow;
+  outlet.m_flow = m_flow;
   // If m_flow <= 0, output default properties.
   // This avoids that changes in state variables of the return
   // air are propagated to the room model which may trigger an
@@ -66,7 +67,6 @@ equation
     X_w_internal = Medium.X_default[1];
     outlet.forward.C  = zeros(Medium.nC);
   end if;
-
   annotation (defaultComponentName = "con",
     Documentation(info="<html>
 <p>

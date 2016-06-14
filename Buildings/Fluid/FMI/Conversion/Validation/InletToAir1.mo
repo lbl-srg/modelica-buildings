@@ -4,7 +4,7 @@ model InletToAir1
   extends Modelica.Icons.Example;
 
   replaceable package Medium = Buildings.Media.Air "Medium model";
-    parameter Boolean use_p_in = false
+  parameter Boolean use_p_in = false
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
   parameter Boolean allowFlowReversal = false
@@ -15,8 +15,8 @@ model InletToAir1
   Modelica.Blocks.Sources.Constant T(k=295.13) "Room temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Fluid.FMI.Conversion.InletToAir conAir(redeclare package Medium =
-        Medium) "Converter for air"
+  Buildings.Fluid.FMI.Conversion.InletToAir conAir(
+    redeclare package Medium = Medium) "Converter for air"
     annotation (Placement(transformation(extent={{18,0},{38,20}})));
 
   Source_T sou(

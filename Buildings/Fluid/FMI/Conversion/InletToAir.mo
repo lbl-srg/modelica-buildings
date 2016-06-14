@@ -4,8 +4,8 @@ block InletToAir
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+    annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealOutput m_flow(
     final unit="kg/s") "Mass flow rate"
@@ -40,9 +40,6 @@ equation
   if Medium.nXi == 0 then
     X_w_internal = 0.0;
   end if;
-
-  // Xi internal has 1 or zero components, hence we can use the sum.
-  //X_w_internal = sum(Xi_internal);
 
   // Vapor concentration
   connect(inlet.forward.X_w,  X_w_internal);
