@@ -8,8 +8,8 @@ model RoomConvectiveHVACConvective
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
     annotation (Placement(transformation(extent={{40,-2},{62,18}})));
   model BaseCase "Base model used for the validation of the FMI interfaces"
-    extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics
-          =Modelica.Fluid.Types.Dynamics.FixedInitial));
+    extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics=
+      Modelica.Fluid.Types.Dynamics.FixedInitial));
     annotation (Documentation(info="<html>
 <p>
 This example is the base case model which is used to validate 
