@@ -13,16 +13,16 @@ model DerivativesCubicSpline "Cubic spline for interpolation"
 protected
   parameter Real[size(xd, 1)] dMonotone(each fixed=false)
     "Derivatives";
-  Integer i "Counter";
+  Integer i "Counter to pick the interpolation interval";
 
 initial algorithm
   // Get the derivative values at the support points
 
-  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
-      ensureMonotonicity=true);
-equation
-  // i is a counter that is used to pick the derivative of d or dMonotonic
-  // that correspond to the interval that contains u
+  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(
+    x=xd,
+    y=yd,
+    ensureMonotonicity=true);
+
 algorithm
   i := 1;
   for j in 1:size(xd, 1) - 1 loop
