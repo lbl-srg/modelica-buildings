@@ -113,17 +113,19 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-80,-34},{0,-80}},
+          extent={{-60,-34},{0,-80}},
           fillColor={255,0,0},
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Rectangle(
-          extent={{0,-34},{80,-80}},
+          extent={{0,-34},{64,-80}},
           fillColor={0,128,255},
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),
+          lineColor={0,0,0}),
+        Line(points={{-112,0},{-66,0},{-82,10}}, color={0,0,0}),
+        Line(points={{-66,0},{-82,-8}}, color={0,0,0})}),
           Documentation(info="<html>
 <p>
 This model is similar to

@@ -279,7 +279,11 @@ equation
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}),
+          textString="%name"),
+        Line(points={{-114,60},{-68,60},{-84,70}}, color={0,0,0}),
+        Line(points={{-68,60},{-84,52}}, color={0,0,0}),
+        Line(points={{114,-60},{70,-60},{84,-52}}, color={0,0,0}),
+        Line(points={{70,-60},{82,-68}}, color={0,0,0})}),
 defaultComponentName="actBea",
 Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
