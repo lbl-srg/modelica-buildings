@@ -23,12 +23,12 @@ model Convector
   Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector con(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=10000,
     per(
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,
       dT_nominal=-10,
-      Q_flow_nominal=1092))
+      Q_flow_nominal=1092,
+      dpWat_nominal=10000))
     "Convector model"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
