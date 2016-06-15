@@ -1,5 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Data;
-package BaseClasses "Base classes for performance records"
+package BaseClasses "Base classes for performance data"
+
+
 
 annotation (Documentation(info="<html>
 <p>

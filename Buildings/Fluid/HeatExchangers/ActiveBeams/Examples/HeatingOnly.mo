@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
 model HeatingOnly
-  import Buildings;
   extends Modelica.Icons.Example;
+  // fixme: all instances must have a short comment string
 
   Buildings.Fluid.Sources.FixedBoundary sin_1(redeclare package Medium =
         Buildings.Media.Water, nPorts=1)
@@ -66,16 +66,12 @@ model HeatingOnly
     T_start=293.15)
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
-  Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea beaCooHea(
-    redeclare package Medium1 = Buildings.Media.Water,
-    redeclare package Medium2 = Buildings.Media.Air,
-    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling per_coo,
-    mWatCoo_flow_nominal=0.094,
-    mAir_flow_nominal=0.0792,
-    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating per_hea,
-    mWatHea_flow_nominal=0.094,
-    conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
-    conHea(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
+  Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
+    redeclare package MediumWat = Buildings.Media.Water,
+    redeclare package MediumAir = Buildings.Media.Air,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation
   connect(fixedTemperature.port,thermalConductor. port_a)
@@ -122,12 +118,20 @@ equation
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
 <p>
-The example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea</a> only in heating mode. An air volume is maintained at a temperature above 22 degree Celsius by a controller regulating the water flow in the active beam.
-
-
-
- <p>
-
+This example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>, but operates it only in heating mode.
+An air volume is maintained at a temperature above 22&circ;C by a controller that regulates the water flow rate in the active beam.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2016, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+May 20, 2016, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HeatingOnly;

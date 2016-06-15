@@ -14,9 +14,11 @@ package Trox "Performance data for Trox"
         f =   {0,0.71,0.85,0.92,0.97,1,1.04}),
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal =   0.094,
+      dpWat_nominal = 10000 "fixme: Check if this is a reasonable value",
       dT_nominal =          -10,
       Q_flow_nominal =   -1092)
-  "Performance data for Trox DID 632A for cooling mode" annotation (
+      "Performance data for Trox DID 632A for cooling mode"
+       annotation (
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -48,9 +50,11 @@ Performance data for Trox active beam for cooling mode.
         f =   {0,0.71,0.85,0.92,0.97,1,1.04}),
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal =   0.094,
+      dpWat_nominal = 10000  "fixme: Check if this is a reasonable value",
       dT_nominal =          27.8,
       Q_flow_nominal =   2832)
-  "Performance data for Trox DID 632A for heating mode" annotation (
+      "Performance data for Trox DID 632A for heating mode"
+      annotation (
     Documentation(revisions="<html>
 <ul>
 <li>

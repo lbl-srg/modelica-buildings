@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-model Cooling "model of an active beam unit for cooling"
+model Cooling "Active beam unit for cooling"
 
   replaceable package MediumWat = Modelica.Media.Interfaces.PartialMedium
     "Medium 1 in the component"
@@ -14,7 +14,7 @@ model Cooling "model of an active beam unit for cooling"
       choicesAllMatching=true,
       Placement(transformation(extent={{72,-92},{92,-72}})));
 
-  parameter Real nBeams(min=1)=1 "Number of beams";
+  parameter Real nBeams(min=1)=1 "Number of beams. fixme: in series or in parallel? [Also make sure Q_flow and dp are scaled correctly for nBeams>1]";
 
   parameter Boolean allowFlowReversalWat=true
     "= true to allow flow reversal in water circuit, false restricts to design direction (port_a -> port_b)"
@@ -27,6 +27,18 @@ model Cooling "model of an active beam unit for cooling"
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
+
+  // Flow resistance
+  parameter Boolean from_dpWat = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
+                tab="Flow resistance"));
+  parameter Boolean linearizeFlowResistanceWat = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Flow resistance"));
+  parameter Real deltaMWat = 0.1
+    "Fraction of nominal flow rate where flow transitions to laminar"
+    annotation(Dialog(tab="Flow resistance"));
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -40,21 +52,12 @@ model Cooling "model of an active beam unit for cooling"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
-  parameter Medium.AbsolutePressure p_start = Medium.p_default
+  parameter MediumWat.AbsolutePressure pWatCoo_start = MediumWat.p_default
     "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start = Medium.T_default
+    annotation(Dialog(tab = "Initialization", group = "Cooling"));
+  parameter MediumWat.Temperature TWatCoo_start = MediumWat.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium.nX](
-    final quantity=Medium.substanceNames) = Medium.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
-  parameter Medium.ExtraProperty C_start[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-    "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-
+    annotation(Dialog(tab = "Initialization", group = "Cooling"));
 
   parameter MediumWat.MassFlowRate mWat_flow_small(min=0) = 1E-4*abs(perCoo.mWat_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
@@ -68,66 +71,7 @@ model Cooling "model of an active beam unit for cooling"
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
-    "Heat tranferred to the room" annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-36})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor "heat port"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-
-  Modelica.Blocks.Math.Sum sum "connector for heating and cooling mode"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.Blocks.Math.Gain gai_1(k=1/nBeams)
-    "Air mass flow rate for a single beam" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-90,-30})));
-  Sensors.MassFlowRate senFloWatCoo(redeclare final package Medium = MediumWat)
-    "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Sensors.MassFlowRate senFloAir(redeclare final package Medium = MediumAir)
-    "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
-    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-  Modelica.Blocks.Math.Gain gai_2(final k=-nBeams)
-    "multiplicator to take into account all the beams" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={50,-20})));
-
-   Modelica.Blocks.Math.Gain gai_3(k=1/nBeams)
-    "Water mass flow rate for a single beam" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,100})));
-
-  BaseClasses.Convector conCoo(
-    redeclare final package Medium = MediumWat,
-    final per=per,
-    final m_flow_nominal=perCoo.mWat_flow_nominal,
-    final allowFlowReversal=allowFlowReversalWat,
-    final m_flow_small=mWat_flow_small,
-    final show_T=false,
-    final homotopyInitialization=homotopyInitialization,
-    final from_dp=from_dp,
-    final dp_nominal=dp_nominal,
-    final linearizeFlowResistance=linearizeFlowResistance,
-    final deltaM=deltaM,
-    final tau=tau,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start) "Cooling beam"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-
+  // Ports
   Modelica.Fluid.Interfaces.FluidPort_a watCoo_a(
     redeclare final package Medium = MediumWat,
     m_flow(min=if allowFlowReversalWat then -Modelica.Constants.inf else 0),
@@ -154,72 +98,124 @@ model Cooling "model of an active beam unit for cooling"
     "Fluid connector air_b (positive design flow direction is from air_a to air_b)"
     annotation (Placement(transformation(extent={{-130,-70},{-150,-50}})));
 
-  MediumWat.MassFlowRate m1_flow(start=0) = watCoo_a.m_flow
-    "Mass flow rate from watCoo_a to watCoo_b (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp1(start=0, displayUnit="Pa")
-    "Pressure difference between watCoo_a and watCoo_b";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPor
+    "Heat port, to be connected to room air"
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 
-  MediumAir.MassFlowRate m2_flow(start=0) = air_a.m_flow
-    "Mass flow rate from air_a to air_b (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp2(start=0, displayUnit="Pa")
-    "Pressure difference between air_a and air_b";
-
-  MediumWat.ThermodynamicState sta_a1=
+  MediumWat.ThermodynamicState staWatCoo_a=
       MediumWat.setState_phX(watCoo_a.p,
                            noEvent(actualStream(watCoo_a.h_outflow)),
                            noEvent(actualStream(watCoo_a.Xi_outflow))) if
-         show_T "Medium properties in watCoo_a";
-  MediumWat.ThermodynamicState sta_b1=
+         show_T "Medium properties in port watCoo_a";
+  MediumWat.ThermodynamicState staWatCoo_b=
       MediumWat.setState_phX(watCoo_b.p,
                            noEvent(actualStream(watCoo_b.h_outflow)),
                            noEvent(actualStream(watCoo_b.Xi_outflow))) if
-         show_T "Medium properties in watCoo_b";
-  MediumAir.ThermodynamicState sta_a2=
+         show_T "Medium properties in port watCoo_b";
+  MediumAir.ThermodynamicState staAir_a=
       MediumAir.setState_phX(air_a.p,
                            noEvent(actualStream(air_a.h_outflow)),
                            noEvent(actualStream(air_a.Xi_outflow))) if
-         show_T "Medium properties in air_a";
-  MediumAir.ThermodynamicState sta_b2=
+         show_T "Medium properties in port air_a";
+  MediumAir.ThermodynamicState staAir_b=
       MediumAir.setState_phX(air_b.p,
                            noEvent(actualStream(air_b.h_outflow)),
                            noEvent(actualStream(air_b.Xi_outflow))) if
-         show_T "Medium properties in air_b";
+         show_T "Medium properties in port air_b";
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
+    "Heat tranferred to the room (in addition to heat from supply air)" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,-36})));
+
+  // Pressure drop
+  Modelica.SIunits.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p - watCoo_b.p
+    "Pressure difference watCoo_a minus watCoo_b";
+
+  // fixme: dpAir is always zero as there is no pressure drop in this flow path.
+  //        Should dpAir_nominal be added to Data.Generic, and a fixed resistance model be added?
+  Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
+    "Pressure difference air_a minus air_b";
 
 protected
-  MediumWat.ThermodynamicState state_a1_inflow=
-    MediumWat.setState_phX(watCoo_a.p, inStream(watCoo_a.h_outflow), inStream(watCoo_a.Xi_outflow))
-    "state for medium inflowing through watCoo_a";
-  MediumWat.ThermodynamicState state_b1_inflow=
-    MediumWat.setState_phX(watCoo_b.p, inStream(watCoo_b.h_outflow), inStream(watCoo_b.Xi_outflow))
-    "state for medium inflowing through watCoo_b";
-  MediumAir.ThermodynamicState state_a2_inflow=
-    MediumAir.setState_phX(air_a.p, inStream(air_a.h_outflow), inStream(air_a.Xi_outflow))
-    "state for medium inflowing through air_a";
-  MediumAir.ThermodynamicState state_b2_inflow=
-    MediumAir.setState_phX(air_b.p, inStream(air_b.h_outflow), inStream(air_b.Xi_outflow))
-    "state for medium inflowing through air_b";
+  BaseClasses.Convector conCoo(
+    redeclare final package Medium = MediumWat,
+    final per=perCoo,
+    final allowFlowReversal=allowFlowReversalWat,
+    final m_flow_small=mWat_flow_small,
+    final show_T=false,
+    final homotopyInitialization=homotopyInitialization,
+    final from_dp=from_dpWat,
+    final linearizeFlowResistance=linearizeFlowResistanceWat,
+    final deltaM=deltaMWat,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=pWatCoo_start,
+    final T_start=TWatCoo_start) "Cooling beam"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
+  Modelica.Blocks.Math.Sum sum "Connector for heating and cooling mode"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+
+  Modelica.Blocks.Math.Gain gaiAirFlo(final k=1/nBeams, y(final unit="kg/s"))
+    "Gain to scale air mass flow rate to a single beam" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-90,-30})));
+
+  Modelica.Blocks.Math.Gain gai_2(
+    final k=-nBeams,
+    u(final unit="W"),
+    y(final unit="W"))
+    "Gain to take into account all the beams" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={50,-20})));
+
+   Modelica.Blocks.Math.Gain gaiWatCooFlo(final k=1/nBeams, y(final unit="kg/s"))
+    "Gain to scale water mass flow rate to a single beam" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,100})));
+
+  Sensors.MassFlowRate senFloWatCoo(
+    redeclare final package Medium = MediumWat)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+  Sensors.MassFlowRate senFloAir(
+    redeclare final package Medium = MediumAir)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRooAir
+    "Temperature sensor for room air"
+    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+
+initial equation
+  assert(perCoo.primaryAir.r_V[1]<=0.000001 and perCoo.primaryAir.f[1]<=0.00001,
+    "Performance curve perCoo.primaryAir must pass through (0,0).");
+  assert(perCoo.water.r_V[1]<=0.000001      and perCoo.water.f[1]<=0.00001,
+    "Performance curve perCoo.water must pass through (0,0).");
+  assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
+    "Performance curve perCoo.dT must pass through (0,0).");
+
 
 equation
-dp1 = watCoo_a.p - watCoo_b.p;
-dp2 = air_a.p - air_b.p;
-
-        assert(conCoo.mod.airFlo_mod.xd[1]<=0.000001 and conCoo.mod.airFlo_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
-
-        assert(conCoo.mod.watFlo_mod.xd[1]<=0.000001 and conCoo.mod.watFlo_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
-
-        assert(conCoo.mod.temDif_mod.xd[1]<=0.000001 and conCoo.mod.temDif_mod.yd[1]<=0.00001, "performance curve has to pass through (0,0)");
-
   connect(heaToRoo.port, heaPor)
-    annotation (Line(points={{0,-46},{0,-120}},        color={191,0,0}));
-  connect(senFloAir.m_flow, gai_1.u)
+    annotation (Line(points={{0,-46},{0,-120}}, color={191,0,0}));
+  connect(senFloAir.m_flow, gaiAirFlo.u)
     annotation (Line(points={{-90,-49},{-90,-49},{-90,-42}}, color={0,0,127}));
   connect(sum.y,gai_2. u) annotation (Line(points={{61,30},{66,30},{70,30},{70,-20},
           {62,-20}}, color={0,0,127}));
   connect(gai_2.y,heaToRoo. Q_flow)
     annotation (Line(points={{39,-20},{0,-20},{0,-26}}, color={0,0,127}));
-  connect(senTem.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},{
-          -14,-52},{0,-52},{0,-120}},
-                                  color={191,0,0}));
+  connect(senTemRooAir.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},
+          {-14,-52},{0,-52},{0,-120}}, color={191,0,0}));
   connect(air_b, senFloAir.port_b)
     annotation (Line(points={{-140,-60},{-100,-60}}, color={0,127,255}));
   connect(senFloAir.port_a, air_a)
@@ -228,18 +224,19 @@ dp2 = air_a.p - air_b.p;
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
           30},{38,30}}, color={0,0,127}));
-  connect(senFloWatCoo.m_flow, gai_3.u) annotation (Line(points={{-110,71},{-110,
-          100},{-82,100}}, color={0,0,127}));
-  connect(gai_3.y, conCoo.mWat_flow) annotation (Line(points={{-59,100},{-30,
-          100},{-30,69},{-12,69}}, color={0,0,127}));
+  connect(senFloWatCoo.m_flow, gaiWatCooFlo.u) annotation (Line(points={{-110,71},
+          {-110,100},{-82,100}}, color={0,0,127}));
+  connect(gaiWatCooFlo.y, conCoo.mWat_flow) annotation (Line(points={{-59,100},{
+          -30,100},{-30,69},{-12,69}}, color={0,0,127}));
   connect(watCoo_a, senFloWatCoo.port_a)
     annotation (Line(points={{-140,60},{-120,60}}, color={0,127,255}));
   connect(senFloWatCoo.port_b, conCoo.port_a) annotation (Line(points={{-100,60},
           {-100,60},{-10,60}}, color={0,127,255}));
-  connect(gai_1.y, conCoo.mAir_flow) annotation (Line(points={{-90,-19},{-90,-19},
-          {-90,64},{-12,64}}, color={0,0,127}));
-  connect(senTem.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},{
-          -50,54},{-12,54}}, color={0,0,127}));
+  connect(gaiAirFlo.y, conCoo.mAir_flow) annotation (Line(points={{-90,-19},{-90,
+          -19},{-90,64},{-12,64}}, color={0,0,127}));
+  connect(senTemRooAir.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},
+          {-50,54},{-12,54}}, color={0,0,127}));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-140,
             -120},{140,120}}), graphics={Rectangle(
           extent={{-120,100},{120,-100}},
@@ -252,13 +249,7 @@ dp2 = air_a.p - air_b.p;
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-80,-34},{0,-80}},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Rectangle(
-          extent={{0,-34},{80,-80}},
+          extent={{-38,-34},{42,-80}},
           fillColor={0,128,255},
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
@@ -283,68 +274,109 @@ dp2 = air_a.p - air_b.p;
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-                                 Text(
+        Text(
           extent={{-149,141},{151,101}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}),            defaultComponentName="beaCoo",Diagram(coordinateSystem(
+          textString="%name")}),
+defaultComponentName="actBea",
+Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
 Documentation(info="<html>
 <p>
 Model of an active beam, based on the EnergyPlus beam model  <code>AirTerminal:SingleDuct:ConstantVolume:FourPipeBeam</code>.
 </p>
-This model operates only in cooling mode. For a model that operates in both heating and cooling mode use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingHea</a>
-<p> The model proposed is a simple empirical model. Sets of data for rated capacities under corresponding rated operating 
-conditions are adjusted by modification factors applied to account for how performance differs when operating away from the design point.
-The model assumes that the total power of the active beam unit is the sum of the power provided by the primary air <i>Q<sub>SA</sub></i> and the power provided by the beam convector <i>Q<sub>Beam</sub></i>. 
 <p>
-<i>Q<sub>SA</sub> </i> is delivered to a thermal zone (e.g. <a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>) through the fluid ports. Conversely, <i>Q<sub>Beam</sub></i> is coupled directly to the heat port. 
+This model operates only in cooling mode. For a model that operates in both heating and cooling mode,
+use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>.
 </p>
-The primary air contribution is easily determined using:
-<p align=\"center\" style=\"font-style:italic;\">
-  Q<sub>SA</sub> = <code>m&#775;<sub>SA</sub></code>c<sub>p,SA</sub>(T<sub>SA</sub>-T<sub>Z</sub>)
-  <p> 
-  where <i><code>m&#775;<sub>SA</sub></code></i> is the primary air mass flow rate, <i>c<sub>p,SA</sub></i> is the air specific heat capacity, <i>T<sub>SA</sub></i> is the primary air temperature 
-  and <i>T<sub>Z</sub></i> is the zone air temperature
-  <p>
-The beam convector power <i>Q<sub>Beam</sub></i> is determined using rated capacity that is modified by three separate functions: 
-  <p align=\"center\" style=\"font-style:italic;\">
-  Q<sub>Beam</sub> = Q<sub>rated</sub> f<sub><code>&#916;</code>T</sub>( ) f<sub>SA</sub>( ) f<sub>W</sub>( ) 
 <p>
-The modification factor <i>f<sub><code>&#916;</code>T</sub>( )</i> describes how the capacity is adjusted to account for the temperature difference between the zone air and the water entering the convector.
-The single independent variable is the ratio between the current temperature difference <i><code>&#916;</code>T</i> and temperature difference used to rate beam performance <i><code>&#916;</code>T<sub>rated</sub></i>.
-   <p align=\"center\" style=\"font-style:italic;\">
-   f<sub><code>&#916;</code>T</sub>( ) = f<sub><code>&#916;</code>T</sub> ( <code>&#916;</code>T &frasl; <code>&#916;</code>T<sub>rated</sub> ) 
-    <p align=\"center\" style=\"font-style:italic;\">
-    <code>&#916;</code>T = T<sub>Z</sub>-T<sub>CW</sub> for cooling mode
-     
-      <p> 
-      where <i>T<sub>CW</sub> </i> is the chilled water temperature entering the convector in cooling mode.
-   <p>
-   The modification factor <i>f<sub>SA</sub>( )</i> describes how the cooling capacity is adjusted to account for the primary air flow rate. 
-   The single independent variable is the ratio between the current primary air flow rate <i><code>m&#775;<sub>SA</sub></code></i> and the flow rate used to rate beam performance
-   <i><code>m&#775;<sub>SA,rated</sub></code></i>.
-    <p align=\"center\" style=\"font-style:italic;\">
-    f<sub>SA</sub>( ) = f<sub>SA</sub> ( <code>m&#775;<sub>SA</sub></code> &frasl; <code>m&#775;<sub>SA,rated</sub></code> ) 
-   <p>
+The model is a simple empirical model. Sets of data for rated capacities under corresponding rated operating 
+conditions are adjusted by modification factors that account for off-design conditions in water flow rate,
+primary air flow rate and temperature difference.
+The total heat flow rate of the active beam unit is the sum of the heat flow rate provided by the primary air supply
+<i>Q<sub>SA</sub></i> and the heat flow rate provided by the beam convector <i>Q<sub>Beam</sub></i>
+which injects room air and mixes it with the primary air.
+</p>
+<p>
+The heat flow rate
+<i>Q<sub>SA</sub> </i> is delivered to a thermal zone such as
+<a href=\"modelica://Buildings.Rooms.MixedAir\">
+Buildings.Rooms.MixedAir</a>
+through the fluid ports, while the heat flow rate from the convector <i>Q<sub>Beam</sub></i>
+is coupled directly to the heat port.
+See for example
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly</a>
+for how to connect these heat flow rates to a control volume.
+</p>
+<p>
+The primary air contribution is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q<sub>SA</sub> = &#7745;<sub>SA</sub> c<sub>p,SA</sub> (T<sub>SA</sub>-T<sub>Z</sub>)
+</p>
+<p> 
+where <i>&#7745;<sub>SA</sub></i> is the primary air mass flow rate,
+<i>c<sub>p,SA</sub></i> is the air specific heat capacity,
+<i>T<sub>SA</sub></i> is the primary air temperature 
+and <i>T<sub>Z</sub></i> is the zone air temperature.
+</p>
+<p>
+The heat flow rate of the beam convector <i>Q<sub>Beam</sub></i> is determined using
+the rated capacity which is modified by three separate functions as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q<sub>Beam</sub> = Q<sub>nominal</sub> 
+f<sub>&#916;T</sub> ( &#916;T &frasl; &#916;T<sub>nominal</sub> )
+f<sub>SA</sub>( &#7745;<sub>SA</sub> &frasl; &#7745;<sub>SA,nominal</sub> )
+f<sub>W</sub>( &#7745;<sub>W</sub> ),
+</p>
+<p>
+the modification factors are as follows:
+The modification factor <i>f<sub>&#916;T</sub>(&middot;)</i>
+describes how the capacity is adjusted to account for the temperature difference
+between the zone air and the water entering the convector.
+The independent variable is the ratio between the current temperature difference
+<i>&#916;T</i> and the temperature difference used to rate beam performance <i>&#916;T<sub>nominal</sub></i>.
+The temperature differnce is 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+    &#916;T = T<sub>CW</sub>-T<sub>Z</sub>,
+</p>
+<p>
+where <i>T<sub>CW</sub></i> is the chilled water temperature entering the convector.
+
+The modification factor <i>f<sub>SA</sub>(&middot;)</i> adjusts the cooling capacity to account for varying primary air flow rate.
+The independent variable is the ratio between the current primary air flow rate <i>&#7745;<sub>SA</sub></i>
+and the air flow rate used to rate beam performance.
    
-   The modification factor <i>f<sub>W</sub>( )</i> describes describes how the cooling capacity is adjusted to account for the flow rate of water through the convector. 
-   The single independent variable is the ratio between the current water flow rate <i><code>m&#775;<sub>W</sub></code></i> and the water flow rate used to rate beam performance
-   <i><code>m&#775;<sub>W,rated</sub></code></i>.
-    <p align=\"center\" style=\"font-style:italic;\">
-    f<sub>W</sub>( ) = f<sub>W</sub> ( <code>m&#775;<sub>W</sub></code> &frasl; <code>m&#775;<sub>W,rated</sub></code> ) 
-    <p>
-    
-    Currently, the model only includes performance data related to the TROX DID632A product with a type H nozzle and 6 foot active lenght. 
-    Additional performance data can be developed by providing rated points for temperature difference, primary air flow rate and water flow rate for heating and cooling mode.
-   <p>
+The modification factor <i>f<sub>W</sub>(&middot;)</i> adjusts the cooling capacity for changes in water flow rate through the convector.
+The independent variable is the ratio between the current water flow rate <i>&#7745;<sub>W</sub></i>
+and the water flow rate used to rate beam performance.
+</p>
+<p>
+Performance data are available from
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Data\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
+</p>
 <h4>References</h4>
 <ul>
 <li>
 DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2016, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+May 20, 2016, by Alessandro Maccarini:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

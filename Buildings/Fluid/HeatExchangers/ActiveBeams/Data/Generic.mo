@@ -16,21 +16,27 @@ record Generic "Generic data record for active beam"
     f={0,0.5,1})
     "Performance data for normalized temperature difference room minus water inlet";
 
-    // fixme: for mAir_flow, mWat_flow_nominal and Q_flow_nominal, state whether
-    //        it is per beam or total.
+    // fixme: for mAir_flow, mWat_flow_nominal, dpWat_nominal and Q_flow_nominal, state whether
+    //        it is per beam or total, and make sure these quantities are correctly scaled
+    //        if the number of beams changes
   parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Nominal air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Nominal water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.PressureDifference dpWat_nominal
+    "Water-side nominal pressure difference"
+    annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.TemperatureDifference dT_nominal
-    "Nominal temperature difference room-water"
+    "Nominal temperature difference water inlet minus room air"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal "Nominal capacity"
     annotation (Dialog(group="Nominal condition"));
 
-  annotation (Documentation(revisions="<html>
+  annotation (defaultComponentName="per",
+Documentation(revisions="<html>
 <ul>
 <li>
 June 13, 2016, by Michael Wetter:<br/>

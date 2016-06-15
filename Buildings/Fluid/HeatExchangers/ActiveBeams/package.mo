@@ -5,7 +5,7 @@ package ActiveBeams
 annotation (Documentation(info="<html>
 <p>
 This package contains models of active beams for cooling and heating.
-fixme: expand, and add figure.
+fixme: expand the description and explain what an active beam is, ideally add a figure.
 </p>
 </html>"));
 end ActiveBeams;

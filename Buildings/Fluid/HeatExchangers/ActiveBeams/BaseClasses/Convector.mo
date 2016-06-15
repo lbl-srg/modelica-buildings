@@ -3,7 +3,8 @@ model Convector "Heat exchanger for the water stream"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal = per.mWat_flow_nominal);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=true);
+    final computeFlowResistance=true,
+    final dp_nominal = per.dpWat_nominal);
 
   parameter Data.Generic per "Performance data"
     annotation (choicesAllMatching = true,
@@ -78,22 +79,22 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final Q_flow_nominal=per.Q_flow_nominal)
+    final Q_flow_nominal=-per.Q_flow_nominal)
     "Heat exchanger for the water stream"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   ModificationFactor mod(
     final per=per)
-    "Calculator of the modification factors"
+    "Performance modification for part load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Modelica.Blocks.Sources.RealExpression senTem(y=Medium.temperature(state_a))
+  Modelica.Blocks.Sources.RealExpression senTem(y=Medium.temperature(port_a_inflow))
     "Actual water temperature entering the beam"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Medium.ThermodynamicState state_a=
+  Medium.ThermodynamicState port_a_inflow=
     Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))
-    "state for medium inflowing through port_a1";
+    "state for medium inflowing through port_a";
 
 equation
   connect(hex.Q_flow, Q_flow) annotation (Line(points={{61,6},{70,6},{70,70},{

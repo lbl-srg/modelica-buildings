@@ -1,6 +1,9 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
-package BaseClasses 
+package BaseClasses "Base classes for active beam models"
   extends Modelica.Icons.BasesPackage;
+
+
+
 
 annotation (Documentation(info="<html>
 <p>
