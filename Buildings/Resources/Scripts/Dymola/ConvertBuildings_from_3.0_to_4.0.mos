@@ -14,3 +14,13 @@ convertClass("Buildings.Fluid.FMI.TwoPort",
              "Buildings.Fluid.FMI.ExportContainers.PartialTwoPort");
 convertClass("Buildings.Fluid.FMI.TwoPortComponent",
              "Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort");
+
+convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+               "eta",
+               "r_P");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower");
+
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan");
+
