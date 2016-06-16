@@ -1,9 +1,9 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACConvectiveSingleZone
   "Simple convective only HVAC system that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
-    redeclare final package Medium = MediumA,
-    theZonAda(nPorts=2));
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(hvacAda(
+              nPorts=2),
+    redeclare final package Medium = MediumA);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
@@ -224,13 +224,11 @@ equation
           140}},                                   color={0,0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
           -52,50},{-36,50},{-36,88},{-32,88}}, color={0,127,255}));
-  connect(fan.port_b, theZonAda.ports[1])
-    annotation (Line(points={{70,100},{82,100},{82,110},{92,110},{92,110},{120,
-          110},{120,110}},                                 color={0,127,255}));
-  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-70,84},{
-          -70,84},{-60,84},{-60,72},{100,72},{100,110},{120,110}},
-                                                                 color={0,127,
+  connect(fan.port_b, hvacAda.ports[1]) annotation (Line(points={{70,100},{82,
+          100},{82,110},{92,110},{92,110},{120,110},{120,110}}, color={0,127,
           255}));
+  connect(hex.port_a2, hvacAda.ports[2]) annotation (Line(points={{-70,84},{-70,
+          84},{-60,84},{-60,72},{100,72},{100,110},{120,110}}, color={0,127,255}));
   connect(TAirZon, con.u) annotation (Line(points={{180,100},{156,100},{156,0},
           {-120,0},{-120,10},{-114,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
@@ -255,7 +253,7 @@ Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
-The instance <code>theZonAda</code> is the thermal zone adapter
+The instance <code>hvacAda</code> is the HVAC adapter
 that contains on the left a fluid port, and on the right signal ports
 which are then used to connect at the top-level of the model to signal
 ports which are exposed at the FMU interface.

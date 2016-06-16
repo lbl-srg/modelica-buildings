@@ -98,12 +98,12 @@ equation
   connect(TOut1.port, theCon.port_a)
     annotation (Line(points={{0,90},{0,90},{20,90}}, color={191,0,0}));
 
-  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,142},
+  connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,142},
           {60,142},{60,140},{60,140},{60,10},{80,10}},            color={191,0,0}));
-  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,150},
+  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,150},
           {-60,150},{-48,150},{-48,-16},{88,-16},{88,0}},               color={0,
           127,255}));
-  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,150},
+  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,150},
           {-54,150},{-54,-20},{92,-20},{92,0}},     color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
           -54},{0,-40},{120,-40},{120,120},{20,120}}, color={0,0,127}));
@@ -115,31 +115,10 @@ equation
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
-      Rectangle(
-        extent={{-52,62},{76,-46}},
-        lineColor={150,150,150},
-        fillPattern=FillPattern.Solid,
-        fillColor={150,150,150}),
         Text(
           extent={{-22,-112},{28,-132}},
           lineColor={0,0,127},
-          textString="TOut"),
-      Polygon(
-        points={{12,104},{-66,62},{92,62},{12,104}},
-        lineColor={95,95,95},
-        smooth=Smooth.None,
-        fillPattern=FillPattern.Solid,
-        fillColor={95,95,95}),
-      Rectangle(
-        extent={{-38,-6},{2,44}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-      Rectangle(
-        extent={{22,-6},{60,44}},
-        lineColor={255,255,255},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),                        Diagram(
+          textString="TOut")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>
@@ -159,8 +138,8 @@ Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
 which provides 
 the input and output signals that are needed to interface 
 the acausal thermal zone model with causal connectors of FMI. 
-The instance <code>theHvaAda</code> is the HVAC system 
-adapter that contains on the right a fluid port, and on 
+The instance <code>theZonAda</code> is the thermal zone adaptor
+that contains on the right a fluid port, and on 
 the left signal ports which are then used to connect at 
 the top-level of the model to signal ports which are 
 exposed at the FMU interface. 

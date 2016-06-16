@@ -1,8 +1,8 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
-    redeclare package Medium = Buildings.Media.Air, nFluPor = 1,
-    theHvaAda(nFluPor=1));
+    theZonAda(nFluPor=1),
+    redeclare package Medium = Buildings.Media.Air, nFluPor = 1);
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -35,11 +35,11 @@ block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
 equation
   connect(rooAir.y, TAir.T)
     annotation (Line(points={{99,40},{99,40},{86,40}},       color={0,0,127}));
-  connect(TAir.port, theHvaAda.heaPorAir) annotation (Line(points={{64,40},{60,40},
+  connect(TAir.port,theZonAda.heaPorAir)  annotation (Line(points={{64,40},{60,40},
           {60,144},{-60,144}},             color={191,0,0}));
   connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},{
           0,148},{0,200}},      color={0,0,127}));
-  connect(theHvaAda.ports[1], bou.ports[1]) annotation (Line(points={{-60,152},{
+  connect(theZonAda.ports[1], bou.ports[1]) annotation (Line(points={{-60,152},{
           -52,152},{-52,150},{-40,150},{-40,0},{100,0}},               color={0,
           127,255}));
     annotation (

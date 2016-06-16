@@ -268,14 +268,13 @@ equation
   connect(min.y, con.u) annotation (Line(points={{-101,-70},{-110,-70},{-110,
           -36},{-100,-36}},
                       color={0,0,127}));
-  connect(theZonAda[1].ports[2], hex.port_a2) annotation (Line(points={{110,100},
-          {100,100},{102,100},{102,70},{-60,70},{-60,84},{-82,84}},
-                                                                  color={0,127,255}));
-  connect(theZonAda[2].ports[2], hex.port_a2) annotation (Line(points={{110,100},
-          {104,100},{104,68},{-62,68},{-62,84},{-82,84}},
-                                                        color={0,127,255}));
-  connect(fan2.port_a, theZonAda[2].ports[3]) annotation (Line(points={{-20,50},
-          {-20,50},{106,50},{106,100},{110,100}},color={0,127,255}));
+  connect(hvacAda[1].ports[2], hex.port_a2) annotation (Line(points={{120,110},
+          {100,110},{100,100},{100,70},{-60,70},{-60,84},{-82,84}}, color={0,
+          127,255}));
+  connect(hvacAda[2].ports[2], hex.port_a2) annotation (Line(points={{120,110},
+          {104,110},{104,68},{-62,68},{-62,84},{-82,84}}, color={0,127,255}));
+  connect(fan2.port_a, hvacAda[2].ports[3]) annotation (Line(points={{-20,50},{
+          -20,50},{106,50},{106,110},{120,110}}, color={0,127,255}));
   connect(fan2.port_b, res.port_a) annotation (Line(points={{-40,50},{-50,50},{
           -60,50}},   color={0,127,255}));
   connect(res.port_b, out.ports[3]) annotation (Line(points={{-80,50},{-114,50},
@@ -283,12 +282,12 @@ equation
         color={0,127,255}));
   connect(fan.port_b, resSup1.port_a) annotation (Line(points={{60,100},{66,100},
           {66,116},{70,116}}, color={0,127,255}));
-  connect(resSup1.port_b, theZonAda[1].ports[1]) annotation (Line(points={{90,
-          116},{100,116},{100,100},{110,100}}, color={0,127,255}));
+  connect(resSup1.port_b, hvacAda[1].ports[1]) annotation (Line(points={{90,116},
+          {100,116},{100,110},{120,110}}, color={0,127,255}));
   connect(fan.port_b, resSup2.port_a) annotation (Line(points={{60,100},{66,100},
           {66,86},{70,86}}, color={0,127,255}));
-  connect(resSup2.port_b, theZonAda[2].ports[1]) annotation (Line(points={{90,
-          86},{100,86},{100,100},{110,100}}, color={0,127,255}));
+  connect(resSup2.port_b, hvacAda[2].ports[1]) annotation (Line(points={{90,86},
+          {100,86},{100,110},{120,110}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
@@ -312,7 +311,7 @@ Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.
-The instance <code>theZonAda</code> is the thermal zone adapter
+The instance <code>hvacAda</code> is the HVAC adapter
 that contains on the left a fluid port, and on the right signal ports
 which are then used to connect at the top-level of the model to signal
 ports which are exposed at the FMU interface.

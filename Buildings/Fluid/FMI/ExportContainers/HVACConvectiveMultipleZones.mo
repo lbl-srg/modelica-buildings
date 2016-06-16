@@ -58,24 +58,22 @@ partial block HVACConvectiveMultipleZones
     "Latent heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda[nZon](
-    redeclare each final package Medium = Medium,
-    each final nPorts = nPorts)
+  Adaptors.HVACConvective hvacAda[nZon](redeclare each final package Medium =
+        Medium, each final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{110,90},{130,110}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
 equation
-  connect(TAirZon, theZonAda.TAirZon)
-    annotation (Line(points={{180,100},{131,100},{131,100}}, color={0,0,127}));
-  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,40},{148,40},
-          {148,96},{130.8,96}},
-                              color={0,0,127}));
-  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,10},{144,10},{144,
-          92},{131,92}}, color={0,0,127}));
+  connect(TAirZon, hvacAda.TAirZon) annotation (Line(points={{180,100},{158,100},
+          {158,110},{141,110},{141,110}}, color={0,0,127}));
+  connect(X_wZon, hvacAda.X_wZon) annotation (Line(points={{180,40},{154,40},{
+          154,106},{141,106}}, color={0,0,127}));
+  connect(CZon, hvacAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
+          102},{141,102}}, color={0,0,127}));
   for iZon in 1:nZon loop
     for iPor in 1:nPorts loop
-      connect(theZonAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(points={{131,107},{140,107},
-          {140,140},{170,140}}, color={0,0,255}));
+      connect(hvacAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(
+            points={{141,117},{154,117},{154,140},{170,140}}, color={0,0,255}));
     end for;
   end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
@@ -177,7 +175,7 @@ equation
           rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
         graphics={Text(
-          extent={{114,90},{128,84}},
+          extent={{120,98},{134,92}},
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
@@ -262,6 +260,18 @@ pressure, hence, for example, <code>ports[1, 1].p = porst[1, 2].p = ... </code>.
 However, <code>ports[1, 1].p</code> need not be at the same pressure as
 <code>porst[2, 1].p</code>
 </p>
+<p>
+See
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>
+for a model that uses this model.
+</p>
+<p>
+For models that only have one thermal zone connected to the HVAC system,
+use the simpler model
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
+</p>
 <h4>Assumption and limitations</h4>
 <p>
 The mass flow rates at <code>ports</code> sum to zero, hence this
@@ -283,19 +293,6 @@ model with pressure driven mass flow rates.
 The model has no pressure drop. Hence, the pressure drop
 of an air diffuser or of an exhaust grill needs to be modelled
 in models that are connected to <code>ports</code>.
-</p>
-<h4>Typical use and important parameters</h4>
-<p>
-See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>
-for a model that uses this model.
-</p>
-<p>
-For models that only have one thermal zone connected to the HVAC system,
-use the simpler model
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>.
 </p>
 </html>", revisions="<html>
 <ul>

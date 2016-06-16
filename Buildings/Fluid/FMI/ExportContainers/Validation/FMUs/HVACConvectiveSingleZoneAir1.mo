@@ -1,8 +1,8 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneAir1 "Validation model for the convective HVAC system"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
-    redeclare package Medium = Buildings.Media.Air,
-    theZonAda(nPorts=2));
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(hvacAda(
+              nPorts=2),
+    redeclare package Medium = Buildings.Media.Air);
 
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
@@ -40,9 +40,9 @@ equation
   connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -140},{180,-140}},
                            color={0,0,127}));
-  connect(sup.port_b, theZonAda.ports[1]) annotation (Line(points={{40,110},{76,
+  connect(sup.port_b, hvacAda.ports[1]) annotation (Line(points={{40,110},{76,
           110},{76,100},{110,100}}, color={0,127,255}));
-  connect(ret.port_a, theZonAda.ports[2]) annotation (Line(points={{40,70},{76,70},
+  connect(ret.port_a, hvacAda.ports[2]) annotation (Line(points={{40,70},{76,70},
           {76,100},{110,100}}, color={0,127,255}));
 annotation (
     Documentation(info="<html>

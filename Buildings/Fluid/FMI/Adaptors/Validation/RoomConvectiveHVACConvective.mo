@@ -6,7 +6,7 @@ model RoomConvectiveHVACConvective
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone hvaCon
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
-    annotation (Placement(transformation(extent={{40,-2},{62,18}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   model BaseCase "Base model used for the validation of the FMI interfaces"
     extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics=
       Modelica.Fluid.Types.Dynamics.FixedInitial));
@@ -85,20 +85,22 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
   end BaseCase;
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.Constant rooRad(k=295.13) "Radiative temperature"
+  Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
 equation
 
   connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-39.375,11.25},{0,
-          11.25},{0,0.5},{38.625,0.5}}, color={0,0,127}));
-  connect(hvaCon.X_wZon, rooCon.X_wZon) annotation (Line(points={{-39.375,13.125},
-          {4,13.125},{4,3},{38.625,3}}, color={0,0,127}));
+          11.25},{0,2.5},{38.75,2.5}},  color={0,0,127}));
+  connect(hvaCon.X_wZon, rooCon.X_wZon) annotation (Line(points={{-39.375,
+          13.125},{4,13.125},{4,5},{38.75,5}},
+                                        color={0,0,127}));
   connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,18.75},
-          {0.3125,18.75},{0.3125,16.75},{39.3125,16.75}}, color={0,0,255}));
-  connect(hvaCon.TAirZon, rooCon.TAirZon) annotation (Line(points={{-39.375,16.875},
-          {-4,16.875},{-4,14},{24,14},{24,5.5},{38.625,5.5}}, color={0,0,127}));
-  connect(hvaCon.TRadZon, rooRad.y) annotation (Line(points={{-39.375,15},{0,15},
-          {0,-30},{39,-30}}, color={0,0,127}));
+          {39.375,18.75}},                                color={0,0,255}));
+  connect(hvaCon.TAirZon, rooCon.TAirZon) annotation (Line(points={{-39.375,
+          16.875},{-4,16.875},{-4,14},{24,14},{24,7.5},{38.75,7.5}},
+                                                              color={0,0,127}));
+  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.375,15},{0,
+          15},{0,-30},{39,-30}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(

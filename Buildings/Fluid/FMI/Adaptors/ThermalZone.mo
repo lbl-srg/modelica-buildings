@@ -238,23 +238,23 @@ equation
             Bitmap(extent={{0,50},{100,98}},   fileName=
             "modelica://Buildings/Resources/Images/Fluid/FMI/modelica_icon.png"),
         Rectangle(
-          extent={{44,-22},{90,30}},
+          extent={{38,-22},{84,30}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{50,24},{84,-18}},
+          extent={{44,26},{78,-18}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
         Rectangle(
-          extent={{84,14},{90,-8}},
+          extent={{78,14},{84,-8}},
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{86,10},{88,-6}},
+          extent={{80,10},{82,-6}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),

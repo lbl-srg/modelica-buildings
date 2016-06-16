@@ -8,10 +8,10 @@ partial block HVACConvectiveSingleZone
 
   // Set allowFlowReversal = false to remove the backward connector.
   // This is done to avoid that we get the same zone states multiple times.
-  Interfaces.Outlet fluPor[size(theZonAda.fluPor, 1)](
+  Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](
     redeclare each final package Medium = Medium,
-    each final use_p_in = false,
-    each final allowFlowReversal = false) "Fluid connector"
+    each final use_p_in=false,
+    each final allowFlowReversal=false) "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
 
   Modelica.Blocks.Interfaces.RealInput TAirZon(
@@ -53,21 +53,18 @@ partial block HVACConvectiveSingleZone
     "Latent heat input into zone (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
 
-  Buildings.Fluid.FMI.Adaptors.HVACConvective theZonAda(
-    redeclare final package Medium = Medium)
+  Adaptors.HVACConvective hvacAda(redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
 equation
-  connect(TAirZon, theZonAda.TAirZon) annotation (Line(points={{180,100},{156,
-          100},{156,110},{141,110}}, color={0,0,127}));
-  connect(X_wZon, theZonAda.X_wZon) annotation (Line(points={{180,40},{152,40},
-          {152,106},{140.8,106}},
-                              color={0,0,127}));
-  connect(CZon, theZonAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
-          102},{141,102}},
-                         color={0,0,127}));
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{141,117},{150,117},
+  connect(TAirZon, hvacAda.TAirZon) annotation (Line(points={{180,100},{156,100},
+          {156,110},{141,110}}, color={0,0,127}));
+  connect(X_wZon, hvacAda.X_wZon) annotation (Line(points={{180,40},{152,40},{
+          152,106},{141,106}}, color={0,0,127}));
+  connect(CZon, hvacAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
+          102},{141,102}}, color={0,0,127}));
+  connect(hvacAda.fluPor, fluPor) annotation (Line(points={{141,117},{150,117},
           {150,140},{170,140}}, color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
@@ -215,6 +212,18 @@ The outflowing fluid stream(s) at the port <code>ports</code> will be at this
 state. All fluid streams at port <code>ports</code> are at the same
 pressure.
 </p>
+<p>
+See
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+for a model that uses this model.
+</p>
+<p>
+For models that multiple thermal zones connected to the HVAC system,
+use the model
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones</a>.
+</p>
 <h4>Assumption and limitations</h4>
 <p>
 The mass flow rates at <code>ports</code> sum to zero, hence this
@@ -236,19 +245,6 @@ model with pressure driven mass flow rates.
 The model has no pressure drop. Hence, the pressure drop
 of an air diffuser or of an exhaust grill needs to be modelled
 in models that are connected to <code>ports</code>.
-</p>
-<h4>Typical use and important parameters</h4>
-<p>
-See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
-for a model that uses this model.
-</p>
-<p>
-For models that multiple thermal zones connected to the HVAC system,
-use the model
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones</a>.
 </p>
 </html>", revisions="<html>
 <ul>
