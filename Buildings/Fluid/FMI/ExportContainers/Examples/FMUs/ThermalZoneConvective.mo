@@ -42,9 +42,9 @@ model ThermalZoneConvective "Simple thermal zone"
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{152,130},{132,150}})));
+    annotation (Placement(transformation(extent={{150,110},{130,130}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{14,130},{34,150}})));
+    annotation (Placement(transformation(extent={{10,110},{30,130}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{20,-20},
             {-20,20}},
@@ -55,10 +55,10 @@ model ThermalZoneConvective "Simple thermal zone"
         origin={0,-160})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,82},{0,102}})));
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,82},{40,102}})));
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
     QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
@@ -69,14 +69,14 @@ model ThermalZoneConvective "Simple thermal zone"
     mSenFac=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2)
-    annotation (Placement(transformation(extent={{86,2},{106,22}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=0.0) "mass flow rate"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{132,140},{24,140}},
+      points={{130,120},{20,120}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -84,33 +84,34 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,92},{40,92},{60,92},{60,12},{86,12}},
+    annotation (Line(points={{40,90},{40,90},{60,90},{60,10},{80,10}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,60},{60,60},{60,12},{86,12}},
+    annotation (Line(points={{80,60},{60,60},{60,10},{80,10}},
                                                             color={191,0,0}));
-  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,92},{-40,92},{
-          -40,140},{24,140}},
+  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,90},{-40,90},{
+          -40,120},{20,120}},
                           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
-    annotation (Line(points={{0,92},{0,92},{20,92}}, color={191,0,0}));
+    annotation (Line(points={{0,90},{0,90},{20,90}}, color={191,0,0}));
 
-  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,144},
-          {0,144},{0,120},{60,120},{60,12},{86,12}},              color={191,0,0}));
-  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,152},{
-          -58,152},{-58,150},{-50,150},{-50,-10},{94,-10},{94,2}},      color={0,
+  connect(theHvaAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,142},
+          {60,142},{60,140},{60,140},{60,10},{80,10}},            color={191,0,0}));
+  connect(theHvaAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,150},
+          {-60,150},{-48,150},{-48,-16},{88,-16},{88,0}},               color={0,
           127,255}));
-  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,152},{
-          -54,152},{-54,-20},{98,-20},{98,2}},      color={0,127,255}));
+  connect(theHvaAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,150},
+          {-54,150},{-54,-20},{92,-20},{92,0}},     color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
-          -54},{0,-40},{120,-40},{120,140},{24,140}}, color={0,0,127}));
-  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{84,20},{66,20},{
-          48,20},{48,50},{21,50}}, color={0,0,127}));
-  connect(TWat.y, vol.TWat) annotation (Line(points={{21,20},{30,20},{30,16.8},{
-          84,16.8}}, color={0,0,127}));
+          -54},{0,-40},{120,-40},{120,120},{20,120}}, color={0,0,127}));
+  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,18},{78,18},
+          {40,18},{40,50},{21,50}},color={0,0,127}));
+  connect(TWat.y, vol.TWat) annotation (Line(points={{21,10},{40,10},{40,14},{
+          40,14.8},{78,14.8}},
+                     color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={

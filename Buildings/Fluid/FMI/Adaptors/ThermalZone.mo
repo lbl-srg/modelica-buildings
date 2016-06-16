@@ -34,11 +34,15 @@ model ThermalZone
     redeclare each final package Medium = Medium) annotation (Placement(transformation(extent={{90,
             40},{110,-40}}), iconTransformation(extent={{90,40},{110,-40}})));
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
+    "Heat port for sensible heat input" annotation (Placement(transformation(
+          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-90},{110,-70}})));
+
 protected
   x_i_toX_w x_i_toX(
     redeclare final package Medium = Medium) if
     Medium.nXi > 0 "Conversion from x_i to X_w"
-    annotation (Placement(transformation(extent={{-42,-30},{-62,-10}})));
+    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
   RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
     Medium.nXi > 0 "Water vapor concentration of supply air"
@@ -56,7 +60,7 @@ protected
     each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
     each final use_m_flow_in=true) "Boundary conditions for ThermalZone system"
-    annotation (Placement(transformation(extent={{56,50},{76,70}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Conversion.InletToAir con[nFluPor](
     redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{-84,50},{-64,70}})));
@@ -67,7 +71,7 @@ protected
 
   BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
     if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{-12,46},{8,66}})));
+    annotation (Placement(transformation(extent={{-10,46},{10,66}})));
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
@@ -161,47 +165,45 @@ can only be used in <code>connect</code> statements.
 </html>"));
   end x_i_toX_w;
 
-public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
-    "Heat port for sensible heat input" annotation (Placement(transformation(
-          extent={{90,-90},{110,-70}}), iconTransformation(extent={{90,-90},{110,
-            -70}})));
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
 
   for i in 1:nFluPor loop
-    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{76,60},{76,0},{
-            100,0}}, color={0,127,255}));
+    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{60,60},{60,60},
+            {80,60},{80,0},{100,0}},
+                     color={0,127,255}));
   end for;
   connect(con.inlet, fluPor)
     annotation (Line(points={{-85,60},{-85,60},{-110,60}},
                                                        color={0,0,255}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-62,56},{-62,56},{-58,
-          56},{-14,56}},
-                      color={0,0,127}));
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-62,56},{-62,56},{-12,
+          56}},       color={0,0,127}));
   connect(senTemAir.T, TAirZon)
-    annotation (Line(points={{50,-60},{50,20},{-120,20}}, color={0,0,127}));
+    annotation (Line(points={{50,-60},{50,-60},{40,-60},{40,20},{-120,20}},
+                                                          color={0,0,127}));
   connect(CSup.y, CZon)
     annotation (Line(points={{-1,-60},{-1,-60},{-120,-60}},color={0,0,127}));
 
   connect(x_w_toX.X, bou.X_in)
-    annotation (Line(points={{10,56},{54,56}}, color={0,0,127}));
-  connect(con.C, bou.C_in) annotation (Line(points={{-62,52},{-62,52},{-44,52},{
-          -44,40},{32,40},{32,52},{56,52}}, color={0,0,127}));
+    annotation (Line(points={{12,56},{32,56},{38,56}},
+                                               color={0,0,127}));
+  connect(con.C, bou.C_in) annotation (Line(points={{-62,52},{-62,52},{-44,52},
+          {-44,40},{20,40},{20,52},{40,52}},color={0,0,127}));
   connect(con.m_flow, bou.m_flow_in) annotation (Line(points={{-62,68},{-50,68},
-          {-40,68},{-40,80},{46,80},{46,68},{56,68}}, color={0,0,127}));
-  connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{92,-80},
-          {92,-60},{70,-60}}, color={191,0,0}));
+          {-40,68},{-40,80},{28,80},{28,68},{40,68}}, color={0,0,127}));
+  connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
+          {80,-60},{70,-60}}, color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
-    annotation (Line(points={{-1,-20},{-40,-20}}, color={0,0,127}));
+    annotation (Line(points={{-1,-20},{-38,-20}}, color={0,0,127}));
   connect(TAirZon, TAirZon) annotation (Line(points={{-120,20},{-114,20},{-114,20},
           {-120,20}}, color={0,0,127}));
-  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-64,-20},{-121,-20},{-121,
-          -19}}, color={0,0,127}));
-  connect(con.T, bou.T_in) annotation (Line(points={{-62,64},{-46,64},{-30,64},{
-          -30,76},{36,76},{36,64},{54,64}}, color={0,0,127}));
+  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-62,-20},{-121,-20},{
+          -121,-19}},
+                 color={0,0,127}));
+  connect(con.T, bou.T_in) annotation (Line(points={{-62,64},{-46,64},{-30,64},
+          {-30,74},{20,74},{20,64},{38,64}},color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false, initialScale=0.1),
@@ -298,30 +300,24 @@ Adaptor that can be used to connect a model of a thermal zone (with acausal port
 to input/output signals, which can be exposed in an FMI interface.
 </p>
 <p>
-This model gets a vector <code>fluPor</code> of <code>nFluPor</code> FMI connector 
-for fluid inlets.
+This model has a vector <code>fluPor</code> with dimension <code>nFluPor</code>
+which can be exposed at the FMI interface for the connecting the HVAC system.
 These connectors contain for each fluid inlet the mass flow rate, the temperature, 
-the water vapor mass fraction per total mass of the air, 
-and trace substances. 
+the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>), 
+and the trace substances (unless <code>Medium.nC=0</code>). 
 </p>
 
 <p>
-The model uses a mass flow source
-<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
-Buildings.Fluid.FMI.Sources.MassFlowSource_pT
-</a> to transfer these quantities to the signal <code>ports</code>.
-</p>
-
-<p>
-The signal <code>ports</code> are used to connect the model with a thermal zone.
-The number of connection of the signal <code>ports</code> must 
-match the number of <code>nFlupor</code>.
+The connector <code>ports</code> can be used to connect the model with a thermal zone.
+The number of connections to <code>ports</code> must 
+be equal to <code>nFluPor</code>.
 </p>
 
 <p>
 The output signals of this model are the zone air temperature,
-the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
-and trace substances (unless <code>Medium.nC=0</code>). The outflowing fluid stream(s) 
+the water vapor mass fraction per total mass of the zone air (unless <code>Medium.nXi=0</code>)
+and the trace substances of the zone air (unless <code>Medium.nC=0</code>).
+The outflowing fluid stream(s) 
 at the port <code>ports</code> are at this state.
 </p>
 

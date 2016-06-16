@@ -96,10 +96,10 @@ public
     linearized=true,
     dp_nominal=100)
     "Flow resistance to decouple pressure state from boundary"
-    annotation (Placement(transformation(extent={{66,-14},{86,6}})));
+    annotation (Placement(transformation(extent={{66,-2},{86,18}})));
   Sources.FixedBoundary bouCon(redeclare package Medium = MediumA, nPorts=1)
     "Fixed pressure boundary condition, required to set a reference pressure"
-    annotation (Placement(transformation(extent={{116,-14},{96,6}})));
+    annotation (Placement(transformation(extent={{116,-2},{96,18}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
     2*Modelica.Constants.pi)) "Outdoor temperature"
     annotation (Placement(transformation(extent={{122,-52},{102,-32}})));
@@ -121,16 +121,15 @@ equation
     annotation (Line(points={{-101,32},{-101,32},{-90,32}}, color={0,0,127}));
   connect(theZonAda.TAirZon, conPI.u_m) annotation (Line(points={{-20.2,10.8},{-112,
           10.8},{-112,20}}, color={0,0,127}));
-  connect(bou.T_in, conPI.u_m) annotation (Line(points={{-74,-36},{-62,-36},{-62,
-          8},{-112,8},{-112,20}}, color={0,0,127}));
   connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-51.6,-44},{-51.6,-44},
           {-74,-44}}, color={0,0,127}));
   connect(theZonAda.CZon, bou.C_in) annotation (Line(points={{-20.2,1},{-58,1},{
           -58,-48},{-76,-48}}, color={0,0,127}));
   connect(mFan_flow.y, mov.m_flow_in) annotation (Line(points={{-127,-8},{-116.2,
           -8},{-116.2,-18}}, color={0,0,127}));
-  connect(x_w_toX.X_w, theZonAda.X_wZon) annotation (Line(points={{-32.4,-44},{-30,
-          -44},{-30,6.2},{-20.2,6.2}}, color={0,0,127}));
+  connect(x_w_toX.X_w, theZonAda.X_wZon) annotation (Line(points={{-32.4,-44},{
+          -28,-44},{-28,6},{-24,6},{-24,6.2},{-20.2,6.2}},
+                                       color={0,0,127}));
   connect(theZonAda.ports[1], vol.ports[1])
     annotation (Line(points={{2,8},{44,8},{52,8},{52,24}}, color={0,127,255}));
   connect(bou.ports[1], mov.port_a) annotation (Line(points={{-96,-40},{-114,-40},
@@ -138,13 +137,16 @@ equation
   connect(bouOut.outlet, theZonAda.fluPor[1]) annotation (Line(points={{-33,26},
           {-28,26},{-28,16},{-20.2,16}}, color={0,0,255}));
   connect(res.port_b, bouCon.ports[1])
-    annotation (Line(points={{86,-4},{96,-4}}, color={0,127,255}));
+    annotation (Line(points={{86,8},{88,8},{90,8},{96,8}},
+                                               color={0,127,255}));
   connect(TBou.port, theCon.port_a)
     annotation (Line(points={{68,-42},{56,-42}}, color={191,0,0}));
   connect(TOut.y, TBou.T)
     annotation (Line(points={{101,-42},{90,-42}}, color={0,0,127}));
-  connect(res.port_a, vol.ports[2]) annotation (Line(points={{66,-4},{66,-4},{56,
-          -4},{56,24}}, color={0,127,255}));
+  connect(res.port_a, vol.ports[2]) annotation (Line(points={{66,8},{66,8},{56,
+          8},{56,24}},  color={0,127,255}));
+  connect(theZonAda.TAirZon, bou.T_in) annotation (Line(points={{-20.2,10.8},{
+          -64,10.8},{-64,-36},{-74,-36}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(extent={{-160,-100},{140,100}},
           preserveAspectRatio=false), graphics={

@@ -74,7 +74,7 @@ block HVACConvectiveSingleZone
     eps=eps,
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=allowFlowReversal) "Heat recovery"
-    annotation (Placement(transformation(extent={{-102,80},{-82,100}})));
+    annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
   HeatExchangers.WetCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -100,7 +100,7 @@ block HVACConvectiveSingleZone
   Sources.Outside out(
     nPorts=2,
     redeclare package Medium = MediumA) "Outside air boundary condition"
-    annotation (Placement(transformation(extent={{-132,84},{-112,104}})));
+    annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
   Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -118,18 +118,18 @@ block HVACConvectiveSingleZone
     m_flow_nominal=mA_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-68,94},{-56,106}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Sensors.TemperatureTwoPort senTemSupAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     allowFlowReversal=allowFlowReversal) "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{14,94},{26,106}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
     "Controller for coil water flow rate"
     annotation (Placement(transformation(extent={{-112,6},{-92,26}})));
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-158,12},{-138,32}})));
+    annotation (Placement(transformation(extent={{-150,12},{-130,32}})));
   Modelica.Blocks.Math.BooleanToReal mWat_flow(
     realTrue = 0,
     realFalse = mW_flow_nominal)
@@ -162,20 +162,20 @@ equation
           -140},{180,-140}},
                            color={0,0,127}));
   connect(out.ports[1],hex. port_a1) annotation (Line(
-      points={{-112,96},{-102,96}},
+      points={{-100,96},{-90,96}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[2],hex. port_b2) annotation (Line(
-      points={{-112,92},{-102,92},{-102,84}},
+      points={{-100,92},{-94,92},{-94,84},{-90,84}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1],cooCoi. port_a1)   annotation (Line(
-      points={{-12,16},{0,16},{0,88},{-12,88}},
+      points={{-12,16},{-8,16},{-8,88},{-12,88}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
-      points={{-132,140},{-112,140},{-112,120},{-152,120},{-152,94},{-140,94},{
-          -140,94.2},{-132,94.2}},
+      points={{-132,140},{-126,140},{-126,120},{-126,120},{-126,94},{-126,94},{
+          -126,94},{-124,94},{-124,94.2},{-120,94.2}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -184,23 +184,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1,senTemHXOut. port_a) annotation (Line(
-      points={{-82,96},{-72,96},{-72,100},{-68,100}},
+      points={{-70,96},{-66,96},{-66,100},{-60,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHXOut.port_b,cooCoi. port_a2) annotation (Line(
-      points={{-56,100},{-32,100}},
+      points={{-40,100},{-32,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2,senTemSupAir. port_a) annotation (Line(
-      points={{-12,100},{14,100}},
+      points={{-12,100},{20,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemSupAir.port_b,fan. port_a) annotation (Line(
-      points={{26,100},{50,100}},
+      points={{40,100},{50,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRooSetPoi.y,con. reference) annotation (Line(
-      points={{-137,22},{-114,22}},
+      points={{-129,22},{-114,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y,mWat_flow. u) annotation (Line(
@@ -220,20 +220,19 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut,weaBus. TDryBul)
-    annotation (Line(points={{0,-180},{0,-174},{0,-140},{40,-140},{40,120},{-60,
-          120},{-60,140}},                         color={0,0,127}));
-  connect(con.u, theZonAda.TAirZon) annotation (Line(points={{-114,10},{-120,10},
-          {-120,-20},{120,-20},{120,80},{150,80},{150,110},{141,110}}, color={0,
-          0,127}));
+    annotation (Line(points={{0,-180},{0,-180},{0,-140},{0,120},{-60,120},{-60,
+          140}},                                   color={0,0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
-          -48,50},{-40,50},{-40,88},{-32,88}}, color={0,127,255}));
+          -52,50},{-36,50},{-36,88},{-32,88}}, color={0,127,255}));
   connect(fan.port_b, theZonAda.ports[1])
     annotation (Line(points={{70,100},{82,100},{82,110},{92,110},{92,110},{120,
           110},{120,110}},                                 color={0,127,255}));
-  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-82,84},{
-          -82,84},{-60,84},{-60,72},{100,72},{100,110},{120,110}},
+  connect(hex.port_a2, theZonAda.ports[2]) annotation (Line(points={{-70,84},{
+          -70,84},{-60,84},{-60,72},{100,72},{100,110},{120,110}},
                                                                  color={0,127,
           255}));
+  connect(TAirZon, con.u) annotation (Line(points={{180,100},{156,100},{156,0},
+          {-120,0},{-120,10},{-114,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(

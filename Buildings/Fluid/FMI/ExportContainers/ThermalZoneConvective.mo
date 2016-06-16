@@ -30,19 +30,20 @@ partial block ThermalZoneConvective
     redeclare final package
     Medium = Medium, nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{-80,142},{-60,162}})));
+    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 
 equation
-  connect(theHvaAda.fluPor, fluPor) annotation (Line(points={{-82.2,160},{-130.5,
-          160},{-170,160}},                  color={0,0,255}));
+  connect(theHvaAda.fluPor, fluPor) annotation (Line(points={{-82.2,158},{-82,
+          158},{-82,158},{-110,158},{-140,158},{-140,160},{-170,160}},
+                                             color={0,0,255}));
   connect(X_wZon, X_wZon)
     annotation (Line(points={{-180,-60},{-180,-60}},         color={0,0,127}));
   connect(CZon, theHvaAda.CZon) annotation (Line(points={{-180,-100},{-142,-100},
-          {-100,-100},{-100,145},{-82.2,145}}, color={0,0,127}));
+          {-100,-100},{-100,143},{-82.2,143}}, color={0,0,127}));
   connect(X_wZon, theHvaAda.X_wZon) annotation (Line(points={{-180,-60},{-150,
-          -60},{-120,-60},{-120,150.2},{-82.2,150.2}}, color={0,0,127}));
+          -60},{-120,-60},{-120,148.2},{-82.2,148.2}}, color={0,0,127}));
   connect(TAirZon, theHvaAda.TAirZon) annotation (Line(points={{-180,-20},{-180,
-          -20},{-140,-20},{-140,154.8},{-82.2,154.8}}, color={0,0,127}));
+          -20},{-140,-20},{-140,152.8},{-82.2,152.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={Rectangle(
           extent={{-160,180},{160,-140}},
@@ -104,14 +105,15 @@ equation
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
-<p>
+<p>fixme: Michael to review documentation
 Model that is used as a container for a thermal
 zone that is to be exported as an FMU.
 </p>
 <h4>Typical use and important parameters</h4>
+<p>
 This model has a user-defined parameter <code>nFluPor</code>
 which sets the number of inlet fluid ports.
-
+</p>
 <p>
 This model gets a vector <code>fluPor</code> of <code>nFluPor</code> FMI connector 
 for fluid inlets.
