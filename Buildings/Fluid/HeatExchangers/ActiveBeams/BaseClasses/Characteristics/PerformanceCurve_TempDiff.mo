@@ -1,11 +1,12 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Characteristics;
-record PerformanceCurve_TempDiff "Record for primary air parameters"
+record PerformanceCurve_TempDiff "Record for temperature difference"
   extends Modelica.Icons.Record;
-  parameter Real Normalized_TempDiff[:](
-    each min=0) "variable at user-selected operating points";
-  parameter Real ModFactor[size(Normalized_TempDiff,1)](
-     each min=0,
-     each displayUnit="1") "modifier f at these flow rates";
+  // fixme: is this always bigger than zero, for heating and for cooling?
+  //        The comment should say what difference it is, such as roo air minus entering water temperature.
+  parameter Real r_T[:](each min=0, each final unit="1")
+    "fixme: How is T normalized? Normalized temperature difference at user-selected operating points";
+  parameter Real ModFactor[size(r_T, 1)](each min=0, each final unit="1")
+    "Normalized performance factor at these flow rates";
 
   annotation (Documentation(info="<html>
 <p>

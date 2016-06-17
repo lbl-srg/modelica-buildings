@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
-model OnlyCoo
-  import Buildings;
+model CoolingOnly
   extends Modelica.Icons.Example;
+  // fixme: all instances must have a short comment string
 
   Buildings.Fluid.Sources.FixedBoundary sin_1(redeclare package Medium =
         Buildings.Media.Water, nPorts=1)
@@ -59,15 +59,11 @@ model OnlyCoo
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15)
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo beaCoo(
-    redeclare package Medium1 = Buildings.Media.Water,
-    redeclare package Medium2 = Buildings.Media.Air,
-    redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.TroxDID632A_nozzleH_lenght6ft_coo
-      per_coo,
-    mWatCoo_flow_nominal=0.094,
-    mAir_flow_nominal=0.0792,
-    conCoo(hex(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))
+  Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling beaCoo(
+    redeclare package MediumWat = Buildings.Media.Water,
+    redeclare package MediumAir = Buildings.Media.Air,
+    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation
   connect(fixedTemperature.port,thermalConductor. port_a)
@@ -105,17 +101,25 @@ equation
           {12,-80},{62,-80},{62,-70}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(StopTime=172800),
-            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/OnlyCoo.mos"
+            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingOnly.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
 <p>
-The example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.ActiveBeamCoo</a>. An air volume is maintained at a temperature below 25 degree Celsius by a controller regulating the water flow in the active beam. 
-
-
-
- <p>
-
+This example tests the implementation of <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>.
+An air volume is maintained at a temperature below 25&circ;C by a controller that regulates the water flow rate in the active beam.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2016, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+May 20, 2016, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
-end OnlyCoo;
+end CoolingOnly;
