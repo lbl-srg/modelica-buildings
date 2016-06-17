@@ -317,7 +317,7 @@ be equal to <code>nFluPor</code>.
 The output signals of this model are the zone air temperature,
 the water vapor mass fraction per total mass of the zone air (unless <code>Medium.nXi=0</code>)
 and the trace substances of the zone air (unless <code>Medium.nC=0</code>).
-The outflowing fluid stream(s) 
+The inflowing fluid stream(s) 
 at the port <code>ports</code> are at this state.
 </p>
 
