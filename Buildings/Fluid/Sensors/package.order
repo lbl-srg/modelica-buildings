@@ -23,6 +23,7 @@ TemperatureTwoPort
 TemperatureWetBulbTwoPort
 TraceSubstances
 TraceSubstancesTwoPort
+Velocity
 VolumeFlowRate
 Conversions
 Examples

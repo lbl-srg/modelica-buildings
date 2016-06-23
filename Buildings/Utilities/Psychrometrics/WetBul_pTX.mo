@@ -12,7 +12,7 @@ block WetBul_pTX
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
     final unit="1",
-    min=0) "Dry bulb temperature"
+    min=0) "Dry bulb water fraction"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p(
