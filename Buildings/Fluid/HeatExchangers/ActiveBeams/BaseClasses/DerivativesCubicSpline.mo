@@ -7,12 +7,10 @@ model DerivativesCubicSpline "Cubic spline for interpolation"
   Modelica.Blocks.Interfaces.RealInput u
     "Independent variable for interpolation"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y
-    "Interpolated value"
+  Modelica.Blocks.Interfaces.RealOutput y "Interpolated value"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  parameter Real[size(xd, 1)] dMonotone(each fixed=false)
-    "Derivatives";
+  parameter Real[size(xd, 1)] dMonotone(each fixed=false) "Derivatives";
   Integer i "Counter to pick the interpolation interval";
 
 initial algorithm

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model Convector "Heat exchanger for the water stream"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final m_flow_nominal = per.mWat_flow_nominal);
+    final m_flow_nominal = per.mWat_flow_nominal*nBeams);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true,
     final dp_nominal = per.dpWat_nominal);
@@ -9,6 +9,8 @@ model Convector "Heat exchanger for the water stream"
   parameter Data.Generic per "Performance data"
     annotation (choicesAllMatching = true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
+
+  parameter Real nBeams=1 "Number of beams";
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -42,15 +44,12 @@ model Convector "Heat exchanger for the water stream"
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-
   Modelica.Blocks.Interfaces.RealInput mWat_flow(
-    final unit="kg/s")
-    "Actual water mass flow rate of a single beam"
+    final unit="kg/s") "Actual water mass flow rate of a single beam"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
   Modelica.Blocks.Interfaces.RealInput mAir_flow(
-    final unit="kg/s")
-    "Air mass flow rate of a single beam"
+    final unit="kg/s") "Air mass flow rate of a single beam"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(
     final unit="K",
@@ -84,8 +83,7 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   ModificationFactor mod(
-    final per=per)
-    "Performance modification for part load"
+    final per=per) "Performance modification for part load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Blocks.Sources.RealExpression senTem(y=Medium.temperature(port_a_inflow))
