@@ -434,7 +434,15 @@ its class name ends with the string <code>Beta</code>.
 
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+       </td>
+       <td valign=\"top\">Corrected computation of the heat exchanger location which was wrong
+                          if <code>hHex_a &lt; hHex_b</code>, e.g., the port a of the heat exchanger
+                          is below the port b.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/531\">issue 531</a>.
+       </td>
+   </tr>   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
