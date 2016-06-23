@@ -148,6 +148,12 @@ its class name ends with the string <code>Beta</code>.
                           with bi-directional flow in the distribution pipes.
        </td>
        </tr>
+     <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
+       </td>
+       <td valign=\"top\">Reduced order models of thermal zones based
+                          on VDI 6007.
+       </td>
+       </tr>
    </table>
    <!-- New components for existing libraries -->
    <p>
@@ -155,12 +161,12 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.Velocity
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Sensor for the flow velocity.
        </td>
        </tr>
    </table>
