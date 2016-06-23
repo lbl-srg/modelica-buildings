@@ -60,7 +60,8 @@ protected
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=pWatHea_start,
-    final T_start=TWatHea_start) "Heating beam"
+    final T_start=TWatHea_start,
+    final nBeams=nBeams) "Heating beam"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Sensors.MassFlowRate senFlo2(

@@ -1,27 +1,31 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
 model CoolingAndHeating
   extends Modelica.Icons.Example;
-  // fixme: all instances must have a short comment string
+
   Buildings.Fluid.Sources.FixedBoundary sin_1(
     redeclare package Medium = Buildings.Media.Water,
-    nPorts=1)
+    nPorts=1) "Sink chilled water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_3(
     redeclare package Medium = Buildings.Media.Air,
     m_flow=0.0792,
     use_m_flow_in=false,
     T=285.85,
-    nPorts=1) annotation (Placement(transformation(extent={{100,10},{80,30}})));
+    nPorts=1) "Source air" annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Buildings.Fluid.Sources.FixedBoundary bou(redeclare package Medium =
-        Buildings.Media.Air, nPorts=1)
+        Buildings.Media.Air, nPorts=1) "sink air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=200)
+    "Thermal conductor (wall)"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 22)
+    "Heating set-point temperature"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=301.15)
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(
     yMax=0.094,
@@ -30,49 +34,53 @@ model CoolingAndHeating
     Ti=100,
     k=0.1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Controller for heating"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Buildings.Fluid.Sources.FixedBoundary sou_1(
     redeclare package Medium = Buildings.Media.Water,
     nPorts=1,
-    T=288.15)
+    T=288.15) "Source chilled water"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Buildings.Media.Water,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump hot water"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Modelica.Blocks.Math.Gain gain(k=1200)
+  Modelica.Blocks.Math.Gain gain(k=1200) "Gain for thermal loads"
     annotation (Placement(transformation(extent={{-68,-70},{-48,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    "Room air temperature sensor"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
     redeclare package Medium = Buildings.Media.Water,
     nPorts=1,
-    T=320.95) annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    T=320.95) "Source hot water" annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Fluid.Sources.FixedBoundary sin_2(redeclare package Medium =
-        Buildings.Media.Water, nPorts=1)
+        Buildings.Media.Water, nPorts=1) "Sink hot water"
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/86400,
     amplitude=1,
-    phase=-1.5707963267949)
+    phase=-1.5707963267949) "Source thermal loads"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
     redeclare package Medium = Buildings.Media.Air,
     m_flow_nominal=0.1,
     V=30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=296.15)
+    T_start=296.15) "Air volume (room)"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
     redeclare package Medium = Buildings.Media.Water,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "pump chilled water"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Blocks.Sources.Constant const1(
                                          k=273.15 + 25)
+    "Cooling set-point temperature"
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
   Buildings.Controls.Continuous.LimPID conPID1(
     yMax=0.094,
@@ -81,14 +89,20 @@ model CoolingAndHeating
     k=0.5,
     Ti=70,
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Controller for cooling"
          annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
     redeclare package MediumWat = Buildings.Media.Water,
     redeclare package MediumAir = Buildings.Media.Air,
-    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
-    redeclare Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+    redeclare
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
+                                                                                                     perCoo,
+    redeclare
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
+                                                                                                     perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    "Active Beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation
   connect(fixedTemperature.port,thermalConductor. port_a)

@@ -14,7 +14,7 @@ model Cooling "Active beam unit for cooling"
       choicesAllMatching=true,
       Placement(transformation(extent={{72,-92},{92,-72}})));
 
-  parameter Real nBeams(min=1)=1 "Number of beams. fixme: in series or in parallel? [Also make sure Q_flow and dp are scaled correctly for nBeams>1]";
+  parameter Real nBeams(min=1)=1 "Number of beams";
 
   parameter Boolean allowFlowReversalWat=true
     "= true to allow flow reversal in water circuit, false restricts to design direction (port_a -> port_b)"
@@ -26,7 +26,6 @@ model Cooling "Active beam unit for cooling"
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-
 
   // Flow resistance
   parameter Boolean from_dpWat = false
@@ -136,8 +135,17 @@ model Cooling "Active beam unit for cooling"
 
   // fixme: dpAir is always zero as there is no pressure drop in this flow path.
   //        Should dpAir_nominal be added to Data.Generic, and a fixed resistance model be added?
+  //answer: As you suggested, I added a fixed resistance model and the parameter dpAir_nominal to Data.Generic.
+  //I am not sure whether or not it is now needed to have the parameter dpAir.
+
   Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
     "Pressure difference air_a minus air_b";
+
+  FixedResistances.FixedResistanceDpM res(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=perCoo.mAir_flow_nominal*nBeams,
+    final dp_nominal=perCoo.dpAir_nominal)
+    annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
 
 protected
   BaseClasses.Convector conCoo(
@@ -154,7 +162,8 @@ protected
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=pWatCoo_start,
-    final T_start=TWatCoo_start) "Cooling beam"
+    final T_start=TWatCoo_start,
+    final nBeams=nBeams) "Cooling beam"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Blocks.Math.Sum sum "Connector for heating and cooling mode"
@@ -170,8 +179,8 @@ protected
   Modelica.Blocks.Math.Gain gai_2(
     final k=-nBeams,
     u(final unit="W"),
-    y(final unit="W"))
-    "Gain to take into account all the beams" annotation (Placement(
+    y(final unit="W")) "Gain to take into account all the beams"
+                                              annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -185,12 +194,10 @@ protected
         origin={-70,100})));
 
   Sensors.MassFlowRate senFloWatCoo(
-    redeclare final package Medium = MediumWat)
-    "Mass flow rate sensor"
+    redeclare final package Medium = MediumWat) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Sensors.MassFlowRate senFloAir(
-    redeclare final package Medium = MediumAir)
-    "Mass flow rate sensor"
+    redeclare final package Medium = MediumAir) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRooAir
     "Temperature sensor for room air"
@@ -203,7 +210,6 @@ initial equation
     "Performance curve perCoo.water must pass through (0,0).");
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
-
 
 equation
   connect(heaToRoo.port, heaPor)
@@ -218,8 +224,6 @@ equation
           {-14,-52},{0,-52},{0,-120}}, color={191,0,0}));
   connect(air_b, senFloAir.port_b)
     annotation (Line(points={{-140,-60},{-100,-60}}, color={0,127,255}));
-  connect(senFloAir.port_a, air_a)
-    annotation (Line(points={{-80,-60},{140,-60}}, color={0,127,255}));
   connect(conCoo.port_b, watCoo_b)
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
@@ -237,6 +241,10 @@ equation
   connect(senTemRooAir.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},
           {-50,54},{-12,54}}, color={0,0,127}));
 
+  connect(air_a, res.port_a)
+    annotation (Line(points={{140,-60},{90,-60},{40,-60}}, color={0,127,255}));
+  connect(senFloAir.port_a, res.port_b) annotation (Line(points={{-80,-60},{-30,
+          -60},{20,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-140,
             -120},{140,120}}), graphics={Rectangle(
           extent={{-120,100},{120,-100}},
@@ -345,7 +353,7 @@ describes how the capacity is adjusted to account for the temperature difference
 between the zone air and the water entering the convector.
 The independent variable is the ratio between the current temperature difference
 <i>&#916;T</i> and the temperature difference used to rate beam performance <i>&#916;T<sub>nominal</sub></i>.
-The temperature differnce is 
+The temperature difference is 
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
     &#916;T = T<sub>CW</sub>-T<sub>Z</sub>,

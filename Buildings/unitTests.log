@@ -1,0 +1,9 @@
+*** Warning: Regression tests are only run for 'Fluid\HeatExchangers\ActiveBeams'.
+*** Warning: CoolingAndHeating_Parallel.mat: beaCooHea.heaToRoo.Q_flow has absolute and relative error = 3.056e+02, 1.210e-01.
+             Maximum error is at t = 3100.0
+
+*** Warning: CoolingAndHeating_Parallel.mat: beaCooHea1.heaToRoo.Q_flow has absolute and relative error = 3.056e+03, 1.210e-01.
+             Maximum error is at t = 3100.0
+
+Script that runs unit tests had 3 warnings and 0 errors.
+

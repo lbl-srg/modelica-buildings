@@ -4,8 +4,7 @@ record Generic "Generic data record for active beam"
 
   parameter BaseClasses.AirFlow primaryAir(
     r_V={0,0.2,1},
-    f={0,0.5,1})
-    "Performance data for primary air";
+    f={0,0.5,1}) "Performance data for primary air";
   parameter
     Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses.WaterFlow water(
       r_V={0,0.5,1},
@@ -16,23 +15,26 @@ record Generic "Generic data record for active beam"
     f={0,0.5,1})
     "Performance data for normalized temperature difference room minus water inlet";
 
-    // fixme: for mAir_flow, mWat_flow_nominal, dpWat_nominal and Q_flow_nominal, state whether
-    //        it is per beam or total, and make sure these quantities are correctly scaled
-    //        if the number of beams changes
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal "Nominal air mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+    "Nominal air mass flow rate per beam"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
-    "Nominal water mass flow rate"
+    "Nominal water mass flow rate per beam"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpWat_nominal(displayUnit="Pa")
-    "Water-side nominal pressure difference"
+    "Water-side nominal pressure difference per beam"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.SIunits.PressureDifference dpAir_nominal(displayUnit="Pa")
+    "Air-side nominal pressure difference"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Nominal temperature difference water inlet minus room air"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal "Nominal capacity"
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Nominal capacity per beam"
     annotation (Dialog(group="Nominal condition"));
 
   annotation (defaultComponentName="per",

@@ -5,24 +5,23 @@ model ModificationFactor
   Modelica.Blocks.Sources.Constant const1(k=20) "Constant input signal"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp ramp(height=0.0792, duration=1)
-     "Ramp input signal"
+    "Ramp input signal"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp ramp1(height=0.094, duration=1)
-     "Ramp input signal"
+    "Ramp input signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     height=27.8,
     duration=1,
-    offset=20)
-     "Ramp input signal"
+    offset=20) "Ramp input signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor mod(per(
       Q_flow_nominal=0.094*2*4200,
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,
       dT_nominal=27.8,
-      dpWat_nominal=10000))
-      "Modification factor"
+      dpWat_nominal=10000,
+      dpAir_nominal=100)) "Modification factor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(ramp.y, mod.mAir_flow) annotation (Line(points={{-59,30},{-59,30},{-52,
