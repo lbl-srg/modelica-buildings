@@ -61,7 +61,7 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         42; 5166000,41.6; 5169600,41.5; 5173200,41.3; 5176800,41.2; 5180400,41])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*25.5)
@@ -85,10 +85,10 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
         295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-92,-32},{-78,-18}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(

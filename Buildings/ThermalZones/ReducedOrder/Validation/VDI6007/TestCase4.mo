@@ -62,7 +62,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         5166000,49.9; 5169600,49.7; 5173200,49.5; 5176800,49.2; 5180400,49])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)

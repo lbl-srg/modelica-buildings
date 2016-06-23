@@ -62,7 +62,7 @@ model TestCase3 "VDI 6007 Test Case 3 model"
         5166000,49.8; 5169600,49.5; 5173200,49.3; 5176800,49.1; 5180400,48.9])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)

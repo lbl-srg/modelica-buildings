@@ -67,7 +67,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         5173200,26.6,-500; 5176800,26.5,-500; 5180400,26.4,-500])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -79,10 +79,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heat
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
     annotation (Placement(transformation(extent={{66,-44},{86,-24}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow cool(T_ref=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool(T_ref=295.15)
     "Ideal cooler with limit"
     annotation (Placement(transformation(extent={{2,76},{22,96}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(

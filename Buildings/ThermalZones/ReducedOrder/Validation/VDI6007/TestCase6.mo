@@ -61,7 +61,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
         5162400,1004; 5166000,960; 5169600,919; 5173200,880; 5176800,843;
         5180400,808]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(T_ref=
         295.15) "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)

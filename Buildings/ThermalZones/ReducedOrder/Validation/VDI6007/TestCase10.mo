@@ -61,13 +61,13 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         5166000,26; 5169600,25.9; 5173200,25.8; 5176800,25.7; 5180400,25.6])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
         290.75) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
         290.75) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
         290.75) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
