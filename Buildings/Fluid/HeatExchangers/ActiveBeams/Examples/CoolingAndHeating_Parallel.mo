@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
 model CoolingAndHeating_Parallel
   extends Modelica.Icons.Example;
-
+  // fixme: propagate media and nBeams
   Buildings.Fluid.Sources.FixedBoundary sin_1(
     redeclare package Medium = Buildings.Media.Water,
     nPorts=2) "Sink chilled water"
@@ -44,11 +44,9 @@ model CoolingAndHeating_Parallel
     redeclare package MediumWat = Buildings.Media.Water,
     redeclare package MediumAir = Buildings.Media.Air,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
-                                                                                                     perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
-                                                                                                     perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nBeams=1) "Active beam"
     annotation (Placement(transformation(extent={{-14,28},{14,52}})));
@@ -83,13 +81,11 @@ model CoolingAndHeating_Parallel
     redeclare package MediumWat = Buildings.Media.Water,
     redeclare package MediumAir = Buildings.Media.Air,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
-                                                                                                     perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
-                                                                                                     perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    nBeams=10) "active beam"
+    nBeams=10) "Active beam"
     annotation (Placement(transformation(extent={{-14,-92},{14,-68}})));
   Modelica.Blocks.Sources.Step step(
     height=-0.094,
@@ -166,14 +162,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -180},{120,120}})),experiment(StopTime=5000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating_Parallel.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-200,-180},{120,120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
      Documentation(info="<html>
 <p>
 This example tests the implementation of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating_Parallel\">
 Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating_Parallel</a>
 for two steady state situations. The upper one has only one beam. The bottom one has ten beams in parallel.
-The aim is to show the scaling of heat tranfer and pressure drop when nBeams>1.
+The aim is to show that the scaling of heat tranfer and pressure drop for <code>nBeams &gt; 1</code> is correct.
 </p>
 </html>", revisions="<html>
 <ul>

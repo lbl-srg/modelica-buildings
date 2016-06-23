@@ -10,7 +10,7 @@ model Convector "Heat exchanger for the water stream"
     annotation (choicesAllMatching = true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  parameter Real nBeams=1 "Number of beams";
+  parameter Real nBeams=1 "Number of beams in parallel";
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -78,7 +78,7 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final Q_flow_nominal=-per.Q_flow_nominal)
+    final Q_flow_nominal=-per.Q_flow_nominal "fixme: shouldn't this be -per.Q_flow_nominal*nBeams, as the water flow is for all beams combined")
     "Heat exchanger for the water stream"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

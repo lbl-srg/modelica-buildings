@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
 model CoolingOnly
   extends Modelica.Icons.Example;
-
+ // fixme: propagate media
   Buildings.Fluid.Sources.FixedBoundary sin_1(redeclare package Medium =
         Buildings.Media.Water, nPorts=1) "Sink water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
@@ -66,8 +66,7 @@ model CoolingOnly
     redeclare package MediumWat = Buildings.Media.Water,
     redeclare package MediumAir = Buildings.Media.Air,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
-                                                                                                     perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling         perCoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Active Beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation

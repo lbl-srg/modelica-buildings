@@ -23,11 +23,11 @@ record Generic "Generic data record for active beam"
     "Nominal water mass flow rate per beam"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpWat_nominal(displayUnit="Pa")
-    "Water-side nominal pressure difference per beam"
+    "Water-side nominal pressure drop per beam"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.PressureDifference dpAir_nominal(displayUnit="Pa")
-    "Air-side nominal pressure difference"
+    "Air-side nominal pressure drop"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.TemperatureDifference dT_nominal

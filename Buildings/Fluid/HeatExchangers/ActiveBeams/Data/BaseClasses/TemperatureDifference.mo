@@ -1,13 +1,8 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
 record TemperatureDifference "Record for temperature difference"
   extends Modelica.Icons.Record;
-  // fixme: is this always bigger than zero, for heating and for cooling?
-  //        The comment should say what difference it is, such as roo air minus entering water temperature.
-  // answer: yes, it has to be always bigger than zero, for heating and cooling. This means that numerator and denominator must have the same sign.
-  // It could be something like: Normalized temperature difference at user-selected operating points. Must be positive.
-  //When calculating this value, the rated temperature difference (numerator) and the nominal temperature difference (denominator) must have the same sign.
-  parameter Real r_dT[:](each min=0, each final unit="1") "fixme: How is T normalized? Normalized temperature difference at user-selected operating points.
-    answer: The normalization is the same as for the other two parameters, rated value divided by nominal value";
+  parameter Real r_dT[:](each min=0, each final unit="1")
+   "Normalized temperature difference, e.g., temperature difference at user-selected operating points divided by nominal temperature difference. Must be positive.";
   parameter Real f[size(r_dT, 1)](each min=0, each final unit="1")
     "Normalized performance factor at these flow rates";
 

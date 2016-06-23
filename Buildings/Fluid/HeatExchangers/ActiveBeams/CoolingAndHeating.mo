@@ -82,8 +82,8 @@ initial equation
   assert(perHea.dT.r_dT[1]<=0.000001        and perHea.dT.f[1]<=0.00001,
     "Performance curve perHea.dT must pass through (0,0).");
 
-equation
 
+equation
   connect(conHea.port_b, watHea_b)
     annotation (Line(points={{10,0},{140,0}}, color={0,127,255}));
   connect(conHea.Q_flow, sum.u[2])
@@ -101,7 +101,11 @@ equation
   connect(conHea.TRoo, senTemRooAir.T) annotation (Line(points={{-12,-6},{-26,-6},
           {-50,-6},{-50,-40},{-40,-40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -120},{140,120}})), defaultComponentName="beaCooHea",Icon(
+            -120},{140,120}}), graphics={Text(
+          extent={{-40,112},{-28,108}},
+          lineColor={28,108,200},
+          textString="fixme: see if these gains can be removed")}),
+                                defaultComponentName="beaCooHea",Icon(
         coordinateSystem(extent={{-140,-120},{140,120}}),             graphics={
         Rectangle(
           extent={{-120,6},{-138,-6}},

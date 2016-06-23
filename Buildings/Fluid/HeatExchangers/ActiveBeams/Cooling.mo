@@ -14,7 +14,7 @@ model Cooling "Active beam unit for cooling"
       choicesAllMatching=true,
       Placement(transformation(extent={{72,-92},{92,-72}})));
 
-  parameter Real nBeams(min=1)=1 "Number of beams";
+  parameter Real nBeams(min=1)=1 "Number of beams in parallel";
 
   parameter Boolean allowFlowReversalWat=true
     "= true to allow flow reversal in water circuit, false restricts to design direction (port_a -> port_b)"
@@ -133,11 +133,6 @@ model Cooling "Active beam unit for cooling"
   Modelica.SIunits.PressureDifference dpWatCoo(displayUnit="Pa") = watCoo_a.p - watCoo_b.p
     "Pressure difference watCoo_a minus watCoo_b";
 
-  // fixme: dpAir is always zero as there is no pressure drop in this flow path.
-  //        Should dpAir_nominal be added to Data.Generic, and a fixed resistance model be added?
-  //answer: As you suggested, I added a fixed resistance model and the parameter dpAir_nominal to Data.Generic.
-  //I am not sure whether or not it is now needed to have the parameter dpAir.
-
   Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
     "Pressure difference air_a minus air_b";
 
@@ -210,6 +205,11 @@ initial equation
     "Performance curve perCoo.water must pass through (0,0).");
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
+
+
+
+
+
 
 equation
   connect(heaToRoo.port, heaPor)
