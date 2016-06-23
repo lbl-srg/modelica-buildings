@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "tan_aTop.vol[1].T",
+    "tan_bTop.vol[1].T"
+  };
