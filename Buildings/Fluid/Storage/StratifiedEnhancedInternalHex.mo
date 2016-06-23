@@ -176,15 +176,15 @@ initial equation
   assert(dHHex > 0,
     "The parameters hHex_a and hHex_b must not be equal.");
 equation
-    for j in 0:nSegHexTan-1 loop
-     for i in 1:hexSegMult loop
-         connect(indTanHex.port[j*hexSegMult+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
+  for j in 0:nSegHexTan-1 loop
+    for i in 1:hexSegMult loop
+      connect(indTanHex.port[j*hexSegMult+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
         annotation (Line(
        points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
        color={191,0,0},
        smooth=Smooth.None));
-     end for;
-   end for;
+    end for;
+  end for;
   connect(portHex_a, indTanHex.port_a) annotation (Line(
       points={{-100,-38},{-68,-38},{-68,32},{-77,32}},
       color={0,127,255},
@@ -194,7 +194,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-           annotation (Line(
+  annotation (Line(
       points={{-73.2,69},{-70,69},{-70,28},{-16,28},{-16,-2.22045e-16},{0,-2.22045e-16}},
       color={191,0,0},
       smooth=Smooth.None), Icon(coordinateSystem(preserveAspectRatio=false,
