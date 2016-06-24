@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.ActiveBeams.Examples;
-model CoolingAndHeating_Parallel
+within Buildings.Fluid.HeatExchangers.ActiveBeams.Validation;
+model NumberOfBeams
   extends Modelica.Icons.Example;
   // fixme: propagate media and nBeams
   Buildings.Fluid.Sources.FixedBoundary sin_1(
@@ -160,7 +160,7 @@ equation
          {{0,28},{0,28},{0,-10},{0,-40},{50,-40},{50,-150},{-40,-150}}, color={191,
           0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{120,120}})),experiment(StopTime=5000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating_Parallel.mos"
+            -180},{120,120}})),experiment(StopTime=5000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
      Documentation(info="<html>
@@ -183,4 +183,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingAndHeating_Parallel;
+end NumberOfBeams;
