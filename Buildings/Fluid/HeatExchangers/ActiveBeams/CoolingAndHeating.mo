@@ -129,8 +129,8 @@ equation
           fillPattern=FillPattern.VerticalCylinder,
           pattern=LinePattern.None,
           lineColor={0,0,0}),
-        Line(points={{-112,0},{-66,0},{-82,10}}, color={0,0,0}),
-        Line(points={{-66,0},{-82,-8}}, color={0,0,0})}),
+        Line(points={{-112,0},{-66,0},{-82,10}}, color={255,0,0}),
+        Line(points={{-66,0},{-82,-8}}, color={255,0,0})}),
           Documentation(info="<html>
 <p>
 This model is identical to

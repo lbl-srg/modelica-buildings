@@ -12,12 +12,13 @@ model NumberOfBeams
     redeclare package Medium = MediumW,
     nPorts=2) "Sink for chilled water"
     annotation (Placement(transformation(extent={{80,70},{60,90}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou_3(
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
     redeclare package Medium = MediumA,
     use_m_flow_in=false,
     nPorts=1,
     m_flow=0.0792,
-    T=285.85) "Source for air" annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+    T=285.85) "Source for air"
+    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Buildings.Fluid.Sources.FixedBoundary sin_3(
     redeclare package Medium = MediumA,
     nPorts=2)
@@ -27,11 +28,12 @@ model NumberOfBeams
     nPorts=2,
     T=288.15) "Source for chilled water"
     annotation (Placement(transformation(extent={{-120,68},{-100,88}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumHotWat(
     redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump for hot water"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
     redeclare package Medium = MediumW,
@@ -41,7 +43,7 @@ model NumberOfBeams
     redeclare package Medium = MediumW,
     nPorts=2) "Sink for hot water"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat(
     redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
@@ -63,35 +65,37 @@ model NumberOfBeams
     prescribedTemperature "Room temperature"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
-  Buildings.Fluid.Sources.MassFlowSource_T sou_4(
+  Buildings.Fluid.Sources.MassFlowSource_T souAir10(
     redeclare package Medium = MediumA,
     use_m_flow_in=false,
     nPorts=1,
-    m_flow=0.0792*10,
-    T=285.85) "Source for air" annotation (Placement(transformation(extent={{80,-130},{60,-110}})));
+    m_flow=0.0792*nBeams,
+    T=285.85) "Source for air"
+    annotation (Placement(transformation(extent={{80,-130},{60,-110}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum2(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumHotWat10(
     redeclare package Medium = MediumW,
-    m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump for hot water"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.094*nBeams) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum3(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat10(
     redeclare package Medium = MediumW,
-    m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Pump for chilled water"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.094*nBeams) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea1(
+  Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea10(
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
+      perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
+      perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nBeams=nBeams) "Active beam"
     annotation (Placement(transformation(extent={{-14,-92},{14,-68}})));
@@ -120,49 +124,49 @@ model NumberOfBeams
     startTime=2500) "Room air temperature variation"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
-  connect(sou_2.ports[1], pum.port_a)
+  connect(sou_2.ports[1], pumHotWat.port_a)
     annotation (Line(points={{-100,40},{-80,40},{-60,40}}, color={0,127,255}));
-  connect(pum1.port_a, sou_1.ports[1])
+  connect(pumChiWat.port_a, sou_1.ports[1])
     annotation (Line(points={{-60,80},{-80,80},{-100,80}}, color={0,127,255}));
-  connect(pum1.port_b, beaCooHea.watCoo_a) annotation (Line(points={{-40,80},{-32,
-          80},{-20,80},{-20,46},{-14,46}},color={0,127,255}));
+  connect(pumChiWat.port_b, beaCooHea.watCoo_a) annotation (Line(points={{-40,
+          80},{-32,80},{-20,80},{-20,46},{-14,46}}, color={0,127,255}));
   connect(beaCooHea.watCoo_b, sin_1.ports[1]) annotation (Line(points={{14,46},{
           20,46},{20,82},{60,82}}, color={0,127,255}));
   connect(sin_2.ports[1], beaCooHea.watHea_b)
     annotation (Line(points={{60,42},{60,40},{14,40}}, color={0,127,255}));
-  connect(beaCooHea.watHea_a, pum.port_b)
+  connect(beaCooHea.watHea_a, pumHotWat.port_b)
     annotation (Line(points={{-14,40},{-27,40},{-40,40}}, color={0,127,255}));
-  connect(sou_3.ports[1], beaCooHea.air_a) annotation (Line(points={{60,0},{20,0},
-          {20,34},{14,34}}, color={0,127,255}));
+  connect(souAir.ports[1], beaCooHea.air_a) annotation (Line(points={{60,0},{20,
+          0},{20,34},{14,34}}, color={0,127,255}));
   connect(sin_3.ports[1], beaCooHea.air_b) annotation (Line(points={{-100,2},{-64,
           2},{-20,2},{-20,34},{-14,34}}, color={0,127,255}));
-  connect(pum3.port_b, beaCooHea1.watCoo_a) annotation (Line(points={{-40,-40},{
-          -32,-40},{-20,-40},{-20,-74},{-14,-74}}, color={0,127,255}));
-  connect(beaCooHea1.watHea_a, pum2.port_b) annotation (Line(points={{-14,-80},{
-          -27,-80},{-40,-80}}, color={0,127,255}));
-  connect(sou_4.ports[1], beaCooHea1.air_a) annotation (Line(points={{60,-120},{
-          20,-120},{20,-86},{14,-86}}, color={0,127,255}));
-  connect(pum3.port_a, sou_1.ports[2]) annotation (Line(points={{-60,-40},{-70,-40},
-          {-70,76},{-100,76}}, color={0,127,255}));
-  connect(pum2.port_a, sou_2.ports[2]) annotation (Line(points={{-60,-80},{-80,-80},
-          {-80,36},{-100,36}}, color={0,127,255}));
-  connect(beaCooHea1.air_b, sin_3.ports[2]) annotation (Line(points={{-14,-86},{
-          -20,-86},{-20,-108},{-90,-108},{-90,-2},{-100,-2}}, color={0,127,255}));
-  connect(beaCooHea1.watCoo_b, sin_1.ports[2]) annotation (Line(points={{14,-74},
+  connect(pumChiWat10.port_b, beaCooHea10.watCoo_a) annotation (Line(points={{-40,
+          -40},{-32,-40},{-20,-40},{-20,-74},{-14,-74}}, color={0,127,255}));
+  connect(beaCooHea10.watHea_a, pumHotWat10.port_b) annotation (Line(points={{-14,
+          -80},{-27,-80},{-40,-80}}, color={0,127,255}));
+  connect(souAir10.ports[1], beaCooHea10.air_a) annotation (Line(points={{60,-120},
+          {20,-120},{20,-86},{14,-86}}, color={0,127,255}));
+  connect(pumChiWat10.port_a, sou_1.ports[2]) annotation (Line(points={{-60,-40},
+          {-70,-40},{-70,76},{-100,76}}, color={0,127,255}));
+  connect(pumHotWat10.port_a, sou_2.ports[2]) annotation (Line(points={{-60,-80},
+          {-80,-80},{-80,36},{-100,36}}, color={0,127,255}));
+  connect(beaCooHea10.air_b, sin_3.ports[2]) annotation (Line(points={{-14,-86},
+          {-20,-86},{-20,-108},{-90,-108},{-90,-2},{-100,-2}}, color={0,127,255}));
+  connect(beaCooHea10.watCoo_b, sin_1.ports[2]) annotation (Line(points={{14,-74},
           {28,-74},{28,78},{60,78}}, color={0,127,255}));
-  connect(beaCooHea1.watHea_b, sin_2.ports[2]) annotation (Line(points={{14,-80},
+  connect(beaCooHea10.watHea_b, sin_2.ports[2]) annotation (Line(points={{14,-80},
           {28,-80},{40,-80},{40,38},{60,38}}, color={0,127,255}));
-  connect(step.y, pum1.m_flow_in) annotation (Line(points={{-159,100},{-108,100},
-          {-50.2,100},{-50.2,92}}, color={0,0,127}));
-  connect(step1.y, pum.m_flow_in) annotation (Line(points={{-159,60},{-110,60},{
-          -50.2,60},{-50.2,52}}, color={0,0,127}));
-  connect(step3.y, pum3.m_flow_in) annotation (Line(points={{-159,-20},{-104,-20},
-          {-50.2,-20},{-50.2,-28}}, color={0,0,127}));
-  connect(step2.y, pum2.m_flow_in) annotation (Line(points={{-159,-60},{-104,-60},
-          {-50.2,-60},{-50.2,-68}}, color={0,0,127}));
+  connect(step.y, pumChiWat.m_flow_in) annotation (Line(points={{-159,100},{-108,
+          100},{-50.2,100},{-50.2,92}}, color={0,0,127}));
+  connect(step1.y, pumHotWat.m_flow_in) annotation (Line(points={{-159,60},{-110,
+          60},{-50.2,60},{-50.2,52}}, color={0,0,127}));
+  connect(step3.y, pumChiWat10.m_flow_in) annotation (Line(points={{-159,-20},{
+          -104,-20},{-50.2,-20},{-50.2,-28}}, color={0,0,127}));
+  connect(step2.y, pumHotWat10.m_flow_in) annotation (Line(points={{-159,-60},{
+          -104,-60},{-50.2,-60},{-50.2,-68}}, color={0,0,127}));
   connect(step4.y, prescribedTemperature.T)
     annotation (Line(points={{-99,-150},{-62,-150}}, color={0,0,127}));
-  connect(prescribedTemperature.port, beaCooHea1.heaPor) annotation (Line(
+  connect(prescribedTemperature.port, beaCooHea10.heaPor) annotation (Line(
         points={{-40,-150},{-20,-150},{0,-150},{0,-92}}, color={191,0,0}));
   connect(beaCooHea.heaPor, prescribedTemperature.port) annotation (Line(points=
          {{0,28},{0,28},{0,-10},{0,-40},{50,-40},{50,-150},{-40,-150}}, color={191,

@@ -10,25 +10,27 @@ model CoolingOnly
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for water"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou_2(
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
     redeclare package Medium = MediumA,
     use_m_flow_in=false,
     m_flow=0.0792,
     nPorts=1,
-    T=285.85) "Source for air" annotation (Placement(transformation(extent={{100,10},{80,30}})));
+    T=285.85) "Source for air"
+    annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Buildings.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumA,
     nPorts=1) "Sink for air"
     annotation (Placement(transformation(extent={{100,-110},{80,-90}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=200)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConWal(G=200)
     "Thermal conductor for wall"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
-  Modelica.Blocks.Sources.Constant const(k=273.15 + 25) "Set-point temperature"
+  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 25)
+    "Set-point temperature"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=301.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(
@@ -76,13 +78,13 @@ model CoolingOnly
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Active beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation
-  connect(fixedTemperature.port,thermalConductor. port_a)
-    annotation (Line(points={{-90,-100},{-60,-100}},         color={191,0,0}));
+  connect(TOut.port, theConWal.port_a)
+    annotation (Line(points={{-90,-100},{-60,-100}}, color={191,0,0}));
   connect(sou_1.ports[1], pum.port_a) annotation (Line(points={{-60,100},{-40,100},
           {-20,100}}, color={0,127,255}));
-  connect(gain.y, prescribedHeatFlow.Q_flow)
+  connect(gain.y, heaFlo.Q_flow)
     annotation (Line(points={{-47,-60},{-30,-60}}, color={0,0,127}));
-  connect(const.y, conPID.u_s)
+  connect(TSetCoo.y, conPID.u_s)
     annotation (Line(points={{-89,-10},{-72,-10}}, color={0,0,127}));
   connect(senTem.T, conPID.u_m) annotation (Line(points={{-40,-30},{-50,-30},{-60,
           -30},{-60,-22}}, color={0,0,127}));
@@ -90,10 +92,10 @@ equation
           {-40,118},{-10.2,118},{-10.2,112}}, color={0,0,127}));
   connect(vol.ports[1], bou.ports[1]) annotation (Line(points={{58,-70},{60,-70},
           {60,-100},{80,-100}}, color={0,127,255}));
-  connect(prescribedHeatFlow.port, vol.heatPort)
+  connect(heaFlo.port, vol.heatPort)
     annotation (Line(points={{-10,-60},{20,-60},{50,-60}}, color={191,0,0}));
-  connect(thermalConductor.port_b, vol.heatPort) annotation (Line(points={{-40,-100},
-          {40,-100},{40,-60},{50,-60}}, color={191,0,0}));
+  connect(theConWal.port_b, vol.heatPort) annotation (Line(points={{-40,-100},{
+          40,-100},{40,-60},{50,-60}}, color={191,0,0}));
   connect(senTem.port, vol.heatPort) annotation (Line(points={{-20,-30},{40,-30},
           {40,-60},{50,-60}}, color={191,0,0}));
   connect(sine.y, gain.u)
@@ -104,8 +106,8 @@ equation
           66},{70,100},{80,100}}, color={0,127,255}));
   connect(beaCoo.heaPor, vol.heatPort) annotation (Line(points={{40,48},{40,48},
           {40,26},{40,-60},{50,-60}}, color={191,0,0}));
-  connect(sou_2.ports[1], beaCoo.air_a) annotation (Line(points={{80,20},{70,20},
-          {70,54},{54,54}}, color={0,127,255}));
+  connect(souAir.ports[1], beaCoo.air_a) annotation (Line(points={{80,20},{70,
+          20},{70,54},{54,54}}, color={0,127,255}));
   connect(beaCoo.air_b, vol.ports[2]) annotation (Line(points={{26,54},{12,54},
           {12,-80},{62,-80},{62,-70}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
