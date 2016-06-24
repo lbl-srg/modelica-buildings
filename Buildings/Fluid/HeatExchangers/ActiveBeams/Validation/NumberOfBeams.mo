@@ -1,48 +1,56 @@
 within Buildings.Fluid.HeatExchangers.ActiveBeams.Validation;
 model NumberOfBeams
   extends Modelica.Icons.Example;
-  // fixme: propagate media and nBeams
+
+  package MediumA = Buildings.Media.Air "Medium model for air";
+
+  package MediumW = Buildings.Media.Water "Medium model for water";
+
+  parameter Integer nBeams = 10 "Number of beams";
+
   Buildings.Fluid.Sources.FixedBoundary sin_1(
-    redeclare package Medium = Buildings.Media.Water,
-    nPorts=2) "Sink chilled water"
+    redeclare package Medium = MediumW,
+    nPorts=2) "Sink for chilled water"
     annotation (Placement(transformation(extent={{80,70},{60,90}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou_3(
-    redeclare package Medium = Buildings.Media.Air,
+    redeclare package Medium = MediumA,
     use_m_flow_in=false,
     nPorts=1,
     m_flow=0.0792,
-    T=285.85) "Source air" annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_3(redeclare package Medium =
-        Buildings.Media.Air, nPorts=2)
+    T=285.85) "Source for air" annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+  Buildings.Fluid.Sources.FixedBoundary sin_3(
+    redeclare package Medium = MediumA,
+    nPorts=2)
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Buildings.Fluid.Sources.FixedBoundary sou_1(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     nPorts=2,
-    T=288.15) "Source chilled water"
+    T=288.15) "Source for chilled water"
     annotation (Placement(transformation(extent={{-120,68},{-100,88}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump hot water"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     nPorts=2,
-    T=320.95) "Source hot water" annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
-  Buildings.Fluid.Sources.FixedBoundary sin_2(redeclare package Medium =
-        Buildings.Media.Water, nPorts=2) "Sink hot water"
+    T=320.95) "Source for hot water" annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
+  Buildings.Fluid.Sources.FixedBoundary sin_2(
+    redeclare package Medium = MediumW,
+    nPorts=2) "Sink for hot water"
     annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum1(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Pump chilled water"
+    "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
-    redeclare package MediumWat = Buildings.Media.Water,
-    redeclare package MediumAir = Buildings.Media.Air,
+    redeclare package MediumWat = MediumW,
+    redeclare package MediumAir = MediumA,
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
@@ -56,52 +64,55 @@ model NumberOfBeams
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T sou_4(
-    redeclare package Medium = Buildings.Media.Air,
+    redeclare package Medium = MediumA,
     use_m_flow_in=false,
     nPorts=1,
     m_flow=0.0792*10,
-    T=285.85) "source air" annotation (Placement(transformation(extent={{80,-130},{60,-110}})));
+    T=285.85) "Source for air" annotation (Placement(transformation(extent={{80,-130},{60,-110}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum2(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "pump hot water"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum3(
-    redeclare package Medium = Buildings.Media.Water,
+    redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "pump chilled water"
+    "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea1(
-    redeclare package MediumWat = Buildings.Media.Water,
-    redeclare package MediumAir = Buildings.Media.Air,
+    redeclare package MediumWat = MediumW,
+    redeclare package MediumAir = MediumA,
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    nBeams=10) "Active beam"
+    nBeams=nBeams) "Active beam"
     annotation (Placement(transformation(extent={{-14,-92},{14,-68}})));
   Modelica.Blocks.Sources.Step step(
     height=-0.094,
     offset=0.094,
     startTime=2000) "chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
-  Modelica.Blocks.Sources.Step step1(height=0.094, startTime=3000)
-    "hot water mass flow rate"
+  Modelica.Blocks.Sources.Step step1(
+    height=0.094,
+    startTime=3000)
+    "Hot water mass flow rate"
     annotation (Placement(transformation(extent={{-180,50},{-160,70}})));
-  Modelica.Blocks.Sources.Step step2(                height=0.094*10, startTime=
-       3000) "hot water mass flow rate"
+  Modelica.Blocks.Sources.Step step2(
+    height=0.094*nBeams,
+    startTime=3000) "Hot water mass flow rate"
     annotation (Placement(transformation(extent={{-180,-70},{-160,-50}})));
   Modelica.Blocks.Sources.Step step3(
-    height=-0.094*10,
-    offset=0.094*10,
-    startTime=2000) "chilled water mass flow rate"
+    height=-0.094*nBeams,
+    offset=0.094*nBeams,
+    startTime=2000) "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
   Modelica.Blocks.Sources.Step step4(
     offset=273.15 + 25,
@@ -110,22 +121,19 @@ model NumberOfBeams
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 equation
   connect(sou_2.ports[1], pum.port_a)
-    annotation (Line(points={{-100,40},{-80,40},{-60,40}},
-                                                 color={0,127,255}));
+    annotation (Line(points={{-100,40},{-80,40},{-60,40}}, color={0,127,255}));
   connect(pum1.port_a, sou_1.ports[1])
-    annotation (Line(points={{-60,80},{-80,80},{-100,80}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-60,80},{-80,80},{-100,80}}, color={0,127,255}));
   connect(pum1.port_b, beaCooHea.watCoo_a) annotation (Line(points={{-40,80},{-32,
           80},{-20,80},{-20,46},{-14,46}},color={0,127,255}));
   connect(beaCooHea.watCoo_b, sin_1.ports[1]) annotation (Line(points={{14,46},{
-          20,46},{20,82},{60,82}},    color={0,127,255}));
+          20,46},{20,82},{60,82}}, color={0,127,255}));
   connect(sin_2.ports[1], beaCooHea.watHea_b)
     annotation (Line(points={{60,42},{60,40},{14,40}}, color={0,127,255}));
   connect(beaCooHea.watHea_a, pum.port_b)
-    annotation (Line(points={{-14,40},{-27,40},{-40,40}},
-                                                      color={0,127,255}));
+    annotation (Line(points={{-14,40},{-27,40},{-40,40}}, color={0,127,255}));
   connect(sou_3.ports[1], beaCooHea.air_a) annotation (Line(points={{60,0},{20,0},
-          {20,34},{14,34}},     color={0,127,255}));
+          {20,34},{14,34}}, color={0,127,255}));
   connect(sin_3.ports[1], beaCooHea.air_b) annotation (Line(points={{-100,2},{-64,
           2},{-20,2},{-20,34},{-14,34}}, color={0,127,255}));
   connect(pum3.port_b, beaCooHea1.watCoo_a) annotation (Line(points={{-40,-40},{
@@ -165,11 +173,16 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
      Documentation(info="<html>
 <p>
-This example tests the implementation of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating_Parallel\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating_Parallel</a>
-for two steady state situations. The upper one has only one beam. The bottom one has ten beams in parallel.
-The aim is to show that the scaling of heat tranfer and pressure drop for <code>nBeams &gt; 1</code> is correct.
+This model validates the scaling of the heat tranfer and pressure drop for
+<code>nBeams &gt; 1</code>.
+</p>
+<p>
+It uses two instances of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>,
+one with
+<code>nBeams = 1</code> and one with
+<code>nBeams = 10</code>.
 </p>
 </html>", revisions="<html>
 <ul>

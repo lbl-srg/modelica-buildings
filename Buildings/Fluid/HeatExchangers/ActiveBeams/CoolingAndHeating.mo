@@ -133,17 +133,18 @@ equation
         Line(points={{-66,0},{-82,-8}}, color={0,0,0})}),
           Documentation(info="<html>
 <p>
-This model is similar to
+This model is identical to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>.
-An additional fluid stream is added to allow for
-the heating mode.
+Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a>,
+except that an additional water stream and convector is added to allow for heating
+in addition to cooling.
 </p>
 <p>
-In this model, the temperature difference <i><code>&#916;</code>T</i> used for the calculation of the modification factor <i>f<sub><code>&#916;</code>T</sub>(&middot;)</i> is
+For the heating water stream, the temperature difference <i><code>&#916;</code>T<sub>H</sub></i>
+used for the calculation of the modification factor <i>f<sub><code>&#916;</code>T</sub>(&middot;)</i> is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&#916;T = T<sub>HW</sub>-T<sub>Z</sub>,
+&#916;T<sub>H</sub> = T<sub>HW</sub>-T<sub>Z</sub>,
 </p>
 <p> 
 where <i>T<sub>HW</sub></i> is the hot water temperature entering the convector in heating mode
