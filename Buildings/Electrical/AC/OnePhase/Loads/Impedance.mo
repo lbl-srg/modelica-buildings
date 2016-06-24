@@ -3,12 +3,15 @@ model Impedance "Model of a generic impedance"
   extends Buildings.Electrical.Interfaces.Impedance(
     redeclare replaceable package PhaseSystem = PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_n terminal);
+
 protected
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
   Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
 equation
-  omega = der(PhaseSystem.thetaRef(terminal.theta));
+  theRef = PhaseSystem.thetaRef(terminal.theta);
+  omega = der(theRef);
 
   if inductive then
     X = omega*L_internal;
@@ -63,6 +66,11 @@ Buildings.Electrical.Interfaces.Impedance</a> for more details.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 March 30, 2015, by Michael Wetter:<br/>
 Made <code>PhaseSystem</code> and <code>terminal</code> replaceable. This was detected

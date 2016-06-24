@@ -142,9 +142,16 @@ its class name ends with the string <code>Beta</code>.
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Models for district heating and cooling
+                          with bi-directional flow in the distribution pipes.
+       </td>
+       </tr>
+     <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
+       </td>
+       <td valign=\"top\">Reduced order models of thermal zones based
+                          on VDI 6007.
        </td>
        </tr>
    </table>
@@ -154,12 +161,12 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.Velocity
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Sensor for the flow velocity.
        </td>
        </tr>
    </table>
@@ -260,6 +267,17 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
+                          Buildings.Rooms.CFD
+       </td>
+       <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation.
+                          Previously, the model assumed that all diffuse irradiation first hits the floor before it is
+                          diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>xxx</b>
        </td>
    </tr>
@@ -310,6 +328,40 @@ its class name ends with the string <code>Beta</code>.
                           are affected by this change.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
+       </td>
+       <td valign=\"top\">Changed the name of the function
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency</code>
+                          to
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower</code>.
+                          Changed the name of the record
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters</code>
+                          to
+                          <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan</code>,
+                          and changed the parameter of this record from
+                          <code>eta</code> to <code>r_P</code>.
+                          This change was done as the performance is for the relative power consumption, and not the fan
+                          efficiency, as the old parameter name suggests.
+                          Users who use the default parameters are not affected by this change.
+                          If the default parameters were changed, then for Dymola,
+                          the conversion script will update the model.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+       </td>
+   </tr>
+       <tr><td valign=\"top\">Buildings.HeatTransfer.BaseClasses.TransmittedRadiation<br/>
+                              Buildings.HeatTransfer.BaseClasses.WindowRadiation
+       </td>
+       <td valign=\"top\">Refactored the model to allow separate treatment for the diffuse and direct irradiation,
+                          which is needed for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+    </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
        </td>
    </tr>
@@ -336,7 +388,20 @@ its class name ends with the string <code>Beta</code>.
                           of the room model for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
-   </tr>
+    </tr>
+    <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.RoomHeatMassBalance<br/>
+                           Buildings.Rooms.BaseClasses.SolarRadiationExchange
+       </td>
+       <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation, which required replacing the
+                          input and output signals.
+                          Previously, the model assumed that all diffuse irradiation first hits the floor before it is
+                          diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+       </td>
+    </tr>
+
    <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
        </td>
        <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
@@ -352,7 +417,32 @@ its class name ends with the string <code>Beta</code>.
    that can lead to wrong simulation results):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
+       </td>
+       <td valign=\"top\">Corrected the computation of the wet bulb state in the model
+                          that computes the reevaporation of water vapor into the air stream when the coil
+                          is switched off. The results change slightly.
+                          This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/520\">issue 520</a>
+                          and integrates the change of
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex 60, #474</a>.
+
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+       </td>
+       <td valign=\"top\">Corrected computation of the heat exchanger location which was wrong
+                          if <code>hHex_a &lt; hHex_b</code>, e.g., the port a of the heat exchanger
+                          is below the port b.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/531\">issue 531</a>.
+       </td>
+   </tr>   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
@@ -550,6 +640,21 @@ its class name ends with the string <code>Beta</code>.
     <td valign=\"top\">Reformulated model to allow translation in OpenModelica.
                        This is for issue
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/490\">#490</a>.
+    </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot
+    </td>
+    <td valign=\"top\">Changed the sign convention for <code>dTEva_nominal</code>.
+                       Now, this quantity needs to be negative.
+                       This change was done to be consistent with other models.
+                       In this version, a warning will be written if the sign
+                       is not updated, but the results will be the same.
+                       In future versions the warning will be
+                       changed to an error.<br/>
+                       The parameters <code>dTEva_nominal</code> and
+                       <code>dTCon_nominal</code> are now used
+                       to assign default values for the nominal mass flow rates.
     </td>
    </tr>
 
@@ -5903,7 +6008,7 @@ preferredView="info",
 version="3.0.0",
 versionDate="2016-03-29",
 dateModified="2016-03-29",
-uses(Modelica(version="3.2.1")),
+uses(Modelica(version="3.2.2")),
 conversion(
  from(version={"2.0.0", "2.1.0"},
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),

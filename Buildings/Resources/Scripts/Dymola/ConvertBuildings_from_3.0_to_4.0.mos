@@ -1,0 +1,16 @@
+// Conversion script for Buildings library
+//  from: Version 3.0
+//  to:   Version 4.0
+clear
+
+convertClear();
+
+
+convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+               "eta",
+               "r_P");
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.normalizedPower");
+
+convertClass("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiencyParameters",
+             "Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.fan");

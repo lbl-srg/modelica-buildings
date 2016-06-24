@@ -22,13 +22,15 @@ protected
     "Current phasor at terminal p";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+
 initial equation
   if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     i_p = i_start;
   end if;
 equation
-
-  omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
+  theRef = PhaseSystem_p.thetaRef(terminal_p.theta);
+  omega = der(theRef);
 
   terminal_p.i = - terminal_n.i;
   i_p = terminal_p.i;
@@ -74,6 +76,11 @@ The model represents the lumped RL cable as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 March 9, 2015, by Marco Bonvini:<br/>
 Added parameter for start value of the current.
