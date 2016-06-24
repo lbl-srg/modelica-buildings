@@ -12,9 +12,9 @@ Data record for performance data that describe the air volume flow rate versus
 the change in the rate of heating or cooling.
 </p>
 <p>
-The normamlized volume flow rate <code>r_V</code> must be strictly increasing, i.e.,
-<code>r_V[i] &lt; r_V[i+1]</code>.
-Both vectors, <code>r_V</code> and <code>f</code>
+The normamlized volume flow rate <i>r<sub>V</sub></i> must be strictly increasing, i.e.,
+<i>r<sub>V</sub><sup>i</sup> &lt; r<sub>V</sub><sup>i+1</sup></i>.
+Both vectors, <i>r<sub>V</sub></i> and <i>f</i>
 must have the same size.
 </p>
 </html>",
