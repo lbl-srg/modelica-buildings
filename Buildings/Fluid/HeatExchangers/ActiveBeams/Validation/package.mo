@@ -1,4 +1,3 @@
-
 within Buildings.Fluid.HeatExchangers.ActiveBeams;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
