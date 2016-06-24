@@ -140,15 +140,14 @@ except that an additional water stream and convector is added to allow for heati
 in addition to cooling.
 </p>
 <p>
-For the heating water stream, the temperature difference <i><code>&#916;</code>T<sub>H</sub></i>
-used for the calculation of the modification factor <i>f<sub><code>&#916;</code>T</sub>(&middot;)</i> is
+For a description of the equations, see the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+User's Guide</a>.
 </p>
-<p align=\"center\" style=\"font-style:italic;\">
-&#916;T<sub>H</sub> = T<sub>HW</sub>-T<sub>Z</sub>,
-</p>
-<p> 
-where <i>T<sub>HW</sub></i> is the hot water temperature entering the convector in heating mode
-and <i>T<sub>Z</sub></i> is the zone air temperature.
+<p>
+Performance data are available from
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Data\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.Data</a>.
 </p>
 </html>", revisions="<html>
 <ul>

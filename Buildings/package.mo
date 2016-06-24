@@ -144,14 +144,19 @@ its class name ends with the string <code>Beta</code>.
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
    <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
        </td>
-       <td valign=\"top\">Models for district heating and cooling
+       <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.
+       </td>
+       </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ActiveBeams
+       </td>
+       <td valign=\"top\">Package with models of active beams for space cooling and heating.
        </td>
        </tr>
      <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
        </td>
-       <td valign=\"top\">Reduced order models of thermal zones based
-                          on VDI 6007.
+       <td valign=\"top\">Package with reduced order models of thermal zones based
+                        on VDI 6007.
        </td>
        </tr>
    </table>
@@ -5940,6 +5945,10 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">Fluid.FMI</a>
    </td>
    <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
+</tr><tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
+   </td>
+   <td valign=\"top\">Package with active beams.</td>
+</tr>
 </tr><tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>

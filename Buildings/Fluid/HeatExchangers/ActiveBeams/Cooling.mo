@@ -305,69 +305,9 @@ use <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHe
 Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating</a>.
 </p>
 <p>
-The model is a simple empirical model. Sets of data for rated capacities under corresponding rated operating 
-conditions are adjusted by modification factors that account for off-design conditions in water flow rate,
-primary air flow rate and temperature difference.
-The total heat flow rate of the active beam unit is the sum of the heat flow rate provided by the primary air supply
-<i>Q<sub>SA</sub></i> and the heat flow rate provided by the beam convector <i>Q<sub>C,Beam</sub></i>
-which injects room air and mixes it with the primary air.
-</p>
-<p>
-The heat flow rate
-<i>Q<sub>SA</sub> </i> is delivered to a thermal zone such as
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>
-through the fluid ports, while the heat flow rate from the convector <i>Q<sub>C,Beam</sub></i>
-is coupled directly to the heat port.
-See for example
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Examples.CoolingOnly</a>
-for how to connect these heat flow rates to a control volume.
-</p>
-<p>
-The primary air contribution is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Q<sub>SA</sub> = &#7745;<sub>SA</sub> c<sub>p,SA</sub> (T<sub>SA</sub>-T<sub>Z</sub>)
-</p>
-<p> 
-where <i>&#7745;<sub>SA</sub></i> is the primary air mass flow rate,
-<i>c<sub>p,SA</sub></i> is the air specific heat capacity,
-<i>T<sub>SA</sub></i> is the primary air temperature 
-and <i>T<sub>Z</sub></i> is the zone air temperature.
-</p>
-<p>
-The heat flow rate of the beam convector <i>Q<sub>C,Beam</sub></i> is determined using
-the rated capacity which is modified by three separate functions as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Q<sub>C,Beam</sub> = Q<sub>C,nominal</sub> 
-f<sub>&#916;T</sub> ( &#916;T<sub>C</sub> &frasl; &#916;T<sub>C,nominal</sub> )
-f<sub>SA</sub>( &#7745;<sub>SA</sub> &frasl; &#7745;<sub>SA,nominal</sub> )
-f<sub>W</sub>( &#7745;<sub>C,W</sub> ),
-</p>
-<p>
-the modification factors are as follows:
-The modification factor <i>f<sub>&#916;T</sub>(&middot;)</i>
-describes how the capacity is adjusted to account for the temperature difference
-between the zone air and the water entering the convector.
-The independent variable is the ratio between the current temperature difference
-<i>&#916;T<sub>C</sub></i> and the temperature difference used to rate beam performance <i>&#916;T<sub>C,nominal</sub></i>.
-The temperature difference is 
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-    &#916;T<sub>C</sub> = T<sub>CW</sub>-T<sub>Z</sub>,
-</p>
-<p>
-where <i>T<sub>CW</sub></i> is the chilled water temperature entering the convector.
-
-The modification factor <i>f<sub>SA</sub>(&middot;)</i> adjusts the cooling capacity to account for varying primary air flow rate.
-The independent variable is the ratio between the current primary air flow rate <i>&#7745;<sub>SA</sub></i>
-and the nominal air flow rate used to rate the beam performance.
-   
-The modification factor <i>f<sub>W</sub>(&middot;)</i> adjusts the cooling capacity for changes in water flow rate through the convector.
-The independent variable is the ratio between the current water flow rate <i>&#7745;<sub>W</sub></i>
-and the nominal water flow rate used to rate the beam performance.
+For a description of the equations, see the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+User's Guide</a>.
 </p>
 <p>
 Performance data are available from

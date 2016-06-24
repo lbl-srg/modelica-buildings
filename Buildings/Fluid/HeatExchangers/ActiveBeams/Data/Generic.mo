@@ -51,7 +51,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Performance data for a generic active beam for heating mode.
+Performance data for a generic active beam.
 </p>
 </html>"));
 end Generic;
