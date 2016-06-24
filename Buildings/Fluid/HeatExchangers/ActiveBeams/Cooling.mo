@@ -12,9 +12,9 @@ model Cooling "Active beam unit for cooling"
     annotation (
       Dialog(group="Nominal condition"),
       choicesAllMatching=true,
-      Placement(transformation(extent={{72,-92},{92,-72}})));
+      Placement(transformation(extent={{102,-98},{118,-82}})));
 
-  parameter Real nBeams(min=1)=1 "Number of beams in parallel";
+  parameter Integer nBeams(min=1)=1 "Number of beams in parallel";
 
   parameter Boolean allowFlowReversalWat=true
     "= true to allow flow reversal in water circuit, false restricts to design direction (port_a -> port_b)"
@@ -164,33 +164,15 @@ protected
   Modelica.Blocks.Math.Sum sum "Connector for heating and cooling mode"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Modelica.Blocks.Math.Gain gaiAirFlo(final k=1/nBeams, y(final unit="kg/s"))
-    "Gain to scale air mass flow rate to a single beam" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-90,-30})));
-
-  Modelica.Blocks.Math.Gain gai_2(
-    final k=-nBeams,
+  Modelica.Blocks.Math.Gain gaiSig(
+    final k=-1,
     u(final unit="W"),
-    y(final unit="W")) "Gain to take into account all the beams"
-                                              annotation (Placement(
+    y(final unit="W")) "Gain to reverse the sign" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={50,-20})));
 
-   Modelica.Blocks.Math.Gain gaiWatCooFlo(final k=1/nBeams, y(final unit="kg/s"))
-    "Gain to scale water mass flow rate to a single beam" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,100})));
-
-  Sensors.MassFlowRate senFloWatCoo(
-    redeclare final package Medium = MediumWat) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Sensors.MassFlowRate senFloAir(
     redeclare final package Medium = MediumAir) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-70},{-100,-50}})));
@@ -211,14 +193,14 @@ initial equation
 
 
 
+
+
 equation
   connect(heaToRoo.port, heaPor)
     annotation (Line(points={{0,-46},{0,-120}}, color={191,0,0}));
-  connect(senFloAir.m_flow, gaiAirFlo.u)
-    annotation (Line(points={{-90,-49},{-90,-49},{-90,-42}}, color={0,0,127}));
-  connect(sum.y,gai_2. u) annotation (Line(points={{61,30},{66,30},{70,30},{70,-20},
-          {62,-20}}, color={0,0,127}));
-  connect(gai_2.y,heaToRoo. Q_flow)
+  connect(sum.y, gaiSig.u) annotation (Line(points={{61,30},{66,30},{70,30},{70,
+          -20},{62,-20}}, color={0,0,127}));
+  connect(gaiSig.y, heaToRoo.Q_flow)
     annotation (Line(points={{39,-20},{0,-20},{0,-26}}, color={0,0,127}));
   connect(senTemRooAir.port, heaPor) annotation (Line(points={{-20,-40},{-14,-40},
           {-14,-52},{0,-52},{0,-120}}, color={191,0,0}));
@@ -228,16 +210,6 @@ equation
     annotation (Line(points={{10,60},{140,60}}, color={0,127,255}));
   connect(conCoo.Q_flow, sum.u[1]) annotation (Line(points={{11,67},{20,67},{20,
           30},{38,30}}, color={0,0,127}));
-  connect(senFloWatCoo.m_flow, gaiWatCooFlo.u) annotation (Line(points={{-110,71},
-          {-110,100},{-82,100}}, color={0,0,127}));
-  connect(gaiWatCooFlo.y, conCoo.mWat_flow) annotation (Line(points={{-59,100},{
-          -30,100},{-30,69},{-12,69}}, color={0,0,127}));
-  connect(watCoo_a, senFloWatCoo.port_a)
-    annotation (Line(points={{-140,60},{-120,60}}, color={0,127,255}));
-  connect(senFloWatCoo.port_b, conCoo.port_a) annotation (Line(points={{-100,60},
-          {-100,60},{-10,60}}, color={0,127,255}));
-  connect(gaiAirFlo.y, conCoo.mAir_flow) annotation (Line(points={{-90,-19},{-90,
-          -19},{-90,64},{-12,64}}, color={0,0,127}));
   connect(senTemRooAir.T, conCoo.TRoo) annotation (Line(points={{-40,-40},{-50,-40},
           {-50,54},{-12,54}}, color={0,0,127}));
 
@@ -245,6 +217,10 @@ equation
     annotation (Line(points={{140,-60},{90,-60},{40,-60}}, color={0,127,255}));
   connect(senFloAir.port_a, res.port_b) annotation (Line(points={{-80,-60},{-30,
           -60},{20,-60}}, color={0,127,255}));
+  connect(watCoo_a, conCoo.port_a)
+    annotation (Line(points={{-140,60},{-76,60},{-10,60}}, color={0,127,255}));
+  connect(senFloAir.m_flow, conCoo.mAir_flow) annotation (Line(points={{-90,-49},
+          {-90,-49},{-90,64},{-12,64}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-140,
             -120},{140,120}}), graphics={Rectangle(
           extent={{-120,100},{120,-100}},

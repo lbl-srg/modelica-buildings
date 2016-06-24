@@ -9,7 +9,7 @@ model CoolingOnly
   Buildings.Fluid.Sources.FixedBoundary sin_1(
     redeclare package Medium = MediumW,
     nPorts=1) "Sink for water"
-    annotation (Placement(transformation(extent={{100,90},{80,110}})));
+    annotation (Placement(transformation(extent={{100,56},{80,76}})));
   Buildings.Fluid.Sources.MassFlowSource_T souAir(
     redeclare package Medium = MediumA,
     use_m_flow_in=false,
@@ -41,17 +41,12 @@ model CoolingOnly
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=0.094) "Controller"
          annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
-  Buildings.Fluid.Sources.FixedBoundary sou_1(
+  Sources.MassFlowSource_T pum(
     redeclare package Medium = MediumW,
+    use_m_flow_in=true,
     nPorts=1,
     T=288.15) "Source for water"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=0.094,
-    addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Pump for water"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+    annotation (Placement(transformation(extent={{-22,56},{-2,76}})));
   Modelica.Blocks.Math.Gain gain(k=1200) "Gain thermal loads"
     annotation (Placement(transformation(extent={{-68,-70},{-48,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
@@ -80,16 +75,12 @@ model CoolingOnly
 equation
   connect(TOut.port, theConWal.port_a)
     annotation (Line(points={{-90,-100},{-60,-100}}, color={191,0,0}));
-  connect(sou_1.ports[1], pum.port_a) annotation (Line(points={{-60,100},{-40,100},
-          {-20,100}}, color={0,127,255}));
   connect(gain.y, heaFlo.Q_flow)
     annotation (Line(points={{-47,-60},{-30,-60}}, color={0,0,127}));
   connect(TSetCoo.y, conPID.u_s)
     annotation (Line(points={{-89,-10},{-72,-10}}, color={0,0,127}));
   connect(senTem.T, conPID.u_m) annotation (Line(points={{-40,-30},{-50,-30},{-60,
           -30},{-60,-22}}, color={0,0,127}));
-  connect(conPID.y, pum.m_flow_in) annotation (Line(points={{-49,-10},{-40,-10},
-          {-40,118},{-10.2,118},{-10.2,112}}, color={0,0,127}));
   connect(vol.ports[1], bou.ports[1]) annotation (Line(points={{58,-70},{60,-70},
           {60,-100},{80,-100}}, color={0,127,255}));
   connect(heaFlo.port, vol.heatPort)
@@ -100,16 +91,18 @@ equation
           {40,-60},{50,-60}}, color={191,0,0}));
   connect(sine.y, gain.u)
     annotation (Line(points={{-89,-60},{-89,-60},{-70,-60}}, color={0,0,127}));
-  connect(pum.port_b, beaCoo.watCoo_a) annotation (Line(points={{0,100},{6,100},
-          {10,100},{10,66},{26,66}}, color={0,127,255}));
   connect(beaCoo.watCoo_b, sin_1.ports[1]) annotation (Line(points={{54,66},{70,
-          66},{70,100},{80,100}}, color={0,127,255}));
+          66},{80,66}},           color={0,127,255}));
   connect(beaCoo.heaPor, vol.heatPort) annotation (Line(points={{40,48},{40,48},
           {40,26},{40,-60},{50,-60}}, color={191,0,0}));
   connect(souAir.ports[1], beaCoo.air_a) annotation (Line(points={{80,20},{70,
           20},{70,54},{54,54}}, color={0,127,255}));
   connect(beaCoo.air_b, vol.ports[2]) annotation (Line(points={{26,54},{12,54},
           {12,-80},{62,-80},{62,-70}}, color={0,127,255}));
+  connect(pum.ports[1], beaCoo.watCoo_a)
+    annotation (Line(points={{-2,66},{12,66},{26,66}}, color={0,127,255}));
+  connect(pum.m_flow_in, conPID.y) annotation (Line(points={{-22,74},{-40,74},{
+          -40,-10},{-49,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),experiment(StopTime=172800),
             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingOnly.mos"

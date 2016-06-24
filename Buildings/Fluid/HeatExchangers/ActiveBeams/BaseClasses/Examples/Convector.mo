@@ -20,6 +20,7 @@ model Convector
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.Convector con(
     redeclare package Medium = Medium,
+    nBeams=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(
       mAir_flow_nominal=0.0792,
@@ -33,9 +34,6 @@ model Convector
     redeclare package Medium = Medium,
     m_flow_nominal=0.094) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Sensors.MassFlowRate senMasFlo(
-     redeclare package Medium = Medium) "Mass flow sensor"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(airFlo.y, con.mAir_flow) annotation (Line(points={{-59,80},{-10,80},{-10,
           4},{-2,4}},  color={0,0,127}));
@@ -46,12 +44,8 @@ equation
                                              color={0,127,255}));
   connect(senTem.port_b, bou.ports[1])
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
-  connect(wat.ports[1], senMasFlo.port_a)
-    annotation (Line(points={{-60,0},{-50,0},{-40,0}}, color={0,127,255}));
-  connect(senMasFlo.port_b, con.port_a)
-    annotation (Line(points={{-20,0},{-10,0},{0,0}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, con.mWat_flow) annotation (Line(points={{-30,11},{-30,
-          16},{-6,16},{-6,9},{-2,9}}, color={0,0,127}));
+  connect(wat.ports[1], con.port_a)
+    annotation (Line(points={{-60,0},{-30,0},{0,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),experiment(StopTime=10),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos"
         "Simulate and plot"),

@@ -6,7 +6,7 @@ model NumberOfBeams
 
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Integer nBeams = 10 "Number of beams";
+  parameter Integer nBeams(min=1) = 10 "Number of beams";
 
   Buildings.Fluid.Sources.FixedBoundary sin_1(
     redeclare package Medium = MediumW,

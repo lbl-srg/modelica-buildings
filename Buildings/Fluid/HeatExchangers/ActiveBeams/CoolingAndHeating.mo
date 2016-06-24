@@ -6,7 +6,7 @@ model CoolingAndHeating "Active beam unit for heating and cooling"
     annotation (
       Dialog(group="Nominal condition"),
       choicesAllMatching=true,
-      Placement(transformation(extent={{40,-92},{60,-72}})));
+      Placement(transformation(extent={{62,-98},{78,-82}})));
 
   // Initialization
   parameter MediumWat.AbsolutePressure pWatHea_start = pWatCoo_start
@@ -64,16 +64,6 @@ protected
     final nBeams=nBeams) "Heating beam"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Sensors.MassFlowRate senFlo2(
-    redeclare final package Medium = MediumWat)
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Math.Gain gaiWatHeaFlo(final k=1/nBeams)
-    "Gain to scale water mass flow rate to a single beam" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,30})));
-
 initial equation
   assert(perHea.primaryAir.r_V[1]<=0.000001 and perHea.primaryAir.f[1]<=0.00001,
     "Performance curve perHea.primaryAir must pass through (0,0).");
@@ -88,24 +78,14 @@ equation
     annotation (Line(points={{10,0},{140,0}}, color={0,127,255}));
   connect(conHea.Q_flow, sum.u[2])
     annotation (Line(points={{11,7},{20,7},{20,30},{38,30}}, color={0,0,127}));
-  connect(watHea_a, senFlo2.port_a)
-    annotation (Line(points={{-140,0},{-120,0}}, color={0,127,255}));
-  connect(senFlo2.port_b, conHea.port_a)
-    annotation (Line(points={{-100,0},{-100,0},{-10,0}}, color={0,127,255}));
-  connect(gaiWatHeaFlo.y, conHea.mWat_flow) annotation (Line(points={{-59,30},{-28,
-          30},{-28,9},{-12,9}}, color={0,0,127}));
-  connect(conHea.mAir_flow, gaiAirFlo.y)
-    annotation (Line(points={{-12,4},{-90,4},{-90,-19}}, color={0,0,127}));
-  connect(senFlo2.m_flow, gaiWatHeaFlo.u)
-    annotation (Line(points={{-110,11},{-110,30},{-82,30}}, color={0,0,127}));
   connect(conHea.TRoo, senTemRooAir.T) annotation (Line(points={{-12,-6},{-26,-6},
           {-50,-6},{-50,-40},{-40,-40}}, color={0,0,127}));
+  connect(watHea_a, conHea.port_a)
+    annotation (Line(points={{-140,0},{-76,0},{-10,0}}, color={0,127,255}));
+  connect(conHea.mAir_flow, senFloAir.m_flow) annotation (Line(points={{-12,4},
+          {-46,4},{-90,4},{-90,-49}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -120},{140,120}}), graphics={Text(
-          extent={{-40,112},{-28,108}},
-          lineColor={28,108,200},
-          textString="fixme: see if these gains can be removed")}),
-                                defaultComponentName="beaCooHea",Icon(
+            -120},{140,120}})), defaultComponentName="beaCooHea",Icon(
         coordinateSystem(extent={{-140,-120},{140,120}}),             graphics={
         Rectangle(
           extent={{-120,6},{-138,-6}},

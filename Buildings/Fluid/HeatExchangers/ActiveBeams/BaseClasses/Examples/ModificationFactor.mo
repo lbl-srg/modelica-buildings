@@ -15,7 +15,9 @@ model ModificationFactor
     duration=1,
     offset=20) "Ramp input signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor mod(per(
+  Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor mod(
+    nBeams=1,
+    per(
       Q_flow_nominal=0.094*2*4200,
       mAir_flow_nominal=0.0792,
       mWat_flow_nominal=0.094,

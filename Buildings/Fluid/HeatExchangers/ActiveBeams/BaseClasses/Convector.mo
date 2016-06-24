@@ -4,13 +4,13 @@ model Convector "Heat exchanger for the water stream"
     final m_flow_nominal = per.mWat_flow_nominal*nBeams);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true,
-    final dp_nominal = per.dpWat_nominal);
+    final dp_nominal = per.dpWat_nominal "Don't multiply with nBeams, as the beams are in parallel");
 
   parameter Data.Generic per "Performance data"
     annotation (choicesAllMatching = true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  parameter Real nBeams=1 "Number of beams in parallel";
+  parameter Integer nBeams(min=1) "Number of beams in parallel";
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
@@ -44,10 +44,6 @@ model Convector "Heat exchanger for the water stream"
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  Modelica.Blocks.Interfaces.RealInput mWat_flow(
-    final unit="kg/s") "Actual water mass flow rate of a single beam"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-
   Modelica.Blocks.Interfaces.RealInput mAir_flow(
     final unit="kg/s") "Air mass flow rate of a single beam"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -78,22 +74,26 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final Q_flow_nominal=-per.Q_flow_nominal "fixme: shouldn't this be -per.Q_flow_nominal*nBeams, as the water flow is for all beams combined")
+    final Q_flow_nominal=-nBeams * per.Q_flow_nominal)
     "Heat exchanger for the water stream"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   ModificationFactor mod(
+    final nBeams=nBeams,
     final per=per) "Performance modification for part load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Blocks.Sources.RealExpression senTem(y=Medium.temperature(port_a_inflow))
     "Actual water temperature entering the beam"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
 
   Medium.ThermodynamicState port_a_inflow=
     Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))
     "state for medium inflowing through port_a";
 
+  Sensors.MassFlowRate senFloWatCoo(
+    redeclare final package Medium = Medium) "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(hex.Q_flow, Q_flow) annotation (Line(points={{61,6},{70,6},{70,70},{
           110,70}},
@@ -103,16 +103,18 @@ equation
                                               color={0,127,255}));
   connect(mod.y, hex.u)
     annotation (Line(points={{11,60},{20,60},{20,6},{38,6}}, color={0,0,127}));
-  connect(senTem.y, mod.TWat) annotation (Line(points={{-39,10},{-30,10},{-30,57},
+  connect(senTem.y, mod.TWat) annotation (Line(points={{-39,28},{-28,28},{-28,57},
           {-12,57}}, color={0,0,127}));
-  connect(port_a, hex.port_a)
-    annotation (Line(points={{-100,0},{-30,0},{40,0}}, color={0,127,255}));
-  connect(mWat_flow, mod.mWat_flow) annotation (Line(points={{-120,90},{-80,90},
-          {-80,69},{-12,69}}, color={0,0,127}));
   connect(TRoo, mod.TRoo) annotation (Line(points={{-120,-60},{-20,-60},{-20,51.2},
           {-12,51.2}}, color={0,0,127}));
-  connect(mAir_flow, mod.mAir_flow) annotation (Line(points={{-120,40},{-90,40},
-          {-60,40},{-60,63},{-12,63}}, color={0,0,127}));
+  connect(mAir_flow, mod.mAir_flow) annotation (Line(points={{-120,40},{-120,40},
+          {-34,40},{-34,63},{-12,63}}, color={0,0,127}));
+  connect(senFloWatCoo.port_a, port_a)
+    annotation (Line(points={{-80,0},{-100,0}},          color={0,127,255}));
+  connect(senFloWatCoo.port_b, hex.port_a)
+    annotation (Line(points={{-60,0},{40,0}}, color={0,127,255}));
+  connect(senFloWatCoo.m_flow, mod.mWat_flow)
+    annotation (Line(points={{-70,11},{-70,69},{-12,69}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={Rectangle(

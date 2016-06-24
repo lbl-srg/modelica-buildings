@@ -2,19 +2,21 @@ within Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses;
 model ModificationFactor "Factor to modify nominal capacity"
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Integer nBeams(min=1) "Number of beams in parallel";
+
   parameter Data.Generic per "Performance data"
     annotation (choicesAllMatching = true,
     Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput TWat(
     final unit="K",
-    displayUnit="degC") "Temperature of the water entering the beam"
+    displayUnit="degC") "Temperature of the water entering the beams"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(
-    final unit="kg/s") "Mass flow rate of the water entering the beam"
+    final unit="kg/s") "Mass flow rate of the water entering the beams"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput mAir_flow(
-    final unit="kg/s") "Mass flow rate of the primary air entering the beam"
+    final unit="kg/s") "Mass flow rate of the primary air entering the beams"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealInput TRoo(
@@ -31,11 +33,11 @@ protected
     final k=1/per.dT_nominal)
     "Nominal temperature difference between water and room air"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Modelica.Blocks.Sources.Constant watFlo_nom(
-    final k=1/per.mWat_flow_nominal) "Nominal water mass flow rate"
+  Modelica.Blocks.Sources.Constant watFlo_nom(final k=1/(nBeams*per.mWat_flow_nominal))
+                                     "Nominal water mass flow rate"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
-  Modelica.Blocks.Sources.Constant airFlo_nom(
-    final k=1/per.mAir_flow_nominal) "Nominal water mass flow rate"
+  Modelica.Blocks.Sources.Constant airFlo_nom(final k=1/(nBeams*per.mAir_flow_nominal))
+                                     "Nominal water mass flow rate"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
   DerivativesCubicSpline temDif_mod(
@@ -105,10 +107,14 @@ equation
             -100},{100,100}})), defaultComponentName="mod",
             Documentation(info="<html>
 <p>
-This model determines the three modification factors described in <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling</a> by comparing the actual values of air mass flow rate, water mass flow rate and room-water temperature difference with the rated values.
+This model determines the three modification factors described in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">
+Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide</a>
+by comparing the actual values of air mass flow rate,
+water mass flow rate and room-water temperature difference with the nominal values.
 The three modification factors are then multiplied.
-
+Input to this model are the total mass flow rates of all parallel beams combined.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
