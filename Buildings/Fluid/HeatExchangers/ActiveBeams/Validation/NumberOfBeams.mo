@@ -32,7 +32,9 @@ model NumberOfBeams
     redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
@@ -47,7 +49,9 @@ model NumberOfBeams
     redeclare package Medium = MediumW,
     m_flow_nominal=0.094,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
@@ -57,8 +61,9 @@ model NumberOfBeams
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    nBeams=1) "Active beam"
+    nBeams=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+              "Active beam"
     annotation (Placement(transformation(extent={{-14,28},{14,52}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
@@ -76,15 +81,21 @@ model NumberOfBeams
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHotWat10(
     redeclare package Medium = MediumW,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.094*nBeams) "Pump for hot water"
+    m_flow_nominal=0.094*nBeams,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                 "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat10(
     redeclare package Medium = MediumW,
     addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.094*nBeams) "Pump for chilled water"
+    m_flow_nominal=0.094*nBeams,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                 "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea10(
@@ -96,8 +107,9 @@ model NumberOfBeams
     redeclare
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
       perHea,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    nBeams=nBeams) "Active beam"
+    nBeams=nBeams,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                   "Active beam"
     annotation (Placement(transformation(extent={{-14,-92},{14,-68}})));
   Modelica.Blocks.Sources.Step step(
     height=-0.094,
@@ -172,7 +184,8 @@ equation
          {{0,28},{0,28},{0,-10},{0,-40},{50,-40},{50,-150},{-40,-150}}, color={191,
           0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{120,120}})),experiment(StopTime=5000),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
+            -180},{120,120}})),experiment(StopTime=5000),
+   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
      Documentation(info="<html>
