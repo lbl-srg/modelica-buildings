@@ -14,16 +14,15 @@ versus the change in the rate of heating or cooling.
 The normalized temperature difference is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-r<sub>&#916;T</sub><sup>i</sup></i>
-= 
+r<sub>&#916;T</sub><sup>i</sup>=
 &#916;T<sup>i</sup> &frasl; &#916;T<sub>nominal</sub>
 =
-(T<sub>w</sub><sup>i</sup>-T<sub>z</sub>) 
+(T<sub>w</sub><sup>i</sup>-T<sub>z</sub>)
 &frasl;
 (T<sub>w,nominal</sub>-T<sub>z</sub>),
 </p>
 <p>
-where 
+where
 <i>T<sub>w</sub><sup>i</sup></i> is the water inlet temperature,
 <i>T<sub>z</sub></i> is the zone air temperature and
 <i>T<sub>w,nominal</sub></i> is the nominal water inlet temperature.
