@@ -125,5 +125,17 @@ used for the calculation of the modification factor <i>f<sub><code>&#916;</code>
 where <i>T<sub>hw</sub></i> is the hot water temperature entering the convector in heating mode
 and <i>T<sub>z</sub></i> is the zone air temperature.
 </p>
+
+<h4>Dynamics</h4>
+<p>
+The model can be configured to be steady-state or dynamic.
+If configured as dynamic, then a dynamic conservation equation is applied to the water streams
+for heating and for cooling.
+However, because the capacity of the beam depends on its inlet temperature, and is independent of the
+outlet temperature, the heat transfered
+to the room at the port <code>heaPor.Q_flow</code>, as well as the heat added to or removed from the
+water streams, will instantaneously change.
+The only dynamic responses are the water outlet temperatures, which change with a first
+order response, parameterized with the time constant <code>tau</code>.
 </html>"));
 end UsersGuide;
