@@ -137,5 +137,19 @@ to the room at the port <code>heaPor.Q_flow</code>, as well as the heat added to
 water streams, will instantaneously change.
 The only dynamic responses are the water outlet temperatures, which change with a first
 order response, parameterized with the time constant <code>tau</code>.
+</p>
+
+<h4>Energy balance</h4>
+<p>
+All heat flow rate that is added to or extracted from the room is transmitted through the heat port
+<code>heaPor</code>. Hence, this model does not cool the supply air between the ports
+<code>air_a</code> and <code>air_b</code>. Rather, it adds this heat flow rate
+to the heat port <code>heaPor</code>.
+The rationale for this implementation is that the beam transfers heat by convection directly to the room, and
+by induction of room air into the supply air. As this split of heat flow rate is generally not known,
+and because the amount of inducted air is also unknown,
+it was decided to transfer all heat through the heat port <code>heaPor</code>.
+This also avoids having to add an extra air flow path for the air induced from the room.
+</p>
 </html>"));
 end UsersGuide;
