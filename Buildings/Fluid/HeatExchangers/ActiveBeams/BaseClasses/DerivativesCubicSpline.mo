@@ -60,8 +60,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     Icon(graphics={
     Line(points={{46,-76},{46,58}},
                                   color={192,192,192}),

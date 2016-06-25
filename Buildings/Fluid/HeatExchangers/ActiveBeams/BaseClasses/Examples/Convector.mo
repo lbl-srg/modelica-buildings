@@ -46,10 +46,8 @@ equation
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
   connect(wat.ports[1], con.port_a)
     annotation (Line(points={{-60,0},{-30,0},{0,0}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),experiment(StopTime=10),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos"
+  annotation (experiment(StopTime=10),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/Convector.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 The example tests the implementation of

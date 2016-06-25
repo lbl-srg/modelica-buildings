@@ -34,9 +34,7 @@ equation
           {-12,-3}}, color={0,0,127}));
   connect(const1.y, mod.TRoo) annotation (Line(points={{-59,-70},{-20,-70},{-20,
           -8.8},{-12,-8.8}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-            experiment(StopTime=1),
+  annotation (            experiment(StopTime=1),
             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/BaseClasses/Examples/ModificationFactor.mos"
         "Simulate and plot"),
         Documentation(info="<html>

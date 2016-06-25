@@ -103,8 +103,7 @@ equation
           4.44089e-16},{64,4.44089e-16}}, color={0,0,127}));
   connect(temDif_mod.y, mulPro.u[3]) annotation (Line(points={{41,-40},{50,-40},
           {60,-40},{60,-2.8},{64,-2.8}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), defaultComponentName="mod",
+  annotation ( defaultComponentName="mod",
             Documentation(info="<html>
 <p>
 This model determines the three modification factors described in

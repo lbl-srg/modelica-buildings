@@ -115,8 +115,7 @@ equation
     annotation (Line(points={{-60,0},{40,0}}, color={0,127,255}));
   connect(senFloWatCoo.m_flow, mod.mWat_flow)
     annotation (Line(points={{-70,11},{-70,69},{-12,69}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

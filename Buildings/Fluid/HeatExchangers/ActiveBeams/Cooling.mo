@@ -170,7 +170,6 @@ protected
     y(final unit="W")) "Gain to reverse the sign" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={50,-20})));
 
   Sensors.MassFlowRate senFloAir(

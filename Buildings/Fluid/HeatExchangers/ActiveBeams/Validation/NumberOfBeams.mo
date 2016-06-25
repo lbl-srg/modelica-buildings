@@ -187,7 +187,6 @@ equation
             -180},{120,120}})),experiment(StopTime=5000),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeams.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
      Documentation(info="<html>
 <p>
 This model validates the scaling of the heat tranfer and pressure drop for
