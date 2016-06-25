@@ -188,13 +188,6 @@ initial equation
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
 
-
-
-
-
-
-
-
 equation
   connect(heaToRoo.port, heaPor)
     annotation (Line(points={{0,-46},{0,-120}}, color={191,0,0}));
