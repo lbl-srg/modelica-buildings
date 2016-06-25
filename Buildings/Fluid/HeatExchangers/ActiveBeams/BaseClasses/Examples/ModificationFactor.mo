@@ -43,7 +43,7 @@ equation
 <p>
 This example tests the implementation of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor\">
-Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor</a>. 
+Buildings.Fluid.HeatExchangers.ActiveBeams.BaseClasses.ModificationFactor</a>.
 </p>
 </html>", revisions="<html>
 <ul>

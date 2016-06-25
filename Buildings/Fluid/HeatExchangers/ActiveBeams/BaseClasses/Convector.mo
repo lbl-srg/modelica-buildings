@@ -141,7 +141,7 @@ equation
 <p>
 In cooling mode, this model adds heat to the water stream. The heat added is equal to:
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Beam</sub> = Q<sub>rated</sub> f<sub><code>&#916;</code>T</sub> f<sub>SA</sub> f<sub>W</sub> 
+Q<sub>Beam</sub> = Q<sub>rated</sub> f<sub><code>&#916;</code>T</sub> f<sub>SA</sub> f<sub>W</sub>
 </p>
 <p>
 In heating mode, the heat is removed from the water stream.
