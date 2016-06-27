@@ -85,9 +85,9 @@ protected
     annotation (Placement(transformation(extent={{38,-4},{58,16}})));
 
   Fluid.HeatPumps.Carnot_TCon hea(
-    show_T=true,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = MediumSin,
+    show_T=true,
     m1_flow_nominal=m_flow_nominal,
     QCon_flow_nominal=m_flow_nominal*cp_default*dTCon_nominal,
     dp2_nominal=6000,
@@ -100,20 +100,15 @@ protected
     dp1_nominal=dp_nominal) "Heat pump for heating"
     annotation (Placement(transformation(extent={{-52,-16},{-32,4}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTem(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    tau=0) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}})));
-
-  Fluid.Sources.FixedBoundary sinHea(nPorts=1, redeclare package Medium =
-        MediumSin) "Pressure source" annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary sinHea(
+    redeclare package Medium = MediumSin,
+    nPorts=1) "Pressure source" annotation (Placement(transformation(
           extent={{-10,10},{10,-10}}, origin={-70,-20})));
   Fluid.Sources.MassFlowSource_T souHea(
+    redeclare package Medium = MediumSin,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1,
-    redeclare package Medium = MediumSin) "Mass flow source"
+    nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{8,-10},{-12,-30}})));
   Modelica.Blocks.Math.Gain mHeaSin_flow(k=1/(cpSin_default*dTSin))
     "Mass flow rate for heat source"
@@ -126,15 +121,16 @@ protected
     "Mass flow rate for heat sink"
     annotation (Placement(transformation(extent={{66,60},{86,80}})));
   Fluid.Sources.MassFlowSource_T sou2(
+    redeclare package Medium = MediumSin,
     use_m_flow_in=true,
     use_T_in=true,
-    redeclare package Medium = MediumSin,
     nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 
-  Fluid.Sources.FixedBoundary sinCoo(          redeclare package Medium =
-        MediumSin, nPorts=1) "Pressure source"
-                                     annotation (Placement(transformation(
+  Fluid.Sources.FixedBoundary sinCoo(
+    redeclare package Medium = MediumSin,
+    nPorts=1) "Pressure source"
+    annotation (Placement(transformation(
           extent={{10,-10},{-10,10}}, origin={82,20})));
 
 equation
@@ -142,9 +138,6 @@ equation
           {-120,80}}, color={0,0,127}));
   connect(port_a, hea.port_a1) annotation (Line(points={{-100,0},{-52,0}},
                               color={0,127,255}));
-  connect(hea.port_b1, senTem.port_a)
-    annotation (Line(points={{-32,0},{-32,0},{-20,0},{-6,0}},
-                                                          color={0,127,255}));
   connect(hea.QCon_flow, addHea.u1) annotation (Line(points={{-31,3},{-24,3},{
           -24,-50},{-70,-50},{-70,-64},{-62,-64}}, color={0,0,127}));
   connect(hea.P, addHea.u2) annotation (Line(points={{-31,-6},{-26,-6},{-26,-46},
@@ -188,12 +181,12 @@ equation
           {62,6},{62,20},{72,20}}, color={0,127,255}));
   connect(port_b, coo.port_a2) annotation (Line(points={{100,0},{86,0},{72,0},{
           58,0}},          color={0,127,255}));
-  connect(coo.port_b2, senTem.port_b) annotation (Line(points={{38,0},{20,0},{6,
-          0}},           color={0,127,255}));
   connect(addCoo.u1, coo.QEva_flow) annotation (Line(points={{38,76},{28,76},{
           28,-14},{70,-14},{70,-3},{59,-3}}, color={0,0,127}));
   connect(coo.QEva_flow, QCoo_flow) annotation (Line(points={{59,-3},{94,-3},{
           94,30},{110,30}}, color={0,0,127}));
+  connect(hea.port_b1, coo.port_b2)
+    annotation (Line(points={{-32,0},{38,0},{38,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
@@ -275,6 +268,10 @@ Carnot cycle analogy.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2016, by Michael Wetter:<br/>
+Removed temperature sensor which is no longer needed.
+</li>
 <li>
 January 11, 2016, by Michael Wetter:<br/>
 First implementation.
