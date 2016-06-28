@@ -5,7 +5,7 @@
 ::*******************************************************************
 set DIR=..\..\Library\win32
 set MSbuildName=ffd
-set BuildConfiguration=Debug
+set BuildConfiguration=Release
 set Platform=Win32
 ::Note: Two build mode, Debug or Release
 
@@ -41,8 +41,8 @@ if exist "%DIR%\%MSbuildName%.lib" (
 ::Set Default Compiler Version and Toolset (edited by user)
 ::-------------------------------------------------------------------
 ::Note: Toolset: V100 for VC10.0, v110 for VC11.0
-set VCVersion=10.0
-set Toolset=v100
+set VCVersion=12.0
+set Toolset=v120
 
 ::-------------------------------------------------------------------
 ::Call vcvarsall.bat (Not user editable)
