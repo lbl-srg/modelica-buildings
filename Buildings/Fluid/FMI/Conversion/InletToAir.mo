@@ -45,7 +45,7 @@ block InletToAir
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
     final quantity=Medium.extraPropertiesNames) if
        allowFlowReversal
-    "Prescribed boundary trace substances"
+    "Zone air trace substances"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         visible=allowFloWReserval,

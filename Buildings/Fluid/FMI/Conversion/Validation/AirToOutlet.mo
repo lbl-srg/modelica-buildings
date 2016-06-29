@@ -2,6 +2,10 @@ within Buildings.Fluid.FMI.Conversion.Validation;
 model AirToOutlet "Validation model for air to outlet conversion"
   extends Modelica.Icons.Example;
 
+  parameter Boolean allowFlowReversal = false
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
+    annotation(Evaluate=true);
+
   Modelica.Blocks.Sources.Constant m_flow(k=0.2) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant h(k=3E5) "Specific enthalpy"
@@ -12,20 +16,24 @@ model AirToOutlet "Validation model for air to outlet conversion"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Fluid.FMI.Conversion.AirToOutlet conAirNoC(
-    redeclare package Medium = Buildings.Media.Air)
+    redeclare package Medium = Buildings.Media.Air,
+    final allowFlowReversal=allowFlowReversal)
     "Converter for air without trace substances"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Buildings.Fluid.FMI.Conversion.AirToOutlet conAirWithC(
-    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}))
+    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}),
+    final allowFlowReversal=allowFlowReversal)
     "Converter for air with trace substances"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.FMI.Conversion.AirToOutlet conDryAirNoC(
-    redeclare package Medium = Modelica.Media.Air.SimpleAir)
+    redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    final allowFlowReversal=allowFlowReversal)
     "Converter for dry air without trace substances"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.FMI.Conversion.AirToOutlet conDryAirWithC(
-    redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}))
+    redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}),
+    final allowFlowReversal=allowFlowReversal)
     "Converter for dry air with trace substances"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
@@ -58,7 +66,13 @@ annotation (
 <p>
 This example validates the conversion model
 <a href=\"modelica://Buildings.Fluid.FMI.Conversion.AirToOutlet\">
-Buildings.Fluid.FMI.Conversion.AirToOutlet</a>.
+Buildings.Fluid.FMI.Conversion.AirToOutlet</a>
+for the situation without reverse flow.
+</p>
+<p>
+The conversion elements all have either a dry or
+moist air medium, with our without trace substances,
+in order to test all combinations of air.
 </p>
 </html>", revisions="<html>
 <ul>
