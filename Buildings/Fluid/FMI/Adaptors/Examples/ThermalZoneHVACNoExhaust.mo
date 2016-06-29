@@ -5,8 +5,8 @@ model ThermalZoneHVACNoExhaust
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
-  Buildings.Fluid.FMI.Adaptors.HVACConvective hvacAda(redeclare final package
-      Medium=MediumA, nPorts=2)
+  Buildings.Fluid.FMI.Adaptors.HVACConvective hvacAda(
+    redeclare final package Medium=MediumA, nPorts=2)
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
@@ -104,10 +104,6 @@ equation
           {-190,-80},{-190,-24},{-182,-24}}, color={0,0,127}));
   connect(conPI.y, hea.u) annotation (Line(points={{-49,50},{-46,50},{-46,16},{-42,
           16}},       color={0,0,127}));
-  connect(hea.port_b, hvacAda.ports[1]) annotation (Line(points={{-20,10},{20,10},
-          {20,12}},       color={0,127,255}));
-  connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{20,10},
-          {0,10},{0,-26},{-120,-26}},       color={0,127,255}));
   connect(TBou.port,theCon. port_a)
     annotation (Line(points={{160,-50},{150,-50}},
                                                  color={191,0,0}));
@@ -118,8 +114,8 @@ equation
     annotation (Line(points={{-72,50},{-99,50}},   color={0,0,127}));
   connect(TOut.y, TBou.T)
     annotation (Line(points={{209,-50},{182,-50}}, color={0,0,127}));
-  connect(hvacAda.TAirZon[1], conPI.u_m) annotation (Line(points={{24,-1},{24,-10},
-          {-60,-10},{-60,38}},             color={0,0,127}));
+  connect(hvacAda.TAirZon[1], conPI.u_m) annotation (Line(points={{24,-1},{24,
+          -10},{-60,-10},{-60,38}},        color={0,0,127}));
   connect(con.ports[1], vol.ports[1])
     annotation (Line(points={{100,12},{148,12},{148,20}},
                                                        color={0,127,255}));
@@ -130,6 +126,10 @@ equation
           152,8},{152,20}},   color={0,127,255}));
   connect(hvacAda.fluPor, con.fluPor[1:2]) annotation (Line(points={{41,17},{57.5,
           17},{57.5,19},{77.8,19}}, color={0,0,255}));
+  connect(hea.port_b, hvacAda.ports[1])
+    annotation (Line(points={{-20,10},{20,10},{20,12}}, color={0,127,255}));
+  connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{-2,8},
+          {-2,-26},{-120,-26}}, color={0,127,255}));
  annotation (
     Diagram(coordinateSystem(extent={{-220,-120},{260,160}}), graphics={
         Rectangle(
