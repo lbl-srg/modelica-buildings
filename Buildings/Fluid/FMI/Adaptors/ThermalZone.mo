@@ -5,22 +5,26 @@ model ThermalZone
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model within the source" annotation (choicesAllMatching=true);
 
-  parameter Integer nFluPor(final min=1) "Number of fluid ports."
+  parameter Integer nFluPor(final min=2) "Number of fluid ports"
     annotation (Dialog(connectorSizing=true));
 
   Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
-    each final allowFlowReversal=false,
+    each final allowFlowReversal=true,
     each final use_p_in=false) "Fluid connector" annotation (Placement(
         transformation(extent={{-120,50},{-100,70}}), iconTransformation(
           extent={{-142,60},{-102,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon(
-    final unit="K", displayUnit="degC") "Zone air temperature" annotation (Placement(transformation(extent={{-100,
+    final unit="K",
+    displayUnit="degC")
+    "Zone air temperature" annotation (Placement(transformation(extent={{-100,
             0},{-140,40}}), iconTransformation(extent={{-102,8},{-142,48}})));
 
-  Modelica.Blocks.Interfaces.RealOutput X_wZon(final unit="kg/kg")
-    "Zone air water mass fraction per total air mass" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput X_wZon(final unit="kg/kg") if
+       Medium.nXi > 0
+    "Zone air water mass fraction per total air mass"
+     annotation (Placement(
         transformation(extent={{-100,-40},{-142,2}}), iconTransformation(
           extent={{-102,-38},{-142,2}})));
 
@@ -42,13 +46,18 @@ protected
   x_i_toX_w x_i_toX(
     redeclare final package Medium = Medium) if
     Medium.nXi > 0 "Conversion from x_i to X_w"
-    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
 
-  RealVectorExpression XiSup(each final n=Medium.nXi, final y=inStream(ports[1].Xi_outflow)) if
-    Medium.nXi > 0 "Water vapor concentration of supply air"
+  RealVectorExpression XiSup(
+    each final n=Medium.nXi,
+    final y=inStream(ports[1].Xi_outflow)) if
+       Medium.nXi > 0
+      "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{20,-30},{0,-10}})));
 
-  RealVectorExpression CSup(each final n=Medium.nC, final y=inStream(ports[1].C_outflow)) if
+  RealVectorExpression CSup(
+    each final n=Medium.nC,
+    final y=inStream(ports[1].C_outflow)) if
     Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
@@ -60,18 +69,34 @@ protected
     each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
     each final use_m_flow_in=true) "Boundary conditions for ThermalZone system"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
+    annotation (Placement(transformation(extent={{2,38},{22,58}})));
+
   Conversion.InletToAir con[nFluPor](
     redeclare each final package Medium = Medium)
-    annotation (Placement(transformation(extent={{-84,50},{-64,70}})));
+    "Connector between FMI signals and real input and real outputs"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
 
-  BaseClasses.X_w_toX x_w_toX[nFluPor](redeclare final package Medium = Medium)
-    if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{-10,46},{10,66}})));
+  BaseClasses.X_w_toX x_w_toX[nFluPor](
+    redeclare final package Medium = Medium) if
+       Medium.nXi > 0 "Conversion from X_w to X"
+    annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
+
+  Modelica.Blocks.Math.MultiSum multiSum(
+    final nu=nFluPor,
+    final k=fill(1, nFluPor))
+    "Sum of air mass flow rates"
+    annotation (Placement(transformation(extent={{4,72},{16,84}})));
+
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu(message="\"Mass flow rate does not balance. The sum needs to be zero.",
+      startTime=100)
+    "Tests whether the mass flow rates balance to zero"
+    annotation (Placement(transformation(extent={{70,56},{90,76}})));
+  Modelica.Blocks.Sources.Constant const(final k=0) "Outputs zero"
+    annotation (Placement(transformation(extent={{30,68},{50,88}})));
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
@@ -171,14 +196,14 @@ initial equation
 equation
 
   for i in 1:nFluPor loop
-    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{60,60},{60,60},
-            {80,60},{80,0},{100,0}},
+    connect(bou[i].ports[1], ports[i]) annotation (Line(points={{22,48},{22,48},
+            {80,48},{80,0},{100,0}},
                      color={0,127,255}));
   end for;
   connect(con.inlet, fluPor)
-    annotation (Line(points={{-85,60},{-85,60},{-110,60}},
+    annotation (Line(points={{-81,60},{-81,60},{-110,60}},
                                                        color={0,0,255}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-62,56},{-62,56},{-12,
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-58,56},{-58,56},{-42,
           56}},       color={0,0,127}));
   connect(senTemAir.T, TAirZon)
     annotation (Line(points={{50,-60},{50,-60},{40,-60},{40,20},{-120,20}},
@@ -187,23 +212,36 @@ equation
     annotation (Line(points={{-1,-60},{-1,-60},{-120,-60}},color={0,0,127}));
 
   connect(x_w_toX.X, bou.X_in)
-    annotation (Line(points={{12,56},{32,56},{38,56}},
+    annotation (Line(points={{-18,56},{-18,56},{-14,56},{-14,44},{0,44}},
                                                color={0,0,127}));
-  connect(con.C, bou.C_in) annotation (Line(points={{-62,52},{-62,52},{-44,52},
-          {-44,40},{20,40},{20,52},{40,52}},color={0,0,127}));
-  connect(con.m_flow, bou.m_flow_in) annotation (Line(points={{-62,68},{-50,68},
-          {-40,68},{-40,80},{28,80},{28,68},{40,68}}, color={0,0,127}));
+  connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},{
+          -10,40},{2,40}},                  color={0,0,127}));
+  connect(con.m_flow, bou.m_flow_in) annotation (Line(points={{-58,68},{-58,68},
+          {-50,68},{-50,78},{-10,78},{-10,56},{2,56}},color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
           {80,-60},{70,-60}}, color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
-    annotation (Line(points={{-1,-20},{-38,-20}}, color={0,0,127}));
+    annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
   connect(TAirZon, TAirZon) annotation (Line(points={{-120,20},{-114,20},{-114,20},
           {-120,20}}, color={0,0,127}));
-  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-62,-20},{-121,-20},{
-          -121,-19}},
-                 color={0,0,127}));
-  connect(con.T, bou.T_in) annotation (Line(points={{-62,64},{-46,64},{-30,64},
-          {-30,74},{20,74},{20,64},{38,64}},color={0,0,127}));
+  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-42,-20},{-121,-20},{-121,
+          -19}}, color={0,0,127}));
+  connect(con.T, bou.T_in) annotation (Line(points={{-58,64},{-58,64},{-44,64},{
+          -44,74},{-12,74},{-12,52},{0,52}},color={0,0,127}));
+  connect(con[1:nFluPor].m_flow, multiSum.u[1:nFluPor]) annotation (Line(points={{-58,68},{-54,68},
+          {-50,68},{-50,78},{4,78}},  color={0,0,127}));
+  connect(multiSum.y, assEqu.u2) annotation (Line(points={{17.02,78},{26,78},{26,
+          60},{30,60},{68,60}}, color={0,0,127}));
+  connect(const.y, assEqu.u1) annotation (Line(points={{51,78},{60,78},{60,72},{
+          68,72}}, color={0,0,127}));
+  for i in 1:nFluPor loop
+  connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{50,-60},{40,-60},
+          {40,20},{-76,20},{-76,48}}, color={0,0,127}));
+  connect(x_i_toX.X_w, con[i].X_wZon) annotation (Line(points={{-42,-20},{-42,-20},
+          {-70,-20},{-70,48}}, color={0,0,127}));
+  connect(CSup.y, con[i].CZon)
+    annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
+  end for;
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false, initialScale=0.1),
