@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "TSet.y",
-    "vol.T"
-  };

@@ -10,6 +10,7 @@ model HVACConvective
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(final min = 1) "Number of ports";
+  // fixme: check if nPorts can be autosized
 
   final parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";

@@ -1,12 +1,12 @@
 within Buildings.Fluid.FMI.Adaptors.Examples;
-model ThermalZoneHVACWithExhaust
+model ThermalZoneHVACNoExhaust
   "Example of a thermal zone and an HVAC system both exposed using the FMI adaptor"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
   Buildings.Fluid.FMI.Adaptors.HVACConvective hvacAda(redeclare final package
-      Medium=MediumA, nPorts=3)
+      Medium=MediumA, nPorts=2)
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
 
@@ -19,7 +19,7 @@ model ThermalZoneHVACWithExhaust
     "Nominal mass flow rate";
 
   Buildings.Fluid.FMI.Adaptors.ThermalZone con(
-    redeclare package Medium = MediumA, nFluPor=3)
+    redeclare package Medium = MediumA, nFluPor=2)
     "Adaptor for thermal zone"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Blocks.Sources.Pulse TSet(
@@ -58,7 +58,7 @@ model ThermalZoneHVACWithExhaust
 public
   Sources.Boundary_pT out(
     redeclare package Medium = MediumA,
-    nPorts=3,
+    nPorts=2,
     use_T_in=true) "Pressure and temperature source for outdoor" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -78,7 +78,7 @@ public
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=VRoo,
-    nPorts=3)
+    nPorts=2)
             "Room volume"
               annotation (Placement(transformation(extent={{140,20},{160,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=
@@ -91,34 +91,22 @@ public
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
     2*Modelica.Constants.pi)) "Outdoor temperature"
     annotation (Placement(transformation(extent={{230,-60},{210,-40}})));
-  Movers.FlowControlled_m_flow exh(
-    redeclare package Medium = MediumA,
-    addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true,
-    dp_nominal=1200,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    m_flow_nominal=0.1*m_flow_nominal) "Constant air exhaust"
-    annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 equation
   connect(mov.port_b,hea. port_a) annotation (Line(points={{-70,10},{-70,10},{-40,
           10}},               color={0,127,255}));
   connect(hex.port_b1,mov. port_a) annotation (Line(points={{-120,-14},{-110,-14},
           {-110,10},{-90,10}},  color={0,127,255}));
-  connect(out.ports[1],hex. port_b2) annotation (Line(points={{-160,-22.6667},{
-          -150,-22.6667},{-150,-26},{-140,-26}},
-                                  color={0,127,255}));
-  connect(out.ports[2],hex. port_a1) annotation (Line(points={{-160,-20},{-150,-20},
+  connect(out.ports[1],hex. port_b2) annotation (Line(points={{-160,-22},{-150,-22},
+          {-150,-26},{-140,-26}}, color={0,127,255}));
+  connect(out.ports[2],hex. port_a1) annotation (Line(points={{-160,-18},{-150,-18},
           {-150,-14},{-140,-14}}, color={0,127,255}));
   connect(TOut.y,out. T_in) annotation (Line(points={{209,-50},{200,-50},{200,-80},
           {-190,-80},{-190,-24},{-182,-24}}, color={0,0,127}));
   connect(conPI.y, hea.u) annotation (Line(points={{-49,50},{-46,50},{-46,16},{-42,
           16}},       color={0,0,127}));
-  connect(hea.port_b, hvacAda.ports[1]) annotation (Line(points={{-20,10},{20,
-          10},{20,12.6667}},
-                          color={0,127,255}));
-  connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,10},{20,10},
+  connect(hea.port_b, hvacAda.ports[1]) annotation (Line(points={{-20,10},{20,10},
+          {20,12}},       color={0,127,255}));
+  connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{20,10},
           {0,10},{0,-26},{-120,-26}},       color={0,127,255}));
   connect(TBou.port,theCon. port_a)
     annotation (Line(points={{160,-50},{150,-50}},
@@ -130,25 +118,18 @@ equation
     annotation (Line(points={{-72,50},{-99,50}},   color={0,0,127}));
   connect(TOut.y, TBou.T)
     annotation (Line(points={{209,-50},{182,-50}}, color={0,0,127}));
-  connect(exh.port_b, out.ports[3]) annotation (Line(points={{-90,-60},{-90,-60},
-          {-154,-60},{-154,-17.3333},{-160,-17.3333}}, color={0,127,255}));
-  connect(exh.port_a, hvacAda.ports[3]) annotation (Line(points={{-70,-60},{-70,
-          -60},{10,-60},{10,7.33333},{20,7.33333}},    color={0,127,255}));
-  connect(hvacAda.TAirZon[1], conPI.u_m) annotation (Line(points={{24,-0.666667},
-          {24,-10},{-60,-10},{-60,38}},    color={0,0,127}));
+  connect(hvacAda.TAirZon[1], conPI.u_m) annotation (Line(points={{24,-1},{24,-10},
+          {-60,-10},{-60,38}},             color={0,0,127}));
   connect(con.ports[1], vol.ports[1])
-    annotation (Line(points={{100,12.6667},{147.333,12.6667},{147.333,20}},
+    annotation (Line(points={{100,12},{148,12},{148,20}},
                                                        color={0,127,255}));
   connect(vol.heatPort, con.heaPorAir) annotation (Line(points={{140,30},{130,30},
           {122,30},{122,2},{100,2}},
                                   color={191,0,0}));
-  connect(hvacAda.fluPor, con.fluPor[1:3]) annotation (Line(points={{41,17},{60,
-          17},{60,19.3333},{77.8,19.3333}}, color={0,0,255}));
-  connect(con.ports[2], vol.ports[2]) annotation (Line(points={{100,10},{120,10},
-          {150,10},{150,20}}, color={0,127,255}));
-  connect(con.ports[3], vol.ports[3]) annotation (Line(points={{100,7.33333},{
-          126,7.33333},{152.667,7.33333},{152.667,20}},
-                                                    color={0,127,255}));
+  connect(con.ports[2], vol.ports[2]) annotation (Line(points={{100,8},{120,8},{
+          152,8},{152,20}},   color={0,127,255}));
+  connect(hvacAda.fluPor, con.fluPor[1:2]) annotation (Line(points={{41,17},{57.5,
+          17},{57.5,19},{77.8,19}}, color={0,0,255}));
  annotation (
     Diagram(coordinateSystem(extent={{-220,-120},{260,160}}), graphics={
         Rectangle(
@@ -213,7 +194,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACWithExhaust.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));
-end ThermalZoneHVACWithExhaust;
+end ThermalZoneHVACNoExhaust;
