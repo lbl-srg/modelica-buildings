@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Conversion.Validation;
-model InletToAir1
+model InletToAirMoistAir
   "Validation model for inlet to Buildings.Media.Air conversion without trace substances"
   extends Modelica.Icons.Example;
 
@@ -106,7 +106,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAir1.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAirMoistAir.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
-end InletToAir1;
+end InletToAirMoistAir;

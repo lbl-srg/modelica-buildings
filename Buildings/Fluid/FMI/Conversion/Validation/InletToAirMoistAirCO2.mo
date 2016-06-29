@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.Conversion.Validation;
-model InletToAir2
+model InletToAirMoistAirCO2
   "Validation model for inlet to Buildings.Media.Air conversion with C02 trace substances"
-  extends InletToAir1(
+  extends Buildings.Fluid.FMI.Conversion.Validation.InletToAirDryAir(
     redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}));
   Modelica.Blocks.Sources.Constant CRev[Medium.nC](each k=0.8)
               "Trace substance for reverse flow"
@@ -17,8 +17,8 @@ This example validates the conversion model
 Buildings.Fluid.FMI.Conversion.InletToAir
 </a>.
 It is identical to
-<a href=\"modelica://Buildings.Fluid.FMI.Conversion.Validation.InletToAir1\">
-Buildings.Fluid.FMI.Conversion.Validation.InletToAir1</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Conversion.Validation.InletToAirMoistAir\">
+Buildings.Fluid.FMI.Conversion.Validation.InletToAirMoistAir</a>
 except that
 the medium has <code>C02</code> trace substances.
 </p>
@@ -34,7 +34,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAir2.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAirMoistAirCO2.mos"
         "Simulate and plot"),
     experiment(StopTime=1));
-end InletToAir2;
+end InletToAirMoistAirCO2;
