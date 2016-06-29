@@ -18,12 +18,18 @@ block AirToOutlet
   Modelica.Blocks.Interfaces.RealInput Xi[Medium.nXi](
     each final unit="kg/kg")
     "Water vapor concentration in kg/kg total air"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(
+                visible=Medium.nXi > 0,
+               transformation(
+            extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(
+                visible=Medium.nC > 0,
+                transformation(
+                extent={{-140,-100},{-100,-60}})));
 
   Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
@@ -100,10 +106,12 @@ First implementation.
         Text(
           extent={{-104,-26},{-40,-52}},
           lineColor={0,0,127},
+          visible=Medium.nXi > 0,
           textString="Xi"),
         Text(
           extent={{-104,-64},{-40,-90}},
           lineColor={0,0,127},
+          visible=Medium.nC > 0,
           textString="C"),
         Polygon(
           points={{90,0},{30,20},{30,-20},{90,0}},
