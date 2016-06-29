@@ -2,7 +2,7 @@ within Buildings.Fluid.FMI.Adaptors.Examples;
 model HVAC "Example of an HVAC model"
   extends Modelica.Icons.Example;
   Buildings.Fluid.FMI.Adaptors.ThermalZone theZonAda(
-    redeclare final package Medium = MediumA, nFluPor=1)
+    redeclare final package Medium = MediumA, nFluPor=2)
     "Adaptor for a thermal zone in Modelica that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
@@ -18,11 +18,12 @@ model HVAC "Example of an HVAC model"
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
-  Outlet bouOut(
-    redeclare package Medium = MediumA,
-    final allowFlowReversal=false,
-    final use_p_in=false)
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Outlet bou[2](
+    redeclare each package Medium = MediumA,
+    each final allowFlowReversal=true,
+    each final use_p_in=false)
+    "Model to convert between the fluid and the FMI signal connectors"
+    annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
 
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -52,17 +53,16 @@ model HVAC "Example of an HVAC model"
     Ti=120) "Controller"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
 
-  Movers.FlowControlled_m_flow mov(
+  Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=1200,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
-                     "Fan or pump"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Continuous) "Supply fan"
+    annotation (Placement(transformation(extent={{-150,0},{-130,20}})));
 
   HeatExchangers.HeaterCooler_u
     hea(
@@ -73,33 +73,6 @@ model HVAC "Example of an HVAC model"
     Q_flow_nominal=Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
 
-  Sources.MassFlowSource_T bou(
-    redeclare final package Medium = MediumA,
-    final use_m_flow_in=false,
-    final use_T_in=true,
-    final use_X_in=MediumA.nXi > 0,
-    final use_C_in=MediumA.nC > 0,
-    final m_flow=m_flow_nominal,
-    nPorts=1)
-    "Boundary conditions for HVAC system"
-    annotation (Placement(transformation(extent={{-78,-70},{-98,-50}})));
-  BaseClasses.X_w_toX
-    x_w_toX(
-    redeclare final package Medium = MediumA) if
-    MediumA.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{-38,-72},{-54,-56}})));
-public
-  FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
-    linearized=true,
-    dp_nominal=100)
-    "Flow resistance to decouple pressure state from boundary"
-    annotation (Placement(transformation(extent={{70,-20},{90,0}})));
-  Sources.Boundary_pT   bouCon(redeclare package Medium = MediumA, nPorts=1,
-    use_T_in=true)
-    "Fixed pressure boundary condition, required to set a reference pressure"
-    annotation (Placement(transformation(extent={{120,-20},{100,0}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
     2*Modelica.Constants.pi)) "Outdoor temperature"
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
@@ -122,6 +95,21 @@ public
     dp1_nominal=200,
     dp2_nominal=200) "Heat recovery"
     annotation (Placement(transformation(extent={{-190,-30},{-170,-10}})));
+protected
+  Modelica.Blocks.Sources.Constant mFan_flow(final k=m_flow_nominal)
+    "Mass flow rate for fans"
+    annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
+public
+  Movers.FlowControlled_m_flow fanRet(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=m_flow_nominal,
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=1200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false,
+    inputType=Buildings.Fluid.Types.InputType.Continuous) "Return fan"
+    annotation (Placement(transformation(extent={{-132,-50},{-152,-30}})));
 equation
   connect(theCon.port_b, theZonAda.heaPorAir) annotation (Line(points={{34,-60},
           {18,-60},{18,-18},{0,-18}}, color={191,0,0}));
@@ -129,65 +117,55 @@ equation
           10},{18,-18},{0,-18}},     color={191,0,0}));
   connect(TSet.y, conPI.u_s)
     annotation (Line(points={{-127,50},{-127,50},{-122,50}}, color={0,0,127}));
-  connect(mov.port_b, hea.port_a) annotation (Line(points={{-120,10},{-120,10},
-          {-90,10}},          color={0,127,255}));
-  connect(hea.port_b, bouOut.port_a)
-    annotation (Line(points={{-70,10},{-70,10},{-60,10}}, color={0,127,255}));
+  connect(fanSup.port_b, hea.port_a) annotation (Line(points={{-130,10},{-130,10},
+          {-90,10}}, color={0,127,255}));
   connect(theZonAda.TAirZon, conPI.u_m) annotation (Line(points={{-22.2,-7.2},{-110,
           -7.2},{-110,38}}, color={0,0,127}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{-55.6,-64},{-55.6,-64},
-          {-76,-64}}, color={0,0,127}));
-  connect(theZonAda.CZon, bou.C_in) annotation (Line(points={{-22.2,-17},{-60,-17},
-          {-60,-68},{-78,-68}},color={0,0,127}));
-  connect(x_w_toX.X_w, theZonAda.X_wZon) annotation (Line(points={{-36.4,-64},{-32,
-          -64},{-32,-12},{-28,-12},{-28,-11.8},{-22.2,-11.8}},
-                                       color={0,0,127}));
-  connect(theZonAda.ports[1], vol.ports[1])
-    annotation (Line(points={{0,-10},{42,-10},{48,-10},{48,0}},
-                                                           color={0,127,255}));
-  connect(bouOut.outlet, theZonAda.fluPor[1]) annotation (Line(points={{-39,10},
-          {-34,10},{-34,-2},{-22.2,-2}}, color={0,0,255}));
-  connect(res.port_b, bouCon.ports[1])
-    annotation (Line(points={{90,-10},{90,-10},{100,-10}},
-                                               color={0,127,255}));
   connect(TBou.port, theCon.port_a)
     annotation (Line(points={{66,-60},{54,-60}}, color={191,0,0}));
   connect(TOut.y, TBou.T)
     annotation (Line(points={{99,-60},{88,-60}},  color={0,0,127}));
-  connect(res.port_a, vol.ports[2]) annotation (Line(points={{70,-10},{70,-10},{
-          52,-10},{52,0}},
-                        color={0,127,255}));
-  connect(theZonAda.TAirZon, bou.T_in) annotation (Line(points={{-22.2,-7.2},{-66,
-          -7.2},{-66,-56},{-76,-56}},     color={0,0,127}));
-  connect(hex.port_b1, mov.port_a) annotation (Line(points={{-170,-14},{-160,-14},
-          {-160,10},{-140,10}}, color={0,127,255}));
-  connect(bou.ports[1], hex.port_a2) annotation (Line(points={{-98,-60},{-160,-60},
-          {-160,-26},{-170,-26}}, color={0,127,255}));
+  connect(hex.port_b1, fanSup.port_a) annotation (Line(points={{-170,-14},{-160,
+          -14},{-160,10},{-150,10}}, color={0,127,255}));
   connect(out.ports[1], hex.port_b2) annotation (Line(points={{-210,-22},{-200,-22},
           {-200,-26},{-190,-26}}, color={0,127,255}));
   connect(out.ports[2], hex.port_a1) annotation (Line(points={{-210,-18},{-200,-18},
           {-200,-14},{-190,-14}}, color={0,127,255}));
-  connect(TOut.y, bouCon.T_in) annotation (Line(points={{99,-60},{94,-60},{94,-32},
-          {132,-32},{132,-6},{122,-6}}, color={0,0,127}));
   connect(TOut.y, out.T_in) annotation (Line(points={{99,-60},{96,-60},{96,-82},
           {-238,-82},{-238,-24},{-232,-24}}, color={0,0,127}));
   connect(conPI.y, hea.u) annotation (Line(points={{-99,50},{-96,50},{-96,16},{
           -92,16}}, color={0,0,127}));
+  connect(bou[1].port_a, hea.port_b)
+    annotation (Line(points={{-58,10},{-70,10}}, color={0,127,255}));
+  connect(bou[2].port_a, fanRet.port_a) annotation (Line(points={{-58,10},{-66,10},
+          {-66,-40},{-132,-40}}, color={0,127,255}));
+  connect(fanRet.port_b, hex.port_a2) annotation (Line(points={{-152,-40},{-152,
+          -40},{-160,-40},{-160,-26},{-170,-26}}, color={0,127,255}));
+  connect(mFan_flow.y, fanSup.m_flow_in) annotation (Line(points={{-179,30},{-140.2,
+          30},{-140.2,22}}, color={0,0,127}));
+  connect(mFan_flow.y, fanRet.m_flow_in) annotation (Line(points={{-179,30},{-154,
+          30},{-154,-12},{-141.8,-12},{-141.8,-28}}, color={0,0,127}));
+  connect(bou.outlet, theZonAda.fluPor[1:2]) annotation (Line(points={{-37,10},{
+          -32,10},{-32,-1},{-22.2,-1}}, color={0,0,255}));
+  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{0,-8},{18,
+          -8},{48,-8},{48,0}}, color={0,127,255}));
+  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{0,-12},{26,
+          -12},{52,-12},{52,0}}, color={0,127,255}));
   annotation (
-    Diagram(coordinateSystem(extent={{-260,-100},{140,100}},
+    Diagram(coordinateSystem(extent={{-260,-100},{140,140}},
           preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-252,80},{-30,-96}},
+          extent={{-256,134},{-34,-96}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-24,80},{138,-96}},
+          extent={{-30,134},{138,-96}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-244,70},{-206,46}},
+          extent={{-244,116},{-206,92}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
@@ -198,7 +176,7 @@ may be in an FMU
 (but is here for simplicity
 also implemented in Modelica)"),
         Text(
-          extent={{-14,72},{24,48}},
+          extent={{-16,122},{22,98}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
@@ -206,14 +184,7 @@ also implemented in Modelica)"),
           textString="Simplified model of
 a thermal zone
 in Modelica that could
-be exposed as an FMU"),
-        Text(
-          extent={{-230,154},{-94,120}},
-          lineColor={238,46,47},
-          textString="fixme: this is wrong. 
-mov.m_flow and bou.m_flow sum up to zero,
-yet res.m_flow is not zero. Hence, this model
-creates mass")}),
+be exposed as an FMU")}),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
@@ -232,6 +203,16 @@ The heater tracks the set point temperature of the volume air.
 The set point temperature is different between night and day.
 </p>
 <p>
+The HVAC system is connected to two instances of <code>bou</code>
+which convert the fluid connectors to the FMI signal connectors.
+Supply and return fan are controlled such that mass is balanced. Otherwise
+the adaptor <code>theZonAda</code> would throw an assertion error
+during the simulation.
+If a user would want to have air infiltration, then this could be added with
+a third fluid stream for the HVAC system. However, all mass flow rates connected
+to <code>theZonAda.fluPor</code> need to sum up to zero.
+</p>
+<p>
 On the right of the adaptor is a simplified thermal zone model modeled
 with a volume of air, and a heat conductor for steady-state
 heat conduction to the outside. 
@@ -239,7 +220,7 @@ heat conduction to the outside.
 </html>", revisions="<html>
 <ul>
 <li>
-June 24, 2016, by Michael Wetter:<br/>
+June 28, 2016, by Michael Wetter:<br/>
 Revised example.
 </li>
 <li>
