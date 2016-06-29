@@ -69,5 +69,6 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/AirToOutlet.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    experiment(StopTime=1));
 end AirToOutlet;
