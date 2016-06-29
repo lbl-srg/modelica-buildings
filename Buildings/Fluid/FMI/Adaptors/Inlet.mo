@@ -27,7 +27,8 @@ model Inlet "Model for exposing a fluid inlet to the FMI interface"
   Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") if
      use_p_in "Pressure"
   annotation (
-      Placement(transformation(
+      Placement(
+      transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
@@ -52,9 +53,9 @@ equation
   -port_b.m_flow     = inlet.m_flow;
 
   port_b.h_outflow  = Medium.specificEnthalpy_pTX(
-                        p=  p_in_internal,
-                        T=  inlet.forward.T,
-                        X=  fill(X_w_in_internal, Medium.nXi));
+                        p = p_in_internal,
+                        T = inlet.forward.T,
+                        X = fill(X_w_in_internal, Medium.nXi));
 
   port_b.C_outflow  = inlet.forward.C;
 
@@ -75,9 +76,9 @@ equation
 
   if allowFlowReversal then
     bacPro_internal.T  = Medium.temperature_phX(
-                           p=  p_in_internal,
-                           h=  inStream(port_b.h_outflow),
-                           X=  inStream(port_b.Xi_outflow));
+                           p = p_in_internal,
+                           h = inStream(port_b.h_outflow),
+                           X = inStream(port_b.Xi_outflow));
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
     bacPro_internal.T  = Medium.T_default;
@@ -141,10 +142,12 @@ equation
         Line(
           points={{0,-100},{0,-60}},
           color={0,0,255},
+          visible=use_p_in,
           smooth=Smooth.None),
         Text(
           extent={{2,-76},{24,-94}},
           lineColor={0,0,255},
+          visible=use_p_in,
           textString="p")}),
     Documentation(info="<html>
 <p>
