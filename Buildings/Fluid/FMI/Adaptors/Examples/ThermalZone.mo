@@ -21,7 +21,7 @@ model ThermalZone "Example of a thermal zone"
 
   Buildings.Fluid.FMI.Conversion.InletToAir con[nFlu](
     redeclare package Medium = MediumA) "Signal conversion"
-    annotation (Placement(transformation(extent={{34,8},{54,28}})));
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Pulse TSet(
     amplitude=4,
     period=86400,
@@ -122,6 +122,12 @@ public
     filteredSpeed=false,
     m_flow_nominal=0.1*m_flow_nominal) "Constant air exhaust"
     annotation (Placement(transformation(extent={{-142,-70},{-162,-50}})));
+  Modelica.Blocks.Routing.Replicator repMasFra(nout=nFlu)
+    "Signal replicator for mass fraction"
+    annotation (Placement(transformation(extent={{220,40},{240,60}})));
+  Modelica.Blocks.Routing.Replicator repTRoo(nout=nFlu)
+    "Signal replicator for room air temperature"
+    annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
 equation
   connect(mov.port_b,hea. port_a) annotation (Line(points={{-130,10},{-130,10},{
           -100,10}},          color={0,127,255}));
@@ -146,22 +152,21 @@ equation
   connect(TBou.port,theCon. port_a)
     annotation (Line(points={{180,-50},{170,-50}},
                                                  color={191,0,0}));
-  connect(hvacAda.fluPor, con.inlet) annotation (Line(points={{-19,17},{21.5,17},
-          {21.5,18},{33,18}},color={0,0,255}));
+  connect(hvacAda.fluPor, con.inlet) annotation (Line(points={{-19,17},{0,17},{
+          0,16},{0,10},{19,10}},
+                             color={0,0,255}));
   connect(vol.heatPort, theCon.port_b) annotation (Line(points={{160,30},{160,
           30},{142,30},{142,-50},{150,-50}},
                                       color={191,0,0}));
-  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{56,14},{56,14},{62,14},
-          {62,-20},{68,-20}},          color={0,0,127}));
+  connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{42,6},{42,6},{62,6},{
+          62,-20},{68,-20}},           color={0,0,127}));
   connect(mSup.X_in, x_w_toX.X) annotation (Line(points={{112,8},{100,8},{100,
           -20},{92,-20}},
                      color={0,0,127}));
   connect(mSup.T_in, con.T)
-    annotation (Line(points={{112,16},{84,16},{84,22},{56,22}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{112,16},{42,16},{42,14}},      color={0,0,127}));
   connect(mSup.m_flow_in, con.m_flow)
-    annotation (Line(points={{114,20},{86,20},{86,26},{56,26}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{114,20},{42,20},{42,18}},      color={0,0,127}));
   connect(mSup[1:3].ports[1], vol.ports[1:3])   annotation (Line(points={{134,12},
           {168,12},{168,20},{171,20}},
                                   color={0,127,255}));
@@ -172,13 +177,6 @@ equation
   connect(senTem.port, vol.heatPort) annotation (Line(points={{130,-50},{142,
           -50},{142,30},{160,30}},
                               color={191,0,0}));
-  connect(senTem.T, hvacAda.TAirZon) annotation (Line(points={{110,-50},{70,-50},
-          {22,-50},{22,10},{-19,10}}, color={0,0,127}));
-  connect(senMasFra.X, hvacAda.X_wZon) annotation (Line(points={{211,50},{218,
-          50},{218,68},{26,68},{26,6},{-19,6}},
-                                            color={0,0,127}));
-  connect(conPI.u_m, senTem.T)
-    annotation (Line(points={{-120,38},{-120,-50},{110,-50}},color={0,0,127}));
   connect(TOut.y, TBou.T)
     annotation (Line(points={{229,-50},{202,-50}}, color={0,0,127}));
   connect(exh.port_b, out.ports[3]) annotation (Line(points={{-162,-60},{-182,
@@ -187,15 +185,26 @@ equation
   connect(exh.port_a, hvacAda.ports[3]) annotation (Line(points={{-142,-60},{
           -106,-60},{-50,-60},{-50,7.33333},{-40,7.33333}},
                                                        color={0,127,255}));
+  connect(hvacAda.TAirZon[1], conPI.u_m) annotation (Line(points={{-36,
+          -0.666667},{-36,-10},{-120,-10},{-120,38}},
+                                           color={0,0,127}));
+  connect(senTem.T, repTRoo.u)
+    annotation (Line(points={{110,-50},{96,-50},{82,-50}}, color={0,0,127}));
+  connect(repTRoo.y, con.TAirZon)
+    annotation (Line(points={{59,-50},{24,-50},{24,-2}}, color={0,0,127}));
+  connect(senMasFra.X, repMasFra.u)
+    annotation (Line(points={{211,50},{218,50},{218,50}}, color={0,0,127}));
+  connect(repMasFra.y, con.X_wZon) annotation (Line(points={{241,50},{250,50},{
+          250,-34},{30,-34},{30,-2}}, color={0,0,127}));
  annotation (
     Diagram(coordinateSystem(extent={{-280,-120},{280,160}}), graphics={
         Rectangle(
-          extent={{12,140},{260,-100}},
+          extent={{-260,140},{-10,-100}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-260,140},{-14,-100}},
+          extent={{12,140},{260,-100}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -235,7 +244,7 @@ first order dynamics and heat loss to the ambient.
 <p>
 Note that the there is zero net air flow into and out of the volume <code>vol</code>
 because the adaptor <code>hvacAda</code> conserves mass. Hence, any infiltration or
-exfiltration, as is done with the flow path that contains <code>exh</code>, need to be
+exfiltration, as is done with the flow path that contains <code>exh</code>, needs to be
 connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol</code>.
 </p>
 </html>", revisions="<html>

@@ -11,34 +11,56 @@ model HVACConvective
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(final min = 1) "Number of ports";
 
-  Modelica.Blocks.Interfaces.RealInput TAirZon(
-    final unit="K",
-    displayUnit="degC") "Zone air temperature"
-    annotation (Placement(transformation(extent={{140,-30},{100,10}}),
-        iconTransformation(extent={{120,-10},{100,10}})));
+  final parameter Boolean allowFlowReversal=true
+    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
 
-  Modelica.Blocks.Interfaces.RealInput X_wZon(
-    final unit = "kg/kg") if
-    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{140,-70},{100,-30}}),
-        iconTransformation(extent={{120,-50},{100,-30}})),
-        visible=Medium.nXi > 0);
-
-  Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{140,-110},{100,-70}}),
-        iconTransformation(extent={{120,-90},{100,-70}})),
-        visible=Medium.nC > 0);
   Interfaces.Outlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
-    each final allowFlowReversal=false,
+    each final allowFlowReversal=allowFlowReversal,
     each final use_p_in=false) "Fluid connector"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each final package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,40},{-90,-40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TAirZon[nPorts](
+    each final unit="K",
+    each displayUnit="degC") if
+       allowFlowReversal
+    "Temperature of the backward flowing medium in the connector outlet"
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
+        visible=allowFloWReserval,
+        origin={-60,-120}),
+        iconTransformation(
+        extent={{20,20},{-20,-20}},
+        rotation=90,
+        origin={-60,-120})));
+  Modelica.Blocks.Interfaces.RealOutput X_wZon[nPorts](
+    each final unit="kg/kg") if
+       Medium.nXi > 0 and allowFlowReversal
+    "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
+        visible=allowFloWReserval,
+        origin={0,-120}),
+        iconTransformation(
+        extent={{20,20},{-20,-20}},
+        rotation=90,
+        origin={0,-120})));
+  Modelica.Blocks.Interfaces.RealOutput CZon[nPorts, Medium.nC](
+    each final quantity=Medium.extraPropertiesNames) if
+       allowFlowReversal
+    "Trace substances of the backward flowing medium in the connector outlet"
+    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
+        visible=allowFloWReserval,
+        origin={60,-120}),
+        iconTransformation(
+        extent={{20,20},{-20,-20}},
+        rotation=90,
+        origin={60,-120})));
 
 protected
   Sources.MassFlowSource_T bou(
@@ -49,17 +71,23 @@ protected
     final use_X_in=Medium.nXi > 0,
     final use_C_in=Medium.nC > 0,
     final m_flow=0) "Boundary conditions for HVAC system"
-    annotation (Placement(transformation(extent={{40,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
 
   Buildings.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
-      redeclare each final package Medium = Medium)
+      redeclare each final package Medium = Medium,
+      each final allowFlowReversal=allowFlowReversal)
     "Converter between the different connectors"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Sensors.MassFlowRate senMasFlo[nPorts](
     redeclare each final package Medium = Medium,
-    each allowFlowReversal=true) "Mass flow rate sensor"
+    each allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+  Buildings.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
+    redeclare final package Medium = Medium) if
+       Medium.nXi > 0 "Conversion from X_w to X"
+    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
 
   Modelica.Blocks.Sources.RealExpression hSup[nPorts](
     final y={inStream(ports[i].h_outflow) for i in 1:nPorts})
@@ -78,11 +106,6 @@ protected
        Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  BaseClasses.X_w_toX
-          x_w_toX(
-    redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{90,-60},{70,-40}})));
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
   block RealVectorExpression
@@ -125,6 +148,7 @@ easy definition of vector-valued Real expressions in a block diagram.
 </html>"));
 
   end RealVectorExpression;
+
 initial equation
    assert(Medium.nXi < 2,
    "The medium must have zero or one independent mass fraction Medium.nXi.");
@@ -143,19 +167,24 @@ equation
     connect(CSup[i].y, con[i].C) annotation (Line(points={{-19,20},{32,20},{32,62},
             {58,62}}, color={0,0,127}));
   end for;
-  connect(TAirZon, bou.T_in) annotation (Line(points={{120,-10},{120,-10},{80,
-          -10},{80,4},{42,4}},
-                         color={0,0,127}));
-  connect(bou.C_in, CZon) annotation (Line(points={{40,-8},{52,-8},{52,-90},{
-          120,-90}},  color={0,0,127}));
   connect(senMasFlo.port_b, bou.ports)
-    annotation (Line(points={{-60,0},{20,0}},         color={0,127,255}));
+    annotation (Line(points={{-60,0},{-40,0},{-20,0}},color={0,127,255}));
   connect(ports, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(x_w_toX.X_w, X_wZon)
-    annotation (Line(points={{92,-50},{92,-50},{120,-50}},  color={0,0,127}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{68,-50},{60,-50},{60,
-          -4},{42,-4}},     color={0,0,127}));
+  connect(con[1].TAirZon, bou.T_in)
+    annotation (Line(points={{64,58},{64,4},{2,4}},  color={0,0,127}));
+  connect(con[1].X_wZon, x_w_toX.X_w) annotation (Line(points={{70,58},{70,4},{70,
+          -30},{42,-30}},        color={0,0,127}));
+  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,-30},{12,-30},{12,-4},
+          {2,-4}},          color={0,0,127}));
+  connect(con[1].CZon, bou.C_in) annotation (Line(points={{76,58},{76,58},{76,10},
+          {76,-8},{0,-8}},  color={0,0,127}));
+  connect(con.TAirZon, TAirZon) annotation (Line(points={{64,58},{64,-80},{-60,-80},
+          {-60,-120}}, color={0,0,127}));
+  connect(con.X_wZon, X_wZon) annotation (Line(points={{70,58},{70,58},{70,4},{70,
+          -86},{0,-86},{0,-120}}, color={0,0,127}));
+  connect(con.CZon, CZon) annotation (Line(points={{76,58},{76,58},{76,-42},{76,
+          -92},{60,-92},{60,-120}}, color={0,0,127}));
   annotation (defaultComponentName="theZonAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -264,12 +293,16 @@ Note that without the <i>max(&middot;, &middot;)</i> function, the energy
 balance would be wrong.
 </p>
 <p>
-The input signals of this model are the zone air temperature,
+The output signals of this model are the zone air temperature,
 the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
 and trace substances (unless <code>Medium.nC=0</code>).
-The outflowing fluid stream(s) at the port <code>ports</code> will be at this
-state. All fluid streams at port <code>ports</code> are at the same
-pressure.
+These output connectors can be used to connect to a controller.
+These values are obtained from the fluid stream(s) that flow into this component
+at the port <code>fluPor</code>, e.g., from the connector
+<code>fluPor.backward</code>.
+Note that there are <code>nPorts</code> of these signals.
+For a completely mixed room, they will all have the same value, but
+for a room with non-uniform temperatures, they can have different values.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
@@ -302,6 +335,10 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 29, 2016, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 April 14, 2016, by Michael Wetter:<br/>
 First implementation.

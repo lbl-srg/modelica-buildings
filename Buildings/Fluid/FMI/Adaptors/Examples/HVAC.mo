@@ -4,7 +4,7 @@ model HVAC "Example of an HVAC model"
   Buildings.Fluid.FMI.Adaptors.ThermalZone theZonAda(
     redeclare final package Medium = MediumA, nFluPor=2)
     "Adaptor for a thermal zone in Modelica that is exposed through an FMI interface"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -31,12 +31,12 @@ model HVAC "Example of an HVAC model"
     mSenFac=3,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2) annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    nPorts=2) annotation (Placement(transformation(extent={{50,0},{70,20}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=
     Q_flow_nominal/20)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{54,-70},{34,-50}})));
+    annotation (Placement(transformation(extent={{64,-70},{44,-50}})));
 
   Modelica.Blocks.Sources.Pulse TSet(
     amplitude=4,
@@ -75,10 +75,10 @@ model HVAC "Example of an HVAC model"
 
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
     2*Modelica.Constants.pi)) "Outdoor temperature"
-    annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
+    annotation (Placement(transformation(extent={{140,-70},{120,-50}})));
   HeatTransfer.Sources.PrescribedTemperature TBou
     "Fixed temperature boundary condition"
-    annotation (Placement(transformation(extent={{86,-70},{66,-50}})));
+    annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
   Sources.Boundary_pT out(
     redeclare package Medium = MediumA,
     nPorts=2,
@@ -110,29 +110,32 @@ public
     filteredSpeed=false,
     inputType=Buildings.Fluid.Types.InputType.Continuous) "Return fan"
     annotation (Placement(transformation(extent={{-132,-50},{-152,-30}})));
+  Modelica.Blocks.Sources.RealExpression TRoo(
+    y(unit="K", displayUnit="degC")=theZonAda.fluPor[1].backward.T)
+    "Expression to access the room temperature from the FMI adaptor theZonAda"
+    annotation (Placement(transformation(extent={{-38,-22},{-58,-2}})));
 equation
-  connect(theCon.port_b, theZonAda.heaPorAir) annotation (Line(points={{34,-60},
-          {18,-60},{18,-18},{0,-18}}, color={191,0,0}));
-  connect(vol.heatPort, theZonAda.heaPorAir) annotation (Line(points={{40,10},{18,
-          10},{18,-18},{0,-18}},     color={191,0,0}));
+  connect(theCon.port_b, theZonAda.heaPorAir) annotation (Line(points={{44,-60},
+          {28,-60},{28,-18},{20,-18}},color={191,0,0}));
+  connect(vol.heatPort, theZonAda.heaPorAir) annotation (Line(points={{50,10},{
+          28,10},{28,-18},{20,-18}}, color={191,0,0}));
   connect(TSet.y, conPI.u_s)
     annotation (Line(points={{-127,50},{-127,50},{-122,50}}, color={0,0,127}));
   connect(fanSup.port_b, hea.port_a) annotation (Line(points={{-130,10},{-130,10},
           {-90,10}}, color={0,127,255}));
-  connect(theZonAda.TAirZon, conPI.u_m) annotation (Line(points={{-22.2,-7.2},{-110,
-          -7.2},{-110,38}}, color={0,0,127}));
   connect(TBou.port, theCon.port_a)
-    annotation (Line(points={{66,-60},{54,-60}}, color={191,0,0}));
+    annotation (Line(points={{80,-60},{64,-60}}, color={191,0,0}));
   connect(TOut.y, TBou.T)
-    annotation (Line(points={{99,-60},{88,-60}},  color={0,0,127}));
+    annotation (Line(points={{119,-60},{102,-60}},color={0,0,127}));
   connect(hex.port_b1, fanSup.port_a) annotation (Line(points={{-170,-14},{-160,
           -14},{-160,10},{-150,10}}, color={0,127,255}));
   connect(out.ports[1], hex.port_b2) annotation (Line(points={{-210,-22},{-200,-22},
           {-200,-26},{-190,-26}}, color={0,127,255}));
   connect(out.ports[2], hex.port_a1) annotation (Line(points={{-210,-18},{-200,-18},
           {-200,-14},{-190,-14}}, color={0,127,255}));
-  connect(TOut.y, out.T_in) annotation (Line(points={{99,-60},{96,-60},{96,-82},
-          {-238,-82},{-238,-24},{-232,-24}}, color={0,0,127}));
+  connect(TOut.y, out.T_in) annotation (Line(points={{119,-60},{112,-60},{112,
+          -80},{-240,-80},{-240,-24},{-232,-24}},
+                                             color={0,0,127}));
   connect(conPI.y, hea.u) annotation (Line(points={{-99,50},{-96,50},{-96,16},{
           -92,16}}, color={0,0,127}));
   connect(bou[1].port_a, hea.port_b)
@@ -145,22 +148,27 @@ equation
           30},{-140.2,22}}, color={0,0,127}));
   connect(mFan_flow.y, fanRet.m_flow_in) annotation (Line(points={{-179,30},{-154,
           30},{-154,-12},{-141.8,-12},{-141.8,-28}}, color={0,0,127}));
-  connect(bou.outlet, theZonAda.fluPor[1:2]) annotation (Line(points={{-37,10},{
-          -32,10},{-32,-1},{-22.2,-1}}, color={0,0,255}));
-  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{0,-8},{18,
-          -8},{48,-8},{48,0}}, color={0,127,255}));
-  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{0,-12},{26,
-          -12},{52,-12},{52,0}}, color={0,127,255}));
+  connect(bou.outlet, theZonAda.fluPor[1:2]) annotation (Line(points={{-37,10},
+          {-20,10},{-20,-2},{-20,-2},{-2.2,-2},{-2.2,-1}},
+                                        color={0,0,255}));
+  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{20,-8},{
+          20,-8},{58,-8},{58,0}},
+                               color={0,127,255}));
+  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{20,-12},{
+          20,-12},{62,-12},{62,0}},
+                                 color={0,127,255}));
+  connect(TRoo.y, conPI.u_m) annotation (Line(points={{-59,-12},{-84,-12},{-110,
+          -12},{-110,38}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(extent={{-260,-100},{140,140}},
+    Diagram(coordinateSystem(extent={{-260,-100},{160,140}},
           preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-256,134},{-34,-96}},
+          extent={{-252,134},{-30,-90}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-30,134},{138,-96}},
+          extent={{-12,134},{150,-90}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -176,7 +184,7 @@ may be in an FMU
 (but is here for simplicity
 also implemented in Modelica)"),
         Text(
-          extent={{-16,122},{22,98}},
+          extent={{2,122},{40,98}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,

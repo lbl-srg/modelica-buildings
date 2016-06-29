@@ -7,32 +7,13 @@ model ThermalZone
 
   parameter Integer nFluPor(final min=2) "Number of fluid ports"
     annotation (Dialog(connectorSizing=true));
-
+    // fixme: this should be nPorts for consistency
   Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=true,
     each final use_p_in=false) "Fluid connector" annotation (Placement(
         transformation(extent={{-120,50},{-100,70}}), iconTransformation(
           extent={{-142,60},{-102,100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput TAirZon(
-    final unit="K",
-    displayUnit="degC")
-    "Zone air temperature" annotation (Placement(transformation(extent={{-100,
-            0},{-140,40}}), iconTransformation(extent={{-102,8},{-142,48}})));
-
-  Modelica.Blocks.Interfaces.RealOutput X_wZon(final unit="kg/kg") if
-       Medium.nXi > 0
-    "Zone air water mass fraction per total air mass"
-     annotation (Placement(
-        transformation(extent={{-100,-40},{-142,2}}), iconTransformation(
-          extent={{-102,-38},{-142,2}})));
-
-  Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances" annotation (Placement(
-        transformation(extent={{-100,-80},{-140,-40}}), iconTransformation(
-          extent={{-102,-90},{-142,-50}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
     redeclare each final package Medium = Medium) annotation (Placement(transformation(extent={{90,
@@ -66,9 +47,9 @@ protected
     redeclare each final package Medium = Medium,
     each final use_T_in=true,
     each final use_C_in=Medium.nC > 0,
-    each final m_flow=0,
     each final use_X_in=Medium.nXi > 0,
-    each final use_m_flow_in=true) "Boundary conditions for ThermalZone system"
+    each use_m_flow_in=true)
+    "Mass flow source"
     annotation (Placement(transformation(extent={{2,38},{22,58}})));
 
   Conversion.InletToAir con[nFluPor](
@@ -92,7 +73,7 @@ protected
     annotation (Placement(transformation(extent={{4,72},{16,84}})));
 
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(message="\"Mass flow rate does not balance. The sum needs to be zero.",
-      startTime=100)
+      threShold=1E-6)
     "Tests whether the mass flow rates balance to zero"
     annotation (Placement(transformation(extent={{70,56},{90,76}})));
   Modelica.Blocks.Sources.Constant const(final k=0) "Outputs zero"
@@ -205,27 +186,16 @@ equation
                                                        color={0,0,255}));
   connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-58,56},{-58,56},{-42,
           56}},       color={0,0,127}));
-  connect(senTemAir.T, TAirZon)
-    annotation (Line(points={{50,-60},{50,-60},{40,-60},{40,20},{-120,20}},
-                                                          color={0,0,127}));
-  connect(CSup.y, CZon)
-    annotation (Line(points={{-1,-60},{-1,-60},{-120,-60}},color={0,0,127}));
 
   connect(x_w_toX.X, bou.X_in)
     annotation (Line(points={{-18,56},{-18,56},{-14,56},{-14,44},{0,44}},
                                                color={0,0,127}));
   connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},{
           -10,40},{2,40}},                  color={0,0,127}));
-  connect(con.m_flow, bou.m_flow_in) annotation (Line(points={{-58,68},{-58,68},
-          {-50,68},{-50,78},{-10,78},{-10,56},{2,56}},color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
           {80,-60},{70,-60}}, color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
     annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
-  connect(TAirZon, TAirZon) annotation (Line(points={{-120,20},{-114,20},{-114,20},
-          {-120,20}}, color={0,0,127}));
-  connect(x_i_toX.X_w, X_wZon) annotation (Line(points={{-42,-20},{-121,-20},{-121,
-          -19}}, color={0,0,127}));
   connect(con.T, bou.T_in) annotation (Line(points={{-58,64},{-58,64},{-44,64},{
           -44,74},{-12,74},{-12,52},{0,52}},color={0,0,127}));
   connect(con[1:nFluPor].m_flow, multiSum.u[1:nFluPor]) annotation (Line(points={{-58,68},{-54,68},
@@ -242,6 +212,8 @@ equation
   connect(CSup.y, con[i].CZon)
     annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
   end for;
+  connect(bou.m_flow_in, con.m_flow) annotation (Line(points={{2,56},{-8,56},{-8,
+          78},{-50,78},{-50,68},{-58,68}}, color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
         preserveAspectRatio=false, initialScale=0.1),
@@ -338,7 +310,7 @@ Adaptor that can be used to connect a model of a thermal zone (with acausal port
 to input/output signals, which can be exposed in an FMI interface.
 </p>
 <p>
-This model has a vector <code>fluPor</code> with dimension <code>nFluPor</code>
+This model has a vector <code>fluPor</code> with dimension <code>nPorts</code>
 which can be exposed at the FMI interface for the connecting the HVAC system.
 These connectors contain for each fluid inlet the mass flow rate, the temperature, 
 the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>), 
@@ -348,15 +320,29 @@ and the trace substances (unless <code>Medium.nC=0</code>).
 <p>
 The connector <code>ports</code> can be used to connect the model with a thermal zone.
 The number of connections to <code>ports</code> must 
-be equal to <code>nFluPor</code>.
+be equal to <code>nPorts</code>.
 </p>
 
+<h4>Assumption and limitations</h4>
 <p>
-The output signals of this model are the zone air temperature,
-the water vapor mass fraction per total mass of the zone air (unless <code>Medium.nXi=0</code>)
-and the trace substances of the zone air (unless <code>Medium.nC=0</code>).
-These values are identical to the inflowing fluid stream(s) 
-at the port <code>ports</code>.
+The mass flow rates at <code>ports</code> sum to zero, hence this
+model conserves mass. If the mass flow rates at <code>fluPor</code>
+do not sum to zero, then this model stops with an error.
+</p>
+<p>
+This model does not impose any pressure, other than setting the pressure
+of all fluid connections to <code>ports</code> to be equal.
+The reason is that setting a pressure can lead to non-physical system models,
+for example if a mass flow rate is imposed and the HVAC system is connected
+to a model that sets a pressure boundary condition such as
+<a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+Buildings.Fluid.Sources.Outside</a>.
+Also, setting a pressure would make it impossible to use multiple instances
+of this model (one for each thermal zone) and build in Modelica an airflow network
+model with pressure driven mass flow rates.
+</p>
+<p>
+The model has no pressure drop.
 </p>
 
 <h4>Typical use</h4>
@@ -369,6 +355,10 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 29, 2016, by Michael Wetter:<br/>
+Revised implementation and documentation.
+</li>
 <li>
 April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
