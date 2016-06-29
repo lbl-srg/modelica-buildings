@@ -82,8 +82,9 @@ system and converts them to an outlet connector of type
 Buildings.Fluid.FMI.Interfaces.Outlet</a>.
 </p>
 <p>
-See <a href=\"modelica://Buildings.Fluid.FMI.ThermalZoneAdaptor\">
-Buildings.Fluid.FMI.ThermalZoneAdaptor</a>
+See 
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVACConvective\">
+Buildings.Fluid.FMI.Adaptors.HVACConvective</a> 
 for its usage.
 </p>
 </html>", revisions="<html>

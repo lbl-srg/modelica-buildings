@@ -148,10 +148,21 @@ of the input signals
 <code>TAirZon</code>, <code>X_wZon</code> and <code>CZon</code>.
 </p>
 <p>
+If <code>allowFlowReversal = true</code>,
+input signal connectors are enabled that are used
+to set the fluid properties for backflow in the connector
+<code>inlet.backward</code>.
+This can be used if this block is used to connect an HVAC
+system to a thermal zone, in which case the supply air
+properties are in the connector
+<code>inlet.forward</code>,
+and the return air properties are in the connector
+<code>inlet.backward</code>.
+</p>
+<p>
 See 
-<a href=\"modelica://Buildings.Fluid.FMI.HVACAdaptor\">
-Buildings.Fluid.FMI.HVACAdaptor
-</a> 
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
+Buildings.Fluid.FMI.Adaptors.ThermalZone</a> 
 for its usage.
 </p>
 </html>", revisions="<html>
