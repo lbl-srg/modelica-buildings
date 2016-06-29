@@ -3,7 +3,9 @@ model ThermalZoneHVACWithExhaust
   "Example of a thermal zone and an HVAC system both exposed using the FMI adaptor"
   extends Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust(
     hvacAda(nPorts=3),
-    out(nPorts=3));
+    out(nPorts=3),
+    con(nFluPor=3),
+    vol(nPorts=3));
 
   Movers.FlowControlled_m_flow exh(
     redeclare package Medium = MediumA,
@@ -20,6 +22,9 @@ equation
           {10,8},{0,8},{0,-60},{-70,-60}}, color={0,127,255}));
   connect(exh.port_b, out.ports[3]) annotation (Line(points={{-90,-60},{-122,-60},
           {-152,-60},{-152,-20},{-160,-20}}, color={0,127,255}));
+  connect(con.ports[3], vol.ports[3])
+    annotation (Line(points={{100,10},{150,10},{150,20}}, color={0,127,255}));
+
  annotation (
     Documentation(info="<html>
 <p>

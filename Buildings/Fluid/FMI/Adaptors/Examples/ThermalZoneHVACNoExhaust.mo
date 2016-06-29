@@ -124,8 +124,8 @@ equation
                                   color={191,0,0}));
   connect(con.ports[2], vol.ports[2]) annotation (Line(points={{100,8},{120,8},{
           152,8},{152,20}},   color={0,127,255}));
-  connect(hvacAda.fluPor, con.fluPor[1:2]) annotation (Line(points={{41,17},{57.5,
-          17},{57.5,19},{77.8,19}}, color={0,0,255}));
+  connect(hvacAda.fluPor, con.fluPor) annotation (Line(points={{41,17},{57.5,17},
+          {57.5,18},{77.8,18}},     color={0,0,255}));
   connect(hea.port_b, hvacAda.ports[1])
     annotation (Line(points={{-20,10},{20,10},{20,12}}, color={0,127,255}));
   connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{-2,8},
