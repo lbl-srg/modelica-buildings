@@ -3,7 +3,8 @@ model InletToAir1
   "Validation model for inlet to Buildings.Media.Air conversion without trace substances"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Buildings.Media.Air "Medium model";
+  replaceable package Medium = Buildings.Media.Air
+     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
   parameter Boolean use_p_in = false
     "= true to use a pressure from connector, false to output Medium.p_default"
     annotation(Evaluate=true);
@@ -107,10 +108,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Conversion/Validation/InletToAir1.mos"
         "Simulate and plot"),
-    Diagram(graphics={Text(
-          extent={{-12,78},{52,50}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          textString="fixme: add test for dry air")}));
+    experiment(StopTime=1));
 end InletToAir1;
