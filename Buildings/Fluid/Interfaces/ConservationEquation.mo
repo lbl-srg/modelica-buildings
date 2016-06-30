@@ -367,6 +367,12 @@ is simplified as
 This causes an error in the mass balance of about <i>0.5%</i>, but generally leads to
 simpler equations because the pressure drop equations are then decoupled from the
 mass exchange in this component.
+The model
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.Validation.MixingVolumeAdiabaticCooling\">
+Buildings.Fluid.MixingVolumes.Validation.MixingVolumeAdiabaticCooling</a>
+shows that the relative error on the temperature difference between these
+two options of <code>simplify_mWat_flow</code> is less than
+<i>0.1%</i>.
 </p>
 
 <h4>Implementation</h4>

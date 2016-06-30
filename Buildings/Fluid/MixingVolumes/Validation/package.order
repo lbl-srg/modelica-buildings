@@ -1,4 +1,5 @@
 MixingVolume
+MixingVolumeAdiabaticCooling
 MixingVolumeHeatReverseFlow
 MixingVolumeHeatReverseFlowPrescribedHeatFlowRate
 MixingVolumeInitialization

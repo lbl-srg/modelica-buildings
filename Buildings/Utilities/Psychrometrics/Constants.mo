@@ -10,7 +10,7 @@ package Constants "Library of constants for psychometric functions"
   constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
     "Specific heat capacity of liquid water";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Enthalpy of evaporator of water";
+    "Enthalpy of evaporation of water at the reference temperature";
   constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
 
   annotation (
@@ -21,6 +21,10 @@ in the calculation of thermodynamic properties of moist air.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 24, 2016, by Filip Jorissen:<br/>
+Added reference temperature.
+</li>
 <li>
 July 24, 2014, by Michael Wetter:<br/>
 First implementation.

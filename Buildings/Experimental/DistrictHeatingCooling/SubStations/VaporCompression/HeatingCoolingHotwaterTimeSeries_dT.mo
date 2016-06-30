@@ -283,7 +283,8 @@ protected
     y(each unit="W"),
     offset={0,0,0},
     columns={2,3,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Loads"
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
+    "Loads"
     annotation (Placement(transformation(extent={{-260,400},{-240,420}})));
 
   Modelica.Blocks.Routing.DeMultiplex3 deMul "De multiplex"
@@ -426,6 +427,8 @@ initial equation
   assert(QHotWat_flow_nominal > 0,
     "Nominal hot water heating rate must be strictly positive. Obtained QHotWat_flow_nominal = "
     + String(QHotWat_flow_nominal));
+
+
 
 equation
   connect(pumHea.port_b, heaPum.port_a2) annotation (Line(points={{50,300},{50,
@@ -633,14 +636,14 @@ double tab1(8760,4)
 [to be continued]
 </pre>
 <p>
-Values at intermediate times are linearly interpolated.
+Values at intermediate times are interpolated using cubic Hermite splines.
 </p>
 <h4>Implementation</h4>
 <p>
-The time series data are interpolated using linear interpolation because
-the option to use continuous derivates leads to loads that cross zero.
-For example, the heating required for hot water preparation can sometimes be negative
-if interpolation with continuous derivatives were to be selected.
+The time series data are interpolated using 
+Fritsch-Butland interpolation. This uses
+cubic Hermite splines such that y preserves the monotonicity and
+der(y) is continuous, also if extrapolated.
 </p>
 <p>
 There is a control volume at each of the two fluid ports
@@ -650,6 +653,15 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2016, by Michael Wetter:<br/>
+Changed interpolation for combi table with load data
+to use cubic hermite splines.
+This is because previously, the table did not generate events
+when using linear interpolation, which caused the
+solver to take too big steps, missing data points in the table.
+This is due to Dassault SR00312338.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Added gains to scale loads and peak load.

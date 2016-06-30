@@ -145,7 +145,7 @@ its class name ends with the string <code>Beta</code>.
 
    <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
        </td>
-       <td valign=\"top\">Models for district heating and cooling
+       <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.
 
        </td>
@@ -161,6 +161,18 @@ its class name ends with the string <code>Beta</code>.
        </td>
        </tr>
 
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ActiveBeams
+       </td>
+       <td valign=\"top\">Package with models of active beams for space cooling and heating.
+       </td>
+       </tr>
+     <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
+       </td>
+       <td valign=\"top\">Package with reduced order models of thermal zones based
+                        on VDI 6007.
+       </td>
+       </tr>
+
    </table>
    <!-- New components for existing libraries -->
    <p>
@@ -168,12 +180,12 @@ its class name ends with the string <code>Beta</code>.
    to <b style=\"color:blue\">existing</b> libraries:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.Sensors.Velocity
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Sensor for the flow velocity.
        </td>
        </tr>
    </table>
@@ -468,7 +480,15 @@ its class name ends with the string <code>Beta</code>.
 
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+       </td>
+       <td valign=\"top\">Corrected computation of the heat exchanger location which was wrong
+                          if <code>hHex_a &lt; hHex_b</code>, e.g., the port a of the heat exchanger
+                          is below the port b.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/531\">issue 531</a>.
+       </td>
+   </tr>   <tr><td colspan=\"2\"><b>Buildings.Examples</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.VAVReheat.ClosedLoop<br/>
@@ -5966,7 +5986,12 @@ particular package.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.FMI.UsersGuide\">Fluid.FMI</a>
    </td>
    <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
-</tr><tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
+   </td>
+   <td valign=\"top\">Package with active beams.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
 </tr>
