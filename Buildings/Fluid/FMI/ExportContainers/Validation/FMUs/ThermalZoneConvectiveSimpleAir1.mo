@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
-block ThermalZoneConvectiveMoistAir2 "Validation of simple thermal zone"
+block ThermalZoneConvectiveSimpleAir1 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir1(
     redeclare package Medium = Modelica.Media.Air.SimpleAir);
   annotation (Documentation(info="<html>
@@ -18,6 +18,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/ThermalZoneConvectiveMoistAir2.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/ThermalZoneConvectiveSimpleAir1.mos"
         "Export FMU"));
-end ThermalZoneConvectiveMoistAir2;
+end ThermalZoneConvectiveSimpleAir1;
