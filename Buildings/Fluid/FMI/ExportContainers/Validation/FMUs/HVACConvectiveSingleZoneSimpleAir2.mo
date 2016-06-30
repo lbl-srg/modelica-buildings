@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
-block HVACConvectiveSingleZoneSimpleAir3
+block HVACConvectiveSingleZoneSimpleAir2
   "Validation model for the convective HVAC system"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACConvectiveSingleZoneAir1(
     redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"}));
@@ -19,6 +19,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/HVACConvectiveSingleZoneSimpleAir3.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/FMUs/HVACConvectiveSingleZoneSimpleAir2.mos"
         "Export FMU"));
-end HVACConvectiveSingleZoneSimpleAir3;
+end HVACConvectiveSingleZoneSimpleAir2;
