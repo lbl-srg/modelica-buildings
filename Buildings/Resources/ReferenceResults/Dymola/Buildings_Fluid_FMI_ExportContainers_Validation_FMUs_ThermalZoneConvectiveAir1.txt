@@ -57,7 +57,6 @@ statistics-fmu-dependencies=
       "fluPor[2].m_flow", 
       "fluPor[2].forward.T", 
       "fluPor[2].forward.X_w", 
-      "QRooInt_flow", 
       "theCon.G", 
       "preHea.T_ref", 
       "preHea.alpha", 
