@@ -1,10 +1,10 @@
-last-generated=2016-05-25
+last-generated=2016-06-30
 statistics-fmu-dependencies=
 {
   "Outputs": {
     "fluPor[2, 1].forward.T": [
-      "TAirZon[1]", 
-      "X_wZon[1]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
@@ -18,28 +18,26 @@ statistics-fmu-dependencies=
     "QGaiRad_flow[1]": [], 
     "QGaiCon_flow[1]": [], 
     "fluPor[2, 1].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[1]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
-      "cooCoi.ele[4].vol2.dynBal.m", 
-      "fan2.filter.x[2]"
+      "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "fluPor[2, 2].forward.T": [
-      "TAirZon[1]", 
-      "X_wZon[1]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
     ], 
     "weaBus.HHorIR": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "fluPor[1, 1].m_flow": [
-      "fan.filter.x[2]", 
-      "fan2.filter.x[2]"
+      "fan.filter.x[2]"
     ], 
     "fluPor[1, 2].forward.T": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[2]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
     ], 
     "CPUtime": [], 
     "weaBus.nOpa": [], 
@@ -48,10 +46,14 @@ statistics-fmu-dependencies=
     "QGaiLat_flow[2]": [], 
     "weaBus.solHouAng": [], 
     "weaBus.TBlaSky": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
-    "fluPor[2, 3].forward.T": [], 
+    "fluPor[2, 3].forward.T": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
+    ], 
     "fluPor[2, 3].m_flow": [
+      "fan.filter.x[2]", 
       "fan2.filter.x[2]"
     ], 
     "weaBus.TDewPoi": [], 
@@ -59,48 +61,59 @@ statistics-fmu-dependencies=
     "weaBus.lon": [], 
     "TOut": [], 
     "fluPor[1, 1].forward.T": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
       "cooCoi.ele[4].vol2.dynBal.m", 
       "fan2.filter.x[2]"
     ], 
-    "fluPor[1, 3].forward.T": [], 
+    "fluPor[1, 3].forward.T": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
+    ], 
     "fluPor[1, 1].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
-      "cooCoi.ele[4].vol2.dynBal.m", 
-      "fan2.filter.x[2]"
+      "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "fluPor[1, 2].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[2]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
     ], 
     "QGaiRad_flow[2]": [], 
-    "fluPor[1, 3].m_flow": [], 
-    "fluPor[2, 1].m_flow": [
+    "fluPor[1, 3].m_flow": [
       "fan.filter.x[2]", 
       "fan2.filter.x[2]"
+    ], 
+    "fluPor[2, 1].m_flow": [
+      "fan.filter.x[2]"
     ], 
     "weaBus.relHum": [], 
     "weaBus.TDryBul": [], 
     "EventCounter": [], 
     "weaBus.celHei": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
-    "fluPor[1, 3].forward.X_w": [], 
-    "fluPor[2, 3].forward.X_w": [], 
+    "fluPor[1, 3].forward.X_w": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
+    ], 
+    "fluPor[2, 3].forward.X_w": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
+    ], 
     "fluPor[2, 2].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[1]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
     ], 
     "weaBus.HGloHor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "QGaiLat_flow[1]": [], 
     "fluPor[1, 2].m_flow": [
@@ -113,14 +126,14 @@ statistics-fmu-dependencies=
     "weaBus.lat": [], 
     "QGaiCon_flow[2]": [], 
     "weaBus.winSpe": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "weaBus.cloTim": [], 
     "weaBus.HDirNor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "weaBus.HDifHor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "weaBus.pAtm": []
   }, 
@@ -136,22 +149,21 @@ statistics-fmu-dependencies=
       "zero[1].k"
     ], 
     "fluPor[2, 1].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[1]", 
-      "fan.m_flow_start", 
-      "fan2.m_flow_start"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fan.m_flow_start"
     ], 
     "fluPor[2, 2].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[1]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
     ], 
     "der(senTemSupAir.T)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "senTemSupAir.T_start"
     ], 
     "weaBus.HHorIR": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "cooCoi.ele[3].vol2.dynBal.mXi[1]": [], 
     "cooCoi.ele[3].vol1.dynBal.U": [], 
@@ -159,7 +171,7 @@ statistics-fmu-dependencies=
       "fan.m_flow_start"
     ], 
     "der(cooCoi.ele[2].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -170,18 +182,20 @@ statistics-fmu-dependencies=
       "fan.m_flow_start", 
       "weaDat.pAtm"
     ], 
-    "fluPor[2, 3].forward.T": [], 
+    "fluPor[2, 3].forward.T": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
+    ], 
     "QGaiRad_flow[2]": [
       "zero[2].k"
     ], 
     "cooCoi.ele[4].vol2.dynBal.U": [], 
     "fluPor[2, 1].m_flow": [
-      "fan.m_flow_start", 
-      "fan2.m_flow_start"
+      "fan.m_flow_start"
     ], 
     "der(cooCoi.ele[4].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.tau_m", 
       "cooCoi.hA.n_w", 
@@ -194,7 +208,7 @@ statistics-fmu-dependencies=
     ], 
     "der(fan2.filter.x[1])": [], 
     "der(cooCoi.ele[3].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -202,8 +216,8 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "der(cooCoi.ele[2].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_w", 
       "cooCoi.ele[2].mas.T", 
@@ -214,10 +228,10 @@ statistics-fmu-dependencies=
     "cooCoi.temSen_1.T": [], 
     "weaBus.lat": [], 
     "der(cooCoi.ele[4].vol2.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -235,8 +249,8 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "fluPor[2, 1].forward.T": [
-      "TAirZon[1]", 
-      "X_wZon[1]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
       "fan.per.hydraulicEfficiency.V_flow[1]", 
       "fan.per.hydraulicEfficiency.eta[1]", 
       "fan.per.motorEfficiency.V_flow[1]", 
@@ -255,8 +269,8 @@ statistics-fmu-dependencies=
     "cooCoi.ele[2].vol2.dynBal.U": [], 
     "cooCoi.ele[4].vol2.dynBal.mXi[1]": [], 
     "der(cooCoi.ele[4].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_w", 
       "cooCoi.ele[4].mas.T", 
@@ -265,13 +279,13 @@ statistics-fmu-dependencies=
       "mWat_flow.realTrue"
     ], 
     "weaBus.TBlaSky": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "weaDat.pAtm"
     ], 
     "weaBus.solTim": [], 
     "der(cooCoi.ele[1].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.tau_m", 
       "cooCoi.hA.n_w", 
@@ -288,7 +302,7 @@ statistics-fmu-dependencies=
     ], 
     "der(fan.filter.x[1])": [], 
     "der(cooCoi.ele[2].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -296,8 +310,8 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "der(cooCoi.temSen_1.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue"
@@ -308,8 +322,8 @@ statistics-fmu-dependencies=
       "fan2.m_flow_start"
     ], 
     "der(cooCoi.ele[3].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_w", 
       "cooCoi.ele[3].mas.T", 
@@ -321,33 +335,33 @@ statistics-fmu-dependencies=
       "zero[2].k"
     ], 
     "weaBus.winSpe": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "weaBus.HDifHor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "der(senTemHXOut.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
       "senTemHXOut.T_start", 
       "weaDat.pAtm", 
       "fan2.m_flow_start"
     ], 
     "fluPor[2, 2].forward.T": [
-      "TAirZon[1]", 
-      "X_wZon[1]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
     ], 
     "der(fan2.filter.x[2])": [
       "fan2.riseTime", 
       "fan2.m_flow_start"
     ], 
     "fluPor[1, 2].forward.T": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[2]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
     ], 
     "CPUtime": [], 
     "weaBus.nOpa": [], 
@@ -355,13 +369,14 @@ statistics-fmu-dependencies=
       "zero[2].k"
     ], 
     "fluPor[2, 3].m_flow": [
+      "fan.m_flow_start", 
       "fan2.m_flow_start"
     ], 
     "cooCoi.ele[2].vol2.dynBal.mXi[1]": [], 
     "cooCoi.ele[1].vol2.dynBal.U": [], 
     "der(cooCoi.ele[1].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_w", 
       "cooCoi.ele[1].mas.T", 
@@ -370,7 +385,7 @@ statistics-fmu-dependencies=
       "mWat_flow.realTrue"
     ], 
     "der(cooCoi.ele[3].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -380,7 +395,7 @@ statistics-fmu-dependencies=
     "weaBus.relHum": [], 
     "cooCoi.ele[3].vol2.dynBal.U": [], 
     "der(cooCoi.ele[1].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -392,7 +407,7 @@ statistics-fmu-dependencies=
       "fan.m_flow_start"
     ], 
     "weaBus.HGloHor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
     "senTemSupAir.T": [
       "senTemSupAir.T_start"
@@ -408,15 +423,14 @@ statistics-fmu-dependencies=
       "fan2.riseTime"
     ], 
     "fluPor[1, 1].m_flow": [
-      "fan.m_flow_start", 
-      "fan2.m_flow_start"
+      "fan.m_flow_start"
     ], 
     "weaBus.solDec": [], 
     "cooCoi.ele[1].vol2.dynBal.mXi[1]": [], 
     "weaBus.nTot": [], 
     "weaBus.solHouAng": [], 
     "der(cooCoi.ele[4].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -426,18 +440,18 @@ statistics-fmu-dependencies=
     "weaBus.TDewPoi": [], 
     "EventCounter": [], 
     "der(cooCoi.temSen_2.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
       "weaDat.pAtm", 
       "fan2.m_flow_start"
     ], 
     "fluPor[1, 1].forward.T": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.per.hydraulicEfficiency.V_flow[1]", 
       "fan.per.hydraulicEfficiency.eta[1]", 
       "fan.per.motorEfficiency.V_flow[1]", 
@@ -447,16 +461,19 @@ statistics-fmu-dependencies=
       "weaDat.pAtm", 
       "fan2.m_flow_start"
     ], 
-    "fluPor[1, 3].forward.T": [], 
+    "fluPor[1, 3].forward.T": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
+    ], 
     "fluPor[1, 1].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[2]", 
-      "fan.m_flow_start", 
-      "fan2.m_flow_start"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
+      "fan.m_flow_start"
     ], 
     "der(cooCoi.ele[3].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.tau_m", 
       "cooCoi.hA.n_w", 
@@ -468,20 +485,29 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "fluPor[1, 2].forward.X_w": [
-      "TAirZon[1]", 
-      "X_wZon[2]"
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
     ], 
-    "fluPor[1, 3].m_flow": [], 
+    "fluPor[1, 3].m_flow": [
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
+    ], 
     "fan2.filter.x[2]": [
       "fan2.m_flow_start"
     ], 
     "weaBus.celHei": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ], 
-    "fluPor[1, 3].forward.X_w": [], 
-    "fluPor[2, 3].forward.X_w": [], 
+    "fluPor[1, 3].forward.X_w": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w"
+    ], 
+    "fluPor[2, 3].forward.X_w": [
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w"
+    ], 
     "der(cooCoi.ele[1].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.m_flow_start", 
       "cooCoi.r_nominal", 
       "cooCoi.hA.n_a", 
@@ -490,8 +516,8 @@ statistics-fmu-dependencies=
     ], 
     "weaBus.lon": [], 
     "der(cooCoi.ele[2].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.r_nominal", 
       "cooCoi.tau_m", 
       "cooCoi.hA.n_w", 
@@ -503,22 +529,22 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "weaBus.HDirNor": [
-      "TAirZon[1]"
+      "fluPor[1, 1].backward.T"
     ]
   }, 
   "Derivatives": {
     "der(senTemHXOut.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[4].vol2.dynBal.m", 
       "senTemHXOut.T", 
       "fan2.filter.x[2]"
     ], 
     "der(senTemSupAir.T)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
@@ -529,7 +555,7 @@ statistics-fmu-dependencies=
       "fan2.filter.x[1]"
     ], 
     "der(cooCoi.ele[3].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[3].vol2.dynBal.mXi[1]", 
       "cooCoi.ele[3].mas.T", 
@@ -537,8 +563,8 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.mXi[1]"
     ], 
     "der(cooCoi.ele[4].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[3].vol1.dynBal.U", 
       "cooCoi.ele[4].vol1.dynBal.U", 
       "cooCoi.ele[4].mas.T"
@@ -548,15 +574,15 @@ statistics-fmu-dependencies=
       "fan2.filter.x[2]"
     ], 
     "der(cooCoi.ele[4].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[4].vol2.dynBal.m", 
       "cooCoi.ele[4].vol2.dynBal.mXi[1]", 
       "cooCoi.ele[4].mas.T"
     ], 
     "der(cooCoi.ele[3].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[3].vol1.dynBal.U", 
       "cooCoi.ele[3].vol2.dynBal.U", 
       "cooCoi.ele[3].vol2.dynBal.mXi[1]", 
@@ -564,8 +590,8 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[1].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[1].vol1.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
@@ -573,7 +599,7 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[2].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[2].vol2.dynBal.mXi[1]", 
       "cooCoi.ele[2].mas.T", 
@@ -585,8 +611,8 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[1].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[1].vol1.dynBal.U", 
       "cooCoi.ele[1].mas.T"
     ], 
@@ -594,7 +620,7 @@ statistics-fmu-dependencies=
       "fan.filter.x[1]"
     ], 
     "der(cooCoi.ele[2].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[2].vol2.dynBal.U", 
       "cooCoi.ele[2].vol2.dynBal.mXi[1]", 
@@ -603,17 +629,17 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.temSen_2.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.temSen_2.T", 
       "cooCoi.ele[4].vol2.dynBal.m", 
       "fan2.filter.x[2]"
     ], 
     "der(cooCoi.ele[1].vol2.dynBal.mXi[1])": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
       "cooCoi.ele[1].mas.T", 
@@ -621,8 +647,8 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[4].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[4].vol1.dynBal.U", 
       "cooCoi.ele[4].vol2.dynBal.U", 
       "cooCoi.ele[4].vol2.dynBal.m", 
@@ -630,7 +656,7 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].mas.T"
     ], 
     "der(cooCoi.ele[1].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[1].vol2.dynBal.U", 
       "cooCoi.ele[1].vol2.dynBal.mXi[1]", 
@@ -639,7 +665,7 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[3].vol2.dynBal.U)": [
-      "TAirZon[1]", 
+      "fluPor[1, 1].backward.T", 
       "fan.filter.x[2]", 
       "cooCoi.ele[3].vol2.dynBal.U", 
       "cooCoi.ele[3].vol2.dynBal.mXi[1]", 
@@ -648,8 +674,8 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[2].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[1].vol1.dynBal.U", 
       "cooCoi.ele[2].vol1.dynBal.U", 
       "cooCoi.ele[2].mas.T"
@@ -659,20 +685,20 @@ statistics-fmu-dependencies=
       "fan.filter.x[2]"
     ], 
     "der(cooCoi.temSen_1.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.temSen_1.T"
     ], 
     "der(cooCoi.ele[3].vol1.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[2].vol1.dynBal.U", 
       "cooCoi.ele[3].vol1.dynBal.U", 
       "cooCoi.ele[3].mas.T"
     ], 
     "der(cooCoi.ele[2].mas.T)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[2, 1].backward.T", 
       "cooCoi.ele[2].vol1.dynBal.U", 
       "cooCoi.ele[2].vol2.dynBal.U", 
       "cooCoi.ele[2].vol2.dynBal.mXi[1]", 
@@ -680,10 +706,10 @@ statistics-fmu-dependencies=
       "cooCoi.ele[4].vol2.dynBal.m"
     ], 
     "der(cooCoi.ele[4].vol2.dynBal.U)": [
-      "TAirZon[1]", 
-      "TAirZon[2]", 
-      "X_wZon[1]", 
-      "X_wZon[2]", 
+      "fluPor[1, 1].backward.T", 
+      "fluPor[1, 1].backward.X_w", 
+      "fluPor[2, 1].backward.T", 
+      "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]", 
       "cooCoi.ele[4].vol2.dynBal.U", 
       "cooCoi.ele[4].vol2.dynBal.m", 

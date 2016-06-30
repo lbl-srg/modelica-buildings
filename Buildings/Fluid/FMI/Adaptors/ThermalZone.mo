@@ -5,15 +5,18 @@ model ThermalZone
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model within the source" annotation (choicesAllMatching=true);
 
+  // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
+  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones
+  // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nFluPor(final min=2) "Number of fluid ports"
-    annotation (Dialog(connectorSizing=true));
+    annotation (Dialog(connectorSizing=false));
     // fixme: this should be nPorts for consistency
   Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=true,
     each final use_p_in=false) "Fluid connector" annotation (Placement(
-        transformation(extent={{-120,50},{-100,70}}), iconTransformation(
-          extent={{-142,60},{-102,100}})));
+        transformation(extent={{-120,-10},{-100,10}}),iconTransformation(
+          extent={{-142,-20},{-102,20}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
     redeclare each final package Medium = Medium) annotation (Placement(transformation(extent={{90,
@@ -59,7 +62,7 @@ protected
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
-    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
+    annotation (Placement(transformation(extent={{72,-90},{52,-70}})));
 
   BaseClasses.X_w_toX x_w_toX[nFluPor](
     redeclare final package Medium = Medium) if
@@ -72,8 +75,9 @@ protected
     "Sum of air mass flow rates"
     annotation (Placement(transformation(extent={{4,72},{16,84}})));
 
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu(message="\"Mass flow rate does not balance. The sum needs to be zero.",
-      threShold=1E-6)
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu(
+    message="\"Mass flow rate does not balance. The sum needs to be zero.",
+    threShold=1E-6)
     "Tests whether the mass flow rates balance to zero"
     annotation (Placement(transformation(extent={{70,56},{90,76}})));
   Modelica.Blocks.Sources.Constant const(final k=0) "Outputs zero"
@@ -182,7 +186,7 @@ equation
                      color={0,127,255}));
   end for;
   connect(con.inlet, fluPor)
-    annotation (Line(points={{-81,60},{-81,60},{-110,60}},
+    annotation (Line(points={{-81,60},{-90,60},{-90,60},{-90,0},{-110,0}},
                                                        color={0,0,255}));
   connect(con.X_w, x_w_toX.X_w) annotation (Line(points={{-58,56},{-58,56},{-42,
           56}},       color={0,0,127}));
@@ -193,7 +197,7 @@ equation
   connect(con.C, bou.C_in) annotation (Line(points={{-58,52},{-50,52},{-50,40},{
           -10,40},{2,40}},                  color={0,0,127}));
   connect(heaPorAir, senTemAir.port) annotation (Line(points={{100,-80},{80,-80},
-          {80,-60},{70,-60}}, color={191,0,0}));
+          {72,-80}},          color={191,0,0}));
   connect(XiSup.y, x_i_toX.Xi)
     annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
   connect(con.T, bou.T_in) annotation (Line(points={{-58,64},{-58,64},{-44,64},{
@@ -205,10 +209,13 @@ equation
   connect(const.y, assEqu.u1) annotation (Line(points={{51,78},{60,78},{60,72},{
           68,72}}, color={0,0,127}));
   for i in 1:nFluPor loop
-  connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{50,-60},{40,-60},
-          {40,20},{-76,20},{-76,48}}, color={0,0,127}));
-  connect(x_i_toX.X_w, con[i].X_wZon) annotation (Line(points={{-42,-20},{-42,-20},
-          {-70,-20},{-70,48}}, color={0,0,127}));
+  connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{52,-80},{40,-80},
+            {40,20},{-76,20},{-76,48}},
+                                      color={0,0,127}));
+  if Medium.nXi > 0 then
+    connect(x_i_toX.X_w, con[i].X_wZon) annotation (Line(points={{-42,-20},{-42,-20},
+            {-70,-20},{-70,48}}, color={0,0,127}));
+  end if;
   connect(CSup.y, con[i].CZon)
     annotation (Line(points={{-1,-60},{-64,-60},{-64,48}}, color={0,0,127}));
   end for;
@@ -303,7 +310,12 @@ equation
           points={{6,0},{-12,-12},{6,-26},{6,0}},
           lineColor={0,0,255},
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-2,-20},{84,-76}},
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Right,
+          textString="[%nPorts]")}),
     Documentation(info="<html>
 <p>
 Adaptor that can be used to connect a model of a thermal zone (with acausal ports)

@@ -1,9 +1,8 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACConvectiveSingleZone
   "Simple convective only HVAC system that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(hvacAda(
-              nPorts=2),
-    redeclare final package Medium = MediumA);
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
+    redeclare final package Medium = MediumA, hvacAda(nPorts=2));
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
@@ -62,7 +61,9 @@ block HVACConvectiveSingleZone
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=allowFlowReversal) "Supply air fan"
+    allowFlowReversal=allowFlowReversal,
+    nominalValuesDefineDefaultPressureCurve=true)
+                                         "Supply air fan"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
@@ -224,13 +225,12 @@ equation
           140}},                                   color={0,0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
           -52,50},{-36,50},{-36,88},{-32,88}}, color={0,127,255}));
-  connect(fan.port_b, hvacAda.ports[1]) annotation (Line(points={{70,100},{82,
-          100},{82,110},{92,110},{92,110},{120,110},{120,110}}, color={0,127,
-          255}));
-  connect(hex.port_a2, hvacAda.ports[2]) annotation (Line(points={{-70,84},{-70,
-          84},{-60,84},{-60,72},{100,72},{100,110},{120,110}}, color={0,127,255}));
-  connect(TAirZon, con.u) annotation (Line(points={{180,100},{156,100},{156,0},
-          {-120,0},{-120,10},{-114,10}}, color={0,0,127}));
+  connect(fan.port_b, hvacAda.ports[1]) annotation (Line(points={{70,100},{84,100},
+          {90,100},{90,140},{120,140}}, color={0,127,255}));
+  connect(hex.port_a2, hvacAda.ports[2]) annotation (Line(points={{-70,84},{-60,
+          84},{-60,72},{96,72},{96,140},{120,140}}, color={0,127,255}));
+  connect(con.u, hvacAda.TAirZon[1]) annotation (Line(points={{-114,10},{-124,10},
+          {-124,-10},{124,-10},{124,128}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(

@@ -8,22 +8,15 @@ partial block HVACConvectiveMultipleZones
   parameter Integer nZon(min=1)
     "Number of thermal zones served by the HVAC system";
 
-  parameter Integer nPorts(min=1)
+  parameter Integer nPorts(min=2)
     "Number of fluid ports for each zone (must be the same for every zone)";
 
-  // Set allowFlowReversal = false to remove the backward connector.
-  // This is done to avoid that we get the same zone states multiple times.
+  // Set allowFlowReversal = true to get access to the states of the zone.
   Interfaces.Outlet fluPor[nZon, nPorts](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
-    each final allowFlowReversal = false) "Fluid connector"
+    each final allowFlowReversal = true) "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-
-  Modelica.Blocks.Interfaces.RealInput TAirZon[nZon](
-    each final unit="K",
-    each displayUnit="degC") "Zone air temperature"
-    annotation (Placement(transformation(extent={{200,80},{160,120}}),
-        iconTransformation(extent={{180,100},{160,120}})));
 
   Modelica.Blocks.Interfaces.RealInput TRadZon[nZon](
     each final unit="K",
@@ -32,48 +25,31 @@ partial block HVACConvectiveMultipleZones
           extent={{200,50},{160,90}}),  iconTransformation(extent={{180,70},{160,
             90}})));
 
-  Modelica.Blocks.Interfaces.RealInput X_wZon[nZon](
-    each final unit = "kg/kg") if
-    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{200,20},{160,60}}),
-        iconTransformation(extent={{180,40},{160,60}})),
-        visible=Medium.nXi > 0);
-
-  Modelica.Blocks.Interfaces.RealInput CZon[nZon, Medium.nC](
-    each final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{200,-10},{160,30}}),
-        iconTransformation(extent={{180,10},{160,30}})),
-        visible=Medium.nC > 0);
-
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
     "Radiant heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-60},{200,-20}})));
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
+        iconTransformation(extent={{160,-50},{180,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiCon_flow[nZon](each final unit="W")
     "Convective sensible heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-110},{200,-70}})));
+    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
+        iconTransformation(extent={{160,-100},{180,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow[nZon](each final unit="W")
     "Latent heat input into the zones (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
+    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
+        iconTransformation(extent={{160,-150},{180,-130}})));
 
   Adaptors.HVACConvective hvacAda[nZon](redeclare each final package Medium =
         Medium, each final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
 
 equation
-  connect(TAirZon, hvacAda.TAirZon) annotation (Line(points={{180,100},{158,100},
-          {158,110},{141,110},{141,110}}, color={0,0,127}));
-  connect(X_wZon, hvacAda.X_wZon) annotation (Line(points={{180,40},{154,40},{
-          154,106},{141,106}}, color={0,0,127}));
-  connect(CZon, hvacAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
-          102},{141,102}}, color={0,0,127}));
   for iZon in 1:nZon loop
     for iPor in 1:nPorts loop
       connect(hvacAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(
-            points={{141,117},{154,117},{154,140},{170,140}}, color={0,0,255}));
+            points={{141,140},{154,140},{170,140}},           color={0,0,255}));
     end for;
   end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
@@ -83,7 +59,7 @@ equation
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Text(
-          extent={{100,12},{150,-8}},
+          extent={{104,92},{154,72}},
           lineColor={0,0,127},
           textString="TRadZon"),
         Text(
@@ -95,7 +71,7 @@ equation
           lineColor={0,0,127},
           textString="QCon"),
         Text(
-          extent={{100,-128},{150,-148}},
+          extent={{106,-128},{156,-148}},
           lineColor={0,0,127},
           textString="QLat"),
         Text(
@@ -175,7 +151,7 @@ equation
           rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
         graphics={Text(
-          extent={{120,98},{134,92}},
+          extent={{104,134},{118,128}},
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
@@ -250,15 +226,24 @@ the port <code>fluPor</code> (which is negative if it is an exhaust),
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 </p>
+
 <p>
-Inputs to this container are, for each thermal zone,
-the zone air temperature, water vapor mass fraction
-per total mass of the air and trace substances.
-The outflowing fluid stream(s) at port <code>ports</code> will be at this
-state. For each thermal zone, all fluid streams at port <code>ports</code> are at the same
-pressure, hence, for example, <code>ports[1, 1].p = porst[1, 2].p = ... </code>.
-However, <code>ports[1, 1].p</code> need not be at the same pressure as
-<code>porst[2, 1].p</code>
+The input signals of this model are the radiative temperature of each zone.
+The the zone air temperatures,
+the water vapor mass fractions per total mass of the air (unless <code>Medium.nXi=0</code>)
+and trace substances (unless <code>Medium.nC=0</code>) are obtained from the connector
+<code>fluPor.backward</code>.
+The outflowing fluid stream(s) at the port <code>ports</code> will be at the
+states obtained from <code>fluPor.backward</code>.
+For any given <i>i<sub>zon</sub> &isin; {1, ..., n<sub>zon</sub>}</i>,
+for each <i>i<sub>ports</sub> &isin; {1, ..., n<sub>ports</sub>}</i>
+all fluid streams at port <code>ports[i<sub>zon</sub>, i<sub>ports</sub>]</code> are at the same
+pressure.
+For convenience, the instance <code>hvacAda</code> also outputs the
+properties obtained from <code>fluPor.backward</code>. These can be used
+to connect a controller. The properties are available for each flow path in
+<code>fluPor.backward</code>. For a thermal zone with mixed air, these are
+all equal, while for a stratified room model, they can be different. 
 </p>
 <p>
 See
@@ -278,8 +263,11 @@ The mass flow rates at <code>ports</code> sum to zero, hence this
 model conserves mass for each thermal zone.
 </p>
 <p>
-This model does not impose any pressure, other than setting the pressure
-of all fluid connections to <code>ports[i, :]</code> to be equal.
+This model does not impose any pressure, other than,
+for any given <i>i<sub>zon</sub> &isin; {1, ..., n<sub>zon</sub>}</i> and
+for each <i>j,k &isin; {1, ..., n<sub>ports</sub>}</i>,
+setting the pressure of <code>ports[i<sub>zon</sub>, j].p = ports[i<sub>zon</sub>, k].p</code>
+to be the same.
 The reason is that setting a pressure can lead to non-physical system models,
 for example if a mass flow rate is imposed and the HVAC system is connected
 to a model that sets a pressure boundary condition such as

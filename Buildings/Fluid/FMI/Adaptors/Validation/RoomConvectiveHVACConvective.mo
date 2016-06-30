@@ -9,7 +9,8 @@ model RoomConvectiveHVACConvective
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   model BaseCase "Base model used for the validation of the FMI interfaces"
     extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics=
-      Modelica.Fluid.Types.Dynamics.FixedInitial));
+      Modelica.Fluid.Types.Dynamics.FixedInitial), fan(
+          nominalValuesDefineDefaultPressureCurve=true));
     annotation (Documentation(info="<html>
 <p>
 This example is the base case model which is used to validate 
@@ -89,18 +90,11 @@ Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
     annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
 equation
 
-  connect(hvaCon.CZon, rooCon.CZon) annotation (Line(points={{-39.375,11.25},{0,
-          11.25},{0,2.5},{38.75,2.5}},  color={0,0,127}));
-  connect(hvaCon.X_wZon, rooCon.X_wZon) annotation (Line(points={{-39.375,
-          13.125},{4,13.125},{4,5},{38.75,5}},
-                                        color={0,0,127}));
   connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,18.75},
           {39.375,18.75}},                                color={0,0,255}));
-  connect(hvaCon.TAirZon, rooCon.TAirZon) annotation (Line(points={{-39.375,
-          16.875},{-4,16.875},{-4,14},{24,14},{24,7.5},{38.75,7.5}},
-                                                              color={0,0,127}));
-  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.375,15},{0,
-          15},{0,-30},{39,-30}}, color={0,0,127}));
+  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.3125,13.8125},
+          {0,13.8125},{0,-30},{39,-30}},
+                                 color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(

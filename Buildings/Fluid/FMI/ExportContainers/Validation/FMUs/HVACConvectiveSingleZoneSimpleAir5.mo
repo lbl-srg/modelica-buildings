@@ -2,8 +2,7 @@ within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneSimpleAir5
   "Validation model for the convective HVAC system"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACConvectiveSingleZoneAir1(
-    redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2", "VOC"}),
-    allowFlowReversal = true);
+    redeclare package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2", "VOC"}));
 annotation (
     Documentation(info="<html>
 <p>

@@ -98,13 +98,13 @@ equation
   connect(TOut1.port, theCon.port_a)
     annotation (Line(points={{0,90},{0,90},{20,90}}, color={191,0,0}));
 
-  connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-60,142},
-          {60,142},{60,140},{60,140},{60,10},{80,10}},            color={191,0,0}));
-  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-60,150},
-          {-60,150},{-48,150},{-48,-16},{88,-16},{88,0}},               color={0,
+  connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-120,152},
+          {60,152},{60,140},{60,140},{60,10},{80,10}},            color={191,0,0}));
+  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-120,160},
+          {-120,160},{-48,160},{-48,-16},{88,-16},{88,0}},              color={0,
           127,255}));
-  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-60,150},
-          {-54,150},{-54,-20},{92,-20},{92,0}},     color={0,127,255}));
+  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-120,160},
+          {-54,160},{-54,-20},{92,-20},{92,0}},     color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
           -54},{0,-40},{120,-40},{120,120},{20,120}}, color={0,0,127}));
   connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,18},{78,18},
@@ -153,6 +153,6 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZoneConvective.mos"
-        "Simulate and plot"),
+        "Simulate and plot", file="plot.mos" "plot.mos"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end ThermalZoneConvective;

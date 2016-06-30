@@ -1,27 +1,30 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
-    theZonAda(nFluPor=1),
-    redeclare package Medium = Buildings.Media.Air, nFluPor = 1);
+    redeclare package Medium = Buildings.Media.Air,
+    nFluPor = 2);
 
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
-  Modelica.Blocks.Sources.Constant rooAir(k=295.13)
-    annotation (Placement(transformation(extent={{120,30},{100,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAir
-    "Room air temperature"
-    annotation (Placement(transformation(extent={{84,30},{64,50}})));
-  Sources.FixedBoundary bou(
-    redeclare package Medium = Medium,
-    T=293.15,
-    nPorts=1) "Boundary condition"
-    annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-  Modelica.Blocks.Sources.Constant TDryBul(k=285.13)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={110,100})));
+  /////////////////////////////////////////////////////////
+  // Air temperatures at design conditions
+  parameter Modelica.SIunits.Temperature TASup_nominal = 273.15+18
+    "Nominal air temperature supplied to room";
+  parameter Modelica.SIunits.Temperature TRooSet = 273.15+24
+    "Nominal room air temperature";
+  parameter Modelica.SIunits.Temperature TOut_nominal = 273.15+30
+    "Design outlet air temperature";
+
+  /////////////////////////////////////////////////////////
+  // Cooling loads and air mass flow rates
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
+     1000 "Internal heat gains of the room";
+  parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
+    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
+    "Nominal cooling load of the room";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
+    "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
 
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-20,-20},
@@ -32,16 +35,63 @@ block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
         rotation=90,
         origin={0,200})));
 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
+    "Outside temperature"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
+    "Thermal conductance with the ambient"
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
+    QRooInt_flow) "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{60,110},{40,130}})));
+  MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=V,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=2,
+    mSenFac=3)
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Modelica.Blocks.Sources.Constant TOutSou(k=303.15) "Outdoor temperature"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+protected
+  FixedResistances.FixedResistanceDpM res1(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=10,
+    linearized=true) "Flow resistance"
+    annotation (Placement(transformation(extent={{80,150},{100,170}})));
+  FixedResistances.FixedResistanceDpM res2(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=10,
+    linearized=true) "Flow resistance"
+    annotation (Placement(transformation(extent={{80,122},{100,142}})));
 equation
-  connect(rooAir.y, TAir.T)
-    annotation (Line(points={{99,40},{99,40},{86,40}},       color={0,0,127}));
-  connect(TAir.port,theZonAda.heaPorAir)  annotation (Line(points={{64,40},{60,40},
-          {60,144},{-60,144}},             color={191,0,0}));
-  connect(TDryBul.y, TOut) annotation (Line(points={{99,100},{80,100},{80,148},{
-          0,148},{0,200}},      color={0,0,127}));
-  connect(theZonAda.ports[1], bou.ports[1]) annotation (Line(points={{-60,152},{
-          -52,152},{-52,150},{-40,150},{-40,0},{100,0}},               color={0,
-          127,255}));
+  connect(theCon.port_b,vol. heatPort)
+    annotation (Line(points={{0,120},{0,120},{20,120},{20,70},{40,70}},
+                                                    color={191,0,0}));
+  connect(preHea.port,vol. heatPort)
+    annotation (Line(points={{40,120},{20,120},{20,70},{40,70}},
+                                                            color={191,0,0}));
+  connect(TOut1.port,theCon. port_a)
+    annotation (Line(points={{-40,120},{-40,120},{-20,120}},
+                                                     color={191,0,0}));
+  connect(vol.heatPort, theZonAda.heaPorAir) annotation (Line(points={{40,70},{40,
+          70},{20,70},{20,152},{-120,152}}, color={191,0,0}));
+  connect(TOutSou.y, TOut1.T)
+    annotation (Line(points={{-79,120},{-62,120}}, color={0,0,127}));
+  connect(TOut, TOutSou.y) annotation (Line(points={{0,200},{0,170},{-70,170},{-70,
+          120},{-79,120}}, color={0,0,127}));
+  connect(theZonAda.ports[1], res1.port_a) annotation (Line(points={{-120,160},
+          {-20,160},{80,160}}, color={0,127,255}));
+  connect(theZonAda.ports[2], res2.port_a) annotation (Line(points={{-120,160},
+          {-26,160},{60,160},{60,132},{80,132}}, color={0,127,255}));
+  connect(res2.port_b, vol.ports[1]) annotation (Line(points={{100,132},{110,
+          132},{110,46},{48,46},{48,60}}, color={0,127,255}));
+  connect(res1.port_b, vol.ports[2]) annotation (Line(points={{100,160},{112,
+          160},{114,160},{114,52},{114,50},{52,50},{52,60}}, color={0,127,255}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={

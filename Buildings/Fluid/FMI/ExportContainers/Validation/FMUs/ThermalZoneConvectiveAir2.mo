@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir2 "Validation of simple thermal zone"
-  extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir1(
-    allowFlowReversal = false);
+  extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir1;
   annotation (Documentation(info="<html>
 <p>
 This example validates that 

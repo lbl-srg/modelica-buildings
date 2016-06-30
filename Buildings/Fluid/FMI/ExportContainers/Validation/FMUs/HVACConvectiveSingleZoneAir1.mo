@@ -1,37 +1,36 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneAir1 "Validation model for the convective HVAC system"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(hvacAda(
-              nPorts=2),
-    redeclare package Medium = Buildings.Media.Air);
+  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
+    redeclare package Medium = Buildings.Media.Air,
+    hvacAda(nPorts=2));
 
-  parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 protected
   Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
-    nPorts=2) "Boundary condition"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    nPorts=1) "Boundary condition"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   FixedResistances.FixedResistanceDpM sup(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=0.1,
     final dp_nominal=200,
     from_dp=true) "Supply air duct"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{60,130},{80,150}})));
   FixedResistances.FixedResistanceDpM ret(
     redeclare final package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=0.1,
     final dp_nominal=200) "Return air duct"
-    annotation (Placement(transformation(extent={{40,60},{20,80}})));
+    annotation (Placement(transformation(extent={{80,90},{60,110}})));
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+protected
+  Sources.MassFlowSource_T sou(
+    redeclare package Medium = Medium,
+    nPorts=1,
+    m_flow=0.1) "Mass flow source"
+    annotation (Placement(transformation(extent={{20,130},{40,150}})));
 equation
-  connect(bou.ports[1], sup.port_a) annotation (Line(points={{-20,92},{-16,92},{
-          -16,110},{20,110}}, color={0,127,255}));
-  connect(bou.ports[2], ret.port_b) annotation (Line(points={{-20,88},{-16,88},{
-          -16,70},{20,70}}, color={0,127,255}));
+  connect(bou.ports[1], ret.port_b) annotation (Line(points={{40,100},{40,100},
+          {60,100}},        color={0,127,255}));
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
   connect(zero.y, QGaiCon_flow)
@@ -40,10 +39,13 @@ equation
   connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -140},{180,-140}},
                            color={0,0,127}));
-  connect(sup.port_b, hvacAda.ports[1]) annotation (Line(points={{40,110},{76,
-          110},{76,100},{110,100}}, color={0,127,255}));
-  connect(ret.port_a, hvacAda.ports[2]) annotation (Line(points={{40,70},{76,70},
-          {76,100},{110,100}}, color={0,127,255}));
+  connect(sup.port_b, hvacAda.ports[1]) annotation (Line(points={{80,140},{100,
+          140},{120,140}},          color={0,127,255}));
+  connect(ret.port_a, hvacAda.ports[2]) annotation (Line(points={{80,100},{100,
+          100},{100,140},{120,140}},
+                               color={0,127,255}));
+  connect(sou.ports[1], sup.port_a)
+    annotation (Line(points={{40,140},{50,140},{60,140}}, color={0,127,255}));
 annotation (
     Documentation(info="<html>
 <p>

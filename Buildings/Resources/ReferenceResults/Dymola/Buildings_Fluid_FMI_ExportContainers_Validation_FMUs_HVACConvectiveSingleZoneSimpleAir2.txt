@@ -1,4 +1,4 @@
-last-generated=2016-05-23
+last-generated=2016-06-30
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -13,9 +13,7 @@ statistics-fmu-dependencies=
     "fluPor[2].forward.T": []
   }, 
   "InitialUnknowns": {
-    "fluPor[1].forward.T": [
-      "TAirZon"
-    ], 
+    "fluPor[1].forward.T": [], 
     "QGaiRad_flow": [], 
     "CPUtime": [], 
     "fluPor[2].m_flow": [], 

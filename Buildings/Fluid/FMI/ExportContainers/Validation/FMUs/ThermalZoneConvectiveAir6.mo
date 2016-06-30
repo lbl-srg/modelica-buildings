@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir6 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir1(
-    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2", "VOC"}),
-    allowFlowReversal = false);
+    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2", "VOC"}));
   annotation (Documentation(info="<html>
 <p>
 This example validates that 

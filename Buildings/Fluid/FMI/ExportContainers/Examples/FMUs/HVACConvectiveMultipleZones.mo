@@ -110,7 +110,9 @@ block HVACConvectiveMultipleZones
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
   Sources.FixedBoundary sinWat(
     redeclare package Medium = MediumW, nPorts=1) "Sink for water circuit"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,72})));
   Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
@@ -156,9 +158,6 @@ block HVACConvectiveMultipleZones
         origin={0,-180})));
   Modelica.Blocks.Math.Min min
     annotation (Placement(transformation(extent={{-80,-80},{-100,-60}})));
-  Modelica.Blocks.Routing.DeMultiplex2 deMul
-    "De multiplex for room air temperature"
-    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
   Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -166,13 +165,13 @@ block HVACConvectiveMultipleZones
     m_flow_nominal=mA_flow_nominal/10,
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Supply air fan that extracts a constant amount of outside air"
-    annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1*mA_flow_nominal,
     dp_nominal=200,
     linearized=true) "Fixed resistance for exhaust air duct"
-    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{40,-10},{20,10}})));
   FixedResistances.FixedResistanceDpM resSup1(
     redeclare package Medium = MediumA,
     linearized=true,
@@ -185,6 +184,18 @@ block HVACConvectiveMultipleZones
     m_flow_nominal=0.5*mA_flow_nominal,
     dp_nominal=10) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{70,76},{90,96}})));
+  FixedResistances.FixedResistanceDpM resRet1(
+    redeclare package Medium = MediumA,
+    dp_nominal=200,
+    linearized=true,
+    m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
+    annotation (Placement(transformation(extent={{40,50},{20,70}})));
+  FixedResistances.FixedResistanceDpM resRet2(
+    redeclare package Medium = MediumA,
+    dp_nominal=200,
+    linearized=true,
+    m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
+    annotation (Placement(transformation(extent={{40,20},{20,40}})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -207,7 +218,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,out. weaBus) annotation (Line(
-      points={{-132,140},{-112,140},{-112,120},{-140,120},{-140,96},{-140,96},{
+      points={{-132,140},{-112,140},{-112,120},{-148,120},{-148,90},{-140,90},{
           -140,90.2}},
       color={255,204,51},
       thickness=0.5,
@@ -255,39 +266,41 @@ equation
   connect(TOut,weaBus. TDryBul)
     annotation (Line(points={{0,-180},{0,-174},{0,-140},{0,120},{-60,120},{-60,
           140}},                                   color={0,0,127}));
-  connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-60,10},{
-          -60,10},{-50,10},{-50,10},{-50,10},{-50,88},{-32,88}},
-                                               color={0,127,255}));
-  connect(deMul.y1[1], min.u1)
-    annotation (Line(points={{-61,-64},{-78,-64}}, color={0,0,127}));
-  connect(deMul.y2[1], min.u2)
-    annotation (Line(points={{-61,-76},{-78,-76}}, color={0,0,127}));
-  connect(deMul.u, TAirZon) annotation (Line(points={{-38,-70},{120,-70},{120,
-          -20},{154,-20},{154,100},{180,100}},
-                                color={0,0,127}));
+  connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-40,82},{
+          -40,88},{-32,88}},                   color={0,127,255}));
   connect(min.y, con.u) annotation (Line(points={{-101,-70},{-110,-70},{-110,
           -36},{-100,-36}},
                       color={0,0,127}));
-  connect(hvacAda[1].ports[2], hex.port_a2) annotation (Line(points={{120,110},
-          {100,110},{100,100},{100,70},{-60,70},{-60,84},{-82,84}}, color={0,
-          127,255}));
-  connect(hvacAda[2].ports[2], hex.port_a2) annotation (Line(points={{120,110},
-          {104,110},{104,68},{-62,68},{-62,84},{-82,84}}, color={0,127,255}));
-  connect(fan2.port_a, hvacAda[2].ports[3]) annotation (Line(points={{-20,50},{
-          -20,50},{106,50},{106,110},{120,110}}, color={0,127,255}));
-  connect(fan2.port_b, res.port_a) annotation (Line(points={{-40,50},{-50,50},{
-          -60,50}},   color={0,127,255}));
-  connect(res.port_b, out.ports[3]) annotation (Line(points={{-80,50},{-114,50},
-          {-114,82},{-114,87.3333},{-120,87.3333}},
+  connect(fan2.port_b, res.port_a) annotation (Line(points={{60,0},{60,0},{40,0}},
+                      color={0,127,255}));
+  connect(res.port_b, out.ports[3]) annotation (Line(points={{20,0},{-106,0},{
+          -106,42},{-106,87.3333},{-120,87.3333}},
         color={0,127,255}));
   connect(fan.port_b, resSup1.port_a) annotation (Line(points={{60,100},{66,100},
           {66,116},{70,116}}, color={0,127,255}));
-  connect(resSup1.port_b, hvacAda[1].ports[1]) annotation (Line(points={{90,116},
-          {100,116},{100,110},{120,110}}, color={0,127,255}));
   connect(fan.port_b, resSup2.port_a) annotation (Line(points={{60,100},{66,100},
           {66,86},{70,86}}, color={0,127,255}));
+  connect(resSup1.port_b, hvacAda[1].ports[1]) annotation (Line(points={{90,116},
+          {100,116},{100,140},{120,140}}, color={0,127,255}));
   connect(resSup2.port_b, hvacAda[2].ports[1]) annotation (Line(points={{90,86},
-          {100,86},{100,110},{120,110}}, color={0,127,255}));
+          {102,86},{102,140},{120,140}}, color={0,127,255}));
+  connect(hvacAda[1].ports[3], fan2.port_a) annotation (Line(points={{120,140},
+          {116,140},{116,0},{80,0}}, color={0,127,255}));
+  connect(hvacAda[2].ports[3], fan2.port_a) annotation (Line(points={{120,140},
+          {116,140},{116,0},{80,0}}, color={0,127,255}));
+  connect(hvacAda[1].TAirZon[1], min.u1) annotation (Line(points={{124,128},{
+          124,128},{124,60},{124,-64},{-78,-64}}, color={0,0,127}));
+  connect(hvacAda[2].TAirZon[1], min.u2) annotation (Line(points={{124,128},{
+          124,128},{124,54},{124,-64},{-60,-64},{-60,-64},{-60,-76},{-78,-76}},
+        color={0,0,127}));
+  connect(resRet1.port_b, hex.port_a2) annotation (Line(points={{20,60},{-28,60},
+          {-70,60},{-70,84},{-82,84}}, color={0,127,255}));
+  connect(resRet2.port_b, hex.port_a2) annotation (Line(points={{20,30},{-28,30},
+          {-70,30},{-70,84},{-82,84}}, color={0,127,255}));
+  connect(resRet1.port_a, hvacAda[1].ports[2]) annotation (Line(points={{40,60},
+          {70,60},{106,60},{106,140},{120,140}}, color={0,127,255}));
+  connect(resRet2.port_a, hvacAda[2].ports[2]) annotation (Line(points={{40,30},
+          {72,30},{106,30},{106,140},{120,140}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(

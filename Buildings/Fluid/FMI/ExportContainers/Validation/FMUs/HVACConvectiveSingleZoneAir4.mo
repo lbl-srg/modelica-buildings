@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneAir4 "Validation model for the convective HVAC system"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACConvectiveSingleZoneAir1(
-    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}),
-    allowFlowReversal = false);
+    redeclare package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"}));
 annotation (
     Documentation(info="<html>
 <p>

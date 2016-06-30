@@ -1,8 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveMoistAir2 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir1(
-    redeclare package Medium = Modelica.Media.Air.MoistAir,
-    allowFlowReversal = false);
+    redeclare package Medium = Modelica.Media.Air.SimpleAir);
   annotation (Documentation(info="<html>
 <p>
 This example validates that 

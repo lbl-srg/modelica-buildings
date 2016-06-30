@@ -9,40 +9,19 @@ partial block ThermalZoneConvective
   Interfaces.Inlet fluPor[nFluPor](
     redeclare each final package Medium = Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=false) "Fluid connector" annotation (Placement(
+    each final allowFlowReversal=true) "Fluid connector" annotation (Placement(
         transformation(extent={{-180,150},{-160,170}}), iconTransformation(
           extent={{-180,150},{-160,170}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TAirZon(final unit="K", displayUnit="degC")
-    "Zone air temperature" annotation (Placement(transformation(extent={{-160,-40},
-            {-200,0}}), iconTransformation(extent={{-160,-40},{-200,0}})));
-  Modelica.Blocks.Interfaces.RealOutput X_wZon(
-    each final unit="kg/kg") if
-    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{-160,-80},{-200,-40}}),
-        iconTransformation(extent={{-160,-80},{-200,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-160,-120},{-200,-80}})));
-
-  Adaptors.ThermalZone theZonAda(redeclare final package Medium = Medium,
-      nFluPor=nFluPor)
+  Adaptors.ThermalZone theZonAda(
+    redeclare final package Medium = Medium,
+    final nFluPor=nFluPor)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
+    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 equation
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{-82.2,158},{-82.2,
-          158},{-110,158},{-140,158},{-140,160},{-170,160}},
-                                             color={0,0,255}));
-  connect(X_wZon, X_wZon)
-    annotation (Line(points={{-180,-60},{-180,-60}},         color={0,0,127}));
-  connect(CZon,theZonAda.CZon)  annotation (Line(points={{-180,-100},{-142,-100},
-          {-100,-100},{-100,143},{-82.2,143}}, color={0,0,127}));
-  connect(X_wZon,theZonAda.X_wZon)  annotation (Line(points={{-180,-60},{-150,-60},
-          {-120,-60},{-120,148.2},{-82.2,148.2}},      color={0,0,127}));
-  connect(TAirZon,theZonAda.TAirZon)  annotation (Line(points={{-180,-20},{-180,
-          -20},{-140,-20},{-140,152.8},{-82.2,152.8}}, color={0,0,127}));
+  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{-142.2,160},{
+          -142.2,160},{-144,160},{-170,160}},color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={Rectangle(
           extent={{-160,180},{160,-140}},
@@ -151,19 +130,21 @@ Buildings.Fluid.MixingVolumes</a>
 implement such a <i>max(&middot;, &middot;)</i> function.
 </p>
 <p>
-The output signals of this model are the zone air temperature,
+The zone air temperature,
 the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
-and trace substances (unless <code>Medium.nC=0</code>).
+and trace substances (unless <code>Medium.nC=0</code>)
+can be obtained from the outupt connector
+<code>fluPor.backward</code>.
 These signals are the same as the inflowing fluid stream(s)
 at the port <code>ports</code>.
 The fluid connector <code>ports</code> has a prescribed mass flow rate, but
 it does not set any pressure.
 </p>
 <p>
-This model has a user-defined parameter <code>nFluPor</code>
+This model has a user-defined parameter <code>nPorts</code>
 which sets the number of fluid ports, which in turn is used
 for the ports <code>fluPor</code> and <code>ports</code>.
-All <code>nFluPor</code>
+All <code>nPorts</code>
 <code>ports</code> need to be connected as demonstrated in the example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
@@ -178,7 +159,7 @@ that has signal flow.
 </html>", revisions="<html>
 <ul>
 <li>
-June 16, 2016, by Michael Wetter:<br/>
+June 29, 2016, by Michael Wetter:<br/>
 Revised implementation and documentation.
 </li>
 <li>

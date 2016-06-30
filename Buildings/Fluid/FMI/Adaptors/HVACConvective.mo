@@ -9,17 +9,14 @@ model HVACConvective
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones
   // the fluid ports can not be assigned between the different zones by the user.
-  parameter Integer nPorts "Number of ports"
-      annotation (Dialog(connectorSizing=true));
-
-  final parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)";
+  parameter Integer nPorts(min=2) "Number of ports"
+      annotation (Dialog(connectorSizing=false));
 
   Interfaces.Outlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
-    each final allowFlowReversal=allowFlowReversal,
+    each final allowFlowReversal=true,
     each final use_p_in=false) "Fluid connector"
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
     redeclare each final package Medium = Medium)
@@ -27,12 +24,10 @@ model HVACConvective
 
   Modelica.Blocks.Interfaces.RealOutput TAirZon[nPorts](
     each final unit="K",
-    each displayUnit="degC") if
-       allowFlowReversal
+    each displayUnit="degC")
     "Temperature of the backward flowing medium in the connector outlet"
     annotation (Placement(transformation(extent={{20,20},{-20,-20}},
         rotation=90,
-        visible=allowFloWReserval,
         origin={-60,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},
@@ -40,23 +35,20 @@ model HVACConvective
         origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealOutput X_wZon[nPorts](
     each final unit="kg/kg") if
-       Medium.nXi > 0 and allowFlowReversal
+       Medium.nXi > 0
     "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
     annotation (Placement(transformation(extent={{20,20},{-20,-20}},
         rotation=90,
-        visible=allowFloWReserval,
         origin={0,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},
         rotation=90,
         origin={0,-120})));
   Modelica.Blocks.Interfaces.RealOutput CZon[nPorts, Medium.nC](
-    each final quantity=Medium.extraPropertiesNames) if
-       allowFlowReversal
+    each final quantity=Medium.extraPropertiesNames)
     "Trace substances of the backward flowing medium in the connector outlet"
     annotation (Placement(transformation(extent={{20,20},{-20,-20}},
         rotation=90,
-        visible=allowFloWReserval,
         origin={60,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},
@@ -76,13 +68,13 @@ protected
 
   Buildings.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
       redeclare each final package Medium = Medium,
-      each final allowFlowReversal=allowFlowReversal)
+      each final allowFlowReversal=true)
     "Converter between the different connectors"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Sensors.MassFlowRate senMasFlo[nPorts](
     redeclare each final package Medium = Medium,
-    each allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
+    each allowFlowReversal=true) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
@@ -156,8 +148,8 @@ initial equation
 equation
 
   connect(con.outlet, fluPor)
-    annotation (Line(points={{81,70},{96,70},{110,70}},
-                                                      color={0,0,255}));
+    annotation (Line(points={{81,70},{90,70},{90,0},{106,0},{106,0},{110,0},{110,
+          0}},                                        color={0,0,255}));
   connect(senMasFlo.m_flow, con.m_flow) annotation (Line(points={{-70,11},{-70,11},
           {-70,78},{58,78}},                           color={0,0,127}));
   connect(hSup.y, con.h) annotation (Line(points={{-19,60},{20,60},{20,74},{58,74}},

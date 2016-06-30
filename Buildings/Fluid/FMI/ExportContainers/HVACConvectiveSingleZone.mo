@@ -6,66 +6,42 @@ partial block HVACConvectiveSingleZone
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
-  // Set allowFlowReversal = false to remove the backward connector.
-  // This is done to avoid that we get the same zone states multiple times.
+  // Set allowFlowReversal = true to get access to the states of the zone.
   Interfaces.Outlet fluPor[size(hvacAda.fluPor, 1)](
     redeclare each final package Medium = Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=false) "Fluid connector"
+    each final allowFlowReversal=true) "Fluid connector"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
-
-  Modelica.Blocks.Interfaces.RealInput TAirZon(
-    final unit="K",
-    displayUnit="degC") "Zone air temperature"
-    annotation (Placement(transformation(extent={{200,80},{160,120}}),
-        iconTransformation(extent={{180,100},{160,120}})));
 
   Modelica.Blocks.Interfaces.RealInput TRadZon(
     final unit="K",
     displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{200,50},{160,90}}),  iconTransformation(extent={{180,70},{160,
-            90}})));
-
-  Modelica.Blocks.Interfaces.RealInput X_wZon(
-    final unit = "kg/kg") if
-    Medium.nXi > 0 "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{200,20},{160,60}}),
-        iconTransformation(extent={{180,40},{160,60}})),
-        visible=Medium.nXi > 0);
-
-  Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames)
-    "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{200,-10},{160,30}}),
-        iconTransformation(extent={{180,10},{160,30}})),
-        visible=Medium.nC > 0);
+          extent={{200,40},{160,80}}), iconTransformation(extent={{182,50},{160,
+            72}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow(final unit="W")
     "Radiant heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-60},{200,-20}})));
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
+        iconTransformation(extent={{160,-50},{180,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiCon_flow(final unit="W")
     "Convective sensible heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-110},{200,-70}})));
+    annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
+        iconTransformation(extent={{160,-100},{180,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiLat_flow(final unit="W")
     "Latent heat input into zone (positive if heat gain)"
-    annotation (Placement(transformation(extent={{160,-160},{200,-120}})));
+    annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
+        iconTransformation(extent={{160,-150},{180,-130}})));
 
   Adaptors.HVACConvective hvacAda(redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
 
 equation
-  connect(TAirZon, hvacAda.TAirZon) annotation (Line(points={{180,100},{156,100},
-          {156,110},{141,110}}, color={0,0,127}));
-  connect(X_wZon, hvacAda.X_wZon) annotation (Line(points={{180,40},{152,40},{
-          152,106},{141,106}}, color={0,0,127}));
-  connect(CZon, hvacAda.CZon) annotation (Line(points={{180,10},{148,10},{148,
-          102},{141,102}}, color={0,0,127}));
-  connect(hvacAda.fluPor, fluPor) annotation (Line(points={{141,117},{150,117},
-          {150,140},{170,140}}, color={0,0,255}));
+  connect(hvacAda.fluPor, fluPor) annotation (Line(points={{141,140},{150,140},
+          {170,140}},           color={0,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={Rectangle(
           extent={{-160,160},{160,-160}},
@@ -73,7 +49,7 @@ equation
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Text(
-          extent={{100,90},{150,70}},
+          extent={{104,72},{154,52}},
           lineColor={0,0,127},
           textString="TRad",
           horizontalAlignment=TextAlignment.Left),
@@ -129,22 +105,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Line(points={{-88,66},{-112,8}}, pattern=LinePattern.None),
-        Line(points={{-88,66},{-124,-56}}, color={0,0,0}),
-        Text(
-          extent={{100,30},{150,10}},
-          lineColor={0,0,127},
-          textString="C",
-          horizontalAlignment=TextAlignment.Left),
-        Text(
-          extent={{102,62},{152,42}},
-          lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Left,
-          textString="X_w"),
-        Text(
-          extent={{100,120},{150,100}},
-          lineColor={0,0,127},
-          horizontalAlignment=TextAlignment.Left,
-          textString="TAir")}),                                  Diagram(
+        Line(points={{-88,66},{-124,-56}}, color={0,0,0})}),     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
@@ -188,7 +149,7 @@ the output signal for these properties are removed.
 These quantities are always as if the flow
 enters the room, even if the flow is zero or negative.
 Thus, a thermal zone model that uses these signals to compute the
-heat added by the HVAC system need to implement an equation such as
+heat added by the HVAC system needs to implement an equation such as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>sen</sub> = max(0, &#7745;<sub>sup</sub>) &nbsp; c<sub>p</sub> &nbsp; (T<sub>sup</sub> - T<sub>air,zon</sub>),
@@ -205,13 +166,22 @@ Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 </p>
 <p>
-The input signals of this model are the zone air temperature,
+The input signals of this model are the zone radiative temperature.
+The the zone air temperature,
 the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
-and trace substances (unless <code>Medium.nC=0</code>).
-The outflowing fluid stream(s) at the port <code>ports</code> will be at this
-state. All fluid streams at port <code>ports</code> are at the same
+and trace substances (unless <code>Medium.nC=0</code>) are obtained from the connector
+<code>fluPor.backward</code>.
+The outflowing fluid stream(s) at the port <code>ports</code> will be at the
+states obtained from <code>fluPor.backward</code>.
+All fluid streams at port <code>ports</code> are at the same
 pressure.
+For convenience, the instance <code>hvacAda</code> also outputs the
+properties obtained from <code>fluPor.backward</code>. These can be used
+to connect a controller. The properties are available for each flow path in
+<code>fluPor.backward</code>. For a thermal zone with mixed air, these are
+all equal, while for a stratified room model, they can be different. 
 </p>
+
 <p>
 See
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
