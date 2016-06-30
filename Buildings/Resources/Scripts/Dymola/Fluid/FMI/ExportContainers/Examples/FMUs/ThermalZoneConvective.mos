@@ -1,3 +1,2 @@
 simulateModel("Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective", startTime=1.5552e+07, stopTime=1.56384e+07, method="dassl", resultFile="ThermalZoneConvective");
-createPlot(id=1, position={55, 50, 592, 427}, y={"theHvaAda.TAirZon"}, range={0.0, 1.0, 19.0, 25.0}, grid=true, filename="HVACAdaptor.mat", colors={{28,108,200}});
-createPlot(id=1, position={55, 50, 592, 211}, y={"theHvaAda.X_wZon"}, range={0.0, 1.0, 0.0085, 0.0115}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={55, 50, 592, 427}, y={"vol.T", "weaBus.TDryBul"}, range={15550000.0, 15640000.0, 10.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}});
