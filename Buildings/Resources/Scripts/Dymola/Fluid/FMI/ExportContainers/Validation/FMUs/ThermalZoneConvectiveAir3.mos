@@ -3,7 +3,7 @@
 buildings_pedantic_old=Advanced.PedanticModelica;
 Advanced.PedanticModelica=false;
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.HVACConvectiveSingleZoneAir5", 
+  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Validation.FMUs.ThermalZoneConvectiveAir3", 
   storeResult=false, 
   modelName="", 
   fmiVersion="2", 
