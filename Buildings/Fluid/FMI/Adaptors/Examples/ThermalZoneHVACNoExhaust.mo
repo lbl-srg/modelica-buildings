@@ -124,8 +124,8 @@ equation
                                   color={191,0,0}));
   connect(con.ports[2], vol.ports[2]) annotation (Line(points={{100,8},{120,8},{
           152,8},{152,20}},   color={0,127,255}));
-  connect(hvacAda.fluPor, con.fluPor) annotation (Line(points={{41,17},{57.5,17},
-          {57.5,18},{77.8,18}},     color={0,0,255}));
+  connect(hvacAda.fluPor, con.fluPor) annotation (Line(points={{41,10},{57.5,10},
+          {77.8,10}},               color={0,0,255}));
   connect(hea.port_b, hvacAda.ports[1])
     annotation (Line(points={{-20,10},{20,10},{20,12}}, color={0,127,255}));
   connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{-2,8},
@@ -175,15 +175,15 @@ and
 Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
-On the left hand side is an HVAC system with supply and return air stream,
-and a forced exhaust air stream. These are all connected to the adaptor.
+On the left hand side is an HVAC system with supply and return air stream.
+These are all connected to the adaptor.
 On the right of the adaptor is a simple room model, approximated by a volume with
 first order dynamics and heat loss to the ambient.
 </p>
 <p>
 Note that the there is zero net air flow into and out of the volume <code>vol</code>
 because the adaptor <code>hvacAda</code> conserves mass. Hence, any infiltration or
-exfiltration, as is done with the flow path that contains <code>exh</code>, needs to be
+exfiltration needs to be
 connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol</code>.
 </p>
 </html>", revisions="<html>
