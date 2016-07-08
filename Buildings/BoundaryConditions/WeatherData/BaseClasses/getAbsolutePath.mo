@@ -6,8 +6,19 @@ algorithm
   path := Modelica.Utilities.Files.loadResource(uri);
   assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.");
   annotation (Documentation(info="<html>
-<p>The function returns the absolute path of a uniform resource identifier (URI) or local file name. If the file is not found, then this function terminates with an <code>assert</code>. </p>
-<p>This function has been introduced to allow users to specify the name of weather data files with a path that is relative to the library path. This allows users to change the current working directory while still being able to read the files. </p>
+<p>
+The function returns the absolute path of a 
+uniform resource identifier (URI) or local file name. 
+If the file is not found, then this function 
+terminates with an <code>assert</code>. 
+</p>
+<p>
+This function has been introduced to allow users 
+to specify the name of weather data files with a path 
+that is relative to the library path. This allows users 
+to change the current working directory while still 
+being able to read the files. 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
