@@ -38,3 +38,25 @@ void pythonExchangeValues(const char * moduleName,
    ModelicaFormatError
   );
 }
+
+void pythonExchangeValuesCymdist(const char * moduleName,
+                          const char * functionName,
+                          const double * dblValWri, int nDblWri,
+                          double * dblValRea, int nDblRea,
+                          const int * intValWri, int nIntWri,
+                          int * intValRea, int nIntRea,
+                          const char ** strValWri, int nStrWri,
+			  const char ** strValRea, int nStrRea)
+{
+  pythonExchangeValuesCymdistNoModelica(
+   moduleName,
+   functionName,
+   dblValWri, nDblWri,
+   dblValRea, nDblRea,
+   intValWri, nIntWri,
+   intValRea, nIntRea,
+   strValWri, nStrWri,
+   strValRea, nStrRea,
+   ModelicaFormatError
+  );
+}
