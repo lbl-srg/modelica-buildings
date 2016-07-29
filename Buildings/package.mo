@@ -470,11 +470,24 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage
+       </td>
+       <td valign=\"top\">Removed medium declaration, which is not needed and inconsistent with
+                          the declaration in the base class.
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+                          issue 544</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Rooms.Validation.BESTEST.Case900<br/>
                           Buildings.Rooms.Validation.BESTEST.Case900
        </td>
        <td valign=\"top\">Added missing <code>parameter</code> keyword,
                           which is required as the variable (for the materials) is assigned to a parameter.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/543\">issue 543</a>.
        </td>
    </tr>
    </table>
