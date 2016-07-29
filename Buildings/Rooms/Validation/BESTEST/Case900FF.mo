@@ -8,13 +8,13 @@ model Case900FF "Case 600FF, but with high thermal mass"
       maxT( Min=41.6+273.15, Max=44.8+273.15, Mean=43.1+273.15),
       meanT(Min=24.5+273.15, Max=25.9+273.15, Mean=25.2+273.15)));
 
-  Buildings.Rooms.Validation.BESTEST.Data.ExteriorWallCase900
+  parameter Buildings.Rooms.Validation.BESTEST.Data.ExteriorWallCase900
      extWalCase900 "Exterior wall"
-    annotation (Placement(transformation(extent={{32,50},{46,64}})));
+    annotation (Placement(transformation(extent={{60,60},{74,74}})));
 
-  Buildings.Rooms.Validation.BESTEST.Data.FloorCase900
+  parameter Buildings.Rooms.Validation.BESTEST.Data.FloorCase900
     floorCase900 "Floor"
-    annotation (Placement(transformation(extent={{60,50},{74,64}})));
+    annotation (Placement(transformation(extent={{80,60},{94,74}})));
 
   annotation (
 experiment(StopTime=3.1536e+07),
@@ -27,6 +27,12 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2016, by Michael Wetter:<br/>
+Added missing parameter declarations.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/543\">issue 543</a>.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.

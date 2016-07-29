@@ -467,12 +467,14 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Rooms.Validation.BESTEST.Case900<br/>
+                          Buildings.Rooms.Validation.BESTEST.Case900
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Added missing <code>parameter</code> keyword,
+                          which is required as the variable (for the materials) is assigned to a parameter.
        </td>
    </tr>
    </table>
