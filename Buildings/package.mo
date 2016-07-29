@@ -467,13 +467,22 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchanger.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchanger.WetCoilDiscretized
+       </td>
+       <td valign=\"top\">Redeclared <code>Medium2</code> to force it to be a subclass
+                          of <code>Modelica.Media.Interfaces.PartialCondensingGases</code>.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+                          issue 544</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Storage
        </td>
        <td valign=\"top\">Removed medium declaration, which is not needed and inconsistent with
-                          the declaration in the base class.
+                          the declaration in the base class.<br/>
                           This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
                           issue 544</a>.
        </td>
