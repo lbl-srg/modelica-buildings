@@ -102,7 +102,7 @@ import sphinx_bootstrap_theme
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 print "*********** {}".format(html_theme_path)
-html_logo = 'lbl-logo.png'
+html_logo = '_static/lbl-logo.png'
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
 html_theme_options = {
@@ -201,7 +201,7 @@ html_title = "Buildings Library User Guide"
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = "lbl-icon.png"
+html_favicon = "_static/lbl-icon.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
