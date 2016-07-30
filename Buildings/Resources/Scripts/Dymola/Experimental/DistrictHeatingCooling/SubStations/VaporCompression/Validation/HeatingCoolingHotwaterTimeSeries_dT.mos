@@ -1,0 +1,6 @@
+simulateModel("Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.Validation.HeatingCoolingHotwaterTimeSeries_dT", stopTime=864000, method="dassl", resultFile="HeatingCoolingHotwaterTimeSeries_dT");
+createPlot(id=3, position={55, 50, 1639, 1211}, y={"subSta.QCoo_flow", "subSta.QHea_flow", "subSta.QHotWat_flow"}, range={0.0, 880000.0, -400000.0, 1000000.0}, grid=true, filename="HeatingCoolingHotwaterTimeSeries_dT.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={55, 50, 1639, 299}, y={"subSta.staHea_a2.T", "subSta.staHea_b2.T", "subSta.staHotWat_a2.T", "subSta.staHotWat_b2.T"}, range={0.0, 880000.0, 7.0, 13.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=3, position={55, 50, 1639, 298}, y={"subSta.staCoo_a1.T", "subSta.staCoo_b1.T"}, range={0.0, 880000.0, 9.8, 11.4}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={55, 50, 1639, 298}, y={"subSta.weaBus.TDryBul"}, range={0.0, 880000.0, 2.0, 18.0}, grid=true, subPlot=4, colors={{28,108,200}});
+

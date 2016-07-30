@@ -9,13 +9,13 @@ model Case900 "Case 600, but with high thermal mass"
     peakHea(Min=2.850*1000, Max=3.797*1000, Mean=3.506*1000),
     peakCoo(Min=-2.888*1000, Max=-3.871*1000, Mean=-3.390*1000)));
 
-  Buildings.Rooms.Validation.BESTEST.Data.ExteriorWallCase900
+  parameter Buildings.Rooms.Validation.BESTEST.Data.ExteriorWallCase900
      extWalCase900 "Exterior wall"
-    annotation (Placement(transformation(extent={{32,50},{46,64}})));
+    annotation (Placement(transformation(extent={{60,60},{74,74}})));
 
-  Buildings.Rooms.Validation.BESTEST.Data.FloorCase900
+  parameter Buildings.Rooms.Validation.BESTEST.Data.FloorCase900
     floorCase900 "Floor"
-    annotation (Placement(transformation(extent={{60,50},{74,64}})));
+    annotation (Placement(transformation(extent={{80,60},{94,74}})));
 
   annotation (
 experiment(StopTime=3.1536e+07),
@@ -29,6 +29,12 @@ The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2016, by Michael Wetter:<br/>
+Added missing parameter declarations.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/543\">issue 543</a>.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br/>
 First implementation.

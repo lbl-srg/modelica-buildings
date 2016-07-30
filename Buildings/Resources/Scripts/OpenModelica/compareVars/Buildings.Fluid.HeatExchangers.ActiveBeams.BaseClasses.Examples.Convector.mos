@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "con.TRoo",
+    "con.port_a.m_flow",
+    "con.mAir_flow",
+    "con.Q_flow"
+  };

@@ -28,7 +28,7 @@ block FlowSplitter_u "Container to export a flow splitter as an FMU"
     each final use_p_in=use_p_in) "Fluid outlet"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput u[nout](
-    unit="1") "Control signal for the mass flow rates"
+    each unit="1") "Control signal for the mass flow rates"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 protected
@@ -56,7 +56,7 @@ equation
       connect(inlet.p, outlet[i].p);
     end if;
     outlet[i].m_flow = u[i]*m_flow_nominal[i];
-    outlet[i].forward = inlet.forward;
+    connect(outlet[i].forward, inlet.forward);
   end for;
 
   // As reverse flow is not supported, we assign
@@ -67,12 +67,6 @@ equation
 
   // Conditional connector
   connect(bacPro_internal, inlet.backward);
-  // Stop if mass is not conserved in the system
-  assert(abs(inlet.m_flow-sum(outlet.m_flow)) < 1E-2 * mAve_flow_nominal,
-    "Mass flow rate is not conserved.
-  inlet.m_flow       = " + String(inlet.m_flow) + "
-  sum(outlet.m_flow) = " + String(sum(outlet.m_flow)));
-
   annotation(defaultComponentName="spl",
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
@@ -153,6 +147,19 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2016, by Thierry S. Nouidui:<br/>
+Removed <code>assert()</code> statement which was triggered
+when the model was exported as an FMU
+depending on the execution sequence of the master algorithm.
+</li>
+<li>
+May 27, 2016, by Michael Wetter:<br/>
+Replaced <code>outlet[i].forward = inlet.forward;</code>
+with a <code>connect</code> statement as
+accesses to composite components other than records are not allowed.
+This was done for JModelica compliance.
+</li>
 <li>
 July 28, 2015, by Thierry S. Nouidui:<br/>
 Corrected wrong <code>assert</code> statement.

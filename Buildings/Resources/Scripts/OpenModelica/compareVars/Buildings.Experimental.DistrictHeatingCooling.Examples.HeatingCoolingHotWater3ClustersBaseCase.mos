@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "SPFHea.y",
+    "SPFCoo.y",
+    "EEleHea.y",
+    "EEleCoo.y",
+    "ETheHea.y",
+    "ETheHotWat.y",
+    "ETheCoo.y"
+  };

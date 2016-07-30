@@ -1,19 +1,30 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block TransmittedRadiation "Transmitted radiation through window"
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation;
-  Modelica.Blocks.Interfaces.RealOutput QTra_flow[NSta](
+  Modelica.Blocks.Interfaces.RealOutput QTraDif_flow[NSta](
     each final quantity="Power",
     each final unit="W")
-    "Transmitted exterior radiation through the window. (1: no shade; 2: shade)"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+    "Transmitted exterior diffuse radiation through the window. (1: no shade; 2: shade)"
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
+  Modelica.Blocks.Interfaces.RealOutput QTraDir_flow[NSta](
+    each final quantity="Power",
+    each final unit="W")
+    "Transmitted exterior direct radiation through the window. (1: no shade; 2: shade)"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+        iconTransformation(extent={{100,-30},{120,-10}})));
+
   final parameter Real traCoeRoo[NSta](each fixed=false)
     "Transmitivity of the window glass for interior radiation without shading";
 
-  output Modelica.SIunits.Power QTraUns_flow[NSta]
-    "Transmitted solar radiation through unshaded part of window";
-  output Modelica.SIunits.Power QTraSha_flow[NSta]
-    "Transmitted solar radiation through shaded part of window";
+  output Modelica.SIunits.Power QTraDifUns_flow[NSta]
+    "Transmitted diffuse solar radiation through unshaded part of window";
+  output Modelica.SIunits.Power QTraDirUns_flow[NSta]
+    "Transmitted direct solar radiation through unshaded part of window";
+  output Modelica.SIunits.Power QTraDifSha_flow[NSta]
+    "Transmitted diffuse solar radiation through shaded part of window";
+  output Modelica.SIunits.Power QTraDirSha_flow[NSta]
+    "Transmitted direct solar radiation through shaded part of window";
 
 protected
   Real x "Intermediate variable";
@@ -24,7 +35,7 @@ protected
   constant Integer Interior=1;
   constant Integer Exterior=2;
   final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2, NSta](each fixed=false);
-  Real incAng2;
+  Real incAng2 "=min(incAng, 0.5*Modelica.Constants.pi)";
 
 initial equation
   //**************************************************************
@@ -68,30 +79,32 @@ equation
 
   // Window unshaded parts: add transmitted radiation for angular radiation
   for iSta in 1:NSta loop
-    QTraUns_flow[iSta] = AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM + 1, iSta]
-                 + AWin*HDir*(1 - uSha_internal)*
+    QTraDifUns_flow[iSta] = AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM + 1, iSta];
+    QTraDirUns_flow[iSta] = AWin*HDir*(1 - uSha_internal)*
                  Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation({
                     coeTraWinExtIrr[NoShade, k, iSta] for k in 1:(HEM + 2)}, x);
   end for;
 
   // Window shaded parts: add transmitted radiation for angular radiation
   for iSta in 1:NSta loop
-    QTraSha_flow[iSta] = AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1, iSta]
-               + AWin*HDir*uSha_internal*
+    QTraDifSha_flow[iSta] = AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1, iSta];
+    QTraDirSha_flow[iSta] = AWin*HDir*uSha_internal*
                Buildings.HeatTransfer.Windows.BaseClasses.smoothInterpolation(
                  {coeTraWinExtIrr[Shade, k, iSta] for k in 1:(HEM + 2)}, x);
-
   end for;
 
   // Assign quantities to output connectors
-  QTra_flow = QTraUns_flow + QTraSha_flow;
+  QTraDif_flow = QTraDifUns_flow + QTraDifSha_flow;
+  QTraDir_flow = QTraDirUns_flow + QTraDirSha_flow;
   annotation (
     Documentation(info="<html>
-The model calculates solar radiation through the window.
+<p>
+The model calculates the solar radiation through the window.
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
-<br/>
-
-The transmitted exterior radiation for window system includes:<br/>
+</p>
+<p>    
+The transmitted exterior radiation for window system includes:
+</p>
 <ol>
 <li>
 the transmitted diffusive radiation on unshaded part: <code>AWin*(1-uSha)*HDif*tau(HEM)</code>
@@ -106,8 +119,10 @@ the transmitted diffusive radiation on shaded part: <code>AWin*uSha*HDif*tauSha(
 the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(IncAng);</code>
 </li>
 </ol>
-The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code>
-
+<p>
+The outputs are <code>QTraDif_flow = Part1 + Part3</code> and 
+<code>QTraDir_flow = Part2 + Part4</code>.
+</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -119,6 +134,13 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2016, by Michael Wetter:<br/>
+Removed output <code>QTra_flow</code> and introduced instead
+<code>QTraDif_flow</code> and <code>QTraDir_flow</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.
@@ -161,7 +183,11 @@ First implementation.
           extent={{-32,-80},{22,-96}},
           lineColor={0,0,127},
           textString="uSha"), Text(
-          extent={{44,8},{110,-6}},
+          extent={{56,28},{98,14}},
           lineColor={0,0,127},
-          textString="QTra")}));
+          textString="QTraDif"),
+                              Text(
+          extent={{54,-14},{96,-28}},
+          lineColor={0,0,127},
+          textString="QTraDir")}));
 end TransmittedRadiation;

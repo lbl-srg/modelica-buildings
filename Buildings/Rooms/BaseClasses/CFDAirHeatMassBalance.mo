@@ -380,12 +380,6 @@ protected
   end assignSurfaceIdentifier;
 
 public
-  Modelica.Blocks.Interfaces.RealInput QCon_flow
-    "Convective sensible heat gains of the room"
-    annotation (Placement(transformation(extent={{-280,-120},{-240,-80}})));
-  Modelica.Blocks.Interfaces.RealInput QLat_flow
-    "Latent heat gains for the room"
-    annotation (Placement(transformation(extent={{-280,-180},{-240,-140}})));
   Modelica.Blocks.Math.Add QTotCon_flow
     "Total sensible convective heat flow rate added to the room"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));

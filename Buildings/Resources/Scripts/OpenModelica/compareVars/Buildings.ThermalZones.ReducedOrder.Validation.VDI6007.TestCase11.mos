@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "heat.Q_flow",
+    "cool.Q_flow",
+    "reference.y[2]"
+  };

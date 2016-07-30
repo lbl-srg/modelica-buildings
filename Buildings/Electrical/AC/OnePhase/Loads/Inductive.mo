@@ -4,6 +4,10 @@ model Inductive "Model of an inductive and resistive load"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
+
+protected
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+
 initial equation
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // psi = Z[2]*{P_nominal/V_nominal, 0}/omega;
@@ -11,7 +15,8 @@ initial equation
     der(psi) = zeros(PhaseSystem.n);
   end if;
 equation
-  omega = der(PhaseSystem.thetaRef(terminal.theta));
+  theRef = PhaseSystem.thetaRef(terminal.theta);
+  omega = der(theRef);
 
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
 
@@ -34,11 +39,11 @@ equation
     else
       //PhaseSystem.phasePowers_vi(terminal.v, terminal.i) = PhaseSystem.phasePowers(P, Q);
       if initMode == Buildings.Electrical.Types.InitMode.zero_current then
-        i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= 0.0);
-        i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= 0.0);
+        i[1] = -homotopy(actual = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= 0.0);
+        i[2] = -homotopy(actual = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= 0.0);
       else
-        i[1] = -homotopy(actual=  (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= (v[2]*Q + v[1]*P)/(V_nominal^2));
-        i[2] = -homotopy(actual=  (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= (v[2]*P - v[1]*Q)/(V_nominal^2));
+        i[1] = -homotopy(actual = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2), simplified= (v[2]*Q + v[1]*P)/(V_nominal^2));
+        i[2] = -homotopy(actual = (v[2]*P - v[1]*Q)/(v[1]^2 + v[2]^2), simplified= (v[2]*P - v[1]*Q)/(V_nominal^2));
       end if;
     end if;
 
@@ -198,6 +203,11 @@ The choices are between a null current or the linearized model.
 
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.
 </li>

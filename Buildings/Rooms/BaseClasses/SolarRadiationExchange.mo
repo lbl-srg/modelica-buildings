@@ -38,22 +38,24 @@ model SolarRadiationExchange
   parameter Modelica.SIunits.Emissivity tauGla[NConExtWin]
     "Transmissivity of window";
 
+  Modelica.Blocks.Interfaces.RealInput JInDifConExtWin[NConExtWin](unit="W")
+    "Diffuse solar radiation transmitted by window per unit area"
+    annotation (Placement(transformation(extent={{260,70},{240,90}})));
+  Modelica.Blocks.Interfaces.RealInput JInDirConExtWin[NConExtWin](unit="W")
+    "Direct solar radiation transmitted by window per unit area"
+    annotation (Placement(transformation(extent={{260,30},{240,50}})));
+
   Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2")
     "Outgoing solar radiation that strikes window per unit area"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Modelica.Blocks.Interfaces.RealInput JInConExtWin[NConExtWin](unit="W")
-    "Solar radiation transmitted by window per unit area"
-    annotation (Placement(transformation(extent={{260,70},{240,90}})));
+
   Modelica.SIunits.HeatFlowRate JOutConExtWin[NConExtWin]
     "Outgoing solar radiation that strikes the window";
 
-  Modelica.SIunits.HeatFlowRate HTot
-    "Total solar radiation that enters the room";
-
 protected
-  final parameter Real k1(unit="1", fixed=false)
-    "Intermediate variable for gain for solar radiation distribution";
-  final parameter Real k2(fixed=false)
+  final parameter Real kDir1(unit="1", fixed=false)
+    "Intermediate variable for gain for direct solar radiation distribution";
+  final parameter Real kDir2(fixed=false)
     "Intermediate variable for gain for solar radiation distribution";
   Modelica.SIunits.HeatFlowRate Q_flow[NTot]
     "Total solar radiation that is absorbed by the surfaces (or transmitted back through the glass)";
@@ -63,15 +65,25 @@ protected
   final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
   final parameter Boolean isFlo[NTot](fixed=false)
     "Flag, true if a surface is a floor";
-  final parameter Real eps[NTot](min=0, max=1, fixed=false)
+  final parameter Real eps[NTot](each min=0, each max=1, each fixed=false)
     "Solar absorptivity";
-  final parameter Real tau[NTot](min=0, max=1, fixed=false)
+  final parameter Real tau[NTot](each min=0, each max=1, each fixed=false)
     "Solar transmissivity";
-  final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
+  final parameter Modelica.SIunits.Area AFlo(each fixed=false) "Total floor area";
   final parameter Modelica.SIunits.Area A[NTot](fixed=false) "Surface areas";
-  final parameter Real k[NTot](unit="1", fixed=false)
-    "Gain for solar radiation distribution";
-
+  final parameter Real kDif[NTot](
+    each unit="1",
+    each fixed=false)
+    "Gain for diffuse solar radiation distribution";
+  final parameter Real kDir[NTot](
+    each unit="1",
+    each fixed=false)
+    "Gain for direct solar radiation distribution";
+  final parameter Real epsTauA[NTot](
+    each unit="m2",
+    each fixed=false) "Product (eps[i]+tau[i])*A[i] for all surfaces";
+  final parameter Real sumEpsTauA(unit="m2", fixed=false)
+    "Sum(epsTauA)";
 initial equation
   // The next loops builds arrays that simplify
   // the model equations.
@@ -145,31 +157,42 @@ initial equation
     tau[NOpa+i] = tauGla[i];
   end for;
 
-  // Sum of surface areas
+  // Sum of surface areas and products of emmissivity, transmissivity and area
   AFlo = sum( (if isFlo[i] then A[i] else 0) for i in 1:NTot);
+  epsTauA = (eps .+ tau).*A;
+  sumEpsTauA = sum(epsTauA[i] for i in 1:NTot);
 
+  // Coefficients for distribution of diffuse solar irradiation inside the room.
+  for i in 1:NTot loop
+    kDif[i] = (eps[i] + tau[i])*A[i]/sumEpsTauA;
+  end for;
+
+
+  // Coefficients for distribution of direct solar radiation inside the room.
   // Coefficient that is used for non-floor areas.
   // The expression  max(1E-20, AFlo) is used to prevent a division by zero in case AFlo=0.
   // The situation for AFlo=0 is caught by the assert statement.
-  k1 = sum( ( if isFlo[i] then (A[i] * (1-eps[i]-tau[i])) else 0)  for i in 1:NTot) / max(1E-20, AFlo);
+  kDir1 = sum((if isFlo[i] then (A[i]*(1 - eps[i] - tau[i])) else 0) for i in 1:
+    NTot)/max(1E-20, AFlo);
 
-  k2 = sum( ( if isFlo[i] then 0 else (A[i] * (eps[i]+tau[i])))  for i in 1:NTot);
+  kDir2 = sum((if isFlo[i] then 0 else epsTauA[i]) for i in 1:NTot);
 
-  if ( k2 > 1E-10) then
+
+  if (kDir2 > 1E-10) then
     for i in 1:NTot loop
       if isFlo[i] then
-         k[i] = (eps[i]+tau[i]) * A[i] / AFlo;
+        kDir[i] = epsTauA[i]/AFlo;
       else
-         k[i] = k1/k2*(eps[i]+tau[i]) * A[i];
+        kDir[i] =kDir1/kDir2*epsTauA[i];
       end if;
      end for;
   else
         // This branch only happens if k2=0, i.e., there is no surface other than floors
     for i in 1:NTot loop
       if isFlo[i] then
-        k[i] = A[i] / AFlo;
+        kDir[i] = A[i]/AFlo;
       else
-        k[i] = 0;
+        kDir[i] = 0;
       end if;
     end for;
   end if;
@@ -182,15 +205,14 @@ initial equation
      "    The parameters for the room model are such that there is no such construction.\n" +
      "    Revise the model parameters.");
   // Test whether the distribution factors add up to one
-  assert(abs(1-sum(k)) < 1E-5,
-     "Program error: Sum of solar distribution factors in room is not equal to one. k=" + String(sum(k)));
-
+  assert(abs(1 - sum(kDif)) < 1E-5, "Program error: Sum of diffuse solar distribution factors in room is not equal to one. kDif="
+     + String(sum(kDif)));
+  assert(abs(1 - sum(kDir)) < 1E-5, "Program error: Sum of direct solar distribution factors in room is not equal to one. kDir="
+     + String(sum(kDir)));
 ////////////////////////////////////////////////////////////////////
 equation
-  // Incoming radiation
-  HTot = sum(JInConExtWin);
   // Radiation that is absorbed by the surfaces
-  Q_flow = -k .* HTot;
+  Q_flow =-kDif .* sum(JInDifConExtWin) - kDir .* sum(JInDirConExtWin);
   // Assign heat exchange to connectors
   if haveConExt then
     for i in 1:NConExt loop
@@ -244,8 +266,7 @@ equation
   annotation (
 preferredView="info",
 Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
-            {240,240}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+            {240,240}})),        Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-240,-240},{240,240}}),
                                       graphics={
         Line(
@@ -287,32 +308,61 @@ denote the number of windows,
 the number of floor elements and
 <i>N<sup>n</sup></i>
 the number of non-floor elements such as ceiling, wall and window elements.
-Input to the model are the solar radiosities
-<i>J<sup>i</sup>, i &isin; {1, &hellip; , N<sup>w</sup>}</i>,
+Input to the model are the diffuse and direct solar radiosities
+<i>J<sup>i</sup><sub>dif</sub>, i &isin; {1, &hellip; , N<sup>w</sup>}</i>
+and
+<i>J<sup>i</sup><sub>dir</sub>, i &isin; {1, &hellip; , N<sup>w</sup>}</i>
 that were transmitted through the window.
-The total incoming solar radiation is therefore
+The total incoming solar radiation is therefore for the diffuse irradiation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-H = &sum;<sub>i=1</sub><sup>N<sup>w</sup></sup> J<sub>in</sub><sup>i</sup>
+H<sub>dif</sub> = &sum;<sub>i=1</sub><sup>N<sup>w</sup></sup>
+J<sub>dif</sub><sup>i</sup>
 </p>
 <p>
-It is assumed that <i>H</i> first hits the floor where some of it is absorbed,
+and for the direct irradiation
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+H<sub>dir</sub> = &sum;<sub>i=1</sub><sup>N<sup>w</sup></sup>
+J<sub>dir</sub><sup>i</sup>.
+</p>
+<p>
+It is assumed that the diffuse irradiation is distributed to all
+surfaces proportionally to the product of surface emissivity plus transmissivity
+(which generally is zero except for windows) times the area.
+For the direct irradiation, it is assumed that it 
+first hits the floor where some of it is absorbed,
 and some of it is diffusely reflected to all other surfaces. Only the first
 reflection is taken into account and the location of the floor patch
 relative to the window is neglected.
 </p>
-<p>Hence, the radiation that is
+<p>
+Hence, the diffuse radiation that is absorbed by each area is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ Q<sup>i</sup><sub>dif</sub> = H<sub>dif</sub> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
+&frasl; &sum;<sub>j=1</sub><sup>N</sup> &nbsp; A<sup>j</sup>,
+</p>
+<p>
+where the sum is over all areas. Hence, this calculation treats the wall
+that contains the window identical as any other construction, which is
+a simplification.
+</p>
+
+<p>Similarly, the direct radiation that is
 absorbed by each floor patch <i>i &isin; {1, &hellip;, N<sup>f</sup>}</i>,
 and may be partially transmitted in
 the unusual case that the floor contains a window, is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- Q<sup>i</sup> = H &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
+ Q<sup>i</sup><sub>dir</sub> = H<sub>dir</sub> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
 </p>
-The sum of the radiation that is reflected by the floor is therefore
+<p>
+The sum of the direct radiation that is reflected by the floor is therefore
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
- J<sup>f</sup> = H &nbsp;
+ J<sup>f</sup> = H<sub>dir</sub> &nbsp;
 &sum;<sub>i=1</sub><sup>N<sup>f</sup></sup>
 (1-&epsilon;<sup>i</sup>-&tau;<sup>i</sup>) &nbsp; A<sup>i</sup>
 &frasl; &sum;<sub>j=1</sub><sup>N<sup>f</sup></sup> &nbsp; A<sup>j</sup>.
@@ -322,11 +372,17 @@ This reflected radiosity is then distributed to all non-floor areas
 <i>i &isin; {1, &hellip;, N<sup>n</sup>}</i>
 using</p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q<sup>i</sup> = J<sup>f</sup> &nbsp;
+  Q<sup>i</sup><sub>dir</sub> = J<sup>f</sup> &nbsp;
 A<sup>i</sup> &nbsp; (&epsilon;<sup>i</sup>+&tau;<sup>i</sup>)
 &frasl;
 &sum;<sub>k=1</sub><sup>N<sup>n</sup></sup>
 A<sup>k</sup> &nbsp; (&epsilon;<sup>k</sup>+&tau;<sup>k</sup>)
+</p>
+<p>
+The heat flow rate that is absorbed by each surface is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+Q<sup>i</sup> = Q<sup>i</sup><sub>dif</sub> + Q<sup>i</sup><sub>dir</sub>.
 </p>
 <p>
 For opaque surfaces, the heat flow rate
@@ -358,6 +414,14 @@ which it is diffusely distributed to the other surfaces.
 </html>",
         revisions="<html>
 <ul>
+<li>
+June 7, 2016, by Michael Wetter:<br/>
+Removed <code>HTot</code> as this is not needed, and refactored
+the model so that the diffuse irradiation is treated separately
+from the direct irradiation.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.

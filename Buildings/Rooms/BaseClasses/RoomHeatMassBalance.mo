@@ -317,6 +317,10 @@ protected
        haveConExtWin "Shading signal"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
 
+  Buildings.Rooms.BaseClasses.HeatGain heaGai(final AFlo=AFlo)
+    "Model to convert internal heat gains"
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
+
   Buildings.Rooms.BaseClasses.RadiationAdapter radiationAdapter
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   Modelica.Blocks.Math.Add add
@@ -342,7 +346,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
        haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
-
 equation
   connect(conBou.opa_a, surf_conBou) annotation (Line(
       points={{282,-122.667},{282,-122},{288,-122},{288,-216},{-240,-216},{-240,
@@ -526,9 +529,9 @@ equation
       points={{249.9,69},{160,69},{160,60},{-60,60},{-60,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solRadExc.JInConExtWin, conExtWinRad.QTra_flow) annotation (Line(
-      points={{-79.5833,53.3333},{-74,53.3333},{-74,52},{14,52},{14,-22},{299,
-          -22}},
+  connect(solRadExc.JInDifConExtWin, conExtWinRad.QTraDif_flow) annotation (
+      Line(
+      points={{-79.5833,53.3333},{20,53.3333},{20,-20},{299,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solRadExc.HOutConExtWin,conExtWinRad.HRoo)  annotation (Line(
@@ -729,8 +732,27 @@ equation
       smooth=Smooth.None));
 
   connect(uWin, conExtWinRad.uSta) annotation (Line(points={{-280,140},{-240,
-          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color
-        ={0,0,127}));
+          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color=
+         {0,0,127}));
+  connect(qGai_flow,heaGai. qGai_flow) annotation (Line(
+      points={{-280,80},{-222,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QCon_flow,heaGai. QCon_flow) annotation (Line(
+      points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,80},{-198,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QLat_flow,heaGai. QLat_flow) annotation (Line(
+      points={{39,-138},{-18,-138},{-18,-96},{-194,-96},{-194,74},{-198,74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaGai.QRad_flow, add.u2) annotation (Line(
+      points={{-198,86},{-152,86},{-152,114},{-142,114}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conExtWinRad.QTraDir_flow, solRadExc.JInDirConExtWin) annotation (
+      Line(points={{299,-23},{18,-23},{18,51.6667},{-79.5833,51.6667}}, color={
+          0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
             200}})),
@@ -815,6 +837,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.
