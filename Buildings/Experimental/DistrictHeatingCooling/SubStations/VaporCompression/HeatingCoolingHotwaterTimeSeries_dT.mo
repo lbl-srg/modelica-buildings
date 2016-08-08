@@ -189,9 +189,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     etaCarnot_nominal=0.3,
     QCon_flow_nominal=QHea_flow_nominal,
     dp1_nominal=dp_nominal,
-    dp2_nominal=dp_nominal,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Heat pump"
+    dp2_nominal=dp_nominal)                                 "Heat pump"
     annotation (Placement(transformation(extent={{22,212},{42,232}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHea(
@@ -231,9 +229,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     dp1_nominal=dp_nominal,
     dp2_nominal=dp_nominal,
     QCon_flow_nominal=QHotWat_flow_nominal,
-    dTCon_nominal=dTHotWatCon_nominal,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Heat pump"
+    dTCon_nominal=dTHotWatCon_nominal)                      "Heat pump"
     annotation (Placement(transformation(extent={{20,-92},{40,-72}})));
 
   Buildings.Fluid.Chillers.Carnot_TEva chi(
@@ -247,9 +243,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     dTEva_nominal=dTCooEva_nominal,
     dTCon_nominal=dTCooCon_nominal,
     allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=false,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a) "Chiller"
+    allowFlowReversal2=false)                               "Chiller"
     annotation (Placement(transformation(extent={{-80,-354},{-60,-334}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChi(
@@ -640,7 +634,7 @@ Values at intermediate times are interpolated using cubic Hermite splines.
 </p>
 <h4>Implementation</h4>
 <p>
-The time series data are interpolated using 
+The time series data are interpolated using
 Fritsch-Butland interpolation. This uses
 cubic Hermite splines such that y preserves the monotonicity and
 der(y) is continuous, also if extrapolated.
@@ -653,6 +647,15 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/497\">
+issue 497</a>.
+</li>
 <li>
 June 26, 2016, by Michael Wetter:<br/>
 Changed interpolation for combi table with load data
