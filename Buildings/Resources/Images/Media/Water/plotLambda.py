@@ -6,30 +6,27 @@ rc('text', usetex=True)
 rc('font', family='serif')
 rc('font', size='12')
 
-def cp(T_degC):
-    return 1000 * (4.20934 - 1.77775e-3*T_degC + 2.91202e-5*T_degC**2 - 1.05371e-7*T_degC**3)
+def lambda_T(T_degC):
+    return 0.6065 * (-1.48445 + 4.12292*((273.15+T_degC)/298.15) - 1.63866*((T_degC+273.15)/298.15)**2)
 
 T_degC=range(101)
-cp20=cp(20)
-cpRel = list()
+lambdaList = list()
 for TC in T_degC:
-    cpRel.append(cp(TC)/cp20)
-print "At T=20, cp = ", cp20
+    lambdaList.append(lambda_T(TC))
 
 # Plot figure
 fig = plt.figure(figsize=(6, 2))
 ax = fig.add_subplot(111)
-ax.plot(T_degC, cpRel)
+ax.plot(T_degC, lambdaList)
 ax.set_xlabel('$T \, [\mathrm{^\circ C}]$')
-ax.set_ylabel('$c_p(T)/c_p(20\mathrm{^\circ C})$')
+ax.set_ylabel('$\\lambda \, [\mathrm{kg/m^3}]$')
 ax.grid(True)
 
 # The next line avoids the x-label to be cut off.
 plt.tight_layout(h_pad=1)
 
 # Save plot
-plt.savefig('plotCp.pdf')
-plt.savefig('plotCp.png')
+plt.savefig('plotLambda.pdf')
+plt.savefig('plotLambda.png')
 
 plt.show()
-
