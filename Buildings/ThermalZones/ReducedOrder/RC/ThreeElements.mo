@@ -73,7 +73,6 @@ protected
     annotation (Placement(
     transformation(
     extent={{-10,-10},{10,10}},
-    rotation=0,
     origin={204,-106})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
    final G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0

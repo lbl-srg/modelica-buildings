@@ -24,13 +24,13 @@ model CoolingOnly
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConWal(G=200)
     "Thermal conductor for wall"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 25)
     "Set-point temperature"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conPID(

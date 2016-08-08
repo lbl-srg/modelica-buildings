@@ -4,7 +4,7 @@ model Carnot_y
   extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_y(
     final COP_is_for_cooling = true,
     effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a);
+    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b);
 
   annotation (
 defaultComponentName="chi",
@@ -89,6 +89,15 @@ For a similar model that can be used as a heat pump, see
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/497\">
+issue 497</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Refactored model to use the same base class as

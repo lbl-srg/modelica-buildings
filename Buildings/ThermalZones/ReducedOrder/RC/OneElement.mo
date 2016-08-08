@@ -83,10 +83,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (
     Placement(transformation(
     extent={{-45,-12},{45,12}},
-    rotation=0,
     origin={85,-180}),iconTransformation(
     extent={{-30.5,-8},{30.5,8}},
-    rotation=0,
     origin={150,-171.5})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if ATotExt > 0
     "Ambient port for exterior walls"
@@ -134,12 +132,12 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol(
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol(
     final T_ref=T_start) if
     ratioWinConRad > 0 and (ATot > 0 or VAir > 0)
     "Solar heat considered as convection"
     annotation (Placement(transformation(extent={{-166,114},{-146,134}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[
     nOrientations](each final T_ref=T_start) if ATot > 0
     "Solar heat considered as radiation"
     annotation (Placement(transformation(extent={{-166,136},{-146,156}})));

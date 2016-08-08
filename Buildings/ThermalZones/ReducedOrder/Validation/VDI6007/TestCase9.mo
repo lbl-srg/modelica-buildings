@@ -26,7 +26,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     AExt={10.5,15},
     T_start=295.15,
     extWallRC(thermCapExt(each T(fixed=true))),
-    intWallRC(thermCapInt(each T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each T(fixed=true))))
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
@@ -39,29 +40,32 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4}) "Table with internal gains"
+    columns={2,3,4})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22; 3600,21.9; 7200,21.9; 10800,21.8; 14400,22; 18000,22.3; 21600,
-        22.7; 25200,24.8; 28800,24.7; 32400,25.2; 36000,25.6; 39600,26.1; 43200,
-        25.9; 46800,26.3; 50400,26.6; 54000,27.5; 57600,27.6; 61200,26; 64800,
-        25.8; 68400,25.6; 72000,25.6; 75600,25.5; 79200,25.5; 82800,25.5; 86400,
-        37.6; 781200,37.4; 784800,37.3; 788400,37.1; 792000,37.1; 795600,37.3;
-        799200,37.5; 802800,39.6; 806400,39.4; 810000,39.7; 813600,40; 817200,
-        40.3; 820800,40; 824400,40.3; 828000,40.5; 831600,41.3; 835200,41.3;
-        838800,39.6; 842400,39.2; 846000,38.9; 849600,38.8; 853200,38.7; 856800,
-        38.5; 860400,38.4; 864000,40.8; 5101200,40.6; 5104800,40.4; 5108400,
-        40.2; 5112000,40.2; 5115600,40.4; 5119200,40.5; 5122800,42.6; 5126400,
-        42.3; 5130000,42.6; 5133600,42.9; 5137200,43.2; 5140800,42.9; 5144400,
-        43.2; 5148000,43.4; 5151600,44.1; 5155200,44.1; 5158800,42.3; 5162400,
-        42; 5166000,41.6; 5169600,41.5; 5173200,41.3; 5176800,41.2; 5180400,41])
+    table=[0,22; 3600,22; 7200,21.9; 10800,21.9; 14400,21.8; 18000,22; 21600,
+        22.3; 25200,22.7; 28800,24.8; 32400,24.7; 36000,25.2; 39600,25.6; 43200,
+        26.1; 46800,25.9; 50400,26.3; 54000,26.6; 57600,27.5; 61200,27.6; 64800,
+        26; 68400,25.8; 72000,25.6; 75600,25.6; 79200,25.5; 82800,25.5; 86400,
+        25.5; 781200,37.6; 784800,37.4; 788400,37.3; 792000,37.1; 795600,37.1;
+        799200,37.3; 802800,37.5; 806400,39.6; 810000,39.4; 813600,39.7; 817200,
+        40; 820800,40.3; 824400,40; 828000,40.3; 831600,40.5; 835200,41.3;
+        838800,41.3; 842400,39.6; 846000,39.2; 849600,38.9; 853200,38.8; 856800,
+        38.7; 860400,38.5; 864000,38.4; 5101200,40.8; 5104800,40.6; 5108400,
+        40.4; 5112000,40.2; 5115600,40.2; 5119200,40.4; 5122800,40.5; 5126400,
+        42.6; 5130000,42.3; 5133600,42.6; 5137200,42.9; 5140800,43.2; 5144400,
+        42.9; 5148000,43.2; 5151600,43.4; 5155200,44.1; 5158800,44.1; 5162400,
+        42.3; 5166000,42; 5169600,41.6; 5173200,41.5; 5176800,41.3; 5180400,
+        41.2; 5184000,41],
+    offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*25.5)
@@ -83,12 +87,13 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05])
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-92,-32},{-78,-18}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
@@ -102,7 +107,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         475; 54000,98,528; 57600,98,528; 57600,59,492; 61200,59,492; 61200,38,
         359; 64800,38,359; 64800,17,147; 68400,17,147; 68400,0,0; 72000,0,0;
         82800,0,0; 86400,0,0],
-    columns={2,3}) "Solar radiation"
+    columns={2,3})
+    "Solar radiation"
     annotation (Placement(transformation(extent={{-92,66},{-78,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
     "g value for sunblind closed"
@@ -118,15 +124,16 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-3,-3},{3,3}},
     rotation=-90,
     origin={-61,43})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(
+    threshold=100)
     "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-61,59})));
   Modelica.Blocks.Math.Product product1
-    "Solar radiation times g value for sunblind (open or closed) for one
-    direction"
+    "Solar radiation times g value for sunblind (open or closed) for
+    one direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
     "Determines g value for sunblind (open or closed) for one direction"
@@ -134,15 +141,16 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-54,30})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2(threshold=100)
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2(
+    threshold=100)
     "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
   Modelica.Blocks.Math.Product product
-    "Solar radiation times g value for sunblind (open or closed) for one
-    direction"
+    "Solar radiation times g value
+    for sunblind (open or closed) for one direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     n=2,
@@ -154,7 +162,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     wfWall={0.05796831135677373,0.13249899738691134},
     wfWin={0.4047663456281575,0.4047663456281575},
     withLongwave=true,
-    TGro=285.15) "Equivalent air temperature"
+    TGro=285.15)
+    "Equivalent air temperature"
     annotation (Placement(transformation(extent={{-26,-16},{-6,2}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     "Computes 1 - g_sunblind for one direction"
@@ -162,7 +171,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-58,16})));
-  Modelica.Blocks.Sources.Constant const1(k=1) "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const1(k=1)
+    "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-70,22},{-64,28}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWall(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -203,7 +213,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-24,18})));
-  Modelica.Blocks.Sources.Constant const2(k=1) "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const2(k=1)
+    "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-36,24},{-30,30}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
@@ -219,9 +230,11 @@ model TestCase9 "VDI 6007 Test Case 9 model"
         54000,457.5; 54000,452.5; 57600,452.5; 57600,445; 61200,445; 61200,
         438.5; 64800,438.5; 64800,437; 68400,437; 68400,420; 72000,420; 72000,
         412.5; 75600,412.5; 75600,405; 79200,405; 79200,397.5; 82800,397.5;
-        82800,390; 86400,390]) "Long-wave radiation from sky"
+        82800,390; 86400,390])
+    "Long-wave radiation from sky"
     annotation (Placement(transformation(extent={{-92,-12},{-78,2}})));
-  Modelica.Blocks.Math.Sqrt sqrt "Root of H_sky for black body sky temperature"
+  Modelica.Blocks.Math.Sqrt sqrt
+    "Root of H_sky for black body sky temperature"
     annotation (Placement(transformation(extent={{-74,-8},{-68,-2}})));
   Modelica.Blocks.Math.Sqrt sqrt1
     "Root of H_sky for black body sky temperature"
@@ -229,7 +242,19 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Math.Gain gain(k=65.99081593)
     "Convert long-wave radiation into black body sky temperature"
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
-
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=0.15)
+    "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
@@ -336,25 +361,35 @@ equation
   connect(product.y, thermalZoneTwoElements.solRad[2])
     annotation (Line(points=
     {{4.5,89},{32,89},{32,31.5},{43,31.5}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
-  <p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air temperature
-  excited by a radiative and convective heat source for room version S with two
-  exterior walls. It is based on Test Case 8.</p>
-  <p>Boundary Condtions:</p>
+  connect(thermalZoneTwoElements.TAir,mean. u) annotation (Line(points={{93,32},
+          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+  annotation ( Documentation(info="<html>
+  <p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air
+  temperature excited by a radiative and convective heat source for
+  room version S with two exterior walls. It is based on Test Case 8.</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>daily profile for solar radiation on the exterior wall</li>
-  <li>daily profile for solar radiation through the windows in hourly steps</li>
+  <li>daily profile for solar radiation through the windows in hourly
+  steps</li>
   <li>sunblind closes at &gt;100 W/m<sup>2</sup></li>
-  <li>long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>long-wave radiation exchange between exterior wall, windows and
+  ambient environment</li>
   </ul>
-  <p>This test case is thought to test reaction of indoor air temperature at
-  mixed internal gains and outdoor impacts including solar radiation and
-  long-wave radiation on exterior walls.</p>
+  <p>This test validates reaction of indoor air
+  temperature at mixed internal gains and outdoor impacts including
+  solar radiation and long-wave radiation on exterior walls.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

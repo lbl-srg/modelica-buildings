@@ -2,7 +2,7 @@ simulateModel("Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
 createPlot(id = 1,
  position = {55, 50, 1297, 602},
  x = "time",
- y = {"heat.Q_flow","cool.Q_flow","reference.y[2]"},
+ y = {"mean.y","reference.y[2]"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

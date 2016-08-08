@@ -89,7 +89,7 @@ algorithm
   </html>", revisions="<html>
   <ul>
   <li>December 15, 2015 by Moritz Lauster:<br/>
-  First Implementation. 
+  First Implementation.
   </li>
   </ul>
   </html>"));

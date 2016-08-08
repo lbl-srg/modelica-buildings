@@ -30,10 +30,12 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     extWallRC(thermCapExt(each T(fixed=true))),
     intWallRC(thermCapInt(each T(fixed=true))),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(port(T(
-          start=300))) "Outdoor air temperature"
+    start=300)))
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer"
@@ -46,30 +48,34 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4}) "Table with internal gains"
+    columns={2,3,4})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,21.5; 3600,21.2; 7200,21; 10800,20.9; 14400,21; 18000,21.3; 21600,
-        21.9; 25200,24.1; 28800,24; 32400,24.4; 36000,24.8; 39600,25.1; 43200,
-        25.3; 46800,25.5; 50400,25.6; 54000,26.3; 57600,26.3; 61200,25.2; 64800,
-        25; 68400,24.6; 72000,24.2; 75600,24; 79200,23.8; 82800,23.6; 86400,
-        29.1; 781200,28.7; 784800,28.4; 788400,28.2; 792000,28.3; 795600,28.5;
-        799200,29; 802800,31.8; 806400,31.6; 810000,32; 813600,32.3; 817200,
-        32.5; 820800,32.7; 824400,32.9; 828000,32.9; 831600,33.5; 835200,33.5;
-        838800,31.7; 842400,31.5; 846000,31; 849600,30.6; 853200,30.3; 856800,
-        30; 860400,29.8; 864000,30.5; 5101200,30; 5104800,29.8; 5108400,29.6;
-        5112000,29.6; 5115600,29.9; 5119200,30.3; 5122800,33.2; 5126400,33;
-        5130000,33.4; 5133600,33.7; 5137200,33.9; 5140800,34.1; 5144400,34.2;
-        5148000,34.3; 5151600,34.9; 5155200,34.8; 5158800,33; 5162400,32.7;
-        5166000,32.2; 5169600,31.8; 5173200,31.4; 5176800,31.2; 5180400,30.9])
+    table=[0,21.5; 3600,21.5; 7200,21.2; 10800,21; 14400,20.9; 18000,21; 21600,
+        21.3; 25200,21.9; 28800,24.1; 32400,24; 36000,24.4; 39600,24.8; 43200,
+        25.1; 46800,25.3; 50400,25.5; 54000,25.6; 57600,26.3; 61200,26.3; 64800,
+        25.2; 68400,25; 72000,24.6; 75600,24.2; 79200,24; 82800,23.8; 86400,
+        23.6; 781200,29.1; 784800,28.7; 788400,28.4; 792000,28.2; 795600,28.3;
+        799200,28.5; 802800,29; 806400,31.8; 810000,31.6; 813600,32; 817200,
+        32.3; 820800,32.5; 824400,32.7; 828000,32.9; 831600,32.9; 835200,33.5;
+        838800,33.5; 842400,31.7; 846000,31.5; 849600,31; 853200,30.6; 856800,
+        30.3; 860400,30; 864000,29.8; 5101200,30.5; 5104800,30; 5108400,29.8;
+        5112000,29.6; 5115600,29.6; 5119200,29.9; 5122800,30.3; 5126400,33.2;
+        5130000,33; 5133600,33.4; 5137200,33.7; 5140800,33.9; 5144400,34.1;
+        5148000,34.2; 5151600,34.3; 5155200,34.9; 5158800,34.8; 5162400,33;
+        5166000,32.7; 5169600,32.2; 5173200,31.8; 5176800,31.4; 5180400,31.2;
+        5184000,30.9],
+    offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
-        295.15) "Convective heat flow machines"
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv(T_ref=
+    295.15)
+    "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -90,13 +96,16 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05])
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
-        295.15) "Radiative heat flow persons"
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad(T_ref=
+    295.15)
+    "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
-        295.15) "Convective heat flow persons"
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon(T_ref=
+    295.15)
+    "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -107,7 +116,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         46800,359; 46800,287; 50400,287; 50400,186; 54000,186; 54000,98; 57600,
         98; 57600,59; 61200,59; 61200,38; 64800,38; 64800,17; 68400,17; 68400,0;
         72000,0; 82800,0; 86400,0],
-    columns={2}) "Solar radiation"
+    columns={2})
+    "Solar radiation"
     annotation (Placement(transformation(extent={{-84,66},{-70,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
     "g value for sunblind closed"
@@ -149,23 +159,39 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         100; 72000,100; 75600,100; 79200,100; 82800,100; 86400,100])
     "Ventilation rate"
     annotation (Placement(transformation(extent={{-86,-29},{-72,-15}})));
-  Modelica.Blocks.Math.Gain gain(k=0.000330375898) "Conversion to kg/s"
+  Modelica.Blocks.Math.Gain gain(k=0.000330375898)
+    "Conversion to kg/s"
     annotation (Placement(transformation(extent={{-62,-29},{-48,-15}})));
   Fluid.Sources.MassFlowSource_T ventilationIn(
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1,
-    redeclare package Medium = Medium) "Fan"
+    redeclare package Medium = Medium)
+    "Fan"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
   Fluid.Sources.MassFlowSource_T ventilationOut(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1,
-    use_T_in=false) "Fan"
+    use_T_in=false)
+    "Fan"
     annotation (Placement(transformation(extent={{-32,-72},{-12,-52}})));
-  Modelica.Blocks.Math.Gain gain1(k=-1) "Reverses ventilation rate"
+  Modelica.Blocks.Math.Gain gain1(k=-1)
+    "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=0.15)
+    "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -235,13 +261,17 @@ equation
   connect(product1.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points=
     {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})),
-  Documentation(info="<html>
+  connect(thermalZoneTwoElements.TAir,mean. u) annotation (Line(points={{93,32},
+          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
+  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+  annotation (  Documentation(info="<html>
   <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
   excited by a radiative and convective heat source for room version S. It is
   based of Test Case 5 and adds ventilation.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>daily profile for outdoor air temperature in hourly steps</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
@@ -251,9 +281,13 @@ equation
   environment</li>
   <li>daily profile for ventilation in hourly time steps</li>
   </ul>
-  <p>This test case is thought to test infiltration and ventilation.</p>
+  <p>This test validates infiltration and ventilation.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

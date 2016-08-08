@@ -26,9 +26,11 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature preTem(
+    T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
@@ -40,29 +42,32 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,500; 25200,500;
-        28800,500; 32400,500; 36000,500; 39600,481; 43200,426; 46800,374; 50400,
-        324; 54000,276; 57600,230; 61200,186; 64800,-500; 68400,-500; 72000,-500;
+    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,500;
+        28800,500; 32400,500; 36000,500; 39600,500; 43200,481; 46800,426; 50400,
+        374; 54000,324; 57600,276; 61200,230; 64800,186; 68400,-500; 72000,-500;
         75600,-500; 79200,-500; 82800,-500; 86400,-500; 781200,-500; 784800,-500;
-        788400,-500; 792000,-500; 795600,-500; 799200,-142; 802800,-172; 806400,
-        -201; 810000,-228; 813600,-254; 817200,-278; 820800,-302; 824400,-324;
-        828000,-345; 831600,-366; 835200,-385; 838800,-404; 842400,-500; 846000,
+        788400,-500; 792000,-500; 795600,-500; 799200,-500; 802800,-142; 806400,
+        -172; 810000,-201; 813600,-228; 817200,-254; 820800,-278; 824400,-302;
+        828000,-324; 831600,-345; 835200,-366; 838800,-385; 842400,-404; 846000,
         -500; 849600,-500; 853200,-500; 856800,-500; 860400,-500; 864000,-500;
         5101200,-500; 5104800,-500; 5108400,-500; 5112000,-500; 5115600,-500;
-        5119200,-149; 5122800,-179; 5126400,-207; 5130000,-234; 5133600,-259;
-        5137200,-284; 5140800,-307; 5144400,-329; 5148000,-350; 5151600,-371;
-        5155200,-390; 5158800,-408; 5162400,-500; 5166000,-500; 5169600,-500;
-        5173200,-500; 5176800,-500; 5180400,-500]) "Reference results"
+        5119200,-500; 5122800,-149; 5126400,-179; 5130000,-207; 5133600,-234;
+        5137200,-259; 5140800,-284; 5144400,-307; 5148000,-329; 5151600,-350;
+        5155200,-371; 5158800,-390; 5162400,-408; 5166000,-500; 5169600,-500;
+        5173200,-500; 5176800,-500; 5180400,-500; 5184000,-500])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(T_ref=
-        295.15) "Radiative heat flow machines"
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(
+    T_ref=295.15)
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -71,11 +76,13 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCoo(T_ref=295.15)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaCoo(
+    T_ref=295.15)
     "Ideal heater/cooler with limit"
-    annotation (Placement(transformation(extent={{64,-46},{84,-26}})));
+    annotation (Placement(transformation(extent={{44,-46},{64,-26}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
@@ -94,12 +101,31 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     yMax=1,
     yMin=-1,
     k=0.1,
-    Ti=5) "Heating and cooling controller"
+    Ti=4)
+    "Heating and cooling controller"
     annotation (Placement(transformation(extent={{-18,-44},{-2,-28}})));
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
-
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=1.5)
+    "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
+    "Sensor for ideal heater/cooler"
+    annotation (Placement(transformation(extent={{84,-42},{72,-30}})));
+  Modelica.Blocks.Math.Gain gainMea(k=-1)
+    "Gain for mean block"
+    annotation (Placement(transformation(extent={{44,46},{54,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -114,8 +140,6 @@ equation
     annotation (
     Line(points={{68,-88},{84,-88},{98,-88},{98,24},{92.2,24}},
     color={191,0,0}));
-  connect(heaCoo.port, thermalZoneTwoElements.intGainsConv) annotation (Line(
-        points={{84,-36},{84,-36},{96,-36},{96,20},{92,20}}, color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
   connect(from_degC.y, conHeaCoo.u_s)
@@ -125,27 +149,42 @@ equation
           127}));
   connect(conHeaCoo.y, gainHeaCoo.u)
     annotation (Line(points={{-1.2,-36},{6.8,-36}}, color={0,0,127}));
-  connect(gainHeaCoo.y, heaCoo.Q_flow) annotation (Line(points={{20.6,-36},{40,
-          -36},{60,-36},{64,-36}}, color={0,0,127}));
+  connect(gainHeaCoo.y, heaCoo.Q_flow) annotation (Line(points={{20.6,-36},{44,
+          -36}},                   color={0,0,127}));
   connect(setTemp.y[1], from_degC.u) annotation (Line(points={{-51.2,-36},{
           -39.2,-36}},             color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  connect(mean.y,assEqu. u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1],assEqu. u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+  connect(heaCoo.port, heatFlowSensor.port_b)
+    annotation (Line(points={{64,-36},{72,-36}}, color={191,0,0}));
+  connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
+    annotation (Line(points={{84,-36},{96,-36},{96,20},{92,20}}, color={191,0,0}));
+  connect(mean.u, gainMea.y)
+    annotation (Line(points={{61,51},{54.5,51}}, color={0,0,127}));
+  connect(gainMea.u, heatFlowSensor.Q_flow) annotation (Line(points={{43,51},{
+          -74,51},{-74,-68},{78,-68},{78,-42}}, color={0,0,127}));
+  annotation ( Documentation(info="<html>
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a
   given radiative heat source and a setpoint profile for room version S. Is
   similar with Test Case 6, but with a maximum heating/cooling power.</p>
-  <p>Boundary Condtions:</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test heat load calculation with maximum
-  heating power.</p>
+  <p>This test validates heat load calculation with
+  maximum heating power.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

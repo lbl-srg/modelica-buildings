@@ -16,7 +16,7 @@ model VDI6007WithWindow
     "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSWWin[n]
     "Eqiuvalent short wave temperature for windows";
-    
+
   Modelica.Blocks.Interfaces.RealOutput TEqAirWin(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
@@ -63,9 +63,5 @@ equation
   case heat transfer through windows and exterior walls is handled seperately in
   the Reduced Order Model. The sum of all weightfactors for windows should be
   one as well as the sum for all wall elements.</p>
-  </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}})),
-  Diagram(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}})));
+  </html>"));
 end VDI6007WithWindow;

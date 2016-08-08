@@ -66,7 +66,7 @@ model NumberOfBeams
               "Active beam"
     annotation (Placement(transformation(extent={{-14,28},{14,52}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+  Buildings.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature "Room temperature"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
