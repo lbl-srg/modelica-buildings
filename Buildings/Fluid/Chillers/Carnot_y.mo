@@ -95,8 +95,8 @@ Changed default temperature to compute COP to be the leaving temperature as
 use of the entering temperature can violate the 2nd law if the temperature
 lift is small.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/497\">
-issue 497</a>.
+<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/497\">
+Annex 60, issue 497</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
