@@ -64,15 +64,15 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(
     T_ref=290.75)
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(
     T_ref=290.75)
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(
     T_ref=290.75)
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));

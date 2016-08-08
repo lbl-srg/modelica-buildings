@@ -91,7 +91,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
     annotation (Placement(transformation(extent={{46,-44},{66,-24}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow cool(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool(
     T_ref=295.15)
     "Ideal cooler with limit"
     annotation (Placement(transformation(extent={{2,76},{22,96}})));
