@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "thermalZoneTwoElements.TAir",
+    "mean.y",
     "reference.y[1]"
   };
