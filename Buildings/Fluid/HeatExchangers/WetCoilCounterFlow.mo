@@ -80,7 +80,7 @@ the model calls <code>Medium2.enthalpyOfCondensingGas</code>,
 which requires the medium to extend
 from this subclass.<br/>
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/547\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/547\">
 issue 547</a>.
 </li>
 <li>

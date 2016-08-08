@@ -20,7 +20,7 @@ revisions="<html>
 <li>
 June 4, 2016, by Michael Wetter:<br/>
 Changed <code>eta</code> to <code>r_P</code> for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/522\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/522\">
 issue 522</a>.
 </li>
 <li>

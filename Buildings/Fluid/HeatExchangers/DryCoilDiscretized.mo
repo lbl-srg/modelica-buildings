@@ -394,7 +394,7 @@ Corrected wrong connection
 to
 <code>connect(hexReg[nReg].port_a1, pipMan_b.port_b)</code>.
 This closes issue
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/194\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/194\">
 https://github.com/lbl-srg/modelica-buildings/issues/194</a>,
 which caused the last register to have no liquid flow.
 </li>

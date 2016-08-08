@@ -1017,7 +1017,7 @@ its class name ends with the string <code>Beta</code>.
                           for the configuration without flow reversal.
                           The previous implementation mistakenly used the <code>inStream</code> operator.
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/476\">
                           issue 476</a>
        </td>
    </tr>

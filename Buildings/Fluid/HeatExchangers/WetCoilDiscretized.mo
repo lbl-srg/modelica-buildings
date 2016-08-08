@@ -44,7 +44,7 @@ Redeclared <code>Medium2</code> to be <code>Modelica.Media.Interfaces.PartialCon
 because it is used in <code>vol2</code>, which requires the medium to extend
 from this subclass.<br/>
 See also
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/547\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/547\">
 issue 547</a>.
 </li>
 <li>
@@ -61,7 +61,7 @@ in the base class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
 Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>.
 This closes issue
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/194\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/194\">
 https://github.com/lbl-srg/modelica-buildings/issues/194</a>,
 which caused the last register to have no liquid flow.
 </li>

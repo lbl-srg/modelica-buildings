@@ -57,7 +57,7 @@ This is the base record for chiller models.
 <li>
 July 27, 2016, by Michael Wetter:<br/>
 Corrected wrong documentation for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/545\">issue 545</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/545\">issue 545</a>.
 </li>
 <li>
 September 15, 2010, by Michael Wetter:<br/>

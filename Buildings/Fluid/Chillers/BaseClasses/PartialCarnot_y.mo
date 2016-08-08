@@ -183,7 +183,7 @@ Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
 which mistakenly used the <code>inStream</code> operator
 for the configuration without flow reversal.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/476\">
 issue 476</a>.
 </li>
 <li>
@@ -195,7 +195,7 @@ but it will write a warning so that users can transition their models.
 <br/>
 Corrected <code>assert</code> statement for the efficiency curve.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/468\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/468\">
 issue 468</a>.
 </li>
 <li>
