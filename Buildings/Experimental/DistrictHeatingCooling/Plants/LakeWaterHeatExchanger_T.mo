@@ -225,7 +225,11 @@ protected
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
       "Nominal mass flow rate"
       annotation(Dialog(group = "Nominal condition"));
-    Modelica.Blocks.Nonlinear.Limiter limTem(        uMax=1, uMin=0)
+    Modelica.Blocks.Nonlinear.Limiter limTem(
+      uMax=1,
+      uMin=0,
+      limitsAtInit=false,
+      strict=true)
       "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,60},{40,80}})));
     Modelica.Blocks.Math.Gain gaiTem(k=4) "Control gain for dT"
@@ -240,14 +244,18 @@ protected
           origin={0,-10})));
     Modelica.Blocks.Interfaces.RealOutput y
       "Control signal (0: bypass hex, 1: use hex)"
-                                            annotation (Placement(transformation(
+      annotation (Placement(transformation(
             rotation=0, extent={{100,90},{120,110}})));
     Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow rate" annotation (
         Placement(transformation(rotation=0, extent={{-120,120},{-100,140}})));
     Modelica.Blocks.Math.Gain norFlo(final k=1/m_flow_nominal)
       "Normalized flow rate"
       annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-    Modelica.Blocks.Nonlinear.Limiter limFlo(        uMax=1, uMin=0)
+    Modelica.Blocks.Nonlinear.Limiter limFlo(
+      uMax=1,
+      uMin=0,
+      limitsAtInit=false,
+      strict=true)
       "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,120},{40,140}})));
     Modelica.Blocks.Math.Gain gaiFlo(k=100) "Control gain for flow rate"
@@ -441,6 +449,14 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 11, 2016, by Michael Wetter:<br/>
+Reconfigured output limiters of controllers to avoid event iterations when
+they saturate. This decreases the computing time for the system models
+by about a factor of two.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/551\">issue 551</a>.
+</li>
 <li>
 May 31, 2016, by Michael Wetter:<br/>
 Renamed <code>dp_nominal</code> to <code>dpHex_nominal</code>
