@@ -14,10 +14,10 @@ block LinearPiecewiseTwo "A two-pieces linear piecewise function"
     annotation (extent=[148, -10; 168, 10], Placement(transformation(extent={{
             100,-12},{120,8}})));
   Buildings.Controls.SetPoints.Table y1Tab(table=[x0, y10; x1, y11; x2, y11])
-    "Tabel for y[1]"
+    "Table for y[1]"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.SetPoints.Table y2Tab(table=[x0, y20; x1, y20; x2, y21])
-    "Tabel for y[2]"
+    "Table for y[2]"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(u, y1Tab.u) annotation (Line(
