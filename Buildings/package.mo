@@ -351,6 +351,14 @@ its class name ends with the string <code>Beta</code>.
                           are affected by this change.
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Controls.SetPoints.Table
+       </td>
+       <td valign=\"top\">Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>
+                          For Dymola, the conversion script will update models that access this parameter.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/555\">issue 555</a>.
+       </td>
+   </tr>
 
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>

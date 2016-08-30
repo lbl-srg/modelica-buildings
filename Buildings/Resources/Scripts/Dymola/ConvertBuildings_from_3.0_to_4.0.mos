@@ -5,6 +5,9 @@ clear
 
 convertClear();
 
+convertElement("Buildings.Controls.SetPoints.Table",
+               "nCol",
+               "nRow");
 
 convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
                "eta",
