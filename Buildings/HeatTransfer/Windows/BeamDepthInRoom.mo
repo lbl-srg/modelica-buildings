@@ -57,7 +57,7 @@ protected
     final h=h,
     final lat=lat,
     final azi=azi,
-    final filNam="",
+    final filNam=filNam,
     final lon=lon,
     final timZon=timZon) "Projected length of shadow"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -144,6 +144,10 @@ The wall is vertical.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 23, 2016, by Thierry S. Nouidui:<br/>
+Propagated <code>filNam</code>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Introduced <code>absFilNam</code> to avoid multiple calls to

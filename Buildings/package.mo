@@ -195,6 +195,20 @@ its class name ends with the string <code>Beta</code>.
                           to make the model work in JModelica.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+                          <br/>
+                          Removed the use of <code>Modelica.Utilities.Files.fullPathName</code>
+                          in <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+                          </code> which is implicitly done in <code>Modelica.Utilities.Files.loadResource.
+                          </code>
+                          <br/>
+                          Removed in
+                          <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+                          </code>the addition of <code>file://</code> to file names which do not start
+                          with <code>file://</code>, or <code>modelica://</code>.
+                          This is not required when using
+                          <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/539\">issue 539</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
