@@ -8,7 +8,7 @@ model Grid "Electrical grid"
   parameter Modelica.SIunits.Voltage V(start = 110) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift angle of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P
-    "Power consumed from grid if negative, or fed to grid if positive"
+    "Power consumed from grid if positive, or fed to grid if negative"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   replaceable Buildings.Electrical.AC.OnePhase.Sources.FixedVoltage sou(
     potentialReference=true,
@@ -21,7 +21,7 @@ model Grid "Electrical grid"
         origin={10,0})));
 equation
   P.real = -sou.S[1];
-  P.apparent = Modelica.Fluid.Utilities.regRoot(sou.S[2]^2 + sou.S[1]^2, delta=  0.01);
+  P.apparent = Modelica.Fluid.Utilities.regRoot(sou.S[2]^2 + sou.S[1]^2, delta = 0.01);
   P.phi = sou.phi;
   P.cosPhi = cos(sou.phi);
   connect(sou.terminal, terminal) annotation (Line(
@@ -48,6 +48,10 @@ in Europe it is <i>230</i> Volts at <i>50</i> Hz.
 </html>",
  revisions="<html>
 <ul>
+<li>
+August 31, 2016, by Michael Wetter:<br/>
+Corrected sign error in documentation string of variable <code>P</code>.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised documentation.

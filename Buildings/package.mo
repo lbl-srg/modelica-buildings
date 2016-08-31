@@ -507,6 +507,17 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.Grid<br/>
+                          Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid<br/>
+                          Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid_N
+       </td>
+       <td valign=\"top\">Corrected sign error in documentation string of
+                          variable <code>P</code>.
+       </td>
+   </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
