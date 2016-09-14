@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZoneConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
-    redeclare final package Medium = MediumA, nFluPor = nFluPorts);
+    redeclare final package Medium = MediumA, nPorts =  nFluPorts);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 

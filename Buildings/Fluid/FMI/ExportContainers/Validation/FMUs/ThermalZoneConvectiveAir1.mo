@@ -2,7 +2,7 @@ within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
     redeclare package Medium = Buildings.Media.Air,
-    nFluPor = 2);
+    nPorts =  2);
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
