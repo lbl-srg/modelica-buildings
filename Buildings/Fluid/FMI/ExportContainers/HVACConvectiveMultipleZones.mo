@@ -174,7 +174,6 @@ an FMU.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
 Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
-xxx (update link)
 shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>
