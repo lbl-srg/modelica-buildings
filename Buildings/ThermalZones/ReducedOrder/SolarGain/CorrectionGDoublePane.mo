@@ -113,14 +113,6 @@ equation
   end for;
 
   annotation (defaultComponentName="corG",
-  Diagram(coordinateSystem(
-  preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}},
-  grid={2,2})),
-  Icon(coordinateSystem(
-  preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}},
-  grid={2,2})),
   Documentation(info="<html>
   <p>This model computes short-wave radiation through
   transparent elements with any orientation and inclination by means of

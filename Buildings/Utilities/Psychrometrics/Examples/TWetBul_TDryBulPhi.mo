@@ -9,16 +9,16 @@ model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
     redeclare package Medium = Medium) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
-                                    annotation (Placement(transformation(extent={{-100,
-            -20},{-80,0}})));
+                                    annotation (Placement(transformation(extent={{-80,-20},
+            {-60,0}})));
     Modelica.Blocks.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0) "Relative humidity"
-                 annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+                 annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant TDryBul(k=273.15 + 29.4)
-    "Dry bulb temperature"          annotation (Placement(transformation(extent={{-100,60},
-            {-80,80}})));
+    "Dry bulb temperature"          annotation (Placement(transformation(extent={{-80,60},
+            {-60,80}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulPhiApp(
     redeclare package Medium = Medium,
     approximateWetBulb=true) "Model for wet bulb temperature"
@@ -60,37 +60,38 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
   connect(p.y, wetBulPhi.p)
-                         annotation (Line(points={{-79,-10},{-40,-10},{-40,42},{
+                         annotation (Line(points={{-59,-10},{-40,-10},{-40,42},{
           -1,42}},                                                  color={0,0,
           127}));
   connect(TDryBul.y, wetBulPhi.TDryBul) annotation (Line(
-      points={{-79,70},{-32,70},{-32,58},{-1,58}},
+      points={{-59,70},{-32,70},{-32,58},{-1,58}},
       color={0,0,127}));
   connect(phi.y, wetBulPhi.phi) annotation (Line(
-      points={{-79,30},{-46,30},{-46,50},{-1,50}},
+      points={{-59,30},{-46,30},{-46,50},{-1,50}},
       color={0,0,127}));
   connect(p.y, wetBulPhiApp.p)
-                         annotation (Line(points={{-79,-10},{-40,-10},{-40,2},{
-          -1,2}},                                                   color={0,0,
+                         annotation (Line(points={{-59,-10},{-40,-10},{-40,2},{-1,
+          2}},                                                      color={0,0,
           127}));
   connect(TDryBul.y, wetBulPhiApp.TDryBul)
                                         annotation (Line(
-      points={{-79,70},{-32,70},{-32,18},{-1,18}},
+      points={{-59,70},{-32,70},{-32,18},{-1,18}},
       color={0,0,127}));
   connect(phi.y, wetBulPhiApp.phi)
                                 annotation (Line(
-      points={{-79,30},{-46,30},{-46,10},{-1,10}},
+      points={{-59,30},{-46,30},{-46,10},{-1,10}},
       color={0,0,127}));
-  connect(wetBulXi.TDryBul, TDryBul.y) annotation (Line(points={{-1,-22},{-18,-22},
-          {-32,-22},{-32,70},{-79,70}}, color={0,0,127}));
+  connect(wetBulXi.TDryBul, TDryBul.y) annotation (Line(points={{-1,-22},{-6,-22},
+          {-6,-10},{-10,-10},{-32,-10},{-32,70},{-59,70}},
+                                        color={0,0,127}));
   connect(wetBulXi.p, p.y) annotation (Line(points={{-1,-38},{-40,-38},{-40,-10},
-          {-79,-10}}, color={0,0,127}));
+          {-59,-10}}, color={0,0,127}));
   connect(x_pTphi.p_in, p.y) annotation (Line(points={{-23.2,-26.4},{-40,-26.4},
-          {-40,-10},{-79,-10}}, color={0,0,127}));
+          {-40,-10},{-59,-10}}, color={0,0,127}));
   connect(x_pTphi.T, TDryBul.y) annotation (Line(points={{-23.2,-30},{-32,-30},{
-          -32,70},{-79,70}}, color={0,0,127}));
+          -32,70},{-59,70}}, color={0,0,127}));
   connect(x_pTphi.phi, phi.y) annotation (Line(points={{-23.2,-33.6},{-46,-33.6},
-          {-46,30},{-79,30}}, color={0,0,127}));
+          {-46,30},{-59,30}}, color={0,0,127}));
   connect(x_pTphi.X[1], wetBulXi.Xi[1])
     annotation (Line(points={{-9.4,-30},{-1,-30}},          color={0,0,127}));
   connect(wetBulPhi.TWetBul, assertions.wetBulPhi_TWetBul) annotation (Line(
@@ -98,7 +99,7 @@ equation
   connect(wetBulXi.TWetBul, assertions.wetBulXi_TWetBul) annotation (Line(
         points={{21,-30},{36,-30},{48,-30},{48,4},{58,4}}, color={0,0,127}));
   connect(assertions.phi, phi.y) annotation (Line(points={{58,16},{50,16},{40,16},
-          {40,30},{-79,30}}, color={0,0,127}));
+          {40,30},{-59,30}}, color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulPhi.mos"
         "Simulate and plot"),
@@ -119,6 +120,10 @@ Ananthanarayanan, P. N. Basic refrigeration and air conditioning. Tata McGraw-Hi
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 23, 2016, by Michael Wetter:<br/>
+Changed graphical annotation.
+</li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Updated example with validation data.

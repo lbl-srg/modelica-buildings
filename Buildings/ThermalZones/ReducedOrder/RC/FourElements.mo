@@ -74,7 +74,6 @@ protected
        ARoof > 0 and ATotWin > 0 "Resistor between roof and windows"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
-      rotation=0,
       origin={-154,100})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resRoofFloor(
     final G=min(ARoof, AFloor)*alphaRad) if
@@ -90,7 +89,6 @@ protected
       annotation (Placement(
       transformation(
       extent={{-10,-10},{10,10}},
-      rotation=0,
       origin={-108,6})));
 
 equation

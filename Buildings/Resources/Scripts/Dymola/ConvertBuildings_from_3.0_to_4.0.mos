@@ -15,6 +15,10 @@ convertClass("Buildings.Fluid.FMI.TwoPort",
 convertClass("Buildings.Fluid.FMI.TwoPortComponent",
              "Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort");
 
+convertElement("Buildings.Controls.SetPoints.Table",
+               "nCol",
+               "nRow");
+
 convertElement("Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics.efficiency",
                "eta",
                "r_P");

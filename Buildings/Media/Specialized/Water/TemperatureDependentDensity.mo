@@ -821,18 +821,53 @@ and therefore leads to faster simulation.
 <img src=\"modelica://Buildings/Resources/Images/Media/Water/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
+
+
+<p>
+Thermal conductivity is calculated as a function of temperature as shown in the figure below.
+The correlation used to calculate the thermal conductivity is
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+&lambda;(T) = &lambda;(298.15 K) &sdot; (-1.48445+4.12292&sdot;(T/298.15)-1.63866&sdot;(T/298.15)<sup>2</sup>),
+</p>
+<p>
+where <i>&lambda;(298.15 K) = 0.6065</i>  W/(m &sdot; K) is the adopted standard value
+of the thermal conductivity of water at <i>298.15</i> K and <i>0.1</i> MPa.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Media/Water/plotLambda.png\" border=\"1\"
+alt=\"Thermal conductivity as a function of temperature\"/>
+</p>
+
+<p>
+Dynamic viscosity is calculated as the product of density and kinematic viscosity,
+both temperature dependent. However, the kinematic viscosity
+has its own temperture dependent correlation, implemented at
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity</a>.
+Results of the kinematic viscosity as a function of temperature are shown in the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Media/Water/plotkinVis.png\" border=\"1\"
+alt=\"Kinematic viscosity as a function of temperature\"/>
+</p>
+
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.
 </p>
 <h4>Limitations</h4>
 <p>
-Specific heat capacity, thermal conductivity and viscosity are constant.
-Water is modeled as an incompressible liquid.
-There are no phase changes.
+Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2016, by Carles Ribas Tugores:<br/>
+Correct Documentation. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/487\">#487</a>.
+</li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Set <code>AbsolutePressure(start=p_default)</code>

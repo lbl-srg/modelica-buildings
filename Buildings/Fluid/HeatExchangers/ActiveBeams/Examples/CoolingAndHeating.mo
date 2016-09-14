@@ -24,13 +24,13 @@ model CoolingAndHeating
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConWal(G=200)
     "Thermal conductor for wall"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 22)
     "Heating set-point temperature"
     annotation (Placement(transformation(extent={{-110,-20},{-90,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TOut(T=301.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Controls.Continuous.LimPID conHea(
@@ -72,8 +72,8 @@ model CoolingAndHeating
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1,
     V=30,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=296.15) "Air volume for room"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume for room"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 25)
     "Cooling set-point temperature"
@@ -153,6 +153,14 @@ for both heating and cooling mode. An air volume is maintained at a temperature 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2016, by Michael Wetter:<br/>
+Changed medium start temperature to avoid conflicting
+start values of the same precedence in Dymola 2016.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/485\">
+issue 485</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.

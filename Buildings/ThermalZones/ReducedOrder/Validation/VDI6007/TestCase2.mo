@@ -26,7 +26,8 @@ model TestCase2 "VDI 6007 Test Case 2 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     T_start=295.15,
-    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each der_T(fixed=true))))
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Buildings.HeatTransfer.Sources.FixedTemperature preTem(T=295.15)
     "Outdoor air temperature"
@@ -40,29 +41,32 @@ model TestCase2 "VDI 6007 Test Case 2 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22.6;
-        25200,22.9; 28800,23.1; 32400,23.3; 36000,23.5; 39600,23.7; 43200,23.9;
-        46800,24.1; 50400,24.3; 54000,24.6; 57600,24.8; 61200,25; 64800,24.5;
-        68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,37.7;
-        781200,37.7; 784800,37.6; 788400,37.5; 792000,37.5; 795600,37.4; 799200,
-        38; 802800,38.2; 806400,38.3; 810000,38.5; 813600,38.6; 817200,38.8;
-        820800,38.9; 824400,39.1; 828000,39.2; 831600,39.4; 835200,39.5; 838800,
-        39.7; 842400,39.2; 846000,39.1; 849600,39.1; 853200,39; 856800,38.9;
-        860400,38.9; 864000,50; 5101200,49.9; 5104800,49.8; 5108400,49.7;
-        5112000,49.6; 5115600,49.5; 5119200,50; 5122800,50.1; 5126400,50.2;
-        5130000,50.3; 5133600,50.5; 5137200,50.6; 5140800,50.7; 5144400,50.8;
-        5148000,50.9; 5151600,51; 5155200,51.1; 5158800,51.2; 5162400,50.7;
-        5166000,50.6; 5169600,50.4; 5173200,50.3; 5176800,50.2; 5180400,50.1])
+    offset={273.15},
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+        25200,22.6; 28800,22.9; 32400,23.1; 36000,23.3; 39600,23.5; 43200,23.7;
+        46800,23.9; 50400,24.1; 54000,24.3; 57600,24.6; 61200,24.8; 64800,25;
+        68400,24.5; 72000,24.5; 75600,24.5; 79200,24.5; 82800,24.5; 86400,24.5;
+        781200,37.7; 784800,37.7; 788400,37.6; 792000,37.5; 795600,37.5; 799200,
+        37.4; 802800,38; 806400,38.2; 810000,38.3; 813600,38.5; 817200,38.6;
+        820800,38.8; 824400,38.9; 828000,39.1; 831600,39.2; 835200,39.4; 838800,
+        39.5; 842400,39.7; 846000,39.2; 849600,39.1; 853200,39.1; 856800,39;
+        860400,38.9; 864000,38.9; 5101200,50; 5104800,49.9; 5108400,49.8;
+        5112000,49.7; 5115600,49.6; 5119200,49.5; 5122800,50; 5126400,50.1;
+        5130000,50.2; 5133600,50.3; 5137200,50.5; 5140800,50.6; 5144400,50.7;
+        5148000,50.8; 5151600,50.9; 5155200,51; 5158800,51.1; 5162400,51.2;
+        5166000,50.7; 5169600,50.6; 5173200,50.4; 5176800,50.3; 5180400,50.2;
+        5184000,50.1])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -72,9 +76,22 @@ model TestCase2 "VDI 6007 Test Case 2 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-    
+  BaseClasses.AssertEqualityThreePeriods assEqu(
+    startTime=3600,
+    endTime=86400,
+    startTime2=781200,
+    endTime2=864000,
+    startTime3=5101200,
+    endTime3=5184000,
+    threShold=0.15)
+    "Checks validation criteria"
+    annotation (Placement(transformation(extent={{84,46},{94,56}})));
+  Modelica.Blocks.Math.Mean mean(f=1/3600)
+    "Hourly mean of indoor air temperature"
+    annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -91,21 +108,30 @@ equation
     color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
-  <p>Test Case 2 of the VDI 6007 Part 1: Calculation of indoor air temperature
-  excited by a radiative heat source for room version S.</p>
-  <p>Boundary Condtions:</p>
+  connect(thermalZoneTwoElements.TAir, mean.u) annotation (Line(points={{93,32},
+          {98,32},{98,42},{52,42},{52,51},{61,51}}, color={0,0,127}));
+  connect(mean.y, assEqu.u2) annotation (Line(points={{72.5,51},{78,51},{78,48},
+          {83,48}}, color={0,0,127}));
+  connect(reference.y[1], assEqu.u1) annotation (Line(points={{97,82},{100,82},
+          {100,62},{78,62},{78,54},{83,54}}, color={0,0,127}));
+  annotation ( Documentation(info="<html>
+  <p>Test Case 2 of the VDI 6007 Part 1: Calculation of indoor air
+  temperature excited by a radiative heat source for room version S.</p>
+  <h4>Boundary conditions</h4>
   <ul>
   <li>constant outdoor air temperature 22&deg;C</li>
   <li>no solar or short-wave radiation on the exterior wall</li>
   <li>no solar or short-wave radiation through the windows</li>
-  <li>no long-wave radiation exchange between exterior wall, windows and ambient
-  environment</li>
+  <li>no long-wave radiation exchange between exterior wall, windows
+  and ambient environment</li>
   </ul>
-  <p>This test case is thought to test basic functionalities.</p>
+  <p>This test validates basic functionalities.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  July 7, 2016, by Moritz Lauster:<br/>
+  Added automatic check against validation thresholds.
+  </li>
   <li>
   January 11, 2016, by Moritz Lauster:<br/>
   Implemented.

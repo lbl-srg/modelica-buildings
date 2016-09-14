@@ -209,6 +209,20 @@ its class name ends with the string <code>Beta</code>.
                           to make the model work in JModelica.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
+                          <br/>
+                          Removed the use of <code>Modelica.Utilities.Files.fullPathName</code>
+                          in <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+                          </code> which is implicitly done in <code>Modelica.Utilities.Files.loadResource.
+                          </code>
+                          <br/>
+                          Removed in
+                          <code>Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath
+                          </code>the addition of <code>file://</code> to file names which do not start
+                          with <code>file://</code>, or <code>modelica://</code>.
+                          This is not required when using
+                          <code>Modelica.Utilities.Files.loadResource</code>.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/539\">issue 539</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
@@ -262,6 +276,24 @@ its class name ends with the string <code>Beta</code>.
                           <code>Modelica.StateGraph</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
+                          Buildings.Fluid.Chillers.Carnot_y<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_TCon<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_y<br/>
+       </td>
+       <td valign=\"top\">Changed the default temperatures that are used to compute the coefficient
+                          of performance (COP) to be the leaving water temperature. Previously, the
+                          entering water temperature was used, which can give COPs that are higher than
+                          the Carnot efficiency if the temperature lift is small, because Carnot assumes
+                          no change in temperature along the fluid stream, and using the entering temperature is
+                          an optimistic choice.<br/>
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
@@ -345,6 +377,14 @@ its class name ends with the string <code>Beta</code>.
                           Buildings.Controls.Continuous.PIDHysteresis</a>.
                           Only models that access these instances, which typically is not the case,
                           are affected by this change.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.SetPoints.Table
+       </td>
+       <td valign=\"top\">Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>
+                          For Dymola, the conversion script will update models that access this parameter.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/555\">issue 555</a>.
        </td>
    </tr>
 
@@ -508,12 +548,47 @@ its class name ends with the string <code>Beta</code>.
    units are wrong or errors in documentation):
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-   <tr><td colspan=\"2\"><b>xxx</b>
+   <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Electrical.AC.OnePhase.Sources.Grid<br/>
+                          Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid<br/>
+                          Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.Grid_N
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Corrected sign error in documentation string of
+                          variable <code>P</code>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchanger.WetCoilCounterFlow<br/>
+                          Buildings.Fluid.HeatExchanger.WetCoilDiscretized
+       </td>
+       <td valign=\"top\">Redeclared <code>Medium2</code> to force it to be a subclass
+                          of <code>Modelica.Media.Interfaces.PartialCondensingGases</code>.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+                          issue 544</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Storage
+       </td>
+       <td valign=\"top\">Removed medium declaration, which is not needed and inconsistent with
+                          the declaration in the base class.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+                          issue 544</a>.
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Rooms.Validation.BESTEST.Case900<br/>
+                          Buildings.Rooms.Validation.BESTEST.Case900
+       </td>
+       <td valign=\"top\">Added missing <code>parameter</code> keyword,
+                          which is required as the variable (for the materials) is assigned to a parameter.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/543\">issue 543</a>.
        </td>
    </tr>
    </table>
@@ -1016,7 +1091,7 @@ its class name ends with the string <code>Beta</code>.
                           for the configuration without flow reversal.
                           The previous implementation mistakenly used the <code>inStream</code> operator.
                           This is for
-                          <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/476\">
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/476\">
                           issue 476</a>
        </td>
    </tr>

@@ -71,7 +71,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     annotation (Placement(transformation(extent={{-196,-174},{-176,-154}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    "/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preT2      annotation (
       Placement(transformation(
@@ -290,7 +290,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(shaPos.y,X3B. uSha) annotation (Line(
-      points={{-175,134},{-118,134},{-118,74},{-112,74}},
+      points={{-175,134},{-118,134},{-118,76},{-111.6,76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, ele.weaBus)    annotation (Line(
@@ -340,15 +340,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y,X3B. qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,66},{-112,66}},
+      points={{-175,102},{-140,102},{-140,66},{-111.6,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
+      points={{-47,-6},{20,-6},{20,-52},{52.4,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,120},{154,120}},
+      points={{9,142},{120,142},{120,120},{154.4,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
@@ -508,8 +508,12 @@ equation
           Buildings.Rooms.FLEXLAB.Rooms.X3B</a>.</li>
           </ul>
           </html>",
-          revisions = "<html>
+          revisions="<html>
           <ul>
+          <li>
+          August 23, 2016, by Thierry S. Nouidui:<br/>
+          Corrected the syntax of the weather data file name entry.
+          </li>
           <li>
           April 21, 2016, by Michael Wetter:<br/>
           Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with

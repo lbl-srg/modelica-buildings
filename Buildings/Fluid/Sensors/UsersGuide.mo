@@ -88,13 +88,15 @@ The table below summarizes the recommendations for the use of sensors.
                        relative humidity<br/>
                        mass fraction<br/>
                        trace substances<br/>
-                       specific enthalpy</td>
+                       specific enthalpy<br/>
+                       specific entropy</td>
     <td valign=\"top\">use only if connected to a volume</td>
     <td valign=\"top\">avoid</td>
     <td valign=\"top\">recommended</td>
 </tr>
 <tr><td valign=\"top\">volume flow rate<br/>
-                       enthalpy flow rate</td>
+                       enthalpy flow rate<br/>
+                       entropy flow rate</td>
     <td valign=\"top\">-</td>
     <td valign=\"top\">recommended</td>
     <td valign=\"top\">recommended</td>
@@ -180,7 +182,7 @@ Note that the implementation of the dynamic sensors does not use the model
 Buildings.Fluid.MixingVolumes</a>.
 The reason is that depending on the selected medium model, the
 mixing volume may introduce states for the pressure, species concentration,
-trace substance and enthalpy. Not all states are typically needed to
+trace substance, specific enthalpy and specific entropy. Not all states are typically needed to
 model the dynamics of a sensor. Moreover, in many building system applications,
 the sensor dynamics is not of concern, but is rather used here to avoid numerical
 problems that steady-state models of sensors cause when flow rates are

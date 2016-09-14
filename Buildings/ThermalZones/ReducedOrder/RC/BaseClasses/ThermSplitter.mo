@@ -20,9 +20,7 @@ equation
   portIn.T = portOut.T * splitFactor
     "Equivalent building temperature rerouted to SignalInput";
 
-  annotation (defaultComponentName="theSpl",Diagram(coordinateSystem(
-  preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-  Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (defaultComponentName="theSpl",  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}), graphics={
   Text(
     extent={{-2,4},{26,-30}},

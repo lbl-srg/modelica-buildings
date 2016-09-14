@@ -29,9 +29,9 @@ package BaseClasses "Base classes for package Data"
 
     constant Integer nCapFunT "Number of coefficients for capFunT"
       annotation (Dialog(group="Performance curves"));
-    constant Integer nEIRFunT "Number of coefficients for capFunT"
+    constant Integer nEIRFunT "Number of coefficients for EIRFunT"
       annotation (Dialog(group="Performance curves"));
-    constant Integer nEIRFunPLR "Number of coefficients for capFunT"
+    constant Integer nEIRFunPLR "Number of coefficients for EIRFunPLR"
       annotation (Dialog(group="Performance curves"));
     parameter Real capFunT[nCapFunT] "Biquadratic coefficients for capFunT"
       annotation (Dialog(group="Performance curves"));
@@ -48,10 +48,17 @@ package BaseClasses "Base classes for package Data"
 
     annotation (preferredView="info",
     Documentation(info="<html>
+<p>
 This is the base record for chiller models.
+</p>
 </html>",
   revisions="<html>
 <ul>
+<li>
+July 27, 2016, by Michael Wetter:<br/>
+Corrected wrong documentation for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/545\">issue 545</a>.
+</li>
 <li>
 September 15, 2010, by Michael Wetter:<br/>
 First implementation.

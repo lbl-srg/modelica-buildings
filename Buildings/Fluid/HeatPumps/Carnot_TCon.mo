@@ -4,7 +4,7 @@ model Carnot_TCon
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
    final COP_is_for_cooling = false,
    final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
-   effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
+   effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b,
    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b,
    PEle(y=QCon_flow/COP),
    redeclare HeatExchangers.HeaterCooler_T con(
@@ -47,6 +47,7 @@ protected
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
   assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
+
 
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
@@ -159,6 +160,15 @@ Buildings.Fluid.Chillers.Examples.Carnot_TEva</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+Annex 60, issue 497</a>.
+</li>
 <li>
 November 25, 2015 by Michael Wetter:<br/>
 First implementation.

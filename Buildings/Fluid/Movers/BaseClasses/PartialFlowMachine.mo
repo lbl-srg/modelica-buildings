@@ -151,12 +151,11 @@ protected
       inputType == Buildings.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Modelica.Blocks.Routing.Extractor extractor(
-    final nin=size(stageInputs, 1),
-    index(fixed=true,
-          start=0)) if
+
+  Extractor extractor(final nin=size(stageInputs,1)) if
       inputType == Buildings.Fluid.Types.InputType.Stages "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
+
   Modelica.Blocks.Routing.RealPassThrough inputSwitch
     "Dummy connection for easy connection of input options"
     annotation (
@@ -257,6 +256,86 @@ protected
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
+
+protected
+  block Extractor
+    "Extract scalar signal out of signal vector dependent on IntegerRealInput index"
+    extends Modelica.Blocks.Interfaces.MISO;
+
+    Modelica.Blocks.Interfaces.IntegerInput index "Integer input for control input"
+    annotation (Placement(
+          transformation(
+          origin={0,-120},
+          extent={{-20,-20},{20,20}},
+          rotation=90)));
+  equation
+  y = sum({if index == i then u[i] else 0 for i in 1:nin});
+
+  annotation (Icon(graphics={
+          Rectangle(
+            extent={{-80,50},{-40,-50}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-84.4104,1.9079},{-84.4104,-2.09208},{-80.4104,-0.09208},{
+                -84.4104,1.9079}},
+            lineColor={0,0,127},
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-62,2},{-50.1395,12.907},{-39.1395,12.907}}, color={0,0,
+                127}),
+          Line(points={{-63,4},{-49,40},{-39,40}}, color={0,0,127}),
+          Line(points={{-102,0},{-65.0373,-0.01802}}, color={0,0,127}),
+          Ellipse(
+            extent={{-70.0437,4.5925},{-60.0437,-4.90745}},
+            lineColor={0,0,127},
+            fillColor={0,0,127},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-63,-5},{-50,-40},{-39,-40}}, color={0,0,127}),
+          Line(points={{-62,-2},{-50.0698,-12.907},{-39.0698,-12.907}}, color={
+                0,0,127}),
+          Polygon(
+            points={{-38.8808,-11},{-38.8808,-15},{-34.8808,-13},{-38.8808,-11}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-39,42},{-39,38},{-35,40},{-39,42}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-38.8728,-38.0295},{-38.8728,-42.0295},{-34.8728,-40.0295},
+                {-38.8728,-38.0295}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{-38.9983,14.8801},{-38.9983,10.8801},{-34.9983,12.8801},{-38.9983,
+                14.8801}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-30,50},{30,-50}},
+            fillColor={235,235,235},
+            fillPattern=FillPattern.Solid,
+            lineColor={0,0,127}),
+          Line(points={{100,0},{0,0}}, color={0,0,127}),
+          Line(points={{0,2},{0,-104}}, color={255,128,0}),
+          Line(points={{-35,40},{-20,40}}, color={0,0,127}),
+          Line(points={{-35,13},{-20,13}}, color={0,0,127}),
+          Line(points={{-35,-13},{-20,-13}}, color={0,0,127}),
+          Line(points={{-35,-40},{-20,-40}}, color={0,0,127}),
+          Polygon(points={{0,0},{-20,13},{-20,13},{0,0},{0,0}}, lineColor={0,0,
+                127}),
+          Ellipse(
+            extent={{-6,6},{6,-6}},
+            lineColor={255,128,0},
+            fillColor={255,128,0},
+            fillPattern=FillPattern.Solid)}));
+  end Extractor;
 
 initial equation
   // The control signal is dp or m_flow but the user did not provide a pump curve.
@@ -448,6 +527,17 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 29, 2016, by Michael Wetter:<br/>
+Made <code>Extractor</code> protected so that it can be removed later
+with a backwards compatible change.
+</li>
+<li>
+July 19, 2016, by Filip Jorissen:<br/>
+Created custom implementation for extractor.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/498\">#498</a>.
+</li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.
