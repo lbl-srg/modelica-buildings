@@ -11,7 +11,6 @@ block HVACConvectiveSingleZone
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
   parameter Real eps = 0.8 "Heat recovery effectiveness";
@@ -30,10 +29,11 @@ block HVACConvectiveSingleZone
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
+  parameter Real UA(unit="W/K") = 10E3 "Average UA-value of the room";
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
      1000 "Internal heat gains of the room";
   parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
+    -QRooInt_flow-UA/30*(TOut_nominal-TRooSet)
     "Nominal cooling load of the room";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
     1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)

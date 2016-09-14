@@ -1,23 +1,25 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation;
 model RoomConvectiveHVACConvective
-  "Simple thermal zone with convective HVAC system."
+  "Validation model for connected single thermal zone and HVAC system"
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone hvaCon
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    "Block that encapsulates the HVAC system"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  model BaseCase "Base model used for the validation of the FMI interfaces"
+    "Block that encapsulates the thermal zone"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  model BaseCase "Base case model used for the validation of the FMI interfaces"
     extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics=
-      Modelica.Fluid.Types.Dynamics.FixedInitial), fan(
-          nominalValuesDefineDefaultPressureCurve=true));
+      Modelica.Fluid.Types.Dynamics.FixedInitial),
+      fan(nominalValuesDefineDefaultPressureCurve=true));
     annotation (Documentation(info="<html>
 <p>
 This example is the base case model which is used to validate 
 the coupling of a convective thermal zone with an air-based HVAC system. 
 </p>
 <p>
-The model which is validated is in 
+The model which is validated using this model is
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
 Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective
 </a>. 
@@ -85,32 +87,47 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective
             fillPattern=FillPattern.Solid)}));
   end BaseCase;
   BaseCase baseCase
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
-    annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,50},{0,70}})));
+  Examples.FMUs.HVACConvectiveMultipleZones hvaCon2(
+    UA = 20E3,
+    QRooInt_flow = 2000,
+    fan2(each constantMassFlowRate=0))
+    "Block that encapsulates the HVAC system"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
+          rotation=0, extent={{20,-40},{40,-20}})));
 equation
 
-  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,18.75},
-          {39.375,18.75}},                                color={0,0,255}));
-  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.3125,13.8125},
-          {0,13.8125},{0,-30},{39,-30}},
+  connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,38.75},
+          {19.375,38.75}},                                color={0,0,255}));
+  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.3125,33.8125},
+          {-20,33.8125},{-20,34},{-20,60},{-1,60}},
                                  color={0,0,127}));
+  connect(hvaCon2.fluPor, rooCon2.fluPor) annotation (Line(points={{-39.375,-21.25},
+          {19.375,-21.25}}, color={0,0,255}));
+  connect(TRooRad.y,hvaCon2. TRadZon[1]) annotation (Line(points={{-1,60},{-18,60},
+          {-18,-26.125},{-39.375,-26.125}}, color={0,0,127}));
+  connect(TRooRad.y,hvaCon2. TRadZon[2]) annotation (Line(points={{-1,60},{-16,60},
+          {-16,-26.125},{-39.375,-26.125}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This example validates the coupling of a convective thermal zone with an air-based HVAC system.
-The block <code>rooCoo</code> wraps a thermal zone model, and the block
-<code>hvaCoo</code> wraps an HVAC model.
+This example validates the coupling of a single convective thermal zone with an air-based HVAC system.
+The block <code>rooCoo</code> wraps the thermal zone model, and the block
+<code>hvaCoo</code> wraps the HVAC model.
 Both are encapsulated as input output blocks that can be exported as an FMU.
 These blocks are then connected to simulate the coupled response.
 The system model also contains an instance called <code>refMod</code>
 which contains the same model but without it being encapsulated in the
 FMU adaptor.
 </p>
-<p>The Modelica models of the thermal zone and the HVAC air-based system are taken from 
+<p>
+The Modelica models of the thermal zone and the HVAC air-based system are taken from 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3
 </a>.

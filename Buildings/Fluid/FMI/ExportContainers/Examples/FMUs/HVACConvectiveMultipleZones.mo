@@ -13,7 +13,7 @@ block HVACConvectiveMultipleZones
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
+ // parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
   parameter Real eps = 0.8 "Heat recovery effectiveness";
@@ -32,10 +32,11 @@ block HVACConvectiveMultipleZones
 
   /////////////////////////////////////////////////////////
   // Cooling loads and air mass flow rates
+  parameter Real UA(unit="W/K") = 10E3 "Average UA-value of the room";
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow=
      1000 "Internal heat gains of the room";
   parameter Modelica.SIunits.HeatFlowRate QRooC_flow_nominal=
-    -QRooInt_flow-10E3/30*(TOut_nominal-TRooSet)
+    -QRooInt_flow-UA/30*(TOut_nominal-TRooSet)
     "Nominal cooling load of the room";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=
     1.3*QRooC_flow_nominal/1006/(TASup_nominal-TRooSet)
@@ -273,8 +274,8 @@ equation
                       color={0,0,127}));
   connect(fan2.port_b, res.port_a) annotation (Line(points={{60,0},{60,0},{40,0}},
                       color={0,127,255}));
-  connect(res.port_b, out.ports[3]) annotation (Line(points={{20,0},{-106,0},{
-          -106,42},{-106,87.3333},{-120,87.3333}},
+  connect(res.port_b, out.ports[3]) annotation (Line(points={{20,0},{-112,0},{
+          -112,42},{-112,87.3333},{-120,87.3333}},
         color={0,127,255}));
   connect(fan.port_b, resSup1.port_a) annotation (Line(points={{60,100},{66,100},
           {66,116},{70,116}}, color={0,127,255}));

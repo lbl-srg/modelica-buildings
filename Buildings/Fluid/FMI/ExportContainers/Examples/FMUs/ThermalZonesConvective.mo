@@ -8,13 +8,6 @@ model ThermalZonesConvective
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
-  parameter Boolean use_p_in = false
-    "= true to use a pressure from connector, false to output Medium.p_default"
-    annotation(Evaluate=true);
-  parameter Boolean allowFlowReversal = false
-    "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
   /////////////////////////////////////////////////////////
