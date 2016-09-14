@@ -4,7 +4,7 @@ model ThermalZoneHVACWithExhaust
   extends Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust(
     hvacAda(nPorts=3),
     out(nPorts=3),
-    con(nFluPor=3),
+    con(nPorts=3),
     vol(nPorts=3));
 
   Movers.FlowControlled_m_flow exh(
