@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZoneConvective "Simple thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
-    redeclare final package Medium = MediumA, nPorts =  nFluPorts);
+    redeclare final package Medium = MediumA, nPorts =  2);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -11,8 +11,6 @@ model ThermalZoneConvective "Simple thermal zone"
   parameter Boolean allowFlowReversal = false
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  parameter Integer nFluPorts = 2 "Number of fluid ports.";
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
 
@@ -42,9 +40,9 @@ model ThermalZoneConvective "Simple thermal zone"
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{150,110},{130,130}})));
+    annotation (Placement(transformation(extent={{150,130},{130,150}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{10,110},{30,130}})));
+    annotation (Placement(transformation(extent={{110,130},{130,150}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{20,-20},
             {-20,20}},
@@ -55,13 +53,13 @@ model ThermalZoneConvective "Simple thermal zone"
         origin={0,-160})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{30,110},{50,130}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
     QRooInt_flow) "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{100,50},{80,70}})));
+    annotation (Placement(transformation(extent={{100,80},{80,100}})));
   MixingVolumes.MixingVolumeMoistAir vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
@@ -69,14 +67,14 @@ model ThermalZoneConvective "Simple thermal zone"
     mSenFac=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2)
-    annotation (Placement(transformation(extent={{80,0},{100,20}})));
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=0.0) "mass flow rate"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{8,30},{28,50}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{130,120},{20,120}},
+      points={{130,140},{120,140}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -84,33 +82,34 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{40,90},{40,90},{60,90},{60,10},{80,10}},
+    annotation (Line(points={{50,120},{50,120},{60,120},{60,40},{80,40}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,60},{60,60},{60,10},{80,10}},
+    annotation (Line(points={{80,90},{60,90},{60,40},{80,40}},
                                                             color={191,0,0}));
-  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-22,90},{-40,90},{
-          -40,120},{20,120}},
+  connect(TOut1.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
+          {-40,140},{120,140}},
                           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TOut1.port, theCon.port_a)
-    annotation (Line(points={{0,90},{0,90},{20,90}}, color={191,0,0}));
+    annotation (Line(points={{-10,120},{-10,120},{30,120}},
+                                                     color={191,0,0}));
 
   connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-120,152},
-          {60,152},{60,140},{60,140},{60,10},{80,10}},            color={191,0,0}));
+          {60,152},{60,40},{80,40}},                              color={191,0,0}));
   connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-120,160},
-          {-120,160},{-48,160},{-48,-16},{88,-16},{88,0}},              color={0,
+          {-120,162},{-46,162},{-46,20},{88,20},{88,30}},               color={0,
           127,255}));
   connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-120,160},
-          {-54,160},{-54,-20},{92,-20},{92,0}},     color={0,127,255}));
-  connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,
-          -54},{0,-40},{120,-40},{120,120},{20,120}}, color={0,0,127}));
-  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,18},{78,18},
-          {40,18},{40,50},{21,50}},color={0,0,127}));
-  connect(TWat.y, vol.TWat) annotation (Line(points={{21,10},{40,10},{40,14},{
-          40,14.8},{78,14.8}},
+          {-54,160},{-54,14},{92,14},{92,30}},      color={0,127,255}));
+  connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,-120},
+          {0,-120},{120,-120},{120,140}},             color={0,0,127}));
+  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,48},{78,48},{
+          54,48},{54,80},{31,80}}, color={0,0,127}));
+  connect(TWat.y, vol.TWat) annotation (Line(points={{29,40},{29,40},{54,40},{54,
+          44},{54,44.8},{66,44.8},{78,44.8}},
                      color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
@@ -119,7 +118,21 @@ equation
           extent={{-22,-112},{28,-132}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
+        graphics={
+        Rectangle(
+          extent={{0,134},{116,4}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{76,134},{114,110}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Simplified model of
+a thermal zone.")}),
     Documentation(info="<html>
 <p>
 This example demonstrates how to export a model 
@@ -153,6 +166,5 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZoneConvective.mos"
-        "Simulate and plot", file="plot.mos" "plot.mos"),
-    experiment(StartTime=1.5552e+07, StopTime=15638400));
+        "Export FMU"));
 end ThermalZoneConvective;

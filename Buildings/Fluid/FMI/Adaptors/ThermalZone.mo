@@ -10,7 +10,7 @@ model ThermalZone
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(final min=2) "Number of fluid ports"
     annotation (Dialog(connectorSizing=false));
-    // fixme: this should be nPorts for consistency
+
   Interfaces.Inlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=true,
@@ -198,7 +198,7 @@ equation
     annotation (Line(points={{-1,-20},{-18,-20}}, color={0,0,127}));
   connect(con.T, bou.T_in) annotation (Line(points={{-58,64},{-58,64},{-44,64},{
           -44,74},{-12,74},{-12,52},{0,52}},color={0,0,127}));
-  connect(con[1:nFluPor].m_flow, multiSum.u[1:nFluPor]) annotation (Line(points={{-58,68},{-54,68},
+  connect(con[1:nPorts].m_flow, multiSum.u[1:nPorts]) annotation (Line(points={{-58,68},{-54,68},
           {-50,68},{-50,78},{4,78}},  color={0,0,127}));
   connect(multiSum.y, assEqu.u2) annotation (Line(points={{17.02,78},{26,78},{26,
           60},{30,60},{68,60}}, color={0,0,127}));

@@ -15,15 +15,15 @@ partial block HVACConvectiveMultipleZones
   Interfaces.Outlet fluPor[nZon, nPorts](
     redeclare each final package Medium = Medium,
     each final use_p_in = false,
-    each final allowFlowReversal = true) "Fluid connector"
+    each final allowFlowReversal = true) "Fluid connectors"
     annotation (Placement(transformation(extent={{160,130},{180,150}})));
 
   Modelica.Blocks.Interfaces.RealInput TRadZon[nZon](
     each final unit="K",
     each displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{200,32},{160,72}}),  iconTransformation(extent={{180,52},{
-            160,72}})));
+          extent={{200,32},{160,72}}),  iconTransformation(extent={{180,52},{160,
+            72}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
     "Radiant heat input into the zones (positive if heat gain)"
