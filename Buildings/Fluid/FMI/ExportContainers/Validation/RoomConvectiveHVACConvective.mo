@@ -1,4 +1,4 @@
-within Buildings.Fluid.FMI.Adaptors.Validation;
+within Buildings.Fluid.FMI.ExportContainers.Validation;
 model RoomConvectiveHVACConvective
   "Simple thermal zone with convective HVAC system."
  extends Modelica.Icons.Example;
@@ -18,8 +18,8 @@ the coupling of a convective thermal zone with an air-based HVAC system.
 </p>
 <p>
 The model which is validated is in 
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective
 </a>. 
 </p>
 </html>"), Icon(graphics={
@@ -118,8 +118,8 @@ Buildings.Examples.Tutorial.SpaceCooling.System3
 <p>
 The coupling is validated against the <code>refMod</code> 
 block which encapsulates the base case model 
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective.BaseCase\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective.BaseCase 
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective.BaseCase\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective.BaseCase 
 </a>. 
 </p>
 </html>", revisions="<html>
@@ -130,7 +130,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Validation/RoomConvectiveHVACConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.mos"
         "Simulate and plot"),
     experiment(StartTime=1.5552e+07, StopTime=15638400));
 end RoomConvectiveHVACConvective;

@@ -73,8 +73,8 @@ Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>
 shows how a simple thermal zone can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
 shows how such an FMU can be connected
 to an HVAC system that has signal flow.
 </p>
@@ -144,8 +144,8 @@ Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
 </p>
 <p>
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
 shows conceptually how such an FMU can then be connected to a HVAC system
 that has signal flow.
 </p>

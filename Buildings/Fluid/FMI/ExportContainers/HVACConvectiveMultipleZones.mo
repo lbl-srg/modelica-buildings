@@ -172,8 +172,8 @@ Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</
 shows how a simple HVAC system that serves two rooms can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
 shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>

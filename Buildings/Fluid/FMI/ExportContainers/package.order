@@ -3,6 +3,6 @@ HVACConvectiveSingleZone
 PartialTwoPort
 ReplaceableTwoPort
 ThermalZoneConvective
+ThermalZonesConvective
 Examples
 Validation
-ThermalZonesConvective
