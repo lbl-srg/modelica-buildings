@@ -156,7 +156,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Library with adaptors to export HVAC systems and thermal zones
                           as a Functional Mockup Unit for Model Exchange.<br/>
-                          This is to link Modelica with EnergyPlus, see
+                          This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
        </td>
        </tr>
