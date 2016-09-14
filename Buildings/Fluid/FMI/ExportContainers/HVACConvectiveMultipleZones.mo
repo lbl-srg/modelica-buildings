@@ -22,8 +22,8 @@ partial block HVACConvectiveMultipleZones
     each final unit="K",
     each displayUnit="degC") "Radiative temperature of the zone"
     annotation (Placement(transformation(
-          extent={{200,50},{160,90}}),  iconTransformation(extent={{180,70},{160,
-            90}})));
+          extent={{200,32},{160,72}}),  iconTransformation(extent={{180,52},{
+            160,72}})));
 
   Modelica.Blocks.Interfaces.RealOutput QGaiRad_flow[nZon](each final unit="W")
     "Radiant heat input into the zones (positive if heat gain)"
@@ -59,9 +59,9 @@ equation
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Text(
-          extent={{104,92},{154,72}},
+          extent={{104,76},{154,56}},
           lineColor={0,0,127},
-          textString="TRadZon"),
+          textString="TRad"),
         Text(
           extent={{100,-28},{150,-48}},
           lineColor={0,0,127},
