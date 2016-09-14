@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZoneConvective
   "Partial block to export a model of a thermal zone as an FMU"
-  // fixme: This should be called SingleThermalZoneConvective
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 

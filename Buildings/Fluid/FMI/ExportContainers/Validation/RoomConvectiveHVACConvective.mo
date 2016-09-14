@@ -9,14 +9,39 @@ model RoomConvectiveHVACConvective
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective rooCon
     "Block that encapsulates the thermal zone"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  model BaseCase "Base case model used for the validation of the FMI interfaces"
-    extends Buildings.Examples.Tutorial.SpaceCooling.System3(vol(energyDynamics=
+  BaseCase baseCase
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
+    annotation (Placement(transformation(extent={{20,50},{0,70}})));
+  Examples.FMUs.HVACConvectiveMultipleZones hvaCon2(
+    UA = 20E3,
+    QRooInt_flow = 2000,
+    fan2(each constantMassFlowRate=0))
+    "Block that encapsulates the HVAC system"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
+          rotation=0, extent={{20,-40},{40,-20}})));
+
+protected
+    model BaseCase "Base case model used for the validation of the FMI interfaces"
+    extends Buildings.Examples.Tutorial.SpaceCooling.System3(
+      vol(energyDynamics=
       Modelica.Fluid.Types.Dynamics.FixedInitial),
-      fan(nominalValuesDefineDefaultPressureCurve=true));
+      fan(nominalValuesDefineDefaultPressureCurve=true),
+      hex(dp1_nominal=200 + 10,
+          dp2_nominal=200 + 200));
     annotation (Documentation(info="<html>
 <p>
 This example is the base case model which is used to validate 
 the coupling of a convective thermal zone with an air-based HVAC system. 
+</p>
+<p>
+It is based on
+<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
+and it assign some parameters to have the same configuration as
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>.
 </p>
 <p>
 The model which is validated using this model is
@@ -85,19 +110,53 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective
             lineColor={0,0,255},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid)}));
-  end BaseCase;
-  BaseCase baseCase
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
-    annotation (Placement(transformation(extent={{20,50},{0,70}})));
-  Examples.FMUs.HVACConvectiveMultipleZones hvaCon2(
-    UA = 20E3,
-    QRooInt_flow = 2000,
-    fan2(each constantMassFlowRate=0))
-    "Block that encapsulates the HVAC system"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
-          rotation=0, extent={{20,-40},{40,-20}})));
+    end BaseCase;
+
+  model TwoRooms "Model with two simple thermal zones, each having three air flow paths"
+    extends
+      Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective(      nPorts=3);
+
+    Sources.Boundary_pT bou1(
+      redeclare package Medium = Medium,
+      nPorts=1)
+      "Boundary condition for zero mass flow of one exhaust stream for room 1"
+      annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
+    Sources.Boundary_pT bou2(
+      redeclare package Medium = Medium,
+      nPorts=1)
+      "Boundary condition for zero mass flow of one exhaust stream for room 2"
+      annotation (Placement(transformation(extent={{-142,82},{-122,102}})));
+
+  equation
+    connect(bou1.ports[1], theZonAda[1].ports[3]) annotation (Line(points={{-120,120},
+            {-112,120},{-112,160},{-102,160},{-112,160},{-120,160}},
+                                    color={0,127,255}));
+    connect(bou2.ports[1], theZonAda[2].ports[3]) annotation (Line(points={{-122,92},
+            {-106,92},{-106,160},{-120,160}},
+                                    color={0,127,255}));
+    annotation (Documentation(info="<html>
+<p>
+This model extends
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective</a>
+to implement two simple thermal zones, and, in addition, it also sets a pressure
+boundary condition for an exhaust air stream.
+This is needed because the validation model has an HVAC system with one supply
+and two exhaust air streams, one of which is configured to have zero mass flow rate
+for the validation. Because of the zero mass flow rate,
+adding a pressure boundary condition has no effect
+on the model as there is zero mass flow rate in this flow leg.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 14, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end TwoRooms;
+
 equation
 
   connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,38.75},
@@ -117,27 +176,45 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This example validates the coupling of a single convective thermal zone with an air-based HVAC system.
-The block <code>rooCoo</code> wraps the thermal zone model, and the block
-<code>hvaCoo</code> wraps the HVAC model.
-Both are encapsulated as input output blocks that can be exported as an FMU.
-These blocks are then connected to simulate the coupled response.
-The system model also contains an instance called <code>refMod</code>
-which contains the same model but without it being encapsulated in the
-FMU adaptor.
-</p>
-<p>
-The Modelica models of the thermal zone and the HVAC air-based system are taken from 
+This example validates the coupling of convective thermal zones with air-based HVAC systems.
+The model has the following three parts:
+<ul>
+<li>
+The block <code>baseCase</code> is the base case model, which is adapted from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3
-</a>.
-</p>
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+to have the same flow resistances as the models that are here validated.
+</li>
+<li>
+The blocks <code>hvaCon</code> and <code>rooCon</code> are FMU containers
+that contain an HVAC system for a single zone, and a thermal model of a single
+zone. Both models have the same configuration as <code>baseCase</code>,
+but they are implemented such that the HVAC system and the thermal zone
+are in separate blocks.
+These blocks could be exported as an FMU, but here they are connected to each
+other to validate whether they indeed give the same response as the base case
+<code>baseCase</code>.
+</li>
+<li>
+The blocks <code>hvaCon2</code> and <code>rooCon2</code> are again containers
+for HVAC and room models, but the models that they encapsulate are an HVAC system
+that serves two rooms, and a model of two thermal zones.
+Hence, this case tests whether the FMU containers for multiple HVAC systems, and
+for multiple thermal zones, are implemented correctly.
+</li>
+</ul>
 <p>
-The coupling is validated against the <code>refMod</code> 
-block which encapsulates the base case model 
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective.BaseCase\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective.BaseCase 
-</a>. 
+When the model is simulated, one sees that the air temperatures and the water
+vapor mass fraction in all four room models are the same.
+Note, however, that in Dymola 2017, the base case <code>basCas</code>
+reaches in the last cooling cylce of the day not quite the set point, and hence
+switches the cooling on time less than the other models.
+We attribute this to numerical approximation errors that causes a slightly different
+temperature trajectory.
+With Dymola 2017, we obtain the trajectories shown below.
+</p>
+<p align=\"center\">
+<img alt=\"Simulation results\" src=\"modelica://Buildings/Resources/Images/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.png\" border=\"1\" />
 </p>
 </html>", revisions="<html>
 <ul>

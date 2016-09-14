@@ -99,13 +99,11 @@ will be visible at the FMI interface.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective</a>
-(fixme: verify that example that is linked is implemented)
 shows how multiple simple thermal zones can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Validation.RoomsConvectiveHVACConvective\">
-Buildings.Fluid.FMI.Adaptors.Validation.RoomsConvectiveHVACConvective</a>
-(fixme: verify that example that is linked is implemented)
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
 shows how such an FMU can be connected
 to an HVAC system that has signal flow.
 </p>

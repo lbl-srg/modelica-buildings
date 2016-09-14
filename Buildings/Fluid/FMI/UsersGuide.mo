@@ -77,12 +77,12 @@ The main packages are as follows:
   </p>
   <p>
   To export multiple thermal zones, extend from
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.fixme\">
-  Buildings.Fluid.FMI.ExportContainers.fixme</a>
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective\">
+  Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective</a>
   and add the thermal zone models.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.fixme\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.fixme</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective</a>.
   </p>
   </td>
 </tr>

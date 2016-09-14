@@ -189,13 +189,15 @@ block HVACConvectiveMultipleZones
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,
-    m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
+    m_flow_nominal=0.5*mA_flow_nominal)
+                                    "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,50},{20,70}})));
   FixedResistances.FixedResistanceDpM resRet2(
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,
-    m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
+    m_flow_nominal=0.5*mA_flow_nominal)
+                                    "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,

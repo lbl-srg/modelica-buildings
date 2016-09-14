@@ -154,6 +154,19 @@ block HVACConvectiveSingleZone
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-180})));
+  FixedResistances.FixedResistanceDpM resSup1(
+    redeclare package Medium = MediumA,
+    linearized=true,
+    dp_nominal=10,
+    m_flow_nominal=mA_flow_nominal)
+                   "Fixed resistance for supply air inlet"
+    annotation (Placement(transformation(extent={{86,130},{106,150}})));
+  FixedResistances.FixedResistanceDpM resRet1(
+    redeclare package Medium = MediumA,
+    dp_nominal=200,
+    linearized=true,
+    m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
+    annotation (Placement(transformation(extent={{70,60},{50,80}})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -225,12 +238,16 @@ equation
           140}},                                   color={0,0,127}));
   connect(sinWat.ports[1], cooCoi.port_b1) annotation (Line(points={{-52,50},{
           -52,50},{-36,50},{-36,88},{-32,88}}, color={0,127,255}));
-  connect(fan.port_b, hvacAda.ports[1]) annotation (Line(points={{70,100},{84,100},
-          {90,100},{90,140},{120,140}}, color={0,127,255}));
-  connect(hex.port_a2, hvacAda.ports[2]) annotation (Line(points={{-70,84},{-60,
-          84},{-60,72},{96,72},{96,140},{120,140}}, color={0,127,255}));
   connect(con.u, hvacAda.TAirZon[1]) annotation (Line(points={{-114,10},{-124,10},
           {-124,-10},{124,-10},{124,128}}, color={0,0,127}));
+  connect(resSup1.port_b, hvacAda.ports[1]) annotation (Line(points={{106,140},{
+          113,140},{120,140}}, color={0,127,255}));
+  connect(resRet1.port_a, hvacAda.ports[2]) annotation (Line(points={{70,70},{110,
+          70},{110,140},{120,140}}, color={0,127,255}));
+  connect(fan.port_b, resSup1.port_a) annotation (Line(points={{70,100},{74,100},
+          {80,100},{80,140},{86,140}}, color={0,127,255}));
+  connect(resRet1.port_b, hex.port_a2) annotation (Line(points={{50,70},{2,70},{
+          -66,70},{-66,84},{-70,84}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(
@@ -242,9 +259,15 @@ equation
 <p>
 This example demonstrates how to export a model of an HVAC system
 that only provides convective cooling to a single thermal zone.
-The HVAC system is taken from
+The HVAC system is adapted from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
-Buildings.Examples.Tutorial.SpaceCooling.System3</a>
+Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
+but flow resistances have been added to have the same configuration as
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>.
+Having the same configuration is needed for the validation test
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>.
 </p>
 <p>
 The example extends from
