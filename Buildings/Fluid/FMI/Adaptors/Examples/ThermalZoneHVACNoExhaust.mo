@@ -18,9 +18,8 @@ model ThermalZoneHVACNoExhaust
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=VRoo*2*1.2/3600
     "Nominal mass flow rate";
 
-  Buildings.Fluid.FMI.Adaptors.ThermalZone con(
-    redeclare package Medium = MediumA, nFluPor=2)
-    "Adaptor for thermal zone"
+  Buildings.Fluid.FMI.Adaptors.ThermalZone con(redeclare package Medium =
+        MediumA, nPorts=2) "Adaptor for thermal zone"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Blocks.Sources.Pulse TSet(
     amplitude=4,
@@ -124,8 +123,8 @@ equation
                                   color={191,0,0}));
   connect(con.ports[2], vol.ports[2]) annotation (Line(points={{100,8},{120,8},{
           152,8},{152,20}},   color={0,127,255}));
-  connect(hvacAda.fluPor, con.fluPor) annotation (Line(points={{41,17},{57.5,17},
-          {57.5,18},{77.8,18}},     color={0,0,255}));
+  connect(hvacAda.fluPor, con.fluPor) annotation (Line(points={{41,10},{57.5,10},
+          {57.5,10},{77.8,10}},     color={0,0,255}));
   connect(hea.port_b, hvacAda.ports[1])
     annotation (Line(points={{-20,10},{20,10},{20,12}}, color={0,127,255}));
   connect(hvacAda.ports[2], hex.port_a2) annotation (Line(points={{20,8},{-2,8},

@@ -1,12 +1,12 @@
 within Buildings.Fluid.FMI.ExportContainers;
 partial block ThermalZoneConvective
   "Partial block to export a model of a thermal zone as an FMU"
-
+  // fixme: This should be called SingleThermalZoneConvective
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
-  parameter Integer nFluPor(min=1) "Number of fluid ports";
+  parameter Integer nPorts(min=1) "Number of fluid ports";
 
-  Interfaces.Inlet fluPor[nFluPor](
+  Interfaces.Inlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final use_p_in=false,
     each final allowFlowReversal=true) "Fluid connector" annotation (Placement(
@@ -15,7 +15,7 @@ partial block ThermalZoneConvective
 
   Adaptors.ThermalZone theZonAda(
     redeclare final package Medium = Medium,
-    final nFluPor=nFluPor)
+    final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 

@@ -8,18 +8,19 @@ model ThermalZone
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
   // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones
   // the fluid ports can not be assigned between the different zones by the user.
-  parameter Integer nFluPor(final min=2) "Number of fluid ports"
+  parameter Integer nPorts(final min=2) "Number of fluid ports"
     annotation (Dialog(connectorSizing=false));
     // fixme: this should be nPorts for consistency
-  Interfaces.Inlet fluPor[nFluPor](
+  Interfaces.Inlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
     each final allowFlowReversal=true,
     each final use_p_in=false) "Fluid connector" annotation (Placement(
-        transformation(extent={{-120,-10},{-100,10}}),iconTransformation(
+        transformation(extent={{-120,-10},{-100,10}}), iconTransformation(
           extent={{-142,-20},{-102,20}})));
 
-  Modelica.Fluid.Interfaces.FluidPorts_b ports[nFluPor](
-    redeclare each final package Medium = Medium) annotation (Placement(transformation(extent={{90,
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+    redeclare each final package Medium = Medium)
+    annotation (Placement(transformation(extent={{90,
             40},{110,-40}}), iconTransformation(extent={{90,40},{110,-40}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
@@ -45,34 +46,29 @@ protected
     Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 
-  Sources.MassFlowSource_T bou[nFluPor](
+  Sources.MassFlowSource_T bou[nPorts](
     each final nPorts=1,
     redeclare each final package Medium = Medium,
     each final use_T_in=true,
     each final use_C_in=Medium.nC > 0,
     each final use_X_in=Medium.nXi > 0,
-    each use_m_flow_in=true)
-    "Mass flow source"
+    each use_m_flow_in=true) "Mass flow source"
     annotation (Placement(transformation(extent={{2,38},{22,58}})));
 
-  Conversion.InletToAir con[nFluPor](
-    redeclare each final package Medium = Medium)
-    "Connector between FMI signals and real input and real outputs"
+  Conversion.InletToAir con[nPorts](redeclare each final package Medium =
+        Medium) "Connector between FMI signals and real input and real outputs"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemAir
     "Room air temperature sensor"
     annotation (Placement(transformation(extent={{72,-90},{52,-70}})));
 
-  BaseClasses.X_w_toX x_w_toX[nFluPor](
-    redeclare final package Medium = Medium) if
-       Medium.nXi > 0 "Conversion from X_w to X"
+  BaseClasses.X_w_toX x_w_toX[nPorts](redeclare final package Medium = Medium)
+    if Medium.nXi > 0 "Conversion from X_w to X"
     annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
 
-  Modelica.Blocks.Math.MultiSum multiSum(
-    final nu=nFluPor,
-    final k=fill(1, nFluPor))
-    "Sum of air mass flow rates"
+  Modelica.Blocks.Math.MultiSum multiSum(final nu=nPorts, final k=fill(1,
+        nPorts)) "Sum of air mass flow rates"
     annotation (Placement(transformation(extent={{4,72},{16,84}})));
 
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(
@@ -180,7 +176,7 @@ initial equation
    "The medium must have zero or one independent mass fraction Medium.nXi.");
 equation
 
-  for i in 1:nFluPor loop
+  for i in 1:nPorts loop
     connect(bou[i].ports[1], ports[i]) annotation (Line(points={{22,48},{22,48},
             {80,48},{80,0},{100,0}},
                      color={0,127,255}));
@@ -208,7 +204,7 @@ equation
           60},{30,60},{68,60}}, color={0,0,127}));
   connect(const.y, assEqu.u1) annotation (Line(points={{51,78},{60,78},{60,72},{
           68,72}}, color={0,0,127}));
-  for i in 1:nFluPor loop
+  for i in 1:nPorts loop
   connect(senTemAir.T, con[i].TAirZon) annotation (Line(points={{52,-80},{40,-80},
             {40,20},{-76,20},{-76,48}},
                                       color={0,0,127}));
