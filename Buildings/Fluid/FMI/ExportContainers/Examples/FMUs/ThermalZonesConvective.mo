@@ -1,9 +1,10 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-model ThermalZoneConvective
-  "Simple thermal zone that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
+model ThermalZonesConvective
+  "Simple multiple thermal zones that can be exported as an FMU"
+  extends Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective(
     redeclare final package Medium = MediumA,
-    nPorts =  2);
+    nPorts =  2,
+    nZon = 2);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
@@ -56,24 +57,35 @@ model ThermalZoneConvective
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1(G=10000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
-    QRooInt_flow) "Prescribed heat flow"
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea1(Q_flow=
+        QRooInt_flow) "Prescribed heat flow for internal gains"
     annotation (Placement(transformation(extent={{100,80},{80,100}})));
-  MixingVolumes.MixingVolumeMoistAir vol(
+  MixingVolumes.MixingVolume vol1(
     redeclare package Medium = MediumA,
+    nPorts = 2,
     m_flow_nominal=mA_flow_nominal,
     V=V,
     mSenFac=3,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Modelica.Blocks.Sources.Constant mWat_flow(k=0.0) "mass flow rate"
-    annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
-    annotation (Placement(transformation(extent={{8,30},{28,50}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2(
+                                                                   G=10000/30)
+    "Thermal conductance with the ambient"
+    annotation (Placement(transformation(extent={{30,-26},{50,-6}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea2(Q_flow=
+        QRooInt_flow) "Prescribed heat flow for internal gains"
+    annotation (Placement(transformation(extent={{100,-56},{80,-36}})));
+  MixingVolumes.MixingVolume vol2(
+    redeclare package Medium = MediumA,
+    nPorts = 2,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    mSenFac=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
+    annotation (Placement(transformation(extent={{80,-106},{100,-86}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{130,140},{120,140}},
@@ -83,34 +95,42 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{50,120},{50,120},{60,120},{60,40},{80,40}},
-                                                    color={191,0,0}));
-  connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{80,90},{60,90},{60,40},{80,40}},
-                                                            color={191,0,0}));
+  connect(theCon1.port_b, vol1.heatPort) annotation (Line(points={{50,120},{50,120},
+          {60,120},{60,40},{80,40}}, color={191,0,0}));
+  connect(preHea1.port, vol1.heatPort) annotation (Line(points={{80,90},{60,90},
+          {60,40},{80,40}}, color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
           {-40,140},{120,140}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TAirOut.port, theCon.port_a)
+  connect(TAirOut.port, theCon1.port_a)
     annotation (Line(points={{-10,120},{-10,120},{30,120}}, color={191,0,0}));
 
-  connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-120,152},
-          {60,152},{60,40},{80,40}},                              color={191,0,0}));
-  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-120,160},
-          {-120,162},{-46,162},{-46,20},{88,20},{88,30}},               color={0,
-          127,255}));
-  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-120,160},
-          {-54,160},{-54,14},{92,14},{92,30}},      color={0,127,255}));
-  connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,-120},
-          {0,-120},{120,-120},{120,140}},             color={0,0,127}));
-  connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,48},{78,48},{
-          54,48},{54,80},{31,80}}, color={0,0,127}));
-  connect(TWat.y, vol.TWat) annotation (Line(points={{29,40},{29,40},{54,40},{54,
-          44},{54,44.8},{66,44.8},{78,44.8}},
-                     color={0,0,127}));
+  connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,-134},
+          {-40,-134},{-40,140},{120,140}},            color={0,0,127}));
+  connect(theCon2.port_b, vol2.heatPort) annotation (Line(points={{50,-16},{50,-16},
+          {60,-16},{60,-96},{80,-96}}, color={191,0,0}));
+  connect(preHea2.port, vol2.heatPort) annotation (Line(points={{80,-46},{60,-46},
+          {60,-96},{80,-96}}, color={191,0,0}));
+  connect(TAirOut.port, theCon2.port_a) annotation (Line(points={{-10,120},{-10,
+          120},{0,120},{0,-16},{30,-16}}, color={191,0,0}));
+  connect(vol1.ports[1], theZonAda[1].ports[1]) annotation (Line(points={{88,30},
+          {88,30},{88,22},{88,24},{-48,24},{-48,160},{-120,160}},
+                                           color={0,127,255}));
+  connect(vol1.ports[2], theZonAda[1].ports[2]) annotation (Line(points={{92,30},
+          {92,30},{92,20},{-52,20},{-52,160},{-120,160}},
+                                           color={0,127,255}));
+  connect(vol2.ports[1], theZonAda[2].ports[1]) annotation (Line(points={{88,-106},
+          {90,-106},{90,-108},{90,-108},{90,-108},{-76,-108},{-76,160},{-120,160}},
+                                           color={0,127,255}));
+  connect(vol2.ports[2], theZonAda[2].ports[2]) annotation (Line(points={{92,-106},
+          {90,-106},{90,-112},{-80,-112},{-80,160},{-120,160}},
+                                           color={0,127,255}));
+  connect(vol1.heatPort, theZonAda[1].heaPorAir) annotation (Line(points={{80,
+          40},{60,40},{60,152},{-120,152}}, color={191,0,0}));
+  connect(vol2.heatPort, theZonAda[2].heaPorAir) annotation (Line(points={{80,
+          -96},{60,-96},{60,4},{10,4},{10,152},{-120,152}}, color={191,0,0}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
@@ -121,25 +141,40 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
         graphics={
         Rectangle(
-          extent={{0,134},{116,4}},
+          extent={{20,136},{112,10}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{76,134},{114,110}},
+          extent={{68,132},{106,108}},
           pattern=LinePattern.None,
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           fontSize=12,
-          textString="Simplified model of
+          textString="Very simplified
+model of
+a thermal zone."),
+        Rectangle(
+          extent={{20,0},{112,-126}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{68,-4},{106,-28}},
+          pattern=LinePattern.None,
+          lineColor={0,0,127},
+          horizontalAlignment=TextAlignment.Left,
+          fontSize=12,
+          textString="Very simplified
+model of
 a thermal zone.")}),
     Documentation(info="<html>
 <p>
 This example demonstrates how to export a model 
-that contains one thermal zone with convective heat input from the
-HVAC system only. The thermal zone is connected to an adaptor so that
-it can be coupled 
-to an air-based HVAC system. The thermal zone is
+that contains two thermal zones with convective heat input from the
+HVAC system only. The thermal zones are connected to an adaptor so that
+they can be coupled 
+to an air-based HVAC system. The thermal zone is 
 taken from 
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3
@@ -147,12 +182,11 @@ Buildings.Examples.Tutorial.SpaceCooling.System3
 </p>
 <p>
 The example extends from 
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
-</a> 
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective</a> 
 which provides 
 the input and output signals that are needed to interface 
-the acausal thermal zone model with causal connectors of FMI. 
+the acausal thermal zone models with causal connectors of FMI. 
 The instance <code>theZonAda</code> is the thermal zone adaptor
 that contains on the right a fluid port, and on 
 the left signal ports which are then used to connect at 
@@ -162,11 +196,11 @@ exposed at the FMU interface.
 </html>", revisions="<html>
 <ul>
 <li>
-April 28, 2016, by Thierry S. Nouidui:<br/>
+September 14, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZoneConvective.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/ThermalZonesConvective.mos"
         "Export FMU"));
-end ThermalZoneConvective;
+end ThermalZonesConvective;

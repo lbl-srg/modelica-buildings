@@ -4,6 +4,7 @@ partial block ThermalZoneConvective
   // fixme: This should be called SingleThermalZoneConvective
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
+
   parameter Integer nPorts(min=1) "Number of fluid ports";
 
   Interfaces.Inlet fluPor[nPorts](

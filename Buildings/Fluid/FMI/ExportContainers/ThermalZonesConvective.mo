@@ -4,6 +4,9 @@ partial block ThermalZonesConvective
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
+
+  parameter Integer nZon(min=1)
+    "Number of thermal zones in this container";
   parameter Integer nPorts(min=1)
     "Number of fluid ports for each zone (must be the same for every zone)";
 
