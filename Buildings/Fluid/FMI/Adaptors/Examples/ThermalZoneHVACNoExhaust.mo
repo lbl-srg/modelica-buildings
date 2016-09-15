@@ -174,15 +174,15 @@ and
 Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
-On the left hand side is an HVAC system with supply and return air stream,
-and a forced exhaust air stream. These are all connected to the adaptor.
+On the left hand side is an HVAC system with supply and return air stream.
+These are all connected to the adaptor.
 On the right of the adaptor is a simple room model, approximated by a volume with
 first order dynamics and heat loss to the ambient.
 </p>
 <p>
 Note that the there is zero net air flow into and out of the volume <code>vol</code>
 because the adaptor <code>hvacAda</code> conserves mass. Hence, any infiltration or
-exfiltration, as is done with the flow path that contains <code>exh</code>, needs to be
+exfiltration needs to be
 connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol</code>.
 </p>
 </html>", revisions="<html>
