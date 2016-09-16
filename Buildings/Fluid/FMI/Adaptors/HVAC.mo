@@ -7,7 +7,7 @@ model HVAC
      annotation (choicesAllMatching=true);
 
   // Don't use annotation(Dialog(connectorSizing=true)) for nPorts because
-  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZones
+  // otherwise, in Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZones
   // the fluid ports can not be assigned between the different zones by the user.
   parameter Integer nPorts(min=2) "Number of ports"
       annotation (Dialog(connectorSizing=false));

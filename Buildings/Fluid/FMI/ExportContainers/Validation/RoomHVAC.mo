@@ -3,7 +3,7 @@ model RoomHVAC
   "Validation model for connected single thermal zone and HVAC system"
  extends Modelica.Icons.Example;
 
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone hvaCon
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone rooCon
@@ -13,7 +13,7 @@ model RoomHVAC
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
     annotation (Placement(transformation(extent={{20,50},{0,70}})));
-  Examples.FMUs.HVACThermalZones hvaCon2(
+  Examples.FMUs.HVACZones hvaCon2(
     UA = 20E3,
     QRooInt_flow = 2000,
     fan2(each constantMassFlowRate=0))
@@ -40,8 +40,8 @@ It is based on
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
 and it assign some parameters to have the same configuration as
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
 </p>
 <p>
 The model which is validated using this model is

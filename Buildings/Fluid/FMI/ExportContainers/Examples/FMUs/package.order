@@ -1,7 +1,7 @@
 Fan
 FixedResistanceDpM
-HVACThermalZone
-HVACThermalZones
+HVACZone
+HVACZones
 HeaterCooler_T
 HeaterCooler_u
 Humidifier_u
