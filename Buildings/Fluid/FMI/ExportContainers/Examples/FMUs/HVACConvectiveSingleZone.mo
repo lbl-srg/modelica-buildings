@@ -170,7 +170,7 @@ block HVACConvectiveSingleZone
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
-  connect(zero.y, QGaiCon_flow)
+  connect(zero.y, QGaiSenCon_flow)
     annotation (Line(points={{121,-90},{180,-90}},         color={0,0,127}));
   connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -140},{180,-140}},

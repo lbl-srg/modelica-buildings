@@ -30,7 +30,7 @@ partial block HVACConvectiveMultipleZones
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
         iconTransformation(extent={{160,-50},{180,-30}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QGaiCon_flow[nZon](each final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QGaiSenCon_flow[nZon](each final unit="W")
     "Convective sensible heat input into the zones (positive if heat gain)"
     annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
         iconTransformation(extent={{160,-100},{180,-80}})));
@@ -192,7 +192,7 @@ for zone <i>1</i>, but this causes no overhead if they are not connected.
 </p>
 <p>
 The conversion between the fluid ports and signal ports is done
-in the thermal zone adapter <code>theZonAda</code>.
+in the HVAC adapter <code>hvacAda</code>.
 This adapter has a vector of fluid ports called <code>ports</code>.
 The supply and return air ducts, including any resistance model for the inlet
 diffusor or exhaust grill, need to be connected to these ports.
