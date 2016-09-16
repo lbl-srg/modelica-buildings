@@ -151,7 +151,7 @@ equation
           rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
         graphics={Text(
-          extent={{104,134},{118,128}},
+          extent={{104,152},{118,146}},
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>

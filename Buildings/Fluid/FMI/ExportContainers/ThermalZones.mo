@@ -83,7 +83,11 @@ equation
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
+        graphics={Text(
+          extent={{-118,172},{-104,166}},
+          lineColor={0,0,127},
+          textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
 <p>
 Model that is used as a container for a multiple thermal zones
