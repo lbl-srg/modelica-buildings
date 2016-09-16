@@ -67,13 +67,13 @@ and add your thermal zone. By extending from this model, the top-level
 signal connectors on the left stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
 shows how a simple thermal zone can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
 to an HVAC system that has signal flow.
 </p>
@@ -138,13 +138,13 @@ for the ports <code>fluPor</code> and <code>ports</code>.
 <p>
 All <code>nPorts</code>
 <code>ports[1:nPorts]</code> need to be connected as demonstrated in the example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>.
 </p>
 <p>
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows conceptually how such an FMU can then be connected to a HVAC system
 that has signal flow.
 </p>

@@ -120,13 +120,13 @@ and add your HVAC system. By extending from this model, the top-level
 signal connectors on the right stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone</a>
 shows how a simple HVAC system can be implemented and exported as
 an FMU.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
-Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
+Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC</a>
 shows how such an FMU can be connected
 to a room model that has signal flow.
 </p>
@@ -184,8 +184,8 @@ all equal, while for a stratified room model, they can be different.
 
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone</a>
 for a model that uses this model.
 </p>
 <p>

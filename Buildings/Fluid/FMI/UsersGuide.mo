@@ -54,8 +54,8 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
   and add the HVAC system.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone</a>.
   </p>
   <p>
   To export an HVAC system that serves multiple thermal zones, extend from
@@ -63,8 +63,8 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.HVACZones</a>
   and add the HVAC system.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveMultipleZones</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZones\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZones</a>.
   </p>
   <p>
   To export a single thermal zone, extend from
@@ -72,8 +72,8 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.ThermalZone</a>
   and add the thermal zone.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>.
   </p>
   <p>
   To export multiple thermal zones, extend from
@@ -81,8 +81,8 @@ The main packages are as follows:
   Buildings.Fluid.FMI.ExportContainers.ThermalZones</a>
   and add the thermal zone models.<br/>
   See
-  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective\">
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective</a>.
+  <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>.
   </p>
   </td>
 </tr>
@@ -150,8 +150,8 @@ can do so by extending the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
 Buildings.Fluid.FMI.ExportContainers.HVACZone</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACThermalZone</a>
 illustrates how this can be accomplished.<br/>
 Similar export containers and examples are implemented for HVAC systems that serve multiple thermal zones.
 </p>
@@ -160,8 +160,8 @@ Conversely, to export a thermal zone, users can extend the partial block
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
 Buildings.Fluid.FMI.ExportContainers.ThermalZone</a>.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
 illustrates how this can be accomplished.<br/>
 Similar export containers and examples are implemented for models of multiple thermal zones.
 </p>
