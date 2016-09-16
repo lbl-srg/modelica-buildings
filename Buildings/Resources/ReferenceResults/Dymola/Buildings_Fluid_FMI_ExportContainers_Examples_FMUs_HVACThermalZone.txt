@@ -1,4 +1,4 @@
-last-generated=2016-06-30
+last-generated=2016-09-15
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -24,7 +24,6 @@ statistics-fmu-dependencies=
     "weaBus.TBlaSky": [
       "TRadZon"
     ], 
-    "QGaiCon_flow": [], 
     "weaBus.TDewPoi": [], 
     "EventCounter": [], 
     "TOut": [], 
@@ -41,6 +40,7 @@ statistics-fmu-dependencies=
       "TRadZon"
     ], 
     "fluPor[2].forward.X_w": [], 
+    "QGaiSenCon_flow": [], 
     "weaBus.lon": [], 
     "weaBus.HGloHor": [
       "TRadZon"
@@ -106,7 +106,6 @@ statistics-fmu-dependencies=
       "TRadZon", 
       "weaDat.pAtm"
     ], 
-    "weaBus.solTim": [], 
     "weaBus.lat": [], 
     "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
@@ -149,9 +148,7 @@ statistics-fmu-dependencies=
       "fan.riseTime", 
       "fan.m_flow_start"
     ], 
-    "QGaiCon_flow": [
-      "zero.k"
-    ], 
+    "weaBus.solTim": [], 
     "fan.filter.x[2]": [
       "fan.m_flow_start"
     ], 
@@ -269,6 +266,9 @@ statistics-fmu-dependencies=
       "cooCoi.hA.n_a", 
       "cooCoi.ele[1].mas.T", 
       "weaDat.pAtm"
+    ], 
+    "QGaiSenCon_flow": [
+      "zero.k"
     ], 
     "der(cooCoi.ele[3].vol2.dynBal.U)": [
       "TRadZon", 

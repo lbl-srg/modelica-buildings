@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "rooCon.vol.T",
-    "baseCase.vol.T",
-    "rooCon.vol.X_w"
-  };

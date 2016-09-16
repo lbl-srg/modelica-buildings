@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "conAir.m_flow",
-    "conAir.T",
-    "souRev.outlet.backward.T"
-  };
