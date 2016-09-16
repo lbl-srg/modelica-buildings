@@ -1,8 +1,8 @@
-HVACConvectiveMultipleZones
-HVACConvectiveSingleZone
+HVACZone
+HVACZones
 PartialTwoPort
 ReplaceableTwoPort
-ThermalZoneConvective
-ThermalZonesConvective
+ThermalZone
+ThermalZones
 Examples
 Validation

@@ -163,8 +163,8 @@ Buildings.Fluid.FMI.Interfaces.Outlet</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVACConvective\">
-Buildings.Fluid.FMI.Adaptors.HVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
+Buildings.Fluid.FMI.Adaptors.HVAC</a>
 for its usage.
 </p>
 </html>", revisions="<html>

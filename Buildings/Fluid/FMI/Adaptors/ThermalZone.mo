@@ -356,8 +356,8 @@ The model has no pressure drop.
 <h4>Typical use</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZone
 </a>
 for a model that uses this model.
 </p>

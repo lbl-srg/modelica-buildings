@@ -5,8 +5,8 @@ block ThermalZoneConvectiveAir3 "Validation of simple thermal zone"
   annotation (Documentation(info="<html>
 <p>
 This example validates that 
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZone
 </a> 
 exports correctly as an FMU.
 </p>

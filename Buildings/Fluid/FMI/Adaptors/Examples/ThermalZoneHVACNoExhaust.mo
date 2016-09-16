@@ -5,7 +5,7 @@ model ThermalZoneHVACNoExhaust
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
-  Buildings.Fluid.FMI.Adaptors.HVACConvective hvacAda(
+  Buildings.Fluid.FMI.Adaptors.HVAC hvacAda(
     redeclare final package Medium=MediumA, nPorts=2)
     "Adaptor for an HVAC system that is exposed through an FMI interface"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
@@ -167,8 +167,8 @@ also implemented in Modelica)")}),
 <p>
 This example demonstrates how to
 use the adaptors
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVACConvective\">
-Buildings.Fluid.FMI.Adaptors.HVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
+Buildings.Fluid.FMI.Adaptors.HVAC</a>
 and
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
 Buildings.Fluid.FMI.Adaptors.ThermalZone</a>

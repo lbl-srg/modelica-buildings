@@ -1,27 +1,36 @@
 within Buildings.Fluid.FMI.ExportContainers;
-partial block ThermalZoneConvective
-  "Partial block to export a model of a thermal zone as an FMU"
+partial block ThermalZones
+  "Partial block to export a model of multiple thermal zones as an FMU"
+
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Integer nPorts(min=1) "Number of fluid ports";
+  parameter Integer nZon(min=1)
+    "Number of thermal zones in this container";
+  parameter Integer nPorts(min=1)
+    "Number of fluid ports for each zone (must be the same for every zone)";
 
-  Interfaces.Inlet fluPor[nPorts](
+
+  Interfaces.Inlet fluPor[nZon, nPorts](
     redeclare each final package Medium = Medium,
     each final use_p_in=false,
-    each final allowFlowReversal=true) "Fluid connector" annotation (Placement(
+    each final allowFlowReversal=true) "Fluid connectors" annotation (Placement(
         transformation(extent={{-180,150},{-160,170}}), iconTransformation(
           extent={{-180,150},{-160,170}})));
 
-  Adaptors.ThermalZone theZonAda(
-    redeclare final package Medium = Medium,
-    final nPorts=nPorts)
+  Adaptors.ThermalZone theZonAda[nZon](
+    redeclare each final package Medium = Medium,
+    each final nPorts=nPorts)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 equation
-  connect(theZonAda.fluPor, fluPor) annotation (Line(points={{-142.2,160},{
+  for iZon in 1:nZon loop
+    for iPor in 1:nPorts loop
+      connect(theZonAda[iZon].fluPor[iPor], fluPor[iZon, iPor]) annotation (Line(points={{-142.2,160},{
           -142.2,160},{-144,160},{-170,160}},color={0,0,255}));
+    end for;
+  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={Rectangle(
           extent={{-160,180},{160,-140}},
@@ -29,7 +38,7 @@ equation
           fillColor={255,255,255},
           lineColor={0,0,0}),
         Rectangle(
-          extent={{-74,-76},{92,114}},
+          extent={{-76,40},{86,152}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
@@ -38,38 +47,59 @@ equation
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{-62,100},{80,-62}},
+          extent={{-68,140},{74,52}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
         Rectangle(
-          extent={{80,72},{92,-32}},
+          extent={{74,112},{86,76}},
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{84,72},{88,-32}},
+          extent={{78,112},{82,76}},
+          lineColor={95,95,95},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-76,-104},{86,8}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-68,-4},{74,-92}},
+          pattern=LinePattern.None,
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Sphere),
+        Rectangle(
+          extent={{74,-32},{86,-68}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,-32},{82,-68}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>
-Model that is used as a container for a single thermal zone
-that is to be exported as an FMU.
+Model that is used as a container for a multiple thermal zones
+that are to be exported as an FMU.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 To use this model as a container for an FMU, extend
 from this model, rather than instantiate it,
-and add your thermal zone. By extending from this model, the top-level
+and add your thermal zones. By extending from this model, the top-level
 signal connectors on the left stay at the top-level, and hence
 will be visible at the FMI interface.
 The example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>
-shows how a simple thermal zone can be implemented and exported as
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZonesConvective</a>
+shows how multiple simple thermal zones can be implemented and exported as
 an FMU.
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomConvectiveHVACConvective\">
@@ -80,18 +110,19 @@ to an HVAC system that has signal flow.
 
 <p>
 The conversion between the fluid ports and signal ports is done
-in the thermal zone adapter <code>theZonAda</code>.
-This adapter has a vector of fluid ports called <code>ports[nPorts]</code>
-which needs to be connected to the air volume of the thermal zone.
-At this port, air exchanged between the thermal zone, the HVAC system
+in the thermal zone adapter <code>theZonAda[1:nZon]</code>.
+This adapter has a vector of fluid ports called <code>ports[1:nPorts]</code>
+which needs to be connected to the air volume of the thermal zones.
+At this port, air exchanged between the thermal zones, the HVAC system
 and any infiltration flow paths.
 </p>
 <p>
-This model has input signals <code>fluPor[1:nPorts]</code>, which carry
-the mass flow rate for each flow that is connected to <code>ports</code>, together with its
+This model has input signals <code>fluPor[1:nZon, 1:nPorts]</code> which carry
+the mass flow rate for each flow that is connected to <code>ports[1:nPorts]</code>
+for the respective zone, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
 air), and trace substances. These quantities are always as if the flow
-enters the room, even if the flow is zero or negative.
+enters the respective room, even if the flow is zero or negative.
 If a medium has no moisture, e.g., if <code>Medium.nXi=0</code>, or
 if it has no trace substances, e.g., if <code>Medium.nC=0</code>, then
 the output signal for these properties are removed.
@@ -120,24 +151,30 @@ Buildings.Fluid.MixingVolumes</a>
 implement such a <i>max(&middot;, &middot;)</i> function.
 </p>
 <p>
-The zone air temperature,
-the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
+For each zone, its air temperature,
+water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>)
 and trace substances (unless <code>Medium.nC=0</code>)
 can be obtained from the outupt connector
-<code>fluPor.backward</code>.
+<code>fluPor[1:nZon].backward</code>.
 These signals are the same as the inflowing fluid stream(s)
-at the port <code>theAdaZon.ports[1:nPorts]</code>.
-The fluid connector <code>ports[1:nPorts]</code> has a prescribed mass flow rate, but
+at the port <code>theAdaZon[1:nZon].ports[1:nPorts]</code>.
+The fluid connector <code>ports</code> has a prescribed mass flow rate, but
 it does not set any pressure.
 </p>
 <p>
 This model has a user-defined parameter <code>nPorts</code>
 which sets the number of fluid ports, which in turn is used
 for the ports <code>fluPor</code> and <code>ports</code>.
+All zones must have the same number of fluid ports <code>nPorts</code>.
+However, remember that in Modelica, fluid connectors need not be connected.
+Hence, if a zone \"A\" has two supply air inlets and one return air, but a zone \"B\" has
+only one supply air inlet and one return air, then set <code>nPorts=2</code>, but leave
+one fluid connector for zone \"B\" unconnected, in which case no mass would flow through
+this connector.
 </p>
 <p>
 All <code>nPorts</code>
-<code>ports[1:nPorts]</code> need to be connected as demonstrated in the example
+<code>ports</code> need to be connected as demonstrated in the example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZoneConvective</a>.
 </p>
@@ -160,4 +197,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ThermalZoneConvective;
+end ThermalZones;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZonesConvective
   "Simple multiple thermal zones that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective(
+  extends Buildings.Fluid.FMI.ExportContainers.ThermalZones(
     redeclare final package Medium = MediumA,
     nPorts =  2,
     nZon = 2);
@@ -175,8 +175,8 @@ Buildings.Examples.Tutorial.SpaceCooling.System3
 </p>
 <p>
 The example extends from 
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZonesConvective</a> 
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZones\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZones</a> 
 which provides 
 the input and output signals that are needed to interface 
 the acausal thermal zone models with causal connectors of FMI. 

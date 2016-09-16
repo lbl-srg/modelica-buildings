@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model HVACConvective
+model HVAC
   "Adaptor for connecting an HVAC system to signal ports which then can be exposed at an FMI interface"
 
   replaceable package Medium =
@@ -322,8 +322,8 @@ in models that are connected to <code>ports</code>.
 <h4>Typical use and important parameters</h4>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
 for a model that uses this model.
 </p>
 </html>", revisions="<html>
@@ -340,4 +340,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end HVACConvective;
+end HVAC;

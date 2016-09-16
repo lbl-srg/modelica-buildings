@@ -7,8 +7,8 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates that
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
 exports correctly as an FMU.
 </p>
 </html>", revisions="<html>

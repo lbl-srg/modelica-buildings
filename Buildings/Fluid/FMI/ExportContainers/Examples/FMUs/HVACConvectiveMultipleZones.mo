@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACConvectiveMultipleZones
   "Simple convective only HVAC system for two zones that can be exported as an FMU"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones(
+  extends Buildings.Fluid.FMI.ExportContainers.HVACZones(
     redeclare final package Medium = MediumA,
     nZon = 2,
     nPorts = 3);
@@ -322,8 +322,8 @@ except that is serves two thermal zones rather than one.
 </p>
 <p>
 The example extends from
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZones\">
+Buildings.Fluid.FMI.ExportContainers.HVACZones
 </a>
 which provides the input and output signals that are needed to interface
 the acausal HVAC system model with causal connectors of FMI.

@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers;
-partial block HVACConvectiveSingleZone
+partial block HVACZone
   "Partial block to export an HVAC system that has no radiative component and that serves multiple zones as an FMU"
 
   replaceable package Medium =
@@ -35,7 +35,7 @@ partial block HVACConvectiveSingleZone
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
         iconTransformation(extent={{160,-150},{180,-130}})));
 
-  Adaptors.HVACConvective hvacAda(redeclare final package Medium = Medium)
+  Adaptors.HVAC hvacAda(redeclare final package Medium = Medium)
     "Adapter between the HVAC supply and return air, and its connectors for the FMU"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
 
@@ -191,8 +191,8 @@ for a model that uses this model.
 <p>
 For models that multiple thermal zones connected to the HVAC system,
 use the model
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveMultipleZones</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZones\">
+Buildings.Fluid.FMI.ExportContainers.HVACZones</a>.
 </p>
 <h4>Assumption and limitations</h4>
 <p>
@@ -224,4 +224,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HVACConvectiveSingleZone;
+end HVACZone;

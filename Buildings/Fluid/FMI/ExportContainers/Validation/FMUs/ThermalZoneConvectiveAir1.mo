@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block ThermalZoneConvectiveAir1 "Validation of simple thermal zone"
-  extends Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective(
+  extends Buildings.Fluid.FMI.ExportContainers.ThermalZone(
     redeclare package Medium = Buildings.Media.Air,
     nPorts =  2);
 
@@ -103,8 +103,8 @@ equation
     Documentation(info="<html>
 <p>
 This example validates that 
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective\">
-Buildings.Fluid.FMI.ExportContainers.ThermalZoneConvective
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
+Buildings.Fluid.FMI.ExportContainers.ThermalZone
 </a> 
 exports correctly as an FMU.
 </p>

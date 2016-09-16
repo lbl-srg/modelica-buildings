@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Validation.FMUs;
 block HVACConvectiveSingleZoneAir1 "Validation model for the convective HVAC system"
-  extends Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone(
+  extends Buildings.Fluid.FMI.ExportContainers.HVACZone(
     redeclare package Medium = Buildings.Media.Air,
     hvacAda(nPorts=2));
 
@@ -50,8 +50,8 @@ annotation (
     Documentation(info="<html>
 <p>
 This example validates that
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone\">
-Buildings.Fluid.FMI.ExportContainers.HVACConvectiveSingleZone</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.HVACZone\">
+Buildings.Fluid.FMI.ExportContainers.HVACZone</a>
 exports correctly as an FMU.
 </p>
 </html>", revisions="<html>

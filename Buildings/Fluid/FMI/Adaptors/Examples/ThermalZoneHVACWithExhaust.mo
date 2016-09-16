@@ -30,8 +30,8 @@ equation
 <p>
 This example demonstrates how to
 use the adaptors
-<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVACConvective\">
-Buildings.Fluid.FMI.Adaptors.HVACConvective</a>
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.HVAC\">
+Buildings.Fluid.FMI.Adaptors.HVAC</a>
 and
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
 Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
