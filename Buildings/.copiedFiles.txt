@@ -479,7 +479,6 @@ Buildings/Fluid/MixingVolumes/package.mo
 Buildings/Fluid/MixingVolumes/package.order
 Buildings/Fluid/Movers/BaseClasses/Characteristics/efficiency.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/efficiencyParameters.mo
-Buildings/Fluid/Movers/BaseClasses/Characteristics/flowApproximationAtOrigin.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParameters.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParametersInternal.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/package.mo
@@ -547,6 +546,7 @@ Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
+Buildings/Fluid/Movers/Validation/PumpCurveDerivatives.mo
 Buildings/Fluid/Movers/Validation/Pump_Nrpm_stratos.mo
 Buildings/Fluid/Movers/Validation/Pump_stratos.mo
 Buildings/Fluid/Movers/Validation/SpeedControlled_Nrpm.mo

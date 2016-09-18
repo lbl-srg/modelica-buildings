@@ -178,7 +178,7 @@ protected
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
     nPorts=2) "Fluid volume for dynamic model"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
@@ -215,7 +215,8 @@ protected
     addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
+    final alpha=0) if
     addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
@@ -230,7 +231,7 @@ protected
 
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
+    annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
 
   Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of mover"
@@ -373,11 +374,11 @@ initial equation
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-34,-94},{-40,-94},{-40,10},{-20,10}},
+      points={{-34,-94},{-60,-94},{-60,10},{-70,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-20,10},{-20,10},{-40,10},{-40,-100},{-60,-100}},
+      points={{-70,10},{-70,10},{-60,10},{-60,-100}},
       color={191,0,0}));
   connect(preSou.port_b, port_b) annotation (Line(
       points={{60,0},{100,0}},
@@ -406,13 +407,6 @@ equation
           44,-72},{44,-70},{41,-70}},
                              color={0,0,127}));
 
-  connect(port_a, senMasFlo.port_a)
-    annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
-  connect(senMasFlo.port_b, vol.ports[1])
-    annotation (Line(points={{-50,0},{-12,0}},color={0,127,255}));
-  connect(vol.ports[2], preSou.port_a)
-    annotation (Line(points={{-8,0},{-8,0},{40,0}},
-                                                  color={0,127,255}));
   connect(senRelPre.port_b, preSou.port_a) annotation (Line(points={{43,-20.5},{
           20,-20.5},{20,0},{40,0}},
                                color={0,127,255}));
@@ -430,8 +424,8 @@ equation
           -74},{18,-74}}, color={0,0,127}));
   connect(rho_inlet.y,eff. rho) annotation (Line(points={{-69,-64},{-69,-64},{-34,
           -64}},                          color={0,0,127}));
-  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-60,
-          -54},{-60,-11}},                         color={0,0,127}));
+  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-34,
+          -54},{-40,-54},{-40,-11}},               color={0,0,127}));
   connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,-50},
           {90,80},{110,80}}, color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
@@ -443,6 +437,12 @@ equation
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,50},
           {110,50}}, color={0,0,127}));
+  connect(port_a, vol.ports[1])
+    annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
+  connect(vol.ports[2], senMasFlo.port_a)
+    annotation (Line(points={{-82,0},{-82,0},{-50,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, preSou.port_a)
+    annotation (Line(points={{-30,0},{40,0},{40,0}}, color={0,127,255}));
    annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
@@ -539,6 +539,15 @@ This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/498\">#498</a>.
 </li>
 <li>
+June 16, 2016, by Filip Jorissen:<br/>
+Switched position of mixing volume and mass flow rate sensor.
+This is to have a consistent operating point tuple
+of <code>dp</code> and <code>m_flow</code> when having
+compressible flow.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">#458</a>.
+</li>
+<li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.
 This model now includes code for both speed and flow prescribed models,
@@ -588,6 +597,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialFlowMachine;

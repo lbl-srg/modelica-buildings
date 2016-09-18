@@ -2,10 +2,14 @@ within Buildings.Fluid.Movers.Validation;
 model ControlledFlowMachine "Fans with different control signals as input"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine(
-    fan4(addPowerToMedium=false, filteredSpeed=false),
-    fan1(addPowerToMedium=false, filteredSpeed=false),
-    fan2(addPowerToMedium=false, filteredSpeed=false),
-    fan3(addPowerToMedium=false, filteredSpeed=false));
+    fan4(addPowerToMedium=false, filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan1(addPowerToMedium=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan2(addPowerToMedium=false, filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    fan3(addPowerToMedium=false, filteredSpeed=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   annotation (
 experiment(StopTime=600),
