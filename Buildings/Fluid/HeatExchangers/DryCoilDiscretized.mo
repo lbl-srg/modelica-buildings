@@ -56,15 +56,17 @@ model DryCoilDiscretized
      annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
   parameter Real ReC_2=4000
     "Reynolds number where transition to turbulent starts inside ducts"
-     annotation(Dialog(enable = use_dh2 and not linearized2, tab="Advanced"));
+     annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Advanced"));
   parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct"
       annotation(Dialog(group = "Geometry"));
   parameter Modelica.SIunits.Time tau1=20
     "Time constant at nominal flow for medium 1"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_1));
+    annotation (Dialog(group="Nominal condition",
+                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.Time tau2=1
     "Time constant at nominal flow for medium 2"
-    annotation (Dialog(group="Nominal condition", enable=not steadyState_2));
+    annotation (Dialog(group="Nominal condition",
+                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.SIunits.Time tau_m=20
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
@@ -347,6 +349,12 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a

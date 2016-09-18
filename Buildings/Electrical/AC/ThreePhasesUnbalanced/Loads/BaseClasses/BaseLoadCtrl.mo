@@ -19,7 +19,8 @@ partial model BaseLoadCtrl
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
 
   parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 480)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions", enable = (mode==Assumptionm.FixedZ_dynamic or linear)));
+    "Nominal voltage (V_nominal >= 0)"
+    annotation(Dialog(group="Nominal conditions"));
   parameter Boolean voltageCtrl = false "This flag enables the voltage control"
                                             annotation(Evaluate=true, Dialog(group="Voltage CTRL"));
   parameter Real vThresh(min=0.0, max=1.0) = 0.1
@@ -313,25 +314,27 @@ equation
   // Connection of the single loads to the 3phases connector
   if plugPhase1 then
     connect(load1.terminal, adaDel.terminals[1]) annotation (Line(points={{-10,50},
-            {-26,50},{-26,-40.5333},{-40,-40.5333}},
+            {-26,50},{-26,-39.4667},{-40.2,-39.4667}},
                                                    color={0,120,120}));
     connect(load1.terminal, adaWye.terminals[1]) annotation (Line(points={{-10,50},
-            {-26,50},{-26,-70.5333},{-40,-70.5333}},
+            {-26,50},{-26,-69.4667},{-40.2,-69.4667}},
                                                    color={0,120,120}));
   end if;
 
   if plugPhase2 then
     connect(load2.terminal, adaDel.terminals[2]) annotation (Line(points={{-10,-20},
-          {-22,-20},{-22,-40},{-40,-40}}, color={0,120,120}));
+            {-22,-20},{-22,-40},{-40.2,-40}},
+                                          color={0,120,120}));
     connect(load2.terminal, adaWye.terminals[2]) annotation (Line(points={{-10,-20},
-          {-22,-20},{-22,-70},{-40,-70}}, color={0,120,120}));
+            {-22,-20},{-22,-70},{-40.2,-70}},
+                                          color={0,120,120}));
   end if;
   if plugPhase3 then
     connect(load3.terminal, adaDel.terminals[3]) annotation (Line(points={{-10,-88},
-            {-16,-88},{-20,-88},{-20,-39.4667},{-40,-39.4667}},
+            {-16,-88},{-20,-88},{-20,-40.5333},{-40.2,-40.5333}},
                                                               color={0,120,120}));
     connect(load3.terminal, adaWye.terminals[3]) annotation (Line(points={{-10,-88},
-            {-20,-88},{-20,-69.4667},{-40,-69.4667}},
+            {-20,-88},{-20,-70.5333},{-40.2,-70.5333}},
                                                     color={0,120,120}));
   end if;
 
@@ -362,6 +365,13 @@ voltage controller can be found
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation to avoid an error in the pedantic model check
+in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Added adapters for

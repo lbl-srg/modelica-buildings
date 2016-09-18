@@ -22,7 +22,7 @@ model Load "Partial model for a generic load"
     annotation (
       Evaluate=true,
       Dialog(group="Nominal conditions",
-      enable = (mode==Buildings.Electrical.Types.Loadm.FixedZ_dynamic or linearized)));
+      enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
@@ -116,6 +116,13 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation to avoid an error in the pedantic model check
+in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li> 
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Set default value for <code>P_nominal</code>
