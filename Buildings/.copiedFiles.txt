@@ -161,7 +161,7 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
-Buildings/CalendarTime.mat
+Buildings/ControlledFlowMachine.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
@@ -196,7 +196,6 @@ Buildings/Controls/SetPoints/package.mo
 Buildings/Controls/SetPoints/package.order
 Buildings/Controls/package.mo
 Buildings/Controls/package.order
-Buildings/EntropyFlowRate.mat
 Buildings/Fluid/Actuators/BaseClasses/ActuatorSignal.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/EqualPercentageDerivativeCheck.mo
 Buildings/Fluid/Actuators/BaseClasses/Examples/package.mo
@@ -479,7 +478,6 @@ Buildings/Fluid/MixingVolumes/package.mo
 Buildings/Fluid/MixingVolumes/package.order
 Buildings/Fluid/Movers/BaseClasses/Characteristics/efficiency.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/efficiencyParameters.mo
-Buildings/Fluid/Movers/BaseClasses/Characteristics/flowApproximationAtOrigin.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParameters.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParametersInternal.mo
 Buildings/Fluid/Movers/BaseClasses/Characteristics/package.mo
@@ -547,6 +545,7 @@ Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
+Buildings/Fluid/Movers/Validation/PumpCurveDerivatives.mo
 Buildings/Fluid/Movers/Validation/Pump_Nrpm_stratos.mo
 Buildings/Fluid/Movers/Validation/Pump_stratos.mo
 Buildings/Fluid/Movers/Validation/SpeedControlled_Nrpm.mo
@@ -638,9 +637,6 @@ Buildings/Fluid/Storage/package.order
 Buildings/Fluid/Types.mo
 Buildings/Fluid/package.mo
 Buildings/Fluid/package.order
-Buildings/IntegratorWithReset.mat
-Buildings/LimPID.mat
-Buildings/LimPIDWithReset.mat
 Buildings/Media/Air.mo
 Buildings/Media/Examples/AirDerivativeCheck.mo
 Buildings/Media/Examples/AirProperties.mo
@@ -664,10 +660,13 @@ Buildings/Media/Specialized/Air/Examples/package.order
 Buildings/Media/Specialized/Air/PerfectGas.mo
 Buildings/Media/Specialized/Air/package.mo
 Buildings/Media/Specialized/Air/package.order
+Buildings/Media/Specialized/Water/ConstantProperties_pT/package.mo
+Buildings/Media/Specialized/Water/ConstantProperties_pT/package.order
 Buildings/Media/Specialized/Water/Examples/TemperatureDependentDensityDerivativeCheck.mo
 Buildings/Media/Specialized/Water/Examples/TemperatureDependentDensityProperties.mo
 Buildings/Media/Specialized/Water/Examples/TemperatureDependentDensityTemperatureEnthalpyInversion.mo
 Buildings/Media/Specialized/Water/Examples/TemperatureDependentDensityTestImplementation.mo
+Buildings/Media/Specialized/Water/Examples/WaterProperties_pT.mo
 Buildings/Media/Specialized/Water/Examples/package.mo
 Buildings/Media/Specialized/Water/Examples/package.order
 Buildings/Media/Specialized/Water/TemperatureDependentDensity.mo
@@ -770,6 +769,8 @@ Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_Validation_PumpCurveDerivatives.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Media_Specialized_Water_Examples_WaterProperties_pT.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -944,6 +945,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_Nrpm.mos
@@ -982,6 +984,7 @@ Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureD
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityProperties.mos
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTemperatureEnthalpyInversion.mos
 Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityTestImplementation.mos
+Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/WaterProperties_pT.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomOneElement.mos
 Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos
@@ -1078,8 +1081,6 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
-Buildings/SpecificEntropy.mat
-Buildings/TestWhen.mat
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/PartialVDI6007.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/package.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/package.order
@@ -1172,6 +1173,7 @@ Buildings/Utilities/Math/Examples/package.mo
 Buildings/Utilities/Math/Examples/package.order
 Buildings/Utilities/Math/Functions/BaseClasses/der_2_regNonZeroPower.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_2_smoothTransition.mo
+Buildings/Utilities/Math/Functions/BaseClasses/der_inverseXRegularized.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_polynomial.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_regNonZeroPower.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_smoothTransition.mo
@@ -1318,7 +1320,13 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
+Buildings/dymosim
 Buildings/legal.html
+Buildings/mailToFilip.txt
 Buildings/package.order
 Buildings/plot.mos
 Buildings/simulator.log
