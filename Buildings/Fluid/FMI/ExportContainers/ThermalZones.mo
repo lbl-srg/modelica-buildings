@@ -114,14 +114,14 @@ to an HVAC system that has signal flow.
 
 <p>
 The conversion between the fluid ports and signal ports is done
-in the thermal zone adapter <code>theZonAda[1:nZon]</code>.
-This adapter has a vector of fluid ports called <code>ports[1:nPorts]</code>
+in the thermal zone adapter <code>theZonAda[nZon]</code>.
+This adapter has a vector of fluid ports called <code>ports[nPorts]</code>
 which needs to be connected to the air volume of the thermal zones.
 At this port, air exchanged between the thermal zones, the HVAC system
 and any infiltration flow paths.
 </p>
 <p>
-This model has input signals <code>fluPor[1:nZon, 1:nPorts]</code> which carry
+This model has input signals <code>fluPor[nZon, nPorts]</code> which carry
 the mass flow rate for each flow that is connected to <code>ports[1:nPorts]</code>
 for the respective zone, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
@@ -162,7 +162,7 @@ can be obtained from the outupt connector
 <code>fluPor[1:nZon].backward</code>.
 These signals are the same as the inflowing fluid stream(s)
 at the port <code>theAdaZon[1:nZon].ports[1:nPorts]</code>.
-The fluid connector <code>ports</code> has a prescribed mass flow rate, but
+The fluid connector <code>ports[nPorts]</code> has a prescribed mass flow rate, but
 it does not set any pressure.
 </p>
 <p>

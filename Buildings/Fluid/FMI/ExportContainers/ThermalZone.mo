@@ -87,7 +87,7 @@ At this port, air exchanged between the thermal zone, the HVAC system
 and any infiltration flow paths.
 </p>
 <p>
-This model has input signals <code>fluPor[1:nPorts]</code>, which carry
+This model has input signals <code>fluPor[nPorts]</code>, which carry
 the mass flow rate for each flow that is connected to <code>ports</code>, together with its
 temperature, water vapor mass fraction per total mass of the air (not per kg dry
 air), and trace substances. These quantities are always as if the flow
@@ -127,7 +127,7 @@ can be obtained from the outupt connector
 <code>fluPor.backward</code>.
 These signals are the same as the inflowing fluid stream(s)
 at the port <code>theAdaZon.ports[1:nPorts]</code>.
-The fluid connector <code>ports[1:nPorts]</code> has a prescribed mass flow rate, but
+The fluid connector <code>ports[nPorts]</code> has a prescribed mass flow rate, but
 it does not set any pressure.
 </p>
 <p>
