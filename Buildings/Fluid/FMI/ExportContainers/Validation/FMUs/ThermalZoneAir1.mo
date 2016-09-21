@@ -37,14 +37,14 @@ block ThermalZoneAir1 "Validation of simple thermal zone"
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+    annotation (Placement(transformation(extent={{-60,102},{-40,122}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
+    annotation (Placement(transformation(extent={{-20,102},{0,122}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
     QRooInt_flow) "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{60,110},{40,130}})));
+    annotation (Placement(transformation(extent={{60,102},{40,122}})));
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -52,9 +52,9 @@ block ThermalZoneAir1 "Validation of simple thermal zone"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,
     mSenFac=3)
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+    annotation (Placement(transformation(extent={{40,52},{60,72}})));
   Modelica.Blocks.Sources.Constant TOutSou(k=303.15) "Outdoor temperature"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+    annotation (Placement(transformation(extent={{-100,102},{-80,122}})));
 protected
   FixedResistances.FixedResistanceDpM res1(
     redeclare final package Medium = Medium,
@@ -67,31 +67,38 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=10,
     linearized=true) "Flow resistance"
-    annotation (Placement(transformation(extent={{80,122},{100,142}})));
+    annotation (Placement(transformation(extent={{80,130},{100,150}})));
+public
+  Sensors.MassFlowRate senMasFlo[nPorts](redeclare final package Medium = Medium)
+    "Mass flow rate sensor to connect thermal adapter with thermal zone."
+    annotation (Placement(transformation(extent={{-106,150},{-86,170}})));
 equation
   connect(theCon.port_b,vol. heatPort)
-    annotation (Line(points={{0,120},{0,120},{20,120},{20,70},{40,70}},
+    annotation (Line(points={{0,112},{0,112},{20,112},{20,62},{40,62}},
                                                     color={191,0,0}));
   connect(preHea.port,vol. heatPort)
-    annotation (Line(points={{40,120},{20,120},{20,70},{40,70}},
+    annotation (Line(points={{40,112},{20,112},{20,62},{40,62}},
                                                             color={191,0,0}));
   connect(TOut1.port,theCon. port_a)
-    annotation (Line(points={{-40,120},{-40,120},{-20,120}},
+    annotation (Line(points={{-40,112},{-40,112},{-20,112}},
                                                      color={191,0,0}));
-  connect(vol.heatPort, theZonAda.heaPorAir) annotation (Line(points={{40,70},{40,
-          70},{20,70},{20,152},{-120,152}}, color={191,0,0}));
+  connect(vol.heatPort, theZonAda.heaPorAir) annotation (Line(points={{40,62},{40,
+          62},{20,62},{20,140},{-114,140},{-120,140},{-120,152}},
+                                            color={191,0,0}));
   connect(TOutSou.y, TOut1.T)
-    annotation (Line(points={{-79,120},{-62,120}}, color={0,0,127}));
-  connect(TOut, TOutSou.y) annotation (Line(points={{0,200},{0,170},{-70,170},{-70,
-          120},{-79,120}}, color={0,0,127}));
-  connect(theZonAda.ports[1], res1.port_a) annotation (Line(points={{-120,160},
-          {-20,160},{80,160}}, color={0,127,255}));
-  connect(theZonAda.ports[2], res2.port_a) annotation (Line(points={{-120,160},
-          {-26,160},{60,160},{60,132},{80,132}}, color={0,127,255}));
-  connect(res2.port_b, vol.ports[1]) annotation (Line(points={{100,132},{110,
-          132},{110,46},{48,46},{48,60}}, color={0,127,255}));
-  connect(res1.port_b, vol.ports[2]) annotation (Line(points={{100,160},{112,
-          160},{114,160},{114,52},{114,50},{52,50},{52,60}}, color={0,127,255}));
+    annotation (Line(points={{-79,112},{-62,112}}, color={0,0,127}));
+  connect(TOut, TOutSou.y) annotation (Line(points={{0,200},{0,162},{-70,162},{-70,
+          112},{-79,112}}, color={0,0,127}));
+  connect(res2.port_b, vol.ports[1]) annotation (Line(points={{100,140},{110,
+          140},{110,38},{48,38},{48,52}}, color={0,127,255}));
+  connect(res1.port_b, vol.ports[2]) annotation (Line(points={{100,160},{112,160},
+          {114,160},{114,44},{114,42},{52,42},{52,52}},      color={0,127,255}));
+  connect(senMasFlo.port_a, theZonAda.ports) annotation (Line(points={{-106,160},
+          {-114,160},{-114,160},{-120,160}}, color={0,127,255}));
+  connect(senMasFlo[1].port_b, res1.port_a) annotation (Line(points={{-86,160},{
+          -20,160},{80,160}}, color={0,127,255}));
+  connect(senMasFlo[2].port_b, res2.port_a) annotation (Line(points={{-86,160},
+          {-86,160},{30,160},{30,140},{80,140}},                  color={0,127,255}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
@@ -110,6 +117,11 @@ exports correctly as an FMU.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2016, by Thierry S. Nouidui:<br/>
+Revised implementation and added mass flow rate sensors
+to connect the thermal zone adaptor to the thermal zone.
+</li>
 <li>
 April 28, 2016, by Thierry S. Nouidui:<br/>
 First implementation.

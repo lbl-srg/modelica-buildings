@@ -3,7 +3,7 @@ model ThermalZones
   "Simple multiple thermal zones that can be exported as an FMU"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZones(
     redeclare final package Medium = MediumA,
-    nPorts =  2,
+    nPorts =  3,
     nZon = 2);
 
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
@@ -58,11 +58,11 @@ model ThermalZones
     annotation (Placement(transformation(extent={{100,80},{80,100}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = MediumA,
-    nPorts = 2,
     m_flow_nominal=mA_flow_nominal,
     V=V,
     mSenFac=3,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=3) "Room volume"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon2(
                                                                    G=10000/30)
@@ -73,12 +73,19 @@ model ThermalZones
     annotation (Placement(transformation(extent={{100,-56},{80,-36}})));
   MixingVolumes.MixingVolume vol2(
     redeclare package Medium = MediumA,
-    nPorts = 2,
     m_flow_nominal=mA_flow_nominal,
     V=V,
     mSenFac=3,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=3) "Room volume"
     annotation (Placement(transformation(extent={{80,-106},{100,-86}})));
+  Sensors.MassFlowRate senMasFlo[nPorts](redeclare final package Medium = MediumA)
+    "Mass flow rate sensor to connect thermal adapter with thermal zone."
+    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+  Sensors.MassFlowRate senMasFlo1[nPorts](
+                                         redeclare final package Medium = MediumA)
+    "Mass flow rate sensor to connect thermal adapter with thermal zone."
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{130,140},{120,140}},
@@ -108,22 +115,19 @@ equation
           {60,-96},{80,-96}}, color={191,0,0}));
   connect(TAirOut.port, theCon2.port_a) annotation (Line(points={{-10,120},{-10,
           120},{0,120},{0,-16},{30,-16}}, color={191,0,0}));
-  connect(vol1.ports[1], theZonAda[1].ports[1]) annotation (Line(points={{88,30},
-          {88,30},{88,22},{88,24},{-48,24},{-48,160},{-120,160}},
-                                           color={0,127,255}));
-  connect(vol1.ports[2], theZonAda[1].ports[2]) annotation (Line(points={{92,30},
-          {92,30},{92,20},{-52,20},{-52,160},{-120,160}},
-                                           color={0,127,255}));
-  connect(vol2.ports[1], theZonAda[2].ports[1]) annotation (Line(points={{88,-106},
-          {90,-106},{90,-108},{90,-108},{90,-108},{-76,-108},{-76,160},{-120,160}},
-                                           color={0,127,255}));
-  connect(vol2.ports[2], theZonAda[2].ports[2]) annotation (Line(points={{92,-106},
-          {90,-106},{90,-112},{-80,-112},{-80,160},{-120,160}},
-                                           color={0,127,255}));
   connect(vol1.heatPort, theZonAda[1].heaPorAir) annotation (Line(points={{80,
           40},{60,40},{60,152},{-120,152}}, color={191,0,0}));
   connect(vol2.heatPort, theZonAda[2].heaPorAir) annotation (Line(points={{80,
           -96},{60,-96},{60,4},{10,4},{10,152},{-120,152}}, color={191,0,0}));
+  connect(theZonAda[2].ports, senMasFlo1.port_a) annotation (Line(points={{-120,
+          160},{-112,160},{-112,60},{-90,60}}, color={0,127,255}));
+  connect(senMasFlo.port_a, theZonAda[1].ports) annotation (Line(points={{-90,100},
+          {-100,100},{-100,160},{-120,160}}, color={0,127,255}));
+  connect(senMasFlo1.port_b, vol2.ports[1:3]) annotation (Line(points={{-70,60},
+          {-60,60},{-60,-120},{92.6667,-120},{92.6667,-106}}, color={0,127,255}));
+  connect(senMasFlo.port_b, vol1.ports[1:3]) annotation (Line(points={{-70,100},
+          {-50,100},{-20,100},{-20,22},{92.6667,22},{92.6667,30}}, color={0,127,
+          255}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={

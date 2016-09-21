@@ -7,7 +7,7 @@ partial block ThermalZones
 
   parameter Integer nZon(min=1)
     "Number of thermal zones in this container";
-  parameter Integer nPorts(min=1)
+  parameter Integer nPorts(min=2)
     "Number of fluid ports for each zone (must be the same for every zone)";
 
 
@@ -89,7 +89,7 @@ equation
           lineColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
-<p>
+    <p>
 Model that is used as a container for a multiple thermal zones
 that are to be exported as an FMU.
 </p>
@@ -97,9 +97,39 @@ that are to be exported as an FMU.
 <p>
 To use this model as a container for an FMU, extend
 from this model, rather than instantiate it,
-and add your thermal zones. By extending from this model, the top-level
+add your thermal zones. For each thermal zone, 
+add a vector of mass flow rate sensors. 
+By extending from this model, the top-level
 signal connectors on the left stay at the top-level, and hence
 will be visible at the FMI interface.
+</p>
+
+Note that
+<ul>
+<li>
+A vector of mass flow rate sensors is used to connect 
+one element of the thermal zone adapter with one thermal zone. 
+</li>
+<li>
+The size of the thermal zone adapter must be the same as the number
+of vectors of mass flow rate sensors.
+</li>
+<li>
+The vector of mass flow rate sensors must have the size <code>nPorts</code>.
+</li>
+<li>
+All fluid ports of the mass flow rate sensor must be connected. 
+</li>
+<li>
+If mass flow rate sensors are not used, and your themal zone 
+has fluid ports which are autosized, then a direct connection between 
+an element of the thermal zone adpater <code>theZonAda</code> and your thermal 
+zone will be rejected. The reason is because autosized fluid ports 
+can only be connected to vector of ports whose sizes are literal.
+</li>
+</ul>
+
+<p>
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>
@@ -170,17 +200,13 @@ This model has a user-defined parameter <code>nPorts</code>
 which sets the number of fluid ports, which in turn is used
 for the ports <code>fluPor</code> and <code>ports</code>.
 All zones must have the same number of fluid ports <code>nPorts</code>.
-However, remember that in Modelica, fluid connectors need not be connected.
-Hence, if a zone \"A\" has two supply air inlets and one return air, but a zone \"B\" has
-only one supply air inlet and one return air, then set <code>nPorts=2</code>, but leave
-one fluid connector for zone \"B\" unconnected, in which case no mass would flow through
-this connector.
-</p>
-<p>
-All <code>nPorts</code>
-<code>ports</code> need to be connected as demonstrated in the example
+All fluid connectors need to be connected as demonstrated in the example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>.
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>. This is because 
+of the HVAC system which dictates mass flow rates.
+Hence, if a zone \"A\" has two supply air inlets and one return air, but a zone \"B\" has
+only one supply air inlet and one return air, then set <code>nPorts=3</code>, and connect
+one fluid connector for zone \"B\" to a zero mass flow rate source.
 </p>
 <p>
 The example
@@ -191,6 +217,11 @@ that has signal flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2016, by Thierry S. Nouidui:<br/>
+Revised documentation to explain the rationale 
+of needing mass flow rate sensors.
+</li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
 Revised implementation and documentation.

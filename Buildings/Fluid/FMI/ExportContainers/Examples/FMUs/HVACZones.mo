@@ -58,7 +58,7 @@ block HVACZones
     "Nominal water mass flow rate";
   /////////////////////////////////////////////////////////
   // HVAC models
-  Modelica.Blocks.Sources.Constant zero[nZon](each k=0) "Zero output signal"
+  Modelica.Blocks.Sources.Constant zer[nZon](each k=0) "Zero output signal"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -199,14 +199,22 @@ block HVACZones
     m_flow_nominal=0.5*mA_flow_nominal)
                                     "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
+  Modelica.Blocks.Sources.Constant zer1(each k=0) "Zero output signal"
+    annotation (Placement(transformation(extent={{0,160},{20,180}})));
+  Sources.MassFlowSource_T bou(use_m_flow_in=true,
+    redeclare package Medium = MediumA,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{38,152},{58,172}})));
+  Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumA)
+    annotation (Placement(transformation(extent={{70,150},{90,170}})));
 equation
-  connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
+  connect(zer.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
-  connect(zero.y, QGaiSenCon_flow)
-    annotation (Line(points={{121,-90},{180,-90}},         color={0,0,127}));
-  connect(zero.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
-          -140},{180,-140}},
-                           color={0,0,127}));
+  connect(zer.y, QGaiSenCon_flow)
+    annotation (Line(points={{121,-90},{180,-90}}, color={0,0,127}));
+  connect(zer.y, QGaiLat_flow) annotation (Line(points={{121,-90},{140,-90},{140,
+          -140},{180,-140}}, color={0,0,127}));
   connect(out.ports[1],hex. port_a1) annotation (Line(
       points={{-120,92.6667},{-116,92.6667},{-116,92},{-110,92},{-110,96},{-102,
           96}},
@@ -304,13 +312,19 @@ equation
           {70,60},{106,60},{106,140},{120,140}}, color={0,127,255}));
   connect(resRet2.port_a, hvacAda[2].ports[2]) annotation (Line(points={{40,30},
           {72,30},{106,30},{106,140},{120,140}}, color={0,127,255}));
+  connect(zer1.y, bou.m_flow_in)
+    annotation (Line(points={{21,170},{26,170},{38,170}}, color={0,0,127}));
+  connect(senMasFlo.port_b, hvacAda[1].ports[3]) annotation (Line(points={{90,160},
+          {100,160},{100,140},{120,140}}, color={0,127,255}));
+  connect(bou.ports[1], senMasFlo.port_a) annotation (Line(points={{58,162},{66,
+          162},{66,160},{70,160}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
-            {160,160}}), graphics={
+            {160,180}}), graphics={
         Text(
           extent={{-24,-132},{26,-152}},
           lineColor={0,0,127},
           textString="TOut")}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,180}})),
     Documentation(info="<html>
 <p>
 This example demonstrates how to export a model of an HVAC system
@@ -334,6 +348,10 @@ ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2016 by Thierry S. Nouidui:<br/>
+Revised implementation to include a zero mass flow source.
+</li>
 <li>
 April 16, 2016 by Michael Wetter:<br/>
 First implementation.

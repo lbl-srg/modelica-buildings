@@ -114,41 +114,21 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
 
   model TwoRooms "Model with two simple thermal zones, each having three air flow paths"
     extends
-      Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones(      nPorts=3);
+      Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones;
 
-    Sources.Boundary_pT bou1(
-      redeclare package Medium = Medium,
-      nPorts=1)
-      "Boundary condition for zero mass flow of one exhaust stream for room 1"
-      annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-    Sources.Boundary_pT bou2(
-      redeclare package Medium = Medium,
-      nPorts=1)
-      "Boundary condition for zero mass flow of one exhaust stream for room 2"
-      annotation (Placement(transformation(extent={{-142,82},{-122,102}})));
-
-  equation
-    connect(bou1.ports[1], theZonAda[1].ports[3]) annotation (Line(points={{-120,120},
-            {-112,120},{-112,160},{-102,160},{-112,160},{-120,160}},
-                                    color={0,127,255}));
-    connect(bou2.ports[1], theZonAda[2].ports[3]) annotation (Line(points={{-122,92},
-            {-106,92},{-106,160},{-120,160}},
-                                    color={0,127,255}));
     annotation (Documentation(info="<html>
 <p>
 This model extends
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>
-to implement two simple thermal zones, and, in addition, it also sets a pressure
-boundary condition for an exhaust air stream.
-This is needed because the validation model has an HVAC system with one supply
-and two exhaust air streams, one of which is configured to have zero mass flow rate
-for the validation. Because of the zero mass flow rate,
-adding a pressure boundary condition has no effect
-on the model as there is zero mass flow rate in this flow leg.
+to implement two simple thermal zones.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 19, 2016, by Thierry S. Nouidui:<br/>
+Revised implementation.
+</li>
 <li>
 September 14, 2016, by Michael Wetter:<br/>
 First implementation.

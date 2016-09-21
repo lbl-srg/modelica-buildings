@@ -67,6 +67,9 @@ model ThermalZone
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Modelica.Blocks.Sources.Constant TWat(k=280.15) "Water temperature"
     annotation (Placement(transformation(extent={{8,30},{28,50}})));
+  Sensors.MassFlowRate senMasFlo[nPorts](redeclare final package Medium = MediumA)
+    "Mass flow rate sensor to connect thermal adapter with thermal zone."
+    annotation (Placement(transformation(extent={{-88,110},{-68,130}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{130,140},{120,140}},
@@ -92,11 +95,6 @@ equation
 
   connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-120,152},
           {60,152},{60,40},{80,40}},                              color={191,0,0}));
-  connect(theZonAda.ports[1], vol.ports[1]) annotation (Line(points={{-120,160},
-          {-120,162},{-46,162},{-46,20},{88,20},{88,30}},               color={0,
-          127,255}));
-  connect(theZonAda.ports[2], vol.ports[2]) annotation (Line(points={{-120,160},
-          {-54,160},{-54,14},{92,14},{92,30}},      color={0,127,255}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,-120},
           {0,-120},{120,-120},{120,140}},             color={0,0,127}));
   connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,48},{78,48},{
@@ -104,6 +102,10 @@ equation
   connect(TWat.y, vol.TWat) annotation (Line(points={{29,40},{29,40},{54,40},{54,
           44},{54,44.8},{66,44.8},{78,44.8}},
                      color={0,0,127}));
+  connect(theZonAda.ports, senMasFlo.port_a) annotation (Line(points={{-120,160},
+          {-100,160},{-100,120},{-88,120}}, color={0,127,255}));
+  connect(senMasFlo.port_b, vol.ports[1:2]) annotation (Line(points={{-68,120},{
+          -60,120},{-60,20},{92,20},{92,30}}, color={0,127,255}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
@@ -154,6 +156,11 @@ exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2016, by Thierry S. Nouidui:<br/>
+Revised implementation and added mass flow rate sensors
+to connect the thermal zone adaptor to the thermal zone.
+</li>
 <li>
 April 28, 2016, by Thierry S. Nouidui:<br/>
 First implementation.

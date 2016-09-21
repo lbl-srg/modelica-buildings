@@ -4,7 +4,7 @@ partial block ThermalZone
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Integer nPorts(min=1) "Number of fluid ports";
+  parameter Integer nPorts(min=2) "Number of fluid ports";
 
   Interfaces.Inlet fluPor[nPorts](
     redeclare each final package Medium = Medium,
@@ -63,9 +63,34 @@ that is to be exported as an FMU.
 <p>
 To use this model as a container for an FMU, extend
 from this model, rather than instantiate it,
-and add your thermal zone. By extending from this model, the top-level
+add your thermal zone and a vector of mass flow rate sensors. 
+By extending from this model, the top-level
 signal connectors on the left stay at the top-level, and hence
 will be visible at the FMI interface.
+</p>
+
+Note that
+<ul>
+<li>
+The vector of mass flow rate sensors is used to connect 
+the thermal zone adapter and your thermal zone. 
+</li>
+<li>
+The vector of mass flow rate sensors must have the size <code>nPorts</code>.
+</li>
+<li>
+All fluid ports of the mass flow rate sensor must be connected. 
+</li>
+<li>
+If the vector of mass flow rate sensors is not used, and your themal zone 
+has fluid ports which are autosized, then a direct connection between 
+the thermal zone adpater <code>theZonAda</code> and your thermal 
+zone will be rejected. The reason is because autosized fluid ports 
+can only be connected to vector of ports whose sizes are literal.
+</li>
+</ul>
+
+<p>
 The example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>
@@ -150,6 +175,11 @@ that has signal flow.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 20, 2016, by Thierry S. Nouidui:<br/>
+Revised documentation to explain the rationale 
+of needing mass flow rate sensors.
+</li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
 Revised implementation and documentation.
