@@ -10,13 +10,17 @@ block ElectrochromicWindow "Controller for electrochromic windows"
   parameter Modelica.SIunits.Temperature TDark = TClear+2
     "Measured temperature above which the window will be transitioned to completely dark state if H > HDark";
 
-  Modelica.Blocks.Interfaces.RealInput T(quantity="Temperature",
-      unit="K") "Temperature used for control" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput T(
+    quantity="ThermodynamicTemperature",
+    unit="K")
+    "Temperature used for control" annotation (Placement(
         transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-130,25},
             {-100,55}})));
 
-  Modelica.Blocks.Interfaces.RealInput H(quantity="RadiantEnergyFluenceRate",
-      unit="W/m2") "Direct solar radiation onto window" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput H(
+    quantity="RadiantEnergyFluenceRate",
+    unit="W/m2")
+    "Direct solar radiation onto window" annotation (Placement(
         transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
           extent={{-130,-55},{-100,-25}})));
 
@@ -97,6 +101,13 @@ a continuous transition for intermediate values.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected quantity from <code>Temperature</code> to <code>ThermodynamicTemperature</code>
+to avoid an error in the pedantic model check in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 September 11, 2015, by Michael Wetter:<br/>
 First implementation.

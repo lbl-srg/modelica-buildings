@@ -135,6 +135,8 @@ its class name ends with the string <code>Beta</code>.
    Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
    library. Instead, it uses <code>Modelica.StateGraph</code> which is part
    of the Modelica Standard Library.
+   The models in <code>Buildings.Fluid.Movers</code> have been refactored to increase
+   the numerical robustness at very low speed when the fans or pumps are switched on or off.
    </p>
    </div>
    <!-- New libraries -->
@@ -375,6 +377,18 @@ its class name ends with the string <code>Beta</code>.
    </tr>
 
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Movers
+       </td>
+       <td valign=\"top\">Removed the function
+                          <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin</code>
+                          and changed the arguments of the function
+                          <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</code>.<br/>
+                          This was done due to the refactoring of the fan and pump model for low speed. This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">Annex 60, #458</a>.<br/>
+                          Users who simply use the existing model in <code>Buildings.Fluid.Movers</code> are not affected by
+                          this change as the function are called by a low-level implementation only.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers

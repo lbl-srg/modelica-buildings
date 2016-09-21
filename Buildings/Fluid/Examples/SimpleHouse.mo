@@ -7,11 +7,16 @@ model SimpleHouse
   package MediumWater = Buildings.Media.Water;
 
   parameter Modelica.SIunits.Area A_wall = 100 "Wall area";
+  parameter Modelica.SIunits.Area A_win = 5 "Window area";
+  parameter Real g_win(min=0, max=1, unit="1") = 0.3 "Solar heat gain coefficient of window";
   parameter Modelica.SIunits.Volume V_zone = A_wall*3 "Wall area";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*rad.m_flow_nominal
-    "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=200
-    "Pressure drop at nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=3*rad.m_flow_nominal
+    "Nominal mass flow rate for water loop";
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=V_zone*5*1.2/3600
+    "Nominal mass flow rate for air loop";
+
+  parameter Modelica.SIunits.PressureDifference dpAir_nominal=200
+    "Pressure drop at nominal mass flow rate for air loop";
   parameter Boolean allowFlowReversal=false
     "= false because flow will not reverse in these circuits";
 
@@ -24,8 +29,8 @@ model SimpleHouse
     redeclare package Medium = MediumAir,
     V=V_zone,
     nPorts=2,
-    m_flow_nominal=0.01,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mAir_flow_nominal)
     "Very based zone air model"
     annotation (Placement(transformation(extent={{102,120},{82,140}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor convRes(R=1/2/A_wall)
@@ -60,23 +65,23 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-130,-18},{-110,2}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor wallRes(R=0.25/
         A_wall/0.04) "Thermal resistor for wall: 25 cm of rockwool"
-    annotation (Placement(transformation(extent={{66,-8},{86,12}})));
+    annotation (Placement(transformation(extent={{66,-10},{86,10}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature Tout
     "Exterior temperature boundary condition"
-    annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = MediumWater,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=mWat_flow_nominal,
     dp_nominal=1000,
     Q_flow_nominal=5000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{44,-116},{64,-96}})));
 
-  Movers.FlowControlled_m_flow                 pump2(
+  Movers.FlowControlled_m_flow pump2(
     redeclare package Medium = MediumWater,
     filteredSpeed=false,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=mWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -86,21 +91,22 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{32,150},{12,170}})));
   Actuators.Dampers.VAVBoxExponential vavDam(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=0.01,
-    dp_nominal=dp_nominal,
-    from_dp=true) "Damper" annotation (Placement(transformation(
+    dp_nominal=dpAir_nominal,
+    from_dp=true,
+    m_flow_nominal=mAir_flow_nominal) "Damper" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={0,100})));
 
-  Movers.FlowControlled_dp                 fan2(
+  Movers.FlowControlled_dp fan2(
     redeclare package Medium = MediumAir,
-    m_flow_nominal=0.01,
-    dp_nominal=dp_nominal,
+    dp_nominal=dpAir_nominal,
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true) "Constant head fan"
-                         annotation (Placement(transformation(
+    nominalValuesDefineDefaultPressureCurve=true,
+    m_flow_nominal=mAir_flow_nominal) "Constant head fan" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,100})));
@@ -112,15 +118,16 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow window
     "Very simple window model"
-    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+    annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
   HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
-    m1_flow_nominal=0.01,
-    m2_flow_nominal=0.01,
     eps=0.85,
     dp1_nominal=0,
-    dp2_nominal=0) "Heat exchanger for heat recuperation"
+    dp2_nominal=0,
+    m1_flow_nominal=mAir_flow_nominal,
+    m2_flow_nominal=mAir_flow_nominal)
+                   "Heat exchanger for heat recuperation"
     annotation (Placement(transformation(extent={{78,94},{48,126}})));
   Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 20, uHigh=273.15 + 22)
     "Hysteresis controller for radiator"
@@ -130,12 +137,15 @@ model SimpleHouse
   Modelica.Blocks.Logical.Not not1
     "negation for enabling heating when temperatur is low"
     annotation (Placement(transformation(extent={{-46,-110},{-26,-90}})));
-  Modelica.Blocks.Sources.Constant const_m_flow(k=m_flow_nominal)
+  Modelica.Blocks.Sources.Constant const_m_flow(k=mWat_flow_nominal)
     "Constant mass flow rate"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Modelica.Blocks.Sources.Constant const_dp(k=200) "Pressure head"
     annotation (Placement(transformation(extent={{-22,130},{-2,150}})));
 
+  Modelica.Blocks.Math.Gain gaiWin(k=A_win*g_win)
+    "Gain for window solar transmittance and area as HGloHor is in W/m2"
+    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
 equation
   connect(convRes.port_b, walCap.port)
     annotation (Line(points={{132,12},{132,12},{132,-8}},    color={191,0,0}));
@@ -145,12 +155,12 @@ equation
       points={{-180,-8},{-180,-8},{-120,-8}},
       color={255,204,51},
       thickness=0.5));
-  connect(wallRes.port_b, walCap.port) annotation (Line(points={{86,2},{132,2},{
+  connect(wallRes.port_b, walCap.port) annotation (Line(points={{86,0},{132,0},{
           132,-6},{132,-8}},    color={191,0,0}));
   connect(Tout.T, weaBus1.TDryBul)
-    annotation (Line(points={{-22,2},{-120,2},{-120,-8}},   color={0,0,127}));
+    annotation (Line(points={{-22,0},{-120,0},{-120,-8}},   color={0,0,127}));
   connect(Tout.port, wallRes.port_a)
-    annotation (Line(points={{0,2},{0,2},{66,2}},    color={191,0,0}));
+    annotation (Line(points={{0,0},{0,0},{66,0}},    color={191,0,0}));
   connect(hea.port_b, rad.port_a) annotation (Line(points={{64,-106},{84,-106},{
           104,-106}}, color={0,127,255}));
   connect(bouWat.ports[1], hea.port_a) annotation (Line(points={{-42,-170},{40,-170},
@@ -163,20 +173,16 @@ equation
                                      color={191,0,0}));
   connect(vavDam.port_b, fan2.port_a)
     annotation (Line(points={{10,100},{10,100},{20,100}}, color={0,127,255}));
-  connect(vavDam.port_a, bouAir.ports[2]) annotation (Line(points={{-10,100},{
-          -10,100},{-20,100},{-20,118},{-28,118},{-28,118},{-40,118}},
+  connect(vavDam.port_a, bouAir.ports[2]) annotation (Line(points={{-10,100},{-10,
+          100},{-20,100},{-20,118},{-28,118},{-40,118}},
                                color={0,127,255}));
   connect(hysAir.y, booleanToReal.u)
     annotation (Line(points={{-59,80},{-59,80},{-52,80}}, color={255,0,255}));
   connect(booleanToReal.y, vavDam.y)
-    annotation (Line(points={{-29,80},{0,80},{0,88},{0,88}},
-                                                      color={0,0,127}));
-  connect(window.port, walCap.port) annotation (Line(points={{0,-28},{132,-28},{
+    annotation (Line(points={{-29,80},{0,80},{0,88}}, color={0,0,127}));
+  connect(window.port, walCap.port) annotation (Line(points={{0,-26},{132,-26},{
           132,-12},{132,-8}},
                          color={191,0,0}));
-  connect(window.Q_flow, weaBus1.HGloHor)
-    annotation (Line(points={{-20,-28},{-120,-28},{-120,-8}},
-                                                          color={0,0,127}));
   connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-40,122},{
           -40,119.6},{48,119.6}},
                               color={0,127,255}));
@@ -189,7 +195,7 @@ equation
   connect(rad.heatPortCon, zone.heatPort) annotation (Line(points={{112,-98.8},{
           112,-98.8},{112,48},{112,130},{102,130}},   color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{116,-98.8},{116,
-          -98.8},{116,-68},{116,-28},{132,-28},{132,-8}},
+          -98.8},{116,-70},{116,-26},{132,-26},{132,-8}},
                                                    color={191,0,0}));
   connect(hysAir.u, senTemZonAir.T) annotation (Line(points={{-82,80},{-90,80},{
           -90,160},{12,160}}, color={0,0,127}));
@@ -208,6 +214,10 @@ equation
           -150},{70.2,-158}}, color={0,0,127}));
   connect(const_dp.y, fan2.dp_in) annotation (Line(points={{-1,140},{29.8,140},{
           29.8,112}}, color={0,0,127}));
+  connect(gaiWin.y, window.Q_flow) annotation (Line(points={{-39,-26},{-34,-26},
+          {-30,-26},{-20,-26}}, color={0,0,127}));
+  connect(gaiWin.u, weaBus1.HGloHor) annotation (Line(points={{-62,-26},{-90,-26},
+          {-120,-26},{-120,-8}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}}), graphics={
         Rectangle(
@@ -257,6 +267,12 @@ equation
     experiment(StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
+<li>
+September 9, 2016, by Michael Wetter:<br/>
+Corrected error in window model, as the solar heat gain was
+not multiplied with the window area. Dymola 2017 reported this
+error due to mismatching units of <code>W/m2</code> and <code>W</code>.
+</li>
 <li>
 June 23, 2016, by Michael Wetter:<br/>
 Changed graphical annotation.
