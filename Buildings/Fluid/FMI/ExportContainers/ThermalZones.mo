@@ -200,13 +200,10 @@ This model has a user-defined parameter <code>nPorts</code>
 which sets the number of fluid ports, which in turn is used
 for the ports <code>fluPor</code> and <code>ports</code>.
 All zones must have the same number of fluid ports <code>nPorts</code>.
-All fluid connectors need to be connected as demonstrated in the example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone</a>. This is because 
-of the HVAC system which dictates mass flow rates.
-Hence, if a zone \"A\" has two supply air inlets and one return air, but a zone \"B\" has
-only one supply air inlet and one return air, then set <code>nPorts=3</code>, and connect
-one fluid connector for zone \"B\" to a zero mass flow rate source.
+All <code>nPorts</code>
+<code>ports[1:nPorts]</code> need to be connected as demonstrated in the example
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZones</a>. 
 </p>
 <p>
 The example

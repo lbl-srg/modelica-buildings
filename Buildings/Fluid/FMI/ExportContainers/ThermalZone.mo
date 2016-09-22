@@ -159,8 +159,6 @@ it does not set any pressure.
 This model has a user-defined parameter <code>nPorts</code>
 which sets the number of fluid ports, which in turn is used
 for the ports <code>fluPor</code> and <code>ports</code>.
-</p>
-<p>
 All <code>nPorts</code>
 <code>ports[1:nPorts]</code> need to be connected as demonstrated in the example
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone\">
