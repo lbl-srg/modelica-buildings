@@ -2,11 +2,9 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System2
   "Second part of the system model with air supply and open loop control"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
 
-  replaceable package MediumW =
-      Buildings.Media.Water;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
+  replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -62,17 +60,16 @@ model System2
     QCoiC_flow_nominal/(TWRet_nominal-TWSup_nominal)/4200
     "Nominal water mass flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-                                                         TOut
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Fluid.Movers.FlowControlled_m_flow fan(
-      redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
@@ -264,8 +261,7 @@ As this model will also use water as the medium for the water-side
 of the cooling coil, we added the medium declaration
 </p>
 <pre>
-  replaceable package MediumW =
-    Buildings.Media.ConstantPropertyLiquidWater;
+  replaceable package MediumW = Buildings.Media.Water \"Medium for water\";
 </pre>
 </li>
 <li>
@@ -465,7 +461,7 @@ We leave the fan efficiency at its default value of <i>0.7</i>.
 We set the parameter
 </p>
 <pre>
-  dynamicBalance=false
+  energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
 </pre>
 <p>
 to configure the fan to be a steady-state model. This was done as we

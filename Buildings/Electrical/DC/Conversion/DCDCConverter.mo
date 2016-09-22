@@ -9,7 +9,7 @@ model DCDCConverter "DC DC converter"
     "DC voltage on side 1 of the transformer (primary side)";
   parameter Modelica.SIunits.Voltage VLow
     "DC voltage on side 2 of the transformer (secondary side)";
-  parameter Real eta(min=0, max=1) "Converter efficiency";
+  parameter Modelica.SIunits.Efficiency eta(max=1) "Converter efficiency";
   parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
   Modelica.SIunits.Power LossPower "Loss power";

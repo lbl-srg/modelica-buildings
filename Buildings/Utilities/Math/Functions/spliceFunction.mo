@@ -25,7 +25,7 @@ smoothOrder=1,
 derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>
-Function to provide a once continuously differentialbe transition between
+Function to provide a once continuously differentiable transition between
 to arguments.
 </p><p>
 The function is adapted from

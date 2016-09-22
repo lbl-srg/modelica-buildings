@@ -37,9 +37,10 @@ model SpaceCooling "Space cooling with DX coils"
     (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal-THeaRecLvg-dTFan)*1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow fan(redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
@@ -95,7 +96,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
     redeclare package Medium = Medium,
     m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
@@ -182,9 +183,9 @@ model SpaceCooling "Space cooling with DX coils"
                                      annotation (Placement(transformation(
           extent={{240,40},{260,60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
-                                      redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
-    dynamicBalance=false) "Supply air fan"
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =
@@ -288,14 +289,15 @@ public
       nPorts=2,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
-    Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
-      "Thermal conductance with the ambient"
+    Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
+      G=10000/30,
+      port_a(T(start=Medium.T_default))) "Thermal conductance with the ambient"
       annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
-    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
-      "Outside temperature"
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut(
+      port(T(start=Medium.T_default))) "Outside temperature"
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-    Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
-          QRooInt_flow) "Prescribed heat flow"
+    Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
+      Q_flow=QRooInt_flow) "Prescribed heat flow"
       annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
     Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
       "Room temperature sensor"
@@ -369,8 +371,7 @@ equation
       smooth=Smooth.None));
   connect(rooSinSpe.ports[2], hex.port_a2)
                                      annotation (Line(
-      points={{133.517,40.1154},{133.517,-20},{133.517,-80},{-20,-80},{-20,-76},
-          {-90,-76}},
+      points={{133.517,40.1154},{133.517,-80},{-20,-80},{-20,-76},{-90,-76}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -666,6 +667,13 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set <code>start</code> attributes in <code>SimpleRoom</code> so
+that the model translates when using the pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

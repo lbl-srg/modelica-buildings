@@ -4,7 +4,10 @@ block Overhang
   extends Modelica.Blocks.Icons.Block;
   extends Buildings.Rooms.BaseClasses.Overhang;
 
-  Modelica.Blocks.Interfaces.RealInput verAzi(quantity="Angle", unit="rad", displayUnit="deg")
+  Modelica.Blocks.Interfaces.RealInput verAzi(
+    quantity="Angle",
+    unit="rad",
+    displayUnit="deg")
     "Wall solar azimuth angle (angle between projection of sun's rays and normal to vertical surface)"
   annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
@@ -30,7 +33,7 @@ block Overhang
   parameter Modelica.SIunits.Length wWin "Window width"
     annotation(Dialog(tab="General",group="Window"));
 
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
 
 protected
@@ -199,7 +202,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                    graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+                              Bitmap(extent={{-114,98},{122,-94}},
 fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="overhang",
 Documentation(info="<html>

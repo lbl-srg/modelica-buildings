@@ -10,7 +10,7 @@ model SineInput
     freqHz=1/tPeriod,
     phase=3.1415926535898) "Measured power consumption"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Modelica.Blocks.Discrete.Sampler P(samplePeriod=tSample)
+  Sampler P(samplePeriod=tSample)
     "Sampler to turn PCon into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Continuous.Integrator integrator
@@ -70,6 +70,12 @@ of the baseline prediction model based on a simple input scenario.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Implemented <code>Sampler</code> to avoid a translation warning
+because <code>Sampler.firstTrigger</code> does not set the <code>fixed</code>
+attribute in MSL 3.2.1.
+</li>
 <li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.

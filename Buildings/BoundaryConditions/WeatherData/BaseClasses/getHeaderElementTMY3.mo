@@ -3,7 +3,7 @@ function getHeaderElementTMY3
   "Gets an element from the header of a TMY3 weather data file"
  input String filNam "Name of weather data file"
  annotation (Dialog(
-        __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
+        loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
  input String start "Start of the string that contains the elements";
  input String name "Name of data element, used in error reporting";
@@ -26,7 +26,7 @@ algorithm
   EOF :=false;
   while (not EOF) and (index == 0) loop
     iLin:=iLin + 1;
-    (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=getAbsolutePath(filNam),
+    (lin, EOF) :=Modelica.Utilities.Streams.readLine(fileName=filNam,
       lineNumber=iLin);
     index :=Modelica.Utilities.Strings.find(
       string=lin,
@@ -41,7 +41,7 @@ algorithm
   for i in 1:position-1 loop
   nexInd :=Modelica.Utilities.Strings.find(
       string=lin,
-      searchString=  ",",
+      searchString = ",",
       startIndex=nexInd+1);
    assert(nexInd > 0, "Error when scanning weather file. Not enough tokens to find " + name + "."
          + "\n   Check for correct file syntax." + "\n   The scanned line is '" +
@@ -51,7 +51,7 @@ algorithm
   // Find the next delimiter
   nexInd :=Modelica.Utilities.Strings.find(
       string=lin,
-      searchString=  ",",
+      searchString = ",",
       startIndex=nexInd+1);
   assert(nexInd > 0, "Error when scanning weather file. Not enough tokens to find " + name + "."
          + "\n   Check for correct file syntax." + "\n   The scanned line is '" +
@@ -69,6 +69,24 @@ When this line is found, the function returns the element at the position number
 A comma is used as the delimiter of the elements.
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Removed call to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>
+because this function calls
+<a href=\"modelica://Modelica.Utilities.Files.loadResource\">
+Modelica.Utilities.Files.loadResource</a>, which needs to be resolved at compilation
+time, which is difficult if it is inside a function.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
+<li>
+September 24, 2015, by Marcus Fuchs:<br/>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+for MSL compliancy as reported by @tbeu at
+<a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
+</li>
 <li>
 May 2, 2013, by Michael Wetter:<br/>
 Added function call to <code>getAbsolutePath</code>.

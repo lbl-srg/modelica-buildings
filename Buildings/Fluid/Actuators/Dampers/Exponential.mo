@@ -101,7 +101,7 @@ Improved documentation.
 </li>
 <li>
 September 26, 2013 by Michael Wetter:<br/>
-Moved assignemnt of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
+Moved assignment of <code>kDam_default</code> and <code>kThetaSqRt_default</code>
 from <code>initial algorithm</code> to the variable declaration, to avoid a division
 by zero in OpenModelica.
 </li>
@@ -144,10 +144,8 @@ First implementation.
           fillColor={0,127,255}),  Polygon(
           points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid), Polygon(
           points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid)}));
 end Exponential;

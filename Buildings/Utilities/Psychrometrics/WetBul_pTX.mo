@@ -12,7 +12,7 @@ block WetBul_pTX
   Modelica.Blocks.Interfaces.RealInput XDryBul(
     start=0.01,
     final unit="1",
-    min=0) "Dry bulb temperature"
+    min=0) "Dry bulb water fraction"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p(
@@ -85,14 +85,13 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
-        Line(points={{-74,86},{-74,-72}}, color={0,0,0}),
+        Line(points={{-74,86},{-74,-72}}),
         Line(
           points={{50,-46},{0,-4}},
           color={255,0,0},
           thickness=0.5),
-        Line(points={{-74,-46},{-60,-42},{-30,-30},{2,-2},{14,22},{22,54},{26,74}},
-                    color={0,0,0}),
-        Line(points={{76,-72},{-72,-72}}, color={0,0,0}),
+        Line(points={{-74,-46},{-60,-42},{-30,-30},{2,-2},{14,22},{22,54},{26,74}}),
+        Line(points={{76,-72},{-72,-72}}),
         Polygon(
           points={{78,-72},{68,-70},{68,-74},{78,-72}},
           lineColor={0,0,0},

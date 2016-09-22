@@ -16,7 +16,7 @@ protected
       T2/T1);
   constant Real a2(unit="1/K")=(Modelica.Math.log(p1) - a1)/T1;
 algorithm
-  dT := dp_w / a2 / p_w;
+  dT := dp_w / (a2*p_w);
 
   annotation (
     Documentation(info="<html>

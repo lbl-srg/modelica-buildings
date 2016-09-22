@@ -1,160 +1,137 @@
 within Buildings.Fluid.Movers.BaseClasses;
-partial model PowerInterface
+model PowerInterface
   "Partial model to compute power draw and heat dissipation of fans and pumps"
-
-  import Modelica.Constants;
-
-  parameter Boolean use_powerCharacteristic = false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)"
-     annotation(Evaluate=true,Dialog(group="Characteristics"));
-
-  parameter Boolean motorCooledByFluid = true
-    "If true (and if addPowerToMedium = true), then motor heat is added to fluid stream"
-    annotation(Dialog(group="Characteristics"));
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Density rho_default
-    "Fluid density at medium default state";
-
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
-   unit="W") "Electrical power consumed"
-  annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
-  Modelica.SIunits.Power WHyd
-    "Hydraulic power input (converted to flow work and heat)";
-  Modelica.SIunits.Power WFlo "Flow work";
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
-  Real eta(min=0, max=1) "Global efficiency";
-  Real etaHyd(min=0, max=1) "Hydraulic efficiency";
-  Real etaMot(min=0, max=1) "Motor efficiency";
-
-  Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
-  Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-  //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
-protected
-  parameter Data.FlowControlled _perPow
-    "Record with performance data for power";
+  parameter Boolean motorCooledByFluid
+    "Flag, true if the motor is cooled by the fluid stream";
 
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
-  final parameter Real motDer[size(_perPow.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate";
-  final parameter Real hydDer[size(_perPow.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate";
 
+  Modelica.Blocks.Interfaces.RealInput etaHyd(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Hydraulic efficiency"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
+
+  Modelica.Blocks.Interfaces.RealInput V_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s") "Volume flow rate"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Blocks.Interfaces.RealInput WFlo(
+    final quantity="Power",
+    final unit="W") "Flow work"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Modelica.Blocks.Interfaces.RealInput PEle(
+    final quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    quantity="Power",
+    final unit="W") "Heat input from fan or pump to medium"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.SIunits.Power WHyd
+    "Hydraulic power input (converted to flow work and heat)";
+
+protected
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
 
-initial algorithm
- // Compute derivatives for cubic spline
- motDer :=
-   if _perPow.use_powerCharacteristic then
-     zeros(size(_perPow.motorEfficiency.V_flow, 1))
-   elseif ( size(_perPow.motorEfficiency.V_flow, 1) == 1)  then
-       {0}
-   else
-      Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=_perPow.motorEfficiency.V_flow,
-      y=_perPow.motorEfficiency.eta,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=_perPow.motorEfficiency.eta,
-                                                                        strict=false));
-  hydDer :=
-     if _perPow.use_powerCharacteristic then
-       zeros(size(_perPow.hydraulicEfficiency.V_flow, 1))
-     elseif ( size(_perPow.hydraulicEfficiency.V_flow, 1) == 1)  then
-       {0}
-     else
-       Buildings.Utilities.Math.Functions.splineDerivatives(
-                   x=_perPow.hydraulicEfficiency.V_flow,
-                   y=_perPow.hydraulicEfficiency.eta);
-
 equation
-  eta = etaHyd * etaMot;
-  // Flow work
-  WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
-  QThe_flow +  WFlo = if _perPow.motorCooledByFluid then P else WHyd;
+  QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
-  if homotopyInitialization then
-    Q_flow = homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
-                     simplified=0);
-  else
-    Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow);
-  end if;
+  Q_flow = if homotopyInitialization then
+    homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
+                      y1=QThe_flow,
+                      y2=0,
+                      x=noEvent(abs(V_flow))-2*delta_V_flow,
+                      x_small=delta_V_flow),
+            simplified=0)
+    else
+      Buildings.Utilities.Math.Functions.regStep(
+                      y1=QThe_flow,
+                      y2=0,
+                      x=noEvent(abs(V_flow))-2*delta_V_flow,
+                      x_small=delta_V_flow);
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Text(extent={{64,100},{114,86}},  textString="P",
-          lineColor={0,0,127}),
-        Line(
-          points={{0,80},{100,80}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+    Line( origin={-49.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Line( origin={0.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Line( origin={50.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Polygon(
+    origin={48,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0}),
+    Polygon(
+    origin={-2,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0}),
+    Polygon(
+    origin={-52,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0})}),
     Documentation(info="<html>
-<p>This is an interface that implements the functions to compute the power draw and the
+<p>Block that implements the functions to compute the
 heat dissipation of fans and pumps. It is used by the model
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
-</p>
-<h4>Implementation</h4>
-<p>
-Models that extend this model need to provide an implementation of
-<code>WFlo = eta * P</code>.
-This equation is not implemented in this model to allow other models
-to properly guard against division by zero.
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-January 6, 2015, by Michael Wetter:<br/>
-Revised model for OpenModelica.
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
 </li>
 <li>
-May 29, 2014, by Michael Wetter:<br/>
-Removed undesirable annotation <code>Evaluate=true</code>.
+February 19, 2016, by Michael Wetter:<br/>
+First implementation during refactoring of mover models to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
-<li>
-April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
-Changed model to use
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
-Buildings.Fluid.Movers.Data.Generic</a>.
-</li>
-<li>
-September 17, 2013, by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of parameters
-that are an array.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li><i>October 11, 2012</i> by Michael Wetter:<br/>
-    Removed <code>WFlo = eta * P</code> so that classes that use this partial model
-    can properly implement the equation so it guards against division by zero.
-</li>
-<li><i>March 1, 2010</i>
-    by Michael Wetter:<br/>
-    Revised implementation to allow <code>N=0</code>.
-<li><i>October 1, 2009</i>
-    by Michael Wetter:<br/>
-    Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
-    This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
-    converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in
-    millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
-    the model has been changed to use total pressure in Pascals instead of head in meters.
-</li>
-<li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
-       Model added to the Fluid library</li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PowerInterface;

@@ -5,9 +5,9 @@ model Battery "Simple model of a battery"
       Buildings.Electrical.PhaseSystems.OnePhase constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Real etaCha(min=0, max=1, unit="1") = 0.9
+  parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
-  parameter Real etaDis(min=0, max=1, unit="1") = 0.9
+  parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(start=0.1) "Initial charge";
   parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
@@ -44,7 +44,6 @@ protected
   replaceable Buildings.Electrical.AC.OnePhase.Loads.Resistive bat
     constrainedby Buildings.Electrical.Interfaces.Load(
     final initMode = initMode,
-    final P_nominal=0,
     final mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final V_nominal=V_nominal,
     final linearized=linearized) "Power exchanged with battery pack"
@@ -186,6 +185,14 @@ and that the state of charge remains between zero and one.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Corrected problem, the losses due to AC/DC conversion have to

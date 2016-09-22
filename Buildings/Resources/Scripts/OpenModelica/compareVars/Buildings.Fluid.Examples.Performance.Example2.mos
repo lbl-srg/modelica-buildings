@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "pump_dp.m_flow"
+  };

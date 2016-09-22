@@ -2,33 +2,35 @@ within Buildings.Fluid.Sensors;
 model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput phi(unit="1",
+  Modelica.Blocks.Interfaces.RealOutput phi(final unit="1",
                                             min=0,
                                             start=phi_start)
     "Relative humidity of the passing fluid"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=90,
         origin={1,110})));
-  parameter Real phi_start(unit="1", min=0, max=1)=0.5
+  parameter Real phi_start(final unit="1", min=0, max=1)=0.5
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
 protected
-  Real phiMed(unit="1", min=0, start=phi_start)
+  Real phiMed(final unit="1", min=0, start=phi_start)
     "Relative humidity to which the sensor is exposed to";
 
 protected
   Modelica.SIunits.Temperature T_a
     "Temperature of the medium flowing from port_a to port_b";
-  Medium.MassFraction Xi_a[Medium.nXi]
+  Medium.MassFraction Xi_a[Medium.nXi](
+    quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction of the medium flowing from port_a to port_b";
-  Real phi_a(unit="1")
+  Real phi_a(final unit="1")
     "Relative humidity of the medium flowing from port_a to port_b";
   Modelica.SIunits.Temperature T_b
     "Temperature of the medium flowing from port_b to port_a";
-  Medium.MassFraction Xi_b[Medium.nXi]
+  Medium.MassFraction Xi_b[Medium.nXi](
+    quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction of the medium flowing from port_b to port_a";
-  Real phi_b(unit="1")
+  Real phi_b(final unit="1")
     "Relative humidity of the medium flowing from port_b to port_a";
 
 initial equation
@@ -79,7 +81,7 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(phi) = (phiMed-phi)*k/tau;
+    der(phi) = (phiMed-phi)*k*tauInv;
   else
     phi = phiMed;
   end if;
@@ -112,6 +114,19 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016 by Michael Wetter:<br/>
+Added <code>quantity</code> attribute for mass fraction variables.<br/>
+Made unit assignment of output signal final.
+</li>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code>
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that

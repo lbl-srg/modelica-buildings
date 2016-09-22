@@ -35,7 +35,8 @@ model TestBedX3WithRadiantFloor
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3A"
     annotation (Placement(transformation(extent={{-212,124},{-172,164}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-240,260},{-220,280}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiCloB(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -71,7 +72,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -94,7 +95,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConCloB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected closet of test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -118,7 +119,7 @@ model TestBedX3WithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -137,7 +138,7 @@ model TestBedX3WithRadiantFloor
     table=[0,0.1,293.15; 86400,0.1,293.15],
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -155,7 +156,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleA(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3A (y[1] = m_flow, y[2] = T)"
@@ -234,7 +235,7 @@ model TestBedX3WithRadiantFloor
   Modelica.Blocks.Sources.CombiTimeTable airConEleB(
     tableOnFile=true,
     tableName="airCon",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/Data/Rooms/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.txt"),
     columns=2:5)
     "Inlet air conditions for the connected electrical room in test cell X3B (y[1] = m_flow, y[2] = T)"
@@ -559,35 +560,35 @@ equation
       smooth=Smooth.None));
 
   connect(intGaiCloB.y, BClo.qGai_flow) annotation (Line(
-      points={{-9,250},{50,250},{50,152},{66,152}},
+      points={{-9,250},{50,250},{50,152},{66.4,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiCloA.y, AClo.qGai_flow) annotation (Line(
-      points={{-129,250},{-100,250},{-100,152},{-88,152}},
+      points={{-129,250},{-100,250},{-100,152},{-87.6,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEleA.y, AEle.qGai_flow) annotation (Line(
-      points={{-269,250},{-230,250},{-230,152},{-214,152}},
+      points={{-269,250},{-230,250},{-230,152},{-213.6,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEleB.y, BEle.qGai_flow) annotation (Line(
-      points={{153,250},{226,250},{226,152},{242,152}},
+      points={{153,250},{226,250},{226,152},{242.4,152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaPosA.y, X3A.uSha) annotation (Line(
-      points={{-149,78},{-86,78},{-86,60},{-78,60}},
+      points={{-149,78},{-86,78},{-86,62},{-77.6,62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaPosB.y, X3B.uSha) annotation (Line(
-      points={{11,90},{72,90},{72,60},{80,60}},
+      points={{11,90},{72,90},{72,62},{80.4,62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiA.y, X3A.qGai_flow) annotation (Line(
-      points={{-149,44},{-100,44},{-100,52},{-78,52}},
+      points={{-149,44},{-100,44},{-100,52},{-77.6,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiB.y, X3B.qGai_flow) annotation (Line(
-      points={{11,62},{46,62},{46,52},{80,52}},
+      points={{11,62},{46,62},{46,52},{80.4,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airOutCloA.ports[1], AClo.ports[1]) annotation (Line(
@@ -923,7 +924,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -300},{300,300}}), graphics), __Dymola_Commands(file=
+            -300},{300,300}})),           __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Rooms/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
         "Simulate and Plot"),
         experiment(StopTime=864000.0),
@@ -970,6 +971,15 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        August 23, 2016, by Thierry S. Nouidui:<br/>
+        Corrected the syntax of the weather data file name entry.
+        </li>
+        <li>
+        April 21, 2016, by Michael Wetter:<br/>
+        Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+        <code>Modelica.Utilities.Files.loadResource</code>.
+        </li>
         <li>
         December 22, 2014 by Michael Wetter:<br/>
         Removed <code>Modelica.Fluid.System</code>

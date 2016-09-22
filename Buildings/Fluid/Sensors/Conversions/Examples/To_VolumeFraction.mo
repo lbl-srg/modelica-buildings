@@ -89,76 +89,58 @@ equation
 
   connect(souCO2.m_flow_in, CO2Per.y) annotation (Line(
       points={{-22.1,70},{-39,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gai.y, sou.m_flow_in) annotation (Line(
       points={{-39,-10},{-30,-10},{-30,-2},{-20,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(limPID.y, gai.u) annotation (Line(
       points={{-79,-10},{-62,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(nPeo.y, CO2Per.u) annotation (Line(
       points={{-79,70},{-62,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], senVolFlo.port_a) annotation (Line(
       points={{5.55112e-16,-10},{20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senCO2.C, conMasVolFra.m) annotation (Line(
       points={{141,10},{147,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conMasVolFra.V, norMea.u) annotation (Line(
       points={{169,10},{180,10},{180,-80},{-152,-80},{-152,-50},{-142,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(norMea.y, limPID.u_m) annotation (Line(
       points={{-119,-50},{-90,-50},{-90,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(volFra.y, norSet.u) annotation (Line(
       points={{-159,-10},{-142,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(norSet.y, limPID.u_s) annotation (Line(
       points={{-119,-10},{-102,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conVolFlo.u, senVolFlo.V_flow) annotation (Line(
       points={{38,30},{30,30},{30,1}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(souCO2.ports[1], senTraSubPeo.port_a) annotation (Line(
       points={{5.55112e-16,70},{40,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTraSubPeo.port_b, vol.ports[1]) annotation (Line(
       points={{60,70},{82,70},{82,50},{97,50},{97,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senVolFlo.port_b, senTraSubFre.port_a) annotation (Line(
       points={{40,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTraSubFre.port_b, vol.ports[2]) annotation (Line(
       points={{80,-10},{99,-10},{99,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[3], senCO2.port) annotation (Line(
       points={{101,60},{101,-10},{130,-10},{130,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[4], res.port_a) annotation (Line(
       points={{103,60},{102,60},{102,38},{122,38},{122,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res.port_b, sin.ports[1]) annotation (Line(
       points={{142,40},{160,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
 experiment(StopTime=36000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"

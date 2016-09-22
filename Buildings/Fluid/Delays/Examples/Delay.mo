@@ -49,20 +49,16 @@ equation
           80,14}}, color={0,0,127}));
   connect(sou.ports[1], res1.port_a) annotation (Line(
       points={{-38,6},{-36,6},{-36,6},{-34,6},{-34,6},{-30,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[1], res2.port_b) annotation (Line(
       points={{58,6},{55,6},{55,6},{52,6},{52,6},{46,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, del.ports[1]) annotation (Line(
       points={{-10,6},{6,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res2.port_a, del.ports[2]) annotation (Line(
       points={{26,6},{10,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=300),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos"
         "Simulate and plot"));

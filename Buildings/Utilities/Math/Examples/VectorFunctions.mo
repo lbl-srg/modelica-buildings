@@ -21,40 +21,31 @@ model VectorFunctions "Test model for functions that take a vector as argument"
 equation
   connect(sine.y, minVec.u[1]) annotation (Line(
       points={{-59,30},{-40.5,30},{-40.5,28.6667},{-22,28.6667}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine1.y, minVec.u[2]) annotation (Line(
       points={{-59,-10},{-40,-10},{-40,30},{-22,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine2.y, minVec.u[3]) annotation (Line(
       points={{-59,-50},{-40,-50},{-40,31.3333},{-22,31.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine.y, maxVec.u[1]) annotation (Line(
       points={{-59,30},{-40.5,30},{-40.5,-51.3333},{-22,-51.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine1.y, maxVec.u[2]) annotation (Line(
       points={{-59,-10},{-42,-10},{-42,-50},{-22,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine2.y, maxVec.u[3]) annotation (Line(
       points={{-59,-50},{-40,-50},{-40,-48.6667},{-22,-48.6667}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine.y, aveVec.u[1]) annotation (Line(
       points={{-59,30},{-40.5,30},{-40.5,-11.3333},{-22,-11.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine1.y, aveVec.u[2]) annotation (Line(
       points={{-59,-10},{-22,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sine2.y, aveVec.u[3]) annotation (Line(
       points={{-59,-50},{-40,-50},{-40,-8.66667},{-22,-8.66667}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos"
         "Simulate and plot"),

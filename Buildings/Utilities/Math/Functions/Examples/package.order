@@ -1,4 +1,6 @@
 CubicHermite
+InverseXDerivativeCheck
+InverseXDerivative_2_Check
 InverseXRegularized
 IsMonotonic
 PolynomialDerivativeCheck
@@ -6,7 +8,9 @@ PowerLinearized
 RegNonZeroPower
 RegNonZeroPowerDerivativeCheck
 RegNonZeroPowerDerivative_2_Check
+RegStep
 SmoothExponentialDerivativeCheck
+SmoothInterpolation
 SpliceFunction
 SpliceFunctionDerivativeCheck
 TrapezoidalIntegration

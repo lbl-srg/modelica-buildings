@@ -7,7 +7,7 @@ record GenericSolarCollector
   parameter Modelica.SIunits.Area A "Area";
   parameter Modelica.SIunits.Mass mDry "Dry weight";
   parameter Modelica.SIunits.Volume V "Fluid volume";
-  parameter Modelica.SIunits.Pressure dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop during test conditions";
   parameter Real mperA_flow_nominal(unit="kg/(s.m2)")
     "Mass flow rate per unit area of collector";

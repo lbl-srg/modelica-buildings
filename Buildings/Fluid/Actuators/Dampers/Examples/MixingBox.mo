@@ -67,20 +67,16 @@ equation
           81,50}}, color={0,0,127}));
   connect(bouIn.ports[1], mixBox.port_Out) annotation (Line(
       points={{-40,14},{-16,14},{-16,-6},{14,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bouIn.ports[2], mixBox.port_Exh) annotation (Line(
       points={{-40,10},{-18,10},{-18,-18},{14,-18}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bouSup.ports[1], mixBox.port_Sup) annotation (Line(
       points={{48,6.66134e-16},{42,6.66134e-16},{42,-6},{34,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bouRet.ports[1], mixBox.port_Ret) annotation (Line(
       points={{48,-80},{42,-80},{42,-18},{34,-18}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBox.mos"
         "Simulate and plot"),
     experiment(StopTime=240),

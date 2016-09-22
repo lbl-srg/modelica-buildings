@@ -49,7 +49,7 @@ Users Guide</a>.
       volume "use state of fluid volume",
       port_a "use port_a",
       port_b "use port_b",
-      average "use (port_a+port_b)/2)")
+      average "use (port_a+port_b)/2")
     "Enumeration to define the input for efficiency curves";
   type HeatExchangerConfiguration = enumeration(
       ParallelFlow "Parallel flow",
@@ -124,7 +124,38 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
 </table>
 </html>"));
-annotation (preferredView="info", Documentation(info="<html>
+  type InputType = enumeration(
+      Constant "Use parameter to set stage",
+      Stages "Use integer input to select stage",
+      Continuous "Use continuous, real input") "Input options for movers"
+    annotation (Documentation(info="<html>
+<p>
+This type allows defining which type of input should be used for movers. 
+This can either be
+</p>
+<ol>
+<li>
+a constant set point declared by a parameter,
+</li>
+<li>
+a series of possible set points that can be switched using an integer input, or
+</li>
+<li>
+a continuously variable set point.
+</li>
+</ol>
+</html>", revisions="<html>
+<ul>
+<li>
+April 2, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
+ annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;

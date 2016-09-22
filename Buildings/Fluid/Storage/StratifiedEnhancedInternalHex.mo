@@ -40,7 +40,7 @@ model StratifiedEnhancedInternalHex
     "Nominal mass flow rate through the heat exchanger"
     annotation(Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.Pressure dpHex_nominal(displayUnit="Pa") = 2500
+  parameter Modelica.SIunits.PressureDifference dpHex_nominal(displayUnit="Pa") = 2500
     "Pressure drop across the heat exchanger at nominal conditions"
     annotation(Dialog(group="Heat exchanger"));
 
@@ -62,10 +62,13 @@ model StratifiedEnhancedInternalHex
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Formulation of energy balance for heat exchanger internal fluid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamicsHex=
-    energyDynamicsHex "Formulation of mass balance"
+    energyDynamicsHex "Formulation of mass balance for heat exchanger"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHexSolid=energyDynamicsHex
+    "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Equations"));
 
   parameter Modelica.SIunits.Length lHex=
@@ -107,6 +110,8 @@ model StratifiedEnhancedInternalHex
         iconTransformation(extent={{-110,-90},{-90,-70}})));
 
   BaseClasses.IndirectTankHeatExchanger indTanHex(
+    redeclare final package MediumTan = Medium,
+    redeclare final package MediumHex = MediumHex,
     final nSeg=nSegHex,
     final CHex=CHex,
     final volHexFlu=volHexFlu,
@@ -115,11 +120,10 @@ model StratifiedEnhancedInternalHex
     final THex_nominal=THex_nominal,
     final r_nominal=r_nominal,
     final dExtHex=dExtHex,
-    redeclare final package MediumTan = Medium,
-    redeclare final package MediumHex = MediumHex,
     final dp_nominal=dpHex_nominal,
     final m_flow_nominal=mHex_flow_nominal,
     final energyDynamics=energyDynamicsHex,
+    final energyDynamicsSolid=energyDynamicsHexSolid,
     final massDynamics=massDynamicsHex,
     final computeFlowResistance=computeFlowResistance,
     from_dp=from_dp,
@@ -134,6 +138,8 @@ model StratifiedEnhancedInternalHex
         rotation=180,
         origin={-87,32})));
 
+  Modelica.SIunits.HeatFlowRate QHex_flow = -sum(indTanHex.port.Q_flow)
+    "Heat transfered from the heat exchanger to the tank";
 protected
   final parameter Integer segHex_a = nSeg-integer(hHex_a/segHeight)
     "Tank segment in which port a1 of the heat exchanger is located in"
@@ -159,6 +165,7 @@ protected
 
   final parameter Integer nSegHex = nSegHexTan*hexSegMult
     "Number of heat exchanger segments";
+
 initial equation
   assert(hHex_a >= 0 and hHex_a <= hTan,
     "The parameter hHex_a is outside its valid range.");
@@ -169,25 +176,25 @@ initial equation
   assert(dHHex > 0,
     "The parameters hHex_a and hHex_b must not be equal.");
 equation
-   for j in 1:nSegHexTan loop
-     for i in 1:hexSegMult loop
-       connect(indTanHex.port[(j-1)*hexSegMult+i], heaPorVol[segHex_a+j-1])
+  for j in 0:nSegHexTan-1 loop
+    for i in 1:hexSegMult loop
+      connect(indTanHex.port[j*hexSegMult+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
         annotation (Line(
        points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
        color={191,0,0},
        smooth=Smooth.None));
-     end for;
-   end for;
+    end for;
+  end for;
   connect(portHex_a, indTanHex.port_a) annotation (Line(
-      points={{-100,-38},{-74,-38},{-74,32},{-77,32}},
+      points={{-100,-38},{-68,-38},{-68,32},{-77,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(indTanHex.port_b, portHex_b) annotation (Line(
-      points={{-97,32},{-100,32},{-100,20},{-76,20},{-76,-80},{-100,-80}},
+      points={{-97,32},{-98,32},{-98,18},{-70,18},{-70,-80},{-100,-80}},
       color={0,127,255},
       smooth=Smooth.None));
 
-           annotation (Line(
+  annotation (Line(
       points={{-73.2,69},{-70,69},{-70,28},{-16,28},{-16,-2.22045e-16},{0,-2.22045e-16}},
       color={191,0,0},
       smooth=Smooth.None), Icon(coordinateSystem(preserveAspectRatio=false,
@@ -245,6 +252,34 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 23, 2016, by Michael Wetter:<br/>
+Corrected computation of the heat exchanger location which was wrong
+if <code>hHex_a &lt; hHex_b</code>, e.g., the port a of the heat exchanger
+is below the port b.
+This closes
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/531\">issue 531</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
+July 2, 2015, by Michael Wetter:<br/>
+Set the default value <code>energyDynamicsHexSolid=energyDynamicsHex</code>
+rather than
+<code>energyDynamicsHexSolid=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial</code>
+as users are not likely to want different settings.
+</li>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Added parameter <code>energyDynamicsHexSolid</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
+#434</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>.

@@ -24,7 +24,6 @@ model ACACTransformerFull
         origin={-70,50})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive load(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    P_nominal=-2000,
     pf=0.8,
     V_nominal=120) "Load"
     annotation (Placement(transformation(extent={{10,40},{30,60}})));
@@ -112,6 +111,11 @@ The example shows three different configurations:
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 1, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>load.P_nominal</code> as it is
+not required and leads to dublicate assignments.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

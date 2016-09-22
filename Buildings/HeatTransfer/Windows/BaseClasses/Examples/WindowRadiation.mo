@@ -5,6 +5,15 @@ model WindowRadiation "Test model for window radiation"
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
   parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
 
+  replaceable parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
+    UFra=2,
+    haveExteriorShade=false,
+    haveInteriorShade=true) constrainedby Data.GlazingSystems.Generic
+    "Parameters for glazing system"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
@@ -39,13 +48,6 @@ model WindowRadiation "Test model for window radiation"
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-
-  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
-    shade=Buildings.HeatTransfer.Data.Shades.Gray(),
-    UFra=2,
-    haveExteriorShade=false,
-    haveInteriorShade=true) "Parameters for glazing system"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-50,10},{-28,10}},
@@ -79,7 +81,7 @@ equation
       points={{81,-30},{90,-30},{90,-10},{69.8,-10},{69.8,-1.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(winRad.QTra_flow, HRoo.u) annotation (Line(
+  connect(winRad.QTraDif_flow, HRoo.u) annotation (Line(
       points={{81,2},{94,2},{94,-90},{-10,-90},{-10,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));

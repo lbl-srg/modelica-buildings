@@ -1,8 +1,8 @@
 within Buildings.Electrical.DC.Storage;
 model Battery "Simple model of a battery"
- parameter Real etaCha(min=0, max=1, unit="1") = 0.9
+ parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
- parameter Real etaDis(min=0, max=1, unit="1") = 0.9
+ parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
  parameter Real SOC_start(min=0, max=1, unit="1")=0.1 "Initial state of charge";
  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
@@ -30,7 +30,6 @@ protected
     final etaDis=etaDis) "Charge model"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Loads.Conductor bat(
-    final P_nominal=0,
     final mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     final V_nominal=V_nominal) "Power exchanged with battery pack"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -149,7 +148,15 @@ and that the state of charge remains between zero and one.
 </p>
 </html>",
         revisions="<html>
-        <ul>
+<ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 March 19, 2015, by Michael Wetter:<br/>
 Removed redeclaration of phase system in <code>Terminal_n</code> and

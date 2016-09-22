@@ -78,6 +78,8 @@ protected
     "Mass fraction at nominal inlet conditions";
   final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
     "Mass fraction at nominal outlet conditions";
+  final parameter Modelica.SIunits.MassFraction XiSatRefOut_nominal(fixed=false)
+    "Water vapor mass fraction at saturation, referenced to outlet mass flow rate";
   final parameter Modelica.SIunits.Temperature TEvaOut_nominal(fixed=false)
     "Dry bulb temperature at nominal outlet conditions";
   final parameter Modelica.SIunits.Temperature TEvaWetBulOut_nominal(fixed=false)
@@ -100,6 +102,9 @@ protected
   Modelica.SIunits.MassFraction XEvaWetBulOut
     "Water vapor mass fraction at wet bulb conditions at air inlet";
 
+  Modelica.SIunits.MassFraction XiSatRefOut
+    "Water vapor mass fraction at saturation, referenced to outlet mass flow rate";
+
    // off = not on is required because Dymola 2013 fails during model
    // check if on, which is an input connector, is used in the edge() function
   Boolean off=not on "Signal, true when component is off";
@@ -114,6 +119,12 @@ protected
   constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
      Buildings.Utilities.Psychrometrics.Constants.cpSte
     "Specific heat capacity of water vapor";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq_nominal=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Specific heat capacity of liquid water";
+  constant Modelica.SIunits.Temperature T_ref=
+    Buildings.Utilities.Psychrometrics.Constants.T_ref
+    "Reference temperature for psychrometric calculations";
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
   QLat_flow_nominal=nomVal.Q_flow_nominal-QSen_flow_nominal;
@@ -141,26 +152,32 @@ initial equation
   // Compute wet bulb temperature.
   // The computation of the wet bulb temperature requires an iterative
   // solution. It therefore cannot be done in a function.
-  // The block Buildings.Utilities.Psychrometrics.WetBul_pTX
+  // The block Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
   // implements the equation below, but it cannot
   // be used here because blocks cannot be used to assign parameter
   // values.
   XEvaWetBulOut_nominal   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut_nominal),
-      p=     nomVal.p_nominal,
-      phi=   1);
-  TEvaWetBulOut_nominal = (TEvaOut_nominal
-       * ((1-XEvaOut_nominal) * cpAir_nominal + XEvaOut_nominal * cpSte_nominal)
-       + (XEvaOut_nominal-XEvaWetBulOut_nominal) * h_fg)/
-            ( (1-XEvaWetBulOut_nominal)*cpAir_nominal + XEvaWetBulOut_nominal * cpSte_nominal);
+      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut_nominal),
+      p =    nomVal.p_nominal,
+      phi =  1);
+
+  XiSatRefOut_nominal=(1-XEvaOut_nominal)*XEvaWetBulOut_nominal/(1-XEvaWetBulOut_nominal);
+    (TEvaWetBulOut_nominal-T_ref) * (
+              (1-XEvaOut_nominal) * cpAir_nominal +
+              XiSatRefOut_nominal * cpSte_nominal +
+              (XEvaOut_nominal-XiSatRefOut_nominal) * cpWatLiq_nominal) =
+    (TEvaOut_nominal-T_ref) * (
+              (1-XEvaOut_nominal) * cpAir_nominal +
+              XEvaOut_nominal * cpSte_nominal)  +
+    (XEvaOut_nominal-XiSatRefOut_nominal) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
 
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
   assert(dX_nominal > 1E-10,
-     "Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
-  This means that the coil is not dehumidifying air at the nominal conditions.
-  Check nominal parameters.
-  " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
+    "*** Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
+    This means that the coil is not dehumidifying air at the nominal conditions.
+    Check nominal parameters.
+    " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
       AssertionLevel.warning);
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
@@ -168,14 +185,14 @@ initial equation
   // If gamma is bigger than a maximum value, write a warning and then
   // use the smaller value.
   assert(nomVal.gamma <= gammaMax,
-  "Warning: In DX coil model, gamma is too large for these coil conditions.
-  Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which
-  corresponds to a mass transfer effectiveness of 0.8, will be used.
-  Coil nominal performance data are:
-   nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
-   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = " + String(XEvaOut_nominal) + " - " +
+  "*** Warning: In DX coil model, gamma is too large for these coil conditions.
+    Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which
+    corresponds to a mass transfer effectiveness of 0.8, will be used.
+    Coil nominal performance data are:
+    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
+    dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = " + String(XEvaOut_nominal) + " - " +
       String(XEvaWetBulOut_nominal) + " = " + String(dX_nominal) + "
-   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n",
+    QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n",
    AssertionLevel.warning);
 
   logArg = 1-min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/dX_nominal;
@@ -190,9 +207,10 @@ initial equation
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
-   " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
-                                                                                     nomVal) + "
-  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
+   " +
+   Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
+     nomVal) + "
+  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
 equation
   // When the coil switches off, set accumulated water to
@@ -209,22 +227,32 @@ equation
       der(m) = -mWat_flow;
       TEvaWetBulOut = 293.15;
       XEvaWetBulOut = 0;
+      XiSatRefOut = 0;
     else
       // Compute wet bulb temperature.
       // The computation of the wet bulb temperature requires an iterative
       // solution. It therefore cannot be done in a function.
-      // The block Buildings.Utilities.Psychrometrics.WetBul_pTX
+      // The block Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
       // implements the equation below, but it is not used here
       // because otherwise, in each branch of the if-then construct,
       // an iteration would be done. This would be inefficient because
       // the wet bulb conditions are only needed in this branch.
-      XEvaWetBulOut = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-        pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut),
-        p=     nomVal.p_nominal,
-        phi=   1);
-      TEvaWetBulOut = (TEvaOut * ((1-XEvaOut) * cpAir_nominal + XEvaOut * cpSte_nominal)
-         + (XEvaOut-XEvaWetBulOut) * h_fg)/
-              ( (1-XEvaWetBulOut)*cpAir_nominal + XEvaWetBulOut * cpSte_nominal);
+
+
+      XiSatRefOut=(1-XEvaOut)*XEvaWetBulOut/(1-XEvaWetBulOut);
+      XEvaWetBulOut  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+        pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut),
+        p =    nomVal.p_nominal,
+        phi =  1);
+      (TEvaWetBulOut-T_ref) * (
+                (1-XEvaOut) * cpAir_nominal +
+                XiSatRefOut * cpSte_nominal +
+                (XEvaOut-XiSatRefOut) * cpWatLiq_nominal) =
+      (TEvaOut-T_ref) * (
+                (1-XEvaOut) * cpAir_nominal +
+                XEvaOut * cpSte_nominal)  +
+      (XEvaOut-XiSatRefOut) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
+
 
       dX = smooth(1, noEvent(
          Buildings.Utilities.Math.Functions.spliceFunction(
@@ -547,6 +575,12 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 24, 2016, by Filip Jorissen:<br/>
+Corrected implementation of wet bulb temperature computation.
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex60, #474</a>
+for a discussion.
+</li>
 <li>
 January 21, 2015 by Michael Wetter:<br/>
 Converted print statements to assertions with <code>AssertionLevel.warning</code>.

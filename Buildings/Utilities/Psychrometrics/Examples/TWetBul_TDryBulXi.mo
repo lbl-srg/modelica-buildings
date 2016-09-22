@@ -9,48 +9,44 @@ model TWetBul_TDryBulXi
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
-                 annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+                 annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(         redeclare
       package Medium = Medium) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
-                                    annotation (Placement(transformation(extent={{-100,
-            -20},{-80,0}})));
+                                    annotation (Placement(transformation(extent={{-80,-20},
+            {-60,0}})));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+                 annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulApp(redeclare
       package Medium = Medium, approximateWetBulb=true)
     "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 equation
-  connect(p.y, wetBul.p) annotation (Line(points={{-79,-10},{-60,-10},{-60,22},
-          {-1,22}},                                                 color={0,0,
+  connect(p.y, wetBul.p) annotation (Line(points={{-59,-10},{-40,-10},{-40,22},{
+          -1,22}},                                                  color={0,0,
           127}));
   connect(XHum.y, wetBul.Xi[1]) annotation (Line(
-      points={{-79,30},{-1,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,30},{-30,30},{-1,30}},
+      color={0,0,127}));
   connect(TDryBul.y, wetBul.TDryBul) annotation (Line(
-      points={{-79,70},{-48,70},{-48,38},{-1,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,70},{-20,70},{-20,38},{-1,38}},
+      color={0,0,127}));
   connect(p.y, wetBulApp.p)
-                         annotation (Line(points={{-79,-10},{-60,-10},{-60,-18},
-          {-1,-18}},                                                color={0,0,
+                         annotation (Line(points={{-59,-10},{-40,-10},{-40,-10},
+          {-40,-10},{-40,-18},{-1,-18}},                            color={0,0,
           127}));
   connect(XHum.y, wetBulApp.Xi[1])
                                 annotation (Line(
-      points={{-79,30},{-55,30},{-55,-10},{-1,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,30},{-29,30},{-29,-10},{-1,-10}},
+      color={0,0,127}));
   connect(TDryBul.y, wetBulApp.TDryBul)
                                      annotation (Line(
-      points={{-79,70},{-48,70},{-48,-2},{-1,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,70},{-20,70},{-20,-2},{-1,-2}},
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
         "Simulate and plot"),
@@ -61,6 +57,10 @@ wet bulb temperature, whereas the model below uses the approximate
 computation of the wet bulb temperature.
 </html>", revisions="<html>
 <ul>
+<li>
+June 23, 2016, by Michael Wetter:<br/>
+Changed graphical annotation.
+</li>
 <li>
 October 1, 2012 by Michael Wetter:<br/>
 Revised implementation to add approximate computation of wet bulb temperature.

@@ -61,19 +61,16 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,40},{0,-4}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,40},{0,-4}}),
         Line(
           visible=not filteredOpening,
-          points={{0,100},{0,40}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+          points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
 Partial model for valves with different opening characteristics,
 such as linear, equal percentage or quick opening. This partial extends from
-<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">PartialTwoWayValve</a>
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 and also contains the governing equations for these three two way valve models.
 </p>
 <h4>Implementation</h4>

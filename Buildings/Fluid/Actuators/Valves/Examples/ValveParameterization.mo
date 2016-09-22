@@ -71,61 +71,47 @@ equation
       color={0,0,127}));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
       points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,5.55112e-16},{-50,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[3], valCv.port_a) annotation (Line(
       points={{-50,-2.66667},{-40,-2.66667},{-40,-40},{-10,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, valCv.y) annotation (Line(
       points={{-39,70},{-20,70},{-20,-20},{6.66134e-16,-20},{6.66134e-16,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(
       points={{-50,2.66667},{-40,2.66667},{-40,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valOPPoi.port_b, senM_flowOpPoi.port_a) annotation (Line(
       points={{10,40},{20,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valKv.port_b, senM_flowKv.port_a) annotation (Line(
       points={{10,6.10623e-16},{12.5,6.10623e-16},{12.5,1.22125e-15},{15,
           1.22125e-15},{15,6.10623e-16},{20,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valCv.port_b, senM_flowCv.port_a) annotation (Line(
       points={{10,-40},{20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flowCv.port_b, sin.ports[3]) annotation (Line(
       points={{40,-40},{60,-40},{60,-2.66667},{70,-2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flowKv.port_b, sin.ports[2]) annotation (Line(
       points={{40,6.10623e-16},{50,6.10623e-16},{50,4.44089e-16},{70,4.44089e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flowOpPoi.port_b, sin.ports[1]) annotation (Line(
       points={{40,40},{60,40},{60,2},{66,2},{66,2.66667},{70,2.66667}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senM_flowOpPoi.m_flow, equ1.u1) annotation (Line(
       points={{30,51},{30,76},{78,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flowKv.m_flow, equ1.u2) annotation (Line(
       points={{30,11},{30,20},{46,20},{46,64},{78,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flowKv.m_flow, equ2.u1) annotation (Line(
       points={{30,11},{30,20},{46,20},{46,36},{78,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flowCv.m_flow, equ2.u2) annotation (Line(
       points={{30,-29},{30,-20},{50,-20},{50,24},{78,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParameterization.mos"
         "Simulate and plot"),

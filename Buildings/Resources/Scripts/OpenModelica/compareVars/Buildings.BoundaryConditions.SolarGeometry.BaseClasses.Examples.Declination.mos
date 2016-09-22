@@ -1,4 +1,5 @@
 compareVars :=
   {
-    "decAng.decAng"
+    "decAng.decAng",
+    "solDecNOAA.y"
   };

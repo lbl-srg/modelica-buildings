@@ -4,6 +4,9 @@ block ASHRAESolarGain
   extends Modelica.Blocks.Icons.Block;
   extends SolarCollectors.BaseClasses.PartialParameters;
 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the system";
+
   parameter Real B0 "1st incident angle modifer coefficient";
   parameter Real B1 "2nd incident angle modifer coefficient";
   parameter Boolean use_shaCoe_in = false "Enable input connector for shaCoe"
@@ -16,16 +19,13 @@ block ASHRAESolarGain
 
   parameter Modelica.SIunits.Angle til "Surface tilt";
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the system";
-
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
     "Shading coefficient"
     annotation(Placement(transformation(extent={{-140,-70},{-100,-30}})));
    Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
    each unit = "K",
    each displayUnit="degC",
-   each quantity="Temperature")
+   each quantity="ThermodynamicTemperature")
    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
    Modelica.Blocks.Interfaces.RealInput HSkyDifTil(
      unit="W/m2", quantity="RadiantEnergyFluenceRate")
@@ -49,6 +49,13 @@ block ASHRAESolarGain
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
+  constant Modelica.SIunits.TemperatureDifference dTMax = 1
+    "Safety temperature difference to prevent TFlu > Medium.T_max";
+  final parameter Modelica.SIunits.Temperature TMedMax = Medium.T_max-dTMax
+    "Fluid temperature above which there will be no heat gain computed to prevent TFlu > Medium.T_max";
+  final parameter Modelica.SIunits.Temperature TMedMax2 = TMedMax-dTMax
+    "Fluid temperature below which there will be no heat loss computed to prevent TFlu < Medium.T_min";
+
   final parameter Real iamSky(fixed = false)
     "Incident angle modifier for diffuse solar radiation from the sky";
   final parameter Real iamGro(fixed = false)
@@ -115,8 +122,9 @@ equation
   for i in 1 : nSeg loop
     QSol_flow[i] = A_c/nSeg*(y_intercept*iam*(HDirTil*(1.0 -
     shaCoe_internal) + HSkyDifTil + HGroDifTil))*
-    Buildings.Utilities.Math.Functions.smoothHeaviside(
-     (Medium.T_max+1)-TFlu[i],1);
+      smooth(1, if TFlu[i] < TMedMax2
+        then 1
+        else Buildings.Utilities.Math.Functions.smoothHeaviside(TMedMax-TFlu[i], dTMax));
   end for;
 
   annotation (
@@ -218,15 +226,33 @@ equation
       </p>
     </html>",
     revisions="<html>
-      <ul>
-      <li>
-      November 20, 2014, by Michael Wetter:<br/>
-      Added missing <code>each</code> keyword.
-      </li>
-        <li>
-          Jan 15, 2013, by Peter Grant:<br/>
-          First implementation
-        </li>
-      </ul>
-    </html>"));
+    <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected quantity from <code>Temperature</code> to <code>ThermodynamicTemperature</code>
+to avoid an error in the pedantic model check in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
+<li>
+June 29, 2015, by Michael Wetter:<br/>
+Revised implementation of heat loss near <code>Medium.T_max</code>
+to make it more efficient.
+</li>
+<li>
+June 29, 2015, by Filip Jorissen:<br/>
+Fixed sign mistake causing model to fail under high
+solar irradiation because temperature goes above medium
+temperature bound.
+</li>
+<li>
+November 20, 2014, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword.
+</li>
+<li>
+Jan 15, 2013, by Peter Grant:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end ASHRAESolarGain;

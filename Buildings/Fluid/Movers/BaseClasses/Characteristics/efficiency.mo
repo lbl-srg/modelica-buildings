@@ -7,7 +7,7 @@ function efficiency "Flow vs. efficiency characteristics for fan or pump"
   input Real d[:] "Derivatives at support points for spline interpolation";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real delta "Small value for switching implementation around zero rpm";
-  output Real eta(min=0, unit="1") "Efficiency";
+  output Modelica.SIunits.Efficiency eta "Efficiency";
 
 protected
   Integer n = size(per.V_flow, 1) "Number of data points";
@@ -89,5 +89,5 @@ September 28, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),   smoothOrder=1);
+</html>"));
 end efficiency;

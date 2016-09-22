@@ -59,7 +59,7 @@ equation
   TMedWetBul = wetBulMod.TWetBul;
   // Output signal of sensor
   if dynamic then
-    der(T) = (TMedWetBul-T)*k/tau;
+    der(T) = (TMedWetBul-T)*k*tauInv;
   else
     T = TMedWetBul;
   end if;
@@ -72,9 +72,9 @@ annotation (defaultComponentName="senWetBul",
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-40,60},{-12,60}}, color={0,0,0}),
-        Line(points={{-40,30},{-12,30}}, color={0,0,0}),
-        Line(points={{-40,0},{-12,0}}, color={0,0,0}),
+        Line(points={{-40,60},{-12,60}}),
+        Line(points={{-40,30},{-12,30}}),
+        Line(points={{-40,0},{-12,0}}),
         Rectangle(
           extent={{-12,60},{12,-24}},
           lineColor={0,0,255},
@@ -91,11 +91,9 @@ annotation (defaultComponentName="senWetBul",
           textString="T"),
         Line(
           points={{-12,60},{-12,-25}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{12,60},{12,-24}},
-          color={0,0,0},
           thickness=0.5),
         Line(points={{0,100},{0,50}}, color={0,0,127})}),
     Documentation(info="<html>
@@ -111,6 +109,14 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in
+<a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>wetBulMod</code>

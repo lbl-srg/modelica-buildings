@@ -42,32 +42,25 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
 equation
   connect(sou.ports[1], volA.ports[1]) annotation (Line(
       points={{5.55112e-16,-30},{28,-30},{28,-20},{28,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ramSou.y, sou.m_flow_in) annotation (Line(
       points={{-59,-22},{-20,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(volB.ports[1], cra.port_b) annotation (Line(
       points={{80,20},{80,-30},{70,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volA.ports[2], cra.port_a) annotation (Line(
       points={{32,-20},{32,-30},{50,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preHeaFlo.port, volB.heatPort) annotation (Line(
       points={{20,30},{70,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(Gain1.y, preHeaFlo.Q_flow) annotation (Line(
       points={{-19,30},{-5.55112e-16,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Gain1.u, Sine1.y) annotation (Line(
       points={{-42,30},{-59,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
         "Simulate and plot"),
         experiment(

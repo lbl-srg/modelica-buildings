@@ -5,10 +5,10 @@ model PowerLaw "Test model for power law function"
 
   parameter Real m(min=0.5, max=1) = 0.5
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0)=5
+  parameter Modelica.SIunits.PressureDifference dp_turbulent(min=0)=5
     "Pressure difference where regularization starts";
 
-  Modelica.SIunits.Pressure dp "Pressure difference";
+  Modelica.SIunits.PressureDifference dp "Pressure difference";
   Modelica.SIunits.VolumeFlowRate V_flow "Volume flow rate";
 equation
   dp = 10*(-1+2*time);

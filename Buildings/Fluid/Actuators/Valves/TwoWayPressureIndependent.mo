@@ -13,8 +13,8 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
 
 protected
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
-  Modelica.SIunits.Pressure dp_min
-    "Minimum dp required for delivering requested mass flow rate";
+  Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
+    "Minimum pressure difference required for delivering requested mass flow rate";
 
 equation
   m_flow_set = m_flow_nominal*phi;
@@ -33,46 +33,46 @@ equation
 
    if homotopyInitialization then
      if from_dp then
-         m_flow=homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(
+         m_flow=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
                             x=dp-dp_min,
-                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            neg= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=dp,
                                   k=k,
                                   m_flow_turbulent=m_flow_turbulent),
-                            deltax=dp_nominal_pos*deltax),
+                            x_small=dp_nominal_pos*deltax),
                          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
      else
 
-         dp=homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(
+         dp=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
                             x=m_flow-m_flow_set,
-                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            neg= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                   m_flow=m_flow,
                                   k=k,
                                   m_flow_turbulent=m_flow_turbulent),
-                            deltax=m_flow_nominal_pos*deltax*l2),
+                            x_small=m_flow_nominal_pos*deltax*l2),
                      simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
      end if;
    else // do not use homotopy
      if from_dp then
-       m_flow=Buildings.Utilities.Math.Functions.spliceFunction(
+       m_flow=Buildings.Utilities.Math.Functions.regStep(
                             x=dp-dp_min,
-                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            neg= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=dp,
                                   k=k,
                                   m_flow_turbulent=m_flow_turbulent),
-                            deltax=dp_nominal_pos*deltax);
+                            x_small=dp_nominal_pos*deltax);
       else
-        dp=Buildings.Utilities.Math.Functions.spliceFunction(
+        dp=Buildings.Utilities.Math.Functions.regStep(
                             x=m_flow-m_flow_set,
-                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            neg= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                   m_flow=m_flow,
                                   k=k,
                                   m_flow_turbulent=m_flow_turbulent),
-                            deltax=m_flow_nominal_pos*deltax*l2);
+                            x_small=m_flow_nominal_pos*deltax*l2);
       end if;
     end if; // homotopyInitialization
   annotation (defaultComponentName="val",
@@ -101,14 +101,10 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,40},{0,-4}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,40},{0,-4}}),
         Line(
           visible=not filteredOpening,
-          points={{0,100},{0,40}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+          points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
 Two way valve with a pressure-independent valve opening characteristic.
@@ -167,6 +163,18 @@ the result when using <code>from_dp = false</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>
 First implementation.

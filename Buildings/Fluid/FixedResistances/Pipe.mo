@@ -12,7 +12,7 @@ model Pipe "Pipe with finite volume discretization along flow path"
     "Velocity at m_flow_nominal (used to compute default diameter)";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
+  final parameter Modelica.SIunits.PressureDifference dpStraightPipe_nominal(displayUnit="Pa")=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
       rho_a=rho_default,
@@ -52,7 +52,6 @@ model Pipe "Pipe with finite volume discretization along flow path"
     annotation (Placement(transformation(extent={{-10,-70},{11,-50}}),
         iconTransformation(extent={{-30,-60},{30,-40}})));
 equation
-
   connect(conPipWal.port_b, vol.heatPort) annotation (Line(
       points={{-8,-28},{-1,-28}},
       color={191,0,0},
@@ -79,13 +78,27 @@ equation
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
+<h4>Heat loss calculation</h4>
 <p>
+There are two possible configurations:
+</p>
+<ol>
+<li>
 If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port
-for the heat exchange with the environment.
-If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
+for the heat exchange with the environment. Note that if the heat port
+is unconnected, then all volumes are still connected through the heat conduction elements
+<code>conPipWal</code>.
+Therefore, they exchange a small amount of heat, which is not physical.
+To avoid this, set <code>useMultipleHeatPorts=true</code>.
+</li>
+<li>
+If <code>useMultipleHeatPorts=true</code>,
+then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
 If the heat port is unconnected, then the pipe has no heat loss.
-</p>
+</li>
+</ol>
+<h4>Pressure drop calculation</h4>
 <p>
 The default value for the parameter <code>diameter</code> is computed such that the flow velocity
 is equal to <code>v_nominal=0.15</code> for a mass flow rate of <code>m_flow_nominal</code>.
@@ -110,6 +123,17 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
+October 30, 2015, by Michael Wetter:<br/>
+Improved documentation for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/455\">#455</a>.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Renamed <code>res</code> to <code>preDro</code> for

@@ -3,7 +3,7 @@ model Pump_stratos "Stratos pumps with speed as input"
   extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     redeclare package Medium = Buildings.Media.Water,
-    gain(k=floMacSta.per.N_nominal),
+    gain(k=floMacSta.per.speed_rpm_nominal),
     m_flow_nominal=floMacSta.per.pressure.V_flow[3]*1000,
     dp_nominal=floMacSta.per.pressure.dp[3]/2,
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacSta(
@@ -19,12 +19,10 @@ model Pump_stratos "Stratos pumps with speed as input"
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacDyn.Nrpm) annotation (Line(
       points={{-25,100},{10,100},{10,30},{30,30},{30,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
@@ -37,6 +35,11 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Move
 a performance data from a Stratos pump.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>April 18, 2014
     by Filip Jorissen:<br/>
        Initial version

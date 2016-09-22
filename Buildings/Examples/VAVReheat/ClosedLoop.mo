@@ -3,7 +3,7 @@ model ClosedLoop
   "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
-      Buildings.Media.Air;
+      Buildings.Media.Air(T_default=293.15);
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
@@ -81,15 +81,13 @@ model ClosedLoop
   Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     tau=60,
-    dynamicBalance=true,
-    per(pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})),
+    per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp={850,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
-    dynamicBalance=true,
-    per(pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0})),
+    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
@@ -142,8 +140,9 @@ model ClosedLoop
     Ti=600,
     k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
-  Buildings.Fluid.Sensors.RelativePressure dpRetFan(redeclare package Medium =
-        MediumA) "Pressure difference over return fan" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpRetFan(
+      redeclare package Medium = MediumA) "Pressure difference over return fan"
+                                            annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -186,7 +185,7 @@ model ClosedLoop
     nPorts=1,
     redeclare package Medium = MediumW,
     p=3E5 + 12000,
-    T=285.15) "Source for cooling coil" annotation (Placement(transformation(
+    T=279.15) "Source for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={230,-120})));
@@ -287,7 +286,6 @@ model ClosedLoop
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -298,7 +296,6 @@ model ClosedLoop
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -309,7 +306,6 @@ model ClosedLoop
         m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -319,7 +315,6 @@ model ClosedLoop
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
-    dynamicBalance=true,
     linearized=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
@@ -509,7 +504,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(conFanSup.y, fanSup.y) annotation (Line(
-      points={{261,10},{310,10},{310,-28}},
+      points={{261,10},{309.8,10},{309.8,-28}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -676,7 +671,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,150},{300,150},{300,132}},
+      points={{261,150},{300.2,150},{300.2,132}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -1020,6 +1015,36 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 19, 2016, by Michael Wetter:<br/>
+Changed chilled water supply temperature to <i>6&circ;C</i>.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/509\">#509</a>.
+</li>
+<li>
+April 26, 2016, by Michael Wetter:<br/>
+Changed controller for freeze protection as the old implementation closed
+the outdoor air damper during summer.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set default temperature for medium to avoid conflicting
+start values for alias variables of the temperature
+of the building and the ambient air.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/ClosedLoop.mos"
         "Simulate and plot"),

@@ -118,105 +118,83 @@ equation
   connect(res11.port_b, res12.port_a)
                                    annotation (Line(
       points={{5.55112e-16,100},{20,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res21.port_b, res22.port_a)
                                     annotation (Line(
       points={{5.55112e-16,60},{20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res31.port_b, res32.port_a)
                                     annotation (Line(
       points={{5.55112e-16,-10},{20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res41.port_b, res42.port_a)
                                     annotation (Line(
       points={{5.55112e-16,-50},{20,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[1], res11.port_a)
                                     annotation (Line(
       points={{-40,100},{-20,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou.ports[1], res31.port_a)
                                      annotation (Line(
       points={{-60,-10},{-20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(bou1.ports[1], res41.port_a)
                                       annotation (Line(
       points={{-60,-50},{-20,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou1.ports[1], res21.port_a)
                                       annotation (Line(
       points={{-38,60},{-20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(P.y, sou.p_in) annotation (Line(
       points={{-79,100},{-72,100},{-72,108},{-62,108}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(P.y, sou1.p_in) annotation (Line(
       points={{-79,100},{-70,100},{-70,68},{-60,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res12.port_b, senMasFlo1.port_a)
                                          annotation (Line(
       points={{40,100},{60,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res22.port_b, senMasFlo2.port_a)
                                           annotation (Line(
       points={{40,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res32.port_b, senMasFlo3.port_a)
                                           annotation (Line(
       points={{40,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res42.port_b, senMasFlo4.port_a)
                                           annotation (Line(
       points={{40,-50},{60,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo3.port_b, sin1.ports[1]) annotation (Line(
       points={{80,-10},{90,-10},{90,-28},{100,-28}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo4.port_b, sin1.ports[2]) annotation (Line(
       points={{80,-50},{90,-50},{90,-32},{100,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo1.port_b, sin.ports[1])
                                           annotation (Line(
       points={{80,100},{100,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo2.port_b, sin2.ports[1]) annotation (Line(
       points={{80,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo3.m_flow, assertEquality1.u1) annotation (Line(
       points={{70,1},{70,16},{118,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMasFlo4.m_flow, assertEquality1.u2) annotation (Line(
       points={{70,-39},{72,-39},{72,-30},{84,-30},{84,4},{118,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMasFlo1.m_flow, assertEquality.u1)
                                                annotation (Line(
       points={{70,111},{70,136},{118,136}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMasFlo2.m_flow, assertEquality.u2) annotation (Line(
       points={{70,71},{70,80},{88,80},{88,124},{118,124}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{160,160}}),
                       graphics),

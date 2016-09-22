@@ -120,6 +120,7 @@ width=\"458\" height=\"456\"/>
 <p>
 Optionally, this model computes a dynamic response of the heat exchanger.
 This can be configured using the parameters
+<code>energyDynamicsHexSolid</code>,
 <code>energyDynamicsHex</code> and
 <code>massDynamicsHex</code>.
 For this computation, the fluid volume inside the heat exchanger
@@ -140,6 +141,15 @@ where <i>h</i> is the distance between the heat exchanger inlet and outlet.
 The wall thickness is assumed to be <i>10%</i> of the heat exchanger
 outer diameter.
 For typical applications, users do not need to change these values.
+</p>
+<p>
+Setting <code>energyDynamicsHexSolid</code> to a dynamic balance and
+<code>energyDynamicsHex</code> to a steady-state balance may be of interest
+to remove very fast dynamics of the fluid, while still modeling slower
+dynamics that arises from the metal of the heat exchanger.
+By default, <code>energyDynamicsHexSolid</code> is set
+to the same value as <code>energyDynamicsHex</code>
+as this seems to be the typical configuration.
 </p>
 <p>
 The heat exchanger is implemented in

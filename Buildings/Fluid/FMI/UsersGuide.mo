@@ -4,11 +4,11 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This user's guide describes the FMI package.
+This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export
 of thermofluid flow models as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
-imported in other simulators. 
+imported in other simulators.
 To export thermofluid flow components, a Modelica block is needed
 in order for the model to only have input and output signals
 rather than fluid connectors, as fluid connectors do not impose any causality
@@ -57,7 +57,7 @@ down menu <code>Commands -&gt; Export FMU</code>.
 </p>
 <h4>Options</h4>
 <p>
-In the 
+In the
 <a href=\"modelica://Buildings.Fluid\">Buildings.Fluid</a> package,
 most models a boolean parameter called <code>allowFlowReversal</code>.
 If set to <code>true</code>, then the flow can be in either direction,
@@ -86,10 +86,10 @@ connector, and based on the mass flow rate, the outlet pressure
 is computed and assigned to the outlet connectors.
 If <code>use_p_in=false</code>, then the pressure as declared
 by the contant <code>p_default</code> of the medium model is
-used, and the component computes no pressure drop. 
+used, and the component computes no pressure drop.
 Setting <code>use_p_in=false</code> therefore leads to fewer
 equations, but it requires a component that specifies the mass
-flow rate, such as 
+flow rate, such as
 <a href=\"modelica://Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow\">
 Buildings.Fluid.FMI.Examples.FMUs.IdealSource_m_flow</a>.
 </p>
@@ -161,5 +161,14 @@ balance must be presented, and the medium needs to be compressible.
 </p>
 </li>
 </ol>
+<h4>References</h4>
+<p>
+Michael Wetter, Marcus Fuchs and Thierry Stephane Nouidui.<br/>
+<a href=\"modelica://Buildings/Resources/Images/Fluid/FMI/UsersGuide/2015-WetterFuchsNouidui.pdf\">
+Design choices for thermofluid flow components and systems that are exported as Functional Mockup Units</a>.<br/>
+<i>Proc. of the 11th International Modelica Conference</i>,
+   p. 31-41,
+   Versailles, France, September 2015.
+</p>
 </html>"));
 end UsersGuide;

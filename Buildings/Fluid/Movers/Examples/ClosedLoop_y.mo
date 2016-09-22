@@ -6,7 +6,7 @@ model ClosedLoop_y "Flow machine with feedback control"
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Pulse y(
@@ -50,40 +50,31 @@ model ClosedLoop_y "Flow machine with feedback control"
 equation
   connect(sou.ports[1], senMasFlo.port_a) annotation (Line(
       points={{-62,22},{-52,22},{-52,50},{-40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo.port_b, dp1.port_a) annotation (Line(
       points={{-20,50},{-5.55112e-16,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_b, fan.port_a) annotation (Line(
       points={{20,50},{40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(fan.port_b, dp2.port_a) annotation (Line(
       points={{60,50},{80,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp2.port_b, sou.ports[2]) annotation (Line(
       points={{100,50},{110,50},{110,18},{-62,18}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFlo.m_flow, gain1.u) annotation (Line(
       points={{-30,61},{-30,80},{-24,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain1.y, conPID.u_m) annotation (Line(
       points={{-1,80},{10,80},{10,98}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(y.y, conPID.u_s) annotation (Line(
       points={{-59,110},{-2,110}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conPID.y, fan.y) annotation (Line(
       points={{21,110},{50,110},{50,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
@@ -94,6 +85,12 @@ The fan is controlled to track a required mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 First implementation.

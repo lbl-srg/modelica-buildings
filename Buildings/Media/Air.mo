@@ -935,6 +935,7 @@ is a function of temperature.
 </p>
 <p>
 Note that models in this package implement the equation for the internal energy as
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
   u = h - p<sub>stp</sub> &frasl; &rho;<sub>stp</sub>,
 </p>
@@ -989,7 +990,7 @@ described in
 Modelica.Media.Interfaces.PartialMedium</a>.
 Note that the default is <code>preferredMediumState=false</code>
 and hence the same states are used as were used before.
-This is for 
+This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
 </li>
 <li>

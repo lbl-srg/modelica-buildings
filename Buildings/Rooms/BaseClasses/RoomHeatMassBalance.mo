@@ -85,19 +85,33 @@ partial model RoomHeatMassBalance "Base model for a room"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+    annotation (Dialog(group="Convective heat transfer", enable=(intConMod ==
           Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
   parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+    annotation (Dialog(group="Convective heat transfer", enable=(extConMod ==
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  ////////////////////////////////////////////////////////////////////////
+  // Control signals
+  Modelica.Blocks.Interfaces.RealInput uWin[nConExtWin](
+    each min=0, each max=1, each unit="1") if haveControllableWindow
+    "Control signal for window state (used for electrochromic windows, removed otherwise)"
+     annotation (Placement(
+        transformation(extent={{-20,-20},{20,20}},   rotation=0,
+        origin={-280,140}),
+        iconTransformation(
+        extent={{-16,-16},{16,16}},
+        rotation=0,
+        origin={-216,130})));
+
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
@@ -111,7 +125,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](each unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-300,60},{-260,100}}),
-        iconTransformation(extent={{-240,60},{-200,100}})));
+        iconTransformation(extent={{-232,64},{-200,96}})));
   // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
@@ -189,7 +203,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol for i in 1:NConExtWin}) if
+    final tauGla={datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].tauSol[1] for i in 1:NConExtWin}) if
        haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
@@ -260,6 +274,15 @@ protected
     "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
+  // If at least one glass layer in the room has mutiple states, then
+  // set haveControllableWindow=true. In this case, the input connector for
+  // the control signal will be enabled. Otherwise, it is removed.
+  final parameter Boolean haveControllableWindow=
+  Modelica.Math.BooleanVectors.anyTrue(
+    {datConExtWin[i].glaSys.haveControllableWindow for i in 1:NConExtWin})
+    "Flag, true if the windows allow multiple states, such as for electrochromic windows"
+    annotation(Evaluate=true);
+
   final parameter Boolean haveExteriorShade[NConExtWin]=
     {datConExtWin[i].glaSys.haveExteriorShade for i in 1:NConExtWin}
     "Set to true if window has exterior shade (at surface a)"
@@ -294,6 +317,10 @@ protected
        haveConExtWin "Shading signal"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
 
+  Buildings.Rooms.BaseClasses.HeatGain heaGai(final AFlo=AFlo)
+    "Model to convert internal heat gains"
+    annotation (Placement(transformation(extent={{-220,70},{-200,90}})));
+
   Buildings.Rooms.BaseClasses.RadiationAdapter radiationAdapter
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   Modelica.Blocks.Math.Add add
@@ -319,7 +346,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TSha[NConExtWin] if
        haveShade "Temperature of shading device"
     annotation (Placement(transformation(extent={{-20,-78},{-40,-58}})));
-
 equation
   connect(conBou.opa_a, surf_conBou) annotation (Line(
       points={{282,-122.667},{282,-122},{288,-122},{288,-216},{-240,-216},{-240,
@@ -503,9 +529,9 @@ equation
       points={{249.9,69},{160,69},{160,60},{-60,60},{-60,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solRadExc.JInConExtWin, conExtWinRad.QTra_flow) annotation (Line(
-      points={{-79.5833,53.3333},{-74,53.3333},{-74,52},{14,52},{14,-22},{299,
-          -22}},
+  connect(solRadExc.JInDifConExtWin, conExtWinRad.QTraDif_flow) annotation (
+      Line(
+      points={{-79.5833,53.3333},{20,53.3333},{20,-20},{299,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solRadExc.HOutConExtWin,conExtWinRad.HRoo)  annotation (Line(
@@ -705,11 +731,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(uWin, conExtWinRad.uSta) annotation (Line(points={{-280,140},{-240,
+          140},{-240,180},{420,180},{420,-40},{305.2,-40},{305.2,-25.6}}, color=
+         {0,0,127}));
+  connect(qGai_flow,heaGai. qGai_flow) annotation (Line(
+      points={{-280,80},{-222,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QCon_flow,heaGai. QCon_flow) annotation (Line(
+      points={{39,-135},{-14,-135},{-14,-92},{-190,-92},{-190,80},{-198,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(air.QLat_flow,heaGai. QLat_flow) annotation (Line(
+      points={{39,-138},{-18,-138},{-18,-96},{-194,-96},{-194,74},{-198,74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaGai.QRad_flow, add.u2) annotation (Line(
+      points={{-198,86},{-152,86},{-152,114},{-142,114}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conExtWinRad.QTraDir_flow, solRadExc.JInDirConExtWin) annotation (
+      Line(points={{299,-23},{18,-23},{18,51.6667},{-79.5833,51.6667}}, color={
+          0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-260,-220},{460,
-            200}}), graphics),
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200, 200}}),
-                    graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-260,-220},{460,
+            200}})),
+        Icon(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
+            200}}), graphics={
         Text(
           extent={{-104,210},{84,242}},
           lineColor={0,0,255},
@@ -717,13 +765,9 @@ equation
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Text(
-          extent={{-214,114},{-138,82}},
+          extent={{-220,100},{-144,68}},
           lineColor={0,0,127},
           textString="q"),
-        Text(
-          extent={{-212,176},{-136,144}},
-          lineColor={0,0,127},
-          textString="u"),
         Text(
           extent={{-14,-160},{44,-186}},
           lineColor={0,0,0},
@@ -768,7 +812,12 @@ equation
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="surface")}),
+          textString="surface"),
+        Text(
+          extent={{-198,144},{-122,112}},
+          lineColor={0,0,127},
+          visible=haveControllableWindow,
+          textString="uWin")}),
     preferredView="info",
     defaultComponentName="roo",
     Documentation(info="<html>
@@ -788,6 +837,24 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected error in annotation to enable the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
+<li>
+May 2, 2016, by Michael Wetter:<br/>
+Refactored implementation of latent heat gain.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">issue 515</a>.
+</li>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

@@ -1,13 +1,15 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Validation;
 model SingleSpeedPLREnergyPlus
   "Validation model for single speed DX coil with PLR=1"
-  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
+
+  package Medium = Buildings.Media.Air "Medium model";
+
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp_nominal = 1141
+ parameter Modelica.SIunits.PressureDifference dp_nominal = 1141
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -299,21 +301,33 @@ model SingleSpeedPLREnergyPlus
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Discrete.UnitDelay PEPlu(samplePeriod=3600)
+  UnitDelay PEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{-68,-140},{-48,-120}})));
-  Modelica.Blocks.Discrete.UnitDelay Q_flowSenEPlu(samplePeriod=3600)
+  UnitDelay Q_flowSenEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Modelica.Blocks.Discrete.UnitDelay Q_flowEPlu(samplePeriod=3600)
+  UnitDelay Q_flowEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
-  Modelica.Blocks.Discrete.UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
+  UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Modelica.Blocks.Discrete.UnitDelay XEvaOutEPlu(samplePeriod=3600)
+  UnitDelay XEvaOutEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=2)
     annotation (Placement(transformation(extent={{118,-120},{130,-108}})));
   Modelica.Blocks.Sources.Constant small(k=-1e-9)
     "Small value to avoid division by zero"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
+  // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
+  //   The initial conditions for variables of type Boolean are not fully specified.
+  //   Dymola has selected default initial conditions.
+  //   Assuming fixed default start value for the discrete non-states:
+  //     PEPlu.firstTrigger(start = false)
+  //     ...
+protected
+  block UnitDelay
+    extends Modelica.Blocks.Discrete.UnitDelay(
+      firstTrigger(start=false, fixed=true));
+  end UnitDelay;
 equation
   connect(sou.ports[1], sinSpeDX.port_a)
                                         annotation (Line(
@@ -483,6 +497,18 @@ are corrected by dividing them by
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Implemented <code>UnitDelay</code> to avoid a translation warning
+because <code>UnitDelay.firstTrigger</code> does not set the <code>fixed</code>
+attribute in MSL 3.2.1.
+</li>
 <li>
 June 9, 2015, by Michael Wetter:<br/>
 Corrected wrong link to run script.

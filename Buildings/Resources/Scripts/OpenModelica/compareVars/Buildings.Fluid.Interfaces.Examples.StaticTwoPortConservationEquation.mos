@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "modWatRev.conEqn.sta_a.T",
+    "modWatRev.conEqn.sta_b.T",
+    "modWatNoRev.conEqn.sta_b.T",
+    "modAirRev.conEqn.sta_b.T",
+    "modAirNoRev.conEqn.sta_b.T",
+    "modAirRev.conEqn.sta_a.X[1]",
+    "modAirRev.conEqn.sta_b.X[1]",
+    "modAirNoRev.conEqn.sta_b.X[1]",
+    "QSen_flow.y",
+    "mWat_flow.y"
+  };

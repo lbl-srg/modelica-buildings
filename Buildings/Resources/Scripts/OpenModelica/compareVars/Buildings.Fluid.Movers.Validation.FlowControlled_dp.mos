@@ -4,5 +4,7 @@ compareVars :=
     "floMacSta.dpMachine",
     "floMacDyn.dpMachine",
     "floMacSta.VMachine_flow",
-    "floMacDyn.VMachine_flow"
+    "floMacDyn.VMachine_flow",
+    "floMacSta.P",
+    "floMacDyn.P"
   };

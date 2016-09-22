@@ -1,10 +1,7 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-      showDesignFlowDirection=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialSimpleMedium;
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
   parameter Modelica.SIunits.Volume VTan "Tank volume";
@@ -244,6 +241,13 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2017, by Michael Wetter:<br/>
+Removed medium declaration, which is not needed and inconsistent with
+the declaration in the base class.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+issue 544</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code> and <code>m_flow_small</code>

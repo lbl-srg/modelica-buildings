@@ -73,7 +73,6 @@ partial model IEEE4 "Base model of the IEEE 4 nodes test feeder"
     annotation (Placement(transformation(extent={{12,0},{32,20}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive loadRL(
     pf=0.9,
-    P_nominal=-1800e3,
     V_nominal=VLL_side2,
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     use_pf_in=true) "Load"
@@ -137,6 +136,11 @@ equation
       smooth=Smooth.None));
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+October 1, 2015, by Michael Wetter:<br/>
+Removed <code>loadRL.P_nominal</code> as the power is an input and
+<code>P_nominal</code> is disabled in this configuration.
+</li>
 <li>
 October 8, 2014, by Marco Bonvini:<br/>
 Revised documentation.

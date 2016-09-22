@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "conWin.TClear",
+    "conWin.TDark",
+    "conWin.T",
+    "conWin.HClear",
+    "conWin.HDark",
+    "conWin.H",
+    "conWin.y"
+  };

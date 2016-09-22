@@ -26,10 +26,8 @@ This package contains models for time.
         Line(points={{-38,70},{-28,51}}, color={160,160,164}),
         Line(
           points={{0,0},{-50,50}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{0,0},{40,0}},
-          color={0,0,0},
           thickness=0.5)}));
 end Time;

@@ -8,7 +8,8 @@ model DuctManifoldFixedResistance
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate at port_a"  annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0) "Pressure"
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")
+    "Pressure drop"
     annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter of duct"
         annotation(Dialog(enable= not linearized));
@@ -78,6 +79,12 @@ stop with an error.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 June 29, 2014, by Michael Wetter:<br/>
 Added model that distributes the mass flow rate equally to each

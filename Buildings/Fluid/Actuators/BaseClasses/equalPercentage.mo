@@ -40,8 +40,8 @@ Documentation(info="<html>
 This function computes the opening characteristics of an equal percentage valve.
 </p><p>
 The function is used by the model
-<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayValveEqualPercentage\">
-TwoWayValveEqualPercentage</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage\">
+Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage</a>.
 </p><p>
 For <code>y &lt; delta/2</code>, the valve characteristics is linear. For <code> y &gt; 3*delta/2</code>
 the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
@@ -50,6 +50,11 @@ that the valve characteristics is once continuously differentiable with respect 
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 March 30, 2011 by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.

@@ -59,20 +59,16 @@ equation
     annotation (Line(points={{-16,20},{20,20}}, color={0,127,255}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-50,-8},{-42,-8},{-42,20},{-36,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], vav.port_a) annotation (Line(
       points={{-50,-12},{-42,-12},{-42,-40},{-2,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dam.port_b, sin.ports[1]) annotation (Line(
       points={{40,20},{46,20},{46,-8},{52,-8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin.ports[2], vav.port_b) annotation (Line(
       points={{52,-12},{46,-12},{46,-40},{18,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
     experiment(StopTime=240),

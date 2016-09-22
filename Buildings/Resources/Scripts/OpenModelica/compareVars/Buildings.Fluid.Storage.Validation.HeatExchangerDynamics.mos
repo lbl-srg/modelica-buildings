@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senTanDyn.port_a.m_flow",
+    "senTanDyn.T",
+    "senTanSte.T",
+    "tanDyn.QHex_flow",
+    "tanSte.QHex_flow"
+  };

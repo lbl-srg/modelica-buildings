@@ -23,29 +23,24 @@ equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-80,10},{-60,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
       points={{-80,10},{-72,10},{-72,-29.6},{-20,-29.6}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(incAng.y, walSolAzi.incAng) annotation (Line(
       points={{1,-30},{14,-30},{14,5.2},{68,5.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(altAng.alt, walSolAzi.alt) annotation (Line(
       points={{1,30},{60,30},{60,14.8},{68,14.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaBus.solZen, altAng.zen) annotation (Line(
       points={{-60,10},{-40,10},{-40,30},{-22,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

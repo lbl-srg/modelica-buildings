@@ -1,0 +1,9 @@
+Advanced.Define.AimForHighAccuracy = false;
+simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolumeZeroFlow", tolerance=1E-6, stopTime=2, method="dassl", resultFile="MixingVolumeZeroFlow");
+createPlot(id=1,
+position={0, 0, 1138, 891},
+y={"volLinSys.heatPort.Q_flow", "volNonLinSys.heatPort.Q_flow", "volQflow.heatPort.Q_flow", "volT.heatPort.Q_flow"},
+range={0.0, 2.0, -3.0, 5.0},
+grid=true,
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+Advanced.Define.AimForHighAccuracy = true;

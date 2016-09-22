@@ -35,20 +35,16 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
       points={{-59,-2},{-40,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], senFloSou.port) annotation (Line(
       points={{-20,-8},{0,-8},{0,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou.ports[2], senStr.port_a) annotation (Line(
       points={{-20,-12},{20,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senStr.port_b, sin.ports[1]) annotation (Line(
       points={{40,-12},{60,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEnthalpy.mos"

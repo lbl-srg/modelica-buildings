@@ -14,6 +14,7 @@ ShadeInterface_weatherBus
 ShadeRadiation
 ShadingSignal
 SideFins
+StateInterpolator
 ThermalConductor
 TransmittedRadiation
 WindowRadiation

@@ -10,7 +10,8 @@ model MixingBoxMinimumFlow
   parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
     "Mass flow rate minimum outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpOutMin_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpOutMin_nominal(min=0,
+                                                                 displayUnit="Pa")
     "Pressure drop minimum outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
@@ -141,6 +142,12 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 14, 2012 by Michael Wetter:<br/>
 Added filter to approximate the travel time of the actuator.

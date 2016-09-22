@@ -3,7 +3,9 @@ model PartialHexElement "Element of a heat exchanger 2"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    vol1(final energyDynamics=energyDynamics,
         final massDynamics=energyDynamics,
-        final initialize_p=initialize_p1));
+        final initialize_p=initialize_p1,
+        prescribedHeatFlowRate=false),
+  vol2(prescribedHeatFlowRate=false));
 
   constant Boolean initialize_p1 = not Medium1.singleState
     "Set to true to initialize the pressure of volume 1"
@@ -131,6 +133,13 @@ that a GUI displays the volume as a replaceable component.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=false</code> for both volumes.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> of the Annex 60 library.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Changed <code>initalize_p</code> from a <code>parameter</code> to a

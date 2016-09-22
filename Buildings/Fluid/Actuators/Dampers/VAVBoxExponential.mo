@@ -8,7 +8,8 @@ model VAVBoxExponential
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
 protected
-  parameter Modelica.SIunits.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
+  parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa") =
+     k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
@@ -36,6 +37,12 @@ does not include the flow resistance of the air damper.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
@@ -85,11 +92,9 @@ First implementation.
         Polygon(
           points={{-24,8},{24,50},{24,38},{-24,-4},{-24,8}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
           fillPattern=FillPattern.Solid)}));
 end VAVBoxExponential;

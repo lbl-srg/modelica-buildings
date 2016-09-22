@@ -63,36 +63,28 @@ model OneRoom
 equation
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(
       points={{-17,30},{-18,30},{-18,40},{1,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInTop.port_b, volEas.ports[1]) annotation (Line(
       points={{-17,10},{-18,10},{-18,-12},{-20,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInBot.port_a, volEas.ports[2]) annotation (Line(
       points={{-18,-30},{-18,-8},{-20,-8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colEasInBot.port_b, oriOutBot.port_a) annotation (Line(
       points={{-18,-50},{-18,-62},{0,-62}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(oriOutBot.port_b, colOutBot.port_b) annotation (Line(
       points={{20,-62},{42,-62},{42,-52}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutBot.port_a, volOut.ports[1]) annotation (Line(
       points={{42,-32},{42,-8},{41,-8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutTop.port_b, volOut.ports[2]) annotation (Line(
       points={{41,10},{41,-12}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutTop.port_a, oriOutTop.port_b) annotation (Line(
       points={{41,30},{42,30},{42,40},{21,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(graphics={Rectangle(
           extent={{-90,60},{10,-88}},

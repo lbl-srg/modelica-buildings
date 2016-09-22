@@ -52,35 +52,40 @@ model PIDHysteresis
   parameter Real y_start=0 "Initial value of output"
     annotation (Dialog(group="Initialization"));
 
+  parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+
   LimPID PID(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    yMax=yMax,
-    yMin=yMin,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    limitsAtInit=limitsAtInit,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=y_start,
-    Td=Td,
-    reverseAction=reverseAction) "Controller for room temperature"
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final yMax=yMax,
+    final yMin=yMin,
+    final wp=wp,
+    final wd=wd,
+    final Ni=Ni,
+    final Nd=Nd,
+    final initType=initType,
+    final limitsAtInit=limitsAtInit,
+    final xi_start=xi_start,
+    final xd_start=xd_start,
+    final y_start=y_start,
+    final Td=Td,
+    final reverseAction=reverseAction,
+    final strict=strict) "Controller for room temperature"
     annotation (Placement(transformation(extent={{-30,-2},{-10,18}})));
   Modelica.Blocks.Logical.Hysteresis hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) "Hysteresis element to switch controller on and off"
+    final pre_y_start=pre_y_start,
+    final uLow=eOff,
+    final uHigh=eOn) "Hysteresis element to switch controller on and off"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Modelica.Blocks.Logical.Switch swi
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+protected
+  Modelica.Blocks.Logical.Switch swi
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Blocks.Logical.Switch swi1
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
@@ -88,54 +93,42 @@ equation
   assert(eOff < eOn, "Wrong controller parameters. Require eOff < eOn.");
   connect(zer.y, swi.u3) annotation (Line(
       points={{41,-30},{48,-30},{48,-8},{58,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(swi.y, y) annotation (Line(
       points={{81,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(
       points={{-1.11022e-15,-120},{-1.11022e-15,-80},{-20,-80},{-20,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hys.y, swi.u2) annotation (Line(
       points={{-9,60},{20,60},{20,6.66134e-16},{58,6.66134e-16}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(PID.y, swi.u1) annotation (Line(
-      points={{-9,8},{24.5,8},{24.5,8},{58,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-9,8},{24.5,8},{58,8}},
+      color={0,0,127}));
   connect(u_s, feeBac.u1) annotation (Line(
       points={{-120,1.11022e-15},{-80,1.11022e-15},{-80,60},{-68,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(u_m, feeBac.u2) annotation (Line(
       points={{-1.11022e-15,-120},{-1.11022e-15,-80},{-60,-80},{-60,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(feeBac.y, hys.u) annotation (Line(
       points={{-51,60},{-32,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(u_s, swi1.u1) annotation (Line(
       points={{-120,1.11022e-15},{-80,1.11022e-15},{-80,80},{20,80},{20,68},{38,
           68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hys.y, swi1.u2) annotation (Line(
       points={{-9,60},{38,60}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(u_m, swi1.u3) annotation (Line(
       points={{-1.11022e-15,-120},{-1.11022e-15,52},{38,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(swi1.y, PID.u_s) annotation (Line(
       points={{61,60},{70,60},{70,30},{-50,30},{-50,8},{-32,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation ( Icon(graphics={
         Polygon(
           points={{-80,94},{-88,72},{-72,72},{-80,94}},
@@ -155,12 +148,12 @@ equation
         Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
         Line(points={{-80,-76},{-36,-76},{-36,-30},{36,12},{64,12}}, color={0,0,
               127}),
-        Line(points={{-12,73},{-22,68},{-12,63}}, color={0,0,0}),
-        Line(points={{-42,68},{28,68}}, color={0,0,0}),
-        Line(points={{-22,39},{-12,34},{-22,29}}, color={0,0,0}),
-        Line(points={{-42,68},{-42,34}}, color={0,0,0}),
-        Line(points={{12,68},{12,34}}, color={0,0,0}),
-        Line(points={{-60,34},{12,34}}, color={0,0,0})}),
+        Line(points={{-12,73},{-22,68},{-12,63}}),
+        Line(points={{-42,68},{28,68}}),
+        Line(points={{-22,39},{-12,34},{-22,29}}),
+        Line(points={{-42,68},{-42,34}}),
+        Line(points={{12,68},{12,34}}),
+        Line(points={{-60,34},{12,34}})}),
 defaultComponentName="conPID",
 Documentation(info="<html>
 <p>
@@ -178,6 +171,22 @@ is small enough.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2016, by Michael Wetter:<br/>
+Set <code>zer(final k=0)</code> and made swi, zer and zer1 protected
+which they are also for
+<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+Buildings.Controls.Continuous.PIDHysteresis</a>.
+These changes are not backwards compatible.
+</li>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code>
+in order to avoid events when the controller saturates.
+Also assigned propogated values to be <code>final</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>.
+</li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to

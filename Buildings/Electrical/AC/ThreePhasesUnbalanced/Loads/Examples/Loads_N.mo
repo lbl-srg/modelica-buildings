@@ -17,59 +17,56 @@ model Loads_N
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Resistive_N loaR_N(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    V_nominal=480,
-    P_nominal=0) "Resistive load with neutral cable"
+    V_nominal=480) "Resistive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Inductive_N loaRL_N(mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
       pf=0.9,
-    V_nominal=480,
-    P_nominal=0) "Inductive load with neutral cable"
+    V_nominal=480) "Inductive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
   Capacitive_N loaRC_N(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     pf=0.7,
-    V_nominal=480,
-    P_nominal=0) "Capacitive load with neutral cable"
+    V_nominal=480) "Capacitive load with neutral cable"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
   Sensors.GeneralizedSensor_N
                             sen "Power sensor with neutral cable"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(ph_1.y, loaR_N.Pow1) annotation (Line(
-      points={{59,40},{54,40},{54,6},{12,6}},
+      points={{59,40},{54,40},{54,8},{14,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaR_N.Pow3) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,-6},{12,-6}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,-8},{14,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaR_N.Pow2) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,6.66134e-16},{12,6.66134e-16}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,6.66134e-16},{14,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(ph_1.y, loaRL_N.Pow1) annotation (Line(
-      points={{59,40},{54,40},{54,-24},{12,-24}},
+      points={{59,40},{54,40},{54,-22},{14,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_1.y, loaRC_N.Pow1) annotation (Line(
-      points={{59,40},{54,40},{54,-64},{12,-64}},
+      points={{59,40},{54,40},{54,-62},{14,-62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaRL_N.Pow2) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,-30},{12,-30}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,-30},{14,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaRL_N.Pow3) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,-36},{12,-36}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,-38},{14,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaRC_N.Pow2) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,-70},{12,-70}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,-70},{14,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ph_23.y, loaRC_N.Pow3) annotation (Line(
-      points={{79,4.44089e-16},{68,4.44089e-16},{68,-76},{12,-76}},
+      points={{79,4.44089e-16},{68,4.44089e-16},{68,-78},{14,-78}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -107,6 +104,12 @@ such that the algebraic sum of the phase current in each load is equal to zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015, by Michael Wetter:<br/>
+Removed assignment of <code>P_nominal</code> to avoid the warning
+\"The following parameters with fixed = false also have a binding\"
+in Dymola 2016.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Created model from previus version and added documentation.

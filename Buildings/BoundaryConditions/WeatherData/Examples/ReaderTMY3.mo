@@ -18,13 +18,11 @@ equation
   connect(HGloHor.y, weaDatInpCon.HGloHor_in)
                                          annotation (Line(
       points={{-59,-10},{-28,-10},{-28,-58.6},{-21,-58.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(HDifHor.y, weaDatInpCon.HDifHor_in)
                                          annotation (Line(
       points={{-59,-50},{-40,-50},{-40,-57.6},{-21,-57.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos"
         "Simulate and plot"),

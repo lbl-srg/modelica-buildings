@@ -113,7 +113,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Black-body sky temperature"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
         iconTransformation(extent={{-240,120},{-200,160}})));
-
   //--------------------------------------------------------------
   // Relative humidity
   parameter Buildings.BoundaryConditions.Types.DataSource relHumSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -202,16 +201,16 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   //--------------------------------------------------------------
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
-        __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
+        loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
+    absFilNam) "Longitude";
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
+    absFilNam) "Latitude";
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
     "Time zone";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -226,10 +225,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
 protected
+  final parameter String absFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
+    "Absolute path of the file";
+
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
     final tableName="tab1",
-    final fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    final fileName=absFilNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30}) "Data reader"
@@ -248,7 +250,7 @@ protected
   BaseClasses.CheckSkyCover cheTotSkyCov "Check the total sky cover"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   BaseClasses.CheckSkyCover cheOpaSkyCov "Check the opaque sky cover"
-    annotation (Placement(transformation(extent={{162,-160},{182,-140}})));
+    annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
   BaseClasses.CheckRadiation cheGloHorRad
     "Check the global horizontal radiation"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
@@ -261,14 +263,16 @@ protected
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.CheckRadiation cheHorRad "Check the horizontal radiation"
+  BaseClasses.CheckIRRadiation
+                             cheHorRad
+    "Check the horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{160,240},{180,260}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
   SkyTemperature.BlackBody TBlaSkyCom(final calTSky=calTSky) if
        not (TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.Parameter or
             TBlaSkySou == Buildings.BoundaryConditions.Types.DataSource.Input)
-    "Computation of the sky black-body temperature"
+    "Computation of the black-body sky temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -284,7 +288,7 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
     final tableName="tab1",
-    final fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    final fileName=absFilNam,
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=8:11) "Data reader"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
@@ -378,9 +382,9 @@ protected
    SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
-  Modelica.Blocks.Sources.Constant latitude(final k=lat) "Latitude"
+  Latitude latitude(final latitude=lat) "Latitude"
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
-  Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
+  Longitude longitude(final longitude=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
   //---------------------------------------------------------------------------
@@ -403,6 +407,107 @@ protected
        opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature
+                                                                                  cheTemBlaSky(TMin=0)
+    "Check black body sky temperature"
+    annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
+
+  // Blocks that are added in order to set the name of the output signal,
+  // which then is displayed in the GUI of the weather data connector.
+  block Latitude "Generate constant signal of type Real"
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.Angle latitude "Latitude";
+
+    Modelica.Blocks.Interfaces.RealOutput y(
+      unit="rad",
+      displayUnit="deg") "Latitude of the location"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  equation
+    y = latitude;
+    annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-81,32},{84,-24}},
+          lineColor={0,0,0},
+            textString="Latitude")}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+Block to output the latitude of the location.
+This block is added so that the latitude is displayed
+with a comment in the GUI of the weather bus connector.
+</p>
+<h4>Implementation</h4>
+<p>
+If
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a> where used, then
+the comment for the latitude would be \"Connector of Real output signal\".
+As this documentation string cannot be overwritten, a new block
+was implemented.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 4, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Latitude;
+
+  block Longitude "Generate constant signal of type Real"
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.Angle longitude "Longitude";
+
+    Modelica.Blocks.Interfaces.RealOutput y(
+      unit="rad",
+      displayUnit="deg") "Longitude of the location"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  equation
+    y = longitude;
+    annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-81,32},{84,-24}},
+          lineColor={0,0,0},
+            textString="Longitude")}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+Block to output the longitude of the location.
+This block is added so that the longitude is displayed
+with a comment in the GUI of the weather bus connector.
+</p>
+<h4>Implementation</h4>
+<p>
+If
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a> where used, then
+the comment for the longitude would be \"Connector of Real output signal\".
+As this documentation string cannot be overwritten, a new block
+was implemented.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 4, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Longitude;
+
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -434,8 +539,7 @@ equation
   else
     connect(conTotSkyCov.u, datRea.y[13]) annotation (Line(
       points={{118,-30},{-59,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(conTotSkyCov.y, totSkyCov_in_internal);
   end if;
   connect(totSkyCov_in_internal, cheTotSkyCov.nIn);
@@ -448,8 +552,7 @@ equation
   else
     connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
       points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
   connect(opaSkyCov_in_internal, cheOpaSkyCov.nIn);
@@ -483,7 +586,7 @@ equation
   else
     connect(TBlaSkyCom.TBlaSky, TBlaSky_in_internal);
   end if;
-  connect(TBlaSky_in_internal, weaBus.TBlaSky);
+  connect(TBlaSky_in_internal, cheTemBlaSky.TIn);
   //---------------------------------------------------------------------------
   // Select relative humidity connector
   if relHumSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
@@ -568,271 +671,219 @@ equation
 
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
       points={{181,-30},{220,-30},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{183,-150},{220,-150},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      points={{181,-150},{220,-150},{220,0},{300,0}},
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
       points={{181,170},{220,170},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
       points={{181,130},{220,130},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
       points={{181,210},{220,210},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
       points={{181,-110},{220,-110},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
       points={{181,-70},{220,-70},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheHorRad.HOut, weaBus.radHorIR) annotation (Line(
+  connect(cheHorRad.HOut, weaBus.HHorIR) annotation (Line(
       points={{181,250},{220,250},{220,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
       points={{181,-270},{280,-270},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheOpaSkyCov.nOut,TBlaSkyCom. nOpa) annotation (Line(
-      points={{183,-150},{220,-150},{220,-213},{238,-213}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cheHorRad.HOut,TBlaSkyCom. radHorIR) annotation (Line(
+  connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
+      points={{181,-150},{220,-150},{220,-213},{238,-213}},
+      color={0,0,127}));
+  connect(cheHorRad.HOut, TBlaSkyCom.HHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
-          0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{300,0}},
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(modTim.y, add.u2) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,164},{-142,164}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(con30mins.y, add.u1) annotation (Line(
       points={{-159,202},{-150,202},{-150,176},{-142,176}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(add.y, conTim1.modTim) annotation (Line(
       points={{-119,170},{-112,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim1.calTim, datRea1.u) annotation (Line(
       points={{-89,170},{-82,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, locTim.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, conTim.modTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conTim.calTim, datRea.u) annotation (Line(
       points={{-99,-30},{-82,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(modTim.y, eqnTim.nDay) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
       points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(locTim.locTim, solTim.locTim) annotation (Line(
       points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
       points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{300,
           0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
       points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cheTemDryBul.TOut,TBlaSkyCom. TDryBul) annotation (Line(
+      color={0,0,127}));
+  connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
       points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
       points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
       points={{-59,170.25},{20,170.25},{20,210},{118,210}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
       points={{-59,169.75},{30,169.75},{30,170},{118,170}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
       points={{-59,170.75},{20,170.75},{20,130},{118,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
       points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
       points={{181,-190},{280,-190},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(decAng.decAng, zenAng.decAng)
                                   annotation (Line(
       points={{-119,-210},{-82,-210},{-82,-210.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solHouAng.solHouAng, zenAng.solHouAng)                                              annotation (Line(
+      color={0,0,127}));
+  connect(solHouAng.solHouAng, zenAng.solHouAng)  annotation (Line(
       points={{-119,-240},{-100,-240},{-100,-220.8},{-82,-220.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solTim, solTim.solTim) annotation (Line(
       points={{-142,-240},{-154,-240},{-154,-172},{-20,-172},{-20,-130},{-59,-130}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.nDay, modTim.y) annotation (Line(
       points={{-142,-210},{-150,-210},{-150,-180},{0,-180},{0,6.10623e-16},{
           -159,6.10623e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zenAng.zen, altAng.zen) annotation (Line(
       points={{-59,-216},{-40,-216},{-40,-270},{-32,-270}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   // Connectors for wet bulb temperature.
   // These are removed if computeWetBulbTemperature = false
   connect(chePre.POut, tWetBul_TDryBulXi.p) annotation (Line(
       points={{181,70},{220,70},{220,-64},{243,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
-          0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      points={{265,-56},{280,-56},{280,0},{292,0},{300,0}},
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, tWetBul_TDryBulXi.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-48},{243,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(cheRelHum.relHumOut, tWetBul_TDryBulXi.phi) annotation (Line(
       points={{181,30},{208,30},{208,-56},{243,-56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(altAng.alt, weaBus.solAlt) annotation (Line(
       points={{-9,-270},{8,-270},{8,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(zenAng.zen, weaBus.solZen) annotation (Line(
       points={{-59,-216},{-40,-216},{-40,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.decAng, weaBus.solDec) annotation (Line(
       points={{-119,-210},{-110,-210},{-110,-208},{-100,-208},{-100,-290},{290,
           -290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(
       points={{-119,-240},{-108,-240},{-108,-238},{-100,-238},{-100,-290},{290,
           -290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(longitude.y, weaBus.lon) annotation (Line(
       points={{-119,-270},{-100,-270},{-100,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(latitude.y, weaBus.lat) annotation (Line(
       points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
+  connect(cheTemBlaSky.TOut, weaBus.TBlaSky) annotation (Line(points={{261,-250},
+          {261,-250},{280,-250},{280,0},{300,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -908,11 +959,303 @@ equation
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data.
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at
-<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
-http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>. These
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>. These
 data, which are in the EnergyPlus format, need to be converted as described
 in the next paragraph.
 </p>
+<!-- ============================================== -->
+<h4>Output to weaBus</h4>
+<p>
+The following variables serve as output and are accessible via <code>weaBus</code>:
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ============================================== -->
+<tr>
+  <th>Name
+  </th>
+  <th>Unit
+  </th>
+  <th>Description
+  </th>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HDifHor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal diffuse solar radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HDifNor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Direct normal radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HGloHor</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal global radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HHorIR</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal infrared irradiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TBlaSky</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Output temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TDewPoi</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dew point temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TDryBul</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dry bulb temperature at ground level.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TWetBul</code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Wet bulb temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>celHei</code>
+  </td>
+  <td>
+    m
+  </td>
+  <td>
+    Ceiling height.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>cloTim</code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    One-based day number in seconds.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>lat</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+  Latitude of the location.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>lon</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+  Longitude of the location.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>nOpa</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+  Opaque sky cover [0, 1].
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>nTot</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+   Total sky Cover [0, 1].
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>pAtm</code>
+  </td>
+  <td>
+    Pa
+  </td>
+  <td>
+    Atmospheric pressure.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>relHum</code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+    Relative humidity.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solAlt</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Altitude angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solDec</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Declination angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solHouAng</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Solar hour angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solTim</code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    Solar time.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solZen</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Zenith angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>winDir</code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Wind direction.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>winSpe</code>
+  </td>
+  <td>
+    m/s
+  </td>
+  <td>
+    Wind speed.
+  </td>
+</tr>
+</table>
 <!-- ============================================== -->
 <h4>Adding new weather data</h4>
 <p>
@@ -921,8 +1264,8 @@ To add new weather data, proceed as follows:
 <ol>
 <li>
 Download the weather data file with the <code>epw</code> extension from
-<a href=\"http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm\">
-http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
+<a href=\"http://energyplus.net/weather\">
+http://energyplus.net/weather</a>.
 </li>
 <li>
 Add the file to <code>Buildings/Resources/weatherdata</code> (or to any directory
@@ -1213,11 +1556,46 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+April 21, 2016, by Michael Wetter:<br/>
+Introduced <code>absFilNam</code> to avoid multiple calls to
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+</li>
+<li>
+January 6, 2016, by Moritz Lauster:<br/>
+Changed output <code>radHorIR</code> to <code>HHorIR</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
+<li>
+January 4, 2016, by Moritz Lauster:<br/>
+Added a table in documentation with output variables accessible via <code>weaBus</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
+<li>
+December 15, 2015, by Michael Wetter:<br/>
+Added the block <code>cheTemBlaSky</code>. This also allows to graphically
+connect the black body sky temperature to the weather bus, which is required
+in Dymola 2016 for the variable <code>weaBus.TBlaSky</code> to appear
+in the graphical editor.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/377\">#377</a>.
+</li>
+<li>
+September 24, 2015, by Marcus Fuchs:<br/>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
+for MSL compliancy as reported by @tbeu at
+<a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
-Removed redundant by consistent
+Removed redundant but consistent
 <code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
 statement.
-This avoids a warning if 
+This avoids a warning if
 <a href=\"modelica://Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness\">
 Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
 is translated in pedantic mode in Dymola 2016.
@@ -1316,7 +1694,7 @@ October 27, 2011, by Wangda Zuo:<br/>
 Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
 </li>
 <li>
-Separate the unit convertion for TMY3 data and data validity check.
+Separate the unit conversion for TMY3 data and data validity check.
 </li>
 </ol>
 </li>
@@ -1349,6 +1727,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-     extent={{-200,-300},{300,300}}),
-        graphics));
+     extent={{-200,-300},{300,300}})));
 end ReaderTMY3;

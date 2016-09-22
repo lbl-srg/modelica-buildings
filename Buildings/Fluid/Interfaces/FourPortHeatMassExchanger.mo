@@ -2,10 +2,10 @@ within Buildings.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    port_a1(h_outflow(start=h1_outflow_start)),
+    port_b1(h_outflow(start=h1_outflow_start)),
+    port_a2(h_outflow(start=h2_outflow_start)),
+    port_b2(h_outflow(start=h2_outflow_start)));
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -20,10 +20,10 @@ model FourPortHeatMassExchanger
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
@@ -37,11 +37,11 @@ model FourPortHeatMassExchanger
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nXi > 0));
   parameter Medium1.ExtraProperty C1_start[Medium1.nC](
-       quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
+    final quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
   parameter Medium1.ExtraProperty C1_nominal[Medium1.nC](
-       quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
+    final quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
 
@@ -55,11 +55,11 @@ model FourPortHeatMassExchanger
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nXi > 0));
   parameter Medium2.ExtraProperty C2_start[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
+    final quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
   parameter Medium2.ExtraProperty C2_nominal[Medium2.nC](
-       quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
+    final quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
@@ -190,28 +190,22 @@ initial algorithm
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol2.ports[2], port_b2) annotation (Line(
       points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a1, preDro1.port_a) annotation (Line(
       points={{-100,60},{-90,60},{-90,80},{-80,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
       points={{-60,80},{-2,80},{-2,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a2, preDro2.port_a) annotation (Line(
       points={{100,-60},{90,-60},{90,-80},{80,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
       points={{60,-80},{2,-80},{2,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -223,21 +217,36 @@ The model can be used as-is, although there will be no heat or mass transfer
 between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
-<a href=\"Buildings.Fluid.Chillers.Carnot\">
-Buildings.Fluid.Chillers.Carnot</a>.
+<a href=\"Buildings.Fluid.Chillers.Carnot_y\">
+Buildings.Fluid.Chillers.Carnot_y</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
-the model can be replaced as shown in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
-Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
+the model can be replaced with
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </p>
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in
-<a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-Modelica.Fluid.HeatExchangers.BasicHX</a>.
+<a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">
+Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Set <code>quantity</code> attributes.
+</li>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Changed assignments of start values in <code>extends</code> statement.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+</li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in

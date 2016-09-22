@@ -3,7 +3,7 @@ block FlowSplitter_u "FMU declaration for a flow splitter"
    extends Buildings.Fluid.FMI.FlowSplitter_u(
      redeclare replaceable package Medium = Buildings.Media.Air,
         nout=2,
-        m_flow_nominal(start={0.1, 0.2}),
+        m_flow_nominal={0.1, 0.2},
         allowFlowReversal(start=false));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

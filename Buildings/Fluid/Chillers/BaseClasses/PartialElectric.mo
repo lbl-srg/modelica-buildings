@@ -27,7 +27,7 @@ partial model PartialElectric
   Modelica.SIunits.Temperature TConEnt "Condenser entering temperature";
   Modelica.SIunits.Temperature TConLvg "Condenser leaving temperature";
 
-  Real COP(min=0, unit="1") "Coefficient of performance";
+  Modelica.SIunits.Efficiency COP "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
@@ -37,9 +37,9 @@ partial model PartialElectric
 
   Real capFunT(min=0, nominal=1, start=1, unit="1")
     "Cooling capacity factor function of temperature curve";
-  Real EIRFunT(min=0, nominal=1, start=1, unit="1")
+  Modelica.SIunits.Efficiency EIRFunT(nominal=1, start=1)
     "Power input to cooling capacity ratio function of temperature curve";
-  Real EIRFunPLR(min=0, nominal=1, start=1, unit="1")
+  Modelica.SIunits.Efficiency EIRFunPLR(nominal=1, start=1)
     "Power input to cooling capacity ratio function of part load ratio";
   Real PLR1(min=0, nominal=1, start=1, unit="1") "Part load ratio";
   Real PLR2(min=0, nominal=1, start=1, unit="1") "Part load ratio";
@@ -55,11 +55,12 @@ protected
   // Performance data
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
     "Reference capacity (negative number)";
-  parameter Real COP_nominal(min=0, unit="1") "Reference coefficient of performance";
+  parameter Modelica.SIunits.Efficiency COP_nominal
+    "Reference coefficient of performance";
   parameter Real PLRMax(min=0, unit="1") "Maximum part load ratio";
   parameter Real PLRMinUnl(min=0, unit="1") "Minimum part unload ratio";
   parameter Real PLRMin(min=0, unit="1") "Minimum part load ratio";
-  parameter Real etaMotor(min=0, max=1, unit="1")
+  parameter Modelica.SIunits.Efficiency etaMotor(max=1)
     "Fraction of compressor motor heat entering refrigerant";
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
     "Nominal mass flow at evaporator";

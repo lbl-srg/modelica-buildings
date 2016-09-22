@@ -34,7 +34,7 @@ protected
         extent={{-10,-10},{10,10}},
         origin={-50,30})));
 initial equation
-assert(abs(table[1,2]) == 0,
+  assert(abs(table[1,2]) < Modelica.Constants.eps,
   "First data point of performance table must be at cut-in wind speed,
    and be equal to 0 Watts.
    Received + " + String(table[1,1]) + " m/s with " + String(table[1,2]) + " Watts");
@@ -169,6 +169,12 @@ Below and above these wind speeds, the generated power is zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed test for equality of <code>Real</code> variables.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+</li>
 <li>
 January 10, 2013, by Michael Wetter:<br/>
 First implementation.

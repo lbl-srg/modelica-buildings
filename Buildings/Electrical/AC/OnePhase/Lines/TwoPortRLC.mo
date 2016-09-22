@@ -16,7 +16,7 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
   Modelica.SIunits.Voltage Vc[2](start = Vc_start, each stateSelect=StateSelect.prefer)
     "Voltage of the Capacitance located in the middle of the line";
@@ -24,13 +24,15 @@ protected
     "Currenbt of the capacitance located in the middle of the line";
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+
 initial equation
   if C > 0 and mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     Vc = Vc_start;
   end if;
 equation
-
-  omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
+  theRef = PhaseSystem_p.thetaRef(terminal_p.theta);
+  omega = der(theRef);
 
   terminal_p.i + terminal_n.i = Ic;
 
@@ -91,6 +93,11 @@ presence of the capacitive effect.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 March 9, 2015, by Marco Bonvini:<br/>
 Added parameter for start value of the voltage.

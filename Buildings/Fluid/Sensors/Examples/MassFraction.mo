@@ -41,24 +41,19 @@ model MassFraction "Test model for the mass fraction sensor"
 equation
   connect(dp.port_b, sin.ports[1]) annotation (Line(
       points={{60,0},{70,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFloRat.ports[1], senMasFra1.port_a) annotation (Line(
       points={{-60,10},{-40,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senMasFra1.port_b, vol.ports[1]) annotation (Line(
       points={{-20,10},{7.33333,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], dp.port_a) annotation (Line(
       points={{10,10},{10,6.66134e-16},{40,6.66134e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[3], senMasFra2.port) annotation (Line(
       points={{12.6667,10},{30,10},{30,36}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (experiment(StopTime=10),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),

@@ -25,15 +25,15 @@
 ///
 ///\return 0 if no error occurred
 ///////////////////////////////////////////////////////////////////////////////
-int cfdExchangeData(double t0, double dt, double *u, int nU, int nY,
+int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
-  int i, j, k;
+  size_t i, j, k;
   int verbose = 0;
 
   /*--------------------------------------------------------------------------
   | Write data to CFD
   | Command:
-  | -1: feak data
+  | -1: fake data
   |  0: data has been read by the other program
   |  1: data waiting for the other program to read
   --------------------------------------------------------------------------*/

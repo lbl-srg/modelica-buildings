@@ -109,10 +109,10 @@ created when connecting fluid volumes in series.
 </p>
 <p>
 The model is used in conjunction with
-<a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
-Modelica.Fluid.Storage.Stratified</a>.
-It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
-Modelica.Fluid.Storage.Stratified</a> in order to give the results that a third-order upwind discretization scheme (QUICK) would give.
+<a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+Buildings.Fluid.Storage.Stratified</a>.
+It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+Buildings.Fluid.Storage.Stratified</a> in order to give the results that a third-order upwind discretization scheme (QUICK) would give.
 </p>
 <p>
 The QUICK method can cause oscillations in the tank temperatures since the high order method introduces numerical dispersion.

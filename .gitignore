@@ -30,6 +30,9 @@ simulator.log
 #####################
 *.mat
 
+# Ignore doctree pickles of sphinx
+Buildings/Resources/Documentation/userGuide/build/doctrees
+
 # Python compiled files #
 #########################
 *.pyc

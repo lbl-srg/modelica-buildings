@@ -21,42 +21,36 @@ model AltitudeAngle "Test model for altitude angle"
 equation
   connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{21,30},{26,30},{26,5.4},{34,5.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{21,-30},{26,-30},{26,-4.8},{34,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,5.82867e-16},{-53.5,5.82867e-16},{-53.5,1.13798e-15},{-47,
           1.13798e-15},{-47,5.55112e-16},{-34,5.55112e-16}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-34,5.55112e-16},{-20,5.55112e-16},{-20,30},{-2,30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-34,5.55112e-16},{-20,5.55112e-16},{-20,-30},{-2,-30}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(zen.zen, altAng.zen) annotation (Line(
       points={{57,6.10623e-16},{59.25,6.10623e-16},{59.25,1.27676e-15},{61.5,
           1.27676e-15},{61.5,6.66134e-16},{66,6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
         "Simulate and plot"),

@@ -4,7 +4,7 @@ model Grid "Electrical grid"
   parameter Modelica.SIunits.Voltage V(start = 480) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
   Buildings.Electrical.AC.Interfaces.PowerOutput P[3]
-    "Power consumed from grid if negative, or fed to grid if positive"
+    "Power consumed from grid if positive, or fed to grid if negative"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_p terminal
     "Connector for three-phase unbalanced systems"            annotation (Placement(transformation(extent={{-10,
@@ -53,6 +53,10 @@ In US, a typical value <i>480</i> Volts.
 </html>",
  revisions="<html>
 <ul>
+<li>
+August 31, 2016, by Michael Wetter:<br/>
+Corrected sign error in documentation string of variable <code>P</code>.
+</li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
 Revised documentation.

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "roo.conExtWin[1].QAbsUns_flow[1]",
+    "roo.conExtWin[1].QAbsUns_flow[2]"
+  };

@@ -35,16 +35,18 @@ Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
+</p>
 <pre>
     V_flow = k * dp^m,
 </pre>
+<p>
 where <code>k</code> is a variable and
 <code>m</code> a parameter. For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>.
 Large openings are characterized by values close to <code>0.5</code>,
 while values near <code>0.65</code> have been found for small
 crack-like openings (Dols and Walton, 2002).
-
+</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -54,6 +56,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
+</li>
 </ul>
 </html>",
 revisions="<html>

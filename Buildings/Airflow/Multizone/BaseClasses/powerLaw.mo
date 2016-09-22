@@ -1,10 +1,11 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 function powerLaw "Power law used in orifice equations"
   input Real k "Flow coefficient, k = V_flow/ dp^m";
-  input Modelica.SIunits.Pressure dp "Pressure difference";
+  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
   input Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  input Modelica.SIunits.Pressure dp_turbulent(min=0)=0.001
+  input Modelica.SIunits.PressureDifference dp_turbulent(min=0,
+                                                         displayUnit="Pa")=0.001
     "Pressure difference where regularization starts";
   output Modelica.SIunits.VolumeFlowRate V_flow "Volume flow rate";
 protected
@@ -77,6 +78,12 @@ of a model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 <i>August 12, 2011</i> by Michael Wetter:<br/>
 Reimplemented model so that it is continuously differentiable.

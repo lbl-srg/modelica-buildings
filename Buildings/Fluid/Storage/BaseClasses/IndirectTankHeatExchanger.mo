@@ -12,7 +12,6 @@ model IndirectTankHeatExchanger
       redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
-    showDesignFlowDirection=false,
     final show_T=false);
 
   parameter Integer nSeg(min=2) "Number of segments in the heat exchanger";
@@ -41,14 +40,24 @@ model IndirectTankHeatExchanger
     "Exterior diameter of the heat exchanger pipe";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Formulation of energy balance for heat exchanger internal fluid mass"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
+    "Formulation of energy balance for heat exchanger solid mass"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
+    "Formulation of mass balance for heat exchanger"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Boolean hA_flowDependent = true
+    "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
+  parameter Boolean hA_temperatureDependent = true
+    "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of temperature"
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[nSeg]
     "Heat port connected to water inside the tank"
@@ -78,20 +87,22 @@ model IndirectTankHeatExchanger
     each X_start=X_start,
     each C_start=C_start,
     each C_nominal=C_nominal,
+    each final prescribedHeatFlowRate = false,
     each final allowFlowReversal=allowFlowReversal) "Heat exchanger fluid"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](each C=CHex/
-        nSeg,
-        T(each start=T_start,
-          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-        der_T(
-          each fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap[nSeg](
+     each C=CHex/nSeg,
+     T(each start=T_start,
+       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+     der_T(
+       each fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
+             not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumHex,
-      allowFlowReversal=allowFlowReversal)
+  Sensors.MassFlowRate senMasFlo(
+    redeclare package Medium = MediumHex,
+    allowFlowReversal=allowFlowReversal)
     "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHex[nSeg]
@@ -100,9 +111,9 @@ protected
   Modelica.Thermal.HeatTransfer.Components.Convection HexToTan[nSeg]
     "Convection coefficient between the heat exchanger and the surrounding medium"
     annotation (Placement(transformation(extent={{20,12},{40,-8}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
-                                     temSenHex[nSeg]
-    "Temperature of the heat transfer fluid"                                                  annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenHex[nSeg]
+    "Temperature of the heat transfer fluid"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-20,-70})));
@@ -118,9 +129,11 @@ protected
   HeatExchangers.BaseClasses.HACoilInside hAPipIns[nSeg](
     each m_flow_nominal=m_flow_nominal,
     each hA_nominal=UA_nominal/nSeg*(r_nominal + 1)/r_nominal,
-    each T_nominal=THex_nominal)
+    each T_nominal=THex_nominal,
+    each final flowDependent=hA_flowDependent,
+    each final temperatureDependent=hA_temperatureDependent)
     "Computation of convection coefficients inside the coil"
-                                                   annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-80})));
@@ -131,11 +144,12 @@ protected
     each final TFlu_nominal=TTan_nominal,
     each final TSur_nominal=TTan_nominal-(r_nominal/(1+r_nominal))*(TTan_nominal-THex_nominal))
     "Calculates an hA value for each side of the heat exchanger"
-                                    annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={10,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
-    "Temperature at the external surface of the heat exchanger" annotation (
+    "Temperature at the external surface of the heat exchanger"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -282,7 +296,30 @@ equation
           </p>
           </html>",
           revisions="<html>
-          <ul>
+<ul>
+<li>
+January 7, 2016, by Filip Jorissen:<br/>
+Propagated <code>flowDependent</code> and <code>temperatureDependent</code>
+in <code>hAPipIns</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/454\">#454</a>.
+</li>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set <code>fixed</code> attribute in <code>cap.T</code> to avoid
+unspecified initial conditions.
+</li>
+<li>
+July 2, 2015, by Michael Wetter:<br/>
+Set <code>prescribedHeatFlowRate=false</code> in control volume.
+</li>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Added parameter <code>energyDynamicsSolid</code>.
+This is for 
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/434\">
+#434</a>.
+</li>
 <li>
 March 28, 2015, by Filip Jorissen:<br/>
 Propagated <code>allowFlowReversal</code>.

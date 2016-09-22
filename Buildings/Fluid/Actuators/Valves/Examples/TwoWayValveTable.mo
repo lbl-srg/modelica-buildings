@@ -59,44 +59,34 @@ equation
       color={0,0,127}));
   connect(sou.ports[1], senVolFlo.port_a) annotation (Line(
       points={{-70,20},{-60,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senVolFlo.port_b, valTab.port_a) annotation (Line(
       points={{-40,20},{-20,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valTab.port_a, senRelPre.port_a) annotation (Line(
       points={{-20,20},{-20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valTab.port_b, senRelPre.port_b) annotation (Line(
       points={{4.44089e-16,20},{4.44089e-16,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(valTab.port_b, sin.ports[1]) annotation (Line(
       points={{4.44089e-16,20},{52,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(to_bar.u, senRelPre.p_rel) annotation (Line(
       points={{-2,-36},{-10,-36},{-10,-19}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sqrt1.u, to_bar.y) annotation (Line(
       points={{26,-36},{21,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senVolFlo.V_flow, to_m3_h.u) annotation (Line(
       points={{-50,31},{-50,36},{-30,36},{-30,-64},{-12,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(to_m3_h.y,kv. u1) annotation (Line(
       points={{11,-64},{58,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sqrt1.y,kv. u2) annotation (Line(
       points={{49,-36},{54,-36},{54,-76},{58,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos"
         "Simulate and plot"),

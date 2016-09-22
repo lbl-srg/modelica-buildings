@@ -5,7 +5,6 @@ model SplitterFixedResistanceDpM
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[1],
@@ -16,7 +15,6 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[2],
@@ -27,7 +25,6 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[3],
@@ -60,7 +57,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
@@ -75,7 +72,7 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
         Ellipse(
-          visible=dynamicBalance,
+          visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
@@ -113,8 +110,7 @@ This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
 The fluid volume is modeled if
-<code>dynamicBalance=true</code>, and it is removed if
-<code>dynamicBalance=false</code>.
+<code>energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 The control volume has the size
 </p>
 <pre>
@@ -123,11 +119,19 @@ The control volume has the size
 <p>
 where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density
 of the medium in the volume at nominal condition.
-Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
+Setting <code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
+can help reducing the size of the nonlinear
 system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+Removed parameter <code>dynamicBalance</code> that overwrote the setting
+of <code>energyDynamics</code> and <code>massDynamics</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+Annex 60, issue 411</a>.
+</li>
 <li>
 February 1, 2012 by Michael Wetter:<br/>
 Expanded documentation.

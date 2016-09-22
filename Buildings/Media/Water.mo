@@ -156,7 +156,7 @@ June 6, 2015, by Michael Wetter:<br/>
 Changed type of <code>BaseProperties.T</code> from
 <code>Modelica.SIunits.Temperature</code> to <code>Temperature</code>.
 Otherwise, it has a different start value than <code>Medium.T</code>, which
-causes an error if 
+causes an error if
 <a href=\"Buildings.Media.Examples.WaterProperties\">
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
@@ -172,7 +172,7 @@ described in
 Modelica.Media.Interfaces.PartialMedium</a>,
 and set <code>preferredMediumState=false</code>
 to keep the same states as were used before.
-This is for 
+This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
 </li>
 <li>
@@ -215,13 +215,11 @@ has never been used.
           points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Polygon(
           points={{10,34},{26,44},{30,36},{14,26},{10,34}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Ellipse(
           extent={{-82,52},{24,-54}},

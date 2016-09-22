@@ -15,12 +15,13 @@ model SimplifiedRoom "Simplified data center room"
     "Heat generation of the computer room";
 
   Buildings.Fluid.MixingVolumes.MixingVolume rooVol(
-    nPorts=nPorts,
     redeclare each package Medium = Medium,
+    nPorts=nPorts,
     V=rooLen*rooWid*rooHei,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final T_start=293.15) "Volume of air in the room" annotation (Placement(
+    final T_start=293.15,
+    final prescribedHeatFlowRate=true) "Volume of air in the room" annotation (Placement(
         transformation(extent={{41,-20},{61,-40}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b airPorts[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
@@ -68,6 +69,13 @@ equation
 This is a simplified room model for a data center. There is no heat exchange between the room and ambient environment through the building envelope since it is negligible compared to the heat released by the servers.
 </p></html>", revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added <code>prescribedHeatFlowRate=false</code> for both volumes.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> of the Annex 60 library.
+</li>
 <li>
 July 21, 2011 by Wangda Zuo:<br/>
 Merge to library.

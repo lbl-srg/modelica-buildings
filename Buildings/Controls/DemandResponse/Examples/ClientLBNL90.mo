@@ -15,7 +15,7 @@ model ClientLBNL90
     tableName="b90",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/Data/Controls/DemandResponse/Examples/B90_DR_Data.mos"),
     columns={2,3,4}) "LBNL building 90 data"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
@@ -146,6 +146,11 @@ as received from the input signal <code>yShed</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.

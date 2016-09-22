@@ -11,20 +11,16 @@ equation
 
   connect(ramp.y, smoLim[1].u1) annotation (Line(
       points={{-19,20},{-12,20},{-12,6},{-2,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(smoLim[2].u1, ramp.y) annotation (Line(
       points={{-2,6},{-12,6},{-12,20},{-19,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, smoLim[1].u2) annotation (Line(
       points={{-19,-20},{-12,-20},{-12,-6},{-2,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(const.y, smoLim[2].u2) annotation (Line(
       points={{-19,-20},{-12,-20},{-12,-6},{-2,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothMin.mos"

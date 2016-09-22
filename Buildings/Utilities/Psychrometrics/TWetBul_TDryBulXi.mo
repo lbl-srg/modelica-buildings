@@ -39,6 +39,8 @@ protected
   Modelica.SIunits.MassFraction XiSat(start=0.01,
                                       nominal=0.01)
     "Water vapor mass fraction at saturation";
+  Modelica.SIunits.MassFraction XiSatRefIn
+    "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
@@ -65,17 +67,22 @@ equation
        - Modelica.Math.atan(rh_per-1.676331)
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat = 0;
+    XiSatRefIn=0;
   else
+    XiSatRefIn=(1-Xi[iWat])*XiSat/(1-XiSat);
     XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    TWetBul = (TDryBul *
-                ((1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
-                Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte) +
-                (Xi[iWat]-XiSat) * Buildings.Utilities.Psychrometrics.Constants.h_fg)/
-            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir +
-            XiSat * Buildings.Utilities.Psychrometrics.Constants.cpSte);
+    (TWetBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
+              (1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XiSatRefIn * Buildings.Utilities.Psychrometrics.Constants.cpSte +
+              (Xi[iWat]-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+    =
+    (TDryBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
+              (1-Xi[iWat]) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              Xi[iWat] * Buildings.Utilities.Psychrometrics.Constants.cpSte)  +
+    (Xi[iWat]-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -102,15 +109,13 @@ annotation (
           lineThickness=0.5),
         Line(
           points={{-14,44},{-14,-60}},
-          color={0,0,0},
           thickness=0.5),
         Line(
           points={{10,44},{10,-60}},
-          color={0,0,0},
           thickness=0.5),
-        Line(points={{-42,-16},{-14,-16}}, color={0,0,0}),
-        Line(points={{-42,24},{-14,24}}, color={0,0,0}),
-        Line(points={{-42,64},{-14,64}}, color={0,0,0}),
+        Line(points={{-42,-16},{-14,-16}}),
+        Line(points={{-42,24},{-14,24}}),
+        Line(points={{-42,64},{-14,64}}),
         Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},
@@ -138,8 +143,6 @@ If the constant <code>approximateWetBulb</code> is <code>true</code>,
 then the block uses the approximation of Stull (2011) to compute
 the wet bulb temperature without requiring a nonlinear equation.
 Otherwise, the model will introduce one nonlinear equation.
-</p>
-<p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
 a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i>
 and standard sea level pressure.
@@ -147,13 +150,13 @@ For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65<
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
+Otherwise a calculation based on an energy balance is used.
+See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> for a discussion.
+</p>
+<p>
 For a model that takes the relative humidity instead of the mass fraction as an input, see
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">
 Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
-</p>
-<p>
-For a use of this model, see for example
-<a href=\"modelica://Buildings.Fluid.Sensors.WetBulbTemperature\">Buildings.Fluid.Sensors.WetBulbTemperature</a>
 </p>
 <h4>References</h4>
 <p>
@@ -168,6 +171,17 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 24, 2016, by Filip Jorissen:<br/>
+Corrected exact implementation. 
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
+for a discussion.
+</li>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 November 17, 2014, by Michael Wetter:<br/>
 Removed test on saturation pressure that avoids it to be larger than

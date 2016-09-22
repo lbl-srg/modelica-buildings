@@ -20,8 +20,8 @@ print "At T=20, cp = ", cp20
 fig = plt.figure(figsize=(6, 2))
 ax = fig.add_subplot(111)
 ax.plot(T_degC, cpRel)
-ax.set_xlabel('$T \, [^\circ C]$')
-ax.set_ylabel('$c_p(T)/c_p(20^\circ C)$')
+ax.set_xlabel('$T \, [\mathrm{^\circ C}]$')
+ax.set_ylabel('$c_p(T)/c_p(20\mathrm{^\circ C})$')
 ax.grid(True)
 
 # The next line avoids the x-label to be cut off.

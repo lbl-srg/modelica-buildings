@@ -314,249 +314,189 @@ equation
           -314},{-14,-314},{-12,-314}},            color={0,0,127}));
   connect(sin_1.ports[1], res_12.port_a) annotation (Line(
       points={{-148,145},{-124,145},{-124,144},{-100,144}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[2], res_3.port_a) annotation (Line(
       points={{-148,143},{-124,143},{-124,32},{-100,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[1], res_11.port_a) annotation (Line(
       points={{-150,103},{-125,103},{-125,100},{-100,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[2], res_2.port_a) annotation (Line(
       points={{-150,101},{-128,101},{-128,-20},{-100,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[3], res_1.port_a) annotation (Line(
       points={{-148,141},{-128,141},{-128,-180},{-100,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin_1.ports[4], res_6.port_a) annotation (Line(
       points={{-148,139},{-128,139},{-128,-320},{-100,-320}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[3], res_5.port_a) annotation (Line(
       points={{-150,99},{-124,99},{-124,-120},{-100,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou_1.ports[4], res_7.port_a) annotation (Line(
       points={{-150,97},{-124,97},{-124,-260},{-100,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mix1.ports[1], res_4.port_a) annotation (Line(
       points={{70,-20},{110,-20},{110,32},{100,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mix2.ports[1], res_8.port_a) annotation (Line(
       points={{68,-320},{106,-320},{106,-260},{100,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem1a.T, ass1.u1) annotation (Line(
       points={{-40,108.8},{-40,122},{140,122},{140,176},{158,176}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem2a.T, ass1.u2) annotation (Line(
       points={{1.22125e-16,152.8},{0,152.8},{0,164},{158,164}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem1b.T, ass2.u2) annotation (Line(
       points={{30,108.8},{30,120},{158,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem2b.T, ass2.u1) annotation (Line(
       points={{64,152.8},{64,160},{120,160},{120,132},{158,132}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem4a.T, ass4.u2) annotation (Line(
       points={{-2,43},{-2,64},{158,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem3a.T, ass4.u1) annotation (Line(
       points={{-40,-11.2},{-40,10},{140,10},{140,76},{158,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem4b.T, ass3.u1) annotation (Line(
       points={{60,43},{60,52},{148,52},{148,16},{158,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem3b.T, ass3.u2) annotation (Line(
       points={{30,-9},{30,4},{158,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem6a.T, ass6.u2) annotation (Line(
       points={{-50,-109},{-50,-96},{158,-96}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem5a.T, ass6.u1) annotation (Line(
       points={{-50,-169},{-50,-150},{140,-150},{140,-84},{158,-84}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem6b.T, ass5.u1) annotation (Line(
       points={{50,-109},{50,-102},{150,-102},{150,-148},{158,-148}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem5b.T, ass5.u2) annotation (Line(
       points={{30,-169},{30,-160},{158,-160}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem8a.T, ass8.u2) annotation (Line(
       points={{-50,-249},{-50,-236},{158,-236}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem7a.T, ass8.u1) annotation (Line(
       points={{-50,-309},{-50,-292},{140,-292},{140,-224},{158,-224}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem8b.T, ass7.u1) annotation (Line(
       points={{48,-246.8},{48,-240},{148,-240},{148,-268},{158,-268}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem7b.T, ass7.u2) annotation (Line(
       points={{30,-309},{30,-280},{158,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem3a.T, ass10.u1) annotation (Line(
       points={{-40,-11.2},{-40,10},{128,10},{128,-344},{158,-344}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem7a.T, ass10.u2) annotation (Line(
       points={{-50,-309},{-50,-292},{140,-292},{140,-356},{158,-356}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem2b.T, ass9.u1) annotation (Line(
       points={{64,152.8},{64,160},{120,160},{120,-384},{158,-384}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem5b.T, ass9.u2) annotation (Line(
       points={{30,-169},{30,-160},{112,-160},{112,-396},{158,-396}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(res_12.port_b, senTem2a.port_a) annotation (Line(
       points={{-80,144},{-8,144}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem2a.port_b, hea2.port_a) annotation (Line(
       points={{8,144},{28,144}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea2.port_b, senTem2b.port_a) annotation (Line(
       points={{48,144},{56,144}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem2b.port_b, senTem1b.port_b) annotation (Line(
       points={{72,144},{74,144},{74,100},{38,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea1.port_b, senTem1b.port_a) annotation (Line(
       points={{6,100},{22,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res_11.port_b, senTem1a.port_a) annotation (Line(
       points={{-80,100},{-48,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem1a.port_b, hea1.port_a) annotation (Line(
       points={{-32,100},{-14,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res_2.port_b, senTem3a.port_a) annotation (Line(
       points={{-80,-20},{-48,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem3a.port_b, hea3.port_a) annotation (Line(
       points={{-32,-20},{-14,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea3.port_b, senTem3b.port_a) annotation (Line(
       points={{6,-20},{20,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem3b.port_b, mix1.ports[2]) annotation (Line(
       points={{40,-20},{74,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea4.port_b, senTem4b.port_a) annotation (Line(
       points={{40,32},{50,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res_3.port_b, senTem4a.port_a) annotation (Line(
       points={{-80,32},{-12,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem4a.port_b, hea4.port_a) annotation (Line(
       points={{8,32},{20,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem4b.port_b, res_4.port_b) annotation (Line(
       points={{70,32},{80,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res_5.port_b, senTem6a.port_a) annotation (Line(
       points={{-80,-120},{-60,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem6a.port_b, hea6.port_a) annotation (Line(
       points={{-40,-120},{-5.55112e-16,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea6.port_b, senTem6b.port_a) annotation (Line(
       points={{20,-120},{40,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem6b.port_b, senTem5b.port_b) annotation (Line(
       points={{60,-120},{70,-120},{70,-180},{40,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem5b.port_a, hea5.port_b) annotation (Line(
       points={{20,-180},{10,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea5.port_a, senTem5a.port_b) annotation (Line(
       points={{-10,-180},{-40,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem5a.port_a, res_1.port_b) annotation (Line(
       points={{-60,-180},{-80,-180}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res_7.port_b, senTem8a.port_a) annotation (Line(
       points={{-80,-260},{-60,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem8a.port_b, hea8.port_a) annotation (Line(
       points={{-40,-260},{-5.55112e-16,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea8.port_b, senTem8b.port_a) annotation (Line(
       points={{20,-260},{36,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem8b.port_b, res_8.port_b) annotation (Line(
       points={{60,-260},{80,-260}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(mix2.ports[2], senTem7b.port_b) annotation (Line(
       points={{72,-320},{40,-320}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem7b.port_a, hea7.port_b) annotation (Line(
       points={{20,-320},{10,-320}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(hea7.port_a, senTem7a.port_b) annotation (Line(
       points={{-10,-320},{-40,-320}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem7a.port_a, res_6.port_b) annotation (Line(
       points={{-60,-320},{-80,-320}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -400},{200,240}}), graphics={Text(
           extent={{30,234},{158,192}},
           lineColor={0,0,255},
-          textString="Asserts for temperture check"), Text(
+          textString="Asserts for temperature check"), Text(
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),

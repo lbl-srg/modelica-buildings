@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindSpeed "Ensures that the wind speed is non-negative"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput winSpeIn(final quantity="Velocity",
       final unit="m/s") "Input wind speed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

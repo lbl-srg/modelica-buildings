@@ -8,11 +8,11 @@ model MassFraction "Ideal one port mass fraction sensor"
 
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
                                           max=1.001,
-                                          unit="1") "Mass fraction in port"
+                                          final unit="kg/kg") "Mass fraction in port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Medium.MassFraction XiVec[Medium.nXi](
-      quantity=Medium.extraPropertiesNames)
+    final quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction vector, needed because indexed argument for the operator inStream is not supported";
 
 equation
@@ -44,6 +44,15 @@ prior to using this model with one fluid port.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Corrected wrong assignment
+<code>XiVec[Medium.nXi](quantity=Medium.extraPropertiesNames)</code>
+to
+<code>XiVec[Medium.nXi](quantity=Medium.substanceNames[1:Medium.nXi])</code>.<br/>
+Changed unit of output signal from <code>1</code> to <code>kg/kg</code>
+to indicate that it is a mass fraction, and declared the assignment final.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Changed <code>min</code> and <code>max</code> values for

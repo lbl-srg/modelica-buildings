@@ -2,8 +2,7 @@ within Buildings.Fluid.FMI.Examples.FMUs;
 block HeaterCooler_T
   "FMU declaration for an ideal heater or cooler with prescribed outlet temperature"
    extends Buildings.Fluid.FMI.TwoPortComponent(
-     redeclare replaceable package Medium =
-        Buildings.Media.Air,
+     redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_T com(
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
@@ -11,13 +10,13 @@ block HeaterCooler_T
       final Q_flow_maxCool=Q_flow_maxCool,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(start=Modelica.Constants.inf)
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(start=-Modelica.Constants.inf)
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(start=0.01)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa", start=0)
+  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=0
     "Pressure";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
@@ -49,6 +48,12 @@ Buildings.Fluid.HeatExchangers.HeaterCooler_T</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 November 20, 2014 by Michael Wetter:<br/>
 First implementation.

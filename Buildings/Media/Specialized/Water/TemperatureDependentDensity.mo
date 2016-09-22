@@ -375,13 +375,13 @@ end density_derp_T;
 redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
-  ddTp := smooth(1, if state.T < 278.15 then
+  ddTp := if state.T < 278.15 then
             -0.042860825
           elseif state.T < 373.15 then
             (0.0000450270000000000*state.T^2 - 0.0362697701000000*state.T +
             6.56195279540750)
           else
-           -0.7025109);
+           -0.7025109;
   annotation (
   smoothOrder=1,
   Inline=true,
@@ -394,6 +394,12 @@ at constant pressure.
 </html>", revisions=
 "<html>
 <ul>
+<li>
+August 17, 2015, by Michael Wetter:<br/>
+Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+</li>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
 First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
@@ -638,12 +644,17 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Buildings.Media.Water.Detailed.specificEntropy\">
-Buildings.Media.Water.Detailed.specificEntropy</a>
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.specificEntropy\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.specificEntropy</a>
 for temperature.
   </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 December 11, 2013, by Michael Wetter:<br/>
 First implementation.
@@ -756,12 +767,17 @@ In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
 as the density and the kinematic viscosity are combined in
-<a href=\"modelica://Buildings.Media.Water.Detailed.dynamicViscosity\">
-Buildings.Media.Water.Detailed.dynamicViscosity</a>.
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.dynamicViscosity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.dynamicViscosity</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
 First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
@@ -805,18 +821,53 @@ and therefore leads to faster simulation.
 <img src=\"modelica://Buildings/Resources/Images/Media/Water/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
+
+
+<p>
+Thermal conductivity is calculated as a function of temperature as shown in the figure below.
+The correlation used to calculate the thermal conductivity is
+</p>
+
+<p align=\"center\" style=\"font-style:italic;\">
+&lambda;(T) = &lambda;(298.15 K) &sdot; (-1.48445+4.12292&sdot;(T/298.15)-1.63866&sdot;(T/298.15)<sup>2</sup>),
+</p>
+<p>
+where <i>&lambda;(298.15 K) = 0.6065</i>  W/(m &sdot; K) is the adopted standard value
+of the thermal conductivity of water at <i>298.15</i> K and <i>0.1</i> MPa.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Media/Water/plotLambda.png\" border=\"1\"
+alt=\"Thermal conductivity as a function of temperature\"/>
+</p>
+
+<p>
+Dynamic viscosity is calculated as the product of density and kinematic viscosity,
+both temperature dependent. However, the kinematic viscosity
+has its own temperture dependent correlation, implemented at
+<a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity\">
+Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity</a>.
+Results of the kinematic viscosity as a function of temperature are shown in the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Media/Water/plotkinVis.png\" border=\"1\"
+alt=\"Kinematic viscosity as a function of temperature\"/>
+</p>
+
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.
 </p>
 <h4>Limitations</h4>
 <p>
-Specific heat capacity, thermal conductivity and viscosity are constant.
-Water is modeled as an incompressible liquid.
-There are no phase changes.
+Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 7, 2016, by Carles Ribas Tugores:<br/>
+Correct Documentation. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/487\">#487</a>.
+</li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Set <code>AbsolutePressure(start=p_default)</code>
@@ -875,13 +926,11 @@ First implementation.
           points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Polygon(
           points={{10,34},{26,44},{30,36},{14,26},{10,34}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
-          smooth=Smooth.None,
           fillColor={95,95,95}),
         Ellipse(
           extent={{-82,52},{24,-54}},

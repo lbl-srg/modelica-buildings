@@ -4,6 +4,8 @@ model WetCoilDiscretized
   // When replacing the volume, the Medium is constrained so that the enthalpyOfLiquid
   // function is known. Otherwise, checkModel(...) will fail
   extends DryCoilDiscretized(
+    redeclare replaceable package Medium2 =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     each hexReg(redeclare final
         Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nPipPar, nPipSeg]),
     temSen_1(m_flow_nominal=m1_flow_nominal),
@@ -37,6 +39,15 @@ Modelica.Media.Air.MoistAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July 29, 2016, by Michael Wetter:<br/>
+Redeclared <code>Medium2</code> to be <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
+because it is used in <code>vol2</code>, which requires the medium to extend
+from this subclass.<br/>
+See also
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/547\">
+issue 547</a>.
+</li>
+<li>
 June 29, 2014, by Michael Wetter:<br/>
 Removed parameter <code>dl</code> which is no longer needed.
 </li>
@@ -50,7 +61,7 @@ in the base class
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilDiscretized\">
 Buildings.Fluid.HeatExchangers.DryCoilDiscretized</a>.
 This closes issue
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/194\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/194\">
 https://github.com/lbl-srg/modelica-buildings/issues/194</a>,
 which caused the last register to have no liquid flow.
 </li>

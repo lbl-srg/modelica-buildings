@@ -3,33 +3,35 @@ function getGlassTR "Transmittance and reflectance of glass"
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation;
 
-  input Real layer[3, N, HEM] "Property of glass pane";
-  output Real traRef[3, N, N, HEM](each min=0, each max=1)
+  input Real layer[3, N, HEM, NSta] "Property of glass pane";
+  output Real traRef[3, N, N, HEM, NSta](each min=0, each max=1)
     "Glass transmittance, front and back reflectance";
 
 protected
-  Real traRefIntIrr[3, N, N, HEM](each min=0, each max=1)
+  Real traRefIntIrr[3, N, N, HEM, NSta](each min=0, each max=1)
     "temporary array for glass transmittance, front and back reflectance for interior irradiation";
 
 algorithm
   traRef :=
-    Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading(
-    N,
-    HEM,
-    layer) "property for exterior irradiation";
+      Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading(
+      N=N,
+      NSta=NSta,
+      HEM=HEM,
+      layer=layer) "property for exterior irradiation";
   traRefIntIrr :=
-    Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading(
-    N,
-    HEM,
-    layer) "property for interior irradiation";
+      Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading(
+      N=N,
+      NSta=NSta,
+      HEM=HEM,
+      layer=layer) "property for interior irradiation";
 
   // Copy the property for interior irradiation to glass property
   for k in TRA:Rb loop
     for i in 1:N - 1 loop
       for j in i + 1:N loop
         for iD in 1:HEM loop
-          traRef[k, N + 1 - i, N + 1 - j, iD] := traRefIntIrr[k, N + 1 - i, N
-             + 1 - j, iD];
+          traRef[k, N + 1 - i, N + 1 - j, iD, 1:NSta] :=
+            traRefIntIrr[k, N + 1 - i, N + 1 - j, iD, 1:NSta];
         end for;
       end for;
     end for;
@@ -45,6 +47,12 @@ For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between lay
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 August 29, 2010, by Wangda Zuo:<br/>
 First implementation.

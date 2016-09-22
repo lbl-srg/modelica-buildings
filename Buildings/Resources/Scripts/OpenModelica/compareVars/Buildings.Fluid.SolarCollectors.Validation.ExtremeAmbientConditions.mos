@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "solAsh.vol[1].T",
+    "solAsh.vol[2].T",
+    "solAsh.vol[3].T",
+    "solEn.vol[1].T",
+    "solEn.vol[2].T",
+    "solEn.vol[3].T",
+    "weaBus.TDryBul",
+    "solAsh.QLos[1].Q_flow",
+    "solAsh.QLos[2].Q_flow",
+    "solAsh.QLos[3].Q_flow",
+    "solEn.QLos[1].Q_flow",
+    "solEn.QLos[2].Q_flow",
+    "solEn.QLos[3].Q_flow",
+    "weaBus.HDifHor"
+  };

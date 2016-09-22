@@ -1,0 +1,4 @@
+compareVars :=
+  {
+    "thermalZoneThreeElements.TAir"
+  };

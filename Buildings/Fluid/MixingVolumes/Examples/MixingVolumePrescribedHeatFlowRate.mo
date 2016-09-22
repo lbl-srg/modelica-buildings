@@ -46,32 +46,25 @@ model MixingVolumePrescribedHeatFlowRate
 equation
   connect(sou.ports[1], vol.ports[1])         annotation (Line(
       points={{0,-10},{38,-10},{38,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ramp.y, gain.u) annotation (Line(
       points={{-69,-10},{-62,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, sou.m_flow_in) annotation (Line(
       points={{-39,-10},{-31.5,-10},{-31.5,-2},{-20,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(vol.ports[2], bou.ports[1]) annotation (Line(
       points={{42,20},{43,20},{43,-10},{60,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preHeaFlo.port, heaFlo.port_a) annotation (Line(
       points={{-20,30},{0,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(preHeaFlo.Q_flow, const.y) annotation (Line(
       points={{-40,30},{-59,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(heaFlo.port_b, vol.heatPort) annotation (Line(
       points={{20,30},{30,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   annotation (Documentation(
         info="<html>
 <p>

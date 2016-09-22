@@ -136,145 +136,110 @@ model Pump_Nrpm_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
 equation
   connect(sou.ports[1], pump1.port_a) annotation (Line(
       points={{-100,-18.8},{-70,-18.8},{-70,70},{-60,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(forcedPump1.port_a, pump1.port_b) annotation (Line(
       points={{38,70},{-40,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump1.Nrpm, rpm1.y) annotation (Line(
       points={{-50,82},{-50,90},{-77.4,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(pump2.port_a, sou.ports[2]) annotation (Line(
       points={{-60,20},{-70,20},{-70,-20.4},{-100,-20.4}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump3.port_a, sou.ports[3]) annotation (Line(
       points={{-60,-26},{-70,-26},{-70,-22},{-100,-22}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump4.port_a, sou.ports[4]) annotation (Line(
       points={{-60,-70},{-70,-70},{-70,-24},{-96,-24},{-96,-23.6},{-100,-23.6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(pump5.port_a, sou.ports[5]) annotation (Line(
       points={{-60,-120},{-70,-120},{-70,-25.2},{-100,-25.2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump2.port_b, forcedPump2.port_a) annotation (Line(
       points={{-40,20},{38,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump3.port_b, forcedPump3.port_a) annotation (Line(
       points={{-40,-26},{38,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump4.port_b, forcedPump4.port_a) annotation (Line(
       points={{-40,-70},{38,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pump5.port_b, forcedPump5.port_a) annotation (Line(
       points={{-40,-120},{38,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(rpm2.y, pump2.Nrpm) annotation (Line(
       points={{-77.4,40},{-50,40},{-50,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(rpm3.y, pump3.Nrpm) annotation (Line(
       points={{-77.4,0},{-50,0},{-50,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(rpm4.y, pump4.Nrpm) annotation (Line(
       points={{-77.4,-50},{-50,-50},{-50,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(rpm5.y, pump5.Nrpm) annotation (Line(
       points={{-77.4,-102},{-50,-102},{-50,-108}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(forcedPump1.m_flow_in, min1.y) annotation (Line(
       points={{47.8,82},{48,82},{48,91},{40.5,91}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min1.u1, m_flow.y) annotation (Line(
       points={{29,94},{-23.4,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min2.y, forcedPump2.m_flow_in) annotation (Line(
       points={{40.5,45},{48,45},{48,32},{47.8,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min2.u1, m_flow.y) annotation (Line(
       points={{29,48},{-14,48},{-14,94},{-23.4,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min3.y, forcedPump3.m_flow_in) annotation (Line(
       points={{40.5,-5},{44.25,-5},{44.25,-14},{47.8,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min5.y, forcedPump5.m_flow_in) annotation (Line(
       points={{40.5,-97},{44.25,-97},{44.25,-108},{47.8,-108}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min4.y, forcedPump4.m_flow_in) annotation (Line(
       points={{40.5,-49},{44.25,-49},{44.25,-58},{47.8,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min3.u1, m_flow.y) annotation (Line(
       points={{29,-2},{-14,-2},{-14,94},{-23.4,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min4.u1, m_flow.y) annotation (Line(
       points={{29,-46},{-14,-46},{-14,94},{-23.4,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min5.u1, m_flow.y) annotation (Line(
       points={{29,-94},{-14,-94},{-14,94},{-23.4,94}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mMax_flow1.y, min1.u2) annotation (Line(
       points={{14.6,82},{18,82},{18,88},{29,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mMax_flow2.y, min2.u2) annotation (Line(
       points={{12.6,36},{20,36},{20,42},{29,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(min3.u2, mMax_flow3.y) annotation (Line(
       points={{29,-8},{20,-8},{20,-14},{12.6,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mMax_flow4.y, min4.u2) annotation (Line(
       points={{12.6,-58},{26,-58},{26,-52},{29,-52}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mMax_flow5.y, min5.u2) annotation (Line(
       points={{12.6,-106},{20,-106},{20,-100},{29,-100}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(forcedPump1.port_b, sin.ports[1]) annotation (Line(
       points={{58,70},{100,70},{100,3.2},{110,3.2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(forcedPump2.port_b, sin.ports[2]) annotation (Line(
       points={{58,20},{100,20},{100,1.6},{110,1.6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(forcedPump3.port_b, sin.ports[3]) annotation (Line(
       points={{58,-26},{100,-26},{100,0},{110,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(forcedPump4.port_b, sin.ports[4]) annotation (Line(
       points={{58,-70},{100,-70},{100,-2.66667},{110,-2.66667},{110,-1.6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(forcedPump5.port_b, sin.ports[5]) annotation (Line(
       points={{58,-120},{100,-120},{100,-1},{110,-1},{110,-3.2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   annotation (experiment(StopTime=1000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos"

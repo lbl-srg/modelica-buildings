@@ -1,5 +1,5 @@
 within Buildings.Fluid.Actuators.Valves;
-model TwoWayTable "Two way valve with linear flow characteristics"
+model TwoWayTable "Two way valve with table-specified flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
     phi=phiLooUp.y[1],
     final l = phiLooUp.table[1, 2]);
@@ -23,9 +23,14 @@ protected
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
 
 initial equation
-  assert(flowCharacteristics.y[1] == 0, "flowCharateristics.y[1] must be 0.");
-  assert(flowCharacteristics.y[size(flowCharacteristics.y, 1)] == 1, "flowCharateristics.y[end] must be 1.");
-  assert(flowCharacteristics.phi[size(flowCharacteristics.phi, 1)] == 1, "flowCharateristics.phi[end] must be 1.");
+  assert(abs(flowCharacteristics.y[1]) < Modelica.Constants.eps,
+    "flowCharateristics.y[1] must be 0.");
+  assert(abs(flowCharacteristics.y[size(flowCharacteristics.y, 1)] - 1) <
+    Modelica.Constants.eps,
+    "flowCharateristics.y[end] must be 1.");
+  assert(abs(flowCharacteristics.phi[size(flowCharacteristics.phi, 1)] - 1) <
+    Modelica.Constants.eps,
+    "flowCharateristics.phi[end] must be 1.");
 
   // Assert that the sequences are strictly monotonic increasing
   assert(Buildings.Utilities.Math.Functions.isMonotonic(
@@ -40,8 +45,7 @@ initial equation
 equation
   connect(phiLooUp.u[1], y_actual) annotation (Line(
       points={{68,70},{50,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     defaultComponentName="val",
     Documentation(info="<html>
@@ -127,6 +131,11 @@ Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 26, 2016, by Michael Wetter:<br/>
+Removed equality comparison for <code>Real</code> in the
+<code>assert</code> statements as this is not allowed in Modelica.
+</li>
+<li>
 August 12, 2014, by Michael Wetter:<br/>
 Removed the <code>end</code> keyword when accessing array elements,
 as this language construct caused an error in OpenModelica.
@@ -154,15 +163,9 @@ First implementation.
           extent={{-12,-11},{12,11}},
           radius=5.0),
         Line(
-          points={{-70,94},{-70,72}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-70,94},{-70,72}}),
         Line(
-          points={{-82,86},{-58,86}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-82,86},{-58,86}}),
         Line(
-          points={{-82,78},{-58,78}},
-          color={0,0,0},
-          smooth=Smooth.None)}));
+          points={{-82,78},{-58,78}})}));
 end TwoWayTable;

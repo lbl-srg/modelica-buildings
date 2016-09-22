@@ -59,65 +59,50 @@ model MoistAirEnthalpyFlowRate
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
       points={{-79,70},{-70,70},{-70,28},{-60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,20},{-30,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.port_b, senH.port_a) annotation (Line(
       points={{-10,20},{-5.55112e-16,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH.port_b, senM_flow.port_a) annotation (Line(
       points={{20,20},{28,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.H_flow, assEqu1.u1)        annotation (Line(
       points={{-20,31},{-20,94},{28,94},{28,76},{58,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senH.h_out, product.u1) annotation (Line(
       points={{10,31},{10,40},{-14,40},{-14,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flow.m_flow, product.u2) annotation (Line(
       points={{38,31},{38,48},{-10,48},{-10,58},{-2,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(product.y, assEqu1.u2) annotation (Line(
       points={{21,64},{58,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senHLat_flow.H_flow, add.u1) annotation (Line(
       points={{-50,-59},{-50,-30},{18,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senHSen_flow.H_flow, add.u2) annotation (Line(
       points={{-10,-59},{-10,-42},{18,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senM_flow.port_b, senHLat_flow.port_a) annotation (Line(
       points={{48,20},{60,20},{60,0},{-70,0},{-70,-70},{-60,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senHLat_flow.port_b, senHSen_flow.port_a)
     annotation (Line(
       points={{-40,-70},{-20,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senH_flow.H_flow, assEqu2.u1) annotation (Line(
       points={{-20,31},{-20,36},{70,36},{70,-24},{78,-24}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(add.y, assEqu2.u2)  annotation (Line(
       points={{41,-36},{78,-36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senHSen_flow.port_b, sin.ports[1]) annotation (Line(
       points={{5.55112e-16,-70},{60,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
     annotation (
 experiment(StopTime=60.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"

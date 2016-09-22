@@ -4,16 +4,19 @@ partial model PartialDynamicFlowSensor
   extends PartialFlowSensor;
 
   parameter Modelica.SIunits.Time tau(min=0) = 1
-    "Time constant at nominal flow rate";
+    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)";
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
-"Type of initialization (InitialState and InitialOutput are identical)"
+    "Type of initialization (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(group="Initialization"));
 protected
   Real k(start=1)
     "Gain to take flow rate into account for sensor time constant";
   final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
-    "Flag, true if the sensor is a dynamic sensor";
+    "Flag, true if the sensor is a dynamic sensor"
+    annotation(Evaluate=true);
   Real mNor_flow "Normalized mass flow rate";
+  final parameter Real tauInv(final unit="s-1")= if dynamic then 1/tau else 0
+    "Inverse of tau";
 equation
   if dynamic then
     mNor_flow = port_a.m_flow/m_flow_nominal;
@@ -40,6 +43,14 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2016, by Michael Wetter:<br/>
+Improved documentation for <code>tau</code>.
+</li>
+<li>
+January 12, 2016, by Filip Jorissen:<br/>
+Added optional parameter <code>tauInv</code>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

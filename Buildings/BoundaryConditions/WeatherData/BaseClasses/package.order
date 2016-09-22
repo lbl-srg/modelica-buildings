@@ -1,4 +1,6 @@
+CheckBlackBodySkyTemperature
 CheckCeilingHeight
+CheckIRRadiation
 CheckPressure
 CheckRadiation
 CheckRelativeHumidity

@@ -4,7 +4,6 @@ model ParallelLoads
   extends Modelica.Icons.Example;
   Buildings.Electrical.AC.OnePhase.Loads.Inductive varRL(
     mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
-    P_nominal=-1e3,
     linearized=false,
     V_nominal=120) "Variable inductor and resistor"
     annotation (Placement(

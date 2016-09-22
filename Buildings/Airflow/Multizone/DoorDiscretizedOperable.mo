@@ -3,7 +3,8 @@ model DoorDiscretizedOperable
   "Door model using discretization along height coordinate"
   extends Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
-   parameter Modelica.SIunits.Pressure dpCloRat(min=0)=4
+   parameter Modelica.SIunits.PressureDifference dpCloRat(min=0,
+                                                          displayUnit="Pa") = 4
     "|Closed aperture rating conditions|Pressure drop at rating condition";
   parameter Real CDCloRat(min=0, max=1)=1
     "|Closed aperture rating conditions|Discharge coefficient";
@@ -50,7 +51,7 @@ equation
       dp_turbulent=dp_turbulent);
   end for;
 
-  annotation (                       Icon(graphics={
+  annotation (Icon(graphics={
         Text(
           extent={{-118,34},{-98,16}},
           lineColor={0,0,127},
@@ -90,12 +91,24 @@ The door can be either open or closed, depending on the input signal
 Set <i>y=0</i> if the door is closed, and <i>y=1</i>
 if the door is open.
 Use the model
-<a href=\"modelica://Buildings.Airflow.Multizone.Crack\">
-Buildings.Airflow.Multizone.Crack
-</a> for a door that is always closed.
+<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOpen\">
+Buildings.Airflow.Multizone.DoorDiscretizedOpen</a>
+for a door that is always closed.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.

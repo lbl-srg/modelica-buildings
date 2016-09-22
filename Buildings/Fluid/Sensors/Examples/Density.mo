@@ -46,28 +46,22 @@ model Density "Test model for the density sensor"
 equation
   connect(masFloRat.ports[1], vol.ports[1]) annotation (Line(
       points={{-30,0},{-2.66667,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[2], dp.port_a) annotation (Line(
       points={{0,0},{0,-30},{8,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol.ports[3], senDenVol.port) annotation (Line(
       points={{2.66667,0},{30,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp.port_b, senDenFlo.port_a) annotation (Line(
       points={{28,-30},{40,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senDenFlo.port_b, sin.ports[1]) annotation (Line(
       points={{60,-30},{70,-30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
       points={{-69,8},{-50,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos"
         "Simulate and plot"),

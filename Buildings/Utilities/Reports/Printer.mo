@@ -1,6 +1,9 @@
 within Buildings.Utilities.Reports;
 model Printer "Model that prints values to a file"
-  extends Modelica.Blocks.Interfaces.DiscreteBlock;
+  extends Modelica.Blocks.Interfaces.DiscreteBlock(
+    firstTrigger(
+      start=false,
+      fixed=true));
 
   parameter String header="" "Header to be printed";
   parameter String fileName="" "File name (empty string is the terminal)";
@@ -103,6 +106,12 @@ The parameter <code>configuration</code> controls the printing as follows:
  </table>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Set start value for <code>firstTrigger</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 May 27, 2011 by Michael Wetter:<br/>
 Changed parameter <code>precision</code> to <code>significantDigits</code>

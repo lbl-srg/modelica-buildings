@@ -29,24 +29,19 @@ model ZonalFlow "Model with prescribed air exchange between two volumes"
 equation
   connect(rooA.ports[1], zonFlo.port_a1) annotation (Line(
       points={{-72,-5.55112e-16},{-72,-6},{-10,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(zonFlo.port_b1, rooB.ports[1]) annotation (Line(
       points={{10,-6},{48,-6},{48,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(zonFlo.port_b2, rooA.ports[2]) annotation (Line(
       points={{-10,-18},{-68,-18},{-68,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(zonFlo.port_a2, rooB.ports[2]) annotation (Line(
       points={{10,-18},{52,-18},{52,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(zonFlo.ACS, ACS_con.y) annotation (Line(
       points={{-11,-2},{-20,-2},{-20,58},{-77,58}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"

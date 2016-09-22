@@ -5,7 +5,7 @@ record flowParametersInternal "Record for flow parameters with prescribed size"
    annotation(Evaluate=true);
   parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
     "Volume flow rate at user-selected operating points";
-  parameter Modelica.SIunits.Pressure dp[n](
+  parameter Modelica.SIunits.PressureDifference dp[n](
      each min=0, each displayUnit="Pa")
     "Fan or pump total pressure at these flow rates";
   annotation (Documentation(info="<html>
@@ -19,8 +19,8 @@ must have the same size.
 </p>
 <p>
 This record is identical to
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristic.flowParameters\">
-Buildings.Fluid.Movers.BaseClasses.Characteristic.flowParameters</a>,
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters</a>,
 except that it takes the size of the array as a parameter. This is required
 in Dymola 2014. Otherwise, the array size would need to be computed in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
@@ -30,6 +30,17 @@ in the <code>initial algorithm</code> section, which is not supported.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 March 22, 2013, by Michael Wetter:<br/>
 First implementation.

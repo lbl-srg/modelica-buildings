@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
   extends Modelica.Blocks.Icons.Block;
-public
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",

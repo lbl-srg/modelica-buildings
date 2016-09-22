@@ -17,10 +17,10 @@ model TwoPortHeatMassExchanger
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
@@ -30,11 +30,12 @@ model TwoPortHeatMassExchanger
   parameter Medium.Temperature T_start = Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
+  parameter Medium.MassFraction X_start[Medium.nX](
+    final quantity=Medium.substanceNames) = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
@@ -92,16 +93,13 @@ initial algorithm
 equation
   connect(vol.ports[2], port_b) annotation (Line(
       points={{1,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{1,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -143,6 +141,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Added <code>final quantity=Medium.substanceNames</code> for <code>X_start</code>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Added missing propagation of <code>allowFlowReversal</code> to

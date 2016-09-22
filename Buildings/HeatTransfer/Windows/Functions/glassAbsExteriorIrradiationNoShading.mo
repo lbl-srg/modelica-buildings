@@ -3,7 +3,7 @@ function glassAbsExteriorIrradiationNoShading
   "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading"
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation;
-  output Real[N, HEM] abs(each min=0, each max=1) "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
+  output Real[N, HEM, NSta] abs(each min=0, each max=1) "Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
      Indices: abs[1 to N : ] -> pane 1 to N;
      abs[ : 1 to HEM] -> angular (1:HEM-1) and hemispherical (HEM)";
 
@@ -18,50 +18,55 @@ protected
 algorithm
   if N == 1 then
     j := 1;
-    for iD in 1:HEM loop
-      abs[j, iD] := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD]
-        "Equation (A.4.79)";
+    for iSta in 1:NSta loop
+      for iD in 1:HEM loop
+        abs[j, iD, iSta] := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Ra, j, j, iD, iSta]
+          "Equation (A.4.79)";
+      end for;
     end for;
   else
-    for iD in 1:HEM loop
-      j := 1;
-      af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD]
-        "Equation (A.4.81a)";
-      ab := 1 - traRef[TRA, j, j, iD] - traRef[Rb, j, j, iD]
-        "Equation (A.4.81b)";
-      deno2 := 1 - traRef[Rb, j, 1, iD]*traRef[Ra, j + 1, N, iD];
-      if deno2 < SMALL then
-        abs[j, iD] := 0;
-      else
-        abs[j, iD] := af + ab*traRef[TRA, 1, j, iD]*traRef[Ra, j + 1, N, iD]/
-          deno2 "Equation (A.4.82) and (A.4.83b)";
-      end if;
-
-      for j in 2:N - 1 loop
-        af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD]
+    for iSta in 1:NSta loop
+      for iD in 1:HEM loop
+        j := 1;
+        af := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Ra, j, j, iD, iSta]
           "Equation (A.4.81a)";
-        ab := 1 - traRef[TRA, j, j, iD] - traRef[Rb, j, j, iD]
+        ab := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Rb, j, j, iD, iSta]
           "Equation (A.4.81b)";
-        deno1 := 1 - traRef[Ra, j, N, iD]*traRef[Rb, j - 1, 1, iD];
-        deno2 := 1 - traRef[Rb, j, 1, iD]*traRef[Ra, j + 1, N, iD];
-        if deno1 < SMALL or deno2 < SMALL then
-          abs[j, iD] := 0;
+        deno2 := 1 - traRef[Rb, j, 1, iD, iSta]*traRef[Ra, j + 1, N, iD, iSta];
+        if deno2 < SMALL then
+          abs[j, iD, iSta] := 0;
         else
-          abs[j, iD] := af*traRef[TRA, 1, j - 1, iD]/deno1 + ab*traRef[TRA, 1,
-            j, iD]*traRef[Ra, j + 1, N, iD]/deno2 "Equation (A.4.83b)";
+          abs[j, iD, iSta] := af + ab*traRef[TRA, 1, j, iD, iSta]*traRef[Ra, j + 1, N, iD, iSta]/
+            deno2 "Equation (A.4.82) and (A.4.83b)";
+        end if;
+
+        for j in 2:N - 1 loop
+          af := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Ra, j, j, iD, iSta]
+            "Equation (A.4.81a)";
+          ab := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Rb, j, j, iD, iSta]
+            "Equation (A.4.81b)";
+          deno1 := 1 - traRef[Ra, j, N, iD, iSta]*traRef[Rb, j - 1, 1, iD, iSta];
+          deno2 := 1 - traRef[Rb, j, 1, iD, iSta]*traRef[Ra, j + 1, N, iD, iSta];
+          if deno1 < SMALL or deno2 < SMALL then
+            abs[j, iD, iSta] := 0;
+          else
+            abs[j, iD, iSta] := af*traRef[TRA, 1, j - 1, iD, iSta]/deno1 + ab*traRef[TRA, 1,
+              j, iD, iSta]*traRef[Ra, j + 1, N, iD, iSta]/deno2
+              "Equation (A.4.83b)";
+          end if;
+        end for;
+
+        j := N;
+        af := 1 - traRef[TRA, j, j, iD, iSta] - traRef[Ra, j, j, iD, iSta]
+          "Equation (A.4.81a)";
+        deno1 := 1 - traRef[Ra, j, N, iD, iSta]*traRef[Rb, j - 1, 1, iD, iSta];
+        if deno1 < SMALL then
+          abs[j, iD, iSta] := 0;
+        else
+          abs[j, iD, iSta] := af*traRef[TRA, 1, j - 1, iD, iSta]/deno1;
         end if;
       end for;
-
-      j := N;
-      af := 1 - traRef[TRA, j, j, iD] - traRef[Ra, j, j, iD]
-        "Equation (A.4.81a)";
-      deno1 := 1 - traRef[Ra, j, N, iD]*traRef[Rb, j - 1, 1, iD];
-      if deno1 < SMALL then
-        abs[j, iD] := 0;
-      else
-        abs[j, iD] := af*traRef[TRA, 1, j - 1, iD]/deno1;
-      end if;
-    end for;
+    end for; // iSta in 1:NSta
   end if;
 
   annotation (Documentation(info="<html>
@@ -72,6 +77,12 @@ Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 7, 2015, by Michael Wetter:<br/>
+Revised model to allow modeling of electrochromic windows.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/445\">issue 445</a>.
+</li>
 <li>
 August 24, 2010, by Wangda Zuo:<br/>
 First implementation.

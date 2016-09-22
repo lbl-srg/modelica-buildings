@@ -2,12 +2,13 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckCeilingHeight
   "Ensures that the ceiling height is above a lower bound"
   extends Modelica.Blocks.Icons.Block;
-public
-  Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit=
-           "m") "Input ceiling height"
+  Modelica.Blocks.Interfaces.RealInput ceiHeiIn(
+    final quantity="Height",
+    final unit="m") "Input ceiling height"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput ceiHeiOut(final quantity="Height",
-      final unit="m") "Ceiling height"
+  Modelica.Blocks.Interfaces.RealOutput ceiHeiOut(
+    final quantity="Height",
+    final unit="m") "Ceiling height"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   constant Modelica.SIunits.Height ceiHeiMin=0 "Minimum allowed ceiling height";
 equation

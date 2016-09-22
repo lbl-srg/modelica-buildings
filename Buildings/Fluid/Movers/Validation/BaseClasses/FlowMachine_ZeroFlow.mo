@@ -7,7 +7,7 @@ partial model FlowMachine_ZeroFlow
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Ramp y(
@@ -30,8 +30,8 @@ partial model FlowMachine_ZeroFlow
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      dynamicBalance=false) "Static model of a flow machine"
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Static model of a flow machine"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
@@ -60,42 +60,33 @@ equation
   connect(floMacSta.port_b, dpSta.port_a)
     annotation (Line(
       points={{40,80},{58,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, gain.u) annotation (Line(
       points={{-69,100},{-48,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(floMacDyn.port_b, dpDyn.port_a) annotation (Line(
       points={{40,6.10623e-16},{50,-3.36456e-22},{50,6.10623e-16},{60,
           6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpSta1.port_b, floMacSta.port_a) annotation (Line(
       points={{5.55112e-16,80},{20,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpDyn1.port_b, floMacDyn.port_a) annotation (Line(
       points={{5.55112e-16,6.10623e-16},{10,-3.36456e-22},{10,6.10623e-16},{20,
           6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpSta1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,80},{-60,80},{-60,-33},{-68,-33}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpDyn1.port_a, sou.ports[2]) annotation (Line(
       points={{-20,6.10623e-16},{-52,6.10623e-16},{-52,-35},{-68,-35}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpDyn.port_b, sou.ports[3]) annotation (Line(
       points={{80,6.10623e-16},{96,6.10623e-16},{96,-37},{-68,-37}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dpSta.port_b, sou.ports[4]) annotation (Line(
       points={{78,80},{100,80},{100,-39},{-68,-39}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
@@ -108,6 +99,12 @@ This is the base class for examples that demonstrates the use of a flow machine 
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 September 20, 2014, by Michael Wetter:<br/>
 Added <code>constrainedby</code> declaration for medium.
 Otherwise, the pedantic model check of
@@ -115,6 +112,9 @@ Otherwise, the pedantic model check of
 Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
 fails because water does not implemented the function
 <code>Xsaturation</code>.
+</li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 March 24 2010, by Michael Wetter:<br/>

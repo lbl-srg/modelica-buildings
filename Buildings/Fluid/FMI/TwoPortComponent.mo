@@ -14,13 +14,13 @@ block TwoPortComponent
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected
-  Inlet bouIn(
+  Buildings.Fluid.FMI.InletAdaptor bouIn(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary model for inlet"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Outlet bouOut(
+  Buildings.Fluid.FMI.OutletAdaptor bouOut(
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Boundary component for outlet"
@@ -84,14 +84,14 @@ sets a constant pressure. In such a situation, use
 <a href=\"modelica://Buildings.Fluid.FMI.TwoPort\">
 Buildings.Fluid.FMI.TwoPort</a>
 together with
-<a href=\"modelica://Buildings.Fluid.FMI.Inlet\">
-Buildings.Fluid.FMI.Inlet</a>
+<a href=\"modelica://Buildings.Fluid.FMI.InletAdaptor\">
+Buildings.Fluid.FMI.InletAdaptor</a>
 and
-<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
-Buildings.Fluid.FMI.Outlet</a>
+<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
+Buildings.Fluid.FMI.OutletAdaptor</a>
 and set the pressure to be equal to the port <code>p</code> of
-<a href=\"modelica://Buildings.Fluid.FMI.Outlet\">
-Buildings.Fluid.FMI.Outlet</a>.
+<a href=\"modelica://Buildings.Fluid.FMI.OutletAdaptor\">
+Buildings.Fluid.FMI.OutletAdaptor</a>.
 </p>
 </html>", revisions="<html>
 <ul>

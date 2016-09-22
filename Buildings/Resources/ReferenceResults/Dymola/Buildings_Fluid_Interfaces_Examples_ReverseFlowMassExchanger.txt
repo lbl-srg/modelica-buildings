@@ -1,6 +1,15 @@
-last-generated=2015-05-08
-statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '1, 2, 1, 1, 1'}
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+last-generated=2015-08-11
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1, 1, 1, 1, 1, 1, 1"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
 senEnt1.h_out=[53417.265625, 53417.265625]
 senEnt2.h_out=[53417.265625, 53417.265625]
 time=[0., 1.]

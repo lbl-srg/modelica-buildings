@@ -2,7 +2,6 @@ within Buildings.Utilities.IO.Python27;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
-
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
@@ -15,9 +14,7 @@ inside a Python module.
 </p>
 <p>
 The code has been tested with Python 2.7 on
-Linux 32 bit, Linux 64 bit, and Windows 32 bit.
-Windows 64 bit is currently supported if Dymola is run
-as a 32 bit application.
+Linux 32 and 64 bit and Windows 32 and 64 bit.
 </p>
 <h4>Software configuration to use classes from this package</h4>
 <p>
@@ -31,19 +28,72 @@ These modules are stored in the directory
 In addition, an environment variable (<code>LD_LIBRARY_PATH</code> on Linux
 and <code>PATH</code> on Windows) must be set in order for a simulation
 environment to find the dynamically linked libraries.
-The next sections explain how to set these variables for the
-following system configurations:
+The table below explains how to set these variables for
+various system configurations.
+</p>
+<p>
+Because some Python libraries may also link to compiled C code, we
+recommend that if you are using a 64-bit operating system, you configure
+Dymola to generate 64 bit code. Configuring the compilation
+can be done by entering on the
+Dymola command line the assignment
+<code>Advanced.CompileWith64=1</code> for 32-bit, or
+<code>Advanced.CompileWith64=2</code> for 64-bit.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
       <th>System</th>
       <th>Settings</th>
+   </tr>
+  <!-- =================================================================== -->
+    <tr>
+      <td>Linux 32 bit, Dymola 2016</td>
+      <td>
+      <p>
+      Enter on a console the commands
+      </p>
+<pre>
+  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux32
+  </pre>
+  <p>
+  Alternatively, these lines could be added to the file <code>~/.bashrc</code>.
+  </p>
+      </td>
+    </tr>
+    <tr>
+  <!-- =================================================================== -->
+      <td>Linux 64 bit, Dymola 2016</td>
+      <td>
+      <p>
+      Use the same commands as for <i>Linux 64 bit, Dymola 2016</i>
+      because Dymola 2016 generates by default 32 bit code.
+      </p>
+      <p>
+      However, if you load other Python libraries such as numpy, you need to make sure
+      that Dymola compiles 64 bit and uses the 64 bit library from
+      <code>Buildings/Resources/Library/linux64</code>.
+      To do so, enter on a console the commands
+      </p>
+<pre>
+  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux64
+  </pre>
+  <p>
+Alternatively, these lines could be added to the file <code>~/.bashrc</code>.</p>
+<p>
+Next, in the Dymola command window, set
+</p>
+<pre>
+ Advanced.CompileWith64=2;
+</pre>
+      </td>
     </tr>
   <!-- =================================================================== -->
     <tr>
       <td>Linux 32 bit, Dymola 2014</td>
       <td>
-Enter on a console the command
+Enter on a console the commands
 <pre>
   export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux32
@@ -62,7 +112,7 @@ Use the same commands as for <i>Linux 64 bit, Dymola 2014</i> because Dymola 201
     <tr>
       <td>Linux 32 bit, Dymola 2013 FD01</td>
       <td>
-Enter on a console the command
+Enter on a console the commands
 <pre>
   export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
 </pre>

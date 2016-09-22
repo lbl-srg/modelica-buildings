@@ -48,24 +48,19 @@ protected
 equation
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-50,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, heaCoo.port_a) annotation (Line(
       points={{-30,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaCoo.port_b, port_b) annotation (Line(
       points={{40,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(heaCoo.TSet, TSet) annotation (Line(
       points={{18,8},{0,8},{0,60},{-120,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(heaCoo.Q_flow, Q_flow) annotation (Line(
       points={{41,8},{72,8},{72,60},{110,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

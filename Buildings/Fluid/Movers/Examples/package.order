@@ -1,4 +1,7 @@
 ClosedLoop_y
+MoverContinuous
+MoverParameter
+MoverStages
 PumpsParallel
 PumpsSeries
 SpeedControlled_y_pumpCurves

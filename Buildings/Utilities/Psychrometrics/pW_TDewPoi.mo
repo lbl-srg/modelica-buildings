@@ -74,10 +74,10 @@ First implementation.
           extent={{-136,50},{-98,4}},
           lineColor={0,0,255},
           textString="TDP"),
-        Line(points={{-68,86},{-68,-72}}, color={0,0,0}),
-        Line(points={{82,-72},{-66,-72}}, color={0,0,0}),
+        Line(points={{-68,86},{-68,-72}}),
+        Line(points={{82,-72},{-66,-72}}),
         Line(points={{-68,-46},{-54,-42},{-24,-30},{8,-2},{20,22},{28,54},{32,
-              74}}, color={0,0,0}),
+              74}}),
         Line(
           points={{42,-32},{-28,-32}},
           color={255,0,0},

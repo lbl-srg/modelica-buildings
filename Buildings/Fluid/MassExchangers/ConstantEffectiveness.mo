@@ -11,9 +11,10 @@ model ConstantEffectiveness
   mWat1_flow = +mWat_flow,
   mWat2_flow = -mWat_flow);
 
-  parameter Real epsS(min=0, max=1) = 0.8
+  parameter Modelica.SIunits.Efficiency epsS(max=1) = 0.8
     "Sensible heat exchanger effectiveness";
-  parameter Real epsL(min=0, max=1) = 0.8 "Latent heat exchanger effectiveness";
+  parameter Modelica.SIunits.Efficiency epsL(max=1) = 0.8
+    "Latent heat exchanger effectiveness";
 
   Medium1.MassFraction X_w_in1 "Inlet water mass fraction of medium 1";
   Medium2.MassFraction X_w_in2 "Inlet water mass fraction of medium 2";

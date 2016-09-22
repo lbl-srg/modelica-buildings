@@ -6,7 +6,8 @@ model SpeedControlled_y_linear
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
   Modelica.Blocks.Sources.Ramp y(
     offset=1,
@@ -23,7 +24,6 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixDp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -41,8 +41,7 @@ model SpeedControlled_y_linear
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.01*dp_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                      sou2(
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal*0.01,
@@ -50,7 +49,6 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixM_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
     filteredSpeed=false) "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
@@ -65,32 +63,25 @@ model SpeedControlled_y_linear
 equation
   connect(pumFixDp.port_b, sou1.ports[1]) annotation (Line(
       points={{60,90},{118,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_b, pumFixDp.port_a) annotation (Line(
       points={{5.55112e-16,90},{40,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(dp1.port_a, sou.ports[1]) annotation (Line(
       points={{-20,90},{-42,90}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(pumFixM_flow.port_b, sou3.ports[1]) annotation (Line(
       points={{60,50},{118,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou2.ports[1], pumFixM_flow.port_a) annotation (Line(
       points={{-42,50},{40,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(y.y, pumFixDp.y) annotation (Line(
-      points={{-59,130},{50,130},{50,102}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,130},{49.8,130},{49.8,102}},
+      color={0,0,127}));
   connect(y.y, pumFixM_flow.y) annotation (Line(
-      points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-59,130},{10,130},{10,70},{49.8,70},{49.8,62}},
+      color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
@@ -112,6 +103,15 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

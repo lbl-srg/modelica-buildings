@@ -18,7 +18,7 @@ model LinearInput
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Modelica.Blocks.Math.Add err(k2=-1) "Prediction error"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
-  Modelica.Blocks.Discrete.Sampler TSam(samplePeriod=tSample)
+  Sampler TSam(samplePeriod=tSample)
     "Sampler to turn TOut into a piece-wise constant signal. This makes it easier to verify the results"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Blocks.Continuous.Integrator integrator
@@ -93,6 +93,12 @@ received and until midnight the same day.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Implemented <code>Sampler</code> to avoid a translation warning
+because <code>Sampler.firstTrigger</code> does not set the <code>fixed</code>
+attribute in MSL 3.2.1.
+</li>
 <li>
 March 21, 2014 by Michael Wetter:<br/>
 First implementation.

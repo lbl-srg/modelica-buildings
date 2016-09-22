@@ -24,16 +24,13 @@ model Density_pTX "Model to test the density computation"
 equation
   connect(XDryBul.y, den.X_w) annotation (Line(
       points={{-59,0},{-11,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(den.p, p.y) annotation (Line(
       points={{-11,-8},{-40,-8},{-40,-50},{-59,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TDryBul.y, den.T) annotation (Line(
       points={{-59,50},{-40,50},{-40,8},{-11,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/Density_pTX.mos"
         "Simulate and plot"),

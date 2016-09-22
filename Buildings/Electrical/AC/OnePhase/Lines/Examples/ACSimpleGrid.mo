@@ -6,7 +6,8 @@ model ACSimpleGrid "Test model for a network model"
     V_nominal=120)
     "Network model that represents the connection between the source and the load"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  Loads.Inductive load(P_nominal=2500, mode=Types.Load.VariableZ_P_input,
+  Loads.Inductive load(
+    mode=Types.Load.VariableZ_P_input,
     V_nominal=120) "Load connected to the network"
     annotation (Placement(transformation(extent={{-28,10},{-48,30}})));
   Sources.FixedVoltage E(f=60, V=120) "Voltage source"
@@ -40,6 +41,14 @@ __Dymola_Commands(file=
         "Simulate and plot"),
 Documentation(revisions="<html>
 <ul>
+<li>
+September 24, 2015 by Michael Wetter:<br/>
+Removed binding of <code>P_nominal</code> as
+this parameter is disabled and assigned a value
+in the <code>initial equation</code> section.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>
 Documentation and example revised.

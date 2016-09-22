@@ -1,7 +1,7 @@
 UsersGuide
 FlowSplitter_u
-Inlet
-Outlet
+InletAdaptor
+OutletAdaptor
 Sink_T
 Source_T
 TwoPort

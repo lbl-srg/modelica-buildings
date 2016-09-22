@@ -29,8 +29,7 @@ equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-20,10},{-1,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -38,24 +37,21 @@ equation
   connect(weaBus,HDifRoo. weaBus) annotation (Line(
       points={{-1,10},{40,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDifWal.weaBus, weaBus) annotation (Line(
       points={{40,-30},{20,-30},{20,10},{-1,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HDifFlo.weaBus, weaBus) annotation (Line(
       points={{40,-70},{20,-70},{20,10},{-1,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));

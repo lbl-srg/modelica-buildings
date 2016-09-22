@@ -99,84 +99,64 @@ package Medium = Buildings.Media.Air;
 equation
   connect(u2.y, humFor.u)                annotation (Line(
       points={{-79.4,60},{-60,60},{-60,36},{-52,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(u2.y, humBac.u)         annotation (Line(
       points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,0},{-30,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(humFor.port_b, senTem1.port)         annotation (Line(
       points={{-30,30},{-30,70},{-20,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humFor.port_b, senEnt1.port)         annotation (Line(
       points={{-30,30},{-30,48},{20,48},{20,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humFor.port_b, senMas1.port)         annotation (Line(
       points={{-30,30},{-30,48},{60,48},{60,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humBac.port_a, senTem2.port)         annotation (Line(
       points={{-32,-6},{-32,-30},{-60,-30},{-60,-60},{-50,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humBac.port_a, senEnt2.port)         annotation (Line(
       points={{-32,-6},{-32,-30},{-60,-30},{-60,-70},{-10,-70},{-10,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humBac.port_a, senMas2.port)         annotation (Line(
       points={{-32,-6},{-32,-30},{-60,-30},{-60,-70},{30,-70},{30,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humFor.port_b, res1.port_a)         annotation (Line(
       points={{-30,30},{-10,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res1.port_b, sink1.ports[1]) annotation (Line(
       points={{10,30},{30,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(humBac.port_a, res2.port_a)         annotation (Line(
       points={{-32,-6},{-10,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
       points={{10,-6},{16,-6},{16,26},{30,26}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(senTem1.T, assTem.u1) annotation (Line(
       points={{-13,80},{0,80},{0,60},{70,60},{70,16},{78,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt1.h_out, assEnt.u1) annotation (Line(
       points={{31,80},{40,80},{40,54},{66,54},{66,-14},{78,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas1.X, assMas.u1) annotation (Line(
       points={{71,80},{80,80},{80,64},{64,64},{64,-44},{78,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senTem2.T, assTem.u2) annotation (Line(
       points={{-43,-50},{-20,-50},{-20,-30},{50,-30},{50,4},{78,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senEnt2.h_out, assEnt.u2) annotation (Line(
       points={{1,-50},{8,-50},{8,-32},{54,-32},{54,-26},{78,-26}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(senMas2.X, assMas.u2) annotation (Line(
       points={{41,-50},{60,-50},{60,-56},{78,-56}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(humFor.port_a, source1.ports[1]) annotation (Line(
       points={{-50,30},{-80,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(source2.ports[1], humBac.port_b) annotation (Line(
       points={{-80,-6},{-52,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
 experiment(StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"

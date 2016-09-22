@@ -11,10 +11,10 @@ model Table
     "If true, then y=y1 for u<u1, and y=yMax for u>uMax";
 
 protected
-  final parameter Integer nCol = if constantExtrapolation then
+  final parameter Integer nRow = if constantExtrapolation then
                         size(table,1)+2 else
-                        size(table,1) "Number of columns";
-  final parameter Real[nCol,2] offsetVector = [zeros(nCol), offset*ones(nCol)]
+                        size(table,1) "Number of rows";
+  final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
   Modelica.Blocks.Tables.CombiTable1D tab(
     tableOnFile=false,
@@ -28,13 +28,11 @@ protected
 equation
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   connect(tab.y[1], y) annotation (Line(
       points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   annotation (
 defaultComponentName="tab",
@@ -74,6 +72,12 @@ Note that the first column must be strictly increasing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 30, 2016, by Michael Wetter:<br/>
+Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/555\">issue 555</a>.
+</li>
 <li>
 April 5, 2011, by Michael Wetter:<br/>
 Fixed wrong table declaration.

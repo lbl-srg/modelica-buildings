@@ -14,7 +14,7 @@ package BaseClasses "Base classes for package Data"
     parameter Integer nSta(min=1)=max(1, integer(ceil(nStaReal)))
       "Actual number of state variables in material"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
-    parameter Boolean steadyState= (c == 0 or d == 0)
+    parameter Boolean steadyState= (c < Modelica.Constants.eps or d < Modelica.Constants.eps)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
     parameter Real piRef=331.4
@@ -66,6 +66,12 @@ and ceilings of different surface area.
 </html>",
   revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed test for equality of <code>Real</code> variables.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+</li>
 <li>
 May 21, 2015, by Michael Wetter:<br/>
 Reformulated to reduce use of the division macro
@@ -126,7 +132,7 @@ First implementation.
     parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
     parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
     parameter Modelica.SIunits.Density d "Mass density";
-    parameter Boolean steadyState= (c == 0 or d == 0)
+    parameter Boolean steadyState= (c < Modelica.Constants.eps or d < Modelica.Constants.eps)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
    annotation (preferredView="info",
@@ -142,6 +148,12 @@ will be modeled as a thermal resistor that does not store energy.
 </html>",
   revisions="<html>
 <ul>
+<li>
+March 1, 2016, by Michael Wetter:<br/>
+Removed test for equality of <code>Real</code> variables.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
+</li>
 <li>
 April 2011, by Pierre Vigouroux:<br/>
 </li>

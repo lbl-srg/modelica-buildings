@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "uSta.y",
+    "winRad.QAbsGlaUns_flow[1]",
+    "winRad.QAbsGlaUns_flow[2]"
+  };

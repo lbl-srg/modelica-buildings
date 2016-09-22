@@ -2,16 +2,17 @@ within Buildings.Examples.VAVCO2;
 model VAVSystemCTControl
   "Variable air volume flow system of MIT building with CO2 control and continuous time control for static pressure reset"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.Air (                      extraPropertiesNames={"CO2"});
+
+  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
-parameter Modelica.SIunits.Pressure dpSuiSup_nominal = 95
+parameter Modelica.SIunits.PressureDifference dpSuiSup_nominal(displayUnit="Pa") = 95
     "Pressure drop supply air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpSuiRet_nominal = 233
+parameter Modelica.SIunits.PressureDifference dpSuiRet_nominal(displayUnit="Pa") = 233
     "Pressure drop return air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpFanSupMIT_nominal = 1050
+parameter Modelica.SIunits.PressureDifference dpFanSupMIT_nominal(displayUnit="Pa") = 1050
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
-parameter Modelica.SIunits.Pressure dpFanRetMIT_nominal = 347
+parameter Modelica.SIunits.PressureDifference dpFanRetMIT_nominal(displayUnit="Pa") = 347
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
 parameter Real scaM_flow = 1 "Scaling factor for mass flow rate";
 parameter Real scaDpFanSup_nominal = 1
@@ -77,21 +78,19 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Fluid.Movers.SpeedControlled_y fan32(
+  Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
-    dynamicBalance=true,
-    r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mMIT_flow)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
-  Fluid.Movers.SpeedControlled_y fan56(
+  Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
-    dynamicBalance=true,
-    r_N(start=0),
     init=Modelica.Blocks.Types.Init.InitialState,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mMIT_flow)
     annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
   Modelica.Blocks.Sources.Trapezoid
                                 pSet(
@@ -102,6 +101,10 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     rising=120,
     startTime=6*3600) "Pressure setpoint (0 during night, 120 during day)"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Modelica.Blocks.Math.Gain dp32(k=150) "Gain for fan"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  Modelica.Blocks.Math.Gain dp56(k=60) "Gain for fan"
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
       points={{-59,-40},{-50,-40},{-50,-56},{-40,-56}},
@@ -110,7 +113,7 @@ equation
       thickness=0.5));
   connect(roo.p_rel, conSupFan.u_m)
                               annotation (Line(
-      points={{312.6,-23.0769},{320,-23.0769},{320,60},{50,60},{50,78}},
+      points={{312.6,-23.0769},{320,-23.0769},{320,40},{50,40},{50,78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yDam.y, mixBox.y) annotation (Line(
@@ -163,16 +166,16 @@ equation
       points={{-19,90},{38,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conSupFan.y, fan32.y) annotation (Line(
-      points={{61,90},{110,90},{110,40},{130,40},{130,-0.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conSupFan.y, fan56.y) annotation (Line(
-      points={{61,90},{110,90},{110,-48},{130,-48},{130,-60.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(conSupFan.y, dp32.u)
+    annotation (Line(points={{61,90},{69.5,90},{78,90}}, color={0,0,127}));
+  connect(conSupFan.y, dp56.u) annotation (Line(points={{61,90},{70,90},{70,60},
+          {78,60}}, color={0,0,127}));
+  connect(dp32.y, fan32.dp_in) annotation (Line(points={{101,90},{129.84,90},{
+          129.84,-0.4}}, color={0,0,127}));
+  connect(dp56.y, fan56.dp_in) annotation (Line(points={{101,60},{112,60},{112,
+          -40},{130.16,-40},{130.16,-60.4}}, color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{350,150}}), graphics),
+            -100},{350,150}})),
 Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of CO<sub>2</sub> control
@@ -196,6 +199,21 @@ tracks the volume flow rate of the supply fan, then there would be multiple
 solutions for the control signal as the split between pressure raise
 of the supply fan and pressure raise of the return fan is arbitrary.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+March 22, 2016, by Michael Wetter:<br/>
+Changed the fan model to use pressure as an input, which makes the
+model simulate twenty times faster.
+</li>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+</ul>
 </html>"),
      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/VAVSystemCTControl.mos"
         "Simulate and plot",

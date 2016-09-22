@@ -10,6 +10,7 @@ QuadraticLinear
 RegNonZeroPower
 SmoothBlocks
 SmoothExponential
+SmoothHeaviside
 SmoothLimit
 SmoothMin
 Splice

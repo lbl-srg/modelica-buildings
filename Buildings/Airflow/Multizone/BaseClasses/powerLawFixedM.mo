@@ -2,14 +2,14 @@ within Buildings.Airflow.Multizone.BaseClasses;
 function powerLawFixedM
   "Power law used in orifice equations when m is constant"
   input Real k "Flow coefficient, k = V_flow/ dp^m";
-  input Modelica.SIunits.Pressure dp "Pressure difference";
+  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
   input Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   input Real a "Polynomial coefficient";
   input Real b "Polynomial coefficient";
   input Real c "Polynomial coefficient";
   input Real d "Polynomial coefficient";
-  input Modelica.SIunits.Pressure dp_turbulent(min=0)=0.001
+  input Modelica.SIunits.PressureDifference dp_turbulent(min=0)=0.001
     "Pressure difference where regularization starts";
   output Modelica.SIunits.VolumeFlowRate V_flow "Volume flow rate";
 protected
@@ -74,6 +74,12 @@ Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 <i>August 12, 2011</i> by Michael Wetter:<br/>
 First implementation.

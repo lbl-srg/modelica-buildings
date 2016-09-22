@@ -24,49 +24,41 @@ model SolarAzimuth "Test model for zenith angle"
 equation
   connect(zen.zen, solAzi.zen) annotation (Line(
       points={{81,50},{90,50},{90,26},{98,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-10},{48,-10},{48,45.2},{58,45.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.decAng, solAzi.decAng) annotation (Line(
       points={{1,50},{20,50},{20,20},{98,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{1,50},{20,50},{20,55.4},{58,55.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,10},{-44,10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
       points={{-44,10},{-28,10},{-28,50},{-22,50}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
       points={{-44,10},{-28,10},{-28,-10},{18,-10}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solAzi.solTim) annotation (Line(
       points={{-44,10},{-28,10},{-28,-28},{92,-28},{92,14},{98,14}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));

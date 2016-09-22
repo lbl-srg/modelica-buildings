@@ -48,40 +48,31 @@ equation
                               color={0,0,255}));
   connect(preHeaFlo.port, volB.heatPort) annotation (Line(
       points={{34,70},{60,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(volA.ports[1], dooOpeClo.port_b2) annotation (Line(
       points={{-25,14},{-25,-40},{10,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volA.ports[2], dooOpeClo.port_a1) annotation (Line(
       points={{-23,14},{-23,-28},{10,-28}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volA.ports[3], dooOpe.port_b2) annotation (Line(
       points={{-21,14},{-21,-4},{10,-4}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volA.ports[4], dooOpe.port_a1) annotation (Line(
       points={{-19,14},{-19,8},{10,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volB.ports[1], dooOpe.port_b1) annotation (Line(
       points={{67,60},{67,8},{30,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volB.ports[2], dooOpe.port_a2) annotation (Line(
       points={{69,60},{72,60},{72,-4},{30,-4}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volB.ports[3], dooOpeClo.port_b1) annotation (Line(
       points={{71,60},{68,60},{68,-28},{30,-28}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(volB.ports[4], dooOpeClo.port_a2) annotation (Line(
       points={{73,60},{73,-40},{30,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
         "Simulate and plot"),

@@ -72,6 +72,8 @@ algorithm
 <p>
 This function computes the derivatives at the support points <i>x<sub>i</sub></i>
 that can be used as input for evaluating a cubic hermite spline.
+</p>
+<p>
 If <code>ensureMonotonicity=true</code>, then the support points <i>y<sub>i</sub></i>
 need to be monotone increasing (or increasing), and the computed derivatives
 <i>d<sub>i</sub></i> are such that the cubic hermite is monotone increasing (or decreasing).
@@ -91,10 +93,14 @@ in which the above function may be called.
 <h4>References</h4>
 <p>
 F.N. Fritsch and R.E. Carlson, <a href=\"http://dx.doi.org/10.1137/0717021\">Monotone piecewise cubic interpolation</a>.
-<i>SIAM J. Numer. Anal.</i>, 17 (1980), pp. 238?246.
+<i>SIAM J. Numer. Anal.</i>, 17 (1980), pp. 238-246.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 26, 2016 by Michael Wetter:<br/>
+Corrected documentation.
+</li>
 <li>
 September 29, 2011 by Michael Wetter:<br/>
 Added special case for one data point and two data points.

@@ -10,33 +10,35 @@ model UnbalancedPV_N
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={40,0})));
+protected
+  Interfaces.Adapter3to3 ada "Adapter"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
 
   if plugPhase1 then
-    connect(pv_phase1.terminal,conn3to4.terminal3.phase[1]) annotation (
-    Line(points={{-18,50},{6,50},{6,0},{30,0}},
-    color={0,120,120},
-    smooth=Smooth.None));
+    connect(pv_phase1.terminal, ada.terminals[1]) annotation (Line(points={{-18,50},
+            {-8,50},{-8,-0.533333},{0,-0.533333}},
+                                                 color={0,120,120}));
   end if;
 
   if plugPhase2 then
-    connect(pv_phase2.terminal,conn3to4.terminal3.phase[2]) annotation (
-    Line(points={{-20,0},{6,0},{6,0},{30,0}},
-    color={0,120,120},
-    smooth=Smooth.None));
+    connect(pv_phase2.terminal, ada.terminals[2])
+    annotation (Line(points={{-20,0},{-10,0},{0,0}}, color={0,120,120}));
   end if;
 
-    if plugPhase3 then
-    connect(pv_phase3.terminal,conn3to4.terminal3.phase[3]) annotation (
-    Line(points={{-20,-50},{6,-50},{6,0},{30,0}},
-    color={0,120,120},
-    smooth=Smooth.None));
+  if plugPhase3 then
+    connect(pv_phase3.terminal, ada.terminals[3]) annotation (Line(points={{-20,-50},
+            {-8,-50},{-8,0.533333},{0,0.533333}},
+                                                color={0,120,120}));
   end if;
 
   connect(conn3to4.terminal4, terminal) annotation (Line(
       points={{50,0},{100,0}},
       color={127,0,127},
       smooth=Smooth.None));
+
+  connect(ada.terminal, conn3to4.terminal3)
+    annotation (Line(points={{20,0},{25,0},{30,0}}, color={0,120,120}));
   annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(points={{58,0},{92,0}},   color={0,0,0}),
@@ -116,6 +118,11 @@ The neutral cable is connected to the ground reference.
 </html>",
         revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Added adapter for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 September 25, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

@@ -62,28 +62,22 @@ equation
     annotation (Line(points={{-8,40},{20,40}},color={0,127,255}));
   connect(sou1.ports[1], res1.port_a) annotation (Line(
       points={{-50,40},{-28,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sou1.ports[2], res2.port_a) annotation (Line(
       points={{-50,36},{-38,36},{-38,6.10623e-16},{-28,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin1.ports[1], masFlo1.port_b) annotation (Line(
       points={{60,40},{40,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(sin1.ports[2], masFlo2.port_b) annotation (Line(
       points={{60,36},{52,36},{52,6.10623e-16},{20,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(masFlo2.m_flow, assEqu.u1) annotation (Line(
       points={{10,11},{10,76},{38,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masFlo1.m_flow, assEqu.u2) annotation (Line(
       points={{30,51},{30,64},{38,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos" "Simulate and plot"));
 end FixedResistancesParallel;
