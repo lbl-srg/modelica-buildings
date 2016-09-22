@@ -28,8 +28,17 @@ These modules are stored in the directory
 In addition, an environment variable (<code>LD_LIBRARY_PATH</code> on Linux
 and <code>PATH</code> on Windows) must be set in order for a simulation
 environment to find the dynamically linked libraries.
-The next sections explain how to set these variables for the
-following system configurations:
+The table below explains how to set these variables for
+various system configurations.
+</p>
+<p>
+Because some Python libraries may also link to compiled C code, we
+recommend that if you are using a 64-bit operating system, you configure
+Dymola to generate 64 bit code. Configuring the compilation
+can be done by entering on the
+Dymola command line the assignment
+<code>Advanced.CompileWith64=1</code> for 32-bit, or
+<code>Advanced.CompileWith64=2</code> for 64-bit.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
