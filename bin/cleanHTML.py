@@ -10,7 +10,14 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['/tmp/', 'home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg', '<a href="http://www.3ds.com/">Automatically generated</a>']
+    # MathJax should be served using https, not http
+    li = ['/tmp/', \
+          'home/mwetter', \
+          'dymola/Modelica', \
+          '///opt/dymola', \
+          'github/lbl-srg', \
+          '<a href="http://www.3ds.com/">Automatically generated</a>', \
+          'http://cdn.mathjax.org/mathjax/latest/MathJax.js']
     em = ""
     for s in li:
         if s in line:
