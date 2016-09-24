@@ -1,4 +1,4 @@
-within ;
+awithin ;
 package Buildings "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
@@ -211,6 +211,13 @@ its class name ends with the string <code>Beta</code>.
                           <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/539\">issue 539</a>.
+       </td>
+       <td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
+       </td>
+       <td valign=\"top\">Reduced tolerance for regularization if the sky clearness is near one or eight.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/521\">Annex 60, #521</a>.
+
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
