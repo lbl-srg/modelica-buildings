@@ -1,5 +1,5 @@
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.Validation.FMUs.FlowSplitter_u", 
+  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.FlowSplitter_u", 
   storeResult=false, 
   modelName="", 
   fmiVersion="2", 

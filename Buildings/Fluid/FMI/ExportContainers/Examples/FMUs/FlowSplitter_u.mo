@@ -1,5 +1,5 @@
-within Buildings.Fluid.FMI.Validation.FMUs;
-block FlowSplitter_u "FMU declaration for a flow splitter"
+within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
+block FlowSplitter_u "Declaration of an FMU that exports a flow splitter"
    extends Buildings.Fluid.FMI.FlowSplitter_u(
      redeclare replaceable package Medium = Buildings.Media.Air,
         nout=2,
@@ -23,6 +23,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/FMUs/FlowSplitter_u.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/FlowSplitter_u.mos"
         "Export FMU"));
 end FlowSplitter_u;

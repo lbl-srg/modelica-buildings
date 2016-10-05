@@ -38,7 +38,7 @@ model FlowSplitter_u "Flow splitter"
   Modelica.Blocks.Sources.Constant C[Medium.nC](each k=0.01) if
      Medium.nC > 0 "Trace substances for forward flow"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  FMUs.FlowSplitter_u floSpl(
+  ExportContainers.Examples.FMUs.FlowSplitter_u floSpl(
     redeclare package Medium = Medium,
     use_p_in=use_p_in,
     allowFlowReversal=allowFlowReversal)
