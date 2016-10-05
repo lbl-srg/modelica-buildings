@@ -127,12 +127,12 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-   class Version_3_0_1 "Version 3.0.1"
+   class Version_4_0_0 "Version 4.0.0"
      extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 3.0.1 is a major new release.
+   Version 4.0.0 is a major new release.
    </p>
    <p>
      The following major changes have been done:
@@ -651,7 +651,7 @@ its class name ends with the string <code>Beta</code>.
    </li>
    </ul>
    </html>"));
-   end Version_3_0_1;
+   end Version_4_0_0;
 
    class Version_3_0_0 "Version 3.0.0"
      extends Modelica.Icons.ReleaseNotes;
@@ -5662,7 +5662,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_1\">Version 3.0.1</a> (xxx, 2016)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (xxx, 2016)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 29, 2016)
