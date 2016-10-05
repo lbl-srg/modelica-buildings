@@ -106,7 +106,7 @@ protected
     parameter Integer n "Dimension of output signal";
     Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
     annotation (Dialog(group="Time varying output signal"), Placement(
-        transformation(extent={{100,-10},{120,10}}, rotation=0)));
+        transformation(extent={{100,-10},{120,10}})));
 
   annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -337,7 +337,5 @@ April 14, 2016, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end HVAC;

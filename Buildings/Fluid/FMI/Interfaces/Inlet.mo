@@ -20,17 +20,17 @@ connector Inlet "Connector for fluid inlet"
     redeclare final package Medium = Medium) "Inflowing properties";
   output Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
     redeclare final package Medium = Medium) if
-       allowFlowReversal "Outflowing properties" annotation ();
+       allowFlowReversal "Outflowing properties";
 
-  annotation (defaultComponentName="inlet",
+annotation (defaultComponentName="inlet",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Polygon(
           points={{-100,100},{-100,-100},{100,0},{-100,100}},
           lineColor={0,0,255},
           smooth=Smooth.None,
-          fillPattern=FillPattern.Backward,
+          fillPattern=FillPattern.Solid,
           fillColor={0,0,255}),
-        Text(
+          Text(
           extent={{-58,134},{48,94}},
           lineColor={0,0,255},
           textString="%name")}),

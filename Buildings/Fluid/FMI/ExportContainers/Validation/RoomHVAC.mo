@@ -18,7 +18,7 @@ model RoomHVAC
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
-          rotation=0, extent={{20,-40},{40,-20}})));
+          extent={{20,-40},{40,-20}})));
 
 protected
     model BaseCase "Base case model used for the validation of the FMI interfaces"
@@ -149,9 +149,6 @@ equation
   connect(rooCon2.TRad2, hvaCon2.TRadZon[2]) annotation (Line(points={{19.375,
           -32.5},{-20,-32.5},{-20,-26.9412},{-39.375,-26.9412}}, color={0,0,127}));
     annotation (
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This example validates the coupling of convective thermal zones with air-based HVAC systems.

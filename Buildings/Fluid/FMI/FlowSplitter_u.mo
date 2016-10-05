@@ -126,8 +126,6 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder)}),
-        Diagram(coordinateSystem(preserveAspectRatio=false,
-                   extent={{-100,-100},{100,100}}), graphics),
     Documentation(
 info="<html>
 <p>

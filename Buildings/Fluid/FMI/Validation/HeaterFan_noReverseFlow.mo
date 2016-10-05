@@ -130,7 +130,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/HeaterFan_noReverseFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=1),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    experiment(StopTime=1));
 end HeaterFan_noReverseFlow;

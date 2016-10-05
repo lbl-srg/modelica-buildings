@@ -58,8 +58,7 @@ equation
       points={{9,-60},{70,-60},{70,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 Block that serves as a container to export a thermofluid flow component.
 This block contains a replaceable model <code>com</code> that needs to

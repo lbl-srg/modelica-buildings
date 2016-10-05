@@ -7,22 +7,22 @@ model AirToOutletFlowReversal
     redeclare package Medium = Buildings.Media.Air (
       X_default={0.015, 0.985}))
       "Boundary condition" annotation (Placement(
-        transformation(rotation=0, extent={{40,50},{60,70}})));
+        transformation(extent={{40,50},{60,70}})));
   BoundaryCondition bouAirWithC(
     redeclare package Medium = Buildings.Media.Air (
     X_default={0.015, 0.985},
     extraPropertiesNames={"CO2"}))
    "Boundary condition" annotation (Placement(
-        transformation(rotation=0, extent={{40,10},{60,30}})));
+        transformation(extent={{40,10},{60,30}})));
   BoundaryCondition bouDryAirNoC(
     redeclare package Medium = Modelica.Media.Air.SimpleAir)
     "Boundary condition" annotation (Placement(
-        transformation(rotation=0, extent={{40,-40},{60,-20}})));
+        transformation(extent={{40,-40},{60,-20}})));
   BoundaryCondition bouDryAirWithC(
     redeclare package Medium = Modelica.Media.Air.SimpleAir (
       extraPropertiesNames={"CO2"}))
      "Boundary condition" annotation (Placement(
-        transformation(rotation=0, extent={{40,-80},{60,-60}})));
+        transformation(extent={{40,-80},{60,-60}})));
 
 protected
   model BoundaryCondition

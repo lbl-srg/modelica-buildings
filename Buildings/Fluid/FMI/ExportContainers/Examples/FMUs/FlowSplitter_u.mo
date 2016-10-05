@@ -6,9 +6,7 @@ block FlowSplitter_u "Declaration of an FMU that exports a flow splitter"
         m_flow_nominal={0.1, 0.2},
         allowFlowReversal(start=false));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-  Documentation(info="<html>
+  annotation (  Documentation(info="<html>
 <p>
 This example demonstrates how to export an FMU with a fluid flow component.
 The FMU is an instance of

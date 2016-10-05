@@ -16,10 +16,8 @@ block Fan "Declaration of an FMU that exports a fan"
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,68}),iconTransformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,68})));
 
 equation
@@ -58,8 +56,6 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Fan.mos"
         "Export FMU"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(

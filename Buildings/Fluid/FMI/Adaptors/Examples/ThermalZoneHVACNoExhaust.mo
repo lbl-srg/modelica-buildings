@@ -162,7 +162,6 @@ a thermal zone that
 may be in an FMU
 (but is here for simplicity
 also implemented in Modelica)")}),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This example demonstrates how to

@@ -7,7 +7,6 @@ block IdealSource_m_flow "Declaration of an FMU that exports a mass flow source 
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={-120,70}), iconTransformation(extent={{-120,70},{-100,90}})));
 
 equation
@@ -46,9 +45,6 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/IdealSource_m_flow.mos"
         "Export FMU"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

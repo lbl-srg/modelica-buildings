@@ -36,9 +36,7 @@ partial block PartialTwoPort
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                   extent={{-100,-100},{100,100}}), graphics),
-    Documentation(info="<html>
+          textString="%name")}),    Documentation(info="<html>
 <p>
 Partial model that can be used to export thermofluid flow models as an FMU.
 This model only declares the inlet and outlet ports, the medium and

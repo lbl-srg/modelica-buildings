@@ -80,8 +80,7 @@ equation
   end if;
   connect(p, p_in_internal);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
                                    Rectangle(
           extent={{-100,100},{100,-100}},

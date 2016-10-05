@@ -25,9 +25,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-  Documentation(info="<html>
+  annotation (  Documentation(info="<html>
 <p>
 This example demonstrates how to export an FMU with a heater
 that takes as an input signal the normalized heat flow rate.

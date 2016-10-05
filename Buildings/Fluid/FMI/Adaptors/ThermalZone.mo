@@ -86,7 +86,7 @@ protected
     parameter Integer n "Dimension of output signal";
     Modelica.Blocks.Interfaces.RealOutput[n] y "Value of Real output"
     annotation (Dialog(group="Time varying output signal"), Placement(
-        transformation(extent={{100,-10},{120,10}}, rotation=0)));
+        transformation(extent={{100,-10},{120,10}})));
     annotation (Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}), graphics={
@@ -219,7 +219,7 @@ equation
           78},{-50,78},{-50,68},{-58,68}}, color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
-        preserveAspectRatio=false, initialScale=0.1),
+        preserveAspectRatio=false),
                                          graphics={
                                    Rectangle(
           extent={{-102,100},{100,-100}},
@@ -372,6 +372,5 @@ April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1)));
+</html>"));
 end ThermalZone;
