@@ -45,7 +45,7 @@ model HVAC
         rotation=90,
         origin={0,-120})));
   Modelica.Blocks.Interfaces.RealOutput CZon[nPorts, Medium.nC](
-    each final quantity=Medium.extraPropertiesNames)
+    each final quantity=fill(Medium.extraPropertiesNames, nPorts))
     "Trace substances of the backward flowing medium in the connector outlet"
     annotation (Placement(transformation(extent={{20,20},{-20,-20}},
         rotation=90,
@@ -328,6 +328,10 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2016, by Michael Wetter:<br/>
+Corrected assignment of <code>quantity</code> in <code>CZon</code>.
+</li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
 Revised implementation.
