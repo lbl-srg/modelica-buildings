@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Conversion;
 block InletToAir
-  "Conversion from real signals for a fluid to an Inlet connector"
+  "Conversion from real signals for a fluid to a Buildings.Fluid.FMI.Interfaces.Inlet connector"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
@@ -11,7 +11,7 @@ block InletToAir
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Evaluate=true);
 
-  Interfaces.Inlet inlet(
+  Buildings.Fluid.FMI.Interfaces.Inlet inlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=false) "Fluid outlet"

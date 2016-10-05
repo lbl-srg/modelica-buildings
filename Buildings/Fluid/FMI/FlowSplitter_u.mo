@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI;
-block FlowSplitter_u "Container to export a flow splitter as an FMU"
+block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);

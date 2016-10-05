@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.Adaptors;
-model Outlet "Model for exposing a fluid outlet to the FMI interface"
+model Outlet "Adaptor for connecting a fluid outlet to the FMI interface"
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"

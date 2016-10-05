@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Conversion;
 block AirToOutlet
-  "Conversion from real signals for a fluid to an Outlet connector"
+  "Conversion from real signals for a fluid to a Buildings.Fluid.FMI.Interfaces.Outlet connector"
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium =
@@ -35,7 +35,7 @@ block AirToOutlet
                 transformation(
                 extent={{-140,-100},{-100,-60}})));
 
-  Interfaces.Outlet outlet(
+  Buildings.Fluid.FMI.Interfaces.Outlet outlet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=false) "Fluid outlet"

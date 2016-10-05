@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.Conversion.Validation;
 model AirToOutletFlowReversal
-  "Validation for air to outlet converter with flow reversal enabled"
+  "Validation model for air to outlet converter with flow reversal enabled"
   extends Buildings.Fluid.FMI.Conversion.Validation.AirToOutlet(
     allowFlowReversal = true);
   BoundaryCondition bouAirNoC(
