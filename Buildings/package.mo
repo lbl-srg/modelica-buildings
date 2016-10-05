@@ -132,12 +132,41 @@ its class name ends with the string <code>Beta</code>.
      annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
+   Version 3.0.1 is a major new release.
+   </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+     <li>
+   It no longer uses the <code>Modelica_StateGraph2</code>
    library. Instead, it uses <code>Modelica.StateGraph</code> which is part
    of the Modelica Standard Library.
+   </li>
+   <li>
    The models in <code>Buildings.Fluid.Movers</code> have been refactored to increase
    the numerical robustness at very low speed when the fans or pumps are switched on or off.
-   </p>
+   </li>
+   <li>
+   The packages <code>Buildings.Fluid.FMI.Adaptors</code> and
+   <code>Buildings.Fluid.FMI.ExportContainers</code> have been added to
+   allow export of HVAC systems and of thermal zones as
+   Functional Mockup Units.
+   </li>
+   <li>
+   The package <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   has been added. This package contains
+   models for district heating and cooling
+   with bi-directional flow in the distribution pipes.
+   </li>
+   <li>
+   The package <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>
+   with active beams has been added.
+   </li>
+   <li>
+   The package <code>Buildings.ThermalZones.ReducedOrder</code> with
+   reduced order models of thermal zones based on VDI 6007 has been added.
+   </li>
+   </ul>
    </div>
    <!-- New libraries -->
    <p>
