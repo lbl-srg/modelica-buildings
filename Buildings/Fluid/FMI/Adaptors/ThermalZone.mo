@@ -73,7 +73,7 @@ protected
 
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(
     message="\"Mass flow rate does not balance. The sum needs to be zero.",
-    threShold=1E-6)
+      threShold=1E-4)
     "Tests whether the mass flow rates balance to zero"
     annotation (Placement(transformation(extent={{70,56},{90,76}})));
   Modelica.Blocks.Sources.Constant const(final k=0) "Outputs zero"
@@ -219,8 +219,7 @@ equation
           78},{-50,78},{-50,68},{-58,68}}, color={0,0,127}));
   annotation (defaultComponentName="hvacAda",
     Icon(coordinateSystem(
-        preserveAspectRatio=false),
-                                         graphics={
+        preserveAspectRatio=false),      graphics={
                                    Rectangle(
           extent={{-102,100},{100,-100}},
           lineColor={0,0,0},
