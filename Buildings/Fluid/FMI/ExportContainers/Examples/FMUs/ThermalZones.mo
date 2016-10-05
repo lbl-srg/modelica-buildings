@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZones
-  "Simple multiple thermal zones that can be exported as an FMU"
+  "Declaration of an FMU that exports multiple thermal zones"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZones(
     redeclare final package Medium = MediumA,
     nPorts =  3,
@@ -47,6 +47,12 @@ model ThermalZones
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-160})));
+  Modelica.Blocks.Interfaces.RealOutput TRad1(final unit="K")
+    "Radiative temperature"
+    annotation (Placement(transformation(extent={{-160,10},{-180,30}})));
+  Modelica.Blocks.Interfaces.RealOutput TRad2(final unit="K")
+    "Radiative temperature"
+    annotation (Placement(transformation(extent={{-160,-30},{-180,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
@@ -86,6 +92,13 @@ model ThermalZones
                                          redeclare final package Medium = MediumA)
     "Mass flow rate sensor to connect thermal adapter with thermal zone."
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen1
+    "Temperature sensor (that approximates the radiative temperature by the air temperature)"
+    annotation (Placement(transformation(extent={{-80,10},{-100,30}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen2
+    "Temperature sensor (that approximates the radiative temperature by the air temperature)"
+    annotation (Placement(transformation(extent={{-80,-30},{-100,-10}})));
+
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{130,140},{120,140}},
@@ -128,6 +141,14 @@ equation
   connect(senMasFlo.port_b, vol1.ports[1:3]) annotation (Line(points={{-70,100},
           {-50,100},{-20,100},{-20,22},{92.6667,22},{92.6667,30}}, color={0,127,
           255}));
+  connect(temSen1.port, vol1.heatPort) annotation (Line(points={{-80,20},{60,20},
+          {60,40},{80,40}}, color={191,0,0}));
+  connect(temSen2.port, vol2.heatPort) annotation (Line(points={{-80,-20},{-58,-20},
+          {0,-20},{0,-96},{80,-96}}, color={191,0,0}));
+  connect(temSen1.T, TRad1)
+    annotation (Line(points={{-100,20},{-170,20},{-170,20}}, color={0,0,127}));
+  connect(temSen2.T, TRad2) annotation (Line(points={{-100,-20},{-170,-20},{-170,
+          -20}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={

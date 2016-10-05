@@ -1,5 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block FixedResistanceDpM "FMU declaration for a fixed resistance"
+block FixedResistanceDpM
+  "Declaration of an FMU that exports a fixed resistance"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(

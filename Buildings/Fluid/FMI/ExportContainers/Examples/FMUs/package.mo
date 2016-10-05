@@ -1,19 +1,12 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples;
-package FMUs "Collection of validation models"
+package FMUs "Collection of example models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.FMI\">
-Buildings.Fluid.FMI</a>.
-</p>
-<p>
-Note that most validation models contain simple input data
-or systems which may not be realistic, but are useful
-to validate that the models are implemented correctly.
-These model outputs are stored as reference data and
-used for continuous validation whenever models in the library change.
+This package contains examples for the use of models that can be found in
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers\">
+Buildings.Fluid.FMI.ExportContainers</a>.
 </p>
 </html>"));
 end FMUs;

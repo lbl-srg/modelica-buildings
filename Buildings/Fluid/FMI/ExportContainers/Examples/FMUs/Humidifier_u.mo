@@ -1,5 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block Humidifier_u "FMU declaration for an ideal humidifier"
+block Humidifier_u
+  "Declaration of an FMU that exports an ideal humidifier"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.MassExchangers.Humidifier_u com(

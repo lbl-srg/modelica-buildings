@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HeaterCooler_T
-  "FMU declaration for an ideal heater or cooler with prescribed outlet temperature"
+  "Declaration of an FMU that exports an ideal heater or cooler with prescribed outlet temperature"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air,
      redeclare final Buildings.Fluid.HeatExchangers.HeaterCooler_T com(

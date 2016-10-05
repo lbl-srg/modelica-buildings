@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block ResistanceVolume
-  "Container to export a flow resistance and control volume as an FMU"
+  "Declaration of an FMU that exports a flow resistance and control volume"
   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
     redeclare package Medium = Buildings.Media.Air);
 

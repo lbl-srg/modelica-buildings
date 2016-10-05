@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACZone
-  "Simple convective only HVAC system that can be exported as an FMU"
+  "Declaration of an FMU that exports a simple convective only HVAC system"
   extends Buildings.Fluid.FMI.ExportContainers.HVACZone(
     redeclare final package Medium = MediumA, hvacAda(nPorts=2));
 

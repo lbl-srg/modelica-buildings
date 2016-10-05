@@ -11,8 +11,6 @@ model RoomHVAC
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Constant TRooRad(k=295.13) "Radiative temperature"
-    annotation (Placement(transformation(extent={{20,50},{0,70}})));
   Examples.FMUs.HVACZones hvaCon2(
     UA = 20E3,
     QRooInt_flow = 2000,
@@ -141,15 +139,15 @@ equation
 
   connect(hvaCon.fluPor, rooCon.fluPor) annotation (Line(points={{-39.375,38.75},
           {19.375,38.75}},                                color={0,0,255}));
-  connect(hvaCon.TRadZon, TRooRad.y) annotation (Line(points={{-39.3125,33.8125},
-          {-20,33.8125},{-20,34},{-20,60},{-1,60}},
-                                 color={0,0,127}));
-  connect(hvaCon2.fluPor, rooCon2.fluPor) annotation (Line(points={{-39.375,-21.25},
-          {19.375,-21.25}}, color={0,0,255}));
-  connect(TRooRad.y,hvaCon2. TRadZon[1]) annotation (Line(points={{-1,60},{-18,60},
-          {-18,-26.125},{-39.375,-26.125}}, color={0,0,127}));
-  connect(TRooRad.y,hvaCon2. TRadZon[2]) annotation (Line(points={{-1,60},{-16,60},
-          {-16,-26.125},{-39.375,-26.125}}, color={0,0,127}));
+  connect(hvaCon2.fluPor, rooCon2.fluPor) annotation (Line(points={{-39.375,
+          -22.3529},{-10,-22.3529},{-10,-21.25},{19.375,-21.25}},
+                            color={0,0,255}));
+  connect(rooCon.TRad, hvaCon.TRadZon) annotation (Line(points={{19.375,28.75},
+          {-20,28.75},{-20,33.8125},{-39.3125,33.8125}}, color={0,0,127}));
+  connect(rooCon2.TRad1, hvaCon2.TRadZon[1]) annotation (Line(points={{19.375,
+          -30},{-20,-30},{-20,-26.9412},{-39.375,-26.9412}}, color={0,0,127}));
+  connect(rooCon2.TRad2, hvaCon2.TRadZon[2]) annotation (Line(points={{19.375,
+          -32.5},{-20,-32.5},{-20,-26.9412},{-39.375,-26.9412}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(

@@ -1,5 +1,5 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block IdealSource_m_flow "FMU declaration for a fixed resistance"
+block IdealSource_m_flow "Declaration of an FMU that exports a mass flow source and sink"
    extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
      redeclare replaceable package Medium = Buildings.Media.Air);
 

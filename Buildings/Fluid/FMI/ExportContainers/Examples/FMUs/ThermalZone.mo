@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 model ThermalZone
-  "Simple thermal zone that can be exported as an FMU"
+  "Declaration of an FMU that exports a thermal zone"
   extends Buildings.Fluid.FMI.ExportContainers.ThermalZone(
     redeclare final package Medium = MediumA,
     nPorts =  2);
@@ -35,9 +35,9 @@ model ThermalZone
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
     computeWetBulbTemperature=false) "Weather data reader"
-    annotation (Placement(transformation(extent={{150,130},{130,150}})));
+    annotation (Placement(transformation(extent={{100,150},{80,170}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{110,130},{130,150}})));
+    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   Modelica.Blocks.Interfaces.RealOutput TOut(final unit="K")
     "Outdoor temperature" annotation (Placement(transformation(extent={{20,-20},
             {-20,20}},
@@ -46,6 +46,9 @@ model ThermalZone
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-160})));
+  Modelica.Blocks.Interfaces.RealOutput TRad(final unit="K")
+    "Radiative temperature"
+    annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
@@ -70,9 +73,12 @@ model ThermalZone
   Sensors.MassFlowRate senMasFlo[nPorts](redeclare final package Medium = MediumA)
     "Mass flow rate sensor to connect thermal adapter with thermal zone."
     annotation (Placement(transformation(extent={{-88,110},{-68,130}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
+    "Temperature sensor (that approximates the radiative temperature by the air temperature)"
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
-      points={{130,140},{120,140}},
+      points={{80,160},{-10,160}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -86,7 +92,7 @@ equation
     annotation (Line(points={{80,90},{60,90},{60,40},{80,40}},
                                                             color={191,0,0}));
   connect(TAirOut.T, weaBus.TDryBul) annotation (Line(points={{-32,120},{-40,120},
-          {-40,140},{120,140}}, color={0,0,127}), Text(
+          {-40,160},{-10,160}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
@@ -96,7 +102,7 @@ equation
   connect(theZonAda.heaPorAir, vol.heatPort) annotation (Line(points={{-120,152},
           {60,152},{60,40},{80,40}},                              color={191,0,0}));
   connect(TOut, weaBus.TDryBul) annotation (Line(points={{0,-160},{0,-160},{0,-120},
-          {0,-120},{120,-120},{120,140}},             color={0,0,127}));
+          {0,160},{-10,160}},                         color={0,0,127}));
   connect(vol.mWat_flow, mWat_flow.y) annotation (Line(points={{78,48},{78,48},{
           54,48},{54,80},{31,80}}, color={0,0,127}));
   connect(TWat.y, vol.TWat) annotation (Line(points={{29,40},{29,40},{54,40},{54,
@@ -106,6 +112,10 @@ equation
           {-100,160},{-100,120},{-88,120}}, color={0,127,255}));
   connect(senMasFlo.port_b, vol.ports[1:2]) annotation (Line(points={{-68,120},{
           -60,120},{-60,20},{92,20},{92,30}}, color={0,127,255}));
+  connect(temSen.port, vol.heatPort) annotation (Line(points={{-60,0},{60,0},{60,
+          40},{80,40}}, color={191,0,0}));
+  connect(temSen.T, TRad)
+    annotation (Line(points={{-80,0},{-170,0}}, color={0,0,127}));
     annotation (
               Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},
             {160,180}}), graphics={
@@ -116,7 +126,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
         graphics={
         Rectangle(
-          extent={{0,134},{116,4}},
+          extent={{4,134},{140,4}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
