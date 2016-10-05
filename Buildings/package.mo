@@ -132,24 +132,66 @@ its class name ends with the string <code>Beta</code>.
      annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 3.0.1 no longer uses the <code>Modelica_StateGraph2</code>
+   Version 3.0.1 is a major new release.
+   </p>
+   <p>
+     The following major changes have been done:
+   <ul>
+     <li>
+   It no longer uses the <code>Modelica_StateGraph2</code>
    library. Instead, it uses <code>Modelica.StateGraph</code> which is part
    of the Modelica Standard Library.
+   </li>
+   <li>
    The models in <code>Buildings.Fluid.Movers</code> have been refactored to increase
    the numerical robustness at very low speed when the fans or pumps are switched on or off.
-   </p>
+   </li>
+   <li>
+   The packages <code>Buildings.Fluid.FMI.Adaptors</code> and
+   <code>Buildings.Fluid.FMI.ExportContainers</code> have been added to
+   allow export of HVAC systems and of thermal zones as
+   Functional Mockup Units.
+   </li>
+   <li>
+   The package <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   has been added. This package contains
+   models for district heating and cooling
+   with bi-directional flow in the distribution pipes.
+   </li>
+   <li>
+   The package <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>
+   with active beams has been added.
+   </li>
+   <li>
+   The package <code>Buildings.ThermalZones.ReducedOrder</code> with
+   reduced order models of thermal zones based on VDI 6007 has been added.
+   </li>
+   </ul>
    </div>
    <!-- New libraries -->
    <p>
    The following <b style=\"color:blue\">new libraries</b> have been added:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
+
    <tr><td valign=\"top\">Buildings.Experimental.DistrictHeatingCooling
        </td>
        <td valign=\"top\">Package with models for district heating and cooling
                           with bi-directional flow in the distribution pipes.
+
        </td>
        </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.FMI.Adaptors<br/>
+                          Buildings.Fluid.FMI.ExportContainers
+       </td>
+       <td valign=\"top\">Library with adaptors to export HVAC systems and thermal zones
+                          as a Functional Mockup Unit for Model Exchange.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.
+       </td>
+       </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.ActiveBeams
        </td>
        <td valign=\"top\">Package with models of active beams for space cooling and heating.
@@ -161,6 +203,7 @@ its class name ends with the string <code>Beta</code>.
                         on VDI 6007.
        </td>
        </tr>
+
    </table>
    <!-- New components for existing libraries -->
    <p>
@@ -380,6 +423,33 @@ its class name ends with the string <code>Beta</code>.
                           For Dymola, the conversion script will update models that access this parameter.<br/>
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/555\">issue 555</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FMI.InletAdaptor<br/>
+                          Buildings.Fluid.FMI.OutletAdaptor<br/>
+                          Buildings.Fluid.FMI.TwoPort<br/>
+                          Buildings.Fluid.FMI.TwoPortComponent
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FMI.InletAdaptor</code> to
+                          <code>Buildings.Fluid.FMI.Adaptors.Inlet</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.OutletAdaptor</code> to
+                          <code>Buildings.Fluid.FMI.Adaptors.Outlet</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.TwoPort</code> to
+                          <code>Buildings.Fluid.FMI.ExportContainers.PartialTwoPort</code>,<br/>
+                          renamed
+                          <code>Buildings.Fluid.FMI.TwoPortComponent</code> to
+                          <code>Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</code>.
+                          This was due to the restructuring of the <code>Buildings.Fluid.FMI</code>
+                          package for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">Buildings, #506</a>.<br/>
+                          For Dymola, the conversion script updates these models.
        </td>
    </tr>
 
@@ -6111,13 +6181,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="3.0.0",
+version="4.0.0",
 versionDate="2016-03-29",
 dateModified="2016-03-29",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"2.0.0", "2.1.0"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_2.1_to_3.0.mos")),
+ from(version={"3.0.0", "4.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_3.0_to_4.0.mos")),
 revisionId="$Id$",
 preferredView="info",
 Documentation(info="<html>

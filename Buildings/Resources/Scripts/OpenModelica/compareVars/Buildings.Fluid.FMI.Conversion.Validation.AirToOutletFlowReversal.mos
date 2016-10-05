@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "conAirNoC.outlet.forward.X_w",
+    "conAirWithC.outlet.forward.X_w",
+    "conAirWithC.outlet.forward.C[1]",
+    "conDryAirWithC.outlet.forward.C[1]",
+    "conAirNoC.X_wZon",
+    "conAirWithC.X_wZon",
+    "conAirWithC.CZon[1]",
+    "conDryAirWithC.CZon[1]"
+  };
