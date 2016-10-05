@@ -37,7 +37,7 @@ connector Inlet "Connector for fluid inlet"
     Documentation(info="<html>
 <p>
 This is a connector for a fluid inlet.
-The connector takes as an input the 
+The connector takes as an input the
 following quantities:
 </p>
 <ul>
@@ -50,7 +50,7 @@ unless <code>use_p_in=false</code>.
 </li>
 <li>
 The temperature of the inflowing fluid
-<code>forward.T</code>, 
+<code>forward.T</code>,
 e.g., the temperature of the fluid that streams out of the component if <code>m_flow &gt; 0</code>.
 </li>
 <li>
@@ -60,7 +60,7 @@ unless <code>Medium.nXi=0</code>.
 </li>
 <li>
 The trace substances of the inflowing fluid
-<code>forward.C</code>, 
+<code>forward.C</code>,
 unless <code>Medium.nC=0</code>.
 </li>
 </ul>
@@ -80,7 +80,7 @@ The mass fraction of the outflowing fluid
 unless <code>Medium.nXi=0</code>.
 </li>
 <li>
-The trace substances of the outflowing fluid 
+The trace substances of the outflowing fluid
 <code>backward.C</code>,
 unless <code>Medium.nC=0</code>.
 </li>

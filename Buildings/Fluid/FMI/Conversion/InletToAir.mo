@@ -128,12 +128,12 @@ equation
   annotation (defaultComponentName = "con",
     Documentation(info="<html>
 <p>
-Block that takes an inlet connector of type 
+Block that takes an inlet connector of type
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
 Buildings.Fluid.FMI.Interfaces.Inlet
-</a> 
-and converts 
-it to real outputs for properties of an air-based 
+</a>
+and converts
+it to real outputs for properties of an air-based
 HVAC system.
 </p>
 <p>
@@ -160,9 +160,9 @@ and the return air properties are in the connector
 <code>inlet.backward</code>.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Buildings.Fluid.FMI.Adaptors.ThermalZone\">
-Buildings.Fluid.FMI.Adaptors.ThermalZone</a> 
+Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 for its usage.
 </p>
 </html>", revisions="<html>

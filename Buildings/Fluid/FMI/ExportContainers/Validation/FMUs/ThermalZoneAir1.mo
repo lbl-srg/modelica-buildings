@@ -109,10 +109,10 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}})),
     Documentation(info="<html>
 <p>
-This example validates that 
+This example validates that
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
 Buildings.Fluid.FMI.ExportContainers.ThermalZone
-</a> 
+</a>
 exports correctly as an FMU.
 </p>
 </html>", revisions="<html>

@@ -140,29 +140,29 @@ equation
 a thermal zone.")}),
     Documentation(info="<html>
 <p>
-This example demonstrates how to export a model 
+This example demonstrates how to export a model
 that contains one thermal zone with convective heat input from the
 HVAC system only. The thermal zone is connected to an adaptor so that
-it can be coupled 
+it can be coupled
 to an air-based HVAC system. The thermal zone is
-taken from 
+taken from
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3
-</a>. 
+</a>.
 </p>
 <p>
-The example extends from 
+The example extends from
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
 Buildings.Fluid.FMI.ExportContainers.ThermalZone
-</a> 
-which provides 
-the input and output signals that are needed to interface 
-the acausal thermal zone model with causal connectors of FMI. 
+</a>
+which provides
+the input and output signals that are needed to interface
+the acausal thermal zone model with causal connectors of FMI.
 The instance <code>theZonAda</code> is the thermal zone adaptor
-that contains on the right a fluid port, and on 
-the left signal ports which are then used to connect at 
-the top-level of the model to signal ports which are 
-exposed at the FMU interface. 
+that contains on the right a fluid port, and on
+the left signal ports which are then used to connect at
+the top-level of the model to signal ports which are
+exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>

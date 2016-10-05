@@ -179,7 +179,7 @@ For convenience, the instance <code>hvacAda</code> also outputs the
 properties obtained from <code>fluPor.backward</code>. These can be used
 to connect a controller. The properties are available for each flow path in
 <code>fluPor.backward</code>. For a thermal zone with mixed air, these are
-all equal, while for a stratified room model, they can be different. 
+all equal, while for a stratified room model, they can be different.
 </p>
 
 <p>

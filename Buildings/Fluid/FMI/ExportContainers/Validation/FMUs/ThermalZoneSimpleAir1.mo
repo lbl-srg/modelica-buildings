@@ -4,10 +4,10 @@ block ThermalZoneSimpleAir1 "Validation of simple thermal zone"
     redeclare package Medium = Modelica.Media.Air.SimpleAir);
   annotation (Documentation(info="<html>
 <p>
-This example validates that 
+This example validates that
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ThermalZone\">
 Buildings.Fluid.FMI.ExportContainers.ThermalZone
-</a> 
+</a>
 exports correctly as an FMU.
 </p>
 </html>", revisions="<html>

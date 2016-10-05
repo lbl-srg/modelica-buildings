@@ -320,14 +320,14 @@ to input/output signals, which can be exposed in an FMI interface.
 <p>
 This model has a vector <code>fluPor</code> with dimension <code>nPorts</code>
 which can be exposed at the FMI interface for the connecting the HVAC system.
-These connectors contain for each fluid inlet the mass flow rate, the temperature, 
-the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>), 
-and the trace substances (unless <code>Medium.nC=0</code>). 
+These connectors contain for each fluid inlet the mass flow rate, the temperature,
+the water vapor mass fraction per total mass of the air (unless <code>Medium.nXi=0</code>),
+and the trace substances (unless <code>Medium.nC=0</code>).
 </p>
 
 <p>
 The connector <code>ports</code> can be used to connect the model with a thermal zone.
-The number of connections to <code>ports</code> must 
+The number of connections to <code>ports</code> must
 be equal to <code>nPorts</code>.
 </p>
 

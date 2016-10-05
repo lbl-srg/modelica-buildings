@@ -30,8 +30,8 @@ protected
           dp2_nominal=200 + 200));
     annotation (Documentation(info="<html>
 <p>
-This example is the base case model which is used to validate 
-the coupling of a convective thermal zone with an air-based HVAC system. 
+This example is the base case model which is used to validate
+the coupling of a convective thermal zone with an air-based HVAC system.
 </p>
 <p>
 It is based on
@@ -45,7 +45,7 @@ Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone</a>.
 The model which is validated using this model is
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC\">
 Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
-</a>. 
+</a>.
 </p>
 </html>"), Icon(graphics={
           Rectangle(
