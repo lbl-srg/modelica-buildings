@@ -85,14 +85,14 @@ partial model RoomHeatMassBalance "Base model for a room"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+    annotation (Dialog(group="Convective heat transfer", enable=(intConMod ==
           Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
   parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+    annotation (Dialog(group="Convective heat transfer", enable=(extConMod ==
           Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
@@ -837,6 +837,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected error in annotation to enable the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 Refactored implementation of latent heat gain.

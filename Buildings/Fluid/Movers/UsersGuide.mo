@@ -12,6 +12,23 @@ are used for fans or pumps.
 <p>A detailed description of the fan and pump models can be
 found in
 <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf\">Wetter (2013)</a>.
+The models are implemented as described in this paper, except
+that equation (20) is no longer used. The reason is that
+the transition (24) caused the derivative
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+ d &Delta;p(r(t), V(t)) &frasl; d r(t)
+</p>
+<p>
+to have an inflection point in the regularization region
+<i>r(t) &isin; (&delta;/2, &delta;)</i>.
+This caused some models to not converge.
+To correct this, for <i>r(t) &lt; &delta;</i>,
+the term <i>V(t) &frasl; r(t)</i> in (16)
+has been modified so that (16) can be used for any
+value of <i>r(t)</i>.
+</p>
+<p>
 Below, the models are briefly described.
 </p>
 <h5>Performance data</h5>

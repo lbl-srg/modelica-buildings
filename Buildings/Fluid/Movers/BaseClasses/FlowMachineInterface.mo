@@ -131,18 +131,6 @@ protected
   final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
 
-  parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
-    fixed=false,
-    start=delta*V_flow_nominal) "Small volume flow rate";
-  parameter Modelica.SIunits.PressureDifference dpDelta(
-    fixed=false,
-    start=100,
-    displayUnit="Pa") "Small pressure";
-  parameter Real delta = 0.05
-    "Small value used to transition to other fan curve";
-  parameter Real cBar[2](each fixed=false)
-    "Coefficients for linear approximation of pressure vs. flow rate";
-
   parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")=
     if haveDPMax then
       per.pressure.dp[1]
@@ -151,7 +139,10 @@ protected
         per.pressure.V_flow[2] - per.pressure.V_flow[1]))*per.pressure.V_flow[1]
     "Maximum head";
 
-  parameter Real kRes(min=0, unit="kg/(s.m4)") = dpMax/V_flow_max*delta^2/10
+  parameter Real delta = 0.05
+    "Small value used to for regularization and to approximate an internal flow resistance of the fan";
+
+  parameter Real kRes(min=0, unit="kg/(s.m4)") =  dpMax/V_flow_max*delta^2/10
     "Coefficient for internal pressure drop of fan or pump";
 
   parameter Integer curve=
@@ -278,7 +269,7 @@ algorithm
   end for;
 end getArrayAsString;
 
-initial algorithm
+initial equation
   // Check validity of data
   assert(nOri > 1, "Must have at least two data points for pressure.V_flow.");
   assert(Buildings.Utilities.Math.Functions.isMonotonic(x=per.pressure.V_flow, strict=true) and
@@ -322,186 +313,39 @@ the simulation stops.");
   // Correction for flow resistance of pump or fan
   if (haveVMax and haveDPMax) or (nOri == 2) then  // ----- Curve 1
     // V_flow_max and dpMax are provided by the user, or we only have two data points
-    preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
+    preDer1= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow,
       y=pCur1.dp);
-    preDer2:=zeros(nOri + 1);
-    preDer3:=zeros(nOri + 2);
-
-    // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
-      per=pCur1,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer1,
-      cBar=zeros(2),
-      kRes=kRes);
-
-    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
-
-    // Linear equations to determine cBar
-    // Conditions for r_N=delta, V_flow = VDelta_flow
-    // Conditions for r_N=delta, V_flow = 0
-    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
-    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
-      per=pCur1,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer1,
-      cBar=zeros(2),
-      kRes=kRes)*(1 - delta)/delta^2;
-
-    cBar[2] :=((cha.pressure(
-      per=pCur1,
-      V_flow=VDelta_flow,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer1,
-      cBar=zeros(2),
-      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
+    preDer2= zeros(nOri + 1);
+    preDer3= zeros(nOri + 2);
   elseif haveVMax or haveDPMax then  // ----- Curve 2
     // V_flow_max or dpMax is provided by the user, but not both
-    preDer1:=zeros(nOri);
-    preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow,
+    preDer1= zeros(nOri);
+    preDer2= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow,
       y=pCur2.dp);
-    preDer3:=zeros(nOri + 2);
-
-    // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
-      per=pCur2,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer2,
-      cBar=zeros(2),
-      kRes=kRes);
-
-    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
-
-    // Linear equations to determine cBar
-    // Conditions for r_N=delta, V_flow = VDelta_flow
-    // Conditions for r_N=delta, V_flow = 0
-    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
-    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
-      per=pCur2,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer2,
-      cBar=zeros(2),
-      kRes=kRes)*(1 - delta)/delta^2;
-
-    cBar[2] :=((cha.pressure(
-      per=pCur2,
-      V_flow=VDelta_flow,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer2,
-      cBar=zeros(2),
-      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
+    preDer3= zeros(nOri + 2);
   else  // ----- Curve 3
     // Neither V_flow_max nor dpMax are provided by the user
-    preDer1:=zeros(nOri);
-    preDer2:=zeros(nOri + 1);
-    preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow,
+    preDer1= zeros(nOri);
+    preDer2= zeros(nOri + 1);
+    preDer3= Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow,
       y=pCur3.dp);
-
-    // Equation to compute dpDelta
-    dpDelta :=cha.pressure(
-      per=pCur3,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer3,
-      cBar=zeros(2),
-      kRes=kRes);
-
-    // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
-    VDelta_flow :=V_flow_max*delta;
-
-    // Linear equations to determine cBar
-    // Conditions for r_N=delta, V_flow = VDelta_flow
-    // Conditions for r_N=delta, V_flow = 0
-    // used in equation 20 in Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
-    // see function Buildings.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
-    cBar[1] :=cha.pressure(
-      per=pCur3,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer3,
-      cBar=zeros(2),
-      kRes=kRes)*(1 - delta)/delta^2;
-
-    cBar[2] :=((cha.pressure(
-      per=pCur3,
-      V_flow=VDelta_flow,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer3,
-      cBar=zeros(2),
-      kRes=kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
-
   end if;
 
  // Compute derivatives for cubic spline
- motDer :=if per.use_powerCharacteristic then zeros(size(per.motorEfficiency.V_flow,
+ motDer = if per.use_powerCharacteristic then zeros(size(per.motorEfficiency.V_flow,
     1)) elseif (size(per.motorEfficiency.V_flow, 1) == 1) then {0} else
     Buildings.Utilities.Math.Functions.splineDerivatives(
     x=per.motorEfficiency.V_flow,
     y=per.motorEfficiency.eta,
     ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=per.motorEfficiency.eta,
       strict=false));
-  hydDer :=if per.use_powerCharacteristic then zeros(size(per.hydraulicEfficiency.V_flow,
+  hydDer = if per.use_powerCharacteristic then zeros(size(per.hydraulicEfficiency.V_flow,
     1)) elseif (size(per.hydraulicEfficiency.V_flow, 1) == 1) then {0}
      else Buildings.Utilities.Math.Functions.splineDerivatives(x=per.hydraulicEfficiency.V_flow,
     y=per.hydraulicEfficiency.eta);
 
 equation
-  //assign values of dp and r_N, depending on which variable exists / is prescribed
+  //assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
   connect(dp_internal,dp_in);
   connect(r_N, y_in);
@@ -525,97 +369,122 @@ equation
   // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
   if (curve == 1) then
     if homotopyInitialization then
-       dp_internal = homotopy(actual=cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes),
-                          simplified=r_N*
-                              (cha.pressure(per=pCur1,
-                                                    V_flow=V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
-                               +(V_flow-V_flow_nominal)*
-                                (cha.pressure(per=pCur1,
-                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
-                                -cha.pressure(per=pCur1,
-                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes))
-                                 /(2*delta*V_flow_nominal)));
+       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+                                                     V_flow=V_flow,
+                                                     r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer1,
+                                                     per=pCur1),
+                                           simplified=r_N * (cha.pressure(
+                                                     V_flow=V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer1,
+                                                     per=pCur1)
+                               +(V_flow-V_flow_nominal) * (cha.pressure(
+                                                     V_flow=(1+delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer1,
+                                                     per=pCur1)
+                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer1,
+                                                     per=pCur1))
+                                                    /(2*delta*V_flow_nominal)));
 
-     else
-       dp_internal = cha.pressure(per=pCur1, V_flow=V_flow, r_N=r_N,
-                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
-                                                delta=delta, d=preDer1, cBar=cBar, kRes=kRes);
-     end if;
-     // end of computation for this branch
+    else
+       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+                                               r_N=r_N,
+                                               dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                               d=preDer1,
+                                               per=pCur1);
+    end if;     // end of computation for this branch
    elseif (curve == 2) then
     if homotopyInitialization then
-       dp_internal = homotopy(actual=cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes),
-                          simplified=r_N*
-                              (cha.pressure(per=pCur2,
-                                                    V_flow=V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
-                               +(V_flow-V_flow_nominal)*
-                                (cha.pressure(per=pCur2,
-                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
-                                -cha.pressure(per=pCur2,
-                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes))
-                                 /(2*delta*V_flow_nominal)));
+       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+                                                     V_flow=V_flow,
+                                                     r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer2,
+                                                     per=pCur2),
+                                            simplified=r_N * (cha.pressure(
+                                                     V_flow=V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer2,
+                                                     per=pCur2)
+                               +(V_flow-V_flow_nominal) * (cha.pressure(
+                                                     V_flow=(1+delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer2,
+                                                     per=pCur2)
+                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer2,
+                                                     per=pCur2))
+                                                    /(2*delta*V_flow_nominal)));
 
-     else
-       dp_internal = cha.pressure(per=pCur2, V_flow=V_flow, r_N=r_N,
-                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
-                                                delta=delta, d=preDer2, cBar=cBar, kRes=kRes);
-     end if;
-     // end of computation for this branch
+    else
+       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+                                                      r_N=r_N,
+                                                      dpMax=dpMax,
+                                                      V_flow_max=V_flow_max,
+                                                      d=preDer2,
+                                                      per=pCur2);
+    end if;     // end of computation for this branch
   else
     if homotopyInitialization then
-       dp_internal = homotopy(actual=cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes),
-                          simplified=r_N*
-                              (cha.pressure(per=pCur3,
-                                                    V_flow=V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
+       V_flow*kRes + dp_internal = homotopy(actual=cha.pressure(
+                                                     V_flow=V_flow,
+                                                     r_N=r_N,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer3,
+                                                     per=pCur3),
+                          simplified=r_N * (cha.pressure(
+                                                     V_flow=V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer3,
+                                                     per=pCur3)
                                +(V_flow-V_flow_nominal)*
-                                (cha.pressure(per=pCur3,
-                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
-                                -cha.pressure(per=pCur3,
-                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
-                                                    V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes))
-                                 /(2*delta*V_flow_nominal)));
+                                       (cha.pressure(V_flow=(1+delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer3,
+                                                     per=pCur3)
+                                       -cha.pressure(V_flow=(1-delta)*V_flow_nominal,
+                                                     r_N=1,
+                                                     dpMax=dpMax,
+                                                     V_flow_max=V_flow_max,
+                                                     d=preDer3,
+                                                     per=pCur3))
+                                                    /(2*delta*V_flow_nominal)));
 
-     else
-       dp_internal = cha.pressure(per=pCur3, V_flow=V_flow, r_N=r_N,
-                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
-                                                delta=delta, d=preDer3, cBar=cBar, kRes=kRes);
-     end if;
-     // end of computation for this branch
+    else
+       V_flow*kRes + dp_internal= cha.pressure(V_flow=V_flow,
+                                                      r_N=r_N,
+                                                      dpMax=dpMax,
+                                                      V_flow_max=V_flow_max,
+                                                      d=preDer3,
+                                                      per=pCur3);
+    end if;
+    // end of computation for this branch
   end if;
     // end of if/else choosing between exact/simplified power computation
   end if;

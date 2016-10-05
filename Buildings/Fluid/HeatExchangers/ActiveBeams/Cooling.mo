@@ -30,7 +30,7 @@ model Cooling "Active beam unit for cooling"
   // Flow resistance
   parameter Boolean from_dpWat = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
+    annotation (Evaluate=true, Dialog(enable = perCoo.dpAir_nominal > 0,
                 tab="Flow resistance"));
   parameter Boolean linearizeFlowResistanceWat = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -290,6 +290,13 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation to avoid an error in the pedantic model check
+in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 June 14, 2016, by Michael Wetter:<br/>
 Revised implementation.
