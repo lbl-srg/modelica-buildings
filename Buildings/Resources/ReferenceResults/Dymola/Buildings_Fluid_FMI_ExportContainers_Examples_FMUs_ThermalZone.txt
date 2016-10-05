@@ -1,4 +1,4 @@
-last-generated=2016-09-14
+last-generated=2016-10-05
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -42,6 +42,11 @@ statistics-fmu-dependencies=
       "vol.dynBal.mXi[1]"
     ], 
     "weaBus.lon": [], 
+    "TRad": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
     "weaBus.HGloHor": [
       "fluPor[1].m_flow"
     ], 
@@ -121,6 +126,10 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "vol.X_start[1]"
     ], 
+    "vol.dynBal.mXi[1]": [
+      "vol.p_start", 
+      "vol.X_start[1]"
+    ], 
     "weaBus.solTim": [], 
     "fluPor[1].backward.T": [
       "vol.p_start", 
@@ -136,8 +145,9 @@ statistics-fmu-dependencies=
       "vol.X_start[1]"
     ], 
     "weaBus.lon": [], 
-    "vol.dynBal.mXi[1]": [
+    "TRad": [
       "vol.p_start", 
+      "vol.T_start", 
       "vol.X_start[1]"
     ], 
     "weaBus.HGloHor": [

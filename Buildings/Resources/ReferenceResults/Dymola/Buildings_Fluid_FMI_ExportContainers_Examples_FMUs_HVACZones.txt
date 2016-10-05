@@ -1,4 +1,4 @@
-last-generated=2016-09-15
+last-generated=2016-10-05
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -143,7 +143,7 @@ statistics-fmu-dependencies=
       "fan2.m_flow_start"
     ], 
     "QGaiRad_flow[1]": [
-      "zero[1].k"
+      "zer[1].k"
     ], 
     "fluPor[2, 1].forward.X_w": [
       "fluPor[1, 1].backward.T", 
@@ -184,14 +184,14 @@ statistics-fmu-dependencies=
       "fluPor[1, 1].backward.X_w"
     ], 
     "QGaiRad_flow[2]": [
-      "zero[2].k"
+      "zer[2].k"
     ], 
     "cooCoi.ele[4].vol2.dynBal.U": [], 
     "fluPor[2, 1].m_flow": [
       "fan.m_flow_start"
     ], 
     "QGaiSenCon_flow[1]": [
-      "zero[1].k"
+      "zer[1].k"
     ], 
     "der(cooCoi.ele[4].mas.T)": [
       "fluPor[1, 1].backward.T", 
@@ -261,7 +261,7 @@ statistics-fmu-dependencies=
       "fan2.m_flow_start"
     ], 
     "QGaiLat_flow[1]": [
-      "zero[1].k"
+      "zer[1].k"
     ], 
     "weaBus.TDryBul": [
       "weaDat.pAtm"
@@ -364,7 +364,7 @@ statistics-fmu-dependencies=
     "CPUtime": [], 
     "weaBus.nOpa": [], 
     "QGaiLat_flow[2]": [
-      "zero[2].k"
+      "zer[2].k"
     ], 
     "fluPor[2, 3].m_flow": [
       "fan.m_flow_start", 
@@ -413,7 +413,7 @@ statistics-fmu-dependencies=
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
     "QGaiSenCon_flow[2]": [
-      "zero[2].k"
+      "zer[2].k"
     ], 
     "fan.filter.x[1]": [
       "fan.riseTime"
