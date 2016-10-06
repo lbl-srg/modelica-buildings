@@ -93,7 +93,7 @@ less than 0.05%, which is the threshold defined by IEEE to determine whether res
 
 <h4>References</h4>
 <p>
-<a NAME=\"kersting2001radial\"/>
+<a name=\"kersting2001radial\"/>
 Kersting, William H.<br/>
 <a href=\"http://ewh.ieee.org/soc/pes/dsacom/testfeeders/\">
 Radial distribution test feeders</a><br/>

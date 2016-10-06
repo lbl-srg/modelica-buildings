@@ -543,7 +543,7 @@ sets the latitude of the building which needs to correspond with the latitude of
 </p>
 <h4>References</h4>
 <p>
-<a NAME=\"WetterEtAl2011\"/>
+<a name=\"WetterEtAl2011\"/>
 Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br/>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf\">
 Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br/>
@@ -936,7 +936,7 @@ port <i>2</i> etc.
 </ol>
 <h4>References</h4>
 <p>
-<a NAME=\"ZuoEtAl2014\"/>
+<a name=\"ZuoEtAl2014\"/>
 Wangda Zuo, Michael Wetter, Dan Li, Mingang Jin, Wei Tian, Qingyan Chen.<br/>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/Examples/FFD/Zuo2014.pdf\">
 Coupled Simulation of Indoor Environment, HVAC and Control System by Using Fast Fluid Dynamics and the Modelica Buildings Library. </a><br/>

@@ -344,7 +344,7 @@ First implementation.
 </ul>
 <h4>References</h4>
 <p>
-<a NAME=\"ZuoEtAl2012\"/>
+<a name=\"ZuoEtAl2012\"/>
 Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
 <a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
 Reduction of numerical viscosity in FFD model.</a><br/>
