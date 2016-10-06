@@ -82,7 +82,7 @@ There are also parameters that can be used to conditionally remove components,
 such as <code>haveConExt</code>, which is set to
 </p>
 <pre>
-  haveConExt = nConExt > 0;
+  haveConExt = nConExt &gt; 0;
 </pre>
 </html>",
 revisions="<html>
