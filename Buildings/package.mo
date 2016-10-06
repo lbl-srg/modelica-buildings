@@ -3255,8 +3255,8 @@ units are wrong or errors in documentation):
                        Buildings.Fluid.Actuators.Valves.ThreeWayLinear
     </td>
     <td valign=\"top\">The documenation was
-                       <i>Fraction Kv(port_1->port_2)/Kv(port_3->port_2)</i> instead of
-                       <i>Fraction Kv(port_3->port_2)/Kv(port_1->port_2)</i>.
+                       <i>Fraction Kv(port_1 &rarr; port_2)/Kv(port_3 &rarr; port_2)</i> instead of
+                       <i>Fraction Kv(port_3 &rarr; port_2)/Kv(port_1 &rarr; port_2)</i>.
                        Because the parameter set correctly its attributes
                        <code>min=0</code> and <code>max=1</code>,
                        instances of these models used the correct value.
@@ -3495,6 +3495,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed <code>radHor</code> to <code>radHorIR</code>
                        to indicate that the radiation is in the infrared
                        spectrum.
+    </td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
@@ -4313,6 +4314,7 @@ that can lead to wrong simulation results):
      to compute the distribution of the solar radiation among the surfaces
      inside the room.
     </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAir
     </td>
     <td valign=\"top\">Added missing connect statement between window frame
@@ -4320,6 +4322,7 @@ that can lead to wrong simulation results):
      no convective heat transfer was computed between window frame and
      room air.
     </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.HeatGain
     </td>
     <td valign=\"top\">Fixed bug that caused convective heat gains
@@ -4503,7 +4506,7 @@ are used as steady-state models, have been improved.</td>
     <td valign=\"top\">
        These models are now based on a new base class <code>Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower</code>.
        This allows using the models as replaceable models without warning when checking the model.
-    </td>
+    </td></tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</td>
     <td valign=\"top\">
        Changed implementation of performance curve to avoid division by zero.
@@ -5060,7 +5063,7 @@ increase across the flow device.
 <li>
 In model <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a>,
-changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
+changed <code>assert(dp_in &ge; 0, ...)</code> to <code>assert(dp_in &ge; -0.1, ...)</code>.
 The former implementation triggered the assert if <code>dp_in</code> was solved for
 in a nonlinear equation since the solution can be slightly negative while still being
 within the solver tolerance.
@@ -5203,6 +5206,7 @@ whether the state is in the fog region. If the state is in the fog region,
 then <code>Internal.solve</code> is called. This new implementation
 can lead to significantly shorter computing
 time in models that frequently call <code>T_phX</code>.
+</li>
 <li>
 Added package
 <a href=\"modelica://Buildings.Media.GasesConstantDensity\">
@@ -5374,6 +5378,7 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
 <ul>
 <li>
 Updated library from Modelica_Fluid to Modelica.Fluid 1.0
+</li>
 <li>
 Merged sensor and source models from Modelica.Fluid to Buildings.Fluid.
 </li>
@@ -5403,6 +5408,7 @@ which contains an interface to the
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed.</a>
 <li>
 Updated license to Modelica License 2.
+</li>
 <li>
 Replaced
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.HumidityRatioPressure.mo\">
@@ -5550,6 +5556,7 @@ Added a steady-state model for a heat and moisture exchanger with
 constant effectiveness.
 See <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
+</li>
 <li>
 Added package <a href=\"modelica://Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
 The package contains models that facilitate reporting.
