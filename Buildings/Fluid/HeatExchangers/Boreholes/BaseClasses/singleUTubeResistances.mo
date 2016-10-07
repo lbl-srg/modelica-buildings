@@ -214,7 +214,7 @@ the center of borehole and the center of the pipe.
 as long as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-1/R<sub>gg</sub><sup>1U</sup> + 1/(2 &nbsp; R<sub>gb</sub><sup>1U</sup>) > 0,
+1/R<sub>gg</sub><sup>1U</sup> + 1/(2 &nbsp; R<sub>gb</sub><sup>1U</sup>) &gt; 0,
 </p>
 <p>
 in which case the laws of thermodynamics are not violated. See

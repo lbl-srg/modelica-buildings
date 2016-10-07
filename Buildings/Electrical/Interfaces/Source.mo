@@ -63,7 +63,7 @@ in <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
 
 <h4>References</h4>
 <p>
-<a NAME=\"Olsson2008\"/>
+<a name=\"Olsson2008\"/>
 Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
 <a href=\"http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf\">
 Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>

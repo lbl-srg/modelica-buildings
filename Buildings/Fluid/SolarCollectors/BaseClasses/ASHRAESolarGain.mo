@@ -150,7 +150,7 @@ equation
         where <i>Q<sub>Flow</sub>[i]</i> is the heat gain in each segment, <i>A<sub>
         c</sub></i> is the area of the collector, <i>nSeg</i> is the user-specified
         number of segments in the simulation, <i>F<sub>R</sub>(&tau;&alpha;)</i> is
-        the maximum collector efficiency, <i>K<sub>(&tau;&alpha;)<sub>net></sub>
+        the maximum collector efficiency, <i>K<sub>(&tau;&alpha;)<sub>net</sub>
         </sub></i> is the incidence angle modifier, <i>G<sub>Dir</sub></i> is the
         direct solar radiation, <i>shaCoe</i> is the user-specified shading
         coefficient, <i>G<sub>Dif,Sky</sub></i> is the diffuse solar radiation from

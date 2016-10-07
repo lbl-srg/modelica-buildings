@@ -131,7 +131,7 @@ for detailed explanations.
 </p>
 <h4>References</h4>
 <p>
-<a NAME=\"ZUO2010\"/>
+<a name=\"ZUO2010\"/>
 Wangda Zuo. <a href=\"http://docs.lib.purdue.edu/dissertations/AAI3413824/\">
 Advanced simulations of air distributions in buildings</a>.
 Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.

@@ -89,7 +89,7 @@ same connector, reusing the same standardized interfaces.
 <p>
 As the electrical connectors of the Modelica Standard Library, the <code>Terminal</code> has a vector of voltages as effort variables and
 a vector of currents as flow variables. The connector has an additional vector that represents the
-reference angle <code>theta[PhaseSystem.m]</code>. If <code>PhaseSystem.m > 0</code> the connector is overdetermined
+reference angle <code>theta[PhaseSystem.m]</code>. If <code>PhaseSystem.m &gt; 0</code> the connector is overdetermined
 because the number of effort variables is higher than the number of flow variables.
 The over-determined connectors are defined and used in such a way that a Modelica tool is able
 to remove the superfluous but consistent equations, arriving at a balanced set of equations based on a

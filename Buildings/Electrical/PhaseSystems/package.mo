@@ -55,7 +55,7 @@ More details about the phase system packages can be found in <a href=\"#Ruediger
 </p>
 <h4>References</h4>
 <p>
-<a NAME=\"RuedigerEtAl2014\"/>
+<a name=\"RuedigerEtAl2014\"/>
 Ruediger Franke and Hansjurg Wiesmann.<br/>
 <a href=\"https://www.modelica.org/events/modelica2014/proceedings/html/submissions/ECP14096515_FrankeWiesmann.pdf\">
 Flexible modeling of electrical power systems - the Modelica PowerSystems library</a>.<br/>
