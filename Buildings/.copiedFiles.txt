@@ -161,7 +161,6 @@ Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
 Buildings/BoundaryConditions/package.order
-Buildings/ControlledFlowMachine.mat
 Buildings/Controls/Continuous/Examples/LimPID.mo
 Buildings/Controls/Continuous/Examples/NumberOfRequests.mo
 Buildings/Controls/Continuous/Examples/OffTimer.mo
