@@ -218,7 +218,30 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Sensor for the flow velocity.
        </td>
-       </tr>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Math.IntegratorWithReset
+       </td>
+       <td valign=\"top\">Integrator with optional input that allows
+                          resetting the state if the input changes from <code>false</code>
+                          to <code>true</code>.<br/>
+                          This closes
+                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>
+       </td>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Utilities.Time.CalendarTime
+       </td>
+       <td valign=\"top\">Block that outputs the calendar time, time of the week, hour of the day etc.<br/>
+                          This closes
+                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/501\">Annex 60, #501</a>
+       </td>
+   </tr>
+
    </table>
    <!-- Backward compatible changes -->
    <p>
@@ -263,6 +286,21 @@ its class name ends with the string <code>Beta</code>.
 
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Controls</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
+                          Buildings.Controls.Continuous.PIDHysteresis<br/>
+                          Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
+          </td>
+          <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
+                           changes from <code>false</code> to <code>true</code>.<br/>
+                           This closes
+                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
        </td>
    </tr>
@@ -415,6 +453,15 @@ its class name ends with the string <code>Beta</code>.
                           Buildings.Controls.Continuous.PIDHysteresis</a>.
                           Only models that access these instances, which typically is not the case,
                           are affected by this change.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Controls.Continuous.LimPID<br/>
+                          Buildings.Controls.Continuous.PIDHysteresis<br/>
+                          Buildings.Controls.Continuous.PIDHysteresisTimer<br/>
+          </td>
+          <td valign=\"top\">Removed the parameter <code>limitsAtInit</code> as
+                           it is not used.<br/>
+                           For Dymola, the conversion script will update models that set this parameter.<br/>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Controls.SetPoints.Table
