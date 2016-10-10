@@ -219,7 +219,16 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Sensor for the flow velocity.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+   <tr><td colspan=\"2\"><b>Buildings.Media</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Media.Specialized.Water.ConstantProperties_pT
+       </td>
+       <td valign=\"top\">Model for liquid water with constant properties at user-selected temperature.<br/>
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">Annex 60, #511</a>.
+       </td>
+   </tr>   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.IntegratorWithReset
@@ -228,7 +237,7 @@ its class name ends with the string <code>Beta</code>.
                           resetting the state if the input changes from <code>false</code>
                           to <code>true</code>.<br/>
                           This closes
-                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>
+                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
@@ -238,7 +247,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Block that outputs the calendar time, time of the week, hour of the day etc.<br/>
                           This closes
-                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/501\">Annex 60, #501</a>
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/501\">Annex 60, #501</a>.
        </td>
    </tr>
 
@@ -323,7 +332,7 @@ its class name ends with the string <code>Beta</code>.
                           This change was done in
                           <code>Buildings.Examples.VAVReheat.Controls.EconomizerTemperatureControl</code>.
                           This closes
-                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.<br/>
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/502\">issue 502</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop
