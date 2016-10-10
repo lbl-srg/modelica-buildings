@@ -9,6 +9,14 @@ convertModifiers({"Buildings.Controls.Continuous.LimPID"},
                   {"limitsAtInit"},
                   fill("", 0),
                   true);
+convertModifiers({"Buildings.Controls.Continuous.PIDHysteresis"},
+                  {"limitsAtInit"},
+                  fill("", 0),
+                  true);
+convertModifiers({"Buildings.Controls.Continuous.PIDHysteresisTimer"},
+                  {"limitsAtInit"},
+                  fill("", 0),
+                  true);
 
 convertClass("Buildings.Fluid.FMI.InletAdaptor",
              "Buildings.Fluid.FMI.Adaptors.Inlet");
