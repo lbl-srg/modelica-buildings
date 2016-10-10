@@ -105,7 +105,7 @@ First implementation.
   model Controller "PID controller with optional output reset"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter Types.Reset reset=Buildings.Types.Reset.Disabled
+    parameter Buildings.Types.Reset reset=Buildings.Types.Reset.Disabled
       "Type of controller output reset";
 
     Modelica.Blocks.Interfaces.RealInput TSet(unit="K") "Temperature set point"
