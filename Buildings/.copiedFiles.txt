@@ -1320,14 +1320,4 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
-Buildings/dsfinal.txt
-Buildings/dsin.txt
-Buildings/dslog.txt
-Buildings/dsmodel.c
-Buildings/dymosim
-Buildings/legal.html
-Buildings/mailToFilip.txt
 Buildings/package.order
-Buildings/plot.mos
-Buildings/simulator.log
-Buildings/unitTests.log
