@@ -44,9 +44,6 @@ model PIDHysteresisTimer
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
-  parameter Boolean limitsAtInit=true
-    "= false, if limits are ignored during initializiation"
-    annotation (Dialog(group="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization"));
@@ -74,7 +71,6 @@ model PIDHysteresisTimer
     final Ni=Ni,
     final Nd=Nd,
     final initType=initType,
-    final limitsAtInit=limitsAtInit,
     final xi_start=xi_start,
     final xd_start=xd_start,
     final y_start=y_start,
@@ -220,6 +216,11 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+Removed parameter <code>limitsAtInit</code> because it is no longer
+used in the PID controller.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Changed the default value to <code>strict=true</code>
