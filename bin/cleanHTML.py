@@ -56,10 +56,11 @@ with open(tesFil, 'r') as fil:
 # and add help/ExternalObject instead of
 repExtObj = insLoc[:len(insLoc)-len("Library")-1] + "help/ExternalObject"
 
-replacements = {'</head>':
-               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>',
+replacements = {'font-family: Arial, sans-serif;': '',
+               '</head>':
+               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</head>',
                '<body>':
-               '<body>\n<!-- begin header -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
+               '<body>\n<!-- begin header -->\n<div id="navbar">\n    <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n    <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
                '%s' % (insLoc):
                '../../msl/',
                repExtObj: insLoc + "ExternalObject/ExternalObject",
