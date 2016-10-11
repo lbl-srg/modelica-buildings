@@ -187,8 +187,8 @@ Both analytical values agree with the simulation results shown in the above figu
 <h4>Notes</h4>
 <p>
 For a more realistic model of a room, the model
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+Buildings.ThermalZones.Detailed.MixedAir</a>
 could have been used.
 For transient heat conduction, models from the
 package

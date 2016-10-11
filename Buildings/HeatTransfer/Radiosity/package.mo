@@ -14,8 +14,8 @@ Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
 The outdoor radiosity is different from the TARCOG implementation so
 that the same equations are used for windows as are used for
 opaque walls in the room heat transfer model of the package
-<a href=\"modelica://Buildings.Rooms\">
-Buildings.Rooms</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed\">
+Buildings.ThermalZones.Detailed</a>.
 </p>
 <p>
 By definition, incoming and outcoming radiosity are both positive.

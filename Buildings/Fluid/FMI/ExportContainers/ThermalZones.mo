@@ -177,8 +177,8 @@ the port <code>fluPor</code> (which is negative if it is an exhaust),
 Note that without the <i>max(&middot;, &middot;)</i>, the energy
 balance would be wrong.
 Models in the package
-<a href=\"modelica://Buildings.Rooms\">
-Buildings.Rooms</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed\">
+Buildings.ThermalZones.Detailed</a>
 as well as the control volumes in
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>

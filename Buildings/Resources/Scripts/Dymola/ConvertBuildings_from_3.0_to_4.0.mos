@@ -5,6 +5,9 @@ clear
 
 convertClear();
 
+convertClass("Buildings.Rooms",
+             "Buildings.ThermalZones.Detailed");
+
 convertModifiers({"Buildings.Controls.Continuous.LimPID"},
                   {"limitsAtInit"},
                   fill("", 0),

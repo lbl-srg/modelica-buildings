@@ -185,8 +185,8 @@ The dimension of the three vectors <code>tauSol</code>,
 </p>
 <p>
 The example
-<a href=\"modelica://Buildings.Rooms.Examples.ElectroChromicWindow\">
-Buildings.Rooms.Examples.ElectroChromicWindow</a> shows
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow\">
+Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow</a> shows
 how these data can be used to darken the window.
 A control signal of <code>uWin=0</code> in the room model corresponds
 to the first entry of the data, which typically is the clear state,

@@ -166,6 +166,14 @@ its class name ends with the string <code>Beta</code>.
    The package <code>Buildings.ThermalZones.ReducedOrder</code> with
    reduced order models of thermal zones based on VDI 6007 has been added.
    </li>
+   <li>
+   The package <code>Buildings.Rooms</code> has been renamed to <code>Buildings.ThermalZones.Detailed</code>.
+   This was done because of the introduction of <code>Buildings.ThermalZones.ReducedOrder</code>,
+   which is from the <code>Annex60</code> library,
+   in order for thermal zones to be in the same top-level package.<br/>
+   For Dymola, the conversion script will update models that use any model of the package
+   <code>Buildings.Rooms</code>.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -392,19 +400,19 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.CFD<br/>
-                          Buildings.Rooms.BaseClasses.CFDExchange
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.CFD<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/506\">issue 506</a>.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
-                          Buildings.Rooms.CFD
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir<br/>
+                          Buildings.ThermalZones.Detailed.CFD
        </td>
        <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation.
                           Previously, the model assumed that all diffuse irradiation first hits the floor before it is
@@ -554,15 +562,28 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.MixedAir.Rooms.CFD<br/>
-                          Buildings.MixedAir.Rooms.MixedAir<br/>
-                          Buildings.MixedAir.Rooms.BaseClasses.CFDAirHeatMassBalance<br/>
-                          Buildings.MixedAir.Rooms.BaseClasses.MixedAirHeatMassBalance<br/>
-                          Buildings.MixedAir.Rooms.BaseClasses.PartialAirHeatMassBalance<br/>
-                          Buildings.MixedAir.Rooms.BaseClasses.RoomHeatMassBalance
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed
+
+       </td>
+       <td valign=\"top\">Moved package from <code>Buildings.Rooms</code> to <code>Buildings.ThermalZones.Detailed</code>.
+                          This was done because <code>Buildings</code> has a new package
+                          <code>Buildings.ThermalZones.ReducedOrder</code> with reduced order building models.
+                          Hence, the more detailed room models should be in the same top-level package as they
+                          are also for modeling of thermal zones.<br/>
+                          For Dymola, the conversion script will update models that use any model of the package
+                          <code>Buildings.ThermalZones</code>.
+       </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.CFD<br/>
+                          Buildings.ThermalZones.Detailed.MixedAir<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.CFDAirHeatMassBalance<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatMassBalance<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.PartialAirHeatMassBalance<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.RoomHeatMassBalance
 
        </td>
        <td valign=\"top\">Refactored implementation of latent heat gain for
@@ -573,16 +594,16 @@ its class name ends with the string <code>Beta</code>.
 
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed<br/>
-                          Buildings.Rooms.BaseClasses.MixedAirHeatGain
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.AirHeatMassBalanceMixed<br/>
+                          Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatGain
        </td>
        <td valign=\"top\">Removed models as these are no longer needed due after the refactoring
                           of the room model for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
     </tr>
-    <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.RoomHeatMassBalance<br/>
-                           Buildings.Rooms.BaseClasses.SolarRadiationExchange
+    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.RoomHeatMassBalance<br/>
+                           Buildings.ThermalZones.Detailed.BaseClasses.SolarRadiationExchange
        </td>
        <td valign=\"top\">Refactored the distribution of the diffuse solar irradiation, which required replacing the
                           input and output signals.
@@ -594,10 +615,10 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
-   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDHeatGain
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
        </td>
-       <td valign=\"top\">Renamed model from <code>Buildings.Rooms.BaseClasses.CFDHeatGain</code> to
-                          <code>Buildings.Rooms.BaseClasses.HeatGain</code>.
+       <td valign=\"top\">Renamed model from <code>Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain</code> to
+                          <code>Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</code>.
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
@@ -685,11 +706,11 @@ its class name ends with the string <code>Beta</code>.
                           issue 544</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Rooms.Validation.BESTEST</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.Validation.BESTEST.Case900<br/>
-                          Buildings.Rooms.Validation.BESTEST.Case900
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900<br/>
+                          Buildings.ThermalZones.Detailed.Validation.BESTEST.Case900
        </td>
        <td valign=\"top\">Added missing <code>parameter</code> keyword,
                           which is required as the variable (for the materials) is assigned to a parameter.
@@ -720,7 +741,7 @@ its class name ends with the string <code>Beta</code>.
      The following major changes have been done:
    <ul>
      <li>
-       Electrochromic windows have been added. See <code>Buildings.Rooms.Examples.ElectroChromicWindow</code>.
+       Electrochromic windows have been added. See <code>Buildings.ThermalZones.Detailed.Examples.ElectroChromicWindow</code>.
      </li>
      <li>
        The models in <code>Buildings.Fluid.Movers</code> can now be configured to use
@@ -945,10 +966,10 @@ its class name ends with the string <code>Beta</code>.
                         and for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">Annex 60 issue 279</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.CFDExchange
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
        </td>
        <td valign=\"top\">Set <code>start</code> and <code>fixed</code>
                           attributes in
@@ -965,7 +986,7 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/459\">issue 459</a>.
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.CFD
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.CFD
        </td>
        <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
                           This closes
@@ -1157,10 +1178,10 @@ its class name ends with the string <code>Beta</code>.
                         See the model documentation.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
-   <tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
-                          Buildings.Rooms.CFD
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir<br/>
+                          Buildings.ThermalZones.Detailed.CFD
        </td>
        <td valign=\"top\">These models can now be used with electrochromic windows.
                           This required to change the glass properties
@@ -1256,10 +1277,10 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+   <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAirHeatGain
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatGain
        </td>
        <td valign=\"top\">Reformulated test for equality of <code>Real</code> variables. This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
@@ -1469,7 +1490,7 @@ The following major additions have been done in version 2.0:
 <li>
 A CFD model
 that is embedded in a thermal zone has been added.
-This model is implemented in <a href=\"modelica://Buildings.Rooms.CFD\">Buildings.Rooms.CFD</a>.
+This model is implemented in <a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
 The CFD model is an implementation of the Fast Fluid Dynamics code
 that allows three-dimensional CFD inside a thermal zone,
 coupled to building heat transfer, HVAC components and feedback control loops.
@@ -1570,10 +1591,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.CFD
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.CFD
     </td>
     <td valign=\"top\">Room model that computes the room air flow
                        using computational fluid dynamics (CFD).
@@ -1582,7 +1603,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                        Currently, the supported CFD program is the
                        Fast Fluid Dynamics (FFD) program.
                        See
-                       <a href=\"modelica://Buildings.Rooms.UsersGuide.CFD\">Buildings.Rooms.UsersGuide.CFD</a>
+                       <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.CFD\">Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>
                        for detailed explanations.
     </td>
     </tr>
@@ -1734,11 +1755,11 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
     </tr>
 
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Changed model to allow a temperature dependent convective heat transfer
                        on the room side for windows.
@@ -1832,7 +1853,7 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved these types from <code>Buildings.HeatTransfer</code>
                        to the top-level package <code>Buildings</code> because
                        they are used in <code>Buildings.BoundaryConditions</code>,
-                       <code>Buildings.HeatTransfer</code> and <code>Buildings.Rooms</code>.<br/>
+                       <code>Buildings.HeatTransfer</code> and <code>Buildings.ThermalZones.Detailed</code>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
     </td>
@@ -1897,8 +1918,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        The new <i>&epsilon;-NTU</i> formulation has shown to lead to
                        about five times faster
                        computation on several test cases including the models in
-                       <a href=\"modelica://Buildings.Rooms.FLEXLAB.Rooms.Examples\">
-                       Buildings.Rooms.FLEXLAB.Rooms.Examples</a>.<br/>
+                       <a href=\"modelica://Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples\">
+                       Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples</a>.<br/>
                        For Dymola, the conversion script will automatically
                        update existing models.
  </td>
@@ -2035,20 +2056,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow
     </td>
     <td valign=\"top\">Removed the keyword <code>replaceable</code> for the parameters
                        <code>ove</code> and <code>sidFin</code>.<br/>
-                       Models that instantiate <code>Buildings.Rooms.MixedAir</code> are
+                       Models that instantiate <code>Buildings.ThermalZones.Detailed.MixedAir</code> are
                        not affected by this change.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.BESTEST
     </td>
-    <td valign=\"top\">Moved the package to <code>Buildings.Rooms.Validation.BESTEST</code>.
+    <td valign=\"top\">Moved the package to <code>Buildings.ThermalZones.Detailed.Validation.BESTEST</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
@@ -2127,18 +2148,18 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Added propagation of the parameter value <code>linearizeRadiation</code>
                        to the window model. Prior to this change, the radiation
                        was never linearized for computing the glass long-wave radiation.
     </td>
-<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
-                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
-                            Buildings.Rooms.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor<br/>
+                            Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3AWithRadiantFloor<br/>
+                            Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3BWithRadiantFloor
     </td>
     <td valign=\"top\">Corrected wrong entries for inner and outer diameter
                        of PEX pipes.
@@ -2411,9 +2432,9 @@ units are wrong or errors in documentation):
                        in Dymola 2015.
     </td>
 
-    </tr>    <tr><td valign=\"top\">Buildings.Rooms.Constructions.Examples.ExteriorWall<br/>
-                           Buildings.Rooms.Constructions.Examples.ExteriorWallWithWindow<br/>
-                           Buildings.Rooms.Constructions.Examples.ExteriorWallTwoWindows
+    </tr>    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWall<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallWithWindow<br/>
+                           Buildings.ThermalZones.Detailed.Constructions.Examples.ExteriorWallTwoWindows
     </td>
     <td valign=\"top\">Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>
                        which was set to an interior instead of an exterior convection model.
@@ -2427,7 +2448,7 @@ units are wrong or errors in documentation):
 </table>
 <!-- Github issues -->
 <p>
-The following
+The followings
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
@@ -2553,7 +2574,7 @@ at the Lawrence Berkeley National Laboratory.
 This release also contains a major revision of all info sections to correct invalid html syntax.
 The package <code>Buildings.HeatTransfer.Radiosity</code> has been revised to comply
 with the Modelica language specification.
-The package <code>Buildings.Rooms</code> has been revised to aid implementation of
+The package <code>Buildings.ThermalZones.Detailed</code> has been revised to aid implementation of
 non-uniformly mixed room air models.
 This release also contains various corrections that avoid warnings during translation
 when used with Modelica 3.2.1.
@@ -2570,7 +2591,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Library with solar collectors.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Rooms.FLEXLAB
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.FLEXLAB
     </td>
     <td valign=\"top\">Package with models for test cells of LBNL's FLEXLAB
                        (Facility for Low Energy Experiments in Buildings).
@@ -2844,7 +2865,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
-                         Buildings.Rooms</b>
+                         Buildings.ThermalZones</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Interfaces.RadiosityInflow<br/>
@@ -2866,11 +2887,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.HeatTransfer.Windows.Examples.BoundaryHeatTransfer<br/>
                        Buildings.HeatTransfer.Windows.ExteriorHeatTransfer<br/>
                        Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
-                       Buildings.Rooms.BaseClasses.InfraredRadiationExchange<br/>
-                       Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution<br/>
-                       Buildings.Rooms.BaseClasses.MixedAir<br/>
-                       Buildings.Rooms.BaseClasses.Overhang<br/>
-                       Buildings.Rooms.BaseClasses.SideFins
+                       Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationGainDistribution<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.MixedAir<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.Overhang<br/>
+                       Buildings.ThermalZones.Detailed.BaseClasses.SideFins
     </td>
     <td valign=\"top\">Changed the connectors for the radiosity model.
                        The previous implemenation declared the radiosity as a
@@ -2884,7 +2905,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer<br/>
-                         Buildings.Rooms</b>
+                         Buildings.ThermalZones</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection<br/>
@@ -2894,13 +2915,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation<br/>
                        Buildings.HeatTransfer.Windows.InteriorHeatTransfer<br/>
                        Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective<br/>
-                       Buildings.Rooms.ExteriorBoundaryConditionsWithWindow<br/>
-                       Buildings.Rooms.PartialSurfaceInterface<br/>
-                       Buildings.Rooms.InfraredRadiationExchange<br/>
-                       Buildings.Rooms.AirHeatMassBalanceMixed<br/>
-                       Buildings.Rooms.SolarRadiationExchange<br/>
-                       Buildings.Rooms.RadiationTemperature<br/>
-                       Buildings.Rooms.InfraredRadiationGainDistribution
+                       Buildings.ThermalZones.Detailed.ExteriorBoundaryConditionsWithWindow<br/>
+                       Buildings.ThermalZones.Detailed.PartialSurfaceInterface<br/>
+                       Buildings.ThermalZones.Detailed.InfraredRadiationExchange<br/>
+                       Buildings.ThermalZones.Detailed.AirHeatMassBalanceMixed<br/>
+                       Buildings.ThermalZones.Detailed.SolarRadiationExchange<br/>
+                       Buildings.ThermalZones.Detailed.RadiationTemperature<br/>
+                       Buildings.ThermalZones.Detailed.InfraredRadiationGainDistribution
     </td>
     <td valign=\"top\">Redesigned the implementation of the room model and its base classes.
                        This redesign separates convection from radiation, and it provides
@@ -3183,10 +3204,10 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange
     </td>
     <td valign=\"top\">Removed the use of the <code>cardinality</code> function
                        as this function is deprecated in the Modelica Language Specification.
@@ -3721,11 +3742,11 @@ to <b style=\"color:blue\">existing</b> libraries:
                        that is sun exposed.
     </td>
     </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
 
-<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.BESTEST
     </td>
     <td valign=\"top\">Added BESTEST validation models for case 610, 620, 630, 640,
                        650FF, 650, 920, 940, 950FF, 950, and 960.
@@ -3790,17 +3811,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        during model check and translation.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Added a check that ensures that the number of surfaces
                        are equal to the length of the parameter that contains
                        the surface area, and added a check to ensure that no surface area
                        is equal to zero. These checks help detecting erroneous declarations
                        of the room model. The changes were done in
-                       <code>Buildings.Rooms.MixedAir.PartialSurfaceInterface</code>.
+                       <code>Buildings.ThermalZones.Detailed.MixedAir.PartialSurfaceInterface</code>.
     </td>
 </tr>
 </table>
@@ -3811,10 +3832,10 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Added optional modeling of window overhangs and side fins.
                        The modeling of window overhangs and side fins required the
@@ -3830,8 +3851,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        and <code>wWin</code> when updating models
                        from a previous version of the library.<br/>
                        See the information section in
-                       <a href=\"modelica://Buildings.Rooms.MixedAir\">
-                       Buildings.Rooms.MixedAir</a> for how to use these models.
+                       <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+                       Buildings.ThermalZones.Detailed.MixedAir</a> for how to use these models.
     </td>
 </tr>
 </table>
@@ -4099,10 +4120,10 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added the function <code>glassPropertyUncoated</code> that calculates the property for uncoated glass.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir
     </td>
     <td valign=\"top\">Changed model to use new implementation of
                        Buildings.HeatTransfer.Radiosity.OutdoorRadiosity
@@ -4360,10 +4381,10 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.SolarRadiationExchange
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.SolarRadiationExchange
     </td>
     <td valign=\"top\">In the previous version, the radiative properties
      of the long-wave spectrum instead of the solar spectrum have been used
@@ -4371,7 +4392,7 @@ that can lead to wrong simulation results):
      inside the room.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAir
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.MixedAir
     </td>
     <td valign=\"top\">Added missing connect statement between window frame
      surface and window frame convection model. Prior to this bug fix,
@@ -4379,7 +4400,7 @@ that can lead to wrong simulation results):
      room air.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.HeatGain
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.HeatGain
     </td>
     <td valign=\"top\">Fixed bug that caused convective heat gains
      to be removed from the room instead of added to the room.
@@ -4404,7 +4425,7 @@ have been fixed:
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">&#35;46</a>
@@ -4478,8 +4499,8 @@ to <b style=\"color:blue\">existing</b> libraries:
                       </td>
     <td valign=\"top\">Added a model for heat conduction in circular coordinates.
     </td> </tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms.Examples</b></td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Examples</b></td></tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Examples.BESTEST
                       </td>
     <td valign=\"top\">Added BESTEST validation models.
     </td> </tr>
@@ -4783,16 +4804,16 @@ that can lead to wrong simulation results):
                        For this medium, the function is <code>u=h-p/dStp</code>.
 </td></tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
-                     Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b></td></tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir<br/>
+                     Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditions</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>)
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor
                      and vice versa.</td></tr>
-<tr><td valign=\"top\">Buildings.Rooms.MixedAir<br/>
-                     Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.MixedAir<br/>
+                     Buildings.ThermalZones.Detailed.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>)
                      that leads to too high a surface temperature of the window frame when
                      it receives solar radiation. The previous version did not compute
@@ -4869,7 +4890,7 @@ have been fixed:
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">&#35;35</a></td>
     <td valign=\"top\">
@@ -4920,10 +4941,10 @@ that can lead to wrong simulation results):
 </p>
 
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-  <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
-  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
-  Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a></td>
-      <td valign=\"top\">The model <code>Buildings.Rooms.BaseClasses.InfraredRadiationExchange</code>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b></td></tr>
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange\">
+  Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange</a></td>
+      <td valign=\"top\">The model <code>Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange</code>
       had an error in the view factor approximation.
       The error caused too much radiosity to flow from large to small surfaces because the law of reciprocity
       for view factors was not satisfied. This led to low surface temperatures if a surface had a large area
@@ -4984,8 +5005,8 @@ are still being validated.
 <ul>
 <li>
 Added the package
-<a href=\"modelica://Buildings.Rooms\">
-Buildings.Rooms</a> to compute heat transfer in rooms
+<a href=\"modelica://Buildings.ThermalZones.Detailed\">
+Buildings.ThermalZones.Detailed</a> to compute heat transfer in rooms
 and through the building envelope.
 Multiple instances of these models can be connected to create
 a multi-zone building model.
@@ -5850,7 +5871,7 @@ of the International Energy Agency's
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
   was contributed by the United Technologies Research Center, which also contributed to the
-  validation of the <a href=\"modelica://Buildings.Rooms.MixedAir\">room heat transfer model</a>.
+  validation of the <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">room heat transfer model</a>.
 </p>
 <p>
 We thank Dietmar Winkler from Telemark University College for the various feedback that
@@ -6209,18 +6230,18 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.MixedAir</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.MixedAir</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using the mixed air assumption.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.UsersGuide.MixedAir\">Rooms.CFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.MixedAir\">Rooms.CFD</a>
    </td>
    <td valign=\"top\">Package for heat transfer in rooms and through the building envelope with the
                       room air being modeled using computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.FFD.UsersGuide\">Rooms.Examples.FFD</a>
    </td>
    <td valign=\"top\">Package with examples that use the Fast Fluid Dynamics program for
                       the computational fluid dynamics.</td>

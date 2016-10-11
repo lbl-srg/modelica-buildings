@@ -72,7 +72,7 @@ model TwoRoomsWithStorage
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{580,560},{600,580}})));
-  Rooms.MixedAir roo1(
+  ThermalZones.Detailed.MixedAir roo1(
     redeclare package Medium = MediumA,
     AFlo=6*4,
     hRoo=2.7,
@@ -107,7 +107,7 @@ model TwoRoomsWithStorage
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{356,464},{396,504}})));
-  Rooms.MixedAir roo2(
+  ThermalZones.Detailed.MixedAir roo2(
     redeclare package Medium = MediumA,
     AFlo=6*4,
     hRoo=2.7,
