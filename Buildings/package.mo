@@ -875,7 +875,7 @@ its class name ends with the string <code>Beta</code>.
     </td>
     </tr>
 
-    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
        </td>
        <td valign=\"top\">Updated code for 64 bit on Linux and Windows.
                           This closes
@@ -2111,7 +2111,7 @@ that can lead to wrong simulation results):
                        of PEX pipes.
     </td>
     </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.singleUTubeResistances
     </td>
     <td valign=\"top\">Corrected error in function that used <code>beta</code>
                        before it was assigned a value.
@@ -2394,7 +2394,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.UTube
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube
     </td>
     <td valign=\"top\">Reimplemented the resistor network inside the borehole
                        as the old implementation led to too slow a transient
@@ -2414,7 +2414,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.HexInternalElement
     </td>
     <td valign=\"top\">Corrected error in documentation which stated a wrong default value
                        for the pipe spacing.
@@ -2791,8 +2791,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.FixedResistances.BaseClasses.Pipe<br/>
                        Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
                        Buildings.Fluid.FixedResistances.LosslessPipe<br/>
-                       Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment<br/>
-                       Buildings.Fluid.HeatExchangers.Boreholes.UTube<br/>
+                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.BoreholeSegment<br/>
+                       Buildings.Fluid.HeatExchangers.Ground.Boreholes.UTube<br/>
                        Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab<br/>
                        Buildings.Fluid.Interfaces.FourPortHeatMassExchanger<br/>
                        Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
@@ -4416,7 +4416,7 @@ The following
 have been fixed:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Ground.Boreholes</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">&#35;45</a>
@@ -4461,7 +4461,7 @@ in converting old models to this version of the library.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes</td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Ground.Boreholes</td>
     <td valign=\"top\">
     This is a library with a model for a borehole heat exchanger.
     </td></tr>
