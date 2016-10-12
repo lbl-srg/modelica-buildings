@@ -1,0 +1,8 @@
+OnlyConstructionBoundary
+OnlyExteriorWallNoWindow
+OnlyExteriorWallWithWindow
+OnlyExteriorWallWithWindowExteriorShade
+OnlyExteriorWallWithWindowInteriorShade
+OnlyPartition
+OnlySurfaceBoundary
+BaseClasses
