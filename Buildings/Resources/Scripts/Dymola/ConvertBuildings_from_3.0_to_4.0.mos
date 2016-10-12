@@ -5,6 +5,9 @@ clear
 
 convertClear();
 
+convertClass("Buildings.Fluid.HeatExchangers.Boreholes",
+             "Buildings.Fluid.HeatExchangers.Ground.Boreholes")
+
 convertClass("Buildings.Rooms",
              "Buildings.ThermalZones.Detailed");
 

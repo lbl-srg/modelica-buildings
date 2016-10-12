@@ -520,6 +520,16 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
+       </td>
+       <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
+                          <code>Buildings.Fluid.HeatExchangers.Ground.Boreholes</code>.
+                          This is for compatibility with an ongoing model development that will include
+                          a borefield model.<br/>
+                          For Dymola, the conversion script will update models that use any model of the package
+                          <code>Buildings.Fluid.HeatExchangers.Boreholes</code>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Movers
        </td>
        <td valign=\"top\">Removed the function
