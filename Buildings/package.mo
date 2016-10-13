@@ -5892,6 +5892,8 @@ The following people have directly contributed to the implementation of the Buil
 (many others have contributed by other means than model implementation):
 </p>
 <ul>
+<li>David Blum, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
@@ -5906,7 +5908,7 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Dan Li, University of Miami, Florida, USA
 </li>
-<li>Filip Mathadon, KU Leuven, Belgium
+<li>Filip Jorissen, KU Leuven, Belgium
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -5937,6 +5939,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Rebecca Zarin Pass, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Wangda Zuo, University of Miami, Florida, USA
 </li>
