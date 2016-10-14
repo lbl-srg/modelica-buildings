@@ -20,7 +20,7 @@ This example extends from
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Examples.Carnot_TCon\">
 Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>
 but decreases the set point for the leaving condenser temperature
-to be below its inlet temperature, in which case the model provide no heating.
+to be below its inlet temperature, in which case the model provides no heating.
 Towards the end of the simulation, the inlet temperature of the condenser is decreased
 to be below the evaporator temperature. In this domain, the model requires cooling
 again. While this is not a meaningful operating point for the model, the example

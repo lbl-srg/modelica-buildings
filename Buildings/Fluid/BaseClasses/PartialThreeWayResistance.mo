@@ -194,7 +194,7 @@ December 17, 2015, by Michael Wetter:<br/>
 Added assignment <code>redeclare final package Medium=Medium</code>
 as this is required for OpenModelica.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/475\">
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>

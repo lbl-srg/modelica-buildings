@@ -1,13 +1,12 @@
 within Buildings.Fluid.FMI.Interfaces;
 connector PressureOutput =
   output Modelica.SIunits.AbsolutePressure(displayUnit="Pa")
-  "Output pressure as a connector"
+  "Connector for pressure output"
   annotation (
   defaultComponentName="p",
   Icon(
     coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}},
-      initialScale=0.1),
+      extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,127},
@@ -16,8 +15,7 @@ connector PressureOutput =
       points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
   Diagram(
     coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}},
-      initialScale=0.1),
+      extent={{-100.0,-100.0},{100.0,100.0}}),
       graphics={
     Polygon(
       lineColor={0,127,127},

@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows;
 model Overhang
   "For a window with an overhang, outputs the fraction of the window area exposed to the sun"
-  extends Buildings.Rooms.BaseClasses.Overhang;
+  extends Buildings.ThermalZones.Detailed.BaseClasses.Overhang;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")

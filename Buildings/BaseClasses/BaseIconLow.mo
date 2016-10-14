@@ -2,7 +2,7 @@ within Buildings.BaseClasses;
 block BaseIconLow "Base icon with model name below the icon"
 
   annotation (Icon(graphics={Text(
-          extent={{-50,-84},{48,-132}},
+          extent={{-46,-94},{52,-142}},
           lineColor={0,0,255},
           textString=
                "%name")}),

@@ -10,7 +10,14 @@ from os import listdir
 from os.path import isfile, join
 
 def validateLine(line, filNam):
-    li = ['/tmp/', 'home/mwetter', 'dymola/Modelica', '///opt/dymola', 'github/lbl-srg', '<a href="http://www.3ds.com/">Automatically generated</a>']
+    # MathJax should be served using https, not http
+    li = ['/tmp/', \
+          'home/mwetter', \
+          'dymola/Modelica', \
+          '///opt/dymola', \
+          'github/lbl-srg', \
+          '<a href="http://www.3ds.com/">Automatically generated</a>', \
+          'http://cdn.mathjax.org/mathjax/latest/MathJax.js']
     em = ""
     for s in li:
         if s in line:
@@ -49,10 +56,11 @@ with open(tesFil, 'r') as fil:
 # and add help/ExternalObject instead of
 repExtObj = insLoc[:len(insLoc)-len("Library")-1] + "help/ExternalObject"
 
-replacements = {'</head>':
-               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</HEAD>',
+replacements = {'font-family: Arial, sans-serif;': '',
+               '</head>':
+               '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</head>',
                '<body>':
-               '<body>\n<!-- begin header -->\n<div class="headerStyle">\n<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n</div>\n<div class="headerLinks">\n<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
+               '<body>\n<!-- begin header -->\n<div id="navbar">\n    <img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>\n    <ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n',
                '%s' % (insLoc):
                '../../msl/',
                repExtObj: insLoc + "ExternalObject/ExternalObject",

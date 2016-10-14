@@ -12,8 +12,7 @@ model PipeToSlabConductance
   parameter Modelica.SIunits.Area APip "Pipe inside surface area";
 
   parameter
-    Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con
-    kc_IN_con "Parameters for convective heat transfer calculation"
+    kc_overall_IN_con kc_IN_con "Parameters for convective heat transfer calculation"
     annotation (Placement(transformation(extent={{-90,84},{-78,96}})));
 
   Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_var
@@ -66,7 +65,89 @@ model PipeToSlabConductance
 
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
 
+  // The records kc_overall_IN_con and kc_turbulent_IN_con are implemented
+  // because in the Modelica Standard Library 3.2.2, they have a bug
+  // that causes the pedantic model check in Dymola 2017 beta3 to fail.
+
+record kc_overall_IN_con
+  "Input record for function kc_overall and kc_overall_KC"
+
+    //choices
+  Modelica.Fluid.Dissipation.Utilities.Types.HeatTransferBoundary target=Modelica.Fluid.Dissipation.Utilities.Types.HeatTransferBoundary.UWTuDFF
+    "Choice of heat transfer boundary condition"
+    annotation (Dialog(group="Choices"));
+
+  extends kc_turbulent_IN_con;
+
+annotation (  Documentation(info="<html>
+<p>
+This record is used as input record for the heat transfer function <a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall\"> kc_overall</a> and
+<a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC\"> kc_overall_KC</a>.
+</p>
+<h4>Implementation</h4>
+<p>
+This record is identical to
+<a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con\">
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_IN_con</a>,
+except that it extends from a local implementation of
+<a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con\">
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con</a>
+in order to correct the bug reported in
+<a href=\"https://trac.modelica.org/Modelica/ticket/2066\">MSL ticket 2066</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 3, 2016, by Michael Wetter:<br/>
+First implementation to implement a work-around for the bug reported in
+<a href=\"https://trac.modelica.org/Modelica/ticket/2066\">MSL ticket 2066</a>
+and in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">Buildings issue 557</a>.
+</li>
+</ul>
+</html>"));
+end kc_overall_IN_con;
+
 protected
+record kc_turbulent_IN_con
+  "Input record for function kc_turbulent and kc_turbulent_KC"
+  extends Modelica.Fluid.Dissipation.Utilities.Records.HeatTransfer.StraightPipe;
+
+  Modelica.Fluid.Dissipation.Utilities.Types.Roughness roughness=Modelica.Fluid.Dissipation.Utilities.Types.Roughness.Considered
+    "Choice of considering surface roughness"
+    annotation (Dialog(group="Choices"));
+
+  Modelica.SIunits.Length K=0 "Roughness (average height of surface asperities)" annotation (
+      Dialog(group="Straight pipe", enable=roughness == Modelica.Fluid.Dissipation.Utilities.Types.Roughness.Considered));
+
+annotation (  Documentation(info="<html>
+<p>
+This record is used as input record for the heat transfer function <a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent\">kc_turbulent</a> and
+<a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_KC\">kc_turbulent_KC</a>.
+</p>
+<h4>Implementation</h4>
+<p>
+This record is identical to
+<a href=\"modelica://Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con\">
+Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_turbulent_IN_con</a>,
+except that the bug reported in
+<a href=\"https://trac.modelica.org/Modelica/ticket/2066\">MSL ticket 2066</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 3, 2016, by Michael Wetter:<br/>
+First implementation to implement a work-around for the bug reported in
+<a href=\"https://trac.modelica.org/Modelica/ticket/2066\">MSL ticket 2066</a>
+and in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">Buildings issue 557</a>.
+</li>
+</ul>
+</html>"));
+end kc_turbulent_IN_con;
+
   Medium.ThermodynamicState fluSta = Medium.setState_pTX(p=Medium.p_default, T=fluid.T, X=Medium.X_default)
     "State of the medium";
   Modelica.SIunits.SpecificHeatCapacity c_p = Medium.specificHeatCapacityCp(fluSta)
@@ -128,6 +209,13 @@ Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 3, 2016, by Michael Wetter:<br/>
+Modified model to implement a work-around for the bug reported in
+<a href=\"https://trac.modelica.org/Modelica/ticket/2066\">MSL ticket 2066</a>
+and in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">Buildings issue 557</a>.
+</li>
 <li>
 April 5, 2012, by Michael Wetter:<br/>
 Revised implementation.

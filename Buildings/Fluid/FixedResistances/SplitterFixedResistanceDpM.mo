@@ -110,7 +110,7 @@ This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
 The fluid volume is modeled if
-<code>energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState</code>.
+<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 The control volume has the size
 </p>
 <pre>

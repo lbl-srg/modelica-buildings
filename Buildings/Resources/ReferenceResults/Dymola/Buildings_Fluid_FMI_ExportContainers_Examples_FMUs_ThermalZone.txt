@@ -1,0 +1,198 @@
+last-generated=2016-10-05
+statistics-fmu-dependencies=
+{
+  "Outputs": {
+    "weaBus.TDryBul": [], 
+    "weaBus.HHorIR": [
+      "fluPor[1].m_flow"
+    ], 
+    "CPUtime": [], 
+    "fluPor[2].backward.X_w": [
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "weaBus.nOpa": [], 
+    "weaBus.solDec": [], 
+    "fluPor[2].backward.T": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "weaBus.nTot": [], 
+    "weaBus.solHouAng": [], 
+    "weaBus.TBlaSky": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.TDewPoi": [], 
+    "EventCounter": [], 
+    "TOut": [], 
+    "weaBus.solTim": [], 
+    "fluPor[1].backward.T": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "weaBus.winDir": [], 
+    "weaBus.relHum": [], 
+    "weaBus.celHei": [
+      "fluPor[1].m_flow"
+    ], 
+    "fluPor[1].backward.X_w": [
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "weaBus.lon": [], 
+    "TRad": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "weaBus.HGloHor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.solAlt": [], 
+    "weaBus.solZen": [], 
+    "weaBus.lat": [], 
+    "weaBus.winSpe": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.cloTim": [], 
+    "weaBus.HDirNor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.HDifHor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.pAtm": []
+  }, 
+  "InitialUnknowns": {
+    "vol.dynBal.m": [
+      "vol.p_start"
+    ], 
+    "weaBus.TDryBul": [], 
+    "weaBus.HHorIR": [
+      "fluPor[1].m_flow"
+    ], 
+    "CPUtime": [], 
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.T", 
+      "fluPor[1].forward.X_w", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.T", 
+      "fluPor[2].forward.X_w", 
+      "QRooInt_flow", 
+      "theCon.G", 
+      "preHea.T_ref", 
+      "preHea.alpha", 
+      "vol.p_start", 
+      "vol.T_start", 
+      "vol.X_start[1]", 
+      "mWat_flow.k", 
+      "TWat.k"
+    ], 
+    "fluPor[2].backward.X_w": [
+      "vol.X_start[1]"
+    ], 
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow", 
+      "fluPor[2].m_flow"
+    ], 
+    "weaBus.nOpa": [], 
+    "weaBus.solDec": [], 
+    "fluPor[2].backward.T": [
+      "vol.p_start", 
+      "vol.T_start", 
+      "vol.X_start[1]"
+    ], 
+    "weaBus.nTot": [], 
+    "weaBus.solHouAng": [], 
+    "weaBus.TBlaSky": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.TDewPoi": [], 
+    "EventCounter": [], 
+    "TOut": [], 
+    "der(vol.dynBal.mXi[1])": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.X_w", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.X_w", 
+      "vol.X_start[1]", 
+      "mWat_flow.k"
+    ], 
+    "vol.dynBal.U": [
+      "vol.p_start", 
+      "vol.T_start", 
+      "vol.X_start[1]"
+    ], 
+    "vol.dynBal.mXi[1]": [
+      "vol.p_start", 
+      "vol.X_start[1]"
+    ], 
+    "weaBus.solTim": [], 
+    "fluPor[1].backward.T": [
+      "vol.p_start", 
+      "vol.T_start", 
+      "vol.X_start[1]"
+    ], 
+    "weaBus.winDir": [], 
+    "weaBus.relHum": [], 
+    "weaBus.celHei": [
+      "fluPor[1].m_flow"
+    ], 
+    "fluPor[1].backward.X_w": [
+      "vol.X_start[1]"
+    ], 
+    "weaBus.lon": [], 
+    "TRad": [
+      "vol.p_start", 
+      "vol.T_start", 
+      "vol.X_start[1]"
+    ], 
+    "weaBus.HGloHor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.solAlt": [], 
+    "weaBus.solZen": [], 
+    "weaBus.lat": [], 
+    "weaBus.winSpe": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.cloTim": [], 
+    "weaBus.HDirNor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.HDifHor": [
+      "fluPor[1].m_flow"
+    ], 
+    "weaBus.pAtm": [
+      "weaDat.pAtm"
+    ]
+  }, 
+  "Derivatives": {
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow", 
+      "fluPor[2].m_flow"
+    ], 
+    "der(vol.dynBal.mXi[1])": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.X_w", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.X_w", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ], 
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.T", 
+      "fluPor[1].forward.X_w", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.T", 
+      "fluPor[2].forward.X_w", 
+      "vol.dynBal.U", 
+      "vol.dynBal.m", 
+      "vol.dynBal.mXi[1]"
+    ]
+  }
+}

@@ -5,7 +5,7 @@ partial model PartialCorrectionG
   parameter Integer n(min = 1) "Vector size for input and output";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer UWin
     "Thermal transmission coefficient of whole window";
-    
+
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2")
@@ -35,8 +35,7 @@ partial model PartialCorrectionG
     final unit="W/m2") "transmitted solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-  -100,-100},{100,100}})),Icon(coordinateSystem(
+  annotation (Icon(coordinateSystem(
   preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
   Rectangle(
   extent={{-100,100},{100,-100}},

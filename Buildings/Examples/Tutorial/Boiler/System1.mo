@@ -266,8 +266,8 @@ that the required heat flow rate to keep the temperature at
 <h4>Notes</h4>
 <p>
 For a more realistic model of a room, the model
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+Buildings.ThermalZones.Detailed.MixedAir</a>
 could have been used.
 For transient heat conduction, models from the
 package

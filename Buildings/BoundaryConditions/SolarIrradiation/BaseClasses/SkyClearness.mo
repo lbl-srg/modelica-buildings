@@ -18,33 +18,60 @@ block SkyClearness "Sky clearness"
   Modelica.Blocks.Interfaces.RealOutput skyCle
     "Sky clearness. skyCle=1: overast sky; skyCle=8: clear sky"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  // Set hSmall so that hSmall + deltaX < 1E-4. See info section.
 protected
+  constant Modelica.SIunits.Irradiance hSmall = 0.5e-4
+    "Small radiation for regularization";
+  constant Modelica.SIunits.Irradiance deltaX = hSmall/2
+    "Small radiation for regularization";
   constant Real k = 5.534e-6*(180/Modelica.Constants.pi)^3 "Constant factor";
   Real tmp1 "Intermediate variable";
+  Modelica.SIunits.Irradiance HDifHorBou
+    "Diffuse horizontal irradiation, bounded away from zero";
 equation
   tmp1 =  k*zen^3;
+  HDifHorBou = Buildings.Utilities.Math.Functions.smoothMax(
+                 x1 = HDifHor,
+                 x2 = hSmall,
+                 deltaX = deltaX);
+  // In the Buildings library, HGloHor is always larger than 1E-4
+  // (minus some small undershoot due to regularization. Hence,
+  // it makes no sense to simplify the equation for
+  // HGloHor < Modelica.Constants.small.
+  skyCle = Buildings.Utilities.Math.Functions.smoothLimit(
+        x = (HGloHor/HDifHorBou + tmp1)/(1 + tmp1),
+        l = 1,
+        u = 8,
+        deltaX = 0.01);
 
-  skyCle =  smooth(1,
-    if (HGloHor < Modelica.Constants.small)
-      then
-        1
-      else
-       Buildings.Utilities.Math.Functions.smoothLimit(
-        x=  (HGloHor/Buildings.Utilities.Math.Functions.smoothMax(
-                       x1=  HDifHor,
-                       x2=  1e-4,
-                       deltaX=  1e-5) + tmp1)/(1 + tmp1),
-        l=  1,
-        u=  8,
-        deltaX=  0.1));
   annotation (
     defaultComponentName="skyCle",
     Documentation(info="<html>
 <p>
 This component computes the sky clearness.
 </p>
+<h4>Implementation</h4>
+<p>
+In the <code>Buildings</code> library, <code>HGloHor</code>
+is always larger than <i>1E-4</i>,
+minus some small undershoot due to regularization. Hence,
+the implementation is not simplified for
+<code>HGloHor &lt; Modelica.Constants.small</code>.
+</p>
+<p>
+The function call
+<code>Buildings.Utilities.Math.Functions.smoothMax</code>
+is such that the regularization is usually not triggered.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 23, 2016, by Michael Wetter:<br/>
+Changed <code>deltaX</code> from <code>0.1</code> to <code>0.01</code>,
+and also optimized the code.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/521\">issue 521</a>.
+</li>
 <li>
 May 5, 2015, by Michael Wetter:<br/>
 Introduced constant <code>k</code> to reduce number of operations.

@@ -173,9 +173,8 @@ equation
   connect(hea.P, PComHea) annotation (Line(points={{-31,-6},{-26,-6},{-26,98},{
           98,98},{98,90},{110,90}},
                                  color={0,0,127}));
-  connect(coo.P, PComCoo) annotation (Line(points={{59,6},{68,6},{68,6},{68,6},
-          {68,54},{98,54},{98,70},{110,70}},
-                             color={0,0,127}));
+  connect(coo.P, PComCoo) annotation (Line(points={{59,6},{68,6},{68,54},{98,54},
+          {98,70},{110,70}}, color={0,0,127}));
   connect(hea.QCon_flow, QHea_flow) annotation (Line(points={{-31,3},{-24,3},{
           -24,50},{94,50},{110,50}},         color={0,0,127}));
   connect(TSetCoo, coo.TSet) annotation (Line(points={{-120,40},{32,40},{32,15},
@@ -193,7 +192,7 @@ equation
   connect(coo.QEva_flow, QCoo_flow) annotation (Line(points={{59,-3},{94,-3},{
           94,30},{110,30}}, color={0,0,127}));
   connect(hea.port_b1, coo.port_b2)
-    annotation (Line(points={{-32,0},{38,0},{38,0}}, color={0,127,255}));
+    annotation (Line(points={{-32,0},{38,0}},        color={0,127,255}));
   connect(hea.QEva_flow, QAmbHea_flow) annotation (Line(points={{-31,-15},{-28,-15},
           {-28,-40},{110,-40}}, color={0,0,127}));
   connect(coo.QCon_flow, QAmbChi_flow) annotation (Line(points={{59,15},{66,15},
@@ -279,6 +278,15 @@ Carnot cycle analogy.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 8, 2016, by Michael Wetter:<br/>
+Changed default temperature to compute COP to be the leaving temperature as
+use of the entering temperature can violate the 2nd law if the temperature
+lift is small.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+Annex 60, issue 497</a>.
+</li>
 <li>
 July 8, 2016, by Michael Wetter:<br/>
 Added output signal for heat exchanged with ambient.

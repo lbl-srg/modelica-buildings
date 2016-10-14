@@ -6,10 +6,18 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
     Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model"
   annotation(Evaluate=true);
+
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+
   parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness=
     Buildings.HeatTransfer.Types.SurfaceRoughness.Medium "Surface roughness"
-    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
+
+   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput v(unit="m/s") "Wind speed"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
@@ -23,7 +31,14 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
   Modelica.SIunits.HeatFlux qF_flow
     "Convective heat flux from solid -> fluid due to forced convection";
 protected
-   parameter Real R(fixed=false) "Surface roughness";
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
+  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+    "Flag, true if the surface is a ceiling";
+  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+    "Flag, true if the surface is a floor";
+
+  parameter Real R(fixed=false) "Surface roughness";
    Real W(min=0.5, max=1) "Wind direction modifier";
 initial equation
   if (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.VeryRough) then
@@ -52,20 +67,21 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if isCeiling then
-       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(
-                                                                             dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
     elseif isFloor then
-       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(
-                                                                           dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
     else
-       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(
-                                                                          dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
     end if;
     // Forced convection
     W = Buildings.HeatTransfer.Convection.Functions.windDirectionModifier(
-                                                               azi=azi, dir=dir);
+          azi=azi,
+          dir=dir);
     hF = 2.537 * W * R * 2 / A^(0.25) *
-         Buildings.Utilities.Math.Functions.regNonZeroPower(x=v, n=0.5, delta=0.5);
+         Buildings.Utilities.Math.Functions.regNonZeroPower(
+           x=v,
+           n=0.5,
+           delta=0.5);
     qF_flow = hF*dT;
   end if;
   q_flow = qN_flow + qF_flow;
@@ -206,6 +222,12 @@ Engineering Research Laboratory, Champaign, IL.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Refactored model as part of enabling the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 November 29, 2011, by Michael Wetter:<br/>
 Fixed error in assignment of wind-based convection coefficient.

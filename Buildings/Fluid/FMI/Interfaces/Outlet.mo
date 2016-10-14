@@ -4,7 +4,7 @@ connector Outlet "Connector for fluid outlet"
     "Medium model" annotation (choicesAllMatching=true);
 
   parameter Boolean use_p_in = true
-    "= true to use a pressure from connector, false to output Medium.p_default"
+    "= true to use pressure connector, false to remove it"
     annotation(Evaluate=true);
 
   parameter Boolean allowFlowReversal = true
@@ -38,7 +38,7 @@ connector Outlet "Connector for fluid outlet"
     Documentation(info="<html>
 <p>
 This is a connector for a fluid outlet.
-The connector produces as an output the 
+The connector produces as an output the
 following quantities:
 </p>
 <ul>
@@ -51,7 +51,7 @@ unless <code>use_p_in=false</code>.
 </li>
 <li>
 The temperature of the inflowing fluid
-<code>forward.T</code>, 
+<code>forward.T</code>,
 e.g., the temperature of the fluid that streams out of the component if <code>m_flow &gt; 0</code>.
 </li>
 <li>
@@ -61,7 +61,7 @@ unless <code>Medium.nXi=0</code>.
 </li>
 <li>
 The trace substances of the inflowing fluid
-<code>forward.C</code>, 
+<code>forward.C</code>,
 unless <code>Medium.nC=0</code>.
 </li>
 </ul>
@@ -81,7 +81,7 @@ The mass fraction of the outflowing fluid
 unless <code>Medium.nXi=0</code>.
 </li>
 <li>
-The trace substances of the outflowing fluid 
+The trace substances of the outflowing fluid
 <code>backward.C</code>,
 unless <code>Medium.nC=0</code>.
 </li>

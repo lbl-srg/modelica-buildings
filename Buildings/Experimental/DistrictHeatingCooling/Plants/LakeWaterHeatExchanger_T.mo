@@ -36,16 +36,17 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
+    annotation (Evaluate=true, Dialog(enable = (dpValve_nominal + dpHex_nominal) > 0,
                 tab="Flow resistance"));
 
   parameter Boolean linearizeFlowResistance = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Dialog(enable = computeFlowResistance,
+    annotation(Dialog(enable = (dpValve_nominal + dpHex_nominal) > 0,
                tab="Flow resistance"));
   parameter Real deltaM = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation(Dialog(tab="Flow resistance"));
+    annotation(Dialog(enable = (dpValve_nominal + dpHex_nominal) > 0,
+               tab="Flow resistance"));
 
   Modelica.Blocks.Interfaces.RealInput TSouWat(
     unit="K",
@@ -225,7 +226,11 @@ protected
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
       "Nominal mass flow rate"
       annotation(Dialog(group = "Nominal condition"));
-    Modelica.Blocks.Nonlinear.Limiter limTem(        uMax=1, uMin=0)
+    Modelica.Blocks.Nonlinear.Limiter limTem(
+      uMax=1,
+      uMin=0,
+      limitsAtInit=false,
+      strict=true)
       "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,60},{40,80}})));
     Modelica.Blocks.Math.Gain gaiTem(k=4) "Control gain for dT"
@@ -240,14 +245,18 @@ protected
           origin={0,-10})));
     Modelica.Blocks.Interfaces.RealOutput y
       "Control signal (0: bypass hex, 1: use hex)"
-                                            annotation (Placement(transformation(
+      annotation (Placement(transformation(
             rotation=0, extent={{100,90},{120,110}})));
     Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow rate" annotation (
         Placement(transformation(rotation=0, extent={{-120,120},{-100,140}})));
     Modelica.Blocks.Math.Gain norFlo(final k=1/m_flow_nominal)
       "Normalized flow rate"
       annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-    Modelica.Blocks.Nonlinear.Limiter limFlo(        uMax=1, uMin=0)
+    Modelica.Blocks.Nonlinear.Limiter limFlo(
+      uMax=1,
+      uMin=0,
+      limitsAtInit=false,
+      strict=true)
       "Signal limiter for switching valve"
       annotation (Placement(transformation(extent={{20,120},{40,140}})));
     Modelica.Blocks.Math.Gain gaiFlo(k=100) "Control gain for flow rate"
@@ -441,6 +450,21 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation to avoid an error in the pedantic model check
+in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
+<li>
+August 11, 2016, by Michael Wetter:<br/>
+Reconfigured output limiters of controllers to avoid event iterations when
+they saturate. This decreases the computing time for the system models
+by about a factor of two.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/551\">issue 551</a>.
+</li>
 <li>
 May 31, 2016, by Michael Wetter:<br/>
 Renamed <code>dp_nominal</code> to <code>dpHex_nominal</code>

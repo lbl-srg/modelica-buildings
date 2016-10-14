@@ -20,7 +20,7 @@ This example extends from
 <a href=\"modelica://Buildings.Fluid.Chillers.Examples.Carnot_TEva\">
 Buildings.Fluid.Chillers.Examples.Carnot_TEva</a>
 but increases the set point for the leaving evaporator temperature
-to be above its inlet temperature, in which case the model provide no cooling.
+to be above its inlet temperature, in which case the model provides no cooling.
 Towards the end of the simulation, the inlet temperature of the evaporator is increased
 to be above the condenser temperature. In this domain, the model requires cooling
 again. While this is not a meaningful operating point for the model, the example

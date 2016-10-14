@@ -6,11 +6,27 @@ model Interior "Model for a interior (room-side) convective heat transfer"
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
+
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+
 protected
   constant Modelica.SIunits.Temperature dT0 = 2
     "Initial temperature used in homotopy method";
+
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
+  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+    "Flag, true if the surface is a ceiling";
+  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+    "Flag, true if the surface is a floor";
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
@@ -117,6 +133,12 @@ Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Refactored model as part of enabling the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br/>
 Added <code>homotopy</code> operator.

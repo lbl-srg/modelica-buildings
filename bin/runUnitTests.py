@@ -121,9 +121,13 @@ if __name__ == '__main__':
                                  os.path.join(os.path.abspath('.'),
                                               "Resources", "Library", "win32"))
     else:
+        # For https://github.com/lbl-srg/modelica-buildings/issues/559, we add
+        # 32 and 64 bit resources to run the Utilities.IO.Python27 regression tests.
         _setEnvironmentVariables("LD_LIBRARY_PATH",
                                  os.path.join(os.path.abspath('.'),
-                                              "Resources", "Library", "linux32"))
+                                              "Resources", "Library", "linux32") + ":" +
+                                 os.path.join(os.path.abspath('.'),
+                                              "Resources", "Library", "linux64"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
     # If only added to os.environ, the Python interpreter won't find buildingspy

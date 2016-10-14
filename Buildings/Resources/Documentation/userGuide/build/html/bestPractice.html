@@ -1,5 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,8 +9,15 @@
     
     <title>2. Best Practice &mdash; Buildings Library User Guide</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap_custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,40 +31,105 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="top" title="Buildings Library User Guide" href="index.html" />
     <link rel="next" title="3. Work-Arounds" href="workArounds.html" />
-    <link rel="prev" title="1. Getting Started" href="gettingStarted.html" /> 
+    <link rel="prev" title="1. Getting Started" href="gettingStarted.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
   </head>
   <body role="document">
-<div class="headerStyle">
-<img src="_static/lbl-logo.png" alt="LBL logo" />
-</div>
 
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="workArounds.html" title="3. Work-Arounds"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="gettingStarted.html" title="1. Getting Started"
-             accesskey="P">previous</a> |</li>
-    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
-    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
-    </br>
-<!--    
-        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
- 
-      </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="_static/lbl-logo.png">
+           </a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a></li>
+                <li><a href="index.html">User Guide</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gettingStarted.html">1. Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-users">1.1. Literature for Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#literature-for-developers">1.2. Literature for Developers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#software-requirements">1.3. Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#running-the-first-simulations">1.4. Running the First Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gettingStarted.html#references">1.5. References</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Best Practice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#organization-of-packages">2.1. Organization of packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-large-system-models">2.2. Building large system models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#propagating-parameters-and-media-packages">2.3. Propagating parameters and media packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thermo-fluid-systems">2.4. Thermo-fluid systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-values-of-iteration-variables">2.5. Start values of iteration variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#avoiding-events">2.6. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#controls">2.7. Controls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">2.8. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numerical-solvers">2.9. Numerical solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workArounds.html">3. Work-Arounds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-step-changes">3.1. Avoiding step changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#breaking-algebraic-loops">3.2. Breaking algebraic loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#prescribed-mass-flow-rate">3.4. Prescribed mass flow rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workArounds.html#avoiding-overspecified-initialization-problems">3.5. Avoiding overspecified initialization problems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">5. Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing">5.1. Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#adding-a-new-class">5.2. Adding a new class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">6. Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">8. Acknowledgments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclaimer.html">9. Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">2. Best Practice</a><ul>
 <li><a class="reference internal" href="#organization-of-packages">2.1. Organization of packages</a></li>
 <li><a class="reference internal" href="#building-large-system-models">2.2. Building large system models</a></li>
@@ -81,42 +154,48 @@
 </ul>
 </li>
 </ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="gettingStarted.html"
-                        title="previous chapter">1. Getting Started</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="workArounds.html"
-                        title="next chapter">3. Work-Arounds</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/bestPractice.txt"
-           rel="nofollow">Show Source</a></li>
-    <li><a href="https://github.com/lbl-srg/modelica-buildings/tree/master/Buildings/Resources/Documentation/userGuide/source/bestPractice.rst"
-           target="_blank"
-           rel="nofollow">Edit Source on GitHub</a></li>
-  </ul>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+</ul>
+</li>
+              
             
+            
+              
+                
+  <li>
+    <a href="gettingStarted.html" title="Previous Chapter: 1. Getting Started"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; 1. Getting St...</span>
+    </a>
+  </li>
+  <li>
+    <a href="workArounds.html" title="Next Chapter: 3. Work-Arounds"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">3. Work-Arounds &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+<!--
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+-->
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
   <div class="section" id="best-practice">
 <h1>2. Best Practice<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h1>
 <p>This section explains to library users best practice in creating new system models. The selected topics are based on problems that are often observed with new users of Modelica. Experienced users of Modelica may skip this section.</p>
@@ -124,7 +203,7 @@
 <h2>2.1. Organization of packages<a class="headerlink" href="#organization-of-packages" title="Permalink to this headline">¶</a></h2>
 <p>When developing models, one should distinguish between a library which contains widely applicable models, such as the <cite>Buildings</cite> library, and an application-specific model which may be created for a specific building and is of limited use for other applications.
 It is recommended that users store application-specific models outside of the <cite>Buildings</cite> library. This will allow users to replace the <cite>Buildings</cite> library with a new version without having to change the application-specific model.
-If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the <cite>Buildings</cite> library, as described in the section <a class="reference internal" href="development.html#development"><span>Development</span></a>.</p>
+If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the <cite>Buildings</cite> library, as described in the section <a class="reference internal" href="development.html#development"><span class="std std-ref">Development</span></a>.</p>
 </div>
 <div class="section" id="building-large-system-models">
 <h2>2.2. Building large system models<a class="headerlink" href="#building-large-system-models" title="Permalink to this headline">¶</a></h2>
@@ -137,12 +216,12 @@ Creating small test models typically saves time as the proper response of contro
 <p>Consider a model with a pump <code class="docutils literal"><span class="pre">pum</span></code> and a mass flow sensor <code class="docutils literal"><span class="pre">sen</span></code>.
 Suppose that both models have a parameter <code class="docutils literal"><span class="pre">m_flow_nominal</span></code> for the nominal mass flow rate that needs to be set to the same value.
 Rather than setting these parameters individually to a numeric value, it is recommended to propagate the parameter to the top-level of the model. Thus, instead of using the declaration</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">Pump</span> <span class="n">pum</span><span class="p">(</span><span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="s2">&quot;Pump&quot;</span><span class="p">;</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Pump</span> <span class="n">pum</span><span class="p">(</span><span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="s2">&quot;Pump&quot;</span><span class="p">;</span>
 <span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="n">m_flow_nominal</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="s2">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>we recommend to use</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">Modelica</span><span class="o">.</span><span class="n">SIunits</span><span class="o">.</span><span class="n">MassFlowRate</span> <span class="n">m_flow_nominal</span> <span class="o">=</span> <span class="mf">0.1</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Modelica</span><span class="o">.</span><span class="n">SIunits</span><span class="o">.</span><span class="n">MassFlowRate</span> <span class="n">m_flow_nominal</span> <span class="o">=</span> <span class="mf">0.1</span>
                               <span class="s2">&quot;Nominal mass flow rate&quot;</span><span class="p">;</span>
 <span class="n">Pump</span> <span class="n">pum</span><span class="p">(</span><span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s2">&quot;Pump&quot;</span><span class="p">;</span>
 <span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s2">&quot;Sensor&quot;</span><span class="p">;</span>
@@ -150,18 +229,18 @@ Rather than setting these parameters individually to a numeric value, it is reco
 </div>
 <p>This allows to change the value of <code class="docutils literal"><span class="pre">m_flow_nominal</span></code> at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust.</p>
 <p>Propagating parameters and packages is particularly important for medium definitions. This allows the user to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">replaceable</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Media</span><span class="o">.</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">PartialMedium</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="kr">replaceable</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Media</span><span class="o">.</span><span class="n">Interfaces</span><span class="o">.</span><span class="n">PartialMedium</span>
   <span class="s2">&quot;Medium model for air&quot;</span> <span class="kr">annotation</span> <span class="p">(</span><span class="n">choicesAllMatching</span><span class="o">=</span><span class="kc">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Here, the optional annotation <code class="docutils literal"><span class="pre">annotation</span> <span class="pre">(choicesAllMatching=true)</span></code> is added which causes a GUI to show a drop-down menu with all medium models that extend from <code class="docutils literal"><span class="pre">Modelica.Media.Interfaces.PartialMedium</span></code>.</p>
 <p>If the above sensor requires a medium model, which is likely the case, its declaration would be</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s2">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>At the top-level of a system-model, one would set the <code class="docutils literal"><span class="pre">Medium</span></code> package to an actual media, such as by using</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Buildings</span><span class="o">.</span><span class="n">Media</span><span class="o">.</span><span class="n">PerfectGases</span><span class="o">.</span><span class="n">MoistAir</span> <span class="s2">&quot;Medium model&quot;</span><span class="p">;</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Buildings</span><span class="o">.</span><span class="n">Media</span><span class="o">.</span><span class="n">PerfectGases</span><span class="o">.</span><span class="n">MoistAir</span> <span class="s2">&quot;Medium model&quot;</span><span class="p">;</span>
 <span class="n">TemperatureSensor</span> <span class="n">sen</span><span class="p">(</span><span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
                       <span class="n">m_flow_nominal</span><span class="o">=</span><span class="n">m_flow_nominal</span><span class="p">)</span> <span class="s2">&quot;Sensor&quot;</span><span class="p">;</span>
 </pre></div>
@@ -422,7 +501,7 @@ where <span class="math">\(p\)</span> is the static pressure, <span class="math"
 then the density is constant. Consequently, there is no equation that
 can be used to compute the pressure based on the volume.
 In this situation, attempting to translate the model leads, in Dymola, to the following error message:</p>
-<div class="highlight-none"><div class="highlight"><pre>The DAE has 151 scalar unknowns and 151 scalar equations.
+<div class="highlight-none"><div class="highlight"><pre><span></span>The DAE has 151 scalar unknowns and 151 scalar equations.
 Error: The model FlowCircuit is structurally singular.
 The problem is structurally singular for the element type Real.
 The number of scalar Real unknown elements are 58.
@@ -569,15 +648,15 @@ See for example <a class="reference external" href="http://simulationresearch.lb
 <div class="section" id="start-values-of-iteration-variables">
 <h2>2.5. Start values of iteration variables<a class="headerlink" href="#start-values-of-iteration-variables" title="Permalink to this headline">¶</a></h2>
 <p>When computing numerical solutions to systems of nonlinear equations, a Newton-based solver is typically used. Such solvers have a higher success of convergence if good start values are provided for the iteration variables. In Dymola, to see what start values are used, one can enter on the simulation tab the command</p>
-<div class="highlight-none"><div class="highlight"><pre>Advanced.LogStartValuesForIterationVariables = true;
+<div class="highlight-none"><div class="highlight"><pre><span></span>Advanced.LogStartValuesForIterationVariables = true;
 </pre></div>
 </div>
 <p>Then, when a model is translated, for example using</p>
-<div class="highlight-none"><div class="highlight"><pre>translateModel(&quot;Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop&quot;);
+<div class="highlight-none"><div class="highlight"><pre><span></span>translateModel(&quot;Buildings.Fluid.Boilers.Examples.BoilerPolynomialClosedLoop&quot;);
 </pre></div>
 </div>
 <p>an output of the form</p>
-<div class="highlight-none"><div class="highlight"><pre>Start values for iteration variables:
+<div class="highlight-none"><div class="highlight"><pre><span></span>Start values for iteration variables:
  val.res1.dp(start = 3000.0)
  val.res3.dp(start = 3000.0)
 </pre></div>
@@ -595,7 +674,7 @@ often requires an iterative solution, which can significantly
 increase the computing time if the iteration require
 the evaluation of a large system of equations.
 An example where such an event occurs is the relation</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span>
   <span class="n">T_in</span> <span class="o">=</span> <span class="n">port_a</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
 <span class="kr">else</span>
   <span class="n">T_in</span> <span class="o">=</span> <span class="n">port_b</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
@@ -603,7 +682,7 @@ An example where such an event occurs is the relation</p>
 </pre></div>
 </div>
 <p>or, equivalently,</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">T_in</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">port_a</span><span class="o">.</span><span class="n">T</span> <span class="kr">else</span> <span class="n">port_b</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">T_in</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="n">port_a</span><span class="o">.</span><span class="n">T</span> <span class="kr">else</span> <span class="n">port_b</span><span class="o">.</span><span class="n">T</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>When simulating a model that contains such code, a time integrator
@@ -613,7 +692,7 @@ a neighborhood around <code class="docutils literal"><span class="pre">port_a.m_
 with an approximation that does not require an event iteration can
 reduce computing time. For example, the above equation could be
 approximated as</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">T</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
   <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="n">T_a_inflow</span><span class="p">,</span> <span class="n">T_b_inflow</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
 </pre></div>
@@ -632,7 +711,7 @@ above can change abruptly if its argument <code class="docutils literal"><span c
 <code class="docutils literal"><span class="pre">+/-</span> <span class="pre">1E-4*m_flow_nominal</span></code>,
 for example due to <a class="reference internal" href="glossary.html#term-numerical-noise"><span class="xref std std-term">numerical noise</span></a>.
 Adding dynamics may be achieved using a formulation such as</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">TMed</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">TMed</span> <span class="o">=</span> <span class="n">Modelica</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Utilities</span><span class="o">.</span><span class="n">regStep</span><span class="p">(</span>
   <span class="n">port_a</span><span class="o">.</span><span class="n">m_flow</span><span class="p">,</span> <span class="n">T_a_inflow</span><span class="p">,</span> <span class="n">T_b_inflow</span><span class="p">,</span>
   <span class="n">m_flow_nominal</span><span class="o">*</span><span class="mf">1E-4</span><span class="p">);</span>
 <span class="kr">der</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">TMed</span><span class="o">-</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="p">;</span>
@@ -683,7 +762,7 @@ whenever it crosses at set point temperature, and if
 then the heater can switch on and off rapidly due to the numerical noise.
 This can cause the time integration to stall.</p>
 <p>To illustrate this problem, try to simulate</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="kr">model</span> <span class="nc">Unstable</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="kr">model</span> <span class="nc">Unstable</span>
   <span class="nb">Real</span> <span class="n">x</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span>
 <span class="kr">equation</span>
   <span class="kr">der</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="kr">then</span> <span class="o">-</span><span class="mi">1</span> <span class="kr">else</span> <span class="mi">1</span><span class="p">;</span>
@@ -703,7 +782,7 @@ inequality test</p>
 <li>is obtained from a measurement and hence can contain measurement
 noise.</li>
 </ul>
-<p class="last">See <a class="reference internal" href="#sec-example-event-debugging"><span>Examples for how to debug and correct slow simulations</span></a> for what can happen in
+<p class="last">See <a class="reference internal" href="#sec-example-event-debugging"><span class="std std-ref">Examples for how to debug and correct slow simulations</span></a> for what can happen in
 such tests.</p>
 </div>
 </div>
@@ -717,7 +796,7 @@ While the details may differ from one tool to another, the principle is the same
 In our situation, we attempted to simulate <code class="docutils literal"><span class="pre">Buildings.Examples.DualFanDualDuct</span></code>
 for one year in Dymola 2016 FD01 using the model from Buildings version 3.0.0.
 We run</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">simulateModel</span><span class="p">(</span><span class="s2">&quot;Buildings.Examples.DualFanDualDuct.ClosedLoop&quot;</span><span class="p">,</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">simulateModel</span><span class="p">(</span><span class="s2">&quot;Buildings.Examples.DualFanDualDuct.ClosedLoop&quot;</span><span class="p">,</span>
                <span class="n">stopTime</span><span class="o">=</span><span class="mi">31536000</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;radau&quot;</span><span class="p">,</span>
                <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">resultFile</span><span class="o">=</span><span class="s2">&quot;DualFanDualDuctClosedLoop&quot;</span><span class="p">);</span>
 </pre></div>
@@ -737,7 +816,7 @@ otherwise we would
 have had to set it to an earlier time.
 Inspecting Dymola&#8217;s log file <code class="docutils literal"><span class="pre">dslog.txt</span></code> when the simulation stalls shows that its last entries
 are</p>
-<div class="highlight-modelica"><div class="highlight"><pre><span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">true</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.9441e-08</span> <span class="p">)</span>
+<div class="highlight-modelica"><div class="highlight"><pre><span></span><span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">true</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.9441e-08</span> <span class="p">)</span>
 <span class="n">Iterating</span> <span class="n">to</span> <span class="n">find</span> <span class="n">consistent</span> <span class="n">restart</span> <span class="n">conditions</span><span class="o">.</span>
       <span class="n">during</span> <span class="n">event</span> <span class="n">at</span> <span class="n">Time</span> <span class="o">:</span>  <span class="mf">9267949.854873843</span>
 <span class="n">Expression</span> <span class="n">TRet</span><span class="o">.</span><span class="n">T</span> <span class="o">&gt;</span> <span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span> <span class="n">became</span> <span class="kc">false</span> <span class="p">(</span> <span class="p">(</span><span class="n">TRet</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">amb</span><span class="o">.</span><span class="n">x_pTphi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.94411e-08</span> <span class="p">)</span>
@@ -791,7 +870,7 @@ control signal.</span></p>
 <code class="docutils literal"><span class="pre">Buildings.Examples.DualFanDualDuct.ClosedLoop</span></code>
 (commit <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163">ef410ee</a>),
 the simulation time was very slow during part of the
-simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span>Fig. 2.11</span></a>.</p>
+simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span class="std std-numref">Fig. 2.11</span></a>.</p>
 <div class="figure" id="id18">
 <span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img src="_images/DualFanDualDuctWithFilteredSpeed.svg" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Computing time and number of events.</span></p>
@@ -800,7 +879,7 @@ simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtere
 To isolate the problem, we enabled in Dymola under <cite>Simulation -&gt; Setup</cite> the
 option to log which states dominate the error (see <cite>Debug</cite> tab).</p>
 <p>Running the simulation again gave the following output:</p>
-<div class="highlight-none"><div class="highlight"><pre>Integration terminated successfully at T = 1.66e+07
+<div class="highlight-none"><div class="highlight"><pre><span></span>Integration terminated successfully at T = 1.66e+07
   Limit stepsize, Dominate error, Exceeds 10% of error Component (#number)
       0     1     6 cooCoi.temSen_1.T (#  1)
      36     0   140 cooCoi.temSen_2.T (#  2)
@@ -822,7 +901,7 @@ option to log which states dominate the error (see <cite>Debug</cite> tab).</p>
 </pre></div>
 </div>
 <p>Hence, the state variables</p>
-<div class="highlight-none"><div class="highlight"><pre>13555 13201 19064 fanSupHot.filter.x[1] (#  7)
+<div class="highlight-none"><div class="highlight"><pre><span></span>13555 13201 19064 fanSupHot.filter.x[1] (#  7)
 11905  2170 12394 fanSupHot.filter.x[2] (#  8)
   400    47   419 fanSupCol.filter.x[1] (#  9)
   420    71   521 fanSupCol.filter.x[2] (# 10)
@@ -856,34 +935,26 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
 </div>
 
 
-          </div>
-        </div>
-      </div>
-      <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="workArounds.html" title="3. Work-Arounds"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="gettingStarted.html" title="1. Getting Started"
-             >previous</a> |</li>
-    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
-    <a href="http://simulationresearch.lbl.gov/modelica/userGuide">User Guide</a></li>
-    </br>
-<!--    
-        <li class="nav-item nav-item-0"><a href="index.html">Buildings Library User Guide</a> &raquo;</li> -->
- 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2012-2015, The Regents of the University of California (through Lawrence Berkeley National Laboratory).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
-    </div>
+      
+  </div>
+</div>
+  
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2016, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+    </p>
+  </div>
+</footer>
+
   </body>
 </html>

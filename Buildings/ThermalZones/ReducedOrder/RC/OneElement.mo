@@ -83,10 +83,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation (
     Placement(transformation(
     extent={{-45,-12},{45,12}},
-    rotation=0,
     origin={85,-180}),iconTransformation(
     extent={{-30.5,-8},{30.5,8}},
-    rotation=0,
     origin={150,-171.5})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if ATotExt > 0
     "Ambient port for exterior walls"

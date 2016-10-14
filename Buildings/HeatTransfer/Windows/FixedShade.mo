@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows;
 model FixedShade "Model for exterior shade due to overhang and/or side fin"
   extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
-  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
+  parameter Buildings.ThermalZones.Detailed.BaseClasses.ParameterConstructionWithWindow conPar
     "Construction parameters";
 
   parameter Modelica.SIunits.Angle lat "Latitude";
@@ -281,7 +281,7 @@ Renamed model from <code>Shade</code> to <code>FixedShade</code> because
 shade is already used for window interior and exterior shades.
 </li><li>
 July 5, 2012, by Michael Wetter:<br/>
-Moved model from package <code>Buildings.Rooms.BaseClasses</code> to
+Moved model from package <code>Buildings.ThermalZones.Detailed.BaseClasses</code> to
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
 models are also in this package.
 </li>

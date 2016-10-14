@@ -97,10 +97,10 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow of persons"
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow of persons"
     annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -120,7 +120,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-100,-10},{-66,22}}),
     iconTransformation(extent={{-70,-12},{-50,8}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
@@ -160,8 +160,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     origin={67,47})));
   Modelica.Blocks.Sources.Constant alphaRoof(k=25*11.5)
     "Outdoor coefficient of heat transfer for roof"
-    annotation (Placement(transformation(extent={{4,-4},{-4,4}},rotation=0,
-    origin={86,47})));
+    annotation (Placement(transformation(extent={{4,-4},{-4,4}},origin={86,47})));
   Modelica.Blocks.Sources.Constant const1(each k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
@@ -293,8 +292,7 @@ equation
                                       color={0,0,127}));
   connect(corGDouPan.solarRadWinTrans, thermalZoneFourElements.solRad)
     annotation (Line(points={{27,56},{40,56},{40,31},{43,31}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-  -100},{100,100}})), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
   <p>This example shows the application of
   <a href=\"Buildings.ThermalZones.ReducedOrder.RC.FourElements\">
   Buildings.ThermalZones.ReducedOrder.RC.FourElements</a>
@@ -334,8 +332,6 @@ equation
   </ul>
   </html>"),
   experiment(StopTime=3.1536e+007, Interval=3600),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-  100}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
         "Simulate and plot"));

@@ -164,7 +164,7 @@ November 5, 2015, by Michael Wetter:<br/>
 Changed parameters since the power is no longer a parameter for the movers
 that take mass flow rate or head as an input.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/457\">issue 457</a>.
 </li>
 <li>
 November 22, 2014, by Michael Wetter:<br/>
