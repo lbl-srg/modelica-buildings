@@ -83,28 +83,23 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
 // The arguments are as follows:
 //  moduleName            - Name of the Python module.
 //  functionName          - Name of the Python function.
-//  dblValWri             - Double values to write.
-//  nDblWri               - Number of doubles to write.
-//  dblValRea             - Double values to read.
-//  nDblRea               - Number of double values to read.
-//  intValWri             - Integer values to write.
-//  nIntWri               - Number of integers to write.
-//  intValRea             - Integer values to read.
-//  nIntRea               - Number of integers to read.
-//  strValWri             - String values to write.
-//  strValRea             - String values to read.
-//  nStrWri               - Number of strings to write.
-//  nStrRea               - Number of strings to read.
+//  nDblWri               - Number of inputs values to write.
+//  strWri                - Name of inputs to write.
+//  dblValWri             - Double inputs values to write.
+//  nDblRea               - Number of outputs values to read.
+//  strRea                - Name of outputs to read.
+//  dblValRea             - Double outputs values to read.
+//  nDblParWri            - Number of parameters to write.
+//  strParWri             - Name of parameters to write.
+//  dblValParWri          - Double values of parameters to write.
 //  inModelicaFormatError - Pointer to ModelicaFormatError
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
-                          const char * functionName,
-                          const double * dblValWri, size_t nDblWri,
-                          double * dblValRea, size_t nDblRea,
-                          const int * intValWri, size_t nIntWri,
-                          int * intValRea, size_t nIntRea,
-                          const char ** strValWri, size_t nStrWri,
-			  const char ** strValRea, size_t nStrRea,
-			  void (*inModelicaFormatError)(const char *string,...));
+							const char * functionName,
+							const size_t nDblWri, const char ** strWri,
+							double * dblValWri, size_t nDblRea, const char ** strRea,
+							double * dblValRea, size_t nDblParWri,
+							const char ** strParWri, double * dblValParWri,
+							void(*inModelicaFormatError)(const char *string, ...));
 
 #ifdef __cplusplus
 }
@@ -112,3 +107,4 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesCymdistNoModelica(const ch
 
 
 #endif /* _PYTHONINTERPRETER_H_ */
+
