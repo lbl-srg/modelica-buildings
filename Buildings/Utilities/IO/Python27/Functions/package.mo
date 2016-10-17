@@ -7,20 +7,18 @@ package Functions "Package with functions that call Python"
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
-  input Real    dblWri[max(1, nDblWri)] "Double values to write";
-  input Integer intWri[max(1, nIntWri)] "Integer values to write";
-  input String  strRea[max(1, nStrRea)] "String values to read";
-  input String  strWri[max(1, nStrWri)] "String values to write";
-  input Integer nDblWri(min=0) "Number of double values to write";
-  input Integer nDblRea(min=0) "Number of double values to read";
-  input Integer nIntWri(min=0) "Number of integer values to write";
-  input Integer nIntRea(min=0) "Number of integer values to read";
-  input Integer nStrWri(min=0) "Number of strings to write";
-  input Integer nStrRea(min=0) "Number of strings to read";
+  input Real    dblInpVal[max(1, nDblInp)] "Input variables values to be sent to CYMDIST";
+  input Real    dblParVal[max(1, nDblPar)] "Parameter variables values to send to CYMDIST";
+  input String  dblOutNam[max(1, nDblOut)] "Output variables names to be read from CYMDIST";
+  input String  dblInpNam[max(1, nDblInp)] "Input variables names to be sent to CYMDIST";
+  input String  dblParNam[max(1, nDblPar)] "Parameter variables names to send to CYMDIST";
+  input Integer nDblInp(min=0) "Number of double inputs to send to CYMDIST";
+  input Integer nDblOut(min=0) "Number of double outputs to read from CYMDIST";
+  input Integer nDblPar(min=0) "Number of double parameters to send to CYMDIST";
+
     //   input Integer strLenRea(min=0)
     //     "Maximum length of each string that is read. If exceeded, the simulation stops with an error";
-  output Real    dblRea[max(1, nDblRea)] "Double values returned by Python";
-  output Integer intRea[max(1, nIntRea)] "Integer values returned by Python";
+    output Real dblOutVal[max(1, nDblOut)] "Double output values read from CYMDIST";
 protected
   String pytPat "Value of PYTHONPATH environment variable";
   String pytPatBuildings "PYTHONPATH of Buildings library";
@@ -49,20 +47,17 @@ protected
       content=pytPatBuildings);
     end if;
     // Call the exchange function
-    (
-  dblRea,intRea) := BaseClasses.cymdist(
-    moduleName=moduleName,
-    functionName=functionName,
-    dblWri=dblWri,
-    intWri=intWri,
-    strWri=strWri,
-    strRea=strRea,
-    nDblWri=nDblWri,
-    nDblRea=nDblRea,
-    nIntWri=nIntWri,
-    nIntRea=nIntRea,
-    nStrWri=nStrWri,
-    nStrRea=nStrRea);
+  dblOutVal := BaseClasses.cymdist(
+        moduleName=moduleName,
+        functionName=functionName,
+        nDblInp=nDblInp,
+        dblInpNam=dblInpNam,
+        dblInpVal=dblInpVal,
+        nDblOut=nDblOut,
+        dblOutNam=dblOutNam,
+        nDblPar=nDblPar,
+        dblParNam=dblParNam,
+        dblParVal=dblParVal);
     // Change the PYTHONPATH back to what it was so that the function has no
     // side effects.
     if havePytPat then
@@ -90,16 +85,10 @@ for instructions, and
 Buildings.Utilities.IO.Python27.Functions.Examples</a>
 for examples.
 </p>
-<p>
-fixme: This function is similar to the exchange function but the 
-definition of the strings strWri and strRea are different in this context.
-Here strWi and strRea are the names of the inputs and outputs of a Cymdist FMU.
-We will need to see whether we should change the name or consolidate the two 
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-May 2, 2013, by Michael Wetter:<br/>
+October 17, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
