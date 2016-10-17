@@ -1,27 +1,80 @@
 within Buildings.Utilities.IO.Python27.Functions.Examples;
 model Cymdist "Test model for cymdist function"
   extends Modelica.Icons.Example;
-
-  Real    yR2[2] "Real function value";
+  Real yR1[1] "Real function value";
+  Real yR2[2] "Real function value";
 algorithm
+
+  yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
+    moduleName="testFunctionsCymdist",
+    functionName="r1_r1",
+    nDblInp=1,
+    dblInpNam={"u"},
+    dblInpVal={15.0},
+    nDblOut=1,
+    dblOutNam={"y"},
+    nDblPar=0,
+    dblParNam={""},
+    dblParVal={0.0});
+  assert(abs(15 - yR1[1]) < 1e-5, "Error in function r1_r1");
+
+  yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
+    moduleName="testFunctionsCymdist",
+    functionName="r2_r1",
+    nDblInp=2,
+    dblInpNam={"u","u1"},
+    dblInpVal={15.0,30.0},
+    nDblOut=1,
+    dblOutNam={"y"},
+    nDblPar=0,
+    dblParNam={""},
+    dblParVal={0.0});
+  assert(abs(45 - yR1[1]) < 1e-5, "Error in function r2_r1");
+
+  yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
+    moduleName="testFunctionsCymdist",
+    functionName="par3_r1",
+    nDblInp=0,
+    dblInpNam={""},
+    dblInpVal={0},
+    nDblOut=1,
+    dblOutNam={"y"},
+    nDblPar=3,
+    dblParNam={"par1","par2","par3"},
+    dblParVal={1.0,2.0,3.0});
+  assert(abs(6 - yR1[1]) < 1e-5, "Error in function par3_r1");
+
   yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-      moduleName="testFunctionsCymdist",
-      functionName="r2p2_r2",
-      nDblInp=2,
-      dblInpNam={"u", "u1"},
-      dblInpVal={1.0, 2.0},
-      nDblOut=2,
-      dblOutNam={"y","y1"},
-      nDblPar=2,
-      dblParNam={"par1", "par2"},
-      dblParVal={1.0, 10.0});
-      assert(abs(yR2[1]-1) + abs(yR2[2]-20) < 1E-5, "Error in function r2p2_r2");
+    moduleName="testFunctionsCymdist",
+    functionName="r1_r2",
+    nDblInp=1,
+    dblInpNam={"u"},
+    dblInpVal={30.0},
+    nDblOut=2,
+    dblOutNam={"y","y1"},
+    nDblPar=0,
+    dblParNam={""},
+    dblParVal={0.0});
+  assert(abs(yR2[1] - 30) + abs(yR2[2] - 60) < 1E-5, "Error in function r1_r2");
+
+  yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
+    moduleName="testFunctionsCymdist",
+    functionName="r2p2_r2",
+    nDblInp=2,
+    dblInpNam={"u","u1"},
+    dblInpVal={1.0,2.0},
+    nDblOut=2,
+    dblOutNam={"y","y1"},
+    nDblPar=2,
+    dblParNam={"par1","par2"},
+    dblParVal={1.0,10.0});
+  assert(abs(yR2[1] - 1) + abs(yR2[2] - 20) < 1E-5, "Error in function r2p2_r2");
 
   annotation (
-experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/Exchange.mos"
+    experiment(StopTime=1.0),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Functions/Examples/Exchange.mos"
         "Simulate and plot"),
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This example calls various functions in the Python module <code>testFunctionsCymdist.py</code>.
 It tests whether arguments and return values are passed correctly.

@@ -366,9 +366,9 @@ void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
   Py_ssize_t pIndVal;
   PyObject *pItemDbl, *pItemInt;
   char* arg="";
-  size_t nStrWri;
-  size_t nStrRea;
-  size_t nStrParWri;
+  Py_ssize_t nStrWri = 0;
+  Py_ssize_t nStrRea = 0;
+  Py_ssize_t nStrParWri = 0;
   Py_ssize_t i;
   Py_ssize_t iArg = 0;
   Py_ssize_t nArg = 0;
