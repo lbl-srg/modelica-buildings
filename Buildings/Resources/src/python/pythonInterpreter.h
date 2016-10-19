@@ -83,6 +83,7 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
 // The arguments are as follows:
 //  moduleName            - Name of the Python module.
 //  functionName          - Name of the Python function.
+//  inputFileName         - Name of the input file.
 //  nDblWri               - Number of inputs values to write.
 //  strWri                - Name of inputs to write.
 //  dblValWri             - Double inputs values to write.
@@ -94,7 +95,7 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
 //  dblValParWri          - Double values of parameters to write.
 //  inModelicaFormatError - Pointer to ModelicaFormatError
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
-							const char * functionName,
+							const char * functionName, const char * inputFileName,
 							const size_t nDblWri, const char ** strWri,
 							double * dblValWri, size_t nDblRea, const char ** strRea,
 							double * dblValRea, size_t nDblParWri,

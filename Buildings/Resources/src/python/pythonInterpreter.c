@@ -354,6 +354,7 @@ The returned object is \"%s\".",
 
 void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
                           const char * functionName,
+						  const char * inputFileName,
 						  const size_t nDblWri, const char ** strWri, 
 						  double * dblValWri, size_t nDblRea, const char ** strRea, 
 						  double * dblValRea, size_t nDblParWri, 
@@ -361,7 +362,7 @@ void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
 			              void (*ModelicaFormatError)(const char *string,...))
 {
   PyObject *pName, *pModule, *pFunc;
-  PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
+  PyObject *pArgsDbl, *pArgsStr;
   PyObject *pArgs, *pValue;
   Py_ssize_t pIndVal;
   PyObject *pItemDbl, *pItemInt;
@@ -371,7 +372,11 @@ void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
   Py_ssize_t nStrParWri = 0;
   Py_ssize_t i;
   Py_ssize_t iArg = 0;
-  Py_ssize_t nArg = 0;
+  // The number of arguments starts
+  // at 1 since we always have the 
+  // input file name of CYMDIST as 
+  // an argument.
+  Py_ssize_t nArg = 1;
   Py_ssize_t iRet = 0;
   Py_ssize_t nRet = 0;
   ////////////////////////////////////////////////////////////////////////////
@@ -381,6 +386,7 @@ void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
   // This is required if a script uses sys.argv, such as bacpypes.
   // See also http://stackoverflow.com/questions/19381441/python-modelica-connection-fails-due-to-import-error
   PySys_SetArgv(0, &arg);
+
 
   ////////////////////////////////////////////////////////////////////////////
   // Load Python module
@@ -460,7 +466,26 @@ The error message is \"%s\"",
     pArgs = NULL;
 
   // Convert the arguments
-  // a) Convert double[]
+  // a) Convert the input file name
+  pArgsStr = PyList_New(1);
+  pValue = PyString_FromString(inputFileName);
+  if (!pValue) {
+	  // Failed to convert argument.
+	  Py_DECREF(pArgsStr);
+	  Py_DECREF(pModule);
+	  // According to the Modelica specification,
+	  // the function ModelicaError never returns to the calling function.
+	  (*ModelicaFormatError)("Cannot convert string argument number '%s' to Python format.\n", inputFileName);
+  }
+  // pValue reference stolen here
+  PyList_SetItem(pArgsStr, 0, pValue);
+
+  // If there is only a scalar string, then don't build a list.
+  // Just put the scalar value into the list of arguments.
+  PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsStr, (Py_ssize_t)0));
+  iArg++;
+
+  // b) Convert double[]
   if ( nDblWri > 0 ){
     pArgsDbl = PyList_New(nDblWri);
     for (i = 0; i < nDblWri; ++i) {
@@ -486,7 +511,8 @@ The error message is \"%s\"",
     iArg++;
   }
   
-  // c) Convert char **, an array of character arrays
+
+    // c) Convert char **, an array of character arrays
   if ( nStrWri > 0 ){
     pArgsStr = PyList_New(nStrWri);
 
@@ -519,8 +545,8 @@ The error message is \"%s\"",
 	PyTuple_SetItem(pArgs, iArg, pArgsStr);
     iArg++;
   }
-  
-   // c) Convert char **, an array of character arrays
+
+   // d) Convert char **, an array of character arrays
   if ( nStrRea > 0 ){
     pArgsStr = PyList_New(nStrRea);
     
@@ -555,7 +581,7 @@ The error message is \"%s\"",
   }
 
   // Convert the arguments
-  // a) Convert double[]
+  // e) Convert double[]
   if (nDblParWri > 0){
 	  pArgsDbl = PyList_New(nDblParWri);
 	  for (i = 0; i < nDblParWri; ++i) {
@@ -581,7 +607,7 @@ The error message is \"%s\"",
 	  iArg++;
   }
 
-  // c) Convert char **, an array of character arrays
+  // f) Convert char **, an array of character arrays
   if (nStrParWri > 0){
 	  pArgsStr = PyList_New(nStrParWri);
 
