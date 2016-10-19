@@ -3,11 +3,19 @@ model Cymdist "Test model for cymdist function"
   extends Modelica.Icons.Example;
   Real yR1[1] "Real function value";
   Real yR2[2] "Real function value";
+  // The inputFileName should be provide
+  // using Modelica.Utilitites.loadResource().
+  parameter String inputFileName="cymdist.inp"
+    "The input file name of a Cymdist model. This should be 
+    provided using the Modelica.Utilities.loadResource()
+    function so its correct value can be retrieved in Python
+    when the model is exported as an FMU";
 algorithm
 
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
     moduleName="testFunctionsCymdist",
     functionName="r1_r1",
+    inputFileName=inputFileName,
     nDblInp=1,
     dblInpNam={"u"},
     dblInpVal={15.0},
@@ -21,6 +29,7 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
     moduleName="testFunctionsCymdist",
     functionName="r2_r1",
+    inputFileName=inputFileName,
     nDblInp=2,
     dblInpNam={"u","u1"},
     dblInpVal={15.0,30.0},
@@ -34,6 +43,7 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
     moduleName="testFunctionsCymdist",
     functionName="par3_r1",
+    inputFileName=inputFileName,
     nDblInp=0,
     dblInpNam={""},
     dblInpVal={0},
@@ -47,6 +57,7 @@ algorithm
   yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
     moduleName="testFunctionsCymdist",
     functionName="r1_r2",
+    inputFileName=inputFileName,
     nDblInp=1,
     dblInpNam={"u"},
     dblInpVal={30.0},
@@ -60,6 +71,7 @@ algorithm
   yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
     moduleName="testFunctionsCymdist",
     functionName="r2p2_r2",
+    inputFileName=inputFileName,
     nDblInp=2,
     dblInpNam={"u","u1"},
     dblInpVal={1.0,2.0},

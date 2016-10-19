@@ -4,6 +4,7 @@ function cymdist "Function that communicates with Python"
   input String moduleName
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
+  input String inputFileName=inputFileName "Name of the input file";
   input Real    dblInpVal[max(1, nDblInp)] "Input variables values to be sent to CYMDIST";
   input Real    dblParVal[max(1, nDblPar)] "Parameter variables values to send to CYMDIST";
   input String  dblOutNam[max(1, nDblOut)] "Output variables names to be read from CYMDIST";
@@ -16,6 +17,7 @@ function cymdist "Function that communicates with Python"
 //     "Maximum length of each string that is read. If exceeded, the simulation stops with an error";
   output Real    dblOutVal[max(1, nDblOut)] "Double output values read from CYMDIST";
   external "C" pythonExchangeValuesCymdist(moduleName, functionName,
+                                    inputFileName,
                                     nDblInp, dblInpNam,
                                     dblInpVal, nDblOut,
                                     dblOutNam, dblOutVal,
