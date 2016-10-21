@@ -356,27 +356,29 @@ void pythonExchangeValuesCymdistNoModelica(const char * moduleName,
                           const char * functionName,
 						  const char * inputFileName,
 						  const size_t nDblWri, const char ** strWri, 
-						  double * dblValWri, size_t nDblRea, const char ** strRea, 
-						  double * dblValRea, size_t nDblParWri, 
-						  const char ** strParWri, double * dblValParWri,
+						  double * dblValWri, size_t nDblRea, const char ** strRea,
+						  const char ** strDevRea, double * dblValRea, size_t nDblParWri, 
+						  const char ** strParWri, double * dblValParWri, const int *resWri,
 			              void (*ModelicaFormatError)(const char *string,...))
 {
   PyObject *pName, *pModule, *pFunc;
-  PyObject *pArgsDbl, *pArgsStr;
+  PyObject *pArgsDbl,  *pArgsInt, *pArgsStr;
   PyObject *pArgs, *pValue;
   Py_ssize_t pIndVal;
   PyObject *pItemDbl;
   char* arg="";
   Py_ssize_t nStrWri = 0;
   Py_ssize_t nStrRea = 0;
+  Py_ssize_t nStrDevRea = 0;
   Py_ssize_t nStrParWri = 0;
   Py_ssize_t i;
   Py_ssize_t iArg = 0;
   // The number of arguments starts
-  // at 1 since we always have the 
-  // input file name of CYMDIST as 
-  // an argument.
-  Py_ssize_t nArg = 1;
+  // at 2 since we always have the 
+  // input file name of CYMDIST and 
+  // a flag to indicate if results 
+  // should be written as arguments.
+  Py_ssize_t nArg = 2;
   Py_ssize_t iRet = 0;
   Py_ssize_t nRet = 0;
   ////////////////////////////////////////////////////////////////////////////
@@ -448,7 +450,8 @@ The error message is \"%s\"",
 	  // for the vector of  output names to 
 	  // retrieve from CYMDIST.
 	  nStrRea = nDblRea;
-	  nArg++;
+	  nStrDevRea = nDblRea;
+	  nArg=nArg+2;
   }
   if (nDblParWri > 0){
 	  // Increase the number of arguments to 2
@@ -580,8 +583,42 @@ The error message is \"%s\"",
     iArg++;
   }
 
+  // e) Convert char **, an array of character arrays
+  if ( nStrDevRea > 0 ){
+    pArgsStr = PyList_New(nStrDevRea);
+    
+    for (i = 0; i < nStrDevRea; ++i) {
+      // Convert argument to a python float
+      //      Py_ssize_t len = 0;
+      // According to the Modelica Specification, strings are terminated by '\0'
+      // Seek the string length
+      //      while (strRea[i][len] != '\0')
+      //	len++;
+      
+      //      pValue = PyString_FromStringAndSize(strRea[i], len);
+      pValue =  PyString_FromString(strDevRea[i]);
+      if (!pValue) {
+	// Failed to convert argument.
+	Py_DECREF(pArgsStr);
+	Py_DECREF(pModule);
+	// According to the Modelica specification, 
+	// the function ModelicaError never returns to the calling function.
+	(*ModelicaFormatError)("Cannot convert string argument number %i to Python format.", i);
+      }
+      // pValue reference stolen here
+      PyList_SetItem(pArgsStr, i, pValue);
+    }
+    // If there is only a scalar string, then don't build a list.
+    // Just put the scalar value into the list of arguments.
+    if ( nStrDevRea == 1)
+	PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsStr, (Py_ssize_t)0));
+      else
+	PyTuple_SetItem(pArgs, iArg, pArgsStr);
+    iArg++;
+  }
+
   // Convert the arguments
-  // e) Convert double[]
+  // f) Convert double[]
   if (nDblParWri > 0){
 	  pArgsDbl = PyList_New(nDblParWri);
 	  for (i = 0; i < nDblParWri; ++i) {
@@ -607,7 +644,7 @@ The error message is \"%s\"",
 	  iArg++;
   }
 
-  // f) Convert char **, an array of character arrays
+  // g) Convert char **, an array of character arrays
   if (nStrParWri > 0){
 	  pArgsStr = PyList_New(nStrParWri);
 
@@ -640,6 +677,27 @@ The error message is \"%s\"",
 		  PyTuple_SetItem(pArgs, iArg, pArgsStr);
 	  iArg++;
   }
+
+  // h) Convert flag for writing results
+  pArgsInt = PyList_New(1);
+
+  // Convert argument to a python integer
+  pValue = PyLong_FromLong((long)resWri);
+  if (!pValue) {
+	  // Failed to convert argument.
+	  Py_DECREF(pArgsInt);
+	  Py_DECREF(pModule);
+	  // According to the Modelica specification,
+	  // the function ModelicaError never returns to the calling function.
+	  (*ModelicaFormatError)("Cannot convert integer argument %i to Python format.", resWri);
+  }
+  // pValue reference stolen here
+  PyList_SetItem(pArgsInt, 0, pValue);
+
+  // If there is only a scalar integer, then don't build a list.
+  // Just put the scalar value into the list of arguments
+  PyTuple_SetItem(pArgs, iArg, PyList_GetItem(pArgsInt, (Py_ssize_t)0));
+  iArg++;
 
   
   ////////////////////////////////////////////////////////////////////////////
