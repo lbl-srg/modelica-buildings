@@ -24,7 +24,7 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") if
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
      use_p_in "Pressure"
   annotation (
       Placement(
@@ -141,12 +141,10 @@ equation
           textString="inlet"),
         Line(
           points={{0,-100},{0,-60}},
-          color={0,0,255},
-          visible=use_p_in,
-          smooth=Smooth.None),
+          color={0,127,127}),
         Text(
           extent={{2,-76},{24,-94}},
-          lineColor={0,0,255},
+          lineColor={0,127,127},
           visible=use_p_in,
           textString="p")}),
     Documentation(info="<html>
@@ -169,6 +167,10 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 23, 2016, by Michael Wetter:<br/>
+Changed type of pressure output connector.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector
