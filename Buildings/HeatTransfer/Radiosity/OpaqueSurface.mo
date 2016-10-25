@@ -8,9 +8,6 @@ model OpaqueSurface "Model for an opaque surface"
     "Heat port of this surface" annotation (Placement(transformation(extent={{-10,
             -108},{10,-88}}), iconTransformation(extent={{-2,-108},{18,-88}})));
 protected
-  final parameter Real T03(
-    min=0,
-    final unit="K3") = T0^3 "3rd power of temperature T0";
   final parameter Real T04(
     min=0,
     final unit="K4") = T0^4 "4th power of temperature T0";
@@ -61,6 +58,11 @@ equation
 Model for the emissive power of an opaque surface.
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2016, by Michael Wetter:<br/>
+Removed declaration of <code>T03</code> as it is already declared
+in the base class.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
