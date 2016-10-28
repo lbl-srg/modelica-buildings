@@ -8,11 +8,13 @@ function cymdist "Function that communicates with Python"
   input Real    dblInpVal[max(1, nDblInp)] "Input variables values to be sent to CYMDIST";
   input Real    dblParVal[max(1, nDblPar)] "Parameter variables values to send to CYMDIST";
   input String  dblOutNam[max(1, nDblOut)] "Output variables names to be read from CYMDIST";
+  input String  dblOutDevNam[max(1, nDblOut)] "Output variables devices names to be read from CYMDIST";
   input String  dblInpNam[max(1, nDblInp)] "Input variables names to be sent to CYMDIST";
   input String  dblParNam[max(1, nDblPar)] "Parameter variables names to send to CYMDIST";
   input Integer nDblInp(min=0) "Number of double inputs to send to CYMDIST";
   input Integer nDblOut(min=0) "Number of double outputs to read from CYMDIST";
   input Integer nDblPar(min=0) "Number of double parameters to send to CYMDIST";
+  input Integer resWri  "Flag for enabling results writing. 1: write results, 0: else";
 //   input Integer strLenRea(min=0)
 //     "Maximum length of each string that is read. If exceeded, the simulation stops with an error";
   output Real    dblOutVal[max(1, nDblOut)] "Double output values read from CYMDIST";
@@ -20,9 +22,10 @@ function cymdist "Function that communicates with Python"
                                     inputFileName,
                                     nDblInp, dblInpNam,
                                     dblInpVal, nDblOut,
-                                    dblOutNam, dblOutVal,
-                                    nDblPar, dblParNam,
-                                    dblParVal)
+                                    dblOutNam, dblOutDevNam,
+                                    dblOutVal,nDblPar,
+                                    dblParNam,dblParVal,
+                                    resWri)
     annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
       LibraryDirectory={"modelica://Buildings/Resources/Library"},
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",

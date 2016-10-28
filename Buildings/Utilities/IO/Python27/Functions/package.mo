@@ -11,11 +11,13 @@ package Functions "Package with functions that call Python"
     input Real    dblInpVal[max(1, nDblInp)] "Input variables values to be sent to CYMDIST";
     input Real    dblParVal[max(1, nDblPar)] "Parameter variables values to send to CYMDIST";
     input String  dblOutNam[max(1, nDblOut)] "Output variables names to be read from CYMDIST";
+    input String  dblOutDevNam[max(1, nDblOut)] "Output variables devices names to be read from CYMDIST";
     input String  dblInpNam[max(1, nDblInp)] "Input variables names to be sent to CYMDIST";
     input String  dblParNam[max(1, nDblPar)] "Parameter variables names to send to CYMDIST";
     input Integer nDblInp(min=0) "Number of double inputs to send to CYMDIST";
     input Integer nDblOut(min=0) "Number of double outputs to read from CYMDIST";
     input Integer nDblPar(min=0) "Number of double parameters to send to CYMDIST";
+    input Integer resWri  "Flag for enabling results writing. 1: write results, 0: else";
 
     //   input Integer strLenRea(min=0)
     //     "Maximum length of each string that is read. If exceeded, the simulation stops with an error";
@@ -57,9 +59,11 @@ protected
         dblInpVal=dblInpVal,
         nDblOut=nDblOut,
         dblOutNam=dblOutNam,
+        dblOutDevNam=dblOutDevNam,
         nDblPar=nDblPar,
         dblParNam=dblParNam,
-        dblParVal=dblParVal);
+        dblParVal=dblParVal,
+        resWri=resWri);
     // Change the PYTHONPATH back to what it was so that the function has no
     // side effects.
     if havePytPat then
