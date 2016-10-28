@@ -6,8 +6,12 @@
 # Make sure that the python path is set, such as by running
 # export PYTHONPATH=`pwd`
 
-import cympy
 import function
+
+def main():
+    inputNames = {'VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C'}
+    inputValues = {7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564}
+    exchange_cymdist("HL0004.sxst", inputNames, inputValues, "", "", 0)
 
 def r1_r1(iS, uR, uS, yS, dyS, iwR):
     f = open("r1_r1.txt", 'w')
@@ -61,61 +65,12 @@ def exchange_cymdist(inputFileName, inputValues, inputNames,
     
     
     """
-    
-    # Open input file name
-    cympy.study.Open(inputFileName)
-    
-    # # Retrieve microPMU data at t
-    # udata = {'VMAG_A': 7287.4208984375,
-    #          'VMAG_B': 7299.921875,
-    #          'VMAG_C': 7318.2822265625,
-    #          'P_A': 7272.5364248477308,
-    #          'P_B': 2118.3817519608633,
-    #          'P_C': 6719.1867010705246,
-    #          'Q_A': -284.19075651498088,
-    #          'Q_B': -7184.1189935099919,
-    #          'Q_C': 3564.4269660296022,
-    #          'units': ('kW', 'kVAR', 'V')}
-    
-    # Create dicionary of input which is similar to udata
-    # Make sure that the units are OK here. We might have to 
-    # Check units here or do it in Python where the xml is provided.
-    # This might be better to avoid passing units to the functions.
-    input_data = {}
-    output_data = {}
-    outputs = []
-    for i in inputNames:
-        input_data{i}=inputValues[i]
-        
-    # Call functions to set inputs. 
-    # Is this one similar to load_allocation??
-    # Set input data in CYMDIST
-    function.set_inputs(input_data)
-
-    # Run a power flow
-    lf = cympy.sim.LoadFlow()
-    lf.Run()
-    
-    # Get output data from CYMDIST. 
-    # Make sure that outputs have the same order as the output names.
-    # The key name is the output name
-    # The key value is the device name.
-    # These two will be used to get the output value.
-    for i in outputNames:
-        output_data{i}=outputDeviceNames[i]
-    
-    # Get the outputs from CYMDIST
-    output_dict = function.get_outputs(output_data)
-    
-    for i in outputNames:
-        # This should be the values in listed output names
-        outputs.append(output_dict[i])
-    
-    # Write results
-    if(writeResults==1):
-        f = open(inputFileName+"_"+"Output"+".json", 'w')
-        f.write(output_dict)
-        f.close()
-    
+    # Call the CYMDIST wrapper
+    # eed for testing the names of outputs and devices
+    outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
+               outputNames, outputDeviceNames, writeResults)
     return outputs
 
+if __name__ == '__main__':
+    # Try running this module!
+    main()
