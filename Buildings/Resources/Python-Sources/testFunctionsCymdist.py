@@ -66,7 +66,10 @@ def exchange_cymdist(inputFileName, inputValues, inputNames,
     
     """
     # Call the CYMDIST wrapper
-    # eed for testing the names of outputs and devices
+    # Need for testing the names of outputs and devices
+    # To use the warpper, the user will need to set the 
+    # Pythonpath to a folder which contains the testFunctionsCymdist,
+    # function.py and the cympy folder.
     outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults)
     return outputs
