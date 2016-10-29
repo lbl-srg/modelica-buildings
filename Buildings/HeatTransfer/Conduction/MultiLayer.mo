@@ -153,6 +153,12 @@ and the temperature state.
 </html>", revisions="<html>
 <ul>
 <li>
+October 29, 2016, by Michael Wetter:<br/>
+Added option to place a state at the surface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
+<li>
 September 24, 2015 by Michael Wetter:<br/>
 Set the start value of <code>T</code>.
 This is for

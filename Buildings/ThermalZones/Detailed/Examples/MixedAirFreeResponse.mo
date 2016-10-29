@@ -178,6 +178,14 @@ Buildings.ThermalZones.Detailed.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 29, 2016, by Michael Wetter:<br/>
+Changed example to to place a state at the surface,
+and removed computation of the wet bulb temperature
+as it is not needed.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
+<li>
 March 26, 2015, by Michael Wetter:<br/>
 Set initialization of <code>conOut</code>
 to be steady-state initialization.

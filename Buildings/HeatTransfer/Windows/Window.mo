@@ -565,6 +565,12 @@ Validation of the window model of the Modelica Buildings library.</a>
 </html>", revisions="<html>
 <ul>
 <li>
+October 29, 2016, by Michael Wetter:<br/>
+Added option to place a state at the surface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
+<li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error
 in OpenModelica.
