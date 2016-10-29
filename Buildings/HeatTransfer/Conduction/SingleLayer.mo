@@ -293,6 +293,12 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 revisions="<html>
 <ul>
 <li>
+October 29, 2016, by Michael Wetter:<br/>
+Added option to place a state at the surface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
+<li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
 This is for
