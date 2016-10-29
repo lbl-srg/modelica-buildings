@@ -71,11 +71,11 @@ model MixedAirFreeResponse "Free response of room model"
            each absIR=0.9,
            each absSol=0.9,
            each til=Buildings.Types.Tilt.Wall),
-    linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722,
-    T_start=273.15+22) "Room model"
+    T_start=273.15+22,
+    lat=0.73268921998722)
+                       "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -87,7 +87,8 @@ model MixedAirFreeResponse "Free response of room model"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -106,7 +107,9 @@ model MixedAirFreeResponse "Free response of room model"
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     each A=6*4,
     each layers=matLayPar,
-    each steadyStateInitial=true)
+    each steadyStateInitial=true,
+    each placeCapacityAtSurf_a=true,
+    each placeCapacityAtSurf_b=false)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
@@ -131,7 +134,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{22,50},{22,48},{44,48}},
+      points={{1,50},{22,50},{22,48},{44.4,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -157,7 +160,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{44,56},{40,56},{40,100},{31,100}},
+      points={{44.4,58},{40,58},{40,100},{31,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.ports[1], boundary.ports[1]) annotation (Line(
