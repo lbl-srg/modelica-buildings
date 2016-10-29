@@ -55,7 +55,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final fFra=datConExtWin.fFra,
     final glaSys=datConExtWin.glaSys,
     each final homotopyInitialization=homotopyInitialization,
-    each final linearizeRadiation=linearizeRadiation) if haveConExtWin
+    each final linearizeRadiation=linearizeRadiation,
+    each final steadyStateWindow=steadyStateWindow) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
   Constructions.Construction conPar[NConPar](
@@ -64,7 +65,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     final layers={datConPar[i].layers for i in 1:NConPar},
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
-    T_b_start=datConPar.T_b_start) if haveConPar
+    T_b_start=datConPar.T_b_start,
+    each opa(placeCapacityAtSurf_a=true,
+             placeCapacityAtSurf_b=true)) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{282,-122},{244,-84}})));
   Constructions.Construction conBou[NConBou](
@@ -73,11 +76,16 @@ partial model RoomHeatMassBalance "Base model for a room"
     final layers={datConBou[i].layers for i in 1:NConBou},
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
-    T_b_start=datConBou.T_b_start) if haveConBou
+    T_b_start=datConBou.T_b_start,
+    each opa(placeCapacityAtSurf_b=true)) if haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{282,-156},{242,-116}})));
   parameter Boolean linearizeRadiation=true
     "Set to true to linearize emissive power";
+
+  parameter Boolean steadyStateWindow = false
+    "Set to false to add thermal capacity at window, which generally leads to faster simulation"
+    annotation (Dialog(tab="Dynamics", group="Glazing system"));
   ////////////////////////////////////////////////////////////////////////
   // Convection
   parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
@@ -837,6 +845,14 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Added optional capacity at the room-facing surface
+to reduce the dimension of the nonlinear system of equations,
+which generally decreases computing time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected error in annotation to enable the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
