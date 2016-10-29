@@ -7,17 +7,28 @@ model SingleLayer "Model for single layer heat conductance"
   // The value T[:].start is used by the solver when finding initial states
   // that satisfy dT/dt=0, which requires solving a system of nonlinear equations
   // if the convection coefficient is a function of temperature.
-  Modelica.SIunits.Temperature T[nSta](start=
-     {T_a_start+(T_b_start-T_a_start) * UA *
-        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
-      each nominal = 300) "Temperature at the states";
+  Modelica.SIunits.Temperature T[nSta](start={T_a_start + (T_b_start -
+        T_a_start)*UA*sum((if (k == 1 or k == nSta + 1) then RnSta_a else RnSta)
+        for k in 1:i) for i in 1:nSta}, each nominal=300)
+    "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
-  Modelica.SIunits.SpecificInternalEnergy u[nSta](start=
-     material.c*{T_a_start+(T_b_start-T_a_start) * UA *
-        sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i) for i in 1:nSta},
-        each nominal = 270000)
-    "Definition of specific internal energy (enthalpy in solids)!";
+  Modelica.SIunits.SpecificInternalEnergy u[nSta](start=material.c*{T_a_start +
+        (T_b_start - T_a_start)*UA*sum((if (k == 1 or k == nSta + 1) then
+        RnSta_a else RnSta) for k in 1:i) for i in 1:nSta}, each nominal=270000)
+    "Definition of specific internal energy";
+
+  // fixme: the parameter below is for testing only and may be removed
+  //        for the production release
+  parameter Boolean placeCapacityAtSurf_a=false
+    "Set to true to place the capacity at the surface a of the layer"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+  parameter Boolean placeCapacityAtSurf_b=false
+    "Set to true to place the capacity at the surface a of the layer"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+
   replaceable parameter Data.BaseClasses.Material material
     "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
@@ -38,11 +49,17 @@ protected
     "Number of state variables";
   final parameter Modelica.SIunits.ThermalResistance RnSta = R/nSta
     "Thermal resistance between nodes";
-  final parameter Modelica.SIunits.ThermalResistance RnSta2 = RnSta/2
-    "Thermal resistance between nodes and surface boundary";
+  final parameter Modelica.SIunits.ThermalResistance RnSta_a=
+    if placeCapacityAtSurf_a then 0 else RnSta/2
+    "Thermal resistance between nodes and surface a";
+
+  final parameter Modelica.SIunits.ThermalResistance RnSta_b=
+    if placeCapacityAtSurf_b then 0 else RnSta/2
+    "Thermal resistance between nodes and surface b";
 
   parameter Modelica.SIunits.Mass m = A*material.x*material.d/material.nSta
     "Mass associated with the temperature state";
+    // fixme: make sure C is correct if the temperature node is on the surface
   final parameter Modelica.SIunits.HeatCapacity C = m*material.c
     "Heat capacity associated with the temperature state";
   final parameter Real CInv = if material.steadyState then 0 else 1/C
@@ -66,15 +83,18 @@ initial equation
         end if;
       else
         for i in 1:nSta loop
-          T[i] = T_a_start+(T_b_start-T_a_start) * UA *
-            sum((if (k==1 or k==nSta+1) then RnSta2 else RnSta) for k in 1:i);
+          T[i] =T_a_start + (T_b_start - T_a_start)*UA*sum((
+            if (k == 1) then RnSta_a
+            elseif (k == nSta + 1) then RnSta_b
+            else RnSta)
+              for k in 1:i);
         end for;
       end if;
     end if;
 
    if material.phasechange then
      (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-       c=   material.c,
+       c =  material.c,
        TSol=material.TSol,
        TLiq=material.TLiq,
        LHea=material.LHea,
@@ -88,8 +108,8 @@ equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[nSta+1];
 
-    port_a.T-T[1] = Q_flow[1]*RnSta2;
-    T[nSta] -port_b.T = Q_flow[nSta+1]*RnSta2;
+    port_a.T-T[1] =if placeCapacityAtSurf_a then 0 else Q_flow[1]*RnSta_a;
+    T[nSta] -port_b.T = if placeCapacityAtSurf_b then 0 else Q_flow[nSta + 1]*RnSta_b;
 
     for i in 2:nSta loop
        // Q_flow[i] is heat flowing from (i-1) to (i)
@@ -136,45 +156,48 @@ equation
 
   annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-94,4},{92,-4}},
-          lineColor={0,0,0},
-          fillColor={191,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{12,8},{14,8},{16,4},{18,-2},{18,-6},{16,-12},{10,-16},{6,-20},
-              {-2,-22},{-6,-18},{-12,-12},{-14,-2},{-12,4},{-10,8},{-8,10},{-6,
-              12},{-2,14},{2,14},{8,12},{12,8}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-6,-16},{2,-18},{8,-16},{14,-14},{10,-16},{6,-20},{-2,-22},{
-              -8,-20},{-12,-12},{-14,-2},{-12,4},{-10,8},{-8,10},{-10,0},{-10,-8},
-              {-6,-16}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-60,54},{-42,-60}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
         Text(
-          extent={{-100,-74},{6,-92}},
+          extent={{-100,-80},{6,-98}},
           lineColor={0,0,255},
-          textString="%x"),
-        Rectangle(
-          extent={{44,54},{62,-60}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
+          textString="%material.x"),
         Text(
-          extent={{8,-68},{86,-98}},
+          extent={{8,-74},{86,-104}},
           lineColor={0,0,255},
-          textString="%nSta")}),
+          textString="%nSta"),
+   Rectangle(
+    extent={{-60,80},{60,-80}},     fillColor={215,215,215},
+   fillPattern=FillPattern.Solid,    lineColor={175,175,175}),
+   Line(points={{-92,0},{90,0}},      color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),
+   Line(points={{8,-40},{-6,-40}},        color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),
+   Line(points={{14,-32},{-12,-32}},      color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),            Line(
+          points={{0,0},{0,-32}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),       Rectangle(extent={{-40,6},{-20,-6}},
+   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
+   fillPattern = FillPattern.Solid), Rectangle(extent={{20,6},{40,-6}},
+   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
+   fillPattern = FillPattern.Solid),
+   Line(points={{66,-40},{52,-40}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=placeCapacityAtSurf_b),
+   Line(points={{72,-32},{46,-32}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=placeCapacityAtSurf_b),            Line(points={{59,0},{59,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
+   visible=placeCapacityAtSurf_b),
+   Line(points={{-59,0},{-59,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
+   visible=placeCapacityAtSurf_a),
+   Line(points={{-46,-32},{-72,-32}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=placeCapacityAtSurf_a),
+   Line(points={{-52,-40},{-66,-40}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=placeCapacityAtSurf_a)}),
 defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single layer of homogeneous material
