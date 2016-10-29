@@ -65,19 +65,19 @@ partial model RoomHeatMassBalance "Base model for a room"
     final layers={datConPar[i].layers for i in 1:NConPar},
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
-    T_b_start=datConPar.T_b_start,
-    each opa(placeCapacityAtSurf_a=true,
-             placeCapacityAtSurf_b=true)) if haveConPar
+    T_b_start=datConPar.T_b_start) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{282,-122},{244,-84}})));
+  // For conBou, we set a state on both surfaces. Otherwise, if two
+  // rooms are connected through this element, there will be
+  // a nonlinear system of equation
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
     til=datConBou.til,
     final layers={datConBou[i].layers for i in 1:NConBou},
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
-    T_b_start=datConBou.T_b_start,
-    each opa(placeCapacityAtSurf_b=true)) if haveConBou
+    T_b_start=datConBou.T_b_start) if haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{282,-156},{242,-116}})));
   parameter Boolean linearizeRadiation=true
