@@ -207,7 +207,7 @@ equation
 This model tests the correct initialization of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a>.
-The air temperature should start at <i>10</i>&circ; C
+The air temperature should start at <i>-15</i>&circ; C
 and remain there.
 </p>
 <p>
@@ -233,6 +233,10 @@ These are of course only solved within the solver tolerance.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Corrected error in the documentation.
+</li>
 <li>
 March 26, 2015, by Michael Wetter:<br/>
 First implementation based on
