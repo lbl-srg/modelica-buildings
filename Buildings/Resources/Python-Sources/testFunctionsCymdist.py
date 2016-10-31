@@ -11,7 +11,7 @@ import function
 def main():
     inputNames = {'VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C'}
     inputValues = {7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564}
-    exchange_cymdist("HL0004.sxst", inputNames, inputValues, "", "", 0)
+    exchange("HL0004.sxst", inputNames, inputValues, "", "", 0)
 
 def r1_r1(iS, uR, uS, yS, dyS, iwR):
     f = open("r1_r1.txt", 'w')
@@ -51,7 +51,7 @@ def r2p2_r2(iS, uR, uS, yS, dyS, parR, parS, iwR):
     f.close()
     return [uR[0] *parR[0],  uR[1]*parR[1]]
     
-def exchange_cymdist(inputFileName, inputValues, inputNames, 
+def exchange(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults):
     
     """
@@ -67,7 +67,7 @@ def exchange_cymdist(inputFileName, inputValues, inputNames,
     """
     # Call the CYMDIST wrapper
     # Need for testing the names of outputs and devices
-    # To use the warpper, the user will need to set the 
+    # To use the wrapper, the user will need to set the 
     # Pythonpath to a folder which contains the testFunctionsCymdist,
     # function.py and the cympy folder.
     outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
