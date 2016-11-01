@@ -9,9 +9,11 @@
 import function
 
 def main():
-    inputNames = {'VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C'}
-    inputValues = {7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564}
-    exchange("HL0004.sxst", inputNames, inputValues, "", "", 0)
+    inputNames = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
+    inputValues = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
+    outputNames = ['voltage_A', 'voltage_B', 'voltage_C']
+    outputDeviceNames = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
+    exchange("HL0004.sxst", inputNames, inputValues, outputNames, outputDeviceNames, 0)
 
 def r1_r1(iS, uR, uS, yS, dyS, iwR):
     f = open("r1_r1.txt", 'w')
@@ -72,6 +74,7 @@ def exchange(inputFileName, inputValues, inputNames,
     # function.py and the cympy folder.
     outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults)
+    print "This is the outputs returned from CYMDIST " + str(outputs)
     return outputs
 
 if __name__ == '__main__':
