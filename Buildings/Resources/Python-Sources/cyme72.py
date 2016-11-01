@@ -14,44 +14,6 @@ def main():
     outputNames = ['voltage_A', 'voltage_B', 'voltage_C']
     outputDeviceNames = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
     exchange("HL0004.sxst", inputNames, inputValues, outputNames, outputDeviceNames, 0)
-
-def r1_r1(iS, uR, uS, yS, dyS, iwR):
-    f = open("r1_r1.txt", 'w')
-    f.write(str(iS) + " " + str(uR) + " " + str(uS) + 
-    " " + str(yS) + " " + str(dyS) + " " + str(iwR))
-    f.close()
-    return uR
-    
-def r2_r1(iS, uR, uS, yS, dyS, iwR):
-    f = open("r2_r1.txt", 'w')
-    f.write(str(iS) + " " + str(uR) + " " + str(uS) + 
-    " " + str(yS) + " " + str(dyS) + " " + str(iwR))
-    f.close()
-    return uR[0] + uR[1]
-    
-def par3_r1(iS, yS, dyS, parR, parS, iwR):
-    f = open("par3_r1.txt", 'w')
-    f.write(str(iS) + " " + str(yS) + " " + str(dyS) + 
-    " " + str(parR) + " " + str(parS) + " " + str(iwR))
-    f.close()
-    return parR[0] + parR[1] + parR[2]   
-    
-def r1_r2(iS, uR, uS, yS, dyS, iwR):
-    f = open("r1_r2.txt", 'w')
-    f.write(str(iS) + " " + str(uR) + " " + str(uS) + 
-    " " + str(yS) + " " + str(dyS) + " " + str(iwR))
-    f.close()
-    return [uR,  uR*2]       
-    
-def r2p2_r2(iS, uR, uS, yS, dyS, parR, parS, iwR):
-    f = open("r2_r2.txt", 'w')
-    f.write("The input file name is: " + iS + "." +
-            " The input names are: " + uS[0] + ", " + uS[1] + "." +
-            " The output names are: " + yS[0] + ", " + yS[1] + "." + 
-            " The device output names are: " + dyS[0] + ", " + dyS[1] + "." + 
-            " The parameter names are: " + parS[0] + ", " + parS[1])
-    f.close()
-    return [uR[0] *parR[0],  uR[1]*parR[1]]
     
 def exchange(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults):
@@ -74,7 +36,7 @@ def exchange(inputFileName, inputValues, inputNames,
     # function.py and the cympy folder.
     outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults)
-    print "This is the outputs returned from CYMDIST " + str(outputs)
+    print ("This is the outputs returned from CYMDIST " + str(outputs))
     return outputs
 
 if __name__ == '__main__':

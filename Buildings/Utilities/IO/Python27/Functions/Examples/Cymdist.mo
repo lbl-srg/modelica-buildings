@@ -14,7 +14,7 @@ model Cymdist "Test model for cymdist function"
 algorithm
 
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-    moduleName="testFunctionsCymdist",
+    moduleName="testCymdist",
     functionName="r1_r1",
     inputFileName=inputFileName,
     nDblInp=1,
@@ -22,7 +22,7 @@ algorithm
     dblInpVal={15.0},
     nDblOut=1,
     dblOutNam={"y"},
-    dblDevOutNam={"dev"},
+    dblOutDevNam={"dev"},
     nDblPar=0,
     dblParNam={""},
     dblParVal={0.0},
@@ -30,7 +30,7 @@ algorithm
   assert(abs(15 - yR1[1]) < 1e-5, "Error in function r1_r1");
 
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-    moduleName="testFunctionsCymdist",
+    moduleName="testCymdist",
     functionName="r2_r1",
     inputFileName=inputFileName,
     nDblInp=2,
@@ -38,7 +38,7 @@ algorithm
     dblInpVal={15.0,30.0},
     nDblOut=1,
     dblOutNam={"y"},
-    dblDevOutNam={"dev"},
+    dblOutDevNam={"dev"},
     nDblPar=0,
     dblParNam={""},
     dblParVal={0.0},
@@ -46,7 +46,7 @@ algorithm
   assert(abs(45 - yR1[1]) < 1e-5, "Error in function r2_r1");
 
   yR1 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-    moduleName="testFunctionsCymdist",
+    moduleName="testCymdist",
     functionName="par3_r1",
     inputFileName=inputFileName,
     nDblInp=0,
@@ -54,7 +54,7 @@ algorithm
     dblInpVal={0},
     nDblOut=1,
     dblOutNam={"y"},
-    dblDevOutNam={"dev"},
+    dblOutDevNam={"dev"},
     nDblPar=3,
     dblParNam={"par1","par2","par3"},
     dblParVal={1.0,2.0,3.0},
@@ -62,7 +62,7 @@ algorithm
   assert(abs(6 - yR1[1]) < 1e-5, "Error in function par3_r1");
 
   yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-    moduleName="testFunctionsCymdist",
+    moduleName="testCymdist",
     functionName="r1_r2",
     inputFileName=inputFileName,
     nDblInp=1,
@@ -70,7 +70,7 @@ algorithm
     dblInpVal={30.0},
     nDblOut=2,
     dblOutNam={"y","y1"},
-    dblDevOutNam={"dev","dev1"},
+    dblOutDevNam={"dev","dev1"},
     nDblPar=0,
     dblParNam={""},
     dblParVal={0.0},
@@ -78,7 +78,7 @@ algorithm
   assert(abs(yR2[1] - 30) + abs(yR2[2] - 60) < 1E-5, "Error in function r1_r2");
 
   yR2 := Buildings.Utilities.IO.Python27.Functions.cymdist(
-    moduleName="testFunctionsCymdist",
+    moduleName="testCymdist",
     functionName="r2p2_r2",
     inputFileName=inputFileName,
     nDblInp=2,
@@ -86,7 +86,7 @@ algorithm
     dblInpVal={1.0,2.0},
     nDblOut=2,
     dblOutNam={"y","y1"},
-    dblDevOutNam={"dev","dev1"},
+    dblOutDevNam={"dev","dev1"},
     nDblPar=2,
     dblParNam={"par1","par2"},
     dblParVal={1.0,10.0},
@@ -99,9 +99,9 @@ algorithm
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example calls various functions in the Python module <code>testFunctionsCymdist.py</code>.
+This example calls various functions in the Python module <code>testCymdist.py</code>.
 It tests whether arguments and return values are passed correctly.
-The functions in  <code>testFunctionsCymdist.py</code> are very simple in order to test
+The functions in  <code>testCymdist.py</code> are very simple in order to test
 whether they compute correctly, and whether the data conversion between Modelica and
 Python is implemented correctly.
 Each call to Python is followed by an <code>assert</code> statement which terminates
