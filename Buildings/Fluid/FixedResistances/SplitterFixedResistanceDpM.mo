@@ -144,7 +144,7 @@ October 14, 2016 by Michael Wetter:<br/>
 Added to Annex 60 library.<br/>
 Updated comment for parameter <code>use_dh</code>.<br/>
 This is for
-<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
 </li>
 <li>
 Removed parameter <code>dynamicBalance</code> that overwrote the setting

@@ -1,7 +1,6 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model SplitterFixedResistanceDpM
   "Test model for the three way splitter/mixer model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium model";
@@ -95,6 +94,10 @@ each flow leg between <i>t = 0</i> seconds to <i>t = 100</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2017, by Michael Wetter:<br/>
+Removed import statement.
+</li>
 <li>
 October 14, 2017 by Michael Wetter:<br/>
 Updated documentation and added to Annex 60 library.<br/>
