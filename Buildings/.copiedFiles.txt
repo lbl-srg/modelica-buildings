@@ -737,9 +737,6 @@ Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.tiff
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.png
 Buildings/Resources/Images/Fluid/Sensors/twoPortHex.tiff
-Buildings/Resources/Images/Fluid/UsersGuide/a60.graphml
-Buildings/Resources/Images/Fluid/UsersGuide/a60.pdf
-Buildings/Resources/Images/Fluid/UsersGuide/a60.png
 Buildings/Resources/Images/Media/Water/plotCp.pdf
 Buildings/Resources/Images/Media/Water/plotCp.png
 Buildings/Resources/Images/Media/Water/plotCp.py
