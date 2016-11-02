@@ -3,19 +3,8 @@ model VDI6007WithWindow
   "Equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
   extends BaseClasses.PartialVDI6007;
 
-  parameter Modelica.SIunits.Emissivity aWin
-    "Coefficient of absorption of the windows";
-  parameter Modelica.SIunits.Emissivity eWin
-    "Coefficient of emission of the windows";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut
     "Windows' convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWin
-    "Coefficient of heat transfer for linearized radiation for windows";
-
-  Modelica.SIunits.TemperatureDifference delTEqLWWin
-    "Equivalent long wave temperature for windows";
-  Modelica.SIunits.TemperatureDifference delTEqSWWin[n]
-    "Eqiuvalent short wave temperature for windows";
 
   Modelica.Blocks.Interfaces.RealOutput TEqAirWin(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
@@ -31,21 +20,16 @@ initial equation
   Normally, the sum should be 1.", level=AssertionLevel.warning);
 
 equation
-  delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRadWall/(alphaRadWall+alphaWallOut));
-  delTEqLWWin=(TBlaSky-TDryBul)*(eWin*alphaRadWin/(alphaRadWin+alphaWinOut));
-  delTEqSW=HSol*aExt/(alphaRadWall+alphaWallOut);
-  delTEqSWWin=HSol*aWin/(alphaRadWin+alphaWinOut);
-  if withLongwave then
-    TEqWin=TDryBul.+(delTEqLWWin.+delTEqSWWin).*abs(sunblind.-1);
-    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
-  else
-    TEqWin=TDryBul.+delTEqSWWin.*abs(sunblind.-1);
-    TEqWall=TDryBul.+delTEqSW;
-  end if;
+  delTEqLWWin=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWinOut);
   TEqAir = TEqWall*wfWall + TGro*wfGro;
   TEqAirWin = TEqWin*wfWin;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Moved calculations to <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007\">
+  Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007</a>.
+  </li>
   <li>September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality
   and used assert for warnings.<br/>

@@ -1,7 +1,6 @@
-within Buildings.Fluid.FixedResistances.Examples;
-model SplitterFixedResistanceDpM
-  "Test model for the three way splitter/mixer model"
-  import Buildings;
+within Buildings.Fluid.FixedResistances.Validation;
+model SplitterFixedResistanceDpMSteadyState
+  "Test model for the three way splitter/mixer model configured as steady-state"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air "Medium model";
@@ -10,7 +9,7 @@ model SplitterFixedResistanceDpM
     redeclare package Medium = Medium,
     m_flow_nominal={1,2,3},
     dp_nominal = {5,10,15},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Splitter"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)  "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
@@ -39,29 +38,30 @@ model SplitterFixedResistanceDpM
     offset=101320,
     height=10,
     duration=20,
-    startTime=20)
-    "Ramp pressure signal"
+    startTime=20) "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
     Modelica.Blocks.Sources.Ramp P3(
       offset=101320,
       height=10,
     duration=20,
-    startTime=70)
-    "Ramp pressure signal"
+    startTime=70) "Ramp pressure signal"
     annotation (Placement(transformation(extent={{-92,-62},{-72,-42}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1)
+    m_flow_nominal=1,
+    tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
-    m_flow_nominal=2)
+    m_flow_nominal=2,
+    tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(
     redeclare package Medium = Medium,
-    m_flow_nominal=3)
+    m_flow_nominal=3,
+    tau=0)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 equation
@@ -84,27 +84,24 @@ equation
   connect(senTem2.port_b, bou2.ports[1])
     annotation (Line(points={{60,0},{70,0}},        color={0,127,255}));
   annotation (experiment(StopTime=100.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/SplitterFixedResistanceDpM.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/SplitterFixedResistanceDpMSteadyState.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model demonstrates the use of the splitter and mixer model
+This model validates the use of the splitter and mixer model
 for different flow directions.
 The example is configured such that the flow changes its direction in
 each flow leg between <i>t = 0</i> seconds to <i>t = 100</i> seconds.
+The splitter model has been configured as a steady-state model.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 14, 2017 by Michael Wetter:<br/>
-Updated documentation and added to Annex 60 library.<br/>
+October 14, 2016, by Michael Wetter:<br/>
+First implementation.<br/>
 This is for
 <a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
 </li>
-<li>
-July 20, 2007 by Michael Wetter:<br/>
-First implementation.
-</li>
 </ul>
 </html>"));
-end SplitterFixedResistanceDpM;
+end SplitterFixedResistanceDpMSteadyState;

@@ -100,6 +100,7 @@ initial equation
   m_start = {vol.m, vol1.m,vol2.m};
   U_start = {vol.U, vol1.U,vol2.U};
 
+
 equation
   connect(add.u1, mWatFlo2.y) annotation (Line(
       points={{-42,-78},{-70,-78},{-70,-50},{-79,-50}},
@@ -111,8 +112,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(add3Vap.y, assMasFra.u2) annotation (Line(
-      points={{81,-50},{100.25,-50},{100.25,-44},{138,-44}},
+  connect(add3Vap.y,cheMasFra.u2)  annotation (Line(
+      points={{81,-50},{110.25,-50},{110.25,-44},{138,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masVapVol.y,add3Vap. u2) annotation (Line(
@@ -131,7 +132,7 @@ equation
       points={{70,9},{70,10},{50,10},{50,2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add3Mass.y, assMasFlo.u2) annotation (Line(
+  connect(add3Mass.y,cheMasFlo.u2)  annotation (Line(
       points={{81,-130},{100,-130},{100,-124},{138,-124}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -147,7 +148,7 @@ equation
       points={{-2,-150},{-19,-150}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add3Ent.y, assSpeEnt.u2) annotation (Line(
+  connect(add3Ent.y,cheSpeEnt.u2)  annotation (Line(
       points={{81,-212},{100.25,-212},{100.25,-204},{138,-204}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -216,6 +217,13 @@ for a discussion.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.

@@ -10,7 +10,7 @@ model MediumColumn
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(

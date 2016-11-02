@@ -28,8 +28,8 @@ model FourElements "Thermal Zone with four elements for exterior walls,
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roof if ARoof > 0
     "Ambient port for roof"
-      annotation (Placement(transformation(extent={{-22,
-      160},{-2,180}}), iconTransformation(extent={{-22,160},{-2,180}})));
+      annotation (Placement(transformation(extent={{-21,170},{-1,190}}),
+                       iconTransformation(extent={{-21,170},{-1,190}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if
      indoorPortRoof "Auxilliary port at indoor surface of roof"
       annotation (Placement(
@@ -93,9 +93,11 @@ protected
 
 equation
   connect(convRoof.solid, roofRC.port_b)
-    annotation (Line(points={{-12,130},{-12,144}},   color={191,0,0}));
+    annotation (Line(points={{-12,130},{-12,138},{-12,145},{-11,145}},
+                                                     color={191,0,0}));
   connect(roofRC.port_a, roof)
-    annotation (Line(points={{-12,164},{-12,170}},   color={191,0,0}));
+    annotation (Line(points={{-11,165},{-11,168},{-11,180}},
+                                                     color={191,0,0}));
   connect(resRoofWin.port_a, convWin.solid)
     annotation (Line(points={{-164,100},{-174,100},{-174,82},{-146,82},{-146,40},
           {-116,40}},                                         color={191,
@@ -154,10 +156,10 @@ equation
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
     connect(thermSplitterSolRad.portOut[5], roofRC.port_b)
     annotation (Line(
-    points={{-122,146},{-122,146},{-38,146},{-38,142},{-12,142},{-12,144}},
+    points={{-122,146},{-122,146},{-38,146},{-38,142},{-11,142},{-11,145}},
     color={191,0,0}));
     connect(thermSplitterIntGains.portOut[5], roofRC.port_b)
-    annotation (Line(points={{190,86},{190,86},{190,138},{-12,138},{-12,144}},
+    annotation (Line(points={{190,86},{190,86},{190,138},{-11,138},{-11,145}},
     color={191,0,0}));
   end if;
   connect(alphaRoofConst.y, convRoof.Gc)
@@ -167,8 +169,8 @@ equation
     annotation (Line(points={{-12,110},{-12,110},{-12,96},{66,96},{66,0},{80,0}},
                                                  color={191,0,0}));
   connect(roofRC.port_b, roofIndoorSurface)
-    annotation (Line(points={{-12,144},{-12,136},{-112,136},{-112,112},{-216,112},
-          {-216,-140},{-40,-140},{-40,-180}},
+    annotation (Line(points={{-11,145},{-11,136},{-112,136},{-112,112},{-216,
+          112},{-216,-140},{-40,-140},{-40,-180}},
     color={191,0,0}));
   annotation (defaultComponentName="theZon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
@@ -191,7 +193,7 @@ equation
   pattern=LinePattern.None,
   fillColor={230,230,230},
   fillPattern=FillPattern.Solid), Text(
-  extent={{-70,74},{54,-50}},
+  extent={{-60,60},{64,-64}},
   lineColor={0,0,0},
   textString="4")}),
   Documentation(revisions="<html>
