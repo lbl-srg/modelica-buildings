@@ -82,10 +82,12 @@ model Window "Model for a window"
   annotation (Placement(transformation(extent={{190,-30}, {210,-10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
-    "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-210,
+    "Heat port at frame of exterior-facing surface"
+    annotation (Placement(transformation(extent={{-210,
             -170},{-190,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
-    "Heat port at frame of room-facing surface"                                       annotation (Placement(transformation(extent={{192,
+    "Heat port at frame of room-facing surface"
+     annotation (Placement(transformation(extent={{192,
             -170},{212,-150}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
        haveShade
@@ -95,7 +97,7 @@ model Window "Model for a window"
   Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
-                                                       annotation (Placement(
+     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -107,7 +109,7 @@ model Window "Model for a window"
      each unit="W",
      each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
-                                        annotation (Placement(transformation(
+   annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-220}), iconTransformation(
@@ -115,17 +117,20 @@ model Window "Model for a window"
         rotation=90,
         origin={80,-220})));
 
-  HeatCapacity capGlaUns(C=AGla*0.003*2000*800, der_T(fixed=true)) if
-       not steadyState
+  Buildings.HeatTransfer.Windows.BaseClasses.HeatCapacity capGla(
+    final haveShade=glaSys.haveExteriorShade or glaSys.haveInteriorShade,
+    C=AGla*glaSys.glass[1].x*matGla.d*matGla.c,
+    der_TUns(fixed=true),
+    der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade)) if
+         not steadyState
     "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
     annotation (Placement(transformation(rotation=0, extent={{130,38},{150,58}})));
-  HeatCapacity capGlaSha(C=AGla*0.003*2000*800, der_T(fixed=true)) if
-       haveShade and (not steadyState)
-    "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
-    annotation (Placement(transformation(rotation=0, extent={{128,-10},{148,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFra(C=AFra*0.03*500
-        *1200, der_T(fixed=true)) if
-        not steadyState
+  // We assume the frame is made of wood. Data are used for Plywood, as
+  // this is an order of magnitude estimate for the heat capacity of the frame,
+  // which is only used to avoid algebraic loops in the room model.
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFra(
+    der_T(fixed=true), C=AFra*matFra.x*matFra.d*matFra.c) if
+         not steadyState
     "Heat capacity of frame on room-side, used to reduce nonlinear system of equations"
     annotation (Placement(transformation(extent={{130,-142},{150,-122}})));
 
@@ -138,6 +143,15 @@ protected
     "Block to constrain the shading control signal to be strictly within (0, 1) if a shade is present"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 
+  parameter Data.Solids.Plywood matFra(x=0.03)
+    "Thermal properties of frame (used to avoid algebraic loops in room model)"
+    annotation (Placement(transformation(extent={{108,174},{128,194}})));
+  parameter Data.Solids.Glass matGla(
+    x=glaSys.glass[end].x,
+    nSta=1,
+    nStaReal=1)
+    "Material properties for thermal capacity of room-facing glass (used to avoid algebraic loops in room model)"
+    annotation (Placement(transformation(extent={{108,150},{128,170}})));
 equation
   connect(frame.port_a, fra_a) annotation (Line(
       points={{-10,-160},{-200,-160}},
@@ -221,82 +235,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(capGlaUns.port, glaUns_b) annotation (Line(points={{140,38},{140,38},
-          {140,32},{140,20},{200,20}}, color={191,0,0}));
-protected
-  model HeatCapacity
-    extends Buildings.BaseClasses.BaseIcon;
-
-    parameter Modelica.SIunits.HeatCapacity C
-      "Heat capacity of element (= cp*m) if u = 1";
-
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port annotation (
-        Placement(transformation(rotation=0, extent={{-5,-105},{5,-95}}),
-          iconTransformation(extent={{-5,-105},{5,-95}})));
-
-    Modelica.Blocks.Interfaces.RealInput u
-    "Input u, which scales the value of the capacity"
-    annotation (Placement(transformation(
-            extent={{-140,-20},{-100,20}}),
-            iconTransformation(extent={{-140,-20},
-              {-100,20}})));
-
-    Modelica.SIunits.Temperature T(
-      start=293.15,
-      displayUnit="degC")
-      "Temperature of element";
-
-    Modelica.SIunits.TemperatureSlope der_T(start=0)
-      "Time derivative of temperature (= der(T))";
-  protected
-    final parameter Real CInv(unit="K/J") = 1/C
-      "Inverse of heat capacity if u = 1";
-  equation
-    T = port.T;
-    der_T = der(T);
-    u*der(T) = port.Q_flow * CInv;
-    annotation (Icon(graphics={
-          Polygon(
-            points={{2,79},{-18,75},{-38,69},{-50,55},{-56,47},{-66,37},{-70,25},
-                {-74,11},{-76,-3},{-74,-19},{-74,-31},{-74,-41},{-68,-53},{-62,-61},
-                {-46,-65},{-28,-71},{-16,-71},{0,-73},{10,-77},{24,-77},{34,-75},
-                {44,-69},{56,-63},{58,-61},{68,-49},{70,-41},{72,-39},{74,-23},{
-                78,-9},{80,-1},{80,15},{76,27},{68,37},{56,45},{46,53},{38,69},{
-                28,77},{2,79}},
-            lineColor={160,160,164},
-            fillColor={192,192,192},
-            fillPattern=FillPattern.Solid),
-          Polygon(
-            points={{-56,47},{-66,37},{-70,25},{-74,11},{-76,-3},{-74,-19},{-74,
-                -31},{-74,-41},{-68,-53},{-62,-61},{-46,-65},{-28,-71},{-16,-71},
-                {0,-73},{10,-77},{24,-77},{34,-75},{44,-69},{56,-63},{44,-65},{42,
-                -65},{32,-67},{22,-69},{20,-69},{12,-69},{4,-65},{-10,-61},{-20,
-                -61},{-28,-59},{-38,-53},{-48,-43},{-54,-31},{-56,-23},{-56,-13},
-                {-58,-1},{-58,7},{-58,19},{-56,29},{-54,31},{-50,39},{-46,47},{-42,
-                57},{-38,69},{-56,47}},
-            lineColor={0,0,0},
-            fillColor={160,160,164},
-            fillPattern=FillPattern.Solid),
-          Ellipse(
-            extent={{-6,7},{6,-4}},
-            lineColor={255,0,0},
-            fillColor={191,0,0},
-            fillPattern=FillPattern.Solid),
-          Line(points={{0,-4},{0,-98}},  color={255,0,0}),
-          Text(
-            extent={{-134,68},{-100,26}},
-            lineColor={0,0,127},
-            textString="u")}));
-  end HeatCapacity;
-equation
-  connect(shaSig.yCom, capGlaUns.u) annotation (Line(points={{-39,154},{-20,154},
-          {-20,48},{128,48}}, color={0,0,127}));
-  connect(shaSig.y, capGlaSha.u) annotation (Line(points={{-39,160},{-24,160},{
-          -24,0},{126,0}}, color={0,0,127}));
-  connect(capGlaSha.port, glaSha_b)
-    annotation (Line(points={{138,-10},{138,-20},{200,-20}}, color={191,0,0}));
   connect(capFra.port, fra_b) annotation (Line(points={{140,-142},{140,-160},{
           202,-160}}, color={191,0,0}));
+  connect(capGla.ySha, shaSig.y) annotation (Line(points={{128,52},{80,52},{-24,
+          52},{-24,160},{-39,160}}, color={0,0,127}));
+  connect(capGla.yCom, shaSig.yCom) annotation (Line(points={{128,44},{60,44},{-20,
+          44},{-20,154},{-39,154}}, color={0,0,127}));
+  connect(capGla.portSha, glaSha_b) annotation (Line(points={{150,52},{160,52},{
+          160,-20},{200,-20}}, color={191,0,0}));
+  connect(capGla.portUns, glaUns_b) annotation (Line(points={{150,44},{156,44},{
+          156,20},{200,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}})),               Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
