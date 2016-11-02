@@ -50,8 +50,8 @@ which injects room air and mixes it with the primary air.
 <p>
 The heat flow rate
 <i>Q<sub>sa</sub> </i> is delivered to a thermal zone such as
-<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
-Buildings.ThermalZones.Detailed.MixedAir</a>
+<a href=\"modelica://Buildings.Rooms.MixedAir\">
+Buildings.Rooms.MixedAir</a>
 through the fluid ports, while the heat flow rate from the convector <i>Q<sub>c,Beam</sub></i>
 is coupled directly to the heat port.
 See for example

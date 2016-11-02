@@ -64,15 +64,15 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv(
     T_ref=290.75)
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad(
     T_ref=290.75)
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon(
     T_ref=290.75)
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
@@ -136,8 +136,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
   EquivalentAirTemperature.VDI6007 eqAirTemp(
     aExt=0.7,
     alphaWallOut=20,
-    alphaRadWall=5,
-    eExt=0.9,
+    alphaRad=5,
     withLongwave=false,
     n=1,
     wfWall={0.04646093176283288},
