@@ -1,4 +1,4 @@
-within Buildings.Utilities.IO.Python27.Functions.BaseClasses;
+within Buildings.Utilities.IO.Python34.Functions.BaseClasses;
 function exchange "Function that communicates with Python"
   input String moduleName
     "Name of the python module that contains the function";
@@ -28,7 +28,7 @@ function exchange "Function that communicates with Python"
                                     intWri, nIntWri,
                                     intRea, nIntRea,
                                     strWri, nStrWri)
-    annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
+    annotation (Library={"ModelicaBuildingsPython3.4",  "python3.4"},
       LibraryDirectory={"modelica://Buildings/Resources/Library"},
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
       Include="#include \"pythonWrapper.c\"");
@@ -37,11 +37,11 @@ function exchange "Function that communicates with Python"
 <p>
 This function exchanges data with Python.
 See
-<a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">
-Buildings.Utilities.IO.Python27.UsersGuide</a>
+<a href=\"modelica://Buildings.Utilities.IO.Python34.UsersGuide\">
+Buildings.Utilities.IO.Python34.UsersGuide</a>
 for instructions, and
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples\">
-Buildings.Utilities.IO.Python27.Functions.Examples</a>
+<a href=\"modelica://Buildings.Utilities.IO.Python34.Functions.Examples\">
+Buildings.Utilities.IO.Python34.Functions.Examples</a>
 for examples.
 </p>
 </html>", revisions="<html>
