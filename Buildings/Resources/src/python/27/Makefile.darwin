@@ -8,7 +8,7 @@ ARCH = $(shell getconf LONG_BIT)
 
 
 # Directory where executable will be copied to
-BINDIR = ../../Library/darwin$(ARCH)
+BINDIR = ../../../Library/darwin$(ARCH)
 
 
 # Get python version, see
