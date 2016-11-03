@@ -8,12 +8,12 @@
 
 import function
 
-def main():
-    inputNames = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
-    inputValues = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
-    outputNames = ['voltage_A', 'voltage_B', 'voltage_C']
-    outputDeviceNames = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
-    exchange("HL0004.sxst", inputNames, inputValues, outputNames, outputDeviceNames, 0)
+# def main():
+#     inputNames = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
+#     inputValues = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
+#     outputNames = ['voltage_A', 'voltage_B', 'voltage_C']
+#     outputDeviceNames = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
+#     exchange("HL0004.sxst", inputValues, inputNames, outputNames, outputDeviceNames, 0)
     
 def exchange(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults):
@@ -21,10 +21,10 @@ def exchange(inputFileName, inputValues, inputNames,
     """
      Args:
         inputFileName (str): Name of the CYMDIST input file.
-        inputValues(str): Double input values.
-        inputNames(str): Double input names.
-        outputNames(str):  Double output names.
-        outputDeviceNames(str): Output device names.
+        inputValues(dbl): Input values.
+        inputNames(str): Input names.
+        outputNames(str):  Output names.
+        outputDeviceNames(str): Outputs devices names.
         writeResults(int): Flag for writing results.
     
     
@@ -39,6 +39,6 @@ def exchange(inputFileName, inputValues, inputNames,
     print ("This is the outputs returned from CYMDIST " + str(outputs))
     return outputs
 
-if __name__ == '__main__':
-    # Try running this module!
-    main()
+# if __name__ == '__main__':
+#     # Try running this module!
+#     main()
