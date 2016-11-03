@@ -1,0 +1,12 @@
+// Setting 64-bit compilation is due to
+// https://github.com/lbl-srg/modelica-buildings/issues/559
+Advanced_CompileWith64_ori=Advanced.CompileWith64;
+Advanced.CompileWith64 = 2;
+simulateModel("Buildings.Utilities.IO.Python34.Functions.Examples.Cymdist", method="dassl", resultFile="Cymdist");
+createPlot(id=1, 
+ position={15, 10, 584, 420}, 
+ y={"yR1[1]", "yR2[1]", "yR2[2]"}, 
+ range={0.0, 1.0, 0.0, 22.0}, 
+ grid=true, colors={{28,108,200}, 
+ {238,46,47}, {0,140,72}});
+Advanced.CompileWith64 = Advanced_CompileWith64_ori;
