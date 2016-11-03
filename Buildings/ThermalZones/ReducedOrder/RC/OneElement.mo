@@ -134,13 +134,12 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol(
-    final T_ref=T_start) if
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol if
     ratioWinConRad > 0 and (ATot > 0 or VAir > 0) and sum(ATransparent) > 0
     "Solar heat considered as convection"
     annotation (Placement(transformation(extent={{-166,114},{-146,134}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[
-    nOrientations](each final T_ref=T_start) if ATot > 0 and sum(ATransparent) > 0
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[nOrientations] if
+     ATot > 0 and sum(ATransparent) > 0
     "Solar heat considered as radiation"
     annotation (Placement(transformation(extent={{-166,136},{-146,156}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(
