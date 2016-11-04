@@ -633,6 +633,22 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+       </td>
+   </tr>
+       <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.WetBul_pTX
+       </td>
+       <td valign=\"top\">Deleted the model
+                          <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          as the same functionality is provided by
+                          <code>Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</code>.
+                          Users who use <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          need to replace the model manually and reconnect the input and output ports.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/475\">Annex 60, #475</a>.
+       </td>
+    </tr>
+
    </table>
    <!-- Errors that have been fixed -->
    <p>
