@@ -56,13 +56,13 @@ equation
   else
     XiSatRefIn=(1-XiDryBul)*XiSat/(1-XiSat);
     XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
-      p=     p,
-      phi=   1);
+      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+      p =    p,
+      phi =  1);
     XiDryBul =Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      p=     p,
-      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
-      phi=   phi);
+      p =    p,
+      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      phi =  phi);
     (TWetBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
               (1-XiDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
               XiSatRefIn * Buildings.Utilities.Psychrometrics.Constants.cpSte +
@@ -80,38 +80,12 @@ equation
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Ellipse(
-          extent={{-22,-94},{18,-56}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-14,44},{10,-64}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-14,44},{-14,84},{-12,90},{-8,92},{-2,94},{4,92},{8,90},{10,
-              84},{10,44},{-14,44}},
-          lineColor={0,0,0},
-          lineThickness=0.5),
-        Line(
-          points={{-14,44},{-14,-60}},
-          thickness=0.5),
-        Line(
-          points={{10,44},{10,-60}},
-          thickness=0.5),
-        Line(points={{-42,-16},{-14,-16}}),
-        Line(points={{-42,24},{-14,24}}),
-        Line(points={{-42,64},{-14,64}}),
         Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},
           textString="TDryBul"),
         Text(
-          extent={{-86,14},{-54,-14}},
+          extent={{-92,14},{-72,-12}},
           lineColor={0,0,127},
           textString="phi"),
         Text(
@@ -121,7 +95,38 @@ annotation (
         Text(
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
-          textString="TWetBul")}),
+          textString="TWetBul"),
+        Line(points={{78,-74},{-48,-74}}),
+        Text(
+          extent={{76,-78},{86,-94}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="T"),
+        Line(
+          points={{76,-46},{26,-4}},
+          color={255,0,0},
+          thickness=0.5),
+        Line(points={{-48,-48},{-2,-30},{28,-4},{48,32},{52,72}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(points={{-48,84},{-48,-74}}),
+        Text(
+          extent={{-44,82},{-22,64}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="X"),
+        Polygon(
+          points={{86,-74},{76,-72},{76,-76},{86,-74}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-48,88},{-46,74},{-50,74},{-48,88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
@@ -164,6 +169,10 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Changed icon.
+</li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected exact implementation. 

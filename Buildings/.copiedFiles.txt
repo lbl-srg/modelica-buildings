@@ -776,9 +776,6 @@ Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_FixedResistances_Validation_SplitterFixedResistanceDpMSteadyState.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_FixedResistances_Validation_SplitterFixedResistanceDpMSteadyStateNoPressureDrop.txt
-Buildings/Resources/ReferenceResults/Dymola/changePath.sh
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1058,7 +1055,6 @@ Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/Sublimation
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulPhi.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos
-Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/WetBul_pTX.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck_amb.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/InverseDewPointTemperatureDerivativeCheck_amb.mos
@@ -1275,7 +1271,6 @@ Buildings/Utilities/Psychrometrics/Examples/SublimationPressureIce.mo
 Buildings/Utilities/Psychrometrics/Examples/TWetBul_TDryBulPhi.mo
 Buildings/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mo
 Buildings/Utilities/Psychrometrics/Examples/TotalAirDryAir.mo
-Buildings/Utilities/Psychrometrics/Examples/WetBul_pTX.mo
 Buildings/Utilities/Psychrometrics/Examples/package.mo
 Buildings/Utilities/Psychrometrics/Examples/package.order
 Buildings/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck.mo
@@ -1326,7 +1321,6 @@ Buildings/Utilities/Psychrometrics/TWetBul_TDryBulPhi.mo
 Buildings/Utilities/Psychrometrics/TWetBul_TDryBulXi.mo
 Buildings/Utilities/Psychrometrics/ToDryAir.mo
 Buildings/Utilities/Psychrometrics/ToTotalAir.mo
-Buildings/Utilities/Psychrometrics/WetBul_pTX.mo
 Buildings/Utilities/Psychrometrics/X_pTphi.mo
 Buildings/Utilities/Psychrometrics/X_pW.mo
 Buildings/Utilities/Psychrometrics/pW_TDewPoi.mo
@@ -1351,4 +1345,12 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
+Buildings/dsfinal.txt
+Buildings/dsin.txt
+Buildings/dslog.txt
+Buildings/dsmodel.c
+Buildings/dymosim
 Buildings/package.order
+Buildings/plot.mos
+Buildings/simulator.log
+Buildings/unitTests.log
