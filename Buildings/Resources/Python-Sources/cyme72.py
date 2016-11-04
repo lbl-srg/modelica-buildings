@@ -20,7 +20,7 @@ def exchange(inputFileName, inputValues, inputNames,
     
     """
      Args:
-        inputFileName (str): Name of the CYMDIST input file.
+        inputFileName (str): Name of the CYMDIST grid model.
         inputValues(dbl): Input values.
         inputNames(str): Input names.
         outputNames(str):  Output names.
@@ -32,7 +32,7 @@ def exchange(inputFileName, inputValues, inputNames,
     # Call the CYMDIST wrapper
     # Need for testing the names of outputs and devices
     # To use the wrapper, the user will need to set the 
-    # Pythonpath to a folder which contains the testFunctionsCymdist,
+    # Pythonpath to a folder which contains the cyme72,
     # function.py and the cympy folder.
     outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
                outputNames, outputDeviceNames, writeResults)
