@@ -24,7 +24,7 @@ model HeatingOnly
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConWal(G=200)
     "Thermal conductor for wall"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 22)

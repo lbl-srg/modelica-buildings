@@ -116,7 +116,7 @@ model SimpleHouse
   Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=0, realFalse=1)
     "Boolean to real"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow window
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
     "Very simple window model"
     annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
   HeatExchangers.ConstantEffectiveness hexRec(

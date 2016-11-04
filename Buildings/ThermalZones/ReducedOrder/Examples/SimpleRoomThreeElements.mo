@@ -87,10 +87,10 @@ model SimpleRoomThreeElements
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow of persons"
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow of persons"
     annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -111,7 +111,7 @@ model SimpleRoomThreeElements
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)

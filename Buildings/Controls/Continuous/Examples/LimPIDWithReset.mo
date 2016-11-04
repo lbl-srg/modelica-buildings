@@ -47,7 +47,7 @@ protected
     Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
       "Temperature sensor"
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-    Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{-78,-10},{-58,10}})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=5)

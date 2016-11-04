@@ -4,8 +4,7 @@ model TraceSubstanceConservationDynamicBalance
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
      vol(massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      C_nominal=zeros(Medium.nC)));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   Modelica.Blocks.Continuous.Integrator intTraSubIn(
     k=1,
@@ -88,6 +87,12 @@ for a discussion.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed wrong assignment for <code>C_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/568\">issue 568</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,

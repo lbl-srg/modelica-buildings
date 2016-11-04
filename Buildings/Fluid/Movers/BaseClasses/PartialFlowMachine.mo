@@ -215,7 +215,8 @@ protected
     addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
+    final alpha=0) if
     addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
@@ -370,7 +371,6 @@ initial equation
              are correct or add the pressure curve of the mover.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
-
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
