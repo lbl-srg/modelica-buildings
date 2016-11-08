@@ -117,10 +117,13 @@ protected
     Q_flow_maxCool=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is cooled"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
-  Modelica.Blocks.Sources.RealExpression TWarIn(y=Medium.temperature_phX(
-        p=port_b1.p,
-        h=inStream(port_b1.h_outflow),
-        X=inStream(port_b1.Xi_outflow))) "Warm water inlet temperature"
+  Modelica.Blocks.Sources.RealExpression TWarIn(y=
+    Medium.temperature_phX(
+      p=port_b1.p,
+      h=inStream(port_b1.h_outflow),
+      X=cat(1,inStream(port_b1.Xi_outflow),
+              {1-sum(inStream(port_b1.Xi_outflow))})))
+        "Warm water inlet temperature"
     annotation (Placement(transformation(extent={{-40,156},{-20,176}})));
   Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare final package Medium = Medium,
@@ -136,10 +139,12 @@ protected
     Q_flow_maxHeat=if disableHeatExchanger then 0 else Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is heated"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Modelica.Blocks.Sources.RealExpression TColIn(y=Medium.temperature_phX(
-        p=port_a2.p,
-        h=inStream(port_a2.h_outflow),
-        X=inStream(port_a2.Xi_outflow))) "Cold water inlet temperature"
+  Modelica.Blocks.Sources.RealExpression TColIn(y=
+    Medium.temperature_phX(
+      p=port_a2.p,
+      h=inStream(port_a2.h_outflow),
+      X=cat(1, inStream(port_a2.Xi_outflow),
+               {1-sum(inStream(port_a2.Xi_outflow))}))) "Cold water inlet temperature"
     annotation (Placement(transformation(extent={{-40,98},{-20,118}})));
   Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{8,104},{28,124}})));
@@ -450,6 +455,10 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

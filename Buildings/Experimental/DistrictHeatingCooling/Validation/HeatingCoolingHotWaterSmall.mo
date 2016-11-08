@@ -103,6 +103,18 @@ model HeatingCoolingHotWaterSmall
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{30,-50},{50,-70}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable watTem(
+    tableOnFile=true,
+    tableName="tab1",
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    y(each unit="K"),
+    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
+      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
+    "Temperature of the water reservoir (such as a river, lake or ocean)"
+    annotation (Placement(transformation(extent={{-170,8},{-150,28}})));
+
 protected
   Modelica.Blocks.Sources.Constant TSetC(k=TSetCooLea)
     "Set point temperature for leaving water"
@@ -110,17 +122,7 @@ protected
   Modelica.Blocks.Sources.Constant TSetH(k=TSetHeaLea)
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
-public
-  Modelica.Blocks.Sources.CombiTimeTable watTem(
-    tableOnFile=true,
-    tableName="tab1",
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    y(unit="K"),
-    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
-      "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
-    "Temperature of the water reservoir (such as a river, lake or ocean)"
-    annotation (Placement(transformation(extent={{-170,8},{-150,28}})));
+
 equation
   connect(pip.port_b, splSup.port_1) annotation (Line(points={{-50,60},{-50,60},
           {-40,60}},      color={0,127,255}));
@@ -188,6 +190,10 @@ are prescribed by time series.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Added missing <code>each</code> keyword to output of combi time table.
+</li>
 <li>
 June 2, 2016, by Michael Wetter:<br/>
 Changed pressure drops and removed top-level parameter <code>dp_nominal</code>.
