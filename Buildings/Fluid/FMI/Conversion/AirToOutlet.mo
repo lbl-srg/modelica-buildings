@@ -126,7 +126,7 @@ equation
     outlet.forward.T = Medium.temperature_phX(
     p=Medium.p_default,
     h=h,
-    X=Xi_internal);
+    X=cat(1, Xi_internal, {1-sum(Xi_internal)}));
     // Xi internal has 1 or zero components, hence we can use the sum.
     X_w_internal = sum(Xi_internal);
     outlet.forward.C = C;
@@ -169,6 +169,10 @@ for its usage.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.
+</li>
 <li>
 April 20, 2016, by Michael Wetter:<br/>
 First implementation.

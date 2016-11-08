@@ -14,7 +14,7 @@ model RoomHVAC
   Examples.FMUs.HVACZones hvaCon2(
     UA = 20E3,
     QRooInt_flow = 2000,
-    fan2(each constantMassFlowRate=0))
+    fan2(constantMassFlowRate=0))
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
@@ -193,6 +193,10 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
 <li>
 May 03, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
