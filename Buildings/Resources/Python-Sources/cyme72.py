@@ -9,16 +9,20 @@
 from datetime import datetime
 import function
 
+
 def main():
-    input_names = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
+    input_names = ['VMAG_A', 'VMAG_B', 'VMAG_C',
+                   'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
     input_values = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
     output_names = ['voltage_A', 'voltage_B', 'voltage_C']
-    output_device_names = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
-    exchange("HL0004.sxst", input_values, input_names, output_names, output_device_names, 0)
-    
-def exchange(input_file_name, input_values, input_names, 
-               output_names, output_device_names, write_results):
-    
+    output_device_names = ['HOLLISTER_2104',
+                           'HOLLISTER_2104', 'HOLLISTER_2104']
+    exchange("HL0004.sxst", input_values, input_names,
+             output_names, output_device_names, 0)
+
+
+def exchange(input_file_name, input_values, input_names,
+             output_names, output_device_names, write_results):
     """
      Args:
         input_file_name (str): Name of the CYMDIST grid model.
@@ -27,25 +31,43 @@ def exchange(input_file_name, input_values, input_names,
         output_names(str):  Output names.
         output_device_names(str): Outputs devices names.
         write_results(int): Flag for writing results.
-    
-    
+
+
     """
     # Call the CYMDIST wrapper
     results = []
-    n_outputs = len(output_names)
+    n_exp_res = len(output_names)
     start = datetime.now()
-    outputs = function.fmu_wrapper(input_file_name, input_values, input_names, 
-               output_names, output_device_names, write_results)
+    outputs = function.fmu_wrapper(input_file_name, input_values, input_names,
+                                   output_names, output_device_names, write_results)
     end = datetime.now()
-    print('Run a CYMDIST simulation in ' + str((end - start).total_seconds()) + ' seconds' )
-    # Save the first n outputs. n is the length of the output_names.
-    for i in range(n_outputs):
+    print('Run a CYMDIST simulation in ' +
+          str((end - start).total_seconds()) + ' seconds')
+    # Get the outputs.
+    n_ret_res = len(outputs)
+    # Check if the number of outputs is expected.
+    # Do not assert but rather provide some debugging information.
+    if (n_exp_res != n_ret_res):
+        print('WARNING: The number of returned outputs ' + str(n_ret_res)
+              + ' is different from the number of expected outputs '
+              + str(n_exp_res) + '.')
+        # If the number of returned outputs is bigger than the expected ones
+        # we get the first returned values and inform the user with a message.
+        if (n_ret_res > n_exp_res):
+            print('WARNING: The first ' + str(n_exp_res) + ' will be retrieved.')
+        else:
+            print('WARNING: Incorrect number of outputs ' +
+                  str(n_ret_res) + ' is returned.')
+    # Get the outputs and convert to floats.
+    # If the number of returned results is incorrect, then rely on 
+    # the C-wrapper which will throw an exception with a meaningful message.
+    for i in range(n_exp_res):
         try:
             results.append(float(outputs[i]))
         except ValueError:
-            print('Cannot convert output ' + outputs[i] + ' to a float.')  
+            print('Cannot convert output ' + outputs[i] + ' to a float.')
     print('These are the results returned by CYMDIST ' + str(outputs))
-    print('These are the results returned by CYMDIST ' + str(results))
+    print('These are the results sent to the outputs of CYMDIST ' + str(results))
     return results
 
 if __name__ == '__main__':
