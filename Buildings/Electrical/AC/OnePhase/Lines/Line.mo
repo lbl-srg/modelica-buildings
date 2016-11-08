@@ -4,8 +4,8 @@ model Line "Model of an electrical line"
     V_nominal(start = 110),
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n,
-    redeclare Interfaces.Terminal_p terminal_p,
+    redeclare replaceable Interfaces.Terminal_n terminal_n,
+    redeclare replaceable Interfaces.Terminal_p terminal_p,
     commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
 protected
   replaceable TwoPortRL line(
@@ -78,6 +78,12 @@ either using commercial cables or using default values.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Added <code>replaceable</code> to terminal redeclaration as they are redeclared by
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Line\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.Line</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter <code>mode</code>.<br/>
