@@ -8,12 +8,14 @@ model Line "Model of an electrical line"
     redeclare Interfaces.Terminal_p terminal_p,
     commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
 protected
-  replaceable TwoPortRL line(R=R/3,L=L/3) constrainedby
+  replaceable TwoPortRL line(
+    R=R/3,
+    L=L/3,
+    mode=modelMode) constrainedby
     Buildings.Electrical.Transmission.BaseClasses.PartialTwoPortRLC(
-    useHeatPort=true,
-    mode=modelMode,
-    M=M,
-    T_ref=T_ref) "Model of the line"
+      useHeatPort=true,
+      M=M,
+      T_ref=T_ref) "Model of the line"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
@@ -77,6 +79,12 @@ either using commercial cables or using default values.
 </html>", revisions="<html>
 <ul>
 <li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong assignment of parameter <code>mode</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/571\">#571</a>.
+</li>
+<li>
 September 23, 2014, by Marco Bonvini:<br/>
 Moved here the default declaration of the parameter <code>commercialCable</code>.<br/>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">
@@ -85,9 +93,6 @@ Moved here the default declaration of the parameter <code>commercialCable</code>
 <span style=\" font-family:'Courier New,courier';\">(P_nominal, V_nominal)</span>
 </p>
 </li>
-</ul>
-
-<ul>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>
 Revised documentation.
