@@ -158,14 +158,14 @@ equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(outdoorTemp.y[1], preTem.T)
     annotation (Line(points={{-11.2,0},{6.8,0}}, color={0,0,127}));
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}},
     color={191,0,0}));
   connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,

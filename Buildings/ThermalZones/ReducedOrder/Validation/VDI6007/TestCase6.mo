@@ -64,8 +64,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
         5180400,843; 5184000,808])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(
-    T_ref=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -112,14 +111,14 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], machinesRad.Q_flow)
     annotation (Line(points={{22.8,-74},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
-    Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
+    Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92,24}},
     color={191,0,0}));
   connect(preTem1.port, heatFlowSensor.port_b)
     annotation (Line(points={{68,-34},{73,-34},{78,-34}}, color={191,0,0}));

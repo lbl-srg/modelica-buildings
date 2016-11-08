@@ -64,16 +64,13 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv(
-    T_ref=290.75)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad(
-    T_ref=290.75)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon(
-    T_ref=290.75)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
@@ -184,7 +181,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
 equation
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}}, color={191,0,0}));
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}}, color={191,0,0}));
   connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
@@ -230,7 +227,7 @@ equation
   connect(preTem.port, theConWall.fluid)
     annotation (Line(points={{20,0},{24,0}}, color={191,0,0}));
   connect(theConWall.solid, thermalZoneTwoElements.extWall)
-    annotation (Line(points={{34,0},{40,0},{40,12},{43.8,12}}, color={191,0,0}));
+    annotation (Line(points={{34,0},{40,0},{40,12},{44,12}}, color={191,0,0}));
   connect(perCon.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}}, color={191,

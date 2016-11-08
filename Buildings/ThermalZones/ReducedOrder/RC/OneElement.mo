@@ -135,25 +135,27 @@ model OneElement "Thermal Zone with one element for exterior walls"
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol(
-    final T_ref=T_start) if
+    final alpha=0) if
     ratioWinConRad > 0 and (ATot > 0 or VAir > 0) and sum(ATransparent) > 0
     "Solar heat considered as convection"
     annotation (Placement(transformation(extent={{-166,114},{-146,134}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[
-    nOrientations](each final T_ref=T_start) if ATot > 0 and sum(ATransparent) > 0
+    nOrientations](each final alpha=0) if ATot > 0 and sum(ATransparent) > 0
     "Solar heat considered as radiation"
     annotation (Placement(transformation(extent={{-166,136},{-146,156}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(
     final splitFactor=splitFactor,
     final nOut=dimension,
     final nIn=1) if ATot > 0
-    "Splits incoming internal gains into seperate gains for each wall element, weighted by their area"
+    "Splits incoming internal gains into seperate gains for each wall element, 
+    weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
     final nIn=nOrientations) if ATot > 0 and sum(ATransparent) > 0
-    "Splits incoming solar radiation into seperate gains for each wall element, weighted by their area"
+    "Splits incoming solar radiation into seperate gains for each wall element, 
+    weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(
     final n=nExt,
