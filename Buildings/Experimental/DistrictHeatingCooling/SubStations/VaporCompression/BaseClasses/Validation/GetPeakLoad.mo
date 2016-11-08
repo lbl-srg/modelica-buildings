@@ -17,11 +17,11 @@ model GetPeakLoad "Model that validates the getPeakLoad function"
       filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos")
     "Peak water heating flow rate";
 equation
-  assert(QCoo_flow    == -383165.6989, "Error in reading the peak heating load. Read "
+  assert(abs(QCoo_flow - (-383165.6989)) < 1E-3, "Error in reading the peak heating load. Read "
     + String(QCoo_flow));
-  assert(QHea_flow    ==  893931.4335, "Error in reading the peak heating load. Read "
+  assert(abs(QHea_flow - 893931.4335) < 1E-3, "Error in reading the peak heating load. Read "
     + String(QHea_flow));
-  assert(QWatHea_flow ==  19496.90012, "Error in reading the peak water heating load. Read "
+  assert(abs(QWatHea_flow -19496.90012) < 1E-3, "Error in reading the peak water heating load. Read "
     + String(QWatHea_flow));
   annotation(experiment(StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/BaseClasses/Validation/GetPeakLoad.mos"
@@ -35,6 +35,12 @@ If the wrong values are read, then the simulation stops with an error.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed test for equality of real variables.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/572\">#572</a>.
+</li>
 <li>
 December 1, 2015, by Michael Wetter:<br/>
 First implementation.
