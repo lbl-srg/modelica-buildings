@@ -1,16 +1,16 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   cfdCosimulation.h
-///
-/// \brief  Header file for coupled simulation with CFD
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+ *
+ * \file   cfdCosimulation.h
+ *
+ * \brief  Header file for coupled simulation with CFD
+ *
+ * \author Wangda Zuo
+ *         University of Miami
+ *         W.Zuo@miami.edu
+ *
+ * \date   8/3/2013
+ *
+ */
 
 #include <stdio.h>
 
