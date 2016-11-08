@@ -6,39 +6,48 @@
 # Make sure that the python path is set, such as by running
 # export PYTHONPATH=`pwd`
 
+from datetime import datetime
 import function
 
-# def main():
-#     inputNames = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
-#     inputValues = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
-#     outputNames = ['voltage_A', 'voltage_B', 'voltage_C']
-#     outputDeviceNames = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
-#     exchange("HL0004.sxst", inputValues, inputNames, outputNames, outputDeviceNames, 0)
+def main():
+    input_names = ['VMAG_A', 'VMAG_B', 'VMAG_C', 'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
+    input_values = [7287, 7299, 7318, 7272, 2118, 6719, -284, -7184, 3564]
+    output_names = ['voltage_A', 'voltage_B', 'voltage_C']
+    output_device_names = ['HOLLISTER_2104', 'HOLLISTER_2104', 'HOLLISTER_2104']
+    exchange("HL0004.sxst", input_values, input_names, output_names, output_device_names, 0)
     
-def exchange(inputFileName, inputValues, inputNames, 
-               outputNames, outputDeviceNames, writeResults):
+def exchange(input_file_name, input_values, input_names, 
+               output_names, output_device_names, write_results):
     
     """
      Args:
-        inputFileName (str): Name of the CYMDIST grid model.
-        inputValues(dbl): Input values.
-        inputNames(str): Input names.
-        outputNames(str):  Output names.
-        outputDeviceNames(str): Outputs devices names.
-        writeResults(int): Flag for writing results.
+        input_file_name (str): Name of the CYMDIST grid model.
+        input_values(dbl): Input values.
+        input_names(str): Input names.
+        output_names(str):  Output names.
+        output_device_names(str): Outputs devices names.
+        write_results(int): Flag for writing results.
     
     
     """
     # Call the CYMDIST wrapper
-    # Need for testing the names of outputs and devices
-    # To use the wrapper, the user will need to set the 
-    # Pythonpath to a folder which contains the cyme72,
-    # function.py and the cympy folder.
-    outputs = function.fmu_wrapper(inputFileName, inputValues, inputNames, 
-               outputNames, outputDeviceNames, writeResults)
-    print ("This is the outputs returned from CYMDIST " + str(outputs))
-    return outputs
+    results = []
+    n_outputs = len(output_names)
+    start = datetime.now()
+    outputs = function.fmu_wrapper(input_file_name, input_values, input_names, 
+               output_names, output_device_names, write_results)
+    end = datetime.now()
+    print('Run a CYMDIST simulation in ' + str((end - start).total_seconds()) + ' seconds' )
+    # Save the first n outputs. n is the length of the output_names.
+    for i in range(n_outputs):
+        try:
+            results.append(float(outputs[i]))
+        except ValueError:
+            print('Cannot convert output ' + outputs[i] + ' to a float.')  
+    print('These are the results returned by CYMDIST ' + str(outputs))
+    print('These are the results returned by CYMDIST ' + str(results))
+    return results
 
-# if __name__ == '__main__':
-#     # Try running this module!
-#     main()
+if __name__ == '__main__':
+    # Try running this module!
+    main()
