@@ -572,6 +572,15 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
+    <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction
+       </td>
+       <td valign=\"top\">Removed parameter <code>A</code> as it is already declared in
+                          <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor\">
+                          Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</a>
+                          which is often used with this class.
+       </td>
+    </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
