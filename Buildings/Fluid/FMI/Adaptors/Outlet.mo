@@ -53,7 +53,7 @@ equation
   outlet.forward.T = Medium.temperature_phX(
     p = p_in_internal,
     h = inStream(port_a.h_outflow),
-    X = cat(1, inStream(port_a.Xi_outflow), {1-sum(inStream(port_a.Xi_outflow))});
+    X = cat(1, inStream(port_a.Xi_outflow), {1-sum(inStream(port_a.Xi_outflow))}));
 
   inStream(port_a.C_outflow)  = outlet.forward.C;
 
