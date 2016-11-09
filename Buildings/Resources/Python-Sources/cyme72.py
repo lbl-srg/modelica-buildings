@@ -42,7 +42,7 @@ def exchange(input_file_name, input_values, input_names,
                                    output_names, output_device_names, write_results)
     end = datetime.now()
     print('Run a CYMDIST simulation in ' +
-          str((end - start).total_seconds()) + ' seconds')
+          str((end - start).total_seconds()) + ' seconds.')
     # Get the outputs.
     n_ret_res = len(outputs)
     # Check if the number of outputs is expected.
@@ -66,8 +66,7 @@ def exchange(input_file_name, input_values, input_names,
             results.append(float(outputs[i]))
         except ValueError:
             print('Cannot convert output ' + outputs[i] + ' to a float.')
-    print('These are the results returned by CYMDIST ' + str(outputs))
-    print('These are the results sent to the outputs of CYMDIST ' + str(results))
+    print('These are the results sent to the outputs of CYMDIST ' + str(results) + '.')
     return results
 
 if __name__ == '__main__':
