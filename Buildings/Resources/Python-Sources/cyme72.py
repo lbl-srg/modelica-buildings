@@ -9,7 +9,6 @@
 from datetime import datetime
 import function
 
-
 def main():
     input_names = ['VMAG_A', 'VMAG_B', 'VMAG_C',
                    'P_A', 'P_B', 'P_C', 'Q_A', 'Q_B', 'Q_C']
@@ -19,7 +18,6 @@ def main():
                            'HOLLISTER_2104', 'HOLLISTER_2104']
     exchange("HL0004.sxst", input_values, input_names,
              output_names, output_device_names, 0)
-
 
 def exchange(input_file_name, input_values, input_names,
              output_names, output_device_names, write_results):
@@ -41,7 +39,7 @@ def exchange(input_file_name, input_values, input_names,
     outputs = function.fmu_wrapper(input_file_name, input_values, input_names,
                                    output_names, output_device_names, write_results)
     end = datetime.now()
-    print('Run a CYMDIST simulation in ' +
+    print('Ran a CYMDIST simulation in ' +
           str((end - start).total_seconds()) + ' seconds.')
     # Get the outputs.
     n_ret_res = len(outputs)
@@ -66,7 +64,6 @@ def exchange(input_file_name, input_values, input_names,
             results.append(float(outputs[i]))
         except ValueError:
             print('Cannot convert output ' + outputs[i] + ' to a float.')
-    print('These are the results sent to the outputs of CYMDIST ' + str(results) + '.')
     return results
 
 if __name__ == '__main__':
