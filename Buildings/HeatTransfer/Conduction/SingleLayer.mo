@@ -369,6 +369,10 @@ between the boundary condition and the surface of this model.
 revisions="<html>
 <ul>
 <li>
+November 11, 2016, by Thierry S. Nouidui:<br/>
+Revised the implementation for adding a state at the surface.<br/>
+</li>
+<li>
 October 29, 2016, by Michael Wetter:<br/>
 Added option to place a state at the surface.<br/>
 This is for
