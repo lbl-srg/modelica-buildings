@@ -47,25 +47,26 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-
 protected
   final parameter Integer nSta=
     max(material.nSta,
         if placeCapacityAtSurf_a or placeCapacityAtSurf_b then 2 else 1)
     "Number of state variables";
-  final parameter Integer nR=
-    nSta+1 - (if placeCapacityAtSurf_a then 1 else 0) - (if placeCapacityAtSurf_b then 1 else 0)
-    "Number of thermal resistances";
+  final parameter Integer nR=nSta+1 "Number of thermal resistances";
   parameter Modelica.SIunits.ThermalResistance RNod[nR]=
-      if placeCapacityAtSurf_a and placeCapacityAtSurf_b then
-        {R/nR for i in 1:nR}
-      elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
-        cat(1, {2*R/(nSta*2-1) for i in 1:(nR-1)}, {R/(nSta*2-1)})
-      elseif (placeCapacityAtSurf_b and (not placeCapacityAtSurf_a)) then
-        cat(1, {R/(nSta*2-1)}, {2*R/(nSta*2-1) for i in 1:(nR-1)})
+    if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
+      if (nSta==2) then
+        {(if i==1 or i==nR then 0 else R/(nSta-1)) for i in 1:nR}
       else
-        {R/(if i == 1 or i == nR then (2*nSta) else nSta) for i in 1:nR}
+        {(if i==1 or i==nR then 0 elseif i==2 or i==nR-1 then R/(2*(nSta-2)) else R/(nSta-2)) for i in 1:nR}
+      elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
+        {(if i==1 then 0 elseif i==2 or i==nR then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
+    elseif (placeCapacityAtSurf_b and (not placeCapacityAtSurf_a)) then
+       {(if i==nR then 0 elseif i==1 or i==nR-1 then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
+    else
+      {R/(if i==1 or i==nR then (2*nSta) else nSta) for i in 1:nR}
     "Thermal resistance";
+
 //  final parameter Modelica.SIunits.ThermalResistance RnSta_a=
 //    if placeCapacityAtSurf_a then 0 else RnSta/2
 //    "Thermal resistance between nodes and surface a";
@@ -74,18 +75,36 @@ protected
 //    if placeCapacityAtSurf_b then 0 else RnSta/2
 //    "Thermal resistance between nodes and surface b";
 
+//   parameter Modelica.SIunits.Mass m[nSta]=
+//    (A*material.x*material.d) *
+//    {if i == 1 and placeCapacityAtSurf_a then 1/2*(nSta-1)
+//       elseif i == nSta and placeCapacityAtSurf_a then 1/2*(nSta-1)
+//       else 1/(nSta-1) for i in 1:nSta}
+//    * (if placeCapacityAtSurf_a and placeCapacityAtSurf_b then
+//         2/(2*nSta-2)
+//       elseif placeCapacityAtSurf_a or placeCapacityAtSurf_b then
+//         2/(2*nSta-1)
+//       else
+//         1/nSta)
+//     "Mass associated with the temperature state";
+
+
+
   parameter Modelica.SIunits.Mass m[nSta]=
    (A*material.x*material.d) *
-   {if i == 1 and placeCapacityAtSurf_a then 0.5
-      elseif i == nSta and placeCapacityAtSurf_a then 0.5
-      else 1 for i in 1:nSta}
-   * (if placeCapacityAtSurf_a and placeCapacityAtSurf_b then
-        2/(2*nSta-2)
-      elseif placeCapacityAtSurf_a or placeCapacityAtSurf_b then
-        2/(2*nSta-1)
-      else
-        1/nSta)
+   (if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
+     if (nSta==2) then
+       {1/(2*(nSta-1)) for i in 1:nSta}
+     else
+       {1/(if i==1 or i==nSta or i==2 or i==nSta-1 then (2*(nSta-2)) else (nSta-2)) for i in 1:nSta}
+     elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
+       {1/(if i==1 or i==2 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
+     elseif (placeCapacityAtSurf_b and (not placeCapacityAtSurf_a)) then
+       {1/(if i==nSta or i==nSta-1 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
+     else
+       {1/(nSta) for i in 1:nSta})
     "Mass associated with the temperature state";
+
   final parameter Modelica.SIunits.HeatCapacity C[nSta] = m*material.c
     "Heat capacity associated with the temperature state";
   final parameter Real CInv[nSta]=
