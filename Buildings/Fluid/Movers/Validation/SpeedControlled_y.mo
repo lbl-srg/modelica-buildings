@@ -9,7 +9,7 @@ model SpeedControlled_y
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                     dp={2*dp_nominal,dp_nominal,0})),
       filteredSpeed=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y floMacDyn(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
@@ -19,10 +19,10 @@ model SpeedControlled_y
 
 equation
   connect(gain.y, floMacDyn.y) annotation (Line(
-      points={{-25,100},{8,100},{8,30},{30,30},{30,12}},
+      points={{-25,100},{8,100},{8,30},{29.8,30},{29.8,12}},
       color={0,0,127}));
   connect(gain.y, floMacSta.y) annotation (Line(
-      points={{-25,100},{30,100},{30,92}},
+      points={{-25,100},{29.8,100},{29.8,92}},
       color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,

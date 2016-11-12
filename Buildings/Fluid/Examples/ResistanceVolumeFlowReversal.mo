@@ -14,7 +14,8 @@ model ResistanceVolumeFlowReversal
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
@@ -35,9 +36,8 @@ model ResistanceVolumeFlowReversal
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
     l={0.002,0.002},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false) "Three way valve with constant input"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Three way valve with constant input"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -110,8 +110,8 @@ which is the number of parallel branches containing one pressure drop element an
 </p>
 <p>
 This model was created to demonstrate the influence of a new implementation of
-<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquationcode\">
-Buildings.Fluid.Interfaces.ConservationEquationcode</a>.
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a>.
 The old implementation used the <code>actualStream()</code> function
 whereas the new implementation uses the <code>semiLinear()</code>
 function. This change allows Dymola to exploit knowledge about the <code>min</code> and <code>max</code> attributes
@@ -154,6 +154,16 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
+<li>
+February 22, 2016, by Michael Wetter:<br/>
+Removed parameter <code>dynamicBalance</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+</li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.

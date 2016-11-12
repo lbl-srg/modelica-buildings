@@ -1,0 +1,11 @@
+last-generated=2016-11-02
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+const.k=[0.00100000004749745131, 0.00100000004749745131]
+time=[0., 2.]
+cheEquTra2.y=[0., 0.]
+cheEquTra1.y=[0., 0.]

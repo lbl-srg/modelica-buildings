@@ -14,8 +14,8 @@ protected
   Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k
     "Pressure where flow changes to turbulent";
 algorithm
-   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(dp)
-             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(-dp)
+   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(abs(dp))
+             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(abs(-dp))
              else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
 
   annotation(LateInline=true,
@@ -53,6 +53,14 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 19, 2016, by Michael Wetter:<br/>
+Added <code>abs</code> function for
+<code>Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit</code>
+to work in OpenModelica.
+See <a href=\"https://trac.openmodelica.org/OpenModelica/ticket/3778\">
+OpenModelica ticket 3778</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

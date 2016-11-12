@@ -29,7 +29,7 @@ partial model PartialMixingVolume
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
@@ -41,13 +41,19 @@ partial model PartialMixingVolume
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput U(unit="J")
+    "Internal energy of the component";
   Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
     "Pressure of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput m(unit="kg") "Mass of the component";
   Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
     "Species concentration of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](each unit="kg")
+    "Species mass of the component";
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
     "Trace substance mixture content";
-   // Models for the steady-state and dynamic energy balance.
+  Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC](each unit="kg")
+    "Trace substance mass of the component";
 
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
@@ -99,7 +105,7 @@ protected
   // See info section for why prescribedHeatFlowRate is used here.
   // The condition below may only be changed if StaticTwoPortConservationEquation
   // contains a correct solution for all foreseeable parameters/inputs.
-  // See issue 282 for a discussion.
+  // See Buildings, issue 282 for a discussion.
   final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
       (prescribedHeatFlowRate or (not allowFlowReversal)) and (
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
@@ -148,7 +154,10 @@ equation
   connect(steBal.port_b, ports[2]) annotation (Line(
       points={{30,10},{40,10},{40,-20},{0,-20},{0,-100}},
       color={0,127,255}));
-
+    U=0;
+    mXi=zeros(Medium.nXi);
+    m=0;
+    mC=zeros(Medium.nC);
     connect(hOut_internal,  steBal.hOut);
     connect(XiOut_internal, steBal.XiOut);
     connect(COut_internal,  steBal.COut);
@@ -156,7 +165,10 @@ equation
       connect(dynBal.ports, ports) annotation (Line(
       points={{70,0},{70,-20},{2.22045e-15,-20},{2.22045e-15,-100}},
       color={0,127,255}));
-
+    connect(U,dynBal.UOut);
+    connect(mXi,dynBal.mXiOut);
+    connect(m,dynBal.mOut);
+    connect(mC,dynBal.mCOut);
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
@@ -257,10 +269,10 @@ using
 </p>
 <pre>
 if allowFlowReversal then
-  hOut = Buildings.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
-                                                           neg=port_a.h_outflow,
-                                                           x=port_a.m_flow,
-                                                           deltax=m_flow_small/1E3);
+  hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                  y2=port_a.h_outflow,
+                                                  x=port_a.m_flow,
+                                                  x_small=m_flow_small/1E3);
 else
   hOut = port_b.h_outflow;
 end if;
@@ -295,6 +307,13 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 19, 2016 by Filip Jorissen:<br/>
+Added outputs U, m, mXi, mC for being able to
+check conservation of quantities. 
+This if or <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">
+issue 247</a>.
+</li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
 Updated model to use the new parameter <code>use_mWat_flow</code>

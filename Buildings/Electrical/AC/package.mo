@@ -109,17 +109,17 @@ electrical terminal.
 
 <h4>References</h4>
 <p>
-<a NAME=\"Stankovic1999\"/>
+<a name=\"Stankovic1999\"/>
 A.M. Stankovic, B.C. Lesieutre, T. Aydin; Modeling and analysis of single-pahse
 induction machines with dynamic phasors<br/>
 <a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
 <i>IEEE Transactions on Power Systems</i>, 14(1), Feb. 1999, pp. 9-14.</a><br/>
-<a NAME=\"Stankovic2000\"/>
+<a name=\"Stankovic2000\"/>
 A.M. Stankovic, T. Aydin; Analysis of asymmetrical faults in power systems using
 dynamic phasors<br/>
 <a href=\"http://www.ece.neu.edu/faculty/stankovic/Jour_papers/pwrs299im.pdf\">
 <i>IEEE Transactions on Power Systems</i>, 15(3), 2000, pp. 1062-1068 .</a><br/>
-<a NAME=\"Olsson2008\"/>
+<a name=\"Olsson2008\"/>
 Hans Olsson, Martin Otter, Sven Erik Mattson and Hilding Elmqvist.<br/>
 <a href=\"http://elib-v3.dlr.de/55892/1/otter2008-modelica-balanced-models.pdf\">
 Balanced Models in Modelica 3.0 for Increased Model Quality</a>.<br/>

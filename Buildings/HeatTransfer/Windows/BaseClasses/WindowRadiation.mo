@@ -16,11 +16,18 @@ block WindowRadiation "Calculation radiation for window"
       unit="W/m2") "Diffussive radiation from room " annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(
           extent={{-130,-91},{-100,-61}})));
-  Modelica.Blocks.Interfaces.RealOutput QTra_flow(final quantity="Power",
-      final unit="W")
-    "Transmitted exterior radiation through the window. (1: no shade; 2: shade)"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
-        iconTransformation(extent={{100,-90},{120,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput QTraDif_flow(
+    final quantity="Power",
+    final unit="W")
+    "Transmitted diffuse exterior radiation through the window. (1: no shade; 2: shade)"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput QTraDir_flow(
+    final quantity="Power",
+    final unit="W")
+    "Transmitted direct exterior radiation through the window. (1: no shade; 2: shade)"
+    annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput QAbsExtSha_flow(final quantity="Power",
       final unit="W")
@@ -87,9 +94,12 @@ protected
   StateInterpolator staIntQAbsIntSha_flow(
     final NSta=NSta) "Interpolator for the window state"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  StateInterpolator staIntQTra_flow(
-    final NSta=NSta) "Interpolator for the window state"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  StateInterpolator staIntQTraDif_flow(final NSta=NSta)
+    "Interpolator for the window state"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  StateInterpolator staIntQTraDir_flow(final NSta=NSta)
+    "Interpolator for the window state"
+    annotation (Placement(transformation(extent={{60,-98},{80,-78}})));
 
   Modelica.Blocks.Routing.Replicator replicator(final nout=N) if
      NSta > 1
@@ -154,14 +164,13 @@ equation
         points={{-19,-38},{18,-38},{18,-36},{58,-36}}, color={0,0,127}));
   connect(staIntQAbsIntSha_flow.H, QAbsIntSha_flow)
     annotation (Line(points={{81,-30},{110,-30}},           color={0,0,127}));
-  connect(tra.QTra_flow, staIntQTra_flow.HSta) annotation (Line(points={{-19,50},
-          {4,50},{4,-86},{58,-86}},   color={0,0,127}));
-  connect(staIntQTra_flow.H, QTra_flow)
-    annotation (Line(points={{81,-80},{110,-80}},           color={0,0,127}));
+  connect(staIntQTraDif_flow.H, QTraDif_flow)
+    annotation (Line(points={{81,-60},{96,-60},{110,-60}},
+                                                  color={0,0,127}));
   connect(uSta, staIntQAbsExtSha_flow.uSta) annotation (Line(points={{40,-120},{
           40,-120},{40,-96},{40,86},{58,86}},          color={0,0,127}));
-  connect(staIntQTra_flow.uSta, uSta) annotation (Line(points={{58,-74},{48,-74},
-          {40,-74},{40,-120}}, color={0,0,127}));
+  connect(staIntQTraDif_flow.uSta, uSta) annotation (Line(points={{58,-54},{58,-54},
+          {40,-54},{40,-120}}, color={0,0,127}));
   connect(staIntQAbsIntSha_flow.uSta, uSta)
     annotation (Line(points={{58,-24},{40,-24},{40,-120}}, color={0,0,127}));
 
@@ -171,6 +180,14 @@ equation
           -58},{48,-58},{48,56},{58,56}}, color={0,0,127}));
   connect(replicator.y, staIntQAbsGlaSha_flow.uSta) annotation (Line(points={{37,
           -58},{44,-58},{48,-58},{48,6},{58,6}}, color={0,0,127}));
+  connect(uSta, staIntQTraDir_flow.uSta)
+    annotation (Line(points={{40,-120},{40,-82},{58,-82}}, color={0,0,127}));
+  connect(tra.QTraDif_flow, staIntQTraDif_flow.HSta) annotation (Line(points={{-19,
+          52},{6,52},{6,-76},{48,-76},{48,-66},{58,-66}}, color={0,0,127}));
+  connect(tra.QTraDir_flow, staIntQTraDir_flow.HSta) annotation (Line(points={{-19,
+          48},{-10,48},{4,48},{4,-94},{58,-94}}, color={0,0,127}));
+  connect(staIntQTraDir_flow.H, QTraDir_flow) annotation (Line(points={{81,-88},
+          {88,-88},{88,-90},{110,-90}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -251,7 +268,10 @@ the transmitted diffusive radiation on shaded part: <code>AWin*uSha*HDif*tauSha(
 the transmitted direct radiation on shaded part: <code>AWin*uSha*HDir*tauSha(IncAng);</code>
 </li>
 </ol>
-<p>The output is <code>QTra_flow = Part1 + Part2 + Part3 + Part4</code></p>
+<p>
+The outputs are <code>QTraDif_flow = Part1 + Part3</code> and 
+<code>QTraDir_flow = Part2 + Part4</code>.
+</p>
 
 <h4>References</h4>
 <ul>
@@ -264,6 +284,13 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+June 7, 2016, by Michael Wetter:<br/>
+Removed output <code>QTra_flow</code> and introduced instead
+<code>QTraDif_flow</code> and <code>QTraDir_flow</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.
@@ -323,17 +350,21 @@ First implementation.
           lineColor={0,0,127},
           textString="QAbsGlaSha"),
         Text(
-          extent={{40,-70},{114,-86}},
+          extent={{42,-52},{106,-66}},
           lineColor={0,0,127},
-          textString="QTra"),
+          textString="QTraDif"),
         Text(
-          extent={{-110,-64},{-26,-86}},
+          extent={{-104,-70},{-50,-84}},
           lineColor={0,0,127},
           textString="HRoo"),
         Text(
-          extent={{18,-82},{72,-94}},
+          extent={{8,-82},{62,-94}},
           lineColor={0,0,127},
-          textString="uSta")}),
+          textString="uSta"),
+        Text(
+          extent={{44,-80},{108,-94}},
+          lineColor={0,0,127},
+          textString="QTraDir")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end WindowRadiation;

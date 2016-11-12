@@ -98,45 +98,48 @@ protected
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
 
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon(
+    each final alpha=0)
     "Heat input into radiator from convective heat transfer"
      annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad(
+    each final alpha=0)
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
-   Modelica.SIunits.TemperatureDifference dTCon[nEle] = heatPortCon.T .- vol.T
+   Modelica.SIunits.TemperatureDifference dTCon[nEle] = {heatPortCon.T - vol[i].T for i in 1:nEle}
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = heatPortRad.T .- vol.T
+   Modelica.SIunits.TemperatureDifference dTRad[nEle] = {heatPortRad.T - vol[i].T for i in 1:nEle}
     "Temperature difference for radiative heat transfer";
 
-  Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
-         then homotopy(actual=(1 - fraRad) .* UAEle .* dTCon .*
+  Modelica.Blocks.Sources.RealExpression QCon[nEle](y={if homotopyInitialization
+         then homotopy(actual=(1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
         Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=dTCon,
+        x=(heatPortCon.T - vol[i].T),
         n=n - 1,
-        delta=0.05), simplified=(1 - fraRad) .* UAEle .* abs(dTCon_nominal) .^ (
-        n - 1) .* dTCon) else (1 - fraRad) .* UAEle .* dTCon .*
+        delta=0.05), simplified=(1 - fraRad) * UAEle .* abs(dTCon_nominal[i]) ^ (
+        n - 1) * (heatPortCon.T - vol[i].T)) else (1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
         Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=dTCon,
+        x=(heatPortCon.T - vol[i].T),
         n=n - 1,
-        delta=0.05)) "Convective heat flow rate"
+        delta=0.05) for i in 1:nEle}) "Convective heat flow rate"
     annotation (Placement(transformation(extent={{-100,-48},{-80,-28}})));
 
-  Modelica.Blocks.Sources.RealExpression QRad[nEle](y=if homotopyInitialization
-         then homotopy(actual=fraRad .* UAEle .* dTRad .*
+  Modelica.Blocks.Sources.RealExpression QRad[nEle](y={if homotopyInitialization
+         then homotopy(actual=fraRad * UAEle * (heatPortRad.T - vol[i].T) *
         Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=dTRad,
+        x=(heatPortRad.T - vol[i].T),
         n=n - 1,
-        delta=0.05), simplified=fraRad .* UAEle .* abs(dTRad_nominal) .^ (n - 1)
-         .* dTRad) else fraRad .* UAEle .* dTRad .*
+        delta=0.05), simplified=fraRad * UAEle * abs(dTRad_nominal[i]) ^ (n - 1)
+         * (heatPortRad.T - vol[i].T)) else fraRad * UAEle * (heatPortRad.T - vol[i].T) *
         Buildings.Utilities.Math.Functions.regNonZeroPower(
-        x=dTRad,
+        x=(heatPortRad.T - vol[i].T),
         n=n - 1,
-        delta=0.05)) "Radiative heat flow rate"
+        delta=0.05) for i in 1:nEle}) "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon(
+    final alpha=0)
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
   Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
@@ -145,7 +148,8 @@ protected
   Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumRad(
+    final alpha=0)
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
@@ -173,15 +177,18 @@ initial equation
   Q_flow_nominal = sum(QEle_flow_nominal);
 
   for i in 1:nEle loop
+    // Use difference, TWat_nominal[i] - TRad/Air_nominal, to avoid larger system of equations
     QEle_flow_nominal[i] = k * UAEle * (fraRad *
-                   Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
-                   n=n,
-                   x0=0.1*k*(T_b_nominal-TRad_nominal))
-                   + (1-fraRad) *
-                   Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
-                   n=n,
-                   x0=0.1*k*(T_b_nominal-TAir_nominal)));
+      Buildings.Utilities.Math.Functions.powerLinearized(
+        x=k*TWat_nominal[i] - TRad_nominal,
+        n=n,
+        x0=0.1*k*(T_b_nominal-TRad_nominal)) + (1-fraRad) *
+      Buildings.Utilities.Math.Functions.powerLinearized(
+        x=k*TWat_nominal[i] - TAir_nominal,
+        n=n,
+        x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
+
 
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
@@ -327,6 +334,19 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set <code>preHea(final alpha=0)</code> as this allows to simplify the
+system of equations.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/570\">#570</a>.
+</li>
+<li>
+March 17, 2016, by Michael Wetter:<br/>
+Reformulated model to reduce the dimension of the nonlinear system of equations.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/435\">#435</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter

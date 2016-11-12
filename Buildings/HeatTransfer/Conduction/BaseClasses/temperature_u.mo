@@ -6,7 +6,7 @@ function temperature_u
     "Support points for derivatives";
   input Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  input Real dT_du[:](each fixed=false, unit="kg.K2/J")
+  input Real dT_du[:](each fixed=false, each unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 
   input Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";

@@ -15,7 +15,7 @@ protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
     tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     columns=2:30,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
@@ -39,6 +39,11 @@ This example tests the model that asserts that the pressure is within acceptable
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with
+<code>Modelica.Utilities.Files.loadResource</code>.
+</li>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
 First implementation.

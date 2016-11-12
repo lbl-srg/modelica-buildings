@@ -12,7 +12,7 @@ package ThreePhase_dq0 "AC system in dqo representation"
 
 
   redeclare function extends rotate
-  "Rotate a vector of an angle Theta (anti-counterclock)"
+  "Rotate a vector of an angle theta (anti-counterclock)"
   algorithm
     y[1] := cos(theta)*x[1] - sin(theta)*x[2];
     y[2] := sin(theta)*x[1] + cos(theta)*x[2];

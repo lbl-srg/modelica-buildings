@@ -44,9 +44,6 @@ model PIDHysteresisTimer
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
-  parameter Boolean limitsAtInit=true
-    "= false, if limits are ignored during initializiation"
-    annotation (Dialog(group="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization"));
@@ -56,28 +53,31 @@ model PIDHysteresisTimer
   parameter Real y_start=0 "Initial value of output"
     annotation (Dialog(group="Initialization"));
 
+  parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
+    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   LimPID con(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    wp=wp,
-    wd=wd,
-    Ni=Ni,
-    Nd=Nd,
-    initType=initType,
-    limitsAtInit=limitsAtInit,
-    xi_start=xi_start,
-    xd_start=xd_start,
-    y_start=y_start,
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final wp=wp,
+    final wd=wd,
+    final Ni=Ni,
+    final Nd=Nd,
+    final initType=initType,
+    final xi_start=xi_start,
+    final xd_start=xd_start,
+    final y_start=y_start,
     final yMin=yMin,
     final yMax=yMax,
-    reverseAction=reverseAction) "Controller to track setpoint"
+    final reverseAction=reverseAction,
+    final strict=strict) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   OffTimer offHys
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -91,12 +91,12 @@ model PIDHysteresisTimer
   Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Logical.Hysteresis hys(
-    pre_y_start=pre_y_start,
-    uLow=eOff,
-    uHigh=eOn) "Hysteresis element to switch controller on and off"
+    final pre_y_start=pre_y_start,
+    final uLow=eOff,
+    final uHigh=eOn) "Hysteresis element to switch controller on and off"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 protected
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero signal"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{62,-50},{82,-30}})));
@@ -216,6 +216,19 @@ avoids the controller from switching on until <code>minOffTime</code> seconds el
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2016, by Michael Wetter:<br/>
+Removed parameter <code>limitsAtInit</code> because it is no longer
+used in the PID controller.
+</li>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Changed the default value to <code>strict=true</code>
+in order to avoid events when the controller saturates.
+Also assigned propogated values to be <code>final</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/433\">issue 433</a>.
+</li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>
 Changed PID controller from Modelica Standard Library to

@@ -3,17 +3,14 @@ model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.Air;
-  Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheTem(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEnt(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheEnt(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheMas(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Modelica.Fluid.Sources.MassFlowSource_T source2(
     m_flow=1,
@@ -78,17 +75,14 @@ package Medium = Buildings.Media.Air;
     annotation (Placement(transformation(extent={{-350,60},{-330,80}})));
   Sensors.MassFraction senMas4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-270,60},{-250,80}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assTem1(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheTem1(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEnt1(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheEnt1(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assMas1(threShold=1E-8,
-      startTime=0)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheMas1(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
   Modelica.Fluid.Sources.MassFlowSource_T source3(
     m_flow=1,
@@ -167,22 +161,22 @@ equation
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
       points={{8,46},{16,46},{16,96},{30,96}},
       color={0,127,255}));
-  connect(senTem1.T, assTem.u1) annotation (Line(
+  connect(senTem1.T,cheTem. u1) annotation (Line(
       points={{-13,150},{0,150},{0,126},{70,126},{70,16},{158,16}},
       color={0,0,127}));
-  connect(senEnt1.h_out, assEnt.u1) annotation (Line(
+  connect(senEnt1.h_out,cheEnt. u1) annotation (Line(
       points={{31,150},{34,150},{34,124},{146,124},{146,-14},{158,-14}},
       color={0,0,127}));
-  connect(senMas1.X, assMas.u1) annotation (Line(
+  connect(senMas1.X,cheMas. u1) annotation (Line(
       points={{71,150},{140,150},{140,-44},{158,-44}},
       color={0,0,127}));
-  connect(senTem2.T, assTem.u2) annotation (Line(
+  connect(senTem2.T,cheTem. u2) annotation (Line(
       points={{37,-50},{48,-50},{48,4},{158,4}},
       color={0,0,127}));
-  connect(senEnt2.h_out, assEnt.u2) annotation (Line(
+  connect(senEnt2.h_out,cheEnt. u2) annotation (Line(
       points={{81,-50},{88,-50},{88,-26},{158,-26}},
       color={0,0,127}));
-  connect(senMas2.X, assMas.u2) annotation (Line(
+  connect(senMas2.X,cheMas. u2) annotation (Line(
       points={{121,-50},{140,-50},{140,-56},{158,-56}},
       color={0,0,127}));
   connect(masExcFor.port_b1, res1.port_a) annotation (Line(
@@ -227,22 +221,22 @@ equation
   connect(res4.port_b, sink2.ports[2]) annotation (Line(
       points={{-108,34},{-126,34},{-126,32},{-142,32}},
       color={0,127,255}));
-  connect(senTem3.T, assTem1.u1) annotation (Line(
+  connect(senTem3.T,cheTem1. u1) annotation (Line(
       points={{-333,150},{-312,150},{-312,-4},{-202,-4}},
       color={0,0,127}));
-  connect(senTem4.T, assTem1.u2) annotation (Line(
+  connect(senTem4.T,cheTem1. u2) annotation (Line(
       points={{-333,70},{-320,70},{-320,-16},{-202,-16}},
       color={0,0,127}));
-  connect(senEnt3.h_out, assEnt1.u1) annotation (Line(
+  connect(senEnt3.h_out,cheEnt1. u1) annotation (Line(
       points={{-289,150},{-272,150},{-272,-34},{-202,-34}},
       color={0,0,127}));
-  connect(senEnt4.h_out, assEnt1.u2) annotation (Line(
+  connect(senEnt4.h_out,cheEnt1. u2) annotation (Line(
       points={{-289,70},{-280,70},{-280,-46},{-202,-46}},
       color={0,0,127}));
-  connect(senMas3.X, assMas1.u1) annotation (Line(
+  connect(senMas3.X,cheMas1. u1) annotation (Line(
       points={{-249,150},{-230,150},{-230,-64},{-202,-64}},
       color={0,0,127}));
-  connect(senMas4.X, assMas1.u2) annotation (Line(
+  connect(senMas4.X,cheMas1. u2) annotation (Line(
       points={{-249,70},{-240,70},{-240,-76},{-202,-76}},
       color={0,0,127}));
   connect(masExcFor.port_b2, senTem3.port) annotation (Line(
@@ -279,7 +273,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Inte
 <p>
 This model tests whether the results for a mass exchanger are
 identical for forward flow and reverse flow.
-If the results differ, then an assert is triggered.
 </p>
 <p>
 Note that if the latent heat transfer effectiveness is non-zero, then
@@ -298,6 +291,13 @@ of stream connector. This bug will be corrected in future versions of Dymola.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Replaced

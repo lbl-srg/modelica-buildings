@@ -9,7 +9,7 @@ This package contains connectors that are used to export fluid flow models
 as Functional Mockup Units.
 </p>
 <p>
-The connectors 
+The connectors
 <a href=\"modelica://Buildings.Fluid.FMI.Interfaces.Inlet\">
 Buildings.Fluid.FMI.Interfaces.Inlet</a>
 and

@@ -28,7 +28,7 @@ model MoistAirEnthalpyFlowRate
     height=-2,
     offset=1,
     duration=60)
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-90,18},{-70,38}})));
 
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
     redeclare package Medium = Medium,
@@ -37,11 +37,8 @@ model MoistAirEnthalpyFlowRate
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,10},{48,30}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu1
-    "Assert to check then enthalpy flow rate sensor"
+  Modelica.Blocks.Math.Product pro "Product to compute enthalpy flow rate"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Math.Product product "Product to compute enthalpy flow rate"
-    annotation (Placement(transformation(extent={{0,54},{20,74}})));
   Buildings.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Latent enthalpy flow rate sensor"
@@ -53,12 +50,9 @@ model MoistAirEnthalpyFlowRate
   Modelica.Blocks.Math.Add add
     "Outputs the sensible plus latent enthalpy flow rate"
     annotation (Placement(transformation(extent={{20,-46},{40,-26}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu2
-    "Assert to check the sensible and latent enthalpy flow rate sensors"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
-      points={{-79,70},{-70,70},{-70,28},{-60,28}},
+      points={{-69,28},{-70,28},{-60,28}},
       color={0,0,127}));
   connect(sou.ports[1], senH_flow.port_a) annotation (Line(
       points={{-40,20},{-30,20}},
@@ -69,18 +63,10 @@ equation
   connect(senH.port_b, senM_flow.port_a) annotation (Line(
       points={{20,20},{28,20}},
       color={0,127,255}));
-  connect(senH_flow.H_flow, assEqu1.u1)        annotation (Line(
-      points={{-20,31},{-20,94},{28,94},{28,76},{58,76}},
-      color={0,0,127}));
-  connect(senH.h_out, product.u1) annotation (Line(
-      points={{10,31},{10,40},{-14,40},{-14,70},{-2,70}},
-      color={0,0,127}));
-  connect(senM_flow.m_flow, product.u2) annotation (Line(
-      points={{38,31},{38,48},{-10,48},{-10,58},{-2,58}},
-      color={0,0,127}));
-  connect(product.y, assEqu1.u2) annotation (Line(
-      points={{21,64},{58,64}},
-      color={0,0,127}));
+  connect(senH.h_out, pro.u1) annotation (Line(points={{10,31},{10,38},{10,76},
+          {58,76}},          color={0,0,127}));
+  connect(senM_flow.m_flow, pro.u2) annotation (Line(points={{38,31},{38,48},{
+          38,64},{58,64}},       color={0,0,127}));
   connect(senHLat_flow.H_flow, add.u1) annotation (Line(
       points={{-50,-59},{-50,-30},{18,-30}},
       color={0,0,127}));
@@ -94,12 +80,6 @@ equation
     annotation (Line(
       points={{-40,-70},{-20,-70}},
       color={0,127,255}));
-  connect(senH_flow.H_flow, assEqu2.u1) annotation (Line(
-      points={{-20,31},{-20,36},{70,36},{70,-24},{78,-24}},
-      color={0,0,127}));
-  connect(add.y, assEqu2.u2)  annotation (Line(
-      points={{41,-36},{78,-36}},
-      color={0,0,127}));
   connect(senHSen_flow.port_b, sin.ports[1]) annotation (Line(
       points={{5.55112e-16,-70},{60,-70}},
       color={0,127,255}));
@@ -113,11 +93,17 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sens
 This example tests the sensible and latent enthalpy sensors.
 It compares the output from the enthalpy sensor with the sum of the
 sensible and latent enthalpy sensors.
-If they differ, the model stops with an error.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Removed assertion and added the enthalpy flow rates instead
+to the plot window so that they become part of the regression tests.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 January 23 2013, by Michael Wetter:<br/>
 Changed time constant of <code>senH</code> so that it has

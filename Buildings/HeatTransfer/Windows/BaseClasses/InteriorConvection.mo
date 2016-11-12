@@ -7,8 +7,16 @@ model InteriorConvection
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
+
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -18,6 +26,14 @@ model InteriorConvection
 protected
   constant Modelica.SIunits.Temperature dT0 = 2
     "Initial temperature used in homotopy method";
+
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
+  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+    "Flag, true if the surface is a ceiling";
+  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+    "Flag, true if the surface is a floor";
+
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = u*hFixed * dT;

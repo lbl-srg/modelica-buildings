@@ -39,10 +39,10 @@ To add a component of a thermofluid flow device, the package
 See `Buildings.Fluid.Interface.UsersGuide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ for a description of these classes.
 Alternatively, simple models such as the models below may be used as a starting point for implementing new models for thermofluid flow devices:
 
-`Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed>`_
+`Buildings.Fluid.HeatExchangers.HeaterCooler_u <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCooler_u>`_
   For a device that adds heat to a fluid stream.
 
-`Buildings.Fluid.MassExchangers.HumidifierPrescribed <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed>`_
+`Buildings.Fluid.MassExchangers.Humidifier_u <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u>`_
   For a device that adds humidity to a fluid stream.
 
 `Buildings.Fluid.Chillers.Carnot <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot>`_

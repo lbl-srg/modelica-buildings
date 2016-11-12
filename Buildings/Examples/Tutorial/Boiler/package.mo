@@ -28,8 +28,8 @@ The room volume is <i>180</i>m<sup>3</sup>.
 To approximate the thermal storage effect of furniture and building constructions,
 the heat capacity of the room should be increased by a factor of three.
 (Modeling a detailed room heat transfer as implemented in
-<a href=\"modelica://Buildings.Rooms\">
-Buildings.Rooms</a> is out of scope for this tutorial.)
+<a href=\"modelica://Buildings.ThermalZones.Detailed\">
+Buildings.ThermalZones.Detailed</a> is out of scope for this tutorial.)
 </p>
 <p>
 The space heating shall be switched on if the outdoor temperature is below

@@ -16,7 +16,7 @@ model IdealSource
         rotation=-90,
         origin={-60,80})));
   Modelica.Blocks.Interfaces.RealInput dp_in(unit="Pa") if not control_m_flow
-    "Prescribed outlet pressure"
+    "Prescribed pressure difference port_a.p-port_b.p"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -84,6 +84,10 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 20, 2016, by Michael Wetter:<br/>
+Corrected documentation for <code>dp_in</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Added units to the signal connectors.

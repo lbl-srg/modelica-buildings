@@ -81,7 +81,7 @@ equation
       points={{81,-30},{90,-30},{90,-10},{69.8,-10},{69.8,-1.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(winRad.QTra_flow, HRoo.u) annotation (Line(
+  connect(winRad.QTraDif_flow, HRoo.u) annotation (Line(
       points={{81,2},{94,2},{94,-90},{-10,-90},{-10,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));

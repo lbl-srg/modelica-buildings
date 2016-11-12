@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "const.k",
+    "cheEquTra2.y",
+    "cheEquTra1.y"
+  };

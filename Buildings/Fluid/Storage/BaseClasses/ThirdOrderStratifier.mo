@@ -122,7 +122,7 @@ There are two ways to reduce the oscillations:</p>
 To use an under-relaxation coefficient <code>alpha</code> when adding the heat flux into the volume.
 </li>
 <li>
-To use the first-order upwind for <code>hOut[2]</code> and <code>hOut[nSeg]</code>. Note: Using it requires <code>nSeg>=4</code>.
+To use the first-order upwind for <code>hOut[2]</code> and <code>hOut[nSeg]</code>. Note: Using it requires <code>nSeg &ge; 4</code>.
 </li>
 </ul>
 <p>

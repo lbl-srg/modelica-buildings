@@ -4,6 +4,10 @@ model Capacitive "Model of a capacitive and resistive load"
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
     redeclare Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
+
+protected
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+
 initial equation
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // q = Y[2]*{V_nominal, 0}/omega;
@@ -11,7 +15,8 @@ initial equation
     der(q) = zeros(PhaseSystem.n);
   end if;
 equation
-  omega = der(PhaseSystem.thetaRef(terminal.theta));
+  theRef = PhaseSystem.thetaRef(terminal.theta);
+  omega = der(theRef);
 
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
 
@@ -199,7 +204,12 @@ The choices are between a null current or the linearized model.
 
 </html>",
       revisions="<html>
-      <ul>
+<ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.
 </li>

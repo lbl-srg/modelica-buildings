@@ -2,7 +2,9 @@ within Buildings.Fluid.HeatExchangers;
 model WetCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and humidity condensation"
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
-      redeclare each final
+    redeclare replaceable package Medium2 =
+      Modelica.Media.Interfaces.PartialCondensingGases,
+    redeclare final
       Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow
@@ -70,6 +72,21 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
+<li>
+July 29, 2016, by Michael Wetter:<br/>
+Redeclared <code>Medium2</code> to be <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
+because it is used in <code>vol2</code> and because
+the model calls <code>Medium2.enthalpyOfCondensingGas</code>,
+which requires the medium to extend
+from this subclass.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/547\">
+issue 547</a>.
+</li>
 <li>
 February 2, 2012, by Michael Wetter:<br/>
 Corrected error in assignment of <code>dp2_nominal</code> in the base class.

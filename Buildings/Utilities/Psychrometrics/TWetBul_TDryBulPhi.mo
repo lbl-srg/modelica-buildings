@@ -38,6 +38,9 @@ protected
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
+  Modelica.SIunits.MassFraction XiSatRefIn
+    "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
+
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
@@ -49,21 +52,27 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat    = 0;
     XiDryBul = 0;
+    XiSatRefIn=0;
   else
+    XiSatRefIn=(1-XiDryBul)*XiSat/(1-XiSat);
     XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
-      p=     p,
-      phi=   1);
+      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+      p =    p,
+      phi =  1);
     XiDryBul =Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      p=     p,
-      pSat=  Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
-      phi=   phi);
-    TWetBul = (TDryBul * ((1-XiDryBul) *
-               Buildings.Utilities.Psychrometrics.Constants.cpAir + XiDryBul *
-               Buildings.Utilities.Psychrometrics.Constants.cpSte) + (XiDryBul-XiSat) *
-               Buildings.Utilities.Psychrometrics.Constants.h_fg)/
-            ( (1-XiSat)*Buildings.Utilities.Psychrometrics.Constants.cpAir + XiSat *
-            Buildings.Utilities.Psychrometrics.Constants.cpSte);
+      p =    p,
+      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      phi =  phi);
+    (TWetBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
+              (1-XiDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XiSatRefIn * Buildings.Utilities.Psychrometrics.Constants.cpSte +
+              (XiDryBul-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+    =
+    (TDryBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
+              (1-XiDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
+              XiDryBul * Buildings.Utilities.Psychrometrics.Constants.cpSte)  +
+    (XiDryBul-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
+
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
@@ -71,38 +80,12 @@ equation
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Ellipse(
-          extent={{-22,-94},{18,-56}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-14,44},{10,-64}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-14,44},{-14,84},{-12,90},{-8,92},{-2,94},{4,92},{8,90},{10,
-              84},{10,44},{-14,44}},
-          lineColor={0,0,0},
-          lineThickness=0.5),
-        Line(
-          points={{-14,44},{-14,-60}},
-          thickness=0.5),
-        Line(
-          points={{10,44},{10,-60}},
-          thickness=0.5),
-        Line(points={{-42,-16},{-14,-16}}),
-        Line(points={{-42,24},{-14,24}}),
-        Line(points={{-42,64},{-14,64}}),
         Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},
           textString="TDryBul"),
         Text(
-          extent={{-86,14},{-54,-14}},
+          extent={{-92,14},{-72,-12}},
           lineColor={0,0,127},
           textString="phi"),
         Text(
@@ -112,7 +95,38 @@ annotation (
         Text(
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
-          textString="TWetBul")}),
+          textString="TWetBul"),
+        Line(points={{78,-74},{-48,-74}}),
+        Text(
+          extent={{76,-78},{86,-94}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="T"),
+        Line(
+          points={{76,-46},{26,-4}},
+          color={255,0,0},
+          thickness=0.5),
+        Line(points={{-48,-48},{-2,-30},{28,-4},{48,32},{52,72}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(points={{-48,84},{-48,-74}}),
+        Text(
+          extent={{-44,82},{-22,64}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="X"),
+        Polygon(
+          points={{86,-74},{76,-72},{76,-76},{86,-74}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-48,88},{-46,74},{-50,74},{-48,88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
@@ -124,13 +138,18 @@ If the constant <code>approximateWetBulb</code> is <code>true</code>,
 then the block uses the approximation of Stull (2011) to compute
 the wet bulb temperature without requiring a nonlinear equation.
 Otherwise, the model will introduce one nonlinear equation.
-</p>
-<p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
 a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
 and standard sea level pressure.
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
+</p>
+<p>
+Otherwise a calculation based on an energy balance is used.
+See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> for a discussion.
+The model is validated in
+<a href=\"modelica://Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi\">
+Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 For a model that takes the mass fraction instead of the relative humidity as an input, see
@@ -150,6 +169,16 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Changed icon.
+</li>
+<li>
+May 24, 2016, by Filip Jorissen:<br/>
+Corrected exact implementation. 
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
+for a discussion.
+</li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>
 Changed assignment of nominal value to avoid in OpenModelica the warning

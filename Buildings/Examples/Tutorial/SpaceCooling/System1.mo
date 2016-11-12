@@ -2,8 +2,7 @@ within Buildings.Examples.Tutorial.SpaceCooling;
 model System1
   "First part of the system model, consisting of the room with heat transfer"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
-      Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
   Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
@@ -61,8 +60,7 @@ This section describes step by step how we implemented the model.
 First, to define the medium properties, we added the declaration
 </p>
 <pre>
-  replaceable package MediumA =
-      Buildings.Media.Air;
+  replaceable package MediumA = Buildings.Media.Air \"Medium for air\";
 </pre>
 <p>
 This will allow the propagation of the medium model to all models that contain air.
@@ -72,18 +70,13 @@ supply, there will be multiple models that use this medium.
 <p>
 We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
-have water as a medium. Because we do not anticipate saturated air, we used
-the medium model
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air</a>
-instead of
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a>
-as the latter is computationally more expensive.
+have water as a medium.
+</p>
+<p>
 Note that although the medium model is for unsaturated air, the cooling coil
-will be able to reduce the moisture content of the medium. But since
+will be able to reduce the moisture content of the medium. Because
 the air outlet state of the cooling coil has a relative humidity below <i>100%</i>,
-we can use this medium model for unsaturated air.
+we can use this medium model and need not be able to model the fog region.
 </p>
 <p>
 We also defined the system-level parameters
@@ -189,8 +182,8 @@ Both analytical values agree with the simulation results shown in the above figu
 <h4>Notes</h4>
 <p>
 For a more realistic model of a room, the model
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
+Buildings.ThermalZones.Detailed.MixedAir</a>
 could have been used.
 For transient heat conduction, models from the
 package

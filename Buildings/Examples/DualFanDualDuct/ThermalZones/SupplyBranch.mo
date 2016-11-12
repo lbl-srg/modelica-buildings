@@ -15,10 +15,6 @@ model SupplyBranch "Supply branch of a dual duct system"
     "Fluid connector b (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{40,190},{60,210}}),
         iconTransformation(extent={{40,190},{60,210}})));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Formulation of energy balance in junction volumes";
-  parameter Boolean dynamicBalanceJunction=true
-    "Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations";
   parameter Boolean from_dp=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)";
   parameter Boolean linearizeFlowResistance=false
@@ -80,15 +76,13 @@ model SupplyBranch "Supply branch of a dual duct system"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
   Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
     redeclare package Medium = MediumA,
-    m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,mAirCol_flow_nominal +
-        mAirHot_flow_nominal},
-    energyDynamics=energyDynamicsJunctions,
-    massDynamics=energyDynamicsJunctions,
+    m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,
+        mAirCol_flow_nominal + mAirHot_flow_nominal},
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dynamicBalance=false,
-    dp_nominal=20*{0,0,0}) "Mixer for hot and cold air deck" annotation (
-      Placement(transformation(
+    dp_nominal=20*{0,0,0},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Mixer for hot and cold air deck" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,40})));

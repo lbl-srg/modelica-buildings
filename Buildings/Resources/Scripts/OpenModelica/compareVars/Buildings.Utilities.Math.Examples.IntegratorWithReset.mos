@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "cons.y",
+    "booleanPulse.y",
+    "intWitRes1.y_start",
+    "intWitRes1.y_reset",
+    "intWitRes1.y",
+    "intWitRes2.y_start",
+    "intWitRes2.y",
+    "intWitRes2.y_reset_in",
+    "intNoReset.y_start",
+    "intNoReset.y",
+    "intDef.y_start",
+    "intDef.y"
+  };

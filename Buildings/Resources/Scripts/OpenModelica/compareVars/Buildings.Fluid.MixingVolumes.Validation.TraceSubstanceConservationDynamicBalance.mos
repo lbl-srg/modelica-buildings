@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "senTraSubIn.C",
+    "senTraSubOut.C",
+    "cheConMas.y"
+  };

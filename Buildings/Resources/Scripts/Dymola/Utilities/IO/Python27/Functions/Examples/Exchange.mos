@@ -1,3 +1,7 @@
+// Setting 64-bit compilation is due to
+// https://github.com/lbl-srg/modelica-buildings/issues/559
+Advanced_CompileWith64_ori=Advanced.CompileWith64;
+Advanced.CompileWith64 = 2;
 simulateModel("Buildings.Utilities.IO.Python27.Functions.Examples.Exchange", method="Euler", fixedstepsize=1, resultFile="Exchange");
 createPlot(id = 1,
  position = {15, 10, 407, 281},
@@ -16,3 +20,4 @@ createPlot(id = 1,
  colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}},
  markers = {MarkerStyle.None, MarkerStyle.None, MarkerStyle.None, MarkerStyle.None,
 MarkerStyle.None, MarkerStyle.Cross});
+Advanced.CompileWith64 = Advanced_CompileWith64_ori;

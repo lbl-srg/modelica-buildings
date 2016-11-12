@@ -1,0 +1,11 @@
+last-generated=2015-12-22
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+QHea_flow=[893931.4375, 893931.4375]
+QCoo_flow=[-383165.6875, -383165.6875]
+QWatHea_flow=[19496.900390625, 19496.900390625]
+time=[0., 1.]

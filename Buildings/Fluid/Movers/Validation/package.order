@@ -2,8 +2,10 @@ ControlledFlowMachine
 ControlledFlowMachineDynamic
 FlowControlled_dp
 FlowControlled_m_flow
-Power
+PowerExact
+PowerSimplified
 PumpCurveConstruction
+PumpCurveDerivatives
 Pump_Nrpm_stratos
 Pump_stratos
 SpeedControlled_Nrpm

@@ -3,7 +3,8 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10 "Nominal pressure drop";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10
+    "Nominal pressure drop";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
 

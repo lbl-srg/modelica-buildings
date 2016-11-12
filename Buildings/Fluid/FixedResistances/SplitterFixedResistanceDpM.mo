@@ -1,7 +1,6 @@
 within Buildings.Fluid.FixedResistances;
 model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
-    extends Buildings.BaseClasses.BaseIcon;
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
@@ -35,29 +34,40 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-    annotation(Evaluate=true, Dialog(enable = not linearized));
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
     "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
+
   parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
-    "Pressure. Set negative at outflowing ports."
+    "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
+
+  parameter Boolean use_dh = false
+    "= true, use dh and ReC, otherwise use deltaM"
+    annotation(Evaluate=true,
+               Dialog(group = "Transition to laminar",
+                      enable = not linearized));
+
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
-       annotation(Dialog(enable = not use_dh and not linearized));
+       annotation(Dialog(group = "Transition to laminar",
+                         enable = not use_dh and not linearized));
 
   parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
-    annotation(Dialog(enable = use_dh and not linearized));
+    annotation(Dialog(group = "Transition to laminar",
+                      enable = use_dh and not linearized));
+
   parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
     "Reynolds number where transition to turbulent starts"
-      annotation(Dialog(enable = use_dh and not linearized));
+      annotation(Dialog(group = "Transition to laminar",
+                        enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
+
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
@@ -72,11 +82,15 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
         Ellipse(
-          visible=dynamicBalance,
+          visible=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState,
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-151,142},{149,102}},
+          lineColor={0,0,255},
+          textString="%name")}),
 defaultComponentName="spl",
     Documentation(info="<html>
 <p>
@@ -110,8 +124,7 @@ This is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
 The fluid volume is modeled if
-<code>dynamicBalance=true</code>, and it is removed if
-<code>dynamicBalance=false</code>.
+<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>.
 The control volume has the size
 </p>
 <pre>
@@ -120,11 +133,26 @@ The control volume has the size
 <p>
 where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density
 of the medium in the volume at nominal condition.
-Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
+Setting <code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>
+can help reducing the size of the nonlinear
 system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 14, 2016 by Michael Wetter:<br/>
+Added to Annex 60 library.<br/>
+Updated comment for parameter <code>use_dh</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+</li>
+<li>
+Removed parameter <code>dynamicBalance</code> that overwrote the setting
+of <code>energyDynamics</code> and <code>massDynamics</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+Annex 60, issue 411</a>.
+</li>
 <li>
 February 1, 2012 by Michael Wetter:<br/>
 Expanded documentation.

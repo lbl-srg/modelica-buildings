@@ -1,0 +1,13 @@
+last-generated=2016-11-02
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+senMasFlo.m_flow=[3., 3.]
+time=[0., 1.]
+senSpeEnt.H_flow=[135902.828125, 135902.828125]
+cheMasFra.y=[-0., -0.]
+cheMasFlo.y=[0., 0.]
+cheSpeEnt.y=[0., 0.]

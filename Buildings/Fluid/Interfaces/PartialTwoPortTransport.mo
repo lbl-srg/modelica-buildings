@@ -8,10 +8,10 @@ partial model PartialTwoPortTransport
   // based on local dp_nominal
   parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced", enable=from_dp));
+    annotation(Dialog(tab = "Advanced"));
   parameter Medium.MassFlowRate m_flow_start = 0
     "Guess value of m_flow = port_a.m_flow"
-    annotation(Dialog(tab = "Advanced", enable=not from_dp));
+    annotation(Dialog(tab = "Advanced"));
   // Note: value of m_flow_small shall be refined by derived model,
   // based on local m_flow_nominal
   parameter Medium.MassFlowRate m_flow_small
@@ -38,14 +38,14 @@ partial model PartialTwoPortTransport
       m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
                   Medium.density(
                     Medium.setState_phX(
-                      p=  port_a.p,
-                      h=  inStream(port_a.h_outflow),
-                      X=  inStream(port_a.Xi_outflow))),
+                      p = port_a.p,
+                      h = inStream(port_a.h_outflow),
+                      X = inStream(port_a.Xi_outflow))),
                   Medium.density(
                        Medium.setState_phX(
-                         p=  port_b.p,
-                         h=  inStream(port_b.h_outflow),
-                         X=  inStream(port_b.Xi_outflow))),
+                         p = port_b.p,
+                         h = inStream(port_b.h_outflow),
+                         X = inStream(port_b.Xi_outflow))),
                   m_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
@@ -53,9 +53,9 @@ partial model PartialTwoPortTransport
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,
                   Medium.temperature(
                     Medium.setState_phX(
-                      p=  port_a.p,
-                      h=  inStream(port_a.h_outflow),
-                      X=  inStream(port_a.Xi_outflow))),
+                      p = port_a.p,
+                      h = inStream(port_a.h_outflow),
+                      X = inStream(port_a.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_a, if show_T = true";
@@ -63,9 +63,9 @@ partial model PartialTwoPortTransport
       Modelica.Fluid.Utilities.regStep(port_b.m_flow,
                   Medium.temperature(
                     Medium.setState_phX(
-                      p=  port_b.p,
-                      h=  inStream(port_b.h_outflow),
-                      X=  inStream(port_b.Xi_outflow))),
+                      p = port_b.p,
+                      h = inStream(port_b.h_outflow),
+                      X = inStream(port_b.Xi_outflow))),
                   Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
                   m_flow_small) if show_T
     "Temperature close to port_b, if show_T = true";
@@ -121,6 +121,13 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2016, by Michael Wetter:<br/>
+Removed wrong annotation, which caused an error in the pedantic model check
+of Dymola 2017 FD01.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/516\">#516</a>.
+</li>
 <li>
 January 22, 2016, by Henning Francke:<br/>
 Corrected type declaration of pressure.

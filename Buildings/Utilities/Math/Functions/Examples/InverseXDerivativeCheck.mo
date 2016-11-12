@@ -19,7 +19,7 @@ equation
   y = Buildings.Utilities.Math.Functions.inverseXRegularized(
     x=  x,
     delta=  delta);
-  der(y) = der(y_comp);
+  der(y_comp) = Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized(x=x,delta=delta,x_der=der(x));
   err = y-y_comp;
   assert(abs(err) < 1E-3, "Error in implementation.");
 annotation (
@@ -42,6 +42,12 @@ If the derivative implementation is wrong, the simulation will stop with an erro
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 22, 2016, by Filip Jorissen:<br/>
+Changed example such that it explicitly uses 
+<a href=\"modelica://Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized\">
+Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized</a>. 
+</li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>
 First implementation.

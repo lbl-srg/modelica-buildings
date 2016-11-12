@@ -4,7 +4,7 @@ function devAbsInteriorIrradiationInteriorShading
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation;
 
-  output Real absIntIrrIntShaDev[NSta](min=0, max=1)
+  output Real absIntIrrIntShaDev[NSta](each min=0, each max=1)
     "Hemiperical absorbtance of a shading device for interior irradiation with interior shading";
 protected
   Real rRho;
@@ -27,6 +27,10 @@ This function computes the hemiperical absorbtance of a shading device for inter
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2016, by Michael Wetter:<br/>
+Added missing <code>each</code>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.

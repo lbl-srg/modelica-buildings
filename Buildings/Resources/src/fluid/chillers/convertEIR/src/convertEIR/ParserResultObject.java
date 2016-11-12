@@ -121,25 +121,33 @@ public class ParserResultObject {
     public void toMoElectricEirsFile(String fileName) throws IOException {
         // This method prints all the Electric EIRs in the output file.
 
+    	// defines package annotation
+    	String packageAnnotation = "annotation(preferredView=" + "\"" + "info" + "\""
+                + ",\n Documentation(info=\"<html>\n"
+                + "<p>\nPackage with performance data for chillers."
+                + "\n</p>\n</html>\","
+                + " revisions=\"<html>\n"
+                + "<p>\nGenerated on "
+                + getDateTime()
+                + " by "
+                + System.getProperty("user.name")
+                + "\n</p>\n</html>\"));"
+                + "\n";	
+    	
         // define the header of the output file
         // Date date = new Date();
         String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
                 + "package ElectricEIR \"Performance data for chiller ElectricEIR\"\n"
                 + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
-                + " annotation(preferredView=\"info\",\n"
-                + " Documentation(info=\"<html>\n"
-                + "<p>\n"
-                + "Package with performance data for chillers.\n"
-                + "</p>\n"
-                + "</html>\n\","
-                + " revisions=\"<html>\n"
-                + "Generated on "
-                + getDateTime()
-                + " by "
-                + System.getProperty("user.name")
-                + "</html>\"));"
-                + "\n"
+				/*
+				 * + " annotation(preferredView=\"info\",\n" +
+				 * " Documentation(info=\"<html>\n" + "<p>\n" +
+				 * "Package with performance data for chillers.\n" + "</p>\n" +
+				 * "</html>\n\"," + " revisions=\"<html>\n" + "Generated on " +
+				 * getDateTime() + " by " + System.getProperty("user.name") +
+				 * "</html>\"));" + "\n"
+				 */
                 + "  "
                 + "record Generic \"Generic data record for chiller ElectricEIR\""
                 + "\n"
@@ -265,7 +273,7 @@ public class ParserResultObject {
         // The & sign needs to be converted to &amp; as it is inside an html section.
         cleanRecordedElectricEirs = cleanRecordedElectricEirs.replaceAll("&", "&amp;");
 
-        fw.write(fileHeader + cleanRecordedElectricEirs + fileFooter);
+        fw.write(fileHeader + cleanRecordedElectricEirs + packageAnnotation + fileFooter);
         fw.close();
     }
 
@@ -360,12 +368,8 @@ public class ParserResultObject {
         // This method prints all the Reformulated Electric EIRs in the output
         // file.
 
-        // defines the header of the output file
-        String fileHeader = "within Buildings.Fluid.Chillers.Data;"
-                + "\n"
-                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\"\n"
-                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
-                + " annotation(preferredView=" + "\"" + "info" + "\""
+    	// defines package annotation
+    	String packageAnnotation = "annotation(preferredView=" + "\"" + "info" + "\""
                 + ",\n Documentation(info=\"<html>\n"
                 + "<p>\nPackage with performance data for chillers."
                 + "\n</p>\n</html>\","
@@ -375,7 +379,21 @@ public class ParserResultObject {
                 + " by "
                 + System.getProperty("user.name")
                 + "\n</p>\n</html>\"));"
+                + "\n";	
+        // defines the header of the output file
+        String fileHeader = "within Buildings.Fluid.Chillers.Data;"
                 + "\n"
+                + "package ElectricReformulatedEIR \"Performance data for chiller ElectricReformulatedEIR\"\n"
+                + "  extends Modelica.Icons.MaterialPropertiesPackage;\n"
+				/*
+				 * + " annotation(preferredView=" + "\"" + "info" + "\"" +
+				 * ",\n Documentation(info=\"<html>\n" +
+				 * "<p>\nPackage with performance data for chillers." +
+				 * "\n</p>\n</html>\"," + " revisions=\"<html>\n" +
+				 * "<p>\nGenerated on " + getDateTime() + " by " +
+				 * System.getProperty("user.name") + "\n</p>\n</html>\"));" +
+				 * "\n"
+				 */
                 + "  "
                 + "record Generic \"Generic data record for chiller ElectricReformulatedEIR\""
                 + "\n"
@@ -500,7 +518,7 @@ public class ParserResultObject {
         // The & sign needs to be converted to &amp; as it is inside an html section.
         cleanRecordedReformElectricEirs = cleanRecordedReformElectricEirs.replaceAll("&", "&amp;");
 
-        fw.write(fileHeader + cleanRecordedReformElectricEirs + fileFooter);
+        fw.write(fileHeader + cleanRecordedReformElectricEirs + packageAnnotation + fileFooter);
         fw.close();
     }
 

@@ -26,7 +26,7 @@ model GeneralizedSensor_N
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-90})));
-  Modelica.Blocks.Interfaces.RealOutput S[4,terminal_n.phase[1].PhaseSystem.n](
+  Modelica.Blocks.Interfaces.RealOutput S[4, Buildings.Electrical.PhaseSystems.OnePhase.n](
                                           each final quantity="Power",
                                           each final unit="W") "Phase powers"
     annotation (Placement(
@@ -118,6 +118,12 @@ The two components of the power <i>S</i> are the active and reactive power for e
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong access to phase system.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/570\">#570</a>.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Revised documentation.
