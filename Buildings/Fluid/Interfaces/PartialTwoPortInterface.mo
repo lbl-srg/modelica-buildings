@@ -16,9 +16,10 @@ partial model PartialTwoPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.SIunits.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa")
+
+  Modelica.SIunits.PressureDifference dp(start=_dp_start, displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
@@ -32,8 +33,13 @@ partial model PartialTwoPortInterface
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
-equation
-  dp = port_a.p - port_b.p;
+
+protected
+  final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
+  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
+  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+
   annotation (
     preferredView="info",
     Documentation(info="<html>
@@ -58,6 +64,28 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Renamed protected parameter <code>m_flow_start</code> to avoid
+a name clash with
+<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+which leads to an error as the definition were different,
+and also renamed protected parameter <code>dp_start</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>
+<br/>
+Moved computation of pressure drop to variable assignment so that
+the model won't mix graphical with textual modeling if used as a base
+class for a graphically implemented model.
+</li>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for mass flow rate and pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

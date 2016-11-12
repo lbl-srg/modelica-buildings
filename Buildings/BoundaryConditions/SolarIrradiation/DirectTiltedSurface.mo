@@ -6,9 +6,6 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
   Modelica.Blocks.Interfaces.RealOutput inc(
     final quantity="Angle",
     final unit="rad",
@@ -46,7 +43,7 @@ equation
       color={0,0,127}));
 
   connect(weaBus, incAng.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-19.6},{-50,-19.6}},
+      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-20},{-50,-20}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -62,6 +59,13 @@ For a definition of the parameters, see the
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2016, by Michael Wetter:<br/>
+Removed duplicate instance <code>weaBus</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/461\">
+https://github.com/iea-annex60/modelica-annex60/issues/461</a>.
+</li>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
 Added incidence angle as output as this is needed for the room model.

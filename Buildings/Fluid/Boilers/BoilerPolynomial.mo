@@ -26,35 +26,46 @@ model BoilerPolynomial
     "Mass of boiler that will be lumped to water heat capacity"
     annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
-  Modelica.SIunits.Efficiency eta "Boiler efficiency";
-
-  Modelica.SIunits.Power QFue_flow "Heat released by fuel";
-  Modelica.SIunits.Power QWat_flow "Heat transfer from gas into water";
-  Modelica.SIunits.MassFlowRate mFue_flow "Fuel mass flow rate";
-  Modelica.SIunits.VolumeFlowRate VFue_flow "Fuel volume flow rate";
+  Modelica.SIunits.Efficiency eta=
+    if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
+      a[1]
+    elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
+      Buildings.Utilities.Math.Functions.polynomial(a=a, x=y)
+   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+      Buildings.Utilities.Math.Functions.quadraticLinear(a=aQuaLin, x1=y, x2=T)
+   else
+      0
+  "Boiler efficiency";
+  Modelica.SIunits.Power QFue_flow = y * Q_flow_nominal/eta_nominal
+    "Heat released by fuel";
+  Modelica.SIunits.Power QWat_flow = eta * QFue_flow
+    "Heat transfer from gas into water";
+  Modelica.SIunits.MassFlowRate mFue_flow = QFue_flow/fue.h
+    "Fuel mass flow rate";
+  Modelica.SIunits.VolumeFlowRate VFue_flow = mFue_flow/fue.d
+    "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-protected
-  Real eta_nominal "Boiler efficiency at nominal condition";
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
-    "Overall thermal conductance (if heatPort is connected)"
-    annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
-public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port, can be used to connect to ambient"
-                             annotation (Placement(transformation(extent={{-10,62},
-            {10,82}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(C=500*mDry,
-      T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "heat capacity of boiler metal"
-    annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
-                                          annotation (Placement(
-        transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat port, can be used to connect to ambient"
+    annotation (Placement(transformation(extent={{-10,62}, {10,82}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(
+    C=500*mDry,
+    T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "heat capacity of boiler metal"
+    annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
+
 protected
+  parameter Real eta_nominal(fixed=false) "Boiler efficiency at nominal condition";
+  parameter Real aQuaLin[6] = if size(a, 1) == 6 then a else fill(0, 6)
+  "Auxiliary variable for efficiency curve because quadraticLinear requires exactly 6 elements";
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
@@ -62,32 +73,36 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     "Temperature of fluid"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-equation
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
+    "Overall thermal conductance (if heatPort is connected)"
+    annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
+
+initial equation
+  if  effCur == Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
+    assert(size(a, 1) == 6,
+    "The boiler has the efficiency curve set to 'Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear',
+    and hence the parameter 'a' must have exactly 6 elements.
+    However, only " + String(size(a, 1)) + " elements were provided.");
+  end if;
+
   if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
-    eta  = a[1];
     eta_nominal = a[1];
   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.Polynomial then
-    eta  = Buildings.Utilities.Math.Functions.polynomial(
-                                                   a=a, x=y);
     eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
                                                           a=a, x=1);
   elseif effCur ==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear then
-    eta  = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                        a=a, x1=y, x2=T);
+    // For this efficiency curve, a must have 6 elements.
     eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
-                                                               a=a, x1=1, x2=T_nominal);
+                                                               a=aQuaLin, x1=1, x2=T_nominal);
   else
-    eta  = 0;
-    eta_nominal = 999;
+     eta_nominal = 999;
   end if;
+
+equation
+
   assert(eta > 0.001, "Efficiency curve is wrong.");
-  // Heat released by fuel
-  QFue_flow = y * Q_flow_nominal/eta_nominal;
-  // Heat input into water
-  QWat_flow = eta * QFue_flow;
-  // Fuel mass flow rate and volume flow rate
-  mFue_flow = QFue_flow/fue.h;
-  VFue_flow = mFue_flow/fue.d;
+
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
       points={{-28,20},{-22,20},{-22,-10},{-9,-10}},
       color={191,0,0},
@@ -246,6 +261,12 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 
 </html>", revisions="<html>
 <ul>
+<li>
+May 27, 2016, by Michael Wetter:<br/>
+Corrected size of input argument to
+<code>Buildings.Utilities.Math.Functions.quadraticLinear</code>
+for JModelica compliance check.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

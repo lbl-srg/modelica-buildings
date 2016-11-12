@@ -16,13 +16,11 @@ algorithm
     retVal :=0;
   end if;
   if (retVal <> 0) then
-      Modelica.Utilities.Streams.print("************************************************************************************");
-      Modelica.Utilities.Streams.print("*** Warning: DX coil performance curves at nominal conditions are outside of bounds.");
-      Modelica.Utilities.Streams.print(msg + " is outside of bounds 0.9 to 1.1.");
-      Modelica.Utilities.Streams.print("The value of the curve fit is " + String(x));
-      Modelica.Utilities.Streams.print("Check the coefficients of the function " + curveName);
-      Modelica.Utilities.Streams.print("************************************************************************************");
-
+    Modelica.Utilities.Streams.print(
+"*** Warning: DX coil performance curves at nominal conditions are outside of bounds.
+             " + msg + " is outside of bounds 0.9 to 1.1.
+             The value of the curve fit is " + String(x) + "
+             Check the coefficients of the function " + curveName + ".");
   end if;
 
 annotation (

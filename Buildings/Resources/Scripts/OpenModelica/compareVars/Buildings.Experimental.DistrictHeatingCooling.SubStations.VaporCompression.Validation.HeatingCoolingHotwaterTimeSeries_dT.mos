@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "subSta.QCoo_flow",
+    "subSta.QHea_flow",
+    "subSta.QHotWat_flow",
+    "subSta.staHea_a2.T",
+    "subSta.staHea_b2.T",
+    "subSta.staHotWat_a2.T",
+    "subSta.staHotWat_b2.T",
+    "subSta.staCoo_a1.T",
+    "subSta.staCoo_b1.T",
+    "subSta.weaBus.TDryBul"
+  };

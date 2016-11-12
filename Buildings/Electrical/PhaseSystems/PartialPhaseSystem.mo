@@ -60,7 +60,7 @@ Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
   end jj;
 
   replaceable partial function rotate
-    "Rotate a vector of an angle Theta (anti-counterclock)"
+    "Rotate a vector of an angle theta (anti-counterclock)"
     extends Modelica.Icons.Function;
     input Real x[n];
     input Modelica.SIunits.Angle theta;

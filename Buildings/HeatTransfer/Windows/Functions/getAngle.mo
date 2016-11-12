@@ -4,7 +4,7 @@ function getAngle "Generate incident angles"
   output Modelica.SIunits.Angle psi[NDIR] "Array of incident angles";
 
 protected
-  constant Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
+  Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
 
 algorithm
   for i in 1:NDIR loop
@@ -17,6 +17,10 @@ This function computes discrete incident angles for the window radiation calcula
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2016, by Michael Wetter:<br/>
+Removed wrong <code>constant</code> attribute.
+</li>
 <li>
 August 29, 2010, by Wangda Zuo:<br/>
 First implementation.

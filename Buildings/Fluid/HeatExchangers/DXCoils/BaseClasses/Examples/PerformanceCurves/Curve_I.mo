@@ -2,12 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCu
 record Curve_I "Curve_I"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
-    each capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
+    capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
         -0.000009720},
-    each capFunFF={0.8,0.2,0,0},
-    each EIRFunT={0.342414409,0.034885008,-0.000623700,0.004977216,0.000437951,
+    capFunFF={0.8,0.2,0,0},
+    EIRFunT={0.342414409,0.034885008,-0.000623700,0.004977216,0.000437951,
         -0.000728028},
-    each EIRFunFF={1.1552,-0.1808,0.0256,0},
+    EIRFunFF={1.1552,-0.1808,0.0256,0},
     TConInMin=291.15,
     TConInMax = 319.26111,
     TEvaInMin= 285.92778,

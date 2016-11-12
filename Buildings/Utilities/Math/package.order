@@ -3,6 +3,7 @@ Bicubic
 Biquadratic
 BooleanReplicator
 IntegerReplicator
+IntegratorWithReset
 InverseXRegularized
 Max
 Min

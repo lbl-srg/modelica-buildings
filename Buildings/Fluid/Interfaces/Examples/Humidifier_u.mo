@@ -104,33 +104,25 @@ model Humidifier_u
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,22},{0,42}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass1(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che1(k2=-1)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.RealExpression y1(y=hea2.staB.T)
     annotation (Placement(transformation(extent={{40,150},{140,170}})));
   Modelica.Blocks.Sources.RealExpression y2(y=hea1.staB.T)
     annotation (Placement(transformation(extent={{40,130},{140,150}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass2(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che2(k2=-1)
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
   Modelica.Blocks.Sources.RealExpression y3(y=hea2.staA.T)
     annotation (Placement(transformation(extent={{40,110},{140,130}})));
   Modelica.Blocks.Sources.RealExpression y4(y=hea1.staA.T)
     annotation (Placement(transformation(extent={{40,90},{140,110}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass3(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che3(k2=-1)
     annotation (Placement(transformation(extent={{160,38},{180,58}})));
   Modelica.Blocks.Sources.RealExpression y5(y=hea4.staB.T)
     annotation (Placement(transformation(extent={{40,48},{140,68}})));
   Modelica.Blocks.Sources.RealExpression y6(y=hea3.staB.T)
     annotation (Placement(transformation(extent={{40,28},{140,48}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass4(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che4(k2=-1)
     annotation (Placement(transformation(extent={{160,-2},{180,18}})));
   Modelica.Blocks.Sources.RealExpression y7(y=hea4.staA.T)
     annotation (Placement(transformation(extent={{40,8},{140,28}})));
@@ -210,28 +202,22 @@ model Humidifier_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,-180},{0,
             -160}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass5(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che5(k2=-1)
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
   Modelica.Blocks.Sources.RealExpression y9(y=hea6.staB.T)
     annotation (Placement(transformation(extent={{40,-50},{140,-30}})));
   Modelica.Blocks.Sources.RealExpression y10(
                                             y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-72},{140,-52}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass6(
-    startTime=0.3,
-    threShold=0.05)
-    annotation (Placement(transformation(extent={{160,-102},{180,-82}})));
+  Modelica.Blocks.Math.Add che6(k2=-1)
+    annotation (Placement(transformation(extent={{158,-102},{178,-82}})));
   Modelica.Blocks.Sources.RealExpression y11(
                                             y=hea6.staA.T)
     annotation (Placement(transformation(extent={{40,-92},{140,-72}})));
   Modelica.Blocks.Sources.RealExpression y12(
                                             y=hea5.staA.T)
     annotation (Placement(transformation(extent={{40,-112},{140,-92}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass7(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che7(k2=-1)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
   Modelica.Blocks.Sources.RealExpression y13(
                                             y=hea8.staB.T)
@@ -239,9 +225,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y14(
                                             y=hea7.staB.T)
     annotation (Placement(transformation(extent={{40,-174},{140,-154}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass8(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che8(k2=-1)
     annotation (Placement(transformation(extent={{160,-204},{180,-184}})));
   Modelica.Blocks.Sources.RealExpression y15(
                                             y=hea8.staA.T)
@@ -249,32 +233,25 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y16(
                                             y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-214},{140,-194}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass9(
-    startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che9(k2=-1)
     annotation (Placement(transformation(extent={{160,-300},{180,-280}})));
   Modelica.Blocks.Sources.RealExpression y17(y=hea2.staB.T)
     annotation (Placement(transformation(extent={{40,-290},{140,-270}})));
   Modelica.Blocks.Sources.RealExpression y18(y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-310},{140,-290}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass10(
-     startTime=0.3,
-    threShold=0.05)
+  Modelica.Blocks.Math.Add che10(k2=-1)
     annotation (Placement(transformation(extent={{160,-260},{180,-240}})));
   Modelica.Blocks.Sources.RealExpression y19(y=hea4.staA.T)
     annotation (Placement(transformation(extent={{40,-250},{140,-230}})));
   Modelica.Blocks.Sources.RealExpression y20(y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-270},{140,-250}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass11(
-    threShold=1E-2,
-    startTime=0.3)
+  Modelica.Blocks.Math.Add che11(k2=-1)
     annotation (Placement(transformation(extent={{340,140},{360,160}})));
   Modelica.Blocks.Sources.RealExpression y21(y=hea2.staB.X[1])
     annotation (Placement(transformation(extent={{220,150},{320,170}})));
   Modelica.Blocks.Sources.RealExpression y22(y=hea1.staB.X[1])
     annotation (Placement(transformation(extent={{220,130},{320,150}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass12(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che12(k2=-1)
     annotation (Placement(transformation(extent={{340,100},{360,120}})));
   Modelica.Blocks.Sources.RealExpression y23(
                                             y=hea2.staA.X[1])
@@ -282,8 +259,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y24(
                                             y=hea1.staA.X[1])
     annotation (Placement(transformation(extent={{220,90},{320,110}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass13(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che13(k2=-1)
     annotation (Placement(transformation(extent={{340,38},{360,58}})));
   Modelica.Blocks.Sources.RealExpression y25(
                                             y=hea4.staB.X[1])
@@ -291,8 +267,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y26(
                                             y=hea3.staB.X[1])
     annotation (Placement(transformation(extent={{220,28},{320,48}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass14(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che14(k2=-1)
     annotation (Placement(transformation(extent={{340,-2},{360,18}})));
   Modelica.Blocks.Sources.RealExpression y27(
                                             y=hea4.staA.X[1])
@@ -300,8 +275,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y28(
                                             y=hea3.staA.X[1])
     annotation (Placement(transformation(extent={{220,-12},{320,8}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass15(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che15(k2=-1)
     annotation (Placement(transformation(extent={{340,-62},{360,-42}})));
   Modelica.Blocks.Sources.RealExpression y29(
                                             y=hea6.staB.X[1])
@@ -309,8 +283,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y30(
                                             y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-72},{320,-52}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass16(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che16(k2=-1)
     annotation (Placement(transformation(extent={{340,-102},{360,-82}})));
   Modelica.Blocks.Sources.RealExpression y31(
                                             y=hea6.staA.X[1])
@@ -318,8 +291,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y32(
                                             y=hea5.staA.X[1])
     annotation (Placement(transformation(extent={{220,-112},{320,-92}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass17(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che17(k2=-1)
     annotation (Placement(transformation(extent={{340,-164},{360,-144}})));
   Modelica.Blocks.Sources.RealExpression y33(
                                             y=hea8.staB.X[1])
@@ -327,8 +299,7 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y34(
                                             y=hea7.staB.X[1])
     annotation (Placement(transformation(extent={{220,-174},{320,-154}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass18(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che18(k2=-1)
     annotation (Placement(transformation(extent={{340,-204},{360,-184}})));
   Modelica.Blocks.Sources.RealExpression y35(
                                             y=hea8.staA.X[1])
@@ -336,15 +307,13 @@ model Humidifier_u
   Modelica.Blocks.Sources.RealExpression y36(
                                             y=hea7.staA.X[1])
     annotation (Placement(transformation(extent={{220,-214},{320,-194}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass19(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che19(k2=-1)
     annotation (Placement(transformation(extent={{340,-300},{360,-280}})));
   Modelica.Blocks.Sources.RealExpression y37(y=hea2.staB.X[1])
     annotation (Placement(transformation(extent={{220,-290},{320,-270}})));
   Modelica.Blocks.Sources.RealExpression y38(y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-310},{320,-290}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass20(threShold=1E-2, startTime=
-        0.3)
+  Modelica.Blocks.Math.Add che20(k2=-1)
     annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
   Modelica.Blocks.Sources.RealExpression y39(y=hea4.staA.X[1])
     annotation (Placement(transformation(extent={{220,-250},{320,-230}})));
@@ -398,21 +367,21 @@ equation
           20,50}}, color={0,127,255}));
   connect(hea1.port_b, hea2.port_b) annotation (Line(points={{-34,102},{20,102},
           {20,144},{8,144}}, color={0,127,255}));
-  connect(y1.y, ass1.u1) annotation (Line(points={{145,160},{154,160},{154,156},
+  connect(y1.y,che1. u1) annotation (Line(points={{145,160},{154,160},{154,156},
           {158,156}}, color={0,0,127}));
-  connect(y2.y, ass1.u2) annotation (Line(points={{145,140},{152,140},{152,144},
+  connect(y2.y,che1. u2) annotation (Line(points={{145,140},{152,140},{152,144},
           {158,144}}, color={0,0,127}));
-  connect(y3.y, ass2.u1) annotation (Line(points={{145,120},{154,120},{154,116},
+  connect(y3.y,che2. u1) annotation (Line(points={{145,120},{154,120},{154,116},
           {158,116}}, color={0,0,127}));
-  connect(y4.y, ass2.u2) annotation (Line(points={{145,100},{152,100},{152,104},
+  connect(y4.y,che2. u2) annotation (Line(points={{145,100},{152,100},{152,104},
           {158,104}}, color={0,0,127}));
-  connect(y5.y, ass3.u1) annotation (Line(points={{145,58},{154,58},{154,54},{
+  connect(y5.y,che3. u1) annotation (Line(points={{145,58},{154,58},{154,54},{
           158,54}}, color={0,0,127}));
-  connect(y6.y, ass3.u2) annotation (Line(points={{145,38},{152,38},{152,42},{
+  connect(y6.y,che3. u2) annotation (Line(points={{145,38},{152,38},{152,42},{
           158,42}}, color={0,0,127}));
-  connect(y7.y, ass4.u1) annotation (Line(points={{145,18},{154,18},{154,14},{
+  connect(y7.y,che4. u1) annotation (Line(points={{145,18},{154,18},{154,14},{
           158,14}}, color={0,0,127}));
-  connect(y8.y, ass4.u2) annotation (Line(points={{145,-2},{152,-2},{152,2},{
+  connect(y8.y,che4. u2) annotation (Line(points={{145,-2},{152,-2},{152,2},{
           158,2}}, color={0,0,127}));
   connect(res_1.port_b, hea5.port_a) annotation (Line(points={{-80,-100},{-54,
           -100}}, color={0,127,255}));
@@ -426,39 +395,39 @@ equation
           {20,-152}}, color={0,127,255}));
   connect(hea5.port_b,hea6. port_b) annotation (Line(points={{-34,-100},{20,
           -100},{20,-58},{8,-58}}, color={0,127,255}));
-  connect(y9.y,ass5. u1) annotation (Line(points={{145,-40},{154,-40},{154,-46},
+  connect(y9.y,che5. u1) annotation (Line(points={{145,-40},{154,-40},{154,-46},
           {158,-46}}, color={0,0,127}));
-  connect(y10.y, ass5.u2)
+  connect(y10.y,che5. u2)
                          annotation (Line(points={{145,-62},{152,-62},{152,-58},
           {158,-58}}, color={0,0,127}));
-  connect(y11.y, ass6.u1)
+  connect(y11.y,che6. u1)
                          annotation (Line(points={{145,-82},{154,-82},{154,-86},
-          {158,-86}}, color={0,0,127}));
-  connect(y12.y, ass6.u2)
-                         annotation (Line(points={{145,-102},{152,-102},{152,
-          -98},{158,-98}}, color={0,0,127}));
-  connect(y13.y, ass7.u1)
+          {156,-86}}, color={0,0,127}));
+  connect(y12.y,che6. u2)
+                         annotation (Line(points={{145,-102},{152,-102},{152,-98},
+          {156,-98}},      color={0,0,127}));
+  connect(y13.y,che7. u1)
                          annotation (Line(points={{145,-144},{154,-144},{154,
           -148},{158,-148}}, color={0,0,127}));
-  connect(y14.y, ass7.u2)
+  connect(y14.y,che7. u2)
                          annotation (Line(points={{145,-164},{152,-164},{152,
           -160},{158,-160}}, color={0,0,127}));
-  connect(y15.y, ass8.u1)
+  connect(y15.y,che8. u1)
                          annotation (Line(points={{145,-184},{154,-184},{154,
           -188},{158,-188}}, color={0,0,127}));
-  connect(y16.y, ass8.u2)
+  connect(y16.y,che8. u2)
                          annotation (Line(points={{145,-204},{152,-204},{152,
           -200},{158,-200}}, color={0,0,127}));
-  connect(y17.y,ass9. u1)
+  connect(y17.y,che9. u1)
                          annotation (Line(points={{145,-280},{154,-280},{154,
           -284},{158,-284}}, color={0,0,127}));
-  connect(y18.y,ass9. u2)
+  connect(y18.y,che9. u2)
                          annotation (Line(points={{145,-300},{152,-300},{152,
           -296},{158,-296}}, color={0,0,127}));
-  connect(y19.y, ass10.u1)
+  connect(y19.y,che10. u1)
                          annotation (Line(points={{145,-240},{154,-240},{154,
           -244},{158,-244}}, color={0,0,127}));
-  connect(y20.y, ass10.u2)
+  connect(y20.y,che10. u2)
                          annotation (Line(points={{145,-260},{152,-260},{152,
           -256},{158,-256}}, color={0,0,127}));
   connect(u.y, hea6.u) annotation (Line(points={{-127,184},{-70,184},{-70,-52},
@@ -469,64 +438,64 @@ equation
           {-60,-80},{-60,-94},{-56,-94}}, color={0,0,127}));
   connect(gain.y, hea7.u) annotation (Line(points={{-29,184},{-26,184},{-26,
           -160},{-64,-160},{-64,-174},{-56,-174}}, color={0,0,127}));
-  connect(y21.y, ass11.u1)
+  connect(y21.y,che11. u1)
                          annotation (Line(points={{325,160},{334,160},{334,156},
           {338,156}}, color={0,0,127}));
-  connect(y22.y, ass11.u2)
+  connect(y22.y,che11. u2)
                          annotation (Line(points={{325,140},{332,140},{332,144},
           {338,144}}, color={0,0,127}));
-  connect(y23.y, ass12.u1)
+  connect(y23.y,che12. u1)
                          annotation (Line(points={{325,120},{334,120},{334,116},
           {338,116}}, color={0,0,127}));
-  connect(y24.y, ass12.u2)
+  connect(y24.y,che12. u2)
                          annotation (Line(points={{325,100},{332,100},{332,104},
           {338,104}}, color={0,0,127}));
-  connect(y25.y, ass13.u1)
+  connect(y25.y,che13. u1)
                          annotation (Line(points={{325,58},{334,58},{334,54},{
           338,54}}, color={0,0,127}));
-  connect(y26.y, ass13.u2)
+  connect(y26.y,che13. u2)
                          annotation (Line(points={{325,38},{332,38},{332,42},{
           338,42}}, color={0,0,127}));
-  connect(y27.y, ass14.u1)
+  connect(y27.y,che14. u1)
                          annotation (Line(points={{325,18},{334,18},{334,14},{
           338,14}}, color={0,0,127}));
-  connect(y28.y, ass14.u2)
+  connect(y28.y,che14. u2)
                          annotation (Line(points={{325,-2},{332,-2},{332,2},{
           338,2}}, color={0,0,127}));
-  connect(y29.y, ass15.u1)
+  connect(y29.y,che15. u1)
                          annotation (Line(points={{325,-42},{334,-42},{334,-46},
           {338,-46}}, color={0,0,127}));
-  connect(y30.y, ass15.u2)
+  connect(y30.y,che15. u2)
                          annotation (Line(points={{325,-62},{332,-62},{332,-58},
           {338,-58}}, color={0,0,127}));
-  connect(y31.y, ass16.u1)
+  connect(y31.y,che16. u1)
                          annotation (Line(points={{325,-82},{334,-82},{334,-86},
           {338,-86}}, color={0,0,127}));
-  connect(y32.y, ass16.u2)
+  connect(y32.y,che16. u2)
                          annotation (Line(points={{325,-102},{332,-102},{332,
           -98},{338,-98}}, color={0,0,127}));
-  connect(y33.y, ass17.u1)
+  connect(y33.y,che17. u1)
                          annotation (Line(points={{325,-144},{334,-144},{334,
           -148},{338,-148}}, color={0,0,127}));
-  connect(y34.y, ass17.u2)
+  connect(y34.y,che17. u2)
                          annotation (Line(points={{325,-164},{332,-164},{332,
           -160},{338,-160}}, color={0,0,127}));
-  connect(y35.y, ass18.u1)
+  connect(y35.y,che18. u1)
                          annotation (Line(points={{325,-184},{334,-184},{334,
           -188},{338,-188}}, color={0,0,127}));
-  connect(y36.y, ass18.u2)
+  connect(y36.y,che18. u2)
                          annotation (Line(points={{325,-204},{332,-204},{332,
           -200},{338,-200}}, color={0,0,127}));
-  connect(y37.y, ass19.u1)
+  connect(y37.y,che19. u1)
                          annotation (Line(points={{325,-280},{334,-280},{334,
           -284},{338,-284}}, color={0,0,127}));
-  connect(y38.y, ass19.u2)
+  connect(y38.y,che19. u2)
                          annotation (Line(points={{325,-300},{332,-300},{332,
           -296},{338,-296}}, color={0,0,127}));
-  connect(y39.y, ass20.u1)
+  connect(y39.y,che20. u1)
                          annotation (Line(points={{325,-240},{334,-240},{334,
           -244},{338,-244}}, color={0,0,127}));
-  connect(y40.y, ass20.u2)
+  connect(y40.y,che20. u2)
                          annotation (Line(points={{325,-260},{332,-260},{332,
           -256},{338,-256}}, color={0,0,127}));
   connect(sin_1.ports[1], res_12.port_a) annotation (Line(
@@ -570,11 +539,11 @@ equation
         Text(
           extent={{30,204},{158,162}},
           lineColor={0,0,255},
-          textString="Asserts for temperature check"),
+          textString="Temperature check"),
         Text(
-          extent={{210,204},{338,162}},
+          extent={{220,198},{330,168}},
           lineColor={0,0,255},
-          textString="Asserts for humidity check"),
+          textString="Humidity check"),
         Text(
           extent={{-198,-4},{-6,-38}},
           lineColor={0,0,255},
@@ -589,12 +558,19 @@ It adds and removes water for forward and reverse flow.
 The top and bottom models should give similar results, although
 the sign of the humidity difference over the components differ
 because of the reverse flow.
-The model uses assert statements that will be triggered if
-results that are expected to be close to each other differ by more
-than a prescribed threshold.</p>
+The model computes differences of results that
+are expected to be close to each other after the
+initial transients decayed.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Changed initialization of mass dynamics to avoid overspecified system

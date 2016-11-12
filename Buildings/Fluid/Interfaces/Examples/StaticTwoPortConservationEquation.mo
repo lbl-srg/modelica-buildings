@@ -75,7 +75,7 @@ protected
     parameter Boolean use_mWat_flow
       "Set to true to enable exchange of moisture";
     parameter Boolean allowFlowReversal=true
-      "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+      "= false to simplify equations, assuming, but not enforcing, no flow reversal";
   equation
     connect(conEqn.port_b, sin.ports[1])
       annotation (Line(points={{12,0},{62,0},{62,2}}, color={0,127,255}));

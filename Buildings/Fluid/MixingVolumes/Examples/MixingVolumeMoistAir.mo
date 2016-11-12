@@ -20,7 +20,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
   Modelica.Blocks.Sources.Constant XSet(k=0.005)
     "Set point for water mass fraction" annotation (Placement(transformation(
           extent={{-80,-60},{-60,-40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{36,120},{56,140}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "pump_Nrpm.P",
+    "pump_dp.P",
+    "pump_m_flow.P",
+    "pump_Nrpm.per.speed_rpm_nominal",
+    "pump_Nrpm.Nrpm"
+  };

@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "fan.pNor",
-    "fan.mNor_flow",
-    "fan.dp",
-    "fan.m_flow",
-    "fan.pNor"
-  };

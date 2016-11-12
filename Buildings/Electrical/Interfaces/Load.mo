@@ -5,15 +5,15 @@ model Load "Partial model for a generic load"
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
   parameter Boolean linearized = false "If true, the load model is linearized"
-    annotation(Evaluate=true,Dialog(group="Modelling assumption"));
+    annotation(Evaluate=true,Dialog(group="Modeling assumption"));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.VariableZ_y_input) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 
-  parameter Modelica.SIunits.Power P_nominal=0
-    "Nominal power (negative if consumed, positive if generated)"
+  parameter Modelica.SIunits.Power P_nominal = 0
+    "Nominal power (negative if consumed, positive if generated). Used if mode <> Buildings.Electrical.Types.Load.VariableZ_P_input"
     annotation(Dialog(group="Nominal conditions",
         enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
 
@@ -22,7 +22,7 @@ model Load "Partial model for a generic load"
     annotation (
       Evaluate=true,
       Dialog(group="Nominal conditions",
-      enable = (mode==Buildings.Electrical.Types.Loadm.FixedZ_dynamic or linearized)));
+      enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
@@ -77,9 +77,6 @@ initial equation
   if mode == Buildings.Electrical.Types.Load.VariableZ_P_input then
     assert(abs(P_nominal) < 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + ", but this value will be ignored.",
            AssertionLevel.warning);
-  else
-    assert(abs(P_nominal) > 1E-10, "*** Warning: P_nominal = " + String(P_nominal) + " is close to zero. You may require to set this parameter.",
-           AssertionLevel.warning);
   end if;
 
 equation
@@ -119,6 +116,21 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+September 17, 2016, by Michael Wetter:<br/>
+Corrected wrong annotation to avoid an error in the pedantic model check
+in Dymola 2017 FD01 beta2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
+</li> 
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Set default value for <code>P_nominal</code>
+and removed assertion warning.
+This is required for pedantic model check in Dymola.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if

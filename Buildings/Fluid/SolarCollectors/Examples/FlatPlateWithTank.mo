@@ -88,14 +88,15 @@ model FlatPlateWithTank
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
       origin={70,-32})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(redeclare package Medium =
-    Medium_2, m_flow_nominal=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false) "Pump forcing circulation through the system"
-    annotation (Placement(transformation(
-      extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-50,-6})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    redeclare package Medium = Medium_2,
+    m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump forcing circulation through the system" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-6})));
   Buildings.Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = Medium_2, V_start=0.1) "Expansion tank"
     annotation (Placement(transformation(

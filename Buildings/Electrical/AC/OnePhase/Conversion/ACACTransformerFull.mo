@@ -75,12 +75,14 @@ protected
     "Apparent power at terminal n";
   Modelica.SIunits.AngularVelocity omega "Angular velocity";
   Modelica.SIunits.Current Im[2] "Magnetization current";
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
 equation
   assert(sqrt(P_p[1]^2 + P_p[2]^2) <= VABase*1.01,
     "The load power of the transformer is higher than VABase");
 
   // Angular velocity
-  omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
+  theRef = PhaseSystem_p.thetaRef(terminal_p.theta);
+  omega = der(theRef);
 
   // Efficiency
   eta = Buildings.Utilities.Math.Functions.smoothMin(
@@ -90,7 +92,7 @@ equation
         x2=
         Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.01)/
         Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2 + 1e-6, delta=0.01),
-        deltaX=  0.01);
+        deltaX = 0.01);
 
   // Ideal transformation
   V2 = V1/N;
@@ -377,6 +379,11 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised model.

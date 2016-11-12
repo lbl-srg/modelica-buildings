@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "vol.T",
+    "TSet.y",
+    "conPI.y",
+    "hea.Q_flow",
+    "hex.Q1_flow"
+  };

@@ -6,9 +6,10 @@ HeaterCooler_T
 HeaterCooler_u
 WetCoilCounterFlow
 WetCoilDiscretized
-Boreholes
+ActiveBeams
 CoolingTowers
 DXCoils
+Ground
 RadiantSlabs
 Radiators
 Examples

@@ -8,7 +8,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   import Modelica.Constants;
 
   parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   VAVBoxExponential damOA(A=AOut,

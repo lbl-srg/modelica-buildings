@@ -3,201 +3,166 @@ model Battery "Test model for battery"
   extends Modelica.Icons.Example;
   Buildings.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600, V_nominal=12)
     "Battery"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{120,-48},{140,-28}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={78,-20})));
+        origin={98,-80})));
   Modelica.Electrical.Analog.Basic.Ground ground
-    annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
+    annotation (Placement(transformation(extent={{76,-120},{96,-100}})));
   Buildings.Electrical.DC.Loads.Conductor             loa(
     P_nominal=0, mode=Buildings.Electrical.Types.Load.VariableZ_P_input,
     V_nominal=12) "Electrical load"
-    annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
+    annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
   Modelica.Blocks.Sources.Constant const1(k=-10e3)
     "Power consumption of the load"
-    annotation (Placement(transformation(extent={{180,-30},{160,-10}})));
+    annotation (Placement(transformation(extent={{200,-90},{180,-70}})));
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Modelica_StateGraph2.Step off(final initialStep=true, nOut=1,
-    nIn=1,
-    use_activePort=true) "Battery is disconnected"
-    annotation (Placement(transformation(extent={{-104,76},{-96,84}})));
-  Modelica_StateGraph2.Transition THold(use_conditionPort=true,
-      delayedTransition=false)
-    annotation (Placement(transformation(extent={{-104,-4},{-96,4}})));
-  Modelica_StateGraph2.Step charge(
-    nIn=1,
-    use_activePort=true,
-    final initialStep=false,
-    nOut=1) "Battery is charged"
-    annotation (Placement(transformation(extent={{-104,16},{-96,24}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=
        0.99)
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Modelica_StateGraph2.Transition TOn(
-    use_conditionPort=true,
-    delayedTransition=false,
-    loopCheck=false)
-    annotation (Placement(transformation(extent={{-104,46},{-96,54}})));
-  Modelica_StateGraph2.Step discharge(
-    nOut=1,
-    use_activePort=true,
-    final initialStep=false,
-    nIn=1) "Battery is discharged"
-    annotation (Placement(transformation(extent={{-104,-64},{-96,-56}})));
-  Modelica_StateGraph2.Step hold(
-    nOut=1,
-    final initialStep=false,
-    use_activePort=false,
-    nIn=1) "Battery charge is hold"
-    annotation (Placement(transformation(extent={{-104,-24},{-96,-16}})));
   Modelica.Blocks.Sources.SampleTrigger startDischarge(period=24*3600,
       startTime=14*3600)
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Modelica_StateGraph2.Transition TDischarge(use_conditionPort=true,
-      delayedTransition=false)
-    annotation (Placement(transformation(extent={{-104,-44},{-96,-36}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold=
         0.01)
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Modelica_StateGraph2.Transition TOff(use_conditionPort=true,
-      delayedTransition=false) "Battery is empty and switched off"
-    annotation (Placement(transformation(extent={{-104,-84},{-96,-76}})));
-  Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Modelica.Blocks.Logical.Switch switch2
-    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+  Modelica.Blocks.Logical.Switch chaSwi "Switch to charge battery"
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Modelica.Blocks.Logical.Switch disSwi "Switch to discharge battery"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Modelica.Blocks.Sources.Constant PCha(k=1e4) "Charging power"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    annotation (Placement(transformation(extent={{0,-58},{20,-38}})));
   Modelica.Blocks.Sources.Constant POff(k=0) "Off power"
-    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant PDis(k=-1e4) "Discharging power"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{0,18},{20,38}})));
   Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Electrical.DC.Sensors.GeneralizedSensor powSen "Power sensor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={106,0})));
+        origin={120,-60})));
+  Modelica.StateGraph.InitialStep off "Off state" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,80})));
+  Modelica.StateGraph.TransitionWithSignal toOn "Transition to on" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-100,80})));
+  Modelica.StateGraph.StepWithSignal charge "State to charge battery"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Modelica.StateGraph.TransitionWithSignal toHold "Transition to hold"
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+  Modelica.StateGraph.Step hold "Battery charge is hold"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Modelica.StateGraph.TransitionWithSignal toDischarge
+    "Transition to discharge"
+    annotation (Placement(transformation(extent={{10,70},{30,90}})));
+  Modelica.StateGraph.StepWithSignal discharge "State to discharge battery"
+    annotation (Placement(transformation(extent={{40,70},{60,90}})));
+  Modelica.StateGraph.TransitionWithSignal toOff "Transition to off"
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 equation
-  connect(startCharge.y, TOn.conditionPort) annotation (Line(
-      points={{-119,50},{-105,50}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(TOn.outPort, charge.inPort[1]) annotation (Line(
-      points={{-100,45},{-100,24}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(hold.outPort[1], TDischarge.inPort) annotation (Line(
-      points={{-100,-24.6},{-100,-36}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(TDischarge.outPort, discharge.inPort[1]) annotation (Line(
-      points={{-100,-45},{-100,-56}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(TOff.conditionPort, lessEqualThreshold.y) annotation (Line(
-      points={{-105,-80},{-119,-80}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(off.outPort[1], TOn.inPort) annotation (Line(
-      points={{-100,75.4},{-100,54}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(discharge.outPort[1], TOff.inPort) annotation (Line(
-      points={{-100,-64.6},{-100,-76}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(TOff.outPort, off.inPort[1]) annotation (Line(
-      points={{-100,-85},{-100,-90},{-80,-90},{-80,92},{-100,92},{-100,84}},
-      color={0,0,0},
-      smooth=Smooth.None));
 
-  connect(charge.activePort, switch1.u2) annotation (Line(
-      points={{-95.28,20},{-12,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(discharge.activePort, switch2.u2) annotation (Line(
-      points={{-95.28,-60},{-12,-60}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(POff.y, switch2.u3) annotation (Line(
-      points={{-39,-80},{-20,-80},{-20,-68},{-12,-68}},
+  connect(POff.y, disSwi.u3) annotation (Line(
+      points={{21,0},{40,0},{40,12},{58,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(POff.y, switch1.u3) annotation (Line(
-      points={{-39,-80},{-20,-80},{-20,12},{-12,12}},
+  connect(POff.y, chaSwi.u3) annotation (Line(
+      points={{21,0},{40,0},{40,-38},{58,-38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PDis.y, switch2.u1) annotation (Line(
-      points={{-39,-40},{-32,-40},{-32,-52},{-12,-52}},
+  connect(PDis.y, disSwi.u1) annotation (Line(
+      points={{21,28},{58,28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PCha.y, switch1.u1) annotation (Line(
-      points={{-39,40},{-32,40},{-32,28},{-12,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(switch1.y, add.u1) annotation (Line(
-      points={{11,20},{14,20},{14,-4},{18,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(switch2.y, add.u2) annotation (Line(
-      points={{11,-60},{14,-60},{14,-16},{18,-16}},
+  connect(PCha.y, chaSwi.u1) annotation (Line(
+      points={{21,-48},{30,-48},{30,-22},{58,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, bat.P) annotation (Line(
-      points={{41,-10},{52,-10},{52,50},{130,50},{130,30}},
+      points={{121,10},{130,10},{130,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, greaterEqualThreshold.u) annotation (Line(
-      points={{141,26},{160,26},{160,100},{-160,100},{-160,0},{-142,0}},
+      points={{141,-32},{160,-32},{160,108},{-160,108},{-160,0},{-142,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, lessEqualThreshold.u) annotation (Line(
-      points={{141,26},{160,26},{160,100},{-160,100},{-160,-80},{-142,-80}},
+      points={{141,-32},{160,-32},{160,108},{-160,108},{-160,-60},{-142,-60}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(greaterEqualThreshold.y, THold.conditionPort) annotation (Line(
-      points={{-119,0},{-105,0}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(charge.outPort[1], THold.inPort) annotation (Line(
-      points={{-100,15.4},{-100,4}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(THold.outPort, hold.inPort[1]) annotation (Line(
-      points={{-100,-5},{-100,-16}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(startDischarge.y, TDischarge.conditionPort) annotation (Line(
-      points={{-119,-40},{-105,-40}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(const1.y, loa.Pow) annotation (Line(
-      points={{159,-20},{144,-20}},
+      points={{179,-80},{160,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(loa.terminal, sou.terminal) annotation (Line(
-      points={{124,-20},{88,-20}},
+      points={{140,-80},{108,-80}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(bat.terminal, powSen.terminal_p) annotation (Line(
-      points={{120,20},{106,20},{106,10}},
+      points={{120,-38},{120,-50}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(powSen.terminal_n, sou.terminal) annotation (Line(
-      points={{106,-10},{106,-20},{88,-20}},
+      points={{120,-70},{120,-80},{108,-80}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(sou.n, ground.p) annotation (Line(
-      points={{68,-20},{68,-40}},
+      points={{88,-80},{86,-80},{86,-100}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,
-            -100},{180,120}}),      graphics),
+  connect(startCharge.y, toOn.condition) annotation (Line(
+      points={{-119,30},{-100,30},{-100,68}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(charge.active, chaSwi.u2) annotation (Line(points={{-70,69},{-70,69},{
+          -70,50},{-70,-30},{58,-30}}, color={255,0,255}));
+  connect(greaterEqualThreshold.y, toHold.condition) annotation (Line(
+      points={{-119,0},{-90,0},{-90,60},{-40,60},{-40,68}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(startDischarge.y, toDischarge.condition) annotation (Line(
+      points={{-119,-30},{-80,-30},{-80,54},{20,54},{20,68}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(disSwi.u2, discharge.active) annotation (Line(points={{58,20},{58,20},
+          {50,20},{50,46},{50,69}}, color={255,0,255}));
+  connect(discharge.outPort[1], toOff.inPort)
+    annotation (Line(points={{60.5,80},{76,80}}, color={0,0,0}));
+  connect(lessEqualThreshold.y, toOff.condition) annotation (Line(
+      points={{-119,-60},{-60,-60},{-60,48},{80,48},{80,68}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(off.outPort[1], toOn.inPort) annotation (Line(points={{-119.5,80},{-111.75,
+          80},{-104,80}}, color={0,0,0}));
+  connect(toOn.outPort, charge.inPort[1])
+    annotation (Line(points={{-98.5,80},{-81,80},{-81,80}}, color={0,0,0}));
+  connect(charge.outPort[1], toHold.inPort)
+    annotation (Line(points={{-59.5,80},{-44,80},{-44,80}}, color={0,0,0}));
+  connect(toHold.outPort, hold.inPort[1])
+    annotation (Line(points={{-38.5,80},{-21,80},{-21,80}}, color={0,0,0}));
+  connect(hold.outPort[1], toDischarge.inPort)
+    annotation (Line(points={{0.5,80},{8,80},{16,80}}, color={0,0,0}));
+  connect(toDischarge.outPort, discharge.inPort[1])
+    annotation (Line(points={{21.5,80},{39,80},{39,80}}, color={0,0,0}));
+  connect(toOff.outPort, off.inPort[1]) annotation (Line(points={{81.5,80},{92,80},
+          {92,100},{-150,100},{-150,80},{-141,80}}, color={0,0,0}));
+  connect(disSwi.y, add.u1) annotation (Line(points={{81,20},{90,20},{90,16},{98,
+          16}}, color={0,0,127}));
+  connect(chaSwi.y, add.u2) annotation (Line(points={{81,-30},{90,-30},{90,4},{98,
+          4}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -120},{220,120}})),
     experiment(StopTime=432000),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Storage/Examples/Battery.mos"
@@ -215,6 +180,11 @@ a constant value of <i>10,000</i> Watts.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 6, 2016, by Michael Wetter:<br/>
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+</li>
 <li>
 January 10, 2013, by Michael Wetter:<br/>
 First implementation.

@@ -6,40 +6,18 @@ model WyeToWyeGround
         iconTransformation(extent={{-110,-10},{-90,10}})));
   Terminal_n wyeg "Terminal Y with ground connection" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Connection3to4_n connection3to4 "Adapter between Termina3 and Terminal4"
+  Connection3to3Ground_n connection3to4
+    "Adapter between Termina3 and Terminal4"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Buildings.Electrical.AC.OnePhase.Basics.Ground ground "Ground reference"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 equation
-
-  Connections.branch(wye.phase[1].theta, connection3to4.terminal4.phase[4].theta);
-  wye.phase[1].theta = connection3to4.terminal4.phase[4].theta;
-
-  for i in 1:3 loop
-    Connections.branch(wye.phase[i].theta, wyeg.phase[i].theta);
-    wye.phase[i].theta = wyeg.phase[i].theta;
-  end for;
-
-  connect(wye, connection3to4.terminal3) annotation (Line(
-      points={{-100,0},{-60,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(connection3to4.terminal4.phase[1], wyeg.phase[1]) annotation (Line(
-      points={{-40,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(connection3to4.terminal4.phase[2], wyeg.phase[2]) annotation (Line(
-      points={{-40,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(connection3to4.terminal4.phase[3], wyeg.phase[3]) annotation (Line(
-      points={{-40,0},{100,0}},
-      color={0,120,120},
-      smooth=Smooth.None));
-  connect(connection3to4.terminal4.phase[4], ground.terminal) annotation (Line(
-      points={{-40,0},{-20,0},{-20,-20}},
-      color={0,120,120},
-      smooth=Smooth.None));
+  connect(wye, connection3to4.terminal3)
+    annotation (Line(points={{-100,0},{-60,0}},         color={0,120,120}));
+  connect(connection3to4.terminal4, wyeg) annotation (Line(points={{-40,0},{28,0},
+          {100,0}},           color={0,120,120}));
+  connect(connection3to4.ground4, ground.terminal) annotation (Line(points={{-40.6,
+          -6},{-20,-6},{-20,-20}}, color={0,120,120}));
   annotation (
   defaultComponentName="y2yg",
  Icon(coordinateSystem(
@@ -76,6 +54,12 @@ equation
           thickness=0.25)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+February 26, 2016, by Michael Wetter:<br/>
+Replaced <code>connection3to4</code> with new model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Revised documentation.

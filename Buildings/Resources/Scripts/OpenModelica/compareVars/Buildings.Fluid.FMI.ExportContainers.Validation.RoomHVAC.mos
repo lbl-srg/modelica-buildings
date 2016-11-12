@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "baseCase.vol.T",
+    "rooCon.vol.T",
+    "rooCon2.vol1.T",
+    "rooCon2.vol2.T"
+  };

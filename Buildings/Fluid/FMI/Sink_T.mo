@@ -1,6 +1,6 @@
 within Buildings.Fluid.FMI;
 model Sink_T
-  "FMI model for a sink with temperature for reverse flow as an input"
+  "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -80,8 +80,7 @@ equation
   end if;
   connect(p, p_in_internal);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation ( Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
                                    Rectangle(
           extent={{-100,100},{100,-100}},

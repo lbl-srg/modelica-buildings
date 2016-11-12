@@ -29,36 +29,7 @@ body {
     margin: 0px 80px 0px 80px;
     min-width: 740px;
 }
-*/
-html {
-    color: #191970;
-    font-style: normal;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    background-color: #BFD1D4;
-    width: 870px;
-    box-shadow: 2px -2px 10px 0px rgba(0,0,0,0.4);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
 
-body {
-    font-size: 14px;
-// this looks cramped on Ubuntu  letter-spacing: -0.01em;
-    line-height: 150%;
-    color: #022e4d;
-//    border: 1px solid #022e4d;
-//    background-color: #BFD1D4;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0px;
-    margin-bottom: 0px;
-
-    width: 870px;
-}
 
 /* Center images */
 div.figure img{
@@ -110,12 +81,7 @@ tt.docutils.literal{
     background-color: white;
     }
 
-div.related ul {
-    background-image: url(navigation.png);
-    height: 2em;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-}
+
 
 div.related ul li {
     margin: 0;
@@ -140,42 +106,6 @@ div.related ul li a:hover {
     color: #3CA8E7;
 }
 
-div.sphinxsidebarwrapper {
-    padding: 0;
-}
-
-div.sphinxsidebar {
-    margin: 0;
-    padding: 0.5em 15px 15px 0;
-    width: 210px;
-    float: right;
-    font-size: 1em;
-    text-align: left;
-}
-
-div.sphinxsidebar h3, div.sphinxsidebar h4 {
-    margin: 1em 0 0.5em 0;
-    font-size: 1em;
-    padding: 0.1em 0 0.1em 0.5em;
-    color: white;
-    background-color: #022e4d;
-}
-
-div.sphinxsidebar h3 a {
-    color: white;
-}
-
-div.sphinxsidebar ul {
-    padding-left: 1.5em;
-    margin-top: 7px;
-    padding: 0;
-    line-height: 130%;
-}
-
-div.sphinxsidebar ul ul {
-    margin-left: 20px;
-}
-
 div.footer {
     background-color: white;
     text-align: left;
@@ -190,11 +120,6 @@ div.footer a {
 }
 
 /* -- body styles ----------------------------------------------------------- */
-
-p {
-    margin: 0.8em 0 0.5em 0;
-}
-
 a {
     color: #750000;
     text-decoration: none;
@@ -287,11 +212,6 @@ span.pre{
     background-color: white;
 }
 
-hr {
-    border: 1px solid #abc;
-    margin: 2em;
-}
-
 a tt {
     border: 0;
     color: #750000;
@@ -342,57 +262,6 @@ table td, table th {
     padding: 0.2em 0.5em 0.2em 0.5em;
 }
 
-div.admonition, div.warning {
-    font-size: 0.9em;
-    margin: 1em 0 1em 0;
-    border: 1px solid #86989B;
-    background-color: #f7f7f7;
-    padding: 0;
-}
-
-div.admonition p, div.warning p {
-    margin: 0.5em 1em 0.5em 1em;
-    padding: 0;
-}
-
-div.admonition pre, div.warning pre {
-    margin: 0.4em 1em 0.4em 1em;
-}
-
-div.admonition p.admonition-title,
-div.warning p.admonition-title {
-    margin: 0;
-    padding: 0.1em 0 0.1em 0.5em;
-    color: white;
-    border-bottom: 1px solid #86989B;
-    font-weight: bold;
-    background-color: #AFC1C4;
-}
-
-div.warning {
-    border: 1px solid #940000;
-}
-
-div.warning p.admonition-title {
-    background-color: #CF0000;
-    border-bottom-color: #940000;
-}
-
-div.admonition ul, div.admonition ol,
-div.warning ul, div.warning ol {
-    margin: 0.1em 0.5em 0.5em 3em;
-    padding: 0;
-}
-
-div.versioninfo {
-    margin: 1em 0 0 0;
-    border: 1px solid #ccc;
-    background-color: #DDEAF0;
-    padding: 8px;
-    line-height: 1.3em;
-    font-size: 0.9em;
-}
-
 .viewcode-back {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -419,4 +288,3 @@ div.figure p {
     font-size: 0.75em;
     vertical-align: super;
 }
-

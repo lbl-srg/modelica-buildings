@@ -3,6 +3,8 @@
 
 #include "pythonInterpreter.h"
 #include <stddef.h>  /* stddef defines size_t */
+#include <stdio.h>
+#include <stdlib.h>
 
 void ModelicaFormatError(const char* string, const char* fmt, const char* val);
 

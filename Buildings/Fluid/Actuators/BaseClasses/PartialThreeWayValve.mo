@@ -181,7 +181,7 @@ December 17, 2015, by Michael Wetter:<br/>
 Removed assignment <code>redeclare final package Medium=Medium</code>
 as this is now done in the base class.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/475\">
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
 </li>
 <li>

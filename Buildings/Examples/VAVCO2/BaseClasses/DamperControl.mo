@@ -14,7 +14,6 @@ public
     Ti=1,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=Kp,
-    limiter(u(start=0.75)),
     yMax=1,
     reverseAction=true,
     Td=60)       annotation (extent=[20,-50; 40,-30], Placement(transformation(

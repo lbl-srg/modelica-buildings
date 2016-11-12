@@ -1,29 +1,7 @@
-storeProtected=Advanced.StoreProtectedVariables;
-Advanced.StoreProtectedVariables:=true;
 simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.WindowRadiation", stopTime=864000, method="dassl", resultFile="WindowRadiation");
-
-removePlots();
-createPlot(id = 1,
- position = {7, 258, 746, 256},
- y = {"winRad.HDif", "winRad.HDir", "winRad.QTra_flow"},
- filename = "WindowRadiation.mat",
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- grid = true,
- color = true,
- leftTitleType = 1,
- bottomTitleType = 1);
-
-createPlot(id = 2,
- position = {7, 7, 746, 256},
- y = {"winRad.QAbsGlaUns_flow[2]", "winRad.QAbsGlaSha_flow[2]"},
- filename = "WindowRadiation.mat",
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- grid = true,
- color = true,
- leftTitleType = 1,
- bottomTitleType = 1);
+createPlot(id=1, position={35, 30, 979, 1090}, y={"winRad.HDif", "winRad.HDir"}, range={0.0, 900000.0, -200.0, 800.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QTraDif_flow", "winRad.QTraDir_flow"}, range={0.0, 900000.0, -50.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 214}, y={"winRad.QAbsExtSha_flow", "winRad.QAbsIntSha_flow"}, range={0.0, 900000.0, -50.0, 150.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QAbsGlaUns_flow[1]", "winRad.QAbsGlaUns_flow[2]"}, range={0.0, 900000.0, -10.0, 40.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={35, 30, 979, 215}, y={"winRad.QAbsGlaSha_flow[1]", "winRad.QAbsGlaSha_flow[2]"}, range={0.0, 900000.0, -10.0, 50.0}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}});
 

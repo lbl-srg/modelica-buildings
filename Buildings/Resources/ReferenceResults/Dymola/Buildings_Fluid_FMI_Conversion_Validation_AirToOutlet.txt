@@ -1,0 +1,12 @@
+last-generated=2016-04-20
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+conAirWithC.outlet.forward.X_w=[0.00999999977648258209, 0.00999999977648258209]
+conAirNoC.outlet.forward.X_w=[0.00999999977648258209, 0.00999999977648258209]
+time=[0., 1.]
+conDryAirWithC.outlet.forward.C[1]=[0.00000999999974737875, 0.00000999999974737875]
+conAirWithC.outlet.forward.C[1]=[0.00000999999974737875, 0.00000999999974737875]

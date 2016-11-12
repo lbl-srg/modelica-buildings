@@ -172,8 +172,8 @@ algorithm
     Inline=true,
 Documentation(info="<html>
 Derivative function of
-<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGases.saturationPressureLiquid\">
-Buildings.Media.Specialized.Air.PerfectGases.saturationPressureLiquid</a>
+<a href=\"modelica://Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid\">
+Buildings.Media.Specialized.Air.PerfectGas.saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 
@@ -193,8 +193,11 @@ redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
 algorithm
-  psat := Buildings.Utilities.Math.Functions.spliceFunction(
-                                                  saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  psat := Buildings.Utilities.Math.Functions.regStep(
+            y1=saturationPressureLiquid(Tsat),
+            y2=sublimationPressureIce(Tsat),
+            x=Tsat-273.16,
+            x_small=1.0);
   annotation (
     Inline=true,
     smoothOrder=5);
@@ -639,6 +642,12 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 Removed <code>phi</code> and removed non-required computations.

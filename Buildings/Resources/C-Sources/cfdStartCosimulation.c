@@ -40,9 +40,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
-                char **sensorName, int haveShade, int nSur, int nSen,
-                int nConExtWin, int nXi, int nC, double rho_start) {
-  int i, nBou;
+                char **sensorName, int haveShade, size_t nSur, size_t nSen,
+                size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
+  size_t i, nBou;
   /****************************************************************************
   | For call FFD-DLL
   ****************************************************************************/
@@ -81,7 +81,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   cosim->para->name = (char**) malloc(nSur*sizeof(char *));
   cosim->para->are = (REAL *) malloc(nSur*sizeof(REAL));
   cosim->para->til = (REAL *) malloc(nSur*sizeof(REAL));
-  cosim->para->bouCon = (int *) malloc(nSur*sizeof(int));
+  cosim->para->bouCon = (size_t *) malloc(nSur*sizeof(size_t));
 
   for(i=0; i<nSur; i++) {
     cosim->para->name[i] = (char *)malloc(sizeof(char) *(strlen(name[i])+1));

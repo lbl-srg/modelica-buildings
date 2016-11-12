@@ -17,11 +17,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-double exchangeValues(void* object, int iX, double x, int iY){
+double exchangeValues(void* object, size_t iX, double x, size_t iY){
   ExternalObjectStructure* table = (ExternalObjectStructure*) object;
-  const int nInc = 10;
-  int nTab=table->n;
-  int nNew=iX-1+nInc;
+  const size_t nInc = 10;
+  size_t nTab=table->n;
+  size_t nNew=iX-1+nInc;
   /*  temporary array used while increasing the size of table */
   double *tab2=NULL;
 

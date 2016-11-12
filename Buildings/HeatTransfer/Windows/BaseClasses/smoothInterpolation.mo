@@ -40,8 +40,8 @@ OpenModelica fails to translate
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiation\">
 Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiation</a>.
 For
-<a href=\"modelica://Buildings.Rooms.Examples.MixedAirFreeResponse\">
-Buildings.Rooms.Examples.MixedAirFreeResponse</a>,
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.MixedAirFreeResponse\">
+Buildings.ThermalZones.Detailed.Examples.MixedAirFreeResponse</a>,
 this change does not affect the computing time.
 </li>
 <li>

@@ -3,7 +3,7 @@ block BaseIcon "Base icon"
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
-          extent={{-46,140},{52,92}},
+          extent={{-46,158},{52,110}},
           lineColor={0,0,255},
           textString="%name")}),
 Documentation(

@@ -21,10 +21,10 @@ partial model PartialStaticTwoPortCoolingTower
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
-    dynamicBalance=false,
-    filteredSpeed=false) "Pump for chilled water loop"
-                          annotation (Placement(transformation(extent={{-40,-60},
-            {-20,-40}})));
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump for chilled water loop"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));

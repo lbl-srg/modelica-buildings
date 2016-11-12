@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "calendarTime2016.year",
+    "calendarTime2016.month",
+    "calendarTime2016.day",
+    "calendarTime2016.hour",
+    "calendarTime2016.minute"
+  };

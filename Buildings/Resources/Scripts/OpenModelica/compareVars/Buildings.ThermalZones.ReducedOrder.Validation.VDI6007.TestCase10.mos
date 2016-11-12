@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "mean.y",
+    "reference.y[1]"
+  };

@@ -25,7 +25,7 @@ per kg of total air as is customary in Modelica.
 </li>
 <li>
 The trace substances
-<code>C</code>, 
+<code>C</code>,
 unless <code>Medium.nC=0</code>.
 </li>
 </ul>

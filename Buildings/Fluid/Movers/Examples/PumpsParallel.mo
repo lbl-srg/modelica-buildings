@@ -53,8 +53,7 @@ model PumpsParallel "Two flow machines in parallel"
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/rho_nominal}, dp={2*4*1000, 0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    inputType=Buildings.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Model of a flow machine"
+    inputType=Buildings.Fluid.Types.InputType.Constant) "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpOut2(
     redeclare package Medium = Medium,
@@ -124,6 +123,9 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Set constant speed for pump using a <code>parameter</code> 

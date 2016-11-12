@@ -207,13 +207,13 @@ model System7
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
   Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+    annotation (Placement(transformation(extent={{-120,-290},{-100,-270}})));
   Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
   Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
@@ -245,59 +245,55 @@ model System7
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
 //-------------------------Step 2: State machine implementation-------------------------//
-  Modelica_StateGraph2.Step allOff(
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+    "Root of the state graph"
+    annotation (Placement(transformation(extent={{-320,-110},{-300,-90}})));
+  Modelica.StateGraph.Alternative alternative
+    "Split for alternative execution paths"
+    annotation (Placement(transformation(extent={{-290,-210},{-154,-130}})));
+  Modelica.StateGraph.InitialStepWithSignal allOff(
     nOut=1,
-    initialStep=true,
-    use_activePort=true,
     nIn=1) "System off"
-    annotation (Placement(transformation(extent={{-232,-104},{-224,-96}})));
-  Modelica_StateGraph2.Transition T1(use_conditionPort=true, delayedTransition=
-        false)
-    annotation (Placement(transformation(extent={{-232,-124},{-224,-116}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=273.15 + 19)
-    annotation (Placement(transformation(extent={{-340,-80},{-320,-60}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold1(threshold=273.15 + 16)
-    annotation (Placement(transformation(extent={{-340,-110},{-320,-90}})));
-  Modelica.Blocks.Logical.And and3
-    annotation (Placement(transformation(extent={{-300,-102},{-280,-82}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold2(threshold=273.15 + 70)
-    "Threshold for boiler control"
-    annotation (Placement(transformation(extent={{-340,-230},{-320,-210}})));
-  Modelica_StateGraph2.Step boilerOn(
+    annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
+  Modelica.StateGraph.TransitionWithSignal T1 "Transition to switch pumps on"
+    annotation (Placement(transformation(extent={{-210,-160},{-190,-140}})));
+  Modelica.StateGraph.StepWithSignal boilerOn(
     nIn=1,
-    use_activePort=true,
     nOut=1) "Boiler is on"
-    annotation (Placement(transformation(extent={{-224,-184},{-216,-176}})));
-  Modelica_StateGraph2.Transition T2(
-    use_conditionPort=true, delayedTransition=false)
-    annotation (Placement(transformation(extent={{-224,-164},{-216,-156}})));
+    annotation (Placement(transformation(extent={{-228,-200},{-208,-180}})));
+  Modelica.StateGraph.TransitionWithSignal T2 "Transition to boiler on"
+    annotation (Placement(transformation(extent={{-258,-200},{-238,-180}})));
   Modelica.Blocks.Logical.GreaterThreshold greThrBoi(threshold=273.15 + 90)
     "Threshold for boiler control"
-    annotation (Placement(transformation(extent={{-340,-260},{-320,-240}})));
-  Modelica_StateGraph2.Transition T3(use_conditionPort=true,
-    delayedTransition=true,
-    waitTime=10)
-    annotation (Placement(transformation(extent={{-224,-204},{-216,-196}})));
+    annotation (Placement(transformation(extent={{-420,-320},{-400,-300}})));
+  Modelica.StateGraph.TransitionWithSignal T3(
+    waitTime=10, enableTimer=true) "Transition to switch boiler off"
+    annotation (Placement(transformation(extent={{-196,-200},{-176,-180}})));
+  Modelica.StateGraph.TransitionWithSignal T4(
+    waitTime=10, enableTimer=true) "Transition to all off"
+    annotation (Placement(transformation(extent={{-270,-160},{-250,-140}})));
+  Modelica.StateGraph.Step pumpsOn(nIn=1, nOut=1) "Pumps are on"
+    annotation (Placement(transformation(extent={{-320,-180},{-300,-160}})));
+//--------------------------------------------------------------------------------------//
+  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=273.15 + 19)
+    annotation (Placement(transformation(extent={{-420,-210},{-400,-190}})));
+  Modelica.Blocks.Logical.LessThreshold lessThreshold1(threshold=273.15 + 16)
+    annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
+  Modelica.Blocks.Logical.And and3
+    annotation (Placement(transformation(extent={{-380,-232},{-360,-212}})));
+  Modelica.Blocks.Logical.LessThreshold lessThreshold2(threshold=273.15 + 70)
+    "Threshold for boiler control"
+    annotation (Placement(transformation(extent={{-420,-290},{-400,-270}})));
   Modelica.Blocks.Logical.GreaterThreshold greThrTRoo(threshold=273.15 + 21)
     "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-340,-150},{-320,-130}})));
+    annotation (Placement(transformation(extent={{-420,-130},{-400,-110}})));
   Modelica.Blocks.Logical.GreaterThreshold greThrTROut(threshold=273.15 + 17)
     "Threshold for room temperature"
-    annotation (Placement(transformation(extent={{-340,-180},{-320,-160}})));
+    annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
   Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-300,-160},{-280,-140}})));
-  Modelica_StateGraph2.Transition T4(use_conditionPort=true,
-    delayedTransition=true,
-    waitTime=10)
-    annotation (Placement(transformation(extent={{-244,-184},{-236,-176}})));
-  Modelica_StateGraph2.Step pumpsOn(
-    nIn=2,
-    use_activePort=false,
-    nOut=2) "Pumps are on"
-    annotation (Placement(transformation(extent={{-232,-144},{-224,-136}})));
+    annotation (Placement(transformation(extent={{-380,-152},{-360,-132}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-//--------------------------------------------------------------------------------------//
 
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -452,121 +448,79 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(allOff.outPort[1], T1.inPort) annotation (Line(
-      points={{-228,-104.6},{-228,-116}},
+      points={{-219.5,-150},{-204,-150}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(temRoo.T, lessThreshold.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-390,-10},{-390,-70},{-342,-70}},
+      points={{-50,30},{-270,30},{-270,-10},{-440,-10},{-440,-200},{-422,-200}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(lessThreshold1.u, senTOut.T) annotation (Line(
-      points={{-342,-100},{-396,-100},{-396,10},{-280,10},{-280,30},{-298,30}},
+      points={{-422,-230},{-446,-230},{-446,10},{-298,10},{-298,30}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(lessThreshold.y, and3.u1) annotation (Line(
-      points={{-319,-70},{-310,-70},{-310,-92},{-302,-92}},
+      points={{-399,-200},{-390,-200},{-390,-222},{-382,-222}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(lessThreshold1.y, and3.u2) annotation (Line(
-      points={{-319,-100},{-302,-100}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(T1.conditionPort, and3.y) annotation (Line(
-      points={{-233,-120},{-256,-120},{-256,-92},{-279,-92}},
+      points={{-399,-230},{-382,-230}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(boi.T, lessThreshold2.u) annotation (Line(
-      points={{-1,-302},{-382,-302},{-382,-220},{-342,-220}},
+      points={{-1,-302},{-20,-302},{-20,-348},{-432,-348},{-432,-280},{-422,-280}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lessThreshold2.y, T2.conditionPort) annotation (Line(
-      points={{-319,-220},{-260,-220},{-260,-160},{-225,-160}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(T2.outPort, boilerOn.inPort[1]) annotation (Line(
-      points={{-220,-165},{-220,-176}},
+      points={{-246.5,-190},{-229,-190}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(boi.T, greThrBoi.u) annotation (Line(
-      points={{-1,-302},{-382,-302},{-382,-250},{-342,-250}},
+      points={{-1,-302},{-20,-302},{-20,-348},{-432,-348},{-432,-310},{-422,-310}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(boilerOn.outPort[1], T3.inPort) annotation (Line(
-      points={{-220,-184.6},{-220,-196}},
+      points={{-207.5,-190},{-190,-190}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(greThrBoi.y, T3.conditionPort) annotation (Line(
-      points={{-319,-250},{-250,-250},{-250,-200},{-225,-200}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(boilerOn.activePort, booToReaRad2.u) annotation (Line(
-      points={{-215.28,-180},{-160,-180},{-160,-330},{-102,-330}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(temRoo.T, greThrTRoo.u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-10},{-390,-10},{-390,-140},{-342,-140}},
+      points={{-50,30},{-270,30},{-270,-10},{-440,-10},{-440,-120},{-422,-120}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(senTOut.T, greThrTROut.u) annotation (Line(
-      points={{-298,30},{-280,30},{-280,10},{-396,10},{-396,-170},{-342,-170}},
+      points={{-298,30},{-298,10},{-446,10},{-446,-150},{-422,-150}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(greThrTRoo.y, and1.u1) annotation (Line(
-      points={{-319,-140},{-310,-140},{-310,-150},{-302,-150}},
+      points={{-399,-120},{-392,-120},{-392,-142},{-382,-142}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(greThrTROut.y, and1.u2) annotation (Line(
-      points={{-319,-170},{-312,-170},{-312,-158},{-302,-158}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(and1.y, T4.conditionPort) annotation (Line(
-      points={{-279,-150},{-272,-150},{-272,-180},{-245,-180}},
+      points={{-399,-150},{-382,-150}},
       color={255,0,255},
       smooth=Smooth.None));
 
-  connect(T1.outPort, pumpsOn.inPort[1]) annotation (Line(
-      points={{-228,-125},{-228,-136},{-229,-136}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(allOff.activePort, not1.u) annotation (Line(
-      points={{-223.28,-100},{-202,-100},{-202,-70},{-182,-70}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(not1.y, booToReaRad.u) annotation (Line(
-      points={{-159,-70},{-142,-70}},
+      points={{-159,-70},{-122,-70}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, booToReaRad1.u) annotation (Line(
-      points={{-159,-70},{-152,-70},{-152,-280},{-142,-280}},
+      points={{-159,-70},{-140,-70},{-140,-280},{-122,-280}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(T3.outPort, pumpsOn.inPort[2]) annotation (Line(
-      points={{-220,-205},{-220,-220},{-200,-220},{-200,-126},{-227,-126},{-227,
-          -136}},
-      color={0,0,0},
-      smooth=Smooth.None));
   connect(T4.outPort, allOff.inPort[1]) annotation (Line(
-      points={{-240,-185},{-240,-226},{-198,-226},{-198,-80},{-228,-80},{-228,
-          -96}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(pumpsOn.outPort[1], T4.inPort) annotation (Line(
-      points={{-229,-144.6},{-229,-152},{-240,-152},{-240,-176}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(pumpsOn.outPort[2], T2.inPort) annotation (Line(
-      points={{-227,-144.6},{-227,-152},{-220,-152},{-220,-156}},
+      points={{-258.5,-150},{-241,-150}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(conPIDRad.y, valRad.y) annotation (Line(
-      points={{-159,-10},{-90,-10},{-90,-150},{-62,-150}},
+      points={{-159,-10},{-80,-10},{-80,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
-      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      points={{-99,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPIDBoi.y, valBoi.y) annotation (Line(
@@ -574,13 +528,39 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      points={{-99,-280},{-64,-280},{-64,-280.2},{-62,-280.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetBoiRet.y, conPIDBoi.u_s)
     annotation (Line(points={{141,-260},{158,-260}}, color={0,0,127}));
   connect(temRet.T, conPIDBoi.u_m) annotation (Line(points={{71,-280},{120,-280},
           {170,-280},{170,-272}}, color={0,0,127}));
+  connect(T1.condition, and3.y) annotation (Line(points={{-200,-162},{-200,-162},
+          {-200,-222},{-359,-222}},                         color={255,0,255}));
+  connect(booToReaRad2.u, boilerOn.active) annotation (Line(points={{-102,-330},
+          {-102,-330},{-218,-330},{-218,-201}}, color={255,0,255}));
+  connect(lessThreshold2.y, T2.condition) annotation (Line(points={{-399,-280},{
+          -400,-280},{-332,-280},{-248,-280},{-248,-202}}, color={255,0,255}));
+  connect(T4.condition, and1.y) annotation (Line(points={{-260,-162},{-260,-162},
+          {-260,-170},{-260,-216},{-338,-216},{-338,-142},{-359,-142}}, color={255,
+          0,255}));
+  connect(T3.condition, greThrBoi.y) annotation (Line(points={{-186,-202},{-186,
+          -202},{-186,-310},{-399,-310}}, color={255,0,255}));
+  connect(allOff.active, not1.u) annotation (Line(points={{-230,-161},{-230,-166},
+          {-210,-166},{-210,-70},{-182,-70}}, color={255,0,255}));
+  connect(pumpsOn.outPort[1], alternative.inPort)
+    annotation (Line(points={{-299.5,-170},{-292.04,-170}}, color={0,0,0}));
+  connect(alternative.outPort, pumpsOn.inPort[1]) annotation (Line(points={{-152.64,
+          -170},{-146,-170},{-146,-120},{-328,-120},{-328,-170},{-321,-170}},
+        color={0,0,0}));
+  connect(T4.inPort, alternative.split[1]) annotation (Line(points={{-264,-150},
+          {-264,-150},{-275.72,-150}}, color={0,0,0}));
+  connect(T2.inPort, alternative.split[2]) annotation (Line(points={{-252,-190},
+          {-264,-190},{-275.72,-190}}, color={0,0,0}));
+  connect(T1.outPort, alternative.join[1])
+    annotation (Line(points={{-198.5,-150},{-168.28,-150}}, color={0,0,0}));
+  connect(T3.outPort, alternative.join[2])
+    annotation (Line(points={{-184.5,-190},{-168.28,-190}}, color={0,0,0}));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model changes the implementation of the control in
@@ -616,36 +596,37 @@ and called it
 <li>
 <p>
 We implemented the state machine using blocks from the library
-<a href=\"modelica://Modelica_StateGraph2\">
-Modelica_StateGraph2</a>.
-How to use these blocks is explained in the
-user's guide of the
-<a href=\"modelica://Modelica_StateGraph2\">
-Modelica_StateGraph2</a>
-library.
+<a href=\"modelica://Modelica.StateGraph\">
+Modelica.StateGraph</a>.
+How to use these blocks is explained in
+<a href=\"modelica://Modelica.StateGraph.UsersGuide\">
+Modelica.StateGraph.UsersGuide</a>.
 </p>
 <p>
 The figure below shows the state machine.
-The oval icons are states, and the black bars
-are transitions. The transitions are enabled when their input signal is true.
-The red numbers to the right of the transition indicate the delay in seconds.
+The square icons are states, and the black bars
+are transitions. The initial state is indicated by the double frame.
+The transitions are enabled when their input signal is true.
+The numbers to the right of the transition indicate the delay in seconds.
 If a delay is present, the input needs to be true during the entire duration of the delay
-for a transition to fire.
+for a transition to fire. The active state is rendered green.
+Some states have a boolean output signal that is used to switch
+components such as the pumps and the boiler on or off.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System7StateMachine.png\" border=\"1\"/>
 </p>
 <p>
 In our implementation, the state <code>allOff</code> is the initial state,
-indicated by its black arrow.
+indicated by its double frame.
 The transition <code>T1</code> is used to switch the pumps on.
-Once the pumps are on, transition <code>T2</code> may fire, which
-would switch the boiler on.
+Once the <code>pumpsOn</code> state is active, there are two alternate
+paths. Either transition <code>T2</code> may fire, which
+would switch the boiler on, or <code>T4</code> may fire, which would return
+to the <code>allOff</code> state.
 Hence, the boiler can only be on when the pumps are on.
 From the state <code>boilerOn</code>, the only next step can be to
 transition to the state <code>pumpsOn</code>.
-Once this state has been reached (and hence the boiler is off),
-the pumps can be switched off when transition <code>T4</code> fires.
 Note that the transitions <code>T3</code> and <code>T4</code>
 only fire when their input is true for the entire duration of <i>10</i> seconds.
 Hence, the pumps and the boiler must run for at least <i>10</i> seconds
@@ -665,6 +646,11 @@ response shown below should be seen.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2016, by Michael Wetter:<br/>
+Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
+</li>
 <li>
 July 2, 2015, by Michael Wetter:<br/>
 Changed control input for <code>conPIDBoi</code> and set
@@ -693,7 +679,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-360},{240,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-460,-360},{240,
             100}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"

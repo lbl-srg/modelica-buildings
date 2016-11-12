@@ -12,13 +12,15 @@ model TwoPortInductance
     max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
     Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
-    annotation (Evaluate=true, Dialog(group="Modelling assumption"));
+    annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
   Modelica.SIunits.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-equation
+  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
 
-  omega = der(PhaseSystem_p.thetaRef(terminal_p.theta));
+equation
+  theRef = PhaseSystem_p.thetaRef(terminal_p.theta);
+  omega = der(theRef);
 
   if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
     // Dynamics of the system
@@ -54,6 +56,11 @@ The model represents the lumped inductance as shown in the figure below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 26, 2016, by Michael Wetter:<br/>
+Moved function call to <code>PhaseSystem.thetaRef</code> out of
+derivative operator as this is not yet supported by JModelica.
+</li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>
 Revised model and documentation.

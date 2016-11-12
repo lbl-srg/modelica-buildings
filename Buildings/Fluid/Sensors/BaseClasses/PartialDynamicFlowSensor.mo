@@ -4,7 +4,7 @@ partial model PartialDynamicFlowSensor
   extends PartialFlowSensor;
 
   parameter Modelica.SIunits.Time tau(min=0) = 1
-    "Time constant at nominal flow rate";
+    "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)";
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(group="Initialization"));
@@ -43,6 +43,10 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2016, by Michael Wetter:<br/>
+Improved documentation for <code>tau</code>.
+</li>
 <li>
 January 12, 2016, by Filip Jorissen:<br/>
 Added optional parameter <code>tauInv</code>.

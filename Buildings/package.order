@@ -6,9 +6,9 @@ Electrical
 Fluid
 HeatTransfer
 Media
-Rooms
+ThermalZones
 Utilities
 Types
 Examples
+Experimental
 BaseClasses
-Obsolete

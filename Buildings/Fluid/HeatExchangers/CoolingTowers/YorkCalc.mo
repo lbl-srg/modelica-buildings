@@ -19,25 +19,35 @@ model YorkCalc
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
 
-  parameter cha.efficiencyParameters fanRelPow(
+//  parameter cha.efficiencyParameters fanRelPow(
+//       r_V = {0, 0.1,   0.3,   0.6,   1},
+//       eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+//    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
+//    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
+  parameter cha.fan fanRelPow(
        r_V = {0, 0.1,   0.3,   0.6,   1},
-       eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+       r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
     "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
 
   parameter Real yMin(min=0.01, max=1) = 0.3
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
   parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
 
-  Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
+  Modelica.Blocks.Interfaces.RealInput TAir(
+    min=0,
+    unit="K",
+    displayUnit="degC")
     "Entering air wet bulb temperature"
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}})));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
-  Modelica.Blocks.Interfaces.RealInput y "Fan control signal"
+  Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
      annotation (Placement(transformation(
           extent={{-140,60},{-100,100}})));
 
@@ -51,7 +61,7 @@ model YorkCalc
 
 protected
   package Water =  Buildings.Media.Water "Medium package for water";
-  parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false)
+  parameter Real FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)
     "Water inlet temperature at nominal condition";
@@ -84,16 +94,16 @@ initial equation
   // Derivatives for spline that interpolates the fan relative power
   fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
             x=fanRelPow.r_V,
-            y=fanRelPow.eta,
-            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.eta,
+            y=fanRelPow.r_P,
+            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.r_P,
                                                                               strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
+  assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
+  + "\n   Obtained fanRelPow(0) = " + String(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow.");
-  assert(abs(1-cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(per=fanRelPow, r_V=1, d=fanRelPowDer))
+  assert(abs(1-cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
+  + "\n   Obtained fanRelPow(1) = " + String(cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))
   + "\n   You need to choose different values for the parameter fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 
@@ -170,7 +180,7 @@ equation
   // The transition is for y in [yMin-yMin/10, yMin]
   [TAppAct, PFan] = Buildings.Utilities.Math.Functions.spliceFunction(
                                                  pos=[TAppCor,
-                                                 cha.efficiency(
+                                                 cha.normalizedPower(
                                                      per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
@@ -295,6 +305,13 @@ instead of
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Corrected wrong type for <code>FRWat0</code>, as this variable
+can take on values that are bigger than <i>1</i>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/567\">issue 567</a>.
+</li>
 <li>
 January 2, 2015, by Michael Wetter:<br/>
 Replaced <code>Medium.temperature()</code> with
