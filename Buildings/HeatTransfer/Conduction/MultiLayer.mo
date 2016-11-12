@@ -24,7 +24,7 @@ protected
    each final A=A,
    final placeCapacityAtSurf_a = {if i == 1 then placeCapacityAtSurf_a else false for i in 1:nLay},
    final placeCapacityAtSurf_b = {if i == nLay then placeCapacityAtSurf_b else false for i in 1:nLay},
-   material = {layers.material[i] for i in 1:size(layers.material, 1)},
+   material = layers.material,
    T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
     sum(layers.material[k].R for k in i:size(layers.material, 1)) for i in 1:size(layers.material, 1)},
    T_b_start = { T_a_start+(T_b_start-T_a_start) * 1/R *
@@ -152,6 +152,11 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 11, 2016, by Thierry S. Nouidui:<br/>
+Revised the implementation for adding a state at the surface. 
+Removed <code>for</code> loop which was causing the model to fail to translate.<br/>
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Added option to place a state at the surface.<br/>
