@@ -67,29 +67,6 @@ protected
       {R/(if i==1 or i==nR then (2*nSta) else nSta) for i in 1:nR}
     "Thermal resistance";
 
-//  final parameter Modelica.SIunits.ThermalResistance RnSta_a=
-//    if placeCapacityAtSurf_a then 0 else RnSta/2
-//    "Thermal resistance between nodes and surface a";
-
-//  final parameter Modelica.SIunits.ThermalResistance RnSta_b=
-//    if placeCapacityAtSurf_b then 0 else RnSta/2
-//    "Thermal resistance between nodes and surface b";
-
-//   parameter Modelica.SIunits.Mass m[nSta]=
-//    (A*material.x*material.d) *
-//    {if i == 1 and placeCapacityAtSurf_a then 1/2*(nSta-1)
-//       elseif i == nSta and placeCapacityAtSurf_a then 1/2*(nSta-1)
-//       else 1/(nSta-1) for i in 1:nSta}
-//    * (if placeCapacityAtSurf_a and placeCapacityAtSurf_b then
-//         2/(2*nSta-2)
-//       elseif placeCapacityAtSurf_a or placeCapacityAtSurf_b then
-//         2/(2*nSta-1)
-//       else
-//         1/nSta)
-//     "Mass associated with the temperature state";
-
-
-
   parameter Modelica.SIunits.Mass m[nSta]=
    (A*material.x*material.d) *
    (if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
