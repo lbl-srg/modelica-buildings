@@ -1,8 +1,8 @@
 within Buildings.Fluid.MixingVolumes.Validation.BaseClasses;
-model MoistureMixingConservation
+partial model MoistureMixingConservation
   "Partial for checking conservation of mass for independent mass fraction"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Buildings.Media.Air "Medium model";
   Buildings.Fluid.Sources.MassFlowSource_h sou1(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -24,7 +24,7 @@ model MoistureMixingConservation
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding water"
-              annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -34,7 +34,7 @@ model MoistureMixingConservation
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding water"
-              annotation (Placement(transformation(extent={{-60,-20},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(redeclare package Medium = Medium,
       nPorts=1) "Air sink"
     annotation (Placement(transformation(extent={{160,10},{140,30}})));
@@ -167,12 +167,21 @@ equation
       points={{120,20},{140,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-260},{160,100}}), graphics),
-    experiment(Tolerance=1e-08),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-260},{160,100}})),
     Documentation(info="<html>
+<p>
+This is a partial model that is used in the validation tests
+of the mixing volume.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2016, by Michael Wetter:<br/>
+Changed model to be <code>partial</code> and removed the <code>experiment</code> annotation.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/590\">issue 590</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference.<br/>
