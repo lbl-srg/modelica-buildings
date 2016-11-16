@@ -2,7 +2,9 @@ within Buildings.Fluid.HeatExchangers.ActiveBeams.Data.BaseClasses;
 record TemperatureDifference "Record for temperature difference"
   extends Modelica.Icons.Record;
   parameter Real r_dT[:](each min=0, each final unit="1")
-   "Normalized temperature difference, e.g., temperature difference at user-selected operating points divided by nominal temperature difference. Must be positive.";
+   "Normalized temperature difference, e.g., temperature difference at
+ user-selected operating points divided by nominal temperature difference.
+ Must be positive.";
   parameter Real f[size(r_dT, 1)](each min=0, each final unit="1")
     "Normalized performance factor at these normalized temperature differences";
 

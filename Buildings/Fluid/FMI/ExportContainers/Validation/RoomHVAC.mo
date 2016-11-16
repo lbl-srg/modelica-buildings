@@ -3,7 +3,20 @@ model RoomHVAC
   "Validation model for connected single thermal zone and HVAC system"
  extends Modelica.Icons.Example;
 
-  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon
+  Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+      UA_nominal=-hvaCon.QCoiC_flow_nominal/
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1=hvaCon.THeaRecLvg,
+        T_b1=hvaCon.TASup_nominal,
+        T_a2=hvaCon.TWSup_nominal,
+        T_b2=hvaCon.TWRet_nominal),
+      dp1_nominal=6000,
+      dp2_nominal=200,
+      show_T=true,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      allowFlowReversal1=hvaCon.allowFlowReversal,
+      allowFlowReversal2=hvaCon.allowFlowReversal))
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ThermalZone rooCon
@@ -12,9 +25,22 @@ model RoomHVAC
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Examples.FMUs.HVACZones hvaCon2(
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+      UA_nominal=-hvaCon2.QCoiC_flow_nominal/
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1=hvaCon2.THeaRecLvg,
+        T_b1=hvaCon2.TASup_nominal,
+        T_a2=hvaCon2.TWSup_nominal,
+        T_b2=hvaCon2.TWRet_nominal),
+      dp1_nominal=6000,
+      dp2_nominal=200,
+      show_T=true,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      allowFlowReversal1=hvaCon2.allowFlowReversal,
+      allowFlowReversal2=hvaCon2.allowFlowReversal),
     UA = 20E3,
     QRooInt_flow = 2000,
-    fan2(each constantMassFlowRate=0))
+    fan2(constantMassFlowRate=0))
     "Block that encapsulates the HVAC system"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   TwoRooms rooCon2 "Model with two rooms" annotation (Placement(transformation(
@@ -193,6 +219,10 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
 <li>
 May 03, 2016, by Thierry S. Nouidui:<br/>
 First implementation.

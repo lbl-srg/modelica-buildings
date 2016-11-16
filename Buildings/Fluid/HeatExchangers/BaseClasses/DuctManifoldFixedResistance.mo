@@ -27,15 +27,15 @@ model DuctManifoldFixedResistance
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
   Fluid.FixedResistances.FixedResistanceDpM fixRes(
-    redeclare each package Medium = Medium,
-    each m_flow_nominal=m_flow_nominal,
-    each dp_nominal=dp_nominal,
-    each dh=dh,
-    each from_dp=from_dp,
-    each deltaM=deltaM,
-    each ReC=ReC,
-    each use_dh=use_dh,
-    each linearized=linearized) "Fixed resistance for each duct"
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    dh=dh,
+    from_dp=from_dp,
+    deltaM=deltaM,
+    ReC=ReC,
+    use_dh=use_dh,
+    linearized=linearized) "Fixed resistance for each duct"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected
   DuctManifoldFlowDistributor floDis(
@@ -79,6 +79,10 @@ stop with an error.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

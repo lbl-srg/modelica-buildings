@@ -55,7 +55,7 @@ equation
   port_b.h_outflow  = Medium.specificEnthalpy_pTX(
                         p = p_in_internal,
                         T = inlet.forward.T,
-                        X = fill(X_w_in_internal, Medium.nXi));
+                        X = if Medium.nXi == 1 then cat(1, {X_w_in_internal}, {1-X_w_in_internal}) else zeros(Medium.nX));
 
   port_b.C_outflow  = inlet.forward.C;
 
@@ -78,7 +78,7 @@ equation
     bacPro_internal.T  = Medium.temperature_phX(
                            p = p_in_internal,
                            h = inStream(port_b.h_outflow),
-                           X = inStream(port_b.Xi_outflow));
+                           X = cat(1, inStream(port_b.Xi_outflow), {1-sum(inStream(port_b.Xi_outflow))}));
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
     bacPro_internal.T  = Medium.T_default;
@@ -167,6 +167,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code> and
+<code>Medium.specificEnthalpy_pTX</code>.
+</li>
 <li>
 October 23, 2016, by Michael Wetter:<br/>
 Changed type of pressure output connector.

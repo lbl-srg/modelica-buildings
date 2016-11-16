@@ -8,18 +8,15 @@ initial equation
   <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 
 equation
-  delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRadWall/(alphaRadWall+alphaWallOut*0.93));
-  delTEqSW=HSol*aExt/(alphaRadWall+alphaWallOut);
-  if withLongwave then
-    TEqWin=TDryBul.+delTEqLW*abs(sunblind.-1);
-    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
-  else
-    TEqWin=TDryBul*ones(n);
-    TEqWall=TDryBul.+delTEqSW;
-  end if;
+  delTEqLWWin=delTEqLW;
   TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGro*wfGro;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Moved calculations to <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007\">
+  Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007</a>.
+  </li>
   <li>September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality
   and used assert for warnings.<br/>

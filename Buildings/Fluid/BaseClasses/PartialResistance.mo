@@ -2,8 +2,7 @@ within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
-     dp(start=0,
-        nominal=if dp_nominal_pos > Modelica.Constants.eps
+     dp(nominal=if dp_nominal_pos > Modelica.Constants.eps
           then dp_nominal_pos else 1),
      m_flow(
         nominal=if m_flow_nominal_pos > Modelica.Constants.eps
@@ -86,6 +85,13 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start value for pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Avoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>

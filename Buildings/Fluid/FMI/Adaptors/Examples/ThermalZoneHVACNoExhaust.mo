@@ -84,7 +84,7 @@ public
     Q_flow_nominal/20)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{150,-60},{130,-40}})));
-  HeatTransfer.Sources.PrescribedTemperature TBou
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBou
     "Fixed temperature boundary condition"
     annotation (Placement(transformation(extent={{180,-60},{160,-40}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*

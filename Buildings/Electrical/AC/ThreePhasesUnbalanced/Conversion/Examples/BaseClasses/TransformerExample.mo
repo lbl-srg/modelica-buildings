@@ -17,7 +17,8 @@ model TransformerExample
   Loads.Resistive load(
     loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_wyeg,
     P_nominal=-1800e3,
-    V_nominal=V_secondary) "Load model"
+    V_nominal=V_secondary,
+    linearized=true)       "Load model"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Sensors.ProbeWye probe_Y_1(perUnit=false, V_nominal = V_primary)
     "Probe that measures the voltage in Y configuration, primary side"
@@ -50,6 +51,12 @@ equation
       smooth=Smooth.None));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Linearized load to avoid large nonlinear system of equations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/568\">issue 568</a>.
+</li>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>
 Created model and documentation.

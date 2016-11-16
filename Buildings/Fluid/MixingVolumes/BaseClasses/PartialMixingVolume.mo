@@ -29,7 +29,7 @@ partial model PartialMixingVolume
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean allowFlowReversal = true
-    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
