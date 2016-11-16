@@ -15,7 +15,7 @@ model MultiLayer
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeCapacityAtSurf_b=false
-    "Set to true to place the capacity at the surface a of the layer"
+    "Set to true to place the capacity at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
