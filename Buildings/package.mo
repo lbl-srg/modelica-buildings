@@ -174,6 +174,10 @@ its class name ends with the string <code>Beta</code>.
    For Dymola, the conversion script will update models that use any model of the package
    <code>Buildings.Rooms</code>.
    </li>
+   <li>
+   The package <code>Buildings.Utilities.IO.Python34</code> with
+   blocks and functions that embed Python 3.4 in Modelica has been added.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -209,6 +213,11 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Package with reduced order models of thermal zones based
                         on VDI 6007.
+       </td>
+       </tr>
+     <tr><td valign=\"top\">Buildings.Utilities.IO.Python34
+       </td>
+       <td valign=\"top\">Package with blocks and functions that embed Python 3.4 in Modelica.
        </td>
        </tr>
 
@@ -704,7 +713,8 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Redeclared <code>Medium2</code> to force it to be a subclass
                           of <code>Modelica.Media.Interfaces.PartialCondensingGases</code>.<br/>
-                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issu"
+               + "es/544\">
                           issue 544</a>.
        </td>
    </tr>
