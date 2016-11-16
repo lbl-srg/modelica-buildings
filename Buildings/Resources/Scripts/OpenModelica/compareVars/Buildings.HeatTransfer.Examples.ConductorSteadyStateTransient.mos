@@ -13,5 +13,6 @@ compareVars :=
     "conMul.T[4]",
     "conMul.T[5]",
     "con.T[1]",
-    "con.T[2]"
+    "con.T[2]",
+    "cheEqu.y"
   };

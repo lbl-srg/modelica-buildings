@@ -24,7 +24,7 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p(unit="Pa") if
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
      use_p_in "Pressure"
   annotation (
       Placement(
@@ -55,7 +55,7 @@ equation
   port_b.h_outflow  = Medium.specificEnthalpy_pTX(
                         p = p_in_internal,
                         T = inlet.forward.T,
-                        X = fill(X_w_in_internal, Medium.nXi));
+                        X = if Medium.nXi == 1 then cat(1, {X_w_in_internal}, {1-X_w_in_internal}) else zeros(Medium.nX));
 
   port_b.C_outflow  = inlet.forward.C;
 
@@ -78,7 +78,7 @@ equation
     bacPro_internal.T  = Medium.temperature_phX(
                            p = p_in_internal,
                            h = inStream(port_b.h_outflow),
-                           X = inStream(port_b.Xi_outflow));
+                           X = cat(1, inStream(port_b.Xi_outflow), {1-sum(inStream(port_b.Xi_outflow))}));
     bacPro_internal.C  = inStream(port_b.C_outflow);
   else
     bacPro_internal.T  = Medium.T_default;
@@ -141,12 +141,10 @@ equation
           textString="inlet"),
         Line(
           points={{0,-100},{0,-60}},
-          color={0,0,255},
-          visible=use_p_in,
-          smooth=Smooth.None),
+          color={0,127,127}),
         Text(
           extent={{2,-76},{24,-94}},
-          lineColor={0,0,255},
+          lineColor={0,127,127},
           visible=use_p_in,
           textString="p")}),
     Documentation(info="<html>
@@ -169,6 +167,15 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code> and
+<code>Medium.specificEnthalpy_pTX</code>.
+</li>
+<li>
+October 23, 2016, by Michael Wetter:<br/>
+Changed type of pressure output connector.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector

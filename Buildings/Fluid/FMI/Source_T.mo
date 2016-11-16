@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI;
 model Source_T
   "Model of a boundary with mass flow rate, pressure and temperature as an input that can be exported as an FMU"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -70,7 +70,6 @@ equation
 
   outlet.m_flow = m_flow_in;
 
-  connect(outlet.p, p_in);
   outlet.forward.T  = T_in;
   outlet.forward.C  = C_in;
 
@@ -101,6 +100,10 @@ and the mass flow rate of the system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2016, by Michael Wetter:<br/>
+Removed redundant connection.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector

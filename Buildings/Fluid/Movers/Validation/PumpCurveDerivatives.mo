@@ -79,9 +79,8 @@ model PumpCurveDerivatives
   Buildings.Utilities.Diagnostics.AssertInequality assIne(threShold=1e-8)
     "Assertion check for positive derivatives"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Sensors.RelativePressure               relPre1(
-                                                redeclare package Medium =
-        Medium) annotation (Placement(transformation(
+  Buildings.Fluid.Sensors.RelativePressure relPre1(
+    redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-50,-70})));
   Modelica.Blocks.Continuous.Der ddp_dNrpm "Derivative of dp for changing rpm"
@@ -160,9 +159,7 @@ equation
           {22,-4},{38,-4}}, color={0,0,127}));
   connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
           -89}},  color={0,0,127}));
-  annotation (experiment(__Dymola_NumberOfIntervals=50000, __Dymola_Algorithm=
-          "Euler"),
-__Dymola_Commands(file=
+  annotation (__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -193,6 +190,5 @@ for a discussion and validation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-140},{140,120}},
-          preserveAspectRatio=false)),
-    __Dymola_experimentSetupOutput(events=false));
+          preserveAspectRatio=false)));
 end PumpCurveDerivatives;

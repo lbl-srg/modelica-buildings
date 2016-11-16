@@ -81,7 +81,7 @@ model.
 September 20, 2016, by Michael Wetter:<br/>
 Reordered constants to conform with the order in <code>package.order</code>.<br/>
 This is for
-<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/518\">issue 518</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/518\">issue 518</a>.
 </li>
 <li>
 September 14, 2016, by Michael Wetter:<br/>

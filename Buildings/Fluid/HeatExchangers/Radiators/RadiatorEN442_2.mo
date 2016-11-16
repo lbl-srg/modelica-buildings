@@ -98,10 +98,12 @@ protected
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
     "Parameter that is used to compute QEle_flow_nominal for heating or cooling mode";
 
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon(
+    each final alpha=0)
     "Heat input into radiator from convective heat transfer"
      annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad(
+    each final alpha=0)
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
@@ -136,7 +138,8 @@ protected
         delta=0.05) for i in 1:nEle}) "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon(
+    final alpha=0)
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
   Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
@@ -145,7 +148,8 @@ protected
   Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumRad(
+    final alpha=0)
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
@@ -184,6 +188,7 @@ initial equation
         n=n,
         x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
+
 
 equation
   connect(preCon.port, vol.heatPort)       annotation (Line(
@@ -329,6 +334,13 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set <code>preHea(final alpha=0)</code> as this allows to simplify the
+system of equations.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/570\">#570</a>.
+</li>
 <li>
 March 17, 2016, by Michael Wetter:<br/>
 Reformulated model to reduce the dimension of the nonlinear system of equations.

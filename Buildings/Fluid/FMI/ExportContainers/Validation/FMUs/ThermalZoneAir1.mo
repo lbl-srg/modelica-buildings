@@ -35,7 +35,7 @@ block ThermalZoneAir1 "Validation of simple thermal zone"
         rotation=90,
         origin={0,200})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
     annotation (Placement(transformation(extent={{-60,102},{-40,122}})));
 

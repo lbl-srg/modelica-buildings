@@ -88,18 +88,7 @@ In this example, there is only one model with air.
 <p>
 We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
-have water as a medium. Because we do not anticipate saturated air, we used
-the medium model
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air</a>
-instead of
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a>
-as the latter is computationally more expensive.
-Because in this model, we are not interested in air humidification or
-dehumidification, we could have as well used the medium model
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
-Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
+have water as a medium.
 </p>
 <p>
 We also defined the system-level parameters

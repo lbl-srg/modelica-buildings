@@ -70,18 +70,13 @@ supply, there will be multiple models that use this medium.
 <p>
 We called the medium <code>MediumA</code> to distinguish it from
 <code>MediumW</code> that we will use in later versions of the model for components that
-have water as a medium. Because we do not anticipate saturated air, we used
-the medium model
-<a href=\"modelica://Buildings.Media.Air\">
-Buildings.Media.Air</a>
-instead of
-<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
-Buildings.Media.GasesPTDecoupled.MoistAir</a>
-as the latter is computationally more expensive.
+have water as a medium.
+</p>
+<p>
 Note that although the medium model is for unsaturated air, the cooling coil
-will be able to reduce the moisture content of the medium. But since
+will be able to reduce the moisture content of the medium. Because
 the air outlet state of the cooling coil has a relative humidity below <i>100%</i>,
-we can use this medium model for unsaturated air.
+we can use this medium model and need not be able to model the fog region.
 </p>
 <p>
 We also defined the system-level parameters

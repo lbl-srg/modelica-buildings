@@ -23,7 +23,7 @@ model PIDHysteresisTimer
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow Q_flow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow
     annotation (Placement(transformation(extent={{16,20},{36,40}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/86400,

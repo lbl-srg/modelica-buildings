@@ -4,15 +4,10 @@ model GlassLayer "Model for a glass layer of a window assembly"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces(
     final rhoIR_a=1-absIR_a-tauIR,
     final rhoIR_b=1-absIR_b-tauIR);
+
   parameter Modelica.SIunits.Length x "Material thickness";
+
   parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Emissivity absIR_a
-    "Infrared absorptivity of surface a (usually room-facing surface)";
-  parameter Modelica.SIunits.Emissivity absIR_b
-    "Infrared absorptivity of surface b (usually outside-facing surface)";
-  parameter Modelica.SIunits.TransmissionCoefficient tauIR
-    "Infrared transmittance of glass";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -112,6 +107,14 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 <br/>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2016, by Michael Wetter:<br/>
+Removed declarations of <code>A</code>,
+<code>absIR_a</code>,
+<code>absIR_b</code> and
+<code>tauIR</code>, which are already declared
+in the base class.
+</li>
 <li>
 December 8, 2014, by Michael Wetter:<br/>
 Added term <code>tauIR * (JIn_a - JIn_b)</code>

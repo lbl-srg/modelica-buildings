@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Loads;
 model Inductive "Model of an inductive and resistive load"
   extends Buildings.Electrical.Interfaces.InductiveLoad(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal,
+    redeclare replaceable Interfaces.Terminal_n terminal,
     V_nominal(start = 110));
 
 protected
@@ -203,6 +203,12 @@ The choices are between a null current or the linearized model.
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Added <code>replaceable</code> to terminal redeclaration as they are redeclared by
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Loads.Inductive</a>.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of

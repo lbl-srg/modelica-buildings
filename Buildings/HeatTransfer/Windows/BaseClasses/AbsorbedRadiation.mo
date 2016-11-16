@@ -2,8 +2,9 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 block AbsorbedRadiation "Absorbed radiation by window"
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation;
 
-  Modelica.Blocks.Interfaces.RealInput HRoo(quantity="RadiantEnergyFluenceRate",
-      unit="W/m2") "Diffussive radiation from room " annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput HRoo(
+    quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Diffussive radiation from room " annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(
           extent={{-130,-91},{-100,-61}})));
 
@@ -32,7 +33,8 @@ block AbsorbedRadiation "Absorbed radiation by window"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2, NSta] "Absorbed interior and exterior radiation.
+  output Modelica.SIunits.Power absRad[2, N + 2, NSta]
+    "Absorbed interior and exterior radiation.
       (absRad[2,1,iSta]: exterior shading device,
       absRad[1,2 to N+1,iSta]: glass (unshaded part),
       absRad[2,2 to N+1,iSta]: glass (shaded part),
@@ -40,14 +42,10 @@ block AbsorbedRadiation "Absorbed radiation by window"
       with iSta being the state of the (electrochromic) window";
 
 protected
-  constant Integer k=1;
-  Real x;
-  final parameter Integer NDIR=radDat.NDIR;
-  final parameter Integer HEM=radDat.HEM;
-  constant Integer NoShade=1;
-  constant Integer Shade=2;
-  constant Integer Interior=1;
-  constant Integer Exterior=2;
+  final parameter Integer NDIR=radDat.NDIR "Number of incident angles";
+  final parameter Integer HEM=radDat.HEM "Index of hemispherical integration";
+  constant Integer NoShade=1 "Index for data for no shade";
+  constant Integer Shade=2 "Index for data with shade";
   final parameter Real coeAbsEx[2, radDat.N, radDat.HEM + 2, NSta](each fixed=false);
   final parameter Real coeRefExtPan1[radDat.HEM + 2, NSta](each fixed=false)
     "Reflectivity of pane 1";
@@ -61,8 +59,11 @@ protected
     "Absorptivity of interior shading device for interior radiation";
   final parameter Real coeAbsDevIntIrrExtSha[NSta]=
     {1 - radDat.winTraRefIntIrrExtSha[1, iSta]
-       - radDat.winTraRefIntIrrExtSha[2, iSta] for iSta}
+       - radDat.winTraRefIntIrrExtSha[2, iSta] for iSta in 1:NSta}
     "Absorptivity of exterior shading device for interior radiation";
+
+  Real x "Intermediate variable, x=(index-1)*incAng/(0.5pi)+2, 0<=x<=NDIR";
+
   Real incAng2;
 
 initial equation
@@ -280,6 +281,13 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+October 22, 2016, by Michael Wetter:<br/>
+Added range for loop variable for JModelica.<br/>
+Made units of <code>HRoo</code> final.<br/>
+Removed unused protected constants <code>k</code>,
+<code>Interior</code> and <code>Exterior</code>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.
