@@ -90,10 +90,6 @@ equation
       points={{-122,-120},{-140,-120},{-140,0},{-180,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(y, y) annotation (Line(
-      points={{170,0},{170,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(multiSwitch1.y, y) annotation (Line(
       points={{120.4,0},{170,0}},
       color={0,0,127},
