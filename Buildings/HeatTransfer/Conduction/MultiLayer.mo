@@ -155,7 +155,7 @@ and the temperature state.
 <li>
 November 11, 2016, by Thierry S. Nouidui:<br/>
 Revised the implementation for adding a state at the surface. 
-Removed <code>for</code> loop which was causing the model to fail to translate.
+Refactor <code>layers.material</code> assignment in constructions.
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
