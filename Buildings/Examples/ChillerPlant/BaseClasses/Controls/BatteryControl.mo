@@ -27,10 +27,11 @@ model BatteryControl "Controller for battery"
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold=
         0.01)
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Modelica.Blocks.Math.MultiSwitch multiSwitch1(                             nu=2, expr={
-        200e3,-400e3})
+  Modelica.Blocks.Math.MultiSwitch multiSwitch1(
+    nu=2,
+    expr={200e3,-400e3})
     annotation (Placement(transformation(extent={{104,-10},{120,10}})));
-  Modelica.StateGraph.InitialStep           off "Off state"
+  Modelica.StateGraph.InitialStep off "Off state"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
