@@ -38,7 +38,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.Construction conExt[NConExt](
     A=datConExt.A,
     til=datConExt.til,
-    final layers=datConExt[i].layers,
+    final layers=datConExt.layers,
     steadyStateInitial=datConExt.steadyStateInitial,
     T_a_start=datConExt.T_a_start,
     T_b_start=datConExt.T_b_start) if haveConExt
