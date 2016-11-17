@@ -27,9 +27,10 @@ model BatteryControl "Controller for battery"
   Modelica.Blocks.Logical.LessEqualThreshold lessEqualThreshold(threshold=
         0.01)
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Modelica.Blocks.Math.MultiSwitch multiSwitch1(      expr={0,200e3,-400e3}, nu=3)
+  Modelica.Blocks.Math.MultiSwitch multiSwitch1(                             nu=2, expr={
+        200e3,-400e3})
     annotation (Placement(transformation(extent={{104,-10},{120,10}})));
-  Modelica.StateGraph.InitialStepWithSignal off "Off state"
+  Modelica.StateGraph.InitialStep           off "Off state"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
@@ -131,16 +132,12 @@ equation
   connect(t4.outPort, alternative.join[2])
     annotation (Line(points={{81.5,60},{92,60},{92,65},{100.56,65}},
                                                      color={0,0,0}));
-  connect(off.active, multiSwitch1.u[1]) annotation (Line(
-      points={{-40,79},{-40,79},{-40,32},{-40,2},{104,2}},
+  connect(charge.active, multiSwitch1.u[1]) annotation (Line(
+      points={{50,109},{50,92},{64,92},{64,1.5},{104,1.5}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(charge.active, multiSwitch1.u[2]) annotation (Line(
-      points={{50,109},{50,92},{64,92},{64,0},{104,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(discharge.active, multiSwitch1.u[3]) annotation (Line(
-      points={{50,49},{50,49},{50,-4},{104,-4},{104,-2}},
+  connect(discharge.active, multiSwitch1.u[2]) annotation (Line(
+      points={{50,49},{50,49},{50,-4},{104,-4},{104,-1.5}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   annotation ( Documentation(info="<html>
@@ -153,6 +150,12 @@ discharging until it is empty.
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Michael Wetter:<br/>
+Removed output of instance <code>off</code> to avoid
+an overdetermined system of equations during initialization.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/578\">issue 578</a>.
+</li>
 <li>
 April 6, 2016, by Michael Wetter:<br/>
 Replaced <code>Modelica_StateGraph2</code> with <code>Modelica.StateGraph</code>.
