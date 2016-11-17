@@ -371,7 +371,7 @@ revisions="<html>
 <ul>
 <li>
 November 11, 2016, by Thierry S. Nouidui:<br/>
-Revised the implementation for adding a state at the surface.<br/>
+Revised the implementation for adding a state at the surface.
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
