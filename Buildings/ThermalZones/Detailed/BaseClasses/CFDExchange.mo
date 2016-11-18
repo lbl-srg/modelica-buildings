@@ -18,8 +18,6 @@ block CFDExchange "Block that exchanges data with the CFD code"
     "Number of double values to be read from the CFD simulation";
   parameter Integer flaWri[nWri] = ones(nWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
-  parameter Real uStart[nWri]
-    "Initial input signal, used during first data transfer with CFD simulation";
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
     annotation (Evaluate=true, Dialog(enable=not activateInterface));
   parameter Integer nSur(min=2) "Number of surfaces";
@@ -37,8 +35,7 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter Boolean verbose=false "Set to true for verbose output";
   parameter Modelica.SIunits.Density rho_start "Density at initial state";
 
-  Modelica.Blocks.Interfaces.RealInput u[nWri](start=_uStart,
-                                               each fixed=true) "Inputs to CFD"
+  Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -52,9 +49,6 @@ protected
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
-  final parameter Real _uStart[nWri]={if (flaWri[i] <= 1) then uStart[i] else
-      uStart[i]*samplePeriod for i in 1:nWri}
-    "Initial input signal, used during first data transfer with CFD";
   output Modelica.SIunits.Time modTimRea(fixed=false)
     "Current model time received from CFD";
 
@@ -281,15 +275,16 @@ equation
   for i in 1:nWri loop
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
   end for;
+
 algorithm
   when sampleTrigger then
     // Compute value that will be sent to the CFD interface
     for i in 1:nWri loop
       if (flaWri[i] == 0) then
-        uWri[i] := pre(u[i]);
+        uWri[i] := u[i];
       elseif (flaWri[i] == 1) then
         if (time<startTime+0.1*samplePeriod) then
-           uWri[i] := pre(u[i]);
+           uWri[i] := u[i];
            // Set the correct initial data
         else
            uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;
@@ -326,7 +321,6 @@ algorithm
 
     // Store current value of integral
     uIntPre := uInt;
-
   end when;
 
   when terminal() then
@@ -358,11 +352,10 @@ algorithm
       retVal := 0;
     end if;
     // Check if CFD has successfully stopped
-    assert(cfdReceiveFeedback() < 0.5, "Could not terminate the cosimulation.");
+    assert(cfdReceiveFeedback() == 0, "Could not terminate the cosimulation.");
 
   end when;
   annotation (
-    Placement(transformation(extent={{-140,-20},{-100,20}})),
     Documentation(info="<html>
 <p>
 This block samples interface variables and exchanges data with the CFD code.
@@ -374,6 +367,13 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Michael Wetter:<br/>
+Removed public parameter <code>uStart</code>, which is not needed and
+refactored model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">issue 579</a>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Movded call to
