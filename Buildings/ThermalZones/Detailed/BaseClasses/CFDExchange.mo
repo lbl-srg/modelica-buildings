@@ -17,7 +17,8 @@ block CFDExchange "Block that exchanges data with the CFD code"
   parameter Integer nRea(min=0)
     "Number of double values to be read from the CFD simulation";
   parameter Integer flaWri[nWri] = ones(nWri)
-    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
+    annotation(Evaluate=true);
   parameter Real yFixed[nRea] "Fixed output, used if activateInterface=false"
     annotation (Evaluate=true, Dialog(enable=not activateInterface));
   parameter Integer nSur(min=2) "Number of surfaces";
@@ -37,22 +38,22 @@ block CFDExchange "Block that exchanges data with the CFD code"
 
   Modelica.Blocks.Interfaces.RealInput u[nWri] "Inputs to CFD"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
+  discrete Modelica.Blocks.Interfaces.RealOutput y[nRea] "Outputs received from CFD"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  output Real uInt[nWri] "Value of integral";
-  output Real uIntPre[nWri] "Value of integral at previous sampling instance";
-  output Real uWri[nWri] "Value to be sent to the CFD interface";
+  Real uInt[nWri] "Value of integral";
+  discrete Real uIntPre[nWri] "Value of integral at previous sampling instance";
+  discrete Real uWri[nWri] "Value to be sent to the CFD interface";
 
 protected
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
   final parameter Integer nPorts=size(portName, 1)
     "Number of fluid ports for the HVAC inlet and outlets";
-  output Modelica.SIunits.Time modTimRea(fixed=false)
+  discrete Modelica.SIunits.Time modTimRea(fixed=false)
     "Current model time received from CFD";
 
-  output Integer retVal(start=0, fixed=true) "Return value from CFD";
+  discrete Integer retVal(start=0, fixed=true) "Return value from CFD";
 
   ///////////////////////////////////////////////////////////////////////////
   // Function that sends the parameters of the model from Modelica to CFD
@@ -267,7 +268,7 @@ end if;
   // as otherwise, not all initial values are specified.
   // However, uWri and y are only used below in the body of the 'when'
   // block after they have been assigned.
-  uWri = fill(0, nWri);
+  uWri = u;
   y=yFixed;
 
   modTimRea = time;
@@ -276,26 +277,32 @@ equation
     der(uInt[i]) = if (flaWri[i] > 0) then u[i] else 0;
   end for;
 
-algorithm
   when sampleTrigger then
     // Compute value that will be sent to the CFD interface
     for i in 1:nWri loop
       if (flaWri[i] == 0) then
-        uWri[i] := u[i];
+        uWri[i] =  pre(u[i]);
       elseif (flaWri[i] == 1) then
         if (time<startTime+0.1*samplePeriod) then
-           uWri[i] := u[i];
+           uWri[i] =  pre(u[i]);
            // Set the correct initial data
         else
-           uWri[i] := (uInt[i] - uIntPre[i])/samplePeriod;
+           uWri[i] =  (uInt[i] - pre(uIntPre[i]))/samplePeriod;
         // Average value over the sampling interval
         end if;
       else
-        uWri[i] := uInt[i] - uIntPre[i];
+        uWri[i] =  uInt[i] - pre(uIntPre[i]);
         // Integral over the sampling interval
       end if;
     end for;
 
+    // Store current value of integral
+    uIntPre = uInt;
+  end when;
+
+algorithm
+
+  when sampleTrigger then
     // Exchange data
     if (activateInterface and (not terminal())) then
       (modTimRea,y,retVal) := exchange(
@@ -318,9 +325,6 @@ algorithm
       "Obtained negative return value during data transfer with CFD.\n" +
       "   Aborting simulation. Check CFD log file.\n" +
       "   Received: retVal = " + String(retVal));
-
-    // Store current value of integral
-    uIntPre := uInt;
   end when;
 
   when terminal() then
