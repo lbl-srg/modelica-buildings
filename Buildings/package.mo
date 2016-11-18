@@ -646,7 +646,8 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
        </td>
        <td valign=\"top\">Removed the parameter <code>uStart</code> as it is not required. As this is in a base
-                          class, users typically won't need to change the model unless they use the base class directly.<br/>
+                          class, users typically won't need to change their models
+                          unless they use this base class directly.<br/>
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">Buildings, #579</a>.
        </td>
