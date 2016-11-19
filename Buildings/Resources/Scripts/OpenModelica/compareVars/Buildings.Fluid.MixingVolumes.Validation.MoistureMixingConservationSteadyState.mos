@@ -1,8 +1,5 @@
 compareVars :=
   {
     "senMasFlo.m_flow",
-    "senSpeEnt.H_flow",
-    "cheMasFra.y",
-    "cheMasFlo.y",
-    "cheSpeEnt.y"
+    "senSpeEnt.H_flow"
   };

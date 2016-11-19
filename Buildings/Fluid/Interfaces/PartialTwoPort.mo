@@ -6,7 +6,7 @@ partial model PartialTwoPort "Partial component with two ports"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(

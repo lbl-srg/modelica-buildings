@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI;
 model Source_T
   "Model of a boundary with mass flow rate, pressure and temperature as an input that can be exported as an FMU"
-  extends Modelica.Blocks.Icons.Block;
+  extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);

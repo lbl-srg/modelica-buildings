@@ -5,10 +5,10 @@ model MixingVolumeHeatReverseFlow
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.MixingVolumeReverseFlow(
       gain(k=10));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaDyn
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaDyn
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaSte
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaSte
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation

@@ -153,7 +153,7 @@ equation
   fillColor={230,230,230},
   fillPattern=FillPattern.Solid,
   pattern=LinePattern.None), Text(
-  extent={{-60,60},{64,-64}},
+  extent={{-64,74},{60,-50}},
   lineColor={0,0,0},
   textString="2")}));
 end TwoElements;

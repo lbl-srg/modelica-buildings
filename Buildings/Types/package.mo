@@ -8,6 +8,7 @@ package Types "Package with type definitions"
     Input   "Use input signal")
     "Options for integrator reset"
     annotation (
+    preferedView="info",
     Documentation(info="<html>
 <p>
 Enumeration to define the choice of integrator reset

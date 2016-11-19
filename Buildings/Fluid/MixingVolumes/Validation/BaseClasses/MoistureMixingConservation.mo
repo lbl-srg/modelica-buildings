@@ -1,8 +1,8 @@
 within Buildings.Fluid.MixingVolumes.Validation.BaseClasses;
-partial model MoistureMixingConservation
+model MoistureMixingConservation
   "Partial for checking conservation of mass for independent mass fraction"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Buildings.Media.Air;
   Buildings.Fluid.Sources.MassFlowSource_h sou1(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -24,7 +24,7 @@ partial model MoistureMixingConservation
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding water"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+              annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -34,7 +34,7 @@ partial model MoistureMixingConservation
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding water"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,-40}})));
+              annotation (Placement(transformation(extent={{-60,-20},{-40,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sin(redeclare package Medium = Medium,
       nPorts=1) "Air sink"
     annotation (Placement(transformation(extent={{160,10},{140,30}})));
@@ -57,8 +57,9 @@ partial model MoistureMixingConservation
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.Constant mWatFlo2(k=0.003) "Water mass flow rate 2"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Modelica.Blocks.Math.Add cheMasFra(k2=-1)
-    "Check for water conservation"
+  Buildings.Utilities.Diagnostics.AssertEquality assMasFra(
+      message="Water vapor mass is not conserved", threShold=1E-8)
+    "Assert for checking water conservation"
     annotation (Placement(transformation(extent={{140,-40},{160,-60}})));
   Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
@@ -72,8 +73,10 @@ partial model MoistureMixingConservation
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium, allowFlowReversal=false) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,30},{80,10}})));
-  Modelica.Blocks.Math.Add cheMasFlo(k2=-1)
-    "Check for conservation of mass"
+  Buildings.Utilities.Diagnostics.AssertEquality assMasFlo(
+    threShold=1E-8,
+    message="Total air mass is not conserved")
+    "Assert for checking conservation of mass"
     annotation (Placement(transformation(extent={{140,-120},{160,-140}})));
   Modelica.Blocks.Sources.Constant mFloSol "Solution mass flow rate"
     annotation (Placement(transformation(extent={{140,-180},{120,-160}})));
@@ -83,8 +86,10 @@ partial model MoistureMixingConservation
     m_flow_nominal=1,
     tau=0) "Specific enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{20,30},{40,10}})));
-  Modelica.Blocks.Math.Add cheSpeEnt(k2=-1)
-    "Check for conservation of energy"
+  Buildings.Utilities.Diagnostics.AssertEquality assSpeEnt(
+    threShold=1E-5,
+    message="Enthalpy is not conserved")
+    "Assert for checking conservation of energy"
     annotation (Placement(transformation(extent={{140,-200},{160,-220}})));
   Modelica.Blocks.Sources.Constant hSol "Solution mass flow rate"
     annotation (Placement(transformation(extent={{140,-260},{120,-240}})));
@@ -139,7 +144,7 @@ equation
       points={{-20,20},{-2,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mWatFloSol.y,cheMasFra. u1) annotation (Line(
+  connect(mWatFloSol.y, assMasFra.u1) annotation (Line(
       points={{119,-90},{110,-90},{110,-56},{138,-56}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -155,11 +160,11 @@ equation
       points={{40,20},{60,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hSol.y,cheSpeEnt. u1) annotation (Line(
+  connect(hSol.y, assSpeEnt.u1) annotation (Line(
       points={{119,-250},{110,-250},{110,-216},{138,-216}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mFloSol.y,cheMasFlo. u1) annotation (Line(
+  connect(mFloSol.y, assMasFlo.u1) annotation (Line(
       points={{119,-170},{110.25,-170},{110.25,-136},{138,-136}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -167,27 +172,12 @@ equation
       points={{120,20},{140,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-260},{160,100}})),
+  annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-260},{160,100}}), graphics),
+    experiment(Tolerance=1e-08),
     Documentation(info="<html>
-<p>
-This is a partial model that is used in the validation tests
-of the mixing volume.
-</p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 15, 2016, by Michael Wetter:<br/>
-Changed model to be <code>partial</code> and removed the <code>experiment</code> annotation.<br/>
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/590\">issue 590</a>.
-</li>
-<li>
-November 2, 2016, by Michael Wetter:<br/>
-Changed assertions to blocks that compute the difference.<br/>
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
-</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.
