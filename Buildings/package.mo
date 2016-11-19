@@ -619,7 +619,7 @@ its class name ends with the string <code>Beta</code>.
                           input and output signals.
                           Previously, the model assumed that all diffuse irradiation first hits the floor before it is
                           diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
-                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
        </td>
@@ -628,11 +628,41 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
        </td>
        <td valign=\"top\">Renamed model from <code>Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain</code> to
-                          <code>Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</code>.
+                          <code>Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</code>.<br/>
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
+<<<<<<< HEAD
+=======
+
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Removed the parameter <code>uStart</code> as it is not required. As this is in a base
+                          class, users typically won't need to change their models
+                          unless they use this base class directly.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">Buildings, #579</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+       </td>
+   </tr>
+       <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.WetBul_pTX
+       </td>
+       <td valign=\"top\">Deleted the model
+                          <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          as the same functionality is provided by
+                          <code>Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</code>.
+                          Users who use <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          need to replace the model manually and reconnect the input and output ports.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/475\">Annex 60, #475</a>.
+       </td>
+    </tr>
+
+>>>>>>> master
    </table>
    <!-- Errors that have been fixed -->
    <p>

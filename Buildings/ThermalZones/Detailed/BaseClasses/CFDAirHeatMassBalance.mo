@@ -40,7 +40,6 @@ model CFDAirHeatMassBalance
     final startTime=startTime,
     final activateInterface=useCFD,
     final samplePeriod=if useCFD then samplePeriod else Modelica.Constants.inf,
-    final uStart=uStart,
     final nWri=kFluIntC_inflow + Medium.nC*nPorts,
     final nRea=kSen + nSen,
     final nSur=nSur,
@@ -63,13 +62,9 @@ model CFDAirHeatMassBalance
         rotation=270,
         origin={180,-250})));
 
-  // Values that are used for uStart
 protected
    parameter Modelica.SIunits.Time startTime(fixed=false)
     "First sample time instant.";
-
-  parameter Real uStart[kFluIntC_inflow + Medium.nC*nPorts](each fixed=false)
-    "Values used for uStart in CFDExchange";
 
   // Values that are used for yFixed
   parameter Real yFixed[kSen + nSen](each fixed=false)
@@ -400,30 +395,6 @@ initial equation
   for i in 1:nPorts loop
     for j in 1:Medium.nC loop
       C_outflow_fixed[(i - 1)*Medium.nC + j] = 0;
-    end for;
-  end for;
-
-  // Assignment of uStart
-  for i in 1:kUSha loop
-    uStart[i] = Medium.T_default;
-  end for;
-  if haveShade then
-    for i in 1:nConExtWin loop
-      uStart[kUSha + i] = 0;
-      uStart[kQRadAbs_flow + i] = 0;
-    end for;
-  end if;
-  uStart[kQConGai_flow + 1] = 0;
-  uStart[kQLatGai_flow + 1] = 0;
-  uStart[kFluIntP + 1] = p_start;
-  for i in 1:nPorts loop
-    uStart[kFluIntM_flow + i] = 0;
-    uStart[kFluIntT_inflow + i] = Medium.T_default;
-    for j in 1:Medium.nXi loop
-      uStart[kFluIntXi_inflow + (i - 1)*Medium.nXi + j] = Medium.X_default[j];
-    end for;
-    for j in 1:Medium.nC loop
-      uStart[kFluIntC_inflow + (i - 1)*Medium.nC + j] = 0;
     end for;
   end for;
 
@@ -840,6 +811,12 @@ Buildings.ThermalZones.Detailed.UsersGuide.CFD</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Michael Wetter:<br/>
+Removed protected parameter <code>uStart</code>, which is not needed.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">issue 579</a>.
+</li>
 <li>
 December 31, 2013, by Wangda Zuo:<br/>
 <ul>
