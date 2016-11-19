@@ -9,10 +9,10 @@ partial model PartialFourPort "Partial model with four ports"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal1 = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversal2 = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 2"
+    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(

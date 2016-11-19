@@ -4,7 +4,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
 
   package Medium = Buildings.Media.Air;
   parameter Boolean allowFlowReversal=false
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
 
   Modelica.SIunits.MassFlowRate m_condens = min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]))
     "Water vapor mass flow rate";

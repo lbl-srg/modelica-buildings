@@ -122,8 +122,7 @@ model Cooling "Active beam unit for cooling"
                            noEvent(actualStream(air_b.Xi_outflow))) if
          show_T "Medium properties in port air_b";
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo(
-    final alpha=0)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaToRoo
     "Heat tranferred to the room (in addition to heat from supply air)" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -187,7 +186,6 @@ initial equation
     "Performance curve perCoo.water must pass through (0,0).");
   assert(perCoo.dT.r_dT[1]<=0.000001      and perCoo.dT.f[1]<=0.00001,
     "Performance curve perCoo.dT must pass through (0,0).");
-
 
 equation
   connect(heaToRoo.port, heaPor)
@@ -292,10 +290,6 @@ DOE(2015) EnergyPlus documentation v8.4.0 - Engineering Reference.
 </ul>
 </html>", revisions="<html>
 <ul>
-<li>
-November 3, 2016, by Michael Wetter:<br/>
-Set <code>final alpha=0</code> for prescribed heat flow rate.
-</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

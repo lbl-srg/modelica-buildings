@@ -15,7 +15,7 @@ model MultiLayer
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeCapacityAtSurf_b=false
-    "Set to true to place the capacity at the surface b of the layer"
+    "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
@@ -155,7 +155,7 @@ and the temperature state.
 <li>
 November 11, 2016, by Thierry S. Nouidui:<br/>
 Revised the implementation for adding a state at the surface. 
-Refactor <code>layers.material</code> assignment in constructions.
+Removed <code>for</code> loop which was causing the model to fail to translate.<br/>
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>

@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomFourElements
-  "Illustrates the use of a thermal zone with four heat conduction elements"
+model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -72,12 +71,16 @@ model SimpleRoomFourElements
     withLongwave=true,
     aExt=0.7,
     alphaWallOut=20,
-    alphaRad=5,
+    alphaRadWall=5,
     alphaWinOut=20,
+    alphaRadWin=5,
+    aWin=0.03,
+    eExt=0.9,
     n=2,
     wfWall={0.3043478260869566,0.6956521739130435},
     wfWin={0.5,0.5},
-    TGro=285.15) "Computes equivalent air temperature"
+    TGro=285.15,
+    eWin=0.9) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -94,10 +97,10 @@ model SimpleRoomFourElements
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow of persons"
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow of persons"
     annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -117,7 +120,7 @@ model SimpleRoomFourElements
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-100,-10},{-66,22}}),
     iconTransformation(extent={{-70,-12},{-50,8}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
@@ -138,12 +141,13 @@ model SimpleRoomFourElements
     rotation=180,origin={84,-22})));
   EquivalentAirTemperature.VDI6007 eqAirTempVDI(
     aExt=0.7,
+    eExt=0.9,
     n=1,
     wfWall={1},
     wfWin={0},
     wfGro=0,
     alphaWallOut=20,
-    alphaRad=5,
+    alphaRadWall=5,
     TGro=285.15) "Computes equivalent air temperature for roof"
     annotation (Placement(transformation(extent={{30,74},{50,94}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTemRoof
@@ -223,15 +227,15 @@ equation
     thickness=0.5));
   connect(perRad.port, thermalZoneFourElements.intGainsRad)
     annotation (
-    Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
+    Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
     color={191,0,0}));
   connect(theConWin.solid, thermalZoneFourElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{44,20}},   color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color=
     {191,0,0}));
   connect(preTem1.port, theConWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneFourElements.extWall, theConWall.solid)
-    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -261,7 +265,7 @@ equation
   connect(preTemRoof.port, theConRoof.fluid)
     annotation (Line(points={{67,58},{67,58},{67,52}}, color={191,0,0}));
   connect(theConRoof.solid, thermalZoneFourElements.roof)
-    annotation (Line(points={{67,42},{66.9,42},{66.9,34}}, color={191,0,0}));
+    annotation (Line(points={{67,42},{66.8,42},{66.8,33}}, color={191,0,0}));
   connect(eqAirTempVDI.TEqAir, preTemRoof.T)
     annotation (Line(
     points={{51,84},{67,84},{67,71.2}}, color={0,0,127}));

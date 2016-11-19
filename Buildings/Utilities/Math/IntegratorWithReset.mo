@@ -22,7 +22,7 @@ block IntegratorWithReset "Output the integral of the input signal"
     "Value to which integrator is reset, used if reset = Buildings.Types.Reset.Parameter"
     annotation(Evaluate=true,
                Dialog(
-                 enable=reset == Buildings.Types.Reset.Parameter,
+                 enable=reset == Buildings.Types.Reset.Input.Parameter,
                  group="Integrator reset"));
 
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
@@ -125,13 +125,6 @@ has been copied into this model rather than extended.
 </html>", revisions="<html>
 <ul>
 <li>
-November 1, 2016, by Michael Wetter:<br/>
-Corrected wrong annotation for <code>y_reset</code>,
-and made rendering of <code>y_reset_in</code> conditional.<br/>
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/562\">#562</a>.
-</li>
-<li>
 September 29, 2016, by Michael Wetter:<br/>
 Refactored model to use a <code>type</code> for configuration
 of the integrator reset.
@@ -158,8 +151,7 @@ Icon(coordinateSystem(
           Text(
             extent={{-88,-94},{212,-54}},
           lineColor={0,0,0},
-          textString="y_reset_in",
-          visible=reset == Buildings.Types.Reset.Input,
+          textString="y_reset",
           horizontalAlignment=TextAlignment.Left),
         Bitmap(extent={{-54,-50},{60,50}}, fileName=
               "modelica://Buildings/Resources/Images/Utilities/Math/int.png"),

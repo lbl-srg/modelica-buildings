@@ -58,8 +58,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") if sum(ATransparent) > 0
-    "Solar radiation transmitted through windows"
+    final unit="W/m2") "Solar radiation transmitted through windows"
     annotation (
     Placement(transformation(extent={{-280,120},{-240,160}}),
     iconTransformation(extent={{-260,140},{-240,160}})));
@@ -86,16 +85,16 @@ model OneElement "Thermal Zone with one element for exterior walls"
     extent={{-45,-12},{45,12}},
     origin={85,-180}),iconTransformation(
     extent={{-30.5,-8},{30.5,8}},
-    origin={150,-179.5})));
+    origin={150,-171.5})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if ATotExt > 0
     "Ambient port for exterior walls"
     annotation (Placement(transformation(
-    extent={{-250,-50},{-230,-30}}), iconTransformation(extent={{-250,-50},{
-            -230,-30}})));
+    extent={{-252,-50},{-232,-30}}), iconTransformation(extent={{-252,-50},{
+    -232,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if ATotWin > 0
     "Ambient port for windows"
-    annotation (Placement(transformation(extent={{-250,30},{-230,50}}),
-    iconTransformation(extent={{-250,30},{-230,50}})));
+    annotation (Placement(transformation(extent={{-252,30},{-232,50}}),
+    iconTransformation(extent={{-252,30},{-232,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
     ATot > 0 or VAir > 0 "Auxilliary port for internal convective gains"
     annotation (Placement(
@@ -104,8 +103,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
     "Auxilliary port for internal radiative gains"
     annotation (Placement(
-    transformation(extent={{230,70},{250,90}}),
-    iconTransformation(extent={{230,70},{250,90}})));
+    transformation(extent={{232,70},{252,90}}),
+    iconTransformation(extent={{232,70},{252,90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
     indoorPortWin "Auxilliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-210,-190},{-190,-170}}),
@@ -121,41 +120,39 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final nPorts=nPorts,
     m_flow_nominal=VAir*6/3600*1.2,
     final V=VAir,
+    final allowFlowReversal=true,
+    final mSenFac=1,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final mSenFac=mSenFac,
-    final use_C_flow=false) if VAir > 0 "Indoor air volume"
+    final C_start=C_start) if VAir > 0 "Indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(final R=RWin) if
     ATotWin > 0 "Resistor for windows"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol(
-    final alpha=0) if
-    ratioWinConRad > 0 and (ATot > 0 or VAir > 0) and sum(ATransparent) > 0
+    final T_ref=T_start) if
+    ratioWinConRad > 0 and (ATot > 0 or VAir > 0)
     "Solar heat considered as convection"
     annotation (Placement(transformation(extent={{-166,114},{-146,134}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol[
-    nOrientations](each final alpha=0) if ATot > 0 and sum(ATransparent) > 0
+    nOrientations](each final T_ref=T_start) if ATot > 0
     "Solar heat considered as radiation"
     annotation (Placement(transformation(extent={{-166,136},{-146,156}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(
     final splitFactor=splitFactor,
     final nOut=dimension,
-    final nIn=1) if ATot > 0
-    "Splits incoming internal gains into seperate gains for each wall element, 
+    final nIn=1) if ATot > 0 "Splits incoming internal gains into
+    seperate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
-    final nIn=nOrientations) if ATot > 0 and sum(ATransparent) > 0
-    "Splits incoming solar radiation into seperate gains for each wall element, 
-    weighted by their area"
+    final nIn=nOrientations) if ATot > 0 "Splits incoming solar radiation into seperate gains for each wall
+    element, weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(
     final n=nExt,
@@ -179,8 +176,8 @@ protected
     BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
-    "Share of each wall surface area that is non-zero, for each orientation seperately";
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
+    seperately";
   Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if ATotExt > 0
     "Convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-30},{-94,-50}})));
@@ -201,12 +198,12 @@ protected
     rotation=-90,
     origin={-106,68})));
   Modelica.Blocks.Math.Gain eRadSol[nOrientations](
-    final k=gWin*(1 - ratioWinConRad)*ATransparent) if sum(ATransparent) > 0
+    final k=gWin*(1 - ratioWinConRad)*ATransparent)
     "Emission coefficient of solar radiation considered as radiation"
     annotation (Placement(transformation(extent={{-206,141},{-196,151}})));
   Modelica.Blocks.Math.Gain eConvSol[nOrientations](
     final k=gWin*ratioWinConRad*ATransparent) if
-    ratioWinConRad > 0 and sum(ATransparent) > 0
+    ratioWinConRad > 0
     "Emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-206,119},{-196,129}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(
@@ -228,8 +225,7 @@ protected
     rotation=90,
     origin={210,110})));
   Modelica.Blocks.Math.Sum sumSolRad(final nin=nOrientations) if
-    ratioWinConRad > 0 and sum(ATransparent) > 0
-    "Sums up solar radiation from different directions"
+    ratioWinConRad > 0 "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
 
 equation
@@ -240,7 +236,7 @@ equation
     smooth=Smooth.None));
   connect(resWin.port_a, window)
     annotation (Line(
-    points={{-180,40},{-240,40}},
+    points={{-180,40},{-242,40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(resWin.port_b, convWin.solid)
@@ -255,7 +251,7 @@ equation
     smooth=Smooth.None));
   connect(thermSplitterIntGains.portIn[1], intGainsRad)
     annotation (Line(
-    points={{210,86},{220,86},{220,80},{240,80}},
+    points={{210,86},{220,86},{220,80},{242,80}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(radHeatSol.port, thermSplitterSolRad.portIn)
@@ -265,7 +261,7 @@ equation
     smooth=Smooth.None));
   connect(extWallRC.port_b, extWall)
     annotation (Line(
-    points={{-178,-40},{-240,-40}},
+    points={{-178,-40},{-242,-40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(extWallRC.port_a, convExtWall.solid)
@@ -411,40 +407,40 @@ equation
   grid={2,2}),
    graphics={
   Rectangle(
-    extent={{-240,180},{240,-180}},
+    extent={{-220,160},{220,-160}},
     lineColor={0,0,0},
     fillColor={215,215,215},
     fillPattern=FillPattern.Forward),
   Rectangle(
-    extent={{-230,170},{230,-170}},
+    extent={{-210,150},{210,-150}},
     lineColor={0,0,0},
     fillColor={230,230,230},
     fillPattern=FillPattern.Solid),
   Line(
-    points={{-226,-170},{-124,-74},{-124,76},{-230,170}},
+    points={{-210,-150},{-108,-58},{-108,60},{-210,150}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{-124,76},{2,76},{124,76},{230,170}},
+    points={{-108,60},{2,60},{108,60},{210,134}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{124,76},{124,-74},{230,-170}},
+    points={{108,60},{108,-58},{210,-150}},
     color={0,0,0},
     smooth=Smooth.None),
   Line(
-    points={{-124,-74},{124,-74}},
+    points={{-108,-58},{108,-58}},
     color={0,0,0},
     smooth=Smooth.None),
   Text(
-    extent={{-260,266},{24,182}},
+    extent={{-260,236},{24,152}},
     lineColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,
     textString="%name"),
   Text(
-    extent={{-67,60},{57,-64}},
+    extent={{-68,60},{56,-64}},
     lineColor={0,0,0},
     textString="1")}),
   Documentation(info="<html>
@@ -468,12 +464,6 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
   <ul>
-  <li>
-  September 26, 2016, by Moritz Lauster:<br/>
-  Added conditional statements to solar radiation part.<br/>
-  Deleted conditional statements of
-  <code>splitFactor</code> and <code>splitFactorSolRad</code>.
-  </li>
   <li>
   April 17, 2015, by Moritz Lauster:<br/>
   First implementation.

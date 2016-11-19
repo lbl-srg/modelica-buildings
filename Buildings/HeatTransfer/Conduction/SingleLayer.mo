@@ -29,7 +29,7 @@ model SingleLayer "Model for single layer heat conductance"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeCapacityAtSurf_b=false
-    "Set to true to place the capacity at the surface b of the layer"
+    "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
@@ -66,6 +66,29 @@ protected
     else
       {R/(if i==1 or i==nR then (2*nSta) else nSta) for i in 1:nR}
     "Thermal resistance";
+
+//  final parameter Modelica.SIunits.ThermalResistance RnSta_a=
+//    if placeCapacityAtSurf_a then 0 else RnSta/2
+//    "Thermal resistance between nodes and surface a";
+
+//  final parameter Modelica.SIunits.ThermalResistance RnSta_b=
+//    if placeCapacityAtSurf_b then 0 else RnSta/2
+//    "Thermal resistance between nodes and surface b";
+
+//   parameter Modelica.SIunits.Mass m[nSta]=
+//    (A*material.x*material.d) *
+//    {if i == 1 and placeCapacityAtSurf_a then 1/2*(nSta-1)
+//       elseif i == nSta and placeCapacityAtSurf_a then 1/2*(nSta-1)
+//       else 1/(nSta-1) for i in 1:nSta}
+//    * (if placeCapacityAtSurf_a and placeCapacityAtSurf_b then
+//         2/(2*nSta-2)
+//       elseif placeCapacityAtSurf_a or placeCapacityAtSurf_b then
+//         2/(2*nSta-1)
+//       else
+//         1/nSta)
+//     "Mass associated with the temperature state";
+
+
 
   parameter Modelica.SIunits.Mass m[nSta]=
    (A*material.x*material.d) *
@@ -313,8 +336,7 @@ where
 <h4>Spatial discretization</h4>
 <p>
 To spatially discretize the heat equation, the construction is
-divided into compartments or control volumes with <code>material.nSta &ge; 1</code> state variables.
-Each control volume has the same material properties.
+divided into compartments with <code>material.nSta &ge; 1</code> state variables.
 The state variables are connected to each other through thermal resistances.
 If <code>placeCapacityAtSurf_a = true</code>, a heat capacity is placed
 at the surface a, and similarly, if
@@ -325,30 +347,7 @@ from the surface.
 Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
-</p>
-
-As an example, we assume a material with a length of <code>x</code> 
-and a discretization with 4 state variables and 4 control volumes.
-<ul>
-<li>
-If <code>placeCapacityAtSurf_a = false and placeCapacityAtSurf_b = false</code>, 
-then the 4 state variables are distributed equally over the
-length <code>x/4</code>.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.png\"/>
-</li>
-<li>
-If <code>placeCapacityAtSurf_a = true or placeCapacityAtSurf_b = true</code>, 
-then the remaining 3 states will be distributed equally over the length of the material.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.png\"/>
-</li>
-<li>
-If <code>placeCapacityAtSurf_a = true and placeCapacityAtSurf_b = true</code>, 
-then the remaining 2 states will be distributed equally over the length of the material.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.png\"/>
-</li>
-</ul>
-
-<p>
+Each compartment has the same material properties.
 To build multi-layer constructions,
 use
 <a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
@@ -371,7 +370,7 @@ revisions="<html>
 <ul>
 <li>
 November 11, 2016, by Thierry S. Nouidui:<br/>
-Revised the implementation for adding a state at the surface.
+Revised the implementation for adding a state at the surface.<br/>
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
