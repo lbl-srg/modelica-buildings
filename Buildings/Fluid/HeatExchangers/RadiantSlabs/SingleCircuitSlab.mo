@@ -36,6 +36,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
     each final A=A/nSeg,
     each steadyStateInitial=steadyStateInitial,
+    nSta2={layers.material[1:iLayPip].nSta},
     each layers(
       final nLay = iLayPip,
       final material={layers.material[i] for i in 1:iLayPip},
@@ -52,6 +53,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   Buildings.HeatTransfer.Conduction.MultiLayer con_b[nSeg](
       each final A=A/nSeg,
       each steadyStateInitial=steadyStateInitial,
+      nSta2={layers.material[iLayPip + 1:layers.nLay].nSta},
       each layers(
       final nLay = layers.nLay-iLayPip,
       final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
@@ -218,6 +220,10 @@ user's guide</a> for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Thierry S. Nouidui:<br/>
+Add parameter <code>nSta2</code> to avoid translation error.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Renamed <code>res</code> to <code>preDro</code> for
