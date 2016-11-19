@@ -47,9 +47,10 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+   parameter Integer nSta2=material.nSta "Number of states in a material";
 protected
   final parameter Integer nSta=
-    max(material.nSta,
+    max(nSta2,
         if placeCapacityAtSurf_a or placeCapacityAtSurf_b then 2 else 1)
     "Number of state variables";
   final parameter Integer nR=nSta+1 "Number of thermal resistances";
@@ -336,7 +337,8 @@ where
 <h4>Spatial discretization</h4>
 <p>
 To spatially discretize the heat equation, the construction is
-divided into compartments with <code>material.nSta &ge; 1</code> state variables.
+divided into compartments or control volumes with <code>material.nSta &ge; 1</code> state variables.
+Each control volume has the same material properties.
 The state variables are connected to each other through thermal resistances.
 If <code>placeCapacityAtSurf_a = true</code>, a heat capacity is placed
 at the surface a, and similarly, if
@@ -347,7 +349,30 @@ from the surface.
 Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
-Each compartment has the same material properties.
+</p>
+
+As an example, we assume a material with a length of <code>x</code> 
+and a discretization with 4 state variables and 4 control volumes.
+<ul>
+<li>
+If <code>placeCapacityAtSurf_a = false and placeCapacityAtSurf_b = false</code>, 
+then the 4 state variables are distributed equally over the
+length <code>x/4</code>.
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.png\"/>
+</li>
+<li>
+If <code>placeCapacityAtSurf_a = true or placeCapacityAtSurf_b = true</code>, 
+then the remaining 3 states will be distributed equally over the length of the material.
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.png\"/>
+</li>
+<li>
+If <code>placeCapacityAtSurf_a = true and placeCapacityAtSurf_b = true</code>, 
+then the remaining 2 states will be distributed equally over the length of the material.
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.png\"/>
+</li>
+</ul>
+
+<p>
 To build multi-layer constructions,
 use
 <a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
@@ -369,8 +394,12 @@ between the boundary condition and the surface of this model.
 revisions="<html>
 <ul>
 <li>
+November 17, 2016, by Thierry S. Nouidui:<br/>
+Add parameter <code>nSta2</code> to avoid translation error.
+</li>
+<li>
 November 11, 2016, by Thierry S. Nouidui:<br/>
-Revised the implementation for adding a state at the surface.<br/>
+Revised the implementation for adding a state at the surface.
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
