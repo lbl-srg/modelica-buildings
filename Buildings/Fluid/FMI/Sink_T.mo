@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI;
 model Sink_T
   "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);

@@ -1,7 +1,6 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 model PartialConstruction "Partial model for multi-layer constructions"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.Area A "Heat transfer area";
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
@@ -25,6 +24,13 @@ model PartialConstruction "Partial model for multi-layer constructions"
 Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed parameter <code>A</code> as it is already declared in
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor\">
+Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</a>
+which is often used with this class.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed assignment of <code>nLay</code> to avoid a translation error

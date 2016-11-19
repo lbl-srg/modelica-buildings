@@ -230,7 +230,7 @@ public
     tableName="tab1",
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    y(unit="K"),
+    y(each unit="K"),
     fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(
       "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/Plants/AlamedaOceanT.mos"))
     "Temperature of the water reservoir (such as a river, lake or ocean)"

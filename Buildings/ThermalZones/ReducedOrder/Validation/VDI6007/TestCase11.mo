@@ -75,7 +75,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         5180400,26.5,-500,-500; 5184000,26.4,-500,-500])
     "Reference results"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -88,11 +88,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Sources.Constant const(k=0)
     "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heat
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
     annotation (Placement(transformation(extent={{46,-44},{66,-24}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool(
-    T_ref=295.15)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool
     "Ideal cooler with limit"
     annotation (Placement(transformation(extent={{2,76},{22,96}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
@@ -181,7 +180,7 @@ equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], machinesRad.Q_flow)
@@ -189,7 +188,7 @@ equation
     22.8,-88},{22.8,-88},{48,-88}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
-    Line(points={{68,-88},{68,-88},{96,-88},{96,24},{92.2,24}},
+    Line(points={{68,-88},{68,-88},{96,-88},{96,24},{92,24}},
     color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{43,31}}, color={0,0,127}));

@@ -21,8 +21,8 @@ protected
 
   Movers.BaseClasses.IdealSource sou0(
     redeclare final package Medium = Medium,
-    each allowFlowReversal=allowFlowReversal,
-    each m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
+    allowFlowReversal=allowFlowReversal,
+    m_flow_small=1E-4*abs(m_flow_nominal/nPipPar/nPipSeg),
     final control_m_flow=false,
     m_flow_start=mStart_flow_a/nPipPar/nPipSeg,
     final dp_start=0,
@@ -126,6 +126,10 @@ what you are doing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 Rewrote the model to make it compile in OpenModelica.

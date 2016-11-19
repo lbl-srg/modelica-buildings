@@ -572,6 +572,15 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
+    <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction
+       </td>
+       <td valign=\"top\">Removed parameter <code>A</code> as it is already declared in
+                          <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor\">
+                          Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</a>
+                          which is often used with this class.
+       </td>
+    </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
@@ -633,12 +642,6 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
-<<<<<<< HEAD
-<<<<<<< c47218c863209479d7663139265442b5f8f40cb2
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 47a4c53e2d41fc7f7fe1a6c448b6b5a0f3ab0f07
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
        </td>
@@ -666,12 +669,6 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
-<<<<<<< HEAD
-=======
->>>>>>> Revert to 40a4757
-=======
->>>>>>> master
->>>>>>> 47a4c53e2d41fc7f7fe1a6c448b6b5a0f3ab0f07
    </table>
    <!-- Errors that have been fixed -->
    <p>

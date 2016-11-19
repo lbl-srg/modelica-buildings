@@ -99,11 +99,9 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{62,-20},{82,0}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass1(               threShold=
-        0.05, startTime=600)
+  Modelica.Blocks.Math.Add che1(k2=-1)
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass2(               threShold=
-        0.05, startTime=600)
+  Modelica.Blocks.Math.Add che2(k2=-1)
     annotation (Placement(transformation(extent={{160,116},{180,136}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hea5(
     redeclare package Medium = Medium,
@@ -174,11 +172,9 @@ model HeaterCooler_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{60,-320},{80,
             -300}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass9(
-             threShold=0.05, startTime=600)
+  Modelica.Blocks.Math.Add che9(k2=-1)
     annotation (Placement(transformation(extent={{160,-400},{180,-380}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass10(
-             threShold=0.05, startTime=600)
+  Modelica.Blocks.Math.Add che10(k2=-1)
     annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort
@@ -221,18 +217,14 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{50,22},{70,42}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass3(               threShold=
-        0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass4(               threShold=
-        0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,60},{180,80}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass5(               threShold=
-        0.05, startTime=600)
+  Modelica.Blocks.Math.Add che3(k2=-1)
+    annotation (Placement(transformation(extent={{162,0},{182,20}})));
+  Modelica.Blocks.Math.Add che4(k2=-1)
+    annotation (Placement(transformation(extent={{162,60},{182,80}})));
+  Modelica.Blocks.Math.Add che5(k2=-1)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass6(               threShold=
-        0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
+  Modelica.Blocks.Math.Add che6(k2=-1)
+    annotation (Placement(transformation(extent={{162,-102},{182,-82}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort
                                       senTem6b(redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -253,11 +245,9 @@ model HeaterCooler_u
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass7(               threShold=
-        0.05, startTime=600)
+  Modelica.Blocks.Math.Add che7(k2=-1)
     annotation (Placement(transformation(extent={{160,-284},{180,-264}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass8(               threShold=
-        0.05, startTime=600)
+  Modelica.Blocks.Math.Add che8(k2=-1)
     annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort
                                       senTem8b(redeclare package Medium = Medium,
@@ -342,64 +332,64 @@ equation
   connect(mix2.ports[1], res_8.port_a) annotation (Line(
       points={{68,-320},{106,-320},{106,-260},{100,-260}},
       color={0,127,255}));
-  connect(senTem1a.T, ass1.u1) annotation (Line(
+  connect(senTem1a.T,che1. u1) annotation (Line(
       points={{-40,108.8},{-40,122},{140,122},{140,176},{158,176}},
       color={0,0,127}));
-  connect(senTem2a.T, ass1.u2) annotation (Line(
+  connect(senTem2a.T,che1. u2) annotation (Line(
       points={{1.22125e-16,152.8},{0,152.8},{0,164},{158,164}},
       color={0,0,127}));
-  connect(senTem1b.T, ass2.u2) annotation (Line(
+  connect(senTem1b.T,che2. u2) annotation (Line(
       points={{30,108.8},{30,120},{158,120}},
       color={0,0,127}));
-  connect(senTem2b.T, ass2.u1) annotation (Line(
+  connect(senTem2b.T,che2. u1) annotation (Line(
       points={{64,152.8},{64,160},{120,160},{120,132},{158,132}},
       color={0,0,127}));
-  connect(senTem4a.T, ass4.u2) annotation (Line(
-      points={{-2,43},{-2,64},{158,64}},
+  connect(senTem4a.T,che4. u2) annotation (Line(
+      points={{-2,43},{-2,64},{160,64}},
       color={0,0,127}));
-  connect(senTem3a.T, ass4.u1) annotation (Line(
-      points={{-40,-11.2},{-40,10},{140,10},{140,76},{158,76}},
+  connect(senTem3a.T,che4. u1) annotation (Line(
+      points={{-40,-11.2},{-40,10},{140,10},{140,76},{160,76}},
       color={0,0,127}));
-  connect(senTem4b.T, ass3.u1) annotation (Line(
-      points={{60,43},{60,52},{148,52},{148,16},{158,16}},
+  connect(senTem4b.T,che3. u1) annotation (Line(
+      points={{60,43},{60,52},{148,52},{148,16},{160,16}},
       color={0,0,127}));
-  connect(senTem3b.T, ass3.u2) annotation (Line(
-      points={{30,-9},{30,4},{158,4}},
+  connect(senTem3b.T,che3. u2) annotation (Line(
+      points={{30,-9},{30,4},{160,4}},
       color={0,0,127}));
-  connect(senTem6a.T, ass6.u2) annotation (Line(
-      points={{-50,-109},{-50,-96},{158,-96}},
+  connect(senTem6a.T,che6. u2) annotation (Line(
+      points={{-50,-109},{-50,-98},{160,-98}},
       color={0,0,127}));
-  connect(senTem5a.T, ass6.u1) annotation (Line(
-      points={{-50,-169},{-50,-150},{140,-150},{140,-84},{158,-84}},
+  connect(senTem5a.T,che6. u1) annotation (Line(
+      points={{-50,-169},{-50,-150},{140,-150},{140,-86},{160,-86}},
       color={0,0,127}));
-  connect(senTem6b.T, ass5.u1) annotation (Line(
+  connect(senTem6b.T,che5. u1) annotation (Line(
       points={{50,-109},{50,-102},{150,-102},{150,-148},{158,-148}},
       color={0,0,127}));
-  connect(senTem5b.T, ass5.u2) annotation (Line(
+  connect(senTem5b.T,che5. u2) annotation (Line(
       points={{30,-169},{30,-160},{158,-160}},
       color={0,0,127}));
-  connect(senTem8a.T, ass8.u2) annotation (Line(
+  connect(senTem8a.T,che8. u2) annotation (Line(
       points={{-50,-249},{-50,-236},{158,-236}},
       color={0,0,127}));
-  connect(senTem7a.T, ass8.u1) annotation (Line(
+  connect(senTem7a.T,che8. u1) annotation (Line(
       points={{-50,-309},{-50,-292},{140,-292},{140,-224},{158,-224}},
       color={0,0,127}));
-  connect(senTem8b.T, ass7.u1) annotation (Line(
+  connect(senTem8b.T,che7. u1) annotation (Line(
       points={{48,-246.8},{48,-240},{148,-240},{148,-268},{158,-268}},
       color={0,0,127}));
-  connect(senTem7b.T, ass7.u2) annotation (Line(
+  connect(senTem7b.T,che7. u2) annotation (Line(
       points={{30,-309},{30,-280},{158,-280}},
       color={0,0,127}));
-  connect(senTem3a.T, ass10.u1) annotation (Line(
+  connect(senTem3a.T,che10. u1) annotation (Line(
       points={{-40,-11.2},{-40,10},{128,10},{128,-344},{158,-344}},
       color={0,0,127}));
-  connect(senTem7a.T, ass10.u2) annotation (Line(
+  connect(senTem7a.T,che10. u2) annotation (Line(
       points={{-50,-309},{-50,-292},{140,-292},{140,-356},{158,-356}},
       color={0,0,127}));
-  connect(senTem2b.T, ass9.u1) annotation (Line(
+  connect(senTem2b.T,che9. u1) annotation (Line(
       points={{64,152.8},{64,160},{120,160},{120,-384},{158,-384}},
       color={0,0,127}));
-  connect(senTem5b.T, ass9.u2) annotation (Line(
+  connect(senTem5b.T,che9. u2) annotation (Line(
       points={{30,-169},{30,-160},{112,-160},{112,-396},{158,-396}},
       color={0,0,127}));
   connect(res_12.port_b, senTem2a.port_a) annotation (Line(
@@ -494,9 +484,9 @@ equation
       color={0,127,255}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -400},{200,240}}), graphics={Text(
-          extent={{30,234},{158,192}},
+          extent={{32,232},{160,190}},
           lineColor={0,0,255},
-          textString="Asserts for temperature check"), Text(
+          textString="Temperature check"),             Text(
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
@@ -504,10 +494,26 @@ experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
-<p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
+<p>Model that tests the basic class that is used for the heater models.
+It adds and removes heat for forward and reverse flow.
+The top and bottom models should give similar results,
+although the sign of the temperature difference over the components
+differ because of the reverse flow.
+The model computes differences in results that are expected to be
+close to each other after the initial transients decayed.
+All temperature sensors are configured as steady-state sensors to avoid
+differences in temperature due to the dynamic response of the sensor.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Changed initialization of mass dynamics to avoid overspecified system

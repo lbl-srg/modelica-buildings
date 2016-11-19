@@ -24,8 +24,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-6,4},{6,16}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8,
-      startTime=0)
+  Modelica.Blocks.Math.Add cheEqu(k2=-1) "Checks for equality of the results"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
     "Non-PCM material"
@@ -88,11 +87,11 @@ equation
       points={{-79,10},{-72,10},{-72,-30},{-62,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assertEquality.u1, heaFlo2.Q_flow) annotation (Line(
+  connect(cheEqu.u1, heaFlo2.Q_flow) annotation (Line(
       points={{18,-64},{8,-64},{8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assertEquality.u2, heaFlo1.Q_flow) annotation (Line(
+  connect(cheEqu.u2, heaFlo1.Q_flow) annotation (Line(
       points={{18,-76},{0,-76},{0,4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -152,7 +151,7 @@ equation
       points={{44,44},{80,44}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerPCM.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerPCM.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -170,11 +169,19 @@ Note that in case of using <code>matPCM</code>, the internal energy is
 the dependent variable, whereas in case of two conductors in series, the temperature
 is the dependent variable. However, both models will
 produce the same results.
-The <code>assert</code> block will stop the simulation
-if there is a difference in heat fluxes.
+</p>
+<p>
+The <code>cheEqu</code> block computes the difference between the heat fluxes,
+which should be equal except for the numerical approximation error of the solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2016, by Michael Wetter:<br/>
+Changed assertion with a computation of the difference.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/576\">issue 576</a>.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Increased tolerance for OpenModelica.

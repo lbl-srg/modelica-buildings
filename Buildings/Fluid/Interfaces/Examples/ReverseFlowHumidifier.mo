@@ -3,14 +3,14 @@ model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.Air;
-  Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheTem(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEnt(threShold=0.5)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheEnt(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-5)
-    "Assert to test if the outputs of the forward flow and reverse flow model are identical"
+  Modelica.Blocks.Math.Add cheMas(k2=-1)
+    "Check whether the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Fluid.MassExchangers.Humidifier_u humBac(
     redeclare package Medium = Medium,
@@ -133,22 +133,22 @@ equation
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
       points={{10,-6},{16,-6},{16,26},{30,26}},
       color={0,127,255}));
-  connect(senTem1.T, assTem.u1) annotation (Line(
+  connect(senTem1.T,cheTem. u1) annotation (Line(
       points={{-13,80},{0,80},{0,60},{70,60},{70,16},{78,16}},
       color={0,0,127}));
-  connect(senEnt1.h_out, assEnt.u1) annotation (Line(
+  connect(senEnt1.h_out,cheEnt. u1) annotation (Line(
       points={{31,80},{40,80},{40,54},{66,54},{66,-14},{78,-14}},
       color={0,0,127}));
-  connect(senMas1.X, assMas.u1) annotation (Line(
+  connect(senMas1.X,cheMas. u1) annotation (Line(
       points={{71,80},{80,80},{80,64},{64,64},{64,-44},{78,-44}},
       color={0,0,127}));
-  connect(senTem2.T, assTem.u2) annotation (Line(
+  connect(senTem2.T,cheTem. u2) annotation (Line(
       points={{-43,-50},{-20,-50},{-20,-30},{50,-30},{50,4},{78,4}},
       color={0,0,127}));
-  connect(senEnt2.h_out, assEnt.u2) annotation (Line(
+  connect(senEnt2.h_out,cheEnt. u2) annotation (Line(
       points={{1,-50},{8,-50},{8,-32},{54,-32},{54,-26},{78,-26}},
       color={0,0,127}));
-  connect(senMas2.X, assMas.u2) annotation (Line(
+  connect(senMas2.X,cheMas. u2) annotation (Line(
       points={{41,-50},{60,-50},{60,-56},{78,-56}},
       color={0,0,127}));
   connect(humFor.port_a, source1.ports[1]) annotation (Line(
@@ -164,9 +164,15 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Inte
     Documentation(info="<html>
 This model tests whether the results for a humidifer are
 identical for forward flow and reverse flow.
-If the results differ, then an assert is triggered.
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Replaced

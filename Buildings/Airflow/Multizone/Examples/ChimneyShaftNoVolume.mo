@@ -57,7 +57,7 @@ model ChimneyShaftNoVolume
         origin={70,-49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

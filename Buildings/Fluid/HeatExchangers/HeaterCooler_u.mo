@@ -13,7 +13,8 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
     "Heat added to the fluid"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 protected
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(
+    final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
@@ -99,6 +100,13 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set <code>preHea(final alpha=0)</code> as this allows to simplify the
+system of equations.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/570\">#570</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter

@@ -57,7 +57,7 @@ package Air
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    Modelica.SIunits.TemperatureDifference dT
+    Modelica.SIunits.TemperatureDifference dT(start=T_default-reference_T)
       "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
@@ -965,6 +965,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 4, 2016, by Michael Wetter:<br/>
+Set default value for <code>dT.start</code> in base properties.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/575\">#575</a>.
+</li>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Set <code>AbsolutePressure(start=p_default)</code> to avoid

@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
+model SimpleRoomOneElement
+  "Illustrates the use of a thermal zone with one heat conduction element"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -54,13 +55,9 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     withLongwave=true,
     aExt=0.7,
     alphaWallOut=20,
-    alphaRadWall=5,
+    alphaRad=5,
     alphaWinOut=20,
-    alphaRadWin=5,
-    aWin=0.03,
-    eExt=0.9,
-    TGro=285.15,
-    eWin=0.9) "Computes equivalent air temperature"
+    TGro=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -77,10 +74,10 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
   Modelica.Thermal.HeatTransfer.Components.Convection theConWall
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow of persons"
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow of persons"
     annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(
@@ -101,7 +98,7 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
@@ -195,15 +192,15 @@ equation
     thickness=0.5));
   connect(perRad.port, thermalZoneOneElement.intGainsRad)
     annotation (Line(
-    points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+    points={{68,-32},{84,-32},{100,-32},{100,24},{92,24}},
     color={191,0,0}));
   connect(theConWin.solid, thermalZoneOneElement.window)
     annotation (
-    Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color={191,0,0}));
+    Line(points={{38,21},{40,21},{40,20},{44,20}},   color={191,0,0}));
   connect(preTem1.port, theConWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneOneElement.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));

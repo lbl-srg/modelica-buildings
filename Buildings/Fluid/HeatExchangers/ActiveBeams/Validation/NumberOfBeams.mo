@@ -63,7 +63,7 @@ model NumberOfBeams
       Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
     nBeams=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-              "Active beam"
+    "Active beam"
     annotation (Placement(transformation(extent={{-14,28},{14,52}})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature
@@ -85,7 +85,7 @@ model NumberOfBeams
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     filteredSpeed=false,
     nominalValuesDefineDefaultPressureCurve=true)
-                                 "Pump for hot water"
+    "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat10(
@@ -95,7 +95,7 @@ model NumberOfBeams
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     filteredSpeed=false,
     nominalValuesDefineDefaultPressureCurve=true)
-                                 "Pump for chilled water"
+   "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea10(
@@ -109,12 +109,12 @@ model NumberOfBeams
       perHea,
     nBeams=nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                   "Active beam"
+    "Active beam"
     annotation (Placement(transformation(extent={{-14,-92},{14,-68}})));
   Modelica.Blocks.Sources.Step step(
     height=-0.094,
     offset=0.094,
-    startTime=2000) "chilled water mass flow rate"
+    startTime=2000) "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Modelica.Blocks.Sources.Step step1(
     height=0.094,

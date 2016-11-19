@@ -4,7 +4,7 @@ model WetCoilCounterFlow
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     redeclare replaceable package Medium2 =
       Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare each final
+    redeclare final
       Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
 
   Modelica.SIunits.HeatFlowRate QSen2_flow
@@ -72,6 +72,10 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
 <li>
 July 29, 2016, by Michael Wetter:<br/>
 Redeclared <code>Medium2</code> to be <code>Modelica.Media.Interfaces.PartialCondensingGases</code>

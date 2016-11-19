@@ -2,7 +2,7 @@ within Buildings.Electrical.AC.OnePhase.Sources;
 model FixedVoltage "Fixed single phase AC voltage source"
   extends Buildings.Electrical.Interfaces.Source(
     redeclare package PhaseSystem = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_p terminal);
+    redeclare replaceable Interfaces.Terminal_p terminal);
   parameter Modelica.SIunits.Frequency f(start=60) "Frequency of the source";
   parameter Modelica.SIunits.Voltage V(start = 110) "RMS voltage of the source";
   parameter Modelica.SIunits.Angle phiSou = 0 "Phase shift of the source";
@@ -62,7 +62,13 @@ and the phase shift.
 </p>
 </html>",
  revisions="<html>
- <ul>
+<ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Added <code>replaceable</code> to terminal redeclaration as they are redeclared by
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage</a>.
+</li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Revised documentation.

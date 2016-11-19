@@ -18,11 +18,9 @@ model MultiLayer
     "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
-    "Vector of number of states per material layer";
+
 protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
-   nSta2={nSta2[i] for i in 1:nLay},
    each final A=A,
    final placeCapacityAtSurf_a = {if i == 1 then placeCapacityAtSurf_a else false for i in 1:nLay},
    final placeCapacityAtSurf_b = {if i == nLay then placeCapacityAtSurf_b else false for i in 1:nLay},
@@ -154,10 +152,6 @@ and the temperature state.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 17, 2016, by Thierry S. Nouidui:<br/>
-Add parameter <code>nSta2</code> to avoid translation error.
-</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Added option to place a state at the surface.<br/>

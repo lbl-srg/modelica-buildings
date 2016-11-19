@@ -49,7 +49,7 @@ model ThermalZone
   Modelica.Blocks.Interfaces.RealOutput TRad(final unit="K")
     "Radiative temperature"
     annotation (Placement(transformation(extent={{-160,-10},{-180,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-30,110},{-10,130}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)

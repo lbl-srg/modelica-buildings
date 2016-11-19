@@ -4,8 +4,6 @@ partial model PartialVDI6007
 
   parameter Modelica.SIunits.Emissivity aExt
     "Coefficient of absorption of exterior walls (outdoor)";
-  parameter Modelica.SIunits.Emissivity eExt
-    "Coefficient of emission of exterior walls (outdoor)";
   parameter Integer n "Number of orientations (without ground)";
   parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
   parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
@@ -15,8 +13,8 @@ partial model PartialVDI6007
     "Temperature of the ground in contact with floor plate";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRadWall
-    "Coefficient of heat transfer for linearized radiation for exterior walls";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
@@ -25,6 +23,8 @@ partial model PartialVDI6007
   Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
+  Modelica.SIunits.TemperatureDifference delTEqLWWin
+    "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
 
@@ -51,7 +51,10 @@ partial model PartialVDI6007
     displayUnit="degC") "Equivalent air temperature"
     annotation (Placement(
     transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput sunblind[n]
+  Modelica.Blocks.Interfaces.RealInput sunblind[n](
+    each min=0,
+    each max=1,
+    each final unit="1")
     "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"
     annotation (Placement(
     transformation(
@@ -65,46 +68,70 @@ initial equation
    equivalent air temperature calculation is close to 0.
    If there are no walls, windows and ground at all, this might be
    irrelevant.", level=AssertionLevel.warning);
+
+equation
+  delTEqLW=(TBlaSky-TDryBul)*alphaRad/(alphaRad+alphaWallOut);
+  delTEqSW=HSol*aExt/(alphaRad+alphaWallOut);
+  if withLongwave then
+    TEqWin=TDryBul.+delTEqLWWin*(ones(n)-sunblind);
+    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
+  else
+    TEqWin=TDryBul*ones(n);
+    TEqWall=TDryBul.+delTEqSW;
+  end if;
+
   annotation (  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
   graphics={
-  Rectangle(
-    extent={{-70,70},{78,-76}},
-    lineColor={170,213,255},
-    lineThickness=1,
-    fillPattern=FillPattern.Solid,
-    fillColor={170,213,255}),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={170,213,255},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
   Ellipse(
-    extent={{-70,70},{-16,18}},
+    extent={{-92,94},{-20,24}},
     lineColor={255,221,0},
     fillColor={255,225,0},
     fillPattern=FillPattern.Solid),
   Text(
-    extent={{-70,-92},{76,-128}},
+    extent={{-70,-110},{76,-146}},
     lineColor={0,0,255},
     lineThickness=0.5,
     fillColor={236,99,92},
     fillPattern=FillPattern.Solid,
     textString="%name"),
   Rectangle(
-    extent={{4,46},{78,-76}},
+    extent={{-2,54},{100,-82}},
     fillColor={215,215,215},
     fillPattern=FillPattern.Backward,
     lineColor={0,0,0}),
   Rectangle(
-    extent={{8,42},{78,-72}},
+    extent={{2,50},{100,-78}},
     lineColor={0,0,0},
     fillColor={215,215,215},
     fillPattern=FillPattern.Solid),
-  Line(points={{8,42},{30,14},{78,14}}, color={0,0,0}),
-  Line(points={{10,-72},{30,-40},{78,-40}}, color={0,0,0}),
-  Line(points={{30,14},{30,-40}}, color={0,0,0})}),
+  Line(points={{2,50},{32,20},{100,20}},color={0,0,0}),
+  Line(points={{2,-78},{32,-48},{100,-48}}, color={0,0,0}),
+  Line(points={{32,20},{32,-48}}, color={0,0,0})}),
   Documentation(info="<html>
   <p><code>PartialVDI6007</code> is a partial model for <code>EquivalentAirTemperature</code>
   models.</p>
   </html>",
   revisions="<html>
   <ul>
+  <li>
+  September 26, 2016, by Moritz Lauster:<br/>
+  Removed deprecated parameters and values 
+  0.93 and <code>eExt</code>.<br/>
+  Renamed <code>alphaRadWall</code> to 
+  <code>alphaRad</code>. Deleted 
+  <code>alphaRadWin</code>.<br/>
+  Moved calculations from 
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007\">
+  Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007</a> and 
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a> to here.
+  </li>
   <li>
   September 2015, by Moritz Lauster:<br/>
   Got rid of cardinality
