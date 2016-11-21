@@ -156,7 +156,9 @@ and the temperature state.
 <ul>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
-Add parameter <code>nSta2</code> to avoid translation error.
+Add parameter <code>nSta2</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola 
+which will be addressed in future releases.
 </li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>

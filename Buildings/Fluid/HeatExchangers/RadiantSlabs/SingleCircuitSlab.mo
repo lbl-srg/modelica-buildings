@@ -36,7 +36,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
     each final A=A/nSeg,
     each steadyStateInitial=steadyStateInitial,
-    nSta2={layers.material[1:iLayPip].nSta},
+    each nSta2={layers.material[i].nSta for i in 1:1:iLayPip},
     each layers(
       final nLay = iLayPip,
       final material={layers.material[i] for i in 1:iLayPip},
@@ -53,7 +53,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
   Buildings.HeatTransfer.Conduction.MultiLayer con_b[nSeg](
       each final A=A/nSeg,
       each steadyStateInitial=steadyStateInitial,
-      nSta2={layers.material[iLayPip + 1:layers.nLay].nSta},
+      each nSta2={layers.material[i].nSta for i in iLayPip + 1:layers.nLay},
       each layers(
       final nLay = layers.nLay-iLayPip,
       final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
@@ -222,7 +222,9 @@ revisions="<html>
 <ul>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
-Add parameter <code>nSta2</code> to avoid translation error.
+Add parameter <code>nSta2</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola 
+which will be addressed in future releases.
 </li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
