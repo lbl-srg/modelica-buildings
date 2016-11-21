@@ -19,7 +19,7 @@ model MultiLayer
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
-    "Vector of number of states per material layer";
+    "Vector of number of states per material layer" annotation(Evaluate=true);
 protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    nSta2={nSta2[i] for i in 1:nLay},

@@ -20,7 +20,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       preDro(dp(nominal=200*length)));
 
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
-  annotation(Dialog(group="Construction"));
+    annotation(Dialog(group="Construction"));
 
   parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
     heatTransfer=Types.HeatTransfer.EpsilonNTU
