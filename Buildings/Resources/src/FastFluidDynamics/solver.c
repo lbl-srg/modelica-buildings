@@ -1,31 +1,31 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   solver.c
-///
-/// \brief  Solver of FFD
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   solver.c
+	*
+	* \brief  Solver of FFD
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "solver.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// FFD solver
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* FFD solver
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
   int step_total = para->mytime->step_total;
   REAL t_steady = para->mytime->t_steady;
@@ -219,15 +219,15 @@ int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX) {
   return flag;
 } // End of FFD_solver( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the temperature
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the temperature
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int temp_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   REAL *T = var[TEMP], *T0 = var[TMP1];
   int flag = 0;
@@ -247,15 +247,15 @@ int temp_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   return flag;
 } // End of temp_step( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the contaminant concentration
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the contaminant concentration
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int den_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   REAL *den, *den0 = var[TMP1];
   int i, flag = 0;
@@ -311,15 +311,15 @@ int den_step(PARA_DATA *para, REAL **var, int **BINDEX) {
   return flag;
 } // End of den_step( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the velocity
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the velocity
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int vel_step(PARA_DATA *para, REAL **var,int **BINDEX) {
   REAL *u  = var[VX],  *v  = var[VY],    *w  = var[VZ];
   REAL *u0 = var[TMP1], *v0 = var[TMP2], *w0 = var[TMP3];
@@ -377,16 +377,16 @@ int vel_step(PARA_DATA *para, REAL **var,int **BINDEX) {
   return flag;
 } // End of vel_step( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Solver for equations
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type Variable type
-///\param Pointer to variable
-///
-///\return 0 if not error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Solver for equations
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param var_type Variable type
+		*\param Pointer to variable
+		*
+		*\return 0 if not error occurred
+		*/
 int equ_solver(PARA_DATA *para, REAL **var, int var_type, REAL *psi) {
   REAL *flagp = var[FLAGP], *flagu = var[FLAGU],
        *flagv = var[FLAGV], *flagw = var[FLAGW];

@@ -1,29 +1,29 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   initialization.c
-///
-/// \brief  Set the initial values
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   initialization.h
+	*
+	* \brief  Set the initial values
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "initialization.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Initialize the parameters
-///
-///\param para Pointer to FFD parameters
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Initialize the parameters
+	*
+	*\param para Pointer to FFD parameters
+	*
+	*\return 0 if no error occurred
+	*/
 int initialize(PARA_DATA *para) {
   // Define the default value for parameter
   set_default_parameter(para);
@@ -56,13 +56,13 @@ int initialize(PARA_DATA *para) {
   return 0;
 } // End of initialize( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set the default value for parameters
-///
-///\param para Pointer to FFD parameters
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Set the default value for parameters
+		*
+		*\param para Pointer to FFD parameters
+		*
+		*\return No return needed
+		*/
 void set_default_parameter(PARA_DATA *para) {
   para->mytime->t  = 0.0;
   para->mytime->step_current = 0;
@@ -107,15 +107,15 @@ void set_default_parameter(PARA_DATA *para) {
   para->sens->nb_sensor = 0; // Number of sensors
 } // End of set_default_parameter
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set default initial values for simulation variables
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Set default initial values for simulation variables
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j;
   int size = (para->geom->imax+2)*(para->geom->jmax+2)*(para->geom->kmax+2);

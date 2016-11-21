@@ -1,27 +1,27 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   geometry.c
-///
-/// \brief  Calculate the geometry related information
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   geometry.c
+	*
+	* \brief  Calculate the geometry related information
+	*
+	* \author Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "geometry.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate total fluid volume in the space
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return Volume weighted average
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate total fluid volume in the space
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*
+	*\return Volume weighted average
+	*/
 REAL fluid_volume(PARA_DATA *para, REAL **var) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -40,17 +40,17 @@ REAL fluid_volume(PARA_DATA *para, REAL **var) {
   return V;
 }// End of fluid_volume( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the volume of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Volume
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate the volume of control volume (i,j,k)
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param i I-index of the control volume
+	*\param j J-index of the control volume
+	*\param K K-index of the control volume
+	*
+	*\return Volume
+	*/
 REAL vol(PARA_DATA *para, REAL **var, int i, int j, int k) {
 
   return area_xy(para, var, i, j, k)
@@ -58,65 +58,67 @@ REAL vol(PARA_DATA *para, REAL **var, int i, int j, int k) {
 } // End of vol()
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the XY area of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Area of XY surface
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the XY area of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*
+		*\return Area of XY surface
+		*/
 REAL area_xy(PARA_DATA *para, REAL **var, int i, int j, int k) {
   return length_x(para, var, i, j, k)
        * length_y(para, var, i, j, k);
 } // End of area_xy()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the YZ area of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Area of YZ surface
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the YZ area of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*
+		*\return Area of YZ surface
+		*/
 REAL area_yz(PARA_DATA *para, REAL **var, int i, int j, int k) {
   return length_y(para, var, i, j, k)
        * length_z(para, var, i, j, k);
 } // End of area_yz();
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the ZX area of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Area of ZX surface
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the ZX area of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*
+		*\return Area of ZX surface
+		*/
 REAL area_zx(PARA_DATA *para, REAL **var, int i, int j, int k) {
   return length_z(para, var, i, j, k)
        * length_x(para, var, i, j, k);
 } // End of area_zx()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the X-length of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Length in X-direction
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the X-length of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*\param IMAX Value of imax+2
+		*\param IMAX Value of (imax+2)*(jmax+2)
+		*
+		*\return Length in X-direction
+		*/
 REAL length_x(PARA_DATA *para, REAL **var, int i, int j, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
@@ -127,17 +129,17 @@ REAL length_x(PARA_DATA *para, REAL **var, int i, int j, int k) {
     return (REAL) fabs(var[GX][IX(i,j,k)]-var[GX][IX(i-1,j,k)]);
 } // End of length_x()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the Y-length of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Length in Y-direction
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the Y-length of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*
+		*\return Length in Y-direction
+		*/
 REAL length_y(PARA_DATA *para, REAL **var, int i, int j, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
@@ -148,17 +150,17 @@ REAL length_y(PARA_DATA *para, REAL **var, int i, int j, int k) {
     return (REAL) fabs(var[GY][IX(i,j,k)]-var[GY][IX(i,j-1,k)]);
 } // End of length_y()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the Z-length of control volume (i,j,k)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param K K-index of the control volume
-///
-///\return Length in Z-direction
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the Z-length of control volume (i,j,k)
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param i I-index of the control volume
+		*\param j J-index of the control volume
+		*\param K K-index of the control volume
+		*
+		*\return Length in Z-direction
+		*/
 REAL length_z(PARA_DATA *para, REAL **var, int i, int j, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
@@ -169,16 +171,15 @@ REAL length_z(PARA_DATA *para, REAL **var, int i, int j, int k) {
     return (REAL) fabs(var[GZ][IX(i,j,k)]-var[GZ][IX(i,j,k-1)]);
 } // End of length_z()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the area of boundary surface
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///\param A Pointer to the array of area
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the area of boundary surface
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int bounary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   int i, j, k, it, id;

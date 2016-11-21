@@ -1,18 +1,18 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   ffd_dll.c
-///
-/// \brief  functions to call ffd code as a dll
-///
-/// \author Wangda Zuo, Dan Li
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions as entry for the coupled simulation
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   ffd_dll.c
+	*
+	* \brief  functions to call ffd code as a dll
+	*
+	* \author Wangda Zuo, Dan Li
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions as entry for the coupled simulation
+	*
+	*/
 
 #include "ffd_dll.h"
 /******************************************************************************
@@ -45,13 +45,13 @@ int ffd_dll(CosimulationData *cosim) {
   return 0;
 } // End of ffd_dll()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Launch the FFD simulation through a thread
-///
-///\param p Pointer to the coupled simulation data
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Launch the FFD simulation through a thread
+		*
+		*\param p Pointer to the coupled simulation data
+		*
+		*\return 0 if no error occurred
+		*/
 #ifdef _MSC_VER //Windows
 DWORD WINAPI ffd_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;

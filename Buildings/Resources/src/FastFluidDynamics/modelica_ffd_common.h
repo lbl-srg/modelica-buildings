@@ -1,16 +1,16 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   modelica_ffd_common.h
-///
-/// \brief  Define commonly used data for Modelica-FFD coupled simulation
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   modelica_ffd_common.h
+	*
+	* \brief  Define commonly used data for Modelica-FFD coupled simulation
+	*
+	* \author Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 #define REAL double
 typedef struct {
   int flag; // Flag for coupled simulation: 0-> Stop; 1->Continue

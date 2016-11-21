@@ -1,33 +1,33 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   data_write.c
-///
-/// \brief  Write the simulation data
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions that write the data file in different formats.
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   data_write.c
+	*
+	* \brief  Write the simulation data
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions that write the data file in different formats.
+	*
+	*/
 
 #include "data_writer.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write standard output data in a format for tecplot
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param name Pointer to file name
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Write standard output data in a format for tecplot
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param name Pointer to file name
+	*
+	*\return 0 if no error occurred
+	*/
 int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
   int i, j, k;
   int imax=para->geom->imax, jmax=para->geom->jmax;
@@ -90,15 +90,15 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
   return 0;
 } //write_tecplot_data()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write all available data in a format for tecplot
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param name Pointer to file name
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write all available data in a format for tecplot
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param name Pointer to file name
+		*
+		*\return 0 if no error occurred
+		*/
 int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   int i, j, k;
   int imax=para->geom->imax, jmax=para->geom->jmax;
@@ -203,17 +203,17 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   return 0;
 } //write_tecplot_all_data()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Convert the data to the format for Tecplot
-///
-/// FFD uses staggered grid and Tecplot data is for collocated grid.
-/// This subroutine transfers the data from FFD format to Tecplot format.
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return no return
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Convert the data to the format for Tecplot
+		*
+		* FFD uses staggered grid and Tecplot data is for collocated grid.
+		* This subroutine transfers the data from FFD format to Tecplot format.
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*
+		*\return no return
+		*/
 void convert_to_tecplot(PARA_DATA *para, REAL **var) {
   int i, j, k;
   int imax=para->geom->imax;
@@ -267,18 +267,18 @@ void convert_to_tecplot(PARA_DATA *para, REAL **var) {
   convert_to_tecplot_corners(para, var, Tm);
 } // End of convert_to_tecplot()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Convert the data at 8 corners to the format for Tecplot
-///
-/// FFD uses staggered grid and Tecplot data is for collocated grid.
-/// This subroutine transfers the data from FFD format to Tecplot format.
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to variable to be converted
-///
-///\return no return
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Convert the data at 8 corners to the format for Tecplot
+		*
+		* FFD uses staggered grid and Tecplot data is for collocated grid.
+		* This subroutine transfers the data from FFD format to Tecplot format.
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param psi Pointer to variable to be converted
+		*
+		*\return no return
+		*/
 void convert_to_tecplot_corners(PARA_DATA *para, REAL **var, REAL *psi) {
   int imax=para->geom->imax, jmax=para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -309,15 +309,15 @@ void convert_to_tecplot_corners(PARA_DATA *para, REAL **var, REAL *psi) {
                                   + psi[IX(imax+1,jmax+1,kmax)]) / (REAL) 3.0;
 } // End of convert_to_tecplot_corners()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write the instantaneous value of variables in Tecplot format
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param name Pointer to the filename
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write the instantaneous value of variables in Tecplot format
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param name Pointer to the filename
+		*
+		*\return 0 if no error occurred
+		*/
 int write_unsteady(PARA_DATA *para, REAL **var, char *name){
   int i,j,k;
   int imax=para->geom->imax, jmax=para->geom->jmax;
@@ -364,15 +364,15 @@ int write_unsteady(PARA_DATA *para, REAL **var, char *name){
   return 0;
 } //write_unsteady()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write the data in a format for SCI program
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param name Pointer to the filename
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write the data in a format for SCI program
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param name Pointer to the filename
+		*
+		*\return 0 if no error occurred
+		*/
 int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   int i, j, k;
   int IPR, IU, IV, IW, IT, IC1, IC2, IC3, IC4, IC5, IC6, IC7;
