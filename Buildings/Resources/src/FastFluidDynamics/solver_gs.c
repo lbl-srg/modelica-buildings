@@ -1,32 +1,32 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   solver_gs.c
-///
-/// \brief  Gauss-Seidel solvers
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   solver_gs.c
+	*
+	* \brief  Gauss-Seidel solvers
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "solver_gs.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Gauss-Seidel solver for pressure
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param Type Type of variable
-///\param x Pointer to variable
-///
-///\return Residual
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Gauss-Seidel solver for pressure
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param Type Type of variable
+		*\param x Pointer to variable
+		*
+		*\return Residual
+		*/
 REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
   REAL *as = var[AS], *aw = var[AW], *ae = var[AE], *an = var[AN];
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];
@@ -138,16 +138,16 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
 
 } // End of GS_P()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Gauss-Seidel solver
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param flag Pointer to the cell property flag
-///\param x Pointer to variable
-///
-///\return Residual
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Gauss-Seidel solver
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param flag Pointer to the cell property flag
+		*\param x Pointer to variable
+		*
+		*\return Residual
+		*/
 REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
   REAL *as = var[AS], *aw = var[AW], *ae = var[AE], *an = var[AN];
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];

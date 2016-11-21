@@ -1,31 +1,31 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   utility.c
-///
-/// \brief  Some frequently used functions for FFD
-///
-/// \author Wangda Zuo, Ana Cohen
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Purdue University
-///         Mingang Jin, Qingyan Chen
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   utility.c
+	*
+	* \brief  Some frequently used functions for FFD
+	*
+	* \author Wangda Zuo, Ana Cohen
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*         Purdue University
+	*         Mingang Jin, Qingyan Chen
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "utility.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the residual of equation
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the residual of equation
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param psi Pointer to the variable
+		*
+		*\return 0 if no error occurred
+		*/
 REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -48,14 +48,14 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
 
 }// End of check_residual( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write the log file
-///
-///\param message Pointer the message
-///\param msg_type Type of message
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write the log file
+		*
+		*\param message Pointer the message
+		*\param msg_type Type of message
+		*
+		*\return 0 if no error occurred
+		*/
 void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
   char mymsg[400];
   if(msg_type==FFD_NEW) {
@@ -83,16 +83,16 @@ void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
   fclose(file_log);
 } // End of ffd_log()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the outflow rate of the scalar psi
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable
-///\param BINDEX Pointer to the boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the outflow rate of the scalar psi
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param psi Pointer to the variable
+		*\param BINDEX Pointer to the boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 REAL outflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
   int i, j, k;
   int it;
@@ -137,16 +137,16 @@ REAL outflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
 } // End of outflow()
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the inflow rate of the scalar psi
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable
-///\param BINDEX Pointer to the boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the inflow rate of the scalar psi
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param psi Pointer to the variable
+		*\param BINDEX Pointer to the boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 REAL inflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
   int i, j, k;
   int it;
@@ -187,18 +187,18 @@ REAL inflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
 } // End of inflow()
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the minimum value of the scalar psi at (ci,cj,ck) and its surrounding
-/// cells
-///
-///\param para Pointer to FFD parameters
-///\param psi Pointer to the variable
-///\param ci Index in x direction
-///\param cj Index in y direction
-///\param ck Index in z direction
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the minimum value of the scalar psi at (ci,cj,ck) and its surrounding
+		* cells
+		*
+		*\param para Pointer to FFD parameters
+		*\param psi Pointer to the variable
+		*\param ci Index in x direction
+		*\param cj Index in y direction
+		*\param ck Index in z direction
+		*
+		*\return 0 if no error occurred
+		*/
 REAL check_min(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int i, j, k;
@@ -217,18 +217,18 @@ REAL check_min(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
 }// End of check_min( )
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the maximum value of the scalar psi at (ci,cj,ck) and its surrounding
-/// cells
-///
-///\param para Pointer to FFD parameters
-///\param psi Pointer to the variable
-///\param ci Index in x direction
-///\param cj Index in y direction
-///\param ck Index in z direction
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the maximum value of the scalar psi at (ci,cj,ck) and its surrounding
+		* cells
+		*
+		*\param para Pointer to FFD parameters
+		*\param psi Pointer to the variable
+		*\param ci Index in x direction
+		*\param cj Index in y direction
+		*\param ck Index in z direction
+		*
+		*\return 0 if no error occurred
+		*/
 REAL check_max(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int i, j, k;
@@ -245,14 +245,13 @@ return tmp;
 
 }// End of check_max( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate averaged value of psi
-///
-///\param para Pointer to FFD parameters
-///\param psi Pointer to the variable
-///
-///\return Non-weighted average
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate averaged value of psi
+		*
+		*\param para Pointer to FFD parameters
+		*\param psi Pointer to the variable
+		*
+		*/
 REAL average(PARA_DATA *para, REAL *psi) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -269,17 +268,17 @@ REAL average(PARA_DATA *para, REAL *psi) {
 }// End of average( )
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate volume weighted averaged value of psi in a space
-///
-/// The average is weighted by volume of each cell
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable
-///
-///\return Volume weighted average
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate volume weighted averaged value of psi in a space
+	*
+	* The average is weighted by volume of each cell
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param psi Pointer to the variable
+	*
+	*\return Volume weighted average
+	*/
 REAL average_volume(PARA_DATA *para, REAL **var, REAL *psi) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -305,15 +304,15 @@ REAL average_volume(PARA_DATA *para, REAL **var, REAL *psi) {
 }// End of average_volume( )
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate time averaged value
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calcuate time averaged value
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*
+	*
+	*\return 0 if no error occurred
+	*/
 int average_time(PARA_DATA *para, REAL **var) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -351,15 +350,15 @@ int average_time(PARA_DATA *para, REAL **var) {
   return 0;
 } // End of average_time()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Reset time averaged value to 0
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Reset time averaged value to 0
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*
+		*
+		*\return 0 if no error occurred
+		*/
 int reset_time_averaged_data (PARA_DATA *para, REAL **var) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -400,15 +399,15 @@ int reset_time_averaged_data (PARA_DATA *para, REAL **var) {
   return 0;
 } // End of reset_time_averaged_data()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Add time averaged value for the time average later on
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Add time averaged value for the time average later on
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*
+		*
+		*\return 0 if no error occurred
+		*/
 int add_time_averaged_data(PARA_DATA *para, REAL **var) {
   int i, j;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -450,16 +449,15 @@ int add_time_averaged_data(PARA_DATA *para, REAL **var) {
   return 0;
 } // End of add_time_averaged_data()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Check the energy transfer rate through the wall to the air
-///
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to the boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Check the energy transfer rate through the wall to the air
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param BINDEX Pointer to the boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX) {
   int i, j, k;
   int it;
@@ -555,28 +553,26 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX) {
 
 } // End of qwall()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Free memory for BINDEX
-///
-///\param BINDEX Pointer to the boundary index
-///
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Free memory for BINDEX
+		*
+		*\param BINDEX Pointer to the boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
   if(BINDEX[2]) free(BINDEX[2]);
 } // End of free_index ()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Free memory for FFD simulation variables
-///
-///\param var Pointer to FFD simulation variables
-///
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Free memory for FFD simulation variables
+		*
+		*\param var Pointer to FFD simulation variables
+		*
+		*\return 0 if no error occurred
+		*/
 void free_data(REAL **var) {
   if(var[X]) free(var[X]);
   if(var[Y]) free(var[Y]);
@@ -633,14 +629,14 @@ void free_data(REAL **var) {
 
 } // End of free_data()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Determine the maximum value of given scalar variable
-///
-///\param para Pointer to FFD parameters
-///\param dat Pointer to scalar variable
-///
-///\return Smax Maximum value of the scalar variable
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Determine the maximum value of given scalar variable
+		*
+		*\param para Pointer to FFD parameters
+		*\param dat Pointer to scalar variable
+		*
+		*\return Smax Maximum value of the scalar variable
+		*/
 REAL scalar_global_max(PARA_DATA *para, REAL *dat) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -657,14 +653,14 @@ REAL scalar_global_max(PARA_DATA *para, REAL *dat) {
   return Smax;
 } // End of scalar_global_max()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Determine the minimum value of given scalar variable
-///
-///\param para Pointer to FFD parameters
-///\param dat Pointer to scalar variable
-///
-///\return Smin Minimum value of the scalar variable
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Determine the minimum value of given scalar variable
+		*
+		*\param para Pointer to FFD parameters
+		*\param dat Pointer to scalar variable
+		*
+		*\return Smin Minimum value of the scalar variable
+		*/
 REAL scalar_global_min(PARA_DATA *para, REAL *dat) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -681,14 +677,14 @@ REAL scalar_global_min(PARA_DATA *para, REAL *dat) {
   return SMin;
 } // End of scalar_global_min()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Determine the maximum velocity
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return Vmax Maximum velocity in the simulated domain
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Determine the maximum velocity
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*
+		*\return Vmax Maximum velocity in the simulated domain
+		*/
 REAL V_global_max(PARA_DATA *para, REAL **var) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -708,14 +704,14 @@ REAL V_global_max(PARA_DATA *para, REAL **var) {
   return sqrt(Vmax);
 } // End of  V_global_max()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Determine the minimum velocity
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return Vmin Minimum velocity in the simulated domain
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Determine the minimum velocity
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*
+		*\return Vmin Minimum velocity in the simulated domain
+		*/
 REAL V_global_min(PARA_DATA *para, REAL **var) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;

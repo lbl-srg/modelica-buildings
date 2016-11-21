@@ -1,38 +1,38 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   diffusion.c
-///
-/// \brief  Calculate the diffusion equation
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions that are used for calculating the diffusion
-/// equations.
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   diffusion.c
+	*
+	* \brief  Calculate the diffusion equation
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions that are used for calculating the diffusion
+	* equations.
+	*
+	*/
 
 #include "diffusion.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Entrance of calculating diffusion equation
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable
-///\param index Index of trace substance or species
-///\param psi Pointer to the variable at current time step
-///\param psi0 Pointer to the variable at previous time step
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Entrance of calculating diffusion equation
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param var_type Type of variable
+	*\param index Index of trace substance or species
+	*\param psi Pointer to the variable at current time step
+	*\param psi0 Pointer to the variable at previous time step
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
                REAL *psi, REAL *psi0, int **BINDEX) {
   int flag = 0;
@@ -101,19 +101,19 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
   return flag;
 } // End of diffusion( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate coefficients for diffusion equation solver
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable at current time step
-///\param psi0 Pointer to the variable at previous time step
-///\param var_type Type of variable
-///\param index Index of trace substance or species
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate coefficients for diffusion equation solver
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param psi Pointer to the variable at current time step
+		*\param psi0 Pointer to the variable at previous time step
+		*\param var_type Type of variable
+		*\param index Index of trace substance or species
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                int var_type, int index, int **BINDEX) {
   int i, j, k;
@@ -318,16 +318,16 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
   return 0;
 }// End of coef_diff( )
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate source term in the diffusion equation
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable
-///\param index Index of trace substances or species
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate source term in the diffusion equation
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param var_type Type of variable
+	*\param index Index of trace substances or species
+	*
+	*\return 0 if no error occurred
+	*/
 int source_diff(PARA_DATA *para, REAL **var, int var_type, int index) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;

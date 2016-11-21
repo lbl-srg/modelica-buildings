@@ -1,19 +1,19 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   data_structure.h
-///
-/// \brief  Define the data used the FFD
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   data_structure.h
+	*
+	* \brief  Define the data used the FFD
+	*
+	* \author Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*         Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 #ifndef _DATA_STRUCTURE_H
 #define _DATA_STRUCTURE_H
 #endif
@@ -33,6 +33,7 @@
 #define _MODELICA_FFD_COMMON_H
 #include "modelica_ffd_common.h"
 #endif
+
 /*-----------------------------------------------------------------------------
 Problem with windows version
 The stdlib.h which ships with the recent versions of Visual Studio has a

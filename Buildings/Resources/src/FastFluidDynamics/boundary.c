@@ -1,42 +1,42 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   boundary.c
-///
-/// \brief  Set the boundary conditions
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions that are used for setting the boundary
-/// conditions.
-/// It starts with \c set_bnd(). Then different subroutines are called
-/// according to the properties of variables.
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   boundary.c
+	*
+	* \brief  Set the boundary conditions
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions that are used for setting the boundary
+	* conditions.
+	* It starts with \c set_bnd(). Then different subroutines are called
+	* according to the properties of variables.
+	*
+	*/
 
 #include "boundary.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Entrance of setting boundary conditions
-///
-/// Specific boundary conditions will be selected according to the variable
-/// type.
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type The type of variable
-///\param index Index of trace substances or species
-///\param psi Pointer to the variable needing the boundary conditions
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Entrance of setting boundary conditions
+	*
+	* Specific boundary conditions will be selected according to the variable
+	* type.
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param var_type The type of variable
+	*\param index Index of trace substances or species
+	*\param psi Pointer to the variable needing the boundary conditions
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi,
             int **BINDEX) {
   int flag;
@@ -86,17 +86,17 @@ int set_bnd(PARA_DATA *para, REAL **var, int var_type, int index, REAL *psi,
 } // End of set_bnd()
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set boundary conditions for velocity
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type The type of variable
-///\param psi Pointer to the variable needing the boundary conditions
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Set boundary conditions for velocity
+		*
+		*\param para Pointer to FFD parameters
+		*\param var Pointer to FFD simulation variables
+		*\param var_type The type of variable
+		*\param psi Pointer to the variable needing the boundary conditions
+		*\param BINDEX Pointer to boundary index
+		*
+		*\return 0 if no error occurred
+		*/
 int set_bnd_vel(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
                 int **BINDEX) {
   int i, j, k;
@@ -236,17 +236,17 @@ int set_bnd_vel(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
 }// End of set_bnd_vel( )
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set the boundary condition for temperature
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type The type of variable
-///\param psi Pointer to the variable needing the boundary conditions
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Set the boundary condition for temperature
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param var_type The type of variable
+	*\param psi Pointer to the variable needing the boundary conditions
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int set_bnd_temp(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
                  int **BINDEX) {
   int i, j, k;
@@ -574,17 +574,17 @@ int set_bnd_temp(PARA_DATA *para, REAL **var, int var_type, REAL *psi,
   return 0;
 } // End of set_bnd_temp()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set the boundary condition for trace substance
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param trace_index Index of the trace substance
-///\param psi Pointer to the variable needing the boundary conditions
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Set the boundary condition for trace substance
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param trace_index Index of the trace substance
+	*\param psi Pointer to the variable needing the boundary conditions
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int set_bnd_trace(PARA_DATA *para, REAL **var, int trace_index, REAL *psi,
                  int **BINDEX) {
   int i, j, k, it;
@@ -689,16 +689,16 @@ int set_bnd_trace(PARA_DATA *para, REAL **var, int trace_index, REAL *psi,
   return 0;
 } // End of set_bnd_trace()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set the boundary condition for pressure
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param p Pointer to pressure variable
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Set the boundary condition for pressure
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param p Pointer to pressure variable
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int set_bnd_pressure(PARA_DATA *para, REAL **var, REAL *p, int **BINDEX) {
   int i, j, k, it;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -765,20 +765,20 @@ int set_bnd_pressure(PARA_DATA *para, REAL **var, REAL *p, int **BINDEX) {
   return 0;
 } // End of set_bnd_pressure()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Enforce the mass conservation by adjusting the outlet flow rate
-///
-/// The details ware published in the paper
-/// "W. Zuo, J. Hu, Q. Chen 2010.
-/// Improvements on FFD modeling by using different numerical schemes,
-/// Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Enforce the mass conservation by adjusting the outlet flow rate
+	*
+	* The details was published in the paper
+	* "W. Zuo, J. Hu, Q. Chen 2010.
+	* Improvements on FFD modeling by using different numerical schemes,
+	* Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return 0 if no error occurred
+	*/
 int mass_conservation(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;
   int it;
@@ -812,20 +812,20 @@ int mass_conservation(PARA_DATA *para, REAL **var, int **BINDEX) {
   return 0;
 } // End of mass_conservation()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Get the mass flow difference divided by outflow area
-///
-/// The details were published in the paper
-/// "W. Zuo, J. Hu, Q. Chen 2010.
-/// Improvements on FFD modeling by using different numerical schemes,
-/// Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return Mass flow difference divided by the outflow area
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Get the mass flow difference divided by outflow area
+	*
+	* The details was published in the paper
+	* "W. Zuo, J. Hu, Q. Chen 2010.
+	* Improvements on FFD modeling by using different numerical schemes,
+	* Numerical Heat Transfer, Part B Fundamentals, 58(1), 1-16."
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param BINDEX Pointer to boundary index
+	*
+	*\return Mass flow difference divided by the outflow area
+	*/
 REAL adjust_velocity(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;
   int it;
@@ -908,18 +908,18 @@ REAL adjust_velocity(PARA_DATA *para, REAL **var, int **BINDEX) {
   return (mass_in-mass_out)/area_out;
 } // End of adjust_velocity()
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate convective heat transfer coefficient divided by
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the cell
-///\param j J-index of the cell
-///\param k K-index of the cell
-///\param D distance from the cell center to the wall
-///
-///\return Mass flow difference divided by the outflow area
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate convective heat transfer coefficient
+	*
+	*\param para Pointer to FFD parameters
+	*\param var Pointer to FFD simulation variables
+	*\param i I-index of the cell
+	*\param j J-index of the cell
+	*\param k K-index of the cell
+	*\param D distance from the cell center to the wall
+	*
+	*\return Mass flow difference divided by the outflow area
+	*/
 REAL h_coef(PARA_DATA *para, REAL **var, int i, int j, int k, REAL D) {
   REAL h, kapa;
   REAL nu = para->prob->nu;
