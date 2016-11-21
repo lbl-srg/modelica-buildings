@@ -29,7 +29,7 @@ initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 equation
-  assert(phi > -1.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
+  assert(phi > -0.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
