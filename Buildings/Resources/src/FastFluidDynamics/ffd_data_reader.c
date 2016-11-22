@@ -52,5 +52,5 @@ int read_ffd_data(PARA_DATA *para, REAL **var) {
           para->inpu->old_ffd_file_name);
   ffd_log(msg, FFD_NORMAL);
   return 0;
-} // End of read_ffd_data()
+} /* End of read_ffd_data()*/
 

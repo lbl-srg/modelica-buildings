@@ -97,5 +97,5 @@ int project(PARA_DATA *para, REAL **var, int **BINDEX) {
   END_FOR
 
   return 0;
-} // End of project( )
+} /* End of project( )*/
 

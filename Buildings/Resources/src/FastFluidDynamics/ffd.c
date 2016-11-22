@@ -92,7 +92,7 @@ int allocate_memory (PARA_DATA *para) {
     }
   }
   return 0;
-} // End of allocate_memory()
+} /* End of allocate_memory()*/
 
 
 	/*
@@ -112,7 +112,7 @@ int ffd_cosimulation(CosimulationData *cosim) {
   }
   else
     return 0;
-} // End of ffd_cosimulation()
+} /* End of ffd_cosimulation()*/
 
 	/*
 		* Main routine of FFD
@@ -122,15 +122,15 @@ int ffd_cosimulation(CosimulationData *cosim) {
 		*@return 0 if no error occurred
 		*/
 int ffd(int cosimulation) {
-//#ifndef _MSC_VER //Linux
-//  //Initialize glut library
-//  char fakeParam[] = "fake";
-//  char *fakeargv[] = { fakeParam, NULL };
-//  int fakeargc = 1;
-//  glutInit( &fakeargc, fakeargv );
-//#endif
+/*#ifndef _MSC_VER //Linux*/
+/*  //Initialize glut library*/
+/*  char fakeParam[] = "fake";*/
+/*  char *fakeargv[] = { fakeParam, NULL };*/
+/*  int fakeargc = 1;*/
+/*  glutInit( &fakeargc, fakeargv );*/
+/*#endif*/
 
-  // Initialize the parameters
+  /* Initialize the parameters*/
   para.geom = &geom;
   para.inpu = &inpu;
   para.outp = &outp1;
@@ -140,7 +140,7 @@ int ffd(int cosimulation) {
   para.solv   = &solv;
   para.sens   = &sens;
   para.init   = &init;
-  // Stand alone simulation: 0; Cosimulaiton: 1
+  /* Stand alone simulation: 0; Cosimulaiton: 1*/
   para.solv->cosimulation = cosimulation;
 
   if(initialize(&para)!=0) {
@@ -148,7 +148,7 @@ int ffd(int cosimulation) {
     return 1;
   }
 
-  // Overwrite the mesh and simulation data using SCI generated file
+  /* Overwrite the mesh and simulation data using SCI generated file*/
   if(para.inpu->parameter_file_format == SCI) {
     if(read_sci_max(&para, var)!=0) {
       ffd_log("ffd(): Could not read SCI data.", FFD_ERROR);
@@ -156,30 +156,30 @@ int ffd(int cosimulation) {
     }
   }
 
-  // Allocate memory for the variables
+  /* Allocate memory for the variables*/
   if(allocate_memory(&para)!=0) {
     ffd_log("ffd(): Could not allocate memory for the simulation.", FFD_ERROR);
     return 1;
   }
 
-  // Set the initial values for the simulation data
+  /* Set the initial values for the simulation data*/
   if(set_initial_data(&para, var, BINDEX)) {
     ffd_log("ffd(): Could not set initial data.", FFD_ERROR);
     return 1;
   }
 
-  // Read previous simulation data as initial values
+  /* Read previous simulation data as initial values*/
   if(para.inpu->read_old_ffd_file==1) read_ffd_data(&para, var);
 
   ffd_log("ffd.c: Start FFD solver.", FFD_NORMAL);
-  //write_tecplot_data(&para, var, "initial");
+  /*write_tecplot_data(&para, var, "initial");*/
 
-  // Solve the problem
-  //if(para.outp->version==DEMO) {
-  //  open_glut_window();
-  //  glutMainLoop();
-  //}
-  //else
+  /* Solve the problem*/
+  /*if(para.outp->version==DEMO) {*/
+  /*  open_glut_window();*/
+  /*  glutMainLoop();*/
+  /*}*/
+  /*else*/
   if(FFD_solver(&para, var, BINDEX)!=0) {
     ffd_log("ffd(): FFD solver failed.", FFD_ERROR);
     return 1;
@@ -188,7 +188,7 @@ int ffd(int cosimulation) {
   /*---------------------------------------------------------------------------
   | Post Process
   ---------------------------------------------------------------------------*/
-  // Calculate mean value
+  /* Calculate mean value*/
   if(para.outp->cal_mean == 1)
     average_time(&para, var);
 
@@ -205,21 +205,21 @@ int ffd(int cosimulation) {
   if(para.outp->version == DEBUG)
     write_tecplot_all_data(&para, var, "result_all");
 
-  // Write the data in SCI format
+  /* Write the data in SCI format*/
   write_SCI(&para, var, "output");
 
-  // Free the memory
+  /* Free the memory*/
   free_data(var);
   free_index(BINDEX);
 
-  // Inform Modelica the stopping command has been received
+  /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
     para.cosim->para->flag = 2;
     ffd_log("ffd(): Sent stopping signal to Modelica", FFD_NORMAL);
   }
 
   return 0;
-} // End of ffd( )
+} /* End of ffd( )*/
 
 	/*
 		* Write error message to Modelica
@@ -230,8 +230,8 @@ int ffd(int cosimulation) {
 		*/
 void modelicaError(char *msg) {
   strcpy(para.cosim->ffd->msg, msg);
-  // Write the command to stop the cosimulation
+  /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;
-  // Indicate there is an error
+  /* Indicate there is an error*/
   para.cosim->para->ffdError = 1;
-} // End of modelicaMsg
+} /* End of modelicaMsg*/

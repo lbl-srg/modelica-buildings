@@ -48,7 +48,7 @@ REAL interpolation(PARA_DATA *para, REAL *d0, REAL x_1, REAL y_1, REAL z_1,
       ffd_log(msg, FFD_ERROR);
       return -1;
   }
-} // End of interpolation()
+} /* End of interpolation()*/
 
 	/*
 		* Bilinear interpolation
@@ -85,5 +85,5 @@ REAL interpolation_bilinear(REAL x_1, REAL y_1, REAL z_1,
 
   return z_0*tmp0+z_1*tmp1;
 
-} // End of interpolation_bilinear()
+} /* End of interpolation_bilinear()*/
 

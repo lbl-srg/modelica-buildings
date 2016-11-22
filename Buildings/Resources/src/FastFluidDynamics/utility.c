@@ -46,7 +46,7 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
 
   return residual / (imax*jmax*kmax);
 
-}// End of check_residual( )
+}/* End of check_residual( )*/
 
 	/*
 		* Write the log file
@@ -76,12 +76,12 @@ void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
       sprintf(mymsg, "ERROR in FFD: %s\n", message);
       modelicaError(mymsg);
       break;
-    // Normal log
+    /* Normal log*/
     default:
       fprintf(file_log, "%s\n", message);
   }
   fclose(file_log);
-} // End of ffd_log()
+} /* End of ffd_log()*/
 
 	/*
 		* Check the outflow rate of the scalar psi
@@ -134,7 +134,7 @@ REAL outflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
   }
 
   return mass_out;
-} // End of outflow()
+} /* End of outflow()*/
 
 
 	/*
@@ -184,7 +184,7 @@ REAL inflow(PARA_DATA *para, REAL **var, REAL *psi, int **BINDEX) {
 	  }
 
 	return mass_in;
-} // End of inflow()
+} /* End of inflow()*/
 
 
 	/*
@@ -214,7 +214,7 @@ REAL check_min(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
 
  return tmp;
 
-}// End of check_min( )
+}/* End of check_min( )*/
 
 
 	/*
@@ -243,7 +243,7 @@ REAL check_max(PARA_DATA *para, REAL *psi, int ci, int cj, int ck) {
 
 return tmp;
 
-}// End of check_max( )
+}/* End of check_max( )*/
 
 	/*
 		* Calculate averaged value of psi
@@ -265,7 +265,7 @@ REAL average(PARA_DATA *para, REAL *psi) {
 
   return tmp / (imax*jmax*kmax);
 
-}// End of average( )
+}/* End of average( )*/
 
 
 /*
@@ -301,7 +301,7 @@ REAL average_volume(PARA_DATA *para, REAL **var, REAL *psi) {
     return tmp2 / para->geom->volFlu;
   }
 
-}// End of average_volume( )
+}/* End of average_volume( )*/
 
 
 /*
@@ -327,11 +327,11 @@ int average_time(PARA_DATA *para, REAL **var) {
     var[TEMPM][IX(i,j,k)] = var[TEMPM][IX(i,j,k)] / step;
   END_FOR
 
-  // Wall surfaces
+  /* Wall surfaces*/
   for(i=0; i<para->bc->nb_wall; i++)
     para->bc->temHeaMean[i] = para->bc->temHeaMean[i] / step;
 
-  // Fluid ports
+  /* Fluid ports*/
   for(i=0; i<para->bc->nb_port; i++) {
     para->bc->TPortMean[i] = para->bc->TPortMean[i] / step;
     para->bc->velPortMean[i] = para->bc->velPortMean[i] / step;
@@ -342,13 +342,13 @@ int average_time(PARA_DATA *para, REAL **var) {
       para->bc->CPortMean[i][j] = para->bc->CPortMean[i][j] / step;
   }
 
-  // Sensor data
+  /* Sensor data*/
   para->sens->TRooMean = para->sens->TRooMean / step;
   for(i=0; i<para->sens->nb_sensor; i++)
     para->sens->senValMean[i] = para->sens->senValMean[i] / step;
 
   return 0;
-} // End of average_time()
+} /* End of average_time()*/
 
 	/*
 		* Reset time averaged value to 0
@@ -373,11 +373,11 @@ int reset_time_averaged_data (PARA_DATA *para, REAL **var) {
     var[TEMPM][IX(i,j,k)] = 0;
   END_FOR
 
-  // Wall surfaces
+  /* Wall surfaces*/
   for(i=0; i<para->bc->nb_wall; i++)
     para->bc->temHeaMean[i] = 0;
 
-  // Fluid ports
+  /* Fluid ports*/
   for(i=0; i<para->bc->nb_port; i++) {
     para->bc->TPortMean[i] = 0;
     para->bc->velPortMean[i] = 0;
@@ -388,16 +388,16 @@ int reset_time_averaged_data (PARA_DATA *para, REAL **var) {
       para->bc->CPortMean[i][j] = 0;
   }
 
-  // Sensor data
+  /* Sensor data*/
   para->sens->TRooMean = 0;
   for(i=0; i<para->sens->nb_sensor; i++)
     para->sens->senValMean[i] = 0;
 
 
-  //Reset the time step to 0
+  /*Reset the time step to 0*/
   para->mytime->step_mean = 0;
   return 0;
-} // End of reset_time_averaged_data()
+} /* End of reset_time_averaged_data()*/
 
 	/*
 		* Add time averaged value for the time average later on
@@ -414,7 +414,7 @@ int add_time_averaged_data(PARA_DATA *para, REAL **var) {
   int kmax = para->geom->kmax;
   int size = (imax+2) * (jmax+2) * (kmax+2);
 
-  // All the cells
+  /* All the cells*/
   for(i=0; i<size; i++) {
     var[VXM][i] += var[VX][i];
     var[VYM][i] += var[VY][i];
@@ -422,11 +422,11 @@ int add_time_averaged_data(PARA_DATA *para, REAL **var) {
     var[TEMPM][i] += var[TEMP][i];
   }
 
-  // Wall surfaces
+  /* Wall surfaces*/
   for(i=0; i<para->bc->nb_wall; i++)
     para->bc->temHeaMean[i] += para->bc->temHeaAve[i];
 
-  // Fluid ports
+  /* Fluid ports*/
   for(i=0; i<para->bc->nb_port; i++) {
     para->bc->TPortMean[i] += para->bc->TPortAve[i];
     para->bc->velPortMean[i] += para->bc->velPortAve[i];
@@ -438,16 +438,16 @@ int add_time_averaged_data(PARA_DATA *para, REAL **var) {
 
   }
 
-  // Sensor data
+  /* Sensor data*/
   para->sens->TRooMean += para->sens->TRoo;
   for(j=0; j<para->sens->nb_sensor; j++)
     para->sens->senValMean[j] += para->sens->senVal[j];
 
-  // Update the step
+  /* Update the step*/
   para->mytime->step_mean++;
 
   return 0;
-} // End of add_time_averaged_data()
+} /* End of add_time_averaged_data()*/
 
 	/*
 		* Check the energy transfer rate through the wall to the air
@@ -551,7 +551,7 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX) {
 
   return qwall;
 
-} // End of qwall()
+} /* End of qwall()*/
 
 	/*
 		* Free memory for BINDEX
@@ -564,7 +564,7 @@ void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
   if(BINDEX[2]) free(BINDEX[2]);
-} // End of free_index ()
+} /* End of free_index ()*/
 
 	/*
 		* Free memory for FFD simulation variables
@@ -627,7 +627,7 @@ void free_data(REAL **var) {
   if(var[QFLUXBC])  free(var[QFLUXBC]);
   if(var[QFLUX])  free(var[QFLUX]);
 
-} // End of free_data()
+} /* End of free_data()*/
 
 	/*
 		* Determine the maximum value of given scalar variable
@@ -651,7 +651,7 @@ REAL scalar_global_max(PARA_DATA *para, REAL *dat) {
   END_FOR
 
   return Smax;
-} // End of scalar_global_max()
+} /* End of scalar_global_max()*/
 
 	/*
 		* Determine the minimum value of given scalar variable
@@ -675,7 +675,7 @@ REAL scalar_global_min(PARA_DATA *para, REAL *dat) {
   END_FOR
 
   return SMin;
-} // End of scalar_global_min()
+} /* End of scalar_global_min()*/
 
 	/*
 		* Determine the maximum velocity
@@ -702,7 +702,7 @@ REAL V_global_max(PARA_DATA *para, REAL **var) {
   END_FOR
 
   return sqrt(Vmax);
-} // End of  V_global_max()
+} /* End of  V_global_max()*/
 
 	/*
 		* Determine the minimum velocity
@@ -729,4 +729,4 @@ REAL V_global_min(PARA_DATA *para, REAL **var) {
   END_FOR
 
   return sqrt(Vmin);
-} // End of V_global_min()
+} /* End of V_global_min()*/

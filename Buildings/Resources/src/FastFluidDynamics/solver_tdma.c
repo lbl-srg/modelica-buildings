@@ -33,42 +33,42 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
   int kmax = para->geom->kmax;
   int i, j, k;
 
-  //West to East
+  /*West to East*/
   for(i=1; i<=imax; i++) {
     if(TDMA_YZ(para, var, psi, i)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
       return 1;
     }
   }
-  //South to North
+  /*South to North*/
   for(j=1; j<=jmax; j++) {
     if(TDMA_ZX(para, var, psi, j)) {
       ffd_log("TDMA_3D: Could not compute TDMA_ZX.", FFD_ERROR);
       return 1;
     }
   }
-  //Back to Front
+  /*Back to Front*/
   for(k=1; k<=kmax; k++) {
     if(TDMA_XY(para, var, psi, k)) {
       ffd_log("TDMA_3D: Could not compute TDMA_XY.", FFD_ERROR);
       return 1;
     }
   }
-  //East to West
+  /*East to West*/
   for(i=imax; i>=1; i--) {
     if(TDMA_YZ(para, var, psi, i)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
       return 1;
     }
   }
-  //North to South
+  /*North to South*/
   for(j=jmax; j>=1; j--) {
     if(TDMA_ZX(para, var, psi, j)) {
       ffd_log("TDMA_3D: Could not compute TDMA_ZX.", FFD_ERROR);
       return 1;
     }
   }
-  //Front to Back
+  /*Front to Back*/
   for(k=kmax; k>=1; k--) {
     if(TDMA_XY(para, var, psi, k)) {
       ffd_log("TDMA_3D: Could not compute TDMA_YZ.", FFD_ERROR);
@@ -76,7 +76,7 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
     }
   }
   return 0;
-}// end of TDMA_3D()
+}/* end of TDMA_3D()*/
 
 	/*
 		* TDMA solver for XY-plane
@@ -127,7 +127,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
     return 1;
   }
 
-  //line-by-line from West to East
+  /*line-by-line from West to East*/
   for(i=1; i<=imax; i++) {
     for(j=1; j<=jmax; j++) {
       temp_b[j] = b[IX(i,j,k)]
@@ -153,7 +153,7 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   free(temp_b);
   free(temp_psi);
   return 0;
-} // End of TDMA_XY()
+} /* End of TDMA_XY()*/
 
 	/*
 		* TDMA solver for YZ-plane
@@ -207,7 +207,7 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
     return 1;
   }
 
-  //line-by-line from South to North
+  /*line-by-line from South to North*/
   for(j=1; j<=jmax; j++) {
     for(k=1; k<=kmax; k++) {
       temp_b[k] = b[IX(i,j,k)]
@@ -233,7 +233,7 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
   free(temp_b);
   free(temp_psi);
   return 0;
-} // End of TDMA_YZ()
+} /* End of TDMA_YZ()*/
 
 	/*
 		* TDMA solver for ZX-plane
@@ -287,7 +287,7 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
     return 1;
   }
 
-  //line-by-line from South to North
+  /*line-by-line from South to North*/
   for(k=1; k<=kmax; k++) {
     for(i=1; i<=imax; i++) {
       temp_b[i] = b[IX(i,j,k)]
@@ -313,7 +313,7 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
   free(temp_b);
   free(temp_psi);
   return 0;
-} // End of TDMA_ZX()
+} /* End of TDMA_ZX()*/
 
 	/*
 		* TDMA solver for 1D array

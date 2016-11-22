@@ -25,10 +25,10 @@
 	*@return 0 if no error occurred
 	*/
 int initialize(PARA_DATA *para) {
-  // Define the default value for parameter
+  /* Define the default value for parameter*/
   set_default_parameter(para);
 
-  // Overwrite the default values using user defined values
+  /* Overwrite the default values using user defined values*/
   if(read_parameter(para)) {
     ffd_log("initialize(): Failed to read paramter file.", FFD_ERROR);
     return 1;
@@ -54,7 +54,7 @@ int initialize(PARA_DATA *para) {
   }
 
   return 0;
-} // End of initialize( )
+} /* End of initialize( )*/
 
 	/*
 		* Set the default value for parameters
@@ -68,44 +68,44 @@ void set_default_parameter(PARA_DATA *para) {
   para->mytime->step_current = 0;
   para->mytime->t_start = clock();
 
-  para->prob->alpha = (REAL) 2.376e-5; // Thermal diffusity
+  para->prob->alpha = (REAL) 2.376e-5; /* Thermal diffusity*/
   para->prob->diff = 0.00001;
   para->prob->force = 1.0;
   para->prob->heat = 1.0;
   para->prob->source = 100.0;
 
-  para->prob->chen_a = (REAL) 0.03874; // Coeffcient of Chen's model
-  para->prob->Prt = (REAL) 0.9; // Turbulent Prandl number
-  para->prob->rho = (REAL) 1.0; //
-  para->prob->tur_model = LAM; // No turbulence model
+  para->prob->chen_a = (REAL) 0.03874; /* Coeffcient of Chen's model*/
+  para->prob->Prt = (REAL) 0.9; /* Turbulent Prandl number*/
+  para->prob->rho = (REAL) 1.0; /**/
+  para->prob->tur_model = LAM; /* No turbulence model*/
 
-  para->solv->check_residual = 0; // Donot check residual */
-  para->solv->solver = GS; // Gauss-Seidel Solver
-  para->solv->interpolation = BILINEAR; // Bilinear interpolation
+  para->solv->check_residual = 0; 
+  para->solv->solver = GS; /* Gauss-Seidel Solver*/
+  para->solv->interpolation = BILINEAR; /* Bilinear interpolation*/
 
-  // Default values for Input
-  para->inpu->read_old_ffd_file = 0; // Do not read the old FFD data as initial value
+  /* Default values for Input*/
+  para->inpu->read_old_ffd_file = 0; /* Do not read the old FFD data as initial value*/
 
-  // Default values for Output
-  para->outp->Temp_ref   = 0;//35.5f;//10.25f;
+  /* Default values for Output*/
+  para->outp->Temp_ref   = 0;/*35.5f;//10.25f;*/
   para->outp->cal_mean   = 0;
   para->outp->v_length   = 1;
   para->outp->winx       = 600;
   para->outp->winy       = 600;
   para->outp->winz       = 600;
   para->outp->v_ref      = 1.0;
-  para->outp->version    = DEBUG; // Running the debug version
+  para->outp->version    = DEBUG; /* Running the debug version*/
   para->outp->i_N        = 1;
   para->outp->j_N        = 1;
   para->outp->k_N        = 1;
-  para->outp->tstep_display = 10; // Update the display for every 10 time steps
-  para->outp->screen     = 1; // Draw velocity
-  para->geom->plane      = ZX; // Draw ZX plane
+  para->outp->tstep_display = 10; /* Update the display for every 10 time steps*/
+  para->outp->screen     = 1; /* Draw velocity*/
+  para->geom->plane      = ZX; /* Draw ZX plane*/
   para->bc->nb_port = 0;
   para->bc->nb_Xi = 0;
   para->bc->nb_C = 0;
-  para->sens->nb_sensor = 0; // Number of sensors
-} // End of set_default_parameter
+  para->sens->nb_sensor = 0; /* Number of sensors*/
+} /* End of set_default_parameter*/
 
 	/*
 		* Set default initial values for simulation variables
@@ -143,7 +143,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     var[VZS][i]     = 0.0;
     var[TEMP][i]    = para->init->T;
     var[TEMPM][i]   = 0.0;
-    var[TEMPS][i]   = 0.0;  // Source of temperature
+    var[TEMPS][i]   = 0.0;  /* Source of temperature*/
     var[IP][i]      = 0.0;
     var[AP][i]      = 0.0;
     var[AW][i]      = 0.0;
@@ -182,7 +182,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     var[C2BC][i]    = 0.0;
   }
 
-  // Calculate the thermal diffusivity
+  /* Calculate the thermal diffusivity*/
   para->prob->alpha = para->prob->cond / (para->prob->rho*para->prob->Cp);
 
   /****************************************************************************
@@ -380,7 +380,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     else if(para->outp->version==DEBUG)
       ffd_log("FFD_solver(): solved density step.", FFD_NORMAL);
 
-    // Integrate the data on the boundary surface
+    /* Integrate the data on the boundary surface*/
     flag = surface_integrate(para, var, BINDEX);
     if(flag != 0) {
       ffd_log("FFD_solver(): "
@@ -403,7 +403,7 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
       ffd_log("FFD_solver(): completed time average",
               FFD_NORMAL);
 
-    // Average the FFD simulation data
+    /* Average the FFD simulation data*/
     flag = average_time(para, var);
     if(flag != 0) {
       ffd_log("FFD_solver(): Could not average the data over time.",
@@ -423,5 +423,5 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   return flag;
-} // set_initial_data()
+} /* set_initial_data()*/
 

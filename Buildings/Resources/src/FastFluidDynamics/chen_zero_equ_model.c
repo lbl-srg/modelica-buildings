@@ -58,4 +58,4 @@ REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
                     +w[IX(i,j,k)]*w[IX(i,j,k)] );
 
   return nu_t;
-} // End of nu_t_chen_zero_equ()
+} /* End of nu_t_chen_zero_equ()*/

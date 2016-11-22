@@ -37,4 +37,4 @@ void timing(PARA_DATA *para) {
          para->mytime->t, cputime, para->mytime->t/cputime);
   ffd_log(msg, FFD_NORMAL);
 
-} // End of timing( )
+} /* End of timing( )*/

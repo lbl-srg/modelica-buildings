@@ -25,13 +25,13 @@
 
 
 
-//static PARA_DATA para;
+/*static PARA_DATA para;*/
 
-// Windows
+/* Windows*/
 #ifdef _MSC_VER
 __declspec(dllexport)
 extern int ffd_dll(CosimulationData *cosim);
-// Linux
+/* Linux*/
 #else
 #include <pthread.h>
 int ffd_dll(CosimulationData *cosim);
@@ -45,8 +45,8 @@ int ffd_dll(CosimulationData *cosim);
 	*
 	*@return 0 if no error occurred
 	*/
-#ifdef _MSC_VER //Windows
+#ifdef _MSC_VER /*Windows*/
 DWORD WINAPI ffd_thread(void *p);
-#else //Linux
+#else /*Linux*/
 void *ffd_thread(void *p);
 #endif
