@@ -22,13 +22,13 @@
 /*
 	* Computes turbulent viscosity using Chen's zero equation model
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param i I-index of the control volume
-	*@param j J-index of the control volume
-	*@param k K-index of the control volume
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param i I-index of the control volume
+	* @param j J-index of the control volume
+	* @param k K-index of the control volume
 	*
-	*@return Turbulent Kinematic viscosity
+	* @return Turbulent Kinematic viscosity
 	*/
 REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
   REAL nu_t, l, lx, lx1, lx2, ly, ly1, ly2, lz, lz1, lz2;

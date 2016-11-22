@@ -16,14 +16,14 @@
 /*
  * Exchange the data between Modelica and CFD
  *
- *@param t0 Current time of integration for Modelica
- *@param dt Time step size for next synchronization defined by Modelica
- *@param u Pointer to the input data from Modelica to CFD
- *@param nU Number of inputs from Modelica to CFD
- *@param nY Number of outputs from CFD to Modelica
- *@param y Pointer to the output data from CFD to Modelica
+ * @param t0 Current time of integration for Modelica
+ * @param dt Time step size for next synchronization defined by Modelica
+ * @param u Pointer to the input data from Modelica to CFD
+ * @param nU Number of inputs from Modelica to CFD
+ * @param nY Number of outputs from CFD to Modelica
+ * @param y Pointer to the output data from CFD to Modelica
  *
- *@return 0 if no error occurred
+ * @return 0 if no error occurred
  */
 int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
                  double *t1, double *y) {

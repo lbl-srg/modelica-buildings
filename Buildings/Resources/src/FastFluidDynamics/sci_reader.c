@@ -23,10 +23,10 @@
 	* Specific method for advection will be selected according to the variable
 	* type.
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int read_sci_max(PARA_DATA *para, REAL **var) {
   char string[400];
@@ -55,12 +55,12 @@ int read_sci_max(PARA_DATA *para, REAL **var) {
 	/*
 		* Read other information from input.cfd
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param var_type Type of variable
-		*@param BINDEX Pointer to boundary index
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param var_type Type of variable
+		* @param BINDEX Pointer to boundary index
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;
@@ -920,11 +920,11 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Read the file to identify the block cells in space
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param BINDEX Pointer to boundary index
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param BINDEX Pointer to boundary index
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;
@@ -983,10 +983,10 @@ int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Identify the properties of cells
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 void mark_cell(PARA_DATA *para, REAL **var) {
   int i,j, k;

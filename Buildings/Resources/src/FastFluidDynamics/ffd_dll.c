@@ -48,9 +48,9 @@ int ffd_dll(CosimulationData *cosim) {
 	/*
 		* Launch the FFD simulation through a thread
 		*
-		*@param p Pointer to the coupled simulation data
+		* @param p Pointer to the coupled simulation data
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 #ifdef _MSC_VER /*Windows*/
 DWORD WINAPI ffd_thread(void *p){

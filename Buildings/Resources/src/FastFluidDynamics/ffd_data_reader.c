@@ -20,10 +20,10 @@
 /*
 	* Read the previous FFD simulation data in a format of standard output
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int read_ffd_data(PARA_DATA *para, REAL **var) {
   int i,j, k;

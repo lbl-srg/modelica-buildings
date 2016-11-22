@@ -76,55 +76,55 @@
 /*
 	* FFD solver
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param BINDEX Pointer to boundary index
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX Pointer to boundary index
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the temperature
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param BINDEX Pointer to boundary index
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX Pointer to boundary index
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int temp_step(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the contaminant concentration
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param BINDEX Pointer to boundary index
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX Pointer to boundary index
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int den_step(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the velocity
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param BINDEX Pointer to boundary index
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX Pointer to boundary index
 	*
-	*@return 0 if no error occurred
+	* @return 0 if no error occurred
 	*/
 int vel_step(PARA_DATA *para, REAL **var,int **BINDEX);
 
 /*
 	* Solver for equations
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param var_type Variable type
-	*@param Pointer to variable
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param var_type Variable type
+	* @param Pointer to variable
 	*
-	*@return 0 if not error occurred
+	* @return 0 if not error occurred
 	*/
 int equ_solver(PARA_DATA *para, REAL **var, int Type, REAL *x);

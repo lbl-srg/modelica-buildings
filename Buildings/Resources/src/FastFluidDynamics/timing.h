@@ -31,8 +31,8 @@
 /*
 	* Calculate the simulation time and time ratio
 	*
-	*@param para Pointer to FFD parameters
+	* @param para Pointer to FFD parameters
 	*
-	*@return No return needed
+	* @return No return needed
 	*/
 void timing(PARA_DATA *para);

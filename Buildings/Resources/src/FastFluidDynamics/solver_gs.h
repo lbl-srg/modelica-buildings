@@ -37,24 +37,24 @@
 /*
 	* Gauss-Seidel solver for pressure
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param Type Type of variable
-	*@param x Pointer to variable
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param Type Type of variable
+	* @param x Pointer to variable
 	*
-	*@return Residual
+	* @return Residual
 	*/
 REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x);
 
 /*
 	* Gauss-Seidel solver
 	*
-	*@param para Pointer to FFD parameters
-	*@param var Pointer to FFD simulation variables
-	*@param flag Pointer to the cell property flag
-	*@param x Pointer to variable
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param flag Pointer to the cell property flag
+	* @param x Pointer to variable
 	*
-	*@return Residual
+	* @return Residual
 	*/
 REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flagp, REAL *x);
 

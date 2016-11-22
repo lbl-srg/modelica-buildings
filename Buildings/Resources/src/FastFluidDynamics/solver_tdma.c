@@ -20,12 +20,12 @@
 	/*
 		* TDMA solver for 3D
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param type Type of variable
-		*@param psi Pointer to variable
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param type Type of variable
+		* @param psi Pointer to variable
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
   int imax = para->geom->imax;
@@ -81,12 +81,12 @@ int TDMA_3D(PARA_DATA *para, REAL **var, int type, REAL *psi) {
 	/*
 		* TDMA solver for XY-plane
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param psi Pointer to variable
-		*@param k K-index of the plane
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param psi Pointer to variable
+		* @param k K-index of the plane
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -158,12 +158,12 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
 	/*
 		* TDMA solver for YZ-plane
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param psi Pointer to variable
-		*@param i I-index of the plane
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param psi Pointer to variable
+		* @param i I-index of the plane
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
 {
@@ -238,12 +238,12 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
 	/*
 		* TDMA solver for ZX-plane
 		*
-		*@param para Pointer to FFD parameters
-		*@param var Pointer to FFD simulation variables
-		*@param psi Pointer to variable
-		*@param j J-index of the plane
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param psi Pointer to variable
+		* @param j J-index of the plane
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 {
@@ -318,14 +318,14 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
 	/*
 		* TDMA solver for 1D array
 		*
-		*@param ap Pointer to coefficient for center
-		*@param ae Pointer to coefficient for east
-		*@param aw Pointer to coefficient for west
-		*@param b Pointer to b
-		*@param psi Pointer to variable
-		*@param LENGTH Length of the array
+		* @param ap Pointer to coefficient for center
+		* @param ae Pointer to coefficient for east
+		* @param aw Pointer to coefficient for west
+		* @param b Pointer to b
+		* @param psi Pointer to variable
+		* @param LENGTH Length of the array
 		*
-		*@return 0 if no error occurred
+		* @return 0 if no error occurred
 		*/
 int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
              int LENGTH) {

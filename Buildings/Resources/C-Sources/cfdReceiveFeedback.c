@@ -16,7 +16,7 @@
 /*
  * Receive the feedback from CFD about the stop command
  *
- *@return 0 if no error occurred
+ * @return 0 if no error occurred
  */
 int cfdReceiveFeedback( ) {
   size_t i = 0, imax = 10000;
