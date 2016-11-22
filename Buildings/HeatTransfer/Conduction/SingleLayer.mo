@@ -149,7 +149,7 @@ equation
     for i in 1:nSta-1 loop
        // Q_flow[i+1] is heat flowing from (i) to (i+1)
        // because T[1] has Q_flow[1] and Q_flow[2] acting on it.
-       T[i]-T[i+1] = Q_flow[i+1]*RNod[i];
+       T[i]-T[i+1] = Q_flow[i+1]*RNod[i+1];
     end for;
 
     // Steady-state heat balance
