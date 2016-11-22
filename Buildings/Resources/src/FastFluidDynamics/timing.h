@@ -1,17 +1,17 @@
 /*
 	*
-	* \file   time.h
+	* @file   time.h
 	*
-	* \brief  Subroutines for timing
+	* @brief  Subroutines for timing
 	*
-	* \author Mingang Jin, Qingyan Chen
+	* @author Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*         Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #ifndef _TIMING_H
@@ -31,8 +31,8 @@
 /*
 	* Calculate the simulation time and time ratio
 	*
-	*\param para Pointer to FFD parameters
+	*@param para Pointer to FFD parameters
 	*
-	*\return No return needed
+	*@return No return needed
 	*/
 void timing(PARA_DATA *para);

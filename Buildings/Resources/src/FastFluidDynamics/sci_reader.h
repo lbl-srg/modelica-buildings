@@ -1,17 +1,17 @@
 /*
 	*
-	* \file   sci_reader.h
+	* @file   sci_reader.h
 	*
-	* \brief  Read mesh and simulation data defined by SCI
+	* @brief  Read mesh and simulation data defined by SCI
 	*
-	* \author Mingang Jin, Qingyan Chen
+	* @author Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*         Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 
@@ -42,43 +42,43 @@ FILE *file_params;
 * Specific method for advection will be selected according to the variable
 * type.
 *
-*\param para Pointer to FFD parameters
-*\param var Pointer to FFD simulation variables
+*@param para Pointer to FFD parameters
+*@param var Pointer to FFD simulation variables
 *
-*\return 0 if no error occurred
+*@return 0 if no error occurred
 */
 int read_sci_max(PARA_DATA *para, REAL **var);
 
 /*
 	* Read other information from input.cfd
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param var_type Type of variable
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param var_type Type of variable
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Read the file to identify the block cells in space
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int read_sci_zeroone(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Identify the properties of cells
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 void mark_cell(PARA_DATA *para, REAL **var);
 

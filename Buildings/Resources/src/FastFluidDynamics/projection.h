@@ -1,17 +1,17 @@
 /*
 	*
-	* \file   projection.h
+	* @file   projection.h
 	*
-	* \brief  Solver for projection step
+	* @brief  Solver for projection step
 	*
-	* \author Mingang Jin, Qingyan Chen
+	* @author Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*         Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #ifndef _PROJECTION_H
@@ -46,10 +46,10 @@
 /*
 	* Project the velocity
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int project(PARA_DATA *para, REAL **var, int **BINDEX);

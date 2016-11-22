@@ -1,17 +1,17 @@
 /*
 	*
-	* \file   data_structure.h
+	* @file   data_structure.h
 	*
-	* \brief  Define the data used the FFD
+	* @brief  Define the data used the FFD
 	*
-	* \author Wangda Zuo
+	* @author Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*         Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #ifndef _DATA_STRUCTURE_H

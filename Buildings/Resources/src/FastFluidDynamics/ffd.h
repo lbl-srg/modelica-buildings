@@ -1,17 +1,17 @@
 /*
 	*
-	* \file ffd.h
+	* @file ffd.h
 	*
-	* \brief Main routine of Fast Fluid Dynamics
+	* @brief Main routine of Fast Fluid Dynamics
 	*
-	* \author Wangda Zuo
+	* @author Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*         Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #ifndef _FFD_H
@@ -56,36 +56,36 @@
 /*
 	* Assign the parameter for coupled simulation
 	*
-	*\para cosim Pointer to the coupled simulation parameters
+	*@para cosim Pointer to the coupled simulation parameters
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int ffd_cosimulation(CosimulationData *cosim);
 
 /*
 	* Main routine of FFD
 	*
-	*\para coupled simulation Integer to identify the simulation type
+	*@para coupled simulation Integer to identify the simulation type
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int ffd(int cosimulation);
 
 /*
 	* Allocate memory for variables
 	*
-	*\param para Pointer to FFD parameters
+	*@param para Pointer to FFD parameters
 	*
-	*\return No return needed
+	*@return No return needed
 	*/
 int allocate_memory (PARA_DATA *para);
 
 /*
 	* Write error message to Modelica
 	*
-	*\para msg Pointer to message to be written.
+	*@para msg Pointer to message to be written.
 	*
-	*\return no return
+	*@return no return
 	*/
 void modelicaError(char *msg);
 

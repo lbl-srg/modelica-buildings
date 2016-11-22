@@ -1,14 +1,14 @@
 /*
 	*
-	* \file   modelica_ffd_common.h
+	* @file   modelica_ffd_common.h
 	*
-	* \brief  Define commonly used data for Modelica-FFD coupled simulation
+	* @brief  Define commonly used data for Modelica-FFD coupled simulation
 	*
-	* \author Wangda Zuo
+	* @author Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #define REAL double

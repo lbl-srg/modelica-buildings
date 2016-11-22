@@ -1,14 +1,14 @@
 /*
 	*
-	* \file   parameter_reader.c
+	* @file   parameter_reader.c
 	*
-	* \brief  Read the FFD parameter file
+	* @brief  Read the FFD parameter file
 	*
-	* \author Wangda Zuo
+	* @author Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 
@@ -29,18 +29,18 @@ FILE *file_log;
 /*
 	* Assign the FFD parameters
 	*
-	*\param para Pointer to FFD parameters
-	*\param string Pointer to data read from the parameter file
+	*@param para Pointer to FFD parameters
+	*@param string Pointer to data read from the parameter file
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int assign_parameter(PARA_DATA *para, char *string);
 
 /*
 	* Read the FFD parameter file input.ffd
 	*
-	*\param para Pointer to FFD parameters
+	*@param para Pointer to FFD parameters
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int read_parameter(PARA_DATA *para);

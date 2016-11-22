@@ -1,17 +1,17 @@
 /*
 	*
-	* \file   solver.h
+	* @file   solver.h
 	*
-	* \brief  Solver of FFD
+	* @brief  Solver of FFD
 	*
-	* \author Mingang Jin, Qingyan Chen
+	* @author Mingang Jin, Qingyan Chen
 	*         Purdue University
 	*         Jin55@purdue.edu, YanChen@purdue.edu
 	*         Wangda Zuo
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	*/
 #ifndef _SOLVER_H
@@ -76,55 +76,55 @@
 /*
 	* FFD solver
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int FFD_solver(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the temperature
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int temp_step(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the contaminant concentration
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int den_step(PARA_DATA *para, REAL **var, int **BINDEX);
 
 /*
 	* Calculate the velocity
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int vel_step(PARA_DATA *para, REAL **var,int **BINDEX);
 
 /*
 	* Solver for equations
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param var_type Variable type
-	*\param Pointer to variable
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param var_type Variable type
+	*@param Pointer to variable
 	*
-	*\return 0 if not error occurred
+	*@return 0 if not error occurred
 	*/
 int equ_solver(PARA_DATA *para, REAL **var, int Type, REAL *x);

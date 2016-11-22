@@ -20,11 +20,11 @@
 /*
 	* Project the velocity
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX Pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX Pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int project(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k;

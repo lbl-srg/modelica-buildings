@@ -1,14 +1,14 @@
 /*
 	*
-	* \file   ffd_dll.h
+	* @file   ffd_dll.h
 	*
-	* \brief  functions to call ffd code as a dll
+	* @brief  functions to call ffd code as a dll
 	*
-	* \author Wangda Zuo, Dan Li
+	* @author Wangda Zuo, Dan Li
 	*         University of Miami
 	*         W.Zuo@miami.edu
 	*
-	* \date   8/3/2013
+	* @date   8/3/2013
 	*
 	* This file provides functions as entry for the coupled simulation
 	*
@@ -41,9 +41,9 @@ int ffd_dll(CosimulationData *cosim);
 /*
 	* Launch the FFD simulation through a thread
 	*
-	*\param p Pointer to the coupled simulation data
+	*@param p Pointer to the coupled simulation data
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 #ifdef _MSC_VER //Windows
 DWORD WINAPI ffd_thread(void *p);

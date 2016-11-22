@@ -20,11 +20,11 @@
 /*
 	* Read the coupled simulation parameters defined by Modelica
 	*
-	*\param para Pointer to FFD parameters
-	*\param var Pointer to FFD simulation variables
-	*\param BINDEX pointer to boundary index
+	*@param para Pointer to FFD parameters
+	*@param var Pointer to FFD simulation variables
+	*@param BINDEX pointer to boundary index
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i;
@@ -209,11 +209,11 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Read the data from Modelica
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to FFD simulation variables
-		*\param BINDEX pointer to boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to FFD simulation variables
+		*@param BINDEX pointer to boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i;
@@ -309,10 +309,10 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Write the FFD data for Modelica
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to FFD simulation variables
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to FFD simulation variables
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int write_cosim_data(PARA_DATA *para, REAL **var) {
   int i, j, id;
@@ -468,9 +468,9 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
 	/*
 		* Compare the names of boundaries and store the relationship
 		*
-		*\param para Pointer to FFD parameters
+		*@param para Pointer to FFD parameters
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int compare_boundary_names(PARA_DATA *para) {
   int i, j, flag;
@@ -581,11 +581,11 @@ int compare_boundary_names(PARA_DATA *para) {
 	/*
 		* Compare the area of boundaries
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to the FFD simulation variables
-		*\param BINDEX Pointer to boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to the FFD simulation variables
+		*@param BINDEX Pointer to boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int compare_boundary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j;
@@ -617,11 +617,11 @@ int compare_boundary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Assign the Modelica solid surface thermal boundary condition data to FFD
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to the FFD simulation variables
-		*\param BINDEX Pointer to boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to the FFD simulation variables
+		*@param BINDEX Pointer to boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k, it, id, modelicaId;
@@ -745,11 +745,11 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
 		* inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the
 		* var[FLAGP][IX(i,j,k)] to apply the change of boundary conditions.
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to the FFD simulation variables
-		*\param BINDEX Pointer to boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to the FFD simulation variables
+		*@param BINDEX Pointer to boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k, id, it, Xid, Cid;
@@ -851,11 +851,11 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
 		*   - T:      sum(T*dA)
 		*   - Q_dot:  sum(q_dot*dA)
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to FFD simulation variables
-		*\param BINDEX Pointer to the boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to FFD simulation variables
+		*@param BINDEX Pointer to the boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -987,10 +987,10 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
 	/*
 		* Set sensor data
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to FFD data
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to FFD data
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int set_sensor_data(PARA_DATA *para, REAL **var) {
   int imax = para->geom->imax, jmax = para->geom->jmax,

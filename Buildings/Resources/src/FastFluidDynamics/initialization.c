@@ -20,9 +20,9 @@
 /*
 	* Initialize the parameters
 	*
-	*\param para Pointer to FFD parameters
+	*@param para Pointer to FFD parameters
 	*
-	*\return 0 if no error occurred
+	*@return 0 if no error occurred
 	*/
 int initialize(PARA_DATA *para) {
   // Define the default value for parameter
@@ -59,9 +59,9 @@ int initialize(PARA_DATA *para) {
 	/*
 		* Set the default value for parameters
 		*
-		*\param para Pointer to FFD parameters
+		*@param para Pointer to FFD parameters
 		*
-		*\return No return needed
+		*@return No return needed
 		*/
 void set_default_parameter(PARA_DATA *para) {
   para->mytime->t  = 0.0;
@@ -110,11 +110,11 @@ void set_default_parameter(PARA_DATA *para) {
 	/*
 		* Set default initial values for simulation variables
 		*
-		*\param para Pointer to FFD parameters
-		*\param var Pointer to FFD simulation variables
-		*\param BINDEX Pointer to boundary index
+		*@param para Pointer to FFD parameters
+		*@param var Pointer to FFD simulation variables
+		*@param BINDEX Pointer to boundary index
 		*
-		*\return 0 if no error occurred
+		*@return 0 if no error occurred
 		*/
 int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j;
