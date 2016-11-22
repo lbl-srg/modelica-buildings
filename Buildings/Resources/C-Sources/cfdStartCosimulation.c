@@ -18,25 +18,25 @@
  *
  * Allocate memory for the data exchange and launch CFD simulation
  *
- *\param cfdFilNam Name of the input file for the CFD simulation
- *\param name Pointer to the names of surfaces and fluid ports
- *\param A Pointer to the area of surfaces in the same order of name
- *\param til Pointer to the tilt of surface in the same order of name
- *\param bouCon Pointer to the type of thermal boundary condition in the
+ *@param cfdFilNam Name of the input file for the CFD simulation
+ *@param name Pointer to the names of surfaces and fluid ports
+ *@param A Pointer to the area of surfaces in the same order of name
+ *@param til Pointer to the tilt of surface in the same order of name
+ *@param bouCon Pointer to the type of thermal boundary condition in the
  *       same order of name
- *\param nPorts Number of fluid ports
- *\param portName Pointer to the name of fluid ports
- *\param haveSensor Flag: 1->have sensor; 0->No sensor
- *\param sensorName Pointer to the names of the sensors used in CFD
- *\param haveShade Flag: 1->have shade; 0->no shade
- *\param nSur Number of surfaces
- *\param nSen Number of sensors
- *\param nConExtWin Number of exterior construction with windows
- *\param nXi Number of species
- *\param nC Number of trace substances
- *\param rho_start Density at initial state
+ *@param nPorts Number of fluid ports
+ *@param portName Pointer to the name of fluid ports
+ *@param haveSensor Flag: 1->have sensor; 0->No sensor
+ *@param sensorName Pointer to the names of the sensors used in CFD
+ *@param haveShade Flag: 1->have shade; 0->no shade
+ *@param nSur Number of surfaces
+ *@param nSen Number of sensors
+ *@param nConExtWin Number of exterior construction with windows
+ *@param nXi Number of species
+ *@param nC Number of trace substances
+ *@param rho_start Density at initial state
  *
- *\return 0 if no error occurred
+ *@return 0 if no error occurred
  */
 int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,

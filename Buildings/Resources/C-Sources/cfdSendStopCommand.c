@@ -16,7 +16,7 @@
 /*
  * Send a stop command to terminate the CFD simulation
  *
- *\return No return needed
+ *@return No return needed
  */
 void cfdSendStopCommand( ) {
   cosim->para->flag = 0;

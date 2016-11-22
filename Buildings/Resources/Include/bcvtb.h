@@ -1,31 +1,31 @@
 /*
- * \file   bcvtb.h
+ * @file   bcvtb.h
  *
- * \brief  Methods for interfacing Modelica as
+ * @brief  Methods for interfacing Modelica as
  *         a client to the BCVTB
  *         using BSD sockets.
  *
- * \author Michael Wetter,
+ * @author Michael Wetter,
  *         Simulation Research Group,
  *         LBNL,
  *         MWetter@lbl.gov
  *
- * \date   2009-05-04
+ * @date   2009-05-04
  *
  * This file provides methods that allow a Modelica
  * simulation environment to
  * establish a socket connection. The methods that
  * need to be called are
- * \c establishModelicaClient() at the start of the
+ * @c establishModelicaClient() at the start of the
  * simulation, and then \c exchangeModelicaClient
  * in each time step. After the simulation,
- * \c closeModelicaClient should be called to close the
+ * @c closeModelicaClient should be called to close the
  * socket.
  *
  *
- * \sa establishModelicaClient
- * \sa exchangeModelicaClient
- * \sa closeModelicaClient
+ * @sa establishModelicaClient
+ * @sa exchangeModelicaClient
+ * @sa closeModelicaClient
  *
  */
 #ifndef _BCVTB_MODELICA_H_
@@ -38,8 +38,8 @@
  *
  * This method establishes the client socket.
  *
- * \param docname Name of xml file that contains the socket information.
- * \return The socket file descripter, or a negative value if an error occured.
+ * @param docname Name of xml file that contains the socket information.
+ * @return The socket file descripter, or a negative value if an error occured.
  */
 int establishModelicaClient(const char *const docname);
 
@@ -47,25 +47,25 @@ int establishModelicaClient(const char *const docname);
  * Exchanges data with the socket.
  *
  * Clients can call this method to exchange data through the socket.
- *\param sockfd Socket file descripter
- *\param flaWri Communication flag to write to the socket stream.
- *\param flaRea Communication flag read from the socket stream.
- *\param simTimWri Current simulation time in seconds to write.
- *\param dblValWri Double values to write.
- *\param nDblWri Number of double values to write.
- *\param intValWri Integer values to write.
- *\param nIntWri Number of integer values to write.
- *\param boolValWri Boolean values to write.
- *\param nBooWri Number of boolean values to write.
- *\param simTimRea Current simulation time in seconds read from socket.
- *\param dblValRea Double values read from socket.
- *\param nDblRea Number of double values to read.
- *\param intValRea Integer values read from socket.
- *\param nIntRea Number of integer values to read.
- *\param booValRea Boolean values read from socket.
- *\param nBooRea Number of boolean values to read.
- *\sa int establishclientsocket(uint16_t *portNo)
- *\return The exit value of \c send or \c read, or a negative value if an error occured.
+ *@param sockfd Socket file descripter
+ *@param flaWri Communication flag to write to the socket stream.
+ *@param flaRea Communication flag read from the socket stream.
+ *@param simTimWri Current simulation time in seconds to write.
+ *@param dblValWri Double values to write.
+ *@param nDblWri Number of double values to write.
+ *@param intValWri Integer values to write.
+ *@param nIntWri Number of integer values to write.
+ *@param boolValWri Boolean values to write.
+ *@param nBooWri Number of boolean values to write.
+ *@param simTimRea Current simulation time in seconds read from socket.
+ *@param dblValRea Double values read from socket.
+ *@param nDblRea Number of double values to read.
+ *@param intValRea Integer values read from socket.
+ *@param nIntRea Number of integer values to read.
+ *@param booValRea Boolean values read from socket.
+ *@param nBooRea Number of boolean values to read.
+ *@sa int establishclientsocket(uint16_t *portNo)
+ *@return The exit value of \c send or \c read, or a negative value if an error occured.
  */
 int exchangeModelicaClient(int sockfd,
 			   int flaWri, int *flaRea,
@@ -76,8 +76,8 @@ int exchangeModelicaClient(int sockfd,
 /*
  * Closes the inter process communication socket.
  *
- *\param sockfd Socket file descripter.
- *\return The return value of the \c close function.
+ *@param sockfd Socket file descripter.
+ *@return The return value of the \c close function.
  */
 int closeModelicaClient(int sockfd);
 
