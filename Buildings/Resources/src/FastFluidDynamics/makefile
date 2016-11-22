@@ -15,8 +15,8 @@ BINDIR = ../../Library/linux64
 CC = gcc
 
 #Note that Dymola use 32bit compiler, so generated executable only support 32bit loaded library
-CC_FLAGS_32 = -Wall -lm -m32
-CC_FLAGS_64 = -Wall -lm -m64 -g -std=c89 -pedantic -msse2 -mfpmath=sse
+CC_FLAGS_32 = -Wall -lm -m32 -std=c89 -pedantic -msse2 -mfpmath=sse
+CC_FLAGS_64 = -Wall -lm -m64 -std=c89 -pedantic -msse2 -mfpmath=sse
 
 SRCS = advection.c boundary.c chen_zero_equ_model.c cosimulation.c \
        data_writer.c diffusion.c ffd.c ffd_data_reader.c ffd_dll.c geometry.c initialization.c \
