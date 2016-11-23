@@ -20,7 +20,7 @@ int main(int nArgs, char ** args){
   size_t nIntWri = 1;
   size_t nIntRea = 2;
   int intValRea[2];
-  //  char** strValWri = NULL;
+  /*  char** strValWri = NULL;*/
   const char * strValWri[] = {"aaa"};
   size_t nStrWri = 0;
 

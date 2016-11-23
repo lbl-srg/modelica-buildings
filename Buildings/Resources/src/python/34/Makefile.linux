@@ -12,10 +12,10 @@ BINDIR = ../../../Library/linux$(ARCH)
 
 #######################################################
 ## Compilation flags
-CC = cc
+CC = gcc
 
-CC_FLAGS_32 = -Wall -I/usr/include/python3.4 -lpython3.4 -lm -m32
-CC_FLAGS_64 = -Wall -I/usr/include/python3.4 -lpython3.4 -lm -m64
+CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I/usr/include/python3.4 -lpython3.4 -lm -m32 
+CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I/usr/include/python3.4 -lpython3.4 -lm -m64
 
 
 
