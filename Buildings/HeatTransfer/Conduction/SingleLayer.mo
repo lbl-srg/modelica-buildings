@@ -74,6 +74,8 @@ protected
    (if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
      if (nSta==2) then
        {1/(2*(nSta-1)) for i in 1:nSta}
+     elseif (nSta==3) then
+       {1/(if i==1 or i==nSta then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
      else
        {1/(if i==1 or i==nSta or i==2 or i==nSta-1 then (2*(nSta-2)) else (nSta-2)) for i in 1:nSta}
      elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
@@ -371,6 +373,10 @@ between the boundary condition and the surface of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 22, 2016, by Thierry S. Nouidui:<br/>
+Fix bug in mass balance.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Added parameter <code>nSta2</code> to avoid translation error
