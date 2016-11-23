@@ -738,8 +738,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Redeclared <code>Medium2</code> to force it to be a subclass
                           of <code>Modelica.Media.Interfaces.PartialCondensingGases</code>.<br/>
-                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issu"
-               + "es/544\">
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/544\">
                           issue 544</a>.
        </td>
    </tr>
