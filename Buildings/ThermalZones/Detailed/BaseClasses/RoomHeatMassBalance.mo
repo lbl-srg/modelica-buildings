@@ -38,7 +38,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.Construction conExt[NConExt](
     A=datConExt.A,
     til=datConExt.til,
-    final layers={datConExt[i].layers for i in 1:NConExt},
+    final layers=datConExt.layers,
     steadyStateInitial=datConExt.steadyStateInitial,
     T_a_start=datConExt.T_a_start,
     T_b_start=datConExt.T_b_start) if haveConExt
@@ -47,7 +47,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
     final A=datConExtWin.A,
     final til=datConExtWin.til,
-    final layers={datConExtWin[i].layers for i in 1:NConExtWin},
+    final layers=datConExtWin.layers,
     final steadyStateInitial=datConExtWin.steadyStateInitial,
     final T_a_start=datConExtWin.T_a_start,
     final T_b_start=datConExtWin.T_b_start,
@@ -62,7 +62,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.Construction conPar[NConPar](
     A=datConPar.A,
     til=datConPar.til,
-    final layers={datConPar[i].layers for i in 1:NConPar},
+    final layers=datConPar.layers,
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
     T_b_start=datConPar.T_b_start) if haveConPar
@@ -74,7 +74,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
     til=datConBou.til,
-    final layers={datConBou[i].layers for i in 1:NConBou},
+    final layers=datConBou.layers,
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
     T_b_start=datConBou.T_b_start) if haveConBou
@@ -845,6 +845,12 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+November 21, 2016, by Thierry S. Nouidui:<br/>
+Removed <code>for loop</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola 
+which will be addressed in future releases.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Added optional capacity at the room-facing surface

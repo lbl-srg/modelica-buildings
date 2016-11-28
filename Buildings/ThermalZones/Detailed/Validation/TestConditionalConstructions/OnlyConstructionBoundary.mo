@@ -7,7 +7,7 @@ model OnlyConstructionBoundary "Test model for room model"
    nConPar=0,
    nConBou=1,
    nSurBou=0,
-   roo(
+   roo(conBou(each placeCapacityAtSurf_a=false, each placeCapacityAtSurf_b=false),
     datConBou(layers={matLayPar}, each A=12, each til=Buildings.Types.Tilt.Floor,
     each azi=Buildings.Types.Azimuth.W)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
@@ -32,5 +32,12 @@ This model tests
 for the case of having only one construction whose other surface boundary condition
 is exposed by the room model.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Set <code>placeCapacityAtSurf_a</code> 
+and <code>placeCapacityAtSurf_b</code> to false
+</li>
+</ul>
 </html>"));
 end OnlyConstructionBoundary;
