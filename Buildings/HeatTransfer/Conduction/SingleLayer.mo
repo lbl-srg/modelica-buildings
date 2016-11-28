@@ -22,8 +22,6 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
     "Definition of specific internal energy";
 
-  // fixme: the parameter below is for testing only and may be removed
-  //        for the production release
   parameter Boolean placeCapacityAtSurf_a=false
     "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
@@ -317,7 +315,7 @@ where
 <h4>Spatial discretization</h4>
 <p>
 To spatially discretize the heat equation, the construction is
-divided into compartments or control volumes with <code>material.nSta &ge; 1</code> state variables.
+divided into compartments (control volumes) with <code>material.nSta &ge; 1</code> state variables.
 Each control volume has the same material properties.
 The state variables are connected to each other through thermal resistances.
 If <code>placeCapacityAtSurf_a = true</code>, a heat capacity is placed
