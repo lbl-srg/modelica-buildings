@@ -1,0 +1,6 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '0'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+sen.I=[3., 3.]
+sen1.I=[6., 6.]
+time=[0., 1.]

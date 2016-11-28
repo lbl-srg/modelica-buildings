@@ -1,0 +1,8 @@
+last-generated=2015-05-08
+statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '1', 'linear': '2'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+grid.P.real=[160., 160.]
+grid.P.apparent=[160., 160.]
+time=[0., 1.]
+resistor.S[1]=[-144., -144.]
+resistor.S[2]=[0., 0.]

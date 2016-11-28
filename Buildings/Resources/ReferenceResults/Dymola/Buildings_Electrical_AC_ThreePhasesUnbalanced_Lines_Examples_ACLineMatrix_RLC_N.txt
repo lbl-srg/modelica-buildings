@@ -1,0 +1,8 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '8, 14, 14'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+Rline_1.terminal_n.phase[1].i[2]=[-5., -5.]
+Rline_1.terminal_n.phase[1].i[1]=[5., 5.]
+time=[0., 1.]
+Rline_2.terminal_n.phase[1].i[1]=[0., 0.]
+Rline_2.terminal_n.phase[1].i[2]=[10., 10.]

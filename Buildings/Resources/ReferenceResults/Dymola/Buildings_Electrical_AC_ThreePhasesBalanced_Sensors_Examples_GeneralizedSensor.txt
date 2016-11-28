@@ -1,0 +1,7 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+sen.I=[0.2604166567325592041, 0.2604166567325592041]
+time=[0., 1.]
+sen.V=[480., 480.]
+loa.S[2]=[75., 75.]
+loa.S[1]=[-100., -100.]

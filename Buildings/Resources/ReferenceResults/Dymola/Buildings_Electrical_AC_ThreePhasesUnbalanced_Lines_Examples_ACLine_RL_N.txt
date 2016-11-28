@@ -1,0 +1,12 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '6, 6, 6'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+load_sc_1.load1.v[1]=[0., 0.]
+load_sc_2.load1.v[2]=[-0., -0.]
+load_sc_2.load1.v[1]=[0., 0.]
+load_sc_1.load1.v[2]=[0., 0.]
+time=[0., 1.]
+load_sc_2.load1.i[2]=[-5., -5.]
+load_sc_1.load1.i[2]=[-5., -5.]
+load_sc_2.load1.i[1]=[5., 5.]
+load_sc_1.load1.i[1]=[5., 5.]

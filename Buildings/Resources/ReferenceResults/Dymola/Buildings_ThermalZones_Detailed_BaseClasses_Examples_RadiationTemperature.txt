@@ -1,0 +1,4 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+radTem.TRad=[292.168365478515625, 292.168365478515625]
+time=[0., 1.]

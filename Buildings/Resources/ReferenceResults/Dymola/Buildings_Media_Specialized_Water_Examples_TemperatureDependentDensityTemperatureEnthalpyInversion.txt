@@ -1,0 +1,5 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+T=[293.149993896484375, 293.149993896484375]
+time=[0., 1.]
+h=[83680., 83680.]

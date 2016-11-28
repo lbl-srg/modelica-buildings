@@ -1,0 +1,12 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '6, 6, 14, 6, 6, 14'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+Rline_1.terminal_n.phase[1].i[2]=[-5., -5.]
+Rline_1.terminal_n.phase[1].i[1]=[5., 5.]
+Rline_2a.terminal_n.phase[1].i[2]=[-5., -5.]
+Rline_2a.terminal_n.phase[1].i[1]=[5., 5.]
+time=[0., 1.]
+Rline_3a.terminal_n.phase[1].i[2]=[-2.5, -2.5]
+Rline_3a.terminal_n.phase[1].i[1]=[2.5, 2.5]
+Rline_3b.terminal_n.phase[1].i[1]=[2.5, 2.5]
+Rline_3b.terminal_n.phase[1].i[2]=[-2.5, -2.5]

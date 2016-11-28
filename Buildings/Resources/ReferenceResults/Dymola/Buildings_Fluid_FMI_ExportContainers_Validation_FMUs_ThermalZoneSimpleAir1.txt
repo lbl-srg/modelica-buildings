@@ -1,0 +1,70 @@
+last-generated=2016-06-30
+statistics-fmu-dependencies=
+{
+  "Outputs": {
+    "EventCounter": [], 
+    "fluPor[1].backward.T": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m"
+    ], 
+    "TOut": [], 
+    "fluPor[2].backward.T": [
+      "vol.dynBal.U", 
+      "vol.dynBal.m"
+    ], 
+    "CPUtime": []
+  }, 
+  "InitialUnknowns": {
+    "fluPor[2].backward.T": [
+      "vol.p_start", 
+      "vol.T_start"
+    ], 
+    "vol.dynBal.m": [
+      "vol.p_start", 
+      "vol.T_start"
+    ], 
+    "fluPor[1].backward.T": [
+      "vol.p_start", 
+      "vol.T_start"
+    ], 
+    "CPUtime": [], 
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow", 
+      "fluPor[2].m_flow"
+    ], 
+    "TOut": [
+      "TOutSou.k"
+    ], 
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.T", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.T", 
+      "theCon.G", 
+      "preHea.T_ref", 
+      "preHea.alpha", 
+      "vol.p_start", 
+      "vol.T_start", 
+      "TOutSou.k"
+    ], 
+    "EventCounter": [], 
+    "vol.dynBal.U": [
+      "vol.p_start", 
+      "vol.T_start"
+    ]
+  }, 
+  "Derivatives": {
+    "der(vol.dynBal.m)": [
+      "fluPor[1].m_flow", 
+      "fluPor[2].m_flow"
+    ], 
+    "der(vol.dynBal.U)": [
+      "fluPor[1].m_flow", 
+      "fluPor[1].forward.T", 
+      "fluPor[2].m_flow", 
+      "fluPor[2].forward.T", 
+      "vol.dynBal.U", 
+      "vol.dynBal.m"
+    ]
+  }
+}

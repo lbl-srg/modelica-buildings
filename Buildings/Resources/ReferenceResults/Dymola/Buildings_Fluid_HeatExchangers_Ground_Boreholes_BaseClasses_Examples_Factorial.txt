@@ -1,0 +1,8 @@
+last-generated=2015-05-08
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+y[3]=[6., 6.]
+y[4]=[24., 24.]
+y[5]=[120., 120.]
+time=[0., 1.]
+y[1]=[1., 1.]
+y[2]=[2., 2.]

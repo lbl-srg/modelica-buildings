@@ -1,0 +1,10 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '2, 2, 2, 2, 2, 2, 2, 2'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+sen_D.S[2]=[345600., 345600.]
+sen_Y.S[1]=[115200., 115200.]
+sen_Y.S[2]=[115200., 115200.]
+sen_D.S[1]=[345600., 345600.]
+time=[0., 1.]
+errorY=[0.00000000000727595761, 0.00000000000727595761]
+errorD=[0.00000000010493535207, 0.00000000010493535207]

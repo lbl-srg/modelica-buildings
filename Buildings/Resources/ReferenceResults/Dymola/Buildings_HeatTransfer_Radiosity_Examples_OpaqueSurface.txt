@@ -1,0 +1,7 @@
+last-generated=2015-05-08
+statistics-initialization={'linear': '0'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+bod2.heatPort.T=[303.149993896484375, 303.149993896484375]
+bod1.heatPort.T=[293.149993896484375, 293.149993896484375]
+time=[0., 1.]
+bod1.heatPort.Q_flow=[-10.61139774322509765625, -10.61139774322509765625]
