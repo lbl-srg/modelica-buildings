@@ -1,0 +1,13 @@
+last-generated=2016-11-28
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+com.pDis=[3052855., 3052855.]
+com.pSuc=[399789.6875, 399789.6875]
+time=[0., 100.]
+heaFloCon.Q_flow=[6351.7861328125, 6351.7861328125]
+heaFloEva.Q_flow=[961.2391357421875, 961.2391357421875]
+com.P=[5390.546875, 5390.546875]
