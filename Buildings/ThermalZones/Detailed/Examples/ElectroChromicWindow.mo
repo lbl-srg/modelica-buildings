@@ -181,13 +181,103 @@ model ElectroChromicWindow
     annotation (Placement(transformation(extent={{-96,-26},{-76,-6}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-96,-66},{-76,-46}})));
+  block Infiltration
+    extends Modelica.Blocks.Icons.Block;
 
-  Controls.ElectrochromicWindow conWin "Controller for windows"
+    parameter Modelica.SIunits.VolumeFlowRate V_flow
+      "Infiltration flow rate at current outdoor air density";
+    parameter Real A "Constant term coefficient";
+    parameter Real B(unit="1/K") "Temperature term coefficient";
+    parameter Real C(unit="s/m") "Velocity term coefficient";
+
+    BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+          transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
+             {{-120,-20},{-80,20}})));
+    Modelica.Blocks.Interfaces.RealOutput m_flow "Infiltration mass flow rate"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+          iconTransformation(extent={{100,-10},{120,10}})));
+
+    Modelica.Blocks.Interfaces.RealInput TRoo(unit="K") "Room air temperature"
+      annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
+    Modelica.Blocks.Math.Add dT(k2=-1) "Temperature difference"
+      annotation (Placement(transformation(extent={{-60,-72},{-40,-52}})));
+    Modelica.Blocks.Math.Product m "Mass flow rate"
+      annotation (Placement(transformation(extent={{-8,40},{12,60}})));
+    Modelica.Blocks.Sources.Constant V(k=V_flow) "Volume flow rate"
+      annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    Utilities.Psychrometrics.Density_pTX rho "Density"
+      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    Utilities.Psychrometrics.X_pTphi x_pTphiValidation( use_p_in=true)
+      annotation (Placement(transformation(extent={{-72,-42},{-52,-22}})));
+    Modelica.Blocks.Math.Abs dTAbs "Temperature difference"
+      annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
+    Modelica.Blocks.Sources.Constant ACoef(k=A) "Constant coefficient"
+      annotation (Placement(transformation(extent={{12,-40},{32,-20}})));
+    Modelica.Blocks.Math.Gain gainB(k=B)
+      "Gain for temperature dependent effect"
+      annotation (Placement(transformation(extent={{12,-72},{32,-52}})));
+    Modelica.Blocks.Math.Gain gainC(k=C) "Gain for wind dependent effect"
+      annotation (Placement(transformation(extent={{12,-100},{32,-80}})));
+    Modelica.Blocks.Math.Add3 add3_1
+      annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    Modelica.Blocks.Math.Product mAct_flow "Mass flow rate"
+      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    Modelica.Blocks.Math.Gain ter(k=(270/10)^0.14*((3.35/2)/370)^0.22)
+      "Wind speed correction for terrain and zone height"
+      annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  equation
+    connect(m.u1, V.y) annotation (Line(points={{-10,56},{-50,56},{-50,80},{-59,
+            80}}, color={0,0,127}));
+    connect(rho.T, weaBus.TDryBul) annotation (Line(points={{-41,18},{-80,18},{
+            -80,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.p_in, weaBus.pAtm) annotation (Line(points={{-74,-26},{-84,
+            -26},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.T, weaBus.TDryBul) annotation (Line(points={{-74,-32},{-84,
+            -32},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(x_pTphi.phi, weaBus.relHum) annotation (Line(points={{-74,-38},{-84,
+            -38},{-84,0},{-100,0}}, color={0,0,127}));
+    connect(rho.X_w, x_pTphi.X[1]) annotation (Line(points={{-41,10},{-48,10},{
+            -48,-32},{-51,-32}}, color={0,0,127}));
+    connect(rho.p, weaBus.pAtm) annotation (Line(points={{-41,2},{-68,2},{-68,0},
+            {-100,0}}, color={0,0,127}));
+    connect(rho.d, m.u2) annotation (Line(points={{-19,10},{-14,10},{-14,44},{
+            -10,44}}, color={0,0,127}));
+    connect(dT.u1, TRoo) annotation (Line(points={{-62,-56},{-62,-56},{-82,-56},
+            {-84,-56},{-84,60},{-120,60}}, color={0,0,127}));
+    connect(dT.u2, weaBus.TDryBul) annotation (Line(points={{-62,-68},{-84,-68},
+            {-84,0},{-100,0}}, color={0,0,127}));
+    connect(dT.y, dTAbs.u) annotation (Line(points={{-39,-62},{-35.5,-62},{-32,
+            -62}}, color={0,0,127}));
+    connect(gainB.u, dTAbs.y)
+      annotation (Line(points={{10,-62},{-9,-62}}, color={0,0,127}));
+    connect(add3_1.u1, ACoef.y) annotation (Line(points={{58,-52},{46,-52},{46,
+            -30},{33,-30}}, color={0,0,127}));
+    connect(add3_1.u2, gainB.y) annotation (Line(points={{58,-60},{46,-60},{46,
+            -62},{33,-62}}, color={0,0,127}));
+    connect(add3_1.u3, gainC.y) annotation (Line(points={{58,-68},{46,-68},{46,
+            -90},{33,-90}}, color={0,0,127}));
+    connect(mAct_flow.y, m_flow)
+      annotation (Line(points={{81,0},{81,0},{110,0}}, color={0,0,127}));
+    connect(add3_1.y, mAct_flow.u2) annotation (Line(points={{81,-60},{90,-60},
+            {90,-20},{50,-20},{50,-6},{50,-6},{58,-6}}, color={0,0,127}));
+    connect(m.y, mAct_flow.u1) annotation (Line(points={{13,50},{30,50},{30,6},
+            {58,6}}, color={0,0,127}));
+    connect(ter.y, gainC.u)
+      annotation (Line(points={{-19,-90},{10,-90}}, color={0,0,127}));
+    connect(ter.u, weaBus.winSpe) annotation (Line(points={{-42,-90},{-100,-90},
+            {-100,0}}, color={0,0,127}));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}})));
+  end Infiltration;
+
+  Controls.ElectrochromicWindow conWin
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{110,-6},{130,14}})));
-  Fluid.Sources.MassFlowSource_T boundary(
+  Fluid.Sources.MassFlowSource_T
+                              boundary(
     redeclare package Medium = MediumA,
     m_flow=-47*6/3600*1.2,
     T=293.15,
@@ -274,12 +364,6 @@ and controls the window state based on room air temperature and solar irradiatio
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 21, 2016, by Michael Wetter:<br/>
-Removed unused block <code>Infiltration</code> which also had an error due to a wrong instance name.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/582\">#582</a>.
-</li>
 <li>
 October 2, 2015, by Michael Wetter:<br/>
 First implementation, based on
