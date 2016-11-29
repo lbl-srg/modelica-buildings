@@ -38,17 +38,17 @@ model HeatingCoolingHotwaterTimeSeries_dT
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)= gaiCoo *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
-      filNam=filNam) "Design heat flow rate"
+      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)= gaiHea *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam=filNam) "Design heat flow rate"
+      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate"
     annotation(Dialog(group="Design parameter"));
   parameter Modelica.SIunits.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)= gaiHotWat *
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
-      filNam=filNam) "Design heat flow rate for domestic hot water"
+      filNam=Modelica.Utilities.Files.loadResource(filNam)) "Design heat flow rate for domestic hot water"
     annotation(Dialog(group="Design parameter"));
 
   parameter Modelica.SIunits.Temperature TChiSup_nominal = 273.15 + 16
@@ -272,7 +272,7 @@ protected
   Modelica.Blocks.Sources.CombiTimeTable loa(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    fileName=Modelica.Utilities.Files.loadResource(filNam),
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each unit="W"),
     offset={0,0,0},
@@ -421,6 +421,7 @@ initial equation
   assert(QHotWat_flow_nominal > 0,
     "Nominal hot water heating rate must be strictly positive. Obtained QHotWat_flow_nominal = "
     + String(QHotWat_flow_nominal));
+
 
 
 
@@ -647,6 +648,12 @@ of equations if multiple substations are connected to each other.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/585\">#585</a>.
+</li>
 <li>
 August 8, 2016, by Michael Wetter:<br/>
 Changed default temperature to compute COP to be the leaving temperature as
