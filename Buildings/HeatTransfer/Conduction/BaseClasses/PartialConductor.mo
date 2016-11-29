@@ -9,15 +9,15 @@ partial model PartialConductor "Partial model for heat conductor"
   parameter Modelica.SIunits.ThermalResistance R
     "Thermal resistance of construction";
 
-  Modelica.SIunits.TemperatureDifference dT = port_a.T - port_b.T
-   "port_a.T - port_b.T";
+  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},{
             110,10}})));
-
+equation
+  dT = port_a.T - port_b.T;
   annotation (    Documentation(info="<html>
 Partial model for single layer and multi layer heat conductors.
 The heat conductor can be steady-state or transient.

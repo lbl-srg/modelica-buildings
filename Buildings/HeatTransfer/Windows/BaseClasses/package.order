@@ -3,7 +3,6 @@ CenterOfGlass
 ExteriorConvectionCoefficient
 GasConvection
 GlassLayer
-HeatCapacity
 InteriorConvection
 InteriorConvectionCoefficient
 Overhang
@@ -27,4 +26,3 @@ smoothInterpolation
 RadiationBaseData
 RadiationData
 Examples
-Validation

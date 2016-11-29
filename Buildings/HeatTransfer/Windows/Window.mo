@@ -14,10 +14,6 @@ model Window "Model for a window"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Boolean steadyState = true
-    "Flag, if true, then window is steady-state, else capacity is added at room-side"
-    annotation(Evaluate=true, Dialog(tab="Dynamics"));
-
   Interfaces.RadiosityOutflow JOutUns_a
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-200,70},{-220,90}})));
@@ -82,12 +78,10 @@ model Window "Model for a window"
   annotation (Placement(transformation(extent={{190,-30}, {210,-10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra_a
-    "Heat port at frame of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-210,
+    "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-210,
             -170},{-190,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fra_b
-    "Heat port at frame of room-facing surface"
-     annotation (Placement(transformation(extent={{192,
+    "Heat port at frame of room-facing surface"                                       annotation (Placement(transformation(extent={{192,
             -170},{212,-150}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if
        haveShade
@@ -97,7 +91,7 @@ model Window "Model for a window"
   Modelica.Blocks.Interfaces.RealInput QAbsUns_flow[size(glaSys.glass, 1)](each unit="W",
       each quantity="Power")
     "Solar radiation absorbed by unshaded part of glass"
-     annotation (Placement(
+                                                       annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -109,30 +103,13 @@ model Window "Model for a window"
      each unit="W",
      each quantity="Power") if haveShade
     "Solar radiation absorbed by shaded part of glass"
-   annotation (Placement(transformation(
+                                        annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-220}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={80,-220})));
-
-  Buildings.HeatTransfer.Windows.BaseClasses.HeatCapacity capGla(
-    final haveShade=glaSys.haveExteriorShade or glaSys.haveInteriorShade,
-    C=AGla*glaSys.glass[1].x*matGla.d*matGla.c,
-    der_TUns(fixed=true),
-    der_TSha(fixed=glaSys.haveExteriorShade or glaSys.haveInteriorShade)) if
-         not steadyState
-    "Heat capacity of glass on room-side, used to reduce nonlinear system of equations"
-    annotation (Placement(transformation(rotation=0, extent={{130,38},{150,58}})));
-  // We assume the frame is made of wood. Data are used for Plywood, as
-  // this is an order of magnitude estimate for the heat capacity of the frame,
-  // which is only used to avoid algebraic loops in the room model.
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFra(
-    der_T(fixed=true), C=AFra*matFra.x*matFra.d*matFra.c) if
-         not steadyState
-    "Heat capacity of frame on room-side, used to reduce nonlinear system of equations"
-    annotation (Placement(transformation(extent={{130,-142},{150,-122}})));
 
 protected
   final parameter Boolean haveShade = glaSys.haveExteriorShade or glaSys.haveInteriorShade
@@ -143,15 +120,6 @@ protected
     "Block to constrain the shading control signal to be strictly within (0, 1) if a shade is present"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 
-  parameter Data.Solids.Plywood matFra(x=0.03)
-    "Thermal properties of frame (used to avoid algebraic loops in room model)"
-    annotation (Placement(transformation(extent={{108,174},{128,194}})));
-  parameter Data.Solids.Glass matGla(
-    x=glaSys.glass[end].x,
-    nSta=1,
-    nStaReal=1)
-    "Material properties for thermal capacity of room-facing glass (used to avoid algebraic loops in room model)"
-    annotation (Placement(transformation(extent={{108,150},{128,170}})));
 equation
   connect(frame.port_a, fra_a) annotation (Line(
       points={{-10,-160},{-200,-160}},
@@ -226,7 +194,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(glaUns.QAbs_flow, QAbsUns_flow) annotation (Line(
-      points={{6.10623e-16,9},{6.10623e-16,4},{-80,4},{-80,-220}},
+      points={{6.10623e-16,9},{6.10623e-16,0},{-80,0},{-80,-220}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -235,18 +203,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(capFra.port, fra_b) annotation (Line(points={{140,-142},{140,-160},{
-          202,-160}}, color={191,0,0}));
-  connect(capGla.ySha, shaSig.y) annotation (Line(points={{128,52},{80,52},{-24,
-          52},{-24,160},{-39,160}}, color={0,0,127}));
-  connect(capGla.yCom, shaSig.yCom) annotation (Line(points={{128,44},{60,44},{-20,
-          44},{-20,154},{-39,154}}, color={0,0,127}));
-  connect(capGla.portSha, glaSha_b) annotation (Line(points={{150,52},{160,52},{
-          160,-20},{200,-20}}, color={191,0,0}));
-  connect(capGla.portUns, glaUns_b) annotation (Line(points={{150,44},{156,44},{
-          156,20},{200,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{200,200}})),               Icon(coordinateSystem(
+            -200},{200,200}}),     graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-200,-200},{200,200}}),                                           graphics={
         Polygon(
           visible = glaSys.haveInteriorShade,
@@ -422,17 +380,6 @@ Whether a shade is present or not is determined by the parameters
 The parameter <code>linearize</code> can be used
 to linearize the model equations.
 </p>
-<p>
-If the parameter <code>steadyState</code> is set to <code>false</code>
-then heat capacities are added at the heat ports that face
-the room side.
-For simulation of
-<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
-Buildings.ThermalZones.Detailed.MixedAir</a>, adding heat capacities
-avoids large nonlinear system of equations, and generally
-leads to faster simulation. Default values are used
-for the heat capacities.
-</p>
 <h4>Ports</h4>
 <p>
 If a shade is present, then the input port <code>u</code> is used
@@ -512,12 +459,6 @@ Validation of the window model of the Modelica Buildings library.</a>
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 29, 2016, by Michael Wetter:<br/>
-Added option to place a state at the surface.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
-</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

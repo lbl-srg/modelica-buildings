@@ -15,7 +15,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
 
   Buildings.ThermalZones.Detailed.Constructions.Construction conExt[1](
     A=conPar[:].A,
-    layers=conPar.layers,
+    layers=conPar[:].layers,
     til={Buildings.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-64},{60,-4}})));
@@ -50,7 +50,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCol.port_a, con.fluid) annotation (Line(
-      points={{-60,20},{-40,20}},
+      points={{-60,20},{-50,20},{-50,20},{-40,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, bouConExt.weaBus) annotation (Line(
@@ -83,13 +83,6 @@ This model tests the exterior construction without windows.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 17, 2016, by Thierry S. Nouidui:<br/>
-Removed <code>[:]</code> in <code>conPar.layers</code> 
-to avoid translation error in Dymola 2107. 
-This is a work-around for a bug in Dymola 
-which will be addressed in future releases.
-</li>
 <li>
 April 29, 2013, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter in instance <code>bouConExt(conMod=...)</code>

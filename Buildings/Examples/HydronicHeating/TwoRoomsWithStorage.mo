@@ -102,8 +102,9 @@ model TwoRoomsWithStorage
       each til=Buildings.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3,
-    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722)
+    linearizeRadiation=true,
+    lat=0.73268921998722,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{356,464},{396,504}})));
   ThermalZones.Detailed.MixedAir roo2(
@@ -135,9 +136,10 @@ model TwoRoomsWithStorage
       each absSol=0.9,
       each til=Buildings.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    linearizeRadiation=true,
     nPorts=3,
-    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722)
+    lat=0.73268921998722,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
@@ -338,9 +340,7 @@ model TwoRoomsWithStorage
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={330,214})));
-  HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar,
-    placeCapacityAtSurf_a=true,
-    placeCapacityAtSurf_b=true)
+  HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
     "Partition wall between the two rooms" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -546,12 +546,6 @@ This block computes a control signal for free cooling and for mechanical cooling
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 29, 2016, by Michael Wetter:<br/>
-Added state at the surface of the wall that separates the two rooms.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
-</li>
 <li>
 February 27, 2015, by Michael Wetter:<br/>
 Changed controller to output setpoint for supply air temperature for cooling coil.
@@ -849,8 +843,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gai1.y, roo1.qGai_flow) annotation (Line(
-      points={{401,560},{410,560},{410,540},{346,540},{346,494},{354.4,494},{
-          354.4,492}},
+      points={{401,560},{410,560},{410,540},{346,540},{346,494},{346,494},{346,494},
+          {354.4,494},{354.4,492}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, gai2.u[1]) annotation (Line(

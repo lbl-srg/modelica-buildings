@@ -71,10 +71,11 @@ model MixedAirFreeResponse "Free response of room model"
            each absIR=0.9,
            each absSol=0.9,
            each til=Buildings.Types.Tilt.Wall),
+    linearizeRadiation = false,
+    nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=273.15+22,
-    lat=0.73268921998722)
-                       "Room model"
+    lat=0.73268921998722,
+    T_start=273.15+22) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -86,8 +87,7 @@ model MixedAirFreeResponse "Free response of room model"
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-62,2},{-42,22}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-      computeWetBulbTemperature=false)
+    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -98,7 +98,7 @@ model MixedAirFreeResponse "Free response of room model"
     "Boundary condition for construction"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        origin={150,-10})));
+        origin={110,-10})));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -106,15 +106,16 @@ model MixedAirFreeResponse "Free response of room model"
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     each A=6*4,
     each layers=matLayPar,
-    each steadyStateInitial=true,
-    each placeCapacityAtSurf_a=true,
-    each placeCapacityAtSurf_b=false)
+    each steadyStateInitial=true)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConSoi[nConBou](
-    each G=6*4*2.8/0.2) "Thermal conductance of 20 cm soil, with 6m x 4m area"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+  Fluid.Sources.FixedBoundary boundary(
+    nPorts=1,
+    redeclare package Medium = MediumA,
+    T=293.15) "Boundary condition"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -130,7 +131,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,50},{22,50},{22,48},{44.4,48}},
+      points={{1,50},{22,50},{22,48},{44,48}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -143,6 +144,10 @@ equation
       points={{1,100},{8,100}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TSoi.port, roo.surf_conBou)  annotation (Line(
+      points={{100,-10},{72,-10},{72,24}},
+      color={191,0,0},
+      smooth=Smooth.None));
   connect(TBou.port,conOut. port_b) annotation (Line(
       points={{140,-50},{120,-50}},
       color={191,0,0},
@@ -152,15 +157,16 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{44.4,58},{40,58},{40,100},{31,100}},
+      points={{44,56},{40,56},{40,100},{31,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(theConSoi.port_b, TSoi.port)
-    annotation (Line(points={{120,-10},{130,-10},{140,-10}}, color={191,0,0}));
-  connect(theConSoi.port_a, roo.surf_conBou)
-    annotation (Line(points={{100,-10},{72,-10},{72,24}}, color={191,0,0}));
+  connect(roo.ports[1], boundary.ports[1]) annotation (Line(
+      points={{51,30},{34,30},{34,10},{20,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/MixedAirFreeResponse.mos"
+            {200,200}}),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/MixedAirFreeResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model illustrates the use of the room model
@@ -168,18 +174,6 @@ This model illustrates the use of the room model
 Buildings.ThermalZones.Detailed.MixedAir</a>.
 </html>", revisions="<html>
 <ul>
-<li>
-October 29, 2016, by Michael Wetter:<br/>
-Changed example to to place a state at the surface,
-and removed computation of the wet bulb temperature
-as it is not needed.<br/>
-Added thermal resistance of soil, because at the connector
-<code>surf_conBou</code>, there is now a state variable, and
-hence the temperature cannot be prescribed if its initial value
-is specified.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
-</li>
 <li>
 March 26, 2015, by Michael Wetter:<br/>
 Set initialization of <code>conOut</code>

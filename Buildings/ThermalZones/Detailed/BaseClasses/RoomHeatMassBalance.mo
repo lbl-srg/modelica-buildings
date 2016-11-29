@@ -38,7 +38,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.Construction conExt[NConExt](
     A=datConExt.A,
     til=datConExt.til,
-    final layers=datConExt.layers,
+    final layers={datConExt[i].layers for i in 1:NConExt},
     steadyStateInitial=datConExt.steadyStateInitial,
     T_a_start=datConExt.T_a_start,
     T_b_start=datConExt.T_b_start) if haveConExt
@@ -47,7 +47,7 @@ partial model RoomHeatMassBalance "Base model for a room"
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
     final A=datConExtWin.A,
     final til=datConExtWin.til,
-    final layers=datConExtWin.layers,
+    final layers={datConExtWin[i].layers for i in 1:NConExtWin},
     final steadyStateInitial=datConExtWin.steadyStateInitial,
     final T_a_start=datConExtWin.T_a_start,
     final T_b_start=datConExtWin.T_b_start,
@@ -55,26 +55,22 @@ partial model RoomHeatMassBalance "Base model for a room"
     final fFra=datConExtWin.fFra,
     final glaSys=datConExtWin.glaSys,
     each final homotopyInitialization=homotopyInitialization,
-    each final linearizeRadiation=linearizeRadiation,
-    each final steadyStateWindow=steadyStateWindow) if haveConExtWin
+    each final linearizeRadiation=linearizeRadiation) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
   Constructions.Construction conPar[NConPar](
     A=datConPar.A,
     til=datConPar.til,
-    final layers=datConPar.layers,
+    final layers={datConPar[i].layers for i in 1:NConPar},
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
     T_b_start=datConPar.T_b_start) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{282,-122},{244,-84}})));
-  // For conBou, we set a state on both surfaces. Otherwise, if two
-  // rooms are connected through this element, there will be
-  // a nonlinear system of equation
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
     til=datConBou.til,
-    final layers=datConBou.layers,
+    final layers={datConBou[i].layers for i in 1:NConBou},
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
     T_b_start=datConBou.T_b_start) if haveConBou
@@ -82,10 +78,6 @@ partial model RoomHeatMassBalance "Base model for a room"
     annotation (Placement(transformation(extent={{282,-156},{242,-116}})));
   parameter Boolean linearizeRadiation=true
     "Set to true to linearize emissive power";
-
-  parameter Boolean steadyStateWindow = false
-    "Set to false to add thermal capacity at window, which generally leads to faster simulation"
-    annotation (Dialog(tab="Dynamics", group="Glazing system"));
   ////////////////////////////////////////////////////////////////////////
   // Convection
   parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
@@ -845,20 +837,6 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
-<li>
-November 21, 2016, by Thierry S. Nouidui:<br/>
-Removed <code>for loop</code> to avoid translation error
-in Dymola 2107. This is a work-around for a bug in Dymola 
-which will be addressed in future releases.
-</li>
-<li>
-October 29, 2016, by Michael Wetter:<br/>
-Added optional capacity at the room-facing surface
-to reduce the dimension of the nonlinear system of equations,
-which generally decreases computing time.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
-</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected error in annotation to enable the pedantic model check in Dymola 2017 FD01 beta 2.<br/>
