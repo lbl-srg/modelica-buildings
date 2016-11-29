@@ -44,7 +44,8 @@ algorithm
     p := p + (A[i] + B[i]*T + C[i]*Modelica.Math.exp(-k*T/TCri))/(v_abs - b)^(i+1);
   end for;
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the pressure R410A vapor based on temperature and
 specific volume. The pressure is calculated from the Martin-Hou equation of
@@ -65,4 +66,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end pressureVap_Tv;
+end pressureVap_Tv;

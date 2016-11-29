@@ -28,11 +28,10 @@ model PartialCompressor "Partial compressor model"
     "Refrigerant connector b (corresponding to the condenser)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput N
-    "Modulating signal for compressor frequency, equal to 1 at full load 
-     conditions"
-    annotation (Placement(transformation(extent={{-120,70},{-100,50}},
-        rotation=-90)));
+  Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
+   "Modulating signal for compressor frequency, equal to 1 at full load conditions"
+    annotation (Placement(transformation(extent={{-120,70},{-100,50}}, rotation=
+           -90)));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
@@ -68,7 +67,7 @@ equation
           lineColor={0,0,127}),
         Text(extent={{62,98},{72,82}},
           lineColor={0,0,127},
-          textString="N"),
+          textString="y"),
         Polygon(
           points={{-70,-80},{-70,80},{70,60},{70,-60},{-70,-80}},
           lineColor={0,0,255},
