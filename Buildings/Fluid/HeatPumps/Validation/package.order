@@ -4,3 +4,9 @@ Carnot_TCon_etaPL
 Carnot_TCon_reverseFlow
 Carnot_y_etaCar
 Carnot_y_etaPL
+ReciprocatingWaterToWater
+ReciprocatingWaterToWater_Dynamic
+ReciprocatingWaterToWater_VariableSpeed
+ScrollWaterToWater
+ScrollWaterToWater_Dynamic
+ScrollWaterToWater_VariableSpeed
