@@ -10,7 +10,16 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    conExt(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false),
+    conBou(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false),
+    conExtWin(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false))
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -78,16 +87,29 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-114})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(redeclare package Medium =
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(redeclare
+      package                                                                        Medium =
         Air, nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+        conExt(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false),
+    conBou(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false))
     "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet
     clo(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    conExt(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false),
+    conBou(
+      each placeCapacityAtSurf_a=false,
+      each placeCapacityAtSurf_b=false))
     "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
@@ -316,7 +338,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
-      points={{70.2,-73.5},{70,-73.5},{70,-88},{182,-88},{182,95.3333}},
+      points={{70.2,-74},{70,-74},{70,-88},{182,-88},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
@@ -352,7 +374,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
-      points={{-94,-148},{-94,-142},{182,-142},{182,96.6667}},
+      points={{-94,-148},{-94,-142},{182,-142},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(ele.surf_conBou[1], preT.port)    annotation (Line(
@@ -360,15 +382,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[2], clo.surf_surBou[1]) annotation (Line(
-      points={{-84,41.75},{-84,14},{172.2,14},{172.2,97.5}},
+      points={{-84,42},{-84,14},{172.2,14},{172.2,98}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[3], clo.surf_surBou[2]) annotation (Line(
-      points={{-84,42.25},{-84,14},{172.2,14},{172.2,98.5}},
+      points={{-84,42},{-84,14},{172.2,14},{172.2,98}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[4], ele.surf_surBou[1]) annotation (Line(
-      points={{-84,42.75},{-84,-88},{70.2,-88},{70.2,-74.5}},
+      points={{-84,42},{-84,-88},{70.2,-88},{70.2,-74}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TNei.y[1], preT2.T)   annotation (Line(
@@ -376,7 +398,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT2.port, X3B.surf_conBou[1])   annotation (Line(
-      points={{54,-114},{-84,-114},{-84,41.25}},
+      points={{54,-114},{-84,-114},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT2.port, clo.surf_conBou[2])   annotation (Line(
@@ -465,19 +487,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B1.surf_a, X3B.surf_surBou[1]) annotation (Line(
-      points={{-94,-116},{-94,43.25},{-93.8,43.25}},
+      points={{-94,-116},{-94,44},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B2.surf_a, X3B.surf_surBou[2]) annotation (Line(
-      points={{-138,-80},{-138,-60},{-93.8,-60},{-93.8,43.75}},
+      points={{-138,-80},{-138,-60},{-93.8,-60},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B3.surf_a, X3B.surf_surBou[3]) annotation (Line(
-      points={{-178,-42},{-178,-30},{-93.8,-30},{-93.8,44.25}},
+      points={{-178,-42},{-178,-30},{-93.8,-30},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B4.surf_a, X3B.surf_surBou[4]) annotation (Line(
-      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44.75}},
+      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(watCon4B1.y[1], watIn4B1.m_flow_in) annotation (Line(

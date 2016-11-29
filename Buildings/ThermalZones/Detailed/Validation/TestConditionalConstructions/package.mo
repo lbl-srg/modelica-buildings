@@ -2,6 +2,7 @@ within Buildings.ThermalZones.Detailed.Validation;
 package TestConditionalConstructions "Package that tests if constructions can be conditionally removed"
   extends Modelica.Icons.ExamplesPackage;
 
+
 annotation (preferredView="info",
 Documentation(info="<html>
 The thermal zone model
@@ -22,5 +23,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end TestConditionalConstructions;

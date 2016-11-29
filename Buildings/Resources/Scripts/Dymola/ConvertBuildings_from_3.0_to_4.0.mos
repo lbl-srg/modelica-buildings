@@ -5,6 +5,11 @@ clear
 
 convertClear();
 
+convertModifiers({"Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange"},
+                  {"uStart"},
+                  fill("", 0),
+                  true);
+
 convertClass("Buildings.Fluid.HeatExchangers.Boreholes",
              "Buildings.Fluid.HeatExchangers.Ground.Boreholes")
 

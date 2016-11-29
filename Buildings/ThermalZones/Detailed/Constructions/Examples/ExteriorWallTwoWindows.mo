@@ -42,7 +42,7 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
   ConstructionWithWindow conExt[nCon](
-    layers=conPar[:].layers,
+    layers=conPar.layers,
     glaSys=conPar[:].glaSys,
     linearizeRadiation = {linearizeRadiation, linearizeRadiation},
     A=conPar[:].A,
@@ -297,6 +297,13 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Thierry S. Nouidui:<br/>
+Removed <code>[:]</code> in <code>conPar.layers</code> 
+to avoid translation error in Dymola 2107. 
+This is a work-around for a bug in Dymola 
+which will be addressed in future releases.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model for OpenModelica.
