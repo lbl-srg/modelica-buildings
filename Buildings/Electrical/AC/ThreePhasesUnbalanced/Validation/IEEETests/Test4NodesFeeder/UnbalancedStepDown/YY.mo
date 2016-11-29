@@ -23,7 +23,11 @@ model YY
     final Theta3_ref=Modelica.Constants.pi/180.0*{-2.3,-123.6,114.8},
     final Theta4_ref=Modelica.Constants.pi/180.0*{-4.1,-126.8,102.8},
     loadRL(use_pf_in=true),
-    line2(terminal_p(each phase(v(each start=-1)))));
+    line1(i1(start={180, -130}),
+          i2(start={-300, -160}),
+          i3(start={40, 450})),
+    line2(i2(start={-900, -480}),
+          i3(start={130, 1400})));
 
   Modelica.Blocks.Sources.Constant load1(k=-1275e3)
     annotation (Placement(transformation(extent={{54,30},{74,50}})));
