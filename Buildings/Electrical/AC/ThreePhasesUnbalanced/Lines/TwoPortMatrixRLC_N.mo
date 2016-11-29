@@ -69,19 +69,6 @@ model TwoPortMatrixRLC_N
     "Element [4,2] of admittance matrix";
   final parameter Modelica.SIunits.Admittance B43 = B34
     "Element [4,3] of admittance matrix";
-protected
-  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
-    "Product between complex quantities";
-  Modelica.SIunits.Current Isr[4,2](
-    start = zeros(4,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer)
-    "Currents that pass through the lines";
-  Modelica.SIunits.Current Ish_p[4,2](
-    start = zeros(4,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side p";
-  Modelica.SIunits.Current Ish_n[4,2](
-    start = zeros(4,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side n";
 
   Modelica.SIunits.Voltage v1_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
@@ -115,6 +102,18 @@ protected
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(0),
     each stateSelect = StateSelect.never) = terminal_p.phase[4].v
     "Voltage in line 4 (neutral) at connector P";
+
+protected
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
+    "Product between complex quantities";
+  Modelica.SIunits.Current Isr[4,2](
+    each stateSelect = StateSelect.prefer)
+    "Currents that pass through the lines";
+  Modelica.SIunits.Current Ish_p[4,2](
+    each stateSelect = StateSelect.prefer) "Shunt current on side p";
+  Modelica.SIunits.Current Ish_n[4,2](
+    each stateSelect = StateSelect.prefer) "Shunt current on side n";
+
 equation
 
   // Link the connectors to propagate the overdetermined variable
@@ -216,8 +215,26 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+November 28, 2016, by Michael Wetter:<br/>
+Made current and voltage public to allow setting start values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Removed zero start value for currents <code>i1</code>, <code>i2</code> and
+<code>i3</code>.
+Setting a zero start value led Dymola 2017 on Linux to find a different solution
+for
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD</a>.
+Also, the current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
+<li>
 January 14, 2015, by Marco Bonvini:<br/>
-Created model and documantation.
+Created model and documentation.
 </li>
 </ul>
 </html>", info="<html>

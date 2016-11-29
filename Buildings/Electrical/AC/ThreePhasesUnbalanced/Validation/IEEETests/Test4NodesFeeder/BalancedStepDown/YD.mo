@@ -32,7 +32,8 @@ model YD
     VLow=VLL_side2,
     XoverR=6,
     Zperc=sqrt(0.01^2 + 0.06^2),
-    VABase=VARbase)
+    VABase=VARbase,
+    conv1(terminal_p(i(start={-477, 327}))))
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
 equation
   connect(load.y, loadRL.Pow1) annotation (Line(
