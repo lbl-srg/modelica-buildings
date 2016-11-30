@@ -27,7 +27,7 @@ model SingleLayer "Model for single layer heat conductance"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeCapacityAtSurf_b=false
-    "Set to true to place the capacity at the surface a of the layer"
+    "Set to true to place the capacity at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
@@ -330,22 +330,23 @@ and not the variable <code>T[1]</code>.
 </p>
 
 As an example, we assume a material with a length of <code>x</code> 
-and a discretization with 4 state variables and 4 control volumes.
+and a discretization with four state variables.
 <ul>
 <li>
-If <code>placeCapacityAtSurf_a = false and placeCapacityAtSurf_b = false</code>, 
-then the 4 state variables are distributed equally over the
-length <code>x/4</code>.
+If <code>placeCapacityAtSurf_a = false</code> and <code>placeCapacityAtSurf_b = false</code>, 
+then each of the four state variables is placed in the middle of a control volume with the length <code>x/material.nSta</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.png\"/>
 </li>
 <li>
-If <code>placeCapacityAtSurf_a = true or placeCapacityAtSurf_b = true</code>, 
-then the remaining 3 states will be distributed equally over the length of the material.
+If <code>placeCapacityAtSurf_a = true</code> or <code>placeCapacityAtSurf_b = true</code>, 
+then one state is placed on the surface of the material. Each of the remaining three states 
+is placed in the middle of a control volume with the length <code>x/(material.nSta-1)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.png\"/>
 </li>
 <li>
-If <code>placeCapacityAtSurf_a = true and placeCapacityAtSurf_b = true</code>, 
-then the remaining 2 states will be distributed equally over the length of the material.
+If <code>placeCapacityAtSurf_a = true</code> and <code>placeCapacityAtSurf_b = true</code>, 
+then two states are placed on the surfaces of the material. Each of the remaining two states is placed 
+in the middle of a control volume with the length <code>x/(material.nSta-2)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.png\"/>
 </li>
 </ul>
