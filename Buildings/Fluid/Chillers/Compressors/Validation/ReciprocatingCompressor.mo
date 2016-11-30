@@ -10,17 +10,21 @@ model ReciprocatingCompressor
     PLos=100,
     dTSup=9.82,
     enable_variable_speed=false,
-    pDro=99290)
+    pDro=99290) "Reciprocating compressor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
+    "Evaporating temprature"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature con(T=323.15)
+    "Condensing temperature"
     annotation (Placement(transformation(extent={{84,-10},{64,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloEva
+    "Evaporator heat flow rate sensor"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloCon
+    "Condenser heat flow rate sensor"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-  Modelica.Blocks.Sources.Constant on(k=1)
+  Modelica.Blocks.Sources.Constant on(k=1) "Compressor control signal"
     annotation (Placement(transformation(extent={{-26,18},{-6,38}})));
 equation
   connect(eva.port, heaFloEva.port_a)

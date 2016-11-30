@@ -2,12 +2,16 @@ within Buildings.Fluid.Chillers.Compressors.Validation;
 model ScrollCompressor
   extends Modelica.Icons.Example;
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
+    "Evaporating temperature"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature con(T=323.15)
+    "Condensing temperature"
     annotation (Placement(transformation(extent={{84,-10},{64,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloEva
+    "Evaporator heat flow rate sensor"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloCon
+    "Condenser heat flow rate sensor"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Buildings.Fluid.Chillers.Compressors.ScrollCompressor com(
     redeclare package ref =
@@ -18,9 +22,9 @@ model ScrollCompressor
     PLos=500,
     dTSup=3,
     volRat=2.1,
-    enable_variable_speed=false)
+    enable_variable_speed=false) "Scroll compressor"
              annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Constant          on(k=1)
+  Modelica.Blocks.Sources.Constant on(k=1) "Compressor control signal"
     annotation (Placement(transformation(extent={{-16,28},{4,48}})));
 equation
   connect(eva.port, heaFloEva.port_a)
