@@ -125,8 +125,7 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=1000,
-      Tolerance=1e-05),
+      StopTime=1000),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the
