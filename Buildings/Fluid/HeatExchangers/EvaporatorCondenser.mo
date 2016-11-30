@@ -27,6 +27,7 @@ model EvaporatorCondenser
       NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange))
     "Effectiveness of heat exchanger";
   Modelica.Blocks.Sources.RealExpression UAeff(y=eps*cp*abs(port_a.m_flow)/(1 - eps))
+    "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
@@ -87,14 +88,6 @@ If no flow resistance is requested, set <code>dp_nominal=0</code>.
 This model does not consider any superheating or supercooling on the refrigerant
 side. The refrigerant is considered to exchange heat at a constant temperature
 throughout the heat exchanger.
-</p>
-<h4>Validation</h4>
-<p>
-The model has been validated against the analytical solution in
-the example
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.EvaporatorCondenser\">
-Buildings.Fluid.HeatExchangers.Validation.EvaporatorCondenser</a>.
-fixme: update documentation.
 </p>
 </html>",
 revisions="<html>
