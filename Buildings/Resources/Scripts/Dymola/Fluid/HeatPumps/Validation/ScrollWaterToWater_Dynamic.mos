@@ -14,7 +14,7 @@ createPlot(id = 1,
 
 createPlot(id = 2,
    position = {120, 30, 640, 480},
-   y = {"heaPum.com.N"},
+   y = {"heaPum.com.y"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

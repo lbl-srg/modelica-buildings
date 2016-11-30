@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatPumps.Validation.ReciprocatingWaterToWater", 
 
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"eva_in.T", "eva_out.T", "heaPum.com.port_a.T", "con_in.T", "con_out.T", "heaPum.com.port_b.T"},
+   y = {"temSou_in.T", "temSou_out.T", "heaPum.com.port_a.T", "temLoa_in.T", "temLoa_out.T", "heaPum.com.port_b.T"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

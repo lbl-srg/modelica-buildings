@@ -17,13 +17,13 @@ model ScrollWaterToWater_Dynamic
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
-    redeclare package Medium = Medium2, nPorts=2)
+    redeclare package Medium = Medium2, nPorts=2) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-32,20})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
-    redeclare package Medium = Medium1, nPorts=2)
+    redeclare package Medium = Medium1, nPorts=2) "Load side sink"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -33,18 +33,20 @@ model ScrollWaterToWater_Dynamic
     m_flow=Flow_Load,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1)
+    nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
     m_flow=Flow_Source,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1)
+    nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,36},{40,56}})));
   Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load)
+    "Load side mass flwo rate"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source)
+    "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-62},{80,-42}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
     redeclare package Medium1 = Medium1,
@@ -62,7 +64,8 @@ model ScrollWaterToWater_Dynamic
     leaCoe=0.01,
     etaEle=0.696,
     PLos=500,
-    dTSup=10) annotation (Placement(transformation(extent={{-10,42},{10,62}})));
+    dTSup=10) "Scroll water to water heat pump"
+              annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum1(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -82,36 +85,46 @@ model ScrollWaterToWater_Dynamic
     dTSup=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=15,
-    tau2=15) annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+    tau2=15) "Scroll water to water heat pump with transient effects"
+             annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
+    "Heat pump control signal"
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));
   Modelica.Fluid.Sources.MassFlowSource_T loa1(
     redeclare package Medium = Medium1,
     m_flow=Flow_Load,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1)
+    nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,-58},{-40,-38}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium2,
     m_flow=Flow_Source,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1)
+    nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
-  Modelica.Blocks.Sources.Constant TLoa(k=285.15)
+  Modelica.Blocks.Sources.Constant TLoa(k=285.15) "Load side fluid temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Sources.Constant TSou(k=283.15)
+    "Source side fluid temperature"
     annotation (Placement(transformation(extent={{100,-90},{80,-70}})));
   Modelica.Blocks.Sources.RealExpression appCap(y=heaPum1.port_a1.m_flow*(
         senSpeEnt1.h_out - senSpeEnt.h_out))
+    "Apparent capacity of the heat pump"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpy senSpeEnt(redeclare package Medium =
-        Medium1)
-    annotation (Placement(transformation(extent={{-34,-44},{-26,-36}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpy senSpeEnt1(redeclare package Medium =
-        Medium1)
-    annotation (Placement(transformation(extent={{16,-44},{24,-36}})));
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=m1_flow_nominal,
+    tau=0.01,
+    initType=Modelica.Blocks.Types.Init.SteadyState)
+    annotation (Placement(transformation(extent={{-34,-52},{-26,-44}})));
+  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt1(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=m1_flow_nominal,
+    tau=0.01,
+    initType=Modelica.Blocks.Types.Init.SteadyState)
+    annotation (Placement(transformation(extent={{16,-52},{24,-44}})));
 equation
   connect(mSou.y, sou.m_flow_in)
     annotation (Line(points={{79,-52},{74,-52},{74,54},{60,54}},
@@ -146,14 +159,14 @@ equation
           {-62,-44}}, color={0,0,127}));
   connect(TLoa.y, loa.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,62},
           {-62,62}}, color={0,0,127}));
-  connect(heaPum1.port_b1, sin1.ports[2])
-    annotation (Line(points={{10,-48},{34,-48},{34,18}}, color={0,127,255}));
-  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{-25,
-          -48},{-10,-48}}, color={0,127,255}));
-  connect(senSpeEnt.port, heaPum1.port_a1) annotation (Line(points={{-30,-44},{-30,
-          -44},{-30,-48},{-10,-48}}, color={0,127,255}));
-  connect(senSpeEnt1.port, heaPum1.port_b1) annotation (Line(points={{20,-44},{20,
-          -44},{20,-48},{10,-48}}, color={0,127,255}));
+  connect(loa1.ports[1], senSpeEnt.port_a)
+    annotation (Line(points={{-40,-48},{-34,-48}}, color={0,127,255}));
+  connect(senSpeEnt.port_b, heaPum1.port_a1)
+    annotation (Line(points={{-26,-48},{-10,-48}}, color={0,127,255}));
+  connect(heaPum1.port_b1, senSpeEnt1.port_a)
+    annotation (Line(points={{10,-48},{16,-48}}, color={0,127,255}));
+  connect(senSpeEnt1.port_b, sin1.ports[2])
+    annotation (Line(points={{24,-48},{34,-48},{34,18}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
