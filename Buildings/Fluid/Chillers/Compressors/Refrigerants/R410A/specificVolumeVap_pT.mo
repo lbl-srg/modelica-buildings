@@ -46,7 +46,8 @@ algorithm
   dv := 1e99;
   m := 0;
   while abs(dv/v) > 1e-10 loop
-    assert(m < 1E3, "Failed to converge in Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificVolumeVap_pT");
+    assert(m < 1E3,
+      "Failed to converge in Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificVolumeVap_pT");
     m := m + 1;
 
     // Evaluate first derivative of pressure w.r.t. specific volume
