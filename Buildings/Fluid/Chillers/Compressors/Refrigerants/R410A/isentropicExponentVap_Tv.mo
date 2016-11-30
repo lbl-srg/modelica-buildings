@@ -22,7 +22,8 @@ algorithm
 
   k := cp / cv;
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the isentropic exponent of R410A vapor based on temperature and specific volume. The isentropic exponent is equal to the ratio of specific heat capacities:
 </p>

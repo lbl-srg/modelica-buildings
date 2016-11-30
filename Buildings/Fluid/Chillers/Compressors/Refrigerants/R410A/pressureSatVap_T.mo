@@ -24,11 +24,12 @@ protected
 
 algorithm
   // Independant variable
-  x := max(1-T/TCri, 0) - x0;
+  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 0) - x0;
   // Pressure of saturated refrigerant vapor
   p := pCri*Modelica.Math.exp(TCri/T*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x));
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the pressure of saturated R410A vapor based on temperature.
 </p>

@@ -59,7 +59,8 @@ algorithm
 
   cv := cvo - T * integral_of_d2pdT2;
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the specific isochoric heat capacity
 (<i>c<sub>v</sub></i>) of R410A vapor based on temperature and specific volume. 
