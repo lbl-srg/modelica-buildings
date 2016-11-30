@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers;
 model EvaporatorCondenser
   "Evaporator / condenser with refrigerant experiencing constant temperature phase change"
-  extends Interfaces.TwoPortHeatMassExchanger;
-  import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-  import Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ;
+  extends Interfaces.TwoPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
+       prescribedHeatFlowRate=false));
 
   parameter Modelica.SIunits.ThermalConductance UA
     "Thermal conductance of heat exchanger";
@@ -17,26 +17,32 @@ model EvaporatorCondenser
     annotation (Placement(transformation(extent={{-5,-55},{5,-65}}),
         iconTransformation(extent={{-5,-55},{5,-65}})));
 
-public
   Modelica.SIunits.SpecificHeatCapacityAtConstantPressure
     cp = vol.Medium.cp_const "Specific heat capacity of the fluid";
-  Modelica.SIunits.Efficiency NTU = UA / (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp)
+  Modelica.SIunits.Efficiency NTU = UA /
+    (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp)
   "Number of transfer units of heat exchanger";
   Modelica.SIunits.Efficiency
-    eps = epsilon_ntuZ(NTU, 0, Integer(f.ConstantTemperaturePhaseChange))
+    eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+      NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange))
     "Effectiveness of heat exchanger";
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo annotation (
+  Modelica.Blocks.Sources.RealExpression UAeff(y=eps*cp*abs(port_a.m_flow)/(1 - eps))
+    annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
+protected
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
+    "Heat flow sensor"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-36,-40})));
-  Modelica.Thermal.HeatTransfer.Components.Convection con annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Components.Convection con
+    "Convective heat transfer"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-36,-70})));
-  Modelica.Blocks.Sources.RealExpression UAeff(y=eps*cp*abs(port_a.m_flow)/(1 - eps))
-    annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 equation
   connect(heaFlo.port_b, vol.heatPort) annotation (Line(points={{-36,-30},{-36,
           -30},{-36,-10},{-9,-10}}, color={191,0,0}));
@@ -88,6 +94,7 @@ The model has been validated against the analytical solution in
 the example
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.EvaporatorCondenser\">
 Buildings.Fluid.HeatExchangers.Validation.EvaporatorCondenser</a>.
+fixme: update documentation.
 </p>
 </html>",
 revisions="<html>

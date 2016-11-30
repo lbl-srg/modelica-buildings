@@ -1,7 +1,6 @@
 within Buildings.Fluid.Chillers.Compressors.Validation;
 model ScrollCompressor
   extends Modelica.Icons.Example;
-  import Buildings;
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature con(T=323.15)
@@ -32,7 +31,7 @@ equation
     annotation (Line(points={{10,0},{19,0},{28,0}}, color={191,0,0}));
   connect(heaFloEva.port_b, com.port_a)
     annotation (Line(points={{-26,0},{-10,0}}, color={191,0,0}));
-  connect(on.y, com.N)
+  connect(on.y,com.y)
     annotation (Line(points={{5,38},{6,38},{6,11}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

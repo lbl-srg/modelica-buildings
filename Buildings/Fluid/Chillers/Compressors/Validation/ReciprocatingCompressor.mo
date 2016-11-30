@@ -1,7 +1,6 @@
 within Buildings.Fluid.Chillers.Compressors.Validation;
 model ReciprocatingCompressor
   extends Modelica.Icons.Example;
-  import Buildings;
   Buildings.Fluid.Chillers.Compressors.ReciprocatingCompressor com(
     redeclare package ref =
         Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
@@ -21,7 +20,7 @@ model ReciprocatingCompressor
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloCon
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-  Modelica.Blocks.Sources.Constant          on(k=1)
+  Modelica.Blocks.Sources.Constant on(k=1)
     annotation (Placement(transformation(extent={{-26,18},{-6,38}})));
 equation
   connect(eva.port, heaFloEva.port_a)
@@ -32,7 +31,7 @@ equation
     annotation (Line(points={{10,0},{19,0},{28,0}}, color={191,0,0}));
   connect(heaFloCon.port_b, con.port)
     annotation (Line(points={{48,0},{56,0},{64,0}}, color={191,0,0}));
-  connect(on.y, com.N)
+  connect(on.y,com.y)
     annotation (Line(points={{-5,28},{6,28},{6,11}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

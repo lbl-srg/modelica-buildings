@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Validation;
 model EvaporatorCondenser "Test model for the evaporator / condenser model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water;
@@ -11,6 +10,7 @@ model EvaporatorCondenser "Test model for the evaporator / condenser model"
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature ref(T=283.15)
     annotation (Placement(transformation(extent={{-64,-60},{-44,-40}})));
+  // fixme: add comments to all instances
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -38,7 +38,7 @@ model EvaporatorCondenser "Test model for the evaporator / condenser model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=0,
     tau=5,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Evaporator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -64,8 +64,7 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=100,
-      Tolerance=1e-05),
+      StopTime=100),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the

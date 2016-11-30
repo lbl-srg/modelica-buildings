@@ -156,7 +156,7 @@ equation
           {0,-16},{0,-54}}, color={191,0,0}));
   connect(com.P, P)
     annotation (Line(points={{11,0},{110,0},{110,0}}, color={0,0,127}));
-  connect(N, com.N) annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
+  connect(N,com.y)  annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
         color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},

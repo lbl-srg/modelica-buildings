@@ -37,7 +37,7 @@ algorithm
     // one side is experiencing constant temperature phase change
     // Z is unused
     a := 0;
-    eps := (1 - Modelica.Math.exp(-NTU));
+    eps := 1 - Modelica.Math.exp(-NTU);
   else
     a := 0;
     eps := 0;

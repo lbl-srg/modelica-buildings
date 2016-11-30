@@ -7,7 +7,7 @@ model ReciprocatingCompressor
   parameter Modelica.SIunits.VolumeFlowRate pisDis
     "Piston displacement";
 
-  parameter Real cleFac(min = 0, unit = "1")
+  parameter Real cleFac(min = 0, final unit = "1")
     "Clearance factor";
 
   parameter Modelica.SIunits.Efficiency etaEle
@@ -50,7 +50,7 @@ protected
   Real pisDis_norm
     "Normalized piston displacement at part load conditions";
 
-  Real PR(min = 1.0, unit = "1", start = 2.0)
+  Real PR(min = 1.0, final unit = "1", start = 2.0)
     "Pressure ratio";
 
   Real U(start = 1)
@@ -62,11 +62,11 @@ equation
 
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
-  if PR >= 1.0 then
-    U = 1.0;
-  else
-    U = 0.0;
-  end if;
+  when PR <= 1.0 then
+    U = 0;
+  elsewhen PR > 1.01 then
+    U = 1;
+  end when;
 
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
@@ -74,16 +74,16 @@ equation
 
   // Limit compressor speed to the full load speed
   if enable_variable_speed then
-    pisDis_norm = min(1.0, max(0.0, N));
+    pisDis_norm = min(1.0, max(0.0,y));
   else
-    if N > 0.0 then
+    if y > 0.0 then
       pisDis_norm = 1.0;
     else
       pisDis_norm = 0.0;
     end if;
   end if;
 
-  if N > 0.0 then
+  if y > 0.0 then
     // Suction pressure
     pSuc = Buildings.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
     // Discharge pressure

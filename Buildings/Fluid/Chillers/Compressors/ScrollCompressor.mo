@@ -4,7 +4,7 @@ model ScrollCompressor
 
   extends Buildings.Fluid.Chillers.Compressors.BaseClasses.PartialCompressor;
 
-  parameter Real volRat(min = 1.0, unit = "1")
+  parameter Real volRat(min = 1.0, final unit = "1")
     "Built-in volume ratio";
 
   parameter Modelica.SIunits.VolumeFlowRate v_flow(min = 0)
@@ -25,8 +25,7 @@ model ScrollCompressor
   Modelica.SIunits.MassFlowRate m_flow
     "Refrigerant mass flow rate";
 
-  Modelica.SIunits.MassFlowRate m_leak
-    "Refrigerant leakage mass flow rate";
+  Modelica.SIunits.MassFlowRate mLea_flow "Refrigerant leakage mass flow rate";
 
   Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
     "Discharge pressure of the compressor";
@@ -70,11 +69,11 @@ equation
 
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
-  if PR >= 1.0 then
-    U = 1.0;
-  else
-    U = 0.0;
-  end if;
+  when PR <= 1.0 then
+    U = 0;
+  elsewhen PR > 1.01 then
+    U = 1;
+  end when;
 
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
@@ -82,23 +81,26 @@ equation
 
   // Limit compressor speed to the full load speed
   if enable_variable_speed then
-    v_norm = min(1.0, max(0.0, N));
+    v_norm = min(1.0, max(0.0,y));
   else
-    if N > 0.0 then
+    if y > 0.0 then // fixme: not robust to numerical noise
       v_norm = 1.0;
     else
       v_norm = 0.0;
     end if;
   end if;
 
-  if N > 0.0 then
+  if y > 0.0 then // fixme: not robust to numerical noise
     // Suction pressure
     pSuc = pEva;
     // Discharge pressure
     pDis = pCon;
     // Refrigerant mass flow rate
-    m_leak = leaCoe*PR;
-    m_flow = v_norm * U * Buildings.Utilities.Math.Functions.smoothMax(v_flow/vSuc - m_leak, 0.0, 1e-6*v_flow/vSuc);
+    mLea_flow = leaCoe*PR;
+    m_flow =v_norm*U*Buildings.Utilities.Math.Functions.smoothMax(
+      v_flow/vSuc - mLea_flow,
+      1e-5*v_flow/vSuc,
+      1e-6*v_flow/vSuc);
 
     // Theoretical power of the compressor
     k = Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
@@ -126,7 +128,7 @@ equation
     k = 1.0;
     pSuc = pEva;
     pDis = pCon;
-    m_leak = 0;
+    mLea_flow = 0;
     m_flow = 0;
     PThe = 0;
     P = 0;
@@ -153,7 +155,7 @@ The power consumed by the compressor is given by a linear efficiency relation:
 P = P<sub>Theoretical</sub> / &eta; + P<sub>Loss,constant</sub>.
 </p>
 <p>
-Variable speed is acheived by multiplying the full load suction volume flow rate
+Variable speed is achieved by multiplying the full load suction volume flow rate
 by the normalized compressor speed. The power and heat transfer rates are forced
 to zero if the resulting heat pump state has higher evaporating pressure than
 condensing pressure.
