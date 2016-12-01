@@ -170,7 +170,7 @@ Buildings.ThermalZones.Detailed.MixedAir</a>.
 <ul>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
-Changed example to to place a state at the surface,
+Changed example to place a state at the surface,
 and removed computation of the wet bulb temperature
 as it is not needed.<br/>
 Added thermal resistance of soil, because at the connector
