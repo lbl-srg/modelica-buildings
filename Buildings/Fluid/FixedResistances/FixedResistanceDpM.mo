@@ -190,6 +190,11 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
+November 23, 2016, by Filip Jorissen:<br/>
+Removed <code>dp_nominal</code> and 
+<code>m_flow_nominal</code> labels from icon.
+</li>
+<li>
 October 14, 2016, by Michael Wetter:<br/>
 Updated comment for parameter <code>use_dh</code>.
 </li>
@@ -244,11 +249,5 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-102,86},{-4,22}},
-          lineColor={0,0,255},
-          textString="dp_nominal=%dp_nominal"), Text(
-          extent={{-106,106},{6,60}},
-          lineColor={0,0,255},
-          textString="m0=%m_flow_nominal")}));
+            100}})));
 end FixedResistanceDpM;
