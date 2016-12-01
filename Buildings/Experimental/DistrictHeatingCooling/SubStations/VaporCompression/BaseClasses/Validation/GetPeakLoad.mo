@@ -4,17 +4,20 @@ model GetPeakLoad "Model that validates the getPeakLoad function"
   parameter Modelica.SIunits.HeatFlowRate QCoo_flow=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space cooling load",
-      filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos")
+      filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
   parameter Modelica.SIunits.HeatFlowRate QHea_flow=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak space heating load",
-      filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos")
+      filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak heat flow rate";
   parameter Modelica.SIunits.HeatFlowRate QWatHea_flow=
     Buildings.Experimental.DistrictHeatingCooling.SubStations.VaporCompression.BaseClasses.getPeakLoad(
       string="#Peak water heating load",
-      filNam="modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos")
+      filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/RefBldgLargeOfficeNew2004_7.1_5.0_3C_USA_CA_SAN_FRANCISCO.mos"))
     "Peak water heating flow rate";
 equation
   assert(abs(QCoo_flow - (-383165.6989)) < 1E-3, "Error in reading the peak heating load. Read "
@@ -35,6 +38,12 @@ If the wrong values are read, then the simulation stops with an error.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Added call to <code>Modelica.Utilities.Files.loadResource</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/585\">#585</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed test for equality of real variables.<br/>

@@ -7,7 +7,7 @@ model GetAbsolutePath "Test model to get the absolute path of a URI"
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=f)
     "Absolute path of f";
   final parameter Integer dummy = 1
-    "Dummy variable, used have a result needed for the unit tests";
+    "Dummy variable, used to have a result as needed for the unit tests";
 initial algorithm
   Modelica.Utilities.Streams.print("Absolute path = " + fAbs);
 

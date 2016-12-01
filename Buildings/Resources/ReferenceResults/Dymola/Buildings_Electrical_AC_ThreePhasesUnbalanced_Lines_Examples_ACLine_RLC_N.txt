@@ -1,7 +1,7 @@
-last-generated=2016-05-27
+last-generated=2016-11-28
 statistics-initialization=
 {
-  "linear": "14, 14, 17, 8, 12, 23"
+  "linear": "10, 8, 16, 8, 12, 23"
 }
 statistics-simulation=
 {
