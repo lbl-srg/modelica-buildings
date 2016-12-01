@@ -111,7 +111,7 @@ partial model PartialWaterToWater
     final tau=tau1,
     final T_start=T1_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization)
+    final homotopyInitialization=homotopyInitialization) "Condenser"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   HeatExchangers.EvaporatorCondenser eva(
@@ -128,10 +128,11 @@ partial model PartialWaterToWater
     final tau=tau2,
     final T_start=T2_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization)
+    final homotopyInitialization=homotopyInitialization) "Evaporator"
     annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
 
-  replaceable Compressors.BaseClasses.PartialCompressor com annotation (
+  replaceable Compressors.BaseClasses.PartialCompressor com "Compressor"
+                                                            annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -155,7 +156,7 @@ equation
   connect(com.port_a, eva.port_ref) annotation (Line(points={{-4.44089e-016,-16},
           {0,-16},{0,-54}}, color={191,0,0}));
   connect(com.P, P)
-    annotation (Line(points={{11,0},{110,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{11,0},{110,0}},         color={0,0,127}));
   connect(N,com.y)  annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
         color={0,0,127}));
   annotation (

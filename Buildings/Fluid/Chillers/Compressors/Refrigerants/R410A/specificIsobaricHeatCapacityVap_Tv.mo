@@ -54,7 +54,8 @@ algorithm
 
   cp := cv - T * dpdT^2 / dpdv;
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the specific isobaric heat capacity (<i>c<sub>p</sub></i>) of R410A vapor based on temperature and specific volume. 
 </p>

@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.Validation.EvaporatorCondenser", m
 
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"sou.T", "tem.T", "ref.T"},
+   y = {"sou.T", "senTem.T", "ref.T"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

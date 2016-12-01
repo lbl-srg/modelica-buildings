@@ -21,13 +21,15 @@ protected
 
 algorithm
   // Independant variable
-  x := max(1-T/TCri, 0)^(1/3) - x0;
+  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 0)^(1/3) - x0;
   // Pressure of saturated liquid refrigerant
   h := 1000*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x);
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (smoothOrder=1,
+preferredView="info",Documentation(info="<HTML>
 <p>
-Function that calculates the specific enthalpy of saturated R410A vapor based on temperature.
+Function that calculates the specific enthalpy of saturated R410A vapor based
+on temperature.
 </p>
 <h4>References</h4>
 <p>

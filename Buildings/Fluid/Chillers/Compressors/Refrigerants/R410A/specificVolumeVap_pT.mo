@@ -51,10 +51,7 @@ algorithm
     m := m + 1;
 
     // Evaluate first derivative of pressure w.r.t. specific volume
-    dpdv := (-R*T/(v-b)^2);
-    for i in 1:n loop
-       dpdv := dpdv + (-i-1.0)*(A[i] + B[i]*T + C[i]*Modelica.Math.exp(-k*T/TCri))/(v - b)^(i+2);
-    end for;
+    dpdv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
     // Error on pressure
     dp := p - Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.pressureVap_Tv(T,v);
     // Corresponding linear adjustment of specific volume
@@ -63,7 +60,8 @@ algorithm
 
   end while;
 
-annotation (preferredView="info",Documentation(info="<HTML>
+annotation (derivative=Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dSpecificVolumeVap_pT,
+preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the specific volume R410A vapor based on pressure and
 temperature. The specific volume is evaluated iteratively by succesive
