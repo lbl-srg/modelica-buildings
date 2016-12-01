@@ -31,7 +31,7 @@ function exchange "Function that communicates with Python"
     annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
       LibraryDirectory={"modelica://Buildings/Resources/Library"},
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Include="#include \"pythonWrapper.c\"");
+      Include="#include \"python27Wrapper.c\"");
 
   annotation (Documentation(info="<html>
 <p>

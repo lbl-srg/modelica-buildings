@@ -75,7 +75,7 @@ LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * mo
                           const char ** strValWri, size_t nStrWri,
 			  void (*inModelicaFormatError)(const char *string,...));
 
-/* Exchange values with Flexlab.*/
+/* Exchange values with Cymdist.*/
 /* Any argument that starts with 'n', such as nDblWri, may be zero.*/
 /* If there is an error, then this function calls*/
 /* ModelicaFormatError(...) which terminates the computation.*/

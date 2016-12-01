@@ -28,7 +28,7 @@ function cymdist "Function that communicates with the CYMDIST Python API"
     annotation (Library={"ModelicaBuildingsPython3.4",  "python3.4"},
       LibraryDirectory={"modelica://Buildings/Resources/Library"},
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Include="#include \"pythonWrapper.c\"");
+      Include="#include \"python34Wrapper.c\"");
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with CymDist through its Python API.
