@@ -119,7 +119,7 @@ equation
   connect(ySou.y, sou.T_in) annotation (Line(points={{79,-28},{72,-28},{72,-2},
           {70,-2}},
                 color={0,0,127}));
-  connect(isOn.y, heaPum.N) annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
+  connect(isOn.y,heaPum.y)  annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
           3},{-12,3}}, color={0,0,127}));
   connect(loa.ports[1], temLoa_in.port_a)
     annotation (Line(points={{-46,20},{-42,20},{-40,20}}, color={0,127,255}));

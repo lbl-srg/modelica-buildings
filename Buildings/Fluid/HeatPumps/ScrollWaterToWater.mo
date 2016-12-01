@@ -2,11 +2,11 @@ within Buildings.Fluid.HeatPumps;
 model ScrollWaterToWater
   "Model for a scroll water to water heat pump"
 
-  extends Buildings.Fluid.Chillers.BaseClasses.PartialWaterToWater(redeclare
-      Chillers.Compressors.ScrollCompressor com(
+  extends Buildings.Fluid.Chillers.BaseClasses.PartialWaterToWater(
+    redeclare Chillers.Compressors.ScrollCompressor com(
       redeclare package ref = ref,
       volRat=volRat,
-      v_flow=v_flow,
+      V_flow_nominal=V_flow_nominal,
       leaCoe=leaCoe,
       etaEle=etaEle,
       PLos=PLos,
@@ -16,7 +16,7 @@ model ScrollWaterToWater
   parameter Real volRat(min = 1.0, unit = "1")
     "Built-in volume ratio";
 
-  parameter Modelica.SIunits.VolumeFlowRate v_flow(min = 0)
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
     "Refrigerant volume flow rate at suction";
 
   parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0)

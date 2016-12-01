@@ -11,7 +11,8 @@ model ScrollWaterToWater
       UACon = UACon,
       UAEva = UAEva,
       volRat=volRat,
-      v_flow=v_flow,
+      V_flow_nominal=
+             v_flow,
       leaCoe=leaCoe,
       etaEle=etaEle,
       PLos=PLos,

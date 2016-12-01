@@ -52,10 +52,8 @@ model ScrollWaterToWater
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-8},{80,12}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
-    redeclare package Medium1 =
-        Medium1,
-    redeclare package Medium2 =
-        Medium2,
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
@@ -65,13 +63,13 @@ model ScrollWaterToWater
     UACon=4400,
     UAEva=4400,
     volRat=2,
-    v_flow=0.003,
+    V_flow_nominal=0.003,
     leaCoe=0.01,
     etaEle=0.696,
     PLos=500,
     dTSup=10,
     enable_variable_speed=false) "Scroll water to water heat pump"
-              annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
     height=20,
     duration=750,
@@ -119,7 +117,7 @@ equation
           -68,24}},      color={0,0,127}));
   connect(ySou.y, sou.T_in) annotation (Line(points={{79,-28},{72,-28},{72,-2},
           {70,-2}}, color={0,0,127}));
-  connect(isOn.y, heaPum.N) annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
+  connect(isOn.y,heaPum.y)  annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
           3},{-12,3}}, color={0,0,127}));
   connect(heaPum.port_a2, temSou_in.port_a)
     annotation (Line(points={{10,-6},{20,-6}}, color={0,127,255}));

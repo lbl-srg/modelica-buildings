@@ -106,7 +106,7 @@ equation
   connect(splDat.y2[1], Loa.T_in) annotation (Line(points={{-79,13},{-70.5,13},{
           -70.5,12},{-62,12}}, color={0,0,127}));
 
-  connect(isOn.y, heaPum.N) annotation (Line(points={{-37.4,-10},{-30,-10},{-30,
+  connect(isOn.y,heaPum.y)  annotation (Line(points={{-37.4,-10},{-30,-10},{-30,
           3},{-12,3}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),preferredView="info",Documentation(info="<HTML>
