@@ -30,7 +30,7 @@ model Load "Partial model for a generic load"
 
   Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
     "Voltage vector";
-  Modelica.SIunits.Current i[:](start = PhaseSystem.phaseCurrents(0.0)) = terminal.i
+  Modelica.SIunits.Current i[:] = terminal.i
     "Current vector";
   Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, -i)
     "Phase powers";
@@ -116,6 +116,13 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Removed zero start value for current.
+The current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

@@ -41,19 +41,6 @@ model TwoPortMatrixRLC
     "Element [3,1] of admittance matrix";
   final parameter Modelica.SIunits.Admittance B32 = B23
     "Element [3,2] of admittance matrix";
-protected
-  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
-    "Product between complex quantities";
-  Modelica.SIunits.Current Isr[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer)
-    "Currents that pass through the lines";
-  Modelica.SIunits.Current Ish_p[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side p";
-  Modelica.SIunits.Current Ish_n[3,2](
-    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
-    each stateSelect = StateSelect.prefer) "Shunt current on side n";
 
   Modelica.SIunits.Voltage v1_n[2](
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 0),
@@ -79,6 +66,21 @@ protected
     start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi= 2*Modelica.Constants.pi/3),
     each stateSelect = StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
+
+protected
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
+    "Product between complex quantities";
+  Modelica.SIunits.Current Isr[3,2](
+    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
+    each stateSelect = StateSelect.prefer)
+    "Currents that pass through the lines";
+  Modelica.SIunits.Current Ish_p[3,2](
+    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
+    each stateSelect = StateSelect.prefer) "Shunt current on side p";
+  Modelica.SIunits.Current Ish_n[3,2](
+    start = zeros(3,Buildings.Electrical.PhaseSystems.OnePhase.n),
+    each stateSelect = StateSelect.prefer) "Shunt current on side n";
+
 equation
 
   // Link the connectors to propagate the overdetermined variable
@@ -156,6 +158,12 @@ equation
           textString="C 3x3")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Made current and voltage public to allow setting start values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.

@@ -46,6 +46,11 @@ model ACACTransformerFull "AC AC transformer with detailed equivalent circuit"
      annotation(Evaluate=true, Dialog(tab = "Initialization"));
   Modelica.SIunits.Efficiency eta "Efficiency";
   Modelica.SIunits.Power PLoss[2] "Loss power";
+
+  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
+    "Voltage at the winding - primary side";
+  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_n.phaseVoltages(VLow, phi_2))
+    "Voltage at the winding - secondary side";
 protected
   parameter Modelica.SIunits.AngularVelocity omega_n = 2*Modelica.Constants.pi*f;
   parameter Real N = VHigh/VLow "Winding ratio";
@@ -61,10 +66,6 @@ protected
     "Magnetization impedance - resistance";
   Modelica.SIunits.Impedance Zlm[2] = {0, omega*Lm*RBaseHigh/omega_n}
     "Magnetization impedance - impedence";
-  Modelica.SIunits.Voltage V1[2](start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
-    "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](start = PhaseSystem_n.phaseVoltages(VLow, phi_2))
-    "Voltage at the winding - secondary side";
   Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
     "Power transmitted at pin p (secondary)";
   Modelica.SIunits.Power P_n[2] = PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
@@ -379,6 +380,12 @@ The magnetization losses can be enabled or disabled using the boolean flag <code
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Made voltage public to allow setting a start value.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of

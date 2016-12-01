@@ -1,6 +1,14 @@
-last-generated=2015-05-08
-statistics-initialization={'linear': '2, 2, 3, 2, 2, 2, 3, 2'}
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+last-generated=2016-11-28
+statistics-initialization=
+{
+  "linear": "2, 2, 4, 2, 2, 2, 3, 2"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
 R3.v[2]=[-0.66813921928405761719, -0.66813921928405761719]
 R2.v[2]=[-0.66813921928405761719, -0.66813921928405761719]
 R2.v[1]=[117.16843414306640625, 117.16843414306640625]
