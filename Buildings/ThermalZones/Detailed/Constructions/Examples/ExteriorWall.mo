@@ -14,6 +14,8 @@ model ExteriorWall "Test model for an exterior wall without a window"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
   Buildings.ThermalZones.Detailed.Constructions.Construction conExt[1](
+    each placeCapacityAtSurf_a=false,
+    each placeCapacityAtSurf_b=false,
     A=conPar[:].A,
     layers=conPar.layers,
     til={Buildings.Types.Tilt.Wall})
