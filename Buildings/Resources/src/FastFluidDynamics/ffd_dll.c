@@ -1,18 +1,18 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   ffd_dll.c
-///
-/// \brief  functions to call ffd code as a dll
-///
-/// \author Wangda Zuo, Dan Li
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions as entry for the coupled simulation
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   ffd_dll.c
+	*
+	* \brief  functions to call ffd code as a dll
+	*
+	* \author Wangda Zuo, Dan Li
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions as entry for the coupled simulation
+	*
+	*/
 
 #include "ffd_dll.h"
 /******************************************************************************
@@ -20,50 +20,50 @@
 | Called by the other program
 ******************************************************************************/
 int ffd_dll(CosimulationData *cosim) {
-// Windows
+/* Windows*/
 #ifdef _MSC_VER
   DWORD dummy;
   HANDLE workerThreadHandle;
-//  Linux
+/*  Linux*/
 #else
     pthread_t thread1;
 #endif
 
-  //printf("ffd_dll():Start to launch FFD\n");
+  /*printf("ffd_dll():Start to launch FFD\n");*/
 
-// Windows
+/* Windows*/
 #ifdef _MSC_VER
   workerThreadHandle = CreateThread(NULL, 0, ffd_thread, (void *)cosim, 0, &dummy);
-// Linux
+/* Linux*/
 #else
   void * (*foo) (void *);
   foo=&ffd_thread;
   pthread_create(&thread1, NULL, foo, (void *)cosim);
 #endif
 
-  //printf("ffd_dll(): Launched FFD simulation.\n");
+  /*printf("ffd_dll(): Launched FFD simulation.\n");*/
   return 0;
-} // End of ffd_dll()
+} /* End of ffd_dll()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Launch the FFD simulation through a thread
-///
-///\param p Pointer to the coupled simulation data
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
-#ifdef _MSC_VER //Windows
+	/*
+		* Launch the FFD simulation through a thread
+		*
+		* @param p Pointer to the coupled simulation data
+		*
+		* @return 0 if no error occurred
+		*/
+#ifdef _MSC_VER /*Windows*/
 DWORD WINAPI ffd_thread(void *p){
   ULONG workerID = (ULONG)(ULONG_PTR)p;
-#else //Linux
+#else /*Linux*/
 void *ffd_thread(void* p){
 #endif
 
   CosimulationData *cosim = (CosimulationData *) p;
 
-#ifdef _MSC_VER //Windows
+#ifdef _MSC_VER /*Windows*/
   sprintf(msg, "Start Fast Fluid Dynamics Simulation with Thread ID %lu", workerID);
-#else //Linux
+#else /*Linux*/
   sprintf(msg, "Start Fast Fluid Dynamics Simulation with Thread");
 #endif
 
@@ -85,4 +85,4 @@ void *ffd_thread(void* p){
     return 0;
 #endif
   }
-} // End of ffd_thread()
+} /* End of ffd_thread()*/

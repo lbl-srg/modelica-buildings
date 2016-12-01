@@ -1,31 +1,31 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   cosimulation.c
-///
-/// \brief  Functions for coupled simulation
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions that are used for conducting the coupled simulation
-/// with Modelica
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   cosimulation.c
+	*
+	* \brief  Functions for cosimulation
+	*
+	* \author Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions that are used for conducting the coupled simulation
+	* with Modelica
+	*
+	*/
 
 #include "cosimulation.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Read the coupled simulation parameters defined by Modelica
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Read the coupled simulation parameters defined by Modelica
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param BINDEX pointer to boundary index
+	*
+	* @return 0 if no error occurred
+	*/
 int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i;
 
@@ -204,16 +204,17 @@ int read_cosim_parameter(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   return 0;
-} // End of read_cosim_parameter()
+} /* End of read_cosim_parameter()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Read the data from Modelica
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Read the data from Modelica
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param BINDEX pointer to boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i;
 
@@ -294,25 +295,25 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   /****************************************************************************
   | Post-Process after reading the data
   ****************************************************************************/
-  // Change the flag to indicate that the data has been read
+  /* Change the flag to indicate that the data has been read*/
   para->cosim->modelica->flag = 0;
-  //printf("para->cosim->modelica->flag=%d\n", para->cosim->modelica->flag);
+  /*printf("para->cosim->modelica->flag=%d\n", para->cosim->modelica->flag);*/
   if(para->outp->version==DEBUG) {
     ffd_log("read_cosim_data(): Ended reading data from Modelica.",
             FFD_NORMAL);
   }
 
   return 0;
-} // End of read_cosim_data()
+} /* End of read_cosim_data()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write the FFD data for Modelica
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write the FFD data for Modelica
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		*
+		* @return 0 if no error occurred
+		*/
 int write_cosim_data(PARA_DATA *para, REAL **var) {
   int i, j, id;
 
@@ -358,7 +359,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   if(para->cosim->para->sha==1) {
     ffd_log("\tTemperature of the shade:", FFD_NORMAL);
     for(i=0; i<para->cosim->para->nConExtWin; i++) {
-      //Note: The shade feature is to be implemented
+      /*Note: The shade feature is to be implemented*/
       para->cosim->ffd->TSha[i] = 20 + 273.15;
       sprintf(msg, "\t\tSurface %d: %f[K]\n",
               i, para->cosim->ffd->TSha[i]);
@@ -371,7 +372,7 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   ****************************************************************************/
   ffd_log("\tFlow information at the ports:", FFD_NORMAL);
   for(i=0; i<para->bc->nb_port; i++) {
-    // Get the corresponding ID in Modelica
+    /* Get the corresponding ID in Modelica*/
     id = para->bc->portId[i];
     /*-------------------------------------------------------------------------
     | Assign the temperature
@@ -421,14 +422,14 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   for(i=0; i<para->bc->nb_wall; i++) {
     id = para->bc->wallId[i];
 
-    // Set the B.C. Temperature
+    /* Set the B.C. Temperature*/
     if(para->cosim->para->bouCon[id]==2) {
       para->cosim->ffd->temHea[id] = para->bc->temHeaMean[i]
                                   / para->bc->AWall[i] + 273.15;
       sprintf(msg, "\t\t%s: %f[K]",
               para->cosim->para->name[id], para->cosim->ffd->temHea[id]);
     }
-    // Set the heat flux
+    /* Set the heat flux*/
     else {
       para->cosim->ffd->temHea[id] = para->bc->temHeaMean[i];
       sprintf(msg, "\t\t%s: %f[W]",
@@ -460,17 +461,17 @@ int write_cosim_data(PARA_DATA *para, REAL **var) {
   para->cosim->ffd->flag = 1;
 
   return 0;
-} // End of write_cosim_data()
+} /* End of write_cosim_data()*/
 
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Compare the names of boundaries and store the relationship
-///
-///\param para Pointer to FFD parameters
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Compare the names of boundaries and store the relationship
+		*
+		* @param para Pointer to FFD parameters
+		*
+		* @return 0 if no error occurred
+		*/
 int compare_boundary_names(PARA_DATA *para) {
   int i, j, flag;
 
@@ -493,16 +494,16 @@ int compare_boundary_names(PARA_DATA *para) {
     -------------------------------------------------------------------------*/
     for(j=0; j<para->bc->nb_wall&&flag!=0; j++) {
       flag = strcmp(name1[i], name2[j]);
-      // If found the name
+      /* If found the name*/
       if(flag==0) {
-        // If the same name has been found before
+        /* If the same name has been found before*/
         if(para->bc->wallId[j]>0) {
           sprintf(msg, "compare_boundary_names(): Modelica has "
             "the same name \"%s\" for two BCs.", name1[i]);
           ffd_log(msg, FFD_ERROR);
           return 1;
         }
-        // If no same name has been found before, use it
+        /* If no same name has been found before, use it*/
         else {
           sprintf(msg,
           "compare_boundary_names(): Matched boundary name \"%s\".",
@@ -510,8 +511,8 @@ int compare_boundary_names(PARA_DATA *para) {
           ffd_log(msg, FFD_NORMAL);
           para->bc->wallId[j] = i;
         }
-      } // End of if(flag==0)
-    } // End of for(j=0; j<para->bc->nb_wall&&flag!=0; j++)
+      } /* End of if(flag==0)*/
+    } /* End of for(j=0; j<para->bc->nb_wall&&flag!=0; j++)*/
 
     /*-------------------------------------------------------------------------
     | Stop if name is not found
@@ -522,7 +523,7 @@ int compare_boundary_names(PARA_DATA *para) {
       ffd_log(msg, FFD_ERROR);
       return 1;
     }
-  } // Next Modelica Wall name
+  } /* Next Modelica Wall name*/
 
   /****************************************************************************
   | Compare the names of fluid ports
@@ -542,9 +543,9 @@ int compare_boundary_names(PARA_DATA *para) {
       flag = strcmp(name3[i], name4[j]);
       sprintf(msg, "\tFFD: port[%d]=%s", j, name4[j]);
       ffd_log(msg, FFD_NORMAL);
-      // If found the name
+      /* If found the name*/
       if(flag==0) {
-        // If the same name has been found before
+        /* If the same name has been found before*/
         if(para->bc->portId[j]>0) {
           sprintf(msg,
           "compare_boundary_names(): Modelica has the same name \"%s\" for two BCs.",
@@ -552,7 +553,7 @@ int compare_boundary_names(PARA_DATA *para) {
           ffd_log(msg, FFD_ERROR);
           return 1;
         }
-        // If no same name has been found before, use it
+        /* If no same name has been found before, use it*/
         else {
           sprintf(msg,
           "compare_boundary_names(): Matched boundary name \"%s\".",
@@ -560,7 +561,7 @@ int compare_boundary_names(PARA_DATA *para) {
           ffd_log(msg, FFD_NORMAL);
           para->bc->portId[j] = i;
         }
-      } // End of if(flag==0)
+      } /* End of if(flag==0)*/
     }
 
     /*-------------------------------------------------------------------------
@@ -572,20 +573,20 @@ int compare_boundary_names(PARA_DATA *para) {
       ffd_log(msg, FFD_ERROR);
       return 1;
     }
-  } // Next Modelica port name
+  } /* Next Modelica port name*/
 
   return 0;
-} // End of compare_boundary_names()
+} /* End of compare_boundary_names()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Compare the area of boundaries
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to the FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Compare the area of boundaries
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to the FFD simulation variables
+		* @param BINDEX Pointer to boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int compare_boundary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j;
   REAL *A0 = para->bc->AWall, *A1 = para->cosim->para->are;
@@ -611,17 +612,17 @@ int compare_boundary_area(PARA_DATA *para, REAL **var, int **BINDEX) {
   }
 
   return 0;
-} // End of compare_boundary_area()
+} /* End of compare_boundary_area()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Assign the Modelica solid surface thermal boundary condition data to FFD
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to the FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Assign the Modelica solid surface thermal boundary condition data to FFD
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to the FFD simulation variables
+		* @param BINDEX Pointer to boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k, it, id, modelicaId;
   int imax = para->geom->imax, jmax = para->geom->jmax,
@@ -643,19 +644,19 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
               FFD_ERROR);
       return 1;
     }
-    //-------------------------------------------------------------------------
-    // Convert the data from Modelica order to FFD order
-    //-------------------------------------------------------------------------
+    /*-------------------------------------------------------------------------*/
+    /* Convert the data from Modelica order to FFD order*/
+    /*-------------------------------------------------------------------------*/
     for(j=0; j<para->bc->nb_wall; j++) {
       i = para->bc->wallId[j];
       switch(para->cosim->para->bouCon[i]) {
-        case 1: // Temperature
+        case 1: /* Temperature*/
           temHea[j] = para->cosim->modelica->temHea[i] - 273.15;
           sprintf(msg, "\t%s: T=%f[degC]",
             para->bc->wallName[j], temHea[j]);
           ffd_log(msg, FFD_NORMAL);
           break;
-        case 2: // Heat flow rate
+        case 2: /* Heat flow rate*/
           temHea[j] = para->cosim->modelica->temHea[i] / para->bc->AWall[j];
           sprintf(msg, "\t%s: Q_dot=%f[W/m2]",
             para->bc->wallName[j], temHea[j]);
@@ -670,9 +671,9 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
           return 1;
       }
     }
-    //-------------------------------------------------------------------------
-    // Assign the BC
-    //-------------------------------------------------------------------------
+    /*-------------------------------------------------------------------------*/
+    /* Assign the BC*/
+    /*-------------------------------------------------------------------------*/
     for(it=0; it<para->geom->index; it++) {
       i = BINDEX[0][it];
       j = BINDEX[1][it];
@@ -684,11 +685,11 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
         switch(para->cosim->para->bouCon[modelicaId]) {
           case 1:
             var[TEMPBC][IX(i,j,k)] = temHea[id];
-            BINDEX[3][it] = 1; // Specified temperature
+            BINDEX[3][it] = 1; /* Specified temperature*/
             break;
           case 2:
             var[QFLUXBC][IX(i,j,k)] = temHea[id];
-            BINDEX[3][it] = 0; // Specified heat flux
+            BINDEX[3][it] = 0; /* Specified heat flux*/
             break;
           default:
             sprintf(msg,
@@ -697,11 +698,11 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
               it, BINDEX[3][it], i, j, k);
             ffd_log(msg, FFD_ERROR);
             return 1;
-      } // End of switch(BINDEX[3][it])
+      } /* End of switch(BINDEX[3][it])*/
     }
 
     free(temHea);
-  } // End of if(para->bc->nb_wall>0)
+  } /* End of if(para->bc->nb_wall>0)*/
   /****************************************************************************
   | No action since there is not a solid surface
   ****************************************************************************/
@@ -730,26 +731,26 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   ffd_log(msg, FFD_NORMAL);
 
   return 0;
-} // End of assign_thermal_bc()
+} /* End of assign_thermal_bc()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Assign the Modelica inlet and outlet boundary condition data to FFD
-///
-/// The inlet and outlet boundaries are not fixed and they can change during
-/// the simulation. The reason is that the Modelica uses acausal modeling
-/// and the flow direction can change during the simulation depending on the
-/// pressure difference. As a result, the FFD has to change its inlet and outlet
-/// boundry condition accordingly. The inlet or outlet boundary is decided
-/// according to the flow rate para->cosim->modelica->mFloRarPor. The port is
-/// inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the
-/// var[FLAGP][IX(i,j,k)] to apply the change of boundary conditions.
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to the FFD simulation variables
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Assign the Modelica inlet and outlet boundary condition data to FFD
+		*
+		* The inlet and outlet boundaries are not fixed and they can change during
+		* the simulation. The reason is that the Modelica uses acausal modeling
+		* and the flow direction can change during the simulation depending on the
+		* pressure difference. As a result, the FFD has to change its inlet and outlet
+		* boundary condition accordingly. The inlet or outlet boundary is decided
+		* according to the flow rate para->cosim->modelica->mFloRarPor. The port is
+		* inlet if mFloRarPor>0 and outlet if mFloRarPor<0. We will need to reset the
+		* var[FLAGP][IX(i,j,k)] to apply the change of boundary conditions.
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to the FFD simulation variables
+		* @param BINDEX Pointer to boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   int i, j, k, id, it, Xid, Cid;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -805,7 +806,7 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
     | Only treat those inlet and outlet boundaries
     -------------------------------------------------------------------------*/
     if(var[FLAGP][IX(i,j,k)]==INLET || var[FLAGP][IX(i,j,k)]==OUTLET) {
-      // Set it to inlet if the flow velocity is positive or equal to 0
+      /* Set it to inlet if the flow velocity is positive or equal to 0*/
       if(para->bc->velPort[id]>=0) {
         var[FLAGP][IX(i,j,k)] = INLET;
         var[TEMPBC][IX(i,j,k)] = para->bc->TPort[id];
@@ -830,32 +831,32 @@ int assign_port_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
         else if(k==kmax+1)
           var[VZBC][IX(i,j,k)] = -para->bc->velPort[id];
       }
-      // Set it to outlet if the flow velocity is negative
+      /* Set it to outlet if the flow velocity is negative*/
       else
         var[FLAGP][IX(i,j,k)] = OUTLET;
     }
   }
   return 0;
-} // End of assign_inlet_outlet_bc()
+} /* End of assign_inlet_outlet_bc()*/
 
 
-///////////////////////////////////////////////////////////////////////////////
-/// Integrate the coupled simulation exchange data over the surfaces
-///
-/// Fluid port:
-///   - T/Xi/C: sum(u*T*dA)
-///   - m_dot:  sum(u*dA)
-///
-/// Solid Surface Boundary:
-///   - T:      sum(T*dA)
-///   - Q_dot:  sum(q_dot*dA)
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param BINDEX Pointer to the boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Integrate the coupled simulation exchange data over the surfaces
+		*
+		* Fluid port:
+		*   - T/Xi/C: sum(u*T*dA)
+		*   - m_dot:  sum(u*dA)
+		*
+		* Solid Surface Boundary:
+		*   - T:      sum(T*dA)
+		*   - Q_dot:  sum(q_dot*dA)
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param BINDEX Pointer to the boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int kmax = para->geom->kmax;
@@ -920,17 +921,17 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
     --------------------------------------------------------------------------*/
     if(var[FLAGP][IX(i,j,k)]==SOLID) {
       switch(BINDEX[3][it]) {
-        // FFD uses heat flux as BC to compute temperature
-        // Then send Modelica the temperature
+        /* FFD uses heat flux as BC to compute temperature*/
+        /* Then send Modelica the temperature*/
         case 0:
           para->bc->temHeaAve[bcid] += var[TEMP][IX(i,j,k)] * A_tmp;
           break;
-        // FFD uses temperature as BC to compute heat flux
-        // Then send Modelica the heat flux
+        /* FFD uses temperature as BC to compute heat flux*/
+        /* Then send Modelica the heat flux*/
         case 1:
           para->bc->temHeaAve[bcid] += var[QFLUX][IX(i,j,k)] * A_tmp;
-          //sprintf(msg, "Cell(%d,%d,%d):\tQFLUX=%f,\tA=%f", i,j,k,var[QFLUX][IX(i,j,k)], A_tmp);
-          //ffd_log(msg, FFD_NORMAL);
+          /*sprintf(msg, "Cell(%d,%d,%d):\tQFLUX=%f,\tA=%f", i,j,k,var[QFLUX][IX(i,j,k)], A_tmp);*/
+          /*ffd_log(msg, FFD_NORMAL);*/
           break;
         default:
           sprintf(msg, "average_bc_area(): Thermal boundary (%d)"
@@ -978,19 +979,19 @@ int surface_integrate(PARA_DATA *para, REAL **var, int **BINDEX) {
         para->bc->CPortAve[bcid][j] = 0;
     }
 
-  } // End of for(it=0; it<para->geom->index; it++)
+  } /* End of for(it=0; it<para->geom->index; it++)*/
 
   return 0;
-} // End of surface_integrate()
+} /* End of surface_integrate()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Set sensor data
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD data
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Set sensor data
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD data
+		*
+		* @return 0 if no error occurred
+		*/
 int set_sensor_data(PARA_DATA *para, REAL **var) {
   int imax = para->geom->imax, jmax = para->geom->jmax,
       kmax = para->geom->kmax;
@@ -999,11 +1000,11 @@ int set_sensor_data(PARA_DATA *para, REAL **var) {
        v = var[VY][IX(imax/2,jmax/2,kmax/2)],
        w = var[VZ][IX(imax/2,jmax/2,kmax/2)];
 
-  // Averaged room temperature
+  /* Averaged room temperature*/
   para->sens->senVal[0] = para->cosim->ffd->TRoo;
 
-  //Velocity at the center of the space
+  /*Velocity at the center of the space*/
   para->sens->senVal[1] = sqrt(u*u + v*v + w*w);
 
   return 0;
-} // End of set_sensor_data
+} /* End of set_sensor_data*/
