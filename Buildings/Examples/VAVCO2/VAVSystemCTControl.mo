@@ -24,27 +24,21 @@ parameter Real scaDpFanRet_nominal = 1
     Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant yDam(k=0.5)
       annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
-                                               dp_nominal=0.546,
-  m_flow_nominal=scaM_flow*1,
-  dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{60,-20},{80,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res33(
-  dp_nominal=0.164,
-  dh=sqrt(scaM_flow)*1,
-  m_flow_nominal=scaM_flow*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{160,-20},{180,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
-                                               dp_nominal=0.118000,
-  m_flow_nominal=scaM_flow*1,
-  dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{80,-80},{60,-60}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res31(
+    dp_nominal=0.546,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res33(
+    dp_nominal=0.164,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res57(
+    dp_nominal=0.118000,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));

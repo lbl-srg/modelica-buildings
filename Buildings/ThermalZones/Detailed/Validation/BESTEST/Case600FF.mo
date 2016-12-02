@@ -186,7 +186,7 @@ model Case600FF
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{-86,-28},{-78,-20}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM   heaCoo(
+  Buildings.Fluid.FixedResistances.PressureDrop heaCoo(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=48*2.7*0.41/3600*1.2,

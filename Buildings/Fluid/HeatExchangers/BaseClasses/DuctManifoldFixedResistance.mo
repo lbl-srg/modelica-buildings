@@ -26,15 +26,12 @@ model DuctManifoldFixedResistance
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM fixRes(
+  Buildings.Fluid.FixedResistances.PressureDrop fixRes(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
-    dh=dh,
     from_dp=from_dp,
     deltaM=deltaM,
-    ReC=ReC,
-    use_dh=use_dh,
     linearized=linearized) "Fixed resistance for each duct"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 protected

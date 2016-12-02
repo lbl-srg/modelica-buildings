@@ -333,25 +333,23 @@ model TwoRoomsWithStorage
     use_C_in=false,
     nPorts=4) "Outside air conditions"
     annotation (Placement(transformation(extent={{0,470},{20,490}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac4(
+  Buildings.Fluid.FixedResistances.PressureDrop dpFac4(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,
-    dp_nominal=10) "Pressure drop at facade"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={330,214})));
+    dp_nominal=10) "Pressure drop at facade" annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, origin={330,214})));
   HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
     "Partition wall between the two rooms" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={450,290})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac1(
+  Buildings.Fluid.FixedResistances.PressureDrop dpFac1(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,
-    dp_nominal=10) "Pressure drop at facade"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={330,474})));
+    dp_nominal=10) "Pressure drop at facade" annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, origin={330,474})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumA,
@@ -415,31 +413,30 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Math.Gain gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal(
+  Buildings.Fluid.FixedResistances.Junction splVal(
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-    "Flow splitter"                                    annotation (Placement(
-        transformation(
+    "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={260,-40})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal1(
+  Buildings.Fluid.FixedResistances.Junction splVal1(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-    "Flow splitter"                     annotation (Placement(transformation(
+    "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,130})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal2(
+  Buildings.Fluid.FixedResistances.Junction splVal2(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-    "Flow splitter"                     annotation (Placement(transformation(
+    "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={260,100})));

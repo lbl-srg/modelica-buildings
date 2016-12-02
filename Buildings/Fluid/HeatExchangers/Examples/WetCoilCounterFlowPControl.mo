@@ -41,19 +41,18 @@ model WetCoilCounterFlowPControl
     p=300000 + 12000)
                    annotation (Placement(transformation(extent={{-40,50},{-20,
             70}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
+  Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium2,
     dp_nominal=100,
-    m_flow_nominal=m2_flow_nominal) annotation (Placement(transformation(extent=
-           {{-20,10},{-40,30}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
+    m_flow_nominal=m2_flow_nominal)
+    annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res_1(
     from_dp=true,
     redeclare package Medium = Medium1,
     dp_nominal=3000,
     m_flow_nominal=m1_flow_nominal)
-                     annotation (Placement(transformation(extent={{90,50},{110,
-            70}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
                Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,10},{0,30}})));

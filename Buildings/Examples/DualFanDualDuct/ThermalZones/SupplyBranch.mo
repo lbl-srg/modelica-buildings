@@ -74,7 +74,7 @@ model SupplyBranch "Supply branch of a dual duct system"
     annotation (Placement(transformation(extent={{100,94},{120,114}})));
   Modelica.Blocks.Interfaces.RealInput TRoo "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
+  Buildings.Fluid.FixedResistances.Junction mix(
     redeclare package Medium = MediumA,
     m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,
         mAirCol_flow_nominal + mAirHot_flow_nominal},

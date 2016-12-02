@@ -10,36 +10,35 @@ model FixedResistance "Test model for the fixed resistance model"
     height=20,
     offset=101315)
                  annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
-    dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
-  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
-      = Medium,
+    dp_nominal=10)
+    annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
+  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
+        Medium,
     use_p_in=true,
     T=293.15,
     nPorts=3)             annotation (Placement(transformation(extent={{-60,-10},
             {-40,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
-      = Medium, T=283.15,
+  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
+        Medium, T=283.15,
     use_p_in=true,
     nPorts=3)             annotation (Placement(transformation(extent={{90,-10},
             {70,10}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
-    dp_nominal=10,
-    use_dh=true)
-             annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
+    dp_nominal=10)
+    annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res3(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=5,
-    dp_nominal=10,
-    use_dh=true)
-             annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
+    dp_nominal=10)
+    annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
   FixedResistances.LosslessPipe pipCon(redeclare package Medium = Medium,
       m_flow_nominal=5) "Lossless pipe connection"
                                annotation (Placement(transformation(extent={{34,

@@ -64,7 +64,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 40)
     "Temperature setpoint for heating load"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,2,1},
     dp_nominal={0,0,200},
@@ -73,7 +73,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,70})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
+  Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal={0,0,100},
@@ -82,7 +82,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(
+  Buildings.Fluid.FixedResistances.Junction spl2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=0*{1,1,1},
@@ -91,7 +91,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,10})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl3(
+  Buildings.Fluid.FixedResistances.Junction spl3(
     redeclare package Medium = Medium,
     dp_nominal=0*{1,1,1},
     m_flow_nominal=m_flow_nominal*{2,1,1},
@@ -102,7 +102,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         origin={80,70})));
   Storage.ExpansionVessel exp(redeclare package Medium = Medium, V_start=1)
     annotation (Placement(transformation(extent={{104,-80},{124,-60}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(
+  Buildings.Fluid.FixedResistances.Junction spl4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=0*{1,1,1},

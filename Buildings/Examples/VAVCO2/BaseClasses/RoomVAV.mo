@@ -79,13 +79,12 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Sources.RealExpression vavACH(y=vav.m_flow*3600/VRoo/1.2)
     "VAV box air change per hour"
     annotation (extent=[-124,34; -100,54]);
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpPle(
+  Buildings.Fluid.FixedResistances.PressureDrop dpPle(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=20,
     from_dp=true,
-    allowFlowReversal=false)
-                   annotation (Placement(transformation(
+    allowFlowReversal=false) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-30})));
