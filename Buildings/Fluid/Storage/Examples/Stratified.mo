@@ -29,7 +29,7 @@ model Stratified "Test model for stratified tank"
     p=300000,
     nPorts=2)             annotation (Placement(transformation(extent={{90,-2},
             {70,18}})));
-    FixedResistances.FixedResistanceDpM res_1(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
@@ -43,7 +43,7 @@ model Stratified "Test model for stratified tank"
     m_flow_nominal=0.1,
     VTan=3) "Tank"             annotation (Placement(transformation(extent={{-18,-38},
             {2,-18}})));
-    FixedResistances.FixedResistanceDpM res_2(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
