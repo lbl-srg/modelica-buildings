@@ -399,8 +399,8 @@ as these will be replaced by the boiler loop.
 <li>
 <p>
 We made various instances of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.SplitterPressureDrop\">
-Buildings.Fluid.FixedResistances.SplitterPressureDrop</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Junction\">
+Buildings.Fluid.FixedResistances.Junction</a>
 to model flow splitter and mixers.
 We also made an instance of
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear\">
@@ -505,7 +505,7 @@ radiator loop, into the instance <code>mix</code>.
 Hence, its parameters are
 </p>
 <pre>
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop mix(
+  Buildings.Fluid.FixedResistances.Junction mix(
     redeclare package Medium =MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mRadVal_flow_nominal,
@@ -517,8 +517,8 @@ Hence, its parameters are
 Note the negative values, which are used for the ports where the medium is
 outflowing at nominal conditions.
 See also the documentation of the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.SplitterPressureDrop\">
-Buildings.Fluid.FixedResistances.SplitterPressureDrop</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Junction\">
+Buildings.Fluid.FixedResistances.Junction</a>.
 </p>
 <p>
 We also set the pressure drop of
