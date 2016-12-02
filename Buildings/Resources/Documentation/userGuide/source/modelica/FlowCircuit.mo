@@ -12,7 +12,7 @@ model FlowCircuit
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
           data(V_flow_nominal={2e6,0}, dp_nominal={0,20000})))
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1000)

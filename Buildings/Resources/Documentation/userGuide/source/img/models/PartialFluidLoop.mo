@@ -4,7 +4,7 @@ model PartialFluidLoop
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Modelica.Blocks.Sources.Constant const
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res
+  Buildings.Fluid.FixedResistances.PressureDrop res
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

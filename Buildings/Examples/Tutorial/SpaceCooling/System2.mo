@@ -520,8 +520,8 @@ we could have used the same model as for the fan.
 </p>
 <p>
 To explicitly model duct pressure drop, we could have added
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> to the model.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> to the model.
 However, computationally it is cheaper to lump these pressure drops into other component models.
 In fact, rather than separately computing the pressure drop of the heat recovery and the air-side
 pressure drop of the cooling coil, we could have modeled the cooling coil pressure drop as

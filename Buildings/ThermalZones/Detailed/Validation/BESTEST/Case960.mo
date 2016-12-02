@@ -126,7 +126,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       Placement(transformation(
         extent={{0,0},{-8,8}},
         origin={194,-52})));
-  Fluid.FixedResistances.FixedResistanceDpM heaCoo1(
+  Fluid.FixedResistances.PressureDrop heaCoo1(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=48*2.7*0.41/3600*1.2,
