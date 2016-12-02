@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "res11.m_flow",
-    "res21.m_flow",
-    "res31.dp",
-    "res41.dp"
-  };
