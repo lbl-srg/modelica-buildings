@@ -1,4 +1,4 @@
-within Buildings.Fluid.Chillers.Compressors;
+within Buildings.Fluid.HeatPumps.Compressors;
 package Refrigerants "Package with functions for refrigerant properties"
   extends Modelica.Icons.Package;
 
@@ -9,7 +9,7 @@ annotation (preferredView="info",Documentation(info="<HTML>
 This library contains function definitions for refrigerant properties used in 
 compressor models contained in package 
 <a href=\"modelica://Buildings.Fluid.Chillers.Compressors\">
-Buildings.Fluid.Chillers.Compressors</a>.
+Buildings.Fluid.HeatPumps.Compressors</a>.
 </p>
 </html>", revisions="<html>
 <ul>

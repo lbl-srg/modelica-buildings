@@ -1,12 +1,13 @@
-﻿within Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A;
-function specificIsobaricHeatCapacityVap_Tv
-  "Function that calculates the specific isobaric heat capacity of R410A vapor based on temperature and specific volume"
+﻿within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
+function specificIsochoricHeatCapacityVap_Tv
+  "Function that calculates the specific isochoric heat capacity of R410A vapor 
+  based on temperature and specific volume"
   input Modelica.SIunits.Temperature T
     "Temperature of refrigerant";
   input Modelica.SIunits.SpecificVolume v
     "Specific volume of refrigerant";
-  output Modelica.SIunits.SpecificHeatCapacity cp
-    "Specific isobaric heat capacity";
+  output Modelica.SIunits.SpecificHeatCapacity cv
+    "Specific isochoric heat capacity";
 
 protected
   Modelica.SIunits.SpecificEntropy R = 114.55
@@ -27,14 +28,17 @@ protected
   Real k = 5.75
     "Coefficient K for Martin-Hou equation of state";
 
-  Real dpdT
-    "First derivative w.r.t. temperature of the Martin-Hou equation";
+  Real a[:] = {2.676087e-1, 2.115353e-3, -9.848184e-7, 6.493781e-11}
+    "Coefficients for ideal gas specific isobaric heat capacity";
 
-  Real dpdv
-    "First derivative w.r.t. specific volume of the Martin-Hou equation";
+  Real integral_of_d2pdT2
+    "Integral over v of the second derivative w.r.t. temperature of the Martin-Hou equation";
 
-  Modelica.SIunits.SpecificHeatCapacity cv
-    "Specific isochoric heat capacity";
+  Modelica.SIunits.SpecificHeatCapacity cpo
+    "Ideal gas specific isobaric heat capacity";
+
+  Modelica.SIunits.SpecificHeatCapacity cvo
+    "Ideal gas specific isochoric heat capacity";
 
   Modelica.SIunits.Temperature TCri = 345.25
     "Critical temperature of refrigerant";
@@ -42,20 +46,28 @@ protected
   parameter Integer n = size(A, 1);
 
 algorithm
+  // Ideal gas isobaric heat capacity from polynomial equation
+  cpo := 1.0e3*Buildings.Utilities.Math.Functions.polynomial(a = a, x = T);
+  cvo := cpo - R;
 
-  cv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
-  dpdT := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
-  dpdv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
+  // Integral of second derivative of pressure w.r.t. temperature
+  integral_of_d2pdT2 := 0.0;
+  for i in 1:n loop
+    integral_of_d2pdT2 := integral_of_d2pdT2 + C[i]*Modelica.Math.exp(-k*T/TCri)/(i*(v - b)^(i));
+  end for;
+  integral_of_d2pdT2 := integral_of_d2pdT2 * (k/TCri)^2;
 
-  cp := cv - T * dpdT^2 / dpdv;
+  cv := cvo - T * integral_of_d2pdT2;
 
 annotation (smoothOrder=1,
 preferredView="info",Documentation(info="<HTML>
 <p>
-Function that calculates the specific isobaric heat capacity (<i>c<sub>p</sub></i>) of R410A vapor based on temperature and specific volume. 
+Function that calculates the specific isochoric heat capacity
+(<i>c<sub>v</sub></i>) of R410A vapor based on temperature and specific volume. 
 </p>
 <p>
-The specific isobaric heat capacity is evaluated from the partial derivatives of the Martin-Hou equation of state.
+The specific isochoric heat capacity is evaluated from the partial derivatives
+of the Martin-Hou equation of state.
 </p>
 <h4>References</h4>
 <p>
@@ -83,4 +95,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end specificIsobaricHeatCapacityVap_Tv;
+end specificIsochoricHeatCapacityVap_Tv;

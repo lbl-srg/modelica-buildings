@@ -1,4 +1,4 @@
-within Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A;
+within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
 function pressureVap_Tv
 "Function that calculates the pressure R410A vapor based on temperature and specific volume"
 input Modelica.SIunits.Temperature T

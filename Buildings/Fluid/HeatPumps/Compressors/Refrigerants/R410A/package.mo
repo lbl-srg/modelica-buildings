@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Chillers.Compressors.Refrigerants;
+﻿within Buildings.Fluid.HeatPumps.Compressors.Refrigerants;
 package R410A "Refrigerant R410A"
   extends Modelica.Icons.VariantsPackage;
 
@@ -11,6 +11,17 @@ package R410A "Refrigerant R410A"
 
   final constant Modelica.SIunits.Temperature T_min = 173.15
     "Minimum temperature for correlated properties";
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@ partial model PartialWaterToWater
       "Medium model";
 
   replaceable package ref =
-    Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A "Refrigerant in the component"
+    Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A "Refrigerant in the component"
     annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
@@ -129,8 +129,9 @@ partial model PartialWaterToWater
     final homotopyInitialization=homotopyInitialization) "Evaporator"
     annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
 
-  replaceable Compressors.BaseClasses.PartialCompressor com "Compressor"
-                                                            annotation (
+  replaceable Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor com
+    "Compressor"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

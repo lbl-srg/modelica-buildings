@@ -1,17 +1,14 @@
-within Buildings.Fluid.Chillers.Compressors;
-model ScrollCompressor
-  "Model for a scroll compressor, based on Jin (2002)"
+within Buildings.Fluid.HeatPumps.Compressors;
+model ReciprocatingCompressor
+  "Model for a reciprocating compressor, based on Jin (2002)"
 
-  extends Buildings.Fluid.Chillers.Compressors.BaseClasses.PartialCompressor;
+  extends Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
-  parameter Real volRat(min = 1.0, final unit = "1")
-    "Built-in volume ratio";
+  parameter Modelica.SIunits.VolumeFlowRate pisDis
+    "Piston displacement";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
-    "Refrigerant volume flow rate at suction at full load conditions";
-
-  parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0, max = 1)
-    "Leakage coefficient";
+  parameter Real cleFac(min = 0, final unit = "1")
+    "Clearance factor";
 
   parameter Modelica.SIunits.Efficiency etaEle
     "Electro-mechanical efficiency of the compressor";
@@ -19,13 +16,14 @@ model ScrollCompressor
   parameter Modelica.SIunits.Power PLos(min = 0)
     "Constant part of the compressor power losses";
 
+  parameter Modelica.SIunits.AbsolutePressure pDro
+    "Pressure drop at suction and discharge of the compressor";
+
   parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
     "Superheating at compressor suction";
 
   Modelica.SIunits.MassFlowRate m_flow
     "Refrigerant mass flow rate";
-
-  Modelica.SIunits.MassFlowRate mLea_flow "Refrigerant leakage mass flow rate";
 
   Modelica.SIunits.AbsolutePressure pDis(start = 1000e3)
     "Discharge pressure of the compressor";
@@ -49,15 +47,11 @@ protected
   Modelica.SIunits.IsentropicExponent k(start = 1.2)
     "Isentropic exponent of the refrigerant";
 
-  Real v_norm
-    "Normalized refrigerant volume flow rate at
-     suction at part load conditions";
+  Real pisDis_norm
+    "Normalized piston displacement at part load conditions";
 
-  Real PR(min = 0.0, unit = "1", start = 2.0)
+  Real PR(min = 1.0, final unit = "1", start = 2.0)
     "Pressure ratio";
-
-  Real PRInt(start = 1.5)
-    "Built-in pressure ratio";
 
   Real U(start = 1)
     "Shutdown signal for invalid pressure ratios";
@@ -65,7 +59,6 @@ protected
 equation
 
   PR = max(pDis/pSuc, 0);
-  PRInt = volRat^k;
 
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
@@ -81,52 +74,38 @@ equation
 
   // Limit compressor speed to the full load speed
   if enable_variable_speed then
-    v_norm = min(1.0, max(0.0,y));
+    pisDis_norm = min(1.0, max(0.0,y));
   else
-    if y > 0.0 then // fixme: not robust to numerical noise
-      v_norm = 1.0;
+    if y > 0.0 then
+      pisDis_norm = 1.0;
     else
-      v_norm = 0.0;
+      pisDis_norm = 0.0;
     end if;
   end if;
 
-  if y > 0.0 then // fixme: not robust to numerical noise
+  if y > 0.0 then
     // Suction pressure
-    pSuc = pEva;
+    pSuc = Buildings.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
     // Discharge pressure
-    pDis = pCon;
+    pDis = pCon + pDro;
     // Refrigerant mass flow rate
-    mLea_flow = leaCoe*PR;
-    m_flow = v_norm * U * Buildings.Utilities.Math.Functions.smoothMax(
-      V_flow_nominal/vSuc - mLea_flow,
-      1e-5*V_flow_nominal/vSuc,
-      1e-6*V_flow_nominal/vSuc);
-
+    k = Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
+    m_flow = pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
-    k = Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
-    // If the external pressure ratio does not match the built-in pressure ratio
-      PThe = v_norm * k/(k - 1.0) * pSuc * V_flow_nominal
-        * (((k - 1.0)/k) * PR/volRat + 1.0/k * PRInt^((k - 1.0)/k) - 1.0);
-    // This equation reduces to the  equation for the built-in pressure ratio
-    // if the external pressure ratio matches the built-in pressure ratio:
-    // PThe = v_norm * k/(k - 1.0) * pSuc*v_flow * ((PRInt)^((k - 1.0)/k) - 1.0)
-
+    PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);
+    // Power consumed by the compressor
+    P = PThe / etaEle + PLos;
     // Temperature at suction of the compressor
     TSuc = port_a.T + dTSup;
-
-    // Power consumed by the compressor
-    P = (PThe / etaEle + PLos) * U;
-
     // Energy balance of the compressor
-     port_a.Q_flow = m_flow * (hEva - hCon);
-     port_b.Q_flow = - (port_a.Q_flow + P);
-     -port_b.Q_flow = P * COP;
+    port_a.Q_flow = m_flow * (hEva - hCon);
+    port_b.Q_flow = - (port_a.Q_flow + P);
+    -port_b.Q_flow = P * COP;
   else
     // Heat pump is turned off
     k = 1.0;
     pSuc = pEva;
     pDis = pCon;
-    mLea_flow = 0;
     m_flow = 0;
     PThe = 0;
     P = 0;
@@ -141,7 +120,7 @@ equation
     defaultComponentName="scrCom",
     Documentation(info="<html>
 <p>
-Model for a scroll processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:
+Model for a reciprocating processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q&#775;<sub>Eva</sub> = m&#775;<sub>ref</sub> ( h<sub>Vap</sub>(T<sub>Eva</sub>) - h<sub>Liq</sub>(T<sub>Con</sub>) ).
@@ -153,7 +132,7 @@ The power consumed by the compressor is given by a linear efficiency relation:
 P = P<sub>Theoretical</sub> / &eta; + P<sub>Loss,constant</sub>.
 </p>
 <p>
-Variable speed is achieved by multiplying the full load suction volume flow rate
+Variable speed is acheived by multiplying the full load piston displacement
 by the normalized compressor speed. The power and heat transfer rates are forced
 to zero if the resulting heat pump state has higher evaporating pressure than
 condensing pressure.
@@ -175,9 +154,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 </html>", revisions="<html>
 <ul>
 <li>
-November 11, 2016, by Massimo Cimmino:<br/>
+November 14, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end ScrollCompressor;
+end ReciprocatingCompressor;

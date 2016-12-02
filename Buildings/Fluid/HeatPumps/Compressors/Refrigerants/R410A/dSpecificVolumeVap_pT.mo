@@ -1,4 +1,4 @@
-within Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A;
+within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
 function dSpecificVolumeVap_pT
   "Function that calculates the Jacobian of specific volume R410A vapor based on pressure and temperature"
   input Modelica.SIunits.AbsolutePressure p
@@ -29,17 +29,17 @@ protected
 
 algorithm
 
-  v := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificVolumeVap_pT(p,T);
-  dpdT := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
-  dpdv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
+  v := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificVolumeVap_pT(p,T);
+  dpdT := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
+  dpdv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
 
   dv := dp/dpdv + dT*(dpdT/dpdv);
 
 annotation (preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the derivatives of
-<a href=\"modelica://Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificVolumeVap_pT\">
-Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificVolumeVap_pT
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificVolumeVap_pT\">
+Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificVolumeVap_pT
 </a>
 </p>
 </html>", revisions="<html>

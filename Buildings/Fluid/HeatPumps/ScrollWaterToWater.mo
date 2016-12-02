@@ -3,7 +3,7 @@ model ScrollWaterToWater
   "Model for a scroll water to water heat pump"
 
   extends Buildings.Fluid.Chillers.BaseClasses.PartialWaterToWater(
-    redeclare Chillers.Compressors.ScrollCompressor com(
+    redeclare HeatPumps.Compressors.ScrollCompressor com(
       redeclare package ref = ref,
       volRat=volRat,
       V_flow_nominal=V_flow_nominal,

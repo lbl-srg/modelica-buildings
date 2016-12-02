@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model ScrollWaterToWater
   "Test model for scroll water to water heat pump"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";
@@ -59,7 +58,7 @@ model ScrollWaterToWater
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
+        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
     UACon=4400,
     UAEva=4400,
     volRat=2,

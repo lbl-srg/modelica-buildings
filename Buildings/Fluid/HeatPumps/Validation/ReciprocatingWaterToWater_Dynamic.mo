@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model ReciprocatingWaterToWater_Dynamic
   "Test model for variable speed reciprocating water to water heat pump"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";
@@ -56,7 +55,7 @@ model ReciprocatingWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
+        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.0690,
     etaEle=0.696,
@@ -74,7 +73,7 @@ model ReciprocatingWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
+        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.0690,
     etaEle=0.696,

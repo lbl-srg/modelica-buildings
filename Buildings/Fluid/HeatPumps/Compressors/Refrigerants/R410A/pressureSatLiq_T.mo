@@ -1,35 +1,37 @@
-within Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A;
-function enthalpySatLiq_T
-  "Function that calculates the enthalpy of saturated liquid R410A based on temperature"
+within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
+function pressureSatLiq_T
+  "Function that calculates the pressure of saturated liquid R410A based on temperature"
   input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  output Modelica.SIunits.SpecificEnthalpy h
-    "Specific enthalpy of saturated liquid refrigerant";
+    "Temperature of  refrigerant";
+  output Modelica.SIunits.AbsolutePressure p
+    "Pressure of saturated liquid refrigerant";
 
 protected
-  final Real a[:] = {221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0}
+  final Real a[:] = {-1.4376, -6.8715, -0.53623, -3.82642, -4.06875, -1.2333}
     "Coefficients for polynomial equation";
 
-  final Real x0 = 0.5541498
+  final Real x0 = 0.2086902
     "x0 for saturation pressure of liquid refrigerant";
 
   final Modelica.SIunits.Temperature TCri = 345.25
     "Critical temperature of refrigerant";
+
+  final Modelica.SIunits.AbsolutePressure pCri = 4925.1e3
+    "Critical pressure of refrigerant";
 
   Real x
     "Independant variable";
 
 algorithm
   // Independant variable
-  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 0, 1e-4)^(1/3) - x0;
+  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 0, 1e-4) - x0;
   // Pressure of saturated liquid refrigerant
-  h := 1000*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x);
+  p := pCri*Modelica.Math.exp(TCri/T*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x));
 
 annotation (smoothOrder=1,
 preferredView="info",Documentation(info="<HTML>
 <p>
-Function that calculates the enthalpy of saturated liquid R410A based on
-temperature.
+Function that calculates the pressure of saturated liquid R410A based on temperature.
 </p>
 <h4>References</h4>
 <p>
@@ -46,4 +48,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end enthalpySatLiq_T;
+end pressureSatLiq_T;

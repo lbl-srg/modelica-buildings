@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A;
+﻿within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
 function isentropicExponentVap_Tv
   "Function that calculates the isentropic exponent of R410A vapor based on temperature and specific volume"
   input Modelica.SIunits.Temperature T
@@ -17,8 +17,8 @@ protected
 
 algorithm
   // Evaluate the specific isobaric and isochoric heat capacities
-  cp := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificIsobaricHeatCapacityVap_Tv(T, v);
-  cv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
+  cp := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificIsobaricHeatCapacityVap_Tv(T, v);
+  cv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
 
   k := cp / cv;
 
