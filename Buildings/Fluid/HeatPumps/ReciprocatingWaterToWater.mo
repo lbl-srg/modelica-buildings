@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps;
 model ReciprocatingWaterToWater
   "Model for a reciprocating water to water heat pump"
 
-  extends Buildings.Fluid.Chillers.BaseClasses.PartialWaterToWater(
+  extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
       redeclare package ref = ref,
       pisDis=pisDis,

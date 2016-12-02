@@ -1,4 +1,4 @@
-within Buildings.Fluid.Chillers.BaseClasses;
+within Buildings.Fluid.HeatPumps.BaseClasses;
 partial model PartialWaterToWater
   "Partial model for water to water heat pumps and chillers"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
