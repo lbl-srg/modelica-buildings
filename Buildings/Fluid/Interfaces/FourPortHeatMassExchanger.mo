@@ -121,9 +121,7 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal,
-    final dh=1,
-    final ReC=4000) "Flow resistance of fluid 1"
+    final dp_nominal=dp1_nominal) "Flow resistance of fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
@@ -135,9 +133,7 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal,
-    final dh=1,
-    final ReC=4000) "Flow resistance of fluid 2"
+    final dp_nominal=dp2_nominal) "Flow resistance of fluid 2"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
 
 protected
@@ -183,6 +179,7 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 
 
 
