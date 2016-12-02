@@ -47,12 +47,12 @@ model HexElementLatent
     p=101340,
     T=293.15)             annotation (Placement(transformation(extent={{-60,40},
             {-40,60}})));
-    Fluid.FixedResistances.FixedResistanceDpM res_22(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_22(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_A)
              annotation (Placement(transformation(extent={{-4,-30},{-24,-10}})));
-    Fluid.FixedResistances.FixedResistanceDpM res_12(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_12(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_W)
@@ -70,12 +70,12 @@ model HexElementLatent
             10}})));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-100,-26},{-80,-6}})));
-    Fluid.FixedResistances.FixedResistanceDpM res_11(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_11(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_W)
              annotation (Placement(transformation(extent={{-24,-4},{-4,16}})));
-    Fluid.FixedResistances.FixedResistanceDpM res_21(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_21(
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium_A)

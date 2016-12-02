@@ -28,7 +28,7 @@ model PipeManifoldFixedResistance
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  Fluid.FixedResistances.FixedResistanceDpM fixRes(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM fixRes(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
-  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
+  extends Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
 
   Medium1.Temperature T_in1 "Inlet temperature medium 1";
   Medium2.Temperature T_in2 "Inlet temperature medium 2";
