@@ -38,13 +38,13 @@ model TwoRoomsWithStorage
     "Pressure difference of loop";
   // Room model
 
-  Fluid.Movers.SpeedControlled_y pumBoi(
+  Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-170})));
 
-  Fluid.Movers.SpeedControlled_y pumRad(
+  Buildings.Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mRad_flow_nominal/1000*{0,2}, dp=dp_nominal*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -142,7 +142,7 @@ model TwoRoomsWithStorage
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
-  Fluid.Boilers.BoilerPolynomial boi(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     redeclare package Medium = MediumW,
@@ -169,12 +169,12 @@ model TwoRoomsWithStorage
     k=0.5,
     Ti=15) "Controller for pump"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
+  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
         MediumW)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={180,10})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = MediumW,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
@@ -191,7 +191,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{540,240},{560,260}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo1
     annotation (Placement(transformation(extent={{480,474},{500,494}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = MediumW,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
@@ -206,21 +206,21 @@ model TwoRoomsWithStorage
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.5) "Controller for room temperature"
     annotation (Placement(transformation(extent={{540,500},{560,520}})));
-  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
     redeclare package Medium = MediumW,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,390},{412,410}})));
-  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = MediumW,
     Q_flow_nominal=scaFacRad*Q_flow_nominal/nRoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,120},{412,140}})));
-  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
     redeclare package Medium = MediumW,
     dpValve_nominal=dpThrWayVal_nominal,
     l={0.01,0.01},
@@ -243,7 +243,7 @@ model TwoRoomsWithStorage
     controllerType=Modelica.Blocks.Types.SimpleController.PI)
     "Controller for pump"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Fluid.Storage.Stratified tan(
+  Buildings.Fluid.Storage.Stratified tan(
     m_flow_nominal=mRad_flow_nominal,
     dIns=0.3,
     redeclare package Medium = MediumW,
@@ -268,12 +268,12 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Logical.Greater lesThr
     "Check for temperature at the top of the tank"
     annotation (Placement(transformation(extent={{400,-178},{420,-158}})));
-  Fluid.Sensors.TemperatureTwoPort temSup(   redeclare package Medium = MediumW,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(   redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,40})));
-  Fluid.Sensors.TemperatureTwoPort temRet(   redeclare package Medium = MediumW,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temRet(   redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -328,12 +328,12 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
-  Fluid.Sources.Outside out(
+  Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
     use_C_in=false,
     nPorts=4) "Outside air conditions"
     annotation (Placement(transformation(extent={{0,470},{20,490}})));
-  Fluid.FixedResistances.FixedResistanceDpM dpFac4(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac4(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,
@@ -345,14 +345,14 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={450,290})));
-  Fluid.FixedResistances.FixedResistanceDpM dpFac1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac1(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={330,474})));
-  Fluid.HeatExchangers.ConstantEffectiveness hex(
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=2*VRoo*1.2*0.3/3600,
@@ -361,7 +361,7 @@ model TwoRoomsWithStorage
     dp2_nominal=100,
     eps=0.9) "Heat recovery"
     annotation (Placement(transformation(extent={{180,478},{200,498}})));
-  Fluid.Movers.FlowControlled_m_flow fanSup(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
@@ -369,7 +369,7 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
-  Fluid.Movers.FlowControlled_m_flow fanRet(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
@@ -409,13 +409,13 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = MediumW)
+  Buildings.Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
   Modelica.Blocks.Math.Gain gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splVal(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal(
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
@@ -425,7 +425,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={260,-40})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splVal1(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal1(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
@@ -434,7 +434,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,130})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splVal2(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splVal2(
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
@@ -446,13 +446,13 @@ model TwoRoomsWithStorage
 
   CoolingControl cooCon "Controller for cooling"
     annotation (Placement(transformation(extent={{100,530},{120,550}})));
-  Fluid.Actuators.Dampers.Exponential damSupByp(
+  Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
-  Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0,
@@ -553,13 +553,13 @@ Changed controller to output setpoint for supply air temperature for cooling coi
 </ul>
 </html>"));
   end CoolingControl;
-  Fluid.Actuators.Dampers.Exponential damHex(
+  Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
-  Fluid.Actuators.Dampers.Exponential damRetByp(
+  Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
