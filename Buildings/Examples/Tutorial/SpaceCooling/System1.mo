@@ -4,7 +4,7 @@ model System1
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
 
-  Fluid.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,

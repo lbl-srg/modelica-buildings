@@ -49,14 +49,14 @@ package Medium = Buildings.Media.Air;
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-152,30})));
-  FixedResistances.FixedResistanceDpM res3(
+  FixedResistances.PressureDrop res3(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-88,78},{-108,98}})));
-  FixedResistances.FixedResistanceDpM res4(
+  FixedResistances.PressureDrop res4(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,
@@ -139,14 +139,14 @@ package Medium = Buildings.Media.Air;
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Sensors.MassFraction senMas2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
-  FixedResistances.FixedResistanceDpM res1(
+  FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  FixedResistances.FixedResistanceDpM res2(
+  FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,

@@ -33,7 +33,7 @@ Fluid.Sources.Boundary_pT sou_1(
     p=101340,
     T=303.15) "Flow source" annotation (Placement(transformation(extent={{-60,40},
             {-40,60}})));
- Fluid.Sources.Boundary_pT sin_2(
+ Buildings.Fluid.Sources.Boundary_pT sin_2(
 redeclare package Medium = Medium,
     use_p_in=false,
     use_T_in=false,

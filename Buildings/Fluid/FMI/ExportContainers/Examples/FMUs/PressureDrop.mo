@@ -1,11 +1,10 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
-block FixedResistanceDpM
+block PressureDrop
   "Declaration of an FMU that exports a fixed resistance"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
-     redeclare replaceable package Medium = Buildings.Media.Air,
-     redeclare final Buildings.Fluid.FixedResistances.FixedResistanceDpM com(
-      final m_flow_nominal=m_flow_nominal,
-      final dp_nominal=if use_p_in then dp_nominal else 0));
+     redeclare replaceable package Medium = Buildings.Media.Air, redeclare final
+      Buildings.Fluid.FixedResistances.PressureDrop com(final m_flow_nominal=
+          m_flow_nominal, final dp_nominal=if use_p_in then dp_nominal else 0));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
@@ -16,8 +15,8 @@ block FixedResistanceDpM
 <p>
 This example demonstrates how to export an FMU with a fluid flow component.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -33,7 +32,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/FixedResistanceDpM.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/PressureDrop.mos"
         "Export FMU"),
     Icon(graphics={
         Rectangle(
@@ -46,4 +45,4 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder)}));
-end FixedResistanceDpM;
+end PressureDrop;

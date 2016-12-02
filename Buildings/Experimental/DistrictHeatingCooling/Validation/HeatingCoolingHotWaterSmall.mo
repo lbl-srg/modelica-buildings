@@ -87,7 +87,7 @@ model HeatingCoolingHotWaterSmall
         transformation(extent={{-168,100},{-152,116}}), iconTransformation(
           extent={{-328,64},{-308,84}})));
 
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splSup(
+  Buildings.Fluid.FixedResistances.Junction splSup(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -95,7 +95,7 @@ model HeatingCoolingHotWaterSmall
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM splRet(
+  Buildings.Fluid.FixedResistances.Junction splRet(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},

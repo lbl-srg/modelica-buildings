@@ -117,6 +117,14 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
+</html>", revisions=
+"<html>
+<ul>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
   end RealVectorExpression;
 
@@ -159,7 +167,7 @@ November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.
 </li>
 <li>
-April 27, 2016, by Thierry S. Nouidui Wetter:<br/>
+April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

@@ -74,7 +74,7 @@ protected
     Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity of the fluid";
 
-  Fluid.Chillers.Carnot_TEva coo(
+  Buildings.Fluid.Chillers.Carnot_TEva coo(
     show_T=true,
     redeclare package Medium1 = MediumSin,
     redeclare package Medium2 = Medium,
@@ -90,7 +90,7 @@ protected
     allowFlowReversal1=false) "Chiller"
     annotation (Placement(transformation(extent={{38,-4},{58,16}})));
 
-  Fluid.HeatPumps.Carnot_TCon hea(
+  Buildings.Fluid.HeatPumps.Carnot_TCon hea(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = MediumSin,
     show_T=true,
@@ -106,11 +106,11 @@ protected
     dp1_nominal=dp_nominal) "Heat pump for heating"
     annotation (Placement(transformation(extent={{-52,-16},{-32,4}})));
 
-  Fluid.Sources.FixedBoundary sinHea(
+  Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumSin,
     nPorts=1) "Pressure source" annotation (Placement(transformation(
           extent={{-10,10},{10,-10}}, origin={-70,-20})));
-  Fluid.Sources.MassFlowSource_T souHea(
+  Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumSin,
     use_m_flow_in=true,
     use_T_in=true,
@@ -126,14 +126,14 @@ protected
   Modelica.Blocks.Math.Gain mCooSin_flow(k=-1/(cpSin_default*dTSin))
     "Mass flow rate for heat sink"
     annotation (Placement(transformation(extent={{66,60},{86,80}})));
-  Fluid.Sources.MassFlowSource_T sou2(
+  Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = MediumSin,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 
-  Fluid.Sources.FixedBoundary sinCoo(
+  Buildings.Fluid.Sources.FixedBoundary sinCoo(
     redeclare package Medium = MediumSin,
     nPorts=1) "Pressure source"
     annotation (Placement(transformation(

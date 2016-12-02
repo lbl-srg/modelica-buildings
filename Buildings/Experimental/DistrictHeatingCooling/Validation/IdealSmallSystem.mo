@@ -87,7 +87,7 @@ model IdealSmallSystem "Validation model for a small system"
         -50E3; 18*3600,-50E3; 18*3600,-150E3; 24*3600,-100E3], extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic) "Cooling demand"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -95,7 +95,7 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(
+  Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -103,7 +103,7 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(
+  Buildings.Fluid.FixedResistances.Junction spl2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -111,7 +111,7 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{210,50},{230,70}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl3(
+  Buildings.Fluid.FixedResistances.Junction spl3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -119,7 +119,7 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{20,-30},{40,-50}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(
+  Buildings.Fluid.FixedResistances.Junction spl4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -127,7 +127,7 @@ model IdealSmallSystem "Validation model for a small system"
     tau=5*60,
     from_dp=false)
     annotation (Placement(transformation(extent={{120,-30},{140,-50}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM spl5(
+  Buildings.Fluid.FixedResistances.Junction spl5(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},

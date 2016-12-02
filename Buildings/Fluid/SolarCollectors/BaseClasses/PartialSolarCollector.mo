@@ -68,7 +68,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
     Medium, allowFlowReversal=allowFlowReversal) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-86,-11},{-66,11}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
     final show_T=show_T,
@@ -76,7 +76,6 @@ model PartialSolarCollector "Partial model for solar collectors"
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    use_dh=false,
     deltaM=deltaM,
     final dp_nominal=dp_nominal_final) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

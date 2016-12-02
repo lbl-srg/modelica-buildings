@@ -137,7 +137,7 @@ model Cooling "Active beam unit for cooling"
   Modelica.SIunits.PressureDifference dpAir(displayUnit="Pa") = air_a.p - air_b.p
     "Pressure difference air_a minus air_b";
 
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=perCoo.mAir_flow_nominal*nBeams,
     final dp_nominal=perCoo.dpAir_nominal)

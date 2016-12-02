@@ -24,27 +24,21 @@ parameter Real scaDpFanRet_nominal = 1
     Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant yDam(k=0.5)
       annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
-                                               dp_nominal=0.546,
-  m_flow_nominal=scaM_flow*1,
-  dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{60,-20},{80,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res33(
-  dp_nominal=0.164,
-  dh=sqrt(scaM_flow)*1,
-  m_flow_nominal=scaM_flow*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{160,-20},{180,0}})));
-Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
-                                               dp_nominal=0.118000,
-  m_flow_nominal=scaM_flow*1,
-  dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
-    annotation (
-    Placement(transformation(extent={{80,-80},{60,-60}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res31(
+    dp_nominal=0.546,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res33(
+    dp_nominal=0.164,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{160,-20},{180,0}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res57(
+    dp_nominal=0.118000,
+    m_flow_nominal=scaM_flow*1,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));
@@ -78,14 +72,14 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Fluid.Movers.FlowControlled_dp fan32(
+  Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mMIT_flow)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
-  Fluid.Movers.FlowControlled_dp fan56(
+  Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
     init=Modelica.Blocks.Types.Init.InitialState,

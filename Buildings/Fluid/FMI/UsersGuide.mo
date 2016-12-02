@@ -6,7 +6,7 @@ package UsersGuide "User's Guide"
 <p>
 This user's guide describes the FMI package (Wetter et al., 2015).
 The FMI package has been implemented to facilitate the export
-of thermofluid flow models such as HVAC component, HVAC systems
+of thermofluid flow models such as HVAC components, HVAC systems
 and thermal zones as Functional Mockup Units (FMUs).
 This allows to export thermofluid flow models as FMUs so that they can be
 imported in other simulators.
@@ -141,7 +141,7 @@ subsystem of thermofluid flow components, can use the block
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort\">
 Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort</a>.
 This block has a fluid inlet, a fluid outlet, and a replaceable
-component that can replaced with an HVAC component or system that
+component that can be replaced with an HVAC component or system that
 has an inlet and outlet fluid port.
 </p>
 <p>
@@ -201,7 +201,7 @@ If <code>use_p_in=true</code>, then the pressure is used from the
 connector, and based on the mass flow rate, the outlet pressure
 is computed and assigned to the outlet connectors.
 If <code>use_p_in=false</code>, then the pressure as declared
-by the contant <code>p_default</code> of the medium model is
+by the constant <code>p_default</code> of the medium model is
 used, and the component computes no pressure drop.
 Setting <code>use_p_in=false</code> therefore leads to fewer
 equations, but it requires a component that specifies the mass
@@ -269,8 +269,8 @@ When connecting fluid flow components in a loop,
 be careful to avoid circular assignments for example for the temperature,
 as these can of course not be simulated.
 An example of such an ill-posed problem is to connect the outlet of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>
 to its inlet. In this situation, neither pressure, nor mass flow rate or temperature
 can be computed. To model such loops, a control volume with a dynamic energy
 balance must be presented, and the medium needs to be compressible.

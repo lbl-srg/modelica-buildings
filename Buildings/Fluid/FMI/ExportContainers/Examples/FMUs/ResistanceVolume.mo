@@ -29,7 +29,7 @@ protected
   Modelica.Blocks.Math.Feedback pOut if use_p_in "Pressure at component outlet"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=if use_p_in then dp_nominal else 0,
@@ -83,8 +83,8 @@ equation
 This example demonstrates how to export an FMU with a
 flow resistance and a control volume.
 The FMU has an instance of
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> and
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> and
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
