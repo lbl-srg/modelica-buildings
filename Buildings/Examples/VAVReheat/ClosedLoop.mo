@@ -30,14 +30,14 @@ model ClosedLoop
   Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
     "Ambient conditions"
     annotation (Placement(transformation(extent={{-130,14},{-108,36}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM fil(
+  Fluid.FixedResistances.FixedResistanceDpM fil(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
     dp_nominal=200 + 200 + 100,
     from_dp=false,
     linearized=false) "Filter"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
+  Fluid.HeatExchangers.DryEffectivenessNTU heaCoi(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
@@ -50,9 +50,9 @@ model ClosedLoop
     T_a1_nominal=281.65,
     T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
-  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     UA_nominal=m_flow_nominal*1000*15/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=26.2,
         T_b1=12.8,
         T_a2=6,
@@ -65,32 +65,32 @@ model ClosedLoop
     dp1_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSupDuc(
+  Fluid.FixedResistances.FixedResistanceDpM dpSupDuc(
     m_flow_nominal=m_flow_nominal,
     dh=1,
     redeclare package Medium = MediumA,
     dp_nominal=20) "Pressure drop for supply duct"
     annotation (Placement(transformation(extent={{420,-50},{440,-30}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpRetDuc(
+  Fluid.FixedResistances.FixedResistanceDpM dpRetDuc(
     m_flow_nominal=m_flow_nominal,
     use_dh=false,
     dh=1,
     redeclare package Medium = MediumA,
     dp_nominal=20) "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{440,110},{420,130}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanSup(
+  Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
     tau=60,
     per(pressure(V_flow={0,m_flow_nominal/1.2*2}, dp={850,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
+  Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     tau=60,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
-  Buildings.Fluid.Sources.FixedBoundary sinHea(
+  Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
     p=300000,
     T=318.15,
@@ -98,7 +98,7 @@ model ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-120})));
-  Buildings.Fluid.Sources.FixedBoundary sinCoo(
+  Fluid.Sources.FixedBoundary sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
     T=285.15,
@@ -112,7 +112,7 @@ model ClosedLoop
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-300,138},{-280,158}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
   Modelica.Blocks.Sources.Constant TSupSetHea(y(
@@ -140,7 +140,7 @@ model ClosedLoop
     Ti=600,
     k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
-  Buildings.Fluid.Sensors.RelativePressure dpRetFan(
+  Fluid.Sensors.RelativePressure dpRetFan(
       redeclare package Medium = MediumA) "Pressure difference over return fan"
                                             annotation (Placement(
         transformation(
@@ -150,7 +150,7 @@ model ClosedLoop
   Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa") = 410, r_N_min=0.2)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
+  Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
     "Sensor for supply fan flow rate"
     annotation (Placement(transformation(extent={{360,-50},{380,-30}})));
@@ -161,7 +161,7 @@ model ClosedLoop
     annotation (Placement(transformation(extent={{-112,-224},{-92,-204}})));
   Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-250,-270},{-230,-250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCoiHeaOut(redeclare package
+  Fluid.Sensors.TemperatureTwoPort TCoiHeaOut(redeclare package
       Medium = MediumA, m_flow_nominal=m_flow_nominal)
     "Heating coil outlet temperature"
     annotation (Placement(transformation(extent={{134,-50},{154,-30}})));
@@ -170,7 +170,7 @@ model ClosedLoop
   Buildings.Utilities.Math.Average ave(nin=5)
     "Compute average of room temperatures"
     annotation (Placement(transformation(extent={{1200,410},{1220,430}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valCoo(
+  Fluid.Actuators.Valves.TwoWayLinear valCoo(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
@@ -181,7 +181,7 @@ model ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={230,-80})));
-  Buildings.Fluid.Sources.FixedBoundary souCoo(
+  Fluid.Sources.FixedBoundary souCoo(
     nPorts=1,
     redeclare package Medium = MediumW,
     p=3E5 + 12000,
@@ -195,15 +195,15 @@ model ClosedLoop
     Ti=600,
     k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
     annotation (Placement(transformation(extent={{100,110},{80,130}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Controls.RoomTemperatureSetpoint TSetRoo
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
+  Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=6000,
@@ -214,7 +214,7 @@ model ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={130,-80})));
-  Buildings.Fluid.Sources.FixedBoundary souHea(
+  Fluid.Sources.FixedBoundary souHea(
     nPorts=1,
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 12000,
@@ -222,7 +222,7 @@ model ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={130,-120})));
-  Buildings.Fluid.Actuators.Dampers.MixingBox eco(
+  Fluid.Actuators.Dampers.MixingBox eco(
     redeclare package Medium = MediumA,
     mOut_flow_nominal=m_flow_nominal,
     mRec_flow_nominal=m_flow_nominal,
@@ -231,7 +231,7 @@ model ClosedLoop
     dpRec_nominal=10,
     dpExh_nominal=10) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
+  Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-80,12},{-58,34}})));
   Controls.DuctStaticPressureSetpoint pSetDuc(
@@ -277,11 +277,11 @@ model ClosedLoop
   Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
       1.2, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
+  Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
     "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{380,110},{360,130}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
@@ -290,7 +290,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{600,130},{620,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
@@ -300,7 +300,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{738,130},{758,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
@@ -310,7 +310,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{874,130},{894,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
@@ -319,7 +319,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room return"
     annotation (Placement(transformation(extent={{1014,130},{1034,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
@@ -328,7 +328,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{574,-30},{594,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSou(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSou(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
@@ -338,7 +338,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{714,-30},{734,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEas(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
@@ -348,7 +348,7 @@ model ClosedLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Splitter for room supply"
     annotation (Placement(transformation(extent={{850,-30},{870,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNor(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},

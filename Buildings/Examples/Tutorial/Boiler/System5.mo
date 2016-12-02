@@ -33,7 +33,7 @@ model System5
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------------//
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+  Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
@@ -63,14 +63,14 @@ model System5
               8*3600, QRooInt_flow;
              18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
+  Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal) "Supply water temperature"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -80,7 +80,7 @@ model System5
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-40,30})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
+  Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
@@ -90,7 +90,7 @@ model System5
       origin={-50,-70})));
 
 //-------------------------Step 3: Splitter and mixers------------------------//
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
     redeclare package Medium =MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mRadVal_flow_nominal,
@@ -101,7 +101,7 @@ model System5
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-110})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,
@@ -113,7 +113,7 @@ model System5
         rotation=90,
         origin={-50,-190})));
 
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
+  Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
       package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
@@ -123,7 +123,7 @@ model System5
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-110})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
+  Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
       package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,-200,0},
@@ -132,7 +132,7 @@ model System5
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-190})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
+  Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
       package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal*{1,-1,-1},
@@ -143,7 +143,7 @@ model System5
         origin={60,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
+  Fluid.Movers.FlowControlled_m_flow pumBoi(
       redeclare package Medium = MediumW,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
@@ -153,7 +153,7 @@ model System5
         origin={-50,-280})));
 
 //-------------------------------Step 3: Boiler-------------------------------//
-  Buildings.Fluid.Boilers.BoilerPolynomial boi(
+  Fluid.Boilers.BoilerPolynomial boi(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
@@ -164,7 +164,7 @@ model System5
 //----------------------------------------------------------------------------//
 
 //--------------------------Step 3: Three-way Valve---------------------------//
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal,
@@ -176,11 +176,11 @@ model System5
         origin={-50,-150})));
 //----------------------------------------------------------------------------//
 
-  Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
+  Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{92,-320},{72,-300}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mBoi_flow_nominal,
@@ -190,13 +190,13 @@ model System5
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-230})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
         MediumW, m_flow_nominal=mBoi_flow_nominal) "Return water temperature"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-280})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
+  Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
       package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mBoi_flow_nominal,-mBoi_flow_nominal},

@@ -54,7 +54,7 @@ model System2
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 //-------------------------Step 5: Radiator Model-------------------------//
- Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+ Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
@@ -278,7 +278,7 @@ to <code>TRadSup_nominal</code>.
 We configured the parameters of the radiator model as
 </p>
 <pre>
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
@@ -289,7 +289,7 @@ We configured the parameters of the radiator model as
 We configured the parameters of the pump model as
 </p>
 <pre>
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
+  Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal)

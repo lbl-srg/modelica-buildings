@@ -62,7 +62,7 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     allowFlowReversal=true,
     from_dp=false) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
-  Buildings.Fluid.Sources.Boundary_pT bouIn(
+  Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=293.15,

@@ -14,7 +14,7 @@ model SimplifiedRoom "Simplified data center room"
   parameter Modelica.SIunits.Power QRoo_flow
     "Heat generation of the computer room";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume rooVol(
+  Fluid.MixingVolumes.MixingVolume rooVol(
     redeclare each package Medium = Medium,
     nPorts=nPorts,
     V=rooLen*rooWid*rooHei,

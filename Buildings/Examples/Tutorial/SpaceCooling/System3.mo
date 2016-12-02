@@ -86,7 +86,7 @@ model System3
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
     UA_nominal=-QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=THeaRecLvg,
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,

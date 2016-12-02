@@ -4,7 +4,7 @@ model VAVBranch "Supply branch of a VAV system"
     "Medium model for air" annotation (choicesAllMatching=true);
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
-  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
+  Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     A=0.6,
@@ -14,7 +14,7 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,104})));
-  Buildings.Fluid.HeatExchangers.DryEffectivenessNTU terHea(
+  Fluid.HeatExchangers.DryEffectivenessNTU terHea(
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
@@ -30,7 +30,7 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={56,44})));
-  Buildings.Fluid.Sources.FixedBoundary sinTer(
+  Fluid.Sources.FixedBoundary sinTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5,
     nPorts=1) "Sink for terminal box " annotation (Placement(transformation(
@@ -54,7 +54,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
   Controls.ControlBus controlBus annotation (Placement(transformation(extent={{
             -110,-50},{-90,-30}}), iconTransformation(extent={{-110,-38},{-90,-18}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         MediumA) "Sensor for mass flow rate" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -63,7 +63,7 @@ model VAVBranch "Supply branch of a VAV system"
   Modelica.Blocks.Math.Gain fraMasFlo(k=1/m_flow_nominal)
     "Fraction of mass flow rate, relative to nominal flow"
     annotation (Placement(transformation(extent={{102,134},{122,154}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
+  Fluid.Sensors.TemperatureTwoPort TSup(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialState) "Supply air temperature"
@@ -75,7 +75,7 @@ model VAVBranch "Supply branch of a VAV system"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
   Modelica.Blocks.Math.Gain ACH(k=1/VRoo/1.2*3600) "Air change per hour"
     annotation (Placement(transformation(extent={{100,94},{120,114}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
+  Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -83,7 +83,7 @@ model VAVBranch "Supply branch of a VAV system"
     dpFixed_nominal=6000,
     dpValve_nominal=6000) "Valve at reaheat coil"
     annotation (Placement(transformation(extent={{82,34},{102,14}})));
-  Buildings.Fluid.Sources.FixedBoundary souTer(
+  Fluid.Sources.FixedBoundary souTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5 + 12000,
     nPorts=1,

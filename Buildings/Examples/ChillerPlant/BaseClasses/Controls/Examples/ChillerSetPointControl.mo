@@ -30,7 +30,7 @@ model ChillerSetPointControl
     x1=0.5,
     y10=0.1,
     y11=1) annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Fluid.Chillers.ElectricEIR chi(
+  Fluid.Chillers.ElectricEIR chi(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=mCW_flow_nominal,
@@ -41,7 +41,7 @@ model ChillerSetPointControl
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Chiller"
     annotation (Placement(transformation(extent={{84,18},{104,38}})));
 
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness coi(
+  Fluid.HeatExchangers.ConstantEffectiveness coi(
     redeclare package Medium1 = Medium2,
     m1_flow_nominal=mCHW_flow_nominal,
     dp1_nominal=3000,
@@ -50,11 +50,11 @@ model ChillerSetPointControl
     m2_flow_nominal=mAir_flow_nominal,
     eps=1.0) "Cooling coil"
              annotation (Placement(transformation(extent={{86,-64},{106,-44}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
+  Fluid.Sources.FixedBoundary sin1(redeclare package Medium = Medium1,
       nPorts=1) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={174,88})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou1(
+  Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_T_in=false,
@@ -75,10 +75,10 @@ model ChillerSetPointControl
            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-130,30})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+  Fluid.Movers.FlowControlled_m_flow pum(
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
@@ -89,7 +89,7 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={134,-9})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(
+  Fluid.Storage.ExpansionVessel expVesChi(
     V_start=1,
     redeclare package Medium = Medium2)
     annotation (Placement(transformation(extent={{124,26},{144,46}})));
@@ -97,7 +97,7 @@ model ChillerSetPointControl
     annotation (Placement(transformation(extent={{-180,62},{-160,82}})));
   Modelica.Blocks.Math.Gain gain(k=mCHW_flow_nominal)
     annotation (Placement(transformation(extent={{86,-18},{106,2}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou2(
+  Fluid.Sources.MassFlowSource_T sou2(
     use_T_in=true,
     redeclare package Medium = MediumAir,
     m_flow=mAir_flow_nominal,
@@ -106,7 +106,7 @@ model ChillerSetPointControl
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={170,-90})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
+  Fluid.Sources.FixedBoundary sin2(redeclare package Medium =
         MediumAir, nPorts=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-30,-60})));
@@ -120,7 +120,7 @@ model ChillerSetPointControl
         /2,
     initType=Modelica.Blocks.Types.Init.InitialState)
             annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{136,-70},{156,-50}})));
 equation

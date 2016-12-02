@@ -142,7 +142,7 @@ model TwoRoomsWithStorage
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
-  Buildings.Fluid.Boilers.BoilerPolynomial boi(
+  Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     redeclare package Medium = MediumW,
@@ -169,7 +169,7 @@ model TwoRoomsWithStorage
     k=0.5,
     Ti=15) "Controller for pump"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
+  Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
         MediumW)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -220,7 +220,7 @@ model TwoRoomsWithStorage
     T_a_nominal=323.15,
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,120},{412,140}})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
+  Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
     redeclare package Medium = MediumW,
     dpValve_nominal=dpThrWayVal_nominal,
     l={0.01,0.01},
@@ -328,12 +328,12 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
-  Buildings.Fluid.Sources.Outside out(
+  Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
     use_C_in=false,
     nPorts=4) "Outside air conditions"
     annotation (Placement(transformation(extent={{0,470},{20,490}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac4(
+  Fluid.FixedResistances.FixedResistanceDpM dpFac4(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,
@@ -345,7 +345,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={450,290})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac1(
+  Fluid.FixedResistances.FixedResistanceDpM dpFac1(
     from_dp=false,
     redeclare package Medium = MediumA,
     m_flow_nominal=6*4*3*1.2*0.3/3600,

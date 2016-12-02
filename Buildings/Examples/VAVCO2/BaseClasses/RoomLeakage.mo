@@ -5,7 +5,7 @@ model RoomLeakage "Room leakage model"
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
              annotation (choicesAllMatching = true);
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Fluid.FixedResistances.FixedResistanceDpM res(
     m_flow_nominal=1,
     redeclare package Medium = Medium,
     dp_nominal=1000) "Resistance model"
@@ -18,7 +18,7 @@ model RoomLeakage "Room leakage model"
         Medium)                 annotation (Placement(transformation(extent={{
             90,-10},{110,10}})));
 
-  Buildings.Fluid.Sources.Boundary_pT amb(             redeclare package Medium
+  Fluid.Sources.Boundary_pT amb(             redeclare package Medium
       =                                                                          Medium,
     nPorts=1,
     use_p_in=true,

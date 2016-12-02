@@ -4,7 +4,7 @@ model RoomLeakage "Room leakage model"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Volume VRoo "Room volume";
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     dp_nominal=50,
     m_flow_nominal=VRoo*1.2/3600) "Resistance model" annotation (Placement(

@@ -20,7 +20,7 @@ partial model DataCenter
 
   parameter Modelica.SIunits.PressureDifference dp_nominal=500
     "Nominal pressure difference";
-  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+  Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
@@ -29,7 +29,7 @@ partial model DataCenter
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15) "Fan for air flow through the data center"
     annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
-  Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
+  Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
     m2_flow_nominal=mAir_flow_nominal,
@@ -67,10 +67,10 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,-120})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
+  Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
         MediumW, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{248,-147},{268,-127}})));
-  Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
+  Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     PFan_nominal=6000,
@@ -82,7 +82,7 @@ partial model DataCenter
         transformation(
         extent={{-10,-10},{10,10}},
         origin={269,239})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
+  Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
@@ -93,7 +93,7 @@ partial model DataCenter
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={358,200})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
+  Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal,
@@ -123,7 +123,7 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={218,-40})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
+  Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
         MediumW, V_start=1)
     annotation (Placement(transformation(extent={{236,143},{256,163}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl wseCon
@@ -188,20 +188,20 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+  Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
       = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={288,-225})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEntChi(redeclare package
+  Fluid.Sensors.TemperatureTwoPort TCHWEntChi(redeclare package
       Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water entering chiller" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+  Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
       = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
@@ -233,7 +233,7 @@ partial model DataCenter
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={118,-60})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
+  Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
       Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water leaving the cooling coil"
                                                      annotation (Placement(
