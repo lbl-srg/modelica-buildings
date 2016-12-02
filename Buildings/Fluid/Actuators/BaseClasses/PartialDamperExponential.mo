@@ -146,7 +146,7 @@ To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 August 5, 2011, by Michael Wetter:<br/>

@@ -153,13 +153,13 @@ block HVACZone
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-180})));
-  FixedResistances.FixedResistanceDpM resSup1(
+  FixedResistances.PressureDrop resSup1(
     redeclare package Medium = MediumA,
     linearized=true,
     dp_nominal=10,
     m_flow_nominal=mA_flow_nominal) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{86,130},{106,150}})));
-  FixedResistances.FixedResistanceDpM resRet1(
+  FixedResistances.PressureDrop resRet1(
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,

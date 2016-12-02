@@ -1,2 +1,7 @@
-SplitterFixedResistanceDpMSteadyState
-SplitterFixedResistanceDpMSteadyStateNoPressureDrop
+FlowJunctionSteadyState
+FlowJunctionSteadyStateNoPressureDrop
+LosslessPipe
+PressureDropsExplicit
+PressureDropsExplicitLinearized
+PressureDropsParallel
+PressureDropsSeries

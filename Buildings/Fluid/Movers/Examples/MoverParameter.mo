@@ -46,7 +46,7 @@ model MoverParameter
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with pressure head input"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal)

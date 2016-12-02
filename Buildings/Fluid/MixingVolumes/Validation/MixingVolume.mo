@@ -23,7 +23,7 @@ model MixingVolume "Test model for mixing volumes"
     p=101325,
     T=283.15)
     annotation (Placement(transformation(extent={{130,48},{110,68}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
@@ -37,24 +37,24 @@ model MixingVolume "Test model for mixing volumes"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res11(
+  Buildings.Fluid.FixedResistances.PressureDrop res11(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res12(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,0},{100,20}})));
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
@@ -84,18 +84,18 @@ model MixingVolume "Test model for mixing volumes"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
+  Buildings.Fluid.FixedResistances.PressureDrop res21(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-      annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res22(
+    annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res22(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-      annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
+    annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
   Modelica.Blocks.Math.Add cheEqu2(k2=-1) "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(

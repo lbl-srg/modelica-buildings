@@ -56,7 +56,7 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <li>
 March 19, 2016, by Michael Wetter:<br/>
 Added <code>abs</code> function for
-<code>Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit</code>
+<code>Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit</code>
 to work in OpenModelica.
 See <a href=\"https://trac.openmodelica.org/OpenModelica/ticket/3778\">
 OpenModelica ticket 3778</a>.

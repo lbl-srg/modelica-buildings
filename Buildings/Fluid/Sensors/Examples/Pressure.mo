@@ -19,7 +19,7 @@ model Pressure "Test model for the pressure sensor"
      annotation (Placement(transformation(
           extent={{-52,-10},{-32,10}})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp(
+  Buildings.Fluid.FixedResistances.PressureDrop dp(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     dp_nominal=200) "Flow resistance"

@@ -59,7 +59,7 @@ partial model Heater "Base class for example model for the heater and cooler"
   Sensors.TemperatureTwoPort THeaOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=100,

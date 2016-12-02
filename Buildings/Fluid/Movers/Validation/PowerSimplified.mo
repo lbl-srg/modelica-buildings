@@ -46,7 +46,7 @@ model PowerSimplified
     redeclare package Medium = Medium) "Pressure source"
     annotation (Placement(transformation(extent={{-102,10},{-82,30}})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM[3] res(
+  Buildings.Fluid.FixedResistances.PressureDrop[3] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each dp_nominal=40000) "Flow resistance"

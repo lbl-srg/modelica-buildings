@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.FixedResistances.Examples.FixedResistancesParallel", method="dassl", resultFile="FixedResistancesParallel");
+simulateModel("Buildings.Fluid.FixedResistances.Validation.PressureDropsParallel", method="dassl", resultFile="PressureDropsParallel");
 
 createPlot(id = 2,
  position = {5, 4, 832, 537},
@@ -9,6 +9,6 @@ createPlot(id = 2,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "FixedResistancesParallel.mat",
+ filename = "PressureDropsParallel.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

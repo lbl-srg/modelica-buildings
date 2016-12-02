@@ -57,7 +57,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     height=20,
     offset=293.15) "Inlet temperature ramp"
     annotation (Placement(transformation(extent={{-52,30},{-72,50}})));
-  Fluid.FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=100,

@@ -12,7 +12,6 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
 
   parameter Modelica.SIunits.Efficiency eps(max=1) = 0.8
     "Heat exchanger effectiveness";
-equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(

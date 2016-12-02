@@ -167,31 +167,31 @@ block HVACZones
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Supply air fan that extracts a constant amount of outside air"
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumA,
     m_flow_nominal=0.1*mA_flow_nominal,
     dp_nominal=200,
     linearized=true) "Fixed resistance for exhaust air duct"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
-  FixedResistances.FixedResistanceDpM resSup1(
+  Buildings.Fluid.FixedResistances.PressureDrop resSup1(
     redeclare package Medium = MediumA,
     linearized=true,
     m_flow_nominal=0.5*mA_flow_nominal,
     dp_nominal=10) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{70,106},{90,126}})));
-  FixedResistances.FixedResistanceDpM resSup2(
+  Buildings.Fluid.FixedResistances.PressureDrop resSup2(
     redeclare package Medium = MediumA,
     linearized=true,
     m_flow_nominal=0.5*mA_flow_nominal,
     dp_nominal=10) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{70,76},{90,96}})));
-  FixedResistances.FixedResistanceDpM resRet1(
+  Buildings.Fluid.FixedResistances.PressureDrop resRet1(
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,
     m_flow_nominal=0.5*mA_flow_nominal) "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,50},{20,70}})));
-  FixedResistances.FixedResistanceDpM resRet2(
+  Buildings.Fluid.FixedResistances.PressureDrop resRet2(
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,

@@ -34,7 +34,7 @@ model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
 
   Modelica.Blocks.Math.Gain gain(k=0.01) "Gain for nominal mass flow rate"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=1000) "Pressure drop"
