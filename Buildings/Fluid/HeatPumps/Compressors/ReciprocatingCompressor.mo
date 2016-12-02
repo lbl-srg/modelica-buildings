@@ -89,7 +89,7 @@ equation
     // Discharge pressure
     pDis = pCon + pDro;
     // Refrigerant mass flow rate
-    k = Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
+    k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
     m_flow = pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
     PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);

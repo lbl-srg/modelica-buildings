@@ -103,7 +103,7 @@ equation
       1e-6*V_flow_nominal/vSuc);
 
     // Theoretical power of the compressor
-    k = Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
+    k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
     // If the external pressure ratio does not match the built-in pressure ratio
       PThe = v_norm * k/(k - 1.0) * pSuc * V_flow_nominal
         * (((k - 1.0)/k) * PR/volRat + 1.0/k * PRInt^((k - 1.0)/k) - 1.0);
