@@ -73,11 +73,9 @@ partial model PartialWaterToWater
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput N
-    "Modulating signal for compressor frequency, equal to 1 at full load 
-     conditions"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+  Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
+   "Modulating signal for compressor frequency, equal to 1 at full load condition"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(min = 0,
     final quantity="HeatFlowRate",
@@ -157,7 +155,7 @@ equation
           {0,-16},{0,-54}}, color={191,0,0}));
   connect(com.P, P)
     annotation (Line(points={{11,0},{110,0}},         color={0,0,127}));
-  connect(N,com.y)  annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
+  connect(y,com.y)  annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
         color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},

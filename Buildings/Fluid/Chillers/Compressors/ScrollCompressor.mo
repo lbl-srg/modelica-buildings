@@ -7,7 +7,7 @@ model ScrollCompressor
   parameter Real volRat(min = 1.0, final unit = "1")
     "Built-in volume ratio";
 
-  parameter Modelica.SIunits.VolumeFlowRate v_flow(min = 0)
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
     "Refrigerant volume flow rate at suction at full load conditions";
 
   parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0, max = 1)
@@ -98,19 +98,19 @@ equation
     // Refrigerant mass flow rate
     mLea_flow = leaCoe*PR;
     m_flow =v_norm*U*Buildings.Utilities.Math.Functions.smoothMax(
-      v_flow/vSuc - mLea_flow,
-      1e-5*v_flow/vSuc,
-      1e-6*v_flow/vSuc);
+      V_flow_nominal/vSuc - mLea_flow,
+      1e-5*V_flow_nominal/vSuc,
+      1e-6*V_flow_nominal/vSuc);
 
     // Theoretical power of the compressor
     k = Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.isentropicExponentVap_Tv(TSuc, vSuc);
     if abs(PR-PRInt)/PRInt > 1e-6 then
     // If the external pressure ratio does not match the built-in pressure ratio
-      PThe = v_norm * k/(k- 1.0) * pSuc *v_flow
-             * (((k - 1.0)/k)*PR/volRat + 1.0/k * PRInt^((k - 1.0)/k) - 1.0);
+      PThe =v_norm*k/(k - 1.0)*pSuc*V_flow_nominal*(((k - 1.0)/k)*PR/volRat +
+        1.0/k*PRInt^((k - 1.0)/k) - 1.0);
     else
     // If the external pressure ratio matches the built-in pressure ratio
-      PThe = v_norm * k/(k-1) * pSuc*v_flow*((PRInt)^((k-1)/k)-1);
+      PThe =v_norm*k/(k - 1)*pSuc*V_flow_nominal*((PRInt)^((k - 1)/k) - 1);
     end if;
 
     // Temperature at suction of the compressor

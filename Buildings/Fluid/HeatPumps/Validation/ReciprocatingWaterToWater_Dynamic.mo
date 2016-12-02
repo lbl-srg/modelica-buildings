@@ -139,9 +139,9 @@ equation
           46},{-22,22}},            color={0,127,255}));
   connect(sin2.ports[2], heaPum1.port_b2) annotation (Line(points={{-22,18},{-22,
           18},{-22,-60},{-10,-60}}, color={0,127,255}));
-  connect(N.y, heaPum.N) annotation (Line(points={{-77,80},{-18,80},{-18,55},{-12,
+  connect(N.y,heaPum.y)  annotation (Line(points={{-77,80},{-18,80},{-18,55},{-12,
           55}}, color={0,0,127}));
-  connect(N.y, heaPum1.N) annotation (Line(points={{-77,80},{-18,80},{-18,-51},{
+  connect(N.y,heaPum1.y)  annotation (Line(points={{-77,80},{-18,80},{-18,-51},{
           -12,-51}}, color={0,0,127}));
   connect(mLoa.y, loa.m_flow_in) annotation (Line(points={{-79,-40},{-74,-40},{-74,
           66},{-60,66}}, color={0,0,127}));

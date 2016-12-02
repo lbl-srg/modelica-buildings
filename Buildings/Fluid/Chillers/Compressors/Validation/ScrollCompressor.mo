@@ -16,14 +16,14 @@ model ScrollCompressor
   Buildings.Fluid.Chillers.Compressors.ScrollCompressor com(
     redeclare package ref =
         Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
-    v_flow=0.003,
+    V_flow_nominal=0.003,
     leaCoe=0.005,
     etaEle=0.85,
     PLos=500,
     dTSup=3,
     volRat=2.1,
     enable_variable_speed=false) "Scroll compressor"
-             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant on(k=1) "Compressor control signal"
     annotation (Placement(transformation(extent={{-16,28},{4,48}})));
 equation

@@ -11,7 +11,8 @@ model ScrollWaterToWater
       UACon = UACon,
       UAEva = UAEva,
       volRat=volRat,
-      v_flow=v_flow,
+      V_flow_nominal=
+             v_flow,
       leaCoe=leaCoe,
       etaEle=etaEle,
       PLos=PLos,
@@ -19,8 +20,9 @@ model ScrollWaterToWater
       m1_flow_nominal=m1_flow_nominal,
       m2_flow_nominal=m2_flow_nominal,
       dp1_nominal=dp1_nominal,
-      dp2_nominal=dp2_nominal), calDat(tableName="ManufacturerData", fileName=
-          "C:/tmp/ManufacturerData.txt"));
+      dp2_nominal=dp2_nominal), calDat(tableName="ManufacturerData",
+      fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Fluid/HeatPumps/Calibration/manufacturerData.txt")));
 
   parameter Real volRat(min = 1.0, unit = "1")
     "Built-in volume ratio";
@@ -40,8 +42,14 @@ model ScrollWaterToWater
   parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
     "Superheating at compressor suction";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),preferredView="info",
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
+            {100,100}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,100}}),
+        graphics={Text(
+          extent={{-88,92},{-64,90}},
+          lineColor={28,108,200},
+          textString="fixme: make sure this model is part of the regression tests.")}),
+                                                     preferredView="info",
         Documentation(info="<HTML>
 <p>
 Calibration model for the calibration of models for water to water heat pump 
