@@ -320,10 +320,10 @@ model Floor "Model of a floor of the building"
        extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
-  Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
+  Buildings.Fluid.Sources.Outside out(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,240},{-38,260}})));
   Modelica.Blocks.Interfaces.RealOutput p_rel
     "Relative pressure signal of building static pressure" annotation (

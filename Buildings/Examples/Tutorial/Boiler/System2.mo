@@ -22,7 +22,7 @@ model System2
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------//
 
-  Fluid.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mA_flow_nominal,
@@ -54,7 +54,7 @@ model System2
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 //-------------------------Step 5: Radiator Model-------------------------//
- Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
@@ -63,12 +63,12 @@ model System2
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 //------------------------------------------------------------------------//
 
-  Fluid.Sources.FixedBoundary sin(nPorts=1, redeclare package Medium = MediumW)
+  Buildings.Fluid.Sources.FixedBoundary sin(nPorts=1, redeclare package Medium = MediumW)
     "Sink for mass flow rate"           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-50})));
-  Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
       m_flow_nominal=mRad_flow_nominal) "Supply water temperature"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -91,7 +91,7 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
 
 //------------------------------------------------------------------------//
 
-  Fluid.Sources.FixedBoundary sou(
+  Buildings.Fluid.Sources.FixedBoundary sou(
     nPorts=1,
     redeclare package Medium = MediumW,
     T=TRadSup_nominal) "Sink for mass flow rate"
@@ -278,7 +278,7 @@ to <code>TRadSup_nominal</code>.
 We configured the parameters of the radiator model as
 </p>
 <pre>
-  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
@@ -289,7 +289,7 @@ We configured the parameters of the radiator model as
 We configured the parameters of the pump model as
 </p>
 <pre>
-  Fluid.Movers.FlowControlled_m_flow pumRad(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRad_flow_nominal)

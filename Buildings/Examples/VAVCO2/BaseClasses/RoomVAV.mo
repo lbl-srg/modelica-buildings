@@ -2,8 +2,8 @@ within Buildings.Examples.VAVCO2.BaseClasses;
 model RoomVAV "Model for CO2 emitted by people"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
-  replaceable model MotorModel = Fluid.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
-  Fluid.Actuators.Dampers.VAVBoxExponential vav(
+  replaceable model MotorModel = Buildings.Fluid.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
+  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     A=ADam,
     m_flow_nominal=m_flow_nominal,
@@ -11,7 +11,7 @@ model RoomVAV "Model for CO2 emitted by people"
     allowFlowReversal=false,
     from_dp=false)
     annotation (extent=[-10,60; 10,80], rotation=270);
-  Fluid.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=VRoo,
     nPorts=6,
@@ -19,18 +19,18 @@ model RoomVAV "Model for CO2 emitted by people"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
-  Fluid.Sensors.TraceSubstances senCO2(       redeclare package
+  Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package
       Medium =
         Medium) "Sensor at volume"
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Fluid.Sources.TraceSubstancesFlowSource sou(redeclare package
+  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(redeclare package
       Medium =         Medium, use_m_flow_in=true,
     nPorts=1) "CO2 source"
     annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,
             -70},{-80,-50}})));
   parameter Modelica.SIunits.Volume VRoo "Volume of room";
-  Fluid.MixingVolumes.MixingVolume ple(
+  Buildings.Fluid.MixingVolumes.MixingVolume ple(
     redeclare package Medium = Medium,
     V=VPle,
     nPorts=2,
@@ -65,7 +65,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
     annotation (extent=[-140,-70; -120,-50], Placement(transformation(extent={{-138,
             -70},{-118,-50}})));
-  Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
+  Buildings.Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
                                                    MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (extent=[40,20; 60,40], Placement(transformation(extent={{60,20},
@@ -79,7 +79,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Sources.RealExpression vavACH(y=vav.m_flow*3600/VRoo/1.2)
     "VAV box air change per hour"
     annotation (extent=[-124,34; -100,54]);
-  Fluid.FixedResistances.FixedResistanceDpM dpPle(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpPle(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=20,

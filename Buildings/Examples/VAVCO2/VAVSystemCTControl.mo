@@ -62,7 +62,7 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     allowFlowReversal=true,
     from_dp=false) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
-  Fluid.Sources.Boundary_pT bouIn(
+  Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=293.15,
@@ -78,14 +78,14 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Fluid.Movers.FlowControlled_dp fan32(
+  Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
     init=Modelica.Blocks.Types.Init.InitialState,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mMIT_flow)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
-  Fluid.Movers.FlowControlled_dp fan56(
+  Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
     init=Modelica.Blocks.Types.Init.InitialState,

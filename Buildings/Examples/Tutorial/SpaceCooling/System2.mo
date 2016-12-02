@@ -6,7 +6,7 @@ model System2
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
-  Fluid.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     V=V,
@@ -66,12 +66,12 @@ model System2
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
         QRooInt_flow) "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Fluid.Movers.FlowControlled_m_flow fan(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium1 =
         MediumA, redeclare package Medium2 = MediumA,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
@@ -79,14 +79,14 @@ model System2
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-36},{-90,-16}})));
-  Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(redeclare package Medium1 =
+  Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(redeclare package Medium1 =
         MediumW, redeclare package Medium2 = MediumA,
     m1_flow_nominal=mW_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=200,
     UA_nominal=-QCoiC_flow_nominal/
-        Fluid.HeatExchangers.BaseClasses.lmtd(
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
         T_a1=THeaRecLvg,
         T_b1=TASup_nominal,
         T_a2=TWSup_nominal,
@@ -98,15 +98,15 @@ model System2
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-30,-26})));
-  Fluid.Sources.Outside out(nPorts=2, redeclare package Medium = MediumA)
+  Buildings.Fluid.Sources.Outside out(nPorts=2, redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-140,-32},{-120,-12}})));
-  Fluid.Sources.MassFlowSource_T souWat(
+  Buildings.Fluid.Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Fluid.Sources.FixedBoundary sinWat(nPorts=1, redeclare package Medium =
+  Buildings.Fluid.Sources.FixedBoundary sinWat(nPorts=1, redeclare package Medium =
         MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -124,11 +124,11 @@ model System2
   Modelica.Blocks.Sources.Constant mWat_flow(k=mW_flow_nominal)
     "Water flow rate"
     annotation (Placement(transformation(extent={{-80,-114},{-60,-94}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-26},{-64,-14}})));
-  Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package Medium =
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package Medium =
         MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
@@ -424,7 +424,7 @@ parameter assignment
 </p>
 <pre>
   UA_nominal=-QCoiC_flow_nominal/
-        Fluid.HeatExchangers.BaseClasses.lmtd(
+        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
           T_a1=THeaRecLvg,
           T_b1=TASup_nominal,
           T_a2=TWSup_nominal,
