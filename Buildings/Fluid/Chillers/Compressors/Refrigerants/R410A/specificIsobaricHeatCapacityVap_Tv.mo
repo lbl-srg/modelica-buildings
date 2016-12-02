@@ -44,13 +44,8 @@ protected
 algorithm
 
   cv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
-
-  dpdT := R / (v-b);
-  dpdv := -R*T/(v-b)^2;
-  for i in 1:n loop
-    dpdT := dpdT + (B[i] - k/TCri*C[i]*Modelica.Math.exp(-k*T/TCri))/(v-b)^(i+1);
-    dpdv := dpdv - (i+1)*(A[i] + B[i]*T + C[i]*Modelica.Math.exp(-k*T/TCri))/(v-b)^(i+2);
-  end for;
+  dpdT := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
+  dpdv := Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
 
   cp := cv - T * dpdT^2 / dpdv;
 
