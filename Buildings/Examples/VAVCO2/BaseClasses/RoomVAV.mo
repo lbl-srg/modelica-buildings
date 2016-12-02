@@ -3,7 +3,7 @@ model RoomVAV "Model for CO2 emitted by people"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
   replaceable model MotorModel = Buildings.Fluid.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
-  Fluid.Actuators.Dampers.VAVBoxExponential vav(
+  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     A=ADam,
     m_flow_nominal=m_flow_nominal,
@@ -65,7 +65,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
     annotation (extent=[-140,-70; -120,-50], Placement(transformation(extent={{-138,
             -70},{-118,-50}})));
-  Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
+  Buildings.Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
                                                    MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (extent=[40,20; 60,40], Placement(transformation(extent={{60,20},
@@ -79,7 +79,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Sources.RealExpression vavACH(y=vav.m_flow*3600/VRoo/1.2)
     "VAV box air change per hour"
     annotation (extent=[-124,34; -100,54]);
-  Fluid.FixedResistances.FixedResistanceDpM dpPle(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpPle(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=20,
