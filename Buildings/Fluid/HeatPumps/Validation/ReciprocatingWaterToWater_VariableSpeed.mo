@@ -63,6 +63,7 @@ model ReciprocatingWaterToWater_VariableSpeed
     UACon=2210,
     UAEva=1540,
     PLos=100,
+    show_T=true,
     pDro=99290) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp N(
@@ -75,32 +76,6 @@ model ReciprocatingWaterToWater_VariableSpeed
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Constant TSou(k=283.15) "Source side temeprature"
     annotation (Placement(transformation(extent={{100,-38},{80,-18}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temLoa_in(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    tau=0.01) "Load side inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temLoa_out(
-    redeclare package Medium = Medium1,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    m_flow_nominal=m1_flow_nominal) "Load side outlet temperature sensor"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSou_in(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Source side inlet temperature sensor"
-    annotation (Placement(transformation(extent={{20,-16},{40,4}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSou_out(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Source side outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
   connect(mSou.y, sou.m_flow_in)
     annotation (Line(points={{79,2},{79,2},{68,2}},          color={0,0,127}));
@@ -114,22 +89,14 @@ equation
   connect(TLoa.y, loa.T_in)
     annotation (Line(points={{-79,0},{-79,0},{-74,0},{-74,24},{-68,24}},
                                                             color={0,0,127}));
-  connect(loa.ports[1], temLoa_in.port_a)
-    annotation (Line(points={{-46,20},{-40,20}}, color={0,127,255}));
-  connect(heaPum.port_a1, temLoa_in.port_b) annotation (Line(points={{-10,6},{
-          -16,6},{-16,20},{-20,20}}, color={0,127,255}));
-  connect(heaPum.port_b1, temLoa_out.port_a)
-    annotation (Line(points={{10,6},{20,6},{20,20}}, color={0,127,255}));
-  connect(temLoa_out.port_b, sin1.ports[1])
-    annotation (Line(points={{40,20},{40,20},{48,20}}, color={0,127,255}));
-  connect(heaPum.port_a2, temSou_in.port_a)
-    annotation (Line(points={{10,-6},{15,-6},{20,-6}}, color={0,127,255}));
-  connect(temSou_in.port_b, sou.ports[1])
-    annotation (Line(points={{40,-6},{48,-6}}, color={0,127,255}));
-  connect(sin2.ports[1], temSou_out.port_a) annotation (Line(points={{-60,-40},
-          {-60,-40},{-40,-40}}, color={0,127,255}));
-  connect(temSou_out.port_b, heaPum.port_b2) annotation (Line(points={{-20,-40},
-          {-20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
+          -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(heaPum.port_a1, loa.ports[1]) annotation (Line(points={{-10,6},{-20,6},
+          {-20,20},{-46,20}}, color={0,127,255}));
+  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},
+          {20,20},{48,20}}, color={0,127,255}));
+  connect(sou.ports[1], heaPum.port_a2)
+    annotation (Line(points={{48,-6},{10,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos"

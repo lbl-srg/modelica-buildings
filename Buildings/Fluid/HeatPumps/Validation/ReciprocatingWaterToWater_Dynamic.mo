@@ -109,29 +109,18 @@ model ReciprocatingWaterToWater_Dynamic
     "Source side fluid temperature"
     annotation (Placement(transformation(extent={{100,-90},{80,-70}})));
   Modelica.Blocks.Sources.RealExpression appCap(y=heaPum1.port_a1.m_flow*(
-        senSpeEnt1.h_out - senSpeEnt.h_out))
+        heaPum1.port_b1.h_outflow - loa1.ports[1].h_outflow))
     "Apparent capacity of the heat pump"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    annotation (Placement(transformation(extent={{-34,-52},{-26,-44}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt1(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    annotation (Placement(transformation(extent={{16,-52},{24,-44}})));
 equation
   connect(mSou.y, sou.m_flow_in)
     annotation (Line(points={{79,-52},{74,-52},{74,54},{60,54}},
                                                              color={0,0,127}));
   connect(heaPum.port_a2, sou.ports[1])
     annotation (Line(points={{10,46},{40,46}},           color={0,127,255}));
-  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,58},{34,58},
-          {34,22}},         color={0,127,255}));
+  connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,58},{20,
+          58},{20,24},{26,24},{34,24},{34,22}},
+                            color={0,127,255}));
   connect(heaPum.port_a1, loa.ports[1])
     annotation (Line(points={{-10,58},{-34,58},{-40,58}},color={0,127,255}));
   connect(heaPum.port_b2, sin2.ports[1]) annotation (Line(points={{-10,46},{-22,
@@ -158,14 +147,10 @@ equation
           {-62,-44}}, color={0,0,127}));
   connect(TLoa.y, loa.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,62},
           {-62,62}}, color={0,0,127}));
-  connect(heaPum1.port_b1, senSpeEnt1.port_a)
-    annotation (Line(points={{10,-48},{16,-48}}, color={0,127,255}));
-  connect(senSpeEnt1.port_b, sin1.ports[2])
-    annotation (Line(points={{24,-48},{34,-48},{34,18}}, color={0,127,255}));
-  connect(loa1.ports[1], senSpeEnt.port_a)
-    annotation (Line(points={{-40,-48},{-34,-48}}, color={0,127,255}));
-  connect(senSpeEnt.port_b, heaPum1.port_a1)
-    annotation (Line(points={{-26,-48},{-10,-48}}, color={0,127,255}));
+  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{
+          -26,-48},{-10,-48}}, color={0,127,255}));
+  connect(heaPum1.port_b1, sin1.ports[2]) annotation (Line(points={{10,-48},{20,
+          -48},{20,18},{34,18}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos"
