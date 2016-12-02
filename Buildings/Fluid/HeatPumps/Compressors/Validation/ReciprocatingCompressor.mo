@@ -3,7 +3,7 @@ model ReciprocatingCompressor
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor com(
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.069,
     etaEle=0.696,

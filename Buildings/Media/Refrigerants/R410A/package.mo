@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.HeatPumps.Compressors.Refrigerants;
+﻿within Buildings.Media.Refrigerants;
 package R410A "Refrigerant R410A"
   extends Modelica.Icons.VariantsPackage;
 

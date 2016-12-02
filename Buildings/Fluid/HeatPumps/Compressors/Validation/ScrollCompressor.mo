@@ -15,7 +15,7 @@ model ScrollCompressor
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor com(
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     V_flow_nominal=0.003,
     leaCoe=0.005,
     etaEle=0.85,

@@ -20,7 +20,7 @@ model ReciprocatingWaterToWater
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     pisDis=0.00162,

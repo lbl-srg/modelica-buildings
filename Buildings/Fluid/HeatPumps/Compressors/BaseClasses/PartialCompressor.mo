@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
 model PartialCompressor "Partial compressor model"
 
   replaceable package ref =
-      Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A "Refrigerant in the component"
+      Buildings.Media.Refrigerants.R410A "Refrigerant in the component"
       annotation (choicesAllMatching = true);
 
   parameter Boolean enable_variable_speed = true

@@ -1,16 +1,16 @@
-within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
-function enthalpySatLiq_T
-  "Function that calculates the enthalpy of saturated liquid R410A based on temperature"
+within Buildings.Media.Refrigerants.R410A;
+function enthalpySatVap_T
+  "Function that calculates the specific enthalpy of saturated R410A vapor based on temperature"
   input Modelica.SIunits.Temperature T
     "Temperature of refrigerant";
   output Modelica.SIunits.SpecificEnthalpy h
     "Specific enthalpy of saturated liquid refrigerant";
 
 protected
-  final Real a[:] = {221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0}
+  final Real a[:] = {406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635}
     "Coefficients for polynomial equation";
 
-  final Real x0 = 0.5541498
+  final Real x0 = 0
     "x0 for saturation pressure of liquid refrigerant";
 
   final Modelica.SIunits.Temperature TCri = 345.25
@@ -28,8 +28,8 @@ algorithm
 annotation (smoothOrder=1,
 preferredView="info",Documentation(info="<HTML>
 <p>
-Function that calculates the enthalpy of saturated liquid R410A based on
-temperature.
+Function that calculates the specific enthalpy of saturated R410A vapor based
+on temperature.
 </p>
 <h4>References</h4>
 <p>
@@ -46,4 +46,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end enthalpySatLiq_T;
+end enthalpySatVap_T;

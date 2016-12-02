@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
+﻿within Buildings.Media.Refrigerants.R410A;
 function specificIsobaricHeatCapacityVap_Tv
   "Function that calculates the specific isobaric heat capacity of R410A vapor based on temperature and specific volume"
   input Modelica.SIunits.Temperature T
@@ -43,9 +43,9 @@ protected
 
 algorithm
 
-  cv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
-  dpdT := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
-  dpdv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
+  cv := Buildings.Media.Refrigerants.R410A.specificIsochoricHeatCapacityVap_Tv(T, v);
+  dpdT := Buildings.Media.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
+  dpdv := Buildings.Media.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
 
   cp := cv - T * dpdT^2 / dpdv;
 

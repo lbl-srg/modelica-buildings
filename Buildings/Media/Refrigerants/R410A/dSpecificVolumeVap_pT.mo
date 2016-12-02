@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
+within Buildings.Media.Refrigerants.R410A;
 function dSpecificVolumeVap_pT
   "Function that calculates the Jacobian of specific volume R410A vapor based on pressure and temperature"
   input Modelica.SIunits.AbsolutePressure p
@@ -29,9 +29,9 @@ protected
 
 algorithm
 
-  v := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificVolumeVap_pT(p,T);
-  dpdT := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
-  dpdv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
+  v := Buildings.Media.Refrigerants.R410A.specificVolumeVap_pT(p,T);
+  dpdT := Buildings.Media.Refrigerants.R410A.dPressureVap_dTemperature_Tv(T,v);
+  dpdv := Buildings.Media.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
 
   dv := dp/dpdv + dT*(dpdT/dpdv);
 

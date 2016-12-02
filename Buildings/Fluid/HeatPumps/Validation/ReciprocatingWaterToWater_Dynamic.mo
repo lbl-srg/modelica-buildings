@@ -55,7 +55,7 @@ model ReciprocatingWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.0690,
     etaEle=0.696,
@@ -73,7 +73,7 @@ model ReciprocatingWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     pisDis=0.00162,
     cleFac=0.0690,
     etaEle=0.696,

@@ -1,14 +1,12 @@
-within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
-function dPressureVap_dTemperature_Tv
-  "Derivative of the Martin-Hou equation of state with regards to temperature"
-
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  input Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
-  output Real dpdT(
-    final unit="Pa/K")
-     "Derivative of pressure with regards to temperature";
+within Buildings.Media.Refrigerants.R410A;
+function pressureVap_Tv
+"Function that calculates the pressure R410A vapor based on temperature and specific volume"
+input Modelica.SIunits.Temperature T
+   "Temperature of refrigerant";
+input Modelica.SIunits.SpecificVolume v
+   "Specific volume of refrigerant";
+output Modelica.SIunits.AbsolutePressure p
+   "Pressure of refrigerant vapor";
 
 protected
   Modelica.SIunits.SpecificEntropy R = 114.55
@@ -41,16 +39,17 @@ algorithm
 
   v_abs := Buildings.Utilities.Math.Functions.smoothMax(v, 1.01*b, 0.01*b);
 
-  dpdT := R/(v_abs-b);
+  p := R*T/(v_abs-b);
   for i in 1:n loop
-    dpdT := dpdT + (B[i] - C[i]*k/TCri*Modelica.Math.exp(-k*T/TCri))/(v_abs - b)^(i+1);
+    p := p + (A[i] + B[i]*T + C[i]*Modelica.Math.exp(-k*T/TCri))/(v_abs - b)^(i+1);
   end for;
 
 annotation (smoothOrder=1,
 preferredView="info",Documentation(info="<HTML>
 <p>
-Function that calculates the derivative of the Martin-Hou equation of for R410A
-state with regards to temperature.
+Function that calculates the pressure R410A vapor based on temperature and
+specific volume. The pressure is calculated from the Martin-Hou equation of
+state.
 </p>
 <h4>References</h4>
 <p>
@@ -62,9 +61,9 @@ https://www.chemours.com/Refrigerants/en_US/assets/downloads/h64423_Suva410A_the
 </html>",   revisions="<html>
 <ul>
 <li>
-November 30, 2016, by Massimo Cimmino:<br/>
+October 17, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end dPressureVap_dTemperature_Tv;
+end pressureVap_Tv;

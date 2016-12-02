@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A;
+within Buildings.Media.Refrigerants.R410A;
 function specificVolumeVap_pT
   "Function that calculates the specific volume R410A vapor based on pressure and temperature"
   input Modelica.SIunits.AbsolutePressure p
@@ -47,13 +47,13 @@ algorithm
   m := 0;
   while abs(dv/v) > 1e-10 loop
     assert(m < 1E3,
-      "Failed to converge in Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.specificVolumeVap_pT");
+      "Failed to converge in Buildings.Media.Refrigerants.R410A.specificVolumeVap_pT");
     m := m + 1;
 
     // Evaluate first derivative of pressure w.r.t. specific volume
-    dpdv := Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
+    dpdv := Buildings.Media.Refrigerants.R410A.dPressureVap_dSpecificVolume_Tv(T,v);
     // Error on pressure
-    dp := p - Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.pressureVap_Tv(T,v);
+    dp := p - Buildings.Media.Refrigerants.R410A.pressureVap_Tv(T,v);
     // Corresponding linear adjustment of specific volume
     dv := dp/dpdv;
     v := v + dv;
@@ -62,7 +62,7 @@ end while;
 
 
 
-annotation (derivative=Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A.dSpecificVolumeVap_pT,
+annotation (derivative=Buildings.Media.Refrigerants.R410A.dSpecificVolumeVap_pT,
 preferredView="info",Documentation(info="<HTML>
 <p>
 Function that calculates the specific volume R410A vapor based on pressure and

@@ -55,7 +55,7 @@ model ScrollWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     UACon=4400,
     UAEva=4400,
     volRat=2,
@@ -73,7 +73,7 @@ model ScrollWaterToWater_Dynamic
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.HeatPumps.Compressors.Refrigerants.R410A,
+        Buildings.Media.Refrigerants.R410A,
     UACon=4400,
     UAEva=4400,
     volRat=2,
