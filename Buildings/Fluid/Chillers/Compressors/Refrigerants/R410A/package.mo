@@ -1,5 +1,5 @@
 ﻿within Buildings.Fluid.Chillers.Compressors.Refrigerants;
-package R410A "Package with functions for properties of refrigerant R410A"
+package R410A "Refrigerant R410A"
   extends Modelica.Icons.VariantsPackage;
 
   final constant Modelica.SIunits.AbsolutePressure pCri = 4926.1e3
@@ -11,6 +11,14 @@ package R410A "Package with functions for properties of refrigerant R410A"
 
   final constant Modelica.SIunits.Temperature T_min = 173.15
     "Minimum temperature for correlated properties";
+
+
+
+
+
+
+
+
 
 
 
