@@ -103,7 +103,7 @@ model HeatingCoolingHotWater3Clusters
     m_flow_nominal=m_flow_nominal/3)
     annotation (Placement(transformation(extent={{160,-210},{140,-190}})));
 
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup1(
+  Buildings.Fluid.FixedResistances.Junction splSup1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -111,7 +111,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-330,130},{-310,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet1(
+  Buildings.Fluid.FixedResistances.Junction splRet1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -119,7 +119,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-250,30},{-230,10}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup2(
+  Buildings.Fluid.FixedResistances.Junction splSup2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -127,7 +127,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-210,130},{-190,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet2(
+  Buildings.Fluid.FixedResistances.Junction splRet2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -135,7 +135,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-130,30},{-110,10}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup3(
+  Buildings.Fluid.FixedResistances.Junction splSup3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -143,7 +143,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet3(
+  Buildings.Fluid.FixedResistances.Junction splRet3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -151,7 +151,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{-10,30},{10,10}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup5(
+  Buildings.Fluid.FixedResistances.Junction splSup5(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -159,7 +159,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{190,130},{210,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet5(
+  Buildings.Fluid.FixedResistances.Junction splRet5(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -167,7 +167,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{270,30},{290,10}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup6(
+  Buildings.Fluid.FixedResistances.Junction splSup6(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -175,7 +175,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{330,130},{350,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet6(
+  Buildings.Fluid.FixedResistances.Junction splRet6(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -183,7 +183,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{410,30},{430,10}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup4(
+  Buildings.Fluid.FixedResistances.Junction splSup4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -191,7 +191,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{50,130},{70,150}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet4(
+  Buildings.Fluid.FixedResistances.Junction splRet4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -199,7 +199,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splSup7(
+  Buildings.Fluid.FixedResistances.Junction splSup7(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
@@ -207,7 +207,7 @@ model HeatingCoolingHotWater3Clusters
     tau=5*60,
     from_dp=false) "Flow splitter"
     annotation (Placement(transformation(extent={{180,-90},{200,-70}})));
-  Buildings.Fluid.FixedResistances.SplitterPressureDrop splRet7(
+  Buildings.Fluid.FixedResistances.Junction splRet7(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal*{1,1,1},
     dp_nominal=40*R_nominal*{0,1,1},
