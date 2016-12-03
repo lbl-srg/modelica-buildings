@@ -34,7 +34,7 @@ model FlowMachineInterface
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
  // Normalized speed
-  Modelica.Blocks.Interfaces.RealInput y_in(final unit="1", min=0) if preSpe
+  Modelica.Blocks.Interfaces.RealInput y_in(final unit="1") if preSpe
     "Prescribed mover speed"
     annotation (Placement(
         transformation(
@@ -43,8 +43,7 @@ model FlowMachineInterface
         origin={-40,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_out(
-    final unit="1",
-    min=0) "Mover speed (prescribed or computed)"
+    final unit="1") "Mover speed (prescribed or computed)"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow(
@@ -89,30 +88,24 @@ model FlowMachineInterface
 
   Modelica.Blocks.Interfaces.RealOutput eta(
     final quantity="Efficiency",
-    final unit="1",
-    min=0,
-    max=1) "Overall efficiency"
+    final unit="1") "Overall efficiency"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
-    final unit="1",
-    min=0,
-    max=1) "Hydraulic efficiency"
+    final unit="1") "Hydraulic efficiency"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}}),
         iconTransformation(extent={{100,-80},{120,-60}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
-    final unit="1",
-    min=0,
-    max=1) "Motor efficiency"
+    final unit="1") "Motor efficiency"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
 
   // "Shaft rotational speed";
-  Modelica.Blocks.Interfaces.RealOutput r_N(min=0, unit="1")
+  Modelica.Blocks.Interfaces.RealOutput r_N(unit="1")
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
@@ -674,6 +667,13 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.

@@ -20,7 +20,6 @@ model SpeedControlled_y
            final k=1/per.speed_nominal));
 
   Modelica.Blocks.Interfaces.RealInput y(
-    min=0,
     unit="1") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
@@ -98,6 +97,13 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
