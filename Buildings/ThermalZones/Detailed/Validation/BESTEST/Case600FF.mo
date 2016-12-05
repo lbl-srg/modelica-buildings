@@ -90,7 +90,6 @@ model Case600FF
     nConExt=4,
     nConPar=0,
     nSurBou=0,
-    linearizeRadiation=false,
     datConExtWin(
       layers={matExtWal},
       A={8*2.7},
@@ -100,7 +99,9 @@ model Case600FF
       fFra={0.001},
       til={Z_},
       azi={S_}),
-    lat=weaDat.lat) "Room model for Case 600"
+    lat=weaDat.lat,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                    "Room model for Case 600"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,64},{-48,72}})));
@@ -188,14 +189,6 @@ model Case600FF
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{-86,-28},{-78,-20}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM   heaCoo(
-    redeclare package Medium = MediumA,
-    allowFlowReversal=false,
-    m_flow_nominal=48*2.7*0.41/3600*1.2,
-    dp_nominal=1,
-    linearized=true,
-    from_dp=true) "Heater and cooler"
-    annotation (Placement(transformation(extent={{4,-34},{16,-22}})));
   replaceable parameter
     Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating
       staRes(
