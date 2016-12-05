@@ -17,7 +17,7 @@ model PartialCompressor "Partial compressor model"
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
 
-  Real isOn(start = 1)
+  Real isOn(start = if y > 0.01 then 1.0 else 0.0)
     "State of the compressor, 1 if turned on";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
@@ -43,7 +43,7 @@ model PartialCompressor "Partial compressor model"
 
 equation
 
-  when y > 0.001 then
+  when y > 0.01 then
     isOn = 1;
   elsewhen y <= 0.0 then
     isOn = 0;
