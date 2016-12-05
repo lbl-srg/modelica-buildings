@@ -1,65 +1,46 @@
 within Buildings.Fluid.FixedResistances;
-model SplitterFixedResistanceDpM
+model Junction
   "Flow splitter with fixed resistance at each port"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
-            final allowFlowReversal=true,
-            from_dp=from_dp,
-            final m_flow_nominal=m_flow_nominal[1],
-            final dp_nominal=dp_nominal[1],
-            final ReC=ReC[1],
-            final dh=dh[1],
-            linearized=linearized,
-            homotopyInitialization=homotopyInitialization,
-            deltaM=deltaM),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
-            final allowFlowReversal=true,
-            from_dp=from_dp,
-            final m_flow_nominal=m_flow_nominal[2],
-            final dp_nominal=dp_nominal[2],
-            final ReC=ReC[2],
-            final dh=dh[2],
-            linearized=linearized,
-            homotopyInitialization=homotopyInitialization,
-            deltaM=deltaM),
-      redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
-            final allowFlowReversal=true,
-            from_dp=from_dp,
-            final m_flow_nominal=m_flow_nominal[3],
-            final dp_nominal=dp_nominal[3],
-            final ReC=ReC[3],
-            final dh=dh[3],
-            linearized=linearized,
-            homotopyInitialization=homotopyInitialization,
-            deltaM=deltaM));
+    redeclare Buildings.Fluid.FixedResistances.PressureDrop res1(
+      final allowFlowReversal=true,
+      from_dp=from_dp,
+      final m_flow_nominal=m_flow_nominal[1],
+      final dp_nominal=dp_nominal[1],
+      linearized=linearized,
+      homotopyInitialization=homotopyInitialization,
+      deltaM=deltaM),
+    redeclare Buildings.Fluid.FixedResistances.PressureDrop res2(
+      final allowFlowReversal=true,
+      from_dp=from_dp,
+      final m_flow_nominal=m_flow_nominal[2],
+      final dp_nominal=dp_nominal[2],
+      linearized=linearized,
+      homotopyInitialization=homotopyInitialization,
+      deltaM=deltaM),
+    redeclare Buildings.Fluid.FixedResistances.PressureDrop res3(
+      final allowFlowReversal=true,
+      from_dp=from_dp,
+      final m_flow_nominal=m_flow_nominal[3],
+      final dp_nominal=dp_nominal[3],
+      linearized=linearized,
+      homotopyInitialization=homotopyInitialization,
+      deltaM=deltaM));
 
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
-    "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
+    "Mass flow rate. Set negative at outflowing ports."
+    annotation(Dialog(group = "Nominal condition"));
 
   parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
     "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Boolean use_dh = false
-    "= true, use dh and ReC, otherwise use deltaM"
-    annotation(Evaluate=true,
-               Dialog(group = "Transition to laminar",
-                      enable = not linearized));
-
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Dialog(group = "Transition to laminar",
-                         enable = not use_dh and not linearized));
+                         enable = not linearized));
 
-  parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
-    annotation(Dialog(group = "Transition to laminar",
-                      enable = use_dh and not linearized));
-
-  parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
-    "Reynolds number where transition to turbulent starts"
-      annotation(Dialog(group = "Transition to laminar",
-                        enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
@@ -91,17 +72,16 @@ model SplitterFixedResistanceDpM
           extent={{-151,142},{149,102}},
           lineColor={0,0,255},
           textString="%name")}),
-defaultComponentName="spl",
+defaultComponentName="jun",
     Documentation(info="<html>
 <p>
-Model of a flow splitter or mixer with a fixed resistance in each flow leg.
-In each flow lag, a pressure drop can be modeled, and at the fluid junction,
-a mixing volume can be modeled.
+Model of a flow junction with an optional fixed resistance in each flow leg
+and an optional mixing volume at the junction.
 </p>
 <p>
 The pressure drop is implemented using the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a>.
 If its nominal pressure drop is set to zero, then the pressure drop
 model will be removed.
 For example, the pressure drop declaration
@@ -111,21 +91,21 @@ For example, the pressure drop declaration
   dp_nominal =   {500,    0, -6000}
 </pre>
 <p>
-would model a mixer that has the nominal flow rates and associated pressure drops
+would model a flow mixer that has the nominal flow rates and associated pressure drops
 as shown in the figure below. Note that <code>port_3</code> is set to negative values.
 The negative values indicate that at the nominal conditions, fluid is leaving the component.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/Junction.png\"/>
 </p>
 <p>
-Optionally, at the fluid junction, a control volume can be modeled.
-This is implemented using the model
+If
+<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+then at the flow junction, a fluid volume is modeled.
+The fluid volume is implemented using the model
 <a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
 Buildings.Fluid.Delays.DelayFirstOrder</a>.
-The fluid volume is modeled if
-<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>.
-The control volume has the size
+The fluid volume has the size
 </p>
 <pre>
   V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal
@@ -139,6 +119,14 @@ system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Renamed model from <code>SplitterFixedResistanceDpM</code> to
+<code>FlowJunction</code> and removed the parameters
+<code>use_dh</code>, <code>dh</code> and <code>ReC</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+</li>
 <li>
 October 14, 2016 by Michael Wetter:<br/>
 Added to Annex 60 library.<br/>
@@ -174,4 +162,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SplitterFixedResistanceDpM;
+end Junction;

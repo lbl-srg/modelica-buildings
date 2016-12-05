@@ -196,7 +196,7 @@ model ElectroChromicWindow
   Fluid.Sources.Outside freshAir(redeclare package Medium = MediumA, nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Fluid.FixedResistances.FixedResistanceDpM duc(
+  Fluid.FixedResistances.PressureDrop duc(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
     linearized=true,

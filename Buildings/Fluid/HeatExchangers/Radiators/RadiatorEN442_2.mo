@@ -169,7 +169,7 @@ protected
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,

@@ -1,29 +1,14 @@
 within Buildings.Fluid.FixedResistances;
-model FixedResistanceDpM
+model PressureDrop
   "Fixed flow resistance with dp and m_flow as parameter"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
-    final m_flow_turbulent = if (computeFlowResistance and use_dh) then
-                       eta_default*dh/4*Modelica.Constants.pi*ReC
-                       elseif (computeFlowResistance) then
-                       deltaM * m_flow_nominal_pos
-         else 0);
-  parameter Boolean use_dh = false
-  "= true, use dh and ReC, otherwise use deltaM"
-       annotation(Evaluate=true,
-                  Dialog(group = "Transition to laminar",
-                         enable = not linearized));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
-  parameter Real ReC(min=0)=4000
-    "Reynolds number where transition to turbulent starts"
-       annotation(Dialog(group = "Transition to laminar",
-                         enable = use_dh and not linearized));
+    final m_flow_turbulent = if computeFlowResistance then deltaM * m_flow_nominal_pos else 0);
+
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
-                         enable = not use_dh and not linearized));
+                         enable = not linearized));
 
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
@@ -38,16 +23,6 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- assert(m_flow_nominal_pos > m_flow_turbulent,
-   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
-  m_flow_nominal = " + String(m_flow_nominal) + "
-  dh      = " + String(dh) + "
- To correct it, set dh < " +
-     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
-  Suggested value:   dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
-                AssertionLevel.warning);
-
 equation
   // Pressure drop calculation
   if computeFlowResistance then
@@ -56,21 +31,31 @@ equation
     else
       if homotopyInitialization then
         if from_dp then
-          m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+          m_flow=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dp=dp,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent),
+            simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
-          dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+          dp=homotopy(
+            actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+              m_flow=m_flow,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent),
+            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
          end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent);
+          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+            dp=dp,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent);
         else
-          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent);
+          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+            m_flow=m_flow,
+            k=k,
+            m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
     end if; // linearized
@@ -81,8 +66,8 @@ equation
   annotation (defaultComponentName="res",
 Documentation(info="<html>
 <p>
-This is a model of a resistance with a fixed flow coefficient.
-The mass flow rate is computed as
+Model of a flow resistance with a fixed flow coefficient.
+The mass flow rate is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k
@@ -96,33 +81,19 @@ The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
 are parameters.
+</p>
+<h4>Assumptions</h4>
+<p>
 In the region
 <code>abs(m_flow) &lt; m_flow_turbulent</code>,
 the square root is replaced by a differentiable function
 with finite slope.
 The value of <code>m_flow_turbulent</code> is
-computed as follows:
-</p>
-<ul>
-<li>
-If the parameter <code>use_dh</code> is <code>false</code>
-(the default setting),
-the equation
+computed as
 <code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
 where <code>deltaM=0.3</code> and
 <code>m_flow_nominal</code> are parameters that can be set by the user.
-</li>
-<li>
-Otherwise, the equation
-<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
-where
-<code>eta_nominal</code> is the dynamic viscosity, obtained from
-the medium model. The parameter
-<code>dh</code> is the hydraulic diameter and
-<code>ReC=4000</code> is the critical Reynolds number, which both
-can be set by the user.
-</li>
-</ul>
+</p>
 <p>
 The figure below shows the pressure drop for the parameters
 <code>m_flow_nominal=5</code> kg/s,
@@ -130,16 +101,9 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png\"/>
 </p>
-<p>
-If the parameter
-<code>show_T</code> is set to <code>true</code>,
-then the model will compute the
-temperature at its ports. Note that this can lead to state events
-when the mass flow rate approaches zero,
-which can increase computing time.
-</p>
+<h4>Important parameters</h4>
 <p>
 The parameter <code>from_dp</code> is used to determine
 whether the mass flow rate is computed as a function of the
@@ -159,6 +123,14 @@ This can be difficult to guarantee, as pressure imbalance after
 the initialization, or due to medium expansion and contraction,
 can lead to reverse flow.
 </p>
+<p>
+If the parameter
+<code>show_T</code> is set to <code>true</code>,
+then the model will compute the
+temperature at its ports. Note that this can lead to state events
+when the mass flow rate approaches zero,
+which can increase computing time.
+</p>
 <h4>Notes</h4>
 <p>
 For more detailed models that compute the actual flow friction,
@@ -167,6 +139,12 @@ models from the package
 Modelica.Fluid</a>
 can be used and combined with models from the
 <code>Buildings</code> library.
+</p>
+<p>
+For a model that uses the hydraulic parameter and flow velocity at nominal conditions
+as a parameter, use
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -190,8 +168,15 @@ This leads to simpler equations.
 </html>", revisions="<html>
 <ul>
 <li>
+December 1, 2016, by Michael Wetter:<br/>
+Simplified model by removing the geometry dependent parameters into the new
+model
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+Buildings.Fluid.FixedResistances.HydraulicDiameter</a>.
+</li>
+<li>
 November 23, 2016, by Filip Jorissen:<br/>
-Removed <code>dp_nominal</code> and 
+Removed <code>dp_nominal</code> and
 <code>m_flow_nominal</code> labels from icon.
 </li>
 <li>
@@ -202,8 +187,8 @@ Updated comment for parameter <code>use_dh</code>.
 November 26, 2014, by Michael Wetter:<br/>
 Added the required <code>annotation(Evaluate=true)</code> so
 that the system of nonlinear equations in
-<a href=\"modelica://Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit\">
-Buildings.Fluid.FixedResistances.Examples.FixedResistancesExplicit</a>
+<a href=\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit\">
+Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit</a>
 remains the same.
 </li>
 <li>
@@ -236,7 +221,7 @@ To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 May 30, 2008 by Michael Wetter:<br/>
@@ -250,4 +235,4 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end FixedResistanceDpM;
+end PressureDrop;

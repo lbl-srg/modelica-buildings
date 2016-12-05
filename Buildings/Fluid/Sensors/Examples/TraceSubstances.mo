@@ -53,7 +53,7 @@ model TraceSubstances "Test model for the extra property sensor"
     tau=0) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=10,
     m_flow_nominal=0.005,

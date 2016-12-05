@@ -70,8 +70,8 @@ with a simple redeclare.
 </p>
 <p>
 See for example
-<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.FixedResistanceDpM\">
-Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.FixedResistanceDpM</a>
+<a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.PressureDrop\">
+Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.PressureDrop</a>
 or
 <a href=\"modelica://Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HeaterCooler_u\">
 Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HeaterCooler_u</a>

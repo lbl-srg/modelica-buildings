@@ -19,7 +19,7 @@ model TraceSubstancesFlowSource
     height=-2,
     offset=2)
     annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
@@ -88,19 +88,19 @@ model TraceSubstancesFlowSource
     p=101320,
     T=293.15) "Sink boundary conditions"
               annotation (Placement(transformation(extent={{188,-50},{168,-30}})));
-  FixedResistances.FixedResistanceDpM res1(
+  FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{126,-30},{148,-10}})));
-  FixedResistances.FixedResistanceDpM res2(
+  FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{126,-70},{148,-50}})));
-  FixedResistances.FixedResistanceDpM res3(
+  FixedResistances.PressureDrop res3(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
@@ -119,25 +119,25 @@ model TraceSubstancesFlowSource
   Sensors.TraceSubstances C3(redeclare package Medium = Medium)
     "Trace substance sensor"
     annotation (Placement(transformation(extent={{188,-50},{208,-30}})));
-  FixedResistances.FixedResistanceDpM res4(
+  FixedResistances.PressureDrop res4(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{58,-30},{80,-10}})));
-  FixedResistances.FixedResistanceDpM res6(
+  FixedResistances.PressureDrop res6(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{58,-70},{80,-50}})));
-  FixedResistances.FixedResistanceDpM res5(
+  FixedResistances.PressureDrop res5(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{138,110},{160,130}})));
-  FixedResistances.FixedResistanceDpM res7(
+  FixedResistances.PressureDrop res7(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=1)

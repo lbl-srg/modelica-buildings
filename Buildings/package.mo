@@ -174,6 +174,15 @@ its class name ends with the string <code>Beta</code>.
    For Dymola, the conversion script will update models that use any model of the package
    <code>Buildings.Rooms</code>.
    </li>
+   <li>
+   The model <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> has been refactored. Now, if
+   the hydraulic diameter is not yet known, one can use the simpler model
+   <code>Buildings.Fluid.FixedResistances.PressureDrop</code>, otherwise the model
+   <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> may be used.
+   With this refactoring, also the model <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> has
+   been renamed to <code>Buildings.Fluid.FixedResistances.Junction</code> and
+   parameters that use the hydraulic diameter have been removed.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -490,6 +499,35 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.PressureDrop</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then the new model
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> can be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.Junction</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then use <code>Buildings.Fluid.FixedResistances.Junction</code> with
+                          <code>dp_nominal = 0</code> (which removes the pressure drop) and use
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> at each fluid port.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
        </td>
    </tr>
@@ -517,9 +555,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-       </td>
-   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model DryCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and without humidity condensation"
-  extends Fluid.Interfaces.PartialFourPortInterface(show_T=false);
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(show_T=false);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=false,
     final computeFlowResistance2=false,

@@ -35,23 +35,23 @@ extends Modelica.Icons.Example;
     T=283.15)
       annotation (Placement(
         transformation(extent={{80,-68},{60,-48}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     from_dp=true,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=100) "Flow resistance"
-      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T bou(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow=0.01) "Boundary condition for mass flow rate"
     annotation (Placement(transformation(extent={{-80,-68},{-60,-48}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     from_dp=true,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=100) "Flow resistance"
-             annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
 equation
   connect(QSen_flow.y, dyn.Q_flow) annotation (Line(

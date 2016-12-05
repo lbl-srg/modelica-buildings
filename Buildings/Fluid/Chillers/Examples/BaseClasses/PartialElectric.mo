@@ -62,12 +62,12 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium1,
     m_flow_nominal=mCon_flow_nominal,
     dp_nominal=6000) "Flow resistance"
     annotation (Placement(transformation(extent={{32,30},{52,50}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     dp_nominal=6000,
     redeclare package Medium = Medium2,
     m_flow_nominal=mEva_flow_nominal) "Flow resistance"

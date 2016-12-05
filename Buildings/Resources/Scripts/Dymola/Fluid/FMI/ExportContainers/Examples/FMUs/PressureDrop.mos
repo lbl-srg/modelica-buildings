@@ -1,5 +1,5 @@
 translateModelFMU(
-  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.FixedResistanceDpM",
+  modelToOpen="Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.PressureDrop",
   storeResult=false,
   modelName="",
   fmiVersion="2",
