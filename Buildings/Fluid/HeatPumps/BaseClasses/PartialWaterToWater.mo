@@ -73,8 +73,14 @@ partial model PartialWaterToWater
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
-   "Modulating signal for compressor frequency, equal to 1 at full load condition"
+  Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
+    enable_variable_speed == true
+    "Modulating signal for compressor frequency, equal to 1 at full load condition"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
+
+  Modelica.Blocks.Interfaces.IntegerInput stage if
+    enable_variable_speed == false
+    "Current stage of the heat pump, equal to 1 at full load condition"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(min = 0,
@@ -137,6 +143,12 @@ partial model PartialWaterToWater
         rotation=90,
         origin={0,-6})));
 
+  Modelica.Blocks.Math.IntegerToReal integerToReal if
+    enable_variable_speed == false
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0) if
+    enable_variable_speed == false
+    annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 equation
   connect(port_a1, con.port_a)
     annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
@@ -156,8 +168,19 @@ equation
           {0,-16},{0,-54}}, color={191,0,0}));
   connect(com.P, P)
     annotation (Line(points={{11,0},{110,0}},         color={0,0,127}));
-  connect(y,com.y)  annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
+  if enable_variable_speed then
+    connect(y,com.y)
+      annotation (Line(points={{-120,30},{-66,30},{-66,0},{-11,0}},
         color={0,0,127}));
+  else
+    connect(limiter.y, com.y) annotation (Line(points={{-29,-30},{-20,-30},{-20,0},
+          {-11,0}}, color={0,0,127}));
+  end if;
+  connect(stage, integerToReal.u) annotation (Line(points={{-120,30},{-120,30},{
+          -92,30},{-92,-16},{-92,-30},{-82,-30}},                   color={255,127,
+          0}));
+  connect(integerToReal.y, limiter.u)
+    annotation (Line(points={{-59,-30},{-52,-30}}, color={0,0,127}));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),       graphics={

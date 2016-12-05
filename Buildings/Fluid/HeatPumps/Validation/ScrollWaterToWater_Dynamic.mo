@@ -63,7 +63,9 @@ model ScrollWaterToWater_Dynamic
     leaCoe=0.01,
     etaEle=0.696,
     PLos=500,
-    dTSup=10) "Scroll water to water heat pump"
+    dTSup=10,
+    enable_variable_speed=false)
+              "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum1(
     redeclare package Medium1 = Medium1,
@@ -84,7 +86,9 @@ model ScrollWaterToWater_Dynamic
     dTSup=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=15,
-    tau2=15) "Scroll water to water heat pump with transient effects"
+    tau2=15,
+    enable_variable_speed=false)
+             "Scroll water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
@@ -112,6 +116,8 @@ model ScrollWaterToWater_Dynamic
         heaPum1.port_b1.h_outflow - loa1.ports[1].h_outflow))
     "Apparent capacity of the heat pump"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
+  Modelica.Blocks.Math.RealToInteger realToInteger
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 equation
   connect(mSou.y, sou.m_flow_in)
     annotation (Line(points={{79,-52},{74,-52},{74,54},{60,54}},
@@ -127,10 +133,6 @@ equation
           46},{-22,22}},            color={0,127,255}));
   connect(sin2.ports[2], heaPum1.port_b2) annotation (Line(points={{-22,18},{-22,
           18},{-22,-60},{-10,-60}}, color={0,127,255}));
-  connect(N.y,heaPum.y)  annotation (Line(points={{-77,80},{-18,80},{-18,55},{-12,
-          55}}, color={0,0,127}));
-  connect(N.y,heaPum1.y)  annotation (Line(points={{-77,80},{-18,80},{-18,-51},{
-          -12,-51}}, color={0,0,127}));
   connect(mLoa.y, loa.m_flow_in) annotation (Line(points={{-79,-40},{-74,-40},{-74,
           66},{-60,66}}, color={0,0,127}));
   connect(mLoa.y, loa1.m_flow_in)
@@ -147,10 +149,16 @@ equation
           {-62,-44}}, color={0,0,127}));
   connect(TLoa.y, loa.T_in) annotation (Line(points={{-79,-60},{-70,-60},{-70,62},
           {-62,62}}, color={0,0,127}));
-  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{
-          -10,-48},{-10,-48}}, color={0,127,255}));
+  connect(loa1.ports[1], heaPum1.port_a1) annotation (Line(points={{-40,-48},{-10,
+          -48}},               color={0,127,255}));
   connect(heaPum1.port_b1, sin1.ports[2]) annotation (Line(points={{10,-48},{20,
           -48},{20,18},{34,18}}, color={0,127,255}));
+  connect(N.y, realToInteger.u)
+    annotation (Line(points={{-77,80},{-42,80},{-42,80}}, color={0,0,127}));
+  connect(realToInteger.y, heaPum.stage) annotation (Line(points={{-19,80},{-16,
+          80},{-16,55},{-12,55}}, color={255,127,0}));
+  connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
+          80},{-16,-51},{-12,-51}}, color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
@@ -161,7 +169,8 @@ equation
 <p>
 Model that demonstrates the use of the
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ScrollWaterToWater\">
-Buildings.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model.
+Buildings.Fluid.HeatPumps.ScrollWaterToWater</a> heat pump model. This
+validation case also tests the stage input to the heat pump models.
 </p>
 <p>
 With constant inlet source and load water temperatures, the heat pumps cycle on
