@@ -67,8 +67,8 @@ model ScrollWaterToWater
     etaEle=0.696,
     PLos=500,
     dTSup=10,
-    enable_variable_speed=false,
-    show_T=true)                 "Scroll water to water heat pump"
+    show_T=true,
+    enable_variable_speed=true)  "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
     height=20,
