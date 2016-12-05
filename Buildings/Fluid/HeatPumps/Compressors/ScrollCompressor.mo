@@ -56,7 +56,7 @@ protected
   Real PR(min = 0.0, unit = "1", start = 2.0)
     "Pressure ratio";
 
-  Real PRInt(start = 1.5)
+  Real PRInt(start = 2.0)
     "Built-in pressure ratio";
 
   Real U(start = 1)
@@ -70,9 +70,9 @@ equation
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
   when PR <= 1.0 then
-    U = 0;
+    U = 0.0;
   elsewhen PR > 1.01 then
-    U = 1;
+    U = 1.0;
   end when;
 
   // The specific volume at suction of the compressor is calculated
@@ -80,17 +80,9 @@ equation
   vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
 
   // Limit compressor speed to the full load speed
-  if enable_variable_speed then
-    v_norm = min(1.0, max(0.0,y));
-  else
-    if y > 0.0 then // fixme: not robust to numerical noise
-      v_norm = 1.0;
-    else
-      v_norm = 0.0;
-    end if;
-  end if;
+  v_norm = min(1.0, max(0.0, y));
 
-  if y > 0.0 then // fixme: not robust to numerical noise
+  if isOn >= 0.5 then
     // Suction pressure
     pSuc = pEva;
     // Discharge pressure
@@ -105,8 +97,8 @@ equation
     // Theoretical power of the compressor
     k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
     // If the external pressure ratio does not match the built-in pressure ratio
-      PThe = v_norm * k/(k - 1.0) * pSuc * V_flow_nominal
-        * (((k - 1.0)/k) * PR/volRat + 1.0/k * PRInt^((k - 1.0)/k) - 1.0);
+    PThe = v_norm * k/(k - 1.0) * pSuc * V_flow_nominal
+      * (((k - 1.0)/k) * PR/volRat + 1.0/k * PRInt^((k - 1.0)/k) - 1.0);
     // This equation reduces to the  equation for the built-in pressure ratio
     // if the external pressure ratio matches the built-in pressure ratio:
     // PThe = v_norm * k/(k - 1.0) * pSuc*v_flow * ((PRInt)^((k - 1.0)/k) - 1.0)
@@ -126,13 +118,13 @@ equation
     k = 1.0;
     pSuc = pEva;
     pDis = pCon;
-    mLea_flow = 0;
-    m_flow = 0;
-    PThe = 0;
-    P = 0;
+    mLea_flow = 0.0;
+    m_flow = 0.0;
+    PThe = 0.0;
+    P = 0.0;
     TSuc = port_a.T;
-    port_a.Q_flow = 0;
-    port_b.Q_flow = 0;
+    port_a.Q_flow = 0.0;
+    port_b.Q_flow = 0.0;
     COP = 1.0;
   end if;
 

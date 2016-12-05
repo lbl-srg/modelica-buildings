@@ -9,7 +9,6 @@ model ReciprocatingCompressor
     etaEle=0.696,
     PLos=100,
     dTSup=9.82,
-    enable_variable_speed=false,
     pDro=99290) "Reciprocating compressor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature eva(T=253.15)

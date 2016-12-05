@@ -21,8 +21,7 @@ model ScrollCompressor
     etaEle=0.85,
     PLos=500,
     dTSup=3,
-    volRat=2.1,
-    enable_variable_speed=false) "Scroll compressor"
+    volRat=2.1) "Scroll compressor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant on(k=1) "Compressor control signal"
     annotation (Placement(transformation(extent={{-16,28},{4,48}})));
@@ -35,7 +34,7 @@ equation
     annotation (Line(points={{10,0},{19,0},{28,0}}, color={191,0,0}));
   connect(heaFloEva.port_b, com.port_a)
     annotation (Line(points={{-26,0},{-10,0}}, color={191,0,0}));
-  connect(on.y,com.y)
+  connect(on.y, com.y)
     annotation (Line(points={{5,38},{6,38},{6,11}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

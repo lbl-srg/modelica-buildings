@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model ReciprocatingWaterToWater
   "Test model for reciprocating water to water heat pump"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";

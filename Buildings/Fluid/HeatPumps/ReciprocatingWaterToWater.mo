@@ -10,8 +10,7 @@ model ReciprocatingWaterToWater
       etaEle=etaEle,
       PLos=PLos,
       dTSup=dTSup,
-      pDro=pDro,
-      enable_variable_speed=enable_variable_speed));
+      pDro=pDro));
 
   parameter Modelica.SIunits.VolumeFlowRate pisDis
     "Piston displacement";

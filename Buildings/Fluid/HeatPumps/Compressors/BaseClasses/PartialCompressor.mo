@@ -5,9 +5,6 @@ model PartialCompressor "Partial compressor model"
       Buildings.Media.Refrigerants.R410A "Refrigerant in the component"
       annotation (choicesAllMatching = true);
 
-  parameter Boolean enable_variable_speed = true
-    "Set to true to allow modulating of compressor speed";
-
   Modelica.SIunits.SpecificEnthalpy hEva
     "Specific enthalpy of saturated vapor at evaporator temperature";
 
@@ -20,6 +17,9 @@ model PartialCompressor "Partial compressor model"
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
 
+  Real isOn(start = 1)
+    "State of the compressor, 1 if turned on";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Refrigerant connector a (corresponding to the evaporator)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -30,8 +30,10 @@ model PartialCompressor "Partial compressor model"
 
   Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
    "Modulating signal for compressor frequency, equal to 1 at full load conditions"
-    annotation (Placement(transformation(extent={{-120,70},{-100,50}}, rotation=
-           -90)));
+    annotation (Placement(
+      transformation(
+        extent={{-120,70},{-100,50}},
+        rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
@@ -40,6 +42,12 @@ model PartialCompressor "Partial compressor model"
         rotation=-90)));
 
 equation
+
+  when y > 0.001 then
+    isOn = 1;
+  elsewhen y <= 0.0 then
+    isOn = 0;
+  end when;
 
   // Saturation pressure of refrigerant vapor at condenser temperature
   pCon = ref.pressureSatVap_T(port_b.T);

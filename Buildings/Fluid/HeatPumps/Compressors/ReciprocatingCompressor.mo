@@ -53,7 +53,7 @@ protected
   Real PR(min = 1.0, final unit = "1", start = 2.0)
     "Pressure ratio";
 
-  Real U(start = 1)
+  Real U(start = 1.0)
     "Shutdown signal for invalid pressure ratios";
 
 equation
@@ -73,17 +73,9 @@ equation
   vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
 
   // Limit compressor speed to the full load speed
-  if enable_variable_speed then
-    pisDis_norm = min(1.0, max(0.0,y));
-  else
-    if y > 0.0 then
-      pisDis_norm = 1.0;
-    else
-      pisDis_norm = 0.0;
-    end if;
-  end if;
+  pisDis_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
-  if y > 0.0 then
+  if isOn >= 0.5 then
     // Suction pressure
     pSuc = Buildings.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
     // Discharge pressure

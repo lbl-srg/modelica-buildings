@@ -10,8 +10,7 @@ model ScrollWaterToWater
       leaCoe=leaCoe,
       etaEle=etaEle,
       PLos=PLos,
-      dTSup=dTSup,
-      enable_variable_speed=enable_variable_speed));
+      dTSup=dTSup));
 
   parameter Real volRat(min = 1.0, unit = "1")
     "Built-in volume ratio";
