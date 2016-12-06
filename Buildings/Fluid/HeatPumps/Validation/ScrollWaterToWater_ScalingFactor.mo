@@ -184,13 +184,13 @@ validation case also tests the stage input to the heat pump models.
 </p>
 <p>
 With constant inlet source and load water temperatures, the heat pumps cycle on
-and off. The apparent capacity of the dynamic model is compared to the 
-steady-state model and to the condenser heat transfer rate. 
+and off. The capacity of the scaled heat pump model is compared to the 
+capacity of the non-scaled heat pump model. 
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 11, 2016, by Massimo Cimmino:<br/>
+December 5, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>

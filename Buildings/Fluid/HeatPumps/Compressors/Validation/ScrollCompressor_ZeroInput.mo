@@ -47,12 +47,13 @@ equation
 Model that demonstrates the use of the ScrollCompressor model.
 </p>
 <p>
-The compressor power, condenser heat transfer rate and evaporator heat transfer rate are calculated for given refrigerant temperatures.
+The compressor power, condenser heat transfer rate and evaporator heat transfer
+rate are calculated for zero control input to compressor.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-October 17, 2016, by Massimo Cimmino:<br/>
+December 5, 2016, by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
