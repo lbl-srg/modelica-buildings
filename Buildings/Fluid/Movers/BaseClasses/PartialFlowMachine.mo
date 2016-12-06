@@ -374,10 +374,6 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
-
-
-
-
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-34,-94},{-60,-94},{-60,10},{-70,10}},
