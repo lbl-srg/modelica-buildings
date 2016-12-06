@@ -183,6 +183,11 @@ its class name ends with the string <code>Beta</code>.
    been renamed to <code>Buildings.Fluid.FixedResistances.Junction</code> and
    parameters that use the hydraulic diameter have been removed.
    </li>
+   <li>
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored to add the option to place a state at the surface of a construction. 
+   This leads in many examples to a smaller number of non-linear system of equations and a faster simulation.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -236,6 +241,18 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Sensor for the flow velocity.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows.BaseClasses</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.HeatCapacity
+       </td>
+       <td valign=\"top\">Model for adding a state on the room-facing surface of a window.
+This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
+
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
@@ -401,6 +418,28 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Window
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
@@ -667,7 +706,7 @@ its class name ends with the string <code>Beta</code>.
                           to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
-       </td>
+       </td>" + "
     </tr>
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
