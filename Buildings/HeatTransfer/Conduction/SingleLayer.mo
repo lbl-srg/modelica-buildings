@@ -335,19 +335,19 @@ and a discretization with four state variables.
 <li>
 If <code>placeCapacityAtSurf_a = false</code> and <code>placeCapacityAtSurf_b = false</code>, 
 then each of the four state variables is placed in the middle of a control volume with the length <code>x/material.nSta</code>.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.png\"/>
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.svg\"/>
 </li>
 <li>
 If <code>placeCapacityAtSurf_a = true</code> or <code>placeCapacityAtSurf_b = true</code>, 
 then one state is placed on the surface of the material. Each of the remaining three states 
 is placed in the middle of a control volume with the length <code>x/(material.nSta-1)</code>.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.png\"/>
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.svg\"/>
 </li>
 <li>
 If <code>placeCapacityAtSurf_a = true</code> and <code>placeCapacityAtSurf_b = true</code>, 
 then two states are placed on the surfaces of the material. Each of the remaining two states is placed 
 in the middle of a control volume with the length <code>x/(material.nSta-2)</code>.
-<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.png\"/>
+<p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.svg\"/>
 </li>
 </ul>
 
