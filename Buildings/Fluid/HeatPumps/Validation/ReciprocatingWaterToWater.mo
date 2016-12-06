@@ -24,15 +24,15 @@ model ReciprocatingWaterToWater
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
-        etaEle=0.696,
-        PLos=100,
-        dTSup=9.82,
-        UACon=2210,
-        UAEva=1540,
-        pisDis=0.00162,
-        cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump"
+    redeclare Data.ReciprocatingWaterToWater.Generic datHeaPum(
+      etaEle=0.696,
+      PLos=100,
+      dTSup=9.82,
+      UACon=2210,
+      UAEva=1540,
+      pisDis=0.00162,
+      cleFac=0.069,
+      pDro=99290))   "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(

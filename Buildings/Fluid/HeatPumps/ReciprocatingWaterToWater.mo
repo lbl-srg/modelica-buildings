@@ -4,7 +4,7 @@ model ReciprocatingWaterToWater
 
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
-      redeclare package ref = ref,
+      redeclare package ref=ref,
       pisDis=datHeaPum.pisDis*scaling_factor,
       cleFac=datHeaPum.cleFac,
       etaEle=datHeaPum.etaEle,
@@ -14,7 +14,7 @@ model ReciprocatingWaterToWater
     eva(UA=datHeaPum.UAEva*scaling_factor),
     con(UA=datHeaPum.UACon*scaling_factor));
 
-  parameter Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
+  replaceable Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
     datHeaPum "Heat pump data"
     annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-98,78},{-78,98}})));
