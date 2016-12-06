@@ -184,9 +184,12 @@ its class name ends with the string <code>Beta</code>.
    parameters that use the hydraulic diameter have been removed.
    </li>
    <li>
-   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
-   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored to add the option to place a state at the surface of a construction. 
-   This leads in many examples to a smaller number of non-linear system of equations and a faster simulation.
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, 
+   <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored 
+   to add the option to place a state at the surface of a construction. 
+   This leads in many examples to a smaller number of non-linear system of 
+   equations and a faster simulation.
    </li>
    </ul>
    </div>
@@ -706,7 +709,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
-       </td>" + "
+" + "       </td>
     </tr>
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
