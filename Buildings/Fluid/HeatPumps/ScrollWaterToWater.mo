@@ -6,10 +6,10 @@ model ScrollWaterToWater
     redeclare HeatPumps.Compressors.ScrollCompressor com(
       redeclare package ref = ref,
       volRat=volRat,
-      V_flow_nominal=V_flow_nominal,
-      leaCoe=leaCoe,
+      V_flow_nominal=V_flow_nominal*scaling_factor,
+      leaCoe=leaCoe*scaling_factor,
       etaEle=etaEle,
-      PLos=PLos,
+      PLos=PLos*scaling_factor,
       dTSup=dTSup));
 
   parameter Real volRat(min = 1.0, unit = "1")

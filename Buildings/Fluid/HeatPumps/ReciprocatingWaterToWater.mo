@@ -5,10 +5,10 @@ model ReciprocatingWaterToWater
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
       redeclare package ref = ref,
-      pisDis=pisDis,
+      pisDis=pisDis*scaling_factor,
       cleFac=cleFac,
       etaEle=etaEle,
-      PLos=PLos,
+      PLos=PLos*scaling_factor,
       dTSup=dTSup,
       pDro=pDro));
 

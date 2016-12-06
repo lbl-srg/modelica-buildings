@@ -31,6 +31,9 @@ partial model PartialWaterToWater
   parameter Boolean enable_variable_speed = true
     "Set to true to allow modulating of compressor speed";
 
+  parameter Real scaling_factor = 1.0
+    "Scaling factor for heat pump capacity";
+
   parameter Boolean from_dp1=false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Flow resistance", group="Condenser"));
@@ -107,7 +110,7 @@ partial model PartialWaterToWater
     final m_flow_nominal=m1_flow_nominal,
     final m_flow_small=m1_flow_small,
     m_flow(start=m1_flow_nominal),
-    UA=UACon,
+    UA=UACon*scaling_factor,
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
@@ -124,7 +127,7 @@ partial model PartialWaterToWater
     final m_flow_nominal=m2_flow_nominal,
     final m_flow_small=m2_flow_small,
     m_flow(start=m2_flow_nominal),
-    UA=UAEva,
+    UA=UAEva*scaling_factor,
     final from_dp=from_dp2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,

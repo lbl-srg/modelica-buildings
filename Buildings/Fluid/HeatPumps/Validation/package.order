@@ -6,7 +6,9 @@ Carnot_y_etaCar
 Carnot_y_etaPL
 ReciprocatingWaterToWater
 ReciprocatingWaterToWater_Dynamic
+ReciprocatingWaterToWater_ScalingFactor
 ReciprocatingWaterToWater_VariableSpeed
 ScrollWaterToWater
 ScrollWaterToWater_Dynamic
+ScrollWaterToWater_ScalingFactor
 ScrollWaterToWater_VariableSpeed
