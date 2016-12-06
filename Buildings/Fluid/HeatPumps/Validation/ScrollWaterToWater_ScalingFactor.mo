@@ -53,15 +53,16 @@ model ScrollWaterToWater_ScalingFactor
     dp2_nominal=1000,
     redeclare package ref =
         Buildings.Media.Refrigerants.R410A,
-    UACon=4400,
-    UAEva=4400,
-    volRat=2,
-    V_flow_nominal=0.003,
-    leaCoe=0.01,
-    etaEle=0.696,
-    PLos=500,
-    dTSup=10,
-    enable_variable_speed=false)
+    enable_variable_speed=false,
+    datHeaPum(
+      etaEle=0.696,
+      PLos=500,
+      dTSup=10,
+      UACon=4400,
+      UAEva=4400,
+      volRat=2,
+      V_flow_nominal=0.003,
+      leaCoe=0.01))
               "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
   Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum1(
@@ -71,21 +72,20 @@ model ScrollWaterToWater_ScalingFactor
     dp2_nominal=1000,
     redeclare package ref =
         Buildings.Media.Refrigerants.R410A,
-    UACon=4400,
-    UAEva=4400,
-    volRat=2,
-    V_flow_nominal=0.003,
-    leaCoe=0.01,
-    etaEle=0.696,
-    PLos=500,
-    dTSup=10,
-    tau1=15,
-    tau2=15,
     enable_variable_speed=false,
     m1_flow_nominal=m1_flow_nominal*scaling_factor,
     m2_flow_nominal=m2_flow_nominal*scaling_factor,
-    scaling_factor=scaling_factor)
-             "Scroll water to water heat pump with transient effects"
+    scaling_factor=scaling_factor,
+    datHeaPum(
+      etaEle=0.696,
+      PLos=500,
+      dTSup=10,
+      UACon=4400,
+      UAEva=4400,
+      volRat=2,
+      V_flow_nominal=0.003,
+      leaCoe=0.01))
+    "Scroll water to water heat pump with transient effects"
     annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"

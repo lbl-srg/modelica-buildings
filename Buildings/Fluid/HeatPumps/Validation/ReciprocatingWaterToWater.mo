@@ -18,21 +18,21 @@ model ReciprocatingWaterToWater
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    pisDis=0.00162,
-    cleFac=0.0690,
-    etaEle=0.696,
-    dTSup=9.82,
-    UACon=2210,
-    UAEva=1540,
-    PLos=100,
     dp1_nominal=100,
     dp2_nominal=100,
     show_T=true,
-    pDro=99290) "Reciprocating water to water heat pump"
+    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+        etaEle=0.696,
+        PLos=100,
+        dTSup=9.82,
+        UACon=2210,
+        UAEva=1540,
+        pisDis=0.00162,
+        cleFac=0.069,
+        pDro=99290)) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
@@ -99,7 +99,7 @@ equation
   connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(points={{10,6},{20,6},
           {20,20},{48,20}}, color={0,127,255}));
   connect(heaPum.port_a2, sou.ports[1])
-    annotation (Line(points={{10,-6},{48,-6},{48,-6}}, color={0,127,255}));
+    annotation (Line(points={{10,-6},{48,-6}},         color={0,127,255}));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
           -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

@@ -22,12 +22,6 @@ partial model PartialWaterToWater
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.ThermalConductance UACon
-    "Thermal conductance of condenser";
-
-  parameter Modelica.SIunits.ThermalConductance UAEva
-    "Thermal conductance of evaporator";
-
   parameter Boolean enable_variable_speed = true
     "Set to true to allow modulating of compressor speed";
 
@@ -110,7 +104,6 @@ partial model PartialWaterToWater
     final m_flow_nominal=m1_flow_nominal,
     final m_flow_small=m1_flow_small,
     m_flow(start=m1_flow_nominal),
-    UA=UACon*scaling_factor,
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
     final linearizeFlowResistance=linearizeFlowResistance1,
@@ -118,7 +111,8 @@ partial model PartialWaterToWater
     final tau=tau1,
     final T_start=T1_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization) "Condenser"
+    final homotopyInitialization=homotopyInitialization)
+    "Condenser"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   HeatExchangers.EvaporatorCondenser eva(
@@ -127,7 +121,6 @@ partial model PartialWaterToWater
     final m_flow_nominal=m2_flow_nominal,
     final m_flow_small=m2_flow_small,
     m_flow(start=m2_flow_nominal),
-    UA=UAEva*scaling_factor,
     final from_dp=from_dp2,
     final dp_nominal=dp2_nominal,
     final linearizeFlowResistance=linearizeFlowResistance2,
@@ -135,7 +128,8 @@ partial model PartialWaterToWater
     final tau=tau2,
     final T_start=T2_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization) "Evaporator"
+    final homotopyInitialization=homotopyInitialization)
+    "Evaporator"
     annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
 
   replaceable Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor com

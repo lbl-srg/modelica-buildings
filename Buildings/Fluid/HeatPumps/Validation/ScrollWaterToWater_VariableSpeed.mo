@@ -56,16 +56,17 @@ model ScrollWaterToWater_VariableSpeed
     dp2_nominal=1000,
     redeclare package ref =
         Buildings.Media.Refrigerants.R410A,
-    UACon=4400,
-    UAEva=4400,
-    volRat=2,
-    V_flow_nominal=0.003,
-    leaCoe=0.01,
-    etaEle=0.696,
-    PLos=500,
-    dTSup=10,
-    show_T=true)
-              "Scroll water to water heat pump"
+    show_T=true,
+    datHeaPum(
+      etaEle=0.696,
+      PLos=500,
+      dTSup=10,
+      UACon=4400,
+      UAEva=4400,
+      volRat=2,
+      V_flow_nominal=0.003,
+      leaCoe=0.01))
+    "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp N(
     duration=800,

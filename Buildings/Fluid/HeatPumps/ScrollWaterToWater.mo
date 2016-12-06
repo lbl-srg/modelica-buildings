@@ -5,30 +5,18 @@ model ScrollWaterToWater
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     redeclare HeatPumps.Compressors.ScrollCompressor com(
       redeclare package ref = ref,
-      volRat=volRat,
-      V_flow_nominal=V_flow_nominal*scaling_factor,
-      leaCoe=leaCoe*scaling_factor,
-      etaEle=etaEle,
-      PLos=PLos*scaling_factor,
-      dTSup=dTSup));
+      volRat=datHeaPum.volRat,
+      V_flow_nominal=datHeaPum.V_flow_nominal*scaling_factor,
+      leaCoe=datHeaPum.leaCoe*scaling_factor,
+      etaEle=datHeaPum.etaEle,
+      PLos=datHeaPum.PLos*scaling_factor,
+      dTSup=datHeaPum.dTSup),
+    eva(UA=datHeaPum.UAEva*scaling_factor),
+    con(UA=datHeaPum.UACon*scaling_factor));
 
-  parameter Real volRat(min = 1.0, unit = "1")
-    "Built-in volume ratio";
-
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
-    "Refrigerant volume flow rate at suction";
-
-  parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0)
-    "Leakage coefficient";
-
-  parameter Modelica.SIunits.Efficiency etaEle
-    "Electro-mechanical efficiency of the compressor";
-
-  parameter Modelica.SIunits.Power PLos(min = 0)
-    "Constant part of the compressor power losses";
-
-  parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
-    "Superheating at compressor suction";
+  parameter Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic
+    datHeaPum "Heat pump data" annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{-98,78},{-78,98}})));
 
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})),

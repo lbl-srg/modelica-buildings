@@ -5,30 +5,19 @@ model ReciprocatingWaterToWater
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
       redeclare package ref = ref,
-      pisDis=pisDis*scaling_factor,
-      cleFac=cleFac,
-      etaEle=etaEle,
-      PLos=PLos*scaling_factor,
-      dTSup=dTSup,
-      pDro=pDro));
+      pisDis=datHeaPum.pisDis*scaling_factor,
+      cleFac=datHeaPum.cleFac,
+      etaEle=datHeaPum.etaEle,
+      PLos=datHeaPum.PLos*scaling_factor,
+      pDro=datHeaPum.pDro,
+      dTSup=datHeaPum.dTSup),
+    eva(UA=datHeaPum.UAEva*scaling_factor),
+    con(UA=datHeaPum.UACon*scaling_factor));
 
-  parameter Modelica.SIunits.VolumeFlowRate pisDis
-    "Piston displacement";
-
-  parameter Real cleFac(min = 0, unit = "1")
-    "Clearance factor";
-
-  parameter Modelica.SIunits.Efficiency etaEle
-    "Electro-mechanical efficiency of the compressor";
-
-  parameter Modelica.SIunits.Power PLos(min = 0)
-    "Constant part of the compressor power losses";
-
-  parameter Modelica.SIunits.AbsolutePressure pDro
-    "Pressure drop at suction and discharge of the compressor";
-
-  parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
-    "Superheating at compressor suction";
+  parameter Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
+    datHeaPum "Heat pump data"
+    annotation (choicesAllMatching=true, Placement(
+        transformation(extent={{-98,78},{-78,98}})));
 
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})),

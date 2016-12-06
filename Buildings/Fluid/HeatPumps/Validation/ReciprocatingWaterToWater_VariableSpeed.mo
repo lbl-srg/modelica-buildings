@@ -21,12 +21,14 @@ model ReciprocatingWaterToWater_VariableSpeed
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-70,-40})));
+
   Buildings.Fluid.Sources.FixedBoundary sin1(
     redeclare package Medium = Medium1, nPorts=1) "Load side sink"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={58,20})));
+
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
     m_flow=Flow_Load,
@@ -34,6 +36,7 @@ model ReciprocatingWaterToWater_VariableSpeed
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-66,10},{-46,30}})));
+
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
     m_flow=Flow_Source,
@@ -41,12 +44,15 @@ model ReciprocatingWaterToWater_VariableSpeed
     use_T_in=true,
     nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{68,-16},{48,4}})));
+
   Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load)
     "Load side mass flow rate"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
+
   Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-8},{80,12}})));
+
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -56,16 +62,18 @@ model ReciprocatingWaterToWater_VariableSpeed
     dp2_nominal=1000,
     redeclare package ref =
         Buildings.Media.Refrigerants.R410A,
-    pisDis=0.00162,
-    cleFac=0.0690,
-    etaEle=0.696,
-    dTSup=9.82,
-    UACon=2210,
-    UAEva=1540,
-    PLos=100,
     show_T=true,
-    pDro=99290) "Reciprocating water to water heat pump"
+    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+        etaEle=0.696,
+        PLos=100,
+        dTSup=9.82,
+        UACon=2210,
+        UAEva=1540,
+        pisDis=0.00162,
+        cleFac=0.069,
+        pDro=99290)) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Blocks.Sources.Ramp N(
     duration=800,
     startTime=100,
