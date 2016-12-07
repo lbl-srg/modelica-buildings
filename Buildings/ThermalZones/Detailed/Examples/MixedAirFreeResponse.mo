@@ -107,8 +107,8 @@ model MixedAirFreeResponse "Free response of room model"
     each A=6*4,
     each layers=matLayPar,
     each steadyStateInitial=true,
-    each placeCapacityAtSurf_a=true,
-    each placeCapacityAtSurf_b=false)
+    each placeStateAtSurf_a=true,
+    each placeStateAtSurf_b=false)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 

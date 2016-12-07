@@ -42,11 +42,11 @@ partial model PartialConstruction
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
-  parameter Boolean placeCapacityAtSurf_a=true
+  parameter Boolean placeStateAtSurf_a=true
     "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean placeCapacityAtSurf_b=true
+  parameter Boolean placeStateAtSurf_b=true
     "Set to true to place the capacity at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
@@ -55,8 +55,8 @@ partial model PartialConstruction
     final A=AOpa,
     final layers=layers,
     final steadyStateInitial=steadyStateInitial,
-    final placeCapacityAtSurf_a = placeCapacityAtSurf_a,
-    final placeCapacityAtSurf_b = placeCapacityAtSurf_b,
+    final placeStateAtSurf_a = placeStateAtSurf_a,
+    final placeStateAtSurf_b = placeStateAtSurf_b,
     final T_a_start=T_a_start,
     final T_b_start=T_b_start)
     "Model for heat transfer through opaque construction"

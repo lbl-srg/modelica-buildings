@@ -156,8 +156,8 @@ model Case600FF
     A=48,
     material=soil,
     steadyStateInitial=true,
-    placeCapacityAtSurf_a=false,
-    placeCapacityAtSurf_b=true,
+    placeStateAtSurf_a=false,
+    placeStateAtSurf_b=true,
     T_a_start=283.15,
     T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(

@@ -3,8 +3,8 @@ model ConductorMultiLayer3
   "Test model for multi layer heat conductor with one
   capacity added at the surfaces a and b of the construction"
   extends ConductorMultiLayer(con(
-    placeCapacityAtSurf_a=true,
-    placeCapacityAtSurf_b=true));
+    placeStateAtSurf_a=true,
+    placeStateAtSurf_b=true));
   annotation (experiment(StartTime=0, StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer3.mos" "Simulate and plot"),
   Documentation(revisions="<html>

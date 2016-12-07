@@ -7,7 +7,7 @@ model OnlyConstructionBoundary "Test model for room model"
    nConPar=0,
    nConBou=1,
    nSurBou=0,
-   roo(conBou(each placeCapacityAtSurf_a=false, each placeCapacityAtSurf_b=false),
+   roo(conBou(each placeStateAtSurf_a=false, each placeStateAtSurf_b=false),
     datConBou(layers={matLayPar}, each A=12, each til=Buildings.Types.Tilt.Floor,
     each azi=Buildings.Types.Azimuth.W)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
@@ -35,8 +35,8 @@ is exposed by the room model.
 </html>", revisions="<html>
 <ul>
 <li>
-Set <code>placeCapacityAtSurf_a</code> 
-and <code>placeCapacityAtSurf_b</code> to false
+Set <code>placeStateAtSurf_a</code> 
+and <code>placeStateAtSurf_b</code> to false
 </li>
 </ul>
 </html>"));

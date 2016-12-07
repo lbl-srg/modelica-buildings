@@ -8,7 +8,7 @@ model SingleLayer "Model for single layer heat conductance"
   // that satisfy dT/dt=0, which requires solving a system of nonlinear equations
   // if the convection coefficient is a function of temperature.
   Modelica.SIunits.Temperature T[nSta](start=
-   if placeCapacityAtSurf_a then
+   if placeStateAtSurf_a then
      cat(1,
        {T_a_start},
        {(T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i-1)) for i in 2:nSta})
@@ -22,11 +22,11 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
     "Definition of specific internal energy";
 
-  parameter Boolean placeCapacityAtSurf_a=false
+  parameter Boolean placeStateAtSurf_a=false
     "Set to true to place the capacity at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean placeCapacityAtSurf_b=false
+  parameter Boolean placeStateAtSurf_b=false
     "Set to true to place the capacity at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
@@ -50,18 +50,18 @@ model SingleLayer "Model for single layer heat conductance"
 protected
   final parameter Integer nSta=
     max(nSta2,
-        if placeCapacityAtSurf_a or placeCapacityAtSurf_b then 2 else 1)
+        if placeStateAtSurf_a or placeStateAtSurf_b then 2 else 1)
     "Number of state variables";
   final parameter Integer nR=nSta+1 "Number of thermal resistances";
   parameter Modelica.SIunits.ThermalResistance RNod[nR]=
-    if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
+    if (placeStateAtSurf_a and placeStateAtSurf_b) then
       if (nSta==2) then
         {(if i==1 or i==nR then 0 else R/(nSta-1)) for i in 1:nR}
       else
         {(if i==1 or i==nR then 0 elseif i==2 or i==nR-1 then R/(2*(nSta-2)) else R/(nSta-2)) for i in 1:nR}
-      elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
+      elseif (placeStateAtSurf_a and (not placeStateAtSurf_b)) then
         {(if i==1 then 0 elseif i==2 or i==nR then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
-    elseif (placeCapacityAtSurf_b and (not placeCapacityAtSurf_a)) then
+    elseif (placeStateAtSurf_b and (not placeStateAtSurf_a)) then
        {(if i==nR then 0 elseif i==1 or i==nR-1 then R/(2*(nSta-1)) else R/(nSta-1)) for i in 1:nR}
     else
       {R/(if i==1 or i==nR then (2*nSta) else nSta) for i in 1:nR}
@@ -69,16 +69,16 @@ protected
 
   parameter Modelica.SIunits.Mass m[nSta]=
    (A*material.x*material.d) *
-   (if (placeCapacityAtSurf_a and placeCapacityAtSurf_b) then
+   (if (placeStateAtSurf_a and placeStateAtSurf_b) then
      if (nSta==2) then
        {1/(2*(nSta-1)) for i in 1:nSta}
      elseif (nSta==3) then
        {1/(if i==1 or i==nSta then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
      else
        {1/(if i==1 or i==nSta or i==2 or i==nSta-1 then (2*(nSta-2)) else (nSta-2)) for i in 1:nSta}
-     elseif (placeCapacityAtSurf_a and (not placeCapacityAtSurf_b)) then
+     elseif (placeStateAtSurf_a and (not placeStateAtSurf_b)) then
        {1/(if i==1 or i==2 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
-     elseif (placeCapacityAtSurf_b and (not placeCapacityAtSurf_a)) then
+     elseif (placeStateAtSurf_b and (not placeStateAtSurf_a)) then
        {1/(if i==nSta or i==nSta-1 then (2*(nSta-1)) else (nSta-1)) for i in 1:nSta}
      else
        {1/(nSta) for i in 1:nSta})
@@ -118,12 +118,12 @@ initial equation
           der(T) = zeros(nSta);
         end if;
       else
-        if placeCapacityAtSurf_a then
+        if placeStateAtSurf_a then
           T[1] = T_a_start;
           for i in 2:nSta loop
             T[i] =T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i-1);
           end for;
-        else // placeCapacityAtSurf_a == false
+        else // placeStateAtSurf_a == false
           for i in 1:nSta loop
             T[i] = T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i);
           end for;
@@ -147,8 +147,8 @@ equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[end];
 
-    port_a.T-T[1]    = if placeCapacityAtSurf_a then 0 else Q_flow[1]*RNod[1];
-    T[nSta]-port_b.T = if placeCapacityAtSurf_b then 0 else Q_flow[end]*RNod[end];
+    port_a.T-T[1]    = if placeStateAtSurf_a then 0 else Q_flow[1]*RNod[1];
+    T[nSta]-port_b.T = if placeStateAtSurf_b then 0 else Q_flow[end]*RNod[end];
 
     for i in 1:nSta-1 loop
        // Q_flow[i+1] is heat flowing from (i) to (i+1)
@@ -226,21 +226,21 @@ equation
    fillPattern = FillPattern.Solid),
    Line(points={{66,-40},{52,-40}},       color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeCapacityAtSurf_b),
+   visible=placeStateAtSurf_b),
    Line(points={{72,-32},{46,-32}},       color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeCapacityAtSurf_b),            Line(points={{59,0},{59,-32}},
+   visible=placeStateAtSurf_b),            Line(points={{59,0},{59,-32}},
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
-   visible=placeCapacityAtSurf_b),
+   visible=placeStateAtSurf_b),
    Line(points={{-59,0},{-59,-32}},
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
-   visible=placeCapacityAtSurf_a),
+   visible=placeStateAtSurf_a),
    Line(points={{-46,-32},{-72,-32}},     color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeCapacityAtSurf_a),
+   visible=placeStateAtSurf_a),
    Line(points={{-52,-40},{-66,-40}},     color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeCapacityAtSurf_a)}),
+   visible=placeStateAtSurf_a)}),
 defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single layer of homogeneous material
@@ -322,9 +322,9 @@ To spatially discretize the heat equation, the construction is
 divided into compartments (control volumes) with <code>material.nSta &ge; 1</code> state variables.
 Each control volume has the same material properties.
 The state variables are connected to each other through thermal resistances.
-If <code>placeCapacityAtSurf_a = true</code>, a heat capacity is placed
+If <code>placeStateAtSurf_a = true</code>, a heat capacity is placed
 at the surface a, and similarly, if
-<code>placeCapacityAtSurf_b = true</code>, a heat capacity is placed
+<code>placeStateAtSurf_b = true</code>, a heat capacity is placed
 at the surface b.
 Otherwise, these heat capacities are placed inside the material, away
 from the surface.
@@ -337,18 +337,18 @@ As an example, we assume a material with a length of <code>x</code>
 and a discretization with four state variables.
 <ul>
 <li>
-If <code>placeCapacityAtSurf_a = false</code> and <code>placeCapacityAtSurf_b = false</code>, 
+If <code>placeStateAtSurf_a = false</code> and <code>placeStateAtSurf_b = false</code>, 
 then each of the four state variables is placed in the middle of a control volume with length <code>l=x/material.nSta</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.svg\"/>
 </li>
 <li>
-If <code>placeCapacityAtSurf_a = true</code> or <code>placeCapacityAtSurf_b = true</code>, 
+If <code>placeStateAtSurf_a = true</code> or <code>placeStateAtSurf_b = true</code>, 
 then one state is placed on the surface of the material. Each of the remaining three states 
 is placed in the middle of a control volume with length <code>l=x/(material.nSta-1)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.svg\"/>
 </li>
 <li>
-If <code>placeCapacityAtSurf_a = true</code> and <code>placeCapacityAtSurf_b = true</code>, 
+If <code>placeStateAtSurf_a = true</code> and <code>placeStateAtSurf_b = true</code>, 
 then two states are placed on the surfaces of the material. Each of the remaining two states is placed 
 in the middle of a control volume with length <code>l=x/(material.nSta-2)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.svg\"/>
@@ -363,7 +363,7 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
 <h4>Boundary conditions</h4>
 <p>
-Note that if <code>placeCapacityAtSurf_a = true</code>
+Note that if <code>placeStateAtSurf_a = true</code>
 and <code>steadyStateInitial = false</code>, then 
 there is temperature state on the surface a with prescribed
 initial value. Hence, in this situation, it is not possible to
