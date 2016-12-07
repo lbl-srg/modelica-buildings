@@ -23,11 +23,11 @@ model SingleLayer "Model for single layer heat conductance"
     "Definition of specific internal energy";
 
   parameter Boolean placeStateAtSurf_a=false
-    "Set to true to place the capacity at the surface a of the layer"
+    "Set to true to place the state at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeStateAtSurf_b=false
-    "Set to true to place the capacity at the surface b of the layer"
+    "Set to true to place the state at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
@@ -322,11 +322,11 @@ To spatially discretize the heat equation, the construction is
 divided into compartments (control volumes) with <code>material.nSta &ge; 1</code> state variables.
 Each control volume has the same material properties.
 The state variables are connected to each other through thermal resistances.
-If <code>placeStateAtSurf_a = true</code>, a heat capacity is placed
+If <code>placeStateAtSurf_a = true</code>, a state is placed
 at the surface a, and similarly, if
-<code>placeStateAtSurf_b = true</code>, a heat capacity is placed
+<code>placeStateAtSurf_b = true</code>, a state is placed
 at the surface b.
-Otherwise, these heat capacities are placed inside the material, away
+Otherwise, these states are placed inside the material, away
 from the surface.
 Thus, to obtain
 the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)

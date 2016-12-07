@@ -428,10 +428,10 @@ then state variables are added at the heat ports that face
 the room side.
 For simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
-Buildings.ThermalZones.Detailed.MixedAir</a>, adding heat capacities
+Buildings.ThermalZones.Detailed.MixedAir</a>, adding states
 avoids large nonlinear system of equations, and generally
 leads to faster simulation. Default values are used
-for the heat capacities.
+for the states.
 </p>
 <h4>Ports</h4>
 <p>

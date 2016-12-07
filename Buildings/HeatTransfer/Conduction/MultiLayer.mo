@@ -11,11 +11,11 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
   parameter Boolean placeStateAtSurf_a=false
-    "Set to true to place the capacity at the surface a of the layer"
+    "Set to true to place the state at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeStateAtSurf_b=false
-    "Set to true to place the capacity at the surface b of the layer"
+    "Set to true to place the state at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}

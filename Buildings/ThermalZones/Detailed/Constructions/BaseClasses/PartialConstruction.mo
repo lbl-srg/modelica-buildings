@@ -43,11 +43,11 @@ partial model PartialConstruction
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
   parameter Boolean placeStateAtSurf_a=true
-    "Set to true to place the capacity at the surface a of the layer"
+    "Set to true to place the state at the surface a of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
   parameter Boolean placeStateAtSurf_b=true
-    "Set to true to place the capacity at the surface b of the layer"
+    "Set to true to place the state at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
