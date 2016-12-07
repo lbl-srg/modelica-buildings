@@ -16,7 +16,7 @@ model SingleLayer "Model for single layer heat conductance"
     {(T_a_start + (T_b_start - T_a_start)*UA*sum(RNod[k] for k in 1:i)) for i in 1:nSta},
    each nominal=300)
     "Temperature at the states";
-        // placeCapacityAtSurf_a == false
+
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rates to each state";
   Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
