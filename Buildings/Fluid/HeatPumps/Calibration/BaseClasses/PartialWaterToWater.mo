@@ -58,6 +58,9 @@ model PartialWaterToWater
     annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   replaceable Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater
     heaPum(
+      redeclare package Medium1 = Medium1,
+      redeclare package Medium2 = Medium2,
+      redeclare package ref = ref,
       m1_flow_nominal=m1_flow_nominal,
       m2_flow_nominal=m2_flow_nominal,
       dp1_nominal=dp1_nominal,

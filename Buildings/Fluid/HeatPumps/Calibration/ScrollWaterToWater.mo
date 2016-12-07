@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Calibration;
 model ScrollWaterToWater
   "Calibration model for scroll water to water heat pump"
-  import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater(
     redeclare Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
