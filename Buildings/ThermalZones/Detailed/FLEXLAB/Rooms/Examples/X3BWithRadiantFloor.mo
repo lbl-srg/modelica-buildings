@@ -10,7 +10,10 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    conBou(
+      each placeStateAtSurf_a=false,
+      each placeStateAtSurf_b=true))
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -36,14 +39,18 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     airOut(nPorts=1, redeclare package Medium = Air) "Air outlet for X3A"
     annotation (Placement(transformation(extent={{-158,24},{-138,44}})));
 
-  HeatTransfer.Convection.Interior con(
-    til=Buildings.Types.Tilt.Wall,
-    A=1,
-    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
-    hFixed=1e5) "Model for convection" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preT
+    "Temperature of the ground"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-94,-164})));
+        origin={-94,-158})));
+  Modelica.Blocks.Sources.CombiTimeTable TGro(
+    table=[0,288.15; 86400,288.15], tableOnFile=false)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-94,-186})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
@@ -69,27 +76,33 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
-  HeatTransfer.Convection.Interior con1(
-    til=Buildings.Types.Tilt.Wall,
-    A=1,
-    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
-    hFixed=1e5) "Model for convection" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preT2      annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-114})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(redeclare
-      package Medium =
+      package                                                                        Medium =
         Air, nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    conBou(
+      each placeStateAtSurf_a=false,
+      each placeStateAtSurf_b=true))
     "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet
     clo(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    conBou(
+      each placeStateAtSurf_a=false,
+      each placeStateAtSurf_b=true))
     "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
+  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
+        86400,293.15]) "Temperature of the neighboring test cell (y[1] = X3A)"
+    annotation (Placement(transformation(extent={{110,-124},{90,-104}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)
     "Internal gain heat flow for the electrical room"
@@ -260,17 +273,6 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-60,-126})));
-  HeatTransfer.Sources.FixedTemperature TGro(T(displayUnit="K") = 288.15)
-    "Ground temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-94,-194})));
-  HeatTransfer.Sources.FixedTemperature TNei(T(displayUnit="K") = 293.15)
-    "Temperature of the neighboring test cell (X3A)"        annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={102,-114})));
 equation
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-175,64},{-168,64},{-168,68},{-160,68}},
@@ -287,6 +289,10 @@ equation
   connect(airOut.ports[1],X3B. ports[2]) annotation (Line(
       points={{-138,34},{-132,34},{-132,50},{-105,50}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(TGro.y[1],preT. T) annotation (Line(
+      points={{-94,-175},{-94,-170}},
+      color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus,X3B. weaBus) annotation (Line(
       points={{-100,180},{-72.1,180},{-72.1,75.9}},
@@ -355,12 +361,12 @@ equation
       points={{9,142},{120,142},{120,120},{154.4,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.fluid, clo.surf_conBou[3]) annotation (Line(
-      points={{-94,-154},{-94,-142},{182,-142},{182,96}},
+  connect(preT.port,clo. surf_conBou[3]) annotation (Line(
+      points={{-94,-148},{-94,-142},{182,-142},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ele.surf_conBou[1], con.fluid) annotation (Line(
-      points={{80,-76},{80,-92},{-16,-92},{-16,-142},{-94,-142},{-94,-154}},
+  connect(ele.surf_conBou[1], preT.port)    annotation (Line(
+      points={{80,-76},{80,-92},{-16,-92},{-16,-142},{-94,-142},{-94,-148}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[2], clo.surf_surBou[1]) annotation (Line(
@@ -375,11 +381,15 @@ equation
       points={{-84,42},{-84,-88},{70.2,-88},{70.2,-74}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con1.fluid, X3B.surf_conBou[1]) annotation (Line(
+  connect(TNei.y[1], preT2.T)   annotation (Line(
+      points={{89,-114},{76,-114}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preT2.port, X3B.surf_conBou[1])   annotation (Line(
       points={{54,-114},{-84,-114},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con1.fluid, clo.surf_conBou[2]) annotation (Line(
+  connect(preT2.port, clo.surf_conBou[2])   annotation (Line(
       points={{54,-114},{40,-114},{40,-96},{182,-96},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -446,22 +456,22 @@ equation
       points={{-88,-126},{-70,-126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(con.fluid, sla4B1.surf_b) annotation (Line(
-      points={{-94,-154},{-94,-136}},
+  connect(preT.port, sla4B1.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-136}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con.fluid, sla4B2.surf_b) annotation (Line(
-      points={{-94,-154},{-94,-142},{-138,-142},{-138,-100}},
+  connect(preT.port, sla4B2.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con.fluid, sla4B3.surf_b) annotation (Line(
-      points={{-94,-154},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,-62}},
+  connect(preT.port, sla4B3.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,
+          -62}},
       color={191,0,0},
       smooth=Smooth.None));
-
-  connect(con.fluid, sla4B4.surf_b) annotation (Line(
-      points={{-94,-154},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,-70},
-          {-208,-70},{-208,-16}},
+  connect(preT.port, sla4B4.surf_b) annotation (Line(
+      points={{-94,-148},{-94,-142},{-138,-142},{-138,-104},{-178,-104},{-178,
+          -70},{-208,-70},{-208,-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B1.surf_a, X3B.surf_surBou[1]) annotation (Line(
@@ -484,12 +494,8 @@ equation
       points={{-187,-122},{-182,-122},{-182,-118},{-172,-118}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TGro.port, con.solid) annotation (Line(points={{-94,-184},{-94,-184},{
-          -94,-174}}, color={191,0,0}));
-  connect(TNei.port, con1.solid)
-    annotation (Line(points={{92,-114},{92,-114},{74,-114}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -220},{200,200}})),
+            -220},{200,200}}), graphics),
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
@@ -543,8 +549,8 @@ equation
           <li>Sep 18, 2013 by Peter Grant:<br/>
           First implementation.</li>
           </ul>
-          </html>
-"),  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
+          </html>"),
+     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3BWithRadiantFloor.mos"
         "Simulate and Plot"),
      experiment(StopTime=864000.0));
 end X3BWithRadiantFloor;
