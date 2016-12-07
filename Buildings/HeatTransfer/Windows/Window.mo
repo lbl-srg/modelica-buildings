@@ -424,7 +424,7 @@ to linearize the model equations.
 </p>
 <p>
 If the parameter <code>steadyState</code> is set to <code>false</code>
-then heat capacities are added at the heat ports that face
+then state variables are added at the heat ports that face
 the room side.
 For simulation of
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">

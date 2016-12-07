@@ -84,6 +84,10 @@ protected
        {1/(nSta) for i in 1:nSta})
     "Mass associated with the temperature state";
 
+  final parameter Real mInv[nSta]=
+    if material.steadyState then zeros(nSta) else {1/m[i] for i in 1:nSta}
+    "Inverse of the mass associated with the temperature state";
+
   final parameter Modelica.SIunits.HeatCapacity C[nSta] = m*material.c
     "Heat capacity associated with the temperature state";
   final parameter Real CInv[nSta]=
@@ -176,7 +180,7 @@ equation
       if material.phasechange then
         // Phase change material
         for i in 1:nSta loop
-          der(u[i]) = (Q_flow[i]-Q_flow[i+1])/m[i];
+          der(u[i]) = (Q_flow[i]-Q_flow[i+1])*mInv[i];
           // Recalculation of temperature based on specific internal energy
           T[i]=Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
                     ud=ud,
@@ -334,19 +338,19 @@ and a discretization with four state variables.
 <ul>
 <li>
 If <code>placeCapacityAtSurf_a = false</code> and <code>placeCapacityAtSurf_b = false</code>, 
-then each of the four state variables is placed in the middle of a control volume with the length <code>x/material.nSta</code>.
+then each of the four state variables is placed in the middle of a control volume with length <code>l=x/material.nSta</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/noStateAtSurface.svg\"/>
 </li>
 <li>
 If <code>placeCapacityAtSurf_a = true</code> or <code>placeCapacityAtSurf_b = true</code>, 
 then one state is placed on the surface of the material. Each of the remaining three states 
-is placed in the middle of a control volume with the length <code>x/(material.nSta-1)</code>.
+is placed in the middle of a control volume with length <code>l=x/(material.nSta-1)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/oneStateAtSurface.svg\"/>
 </li>
 <li>
 If <code>placeCapacityAtSurf_a = true</code> and <code>placeCapacityAtSurf_b = true</code>, 
 then two states are placed on the surfaces of the material. Each of the remaining two states is placed 
-in the middle of a control volume with the length <code>x/(material.nSta-2)</code>.
+in the middle of a control volume with length <code>l=x/(material.nSta-2)</code>.
 <p align=\"left\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/twoStatesAtSurface.svg\"/>
 </li>
 </ul>
