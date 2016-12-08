@@ -57,8 +57,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") if sum(ATransparent) > 0
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2") if sum(ATransparent) > 0
     "Solar radiation transmitted through windows"
     annotation (
     Placement(transformation(extent={{-280,120},{-240,160}}),

@@ -96,7 +96,7 @@ equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},     color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], macConv.Q_flow)
@@ -135,7 +135,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase3.mos"
         "Simulate and plot"));
