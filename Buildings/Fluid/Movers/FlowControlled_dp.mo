@@ -61,7 +61,7 @@ model FlowControlled_dp
         rotation=-90,
         origin={-2,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa", displayUnit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
         iconTransformation(extent={{100,10},{120,30}})));
 
