@@ -39,7 +39,8 @@ partial model PartialTestModel
     annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -61,7 +62,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{1,-6},{22,-6},{22,-8},{42,-8}},
+      points={{1,-6},{22,-6},{22,-8},{42.4,-8}},
       color={0,0,127},
       smooth=Smooth.None));
 
