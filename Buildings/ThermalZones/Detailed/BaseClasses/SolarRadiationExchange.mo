@@ -330,7 +330,7 @@ J<sub>dir</sub><sup>i</sup>.
 It is assumed that the diffuse irradiation is distributed to all
 surfaces proportionally to the product of surface emissivity plus transmissivity
 (which generally is zero except for windows) times the area.
-For the direct irradiation, it is assumed that it 
+For the direct irradiation, it is assumed that it
 first hits the floor where some of it is absorbed,
 and some of it is diffusely reflected to all other surfaces. Only the first
 reflection is taken into account and the location of the floor patch

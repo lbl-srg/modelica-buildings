@@ -848,7 +848,7 @@ for detailed explanations.
 <li>
 November 21, 2016, by Thierry S. Nouidui:<br/>
 Removed <code>for loop</code> to avoid translation error
-in Dymola 2107. This is a work-around for a bug in Dymola 
+in Dymola 2107. This is a work-around for a bug in Dymola
 which will be addressed in future releases.
 </li>
 <li>

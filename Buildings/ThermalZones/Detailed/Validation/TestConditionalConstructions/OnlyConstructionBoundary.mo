@@ -35,7 +35,7 @@ is exposed by the room model.
 </html>", revisions="<html>
 <ul>
 <li>
-Set <code>placeStateAtSurf_a</code> 
+Set <code>placeStateAtSurf_a</code>
 and <code>placeStateAtSurf_b</code> to false
 </li>
 </ul>

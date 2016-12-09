@@ -87,9 +87,9 @@ This model tests the exterior construction without windows.
 <ul>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
-Removed <code>[:]</code> in <code>conPar.layers</code> 
-to avoid translation error in Dymola 2107. 
-This is a work-around for a bug in Dymola 
+Removed <code>[:]</code> in <code>conPar.layers</code>
+to avoid translation error in Dymola 2107.
+This is a work-around for a bug in Dymola
 which will be addressed in future releases.
 </li>
 <li>
