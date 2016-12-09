@@ -45,7 +45,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*3.09,
     length=32.92,
     disPip=sla4A1.A/sla4A1.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
@@ -195,7 +196,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*1.51,
     disPip=sla4A2.A/sla4A2.length,
     length=45.11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
 
@@ -226,7 +228,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*0.91,
     disPip=sla4A3.A/sla4A3.length,
     length=42.98,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
 
@@ -257,7 +260,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*3.65,
     disPip=sla4A4.A/sla4A4.length,
     length=50.9,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
 

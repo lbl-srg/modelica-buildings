@@ -182,7 +182,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     A=6.645*3.65,
     disPip=sla4B4.A/sla4B4.length,
     length=48.77,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
@@ -201,7 +202,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     A=6.645*0.91,
     disPip=sla4B3.A/sla4B3.length,
     length=37.49,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
@@ -227,7 +229,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     A=6.645*1.51,
     length=45.11,
     disPip=sla4B2.A/sla4B2.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B2(nPorts=1, redeclare package
@@ -257,7 +260,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     A=6.645*3.09,
     disPip=sla4B1.A/sla4B1.length,
     length=38.71,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B1(nPorts=1, redeclare package

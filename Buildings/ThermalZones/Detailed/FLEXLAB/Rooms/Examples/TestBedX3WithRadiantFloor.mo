@@ -261,7 +261,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.09,
     length=32.92,
     disPip=sla4A1.A/sla4A1.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-74,-220},{-54,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4A1(tableOnFile=false, table=[0,
@@ -296,7 +297,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*1.51,
     disPip=sla4A2.A/sla4A2.length,
     length=45.11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-126,-184},{-106,-164}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A2(nPorts=1, redeclare package
@@ -326,7 +328,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*0.91,
     disPip=sla4A3.A/sla4A3.length,
     length=42.98,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-166,-146},{-146,-126}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A3(nPorts=1, redeclare package
@@ -356,7 +359,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.65,
     disPip=sla4A4.A/sla4A4.length,
     length=50.9,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-196,-100},{-176,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A4(nPorts=1, redeclare package
@@ -392,7 +396,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.09,
     disPip=sla4B1.A/sla4B1.length,
     length=38.71,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{60,-220},{40,-200}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B1(          redeclare package
@@ -422,7 +427,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*1.51,
     length=45.11,
     disPip=sla4B2.A/sla4B2.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{106,-184},{86,-164}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B2(nPorts=1, redeclare package
@@ -452,7 +458,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*0.91,
     disPip=sla4B3.A/sla4B3.length,
     length=37.49,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{150,-144},{130,-124}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
@@ -482,7 +489,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.65,
     disPip=sla4B4.A/sla4B4.length,
     length=48.77,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{198,-100},{178,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
