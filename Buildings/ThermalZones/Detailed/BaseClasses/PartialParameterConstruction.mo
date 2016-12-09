@@ -31,12 +31,12 @@ record PartialParameterConstruction "Partial record for constructions"
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
-  parameter Boolean placeStateAtSurf_a=true
-    "Set to true to place the state at the surface a of the layer"
+  parameter Boolean stateAtSurface_a=true
+    "=true, a state will be at the surface a"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean placeStateAtSurf_b=true
-    "Set to true to place the state at the surface b of the layer"
+  parameter Boolean stateAtSurface_b=true
+    "=true, a state will be at the surface b"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
@@ -61,8 +61,8 @@ Buildings.Types.Tilt</a>
 <ul>
 <li>
 December 8, 2016, by Michael Wetter:<br/>
-Added parameters <code>placeStateAtSurf_a</code> and
-<code>placeStateAtSurf_b</code>.<br/>
+Added parameters <code>stateAtSurface_a</code> and
+<code>stateAtSurface_b</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">#565</a>.
 </li>

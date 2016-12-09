@@ -25,8 +25,8 @@ model Case960 "Case 600, but with an unconditioned sun-space"
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
-    placeStateAtSurf_a=true,
-    placeStateAtSurf_b=true)          "Partition wall between the two rooms"
+    stateAtSurface_a=true,
+    stateAtSurface_b=true)          "Partition wall between the two rooms"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={120,-42})));

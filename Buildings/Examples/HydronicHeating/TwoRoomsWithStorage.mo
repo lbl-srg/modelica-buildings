@@ -341,8 +341,8 @@ model TwoRoomsWithStorage
     dp_nominal=10) "Pressure drop at facade" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={330,214})));
   HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar,
-    placeStateAtSurf_a=true,
-    placeStateAtSurf_b=true)
+    stateAtSurface_a=true,
+    stateAtSurface_b=true)
     "Partition wall between the two rooms" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

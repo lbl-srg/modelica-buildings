@@ -9,12 +9,12 @@ model MultiLayer
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
-  parameter Boolean placeStateAtSurf_a=false
-    "Set to true to place the state at the surface a of the layer"
+  parameter Boolean stateAtSurface_a=false
+    "=true, a state will be at the surface a"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean placeStateAtSurf_b=false
-    "Set to true to place the state at the surface b of the layer"
+  parameter Boolean stateAtSurface_b=false
+    "=true, a state will be at the surface b"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 protected
@@ -24,8 +24,8 @@ protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    final nSta2={nSta2[i] for i in 1:nLay},
    each final A=A,
-   final placeStateAtSurf_a = {if i == 1 then placeStateAtSurf_a else false for i in 1:nLay},
-   final placeStateAtSurf_b = {if i == nLay then placeStateAtSurf_b else false for i in 1:nLay},
+   final stateAtSurface_a = {if i == 1 then stateAtSurface_a else false for i in 1:nLay},
+   final stateAtSurface_b = {if i == nLay then stateAtSurface_b else false for i in 1:nLay},
    material = {layers.material[i] for i in 1:size(layers.material, 1)},
    T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
     sum(layers.material[k].R for k in i:size(layers.material, 1)) for i in 1:size(layers.material, 1)},
@@ -91,21 +91,21 @@ equation
    fillPattern = FillPattern.Solid),
    Line(points={{86,-40},{72,-40}},       color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeStateAtSurf_b),
+   visible=stateAtSurface_b),
    Line(points={{92,-32},{66,-32}},       color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeStateAtSurf_b),            Line(points={{79,0},{79,-32}},
+   visible=stateAtSurface_b),            Line(points={{79,0},{79,-32}},
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
-   visible=placeStateAtSurf_b),
+   visible=stateAtSurface_b),
    Line(points={{-79,0},{-79,-32}},
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
-   visible=placeStateAtSurf_a),
+   visible=stateAtSurface_a),
    Line(points={{-66,-32},{-92,-32}},     color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeStateAtSurf_a),
+   visible=stateAtSurface_a),
    Line(points={{-72,-40},{-86,-40}},     color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None,
-   visible=placeStateAtSurf_a)}),
+   visible=stateAtSurface_a)}),
     defaultComponentName="heaCon",
     Documentation(info="<html>
 <p>

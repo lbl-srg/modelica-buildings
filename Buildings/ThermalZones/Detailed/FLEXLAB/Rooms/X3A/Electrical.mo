@@ -24,7 +24,7 @@ model Electrical "Model of the electrical room attached to test cell X3A"
      A = {2.39},
      til = {Buildings.Types.Tilt.Floor},
      azi = {Buildings.Types.Azimuth.N},
-     each placeStateAtSurf_a = false));
+     each stateAtSurface_a = false));
   replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"

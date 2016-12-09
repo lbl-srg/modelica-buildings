@@ -24,7 +24,7 @@ model Closet "Model of the closet connected to test cell X3A"
     A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
     til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
     azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N},
-    each placeStateAtSurf_a = false));
+    each stateAtSurface_a = false));
 
   replaceable
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall

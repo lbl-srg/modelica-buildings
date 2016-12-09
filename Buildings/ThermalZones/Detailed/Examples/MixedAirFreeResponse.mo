@@ -66,7 +66,7 @@ model MixedAirFreeResponse "Free response of room model"
     nConBou=1,
     datConBou(layers={matLayFlo}, each A=6*4,
            each til=Buildings.Types.Tilt.Floor,
-           each placeStateAtSurf_a = false),
+           each stateAtSurface_a = false),
     nSurBou=1,
     surBou(each A=6*3,
            each absIR=0.9,
@@ -108,8 +108,8 @@ model MixedAirFreeResponse "Free response of room model"
     each A=6*4,
     each layers=matLayPar,
     each steadyStateInitial=true,
-    each placeStateAtSurf_a=true,
-    each placeStateAtSurf_b=false)
+    each stateAtSurface_a=true,
+    each stateAtSurface_b=false)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 

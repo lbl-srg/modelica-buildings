@@ -41,8 +41,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final steadyStateInitial=datConExt.steadyStateInitial,
     final T_a_start=datConExt.T_a_start,
     final T_b_start=datConExt.T_b_start,
-    final placeStateAtSurf_a = datConExt.placeStateAtSurf_a,
-    final placeStateAtSurf_b = datConExt.placeStateAtSurf_b) if haveConExt
+    final stateAtSurface_a = datConExt.stateAtSurface_a,
+    final stateAtSurface_b = datConExt.stateAtSurface_b) if haveConExt
     "Heat conduction through exterior construction that have no window"
     annotation (Placement(transformation(extent={{288,100},{242,146}})));
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
@@ -58,8 +58,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     each final homotopyInitialization=homotopyInitialization,
     each final linearizeRadiation=linearizeRadiation,
     each final steadyStateWindow=steadyStateWindow,
-    final placeStateAtSurf_a = datConExtWin.placeStateAtSurf_a,
-    final placeStateAtSurf_b = datConExtWin.placeStateAtSurf_b) if haveConExtWin
+    final stateAtSurface_a = datConExtWin.stateAtSurface_a,
+    final stateAtSurface_b = datConExtWin.stateAtSurface_b) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
 
@@ -70,8 +70,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
     T_b_start=datConPar.T_b_start,
-    final placeStateAtSurf_a = datConPar.placeStateAtSurf_a,
-    final placeStateAtSurf_b = datConPar.placeStateAtSurf_b) if haveConPar
+    final stateAtSurface_a = datConPar.stateAtSurface_a,
+    final stateAtSurface_b = datConPar.stateAtSurface_b) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{282,-122},{244,-84}})));
 
@@ -82,8 +82,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
     T_b_start=datConBou.T_b_start,
-    final placeStateAtSurf_a = datConBou.placeStateAtSurf_a,
-    final placeStateAtSurf_b = datConBou.placeStateAtSurf_b) if haveConBou
+    final stateAtSurface_a = datConBou.stateAtSurface_a,
+    final stateAtSurface_b = datConBou.stateAtSurface_b) if haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{282,-156},{242,-116}})));
   parameter Boolean linearizeRadiation=true
