@@ -568,6 +568,27 @@ Finally, the declaration
 <p>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
 </p>
+<h4>Notes</h4>
+<p>
+To connect two rooms, the model
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> can be connected to
+the ports <code>surf_surBou</code> of the two rooms.
+However, make sure to set <code>stateAtSurface_a = true</code>
+and <code>stateAtSurface_b = true</code> in the instance of the heat conduction
+model, as this allows to avoid
+a nonlinear system of equation to compute the radiative heat transfer,
+thereby leading to faster simulation.
+See
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960</a>
+for an example.
+</p>
+<p>
+By setting <code>linearizeRadiation = false</code>, nonlinear equations will
+be used to compute the infrared radiation exchange among surfaces. This
+can lead to slower computation.
+</p>
 <h4>References</h4>
 <p>
 <a name=\"WetterEtAl2011\"/>
