@@ -7,9 +7,12 @@ model OnlyConstructionBoundary "Test model for room model"
    nConPar=0,
    nConBou=1,
    nSurBou=0,
-   roo(conBou(each stateAtSurface_a=false, each stateAtSurface_b=false),
-    datConBou(layers={matLayPar}, each A=12, each til=Buildings.Types.Tilt.Floor,
-    each azi=Buildings.Types.Azimuth.W)));
+   roo(
+    datConBou(layers={matLayPar},
+              each A=12,
+              each til=Buildings.Types.Tilt.Floor,
+              each azi=Buildings.Types.Azimuth.W,
+              each stateAtSurface_a = false)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
