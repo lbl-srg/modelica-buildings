@@ -38,7 +38,8 @@ model ConductorStepResponse "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
     A=2, material=concrete,
-    stateAtSurface_b=false)
+    stateAtSurface_b=false,
+    stateAtSurface_a=false)
              annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
