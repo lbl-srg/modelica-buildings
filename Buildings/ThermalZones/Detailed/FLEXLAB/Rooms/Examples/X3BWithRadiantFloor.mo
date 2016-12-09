@@ -81,9 +81,9 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={64,-114})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(redeclare
-      package                                                                        Medium =
-        Air, nPorts=2,
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(
+    redeclare package Medium = Air,
+    nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     conBou(
       each placeStateAtSurf_a=false,
