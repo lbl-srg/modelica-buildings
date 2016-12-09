@@ -101,7 +101,7 @@ model Case600FF
       azi={S_}),
     lat=weaDat.lat,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                    "Room model for Case 600"
+    "Room model for Case 600"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,64},{-48,72}})));
@@ -112,7 +112,8 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
+        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos",
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"

@@ -24,7 +24,9 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       peakCoo(Min=-0.953*1000, Max=-1.404*1000, Mean=-1.212*1000)));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
-    parWal(layers=matLayPar, A=8*2.7) "Partition wall between the two rooms"
+    parWal(layers=matLayPar, A=8*2.7,
+    placeStateAtSurf_a=true,
+    placeStateAtSurf_b=true)          "Partition wall between the two rooms"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={120,-42})));
@@ -66,7 +68,6 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each absIR=0.9,
       each absSol=0.6,
       each til=Buildings.Types.Tilt.Wall),
-    linearizeRadiation=false,
     nConExtWin=1,
     datConExtWin(
       layers={extWalCase900},
@@ -137,7 +138,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
 equation
   connect(sunSpa.uSha, replicator.y)
                                   annotation (Line(
-      points={{152.5,-3},{122,-3},{122,80},{-3.6,80}},
+      points={{152.8,-1.5},{122,-1.5},{122,80},{-3.6,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(parWal.port_a, roo.surf_surBou[1]) annotation (Line(
@@ -177,7 +178,7 @@ equation
       smooth=Smooth.None));
   connect(multiplex3_2.y, sunSpa.qGai_flow)
                                          annotation (Line(
-      points={{116.4,20},{120,20},{120,-7.5},{148,-7.5}},
+      points={{116.4,20},{120,20},{120,-9},{152.8,-9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate1.y, product1.u1) annotation (Line(
@@ -194,7 +195,7 @@ equation
       smooth=Smooth.None));
   connect(heaCoo1.port_b, sunSpa.ports[1])
                                         annotation (Line(
-      points={{136,-114},{144,-114},{144,-22.5},{155.75,-22.5}},
+      points={{136,-114},{144,-114},{144,-24.5},{157.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinInf2.ports[1], sunSpa.ports[2])    annotation (Line(
@@ -203,7 +204,7 @@ equation
       smooth=Smooth.None));
   connect(density1.port, sunSpa.ports[3])
                                        annotation (Line(
-      points={{79,-162},{152,-162},{152,-22.5},{159.75,-22.5}},
+      points={{79,-162},{152,-162},{152,-20.5},{157.75,-20.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souInf.ports[2], heaCoo1.port_a) annotation (Line(

@@ -23,11 +23,11 @@ model Closet "Model of the closet connected to test cell X3A"
     layers = {higIns, celDiv, slaCon},
     A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
     til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
-    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N}));
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N},
+    each placeStateAtSurf_a = false));
 
   replaceable
-    Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
-                                                                      higIns
+    Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall higIns
     "High insulation wall. Between X3A closet and exterior, X3A closet and electrical room"
     annotation (Placement(transformation(extent={{430,-208},{450,-188}})));
   replaceable

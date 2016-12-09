@@ -31,6 +31,15 @@ record PartialParameterConstruction "Partial record for constructions"
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
+  parameter Boolean placeStateAtSurf_a=true
+    "Set to true to place the state at the surface a of the layer"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+  parameter Boolean placeStateAtSurf_b=true
+    "Set to true to place the state at the surface b of the layer"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+
   parameter Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions boundaryCondition=
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature
     "Boundary condition used in the CFD simulation"
@@ -50,6 +59,13 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 8, 2016, by Michael Wetter:<br/>
+Added parameters <code>placeStateAtSurf_a</code> and
+<code>placeStateAtSurf_b</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">#565</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

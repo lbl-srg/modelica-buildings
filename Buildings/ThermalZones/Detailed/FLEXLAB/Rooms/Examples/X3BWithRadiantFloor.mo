@@ -10,10 +10,7 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -84,24 +81,20 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical ele(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet
     clo(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
-  Modelica.Blocks.Sources.CombiTimeTable TNei(    tableOnFile=false, table=[0,293.15;
-        86400,293.15]) "Temperature of the neighboring test cell (y[1] = X3A)"
+  Modelica.Blocks.Sources.CombiTimeTable TNei(
+    tableOnFile=false,
+    table=[0,293.15; 86400,293.15])
+    "Temperature of the neighboring test cell (y[1] = X3A)"
     annotation (Placement(transformation(extent={{110,-124},{90,-104}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiEle(
     table=[0,0,0,0; 86400,0,0,0], tableOnFile=false)

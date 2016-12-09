@@ -10,10 +10,7 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     nPorts=2,
     redeclare package Medium = Air,
     linearizeRadiation=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -113,20 +110,14 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
         origin={64,-114})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Electrical ele(
     redeclare package Medium = Air, nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of the electrical room"
     annotation (Placement(transformation(extent={{54,-80},{94,-40}})));
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Closet
     clo(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    conBou(
-      each placeStateAtSurf_a=false,
-      each placeStateAtSurf_b=true))
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(

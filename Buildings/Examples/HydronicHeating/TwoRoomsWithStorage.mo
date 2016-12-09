@@ -107,6 +107,7 @@ model TwoRoomsWithStorage
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
     "Room model"
     annotation (Placement(transformation(extent={{356,464},{396,504}})));
+
   ThermalZones.Detailed.MixedAir roo2(
     redeclare package Medium = MediumA,
     AFlo=6*4,
@@ -339,7 +340,9 @@ model TwoRoomsWithStorage
     m_flow_nominal=6*4*3*1.2*0.3/3600,
     dp_nominal=10) "Pressure drop at facade" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={330,214})));
-  HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
+  HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar,
+    placeStateAtSurf_a=true,
+    placeStateAtSurf_b=true)
     "Partition wall between the two rooms" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

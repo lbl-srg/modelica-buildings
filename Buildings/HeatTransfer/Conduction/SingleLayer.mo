@@ -45,7 +45,8 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-   parameter Integer nSta2=material.nSta "Number of states in a material"
+  parameter Integer nSta2=material.nSta
+  "Number of states in a material (do not overwrite, used to work around Dymola 2017 bug)"
      annotation (Evaluate=true);
 protected
   final parameter Integer nSta=

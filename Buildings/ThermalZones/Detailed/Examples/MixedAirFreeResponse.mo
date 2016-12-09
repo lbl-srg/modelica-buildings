@@ -65,7 +65,8 @@ model MixedAirFreeResponse "Free response of room model"
            each til=Buildings.Types.Tilt.Wall),
     nConBou=1,
     datConBou(layers={matLayFlo}, each A=6*4,
-           each til=Buildings.Types.Tilt.Floor),
+           each til=Buildings.Types.Tilt.Floor,
+           each placeStateAtSurf_a = false),
     nSurBou=1,
     surBou(each A=6*3,
            each absIR=0.9,
@@ -112,9 +113,6 @@ model MixedAirFreeResponse "Free response of room model"
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConSoi[nConBou](
-    each G=6*4*2.8/0.2) "Thermal conductance of 20 cm soil, with 6m x 4m area"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
 equation
   connect(qRadGai_flow.y, multiplex3_1.u1[1])  annotation (Line(
       points={{-39,90},{-32,90},{-32,57},{-22,57}},
@@ -155,10 +153,8 @@ equation
       points={{44.4,58},{40,58},{40,100},{31,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(theConSoi.port_b, TSoi.port)
-    annotation (Line(points={{120,-10},{130,-10},{140,-10}}, color={191,0,0}));
-  connect(theConSoi.port_a, roo.surf_conBou)
-    annotation (Line(points={{100,-10},{72,-10},{72,24}}, color={191,0,0}));
+  connect(TSoi.port, roo.surf_conBou) annotation (Line(points={{140,-10},{128,-10},
+          {72,-10},{72,24}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}})),        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/MixedAirFreeResponse.mos"
         "Simulate and plot"),

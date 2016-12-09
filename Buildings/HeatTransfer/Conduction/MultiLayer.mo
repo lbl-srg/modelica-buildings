@@ -4,8 +4,7 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(layers.material[i].R for i in 1:size(layers.material, 1)));
   Modelica.SIunits.Temperature T[sum(nSta)](
-    each nominal = 300,
-    each start=293.15) "Temperature at the states";
+    each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
@@ -18,11 +17,12 @@ model MultiLayer
     "Set to true to place the state at the surface b of the layer"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
-    "Vector of number of states per material layer" annotation(Evaluate=true);
 protected
+  final parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
+    "Vector of number of states per material layer" annotation(Evaluate=true);
+
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
-   nSta2={nSta2[i] for i in 1:nLay},
+   final nSta2={nSta2[i] for i in 1:nLay},
    each final A=A,
    final placeStateAtSurf_a = {if i == 1 then placeStateAtSurf_a else false for i in 1:nLay},
    final placeStateAtSurf_b = {if i == nLay then placeStateAtSurf_b else false for i in 1:nLay},
