@@ -37,13 +37,17 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM(
     A=1,
-    material=matPCM) "Construction with phase change around 40 degC"
+    material=matPCM,
+    stateAtSurface_b=false)
+                     "Construction with phase change around 40 degC"
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=1, material=concrete100) "Construction without PCM"
+    A=1, material=concrete100,
+    stateAtSurface_b=false)    "Construction without PCM"
     annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=1, material=concrete100) "Construction without PCM"
+    A=1, material=concrete100,
+    stateAtSurface_b=false)    "Construction without PCM"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM(
     x=0.2,
@@ -63,7 +67,9 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-12,34},{-32,54}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM2(
     A=1,
-    material=matPCM2) "Construction with phase change near room temperature"
+    material=matPCM2,
+    stateAtSurface_b=false)
+                      "Construction with phase change near room temperature"
     annotation (Placement(transformation(extent={{24,34},{44,54}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
     "Temperature boundary condition"

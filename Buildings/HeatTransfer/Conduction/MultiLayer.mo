@@ -9,18 +9,20 @@ model MultiLayer
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
-  parameter Boolean stateAtSurface_a=false
+  parameter Boolean stateAtSurface_a=true
     "=true, a state will be at the surface a"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean stateAtSurface_b=false
+  parameter Boolean stateAtSurface_b=true
     "=true, a state will be at the surface b"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-protected
-  final parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
-    "Vector of number of states per material layer" annotation(Evaluate=true);
 
+  parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
+  "Number of states in a material (do not overwrite, used to work around Dymola 2017 bug)"
+     annotation (Evaluate=true);
+
+protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    final nSta2={nSta2[i] for i in 1:nLay},
    each final A=A,
@@ -114,7 +116,10 @@ The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
+See this model for an explanation of the equations that are applied to
+each material layer.
 </p>
+<h4>Important parameters</h4>
 <p>
 The construction material is defined by a record of the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
@@ -148,9 +153,25 @@ Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>.
 </li>
 </ol>
 <p>
-To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
-and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
-and the temperature state.
+The parameters <code>stateAtSurface_a</code> and
+<code>stateAtSurface_b</code>
+determine whether there is a state variable at these surfaces,
+as described above.
+Note that if <code>stateAtSurface_a = true</code>,
+then there is temperature state on the surface a with prescribed
+value, as determined by the differential equation of the heat conduction.
+Hence, in this situation, it is not possible to
+connect a temperature boundary condition such as
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a> as this would
+yield to specifying the same temperature twice.
+To avoid this, either set <code>stateAtSurface_a = false</code>,
+or place a thermal resistance
+between the boundary condition and the surface of this model.
+The same applies for surface b.
+See the examples in
+<a href=\"modelica://Buildings.HeatTransfer.Examples\">
+Buildings.HeatTransfer.Examples</a>.
 </p>
 </html>", revisions="<html>
 <ul>

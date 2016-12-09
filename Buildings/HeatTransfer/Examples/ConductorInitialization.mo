@@ -20,7 +20,9 @@ model ConductorInitialization "Test model for heat conductor initialization"
   Buildings.HeatTransfer.Conduction.MultiLayer conS1(
     A=2,
     steadyStateInitial=true,
-    layers=compositeWall)
+    layers=compositeWall,
+    stateAtSurface_a=false,
+    stateAtSurface_b=false)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Modelica.Blocks.Sources.Step step(

@@ -1,7 +1,8 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200)
+  Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200,
+    stateAtSurface_b=false)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
@@ -13,14 +14,16 @@ model ConductorSingleLayer "Test model for heat conductor"
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=1, material=concrete100)
+    A=1, material=concrete100,
+    stateAtSurface_b=false)
            annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(      T=293.15)
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=1, material=concrete100)
+    A=1, material=concrete100,
+    stateAtSurface_b=false)
            annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{2,-36},{14,-24}})));

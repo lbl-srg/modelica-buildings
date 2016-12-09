@@ -23,11 +23,11 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.SpecificInternalEnergy u[nSta](each nominal=270000)
     "Definition of specific internal energy";
 
-  parameter Boolean stateAtSurface_a=false
+  parameter Boolean stateAtSurface_a=true
     "=true, a state will be at the surface a"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
-  parameter Boolean stateAtSurface_b=false
+  parameter Boolean stateAtSurface_b=true
     "=true, a state will be at the surface b"
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
@@ -245,10 +245,12 @@ equation
    visible=stateAtSurface_a)}),
 defaultComponentName="lay",
     Documentation(info="<html>
+<p>
 This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
-
-<h4>Transient heat conduction in materials without phase change</h4>
+</p>
+<h4>Main equations</h4>
+<h5>Transient heat conduction in materials without phase change</h5>
 <p>
 If the material is a record that extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
@@ -274,7 +276,7 @@ At the locations <i>s=0</i> and <i>s=x</i>, where <i>x</i> is the
 material thickness, the temperature and heat flow rate is equal to the
 temperature and heat flow rate of the heat ports.
 </p>
-<h4>Transient heat conduction in phase change materials</h4>
+<h5>Transient heat conduction in phase change materials</h5>
 <p>
 If the material is declared using a record of type
 <a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
@@ -300,7 +302,7 @@ relation between specific internal energy <i>u</i> and temperature <i>T</i> is d
 Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using
 cubic hermite spline interpolation with linear extrapolation.
 </p>
-<h4>Steady-state heat conduction</h4>
+<h5>Steady-state heat conduction</h5>
 <p>
 If <code>material.c=0</code>, or if the material extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
@@ -318,7 +320,7 @@ where
 <i>T<sub>a</sub></i> is the temperature at port a and
 <i>T<sub>b</sub></i> is the temperature at port b.
 </p>
-<h4>Spatial discretization</h4>
+<h5>Spatial discretization</h5>
 <p>
 To spatially discretize the heat equation, the construction is
 divided into compartments (control volumes) with <code>material.nSta &ge; 1</code> state variables.
@@ -363,17 +365,27 @@ use
 <a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
-<h4>Boundary conditions</h4>
+<h4>Important parameters</h4>
 <p>
-Note that if <code>stateAtSurface_a = true</code>
-and <code>steadyStateInitial = false</code>, then
-there is temperature state on the surface a with prescribed
-initial value. Hence, in this situation, it is not possible to
+The parameters <code>stateAtSurface_a</code> and
+<code>stateAtSurface_b</code>
+determine whether there is a state variable at these surfaces,
+as described above.
+Note that if <code>stateAtSurface_a = true</code>,
+then there is temperature state on the surface a with prescribed
+value, as determined by the differential equation of the heat conduction.
+Hence, in this situation, it is not possible to
 connect a temperature boundary condition such as
 <a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
 Buildings.HeatTransfer.Sources.FixedTemperature</a> as this would
-overspecify the initial condition. Rather, place a thermal resistance
+yield to specifying the same temperature twice.
+To avoid this, either set <code>stateAtSurface_a = false</code>,
+or place a thermal resistance
 between the boundary condition and the surface of this model.
+The same applies for surface b.
+See the examples in
+<a href=\"modelica://Buildings.HeatTransfer.Examples\">
+Buildings.HeatTransfer.Examples</a>.
 </p>
 </html>",
 revisions="<html>

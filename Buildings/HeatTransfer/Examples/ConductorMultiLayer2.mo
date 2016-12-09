@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Examples;
 model ConductorMultiLayer2
   "Test model for multi layer heat conductor with one
   capacity added at the surface a of the construction"
-  extends ConductorMultiLayer(con(stateAtSurface_a=true));
+  extends ConductorMultiLayer;
   annotation (experiment(StartTime=0, StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer2.mos" "Simulate and plot"),
   Documentation(revisions="<html>

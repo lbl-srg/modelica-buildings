@@ -10,10 +10,13 @@ model ConductorStepResponse "Test model for heat conductor"
       material={carpet,concrete})
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.HeatTransfer.Conduction.MultiLayer conMul(
-    A=2, layers=composite)
+    A=2, layers=composite,
+    stateAtSurface_b=false)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con(
-    A=2, material=carpet)
+    A=2, material=carpet,
+    stateAtSurface_a=false,
+    stateAtSurface_b=false)
                          annotation (Placement(transformation(extent={{20,20},
             {40,40}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
@@ -26,14 +29,16 @@ model ConductorStepResponse "Test model for heat conductor"
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=2, material=carpet)
+    A=2, material=carpet,
+    stateAtSurface_b=false)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(      T=293.15)
     annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=2, material=concrete)
+    A=2, material=concrete,
+    stateAtSurface_b=false)
              annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
