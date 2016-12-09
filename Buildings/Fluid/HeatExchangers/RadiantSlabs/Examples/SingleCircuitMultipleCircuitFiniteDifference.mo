@@ -7,6 +7,10 @@ model SingleCircuitMultipleCircuitFiniteDifference
     sla2(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference),
     sla3(heatTransfer=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.FiniteDifference));
 
+  HeatTransfer.Conduction.MultiLayer heaCon
+    annotation (Placement(transformation(extent={{320,112},{340,132}})));
+  HeatTransfer.Conduction.MultiLayer heaCon1
+    annotation (Placement(transformation(extent={{320,112},{340,132}})));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuitFiniteDifference.mos"
         "Simulate and plot"),
           Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
