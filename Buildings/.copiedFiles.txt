@@ -157,6 +157,9 @@ Buildings/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mo
 Buildings/BoundaryConditions/WeatherData/Examples/package.mo
 Buildings/BoundaryConditions/WeatherData/Examples/package.order
 Buildings/BoundaryConditions/WeatherData/ReaderTMY3.mo
+Buildings/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mo
+Buildings/BoundaryConditions/WeatherData/Validation/package.mo
+Buildings/BoundaryConditions/WeatherData/Validation/package.order
 Buildings/BoundaryConditions/WeatherData/package.mo
 Buildings/BoundaryConditions/WeatherData/package.order
 Buildings/BoundaryConditions/package.mo
@@ -875,6 +878,8 @@ Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_Validation_ReaderTMY3HDirNor.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_Polynomial.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -927,6 +932,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Ex
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos
 Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos
 Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPIDWithReset.mos
 Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos
@@ -1176,7 +1182,7 @@ Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDer
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXDerivative_2_Check.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/IsMonotonic.mos
-Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos
+Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Polynomial.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos
 Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mos
@@ -1332,7 +1338,6 @@ Buildings/Utilities/Math/Examples/package.order
 Buildings/Utilities/Math/Functions/BaseClasses/der_2_regNonZeroPower.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_2_smoothTransition.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_inverseXRegularized.mo
-Buildings/Utilities/Math/Functions/BaseClasses/der_polynomial.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_regNonZeroPower.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_smoothTransition.mo
 Buildings/Utilities/Math/Functions/BaseClasses/der_spliceFunction.mo
@@ -1344,7 +1349,7 @@ Buildings/Utilities/Math/Functions/Examples/InverseXDerivativeCheck.mo
 Buildings/Utilities/Math/Functions/Examples/InverseXDerivative_2_Check.mo
 Buildings/Utilities/Math/Functions/Examples/InverseXRegularized.mo
 Buildings/Utilities/Math/Functions/Examples/IsMonotonic.mo
-Buildings/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mo
+Buildings/Utilities/Math/Functions/Examples/Polynomial.mo
 Buildings/Utilities/Math/Functions/Examples/PowerLinearized.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPower.mo
 Buildings/Utilities/Math/Functions/Examples/RegNonZeroPowerDerivativeCheck.mo
@@ -1488,6 +1493,3 @@ Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/package.order
-Buildings/plot.mos
-Buildings/simulator.log
-Buildings/unitTests.log
