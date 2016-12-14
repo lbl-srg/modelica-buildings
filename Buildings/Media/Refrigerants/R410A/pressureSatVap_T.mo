@@ -24,7 +24,7 @@ protected
 
 algorithm
   // Independant variable
-  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 0, 1e-4) - x0;
+  x := Buildings.Utilities.Math.Functions.smoothMax(1-T/TCri, 1e-4, 5e-3) - x0;
   // Pressure of saturated refrigerant vapor
   p := pCri*Modelica.Math.exp(TCri/T*Buildings.Utilities.Math.Functions.polynomial(a = a, x = x));
 
