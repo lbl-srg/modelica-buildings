@@ -1,4 +1,4 @@
-last-generated=2016-11-12
+last-generated=2016-12-15
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -66,25 +66,26 @@ statistics-fmu-dependencies=
     "der(senTemHXOut.T)": [
       "TRadZon", 
       "fan.m_flow_start", 
-      "out.p", 
       "senTemHXOut.T_start", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
+    "weaBus.HGloHor": [
+      "TRadZon"
+    ], 
     "weaBus.TDryBul": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "der(senTemSupAir.T)": [
       "TRadZon", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "senTemSupAir.T_start", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
@@ -106,11 +107,10 @@ statistics-fmu-dependencies=
       "fan.per.motorCooledByFluid", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
@@ -118,16 +118,16 @@ statistics-fmu-dependencies=
     "weaBus.solHouAng": [], 
     "weaBus.TBlaSky": [
       "TRadZon", 
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "fan.filter.x[2]": [
       "fan.m_flow_start"
     ], 
     "weaBus.TDewPoi": [], 
     "weaBus.winDir": [], 
-    "weaBus.lon": [], 
+    "EventCounter": [], 
     "TOut": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "QGaiLat_flow": [
       "zero.k"
@@ -135,15 +135,13 @@ statistics-fmu-dependencies=
     "der(fan.filter.x[1])": [], 
     "fluPor[1].forward.X_w": [
       "TRadZon", 
-      "out.p", 
-      "x_pTphi.p"
+      "weaDat.pAtm"
     ], 
     "weaBus.solTim": [], 
     "senTemHXOut.T": [
       "senTemHXOut.T_start"
     ], 
     "weaBus.relHum": [], 
-    "EventCounter": [], 
     "weaBus.celHei": [
       "TRadZon"
     ], 
@@ -155,9 +153,7 @@ statistics-fmu-dependencies=
       "fan.riseTime", 
       "fan.m_flow_start"
     ], 
-    "weaBus.HGloHor": [
-      "TRadZon"
-    ], 
+    "weaBus.lon": [], 
     "senTemSupAir.T": [
       "senTemSupAir.T_start"
     ], 

@@ -1,4 +1,4 @@
-last-generated=2016-11-12
+last-generated=2016-12-15
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -146,12 +146,11 @@ statistics-fmu-dependencies=
       "fan.per.motorCooledByFluid", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "fan2.m_flow_start", 
-      "x_pTphi.p"
+      "weaDat.pAtm", 
+      "fan2.m_flow_start"
     ], 
     "fluPor[2, 2].m_flow": [
       "fan.m_flow_start", 
@@ -161,14 +160,13 @@ statistics-fmu-dependencies=
       "zer[1].k"
     ], 
     "weaBus.TDryBul": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "fluPor[2, 1].forward.X_w": [
       "fluPor[1, 1].backward.T", 
       "fluPor[1, 1].backward.X_w", 
       "fan.m_flow_start", 
-      "out.p", 
-      "x_pTphi.p"
+      "weaDat.pAtm"
     ], 
     "fluPor[2, 2].forward.T": [
       "fluPor[1, 1].backward.T", 
@@ -181,13 +179,12 @@ statistics-fmu-dependencies=
       "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "senTemSupAir.T_start", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "fan2.m_flow_start", 
-      "x_pTphi.p"
+      "weaDat.pAtm", 
+      "fan2.m_flow_start"
     ], 
     "weaBus.HHorIR": [
       "fluPor[1, 1].backward.T"
@@ -220,10 +217,9 @@ statistics-fmu-dependencies=
       "fluPor[2, 1].backward.T", 
       "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
-      "out.p", 
       "senTemHXOut.T_start", 
-      "fan2.m_flow_start", 
-      "x_pTphi.p"
+      "weaDat.pAtm", 
+      "fan2.m_flow_start"
     ], 
     "weaBus.nTot": [], 
     "QGaiLat_flow[2]": [
@@ -234,7 +230,7 @@ statistics-fmu-dependencies=
     ], 
     "weaBus.TBlaSky": [
       "fluPor[1, 1].backward.T", 
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "fluPor[2, 3].forward.T": [
       "fluPor[1, 1].backward.T", 
@@ -248,7 +244,7 @@ statistics-fmu-dependencies=
     "weaBus.winDir": [], 
     "weaBus.lon": [], 
     "TOut": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "fluPor[1, 1].forward.T": [
       "fluPor[1, 1].backward.T", 
@@ -262,12 +258,11 @@ statistics-fmu-dependencies=
       "fan.per.motorCooledByFluid", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "fan2.m_flow_start", 
-      "x_pTphi.p"
+      "weaDat.pAtm", 
+      "fan2.m_flow_start"
     ], 
     "fluPor[1, 3].forward.T": [
       "fluPor[1, 1].backward.T", 
@@ -278,8 +273,7 @@ statistics-fmu-dependencies=
       "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
-      "out.p", 
-      "x_pTphi.p"
+      "weaDat.pAtm"
     ], 
     "der(fan.filter.x[1])": [], 
     "fluPor[1, 2].forward.X_w": [
