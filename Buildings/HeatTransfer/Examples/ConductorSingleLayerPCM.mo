@@ -38,7 +38,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM(
     A=1,
     material=matPCM,
-    stateAtSurface_b=false)
+    stateAtSurface_b=true)
                      "Construction with phase change around 40 degC"
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
@@ -47,8 +47,8 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
     A=1, material=concrete100,
-    stateAtSurface_b=false,
-    stateAtSurface_a=false)    "Construction without PCM"
+    stateAtSurface_a=false,
+    stateAtSurface_b=true)     "Construction without PCM"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic matPCM(
     x=0.2,
