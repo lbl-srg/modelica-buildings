@@ -98,8 +98,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransf
     Documentation(info="<html>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.
-The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
-condition differs.
 </html>", revisions="<html>
 <ul>
 <li>
