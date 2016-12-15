@@ -650,8 +650,14 @@ equation
       "Get HDirNor using user input file";
   elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
       Buildings.Utilities.Math.Functions.smoothMin(
-        x1=((HGloHor_in_internal -HDifHor_in_internal)/Buildings.Utilities.Math.Functions.smoothMax(
-        x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)), x2=solCon, deltaX=1e-2)
+        solCon,
+        (HGloHor_in_internal -HDifHor_in_internal)*
+          Buildings.Utilities.Math.Functions.spliceFunction(
+            x=cos(zenAng.zen),
+            pos=Buildings.Utilities.Math.Functions.inverseXRegularized(cos(zenAng.zen),epsCos),
+            neg=0,
+            deltax=epsCos),
+        0.1)
         = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
