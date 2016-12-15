@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater;
-record Generic "Record for reciprocating water to water heat pump"
+record Generic "Record for scroll water to water heat pump"
   extends BaseClasses.HeatPumps;
 
   parameter Real volRat(min = 1.0, unit = "1")
