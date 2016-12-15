@@ -723,12 +723,15 @@ Buildings/Fluid/Sources/BaseClasses/package.mo
 Buildings/Fluid/Sources/BaseClasses/package.order
 Buildings/Fluid/Sources/Boundary_pT.mo
 Buildings/Fluid/Sources/Boundary_ph.mo
+Buildings/Fluid/Sources/Examples/Outside.mo
+Buildings/Fluid/Sources/Examples/Outside_CpLowRise.mo
 Buildings/Fluid/Sources/Examples/TraceSubstancesFlowSource.mo
 Buildings/Fluid/Sources/Examples/package.mo
 Buildings/Fluid/Sources/Examples/package.order
 Buildings/Fluid/Sources/FixedBoundary.mo
 Buildings/Fluid/Sources/MassFlowSource_T.mo
 Buildings/Fluid/Sources/MassFlowSource_h.mo
+Buildings/Fluid/Sources/Outside.mo
 Buildings/Fluid/Sources/Outside_CpLowRise.mo
 Buildings/Fluid/Sources/TraceSubstancesFlowSource.mo
 Buildings/Fluid/Sources/package.mo
@@ -878,8 +881,6 @@ Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
-Buildings/Resources/ReferenceResults/Dymola/Buildings_BoundaryConditions_WeatherData_Validation_ReaderTMY3HDirNor.txt
-Buildings/Resources/ReferenceResults/Dymola/Buildings_Utilities_Math_Functions_Examples_Polynomial.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -1125,6 +1126,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Velocity.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside_CpLowRise.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos
 Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos
@@ -1493,3 +1496,4 @@ Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/package.order
+
