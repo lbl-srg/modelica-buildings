@@ -1,27 +1,27 @@
 within Buildings.Utilities.Math.Functions.Examples;
-model PolynomialDerivativeCheck
+model Polynomial
   extends Modelica.Icons.Example;
-  Real x;
-  Real y;
-initial equation
-   y=x;
+  Real x "Function value";
 equation
   x=Buildings.Utilities.Math.Functions.polynomial(x=time^3-2, a={2, 4, -4, 5});
-  der(y)=der(x);
-  // Trigger an error if the derivative implementation is incorrect.
-  assert(abs(x-y)/max(1, abs(x)) < 1E-2, "Model has an error.");
 
- annotation(experiment(StopTime=4, Tolerance=1e-08),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos"
+ annotation(experiment(StopTime=4, Tolerance=1e-06),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Polynomial.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example checks whether the function derivative
-is implemented correctly. If the derivative implementation
-is incorrect, the model will stop with an assert statement.
+This example verifies the correct implementation of
+<a href=\"modelica://Buildings.Utilities.Math.Functions.polynomial\">
+Buildings.Utilities.Math.Functions.polynomial</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2016, by Michael Wetter:<br/>
+Renamed example and removed derivative computation.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/602\">issue 602</a>.
+</li>
 <li>
 April 22, 2016, by Michael Wetter:<br/>
 Changed accuarcy test in assertion to use the relative error because the
@@ -42,4 +42,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PolynomialDerivativeCheck;
+end Polynomial;

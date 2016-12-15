@@ -223,6 +223,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Dialog(group="Sky temperature"));
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
+  constant Modelica.SIunits.HeatFlux solCon = 1367.7 "Solar constant";
 
 protected
   final parameter String absFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
@@ -407,8 +408,7 @@ protected
        opaSkyCovSou == Buildings.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature
-                                                                                  cheTemBlaSky(TMin=0)
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature cheTemBlaSky(TMin=0)
     "Check black body sky temperature"
     annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
 
@@ -551,7 +551,7 @@ equation
     connect(opaSkyCov_in, opaSkyCov_in_internal);
   else
     connect(conOpaSkyCov.u, datRea.y[14]) annotation (Line(
-      points={{118,-148},{30,-148},{30,-29.92},{-59,-29.92}},
+      points={{118,-148},{30,-148},{30,-30},{-59,-30}},
       color={0,0,127}));
     connect(conOpaSkyCov.y, opaSkyCov_in_internal);
   end if;
@@ -649,8 +649,10 @@ equation
      connect(HDirNor_in, HDirNor_in_internal)
       "Get HDirNor using user input file";
   elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-      (HGloHor_in_internal -HDifHor_in_internal)/Buildings.Utilities.Math.Functions.smoothMax(x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)
-       = HDirNor_in_internal
+      Buildings.Utilities.Math.Functions.smoothMin(
+        x1=((HGloHor_in_internal -HDifHor_in_internal)/Buildings.Utilities.Math.Functions.smoothMax(
+        x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)), x2=solCon, deltaX=1e-2)
+        = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
     connect(conDirNorRad.HOut, HDirNor_in_internal)
@@ -779,19 +781,19 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
+      points={{-59,-30},{20,-30},{20,-270},{118,-270}},
       color={0,0,127}));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
-      points={{-59,169.25},{20,169.25},{20,250},{118,250}},
+      points={{-59,170},{20,170},{20,250},{118,250}},
       color={0,0,127}));
   connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
+      points={{-59,-30},{20,-30},{20,-190},{118,-190}},
       color={0,0,127}));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
+      points={{-59,-30},{20,-30},{20,-230},{118,-230}},
       color={0,0,127}));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
       points={{181,-230},{280,-230},{280,0},{300,0}},
@@ -803,16 +805,16 @@ equation
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127}));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
-      points={{-59,170.25},{20,170.25},{20,210},{118,210}},
+      points={{-59,170},{20,170},{20,210},{118,210}},
       color={0,0,127}));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
-      points={{-59,169.75},{30,169.75},{30,170},{118,170}},
+      points={{-59,170},{30,170},{30,170},{118,170}},
       color={0,0,127}));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
-      points={{-59,170.75},{20,170.75},{20,130},{118,130}},
+      points={{-59,170},{20,170},{20,130},{118,130}},
       color={0,0,127}));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
-      points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
+      points={{118,30},{20,30},{20,-30},{-59,-30}},
       color={0,0,127}));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{181,30},{280,30},{280,0},{300,0}},
@@ -1555,6 +1557,13 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 06, 2016, by Thierry S. Nouidui:<br/>
+Constrained the direct normal radiation to not be bigger than the solar constant when using 
+global and diffuse solar radiation data provided via the inputs connectors.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/608\">#608</a>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Introduced <code>absFilNam</code> to avoid multiple calls to

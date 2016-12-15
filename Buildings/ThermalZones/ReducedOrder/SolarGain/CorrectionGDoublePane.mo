@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.ReducedOrder.SolarGain;
 model CorrectionGDoublePane
-  "Correction of the solar gain factor according to VDI6007 Part 3"
+  "Double pane window solar correction"
   extends BaseClasses.PartialCorrectionG;
   import con = Modelica.SIunits.Conversions;
 

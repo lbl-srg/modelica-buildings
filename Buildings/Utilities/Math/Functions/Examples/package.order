@@ -3,7 +3,7 @@ InverseXDerivativeCheck
 InverseXDerivative_2_Check
 InverseXRegularized
 IsMonotonic
-PolynomialDerivativeCheck
+Polynomial
 PowerLinearized
 RegNonZeroPower
 RegNonZeroPowerDerivativeCheck

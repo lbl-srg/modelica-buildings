@@ -17,7 +17,7 @@ model ReaderTMY3 "Test model for reading weather data"
 equation
   connect(HGloHor.y, weaDatInpCon.HGloHor_in)
                                          annotation (Line(
-      points={{-59,-10},{-28,-10},{-28,-58.6},{-21,-58.6}},
+      points={{-59,-10},{-28,-10},{-28,-63},{-21,-63}},
       color={0,0,127}));
   connect(HDifHor.y, weaDatInpCon.HDifHor_in)
                                          annotation (Line(
