@@ -36,7 +36,7 @@ model SpeedControlled_y_linear
     nPorts=1) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=180,
         origin={128,90})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
+  Buildings.Fluid.FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.01*dp_nominal) "Pressure drop"

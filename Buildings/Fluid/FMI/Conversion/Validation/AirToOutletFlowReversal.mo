@@ -53,7 +53,7 @@ protected
       "Fluid inlet"
       annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-    FixedResistances.FixedResistanceDpM res(
+    FixedResistances.PressureDrop res(
       redeclare package Medium = Medium,
       m_flow_nominal=0.1,
       dp_nominal=1000,

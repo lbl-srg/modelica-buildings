@@ -72,7 +72,6 @@ partial model PartialFlowMachine
         origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_actual(
-    min=0,
     final unit="1")
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
@@ -89,16 +88,19 @@ partial model PartialFlowMachine
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
   // Variables
-  Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
+  Modelica.SIunits.VolumeFlowRate VMachine_flow(start=_VMachine_flow) = eff.V_flow "Volume flow rate";
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -preSou.dp "Pressure difference";
 
-  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
-  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+  Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
+  Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
+  Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
 protected
+  final parameter Modelica.SIunits.VolumeFlowRate _VMachine_flow = 0
+    "Start value for VMachine_flow, used to avoid a warning if not specified";
+
   parameter Types.PrescribedVariable preVar "Type of prescribed variable";
 
   // The parameter speedIsInput is required to conditionally remove the instance gain.
@@ -527,6 +529,19 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Set start value for <code>VMachine_flow</code> to avoid a warning in
+<a href=\"modelica://Buildings.Fluid.Movers.Examples.MoverContinuous\">
+Buildings.Fluid.Movers.Examples.MoverContinuous</a>.
+</li>
 <li>
 July 29, 2016, by Michael Wetter:<br/>
 Made <code>Extractor</code> protected so that it can be removed later

@@ -53,7 +53,8 @@ equation
   outlet.forward.T = Medium.temperature_phX(
     p = p_in_internal,
     h = inStream(port_a.h_outflow),
-    X = inStream(port_a.Xi_outflow));
+    X = cat(1, inStream(port_a.Xi_outflow), {1-sum(inStream(port_a.Xi_outflow))}));
+
   inStream(port_a.C_outflow)  = outlet.forward.C;
 
   // Mass fraction for forward flow
@@ -149,6 +150,10 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.
+</li>
 <li>
 April 29, 2015, by Michael Wetter:<br/>
 Redesigned to conditionally remove the pressure connector

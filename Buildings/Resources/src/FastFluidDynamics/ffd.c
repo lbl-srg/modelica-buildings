@@ -1,19 +1,19 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file ffd.h
-///
-/// \brief Main routine of Fast Fluid Dynamics
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file ffd.c
+	*
+	* \brief Main routine of Fast Fluid Dynamics
+	*
+	* \author Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*         Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "ffd.h"
 
@@ -34,13 +34,13 @@ static INIT_DATA init;
 
 clock_t start, end;
 
-///////////////////////////////////////////////////////////////////////////////
-/// Allcoate memory for variables
-///
-///\param para Pointer to FFD parameters
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Allcoate memory for variables
+	*
+	* @param para Pointer to FFD parameters
+	*
+	* @return No return needed
+	*/
 int allocate_memory (PARA_DATA *para) {
 
   int nb_var, i;
@@ -92,182 +92,16 @@ int allocate_memory (PARA_DATA *para) {
     }
   }
   return 0;
-} // End of allocate_memory()
-
-/*
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT display callback routines
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-static void display_func(void) {
-  ffd_display_func(&para, var);
-} // End of display_func()
-
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT keyboard callback routines
-///
-///\param key Character of the key
-///\param x X-position
-///\param y Y-Position
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-
-static void key_func(unsigned char key, int x, int y) {
-  ffd_key_func(&para, var, BINDEX, key);
-} // End of key_func()
-
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT idle callback routines
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-static void idle_func(void) {
-  ffd_idle_func(&para, var, BINDEX);
-} // End of idle_func()
-
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT motion callback routines
-///
-///\param x X-position
-///\param y Y-Position
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-static void motion_func(int x, int y) {
-  ffd_motion_func(&para, x, y);
-} // End of motion_func()
-
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT mouse callback routines
-///
-///\param button Button of the mouse
-///\param x X-position
-///\param y Y-Position
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-static void mouse_func(int button, int state, int x, int y) {
-  ffd_mouse_func(&para, button, state, x, y);
-} // End of mouse_func()
-
-///////////////////////////////////////////////////////////////////////////////
-/// GLUT reshape callback routines
-///
-///\param width Width of the window
-///\param height Height of the window
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-static void reshape_func(int width, int height) {
-  ffd_reshape_func(&para, width, height);
-} // End of reshape_func()
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-/// Open_glut_window --- open a glut compatible window and set callbacks
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
-//static void open_glut_window() {
-//  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutInitWindowPosition(int x, int y);
-//  | x: Window X location in pixels.
-//  | y: Window Y location in pixels.
-//  ---------------------------------------------------------------------------*/
-//  glutInitWindowPosition(0, 0);
-//
-//  /*---------------------------------------------------------------------------
-//  | Initialize the size of window
-//  | void glutInitWindowSize(int width, int height);
-//  | width: Width in pixels; height: Height in pixels
-//  ---------------------------------------------------------------------------*/
-//  glutInitWindowSize(para.outp->winx, para.outp->winy);
-//
-//
-//  para.outp->win_id = glutCreateWindow("FFD");
-//
-//  /*---------------------------------------------------------------------------
-//  |void glClearColor(GLclampf red, GLclampf green, GLclampf blue,
-//  |                  GLclampf alpha)
-//  |set the color when you clear the screen, alpha is not useful here
-//  |white    :1.0, 1.0, 1.0, 0.0
-//  |black    :0.0, 0.0, 0.0, 0.0
-//  |most blue:0.0, 0.0, 1.0, 0.0
-//  |most red :1.0, 0.0, 0.0, 0.0
-//  ---------------------------------------------------------------------------*/
-//  glClearColor(0.0, 0.0, 0.0, 1.0);
-//
-//  /*--------------------------------------------------------------------------
-//  | clear buffers within the view port
-//  ---------------------------------------------------------------------------*/
-//  glClear(GL_COLOR_BUFFER_BIT);
-//
-//  /*---------------------------------------------------------------------------
-//  | Performs a buffer swap on the layer in use for the current window
-//  ---------------------------------------------------------------------------*/
-//  glutSwapBuffers();
-//
-//  glClear(GL_COLOR_BUFFER_BIT);
-//  glutSwapBuffers();
-//
-//  pre_2d_display(&para);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutKeyboardFunc(void (*func)(unsigned char key, int x, int y));
-//  | sets the keyboard callback for the current window.
-//  | When a user types into the window, each key press generating an ASCII
-//  | character will generate a keyboard callback.
-//	---------------------------------------------------------------------------*/
-//  glutKeyboardFunc(key_func);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutMouseFunc(void (*func)(int button, int state, int x, int y));
-//  | sets the mouse callback for the current window.
-//  ---------------------------------------------------------------------------*/
-//	glutMouseFunc(mouse_func);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutMotionFunc(void (*func)(int x, int y));
-//  | The motion callback for a window is called when the mouse moves within
-//  | the window while one or more mouse buttons are pressed
-//  ---------------------------------------------------------------------------*/
-//  glutMotionFunc(motion_func);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutReshapeFunc(void (*func)(int width, int height));
-//  | The reshape callback is triggered when a window is reshaped
-//  ---------------------------------------------------------------------------*/
-//  glutReshapeFunc(reshape_func);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutIdleFunc(void (*func)(void));
-//  | sets the global idle callback to be func so a GLUT program can perform
-//  | background processing tasks or continuous animation when window system
-//  | events are not being received
-//  ---------------------------------------------------------------------------*/
-//  glutIdleFunc(idle_func);
-//
-//  /*---------------------------------------------------------------------------
-//  | void glutDisplayFunc(void (*func)(void));
-//  | sets the display callback for the current window
-//  ---------------------------------------------------------------------------*/
-//  glutDisplayFunc (display_func);
-//} // End of open_glut_window()
+} /* End of allocate_memory()*/
 
 
-
-
-///////////////////////////////////////////////////////////////////////////////
-/// Assign the parameter for coupled simulation
-///
-///\para cosim Pointer to the coupled simulation parameters
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Assign the parameter for coupled simulation
+		*
+		* @para cosim Pointer to the coupled simulation parameters
+		*
+		* @return 0 if no error occurred
+		*/
 int ffd_cosimulation(CosimulationData *cosim) {
   para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   para.cosim = cosim;
@@ -278,25 +112,25 @@ int ffd_cosimulation(CosimulationData *cosim) {
   }
   else
     return 0;
-} // End of ffd_cosimulation()
+} /* End of ffd_cosimulation()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Main routine of FFD
-///
-///\para coupled simulation Integer to identify the simulation type
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Main routine of FFD
+		*
+		* @para coupled simulation Integer to identify the simulation type
+		*
+		* @return 0 if no error occurred
+		*/
 int ffd(int cosimulation) {
-//#ifndef _MSC_VER //Linux
-//  //Initialize glut library
-//  char fakeParam[] = "fake";
-//  char *fakeargv[] = { fakeParam, NULL };
-//  int fakeargc = 1;
-//  glutInit( &fakeargc, fakeargv );
-//#endif
+/*#ifndef _MSC_VER //Linux*/
+/*  //Initialize glut library*/
+/*  char fakeParam[] = "fake";*/
+/*  char *fakeargv[] = { fakeParam, NULL };*/
+/*  int fakeargc = 1;*/
+/*  glutInit( &fakeargc, fakeargv );*/
+/*#endif*/
 
-  // Initialize the parameters
+  /* Initialize the parameters*/
   para.geom = &geom;
   para.inpu = &inpu;
   para.outp = &outp1;
@@ -306,7 +140,7 @@ int ffd(int cosimulation) {
   para.solv   = &solv;
   para.sens   = &sens;
   para.init   = &init;
-  // Stand alone simulation: 0; Cosimulaiton: 1
+  /* Stand alone simulation: 0; Cosimulaiton: 1*/
   para.solv->cosimulation = cosimulation;
 
   if(initialize(&para)!=0) {
@@ -314,7 +148,7 @@ int ffd(int cosimulation) {
     return 1;
   }
 
-  // Overwrite the mesh and simulation data using SCI generated file
+  /* Overwrite the mesh and simulation data using SCI generated file*/
   if(para.inpu->parameter_file_format == SCI) {
     if(read_sci_max(&para, var)!=0) {
       ffd_log("ffd(): Could not read SCI data.", FFD_ERROR);
@@ -322,30 +156,30 @@ int ffd(int cosimulation) {
     }
   }
 
-  // Allocate memory for the variables
+  /* Allocate memory for the variables*/
   if(allocate_memory(&para)!=0) {
     ffd_log("ffd(): Could not allocate memory for the simulation.", FFD_ERROR);
     return 1;
   }
 
-  // Set the initial values for the simulation data
+  /* Set the initial values for the simulation data*/
   if(set_initial_data(&para, var, BINDEX)) {
     ffd_log("ffd(): Could not set initial data.", FFD_ERROR);
     return 1;
   }
 
-  // Read previous simulation data as initial values
+  /* Read previous simulation data as initial values*/
   if(para.inpu->read_old_ffd_file==1) read_ffd_data(&para, var);
 
   ffd_log("ffd.c: Start FFD solver.", FFD_NORMAL);
-  //write_tecplot_data(&para, var, "initial");
+  /*write_tecplot_data(&para, var, "initial");*/
 
-  // Solve the problem
-  //if(para.outp->version==DEMO) {
-  //  open_glut_window();
-  //  glutMainLoop();
-  //}
-  //else
+  /* Solve the problem*/
+  /*if(para.outp->version==DEMO) {*/
+  /*  open_glut_window();*/
+  /*  glutMainLoop();*/
+  /*}*/
+  /*else*/
   if(FFD_solver(&para, var, BINDEX)!=0) {
     ffd_log("ffd(): FFD solver failed.", FFD_ERROR);
     return 1;
@@ -354,7 +188,7 @@ int ffd(int cosimulation) {
   /*---------------------------------------------------------------------------
   | Post Process
   ---------------------------------------------------------------------------*/
-  // Calculate mean value
+  /* Calculate mean value*/
   if(para.outp->cal_mean == 1)
     average_time(&para, var);
 
@@ -371,33 +205,33 @@ int ffd(int cosimulation) {
   if(para.outp->version == DEBUG)
     write_tecplot_all_data(&para, var, "result_all");
 
-  // Write the data in SCI format
+  /* Write the data in SCI format*/
   write_SCI(&para, var, "output");
 
-  // Free the memory
+  /* Free the memory*/
   free_data(var);
   free_index(BINDEX);
 
-  // Inform Modelica the stopping command has been received
+  /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
     para.cosim->para->flag = 2;
     ffd_log("ffd(): Sent stopping signal to Modelica", FFD_NORMAL);
   }
 
   return 0;
-} // End of ffd( )
+} /* End of ffd( )*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Write error message to Modelica
-///
-///\para msg Pointer to message to be written.
-///
-///\return no return
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Write error message to Modelica
+		*
+		* @para msg Pointer to message to be written.
+		*
+		* @return no return
+		*/
 void modelicaError(char *msg) {
   strcpy(para.cosim->ffd->msg, msg);
-  // Write the command to stop the cosimulation
+  /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;
-  // Indicate there is an error
+  /* Indicate there is an error*/
   para.cosim->para->ffdError = 1;
-} // End of modelicaMsg
+} /* End of modelicaMsg*/

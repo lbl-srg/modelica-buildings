@@ -83,7 +83,7 @@ protected
     final per=per) "Performance modification for part load"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Modelica.Blocks.Sources.RealExpression senTem(y=Medium.temperature(port_a_inflow))
+  Modelica.Blocks.Sources.RealExpression senTem(final y=Medium.temperature(port_a_inflow))
     "Actual water temperature entering the beam"
     annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
 
@@ -147,6 +147,10 @@ In heating mode, the heat is removed from the water stream.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Made assignment of <code>senTem.y</code> final.
+</li>
 <li>
 June 13, 2016, by Michael Wetter:<br/>
 Revised implementation.

@@ -4,7 +4,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
 
   package Medium = Buildings.Media.Air;
   parameter Boolean allowFlowReversal=false
-    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal";
 
   Modelica.SIunits.MassFlowRate m_condens = min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]))
     "Water vapor mass flow rate";
@@ -57,7 +57,7 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     height=20,
     offset=293.15) "Inlet temperature ramp"
     annotation (Placement(transformation(extent={{-52,30},{-72,50}})));
-  Fluid.FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=100,

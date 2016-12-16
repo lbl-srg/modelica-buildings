@@ -1,15 +1,26 @@
 within Buildings.ThermalZones.Detailed.Validation;
-package TestConditionalConstructions "Package that tests rooms with few constructions only"
+package TestConditionalConstructions "Package that tests if constructions can be conditionally removed"
   extends Modelica.Icons.ExamplesPackage;
 
-annotation (preferredView="info", Documentation(info="<html>
-<p>
-This package tests the room model for special cases
-where there room only has certain constructions, such
-as only exterior construction, only partitions
-or only surface boundary conditions.
-These test cases are not realistic rooms, but rather
-test the correct implementation of the room model.
-</p>
+annotation (preferredView="info",
+Documentation(info="<html>
+The thermal zone model
+<a href=\"Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a>
+allows the conditional declaration of constructions for
+exterior walls without windows, for exterior walls with windows,
+for partition walls, for interior surfaces,
+and for interior surfaces.
+The models in this package test if the model is well-defined
+if such constructions are removed.
+The models in this package do not represent realistic buildings, but
+are rather designed to test the thermal zone model.
+</html>", revisions="<html>
+<ul>
+<li>
+December 14, 2010, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
+
 end TestConditionalConstructions;

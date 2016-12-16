@@ -47,7 +47,7 @@ model NaturalVentilation
     m_flow_nominal=0.001)
     annotation (Placement(transformation(extent={{53,-20},{73,0}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-49,-20},{-29,0}})));
   Modelica.Blocks.Sources.Step q_flow(
     height=-100,

@@ -77,7 +77,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   Modelica.Blocks.Interfaces.RealOutput QWat_flow(unit="W")
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Fluid.Actuators.Valves.ThreeWayLinear valCoo(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear valCoo(
     redeclare final package Medium =  Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
@@ -89,7 +89,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,60})));
-  Fluid.Actuators.Valves.ThreeWayLinear valHea(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear valHea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
@@ -103,7 +103,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         origin={50,-60})));
 
 protected
-  Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
@@ -117,12 +117,15 @@ protected
     Q_flow_maxCool=if disableHeatExchanger then 0 else -Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is cooled"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
-  Modelica.Blocks.Sources.RealExpression TWarIn(y=Medium.temperature_phX(
-        p=port_b1.p,
-        h=inStream(port_b1.h_outflow),
-        X=inStream(port_b1.Xi_outflow))) "Warm water inlet temperature"
+  Modelica.Blocks.Sources.RealExpression TWarIn(y=
+    Medium.temperature_phX(
+      p=port_b1.p,
+      h=inStream(port_b1.h_outflow),
+      X=cat(1,inStream(port_b1.Xi_outflow),
+              {1-sum(inStream(port_b1.Xi_outflow))})))
+        "Warm water inlet temperature"
     annotation (Placement(transformation(extent={{-40,156},{-20,176}})));
-  Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
@@ -136,10 +139,12 @@ protected
     Q_flow_maxHeat=if disableHeatExchanger then 0 else Modelica.Constants.inf)
     "Heat exchanger effect for mode in which water is heated"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-  Modelica.Blocks.Sources.RealExpression TColIn(y=Medium.temperature_phX(
-        p=port_a2.p,
-        h=inStream(port_a2.h_outflow),
-        X=inStream(port_a2.Xi_outflow))) "Cold water inlet temperature"
+  Modelica.Blocks.Sources.RealExpression TColIn(y=
+    Medium.temperature_phX(
+      p=port_a2.p,
+      h=inStream(port_a2.h_outflow),
+      X=cat(1, inStream(port_a2.Xi_outflow),
+               {1-sum(inStream(port_a2.Xi_outflow))}))) "Cold water inlet temperature"
     annotation (Placement(transformation(extent={{-40,98},{-20,118}})));
   Utilities.Math.SmoothMax maxHeaLea(deltaX=0.1) "Maximum leaving temperature"
     annotation (Placement(transformation(extent={{8,104},{28,124}})));
@@ -168,10 +173,10 @@ protected
   Controller conCoo(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for cooling" annotation (Placement(transformation(
           rotation=0, extent={{-40,20},{-20,40}})));
-  Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
     "Mass flow sensor used for cooling control"
     annotation (Placement(transformation(extent={{-52,50},{-72,70}})));
-  Fluid.Sensors.MassFlowRate senMasFloHea(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloHea(redeclare package Medium = Medium)
     "Mass flow sensor used for heating control"
     annotation (Placement(transformation(extent={{-42,-50},{-62,-30}})));
   Controller conHea(final m_flow_nominal=m_flow_nominal)
@@ -450,6 +455,10 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

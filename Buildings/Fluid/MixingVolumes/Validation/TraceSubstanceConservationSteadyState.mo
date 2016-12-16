@@ -4,31 +4,29 @@ model TraceSubstanceConservationSteadyState
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
      sou(X={0,1}));
-  Buildings.Utilities.Diagnostics.AssertEquality assEquTra2(threShold=1E-10,
-      message="Measured trace quantities are not equal")
-    "Assert equality of trace substances"
+  Modelica.Blocks.Math.Add cheEquTra2(k2=-1)
+    "Check for equality of trace substances"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEquTra1(threShold=1E-10,
-      message="Measured trace quantity does not equal set point")
-    "Assert equality of trace substances"
+  Modelica.Blocks.Math.Add cheEquTra1(k2=-1)
+    "Check for equality of trace substances"
     annotation (Placement(transformation(extent={{80,-70},{100,-90}})));
   Modelica.Blocks.Sources.Constant const(k=sou.m_flow*sou.C[1])
     "Set point of trace substance concentration"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 equation
-  connect(const.y, assEquTra1.u1) annotation (Line(
+  connect(const.y,cheEquTra1. u1) annotation (Line(
       points={{61,-90},{70,-90},{70,-86},{78,-86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra1.u2, CfloIn.y) annotation (Line(
+  connect(cheEquTra1.u2, CfloIn.y) annotation (Line(
       points={{78,-74},{-46,-74},{-46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra2.u2, CfloIn.y) annotation (Line(
+  connect(cheEquTra2.u2, CfloIn.y) annotation (Line(
       points={{78,-56},{-46,-56},{-46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra2.u1, CfloOut.y) annotation (Line(
+  connect(cheEquTra2.u1, CfloOut.y) annotation (Line(
       points={{78,-44},{46,-44},{46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -57,6 +55,13 @@ for a discussion.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.

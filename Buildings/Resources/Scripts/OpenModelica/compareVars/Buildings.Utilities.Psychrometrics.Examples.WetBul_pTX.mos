@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "wetBul_TDryBulX.XWetBul",
-    "wetBul_TDryBulX.TWetBul"
-  };

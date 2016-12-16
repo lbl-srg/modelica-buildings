@@ -27,9 +27,9 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
   Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
   Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
 
-  Modelica.SIunits.Density rho_a1_inflow(start=1.2)
+  Modelica.SIunits.Density rho_a1_inflow
     "Density of air flowing in from port_a1";
-  Modelica.SIunits.Density rho_a2_inflow(start=1.2)
+  Modelica.SIunits.Density rho_a2_inflow
     "Density of air flowing in from port_a2";
 
   Modelica.SIunits.Area A "Face area";
@@ -130,6 +130,14 @@ for doors that can be open or closed as a function of an input signal.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for inflowing density
+to simplify the parameter window, and because this can usually
+be computed from the state variables.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use

@@ -1,7 +1,7 @@
 within Buildings.Fluid.FMI;
 model Sink_T
   "Model of a sink with temperature for reverse flow as an input that can be exported as an FMU"
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Modelica.Blocks.Icons.Block;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -107,7 +107,7 @@ for the reverse flow.
 </p>
 <p>
 If the parameter <code>use_p_in</code> is set to <code>true</code>,
-then the model as an output connector <code>p</code>.
+then the model has an output connector <code>p</code>.
 This can be used to obtain the pressure of the sink, which
 may be needed to iteratively solve for the mass flow rate.
 </p>

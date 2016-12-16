@@ -9,7 +9,7 @@ model MediumColumnDynamic
 
   parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)

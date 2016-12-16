@@ -54,7 +54,7 @@ protected
     tau=60) "Heat supply"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTem(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Temperature sensor"

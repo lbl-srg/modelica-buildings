@@ -1,18 +1,15 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetAbsolutePath "Test model to get the absolute path of a URI"
   extends Modelica.Icons.Example;
-  parameter String f[:] = {"file://package.mo",
-                           "modelica://Buildings/package.mo",
-                           "package.mo"} "Name of a file that exists";
-  parameter String fAbs[:]=
+  parameter String f = "modelica://Buildings/package.mo"
+   "Name of a file that exists";
+  parameter String fAbs=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=f)
     "Absolute path of f";
-  final parameter Integer dummy = size(f, 1)
-    "Dummy variable, used have a result needed for the unit tests";
+  final parameter Integer dummy = 1
+    "Dummy variable, used to have a result as needed for the unit tests";
 initial algorithm
-  for i in 1:size(f, 1) loop
-    Modelica.Utilities.Streams.print("Absolute path = " + fAbs[i]);
-  end for;
+  Modelica.Utilities.Streams.print("Absolute path = " + fAbs);
 
   annotation (
 experiment(StopTime=1.0),
@@ -24,6 +21,13 @@ This model tests the function that gets the absolute path of a URI.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 18, 2016, by Michael Wetter:<br/>
+Removed tests that assumed that the regression test is run
+from the library root directory.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/596\">#596</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Removed incorrect call to <code>Modelica.Utilities.Files.exist</code>.

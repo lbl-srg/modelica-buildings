@@ -20,7 +20,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
   Modelica.Blocks.Sources.Constant XSet(k=0.005)
     "Set point for water mass fraction" annotation (Placement(transformation(
           extent={{-80,-60},{-60,-40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{36,120},{56,140}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
@@ -81,12 +81,12 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
   Modelica.Blocks.Math.Gain gai1(k=0.1) annotation (Placement(transformation(
           extent={{-20,-60},{0,-40}})));
 
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     dp_nominal=2.5,
     m_flow_nominal=m_flow_nominal)
-             annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 equation
   connect(preHeaFlo.port, heatFlowSensor.port_a)
     annotation (Line(points={{56,130},{64,130}}, color={191,0,0}));

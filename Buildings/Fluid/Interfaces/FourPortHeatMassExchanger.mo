@@ -81,8 +81,7 @@ model FourPortHeatMassExchanger
     final C_start=C1_start,
     final C_nominal=C1_nominal,
     mSenFac=1) "Volume for fluid 1"
-                               annotation (Placement(transformation(extent={{-10,70},
-            {10,50}})));
+    annotation (Placement(transformation(extent={{-10,70}, {10,50}})));
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
@@ -113,9 +112,8 @@ model FourPortHeatMassExchanger
   Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
-    final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
@@ -123,14 +121,11 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp1_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 1"
+    final dp_nominal=dp1_nominal) "Flow resistance of fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare final package Medium = Medium2,
-    final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
@@ -138,9 +133,7 @@ model FourPortHeatMassExchanger
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp2_nominal,
-    final dh=1,
-    final ReC=4000) "Pressure drop model for fluid 2"
+    final dp_nominal=dp2_nominal) "Flow resistance of fluid 2"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
 
 protected
@@ -187,6 +180,9 @@ initial algorithm
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 
+
+
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -232,6 +228,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+</li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for

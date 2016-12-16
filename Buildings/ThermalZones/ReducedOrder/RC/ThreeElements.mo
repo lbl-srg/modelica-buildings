@@ -86,22 +86,22 @@ protected
 equation
   connect(floorRC.port_a, convFloor.solid)
     annotation (Line(
-    points={{-12,-137.091},{-12,-124}},
+    points={{-10.9091,-136},{-10.9091,-130},{-12,-130},{-12,-124}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b)
     annotation (Line(
-    points={{-12,-137.091},{-12,-132},{-144,-132},{-144,-121}},
+    points={{-10.9091,-136},{-10.9091,-132},{-144,-132},{-144,-121}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resIntWallFloor.port_b)
     annotation (Line(
-    points={{-12,-137.091},{-12,-132},{224,-132},{224,-106},{214,-106}},
+    points={{-10.9091,-136},{-10.9091,-132},{224,-132},{224,-106},{214,-106}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_b, floor)
     annotation (Line(
-    points={{-12,-155.091},{-12,-180},{0,-180}},
+    points={{-10.9091,-154},{-10.9091,-180},{0,-180}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(resFloorWin.port_a, convWin.solid)
@@ -126,13 +126,14 @@ equation
     connect(thermSplitterIntGains.portOut[4], floorRC.port_a)
       annotation (
       Line(
-      points={{190,86},{190,80},{-38,80},{-38,-132},{-12,-132},{-12,-137.091}},
+      points={{190,86},{190,80},{-38,80},{-38,-132},{-10.9091,-132},{-10.9091,
+            -136}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(floorRC.port_a, thermSplitterSolRad.portOut[4])
       annotation (
       Line(
-      points={{-12,-137.091},{-12,-132},{-42,-132},{-42,146},{-122,146}},
+      points={{-10.9091,-136},{-10.9091,-132},{-42,-132},{-42,146},{-122,146}},
       color={191,0,0},
       smooth=Smooth.None));
   end if;
@@ -152,8 +153,8 @@ equation
     annotation (Line(points={{-12,-108},{-12,-40},{66,-40},{66,0},{80,0}},
     color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)
-    annotation (Line(points={{-12,-137.091},{-12,-137.091},{-12,-132},{-80,-132},
-          {-80,-180}},
+    annotation (Line(points={{-10.9091,-136},{-10.9091,-136},{-10.9091,-132},{
+          -80,-132},{-80,-180}},
                  color={191,0,0}));
   annotation (defaultComponentName="theZon",
   Diagram(coordinateSystem(
@@ -175,7 +176,7 @@ equation
     pattern=LinePattern.None,
     fillColor={230,230,230},
     fillPattern=FillPattern.Solid), Text(
-    extent={{-62,74},{62,-50}},
+    extent={{-62,62},{62,-62}},
     lineColor={0,0,0},
     textString="3")}),
     Documentation(revisions="<html>

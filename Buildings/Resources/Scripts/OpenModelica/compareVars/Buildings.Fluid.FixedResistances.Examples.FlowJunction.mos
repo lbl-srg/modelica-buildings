@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "spl.port_1.m_flow",
+    "spl.port_2.m_flow",
+    "spl.port_3.m_flow",
+    "spl.port_1.p",
+    "spl.port_2.p",
+    "spl.port_3.p",
+    "spl.res1.dp",
+    "spl.res2.dp",
+    "spl.res3.dp",
+    "senTem1.T",
+    "senTem2.T",
+    "senTem3.T"
+  };
