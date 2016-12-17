@@ -23,6 +23,12 @@ class R410A(object):
 
         :return: Isentropic exponent (-).
 
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_IsentropicExponent_vT(0.025, 289.64)
+           1.3862439691938546
+
         """
         cp = self.get_SpecificIsobaricHeatCapacity_vT(v, T)
         cv = self.get_SpecificIsochoricHeatCapacity_vT(v, T)
@@ -36,6 +42,12 @@ class R410A(object):
         :param T: Temperature of the refrigerant (K).
 
         :return: Specific isobaric heat capacity (J/kg-K).
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SpecificIsobaricHeatCapacity_vT(0.025, 289.64)
+           1167.0076838180112
 
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
@@ -59,6 +71,12 @@ class R410A(object):
 
         :return: Specific isochoric heat capacity (J/kg-K).
 
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SpecificIsochoricHeatCapacity_vT(0.025, 289.64)
+           841.84870033855839
+
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
         cvo = self._get_IdealGasIsochoricHeatCapacity(T)
@@ -77,6 +95,13 @@ class R410A(object):
         :param TLiq: Temperature of the saturated liquid refrigerant (K).
 
         :return: Pressure of saturated liquid refrigerant (Pa).
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SaturatedLiquidPressure(305.25)
+           1989639.9829398033
+
         """
         a = [-1.4376, -6.8715, -0.53623, -3.82642, -4.06875, -1.2333]
         x0 = 0.2086902
@@ -91,6 +116,13 @@ class R410A(object):
         :param TLiq: Temperature of the saturated liquid refrigerant (K).
 
         :return: Pressure of saturated refrigerant vapor (Pa).
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SaturatedVaporPressure(283.15)
+           1082792.9317597288
+
         """
         a = [-1.440004, -6.865265, -0.5354309, -3.749023, -3.521484, -7.75]
         x0 = 0.2086902
@@ -105,6 +137,13 @@ class R410A(object):
         :param TLiq: Temperature of the saturated liquid refrigerant (K).
 
         :return: Specific enthalpy of saturated liquid refrigerant (J/kg).
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SaturatedLiquidEnthalpy(305.25)
+           252787.4464306781
+
         """
         a = [221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0]
         x0 = 0.5541498
@@ -122,6 +161,13 @@ class R410A(object):
         .. note:: Correlated properties from the thermodynamic properties of
                   DuPont Suva R410A. An expression similar to the saturated
                   liquid enthalpy was used.
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_SaturatedVaporEnthalpy(283.15)
+           425094.17606945609
+
         """
         a = [406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635]
         x0 = 0.0
@@ -139,6 +185,13 @@ class R410A(object):
 
         The pressure is calculated fromthe Martin-Hou equation of state for
         refrigerant  R410A.
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_VaporPressure(289.64, 0.025)
+           1083546.30071468
+
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
 
@@ -158,6 +211,13 @@ class R410A(object):
         :return: Specific volume of refrigerant vapor (m3/kg).
 
         Uses the Martin-Hou equation of state to determine specific volume.
+
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.get_VaporSpecificVolume(1083546.3, 289.64)
+           0.025000012079155084
+
         """
         R = 114.55
         b = 4.355134e-4
@@ -181,6 +241,12 @@ class R410A(object):
 
         :return: Full path to the refrigerant package in the Buildings library.
 
+        Usage: Type
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> ref.modelicaModelPath()
+           'Buildings.Media.Refrigerants.R410A'
+
         """
         return 'Buildings.Media.Refrigerants.R410A'
 
@@ -190,6 +256,7 @@ class R410A(object):
         :param T: Temperature of refrigerant vapor (K).
 
         :return: Ideal gas specific isobaric heat capacity (J/kg-K).
+
         """
         a = [2.676087e-1, 2.115353e-3, -9.848184e-7, 6.493781e-11]
         cpo = 1e3*np.polynomial.polynomial.polyval(T, a)
@@ -201,6 +268,7 @@ class R410A(object):
         :param T: Temperature of refrigerant vapor (K).
 
         :return: Ideal gas specific isochoric heat capacity (J/kg-K).
+
         """
         R = 114.55
         cpo = self._get_IdealGasIsobaricHeatCapacity(T)

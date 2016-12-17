@@ -25,6 +25,14 @@ class EvaporatorCondenser(object):
 
         :return: Refrigerant temperature (K).
 
+        Usage: Type
+           >>> from PythonModel import heatexchangers
+           >>> from PythonModel import fluids
+           >>> flu = fluids.ConstantPropertyWater()
+           >>> eva = heatexchangers.EvaporatorCondenser([21523])
+           >>> eva.get_RefrigerantTemperature(19300, 0.71, flu, 298.75)
+           305.25147703611856
+
         """
         # Evaluate evaporating/condesing temeprature of the refrigerant
         cp = flu.get_SpecificIsobaricHeatCapacity(T=T_in)
@@ -69,6 +77,12 @@ class EvaporatorCondenser(object):
             Buildings library.
 
         :return: Full path to the compressor model in the Buildings library.
+
+        Usage: Type
+           >>> from PythonModel import heatexchangers
+           >>> eva = heatexchangers.EvaporatorCondenser([21523])
+           >>> eva.modelicaModelPath()
+           'Buildings.Fluid.HeatExchangers.EvaporatorCondenser'
 
         """
         return 'Buildings.Fluid.HeatExchangers.EvaporatorCondenser'

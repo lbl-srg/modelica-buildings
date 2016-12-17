@@ -444,6 +444,7 @@ class ManufacturerData(object):
                                       tableFileName, CoolingMode):
         """ Write the combiTimeTable for use by the calibration model in
             Modelica.
+
         :param tableName: Name of the combiTimeTable.
         :param tableTempDir: Temporary directory to write the table file.
         :param tableFileName: Name of the text file containing the

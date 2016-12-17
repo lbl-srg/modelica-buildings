@@ -3,7 +3,7 @@ class ReciprocatingCompressor(object):
         H. Jin. Parameter estimation based models of water source heat pumps.
         PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
 
-        :param psiDis: Piston displacement (m3/s).
+        :param pisDis: Piston displacement (m3/s).
         :param cleFac: Clearance factor (-).
         :param etaEle: Electro-mechanical efficiency (-).
         :param PLos: Constant part of the power losses (W).
@@ -28,6 +28,12 @@ class ReciprocatingCompressor(object):
 
         :return: Suction temperature (K).
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.get_SuctionTemperature(283.15)
+           292.97
+
         """
         # Apply superheating to evaporating temperature
         TSuc = TEva + self.dTSup
@@ -40,6 +46,12 @@ class ReciprocatingCompressor(object):
 
         :return: Suction pressure (Pa).
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.get_SuctionPressure(1.083e6)
+           983710.0
+
         """
         # Apply pressure drop at compressor suction
         pSuc = pEva - self.pDro
@@ -51,6 +63,12 @@ class ReciprocatingCompressor(object):
         :param pCon: Condensing pressure (Pa).
 
         :return: Discharge pressure (Pa).
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.get_DischargePressure(1.879e6)
+           1978290.0
 
         """
         # Apply pressure drop at compressor discharge
@@ -68,6 +86,14 @@ class ReciprocatingCompressor(object):
         :param TSuc: Suction temperature (K).
 
         :return: Refrigerant mass flow rate (kg/s).
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.get_RefrigerantMassFlowRate(0.0288, ref, 1978290.0, 983710.0, 292.97)
+           0.053581664701638484
 
         """
         # Evaluate refrigerant mass flow rate
@@ -87,6 +113,14 @@ class ReciprocatingCompressor(object):
         :param TSuc: Suction temperature (K).
 
         :return: Power input to the compressor (W).
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.get_Power(0.0288, ref, 1978290.0, 983710.0, 292.97)
+           1765.6261463889248
 
         """
         # Evaluate compressor power consumption
@@ -168,6 +202,12 @@ class ReciprocatingCompressor(object):
 
         :return: Full path to the compressor model in the Buildings library.
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com.modelicaModelPath()
+           'Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor'
+
         """
         return 'Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor'
 
@@ -186,7 +226,7 @@ class ReciprocatingCompressor(object):
     def reinitializeParameters(self, parameters):
         """ Reinitializes the compressor using new parameters.
 
-        :param psiDis: Piston displacement (m3/s).
+        :param pisDis: Piston displacement (m3/s).
         :param cleFac: Clearance factor (-).
         :param etaEle: Electro-mechanical efficiency (-).
         :param PLos: Constant part of the power losses (W).
@@ -234,6 +274,12 @@ class ScrollCompressor(object):
 
         :return: Suction temperature (K).
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.get_SuctionTemperature(283.15)
+           289.64
+
         """
         # Apply superheating to evaporating temperature
         TSuc = TEva + self.dTSup
@@ -246,6 +292,12 @@ class ScrollCompressor(object):
 
         :return: Suction pressure (Pa).
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.get_SuctionPressure(1.083e6)
+           1083000.0
+
         """
         # No pressure drop at compressor suction
         pSuc = pEva
@@ -257,6 +309,12 @@ class ScrollCompressor(object):
         :param pCon: Condensing pressure (Pa).
 
         :return: Discharge pressure (Pa).
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.get_DischargePressure(1.879e6)
+           1879000.0
 
         """
         # No pressure drop at compressor discharge
@@ -272,6 +330,12 @@ class ScrollCompressor(object):
         :param TSuc: Suction temperature (K).
 
         :return: Refrigerant mass flow rate (kg/s).
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.get_RefrigerantMassFlowRate(0.025, 1.879e6, 1.083e6)
+           0.1076865189289012
 
         """
         # Evaluate refrigerant mass flwo rate
@@ -290,6 +354,14 @@ class ScrollCompressor(object):
 
         :return: Power input to the compressor (W).
 
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> from PythonModel import refrigerants
+           >>> ref = refrigerants.R410A()
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.get_Power(0.025, ref, 1.879e6, 1.083e6, 289.64)
+           2940.2646079598467
+
         """
         # Evaluate compressor power consumption
         k = ref.get_IsentropicExponent_vT(v=vSuc, T=TSuc)
@@ -307,7 +379,7 @@ class ScrollCompressor(object):
         :param simulator: Simulator object (BuildinsPy)
         :param suffix: String to add at the end of parameter names.
 
-        :return: Simulator object (BuildinsPy)
+        :return: Simulator object (BuildingsPy)
 
         """
         parameters = {'volRat'+suffix: self.volRat,
@@ -381,6 +453,12 @@ class ScrollCompressor(object):
             library.
 
         :return: Full path to the compressor model in the Buildings library.
+
+        Usage: Type
+           >>> from PythonModel import compressors
+           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com.modelicaModelPath()
+           'Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor'
 
         """
         return 'Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor'

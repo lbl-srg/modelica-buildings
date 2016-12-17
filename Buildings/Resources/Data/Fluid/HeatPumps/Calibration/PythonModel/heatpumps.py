@@ -16,7 +16,6 @@ class SingleStageHeatPump(object):
     :param CoolingMode: Boolean, True if heat pump is in cooling mode.
 
     """
-
     def __init__(self, com, con, eva, ref, fluCon, fluEva,
                  Q_nominal, P_nominal, CoolingMode=False):
         self.eva = eva
@@ -139,6 +138,17 @@ class SingleStageHeatPump(object):
 
         :return: Heat pump capacity (W).
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.get_Capacity(298.8, 311.0, 0.71, 0.71)
+           24124.807295735638
+
         """
         if self.CoolingMode:
             capacity = -self.get_EvaporatorHeatTransferRate(EWT_Source,
@@ -163,6 +173,17 @@ class SingleStageHeatPump(object):
 
         :return: Heat pump source side heat transfer rate (W).
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.get_SourceSideTransferRate(298.8, 311.0, 0.71, 0.71)
+           19413.078703833973
+
         """
         if self.CoolingMode:
             HR = self.get_CondenserHeatTransferRate(EWT_Source, EWT_Load,
@@ -183,6 +204,17 @@ class SingleStageHeatPump(object):
 
         :return: Evaporator heat transfer rate (W).
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.get_EvaporatorHeatTransferRate(298.8, 311.0, 0.71, 0.71)
+           -19413.078703833973
+
         """
         # Evaluate heat pump state if different from current state
         if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
@@ -201,6 +233,17 @@ class SingleStageHeatPump(object):
 
         :return: condenser heat transfer rate (W).
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.get_CondenserHeatTransferRate(298.8, 311.0, 0.71, 0.71)
+           24124.807295735638
+
         """
         # Evaluate heat pump state if different from current state
         if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
@@ -218,6 +261,17 @@ class SingleStageHeatPump(object):
 
         :return: Heat pump power input (W).
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.get_Power(298.8, 311.0, 0.71, 0.71)
+           4711.7292734833645
+
         """
         # Evaluate heat pump state if different from current state
         if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
@@ -228,9 +282,9 @@ class SingleStageHeatPump(object):
     def set_ModelicaParameters(self, simulator):
         """ Set parameter values for simulation in dymola.
 
-        :param simulator: Simulator object (BuildinsPy)
+        :param simulator: Simulator object (BuildingsPy)
 
-        :return: Simulator object (BuildinsPy)
+        :return: Simulator object (BuildingsPy)
 
         """
         # Set parameters for the compressor model
@@ -289,6 +343,17 @@ class SingleStageHeatPump(object):
 
         :return: Full path to the compressor model in the Buildings library.
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.modelicaCalibrationModelPath()
+           'Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater'
+
         """
         if self.com.modelicaModelPath() == "Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor":
             return "Buildings.Fluid.HeatPumps.Calibration.ReciprocatingWaterToWater"
@@ -301,6 +366,17 @@ class SingleStageHeatPump(object):
 
         :return: Full path to the compressor model in the Buildings library.
 
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.modelicaModelName()
+           'ScrollWaterToWater'
+
         """
         if self.com.modelicaModelPath() == "Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor":
             return "ReciprocatingWaterToWater"
@@ -312,6 +388,17 @@ class SingleStageHeatPump(object):
         library.
 
         :return: Full path to the compressor model in the Buildings library.
+
+        Usage: Type
+           >>> import PythonModel
+           >>> com = PythonModel.compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> eva = PythonModel.heatexchangers.EvaporatorCondenser([21523])
+           >>> con = PythonModel.heatexchangers.EvaporatorCondenser([2840.4])
+           >>> flu = PythonModel.fluids.ConstantPropertyWater()
+           >>> ref = PythonModel.refrigerants.R410A()
+           >>> heaPum = PythonModel.heatpumps.SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
+           >>> heaPum.modelicaModelPath()
+           'Buildings.Fluid.HeatPumps.ScrollWaterToWater'
 
         """
         if self.com.modelicaModelPath() == "Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor":
