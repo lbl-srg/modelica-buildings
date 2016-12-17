@@ -54,6 +54,10 @@ def main():
     P_nominal = 17.5e3
     Q_nominal = P_nominal*4.0
 
+    # -------------------------------------------------------------------------
+    # Initialize all models using a value of 0. for all parameters. Parameters
+    # will be replaced by guess values at the start of the calibration process.
+    # -------------------------------------------------------------------------
     # Compressor model (Scroll)
     com = hp.compressors.ScrollCompressor([0., 0., 0., 0., 0., 0.])
     # Condenser model
@@ -71,11 +75,14 @@ def main():
                                               fluEva, Q_nominal, P_nominal,
                                               CoolingMode)
 
+    # Lauch the calibration of the heat pump model.
     optPar, optRes, gueRes = hp.calibrate.calibrate_model(heaPum, calData,
                                                           data, plot=True)
 
+    # -------------------------------------------------------------------------
     # Calculate heat pump performance for full dataset in Dymola using the
-    # calibrated parameters
+    # calibrated parameters.
+    # -------------------------------------------------------------------------
     dymRes = hp.calibrate.simulate_in_dymola(heaPum, data, tableName,
                                              tableFileName)
     SSE = hp.calibrate.compare_data_sets(dymRes, data, plot=True,
@@ -83,6 +90,8 @@ def main():
     print('----------------------------------------------------------------\n')
     print('Sum of square errors (dymola) : ' + str(SSE) + ' \n')
     print('----------------------------------------------------------------\n')
+
+    # Compare the results of the Python code with the results from Dymola.
     SSE = hp.calibrate.compare_data_sets(dymRes, optRes, plot=True,
                                          fname='modelVerification')
     return optRes, dymRes

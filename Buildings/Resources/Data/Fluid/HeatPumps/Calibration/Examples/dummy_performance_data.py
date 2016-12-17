@@ -49,6 +49,9 @@ def main():
     # Load-side entering water temperatures (K)
     TLoa = [288.15, 298.15, 308.15, 318.15]
 
+    # -------------------------------------------------------------------------
+    # Initialize all models using given parameters values.
+    # -------------------------------------------------------------------------
     # Compressor model (Scroll)
     com = hp.compressors.ScrollCompressor([volRat,
                                            V_flow_nominal,
@@ -70,15 +73,20 @@ def main():
     heaPum = hp.heatpumps.SingleStageHeatPump(
         com, con, eva, ref, fluCon, fluEva, Q_nominal, P_nominal, CoolingMode)
 
+    # -------------------------------------------------------------------------
     # Evaluate heat pump peformance at all combinations of boundary conditions.
+    # -------------------------------------------------------------------------
     with open(tableFileName, 'w') as f:
         for TS in TSou:
             for mS in mSou_flow:
                 for TL in TLoa:
                     for mL in mLoa_flow:
+                        # Evaluate capacity, source-side heat transfer rate and
+                        # power input.
                         Cap = heaPum.get_Capacity(TS, TL, mS, mL)/1e3
                         HR = heaPum.get_SourceSideTransferRate(TS, TL, mS, mL)/1e3
                         Power = heaPum.get_Power(TS, TL, mS, mL)/1e3
+                        # Write to text file.
                         f.write('{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(
                                 TS, TL, mS, mL, Cap, HR, Power))
     return
