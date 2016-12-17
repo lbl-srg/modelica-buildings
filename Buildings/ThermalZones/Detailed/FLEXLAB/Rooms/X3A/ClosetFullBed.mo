@@ -26,22 +26,22 @@ model ClosetFullBed
     til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
     azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N}));
 
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
                                                                       higIns
     "High insulation wall. Between X3A closet and exterior, X3A closet and electrical room"
     annotation (Placement(transformation(extent={{430,-208},{450,-188}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall
                                                                          celDiv
     "Wall dividing the X3A closet and the X3B closet"
     annotation (Placement(transformation(extent={{430,-178},{450,-158}})));
-  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+  replaceable parameter Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
                                                                    roo
     "Construction of the roof of the closet in X3A"
     annotation(Placement(transformation(extent={{430,-148},{450,-128}})));
 
-  HeatTransfer.Data.OpaqueConstructions.Generic
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1524,
