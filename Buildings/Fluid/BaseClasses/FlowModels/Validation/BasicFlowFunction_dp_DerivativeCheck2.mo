@@ -43,7 +43,7 @@ annotation (
 experiment(
       StartTime=-2,
       StopTime=2,
-      Tolerance=1e-08),
+      Tolerance=1e-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck2.mos"
         "Simulate and plot"),
 Documentation(info="<html>

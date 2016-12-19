@@ -28,8 +28,8 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/RequestCounter.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=600,
-      Tolerance=1e-06),
+      StartTime=0.0, StopTime=600,
+      Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -82,5 +82,5 @@ First implementation.
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMassFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=10));
+    experiment(Tolerance=1E-6, StartTime=0.0, StopTime=10));
 end MixingVolumeMassFlow;

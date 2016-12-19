@@ -1,5 +1,5 @@
 translateModel("Buildings.Airflow.Multizone.Examples.OneRoom");
-simulateModel("Buildings.Airflow.Multizone.Examples.OneRoom", stopTime=1,
+simulateModel("Buildings.Airflow.Multizone.Examples.OneRoom", startTime=0.0, numberOfIntervals=500, stopTime=1,
  method="radau", tolerance=1e-06, resultFile="OneRoom");
 
 createPlot(id = 2,

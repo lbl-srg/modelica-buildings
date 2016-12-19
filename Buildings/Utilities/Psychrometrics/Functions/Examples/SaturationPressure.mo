@@ -10,7 +10,7 @@ equation
   T = TMin + conv*time * (TMax-TMin);
   pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/SaturationPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

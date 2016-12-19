@@ -40,8 +40,8 @@ equation
     assert(abs(cvCod-cvSym) < 1E-2, "Model has an error");
 
    annotation(experiment(
-                 StopTime=1,
-                 Tolerance=1e-08),
+                 StartTime=0, StopTime=1,
+                 Tolerance=1E-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>

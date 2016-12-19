@@ -171,7 +171,7 @@ equation
           lineColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
-      StopTime=2),
+      Tolerance=1E-6, StartTime=0.0, StopTime=2),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.Detailed.Validation.MixedAirInitialization", stopTime=172800, method="radau", tolerance=1e-06, resultFile="MixedAirInitialization");
+simulateModel("Buildings.ThermalZones.Detailed.Validation.MixedAirInitialization", startTime=0.0, numberOfIntervals=500, stopTime=172800, method="radau", tolerance=1e-06, resultFile="MixedAirInitialization");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},

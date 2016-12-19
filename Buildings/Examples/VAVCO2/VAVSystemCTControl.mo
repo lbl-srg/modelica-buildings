@@ -214,6 +214,6 @@ for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404<
       file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotFan.mos"
         "Plot fan"),
     experiment(
-      StopTime=172800,
-      Tolerance=1e-006));
+      StartTime=0.0, StopTime=172800,
+      Tolerance=1e-06));
 end VAVSystemCTControl;

@@ -837,5 +837,5 @@ equation
           </html>"),
      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/X3AWithRadiantFloor.mos"
         "Simulate and Plot"),
-     experiment(StopTime=864000.0));
+     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=864000));
 end X3AWithRadiantFloor;

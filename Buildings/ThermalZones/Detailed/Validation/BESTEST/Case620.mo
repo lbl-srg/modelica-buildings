@@ -27,9 +27,9 @@ model Case620 "Case 600, but with windows on East and West side walls"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case620.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+07,
+      StartTime=0.0, StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model is the case 620 of the BESTEST validation suite.

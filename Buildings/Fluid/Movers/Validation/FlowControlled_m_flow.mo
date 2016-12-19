@@ -25,7 +25,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow.mos"
         "Simulate and plot"),
     Documentation(info="<html>

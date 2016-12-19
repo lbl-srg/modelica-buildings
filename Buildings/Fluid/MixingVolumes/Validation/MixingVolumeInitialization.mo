@@ -50,8 +50,8 @@ equation
       color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(StopTime=0.001,
-           Tolerance=1e-6),
+experiment(StartTime=0.0, StopTime=0.001,
+           Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>

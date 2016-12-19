@@ -46,7 +46,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/MoverContinuous.mos"
         "Simulate and plot"));
 end MoverContinuous;

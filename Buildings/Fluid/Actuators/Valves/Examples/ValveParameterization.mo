@@ -112,7 +112,7 @@ equation
   connect(senM_flowCv.m_flow, equ2.u2) annotation (Line(
       points={{30,-29},{30,-20},{50,-20},{50,24},{78,24}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/ValveParameterization.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -591,7 +591,7 @@ causing possible instabilities to the electrical grid.
 </p>
 </html>"),
 experiment(
-      StopTime=2678400,
+      StartTime=0.0, StopTime=2678400,
       Tolerance=1e-06),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Examples/RenewableSources.mos"

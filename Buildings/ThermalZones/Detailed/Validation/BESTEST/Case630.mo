@@ -21,9 +21,9 @@ model Case630 "Case 620, but with added overhang and sidefins"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case630.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+07,
+      StartTime=0.0, StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model is case 630 of the BESTEST validation suite.

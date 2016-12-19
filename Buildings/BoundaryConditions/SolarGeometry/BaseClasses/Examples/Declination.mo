@@ -44,7 +44,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=3.1536e+007),
+  experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3.1536e+007),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/Declination.mos"
         "Simulate and plot"));
 end Declination;

@@ -42,7 +42,7 @@ equation
     annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-71,8},{-60.5,8},{-50,8}}, color={0,0,127}));
-  annotation (experiment(StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/LosslessPipe.mos"
         "Simulate and plot"),
     Documentation(info="<html>

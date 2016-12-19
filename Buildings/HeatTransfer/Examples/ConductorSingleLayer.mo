@@ -81,8 +81,8 @@ equation
       points={{-12,10},{-6,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (            experiment(StopTime=86400,
-            Tolerance=1E-8),
+  annotation (            experiment(StartTime=0.0, StopTime=86400,
+            Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),
     Documentation(info="<html>

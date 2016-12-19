@@ -156,7 +156,9 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+    
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=20),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example4.mos"
         "Simulate and plot"));
 end Example4;

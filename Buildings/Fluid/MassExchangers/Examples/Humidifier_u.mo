@@ -131,6 +131,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=1200,
-      Tolerance=1e-05));
+      StartTime=0.0, StopTime=1200,
+      Tolerance=1e-06));
 end Humidifier_u;

@@ -14,7 +14,7 @@ model UACp "Test model for UACp"
     SHR_nominal=0.8,
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  annotation (experiment(StopTime=60),
+  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/UACp.mos"
         "Simulate and plot"),
           Documentation(info="<html><p>

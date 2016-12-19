@@ -15,7 +15,7 @@ equation
           -19.5,29},{-2,29}}, color={0,0,127}));
   connect(pulse.y, numReq.u[2]) annotation (Line(points={{-39,30},{-20,30},{-20,
           31},{-2,31}}, color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

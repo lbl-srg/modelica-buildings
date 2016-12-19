@@ -93,7 +93,7 @@ equation
       smooth=Smooth.None));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
-    experiment(StopTime=3600),
+    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3600),
     Documentation(info="<html>
 This example demonstrates the open loop response of the boiler
 model for a control signal that is first a ramp from <i>0</i>

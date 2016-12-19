@@ -29,7 +29,7 @@ equation
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HACoilInside.mos"
         "Simulate and Plot"),
-        experiment(StopTime=15.0),
+        experiment(Tolerance=1e-6, StartTime=0.0, StopTime=15),
         Documentation(info="<html>
         <p>
         Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">

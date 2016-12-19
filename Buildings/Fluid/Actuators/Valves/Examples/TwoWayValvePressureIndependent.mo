@@ -93,7 +93,7 @@ equation
   connect(y.y, valIndFromMflow.y) annotation (Line(
       points={{-39,80},{-20,80},{-20,-20},{0,-20},{0,-28}},
       color={0,0,127}));
-    annotation (experiment(StopTime=2),
+    annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent.mos"
         "Simulate and plot"),

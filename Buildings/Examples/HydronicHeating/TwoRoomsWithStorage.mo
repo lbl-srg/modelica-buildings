@@ -1253,5 +1253,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
         "Simulate and plot"),
-    experiment(StopTime=604800, Tolerance=1e-06));
+    experiment(StartTime=0.0, StopTime=604800, Tolerance=1e-6));
 end TwoRoomsWithStorage;

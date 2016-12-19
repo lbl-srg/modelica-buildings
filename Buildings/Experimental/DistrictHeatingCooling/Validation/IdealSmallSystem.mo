@@ -196,7 +196,7 @@ equation
           {-130,68},{-122,68}}, color={0,0,127}));
   connect(TSetC.y, pla.TSetCoo) annotation (Line(points={{-139,90},{-134,90},{
           -134,64},{-122,64}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1E-6, StopTime=86400),
+  annotation(experiment(Tolerance=1E-06, StartTime=0.0, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/IdealSmallSystem.mos"
         "Simulate and plot"),
     Documentation(
