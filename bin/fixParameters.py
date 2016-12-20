@@ -16,9 +16,9 @@ def recursive_glob(rootdir='.', suffix=''):
                  and ("ConvertBuildings_from" not in filename)) ]
 
 
-mos_files = recursive_glob('../Buildings/Resources/Scripts/Dymola/Controls/Sources/Examples', '.mos')
+mos_files = recursive_glob('../Buildings/Resources/Scripts/Dymola', '.mos')
 
-mo_files = recursive_glob('../Buildings/Controls/Sources/Examples', '.mo')
+mo_files = recursive_glob('../Buildings/', '.mo')
 
 # number of modified models
 N_modify_mos = 0
