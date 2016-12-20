@@ -16,7 +16,7 @@
 
 #ifdef _MSC_VER /*Windows*/
   #include <windows.h>
-#elseif __MINGW32__ /* MinGW */
+#elseif _WIN32 /* MinGW */
   #include <windows.h>
 #else /* Linux*/
   #include <dlfcn.h>  /*For load shared library*/
