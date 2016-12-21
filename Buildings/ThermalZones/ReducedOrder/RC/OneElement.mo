@@ -57,8 +57,8 @@ model OneElement "Thermal Zone with one element for exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") if sum(ATransparent) > 0
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2") if sum(ATransparent) > 0
     "Solar radiation transmitted through windows"
     annotation (
     Placement(transformation(extent={{-280,120},{-240,160}}),
@@ -79,7 +79,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     iconTransformation(extent={{240,110},{260,130}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-    redeclare package Medium = Medium)
+    redeclare each final package Medium = Medium)
     "Auxilliary fluid inlets and outlets to indoor air volume"
     annotation (
     Placement(transformation(

@@ -29,15 +29,16 @@ model Electrical "Model of the electrical room attached to test cell X3A"
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorUninsulated
     extDooUn "Construction describing the door in the electrical room"
     annotation (Placement(transformation(extent={{430,-178},{450,-158}})));
-  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+  replaceable parameter Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
                                                                    roo
     "Construction describing the roof of the electrical room"
     annotation (Placement(transformation(extent={{430,-148},{450,-128}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic
+
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic
     slaCon(nLay=3, material={
       Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.1524,

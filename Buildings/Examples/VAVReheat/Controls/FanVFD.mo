@@ -52,27 +52,27 @@ equation
       points={{-39,6.10623e-16},{-10,6.10623e-16},{-10,18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.y, extractor.u[OperationModes.occupied]) annotation (Line(
+  connect(con.y, extractor.u[Integer(OperationModes.occupied)]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.y, extractor.u[OperationModes.unoccupiedWarmUp]) annotation (Line(
+  connect(con.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(con.y, extractor.u[OperationModes.unoccupiedPreCool]) annotation (Line(
+  connect(con.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)]) annotation (Line(
       points={{1,30},{20,30},{20,-8},{-20,-8},{-20,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(off.y, extractor.u[OperationModes.unoccupiedOff])  annotation (Line(
+  connect(off.y, extractor.u[Integer(OperationModes.unoccupiedOff)])  annotation (Line(
       points={{-39,-70},{-20,-70},{-20,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(off.y, extractor.u[OperationModes.safety])  annotation (Line(
+  connect(off.y, extractor.u[Integer(OperationModes.safety)])  annotation (Line(
       points={{-39,-70},{-20,-70},{-20,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(on.y, extractor.u[OperationModes.unoccupiedNightSetBack]) annotation (Line(
+  connect(on.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)]) annotation (Line(
       points={{-39,-30},{18,-30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -104,5 +104,14 @@ equation
   annotation ( Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
           lineColor={0,0,255},
-          textString="r_N_min=%r_N_min")}));
+          textString="r_N_min=%r_N_min")}), Documentation(revisions="<html>
+<ul>
+<li>
+December 20, 2016, by Michael Wetter:<br/>
+Added type conversion for enumeration when used as an array index.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
+</li>
+</ul>
+</html>"));
 end FanVFD;

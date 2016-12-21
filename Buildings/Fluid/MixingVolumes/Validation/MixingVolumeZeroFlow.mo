@@ -89,8 +89,6 @@ model MixingVolumeZeroFlow
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea1
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.Constant const(k=1) "Constant heat flow rate input"
-    annotation (Placement(transformation(extent={{-76,74},{-64,86}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volQflow(
     nPorts=2,
     redeclare package Medium = Medium,
@@ -108,6 +106,9 @@ model MixingVolumeZeroFlow
     use_m_flow_in=true,
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Routing.RealPassThrough reaPasThr
+    "Real pass through for unit conversion"
+    annotation (Placement(transformation(extent={{-66,74},{-54,86}})));
 equation
   connect(sou2.ports[1], volNonLinSys.ports[1]) annotation (Line(points={{-40,-22},
           {-40,-20},{-2,-20}}, color={0,127,255}));
@@ -137,8 +138,6 @@ equation
   connect(volNonLinSys.heatPort, preHea2.port) annotation (Line(points={{-10,-10},
           {-10,-10},{-14,-10},{-14,60},{-20,60}},
                                               color={191,0,0}));
-  connect(const.y, preHea1.Q_flow) annotation (Line(points={{-63.4,80},{-63.4,
-          80},{-40,80}}, color={0,0,127}));
   connect(volQflow.heatPort, preHea1.port)
     annotation (Line(points={{-10,20},{-10,80},{-20,80}}, color={191,0,0}));
   connect(sou1.ports[1], volQflow.ports[1]) annotation (Line(points={{-40,10},{
@@ -161,6 +160,10 @@ equation
           -46},{-62,-46}}, color={0,0,127}));
   connect(ramp_T.y, sou4.T_in) annotation (Line(points={{-79,-50},{-68,-50},{-68,
           -86},{-62,-86}}, color={0,0,127}));
+  connect(reaPasThr.y, preHea1.Q_flow)
+    annotation (Line(points={{-53.4,80},{-40,80}}, color={0,0,127}));
+  connect(reaPasThr.u, ramp_m_flow.y)
+    annotation (Line(points={{-67.2,80},{-79,80},{-79,-10}}, color={0,0,127}));
   annotation (                                                         Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={Text(
@@ -172,6 +175,14 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+January 27, 2016, by Filip Jorissen:<br/>
+Changed heat flow rate at zero flow to avoid triggering of
+conservation of energy check.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/470\">
+issue 470</a>.
+</li>
+<li>
 November 2, 2016, by Michael Wetter:<br/>
 Removed assertion as the variable that are tested are already
 part of the regression test.
@@ -181,7 +192,7 @@ This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/441\">issue 441</a>.
 </li>
 <li>
-January 27, 2016, by Michael Wetter;<br/>
+January 27, 2016, by Michael Wetter:<br/>
 Removed algorithm specification in experiment annotation.
 </li>
 <li>

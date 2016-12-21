@@ -38,14 +38,14 @@ model SolarRadiationExchange
   parameter Modelica.SIunits.Emissivity tauGla[NConExtWin]
     "Transmissivity of window";
 
-  Modelica.Blocks.Interfaces.RealInput JInDifConExtWin[NConExtWin](unit="W")
+  Modelica.Blocks.Interfaces.RealInput JInDifConExtWin[NConExtWin](each unit="W")
     "Diffuse solar radiation transmitted by window per unit area"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
-  Modelica.Blocks.Interfaces.RealInput JInDirConExtWin[NConExtWin](unit="W")
+  Modelica.Blocks.Interfaces.RealInput JInDirConExtWin[NConExtWin](each unit="W")
     "Direct solar radiation transmitted by window per unit area"
     annotation (Placement(transformation(extent={{260,30},{240,50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2")
+  Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](each unit="W/m2")
     "Outgoing solar radiation that strikes window per unit area"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
@@ -63,14 +63,14 @@ protected
     "Number of opaque surfaces, including the window frame";
   final parameter Integer NWin = NConExtWin "Number of window surfaces";
   final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
-  final parameter Boolean isFlo[NTot](fixed=false)
+  final parameter Boolean isFlo[NTot](each fixed=false)
     "Flag, true if a surface is a floor";
   final parameter Real eps[NTot](each min=0, each max=1, each fixed=false)
     "Solar absorptivity";
   final parameter Real tau[NTot](each min=0, each max=1, each fixed=false)
     "Solar transmissivity";
-  final parameter Modelica.SIunits.Area AFlo(each fixed=false) "Total floor area";
-  final parameter Modelica.SIunits.Area A[NTot](fixed=false) "Surface areas";
+  final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
+  final parameter Modelica.SIunits.Area A[NTot](each fixed=false) "Surface areas";
   final parameter Real kDif[NTot](
     each unit="1",
     each fixed=false)

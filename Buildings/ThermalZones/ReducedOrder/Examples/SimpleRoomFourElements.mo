@@ -157,7 +157,7 @@ model SimpleRoomFourElements
   Modelica.Blocks.Sources.Constant alphaRoof(k=25*11.5)
     "Outdoor coefficient of heat transfer for roof"
     annotation (Placement(transformation(extent={{4,-4},{-4,4}},origin={86,47})));
-  Modelica.Blocks.Sources.Constant const1(each k=0)
+  Modelica.Blocks.Sources.Constant const1(k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
 

@@ -92,9 +92,9 @@ partial model PartialFlowMachine
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -preSou.dp "Pressure difference";
 
-  Real eta(unit="1") =    eff.eta "Global efficiency";
-  Real etaHyd(unit="1") = eff.etaHyd "Hydraulic efficiency";
-  Real etaMot(unit="1") = eff.etaMot "Motor efficiency";
+  Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
+  Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
+  Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
 protected
@@ -373,10 +373,6 @@ initial equation
              are correct or add the pressure curve of the mover.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
-
-
-
-
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
