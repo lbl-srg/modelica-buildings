@@ -16,8 +16,10 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 This example is similar to <a href=\"modelica://Buildings.HeatTransfer.Examples.ConductorSingleLayer\">
 Buildings.HeatTransfer.Examples.ConductorSingleLayer</a>. The main difference
 is that there are no states at the surfaces of the construction.
+</p>
 </html>"));
 end ConductorSingleLayer2;

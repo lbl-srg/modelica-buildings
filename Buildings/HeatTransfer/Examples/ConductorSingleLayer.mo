@@ -96,8 +96,10 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

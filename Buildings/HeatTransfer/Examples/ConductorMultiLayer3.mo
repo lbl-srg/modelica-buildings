@@ -13,8 +13,10 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>
 This example is similar to <a href=\"modelica://Buildings.HeatTransfer.Examples.ConductorMultiLayer\">
 Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>. The main difference
 is that a state is added at the surfaces a and b of the construction.
+</p>
 </html>"));
 end ConductorMultiLayer3;

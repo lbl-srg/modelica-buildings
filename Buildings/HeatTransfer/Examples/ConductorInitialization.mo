@@ -55,8 +55,10 @@ experiment(StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This example illustrates how to initialize heat conductors in steady state and with
 predefined temperatures.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
