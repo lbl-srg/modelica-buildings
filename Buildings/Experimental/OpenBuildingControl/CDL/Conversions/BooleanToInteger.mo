@@ -5,7 +5,7 @@ block BooleanToInteger "Convert Boolean to Integer signal"
 
   parameter Integer integerFalse=0 "Output signal for false Boolean input";
 
-  Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
+  Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.IntegerOutput y
