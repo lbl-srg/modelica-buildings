@@ -30,5 +30,9 @@ annotation (Icon(graphics={
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="T")}));
+          textString="T")}), Documentation(info="<html>
+<p>
+This package contains blocks for psychrometric calculations.
+</p>
+</html>"));
 end Psychrometrics;
