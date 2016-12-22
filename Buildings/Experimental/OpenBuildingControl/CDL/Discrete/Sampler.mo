@@ -43,7 +43,7 @@ equation
     Documentation(info="<html>
 <p>
 Samples the continues input signal with a sampling rate defined
-via parameter <b>samplePeriod</b>.
+via parameter <code>samplePeriod</code>.
 </p>
 </html>"));
 end Sampler;

@@ -36,9 +36,9 @@ equation
         Line(points={{-78.0,-16.0},{-6.0,4.0},{82.0,-26.0}}),
         Line(points={{-82.0,-18.0},{-56.0,-18.0},{-56.0,-40.0},{64.0,-40.0},{64.0,-20.0},{90.0,-20.0}},
           color={255,0,255})}), Documentation(info="<html>
-<p>The block OnOffController sets the output signal <b>y</b> to <b>true</b> when
-the input signal <b>u</b> falls below the <b>reference</b> signal minus half of
-the bandwidth and sets the output signal <b>y</b> to <b>false</b> when the input
-signal <b>u</b> exceeds the <b>reference</b> signal plus half of the bandwidth.</p>
+<p>The block OnOffController sets the output signal <code>y</code> to <code>true</code> when
+the input signal <code>u</code> falls below the <code>reference</code> signal minus half of
+the bandwidth and sets the output signal <code>y</code> to <code>false</code> when the input
+signal <code>u</code> exceeds the <code>reference</code> signal plus half of the bandwidth.</p>
 </html>"));
 end OnOffController;

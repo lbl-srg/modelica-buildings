@@ -12,8 +12,8 @@ equation
           points={{-54,22},{-8,2},{-54,-18}},
           thickness=0.5)}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if Real input u1 is greater than
-Real input u2, otherwise the output is <b>false</b>.
+The output is <code>true</code> if Real input u1 is greater than
+Real input u2, otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Greater;

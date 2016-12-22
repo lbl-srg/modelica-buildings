@@ -9,10 +9,10 @@ equation
           lineColor={160,160,164},
           textString="min()")}), Documentation(info="<html>
 <p>
-This block computes the output <b>y</b> as <i>minimum</i> of
-the two Real inputs <b>u1</b> and <b>u2</b>:
+This block computes the output <code>y</code> as <i>minimum</i> of
+the two Real inputs <code>u1</code> and <code>u2</code>:
 </p>
-<pre>    y = <b>min</b> ( u1 , u2 );
+<pre>    y = <code>min</code> ( u1 , u2 );
 </pre>
 </html>"));
 end Min;

@@ -78,18 +78,18 @@ equation
             textString="u1 / u2")}),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b> as the
-<i>tangent-inverse</i> of the input <b>u1</b> divided by
-input <b>u2</b>:
+This blocks computes the output <code>y</code> as the
+<i>tangent-inverse</i> of the input <code>u1</code> divided by
+input <code>u2</code>:
 </p>
 <pre>
-    y = <b>atan2</b>( u1, u2 );
+    y = <code>atan2</code>( u1, u2 );
 </pre>
 <p>
 u1 and u2 shall not be zero at the same time instant.
-<b>Atan2</b> uses the sign of u1 and u2 in order to construct
+<code>Atan2</code> uses the sign of u1 and u2 in order to construct
 the solution in the range -180 deg &le; y &le; 180 deg, whereas
-block <b>Atan</b> gives a solution in the range
+block <code>Atan</code> gives a solution in the range
 -90 deg &le; y &le; 90 deg.
 </p>
 

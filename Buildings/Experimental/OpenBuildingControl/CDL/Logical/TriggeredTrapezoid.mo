@@ -137,8 +137,8 @@ equation
 <p>The block TriggeredTrapezoid has a Boolean input and a real
 output signal and requires the parameters <i>amplitude</i>,
 <i>rising</i>, <i>falling</i> and <i>offset</i>. The
-output signal <b>y</b> represents a trapezoidal signal dependent on the
-input signal <b>u</b>.
+output signal <code>y</code> represents a trapezoidal signal dependent on the
+input signal <code>u</code>.
 </p>
 <p>The behaviour is as follows: Assume the initial input to be false. In this
 case, the output will be <i>offset</i>. After a rising edge (i.e., the input

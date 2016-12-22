@@ -9,8 +9,8 @@ equation
           lineColor={0,0,0},
           textString="xor")}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if exactly one input is <b>true</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if exactly one input is <code>true</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end Xor;

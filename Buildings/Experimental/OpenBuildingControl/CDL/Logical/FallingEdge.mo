@@ -17,9 +17,9 @@ equation
           lineColor={0,0,0},
           textString="falling")}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if the Boolean input has a falling edge
-from <b>true</b> to <b>false</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if the Boolean input has a falling edge
+from <code>true</code> to <code>false</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end FallingEdge;

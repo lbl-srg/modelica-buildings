@@ -19,11 +19,11 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This blocks computes output <b>y</b> as <i>sum</i> of the
-three input signals <b>u1</b>, <b>u2</b> and <b>u3</b>:
+This blocks computes output <code>y</code> as <i>sum</i> of the
+three input signals <code>u1</code>, <code>u2</code> and <code>u3</code>:
 </p>
 <pre>
-    <b>y</b> = k1*<b>u1</b> + k2*<b>u2</b> + k3*<b>u3</b>;
+    <code>y</code> = k1*<code>u1</code> + k2*<code>u2</code> + k3*<code>u3</code>;
 </pre>
 <p>
 Example:

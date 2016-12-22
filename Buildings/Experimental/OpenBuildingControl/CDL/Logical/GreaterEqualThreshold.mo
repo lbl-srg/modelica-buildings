@@ -11,9 +11,9 @@ equation
           lineColor={0,0,0},
           textString=">=")}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if the Real input is greater than or equal to
-parameter <b>threshold</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if the Real input is greater than or equal to
+parameter <code>threshold</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end GreaterEqualThreshold;

@@ -63,11 +63,11 @@ equation
             textString="u")}),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b>
-as <b>tan</b> of the input <b>u</b>:
+This blocks computes the output <code>y</code>
+as <code>tan</code> of the input <code>u</code>:
 </p>
 <pre>
-    y = <b>tan</b>( u );
+    y = <code>tan</code>( u );
 </pre>
 
 <p>

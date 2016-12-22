@@ -64,14 +64,14 @@ equation
             textString="u")}),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b> as the
-<i>base 10 logarithm</i> of the input <b>u</b>:
+This blocks computes the output <code>y</code> as the
+<i>base 10 logarithm</i> of the input <code>u</code>:
 </p>
 <pre>
-    y = <b>log10</b>( u );
+    y = <code>log10</code>( u );
 </pre>
 <p>
-An error occurs if the elements of the input <b>u</b> are
+An error occurs if the elements of the input <code>u</code> are
 zero or negative.
 </p>
 

@@ -66,11 +66,11 @@ equation
             100,100}})),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b>
-as <i>absolute value</i> of the input <b>u</b>:
+This blocks computes the output <code>y</code>
+as <i>absolute value</i> of the input <code>u</code>:
 </p>
 <pre>
-    y = <b>abs</b>( u );
+    y = <code>abs</code>( u );
 </pre>
 <p>
 The Boolean parameter generateEvent decides whether Events are generated at zero crossing (Modelica specification before 3) or not.

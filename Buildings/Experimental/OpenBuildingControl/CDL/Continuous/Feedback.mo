@@ -15,12 +15,12 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This blocks computes output <b>y</b> as <i>difference</i> of the
-commanded input <b>u1</b> and the feedback
-input <b>u2</b>:
+This blocks computes output <code>y</code> as <i>difference</i> of the
+commanded input <code>u1</code> and the feedback
+input <code>u2</code>:
 </p>
 <pre>
-    <b>y</b> = <b>u1</b> - <b>u2</b>;
+    <code>y</code> = <code>u1</code> - <code>u2</code>;
 </pre>
 <p>
 Example:

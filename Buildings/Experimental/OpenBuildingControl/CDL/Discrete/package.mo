@@ -12,22 +12,22 @@ package Discrete "Library of discrete input/output blocks with fixed sample peri
 
   annotation (Documentation(info="<html>
 <p>
-This package contains <b>discrete control blocks</b>
-with <b>fixed sample period</b>.
+This package contains <code>discrete control blocks</code>
+with <code>fixed sample period</code>.
 Every component of this package is structured in the following way:
 </p>
 <ol>
-<li> A component has <b>continuous real</b> input and output signals.</li>
-<li> The <b>input</b> signals are <b>sampled</b> by the given sample period
-     defined via parameter <b>samplePeriod</b>.
-     The first sample instant is defined by parameter <b>startTime</b>.</li>
-<li> The <b>output</b> signals are computed from the sampled input signals.</li>
+<li> A component has <code>continuous real</code> input and output signals.</li>
+<li> The <code>input</code> signals are <code>sampled</code> by the given sample period
+     defined via parameter <code>samplePeriod</code>.
+     The first sample instant is defined by parameter <code>startTime</code>.</li>
+<li> The <code>output</code> signals are computed from the sampled input signals.</li>
 </ol>
 <p>
-A <b>sampled data system</b> may consist of components of package <b>Discrete</b>
-and of every other purely <b>algebraic</b> input/output block, such
-as the components of packages <b>Modelica.Blocks.Math</b>,
-<b>Modelica.Blocks.Nonlinear</b> or <b>Modelica.Blocks.Sources</b>.
+A <code>sampled data system</code> may consist of components of package <code>Discrete</code>
+and of every other purely <code>algebraic</code> input/output block, such
+as the components of packages <code>Modelica.Blocks.Math</code>,
+<code>Modelica.Blocks.Nonlinear</code> or <code>Modelica.Blocks.Sources</code>.
 </p>
 
 </html>", revisions="<html>

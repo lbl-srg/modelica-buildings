@@ -63,7 +63,7 @@ equation
             lineColor={0,0,0},
             textString="u")}),
     Documentation(info="<html>
-<p> When the Boolean input \"u\" becomes <b>true</b>, the timer is started
+<p> When the Boolean input \"u\" becomes <code>true</code>, the timer is started
 and the output \"y\" is the time from the time instant where u became true.
 The timer is stopped and the output is reset to zero, once the
 input becomes false.

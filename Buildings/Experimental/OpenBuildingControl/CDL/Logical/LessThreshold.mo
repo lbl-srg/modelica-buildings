@@ -10,9 +10,9 @@ equation
           lineColor={0,0,0},
           textString="<")}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if the Real input is less than
-parameter <b>threshold</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if the Real input is less than
+parameter <code>threshold</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end LessThreshold;

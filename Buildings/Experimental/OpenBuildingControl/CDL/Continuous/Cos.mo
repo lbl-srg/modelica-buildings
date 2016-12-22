@@ -65,11 +65,11 @@ equation
             textString="u")}),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b>
-as <b>cos</b> of the input <b>u</b>:
+This blocks computes the output <code>y</code>
+as <code>cos</code> of the input <code>u</code>:
 </p>
 <pre>
-    y = <b>cos</b>( u );
+    y = <code>cos</code>( u );
 </pre>
 
 <p>

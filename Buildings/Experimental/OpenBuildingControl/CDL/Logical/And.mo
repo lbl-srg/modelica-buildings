@@ -12,8 +12,8 @@ equation
           textString="and")}),
     Documentation(info="<html>
 <p>
-The output is <b>true</b> if all inputs are <b>true</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if all inputs are <code>true</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end And;

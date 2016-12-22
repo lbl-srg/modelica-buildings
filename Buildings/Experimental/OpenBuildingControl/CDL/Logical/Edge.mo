@@ -17,9 +17,9 @@ equation
           textString="edge")}),
     Documentation(info="<html>
 <p>
-The output is <b>true</b> if the Boolean input has a rising edge
-from <b>false</b> to <b>true</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if the Boolean input has a rising edge
+from <code>false</code> to <code>true</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end Edge;

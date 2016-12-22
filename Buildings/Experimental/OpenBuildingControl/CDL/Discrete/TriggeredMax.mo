@@ -63,8 +63,8 @@ initial equation
     Documentation(info="<html>
 <p>
 Samples the continuous input signal whenever the trigger input
-signal is rising (i.e., trigger changes from <b>false</b> to
-<b>true</b>). The maximum, absolute value of the input signal
+signal is rising (i.e., trigger changes from <code>false</code> to
+<code>true</code>). The maximum, absolute value of the input signal
 at the sampling point is provided as output signal.
 </p>
 </html>"));

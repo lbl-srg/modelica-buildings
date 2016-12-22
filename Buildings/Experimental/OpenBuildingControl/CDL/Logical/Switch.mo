@@ -22,7 +22,7 @@ equation
 logical connector u2 (the middle connector)
 between the two possible input signals
 u1 (upper connector) and u3 (lower connector).</p>
-<p>If u2 is <b>true</b>, the output signal y is set equal to
+<p>If u2 is <code>true</code>, the output signal y is set equal to
 u1, else it is set equal to u3.</p>
 </html>"),
     Icon(coordinateSystem(

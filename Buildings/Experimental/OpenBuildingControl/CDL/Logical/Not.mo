@@ -13,8 +13,8 @@ equation
           textString="not")}),
     Documentation(info="<html>
 <p>
-The output is <b>true</b> if the input is <b>false</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if the input is <code>false</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end Not;

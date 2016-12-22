@@ -22,17 +22,17 @@ equation
   y = change(u_pos) and not edge(enable) and not edge(disable);
   annotation (Documentation(info="<html>
 <p>
-The output \"y\" is <b>true</b> at the
+The output \"y\" is <code>true</code> at the
 time instant when the input \"u\" becomes
 zero, provided the input \"enable\" is
-<b>true</b>. At all other time instants, the output \"y\" is <b>false</b>.
+<code>true</code>. At all other time instants, the output \"y\" is <code>false</code>.
 If the input \"u\" is zero at a time instant when the \"enable\"
-input changes its value, then the output y is <b>false</b>.
+input changes its value, then the output y is <code>false</code>.
 </p>
 <p>
 Note, that in the plot window of a Modelica simulator, the output of
-this block is usually identically to <b>false</b>, because the output
-may only be <b>true</b> at an event instant, but not during
+this block is usually identically to <code>false</code>, because the output
+may only be <code>true</code> at an event instant, but not during
 continuous integration. In order to check that this component is
 actually working as expected, one should connect its output to, e.g.,
 component <i>ModelicaAdditions.Blocks.Discrete.TriggeredSampler</i>.

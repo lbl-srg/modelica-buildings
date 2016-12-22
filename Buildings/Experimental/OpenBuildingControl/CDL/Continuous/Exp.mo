@@ -64,11 +64,11 @@ equation
             textString="u")}),
     Documentation(info="<html>
 <p>
-This blocks computes the output <b>y</b> as the
-<i>exponential</i> (of base e) of the input <b>u</b>:
+This blocks computes the output <code>y</code> as the
+<i>exponential</i> (of base e) of the input <code>u</code>:
 </p>
 <pre>
-    y = <b>exp</b>( u );
+    y = <code>exp</code>( u );
 </pre>
 
 <p>

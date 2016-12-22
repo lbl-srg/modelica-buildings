@@ -9,10 +9,10 @@ equation
           lineColor={160,160,164},
           textString="max()")}), Documentation(info="<html>
 <p>
-This block computes the output <b>y</b> as <i>maximum</i>
-of the two Real inputs <b>u1</b> and <b>u2</b>:
+This block computes the output <code>y</code> as <i>maximum</i>
+of the two Real inputs <code>u1</code> and <code>u2</code>:
 </p>
-<pre>    y = <b>max</b> ( u1 , u2 );
+<pre>    y = <code>max</code> ( u1 , u2 );
 </pre>
 </html>"));
 end Max;

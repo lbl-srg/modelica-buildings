@@ -7,9 +7,9 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This block computes the output <b>y</b> (element-wise)
+This block computes the output <code>y</code> (element-wise)
 by <i>dividing</i> the corresponding elements of
-the two inputs <b>u1</b> and <b>u2</b>:
+the two inputs <code>u1</code> and <code>u2</code>:
 </p>
 <pre>
     y = u1 / u2;

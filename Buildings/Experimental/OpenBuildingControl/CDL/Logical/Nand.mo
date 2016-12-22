@@ -9,8 +9,8 @@ equation
           lineColor={0,0,0},
           textString="nand")}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if at least one input is <b>false</b>, otherwise
-the output is <b>false</b>.
+The output is <code>true</code> if at least one input is <code>false</code>, otherwise
+the output is <code>false</code>.
 </p>
 </html>"));
 end Nand;

@@ -17,11 +17,11 @@ equation
   annotation (
     Documentation(info="<html>
 <p>
-This blocks computes output <b>y</b> as <i>sum</i> of the
-two input signals <b>u1</b> and <b>u2</b>:
+This blocks computes output <code>y</code> as <i>sum</i> of the
+two input signals <code>u1</code> and <code>u2</code>:
 </p>
 <pre>
-    <b>y</b> = k1*<b>u1</b> + k2*<b>u2</b>;
+    <code>y</code> = k1*<code>u1</code> + k2*<code>u2</code>;
 </pre>
 <p>
 Example:

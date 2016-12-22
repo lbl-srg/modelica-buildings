@@ -60,10 +60,10 @@ initial equation
     Documentation(info="<html>
 <p>
 Samples the continuous input signal whenever the trigger input
-signal is rising (i.e., trigger changes from <b>false</b> to
-<b>true</b>) and provides the sampled input signal as output.
+signal is rising (i.e., trigger changes from <code>false</code> to
+<code>true</code>) and provides the sampled input signal as output.
 Before the first sampling, the output signal is equal to
-the initial value defined via parameter <b>y0</b>.
+the initial value defined via parameter <code>y0</code>.
 </p>
 </html>"));
 end TriggeredSampler;

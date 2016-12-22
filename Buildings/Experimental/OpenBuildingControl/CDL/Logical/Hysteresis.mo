@@ -100,21 +100,21 @@ equation
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
     Documentation(info="<html>
 <p>
-This block transforms a <b>Real</b> input signal into a <b>Boolean</b>
+This block transforms a <code>Real</code> input signal into a <code>Boolean</code>
 output signal:
 </p>
 <ul>
-<li> When the output was <b>false</b> and the input becomes
-     <b>greater</b> than parameter <b>uHigh</b>, the output
-     switches to <b>true</b>.</li>
-<li> When the output was <b>true</b> and the input becomes
-     <b>less</b> than parameter <b>uLow</b>, the output
-     switches to <b>false</b>.</li>
+<li> When the output was <code>false</code> and the input becomes
+     <code>greater</code> than parameter <code>uHigh</code>, the output
+     switches to <code>true</code>.</li>
+<li> When the output was <code>true</code> and the input becomes
+     <code>less</code> than parameter <code>uLow</code>, the output
+     switches to <code>false</code>.</li>
 </ul>
 <p>
 The start value of the output is defined via parameter
-<b>pre_y_start</b> (= value of pre(y) at initial time).
-The default value of this parameter is <b>false</b>.
+<code>pre_y_start</code> (= value of pre(y) at initial time).
+The default value of this parameter is <code>false</code>.
 </p>
 </html>"));
 end Hysteresis;

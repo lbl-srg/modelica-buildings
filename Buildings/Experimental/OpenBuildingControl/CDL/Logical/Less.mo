@@ -12,8 +12,8 @@ equation
           points={{-6,18},{-50,-2},{-6,-20}},
           thickness=0.5)}), Documentation(info="<html>
 <p>
-The output is <b>true</b> if Real input u1 is less than
-Real input u2, otherwise the output is <b>false</b>.
+The output is <code>true</code> if Real input u1 is less than
+Real input u2, otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Less;
