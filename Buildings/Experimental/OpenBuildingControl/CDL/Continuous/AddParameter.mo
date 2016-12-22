@@ -1,16 +1,22 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block AddParameter "Output the sum of an input plus a parameter"
-  extends Modelica.Blocks.Interfaces.SISO;
 
   parameter Real p "Value to be added";
+
   parameter Real k=+1 "Gain of input";
+
+  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = k*u + p;
   annotation (
 Documentation(info="<html>
 <p>
-This blocks outputs <code>y = k u + p</code>,
+Block that outputs <code>y = k u + p</code>,
 where <code>k</code> and <code>p</code> are
 parameters and <code>u</code> is an input.
 </p>
@@ -18,6 +24,11 @@ parameters and <code>u</code> is an input.
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
+          Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
         Text(
           lineColor={0,0,255},
           extent={{-150,110},{150,150}},

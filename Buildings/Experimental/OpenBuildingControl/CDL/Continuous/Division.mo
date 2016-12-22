@@ -1,24 +1,38 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Division "Output first input divided by second input"
-  extends Modelica.Blocks.Interfaces.SI2SO;
+
+  Modelica.Blocks.Interfaces.RealInput u1 "Connector of Real input signal 1"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
+  Modelica.Blocks.Interfaces.RealInput u2 "Connector of Real input signal 2"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = u1/u2;
-  annotation (
-    Documentation(info="<html>
-<p>
-This block computes the output <code>y</code> (element-wise)
-by <i>dividing</i> the corresponding elements of
-the two inputs <code>u1</code> and <code>u2</code>:
-</p>
-<pre>
-    y = u1 / u2;
-</pre>
+  y = u1 / u2;
 
+annotation (
+Documentation(info="<html>
+<p>
+Block that outputs <code>y = u1 / u2</code>,
+where
+<code>u1</code> and <code>u2</code> are inputs.
+</p>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
+        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Line(points={{50,0},{100,0}}, color={0,0,127}),
         Line(points={{-30,0},{30,0}}),
         Ellipse(fillPattern=FillPattern.Solid, extent={{-5,20},{5,30}}),
@@ -31,22 +45,5 @@ the two inputs <code>u1</code> and <code>u2</code>:
         Line(points={{-100,60},{-66,60},{-40,30}}, color={0,0,127}),
         Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),Line(points={{50,0},{100,0}},
-          color={0,0,255}),Line(points={{-30,0},{30,0}}),
-          Ellipse(
-            extent={{-5,20},{5,30}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
-            fillPattern=FillPattern.Solid),Ellipse(
-            extent={{-5,-20},{5,-30}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
-            fillPattern=FillPattern.Solid),Ellipse(extent={{-50,50},{50,-50}},
-          lineColor={0,0,255}),Line(points={{-100,60},{-66,60},{-40,30}},
-          color={0,0,255}),Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,
-          0,255})}));
+            100,100}})));
 end Division;

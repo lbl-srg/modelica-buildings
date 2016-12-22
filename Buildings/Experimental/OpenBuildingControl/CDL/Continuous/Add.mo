@@ -1,40 +1,47 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Add "Output the sum of the two inputs"
-  extends Modelica.Blocks.Interfaces.SI2SO;
 
-  parameter Real k1=+1 "Gain of upper input";
-  parameter Real k2=+1 "Gain of lower input";
+  parameter Real k1=+1 "Gain for input u1";
+
+  parameter Real k2=+1 "Gain for input u2";
+
+  Modelica.Blocks.Interfaces.RealInput u1 "Connector of Real input signal 1"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
+  Modelica.Blocks.Interfaces.RealInput u2 "Connector of Real input signal 2"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   y = k1*u1 + k2*u2;
-  annotation (
-    Documentation(info="<html>
+
+annotation (
+Documentation(info="<html>
 <p>
-This blocks outputs <code>y</code> as the <i>sum</i> of the
-two input signals <code>u1</code> and <code>u2</code>:
+Block that outputs <code>y</code> as the weighted <i>sum</i> of the
+two input signals <code>u1</code> and <code>u2</code>,
 </p>
 <pre>
-    <code>y</code> = k1*<code>u1</code> + k2*<code>u2</code>;
+    y = k1*u1 + k2*u2;
 </pre>
 <p>
-Example:
-</p>
-<pre>
-     parameter:   k1= +2, k2= -3
-
-  results in the following equations:
-
-     y = 2 * u1 - 3 * u2
-</pre>
-
+where <code>k1</code> and <code>k2</code> are parameters.
+</b>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
-        Text(
-          lineColor={0,0,255},
-          extent={{-150,110},{150,150}},
-          textString="%name"),
+      Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
+      Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
         Line(points={{-100,60},{-74,24},{-44,24}}, color={0,0,127}),
         Line(points={{-100,-60},{-74,-28},{-42,-28}}, color={0,0,127}),
         Ellipse(lineColor={0,0,127}, extent={{-50,-50},{50,50}}),
@@ -43,22 +50,5 @@ Example:
         Text(extent={{-100,52},{5,92}}, textString="%k1"),
         Text(extent={{-100,-92},{5,-52}}, textString="%k2")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Rectangle(
-            extent={{-100,-100},{100,100}},
-            lineColor={0,0,127},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),Line(points={{50,0},{100,0}},
-          color={0,0,255}),Line(points={{-100,60},{-74,24},{-44,24}}, color={
-          0,0,127}),Line(points={{-100,-60},{-74,-28},{-42,-28}}, color={0,0,
-          127}),Ellipse(extent={{-50,50},{50,-50}}, lineColor={0,0,127}),Line(
-          points={{50,0},{100,0}}, color={0,0,127}),Text(
-            extent={{-36,38},{40,-30}},
-            lineColor={0,0,0},
-            textString="+"),Text(
-            extent={{-100,52},{5,92}},
-            lineColor={0,0,0},
-            textString="k1"),Text(
-            extent={{-100,-52},{5,-92}},
-            lineColor={0,0,0},
-            textString="k2")}));
+            100,100}})));
 end Add;

@@ -1,9 +1,9 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Integers;
 block Abs "Output the absolute value of the input"
-  extends Modelica.Blocks.Icons.IntegerBlock;
 
   Modelica.Blocks.Interfaces.IntegerInput u "Connector of Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Blocks.Interfaces.IntegerOutput y "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -12,7 +12,15 @@ equation
   annotation (
     defaultComponentName="abs1",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
+            100}}), graphics={             Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={255,127,0},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
         Polygon(
           points={{92,0},{70,8},{70,-8},{92,0}},
           lineColor={192,192,192},
@@ -66,14 +74,9 @@ equation
             100,100}})),
     Documentation(info="<html>
 <p>
-This blocks computes the output <code>y</code>
-as <i>absolute value</i> of the input <code>u</code>:
-</p>
-<pre>
-    y = <code>abs</code>( u );
-</pre>
-<p>
-The Boolean parameter generateEvent decides whether Events are generated at zero crossing (Modelica specification before 3) or not.
+Block that outputs <code>y = abs(u)</code>,
+where
+<code>u</code> is an Integer input.
 </p>
 </html>"));
 end Abs;

@@ -1,18 +1,41 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Min "Pass through the smallest signal"
-  extends Modelica.Blocks.Interfaces.SI2SO;
+
+  Modelica.Blocks.Interfaces.RealInput u1 "Connector of Real input signal 1"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
+  Modelica.Blocks.Interfaces.RealInput u2 "Connector of Real input signal 2"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
 equation
   y = min(u1, u2);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={Text(
-          extent={{-90,36},{90,-36}},
-          lineColor={160,160,164},
-          textString="min()")}), Documentation(info="<html>
+
+annotation (
+Documentation(info="<html>
 <p>
-This block computes the output <code>y</code> as <i>minimum</i> of
-the two Real inputs <code>u1</code> and <code>u2</code>:
+Block that outputs <code>y = min(u1, u2)</code>,
+where
+<code>u1</code> and <code>u2</code> are inputs.
 </p>
-<pre>    y = <code>min</code> ( u1 , u2 );
-</pre>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+        graphics={
+          Rectangle(
+            extent={{-100,-100},{100,100}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-150,150},{150,110}},
+            textString="%name",
+            lineColor={0,0,255}),
+          Text(
+            extent={{-90,36},{90,-36}},
+            lineColor={160,160,164},
+            textString="min()")}));
 end Min;
