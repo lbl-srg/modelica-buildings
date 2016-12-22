@@ -1,8 +1,31 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 block Sampler "Ideal sampling of continuous signals"
-  extends Modelica.Blocks.Interfaces.DiscreteSISO;
+
+  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
+    "Sample period of component";
+
+  parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
+
+  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+  Modelica.Blocks.Interfaces.RealOutput y "Continuous output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+protected
+  output Boolean sampleTrigger "True, if sample time instant";
+
+  output Boolean firstTrigger(start=false, fixed=true)
+    "Rising edge signals first sample instant";
 
 equation
+  // Declarations that are used for all discrete blocks
+  sampleTrigger = sample(startTime, samplePeriod);
+  when sampleTrigger then
+    firstTrigger = time <= startTime + samplePeriod/2;
+  end when;
+
+  // Declarations specific to this type of discrete block
   when {sampleTrigger, initial()} then
     y = u;
   end when;
@@ -10,7 +33,16 @@ equation
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={
+        graphics={                     Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={223,211,169},
+        lineThickness=5.0,
+        borderPattern=BorderPattern.Raised,
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),
       Ellipse(lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid,
