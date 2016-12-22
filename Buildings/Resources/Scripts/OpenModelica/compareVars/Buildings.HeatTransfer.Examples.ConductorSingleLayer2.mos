@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "con.T[1]",
+    "con.T[2]",
+    "cheEqu.y"
+  };
