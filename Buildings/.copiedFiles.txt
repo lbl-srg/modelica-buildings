@@ -1278,7 +1278,7 @@ Buildings/ThermalZones/ReducedOrder/SolarGain/BaseClasses/package.order
 Buildings/ThermalZones/ReducedOrder/SolarGain/CorrectionGDoublePane.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.mo
 Buildings/ThermalZones/ReducedOrder/SolarGain/package.order
-Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/AssertEqualityThreePeriods.mo
+Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/VerifyDifferenceThreePeriods.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.mo
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/BaseClasses/package.order
 Buildings/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase1.mo
@@ -1496,4 +1496,3 @@ Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
 Buildings/package.order
-

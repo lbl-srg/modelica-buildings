@@ -176,7 +176,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Modelica.Blocks.Math.Gain gain1(k=-1)
     "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,

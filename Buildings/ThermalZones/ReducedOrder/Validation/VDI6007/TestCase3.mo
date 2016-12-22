@@ -79,7 +79,7 @@ model TestCase3 "VDI 6007 Test Case 3 model"
   Modelica.Blocks.Sources.Constant const(k=0)
     "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,

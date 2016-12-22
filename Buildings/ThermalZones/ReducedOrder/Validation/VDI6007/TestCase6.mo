@@ -96,7 +96,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
