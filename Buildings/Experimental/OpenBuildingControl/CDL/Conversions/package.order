@@ -1,4 +1,4 @@
-RealToInteger
-IntegerToReal
 BooleanToInteger
 IntegerToBoolean
+IntegerToReal
+RealToInteger
