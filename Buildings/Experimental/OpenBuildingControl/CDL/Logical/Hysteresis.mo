@@ -1,14 +1,16 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
-  extends Modelica.Blocks.Icons.PartialBooleanBlock;
   parameter Real uLow(start=0) "if y=true and u<=uLow, switch to y=false";
+
   parameter Real uHigh(start=1) "if y=false and u>=uHigh, switch to y=true";
+
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
-  Modelica.Blocks.Interfaces.RealInput u
+  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.BooleanOutput y
+
+  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 initial equation
@@ -16,6 +18,7 @@ initial equation
 equation
   assert(uHigh > uLow,"Hysteresis limits wrong (uHigh <= uLow)");
   y = not pre(y) and u > uHigh or pre(y) and u >= uLow;
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Polygon(
@@ -66,6 +69,20 @@ equation
           160,164})}),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          lineThickness=5.0,
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if y > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},

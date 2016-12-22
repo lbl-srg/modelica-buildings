@@ -1,17 +1,19 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block TriggeredTrapezoid "Triggered trapezoid generator"
-  extends Modelica.Blocks.Icons.PartialBooleanBlock;
 
-  parameter Real amplitude=1 "Amplitude of trapezoid";
+  parameter Real amplitude "Amplitude of trapezoid";
+
   parameter Modelica.SIunits.Time rising(final min=0) = 0
     "Rising duration of trapezoid";
+
   parameter Modelica.SIunits.Time falling(final min=0) = rising
     "Falling duration of trapezoid";
+
   parameter Real offset=0 "Offset of output signal";
 
-  Modelica.Blocks.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+  Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -31,27 +33,40 @@ equation
       amplitude) > 0 or initial() then time else time + (endValue - pre(y))/
       rate;
   end when;
+
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={
-      Line(points={{-60.0,-70.0},{-60.0,-70.0},{-30.0,40.0},{8.0,40.0},{40.0,-70.0},{40.0,-70.0}},
+        graphics={                       Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={210,210,210},
+          lineThickness=5.0,
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
+      Line(points={{-46,-70},{-46,-70},{-16,40},{22,40},{54,-70},{54,-70}},
         color={0,0,127}),
       Line(points={{-90.0,-70.0},{82.0,-70.0}},
         color={192,192,192}),
-      Line(points={{-80.0,68.0},{-80.0,-80.0}},
+      Line(points={{-66,68},{-66,-80}},
         color={192,192,192}),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
-        points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}}),
+        points={{-66,90},{-74,68},{-58,68},{-66,90}}),
+      Line(points={{-66,-70},{-46,-70},{-46,24},{22,24},{22,-70},{74,-70}},
+        color={255,0,255}),
+        Ellipse(
+          extent={{-71,7},{-85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid),
       Polygon(lineColor={192,192,192},
         fillColor={192,192,192},
         fillPattern=FillPattern.Solid,
-        points={{-80.0,90.0},{-88.0,68.0},{-72.0,68.0},{-80.0,90.0}}),
-      Line(points={{-80.0,-70.0},{-60.0,-70.0},{-60.0,24.0},{8.0,24.0},{8.0,-70.0},{60.0,-70.0}},
-        color={255,0,255})}),
+        points={{90.0,-70.0},{68.0,-62.0},{68.0,-78.0},{90.0,-70.0}})}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Line(points={{-80,-20},{-60,-20},{-30,40},{
           8,40},{40,-20},{60,-20}}, color={0,0,255}),Line(points={{-90,-70},{

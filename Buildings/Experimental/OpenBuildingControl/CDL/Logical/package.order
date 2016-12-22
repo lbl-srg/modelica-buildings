@@ -22,3 +22,4 @@ Switch
 Hysteresis
 OnOffController
 TriggeredTrapezoid
+OnDelay

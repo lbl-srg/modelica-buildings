@@ -1,15 +1,15 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block Switch "Switch between two Real signals"
-  extends Modelica.Blocks.Icons.PartialBooleanBlock;
-  Modelica.Blocks.Interfaces.RealInput u1
-    "Connector of first Real input signal"
+
+  Modelica.Blocks.Interfaces.RealInput u1 "Connector of first Real input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.BooleanInput u2
-    "Connector of Boolean input signal"
+
+  Modelica.Blocks.Interfaces.BooleanInput u2 "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput u3
-    "Connector of second Real input signal"
+
+  Modelica.Blocks.Interfaces.RealInput u3 "Connector of second Real input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -28,6 +28,12 @@ u1, else it is set equal to u3.</p>
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
+                                         Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={210,210,210},
+          lineThickness=5.0,
+          fillPattern=FillPattern.Solid,
+          borderPattern=BorderPattern.Raised),
         Line(points={{12.0,0.0},{100.0,0.0}},
           color={0,0,127}),
         Line(points={{-100.0,0.0},{-40.0,0.0}},
@@ -44,5 +50,12 @@ u1, else it is set equal to u3.</p>
         Ellipse(lineColor={0,0,255},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          extent={{2.0,-8.0},{18.0,8.0}})}));
+          extent={{2.0,-8.0},{18.0,8.0}}),
+        Ellipse(
+          extent={{-71,7},{-85,-7}},
+          lineColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
+               else {235,235,235}),
+          fillPattern=FillPattern.Solid)}));
 end Switch;
