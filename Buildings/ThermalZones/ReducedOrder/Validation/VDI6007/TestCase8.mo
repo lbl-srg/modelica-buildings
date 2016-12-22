@@ -221,7 +221,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{4,-10},{16,2}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
