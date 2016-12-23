@@ -23,7 +23,8 @@ model Closet "Model of the closet connected to test cell X3A"
     layers = {higIns, celDiv, slaCon},
     A = {3.6576*1.524, 3.6576 * 1.524, 3.93},
     til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
-    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N}));
+    azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N},
+    each stateAtSurface_a = false));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall

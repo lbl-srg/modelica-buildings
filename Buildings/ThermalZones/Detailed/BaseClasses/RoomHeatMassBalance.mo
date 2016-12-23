@@ -31,23 +31,24 @@ partial model RoomHeatMassBalance "Base model for a room"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
     "Heat port for radiative heat gain and radiative temperature" annotation (
       Placement(transformation(extent={{-270,-10},{-250,10}}),
-                                                           iconTransformation(
-          extent={{-20,-48},{0,-28}})));
+                iconTransformation(extent={{-20,-48},{0,-28}})));
   ////////////////////////////////////////////////////////////////////////
   // Constructions
   Constructions.Construction conExt[NConExt](
-    A=datConExt.A,
-    til=datConExt.til,
-    final layers={datConExt[i].layers for i in 1:NConExt},
-    steadyStateInitial=datConExt.steadyStateInitial,
-    T_a_start=datConExt.T_a_start,
-    T_b_start=datConExt.T_b_start) if haveConExt
+    final A=datConExt.A,
+    final til=datConExt.til,
+    final layers=datConExt.layers,
+    final steadyStateInitial=datConExt.steadyStateInitial,
+    final T_a_start=datConExt.T_a_start,
+    final T_b_start=datConExt.T_b_start,
+    final stateAtSurface_a = datConExt.stateAtSurface_a,
+    final stateAtSurface_b = datConExt.stateAtSurface_b) if haveConExt
     "Heat conduction through exterior construction that have no window"
     annotation (Placement(transformation(extent={{288,100},{242,146}})));
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
     final A=datConExtWin.A,
     final til=datConExtWin.til,
-    final layers={datConExtWin[i].layers for i in 1:NConExtWin},
+    final layers=datConExtWin.layers,
     final steadyStateInitial=datConExtWin.steadyStateInitial,
     final T_a_start=datConExtWin.T_a_start,
     final T_b_start=datConExtWin.T_b_start,
@@ -55,29 +56,42 @@ partial model RoomHeatMassBalance "Base model for a room"
     final fFra=datConExtWin.fFra,
     final glaSys=datConExtWin.glaSys,
     each final homotopyInitialization=homotopyInitialization,
-    each final linearizeRadiation=linearizeRadiation) if haveConExtWin
+    each final linearizeRadiation=linearizeRadiation,
+    each final steadyStateWindow=steadyStateWindow,
+    final stateAtSurface_a = datConExtWin.stateAtSurface_a,
+    final stateAtSurface_b = datConExtWin.stateAtSurface_b) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{280,44},{250,74}})));
+
   Constructions.Construction conPar[NConPar](
     A=datConPar.A,
     til=datConPar.til,
-    final layers={datConPar[i].layers for i in 1:NConPar},
+    final layers=datConPar.layers,
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
-    T_b_start=datConPar.T_b_start) if haveConPar
+    T_b_start=datConPar.T_b_start,
+    final stateAtSurface_a = datConPar.stateAtSurface_a,
+    final stateAtSurface_b = datConPar.stateAtSurface_b) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{282,-122},{244,-84}})));
+
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
     til=datConBou.til,
-    final layers={datConBou[i].layers for i in 1:NConBou},
+    final layers=datConBou.layers,
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
-    T_b_start=datConBou.T_b_start) if haveConBou
+    T_b_start=datConBou.T_b_start,
+    final stateAtSurface_a = datConBou.stateAtSurface_a,
+    final stateAtSurface_b = datConBou.stateAtSurface_b) if haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{282,-156},{242,-116}})));
   parameter Boolean linearizeRadiation=true
     "Set to true to linearize emissive power";
+
+  parameter Boolean steadyStateWindow = false
+    "Set to false to add thermal capacity at window, which generally leads to faster simulation"
+    annotation (Dialog(tab="Dynamics", group="Glazing system"));
   ////////////////////////////////////////////////////////////////////////
   // Convection
   parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
@@ -164,7 +178,9 @@ partial model RoomHeatMassBalance "Base model for a room"
     final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
     haveConExtWin "Model for solar radiation through shades and window"
     annotation (Placement(transformation(extent={{320,-24},{300,-4}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data"
+    annotation (Placement(
         transformation(extent={{170,150},{190,170}}), iconTransformation(extent=
            {{166,166},{192,192}})));
 
@@ -221,6 +237,7 @@ partial model RoomHeatMassBalance "Base model for a room"
     final haveShade=haveShade)
     "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+
   Buildings.ThermalZones.Detailed.BaseClasses.InfraredRadiationExchange irRadExc(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
@@ -255,7 +272,8 @@ partial model RoomHeatMassBalance "Base model for a room"
     final A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final thisSideHasShade=haveInteriorShade,
     final absIR_air=datConExtWin.glaSys.shade.absIR_a,
-    final absIR_glass={(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin},
+    final absIR_glass={(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b)
+                         for i in 1:NConExtWin},
     final tauIR_air=tauIRSha_air,
     final tauIR_glass=tauIRSha_glass,
     each final linearize = linearizeRadiation,
@@ -268,8 +286,7 @@ protected
     datConExtWin.glaSys.shade.tauIR_a
     "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-        final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[
-                                                                          NConExtWin]=
+        final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[NConExtWin]=
     datConExtWin.glaSys.shade.tauIR_b
     "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
@@ -837,6 +854,20 @@ for detailed explanations.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+November 21, 2016, by Thierry S. Nouidui:<br/>
+Removed <code>for loop</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola
+which will be addressed in future releases.
+</li>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Added optional capacity at the room-facing surface
+to reduce the dimension of the nonlinear system of equations,
+which generally decreases computing time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected error in annotation to enable the pedantic model check in Dymola 2017 FD01 beta 2.<br/>

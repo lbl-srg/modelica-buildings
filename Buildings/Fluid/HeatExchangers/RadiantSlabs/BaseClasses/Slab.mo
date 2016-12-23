@@ -29,6 +29,15 @@ partial model Slab "Base class for radiant slab"
     "Initial temperature at surf_b, used if steadyStateInitial = false"
     annotation(Dialog(tab="Initialization", group="Construction"));
 
+  parameter Boolean stateAtSurface_a=true
+    "=true, a state will be at the surface a"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+  parameter Boolean stateAtSurface_b=true
+    "=true, a state will be at the surface b"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_a
     "Heat port at construction surface"
     annotation (Placement(transformation(extent={{30,90},{50,110}})));

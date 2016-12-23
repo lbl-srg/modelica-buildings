@@ -1,4 +1,4 @@
-last-generated=2016-12-15
+last-generated=2016-12-22
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -17,40 +17,37 @@ statistics-fmu-dependencies=
     "QGaiRad_flow[1]": [], 
     "weaBus.TDryBul": [], 
     "fluPor[2, 1].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[1, 1].backward.X_w", 
       "fan.filter.x[2]"
     ], 
     "fluPor[2, 2].forward.T": [
       "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
-    "weaBus.HHorIR": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HHorIR": [], 
     "fluPor[1, 1].m_flow": [
       "fan.filter.x[2]"
     ], 
-    "weaBus.HDirNor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HDirNor": [], 
     "fluPor[1, 2].forward.T": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
-    "CPUtime": [], 
     "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
     "weaBus.nTot": [], 
     "QGaiLat_flow[2]": [], 
     "weaBus.solHouAng": [], 
-    "weaBus.TBlaSky": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.TBlaSky": [], 
     "fluPor[2, 3].forward.T": [
       "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
     "fluPor[2, 3].m_flow": [
       "fan.filter.x[2]", 
@@ -69,18 +66,19 @@ statistics-fmu-dependencies=
       "fan2.filter.x[2]"
     ], 
     "fluPor[1, 3].forward.T": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
     "fluPor[1, 1].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.X_w", 
       "fan.filter.x[2]"
     ], 
     "fluPor[1, 2].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
     "QGaiRad_flow[2]": [], 
     "fluPor[1, 3].m_flow": [
@@ -92,25 +90,23 @@ statistics-fmu-dependencies=
     ], 
     "weaBus.relHum": [], 
     "QGaiSenCon_flow[1]": [], 
-    "EventCounter": [], 
-    "weaBus.celHei": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.celHei": [], 
     "fluPor[1, 3].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
     "fluPor[2, 3].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
     "fluPor[2, 2].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.filter.x[2]", 
+      "fan2.filter.x[2]"
     ], 
-    "weaBus.HGloHor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HGloHor": [], 
     "QGaiLat_flow[1]": [], 
     "fluPor[1, 2].m_flow": [
       "fan.filter.x[2]", 
@@ -120,14 +116,10 @@ statistics-fmu-dependencies=
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
     "weaBus.lat": [], 
-    "weaBus.winSpe": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.winSpe": [], 
     "weaBus.cloTim": [], 
     "QGaiSenCon_flow[2]": [], 
-    "weaBus.HDifHor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HDifHor": [], 
     "weaBus.pAtm": []
   }, 
   "InitialUnknowns": {
@@ -163,14 +155,15 @@ statistics-fmu-dependencies=
       "weaDat.pAtm"
     ], 
     "fluPor[2, 1].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[1, 1].backward.X_w", 
       "fan.m_flow_start", 
       "weaDat.pAtm"
     ], 
     "fluPor[2, 2].forward.T": [
       "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "der(senTemSupAir.T)": [
       "fluPor[1, 1].backward.T", 
@@ -186,9 +179,7 @@ statistics-fmu-dependencies=
       "weaDat.pAtm", 
       "fan2.m_flow_start"
     ], 
-    "weaBus.HHorIR": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HHorIR": [], 
     "der(fan2.filter.x[2])": [
       "fan2.riseTime", 
       "fan2.m_flow_start"
@@ -199,16 +190,14 @@ statistics-fmu-dependencies=
     "senTemHXOut.T": [
       "senTemHXOut.T_start"
     ], 
-    "weaBus.HDirNor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HDirNor": [], 
     "weaBus.solHouAng": [], 
     "fluPor[1, 2].forward.T": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
-    "CPUtime": [], 
     "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
     "der(senTemHXOut.T)": [
@@ -229,12 +218,13 @@ statistics-fmu-dependencies=
       "fan.m_flow_start"
     ], 
     "weaBus.TBlaSky": [
-      "fluPor[1, 1].backward.T", 
       "weaDat.pAtm"
     ], 
     "fluPor[2, 3].forward.T": [
       "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "fluPor[2, 3].m_flow": [
       "fan.m_flow_start", 
@@ -265,20 +255,21 @@ statistics-fmu-dependencies=
       "fan2.m_flow_start"
     ], 
     "fluPor[1, 3].forward.T": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "fluPor[1, 1].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
       "fluPor[2, 1].backward.X_w", 
       "fan.m_flow_start", 
       "weaDat.pAtm"
     ], 
     "der(fan.filter.x[1])": [], 
     "fluPor[1, 2].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "QGaiRad_flow[2]": [
       "zer[2].k"
@@ -297,30 +288,28 @@ statistics-fmu-dependencies=
     "fan2.filter.x[2]": [
       "fan2.m_flow_start"
     ], 
-    "EventCounter": [], 
-    "weaBus.celHei": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.celHei": [], 
     "fluPor[1, 3].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[2, 1].backward.X_w"
+      "fluPor[2, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "fluPor[2, 3].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "der(fan2.filter.x[1])": [], 
     "fluPor[2, 2].forward.X_w": [
-      "fluPor[1, 1].backward.T", 
-      "fluPor[1, 1].backward.X_w"
+      "fluPor[1, 1].backward.X_w", 
+      "fan.m_flow_start", 
+      "fan2.m_flow_start"
     ], 
     "der(fan.filter.x[2])": [
       "fan.riseTime", 
       "fan.m_flow_start"
     ], 
-    "weaBus.HGloHor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HGloHor": [], 
     "QGaiLat_flow[1]": [
       "zer[1].k"
     ], 
@@ -335,16 +324,12 @@ statistics-fmu-dependencies=
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
     "weaBus.lat": [], 
-    "weaBus.winSpe": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.winSpe": [], 
     "weaBus.cloTim": [], 
     "QGaiSenCon_flow[2]": [
       "zer[2].k"
     ], 
-    "weaBus.HDifHor": [
-      "fluPor[1, 1].backward.T"
-    ], 
+    "weaBus.HDifHor": [], 
     "fan.filter.x[1]": [
       "fan.riseTime"
     ], 

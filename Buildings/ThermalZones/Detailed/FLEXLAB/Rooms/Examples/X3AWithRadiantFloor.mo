@@ -45,7 +45,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*3.09,
     length=32.92,
     disPip=sla4A1.A/sla4A1.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-108,-136},{-88,-116}})));
 
@@ -195,7 +196,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*1.51,
     disPip=sla4A2.A/sla4A2.length,
     length=45.11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-152,-100},{-132,-80}})));
 
@@ -226,7 +228,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*0.91,
     disPip=sla4A3.A/sla4A3.length,
     length=42.98,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-192,-62},{-172,-42}})));
 
@@ -257,7 +260,8 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
     A=6.645*3.65,
     disPip=sla4A4.A/sla4A4.length,
     length=50.9,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-222,-16},{-202,4}})));
 
@@ -318,7 +322,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(shaPos.y, X3A.uSha) annotation (Line(
-      points={{-175,134},{-118,134},{-118,74},{-112,74}},
+      points={{-175,134},{-118,134},{-118,76},{-111.6,76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, ele.weaBus)    annotation (Line(
@@ -332,15 +336,15 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(ele.surf_surBou[1], X3A.surf_conBou[5])    annotation (Line(
-      points={{70.2,-74.5},{70,-74.5},{70,-88},{-84,-88},{-84,42.8}},
+      points={{70.2,-74},{70,-74},{70,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[3]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42}},
+      points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
-      points={{172.2,97.5},{172,97.5},{172,-88},{-84,-88},{-84,42.4}},
+      points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEle.y[4], airInEle.T_in) annotation (Line(
@@ -356,15 +360,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele.surf_surBou[2], clo.surf_conBou[1])    annotation (Line(
-      points={{70.2,-73.5},{70,-73.5},{70,-88},{182,-88},{182,95.3333}},
+      points={{70.2,-74},{70,-74},{70,-88},{182,-88},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT2[1].port, X3A.surf_conBou[1])   annotation (Line(
-      points={{54,-114},{-84,-114},{-84,41.2}},
+      points={{54,-114},{-84,-114},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT2[2].port, X3A.surf_conBou[2])   annotation (Line(
-      points={{54,-114},{-84,-114},{-84,41.6}},
+      points={{54,-114},{-84,-114},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airInClo.ports[1],clo. ports[1]) annotation (Line(
@@ -396,19 +400,19 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(intGai.y, X3A.qGai_flow) annotation (Line(
-      points={{-175,102},{-140,102},{-140,66},{-112,66}},
+      points={{-175,102},{-140,102},{-140,66},{-111.6,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiEle.y, ele.qGai_flow)    annotation (Line(
-      points={{-47,-6},{20,-6},{20,-52},{52,-52}},
+      points={{-47,-6},{20,-6},{20,-52},{52.4,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGaiClo.y,clo. qGai_flow) annotation (Line(
-      points={{9,142},{120,142},{120,120},{154,120}},
+      points={{9,142},{120,142},{120,120},{154.4,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT.port,clo. surf_conBou[3]) annotation (Line(
-      points={{-94,-160},{-94,-142},{182,-142},{182,96.6667}},
+      points={{-94,-160},{-94,-142},{182,-142},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(ele.surf_conBou[1], preT.port)    annotation (Line(
@@ -416,7 +420,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4A1.surf_a, X3A.surf_surBou[1]) annotation (Line(
-      points={{-94,-116},{-94,43.25},{-93.8,43.25}},
+      points={{-94,-116},{-94,44},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(watCon4A2.y[1], watIn4A2.m_flow_in) annotation (Line(
@@ -436,7 +440,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla4A2.surf_a, X3A.surf_surBou[2]) annotation (Line(
-      points={{-138,-80},{-138,-48},{-93.8,-48},{-93.8,43.75}},
+      points={{-138,-80},{-138,-48},{-93.8,-48},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, sla4A2.surf_b) annotation (Line(
@@ -460,7 +464,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla4A3.surf_a, X3A.surf_surBou[3]) annotation (Line(
-      points={{-178,-42},{-178,-24},{-93.8,-24},{-93.8,44.25}},
+      points={{-178,-42},{-178,-24},{-93.8,-24},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, sla4A3.surf_b) annotation (Line(
@@ -489,7 +493,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4A4.surf_a, X3A.surf_surBou[4]) annotation (Line(
-      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44.75}},
+      points={{-208,4},{-208,14},{-93.8,14},{-93.8,44}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
@@ -809,8 +813,12 @@ equation
           no ventilation flow during unoccupied hours.
           </p>
           </html>",
-          revisions = "<html>
+          revisions="<html>
           <ul>
+          <li>
+          December 07, 2016, by Thierry S. Nouidui:<br/>
+          Changed example to place a state at the surface.
+          </li>
           <li>
           April 21, 2016, by Michael Wetter:<br/>
           Replaced <code>ModelicaServices.ExternalReferences.loadResource</code> with

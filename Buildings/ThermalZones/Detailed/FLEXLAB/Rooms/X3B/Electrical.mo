@@ -23,8 +23,9 @@ model Electrical "Model of the electrical room attached to test cell X3A"
      layers = {slaCon},
      A = {2.39},
      til = {Buildings.Types.Tilt.Floor},
-     azi = {Buildings.Types.Azimuth.N}));
-  replaceable parameter
+     azi = {Buildings.Types.Azimuth.N},
+     stateAtSurface_a = {false}));
+  replaceable
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));

@@ -90,7 +90,6 @@ model Case600FF
     nConExt=4,
     nConPar=0,
     nSurBou=0,
-    linearizeRadiation=false,
     datConExtWin(
       layers={matExtWal},
       A={8*2.7},
@@ -100,7 +99,9 @@ model Case600FF
       fFra={0.001},
       til={Z_},
       azi={S_}),
-    lat=weaDat.lat) "Room model for Case 600"
+    lat=weaDat.lat,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Room model for Case 600"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,64},{-48,72}})));
@@ -111,7 +112,8 @@ model Case600FF
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos")
+        "modelica://Buildings/Resources/weatherdata/DRYCOLD.mos",
+      computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
@@ -155,6 +157,8 @@ model Case600FF
     A=48,
     material=soil,
     steadyStateInitial=true,
+    stateAtSurface_a=false,
+    stateAtSurface_b=true,
     T_a_start=283.15,
     T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
     annotation (Placement(transformation(
@@ -186,14 +190,6 @@ model Case600FF
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{-86,-28},{-78,-20}})));
-  Buildings.Fluid.FixedResistances.PressureDrop heaCoo(
-    redeclare package Medium = MediumA,
-    allowFlowReversal=false,
-    m_flow_nominal=48*2.7*0.41/3600*1.2,
-    dp_nominal=1,
-    linearized=true,
-    from_dp=true) "Heater and cooler"
-    annotation (Placement(transformation(extent={{4,-34},{16,-22}})));
   replaceable parameter
     Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResultsFreeFloating
       staRes(
@@ -222,11 +218,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-9.6,68},{20,68},{20,-9},{34.5,-9}},
+      points={{-9.6,68},{20,68},{20,-9},{34.8,-9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{34.5,-3},{24,-3},{24,80},{-3.6,80}},
+      points={{34.8,-1.5},{24,-1.5},{24,80},{-3.6,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
@@ -282,16 +278,8 @@ equation
       points={{50.25,-15},{-90,-15},{-90,-24},{-86,-24}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(souInf.ports[1], heaCoo.port_a)        annotation (Line(
-      points={{-12,-28},{4,-28}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heaCoo.port_b, roo.ports[2])  annotation (Line(
-      points={{16,-28},{26,-28},{26,-22.5},{39.75,-22.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[3])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-20.5},{39.75,-20.5}},
+  connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
+      points={{16,-60},{30,-60},{30,-22.5},{39.75,-22.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
@@ -311,6 +299,8 @@ equation
       points={{-78,-24},{-72,-24},{-72,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
+          -28},{14,-20.5},{39.75,-20.5}}, color={0,127,255}));
   annotation (
 experiment(StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case600FF.mos"
@@ -322,6 +312,17 @@ The room temperature is free floating.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Placed a capacity at the room-facing surface
+to reduce the dimension of the nonlinear system of equations,
+which generally decreases computing time.<br/>
+Removed the pressure drop element which is not needed.<br/>
+Linearized the radiative heat transfer, which is the default in
+the library, and avoids a large nonlinear system of equations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
