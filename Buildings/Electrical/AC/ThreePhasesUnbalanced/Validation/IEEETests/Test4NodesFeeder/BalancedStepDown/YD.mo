@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4N
 model YD
   "IEEE 4 node test feeder model with balanced load and Y - D connection (step down)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
-    (
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4(
     final line1_use_Z_y=true,
     final line2_use_Z_y=false,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
@@ -33,7 +32,9 @@ model YD
     XoverR=6,
     Zperc=sqrt(0.01^2 + 0.06^2),
     VABase=VARbase,
-    conv1(terminal_p(i(start={-477, 327}))))
+    conv1(
+      terminal_p(i(start={-477, 327})),
+      V1(start={7000, -400})))
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
 equation
   connect(load.y, loadRL.Pow1) annotation (Line(
@@ -76,7 +77,12 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepDown/YD.mos"
         "Simulate and plot"),
- Documentation(revisions="<html><ul>
+ Documentation(revisions="<html>
+<ul>
+<li>
+December 22, 2016, by Michael Wetter:<br/>
+Set start values for Dymola 2017FD01.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.
