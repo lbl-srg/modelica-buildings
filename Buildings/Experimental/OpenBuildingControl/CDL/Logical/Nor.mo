@@ -47,8 +47,8 @@ equation
           fillPattern=FillPattern.Solid)}),
                                Documentation(info="<html>
 <p>
-The output is <code>true</code> if none of the inputs is <code>true</code>, otherwise
-the output is <code>false</code>.
+Block that outputs <code>true</code> if none of the inputs is <code>true</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Nor;

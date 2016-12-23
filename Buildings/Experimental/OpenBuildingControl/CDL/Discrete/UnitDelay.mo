@@ -37,9 +37,9 @@ equation
 
 
   annotation (
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
-This block describes a unit delay:
+Block that outputs the input signal with a unit delay:
 </p>
 <pre>
           1
@@ -47,11 +47,11 @@ This block describes a unit delay:
           z
 </pre>
 <p>
-that is, the output signal y is the input signal u of the
+that is, the output signal <code>y</code> is the
+input signal <code>u</code> of the
 previous sample instant. Before the second sample instant,
-the output y is identical to parameter yStart.
+the output <code>y</code> is identical to parameter <code>y_start</code>.
 </p>
-
 </html>"), Icon(
     coordinateSystem(preserveAspectRatio=true,
       extent={{-100.0,-100.0},{100.0,100.0}}),

@@ -54,9 +54,18 @@ equation
                else {235,235,235}),
           fillPattern=FillPattern.Solid)}),
                                 Documentation(info="<html>
-<p>The block OnOffController sets the output signal <code>y</code> to <code>true</code> when
-the input signal <code>u</code> falls below the <code>reference</code> signal minus half of
-the bandwidth and sets the output signal <code>y</code> to <code>false</code> when the input
-signal <code>u</code> exceeds the <code>reference</code> signal plus half of the bandwidth.</p>
+<p>
+Block that represents and on/off controller.
+</p>
+<p>
+The block outputs <code>true</code> when
+the input signal <code>u</code> falls below
+the <code>reference</code> signal minus half of the bandwidth.
+It sets the output signal to <code>false</code> when the input
+signal <code>u</code> exceeds the <code>reference</code> signal
+plus half of the bandwidth.
+The parameter <code>pre_y_start</code> is used to initialize the
+previous value of the output <code>pre(y)</code>.
+</p>
 </html>"));
 end OnOffController;

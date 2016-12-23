@@ -38,10 +38,10 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-The output is <code>true</code> if the Boolean input has either a rising edge
+Block that outputs <code>true</code> if the Boolean input has either a rising edge
 from <code>false</code> to <code>true</code> or a falling edge from
-<code>true</code> to <code>false</code>, otherwise
-the output is <code>false</code>.
+<code>true</code> to <code>false</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Change;

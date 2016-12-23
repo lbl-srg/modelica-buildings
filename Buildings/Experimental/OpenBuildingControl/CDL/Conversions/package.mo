@@ -1,12 +1,19 @@
 within Buildings.Experimental.OpenBuildingControl.CDL;
 package Conversions "Library with blocks for type conversion"
 
-
-
-
-annotation (Documentation(info="<html>
+annotation (
+Documentation(
+info="<html>
 <p>
-This package contains blocks for converting data types.
+Package with blocks for type conversions.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 22, 2016, by Michael Wetter:<br/>
+Firt implementation, based on the blocks from the Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Conversions;

@@ -2,10 +2,23 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Integers "Library with elementary mathematical functions for integer variables"
   extends Modelica.Icons.Package;
 
-
-
-
-annotation (Icon(graphics={Text(
+annotation (
+Documentation(
+info="<html>
+<p>
+Package with blocks for elementary mathematical functions
+for integer variables.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 22, 2016, by Michael Wetter:<br/>
+Firt implementation, based on the blocks from the Modelica Standard Library.
+</li>
+</ul>
+</html>"),
+Icon(graphics={Text(
         extent={{-54,104},{50,-74}},
         lineColor={0,0,0},
         fillColor={0,0,0},

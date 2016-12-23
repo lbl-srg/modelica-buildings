@@ -18,12 +18,14 @@ equation
   annotation (
     defaultComponentName="switch1",
     Documentation(info="<html>
-<p>The Logical.Switch switches, depending on the
-logical connector u2 (the middle connector)
-between the two possible input signals
-u1 (upper connector) and u3 (lower connector).</p>
-<p>If u2 is <code>true</code>, the output signal y is set equal to
-u1, else it is set equal to u3.</p>
+<p>
+Block that represents a logical switch.
+</p>
+<p>
+If the input <code>u2</code> is <code>true</code>,
+the block outputs the input <code>u1</code>.
+Otherwise it outputs the input <code>u3</code>.
+</p>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,

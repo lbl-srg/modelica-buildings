@@ -117,20 +117,22 @@ equation
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
     Documentation(info="<html>
 <p>
-This block transforms a <code>Real</code> input signal into a <code>Boolean</code>
+Block that transforms a <code>Real</code> input signal into a <code>Boolean</code>
 output signal:
 </p>
 <ul>
 <li> When the output was <code>false</code> and the input becomes
-     <code>greater</code> than parameter <code>uHigh</code>, the output
-     switches to <code>true</code>.</li>
+     greater than the parameter <code>uHigh</code>, the output
+     switches to <code>true</code>.
+</li>
 <li> When the output was <code>true</code> and the input becomes
-     <code>less</code> than parameter <code>uLow</code>, the output
-     switches to <code>false</code>.</li>
+     less than the parameter <code>uLow</code>, the output
+     switches to <code>false</code>.
+</li>
 </ul>
 <p>
 The start value of the output is defined via parameter
-<code>pre_y_start</code> (= value of pre(y) at initial time).
+<code>pre_y_start</code> (= value of <code>pre(y)</code> at initial time).
 The default value of this parameter is <code>false</code>.
 </p>
 </html>"));

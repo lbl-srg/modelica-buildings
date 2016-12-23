@@ -26,12 +26,17 @@ equation
   y = change(u_pos) and not edge(enable) and not edge(disable);
   annotation (Documentation(info="<html>
 <p>
-The output \"y\" is <code>true</code> at the
-time instant when the input \"u\" becomes
-zero, provided the input \"enable\" is
-<code>true</code>. At all other time instants, the output \"y\" is <code>false</code>.
-If the input \"u\" is zero at a time instant when the \"enable\"
-input changes its value, then the output y is <code>false</code>.
+Block that detects zero crossings.
+</p>
+<p>
+The output <code>y</code> is <code>true</code> at the
+time instant when the input <code>u</code> becomes
+zero, provided the input <code>enable</code> is
+<code>true</code>. At all other time instants,
+the output <code>y</code> is <code>false</code>.
+If the input <code>u</code> is zero at a time instant when
+the <code>enable</code>
+input changes its value, then the output <code>y</code> is <code>false</code>.
 </p>
 <p>
 Note, that in the plot window of a Modelica simulator, the output of

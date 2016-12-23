@@ -41,9 +41,9 @@ equation
           fillPattern=FillPattern.Solid)}),
                                    Documentation(info="<html>
 <p>
-The output is <code>true</code> if the Boolean input has a falling edge
-from <code>true</code> to <code>false</code>, otherwise
-the output is <code>false</code>.
+Block that outputs  <code>true</code> if the Boolean input has a falling edge
+from <code>true</code> to <code>false</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end FallingEdge;

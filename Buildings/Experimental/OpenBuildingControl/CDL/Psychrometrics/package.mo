@@ -2,8 +2,6 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Psychrometrics "Library with psychrometric blocks"
   extends Modelica.Icons.Package;
 
-
-
 annotation (Icon(graphics={
         Line(points={{-78,86},{-78,-72}}),
         Polygon(
@@ -32,13 +30,22 @@ annotation (Icon(graphics={
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="T")}), Documentation(info="<html>
-          
+          textString="T")}),
+Documentation(info="<html>
 <p>
 <b>fixme: This still needs to be refactored.</b>
 </p>
-<p>          
+<p>
 This package contains blocks for psychrometric calculations.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 22, 2016, by Michael Wetter:<br/>
+Firt implementation, based on the blocks from the Modelica Standard Library.
+</li>
+</ul>
 </html>"));
+
 end Psychrometrics;

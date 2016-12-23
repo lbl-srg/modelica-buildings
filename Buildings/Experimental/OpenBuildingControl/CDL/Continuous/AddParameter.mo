@@ -3,7 +3,7 @@ block AddParameter "Output the sum of an input plus a parameter"
 
   parameter Real p "Value to be added";
 
-  parameter Real k=+1 "Gain of input";
+  parameter Real k "Gain of input";
 
   Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

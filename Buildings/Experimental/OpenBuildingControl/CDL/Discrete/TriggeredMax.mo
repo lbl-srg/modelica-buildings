@@ -93,8 +93,8 @@ equation
         Line(points={{0,-100},{0,-26}}, color={255,0,255})}),
     Documentation(info="<html>
 <p>
-Samples the continuous input signal whenever the trigger input
-signal is rising (i.e., trigger changes from <code>false</code> to
+Block that outputs the input signal whenever the trigger input
+signal is rising (i.e., trigger changes to
 <code>true</code>). The maximum, absolute value of the input signal
 at the sampling point is provided as output signal.
 </p>

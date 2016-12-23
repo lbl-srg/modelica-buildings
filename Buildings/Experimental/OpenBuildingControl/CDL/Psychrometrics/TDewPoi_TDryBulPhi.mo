@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TDewPoi_TDryBulPhi
-  "Model to compute the dew point temperature based on relative humidity"
+  "Block to compute the dew point temperature based on relative humidity"
   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(

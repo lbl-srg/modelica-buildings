@@ -63,7 +63,10 @@ equation
           fillPattern=FillPattern.Solid)}),
                                  Documentation(info="<html>
 <p>
-A rising edge of the Boolean input u gives a delayed output.
+Block that delays an on-signal.
+</p>
+<p>
+A rising edge of the Boolean input <code>u</code> gives a delayed output.
 A falling edge of the input is immediately given to the output.
 </p>
 
@@ -75,14 +78,9 @@ is shown in the next figure.
 <p>
 <img src=\"modelica://Modelica/Resources/Images/Blocks/MathBoolean/OnDelay1.png\"
      alt=\"OnDelay1.png\">
-<br>
+<br/>
 <img src=\"modelica://Modelica/Resources/Images/Blocks/MathBoolean/OnDelay2.png\"
      alt=\"OnDelay2.png\">
-</p>
-
-<p>
-The usage is demonstrated, e.g., in example
-<a href=\"modelica://Modelica.Blocks.Examples.BooleanNetwork1\">Modelica.Blocks.Examples.BooleanNetwork1</a>.
 </p>
 
 </html>"));

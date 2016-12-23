@@ -74,7 +74,7 @@ equation
         Line(points={{-35,0},{30,35}}, color={0,0,255})}),
     Documentation(info="<html>
 <p>
-Samples the continues input signal with a sampling rate defined
+Block that outputs the input signal, sampled at a sampling rate defined
 via parameter <code>samplePeriod</code>.
 </p>
 </html>"));

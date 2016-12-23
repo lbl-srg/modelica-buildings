@@ -16,12 +16,14 @@ block LogicalSwitch "Logical Switch"
 equation
   y = if u2 then u1 else u3;
   annotation (Documentation(info="<html>
-<p>The LogicalSwitch switches, depending on the
-Boolean u2 connector (the middle connector),
-between the two possible input signals
-u1 (upper connector) and u3 (lower connector).</p>
-<p>If u2 is true, connector y is set equal to
-u1, else it is set equal to u3.</p>
+<p>
+Block that is a logical switch.
+</p>
+<p>
+If the input signal <code>u2</code> is <code>true</code>,
+the block outputs <code>y = u1</code>.
+Otherwise, it outputs <code>y = u3</code>.
+</p>
 </html>"),
          Icon(coordinateSystem(
         preserveAspectRatio=true,

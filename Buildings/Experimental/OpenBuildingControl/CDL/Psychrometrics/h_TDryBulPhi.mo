@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block h_TDryBulPhi
-  "Model to compute the specific enthalpy based on relative humidity"
+  "Block to compute the specific enthalpy based on relative humidity"
   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(

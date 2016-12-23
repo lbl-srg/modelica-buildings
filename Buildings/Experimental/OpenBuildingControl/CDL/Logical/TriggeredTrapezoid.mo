@@ -25,7 +25,7 @@ protected
 equation
   y = if time < T then endValue - (T - time)*rate else endValue;
 
-  when {initial(),u,not u} then
+  when {initial(), u, not u} then
     endValue = if u then offset + amplitude else offset;
     rate = if u and (rising > 0) then amplitude/rising else if not u and (
       falling > 0) then -amplitude/falling else 0;
@@ -149,20 +149,27 @@ equation
             lineColor={0,0,0},
             textString="u")}),
     Documentation(info="<html>
-<p>The block TriggeredTrapezoid has a Boolean input and a real
+<p>
+Block that represents a triggered trapezoid.
+</p>
+<p>
+The block has a Boolean input and a Real
 output signal and requires the parameters <i>amplitude</i>,
 <i>rising</i>, <i>falling</i> and <i>offset</i>. The
 output signal <code>y</code> represents a trapezoidal signal dependent on the
 input signal <code>u</code>.
 </p>
-<p>The behaviour is as follows: Assume the initial input to be false. In this
+<p>The behaviour is as follows: Assume the initial input to be
+<code>false</code>. In this
 case, the output will be <i>offset</i>. After a rising edge (i.e., the input
-changes from false to true), the output is rising during <i>rising</i> to the
+changes from <code>false</code> to <code>true</code>),
+the output is rising during <i>rising</i> to the
 sum of <i>offset</i> and <i>amplitude</i>. In contrast, after a falling
 edge (i.e., the input changes from true to false), the output is falling
 during <i>falling</i> to a value of <i>offset</i>.
 </p>
-<p>Note, that the case of edges before expiration of rising or falling is
+<p>
+Note, the case of edges before expiration of rising or falling is
 handled properly.</p>
 </html>"));
 end TriggeredTrapezoid;

@@ -47,8 +47,9 @@ equation
           fillPattern=FillPattern.Solid)}),
                                 Documentation(info="<html>
 <p>
-The output is <code>true</code> if at least one input is <code>false</code>, otherwise
-the output is <code>false</code>.
+Block that outputs <code>true</code> if at least
+one input is <code>false</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Nand;

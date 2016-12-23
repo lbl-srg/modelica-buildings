@@ -55,8 +55,8 @@ equation
         color={0,0,127})}),
     Documentation(info="<html>
 <p>
-The output is identical to the sampled input signal at sample
-time instants and holds the output at the value of the last
+Block that outputs the sampled input signal at sample
+time instants. The output signal is held at the value of the last
 sample instant during the sample points.
 </p>
 </html>"));

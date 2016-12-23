@@ -50,10 +50,15 @@ annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>
-<p> When the Boolean input \"u\" becomes <code>true</code>, the timer is started
-and the output \"y\" is the time from the time instant where u became true.
+<p>
+Block that represents a timer.
+</p>
+<p>
+When the Boolean input <code>u</code> becomes <code>true</code>, the timer is started
+and the output <code>y</code> is the time from the time instant where
+<code>u</code> became true.
 The timer is stopped and the output is reset to zero, once the
-input becomes false.
+input becomes <code>false</code>.
 </p>
 </html>"));
 end Timer;

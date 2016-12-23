@@ -13,6 +13,7 @@ block Or "Logical 'or': y = u1 or u2"
 
 equation
   y = u1 or u2;
+
   annotation (
     defaultComponentName="or1",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -49,8 +50,9 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-The output is <code>true</code> if at least one input is <code>true</code>, otherwise
-the output is <code>false</code>.
+Block that outputs <code>true</code> if at least one input
+is <code>true</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Or;

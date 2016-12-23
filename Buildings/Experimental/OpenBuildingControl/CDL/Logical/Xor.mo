@@ -45,10 +45,10 @@ equation
           fillColor=DynamicSelect({235,235,235}, if u2 > 0.5 then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid)}),
-                               Documentation(info="<html>
+Documentation(info="<html>
 <p>
-The output is <code>true</code> if exactly one input is <code>true</code>, otherwise
-the output is <code>false</code>.
+Block that outputs <code>true</code> if exactly one input is <code>true</code>.
+Otherwise the output is <code>false</code>.
 </p>
 </html>"));
 end Xor;

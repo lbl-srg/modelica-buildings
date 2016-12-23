@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
-  "Model to compute the wet bulb temperature based on relative humidity"
+  "Block to compute the wet bulb temperature based on relative humidity"
   extends Modelica.Blocks.Icons.Block;
   final package Medium = Buildings.Media.Air "Medium model";
 
@@ -173,8 +173,8 @@ Changed icon.
 </li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
-Corrected exact implementation. 
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
+Corrected exact implementation.
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a>
 for a discussion.
 </li>
 <li>
