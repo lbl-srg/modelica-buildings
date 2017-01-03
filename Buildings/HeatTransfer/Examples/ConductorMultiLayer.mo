@@ -15,9 +15,12 @@ model ConductorMultiLayer "Test model for heat conductor"
     redeclare
       Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
       layers,
-    A=0.1)
+    A=0.1,
+    stateAtSurface_b=false)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.HeatTransfer.Convection.Interior conv(      A=0.1, til=Buildings.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv(
+    A=0.1,
+    til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
 equation
@@ -40,10 +43,12 @@ equation
   annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorMultiLayer.mos" "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This example illustrates how to use a solid material, set its heat capacity to zero,
 and then use this material in a multi-layer construction.
 The plot window shows that the insulation is computed in steady state, where
 as the brick is computed using transient heat conduction.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

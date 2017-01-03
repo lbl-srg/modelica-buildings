@@ -8,8 +8,11 @@ model OnlyConstructionBoundary "Test model for room model"
    nConBou=1,
    nSurBou=0,
    roo(
-    datConBou(layers={matLayPar}, each A=12, each til=Buildings.Types.Tilt.Floor,
-    each azi=Buildings.Types.Azimuth.W)));
+    datConBou(layers={matLayPar},
+              each A=12,
+              each til=Buildings.Types.Tilt.Floor,
+              each azi=Buildings.Types.Azimuth.W,
+              each stateAtSurface_a = false)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -32,5 +35,12 @@ This model tests
 for the case of having only one construction whose other surface boundary condition
 is exposed by the room model.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Set <code>stateAtSurface_a</code>
+and <code>stateAtSurface_b</code> to false
+</li>
+</ul>
 </html>"));
 end OnlyConstructionBoundary;

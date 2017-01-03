@@ -1,7 +1,8 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
-  Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200)
+  Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200,
+    stateAtSurface_b=true)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
@@ -13,14 +14,17 @@ model ConductorSingleLayer "Test model for heat conductor"
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=1, material=concrete100)
+    A=1, material=concrete100,
+    stateAtSurface_b=false)
            annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(      T=293.15)
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=1, material=concrete100)
+    A=1, material=concrete100,
+    stateAtSurface_a=false,
+    stateAtSurface_b=true)
            annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{2,-36},{14,-24}})));
@@ -36,6 +40,8 @@ model ConductorSingleLayer "Test model for heat conductor"
   Buildings.HeatTransfer.Convection.Interior conv2(      A=1, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
+  Modelica.Blocks.Math.Add cheEqu(k2=-1) "Checks for equality of the results"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(con.port_b, TB.port) annotation (Line(
       points={{40,10},{60,10}},
@@ -81,15 +87,19 @@ equation
       points={{-12,10},{-6,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (            experiment(StartTime=0.0, StopTime=86400,
-            Tolerance=1e-6),
+  connect(heaFlo1.Q_flow, cheEqu.u1)
+    annotation (Line(points={{0,4},{0,4},{0,-64},{18,-64}}, color={0,0,127}));
+  connect(heaFlo2.Q_flow, cheEqu.u2) annotation (Line(points={{8,-36},{8,-36},{8,
+          -76},{18,-76}}, color={0,0,127}));
+  annotation (            experiment(StopTime=86400,
+            Tolerance=1E-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.
-The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
-condition differs.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

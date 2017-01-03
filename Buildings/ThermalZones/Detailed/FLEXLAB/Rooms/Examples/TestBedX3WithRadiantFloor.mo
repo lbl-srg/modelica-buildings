@@ -7,30 +7,38 @@ model TestBedX3WithRadiantFloor
   package Water = Buildings.Media.Water
     "Water model used in the radiant slab loop";
 
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.TestCell X3B(redeclare package Medium = Air,
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.TestCell X3B(redeclare
+      package                                                                      Medium = Air,
       nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Test cell X3B"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Test cell X3B"
     annotation (Placement(transformation(extent={{82,24},{122,64}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet BClo(redeclare package Medium = Air,
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Closet BClo(redeclare
+      package                                                                     Medium = Air,
       nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Closet in test cell X3B"
     annotation (Placement(transformation(extent={{68,124},{108,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical BEle(redeclare package Medium =
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.Electrical BEle(redeclare
+      package                                                                         Medium =
         Air, nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3B"
     annotation (Placement(transformation(extent={{244,124},{284,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellFullBed  X3A(redeclare package
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCellFullBed  X3A(redeclare
+      package
       Medium = Air, nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Test cell X3A"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Test cell X3A"
     annotation (Placement(transformation(extent={{-76,24},{-36,64}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.ClosetFullBed  AClo(redeclare package
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.ClosetFullBed  AClo(redeclare
+      package
       Medium = Air, nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Closet in test cell X3A"
     annotation (Placement(transformation(extent={{-86,124},{-46,164}})));
-  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Electrical AEle(redeclare package Medium =
+  Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.Electrical AEle(redeclare
+      package                                                                         Medium =
         Air, nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Electrical room in test cell X3A"
@@ -253,7 +261,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.09,
     length=32.92,
     disPip=sla4A1.A/sla4A1.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-74,-220},{-54,-200}})));
   Modelica.Blocks.Sources.CombiTimeTable watCon4A1(tableOnFile=false, table=[0,
@@ -288,7 +297,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*1.51,
     disPip=sla4A2.A/sla4A2.length,
     length=45.11,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-126,-184},{-106,-164}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A2(nPorts=1, redeclare package
@@ -318,7 +328,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*0.91,
     disPip=sla4A3.A/sla4A3.length,
     length=42.98,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-166,-146},{-146,-126}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A3(nPorts=1, redeclare package
@@ -348,7 +359,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.65,
     disPip=sla4A4.A/sla4A4.length,
     length=50.9,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3A. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{-196,-100},{-176,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4A4(nPorts=1, redeclare package
@@ -384,7 +396,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.09,
     disPip=sla4B1.A/sla4B1.length,
     length=38.71,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north side of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{60,-220},{40,-200}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B1(          redeclare package
@@ -414,7 +427,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*1.51,
     length=45.11,
     disPip=sla4B2.A/sla4B2.length,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the north-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{106,-184},{86,-164}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B2(nPorts=1, redeclare package
@@ -444,7 +458,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*0.91,
     disPip=sla4B3.A/sla4B3.length,
     length=37.49,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south-central section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{150,-144},{130,-124}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B3(nPorts=1, redeclare package
@@ -474,7 +489,8 @@ model TestBedX3WithRadiantFloor
     A=6.645*3.65,
     disPip=sla4B4.A/sla4B4.length,
     length=48.77,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    stateAtSurface_b=false)
     "Radiant slab serving the south section of cell X3B. Name is taken from drawing M3.02"
     annotation (Placement(transformation(extent={{198,-100},{178,-80}})));
   Buildings.Fluid.Sources.Boundary_pT watOut4B4(nPorts=1, redeclare package
@@ -485,43 +501,42 @@ model TestBedX3WithRadiantFloor
         origin={156,-90})));
 equation
   connect(X3B.surf_conBou[2], BClo.surf_surBou[1]) annotation (Line(
-      points={{108,27.75},{108,18},{126,18},{126,98},{84.2,98},{84.2,129.5}},
+      points={{108,28},{108,18},{126,18},{126,98},{84.2,98},{84.2,130}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[3], BClo.surf_surBou[2]) annotation (Line(
-      points={{108,28.25},{108,18},{126,18},{126,98},{84.2,98},{84.2,130.5}},
+      points={{108,28},{108,18},{126,18},{126,98},{84.2,98},{84.2,130}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3B.surf_conBou[4], BEle.surf_surBou[1]) annotation (Line(
-      points={{108,28.75},{108,18},{126,18},{126,98},{260.2,98},{260.2,129.5}},
+      points={{108,28},{108,18},{126,18},{126,98},{260.2,98},{260.2,130}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(BClo.surf_conBou[1], BEle.surf_surBou[2]) annotation (Line(
-      points={{94,127.333},{94,116},{260.2,116},{260.2,130.5}},
+      points={{94,128},{94,116},{260.2,116},{260.2,130}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3A.surf_surBou[5], X3B.surf_conBou[1]) annotation (Line(
-      points={{-59.8,30.8},{-59.8,-12},{108,-12},{108,27.25}},
+      points={{-59.8,30},{-59.8,-12},{108,-12},{108,28}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(AClo.surf_surBou[3], BClo.surf_conBou[2]) annotation (Line(
-      points={{-69.8,130.667},{-69.8,116},{94,116},{94,128}},
+      points={{-69.8,130},{-69.8,116},{94,116},{94,128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(X3A.surf_conBou[2], AClo.surf_surBou[1]) annotation (Line(
-      points={{-50,27.75},{-50,24},{-30,24},{-30,100},{-69.8,100},{-69.8,
-          129.333}},
+      points={{-50,28},{-50,24},{-30,24},{-30,100},{-69.8,100},{-69.8,130}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(X3A.surf_conBou[3], AClo.surf_surBou[2]) annotation (Line(
-      points={{-50,28.25},{-50,24},{-30,24},{-30,100},{-69.8,100},{-69.8,130}},
+      points={{-50,28},{-50,24},{-30,24},{-30,100},{-69.8,100},{-69.8,130}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(AEle.surf_surBou[2], AClo.surf_conBou[1]) annotation (Line(
-      points={{-195.8,130.5},{-195.8,122},{-60,122},{-60,127.5}},
+      points={{-195.8,130},{-195.8,122},{-60,122},{-60,128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, AEle.weaBus) annotation (Line(
@@ -555,7 +570,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(X3A.surf_conBou[4], AEle.surf_surBou[1]) annotation (Line(
-      points={{-50,28.75},{-50,24},{-30,24},{-30,100},{-195.8,100},{-195.8,129.5}},
+      points={{-50,28},{-50,24},{-30,24},{-30,100},{-195.8,100},{-195.8,130}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -685,11 +700,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preT2.port, X3A.surf_conBou[1]) annotation (Line(
-      points={{-230,-42},{-60,-42},{-60,14},{-50,14},{-50,27.25}},
+      points={{-230,-42},{-60,-42},{-60,14},{-50,14},{-50,28}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, BClo.surf_conBou[3]) annotation (Line(
-      points={{0,-244},{0,14},{-20,14},{-20,114},{94,114},{94,128.667}},
+      points={{0,-244},{0,14},{-20,14},{-20,114},{94,114},{94,128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, BEle.surf_conBou[1]) annotation (Line(
@@ -702,7 +717,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, AClo.surf_conBou[2]) annotation (Line(
-      points={{0,-244},{0,14},{-20,14},{-20,114},{-60,114},{-60,128.5}},
+      points={{0,-244},{0,14},{-20,14},{-20,114},{-60,114},{-60,128}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(airConEleB.y[4], airInEleB.T_in) annotation (Line(
@@ -795,11 +810,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4A1.surf_a, X3A.surf_surBou[1]) annotation (Line(
-      points={{-60,-200},{-60,-172},{-59.8,-172},{-59.8,29.2}},
+      points={{-60,-200},{-60,-172},{-59.8,-172},{-59.8,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4A2.surf_a, X3A.surf_surBou[2]) annotation (Line(
-      points={{-112,-164},{-112,-152},{-59.8,-152},{-59.8,29.6}},
+      points={{-112,-164},{-112,-152},{-59.8,-152},{-59.8,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, sla4A2.surf_b) annotation (Line(
@@ -817,7 +832,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4A4.surf_a, X3A.surf_surBou[4]) annotation (Line(
-      points={{-182,-80},{-182,-68},{-59.8,-68},{-59.8,30.4}},
+      points={{-182,-80},{-182,-68},{-59.8,-68},{-59.8,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(preT.port, sla4A4.surf_b) annotation (Line(
@@ -847,7 +862,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B1.surf_a, X3B.surf_surBou[1]) annotation (Line(
-      points={{46,-200},{46,-26},{98.2,-26},{98.2,29.25}},
+      points={{46,-200},{46,-26},{98.2,-26},{98.2,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B2.port_b, watOut4B2.ports[1]) annotation (Line(
@@ -871,7 +886,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B2.surf_a, X3B.surf_surBou[2]) annotation (Line(
-      points={{92,-164},{92,-26},{98.2,-26},{98.2,29.75}},
+      points={{92,-164},{92,-26},{98.2,-26},{98.2,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(watOut4B3.ports[1], sla4B3.port_b) annotation (Line(
@@ -895,7 +910,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B3.surf_a, X3B.surf_surBou[3]) annotation (Line(
-      points={{136,-124},{136,-26},{98.2,-26},{98.2,30.25}},
+      points={{136,-124},{136,-26},{98.2,-26},{98.2,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(watOut4B4.ports[1], sla4B4.port_b) annotation (Line(
@@ -920,7 +935,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sla4B4.surf_a, X3B.surf_surBou[4]) annotation (Line(
-      points={{184,-80},{184,-26},{98.2,-26},{98.2,30.75}},
+      points={{184,-80},{184,-26},{98.2,-26},{98.2,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
@@ -971,6 +986,10 @@ equation
         </html>",
         revisions="<html>
         <ul>
+        <li>
+        December 07, 2016, by Thierry S. Nouidui:<br/>
+        Changed example to place a state at the surface.
+        </li>
         <li>
         August 23, 2016, by Thierry S. Nouidui:<br/>
         Corrected the syntax of the weather data file name entry.

@@ -27,7 +27,7 @@ int cfdReceiveFeedback( ) {
       ModelicaError(cosim->ffd->msg);
     }
     else {
-      Sleep(10000);
+      sleep(10);
       i++;
     }
   }

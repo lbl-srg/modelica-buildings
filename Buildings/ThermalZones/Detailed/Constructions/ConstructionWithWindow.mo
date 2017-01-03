@@ -17,6 +17,10 @@ model ConstructionWithWindow
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"
     annotation (Dialog(group="Glazing system"));
+
+  parameter Boolean steadyStateWindow = false
+    "Set to false to add thermal capacity at window, which generally leads to faster simulation"
+    annotation (Dialog(group="Glazing system"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -30,6 +34,7 @@ model ConstructionWithWindow
     final A=AWin,
     final fFra=fFra,
     final linearize = linearizeRadiation,
+    final steadyState = steadyStateWindow,
     final til=til,
     final homotopyInitialization=homotopyInitialization) "Window model"
     annotation (Placement(transformation(extent={{-114,-184},{112,42}})));
@@ -370,6 +375,14 @@ equation
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Added optional capacity at the room-facing surface
+to reduce the dimension of the nonlinear system of equations,
+which generally decreases computing time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

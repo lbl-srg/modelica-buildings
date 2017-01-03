@@ -42,10 +42,21 @@ partial model PartialConstruction
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
+  parameter Boolean stateAtSurface_a=true
+    "=true, a state will be at the surface a"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+  parameter Boolean stateAtSurface_b=true
+    "=true, a state will be at the surface b"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+
   HeatTransfer.Conduction.MultiLayer opa(
     final A=AOpa,
     final layers=layers,
     final steadyStateInitial=steadyStateInitial,
+    final stateAtSurface_a = stateAtSurface_a,
+    final stateAtSurface_b = stateAtSurface_b,
     final T_a_start=T_a_start,
     final T_b_start=T_b_start)
     "Model for heat transfer through opaque construction"
@@ -103,6 +114,12 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Propagated parameters for optionally adding states at the surface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 March 13, 2015, by Michael Wetter:<br/>
 Changed model to avoid a translation error

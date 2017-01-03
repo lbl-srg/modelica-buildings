@@ -55,6 +55,14 @@ First implementation.
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
+  record Glass = Buildings.HeatTransfer.Data.Solids.Generic (
+      k=1.0,
+      d=2500,
+      c=700) "Glass"
+    annotation(
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol");
+
   record GypsumBoard = Buildings.HeatTransfer.Data.Solids.Generic (
       k=0.16,
       d=800,
@@ -174,6 +182,10 @@ Finally, we divide the material layer in compartments of length
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 31, 2016, by Michael Wetter:<br/>
+Added thermal properties of glass.
+</li>
 <li>
 September 9, 2010, by Michael Wetter:<br/>
 First implementation.

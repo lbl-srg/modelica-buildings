@@ -21,7 +21,6 @@ model ElectroChromicWindow
     nConPar=nConPar,
     nConBou=nConBou,
     nSurBou=nSurBou,
-    linearizeRadiation=false,
     T_start=T_start,
     datConExtWin(
       layers={matExtWal},

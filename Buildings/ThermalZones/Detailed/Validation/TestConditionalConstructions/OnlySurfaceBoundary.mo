@@ -15,7 +15,8 @@ model OnlySurfaceBoundary "Test model for room model"
         origin={130,-70})));
   HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     each A=15,
-    each layers = matLayPar) "Construction that is modeled outside of room"
+    each layers = matLayPar,
+    each stateAtSurface_b=false)  "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
 equation
   connect(TBou.port, conOut.port_b) annotation (Line(

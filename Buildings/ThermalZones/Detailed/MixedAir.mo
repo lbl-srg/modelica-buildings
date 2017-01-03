@@ -25,16 +25,63 @@ model MixedAir "Model of a room in which the air is completely mixed"
     datConPar(
       each T_a_start = T_start,
       each T_b_start = T_start));
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
 
+  ////////////////////////////////////////////////////////////////////////////
+  // Media declaration. This is identical to
+  // Buildings.Fluid.Interfaces.LumpedVolumeDeclarations, except
+  // that the comments have been changed to avoid a confusion about
+  // what energyDynamics refers to.
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance for zone air: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance for zone air: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
+  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
+    "Type of independent mass fraction balance for zone air: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
+  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
+    "Type of trace substance balance for zone air: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
+
+  parameter Real mSenFac(min=1)=1
+    "Factor for scaling the sensible thermal mass of the zone air volume"
+    annotation(Dialog(tab="Dynamics", group="Zone air"));
+
+  // Initialization
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of zone air pressure"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium.Temperature T_start=Medium.T_default
+    "Start value of zone air temperature"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium.MassFraction X_start[Medium.nX](
+       quantity=Medium.substanceNames) = Medium.X_default
+    "Start value of zone air mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
+  parameter Medium.ExtraProperty C_start[Medium.nC](
+       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    "Start value of zone air trace substances"
+    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+  parameter Medium.ExtraProperty C_nominal[Medium.nC](
+       quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
+    "Nominal value of zone air trace substances. (Set to typical order of magnitude.)"
+   annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Input connector
   Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
        haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-232,164},{-200,196}})));
+
 equation
-
-
   connect(uSha, conExtWin.uSha) annotation (Line(
       points={{-280,180},{308,180},{308,62},{281,62}},
       color={0,0,127},
@@ -77,6 +124,13 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Removed inheritance from
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>
+to provide better comments.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 Refactored implementation of latent heat gain.

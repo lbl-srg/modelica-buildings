@@ -1,8 +1,7 @@
-last-generated=2016-06-30
+last-generated=2016-12-22
 statistics-fmu-dependencies=
 {
   "Outputs": {
-    "EventCounter": [], 
     "fluPor[1].backward.T": [
       "vol.dynBal.U", 
       "vol.dynBal.m"
@@ -11,8 +10,7 @@ statistics-fmu-dependencies=
     "fluPor[2].backward.T": [
       "vol.dynBal.U", 
       "vol.dynBal.m"
-    ], 
-    "CPUtime": []
+    ]
   }, 
   "InitialUnknowns": {
     "fluPor[2].backward.T": [
@@ -27,7 +25,6 @@ statistics-fmu-dependencies=
       "vol.p_start", 
       "vol.T_start"
     ], 
-    "CPUtime": [], 
     "der(vol.dynBal.m)": [
       "fluPor[1].m_flow", 
       "fluPor[2].m_flow"
@@ -47,7 +44,6 @@ statistics-fmu-dependencies=
       "vol.T_start", 
       "TOutSou.k"
     ], 
-    "EventCounter": [], 
     "vol.dynBal.U": [
       "vol.p_start", 
       "vol.T_start"
