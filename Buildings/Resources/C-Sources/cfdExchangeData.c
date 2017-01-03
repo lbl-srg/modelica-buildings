@@ -42,7 +42,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
     else
-      Sleep(1000);
+      sleep(1);
   }
 
   cosim->modelica->t = (REAL) t0;
@@ -98,7 +98,7 @@ int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
     if(cosim->para->ffdError==1)
       ModelicaError(cosim->ffd->msg);
     else
-      Sleep(1000);
+      sleep(1);
   }
 
   /* Get the temperature/heat flux for solid surface*/
