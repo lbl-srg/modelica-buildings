@@ -193,7 +193,7 @@ equation
     Documentation(info="<html>
     <p>
     *fixme*: This block needs refactoring.
-    
+
 Via parameter <code>controllerType</code> either <code>P</code>, <code>PI</code>, <code>PD</code>,
 or <code>PID</code> can be selected. If, e.g., PI is selected, all components belonging to the
 D-part are removed from the block (via conditional declarations).

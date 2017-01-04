@@ -37,8 +37,6 @@ annotation (
           extent={{-6,-24},{66,-72}},
           lineColor={192,192,192},
           textString="log")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = log(u)</code>,

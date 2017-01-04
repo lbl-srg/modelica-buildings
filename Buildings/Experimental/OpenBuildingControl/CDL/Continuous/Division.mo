@@ -51,7 +51,5 @@ Modelica Standard Library.
           extent={{-150,110},{150,150}},
           textString="%name"),
         Line(points={{-100,60},{-66,60},{-40,30}}, color={0,0,127}),
-        Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})));
+        Line(points={{-100,-60},{0,-60},{0,-50}}, color={0,0,127})}));
 end Division;

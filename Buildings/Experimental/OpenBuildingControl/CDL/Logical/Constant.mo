@@ -44,9 +44,6 @@ equation
           extent={{-150,-140},{150,-110}},
           lineColor={0,0,0},
           textString="%k")}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}})),
       Documentation(info="<html>
 <p>
 Block that outputs a constant signal <code>y = k</code>,

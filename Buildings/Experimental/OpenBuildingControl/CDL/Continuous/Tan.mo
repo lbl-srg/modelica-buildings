@@ -44,8 +44,6 @@ annotation (
               {33.4,9.12},{49.4,16.2},{59.1,23.2},{65.5,30.6},{70.4,39.1},{
               73.6,47.4},{76,56.1},{77.6,63.8},{80,80}},
           smooth=Smooth.Bezier)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = tan(u)</code>,

@@ -45,8 +45,6 @@ annotation (
           extent={{-36,80},{36,32}},
           lineColor={192,192,192},
           textString="cos")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = cos(u)</code>,

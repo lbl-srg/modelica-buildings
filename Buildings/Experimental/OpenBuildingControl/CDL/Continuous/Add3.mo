@@ -68,7 +68,5 @@ Modelica Standard Library.
         Text(
           extent={{2,36},{100,-44}},
           lineColor={0,0,0},
-          textString="+")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})));
+          textString="+")}));
 end Add3;

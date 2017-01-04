@@ -55,7 +55,5 @@ Modelica Standard Library.
         Line(points={{50,0},{100,0}}, color={255,127, 0}),
         Text(extent={{-40,-20},{36,48}}, textString="+"),
         Text(extent={{-100,52},{5,92}}, textString="%k1"),
-        Text(extent={{-100,-92},{5,-52}}, textString="%k2")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})));
+        Text(extent={{-100,-92},{5,-52}}, textString="%k2")}));
 end Add;

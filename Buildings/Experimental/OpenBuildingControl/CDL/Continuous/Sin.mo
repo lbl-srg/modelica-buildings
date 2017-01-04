@@ -45,8 +45,6 @@ annotation (
           extent={{12,84},{84,36}},
           lineColor={192,192,192},
           textString="sin")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = sin(u)</code>,

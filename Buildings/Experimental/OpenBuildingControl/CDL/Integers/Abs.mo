@@ -70,8 +70,6 @@ equation
         Line(points={{62,-6},{62,6}}, color={192,192,192}),
         Line(points={{-8,64},{8,64}}, color={192,192,192}),
         Line(points={{-8,34},{8,34}}, color={192,192,192})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = abs(u)</code>,

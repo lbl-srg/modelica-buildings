@@ -36,8 +36,6 @@ annotation (
           extent={{-6,-24},{66,-72}},
           lineColor={192,192,192},
           textString="log10")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}})),
     Documentation(info="<html>
 <p>
 Block that outputs <code>y = log10(u)</code>,
@@ -55,7 +53,7 @@ zero or negative.
 <img src=\"modelica://Modelica/Resources/Images/Math/log10.png\"
      alt=\"log10.png\">
 </p>
-     
+
 </html>", revisions="<html>
 <ul>
 <li>
