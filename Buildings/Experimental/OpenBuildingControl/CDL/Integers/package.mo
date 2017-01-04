@@ -19,7 +19,7 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
 </ul>
 </html>"),
 Icon(graphics={Text(
-        extent={{-54,104},{50,-74}},
+        extent={{-56,90},{48,-88}},
         lineColor={0,0,0},
         fillColor={0,0,0},
         fillPattern=FillPattern.Solid,
