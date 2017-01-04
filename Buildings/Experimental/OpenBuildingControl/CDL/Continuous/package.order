@@ -4,6 +4,7 @@ Add3
 AddParameter
 Atan
 Atan2
+Constant
 Cos
 Division
 Exp
