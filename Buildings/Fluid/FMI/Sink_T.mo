@@ -107,7 +107,7 @@ for the reverse flow.
 </p>
 <p>
 If the parameter <code>use_p_in</code> is set to <code>true</code>,
-then the model as an output connector <code>p</code>.
+then the model has an output connector <code>p</code>.
 This can be used to obtain the pressure of the sink, which
 may be needed to iteratively solve for the mass flow rate.
 </p>

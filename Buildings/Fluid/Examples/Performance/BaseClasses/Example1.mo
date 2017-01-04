@@ -49,7 +49,7 @@ partial model Example1 "Example 1 partial model"
   Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=true)
     "Block for setting allowFlowReversal in components"
     annotation (Placement(transformation(extent={{-88,70},{-68,90}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  Buildings.Fluid.FixedResistances.PressureDrop[nRes.k] res(
     redeclare package Medium = Medium,
     each allowFlowReversal=allowFlowReversal.k,
     each m_flow_nominal=m_flow_nominal,

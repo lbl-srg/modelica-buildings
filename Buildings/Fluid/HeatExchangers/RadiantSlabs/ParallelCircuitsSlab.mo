@@ -112,7 +112,9 @@ model ParallelCircuitsSlab
     final deltaM=deltaM,
     final nSeg=nSeg,
     final length=length,
-    final ReC=4000) "Single parallel circuit of the radiant slab"
+    final ReC=4000,
+    final stateAtSurface_a=stateAtSurface_a,
+    final stateAtSurface_b=stateAtSurface_b) "Single parallel circuit of the radiant slab"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
@@ -123,25 +125,21 @@ protected
   parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
-                                                                                 masFloMul_a(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier masFloMul_a(
       redeclare final package Medium = Medium,
       final k=nCir)
     "Mass flow multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier
-                                                                                 masFloMul_b(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier masFloMul_b(
       redeclare final package Medium = Medium,
       final k=nCir)
     "Mass flow multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
-                                                                                 heaFloMul_a(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier heaFloMul_a(
       final k=nCir)
     "Heat flow rate multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{-40,20},{-60,40}})));
-  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier
-                                                                                 heaFloMul_b(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier heaFloMul_b(
      final k=nCir)
     "Heat flow rate multiplier, used to avoid having to instanciate multiple slab models"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));

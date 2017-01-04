@@ -22,7 +22,7 @@ model SubStationBoundaryCondition
     "Heat port at fixed temperature"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
-  Fluid.Sources.Boundary_pT bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=true) "Boundary condition"

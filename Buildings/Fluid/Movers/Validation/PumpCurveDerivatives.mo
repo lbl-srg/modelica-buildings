@@ -58,7 +58,7 @@ model PumpCurveDerivatives
     "Maximum flow rate of the pump at given rpm"
     annotation (Placement(transformation(extent={{0,46},{12,58}})));
 
-  FixedResistances.FixedResistanceDpM res(
+  FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=40/3.6,
     dp_nominal=7e4) "Pressure drop component"

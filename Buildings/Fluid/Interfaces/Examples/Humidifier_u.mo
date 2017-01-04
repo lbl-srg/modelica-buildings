@@ -24,16 +24,16 @@ model Humidifier_u
     p(displayUnit="Pa") = 101435,
     T=293.15)             annotation (Placement(transformation(extent={{-168,92},
             {-148,112}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_11(
+  Buildings.Fluid.FixedResistances.PressureDrop res_11(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,92},{-80,112}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_12(
+    annotation (Placement(transformation(extent={{-100,92},{-80,112}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res_12(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,134},{-80,154}})));
+    annotation (Placement(transformation(extent={{-100,134},{-80,154}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
     use_p_in=true,
@@ -70,16 +70,16 @@ model Humidifier_u
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
+  Buildings.Fluid.FixedResistances.PressureDrop res_2(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,12},{-80,32}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_3(
+    annotation (Placement(transformation(extent={{-100,12},{-80,32}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res_3(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,54},{-80,74}})));
+    annotation (Placement(transformation(extent={{-100,54},{-80,74}})));
   Humidifier hea4(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -89,11 +89,10 @@ model Humidifier_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,54},{8,74}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_4(
+  Buildings.Fluid.FixedResistances.PressureDrop res_4(
     redeclare package Medium = Medium,
     dp_nominal=5,
-    m_flow_nominal=0.5)
-             annotation (Placement(transformation(
+    m_flow_nominal=0.5) annotation (Placement(transformation(
         origin={20,40},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -138,16 +137,16 @@ model Humidifier_u
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
+  Buildings.Fluid.FixedResistances.PressureDrop res_1(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_5(
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res_5(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-68},{-80,-48}})));
+    annotation (Placement(transformation(extent={{-100,-68},{-80,-48}})));
   Humidifier hea6(                               redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -167,16 +166,16 @@ model Humidifier_u
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
+  Buildings.Fluid.FixedResistances.PressureDrop res_6(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_7(
+    annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
+  Buildings.Fluid.FixedResistances.PressureDrop res_7(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-148},{-80,-128}})));
+    annotation (Placement(transformation(extent={{-100,-148},{-80,-128}})));
   Humidifier hea8(                               redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
@@ -186,11 +185,10 @@ model Humidifier_u
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res_8(
+  Buildings.Fluid.FixedResistances.PressureDrop res_8(
     redeclare package Medium = Medium,
     dp_nominal=5,
-    m_flow_nominal=0.5)
-             annotation (Placement(transformation(
+    m_flow_nominal=0.5) annotation (Placement(transformation(
         origin={20,-162},
         extent={{-10,-10},{10,10}},
         rotation=90)));

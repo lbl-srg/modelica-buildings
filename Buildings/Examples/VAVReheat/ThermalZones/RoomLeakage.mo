@@ -4,21 +4,21 @@ model RoomLeakage "Room leakage model"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Volume VRoo "Room volume";
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     dp_nominal=50,
-    m_flow_nominal=VRoo*1.2/3600) "Resistance model" annotation (Placement(
-        transformation(extent={{20,-10},{40,10}})));
+    m_flow_nominal=VRoo*1.2/3600) "Resistance model"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Fluid.Sources.Outside_CpLowRise
+  Buildings.Fluid.Sources.Outside_CpLowRise
                         amb(redeclare package Medium = Medium, nPorts=1,
     s=s,
     azi=azi)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = Medium,
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = Medium,
       allowFlowReversal=true) "Sensor for mass flow rate" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},

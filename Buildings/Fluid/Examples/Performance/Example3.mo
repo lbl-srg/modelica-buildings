@@ -27,7 +27,7 @@ model Example3
   Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
     annotation (Placement(transformation(extent={{-100,14},{-80,34}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  FixedResistances.PressureDrop[nRes.k] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,
@@ -41,7 +41,7 @@ model Example3
   Modelica.Blocks.Sources.BooleanConstant from_dp(k=true)
     "Block for easily changing parameter from_dp.k"
     annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
-  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res1(
+  FixedResistances.PressureDrop[nRes.k] res1(
     redeclare package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,

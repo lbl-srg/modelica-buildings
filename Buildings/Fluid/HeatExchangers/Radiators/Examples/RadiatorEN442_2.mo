@@ -21,14 +21,16 @@ model RadiatorEN442_2 "Test model for radiator"
     use_p_in=true,
     T=T_a_nominal)
     annotation (Placement(transformation(extent={{-64,-68},{-44,-48}})));
-  Fluid.FixedResistances.FixedResistanceDpM res2(
+  FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Fluid.FixedResistances.FixedResistanceDpM res1(
+    dp_nominal=dp_nominal)
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
+    dp_nominal=dp_nominal)
+    annotation (Placement(transformation(extent={{20,-2},{40,18}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,

@@ -5,7 +5,7 @@ model MoistAir
   package Medium = Buildings.Media.Air;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       259.2*6/1.2/3600 "Nominal mass flow rate";
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
+  Buildings.Fluid.FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
@@ -20,13 +20,13 @@ model MoistAir
     p(displayUnit="Pa") = 101325,
     T=293.15)             annotation (Placement(transformation(extent={{96,60},
             {116,80}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
+  Buildings.Fluid.FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     from_dp=false,
-    allowFlowReversal=false)
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+    allowFlowReversal=false) annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=180,
         origin={262,-50})));
   Buildings.Utilities.IO.BCVTB.MoistAirInterface bouBCVTB(

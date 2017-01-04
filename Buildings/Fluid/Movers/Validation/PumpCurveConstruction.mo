@@ -73,9 +73,9 @@ model PumpCurveConstruction
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
   Modelica.Blocks.Sources.Ramp yVal(
-    height=-1,
     duration=1,
-    offset=1) "Input signal for valve"
+    offset=1,
+    height=-0.99) "Input signal for valve"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
   Actuators.Valves.TwoWayLinear val2(
@@ -174,6 +174,12 @@ of the pumps have different values. This then tests the correct extrapolation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2016, by Michael Wetter:<br/>
+Relaxed input signal to allow simulation if bounds on min and max values are checked in Dymola.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>

@@ -32,7 +32,7 @@ model FlowControlled_dp
     min=0,
     displayUnit="Pa")=
       if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
-        to set default values of constantHead and heads, and 
+        to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
 
@@ -50,7 +50,7 @@ model FlowControlled_dp
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
-  Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa") if
+  Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa") if
     inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
@@ -61,7 +61,7 @@ model FlowControlled_dp
         rotation=-90,
         origin={-2,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa", displayUnit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput dp_actual(final unit="Pa")
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
         iconTransformation(extent={{100,10},{120,30}})));
 
@@ -124,6 +124,13 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>
 November 14, 2016, by Michael Wetter:<br/>
 Changed default values for <code>heads</code>.<br/>

@@ -1,35 +1,35 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   chen_zero_equ_model.c
-///
-/// \brief  Computes turbulent viscosity using Chen's zero equ model
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides function that computes the turbulent viscosity using
-/// Chen's zero equation model
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   chen_zero_equ_model.c
+	*
+	* \brief  Computes turbulent viscosity using Chen's zero equ model
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides function that computes the turbulent viscosity using
+	* Chen's zero equation model
+	*
+	*/
 #include "chen_zero_equ_model.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Computes turbulent viscosity using Chen's zero equation model
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param i I-index of the control volume
-///\param j J-index of the control volume
-///\param k K-index of the control volume
-///
-///\return Turbulent Kinematic viscosity
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Computes turbulent viscosity using Chen's zero equation model
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param i I-index of the control volume
+	* @param j J-index of the control volume
+	* @param k K-index of the control volume
+	*
+	* @return Turbulent Kinematic viscosity
+	*/
 REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
   REAL nu_t, l, lx, lx1, lx2, ly, ly1, ly2, lz, lz1, lz2;
   REAL *x = var[X], *y = var[Y], *z = var[Z];
@@ -58,4 +58,4 @@ REAL nu_t_chen_zero_equ(PARA_DATA *para, REAL **var, int i, int j, int k) {
                     +w[IX(i,j,k)]*w[IX(i,j,k)] );
 
   return nu_t;
-} // End of nu_t_chen_zero_equ()
+} /* End of nu_t_chen_zero_equ()*/

@@ -19,9 +19,8 @@ model HeaterCooler_T
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
 protected
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
-    final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -29,7 +28,7 @@ protected
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
+    final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   Buildings.Fluid.Interfaces.PrescribedOutletState heaCoo(
@@ -167,6 +166,12 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+</li>
 <li>
 November 11, 2014, by Michael Wetter:<br/>
 Revised implementation.

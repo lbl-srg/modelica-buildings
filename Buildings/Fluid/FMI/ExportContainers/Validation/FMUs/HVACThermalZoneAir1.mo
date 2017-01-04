@@ -9,13 +9,13 @@ protected
     redeclare package Medium = Medium,
     nPorts=1) "Boundary condition"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  FixedResistances.FixedResistanceDpM sup(
+  FixedResistances.PressureDrop sup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.1,
     final dp_nominal=200,
     from_dp=true) "Supply air duct"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
-  FixedResistances.FixedResistanceDpM ret(
+  FixedResistances.PressureDrop ret(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.1,
     final dp_nominal=200) "Return air duct"

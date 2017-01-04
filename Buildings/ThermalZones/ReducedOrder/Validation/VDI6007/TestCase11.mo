@@ -148,7 +148,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   Modelica.Blocks.Math.Add add(k1=1, k2=-1)
     "Addition for mean of results"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     endTime=86400,
     endTime2=864000,
     endTime3=5184000,
@@ -290,7 +290,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase11.mos"
         "Simulate and plot"));

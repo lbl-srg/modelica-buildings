@@ -43,7 +43,8 @@ model SpeedControlled_y_pumpCurves
     offset=1,
     duration=0.5,
     startTime=0.25,
-    height=-1) "Input signal"
+    height=-0.999)
+               "Input signal"
                  annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -169,6 +170,13 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Changed the valve opening signal to not take on zero as otherwise <code>pum.port_a.p</code>
+is negative, violating the <code>min</code> attribute on the pressure variable.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>
 March 11, 2016, by Michael Wetter:<br/>
 Reformulated model for OpenModelica.

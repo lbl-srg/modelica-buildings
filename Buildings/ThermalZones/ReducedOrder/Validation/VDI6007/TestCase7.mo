@@ -105,7 +105,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
     "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -188,7 +188,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase7.mos"
         "Simulate and plot"));

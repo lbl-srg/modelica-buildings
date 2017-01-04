@@ -174,6 +174,23 @@ its class name ends with the string <code>Beta</code>.
    For Dymola, the conversion script will update models that use any model of the package
    <code>Buildings.Rooms</code>.
    </li>
+   <li>
+   The model <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> has been refactored. Now, if
+   the hydraulic diameter is not yet known, one can use the simpler model
+   <code>Buildings.Fluid.FixedResistances.PressureDrop</code>, otherwise the model
+   <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> may be used.
+   With this refactoring, also the model <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> has
+   been renamed to <code>Buildings.Fluid.FixedResistances.Junction</code> and
+   parameters that use the hydraulic diameter have been removed.
+   </li>
+   <li>
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, 
+   <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored 
+   to add the option to place a state at the surface of a construction. 
+   This leads in many examples that use the room model to a smaller number
+   of non-linear system of equations and a 20% to 40% faster simulation.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -227,6 +244,18 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Sensor for the flow velocity.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows.BaseClasses</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.HeatCapacity
+       </td>
+       <td valign=\"top\">Model for adding a state on the room-facing surface of a window.
+This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
+
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
@@ -392,6 +421,28 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Window
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
@@ -490,6 +541,35 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.PressureDrop</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then the new model
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> can be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.Junction</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then use <code>Buildings.Fluid.FixedResistances.Junction</code> with
+                          <code>dp_nominal = 0</code> (which removes the pressure drop) and use
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> at each fluid port.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
        </td>
    </tr>
@@ -517,9 +597,7 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-       </td>
-   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
@@ -631,7 +709,8 @@ its class name ends with the string <code>Beta</code>.
                           to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
-       </td>
+"    +
+    "       </td>
     </tr>
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain

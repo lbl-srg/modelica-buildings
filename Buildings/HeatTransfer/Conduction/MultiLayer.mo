@@ -4,15 +4,30 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(layers.material[i].R for i in 1:size(layers.material, 1)));
   Modelica.SIunits.Temperature T[sum(nSta)](
-    each nominal = 300,
-    each start=293.15) "Temperature at the states";
+    each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
+  parameter Boolean stateAtSurface_a=true
+    "=true, a state will be at the surface a"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+  parameter Boolean stateAtSurface_b=true
+    "=true, a state will be at the surface b"
+    annotation (Dialog(tab="Dynamics"),
+                Evaluate=true);
+
+  parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
+  "Number of states in a material (do not overwrite, used to work around Dymola 2017 bug)"
+     annotation (Evaluate=true);
+
 protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
+   final nSta2={nSta2[i] for i in 1:nLay},
    each final A=A,
+   final stateAtSurface_a = {if i == 1 then stateAtSurface_a else false for i in 1:nLay},
+   final stateAtSurface_b = {if i == nLay then stateAtSurface_b else false for i in 1:nLay},
    material = {layers.material[i] for i in 1:size(layers.material, 1)},
    T_a_start = { T_b_start+(T_a_start-T_b_start) * 1/R *
     sum(layers.material[k].R for k in i:size(layers.material, 1)) for i in 1:size(layers.material, 1)},
@@ -51,63 +66,48 @@ equation
 
   annotation ( Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-90,2},{92,-4}},
-          lineColor={0,0,0},
-          fillColor={191,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-36,12},{-34,12},{-32,8},{-30,2},{-30,-2},{-32,-8},{-38,-12},
-              {-42,-16},{-50,-18},{-54,-14},{-60,-8},{-62,2},{-60,8},{-58,12},{
-              -56,14},{-54,16},{-50,18},{-46,18},{-40,16},{-36,12}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-54,-12},{-46,-14},{-40,-12},{-34,-10},{-38,-12},{-42,-16},{
-              -50,-18},{-56,-16},{-60,-8},{-62,2},{-60,8},{-58,12},{-56,14},{-58,
-              4},{-58,-4},{-54,-12}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-80,50},{-68,-52}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Polygon(
-          points={{50,10},{52,10},{54,6},{56,0},{56,-4},{54,-10},{48,-14},{44,-18},
-              {36,-20},{32,-16},{26,-10},{24,0},{26,6},{28,10},{30,12},{32,14},
-              {36,16},{40,16},{46,14},{50,10}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{32,-14},{40,-16},{46,-14},{52,-12},{48,-14},{44,-18},{36,-20},
-              {30,-18},{26,-10},{24,0},{26,6},{28,10},{30,12},{28,2},{28,-6},{
-              32,-14}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-20,50},{-8,-52}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{4,50},{16,-52}},
-          lineColor={0,0,0},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Forward),
-        Rectangle(
-          extent={{64,48},{76,-54}},
-          lineColor={0,0,0},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Forward)}),
+   Rectangle(
+    extent={{0,80},{80,-80}},       fillColor={175,175,175},
+   fillPattern=FillPattern.Solid,    lineColor={175,175,175}),
+   Rectangle(
+    extent={{-80,80},{0,-80}},      fillColor={215,215,215},
+   fillPattern=FillPattern.Solid,    lineColor={175,175,175}),
+   Line(points={{-92,0},{90,0}},      color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),
+   Line(points={{-18,-40},{-32,-40}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),
+   Line(points={{-12,-32},{-38,-32}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),            Line(points={{-25,0},{-25,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+   Line(points={{32,-40},{18,-40}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),
+   Line(points={{38,-32},{12,-32}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None),            Line(points={{25,0},{25,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+                                     Rectangle(extent={{-60,6},{-40,-6}},
+   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
+   fillPattern = FillPattern.Solid), Rectangle(extent={{-10,6},{10,-6}},
+   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
+   fillPattern = FillPattern.Solid), Rectangle(extent={{40,6},{60,-6}},
+   lineColor = {0, 0, 0}, lineThickness =  0.5, fillColor = {255, 255, 255},
+   fillPattern = FillPattern.Solid),
+   Line(points={{86,-40},{72,-40}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=stateAtSurface_b),
+   Line(points={{92,-32},{66,-32}},       color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=stateAtSurface_b),            Line(points={{79,0},{79,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
+   visible=stateAtSurface_b),
+   Line(points={{-79,0},{-79,-32}},
+   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None,
+   visible=stateAtSurface_a),
+   Line(points={{-66,-32},{-92,-32}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=stateAtSurface_a),
+   Line(points={{-72,-40},{-86,-40}},     color = {0, 0, 0}, thickness = 0.5,
+   smooth = Smooth.None,
+   visible=stateAtSurface_a)}),
     defaultComponentName="heaCon",
     Documentation(info="<html>
 <p>
@@ -116,7 +116,10 @@ The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of
 <a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
+See this model for an explanation of the equations that are applied to
+each material layer.
 </p>
+<h4>Important parameters</h4>
 <p>
 The construction material is defined by a record of the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
@@ -150,12 +153,40 @@ Buildings.HeatTransfer.Examples.ConductorMultiLayer</a>.
 </li>
 </ol>
 <p>
-To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
-and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
-and the temperature state.
+The parameters <code>stateAtSurface_a</code> and
+<code>stateAtSurface_b</code>
+determine whether there is a state variable at these surfaces,
+as described above.
+Note that if <code>stateAtSurface_a = true</code>,
+then there is temperature state on the surface a with prescribed
+value, as determined by the differential equation of the heat conduction.
+Hence, in this situation, it is not possible to
+connect a temperature boundary condition such as
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a> as this would
+yield to specifying the same temperature twice.
+To avoid this, either set <code>stateAtSurface_a = false</code>,
+or place a thermal resistance
+between the boundary condition and the surface of this model.
+The same applies for surface b.
+See the examples in
+<a href=\"modelica://Buildings.HeatTransfer.Examples\">
+Buildings.HeatTransfer.Examples</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 17, 2016, by Thierry S. Nouidui:<br/>
+Added parameter <code>nSta2</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola 
+which will be addressed in future releases.
+</li>
+<li>
+October 29, 2016, by Michael Wetter:<br/>
+Added option to place a state at the surface.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+</li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Set the start value of <code>T</code>.

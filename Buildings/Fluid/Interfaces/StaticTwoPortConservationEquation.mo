@@ -94,6 +94,15 @@ protected
   final parameter Real fReg = 104*deltaInvReg^6
     "Polynomial coefficient for inverseXRegularized";
 
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(state=state_default)
+    "Specific heat capacity, used to verify energy conservation";
+
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
@@ -132,6 +141,15 @@ equation
   else
     // m_flowInv is not used.
     m_flowInv = 0;
+  end if;
+
+  if prescribedHeatFlowRate then
+    assert(noEvent(if abs(m_flow) < Modelica.Constants.small
+      then
+        abs(Q_flow) < 1E-10
+      else
+        abs(Q_flow/cp_default/m_flow) < 200),
+   "Energy may not be conserved for small mass flow rates. This model may require prescribedHeatFlowRate = false.");
   end if;
 
   if allowFlowReversal then
@@ -318,6 +336,10 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
+October 23, 2016, by Filip Jorissen:<br/>
+Added test for energy conservation at small mass flow rates.
+</li>
+<li>
 March 17, 2016, by Michael Wetter:<br/>
 Refactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.
 This is for
@@ -343,7 +365,7 @@ Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness</a>.
 </li>
 <li>
 January 20, 2016, by Filip Jorissen:<br/>
-Removed if-else block in code for parameter <code>sensibleOnly</code> 
+Removed if-else block in code for parameter <code>sensibleOnly</code>
 since this is no longer needed to simplify the equations.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.

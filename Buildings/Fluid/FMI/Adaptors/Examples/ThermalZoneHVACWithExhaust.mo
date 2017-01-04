@@ -20,8 +20,9 @@ model ThermalZoneHVACWithExhaust
 equation
   connect(hvacAda.ports[3], exh.port_a) annotation (Line(points={{20,10},{10,10},
           {10,8},{0,8},{0,-60},{-70,-60}}, color={0,127,255}));
-  connect(exh.port_b, out.ports[3]) annotation (Line(points={{-90,-60},{-122,-60},
-          {-152,-60},{-152,-20},{-160,-20}}, color={0,127,255}));
+  connect(exh.port_b, out.ports[3]) annotation (Line(points={{-90,-60},{-126,
+          -60},{-126,-60},{-126,-20},{-140,-20}},
+                                             color={0,127,255}));
   connect(con.ports[3], vol.ports[3])
     annotation (Line(points={{100,10},{150,10},{150,20}}, color={0,127,255}));
 

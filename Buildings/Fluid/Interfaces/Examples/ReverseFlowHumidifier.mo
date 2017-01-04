@@ -69,14 +69,14 @@ package Medium = Buildings.Media.Air;
   Sensors.MassFraction senMas2(redeclare package Medium = Medium)
     "Mass fraction sensor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  FixedResistances.FixedResistanceDpM res1(
+  FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  FixedResistances.FixedResistanceDpM res2(
+  FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     from_dp=true,
