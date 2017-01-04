@@ -77,6 +77,6 @@ First implementation.
 </ul>
 </html>"),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sensors/Examples/GeneralizedProbe.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sensors/Examples/Probe.mos"
         "Simulate and plot"));
 end Probe;

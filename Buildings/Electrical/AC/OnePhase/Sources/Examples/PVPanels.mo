@@ -82,7 +82,7 @@ equation
       smooth=Smooth.None));
   annotation (experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVpanels.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/PVPanels.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
