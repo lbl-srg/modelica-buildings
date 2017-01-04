@@ -59,8 +59,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (              experiment(
-      StopTime=3600,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=3600,
+      Tolerance=1e-6),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Storage/Examples/AcBattery.mos"
         "Simulate and plot"),

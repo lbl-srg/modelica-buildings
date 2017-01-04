@@ -101,7 +101,7 @@ equation
           -48,10},{-32,10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=3600),
+    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Heating.mos"
         "Simulate and plot"),
     Documentation(info="<html>

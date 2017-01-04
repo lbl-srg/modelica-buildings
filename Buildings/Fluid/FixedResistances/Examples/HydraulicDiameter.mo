@@ -45,7 +45,7 @@ equation
     annotation (Line(points={{-30,0},{-10,0}},          color={0,127,255}));
   connect(res.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
-  annotation (experiment(StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -87,7 +87,7 @@ equation
   connect(sqrt1.y,kv. u2) annotation (Line(
       points={{49,-36},{54,-36},{54,-76},{58,-76}},
       color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValveTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>

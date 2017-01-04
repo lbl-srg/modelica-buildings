@@ -85,6 +85,6 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/Utilities/Examples/TestVoltageCTRL.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=10,
-      Tolerance=1e-05));
+      StartTime=0.0, StopTime=10,
+      Tolerance=1e-6));
 end TestVoltageCTRL;

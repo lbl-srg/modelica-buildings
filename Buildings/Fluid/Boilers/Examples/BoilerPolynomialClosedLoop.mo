@@ -249,8 +249,8 @@ equation
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomialClosedLoop.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=14400,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=14400,
+      Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model illustrates how to use a boiler model

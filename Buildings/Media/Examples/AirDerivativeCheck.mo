@@ -57,7 +57,7 @@ equation
     der(cvCod)=der(cvSym);
     assert(abs(cvCod-cvSym) < 1E-2, "Model has an error");
 
-   annotation(experiment(StopTime=1, Tolerance=1e-08),
+   annotation(experiment(StartTime=0, StopTime=1, Tolerance=1E-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>

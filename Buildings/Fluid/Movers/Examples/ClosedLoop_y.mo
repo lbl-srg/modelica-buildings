@@ -100,6 +100,6 @@ First implementation.
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=3600,
+      StartTime=0.0, StopTime=3600,
       Tolerance=1e-06));
 end ClosedLoop_y;

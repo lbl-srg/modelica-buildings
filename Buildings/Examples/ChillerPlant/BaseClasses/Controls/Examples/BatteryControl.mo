@@ -16,8 +16,8 @@ equation
       smooth=Smooth.None));
   annotation (
     experiment(
-      StopTime=604800,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=604800,
+      Tolerance=1e-6),
       __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/BatteryControl.mos"
         "Simulate and plot"),

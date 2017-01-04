@@ -104,7 +104,7 @@ equation
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
         "Simulate and plot"),
-    experiment(StopTime=10800),
+    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=10800),
     Documentation(info="<html>
 This test model compares the radiator model when
 used as a steady-state and a dynamic model.

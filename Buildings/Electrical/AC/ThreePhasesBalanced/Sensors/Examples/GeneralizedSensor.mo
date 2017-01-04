@@ -29,6 +29,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
+
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sensors/Examples/GeneralizedSensor.mos"
         "Simulate and plot"));

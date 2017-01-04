@@ -126,7 +126,7 @@ equation
   connect(mSouSta.ports[1], volSte.ports[3]) annotation (Line(points={{-20,120},
           {54,120},{54,80},{86.6667,80}}, color={0,127,255}));
     annotation (
-experiment(StopTime=3),
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,

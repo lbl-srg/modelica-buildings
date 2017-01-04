@@ -109,7 +109,7 @@ equation
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
       points={{2.2,40},{-50.2,40},{-50.2,32}},
       color={0,0,127}));
-  annotation (    experiment(StopTime=200),
+  annotation (    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=200),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),

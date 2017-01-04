@@ -87,7 +87,7 @@ equation
     annotation (Line(points={{-69,8},{-60,8}}, color={0,0,127}));
   connect(m3_flow.y, bou3.m_flow_in)
     annotation (Line(points={{-71,-52},{-60,-52}}, color={0,0,127}));
-  annotation (experiment(StopTime=100.0),
+  annotation (experiment(Tolerance=1e-6, StartTime=0.0, StopTime=100),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mos"
         "Simulate and plot"),
     Documentation(info="<html>

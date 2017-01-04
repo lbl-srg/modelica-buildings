@@ -69,7 +69,7 @@ equation
       points={{21,64},{38,64}},
       color={0,0,127}));
     annotation (
-experiment(StopTime=60.0),
+experiment(Tolerance=1e-6, StartTime=0.0, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
         "Simulate and plot"),    Documentation(info="<html>
 <p>

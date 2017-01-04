@@ -143,7 +143,7 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=3600,
+      StartTime=0.0, StopTime=3600,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>

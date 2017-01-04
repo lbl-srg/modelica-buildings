@@ -53,7 +53,7 @@ equation
     annotation (Line(points={{-59,-70},{26,-70},{26,-52}}, color={0,0,127}));
   connect(QHea.y, subSta.Q_flow)
     annotation (Line(points={{-59,16},{-30,16},{-2,16}}, color={0,0,127}));
-  annotation(experiment(StopTime=86400),
+  annotation(experiment(Tolerance=1e-6, StartTime=0.0, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/Validation/HeatingSubstation.mos"
         "Simulate and plot"),
     Documentation(

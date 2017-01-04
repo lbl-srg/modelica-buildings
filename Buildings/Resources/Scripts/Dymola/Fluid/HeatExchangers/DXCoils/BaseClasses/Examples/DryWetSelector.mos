@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryWetSelector",
-stopTime=60, method="dassl", resultFile="DryWetSelector");
+tolerance=1e-6, startTime=0.0, numberOfIntervals=500, stopTime=60, method="dassl", resultFile="DryWetSelector");
 removePlots();
 createPlot(id = 5,
  position = {12, 7, 400, 609},

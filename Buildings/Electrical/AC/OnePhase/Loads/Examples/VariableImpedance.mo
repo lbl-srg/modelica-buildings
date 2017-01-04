@@ -60,7 +60,7 @@ equation
           {-6,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-06),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/VariableImpedance.mos"
         "Simulate and plot"),

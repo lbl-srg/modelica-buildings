@@ -112,7 +112,7 @@ equation
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
-    experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-08),
+    experiment(StartTime=0.0, StopTime=2, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model is reconfigured to a steady state or 

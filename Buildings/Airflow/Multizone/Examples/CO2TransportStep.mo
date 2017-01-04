@@ -49,8 +49,8 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=86400,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=86400,
+      Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model is based on

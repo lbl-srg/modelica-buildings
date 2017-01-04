@@ -62,8 +62,8 @@ First implementation.
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/AirHeater_T.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=172800,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=172800,
+      Tolerance=1e-6),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
 end AirHeater_T;

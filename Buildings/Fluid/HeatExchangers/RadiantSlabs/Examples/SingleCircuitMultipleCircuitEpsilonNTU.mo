@@ -235,6 +235,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=86400,
-      Tolerance=1e-05));
+      StartTime=0.0, StopTime=86400,
+      Tolerance=1e-6));
 end SingleCircuitMultipleCircuitEpsilonNTU;

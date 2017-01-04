@@ -28,8 +28,8 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (experiment(
-      StopTime=1.0,
-      Tolerance=1e-05),
+      StartTime=0.0, StopTime=1.0,
+      Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Examples/GridDCLoad.mos"
         "Simulate and plot"),

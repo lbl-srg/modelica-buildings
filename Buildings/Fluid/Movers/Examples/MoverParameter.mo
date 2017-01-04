@@ -117,5 +117,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-06));
+    experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1));
 end MoverParameter;

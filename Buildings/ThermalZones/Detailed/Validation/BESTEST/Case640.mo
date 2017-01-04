@@ -17,9 +17,9 @@ model Case640 "Case 600, but with heating schedule"
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case640.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+07,
+      StartTime=0.0, StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),    Documentation(revisions="<html>
+      Tolerance=1e-06),    Documentation(revisions="<html>
 <ul>
 <li>
 July 15, 2012, by Michael Wetter:<br/>

@@ -214,9 +214,9 @@ equation
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case960.mos"
         "Simulate and plot"),
       experiment(
-      StopTime=3.1536e+07,
+      StartTime=0.0, StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
             120}}), graphics={Text(
           extent={{106,-200},{252,-220}},
