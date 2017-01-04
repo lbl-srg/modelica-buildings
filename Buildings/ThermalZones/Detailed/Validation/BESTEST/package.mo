@@ -30,8 +30,10 @@ and the annual hourly integrated minimum (and maximum) peak heating and cooling 
 </li>
 </ul>
 <br/>
+<p>
 Note that in addition to the BESTESTs, the window model has been validated separately
 in Nouidui et al. (2012).
+</p>
 <h4>Implementation</h4>
 <p>
 Heating and cooling is controlled using the PI controller
