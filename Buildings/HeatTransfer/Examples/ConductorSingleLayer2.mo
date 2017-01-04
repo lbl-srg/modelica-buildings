@@ -6,7 +6,7 @@ model ConductorSingleLayer2
     con(stateAtSurface_a=false, stateAtSurface_b=false),
     con1(stateAtSurface_a=false, stateAtSurface_b=false),
     con2(stateAtSurface_a=false, stateAtSurface_b=false));
-  annotation (experiment(StartTime=0, StopTime=86400, Tolerance=1e-6),
+  annotation (experiment(StartTime=0.0, StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer2.mos" "Simulate and plot"),
   Documentation(revisions="<html>
 <ul>
