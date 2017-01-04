@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
-block TriggeredSampler "Triggered sampling of continuous signals"
+block TriggeredSampler "Output the triggered sampled value of a continuous signal"
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component";

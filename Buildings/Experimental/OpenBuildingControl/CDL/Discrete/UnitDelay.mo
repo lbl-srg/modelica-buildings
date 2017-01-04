@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
-block UnitDelay "Unit Delay Block"
+block UnitDelay "Output the input signal with a unit delay"
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component";

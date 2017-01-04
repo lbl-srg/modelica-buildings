@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
-block ZeroOrderHold "Zero order hold of a sampled-data system"
+block ZeroOrderHold "Output the input signal with a zero order hold"
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component";
