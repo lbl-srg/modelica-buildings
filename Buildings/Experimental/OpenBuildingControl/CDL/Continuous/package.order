@@ -10,6 +10,7 @@ Exp
 Feedback
 Gain
 LimPID
+Limiter
 Log
 Log10
 Max
@@ -17,4 +18,3 @@ Min
 Product
 Sin
 Tan
-Limiter
