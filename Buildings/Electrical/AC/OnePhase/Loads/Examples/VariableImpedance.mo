@@ -62,7 +62,7 @@ equation
       smooth=Smooth.None));
   annotation (experiment(StopTime=1.0, Tolerance=1e-06),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/TestVariableImpedance.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Loads/Examples/VariableImpedance.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
