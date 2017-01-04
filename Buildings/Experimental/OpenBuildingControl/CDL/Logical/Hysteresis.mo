@@ -135,5 +135,13 @@ The start value of the output is defined via parameter
 <code>pre_y_start</code> (= value of <code>pre(y)</code> at initial time).
 The default value of this parameter is <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Hysteresis;

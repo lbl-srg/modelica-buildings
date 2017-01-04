@@ -26,6 +26,14 @@ If the input <code>u2</code> is <code>true</code>,
 the block outputs the input <code>u1</code>.
 Otherwise it outputs the input <code>u3</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,

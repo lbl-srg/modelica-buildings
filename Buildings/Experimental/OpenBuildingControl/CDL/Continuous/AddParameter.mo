@@ -20,6 +20,14 @@ Block that outputs <code>y = k u + p</code>,
 where <code>k</code> and <code>p</code> are
 parameters and <code>u</code> is an input.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,

@@ -52,6 +52,14 @@ input signal <code>u</code> of the
 previous sample instant. Before the second sample instant,
 the output <code>y</code> is identical to parameter <code>y_start</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"), Icon(
     coordinateSystem(preserveAspectRatio=true,
       extent={{-100.0,-100.0},{100.0,100.0}}),

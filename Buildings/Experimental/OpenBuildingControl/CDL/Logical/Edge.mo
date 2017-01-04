@@ -46,5 +46,13 @@ Block that outputs <code>true</code> if the Boolean input has a rising edge
 from <code>false</code> to <code>true</code>.
 Otherwise the output is <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Edge;

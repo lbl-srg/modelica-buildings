@@ -345,5 +345,13 @@ defined limits. For backward compatibility reasons
 <code>limitAtInit</code> = <code>true</code>. In most cases it is best
 to use <code>limitAtInit</code> = <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end LimPID;

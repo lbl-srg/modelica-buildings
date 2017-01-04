@@ -48,5 +48,13 @@ Block that outputs <code>y = abs(u)</code>,
 where
 <code>u</code> is an input.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Abs;

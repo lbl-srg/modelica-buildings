@@ -50,5 +50,13 @@ The block outputs
     y = integer( floor( u + 0.5 ) )  for  u &gt; 0;
     y = integer( ceil ( u - 0.5 ) )  for  u &lt; 0;
 </pre>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end RealToInteger;

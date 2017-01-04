@@ -43,5 +43,13 @@ from <code>false</code> to <code>true</code> or a falling edge from
 <code>true</code> to <code>false</code>.
 Otherwise the output is <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Change;

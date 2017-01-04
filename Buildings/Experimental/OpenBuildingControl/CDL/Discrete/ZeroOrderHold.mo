@@ -59,5 +59,13 @@ Block that outputs the sampled input signal at sample
 time instants. The output signal is held at the value of the last
 sample instant during the sample points.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end ZeroOrderHold;

@@ -98,5 +98,13 @@ signal is rising (i.e., trigger changes to
 <code>true</code>). The maximum, absolute value of the input signal
 at the sampling point is provided as output signal.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end TriggeredMax;

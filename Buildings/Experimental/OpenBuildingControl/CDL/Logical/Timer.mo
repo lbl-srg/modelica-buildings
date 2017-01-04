@@ -60,5 +60,13 @@ and the output <code>y</code> is the time from the time instant where
 The timer is stopped and the output is reset to zero, once the
 input becomes <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Timer;

@@ -29,6 +29,14 @@ where <code>u</code> is of <code>Boolean</code> and <code>y</code>
 of <code>Integer</code> type,
 and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
          Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={

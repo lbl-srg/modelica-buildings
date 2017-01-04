@@ -29,6 +29,14 @@ two Integer input signals <code>u1</code> and <code>u2</code>,
 <p>
 where <code>k1</code> and <code>k2</code> are Integer parameters.
 </b>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,

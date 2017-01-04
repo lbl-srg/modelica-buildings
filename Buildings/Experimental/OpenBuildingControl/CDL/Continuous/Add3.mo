@@ -35,6 +35,14 @@ three input signals <code>u1</code>, <code>u2</code> and <code>u3</code>,
 where <code>k1</code>, <code>k2</code> and <code>k3</code> are parameters.
 </p>
 
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={          Text(

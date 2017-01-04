@@ -96,5 +96,13 @@ signal is rising (i.e., trigger changes from <code>false</code> to
 Before the first sampling, the output signal is equal to
 the initial value defined via parameter <code>y0</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end TriggeredSampler;

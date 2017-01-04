@@ -67,5 +67,13 @@ plus half of the bandwidth.
 The parameter <code>pre_y_start</code> is used to initialize the
 previous value of the output <code>pre(y)</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end OnOffController;

@@ -61,5 +61,13 @@ then the output is reset to <code>y = y_start</code>.
 If both inputs <code>trigger</code> and <code>reset</code> change
 simultaneously, then the ouput is <code>y = y_start</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end OnCounter;

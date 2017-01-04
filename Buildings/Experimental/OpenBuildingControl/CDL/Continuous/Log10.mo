@@ -56,5 +56,13 @@ zero or negative.
      alt=\"log10.png\">
 </p>
      
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Log10;

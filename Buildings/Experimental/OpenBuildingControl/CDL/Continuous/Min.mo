@@ -20,6 +20,14 @@ Block that outputs <code>y = min(u1, u2)</code>,
 where
 <code>u1</code> and <code>u2</code> are inputs.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(
         preserveAspectRatio=true,

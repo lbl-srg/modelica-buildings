@@ -50,5 +50,13 @@ equivalent of the <code>Integer</code> input.
 where <code>u</code> is of <code>Integer</code> and
 <code>y</code> of <code>Real</code> type.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end IntegerToReal;
