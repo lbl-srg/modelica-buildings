@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 block TriggeredMax
-  "Compute maximum, absolute value of continuous signal at trigger instants"
+  "Output the maximum, absolute value of a continuous signal at trigger instants"
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
     "Sample period of component";
