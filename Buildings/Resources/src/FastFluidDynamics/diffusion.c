@@ -1,38 +1,38 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   diffusion.c
-///
-/// \brief  Calculate the diffusion equation
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///         Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///
-/// \date   8/3/2013
-///
-/// This file provides functions that are used for calculating the diffusion
-/// equations.
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   diffusion.c
+	*
+	* \brief  Calculate the diffusion equation
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	* This file provides functions that are used for calculating the diffusion
+	* equations.
+	*
+	*/
 
 #include "diffusion.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Entrance of calculating diffusion equation
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable
-///\param index Index of trace substance or species
-///\param psi Pointer to the variable at current time step
-///\param psi0 Pointer to the variable at previous time step
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Entrance of calculating diffusion equation
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param var_type Type of variable
+	* @param index Index of trace substance or species
+	* @param psi Pointer to the variable at current time step
+	* @param psi0 Pointer to the variable at previous time step
+	* @param BINDEX Pointer to boundary index
+	*
+	* @return 0 if no error occurred
+	*/
 int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
                REAL *psi, REAL *psi0, int **BINDEX) {
   int flag = 0;
@@ -47,16 +47,16 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
     return flag;
   }
 
-  // Solve the equations
+  /* Solve the equations*/
   if(equ_solver(para, var, var_type, psi)!=0) {
     ffd_log("diffusion(): failed to solve the equation", FFD_ERROR);
     return 1;
   }
 
-  // Define B.C.
+  /* Define B.C.*/
   set_bnd(para, var, var_type, index, psi, BINDEX);
 
-  // Check residual
+  /* Check residual*/
   if(para->solv->check_residual==1) {
     switch(var_type) {
       case VX:
@@ -99,21 +99,21 @@ int diffusion(PARA_DATA *para, REAL **var, int var_type, int index,
   }
 
   return flag;
-} // End of diffusion( )
+} /* End of diffusion( )*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate coefficients for diffusion equation solver
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param psi Pointer to the variable at current time step
-///\param psi0 Pointer to the variable at previous time step
-///\param var_type Type of variable
-///\param index Index of trace substance or species
-///\param BINDEX Pointer to boundary index
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate coefficients for diffusion equation solver
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param psi Pointer to the variable at current time step
+		* @param psi0 Pointer to the variable at previous time step
+		* @param var_type Type of variable
+		* @param index Index of trace substance or species
+		* @param BINDEX Pointer to boundary index
+		*
+		* @return 0 if no error occurred
+		*/
 int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                int var_type, int index, int **BINDEX) {
   int i, j, k;
@@ -133,7 +133,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
        gravz = para->prob->gravz;
   REAL kapa;
 
-  // define kapa
+  /* define kapa*/
   switch(var_type) {
     /*-------------------------------------------------------------------------
     | X-velocity
@@ -170,7 +170,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                      + (pp[IX(i,j,k)]-pp[IX(i+1,j,k)])*Dy*Dz;
       END_FOR
       set_bnd(para, var, var_type, index, psi, BINDEX);
-      //set_bnd(para, var, var_type, psi, BINDEX);
+      /*set_bnd(para, var, var_type, psi, BINDEX);*/
       FOR_U_CELL
           ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
                         + an[IX(i,j,k)]  + as[IX(i,j,k)] + af[IX(i,j,k)]
@@ -212,7 +212,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                      + (pp[IX(i,j,k)]-pp[IX(i ,j+1,k)])*Dx*Dz;
       END_FOR
       set_bnd(para, var, var_type, index, psi, BINDEX);
-      //set_bnd(para, var, var_type, psi,BINDEX);
+      /*set_bnd(para, var, var_type, psi,BINDEX);*/
       FOR_V_CELL
         ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
                       + an[IX(i,j,k)] + as[IX(i,j,k)] + af[IX(i,j,k)]
@@ -254,7 +254,7 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
                      + (pp[IX(i,j,k)]-pp[IX(i ,j,k+1)])*Dy*Dx;
       END_FOR
       set_bnd(para, var, var_type, index, psi, BINDEX);
-      //set_bnd(para, var, var_type, psi, BINDEX);
+      /*set_bnd(para, var, var_type, psi, BINDEX);*/
 
       FOR_W_CELL
         ap[IX(i,j,k)] = ap0[IX(i,j,k)] + ae[IX(i,j,k)] + aw[IX(i,j,k)]
@@ -299,9 +299,9 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
         b[IX(i,j,k)] = psi0[IX(i,j,k)]*ap0[IX(i,j,k)];
       END_FOR
 
-      // Add the source terms
+      /* Add the source terms*/
       source_diff(para, var, var_type, index);
-      // Set boundary conditions
+      /* Set boundary conditions*/
       set_bnd(para, var, var_type, index, psi, BINDEX);
 
       FOR_EACH_CELL
@@ -316,18 +316,18 @@ int coef_diff(PARA_DATA *para, REAL **var, REAL *psi, REAL *psi0,
   }
 
   return 0;
-}// End of coef_diff( )
+}/* End of coef_diff( )*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate source term in the diffusion equation
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param var_type Type of variable
-///\param index Index of trace substances or species
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+	* Calculate source term in the diffusion equation
+	*
+	* @param para Pointer to FFD parameters
+	* @param var Pointer to FFD simulation variables
+	* @param var_type Type of variable
+	* @param index Index of trace substances or species
+	*
+	* @return 0 if no error occurred
+	*/
 int source_diff(PARA_DATA *para, REAL **var, int var_type, int index) {
   int i, j, k;
   int imax = para->geom->imax, jmax = para->geom->jmax;
@@ -361,4 +361,4 @@ int source_diff(PARA_DATA *para, REAL **var, int var_type, int index) {
   END_FOR
 
   return 0;
-} // End of source_diff()
+} /* End of source_diff()*/

@@ -77,7 +77,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
   Modelica.Blocks.Interfaces.RealOutput QWat_flow(unit="W")
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Fluid.Actuators.Valves.ThreeWayLinear valCoo(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear valCoo(
     redeclare final package Medium =  Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
@@ -89,7 +89,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,60})));
-  Fluid.Actuators.Valves.ThreeWayLinear valHea(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear valHea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
@@ -103,7 +103,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
         origin={50,-60})));
 
 protected
-  Fluid.HeatExchangers.HeaterCooler_T coo(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
@@ -125,7 +125,7 @@ protected
               {1-sum(inStream(port_b1.Xi_outflow))})))
         "Warm water inlet temperature"
     annotation (Placement(transformation(extent={{-40,156},{-20,176}})));
-  Fluid.HeatExchangers.HeaterCooler_T hea(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=0,
@@ -173,10 +173,10 @@ protected
   Controller conCoo(final m_flow_nominal=m_flow_nominal)
     "Controller for hex for cooling" annotation (Placement(transformation(
           rotation=0, extent={{-40,20},{-20,40}})));
-  Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloCoo(redeclare package Medium = Medium)
     "Mass flow sensor used for cooling control"
     annotation (Placement(transformation(extent={{-52,50},{-72,70}})));
-  Fluid.Sensors.MassFlowRate senMasFloHea(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloHea(redeclare package Medium = Medium)
     "Mass flow sensor used for heating control"
     annotation (Placement(transformation(extent={{-42,-50},{-62,-30}})));
   Controller conHea(final m_flow_nominal=m_flow_nominal)

@@ -21,12 +21,12 @@ model ClosedLoop_y "Flow machine with feedback control"
     p=101325,
     T=293.15,
     nPorts=2) annotation (Placement(transformation(extent={{-82,10},{-62,30}})));
-  FixedResistances.FixedResistanceDpM dp1(
+  FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
+  Buildings.Fluid.FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"

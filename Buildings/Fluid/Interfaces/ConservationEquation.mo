@@ -92,7 +92,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      T=T_start,
      p=p_start,
      X=X_start[1:Medium.nXi])) +
-    (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
+    (T_start - Medium.reference_T)*CSen,
+    nominal = 1E5) "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
@@ -230,9 +231,9 @@ equation
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
-        p=  medium.p,
-        h=  hOut,
-        X=  Medium.X_default));
+        p = medium.p,
+        h = hOut,
+        X = Medium.X_default));
     else
       // Use actual density
       m = fluidVolume*medium.d;
@@ -410,6 +411,10 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2016, by Michael Wetter:<br/>
+Set nominal value for <code>U</code>.<br/>
+This if or <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/637\">637</a>.
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs UOut, mOut, mXiOut, mCOut for being able to

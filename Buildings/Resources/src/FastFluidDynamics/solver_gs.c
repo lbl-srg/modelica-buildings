@@ -1,32 +1,32 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   solver_gs.c
-///
-/// \brief  Gauss-Seidel solvers
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   solver_gs.c
+	*
+	* \brief  Gauss-Seidel solvers
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "solver_gs.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Gauss-Seidel solver for pressure
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param Type Type of variable
-///\param x Pointer to variable
-///
-///\return Residual
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Gauss-Seidel solver for pressure
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param Type Type of variable
+		* @param x Pointer to variable
+		*
+		* @return Residual
+		*/
 REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
   REAL *as = var[AS], *aw = var[AW], *ae = var[AE], *an = var[AN];
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];
@@ -48,7 +48,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
       for(j=1; j<=jmax; j++)
         for(k=1; k<=kmax; k++) {
           if (flagp[IX(i,j,k)]>=0) continue;
-          //if (i==imax && j==jmax && k==kmax) continue;
+          /*if (i==imax && j==jmax && k==kmax) continue;*/
 
           x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
@@ -66,7 +66,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
       for(i=1; i<=imax; i++)
         for(k=1; k<=kmax; k++) {
           if (flagp[IX(i,j,k)]>=0) continue;
-          //if (i==imax && j==jmax && k==kmax) continue;
+          /*if (i==imax && j==jmax && k==kmax) continue;*/
 
           x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
@@ -83,7 +83,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
       for(j=jmax; j>=1; j--)
         for(k=1; k<=kmax; k++) {
           if (flagp[IX(i,j,k)]>=0) continue;
-          //if (i==imax && j==jmax && k==kmax) continue;
+          /*if (i==imax && j==jmax && k==kmax) continue;*/
 
           x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
@@ -100,7 +100,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
       for(i=imax; i>=1; i--)
         for(k=1; k<=kmax; k++) {
           if (flagp[IX(i,j,k)]>=0) continue;
-          //if (i==imax && j==jmax && k==kmax) continue;
+          /*if (i==imax && j==jmax && k==kmax) continue;*/
 
           x[IX(i,j,k)] = (  ae[IX(i,j,k)]*x[IX(i+1,j,k)]
                           + aw[IX(i,j,k)]*x[IX(i-1,j,k)]
@@ -120,7 +120,7 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
 
   FOR_EACH_CELL
     if (flagp[IX(i,j,k)]>=0) continue;
-    //if (i==imax && j==jmax && k==kmax) continue;
+    /*if (i==imax && j==jmax && k==kmax) continue;*/
     tmp1 += (REAL) fabs(ap[IX(i,j,k)]*x[IX(i,j,k)]
         - ae[IX(i,j,k)]*x[IX(i+1,j,k)] - aw[IX(i,j,k)]*x[IX(i-1,j,k)]
         - an[IX(i,j,k)]*x[IX(i,j+1,k)] - as[IX(i,j,k)]*x[IX(i,j-1,k)]
@@ -130,24 +130,24 @@ REAL GS_P(PARA_DATA *para, REAL **var, int Type, REAL *x) {
   END_FOR
 
   residual = tmp1 /tmp2;
-  //printf ("the pressure of cell[imax,jmax,kmax] is %f\n", x[IX(imax,jmax,kmax)]);
-  //printf ("the average pressure residual is %.12f\n", residual);
-  //printf ("it is %d \n", it);
-  //}
+  /*printf ("the pressure of cell[imax,jmax,kmax] is %f\n", x[IX(imax,jmax,kmax)]);*/
+  /*printf ("the average pressure residual is %.12f\n", residual);*/
+  /*printf ("it is %d \n", it);*/
+  /*}*/
   return residual;
 
-} // End of GS_P()
+} /* End of GS_P()*/
 
-///////////////////////////////////////////////////////////////////////////////
-/// Gauss-Seidel solver
-///
-///\param para Pointer to FFD parameters
-///\param var Pointer to FFD simulation variables
-///\param flag Pointer to the cell property flag
-///\param x Pointer to variable
-///
-///\return Residual
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Gauss-Seidel solver
+		*
+		* @param para Pointer to FFD parameters
+		* @param var Pointer to FFD simulation variables
+		* @param flag Pointer to the cell property flag
+		* @param x Pointer to variable
+		*
+		* @return Residual
+		*/
 REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
   REAL *as = var[AS], *aw = var[AW], *ae = var[AE], *an = var[AN];
   REAL *ap = var[AP], *af = var[AF], *ab = var[AB], *b = var[B];
@@ -209,8 +209,8 @@ REAL Gauss_Seidel(PARA_DATA *para, REAL **var, REAL *flag, REAL *x) {
   END_FOR
 
   residual = tmp1 /tmp2;
-  //printf ("the average residual for velocity/T is %.12f\n", tmp1/(imax*jmax*kmax));
+  /*printf ("the average residual for velocity/T is %.12f\n", tmp1/(imax*jmax*kmax));*/
   return residual;
 
-} // End of Gauss-Seidel( )
+} /* End of Gauss-Seidel( )*/
 

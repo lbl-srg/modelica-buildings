@@ -95,15 +95,13 @@ block HVACZone
         rotation=180,
         origin={-18,94})));
 
-  Sources.Boundary_pT out(
-    nPorts=2,
+  Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
-    use_T_in=true,
-    use_X_in=true) "Outside air boundary condition"
+    nPorts=2) "Outside air boundary condition"
     annotation (Placement(transformation(extent={{-112,84},{-92,104}})));
   Sources.MassFlowSource_T souWat(
-    nPorts=1,
     redeclare package Medium = MediumW,
+    nPorts=1,
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-30,6},{-10,26}})));
@@ -153,21 +151,18 @@ block HVACZone
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-180})));
-  FixedResistances.FixedResistanceDpM resSup1(
+  FixedResistances.PressureDrop resSup1(
     redeclare package Medium = MediumA,
     linearized=true,
     dp_nominal=10,
     m_flow_nominal=mA_flow_nominal) "Fixed resistance for supply air inlet"
     annotation (Placement(transformation(extent={{86,130},{106,150}})));
-  FixedResistances.FixedResistanceDpM resRet1(
+  FixedResistances.PressureDrop resRet1(
     redeclare package Medium = MediumA,
     dp_nominal=200,
     linearized=true,
     m_flow_nominal=mA_flow_nominal) "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{70,60},{50,80}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
-    "Computes outside air mass fraction"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 equation
   connect(zero.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -243,17 +238,11 @@ equation
           {80,100},{80,140},{86,140}}, color={0,127,255}));
   connect(resRet1.port_b, hex.port_a2) annotation (Line(points={{50,70},{50,72},
           {-60,72},{-60,84},{-62,84}},color={0,127,255}));
-  connect(out.T_in, weaBus.TDryBul) annotation (Line(points={{-114,98},{-132,98},
-          {-132,120},{-60,120},{-60,140}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(x_pTphi.X, out.X_in) annotation (Line(points={{-119,70},{-118,70},{
-          -118,90},{-114,90}}, color={0,0,127}));
-  connect(x_pTphi.T, weaBus.TDryBul) annotation (Line(points={{-142,70},{-146,
-          70},{-146,120},{-60,120},{-60,140}}, color={0,0,127}));
-  connect(x_pTphi.phi, weaBus.relHum) annotation (Line(points={{-142,64},{-152,
-          64},{-152,122},{-60,122},{-60,140}}, color={0,0,127}));
+  connect(out.weaBus, weaBus) annotation (Line(
+      points={{-112,94.2},{-116,94.2},{-116,94},{-120,94},{-120,120},{-60,120},
+          {-60,140}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,160}}), graphics={
         Text(

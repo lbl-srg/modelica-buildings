@@ -22,45 +22,44 @@ model TwoPortMatrixRL
     "Element [3,1] of impedance matrix";
   final parameter Modelica.SIunits.Impedance[2] Z32 = Z23
     "Element [3,1] of impedance matrix";
-protected
-  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
-    "Product between complex quantities";
+
   Modelica.SIunits.Current i1[2](
-    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
     each stateSelect = StateSelect.prefer) = terminal_n.phase[1].i
     "Current in line 1";
   Modelica.SIunits.Current i2[2](
-    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
     each stateSelect = StateSelect.prefer) = terminal_n.phase[2].i
     "Current in line 2";
   Modelica.SIunits.Current i3[2](
-    start = zeros(Buildings.Electrical.PhaseSystems.OnePhase.n),
     each stateSelect = StateSelect.prefer) = terminal_n.phase[3].i
     "Current in line 3";
   Modelica.SIunits.Voltage v1_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  0),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = 0),
     each stateSelect = StateSelect.never) = terminal_n.phase[1].v
     "Voltage in line 1 at connector N";
   Modelica.SIunits.Voltage v2_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  -2*Modelica.Constants.pi/3),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = -2*Modelica.Constants.pi/3),
     each stateSelect = StateSelect.never) = terminal_n.phase[2].v
     "Voltage in line 2 at connector N";
   Modelica.SIunits.Voltage v3_n[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  2*Modelica.Constants.pi/3),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = 2*Modelica.Constants.pi/3),
     each stateSelect = StateSelect.never) = terminal_n.phase[3].v
     "Voltage in line 3 at connector N";
   Modelica.SIunits.Voltage v1_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  0),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = 0),
     each stateSelect = StateSelect.never) = terminal_p.phase[1].v
     "Voltage in line 1 at connector P";
   Modelica.SIunits.Voltage v2_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  -2*Modelica.Constants.pi/3),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = -2*Modelica.Constants.pi/3),
     each stateSelect = StateSelect.never) = terminal_p.phase[2].v
     "Voltage in line 2 at connector P";
   Modelica.SIunits.Voltage v3_p[2](
-    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi=  2*Modelica.Constants.pi/3),
+    start = Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/sqrt(3), phi = 2*Modelica.Constants.pi/3),
     each stateSelect = StateSelect.never) = terminal_p.phase[3].v
     "Voltage in line 3 at connector P";
+
+protected
+  function productAC1p = Buildings.Electrical.PhaseSystems.OnePhase.product
+    "Product between complex quantities";
 equation
 
   // Link the connectors to propagate the overdetermined variable
@@ -104,6 +103,19 @@ equation
           textString="R+jX 3x3")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Removed zero start value for currents <code>i1</code>, <code>i2</code> and
+<code>i3</code>.
+Setting a zero start value led Dymola 2017 on Linux to find a different solution
+for
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD\">
+Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD</a>.
+Also, the current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
+Made current and voltage public to allow setting start values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.

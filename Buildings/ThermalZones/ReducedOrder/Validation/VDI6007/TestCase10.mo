@@ -165,7 +165,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={28,-19})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -272,7 +272,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos"
         "Simulate and plot"));

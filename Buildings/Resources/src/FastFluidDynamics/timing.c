@@ -1,29 +1,29 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   time.c
-///
-/// \brief  Subroutines for timing
-///
-/// \author Mingang Jin, Qingyan Chen
-///         Purdue University
-///         Jin55@purdue.edu, YanChen@purdue.edu
-///         Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+	*
+	* \file   time.c
+	*
+	* \brief  Subroutines for timing
+	*
+	* \author Mingang Jin, Qingyan Chen
+	*         Purdue University
+	*         Jin55@purdue.edu, YanChen@purdue.edu
+	*         Wangda Zuo
+	*         University of Miami
+	*         W.Zuo@miami.edu
+	*
+	* \date   8/3/2013
+	*
+	*/
 
 #include "timing.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Calculate the simulation time and time ratio
-///
-///\param para Pointer to FFD parameters
-///
-///\return No return needed
-///////////////////////////////////////////////////////////////////////////////
+	/*
+		* Calculate the simulation time and time ratio
+		*
+		* @param para Pointer to FFD parameters
+		*
+		* @return No return needed
+		*/
 void timing(PARA_DATA *para) {
   double cputime;
 
@@ -37,4 +37,4 @@ void timing(PARA_DATA *para) {
          para->mytime->t, cputime, para->mytime->t/cputime);
   ffd_log(msg, FFD_NORMAL);
 
-} // End of timing( )
+} /* End of timing( )*/

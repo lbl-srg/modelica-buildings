@@ -1,5 +1,8 @@
 compareVars :=
   {
     "mean.y",
-    "reference.y[1]"
+    "reference.y[1]",
+    "assEqu.diff",
+    "assEqu.threShold",
+    "assEqu.satisfied"
   };

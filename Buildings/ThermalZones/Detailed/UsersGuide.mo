@@ -4,8 +4,7 @@ package UsersGuide "User's Guide"
 
    class MixedAir "Room model with instantaneously mixed air"
     extends Modelica.Icons.Information;
-    annotation (preferredView="info", Documentation(info=
-                     "<html>
+    annotation (preferredView="info", Documentation(info="<html>
 <p>The model <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a> is
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the
@@ -382,7 +381,7 @@ The lines
 
 </pre>
 <p>
-declare that the material layers" + " in these constructions are
+declare that the material layers in these constructions are
 set the records <code>matLayRoo</code> and <code>matLayExt</code>.
 What follows are the declarations for the surface area,
 the tilt of the surface and the azimuth of the surfaces. Thus, the
@@ -489,8 +488,35 @@ Next, the declaration
 </pre>
 <p>
 declares one construction whose other surface boundary condition is exposed by this
-room model (through the connector <code>surf_conBou</code>).
+room model (through the heat port <code>surf_conBou</code>).</p>
+<p>
+Note that by default, there is a temperature state at the surface of this wall.
+Therefore, connecting to the heat port  <code>surf_conBou</code> a prescribed
+temperature boundary condition such as
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature\">
+Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> would lead to an error
+and the model won't translate.
+The reason is that both, the state defines the temperature at the surface, and
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature\">
+Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a> prescribes
+the value of this temperature, leading
+to an overspecification. To avoid this, add between <code>surf_conBou</code>
+and the prescribed boundary condition a thermal conductance such as
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalConductor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a>
+or a thermal convection model such as
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
+Buildings.HeatTransfer.Convection.Exterior</a>.
+Alternatively, you could remove the state from the surface by declaring
 </p>
+<pre>
+<span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConBou=1,</span></span>
+<span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConBou(layers={matLayFlo}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*4,</span></span>
+<span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.Types.Tilt.Floor,</span></span>
+<span style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">stateAtSurface_a = false),</span></span>
+
+</pre>
+
 <p>
 The declaration
 </p>
@@ -540,6 +566,27 @@ Finally, the declaration
 </pre>
 <p>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
+</p>
+<h4>Notes</h4>
+<p>
+To connect two rooms, the model
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> can be connected to
+the ports <code>surf_surBou</code> of the two rooms.
+However, make sure to set <code>stateAtSurface_a = true</code>
+and <code>stateAtSurface_b = true</code> in the instance of the heat conduction
+model, as this allows to avoid
+a nonlinear system of equation to compute the radiative heat transfer,
+thereby leading to faster simulation.
+See
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960\">
+Buildings.ThermalZones.Detailed.Validation.BESTEST.Case960</a>
+for an example.
+</p>
+<p>
+By setting <code>linearizeRadiation = false</code>, nonlinear equations will
+be used to compute the infrared radiation exchange among surfaces. This
+can lead to slower computation.
 </p>
 <h4>References</h4>
 <p>

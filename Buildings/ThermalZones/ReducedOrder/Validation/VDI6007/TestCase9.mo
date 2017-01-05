@@ -241,7 +241,7 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Math.Gain gain(k=65.99081593)
     "Convert long-wave radiation into black body sky temperature"
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -256,12 +256,12 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}},
     color={191,0,0}));
   connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,
@@ -394,7 +394,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase9.mos"
         "Simulate and plot"));

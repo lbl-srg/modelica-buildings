@@ -79,8 +79,8 @@ Models that extend this class need to implement an equation that relates
 </p>
 <p>
 See for example
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> for a model that extends
+<a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+Buildings.Fluid.FixedResistances.PressureDrop</a> for a model that extends
 this base class.
 </p>
 </html>", revisions="<html>
@@ -147,7 +147,7 @@ To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 August 5, 2011, by Michael Wetter:<br/>

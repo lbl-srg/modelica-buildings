@@ -22,7 +22,7 @@ model Example2 "Example 2 model with series pressure components"
   Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  FixedResistances.PressureDrop[nRes.k] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,

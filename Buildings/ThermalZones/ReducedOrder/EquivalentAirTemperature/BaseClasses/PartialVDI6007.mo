@@ -29,8 +29,8 @@ partial model PartialVDI6007
     "Equivalent short wave temperature";
 
   Modelica.Blocks.Interfaces.RealInput HSol[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Solar radiation per unit area"
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2") "Solar radiation per unit area"
     annotation (Placement(
     transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput TBlaSky(

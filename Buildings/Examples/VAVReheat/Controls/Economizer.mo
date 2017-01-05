@@ -87,27 +87,27 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(max.y, extractor.u[OperationModes.occupied]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.occupied)]) annotation (Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[OperationModes.unoccupiedOff]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedOff)]) annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[OperationModes.unoccupiedNightSetBack]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.unoccupiedNightSetBack)]) annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(max.y, extractor.u[OperationModes.unoccupiedWarmUp]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedWarmUp)]) annotation (Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(max.y, extractor.u[OperationModes.unoccupiedPreCool]) annotation (Line(
+  connect(max.y, extractor.u[Integer(OperationModes.unoccupiedPreCool)]) annotation (Line(
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(closed.y, extractor.u[OperationModes.safety]) annotation (Line(
+  connect(closed.y, extractor.u[Integer(OperationModes.safety)]) annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -210,6 +210,12 @@ air requirement and an override for freeze protection.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 20, 2016, by Michael Wetter:<br/>
+Added type conversion for enumeration when used as an array index.<br/>
+This is for
+<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/602\">#602</a>.
+</li>
 <li>
 April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed

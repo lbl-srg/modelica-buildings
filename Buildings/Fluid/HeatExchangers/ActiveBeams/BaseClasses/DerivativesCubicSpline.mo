@@ -38,18 +38,21 @@ algorithm
     y2=yd[i + 1],
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
-  annotation (
-    __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
-        "Simulate and plot"),
-    experiment(StopTime=1.0),defaultComponentName="cubSpl",
-    Documentation(info="<html>
+annotation (
+  defaultComponentName="cubSpl",
+  Documentation(info="<html>
 <p>
 This model calculates the output based on the cubic hermite interpolation
 and linear extrapolation of predefined values. The predefined values must create a monotone curve.
-
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 15, 2016, by Michael Wetter:<br/>
+Removed wrong annotations.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/629\">#629</a>.
+</li>
 <li>
 June 13, 2016, by Michael Wetter:<br/>
 Revised implementation.
@@ -74,5 +77,7 @@ First implementation.
       fillPattern=FillPattern.Solid),
         Line(
           points={{-82,-72},{-40,-72},{-18,-56},{-6,-32},{0,-8},{14,26},{32,46},
-              {46,50},{80,50}})}));
+              {46,50},{80,50}},
+          color={0,0,0},
+          smooth=Smooth.Bezier)}));
 end DerivativesCubicSpline;

@@ -56,13 +56,13 @@ block ThermalZoneAir1 "Validation of simple thermal zone"
   Modelica.Blocks.Sources.Constant TOutSou(k=303.15) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-100,102},{-80,122}})));
 protected
-  FixedResistances.FixedResistanceDpM res1(
+  FixedResistances.PressureDrop res1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=10,
     linearized=true) "Flow resistance"
     annotation (Placement(transformation(extent={{80,150},{100,170}})));
-  FixedResistances.FixedResistanceDpM res2(
+  FixedResistances.PressureDrop res2(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=10,

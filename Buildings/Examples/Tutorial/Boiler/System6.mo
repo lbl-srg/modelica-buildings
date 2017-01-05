@@ -85,54 +85,51 @@ model System6
       origin={-50,-70})));
 
 //----------------------------------------------------------------------------//
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
-    redeclare package Medium =MediumW,
+  Buildings.Fluid.FixedResistances.Junction mix(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal={mRadVal_flow_nominal,
-                   -mRad_flow_nominal,
-                   mRad_flow_nominal-mRadVal_flow_nominal},
+    m_flow_nominal={mRadVal_flow_nominal,-mRad_flow_nominal,mRad_flow_nominal
+         - mRadVal_flow_nominal},
     dp_nominal={100,-8000,6750}) "Mixer between valve and radiators"
-                        annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-110})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+  Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal={mBoi_flow_nominal,
-                   -mRadVal_flow_nominal,
-                   -mBoi_flow_nominal},
-    dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass"
-                        annotation (Placement(transformation(
+    m_flow_nominal={mBoi_flow_nominal,-mRadVal_flow_nominal,-mBoi_flow_nominal},
+
+    dp_nominal={200,-200,-50}) "Splitter of boiler loop bypass" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-190})));
 
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl2(redeclare
-      package Medium=MediumW,
+  Buildings.Fluid.FixedResistances.Junction spl2(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,0,0},
-    m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal +
-        mRadVal_flow_nominal})
-                        annotation (Placement(transformation(
+    m_flow_nominal={mRad_flow_nominal,-mRadVal_flow_nominal,-mRad_flow_nominal
+         + mRadVal_flow_nominal}) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-110})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix2(redeclare
-      package Medium=MediumW,
+  Buildings.Fluid.FixedResistances.Junction mix2(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal={0,-200,0},
-    m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal}) "Mixer"
-                        annotation (Placement(transformation(
+    m_flow_nominal={mRadVal_flow_nominal,-mBoi_flow_nominal,mBoi_flow_nominal})
+    "Mixer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-190})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl4(redeclare
-      package Medium=MediumW,
+  Buildings.Fluid.FixedResistances.Junction spl4(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mRadVal_flow_nominal*{1,-1,-1},
     dp_nominal=200*{1,-1,-1}) "Splitter for radiator loop valve bypass"
-                        annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-150})));
@@ -190,12 +187,11 @@ model System6
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-280})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl1(redeclare
-      package Medium=MediumW,
+  Buildings.Fluid.FixedResistances.Junction spl1(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={mBoi_flow_nominal,-mBoi_flow_nominal,-mBoi_flow_nominal},
-    dp_nominal={0,0,-200}) "Splitter"
-                        annotation (Placement(transformation(
+    dp_nominal={0,0,-200}) "Splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-230})));

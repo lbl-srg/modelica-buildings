@@ -7,32 +7,32 @@ partial model PartialCorrectionG
     "Thermal transmission coefficient of whole window";
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2")
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2")
     "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
     iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2")
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2")
     "Direct solar radiation on a tilted surface per unit area"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput HGroDifTil[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2")
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2")
     "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput inc[n](
-    final quantity="Angle",
-    final unit="rad",
-    displayUnit="deg") "Incidence angles"
+    each final quantity="Angle",
+    each final unit="rad",
+    each displayUnit="deg") "Incidence angles"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput solarRadWinTrans[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "transmitted solar radiation through windows"
+    each final quantity="RadiantEnergyFluenceRate",
+    each final unit="W/m2") "transmitted solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
     iconTransformation(extent={{100,-10},{120,10}})));
   annotation (Icon(coordinateSystem(

@@ -72,7 +72,6 @@ partial model PartialFlowMachine
         origin={0,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_actual(
-    min=0,
     final unit="1")
     "Actual normalised pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
@@ -93,9 +92,9 @@ partial model PartialFlowMachine
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -preSou.dp "Pressure difference";
 
-  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
-  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+  Real eta(unit="1", final quantity="Efficiency") =    eff.eta "Global efficiency";
+  Real etaHyd(unit="1", final quantity="Efficiency") = eff.etaHyd "Hydraulic efficiency";
+  Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
 protected
@@ -375,7 +374,6 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
-
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-34,-94},{-60,-94},{-60,10},{-70,10}},
@@ -531,6 +529,13 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 2, 2016, by Michael Wetter:<br/>
+Removed <code>min</code> attribute as otherwise numerical noise can cause
+the assertion on the limit to fail.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Set start value for <code>VMachine_flow</code> to avoid a warning in

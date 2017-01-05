@@ -19,13 +19,13 @@ model VAVBoxExponential
     offset=101330,
     startTime=0,
     duration=60) annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+               Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+               Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{72,-20},{52,0}})));
@@ -37,12 +37,12 @@ model VAVBoxExponential
     A=1.8,
     m_flow_nominal=2)
          annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     m_flow_nominal=2,
     redeclare package Medium = Medium,
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
-             annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
+    annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
 
 equation
   connect(yDam.y,dam. y) annotation (Line(

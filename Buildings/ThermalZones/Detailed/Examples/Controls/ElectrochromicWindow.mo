@@ -94,7 +94,7 @@ If the temperature <em>or</em> the irradiation is below <code>TClear</code> or <
 the window is in the clear state, allowing for passive heating and for view if the room is cool enough.
 If the temperature and the irradition is above <code>TDark</code> and <code>HDark</code>, then
 the window is in the dark state, thereby protecting the room from too much solar gain.
-For each of these measured quantity, the respective control signal is a linear function, with 
+For each of these measured quantity, the respective control signal is a linear function, with
 output limitation between <i>0</i> and <i>1</i>.
 The control output of this block is the product of these two control signals. Hence, there is
 a continuous transition for intermediate values.

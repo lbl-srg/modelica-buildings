@@ -39,7 +39,7 @@ model Plant_Carnot_T_ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,-62})));
-  Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -48,7 +48,7 @@ model Plant_Carnot_T_ClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-30})));
-  Fluid.Movers.FlowControlled_m_flow pum(
+  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,

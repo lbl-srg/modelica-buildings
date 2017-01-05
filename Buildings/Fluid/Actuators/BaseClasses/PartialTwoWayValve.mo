@@ -29,7 +29,7 @@ initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
         + String(dpFixed_nominal) + " Pa.");
 equation
-  assert(phi > -1.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
+  assert(phi > -0.2, "Valve control signal needs to be bigger than zero, received phi = " + String(phi));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
@@ -192,7 +192,7 @@ To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.
 </li>
 <li>
 August 12, 2011 by Michael Wetter:<br/>

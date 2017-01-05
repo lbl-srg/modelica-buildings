@@ -176,7 +176,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Modelica.Blocks.Math.Gain gain1(k=-1)
     "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -289,7 +289,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase12.mos"
         "Simulate and plot"));
