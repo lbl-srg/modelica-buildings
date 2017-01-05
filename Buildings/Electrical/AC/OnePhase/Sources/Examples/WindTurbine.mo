@@ -79,6 +79,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/WindTurbineAC.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Sources/Examples/WindTurbine.mos"
         "Simulate and plot"));
 end WindTurbine;
