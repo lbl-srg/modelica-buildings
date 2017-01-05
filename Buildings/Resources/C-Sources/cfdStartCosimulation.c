@@ -144,7 +144,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | Get a handle to the DLL module.
   ****************************************************************************/
-#ifdef _MSC_VER /*Windows*/
+#ifdef _MSC_VER || __WIN32__ /*Windows. The WIN32 test is for MinGW */
 
 #if _WIN64
   hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll"));
