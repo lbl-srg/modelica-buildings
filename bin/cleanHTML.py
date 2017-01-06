@@ -84,7 +84,7 @@ if __name__ == '__main__':
     with open(tesFil, 'r') as fil:
         lines = fil.readlines()
         for lin in lines:
-            iSta = lin.find('/opt/dymola/Modelica/Library')
+            iSta = lin.find('Extends from <a href="file')
             if iSta > -1:
                 s = "Library/"
                 iEnd = lin.find(s) + len(s)
