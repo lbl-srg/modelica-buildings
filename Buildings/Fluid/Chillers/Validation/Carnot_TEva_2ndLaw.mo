@@ -37,20 +37,6 @@ model Carnot_TEva_2ndLaw
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Add TConIn "Condensor inlet temperature"
     annotation (Placement(transformation(extent={{0,6},{20,26}})));
-  chiller chi_a(
-    redeclare final package Medium1 = Medium,
-    redeclare final package Medium2 = Medium,
-    final dTEva_nominal=dTEva_nominal,
-    final dTCon_nominal=dTCon_nominal,
-    final QEva_flow_nominal=QEva_flow_nominal,
-    final m2_flow_nominal=m2_flow_nominal,
-    final m1_flow_nominal=m1_flow_nominal,
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_a,
-    dS_flow(k1=-1, k2=1),
-    sou1(m_flow=m1_flow_nominal))
-    "Chiller model that uses port_a to compute Carnot efficiency" annotation (
-      Placement(transformation(rotation=0, extent={{60,-40},{80,-20}})));
   chiller chi_b(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -58,13 +44,9 @@ model Carnot_TEva_2ndLaw
     final dTCon_nominal=dTCon_nominal,
     final QEva_flow_nominal=QEva_flow_nominal,
     final m2_flow_nominal=m2_flow_nominal,
-    final m1_flow_nominal=m1_flow_nominal,
-    effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b,
-    dS_flow(k1=-1, k2=1),
-    sou1(m_flow=m1_flow_nominal),
-    effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b)
+    final m1_flow_nominal=m1_flow_nominal)
     "Chiller model that uses port_b to compute Carnot efficiency" annotation (
-      Placement(transformation(rotation=0, extent={{60,-80},{80,-60}})));
+      Placement(transformation(rotation=0, extent={{60,-40},{80,-20}})));
 
 protected
   model chiller "Subsystem model with the chiller"
@@ -85,16 +67,13 @@ protected
     parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
       "Nominal mass flow rate at chilled water side";
 
-    parameter Types.EfficiencyInput effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b
-      "Temperatures of evaporator fluid used to compute Carnot efficiency";
-    parameter Types.EfficiencyInput effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b
-      "Temperatures of condenser fluid used to compute Carnot efficiency";
-
     Sources.MassFlowSource_T sou1(
       redeclare package Medium = Medium1,
       nPorts=1,
       use_m_flow_in=false,
-      use_T_in=true) "Mass flow rate source"
+      use_T_in=true,
+      m_flow=m1_flow_nominal)
+                     "Mass flow rate source"
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
     Sources.FixedBoundary sin1(redeclare package Medium = Medium2, nPorts=1)
       "Pressure source" annotation (Placement(transformation(extent={{-10,-10},{
@@ -113,8 +92,6 @@ protected
       dp1_nominal=0,
       dp2_nominal=0,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      effInpEva=effInpEva,
-      effInpCon=effInpCon,
       use_eta_Carnot_nominal=true) "Chiller model"
       annotation (Placement(transformation(extent={{6,-48},{26,-28}})));
     Sources.MassFlowSource_T sou2(
@@ -153,7 +130,7 @@ protected
     Modelica.Blocks.Math.Add SOut_flow
       "Entropy carried by flow that leaves the chiller"
       annotation (Placement(transformation(extent={{60,10},{80,30}})));
-    Modelica.Blocks.Math.Add dS_flow(k2=-1)
+    Modelica.Blocks.Math.Add dS_flow(k1=-1)
       "Change in entropy inflow and outflow"
       annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
@@ -219,54 +196,40 @@ protected
           coordinateSystem(extent={{-120,-100},{140,100}})));
   end chiller;
 equation
-  connect(TEvaIn.y, chi_a.TEvaIn) annotation (Line(points={{-59,80},{-59,80},{
-          90,80},{90,-34.6},{80.9231,-34.6}},
-                                           color={0,0,127}));
   connect(TSetEvaLvg.u1, TEvaIn.y) annotation (Line(points={{-42,66},{-50,66},{
           -50,80},{-59,80}},
                          color={0,0,127}));
   connect(dTEva.y, TSetEvaLvg.u2) annotation (Line(points={{-59,50},{-50,50},{
           -50,54},{-42,54}},
                          color={0,0,127}));
-  connect(TSetEvaLvg.y, chi_a.TSetEvaLea) annotation (Line(points={{-19,60},{
-          -10,60},{-10,-28},{59.0769,-28}},
-                                          color={0,0,127}));
   connect(TSetEvaLvg.y, TConIn.u1) annotation (Line(points={{-19,60},{-10,60},{
           -10,22},{-2,22}},
                        color={0,0,127}));
   connect(dTConEva.y, TConIn.u2) annotation (Line(points={{-59,10},{-30,10},{-2,
           10}},        color={0,0,127}));
-  connect(chi_a.TConIn, TConIn.y) annotation (Line(points={{59.0769,-32},{40,
-          -32},{40,-12},{40,-12},{40,16},{21,16}},
-                                                color={0,0,127}));
   connect(TEvaIn.y, chi_b.TEvaIn) annotation (Line(points={{-59,80},{-59,80},{
-          90,80},{90,-24},{90,-74.6},{80.9231,-74.6}},          color={0,0,127}));
+          90,80},{90,-24},{90,-34.6},{80.9231,-34.6}},          color={0,0,127}));
   connect(TSetEvaLvg.y, chi_b.TSetEvaLea) annotation (Line(points={{-19,60},{
-          -10,60},{-10,-68},{59.0769,-68}},
+          -10,60},{-10,-28},{59.0769,-28}},
                                           color={0,0,127}));
-  connect(chi_b.TConIn, TConIn.y) annotation (Line(points={{59.0769,-72},{40,
-          -72},{40,16},{40,16},{40,16},{21,16}},color={0,0,127}));
+  connect(chi_b.TConIn, TConIn.y) annotation (Line(points={{59.0769,-32},{40,
+          -32},{40,16},{21,16}},                color={0,0,127}));
 
   annotation (experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_2ndLaw.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example demonstrates that if the inlet temperatures are used
-to compute the Carnot efficiency in the model
-<a href=\"modelica://Buildings.Fluid.Chillers.Carnot_TEva\">
-Buildings.Fluid.Chillers.Carnot_TEva</a>,
-then the model may violate the 2nd law of thermodynamics
-if the temperature lift is small.
-</p>
-<p>
-The example consists of two identical models, except that the instance
-<code>chi_a</code> uses the temperatures at the inlets to compute the
-Carnot efficiency, whereas the instance <code>chi_b</code> uses
-the outlet temperatures.
+This example verifies that the 2nd law of thermodynamics is not violated
+despite of a very small temperature lift.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+Updated model because the option to use the inlet temperatures to compute the COP
+has been removed.
+</li>
 <li>
 November 18, 2016, by Michael Wetter:<br/>
 First implementation.

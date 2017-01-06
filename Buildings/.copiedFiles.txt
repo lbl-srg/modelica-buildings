@@ -305,6 +305,15 @@ Buildings/Fluid/Delays/Examples/package.mo
 Buildings/Fluid/Delays/Examples/package.order
 Buildings/Fluid/Delays/package.mo
 Buildings/Fluid/Delays/package.order
+Buildings/Fluid/Examples/FlowSystem/Basic.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified1.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified2.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified3.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified4.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified5.mo
+Buildings/Fluid/Examples/FlowSystem/Simplified6.mo
+Buildings/Fluid/Examples/FlowSystem/package.mo
+Buildings/Fluid/Examples/FlowSystem/package.order
 Buildings/Fluid/Examples/Performance/BaseClasses/Example1.mo
 Buildings/Fluid/Examples/Performance/BaseClasses/package.mo
 Buildings/Fluid/Examples/Performance/BaseClasses/package.order
@@ -511,6 +520,7 @@ Buildings/Fluid/HeatPumps/package.mo
 Buildings/Fluid/HeatPumps/package.order
 Buildings/Fluid/Interfaces/ConservationEquation.mo
 Buildings/Fluid/Interfaces/Examples/ConservationEquation.mo
+Buildings/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mo
 Buildings/Fluid/Interfaces/Examples/HeaterCooler_u.mo
 Buildings/Fluid/Interfaces/Examples/Humidifier_u.mo
 Buildings/Fluid/Interfaces/Examples/PrescribedOutletState.mo
@@ -814,7 +824,6 @@ Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.
 Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png
 Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png
 Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png
-Buildings/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png
 Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png
 Buildings/Resources/Images/Controls/SetPoints/Examples/OccupancySchedule.png
 Buildings/Resources/Images/Controls/SetPoints/Table.png
@@ -881,6 +890,14 @@ Buildings/Resources/Images/Utilities/Math/int.png
 Buildings/Resources/Images/iea-ebc-logo-text.png
 Buildings/Resources/Images/iea-ebc-logo.pdf
 Buildings/Resources/Images/iea-ebc-logo.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Basic.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified1.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified2.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified3.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified4.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified5.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Examples_FlowSystem_Simplified6.txt
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Interfaces_Examples_FourPortHeatMassExchanger.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos
@@ -974,6 +991,13 @@ Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_etaPL.m
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_reverseFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_y_etaPL.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Basic.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified1.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified2.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified3.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified4.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified5.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified6.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v1.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example2.mos
@@ -1059,6 +1083,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_revers
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaCar.mos
 Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaPL.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ConservationEquation.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/Humidifier_u.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState.mos
@@ -1247,6 +1272,8 @@ Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.epw
 Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw
 Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos
+Buildings/Resources/www/modelicaDoc.css
+Buildings/Resources/www/navigation.png
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/PartialVDI6007.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/package.mo
 Buildings/ThermalZones/ReducedOrder/EquivalentAirTemperature/BaseClasses/package.order
@@ -1495,4 +1522,3 @@ Buildings/Utilities/Time/package.mo
 Buildings/Utilities/Time/package.order
 Buildings/Utilities/package.mo
 Buildings/Utilities/package.order
-Buildings/package.order

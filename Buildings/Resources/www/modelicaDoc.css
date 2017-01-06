@@ -1,57 +1,82 @@
 /* Style sheet for Modelica documentation
 */
-html{
-  color: #022e4d;
-  background-color: white;
-  font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
-  font-size: 14px;
+html {
+    color: #191970;
+    background-color: #FFFFFF;
+    font-style: normal;
+    font-family: "Lucida Grande", Helvetica, Verdana, sans-serif;
+    font-size: 1em;
+    background-color: #BFD1D4;
 }
 
-body{
-  color: #022e4d;
-  margin-left: 10px; /* This must correspond to the margin in div.headerLinks ul */
-  margin-right: 10px; /* This must correspond to the margin in div.headerLinks ul */
-/*  padding: 10px 10px 15px 15px;*/
+body {
+    font-size: 14px;
+    line-height: 150%;
+    color: #022e4d;
+    padding: 10px;
+//    border: 1px solid #022e4d;
+    background-color: white;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 870px;
+    box-shadow: 2px -2px 10px 0px rgba(0,0,0,0.4);
 }
 
 // begin header css
-#navbar {
-    text-align: left;
-}
-#navbar {
-    margin-left: -10px; /* This must correspond to body margin */
-    margin-right: -10px;  /* This must correspond to body margin */
-    margin-top: -10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 15px;
-    background-color: #f8f8f8;
+div.headerStyle {
+    font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
+    background-color: white; 
+    box-shadow: 2px -2px 10px 0px rgba(0,0,0,0.4);
 }
 
-#navbar img{
-    left: 10px;
-    height: 30px;
+div.headerStyle table{
+    padding: 10px 10px 15px 15px; 
+    width: 880px;
+    border: 0;
 }
 
-#navbar ul {
+div.headerStyle td{
+    vertical-align: text-top;
+    font-size: 30pt;
+    padding: 10px 10px 15px 0px;
+    border: 0;
+}
+
+div.related {
+    font-size: 1em;
+}
+div.related ul {
+    background-image: url(navigation.png);
     height: 2em;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+div.related ul li {
+    margin-left: -40px;
+    padding: 0;
+    height: 2em;
+    float: left;
     list-style-type: none;
-    padding-left: 0px;
 }
 
-#navbar ul li {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
-#navbar ul li a {
+div.related ul li a {
+    margin: 0;
+    padding: 0 5px 0 5px;
+    line-height: 1.75em;
     color: #750000;
     text-decoration: none;
 }
 
-div.headerLinks ul li a:hover {
-    color: #3CA8E7;
+div.related ul li a:hover {
+    color: #750000;
+    text-decoration: none;
 }
+
 // end header css
 
 h1 {
@@ -69,10 +94,8 @@ h2 {
 }
 
 h3 {
-    margin: 1em 0 0.2em 0;
     font-size: 1.2em;
     color: #022e4d;
-    margin-top: 10px;
 }
 h4 {
     margin: 1em 0 -0.3em 0;
@@ -86,15 +109,6 @@ sub, sup {
 }
 
 
-/* Modelica code */
-.modelica {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  background-color: #F3F5F7;
-  line-height: 120%;
-}
 /* Links */
 
 a {color: #750000;}
@@ -296,4 +310,11 @@ hr {
     height: 1pt;
     background-color: #9C9C9C;
     border: 0;
+}
+
+.modelica{
+    padding: 5px;
+    line-height: 100%;
+    background-color: #F3F5F7;
+
 }

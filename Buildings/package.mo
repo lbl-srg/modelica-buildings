@@ -400,24 +400,6 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
-                          Buildings.Fluid.Chillers.Carnot_y<br/>
-                          Buildings.Fluid.HeatPumps.Carnot_TCon<br/>
-                          Buildings.Fluid.HeatPumps.Carnot_y<br/>
-       </td>
-       <td valign=\"top\">Changed the default temperatures that are used to compute the coefficient
-                          of performance (COP) to be the leaving water temperature. Previously, the
-                          entering water temperature was used, which can give COPs that are higher than
-                          the Carnot efficiency if the temperature lift is small, because Carnot assumes
-                          no change in temperature along the fluid stream, and using the entering temperature is
-                          an optimistic choice.<br/>
-                          This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>.
-       </td>
-   </tr>
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
@@ -541,6 +523,25 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
+                          Buildings.Fluid.Chillers.Carnot_y
+       </td>
+       <td valign=\"top\">Removed the parameters
+                          <code>effInpEva</code> and
+                          <code>effInpCon</code>.
+                          Now, always the leaving water temperatures are used to compute the coefficient
+                          of performance (COP). Previously, the
+                          entering water temperature could be used, but this can give COPs that are higher than
+                          the Carnot efficiency if the temperature lift is small.
+                          For Dymola, the conversion script will update models.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
        </td>
    </tr>
@@ -597,6 +598,24 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Carnot_TEva<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_y
+       </td>
+       <td valign=\"top\">Removed the parameters
+                          <code>effInpEva</code> and
+                          <code>effInpCon</code>.
+                          Now, always the leaving water temperatures are used to compute the coefficient
+                          of performance (COP). Previously, the
+                          entering water temperature could be used, but this can give COPs that are higher than
+                          the Carnot efficiency if the temperature lift is small.
+                          For Dymola, the conversion script will update models.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+       </td>
+   </tr>
 
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
