@@ -5,6 +5,16 @@ clear
 
 convertClear();
 
+// Heat pumps and chillers based on Carnot efficiency
+convertModifiers({"Buildings.Fluid.Chillers.BaseClasses.Carnot"},
+                  {"effInpEva"},
+                  fill("", 0),
+                  true);
+
+convertModifiers({"Buildings.Fluid.Chillers.BaseClasses.Carnot"},
+                  {"effInpCon"},
+                  fill("", 0),
+                  true);
 
 // Pressure drop
 convertModifiers({"Buildings.Fluid.FixedResistances.FixedResistanceDpM"},
