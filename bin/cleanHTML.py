@@ -16,6 +16,7 @@ def validateLine(line, filNam):
     li = ['/tmp/', \
           'home/mwetter', \
           'dymola/Modelica', \
+          'Extends from <a href="file', \
           '///opt/dymola', \
           'github/lbl-srg', \
           '<a href="http://www.3ds.com/">Automatically generated</a>', \
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     with open(tesFil, 'r') as fil:
         lines = fil.readlines()
         for lin in lines:
-            iSta = lin.find('Extends from <a href="file')
+            iSta = lin.find('/opt/dymola/Modelica/Library')
             if iSta > -1:
                 s = "Library/"
                 iEnd = lin.find(s) + len(s)
