@@ -67,7 +67,7 @@ if __name__ == '__main__':
                     '</head>':
                     '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</head>',
                     '<body>':
-                    '<body>\n<!-- begin header -->
+                    '''<body>\n<!-- begin header -->
 <div class="headerStyle">
 <img src="../Resources/www/library-logo.png" alt="Library logo" width="161" height="85"/>
 <!-- end header -->
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     </li>
     </ul>
     </div>
-</div>'.format( \
+</div>'''.format( \
                         library_name = LIB_NAME, homepage = HOMEPAGE),
                     LIBHOME:
                     '..',
