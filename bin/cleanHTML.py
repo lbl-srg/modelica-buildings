@@ -65,21 +65,45 @@ if __name__ == '__main__':
 
     replacements = {'font-family: Arial, sans-serif;': '',
                     '</head>':
-                    '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</head>',
-                    '<body>':
-                    '''<body>\n<!-- begin header -->
-<div class="headerStyle">
-<img src="../Resources/www/library-logo.png" alt="Library logo" width="161" height="85"/>
-<!-- end header -->
-    <div class="related" role="navigation" aria-label="related navigation">
-    <ul>
-    <li>
-    <a href="{homepage}">Home</a> |
-    <a href="{library_name}.html">Modelica</a>
-    </li>
-    </ul>
+                    '''
+  <!-- Bootstrap core CSS -->
+  <link href="../Resources/www/bootstrap.min.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="../Resources/www/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../Resources/www/custom.css" rel="stylesheet">
+
+  <!-- Custom changes for Modelica -->
+  <link href="../Resources/www/modelicaDoc.css" rel="stylesheet">
+
+</head>
+<body>
+  <div id="navbar" class="navbar navbar-default ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="../Resources/www/library-logo.png" alt="Library logo">
+         </a>
+      <span class="navbar-text navbar-version pull-left"><b></b></span>
     </div>
-</div>'''.format( \
+
+    <div id="navbar" class="navbar-collapse collapse nav-collapse">
+
+        <ul class="nav navbar-nav">
+              <li><a href="{homepage}">Home</a></li>
+              <li><a href="{library_name}.html">Modelica</a></li>
+        </ul>
+      </div>
+  </div>
+</div>
+<div class="page-content">'''.format( \
                         library_name = LIB_NAME, homepage = HOMEPAGE),
                     LIBHOME:
                     '..',
