@@ -51,7 +51,7 @@ zero or negative.
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Math/log.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Log.png\"
      alt=\"log.png\">
 </p>
 

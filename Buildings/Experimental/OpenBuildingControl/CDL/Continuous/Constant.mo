@@ -78,7 +78,7 @@ Block that outputs a constant signal <code>y = k</code>,
 where <code>k</code> is a real-valued parameter.
 </p>
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/Constant.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Constant.png\"
      alt=\"Constant.png\">
 </p>
 </html>"));

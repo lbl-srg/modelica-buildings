@@ -31,7 +31,7 @@ gives a solution in the range
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Math/atan2.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Atan2.png\"
      alt=\"atan2.png\">
 </p>
 

@@ -52,7 +52,7 @@ where
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Math/tan.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Tan.png\"
      alt=\"tan.png\">
 </p>
 

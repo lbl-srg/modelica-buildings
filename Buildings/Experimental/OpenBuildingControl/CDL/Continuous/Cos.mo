@@ -53,7 +53,7 @@ where
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Math/cos.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Cos.png\"
      alt=\"cos.png\">
 </p>
 

@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Exp "Output the exponential (base e) of the input"
+
   Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
@@ -39,7 +40,7 @@ base-e exponential function.
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Math/exp.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Exp.png\"
      alt=\"exp.png\">
 </p>
 
