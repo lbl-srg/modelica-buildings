@@ -67,16 +67,16 @@ if __name__ == '__main__':
                     '</head>':
                     '''
   <!-- Bootstrap core CSS -->
-  <link href="../Resources/www/bootstrap.min.css" rel="stylesheet">
+  <link href="../Resources/www/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <link href="../Resources/www/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <link href="../Resources/www/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../Resources/www/custom.css" rel="stylesheet">
+  <link href="../Resources/www/css/custom.css" rel="stylesheet">
 
   <!-- Custom changes for Modelica -->
-  <link href="../Resources/www/modelicaDoc.css" rel="stylesheet">
+  <link href="../Resources/www/css/modelicaDoc.css" rel="stylesheet">
 
 </head>
 <body>
@@ -182,7 +182,27 @@ if __name__ == '__main__':
         found = False
         for iLin in range(len(lines)-2):
             if "<address>" in lines[iLin].strip() and "</address>" in lines[iLin+2].strip():
-                lines[iLin+1] = "<a href=\"{homepage}\">{homepage}</a>".format(homepage = HOMEPAGE)
+                lines[iLin+1] = '''<p></p>
+<footer>
+<div class="footer">
+  <p>
+    <a href=\"{homepage}\">{homepage}</a>
+  </p>
+</div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../Resources/www/js/jquery.min.js"><\/script>')</script>
+<script src="../Resources/www/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../Resources/www/js/ie10-viewport-bug-workaround.js"></script>
+
+  </body>
+
+</html>'''.format(homepage = HOMEPAGE)
                 found = True
         if found:
             filObj=open(filNam, 'w')
