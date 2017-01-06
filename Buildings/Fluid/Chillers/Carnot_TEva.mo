@@ -4,8 +4,6 @@ model Carnot_TEva
  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_T(
    final COP_is_for_cooling = true,
    final QCon_flow_nominal = -QEva_flow_nominal*(1 + COP_nominal)/COP_nominal,
-   effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b,
-   effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b,
    PEle(y=-QEva_flow/COP),
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
@@ -90,7 +88,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>eva,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
@@ -144,12 +142,9 @@ The maximum cooling capacity is set by the parameter <code>QEva_flow_min</code>,
 which is by default set to negative infinity.
 </p>
 <p>
-By default, the coefficient of performance depends on the
-evaporator leaving temperature and the condenser entering
-temperature.
-This can be changed with the parameters
-<code>effInpEva</code> and
-<code>effInpCon</code>.
+The coefficient of performance depends on the
+evaporator and condenser leaving temperature
+since otherwise the second law of thermodynamics may be violated.
 </p>
 <h4>Notes</h4>
 <p>
@@ -160,6 +155,15 @@ Buildings.Fluid.HeatPumps.Examples.Carnot_TCon</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 2, 2017, by Filip Jorissen:<br/>
+Removed parameters
+<code>effInpEva</code> and <code>effInpCon</code>
+and updated documentation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+issue 497</a>.
+</li>
 <li>
 August 8, 2016, by Michael Wetter:<br/>
 Changed default temperature to compute COP to be the leaving temperature as

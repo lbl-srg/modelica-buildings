@@ -112,7 +112,7 @@ equation
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
-    experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-08),
+    experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
 This model is reconfigured to a steady state or 
@@ -125,8 +125,5 @@ May 22 2015 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/BaseClasses/TraceSubstanceConservation.mos"
-        "Simulate and plot"));
+</html>"));
 end TraceSubstanceConservation;
