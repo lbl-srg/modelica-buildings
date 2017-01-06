@@ -3,10 +3,10 @@ block Gain "Output the product of a gain value with the input signal"
 
   parameter Real k "Gain value multiplied with input signal";
 
-  Modelica.Blocks.Interfaces.RealInput u "Input signal connector"
+  Interfaces.RealInput u "Input signal connector"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Output signal connector"
+  Interfaces.RealOutput y "Output signal connector"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

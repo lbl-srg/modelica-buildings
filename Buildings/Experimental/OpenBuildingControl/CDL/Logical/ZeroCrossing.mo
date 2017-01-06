@@ -1,13 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block ZeroCrossing "Trigger zero crossing of input u"
 
-  Modelica.Blocks.Interfaces.RealInput u
+  Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Interfaces.BooleanInput enable
+  Interfaces.BooleanInput enable
     "Zero input crossing is triggered if the enable input signal is true"
     annotation (Placement(transformation(
         origin={0,-120},

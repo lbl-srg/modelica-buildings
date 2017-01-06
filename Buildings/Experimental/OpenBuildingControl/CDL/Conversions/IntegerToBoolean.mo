@@ -4,10 +4,10 @@ block IntegerToBoolean "Convert Integer to Boolean signal"
   parameter Integer threshold=1
     "Output signal y is true, if input u >= threshold";
 
-  Modelica.Blocks.Interfaces.IntegerInput u "Connector of Integer input signal"
+  Interfaces.IntegerInput u "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y
+  Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

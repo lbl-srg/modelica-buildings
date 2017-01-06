@@ -4,7 +4,6 @@ block LimPID
   import Modelica.Blocks.Types.InitPID;
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
-  extends Modelica.Blocks.Interfaces.SVcontrol;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 
@@ -57,6 +56,17 @@ block LimPID
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+
+  Interfaces.RealInput u_s "Connector of setpoint input signal" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealInput u_m "Connector of measurement input signal" annotation (Placement(
+        transformation(
+        origin={0,-120},
+        extent={{20,-20},{-20,20}},
+        rotation=270)));
+  Interfaces.RealOutput y "Connector of actuator output signal" annotation (Placement(
+        transformation(extent={{100,-10},{120,10}})));
+
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Math.Add addD(k1=wd, k2=-1) if with_D
@@ -169,6 +179,14 @@ equation
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
+                                        Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),   Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Line(points={{-80,78},{-80,-90}}, color={192,192,192}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},

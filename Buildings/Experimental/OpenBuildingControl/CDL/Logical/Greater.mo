@@ -1,13 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block Greater "Output y is true, if input u1 is greater than input u2"
 
-  Modelica.Blocks.Interfaces.RealInput u1 "Connector of first Boolean input signal"
+  Interfaces.RealInput u1 "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealInput u2 "Connector of second Boolean input signal"
+  Interfaces.RealInput u2 "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

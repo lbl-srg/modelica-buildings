@@ -6,23 +6,23 @@ block TWetBul_TDryBulPhi
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
-  Modelica.Blocks.Interfaces.RealInput TDryBul(
+  Interfaces.RealInput TDryBul(
     start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1)
+  Interfaces.RealInput phi(min=0, max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+  Interfaces.RealInput p(final quantity="Pressure",
                                          final unit="Pa",
                                          min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TWetBul(
+  Interfaces.RealOutput TWetBul(
     start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",

@@ -5,13 +5,13 @@ block Add "Output the sum of the two inputs"
 
   parameter Real k2=+1 "Gain for input u2";
 
-  Modelica.Blocks.Interfaces.RealInput u1 "Connector of Real input signal 1"
+  Interfaces.RealInput u1 "Connector of Real input signal 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
-  Modelica.Blocks.Interfaces.RealInput u2 "Connector of Real input signal 2"
+  Interfaces.RealInput u2 "Connector of Real input signal 2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

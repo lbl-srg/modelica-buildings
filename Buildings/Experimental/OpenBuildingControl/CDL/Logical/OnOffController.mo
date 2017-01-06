@@ -6,15 +6,15 @@ block OnOffController "On-off controller"
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 
-  Modelica.Blocks.Interfaces.RealInput reference
+  Interfaces.RealInput reference
     "Connector of Real input signal used as reference signal"
     annotation (Placement(transformation(extent={{-140,80},{-100,40}})));
 
-  Modelica.Blocks.Interfaces.RealInput u
+  Interfaces.RealInput u
     "Connector of Real input signal used as measurement signal"
     annotation (Placement(transformation(extent={{-140,-40},{-100,-80}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y
+  Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

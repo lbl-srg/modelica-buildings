@@ -7,16 +7,16 @@ block Add3 "Output the sum of the three inputs"
 
   parameter Real k3=+1 "Gain of lower input";
 
-  Modelica.Blocks.Interfaces.RealInput u1 "Connector 1 of Real input signals"
+  Interfaces.RealInput u1 "Connector 1 of Real input signals"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Modelica.Blocks.Interfaces.RealInput u2 "Connector 2 of Real input signals"
+  Interfaces.RealInput u2 "Connector 2 of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealInput u3 "Connector 3 of Real input signals"
+  Interfaces.RealInput u3 "Connector 3 of Real input signals"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signals"
+  Interfaces.RealOutput y "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

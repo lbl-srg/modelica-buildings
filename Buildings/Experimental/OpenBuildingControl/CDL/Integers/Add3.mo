@@ -7,16 +7,16 @@ block Add3 "Output the sum of the three inputs"
 
   parameter Integer k3=+1 "Gain of lower input";
 
-  Modelica.Blocks.Interfaces.IntegerInput u1 "Connector 1 of Integer input signals"
+  Interfaces.IntegerInput u1 "Connector 1 of Integer input signals"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Modelica.Blocks.Interfaces.IntegerInput u2 "Connector 2 of Integer input signals"
+  Interfaces.IntegerInput u2 "Connector 2 of Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.IntegerInput u3 "Connector 3 of Integer input signals"
+  Interfaces.IntegerInput u3 "Connector 3 of Integer input signals"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
-  Modelica.Blocks.Interfaces.IntegerOutput y "Connector of Integer output signals"
+  Interfaces.IntegerOutput y "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

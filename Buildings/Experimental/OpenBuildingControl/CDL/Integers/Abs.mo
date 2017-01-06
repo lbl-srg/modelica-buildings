@@ -1,10 +1,10 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Integers;
 block Abs "Output the absolute value of the input"
 
-  Modelica.Blocks.Interfaces.IntegerInput u "Connector of Integer input signals"
+  Interfaces.IntegerInput u "Connector of Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.IntegerOutput y "Connector of Integer output signals"
+  Interfaces.IntegerOutput y "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

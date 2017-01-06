@@ -8,10 +8,10 @@ block UnitDelay "Output the input signal with a unit delay"
 
   parameter Real y_start=0 "Initial value of output signal";
 
-  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
+  Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Continuous output signal"
+  Interfaces.RealOutput y "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

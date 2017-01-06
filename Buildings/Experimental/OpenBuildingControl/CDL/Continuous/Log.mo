@@ -2,10 +2,10 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Log
   "Output the natural (base e) logarithm of the input (input > 0 required)"
 
-  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

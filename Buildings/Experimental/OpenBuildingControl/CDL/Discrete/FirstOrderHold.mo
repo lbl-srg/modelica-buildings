@@ -6,10 +6,10 @@ block FirstOrderHold "First order hold of a sampled-data system"
 
   parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
 
-  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
+  Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Continuous output signal"
+  Interfaces.RealOutput y "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected

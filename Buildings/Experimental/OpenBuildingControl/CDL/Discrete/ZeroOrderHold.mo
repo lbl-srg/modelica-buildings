@@ -6,10 +6,10 @@ block ZeroOrderHold "Output the input signal with a zero order hold"
 
   parameter Modelica.SIunits.Time startTime=0 "First sample time instant";
 
-  Modelica.Blocks.Interfaces.RealInput u "Continuous input signal"
+  Interfaces.RealInput u "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "Continuous output signal"
+  Interfaces.RealOutput y "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   output Real ySample(start=0, fixed=true);

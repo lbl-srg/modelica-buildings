@@ -3,10 +3,10 @@ block LessThreshold "Output y is true, if input u is less than threshold"
 
   parameter Real threshold=0 "Comparison with respect to threshold";
 
-  Modelica.Blocks.Interfaces.RealInput u "Connector of Boolean input signal"
+  Interfaces.RealInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

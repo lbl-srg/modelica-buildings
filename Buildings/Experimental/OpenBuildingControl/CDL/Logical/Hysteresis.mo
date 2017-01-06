@@ -7,10 +7,10 @@ block Hysteresis "Transform Real to Boolean signal with Hysteresis"
 
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
-  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 initial equation

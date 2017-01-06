@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
 block Constant "Output constant signal of type Boolean"
   parameter Boolean k "Constant output value";
 
-  Modelica.Blocks.Interfaces.BooleanOutput y "Connector of Boolean output signal"
+  Interfaces.BooleanOutput y "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

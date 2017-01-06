@@ -1,10 +1,10 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Conversions;
 block RealToInteger "Convert Real to Integer signal"
 
-  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.IntegerOutput y
+  Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 

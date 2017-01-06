@@ -4,11 +4,11 @@ block OnCounter "Increment the output if the input switches to true"
   parameter Integer y_start = 0
     "Initial and reset value of y if input reset switches to true";
 
-  Modelica.Blocks.Interfaces.BooleanInput trigger "Boolean input signal"
+  Interfaces.BooleanInput trigger "Boolean input signal"
     annotation (Placement(transformation(extent={{-180,-60},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Modelica.Blocks.Interfaces.BooleanInput reset "Reset the counter" annotation (Placement(
+  Interfaces.BooleanInput reset "Reset the counter" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -17,7 +17,7 @@ block OnCounter "Increment the output if the input switches to true"
         rotation=90,
         origin={0,-120})));
 
-  Modelica.Blocks.Interfaces.IntegerOutput y "Integer output signal"
+  Interfaces.IntegerOutput y "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
