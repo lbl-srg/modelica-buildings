@@ -2,8 +2,12 @@
 sub, sup {
     padding: 2px;
 }
-.modelica{
-    padding: 5px;
-    line-height: 100%;
+
+.modelica, .modelica *{
     background-color: #F3F5F7;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+td{
+    padding: 2px;
 }
