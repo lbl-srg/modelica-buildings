@@ -1,6 +1,6 @@
 // Plot commands
 simulateModel("Buildings.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation",
-  stopTime=2,
+  tolerance=1e-6, startTime=0.0, numberOfIntervals=500, stopTime=2,
   resultFile="TraceSubstanceConservation");
 createPlot(id=2, 
   position={3, -39, 1482, 661}, 
