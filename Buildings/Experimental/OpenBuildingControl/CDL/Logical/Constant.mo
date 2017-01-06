@@ -50,7 +50,7 @@ Block that outputs a constant signal <code>y = k</code>,
 where <code>k</code> is a Boolean-valued parameter.
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Constant.png\"
      alt=\"Constant.png\">
 </p>

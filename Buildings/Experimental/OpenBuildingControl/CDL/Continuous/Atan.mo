@@ -51,7 +51,7 @@ where
 <code>u</code> is an input.
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Atan.png\"
      alt=\"atan.png\">
 </p>

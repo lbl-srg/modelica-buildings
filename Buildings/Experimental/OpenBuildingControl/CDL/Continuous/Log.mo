@@ -50,7 +50,7 @@ An error occurs if the input <code>u</code> is
 zero or negative.
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Log.png\"
      alt=\"log.png\">
 </p>

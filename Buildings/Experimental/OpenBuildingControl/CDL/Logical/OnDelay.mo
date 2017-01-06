@@ -75,7 +75,7 @@ Simulation results of a typical example with a delay time of 0.1 s
 is shown in the next figure.
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/OnDelay1.png\"
      alt=\"OnDelay1.png\">
 <br/>

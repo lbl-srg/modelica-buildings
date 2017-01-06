@@ -39,7 +39,7 @@ where
 base-e exponential function.
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Exp.png\"
      alt=\"exp.png\">
 </p>
