@@ -37,7 +37,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
     each final A=A/nSeg,
     each final steadyStateInitial=steadyStateInitial,
     each layers(
-      final nSta2={layers.material[i].nSta for i in 1:1:iLayPip},
+      final nSta={layers.material[i].nSta for i in 1:1:iLayPip},
       final nLay = iLayPip,
       final material={layers.material[i] for i in 1:iLayPip},
       final absIR_a=layers.absIR_a,
@@ -57,7 +57,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       each final A=A/nSeg,
       each final steadyStateInitial=steadyStateInitial,
       each layers(
-        final nSta2={layers.material[i].nSta for i in iLayPip + 1:layers.nLay},
+        final nSta={layers.material[i].nSta for i in iLayPip + 1:layers.nLay},
         final nLay = layers.nLay-iLayPip,
         final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
         final absIR_a=layers.absIR_a,
@@ -225,6 +225,10 @@ user's guide</a> for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 06, 2016, by Thierry S. Nouidui:<br/>
+Renamed parameter <code>nSta2</code> to <code>nSta</code>.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Added parameter <code>nSta2</code> to avoid translation error
