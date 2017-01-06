@@ -67,7 +67,19 @@ if __name__ == '__main__':
                     '</head>':
                     '<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"../Resources/www/modelicaDoc.css\">\n</head>',
                     '<body>':
-                    '<body>\n<!-- begin header -->\n<div id="navbar">\n    <img src="../Resources/www/library-logo.png" alt="Library logo"/>\n    <ul><li><a href="{homepage}">Home</a> &gt; <a href="{library_name}.html">Modelica</a></li></ul>\n</div>\n<!-- end header -->\n'.format( \
+                    '<body>\n<!-- begin header -->
+<div class="headerStyle">
+<img src="../Resources/www/library-logo.png" alt="Library logo" width="161" height="85"/>
+<!-- end header -->
+    <div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+    <li>
+    <a href="{homepage}">Home</a> |
+    <a href="{library_name}.html">Modelica</a>
+    </li>
+    </ul>
+    </div>
+</div>'.format( \
                         library_name = LIB_NAME, homepage = HOMEPAGE),
                     LIBHOME:
                     '..',
