@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL;
-package Interfaces "Package with interfaces for CDL"
+package Interfaces "Library with connectors for input and output signals"
   extends Modelica.Icons.InterfacesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
