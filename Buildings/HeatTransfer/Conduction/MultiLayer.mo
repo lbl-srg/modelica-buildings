@@ -31,6 +31,7 @@ protected
     sum(layers.material[k].R for k in 1:i) for i in 1:size(layers.material, 1)},
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
