@@ -3,9 +3,9 @@ model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(layers.material[i].R for i in 1:size(layers.material, 1)));
-  Modelica.SIunits.Temperature T[sum(nSta)](
+  Modelica.SIunits.Temperature T[sum(layers.nSta)](
     each nominal = 300) "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
+  Modelica.SIunits.HeatFlowRate Q_flow[sum(layers.nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
@@ -18,13 +18,9 @@ model MultiLayer
     annotation (Dialog(tab="Dynamics"),
                 Evaluate=true);
 
-  parameter Integer nSta2[nLay]={layers.material[i].nSta for i in 1:nLay}
-  "Number of states in a material (do not overwrite, used to work around Dymola 2017 bug)"
-     annotation (Evaluate=true);
-
 protected
   Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
-   final nSta2={nSta2[i] for i in 1:nLay},
+   final nSta2={layers.nSta[i] for i in 1:nLay},
    each final A=A,
    final stateAtSurface_a = {if i == 1 then stateAtSurface_a else false for i in 1:nLay},
    final stateAtSurface_b = {if i == nLay then stateAtSurface_b else false for i in 1:nLay},
@@ -35,15 +31,16 @@ protected
     sum(layers.material[k].R for k in 1:i) for i in 1:size(layers.material, 1)},
    each steadyStateInitial = steadyStateInitial) "Material layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
 equation
   // This section assigns the temperatures and heat flow rates of the layer models to
   // an array that makes plotting the results easier.
   for i in 1:nLay loop
-    for j in 1:nSta[i] loop
-      T[sum(nSta[k] for k in 1:(i-1)) +j] = lay[i].T[j];
+    for j in 1:layers.nSta[i] loop
+      T[sum(layers.nSta[k] for k in 1:(i-1)) +j] = lay[i].T[j];
     end for;
-    for j in 1:nSta[i]+1 loop
-      Q_flow[sum(nSta[k] for k in 1:i-1)+(i-1)+j] = lay[i].Q_flow[j];
+    for j in 1:layers.nSta[i]+1 loop
+      Q_flow[sum(layers.nSta[k] for k in 1:i-1)+(i-1)+j] = lay[i].Q_flow[j];
     end for;
   end for;
   connect(port_a, lay[1].port_a) annotation (Line(
@@ -175,6 +172,10 @@ Buildings.HeatTransfer.Examples</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 05, 2017, by Thierry S. Nouidui:<br/>
+Removed parameter <code>nSta2</code>.
+</li>
 <li>
 November 17, 2016, by Thierry S. Nouidui:<br/>
 Added parameter <code>nSta2</code> to avoid translation error
