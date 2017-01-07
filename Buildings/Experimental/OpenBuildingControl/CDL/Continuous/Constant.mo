@@ -2,9 +2,6 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Constant "Output constant signal of type Real"
   parameter Real k "Constant output value";
 
-  Interfaces.RealInput u "Connector of Real input signal"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
   Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
