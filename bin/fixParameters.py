@@ -16,7 +16,6 @@ def recursive_glob(rootdir='.', suffix=''):
             if ( filename.endswith(suffix) 
                  and ("ConvertBuildings_from" not in filename)) ]
 
-
 mos_files = recursive_glob('../Buildings/Resources/Scripts/Dymola', '.mos')
 
 mo_files = recursive_glob('../Buildings/', '.mo')
