@@ -9,8 +9,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3B.TestCell X3B(
     nPorts=2,
     redeclare package Medium = Air,
-    linearizeRadiation=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    datConBou(stateAtSurface_a = {false, true, true, true}))
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
       tableOnFile=false)
@@ -88,7 +88,8 @@ model X3BWithRadiantFloor "Example model showing a use of X3B"
     clo(
     redeclare package Medium = Air,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    datConBou(stateAtSurface_a = {true, false, false}))
     "Model of the closet"
     annotation (Placement(transformation(extent={{156,92},{196,132}})));
   Modelica.Blocks.Sources.CombiTimeTable TNei(
@@ -358,7 +359,7 @@ equation
       points={{9,142},{120,142},{120,120},{154.4,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preT.port,clo. surf_conBou[3]) annotation (Line(
+  connect(preT.port,clo.surf_conBou[3]) annotation (Line(
       points={{-94,-148},{-94,-142},{182,-142},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));

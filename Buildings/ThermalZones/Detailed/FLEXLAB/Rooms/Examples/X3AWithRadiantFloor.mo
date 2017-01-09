@@ -9,7 +9,6 @@ model X3AWithRadiantFloor "Example model showing a use of X3A"
   Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A.TestCell X3A(
     nPorts=2,
     redeclare package Medium = Air,
-    linearizeRadiation=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-110,38},{-70,78}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,0,0; 86400,0,0,0],
@@ -343,7 +342,7 @@ equation
       points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
+  connect(clo.surf_surBou[2], X3A.surf_conBou[4]) annotation (Line(
       points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -411,7 +410,7 @@ equation
       points={{9,142},{120,142},{120,120},{154.4,120}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preT.port,clo. surf_conBou[3]) annotation (Line(
+  connect(preT.port,clo.surf_conBou[3]) annotation (Line(
       points={{-94,-160},{-94,-142},{182,-142},{182,96}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -497,7 +496,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-300,
-            -210},{200,200}}), graphics),
+            -210},{200,200}})),
           Documentation(info = "<html>
           <p>
           This model demonstrates one potential simulation using the models available in
@@ -815,6 +814,10 @@ equation
           </html>",
           revisions="<html>
           <ul>
+          <li>
+          January 09, 2017, by Thierry S. Nouidui:<br/>
+          Fixed wrong <code>port</code> index.
+          </li>
           <li>
           December 07, 2016, by Thierry S. Nouidui:<br/>
           Changed example to place a state at the surface.

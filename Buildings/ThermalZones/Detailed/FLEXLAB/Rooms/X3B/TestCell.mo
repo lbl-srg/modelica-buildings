@@ -25,7 +25,7 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
          A = {3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
          til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall},
          azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N},
-         each stateAtSurface_a = false),
+         stateAtSurface_a = {true, true, true, true}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.6675*3.6576},
