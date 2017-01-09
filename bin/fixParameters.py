@@ -4,7 +4,7 @@
 # look at every .mos script and identify the name of the model that is simulated in the
 # .mos file (typically these are examples)
 #
-# Once you know the model name,
+# Once you know the model name
 
 import os
 import re
