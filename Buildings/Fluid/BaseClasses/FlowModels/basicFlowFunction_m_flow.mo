@@ -15,6 +15,8 @@ algorithm
       elseif (m_flow<-m_flow_turbulent) then -(m_flow/k)^2
       else (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
+             //inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+             //  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
  annotation (LateInline=true,
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -92,6 +94,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-             //inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-             //  dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
 end basicFlowFunction_m_flow;

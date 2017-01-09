@@ -18,6 +18,8 @@ algorithm
              elseif noEvent(dp<-dp_turbulent) then -k*sqrt(abs(-dp))
              else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
 
+           //inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+           //  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
   annotation(LateInline=true,
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
@@ -111,6 +113,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-           //inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-           //  m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
 end basicFlowFunction_dp;
