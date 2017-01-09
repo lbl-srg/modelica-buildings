@@ -342,7 +342,7 @@ equation
       points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(clo.surf_surBou[1], X3A.surf_conBou[4]) annotation (Line(
+  connect(clo.surf_surBou[2], X3A.surf_conBou[4]) annotation (Line(
       points={{172.2,98},{172,98},{172,-88},{-84,-88},{-84,42}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -814,6 +814,11 @@ equation
           </html>",
           revisions="<html>
           <ul>
+
+          <li>
+          January 07, 2016, by Thierry S. Nouidui:<br/>
+          Fixed wrong <code>port</code> index.
+          </li>
           <li>
           December 07, 2016, by Thierry S. Nouidui:<br/>
           Changed example to place a state at the surface.
