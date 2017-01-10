@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating;
 record ScrollWaterToWater_ClimateMaster_TMW170_48kW_4_30COP_R410A =
   Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic (
-    volRat = 2.15451792632,
-    V_flow_nominal = 0.00597194461346,
-    leaCoe = 1e-05,
+    volRat = 2.14272406967,
+    V_flow_nominal = 0.00593752063272,
+    leaCoe = 0.0001,
     etaEle = 1.0,
-    PLos = 3205.00238797,
-    dTSup = 5.65205786927,
-    UACon = 7179.1495198,
-    UAEva = 6875.0427753);
+    PLos = 3217.60778902,
+    dTSup = 4.12544294557,
+    UACon = 7127.67902377,
+    UAEva = 6702.69056458);
