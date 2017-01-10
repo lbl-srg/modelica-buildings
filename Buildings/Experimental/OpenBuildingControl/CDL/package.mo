@@ -1,7 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl;
 package CDL "Package with blocks, examples and validation tests for control description language"
 extends Modelica.Icons.Package;
-annotation(
+
+annotation (
 Documentation(info="<html>
 <p>
 Package that has elementary input-output blocks

@@ -24,6 +24,11 @@ where
 <ul>
 <li>
 January 9, 2017, by Milica Grahovac:<br/>
+First integer implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
 Modelica Standard Library.
 </li>
