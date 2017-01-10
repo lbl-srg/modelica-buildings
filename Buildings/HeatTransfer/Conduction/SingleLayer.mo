@@ -48,7 +48,7 @@ model SingleLayer "Model for single layer heat conductance"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Integer nSta2=material.nSta
   "Number of states in a material (do not overwrite, used to work around Dymola 2017 bug)"
-     annotation (Evaluate=true);
+     annotation (Evaluate=true, HideResult=true, Dialog(enable=false, tab="Advanced"));
 protected
   final parameter Integer nSta=
     max(nSta2,
