@@ -1,80 +1,23 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 model DayType "Block that outputs a signal that indicates week-day or week-end"
-  constant Integer nDayTypes = 3 "Integer with the number of day types";
-
-  type Day = enumeration(
-      WorkingDay "Working day, such as Monday through Friday",
-      NonWorkingDay "Non-working day, such as week-ends, but not holidays",
-      Holiday "Holiday") "Enumeration for the day types"
-                                   annotation (Documentation(info="<html>
-<p>
-Enumeration for the type of days that are used in the demand response models.
-The possible values are
-</p>
-<ol>
-<li>
-WorkingDay
-</li>
-<li>
-NonWorkingDay
-</li>
-<li>
-Holiday
-</li>
-</ol>
-</html>", revisions="<html>
-<ul>
-<li>
-March 20, 2014 by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-
   parameter Integer nout = 2
     "Number of days to output. Set to two for one day predictions";
-  parameter Day[:] days={
-    Day.WorkingDay,
-    Day.WorkingDay,
-    Day.WorkingDay,
-    Day.WorkingDay,
-    Day.WorkingDay,
-    Day.NonWorkingDay,
-    Day.NonWorkingDay}
+  parameter Types.Day[:] days={
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.WorkingDay,
+    Buildings.Controls.Types.Day.NonWorkingDay,
+    Buildings.Controls.Types.Day.NonWorkingDay}
     "Array where each element is a day indicator";
-  parameter Integer iStart(min=1, max=size(days, 1)) = 1
+   parameter Integer iStart(min=1, max=size(days, 1)) = 1
     "Index of element in days at simulation start";
 
-  connector DayTypeOutput = output Day
-  "Output connector for demand response day" annotation (
-  defaultComponentName="y",
-  Icon(
-    coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={
-    Polygon(
-      lineColor={0,127,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      points={{-100.0,100.0},{100.0,0.0},{-100.0,-100.0}})}),
-  Diagram(
-    coordinateSystem(preserveAspectRatio=true,
-      extent={{-100.0,-100.0},{100.0,100.0}}),
-      graphics={
-    Polygon(
-      lineColor={0,127,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      points={{-100.0,50.0},{0.0,0.0},{-100.0,-50.0}}),
-    Text(
-      lineColor={0,0,127},
-      extent={{30.0,60.0},{30.0,110.0}},
-      textString="%name")}));
-
-  DayTypeOutput y[nout]
-    "Type of the day for the current and the next (nout-1) days" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,
-            10}})));
+  Interfaces.DayTypeOutput y[nout]
+    "Type of the day for the current and the next (nout-1) days" annotation (
+      Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(
+          extent={{100,-10},{120,10}})));
 
 protected
   parameter Modelica.SIunits.Time samplePeriod=86400
@@ -107,17 +50,17 @@ equation
   end when;
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={223,211,169},
-          lineThickness=5.0,
-          borderPattern=BorderPattern.Raised,
-          fillPattern=FillPattern.Solid), Text(
-          extent={{-150,150},{150,110}},
-          textString="%name",
-          lineColor={0,0,255})}),
-    defaultComponentName="dayType",
+          -100},{100,100}}), graphics={Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={223,211,169},
+        lineThickness=5.0,
+        borderPattern=BorderPattern.Raised,
+        fillPattern=FillPattern.Solid), Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255})}),
+  defaultComponentName="dayType",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Text(
           extent={{-68,54},{68,-38}},
@@ -128,7 +71,9 @@ equation
 This block outputs a periodic signal that indicates the type of the day.
 It can for example be used to generate a signal that indicates whether
 the current time is a work day or a non-working day.
-The output signal is of type Day, as defined withing this block.
+The output signal is of type
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
+Types.Day</a>.
 </p>
 <p>
 The parameter <code>nout</code> determines how many days should be
@@ -147,8 +92,8 @@ at <i>t=0</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 10, 2017 by Milica Grahovac:<br/>
-DayTypeOutput connector placement and utilization needs review. In addition, is nDayTypes constant needed?
+January 11, 2016, by Milica Grahovac:<br/>
+First CDL implementation.
 </li>
 <li>
 March 20, 2014 by Michael Wetter:<br/>

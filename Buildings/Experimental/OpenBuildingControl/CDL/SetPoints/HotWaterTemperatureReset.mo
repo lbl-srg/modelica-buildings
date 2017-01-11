@@ -61,6 +61,7 @@ equation
           + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
  TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
+          // The last icon might be obsolete, added instead of an icon extend block.
   annotation (
 defaultComponentName="hotWatRes",
 Documentation(info="<html>
@@ -153,5 +154,4 @@ First implementation.
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255})}));
-          // The last icon might be obsolete, added instead of an icon extend block.
 end HotWaterTemperatureReset;
