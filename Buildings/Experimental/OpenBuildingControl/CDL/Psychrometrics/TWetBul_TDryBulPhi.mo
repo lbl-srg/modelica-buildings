@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-  extends Modelica.Blocks.Icons.Block;
   final package Medium = Buildings.Media.Air "Medium model";
 
   parameter Boolean approximateWetBulb=false
