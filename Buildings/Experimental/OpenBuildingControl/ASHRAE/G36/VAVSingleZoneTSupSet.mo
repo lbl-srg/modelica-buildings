@@ -63,7 +63,7 @@ protected
   Controls.SetPoints.Table TSetCooHig(table=[0.5,TDea; 0.75,TMin])
     "Table to compute the setpoint for cooling for uCoo = 0...1"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Controls.SetPoints.Table offSetTSetHea(table=[0.0,0; 0.25,-1.1])
+  Controls.SetPoints.Table offSetTSetHea(table=[0.0,0; 0.25,-(1.1 + TDea - TMin)])
     "Table to compute the setpoint offset for heating for uCoo = 0...1"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   CDL.Continuous.Add addTHe "Adder for heating setpoint calculation"
@@ -130,8 +130,9 @@ equation
                                                            color={0,0,127}));
   connect(TSetHeaHig.y, addTHe.u1) annotation (Line(points={{1,80},{20,80},{20,66},
           {38,66}}, color={0,0,127}));
-  connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{1,50},{1,54},{20,
-          54},{38,54}},         color={0,0,127}));
+  connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{1,50},{1,50},{
+          20,50},{20,54},{38,54},{38,54}},
+                                color={0,0,127}));
   connect(addTHe.y, THea)
     annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
   connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{1,20},{20,20},{20,
