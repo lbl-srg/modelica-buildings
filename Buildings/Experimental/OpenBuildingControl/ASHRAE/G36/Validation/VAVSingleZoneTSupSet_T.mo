@@ -7,17 +7,16 @@ model VAVSingleZoneTSupSet_T
     yHeaMax=0.7,
     yMin=0.3,
     TMax=303.15,
-    TDea=295.15,
     TMin=289.15,
     yCooMax=0.9)
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   CDL.Continuous.Constant uHea(k=0) "Heating control signal"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   CDL.Continuous.Constant uCoo(k=0.6) "Cooling control signal"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Modelica.Blocks.Sources.Ramp TOut(
     duration=1,
@@ -29,19 +28,24 @@ model VAVSingleZoneTSupSet_T
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  CDL.Continuous.Constant TSetZon(k=273.15 + 22) "Average zone set point"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
-  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,30},{-31.5,30},{
-          -31.5,4},{-2,4}}, color={0,0,127}));
+  connect(uCoo.y, setPoiVAV.uCoo) annotation (Line(points={{-59,50},{-31.5,50},
+          {-31.5,4},{-2,4}},color={0,0,127}));
   connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-10},{-32,-10},{
           -32,-4},{-2,-4}}, color={0,0,127}));
   connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-50},{-28,-50},{
           -28,-8},{-2,-8}}, color={0,0,127}));
-  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,70},{-42,70},{-24,
-          70},{-24,8},{-2,8}}, color={0,0,127}));
+  connect(uHea.y, setPoiVAV.uHea) annotation (Line(points={{-59,80},{-59,80},{
+          -20,80},{-20,8},{-2,8}},
+                               color={0,0,127}));
   connect(dT.u1, TZon.y) annotation (Line(points={{-2,-34},{-32,-34},{-32,-10},{
           -59,-10}}, color={0,0,127}));
   connect(dT.u2, TOut.y) annotation (Line(points={{-2,-46},{-28,-46},{-28,-50},{
           -59,-50}}, color={0,0,127}));
+  connect(TSetZon.y, setPoiVAV.TSetZon) annotation (Line(points={{-59,20},{-40,
+          20},{-40,0},{-2,0}}, color={0,0,127}));
   annotation (
   experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/VAVSingleZoneTSupSet_T.mos"

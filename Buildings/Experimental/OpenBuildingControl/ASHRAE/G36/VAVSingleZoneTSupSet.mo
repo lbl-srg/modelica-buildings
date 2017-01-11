@@ -6,11 +6,6 @@ block VAVSingleZoneTSupSet
     "Maximum supply air temperature for heating"
     annotation (Dialog(group="Temperatures"));
 
-  parameter Modelica.SIunits.Temperature TDea(
-    min=21+273.15,
-    max=24+273.15) "Dead band supply air temperature"
-    annotation (Dialog(group="Temperatures"));
-
   parameter Modelica.SIunits.Temperature TMin
     "Minimum supply air temperature for cooling"
     annotation (Dialog(group="Temperatures"));
@@ -36,6 +31,10 @@ block VAVSingleZoneTSupSet
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
+  CDL.Interfaces.RealInput TSetZon(unit="K", displayUnit="degC")
+    "Average of heating and cooling setpoints for zone temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
   CDL.Interfaces.RealInput TZon(unit="K", displayUnit="degC")
     "Zone temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
@@ -53,42 +52,39 @@ block VAVSingleZoneTSupSet
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed" annotation (Placement(
-        transformation(extent={{100,-70},{120,-50}})));
+  CDL.Interfaces.RealOutput y(min=0, max=1, unit="1") "Fan speed"
+  annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  Controls.SetPoints.Table TSetHeaHig(table=[0.0,TDea; 0.5,TMax])
-    "Table to compute the setpoint for heating for uHea = 0...1"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Controls.SetPoints.Table TSetCooHig(table=[0.5,TDea; 0.75,TMin])
+  CDL.Continuous.Line TSetCooHig
     "Table to compute the setpoint for cooling for uCoo = 0...1"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Controls.SetPoints.Table offSetTSetHea(table=[0.0,0; 0.25,-(1.1 + TDea - TMin)])
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+  CDL.Continuous.Line offSetTSetHea
     "Table to compute the setpoint offset for heating for uCoo = 0...1"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{0,140},{20,160}})));
   CDL.Continuous.Add addTHe "Adder for heating setpoint calculation"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Controls.SetPoints.Table offSetTSetCoo(table=[0,0; 0.5,TMax - TDea])
+    annotation (Placement(transformation(extent={{60,160},{80,180}})));
+  CDL.Continuous.Line offSetTSetCoo
     "Table to compute the setpoint offset for cooling for uHea = 0...1"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   CDL.Continuous.Add addTCoo "Adder for cooling setpoint calculation"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  CDL.Continuous.Add dT(k2=-1) "Difference zone minus outdoor temperature"
+  CDL.Continuous.Add dT(final k2=-1) "Difference zone minus outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
-  CDL.Continuous.AddParameter yMed(p=yCooMax - (yMin - yCooMax)/(0.56 - 5.6)*5.6,
-      k=(yMin - yCooMax)/(0.56 - 5.6))
-                                   "Fan speed at medium cooling load"
+  CDL.Continuous.AddParameter yMed(
+    p=yCooMax - (yMin - yCooMax)/(0.56 - 5.6)*5.6,
+    k=(yMin - yCooMax)/(0.56 - 5.6)) "Fan speed at medium cooling load"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  Controls.SetPoints.Table yHea(table=[0.5,yMin; 1,yHeaMax])
+  Controls.SetPoints.Table yHea(final table=[0.5,yMin; 1,yHeaMax])
     "Fan speed for heating"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  CDL.Logical.LessEqualThreshold yMinChe1(threshold=0.25)
+  CDL.Logical.LessEqualThreshold yMinChe1(final threshold=0.25)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   CDL.Logical.Switch switch1
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  CDL.Logical.LessEqualThreshold yMinChe2(threshold=0.5)
+  CDL.Logical.LessEqualThreshold yMinChe2(final threshold=0.5)
     "Check for cooling signal for fan speed"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   CDL.Logical.Switch switch2
@@ -98,53 +94,91 @@ protected
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
   CDL.Logical.Switch switch3
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
-  CDL.Continuous.Add add(k1=-1)
+  CDL.Continuous.Add add(final k1=-1)
     annotation (Placement(transformation(extent={{0,-240},{20,-220}})));
   CDL.Continuous.Add add1
     annotation (Placement(transformation(extent={{40,-270},{60,-250}})));
-  CDL.Continuous.Gain gain(k=4)
+  CDL.Continuous.Gain gain(final k=4)
     annotation (Placement(transformation(extent={{-80,-256},{-60,-236}})));
-  CDL.Continuous.AddParameter yMed1(p=2*yMin, k=-yMin)
-                                   "Fan speed at medium cooling load"
+  CDL.Continuous.AddParameter yMed1(
+    final p=2*yMin,
+    final k=-yMin)
+    "Fan speed at medium cooling load"
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
-  CDL.Continuous.Gain gain1(k=4)
+  CDL.Continuous.Gain gain1(final k=4)
     annotation (Placement(transformation(extent={{-80,-356},{-60,-336}})));
   CDL.Continuous.Product product
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  CDL.Continuous.AddParameter yMed2(p=-3*yCooMax, k=4*yCooMax)
-                                   "Fan speed at medium cooling load"
+  CDL.Continuous.AddParameter yMed2(
+    final p=-3*yCooMax,
+    final k=4*yCooMax)
+    "Fan speed at medium cooling load"
     annotation (Placement(transformation(extent={{-20,-390},{0,-370}})));
   CDL.Continuous.Product product1
     annotation (Placement(transformation(extent={{-40,-350},{-20,-330}})));
-  CDL.Continuous.Add add2(k1=4, k2=-1)
+  CDL.Continuous.Add add2(
+    final k1=4,
+    final k2=-1)
     annotation (Placement(transformation(extent={{0,-340},{20,-320}})));
   CDL.Continuous.Add add3
     annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
-  CDL.Continuous.Limiter yMedLim(uMax=yCooMax, uMin=yMin) "Limiter for yMed"
+  CDL.Continuous.Limiter yMedLim(
+    final uMax=yCooMax,
+    final uMin=yMin) "Limiter for yMed"
     annotation (Placement(transformation(extent={{-10,-200},{10,-180}})));
+  CDL.Continuous.Limiter TDea(uMax=24 + 273.15, uMin=21 + 273.15)
+    "Limiter that outputs the dead band value for the supply air temperature"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  CDL.Continuous.Line TSetHeaHig
+    "Block to compute the setpoint for heating for uHea = 0...1"
+    annotation (Placement(transformation(extent={{2,180},{22,200}})));
+  CDL.Continuous.Constant con0(final k=0) "Contant that outputs zero"
+    annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
+  CDL.Continuous.Constant con25(final k=0.25) "Contant that outputs 0.25"
+    annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
+  CDL.Continuous.Constant con05(final k=0.5) "Contant that outputs 0.5"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  CDL.Continuous.Constant con75(final k=0.75) "Contant that outputs 0.75"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  CDL.Continuous.Constant conTMax(final k=TMax) "Constant that outputs TMax"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  CDL.Continuous.Constant conTMin(final k=TMin) "Constant that outputs TMin"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  CDL.Continuous.Add TDeaTMin(final k2=-1) "Outputs TDea-TMin"
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
+
+  CDL.Continuous.AddParameter addTDea(
+    final p=-1.1,
+    final k=-1)
+    "Adds constant offset"
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+  CDL.Continuous.Add TMaxTDea(
+    final k2=-1) "Outputs TMax-TDea"
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 equation
-  connect(offSetTSetHea.u, uCoo) annotation (Line(points={{-22,50},{-22,50},{-32,
-          50},{-32,40},{-120,40}},   color={0,0,127}));
-  connect(uHea, TSetHeaHig.u)
-    annotation (Line(points={{-120,80},{-74,80},{-60,80},{-22,80}},
-                                                           color={0,0,127}));
-  connect(TSetHeaHig.y, addTHe.u1) annotation (Line(points={{1,80},{20,80},{20,66},
-          {38,66}}, color={0,0,127}));
-  connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{1,50},{1,50},{
-          20,50},{20,54},{38,54},{38,54}},
+  connect(offSetTSetHea.u, uCoo) annotation (Line(points={{-2,150},{-2,150},{
+          -32,150},{-32,52},{-94,52},{-94,40},{-120,40}},
+                                     color={0,0,127}));
+  connect(offSetTSetHea.y, addTHe.u2) annotation (Line(points={{21,150},{21,150},
+          {40,150},{40,164},{58,164}},
                                 color={0,0,127}));
   connect(addTHe.y, THea)
-    annotation (Line(points={{61,60},{110,60}}, color={0,0,127}));
-  connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{1,20},{20,20},{20,
-          6},{38,6}},     color={0,0,127}));
-  connect(offSetTSetCoo.y, addTCoo.u2) annotation (Line(points={{1,-10},{20,-10},
-          {20,-6},{38,-6}},   color={0,0,127}));
-  connect(TSetCooHig.u, uCoo) annotation (Line(points={{-22,20},{-22,20},{-32,20},
-          {-32,40},{-120,40}},        color={0,0,127}));
-  connect(offSetTSetCoo.u, uHea) annotation (Line(points={{-22,-10},{-22,-10},{-36,
-          -10},{-36,80},{-120,80}}, color={0,0,127}));
+    annotation (Line(points={{81,170},{92,170},{92,60},{110,60}},
+                                                color={0,0,127}));
+  connect(TSetCooHig.y, addTCoo.u1) annotation (Line(points={{21,110},{40,110},
+          {40,96},{58,96}},
+                          color={0,0,127}));
+  connect(offSetTSetCoo.y, addTCoo.u2) annotation (Line(points={{21,70},{40,70},
+          {40,84},{58,84}},   color={0,0,127}));
+  connect(TSetCooHig.u, uCoo) annotation (Line(points={{-2,110},{-2,110},{-22,110},
+          {-32,110},{-32,52},{-94,52},{-94,40},{-120,40}},
+                                      color={0,0,127}));
+  connect(offSetTSetCoo.u, uHea) annotation (Line(points={{-2,70},{-2,70},{-20,
+          70},{-60,70},{-90,70},{-90,80},{-120,80}},
+                                    color={0,0,127}));
   connect(addTCoo.y, TCoo)
-    annotation (Line(points={{61,0},{110,0}},               color={0,0,127}));
+    annotation (Line(points={{81,90},{81,90},{84,90},{84,0},{110,0}},
+                                                            color={0,0,127}));
   connect(dT.u1, TZon) annotation (Line(points={{-82,-184},{-86,-184},{-86,-40},
           {-120,-40}},
                  color={0,0,127}));
@@ -154,8 +188,6 @@ equation
   connect(dT.y, yMed.u)
     annotation (Line(points={{-59,-190},{-59,-190},{-42,-190}},
                                                              color={0,0,127}));
-  connect(yHea.u, uHea) annotation (Line(points={{-22,-70},{-36,-70},{-36,80},{-120,
-          80}}, color={0,0,127}));
   connect(yMinChe1.u, uCoo) annotation (Line(points={{-82,-90},{-82,-90},{-94,-90},
           {-94,40},{-120,40}},       color={0,0,127}));
   connect(switch1.u2, yMinChe1.y) annotation (Line(points={{58,-90},{-40,-90},{-59,
@@ -219,6 +251,57 @@ equation
                                                    color={0,0,127}));
   connect(yMedLim.u, yMed.y)
     annotation (Line(points={{-12,-190},{-19,-190}}, color={0,0,127}));
+  connect(TDea.u, TSetZon)
+    annotation (Line(points={{-82,0},{-82,0},{-120,0}},  color={0,0,127}));
+  connect(con0.y, TSetHeaHig.x1) annotation (Line(points={{-59,190},{-52,190},{-52,
+          186},{0,186}}, color={0,0,127}));
+  connect(TDea.y, TSetHeaHig.f1) annotation (Line(points={{-59,0},{-52,0},{-52,182},
+          {0,182}}, color={0,0,127}));
+  connect(con05.y, TSetHeaHig.x2) annotation (Line(points={{-59,120},{-46,120},{
+          -46,198},{0,198}}, color={0,0,127}));
+  connect(conTMax.y, TSetHeaHig.f2) annotation (Line(points={{-59,30},{-40,30},{
+          -40,194},{0,194}}, color={0,0,127}));
+  connect(uHea, TSetHeaHig.u) annotation (Line(points={{-120,80},{-90,80},{-90,70},
+          {-36,70},{-36,190},{0,190}}, color={0,0,127}));
+  connect(TSetHeaHig.y, addTHe.u1) annotation (Line(points={{23,190},{40,190},{
+          40,176},{58,176}},
+                        color={0,0,127}));
+  connect(con0.y, offSetTSetHea.x1) annotation (Line(points={{-59,190},{-56,190},
+          {-56,146},{-2,146}}, color={0,0,127}));
+  connect(con25.y, offSetTSetHea.x2) annotation (Line(points={{-59,160},{-54,160},
+          {-54,158},{-2,158}}, color={0,0,127}));
+  connect(con0.y, offSetTSetHea.f1) annotation (Line(points={{-59,190},{-56,190},
+          {-56,142},{-2,142}}, color={0,0,127}));
+  connect(yHea.u, uHea) annotation (Line(points={{-22,-70},{-90,-70},{-90,80},{-120,
+          80}}, color={0,0,127}));
+  connect(TDea.y, TDeaTMin.u1) annotation (Line(points={{-59,0},{-40,0},{-40,-14},
+          {-22,-14}}, color={0,0,127}));
+  connect(conTMin.y, TDeaTMin.u2) annotation (Line(points={{-59,-30},{-50,-30},{
+          -50,-26},{-22,-26}}, color={0,0,127}));
+  connect(TDeaTMin.y, addTDea.u)
+    annotation (Line(points={{1,-20},{-2,-20},{8,-20}}, color={0,0,127}));
+  connect(addTDea.y, offSetTSetHea.f2) annotation (Line(points={{31,-20},{34,-20},
+          {34,40},{-14,40},{-14,154},{-2,154}}, color={0,0,127}));
+  connect(TSetCooHig.x1, con05.y) annotation (Line(points={{-2,106},{-24,106},{-46,
+          106},{-46,120},{-59,120}}, color={0,0,127}));
+  connect(TSetCooHig.f1, TDea.y) annotation (Line(points={{-2,102},{-10,102},{-52,
+          102},{-52,0},{-59,0}}, color={0,0,127}));
+  connect(TSetCooHig.x2, con75.y) annotation (Line(points={{-2,118},{-8,118},{-44,
+          118},{-44,90},{-59,90}}, color={0,0,127}));
+  connect(TSetCooHig.f2, conTMin.y) annotation (Line(points={{-2,114},{-2,114},{
+          -50,114},{-50,-30},{-59,-30}}, color={0,0,127}));
+  connect(offSetTSetCoo.f1, con0.y) annotation (Line(points={{-2,62},{-56,62},{-56,
+          190},{-59,190}}, color={0,0,127}));
+  connect(offSetTSetCoo.x1, con0.y) annotation (Line(points={{-2,66},{-56,66},{-56,
+          70},{-56,190},{-59,190}}, color={0,0,127}));
+  connect(offSetTSetCoo.x2, con05.y) annotation (Line(points={{-2,78},{-10,78},{
+          -46,78},{-46,120},{-59,120}}, color={0,0,127}));
+  connect(TMaxTDea.u1, conTMax.y) annotation (Line(points={{-22,26},{-40,26},{-40,
+          30},{-59,30}}, color={0,0,127}));
+  connect(TDea.y, TMaxTDea.u2) annotation (Line(points={{-59,0},{-40,0},{-40,14},
+          {-22,14}}, color={0,0,127}));
+  connect(TMaxTDea.y, offSetTSetCoo.f2) annotation (Line(points={{1,20},{10,20},
+          {10,50},{-10,50},{-10,74},{-2,74}}, color={0,0,127}));
   annotation (
   defaultComponentName = "setPoiVAV",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -324,7 +407,7 @@ equation
         Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        extent={{-100,-420},{100,100}}), graphics={
+        extent={{-100,-420},{100,220}}), graphics={
         Rectangle(
           extent={{-88,-314},{70,-400}},
           lineColor={0,0,0},
@@ -366,8 +449,10 @@ and the fan speed for a single zone VAV system.
 <p>
 For the temperature set points, the
 parameters are the maximum supply air temperature <code>TMax</code>,
-the dead band temperature <code>TDea</code> and the minimum supply air
-temperature for cooling <code>TCooMin</code>.
+and the minimum supply air temperature for cooling <code>TCooMin</code>.
+The deadband temperature <code>TDea</code> is equal to the input <code>TZonSetAve</code>,
+which is the average set point for heating and cooling, but constraint to be
+within <i>21</i>&deg;C (&asymp;<i>70</i> F) and <i>24</i>&deg;C (&asymp;<i>75</i> F).
 The setpoints are computed as shown in the figure below.
 Note that the setpoint for the supply air temperature for heating is
 lower than <code>TCooMin</code>, as shown in the figure.
