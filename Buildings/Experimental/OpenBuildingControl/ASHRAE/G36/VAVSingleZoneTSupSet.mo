@@ -328,7 +328,7 @@ equation
       fillColor={95,95,95},
       fillPattern=FillPattern.Solid),
     Text(
-      extent={{-86,2},{-45,-18}},
+      extent={{-88,-6},{-47,-26}},
       lineColor={0,0,0},
           textString="T"),
     Text(
@@ -404,7 +404,13 @@ equation
           textString="y"),
         Line(points={{-46,44},{-28,20},{18,20},{28,36},{38,36},{50,54}}, color={
               0,0,0}),
-        Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0})}),
+        Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0}),
+        Text(
+          extent={{-96,12},{-70,-10}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TSetZon")}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-100,-420},{100,220}}), graphics={
