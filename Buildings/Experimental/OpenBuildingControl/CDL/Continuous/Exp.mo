@@ -41,7 +41,7 @@ base-e exponential function.
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Exp.png\"
-     alt=\"exp.png\">
+     alt=\"exp.png\" />
 </p>
 
 </html>", revisions="<html>

@@ -303,7 +303,7 @@ Based on the setting of initType, the integrator (I) and derivative (D)
 blocks inside the PID controller are initialized according to the following table:
 </p>
 
-<table border=1 cellspacing=0 cellpadding=2>
+<table border=1 cellspacing=0 cellpadding=2 summary=\"Initialization options\">
   <tr><td valign=\"top\"><code>initType</code></td>
       <td valign=\"top\"><code>I.initType</code></td>
       <td valign=\"top\"><code>D.initType</code></td></tr>
@@ -320,7 +320,7 @@ blocks inside the PID controller are initialized according to the following tabl
       <td valign=\"top\">InitialState</td>
       <td valign=\"top\">InitialState</td></tr>
 
-  <tr><td valign=\"top\"><code>InitialOutput</code><br>
+  <tr><td valign=\"top\"><code>InitialOutput</code><br/>
           and initial equation: y = y_start</td>
       <td valign=\"top\">NoInit</td>
       <td valign=\"top\">SteadyState</td></tr>
