@@ -439,16 +439,18 @@ The error message is \"%s\"",
   if (nDblWri > 0){
 	  /* Increase the number of arguments to 2*/
 	  /* One is for the vector of input names*/
-	  /* to be sent to CYMDIST, the second one is */
+	  /* to be sent to CYMDIST, the second one is*/
 	  /* for the vector of input values to be sent*/
 	  /* to CYMDIST.*/
 	  nStrWri = nDblWri;
 	  nArg = nArg + 2;
   }
   if (nDblRea > 0){
-	  /* Increase the number of argument to 1*/
-	  /* for the vector of  output names to */
-	  /* retrieve from CYMDIST.*/
+	  /* Increase the number of argument to 2*/
+	  /* One is for the vector of output names,*/
+      /* the second one is for the vector of */
+	  /* output device names of the outputs*/
+	  /* to be retrieved from CYMDIST*/
 	  nStrRea = nDblRea;
 	  nStrDevRea = nDblRea;
 	  nArg=nArg+2;
