@@ -323,7 +323,6 @@ equation
         Line(points={{18,20},{38,20},{50,54},{28,54},{18,20}}, color={0,0,0})}),
         Diagram(
         coordinateSystem(preserveAspectRatio=false,
-        initialScale=0.1,
         extent={{-100,-420},{100,100}}), graphics={
         Rectangle(
           extent={{-88,-314},{70,-400}},
