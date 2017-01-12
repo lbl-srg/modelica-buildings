@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
+within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 package Examples "Collection of models that illustrate model use and test models"
   extends Modelica.Icons.ExamplesPackage;
 

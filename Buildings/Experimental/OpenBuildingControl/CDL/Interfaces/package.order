@@ -1,7 +1,7 @@
-RealInput
-RealOutput
 BooleanInput
 BooleanOutput
+DayTypeOutput
 IntegerInput
 IntegerOutput
-DayTypeOutput
+RealInput
+RealOutput

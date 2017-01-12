@@ -1,27 +1,27 @@
-within Buildings.Experimental.OpenBuildingControl.CDL.Sources.Examples;
+within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model DayType "Example model for the source that outputs the type of the day"
   extends Modelica.Icons.Example;
-  Sources.DayType dayTypMon
+  Discrete.DayType dayTypMon
     "Model that outputs the type of the day, starting with Monday"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Sources.DayType dayTypSat(iStart=6)
+  Discrete.DayType dayTypSat(iStart=6)
     "Model that outputs the type of the day, starting with Saturday"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Sources.DayType dayTypTwoWeeks(days={
-        Buildings.Controls.Types.Day.WorkingDay,Buildings.Controls.Types.Day.WorkingDay,
-        Buildings.Controls.Types.Day.WorkingDay,Buildings.Controls.Types.Day.WorkingDay,
-        Buildings.Controls.Types.Day.WorkingDay,Buildings.Controls.Types.Day.WorkingDay,
-        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
-        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
-        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay,
-        Buildings.Controls.Types.Day.NonWorkingDay,Buildings.Controls.Types.Day.NonWorkingDay},
+  Discrete.DayType dayTypTwoWeeks(days={
+        Types.Day.WorkingDay,Types.Day.WorkingDay,
+        Types.Day.WorkingDay,Types.Day.WorkingDay,
+        Types.Day.WorkingDay,Types.Day.WorkingDay,
+        Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,
+        Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,
+        Types.Day.NonWorkingDay,Types.Day.NonWorkingDay,
+        Types.Day.NonWorkingDay,Types.Day.NonWorkingDay},
       nout=14)
     "Model that outputs the type of the day, starting with 6 workdays, then 8 non-working days"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Sources.DayType dayTypMonThr(nout=3)
+  Discrete.DayType dayTypMonThr(nout=3)
     "Model that outputs the type of the day for 3 days, starting with Monday"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Sources/Examples/DayType.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Experimental/OpenBuildingControl/CDL/Discrete/Examples/DayType.mos"
         "Simulate and plot"),
         experiment(StartTime=-1814400, StopTime=1814400),
     Documentation(
