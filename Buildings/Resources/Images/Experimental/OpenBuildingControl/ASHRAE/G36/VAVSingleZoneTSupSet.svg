@@ -11,13 +11,13 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="337.67926"
+   width="317.68707"
    height="237.51022"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="VAVSingleZoneTSupSet.svg"
-   inkscape:export-filename="/home/mwetter/Desktop/test.png"
+   inkscape:export-filename="/Users/mwetter/test.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
   <defs
@@ -538,18 +538,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.5697511"
-     inkscape:cx="43.037131"
-     inkscape:cy="49.86344"
+     inkscape:zoom="2.7493553"
+     inkscape:cx="158.84354"
+     inkscape:cy="118.75511"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-bbox="true"
-     inkscape:window-width="2729"
-     inkscape:window-height="1755"
-     inkscape:window-x="815"
-     inkscape:window-y="158"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1413"
+     inkscape:window-height="855"
+     inkscape:window-x="27"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
      inkscape:bbox-nodes="true"
      inkscape:bbox-paths="true"
      inkscape:snap-global="true"
@@ -905,7 +905,7 @@
          id="tspan5142-6"
          style="font-size:8px">T<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4624">CooMin</tspan></tspan></text>
+   id="tspan4624">Min</tspan></tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text5138-6-6"
@@ -925,9 +925,9 @@
    style="font-size:8px;baseline-shift:sub"
    id="tspan5144-2-7"><tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4626">CooMin</tspan> - 1.1 K (= T<tspan
+   id="tspan4626">Min</tspan> - 1.1 K (= T<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4630">CooMin</tspan> - 2 F)</tspan></tspan></text>
+   id="tspan4630">Min</tspan> - 2 F)</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -945,7 +945,7 @@
          x="295.68359"
          y="153.19421">T<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4622">Dea</tspan></tspan></text>
+   id="tspan4622">SetZon</tspan></tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart)"
        d="m 199.98915,100.45211 0,97.91007"

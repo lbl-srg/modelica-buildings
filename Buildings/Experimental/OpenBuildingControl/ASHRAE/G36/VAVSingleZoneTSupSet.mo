@@ -455,13 +455,15 @@ and the fan speed for a single zone VAV system.
 <p>
 For the temperature set points, the
 parameters are the maximum supply air temperature <code>TMax</code>,
-and the minimum supply air temperature for cooling <code>TCooMin</code>.
-The deadband temperature <code>TDea</code> is equal to the input <code>TZonSetAve</code>,
-which is the average set point for heating and cooling, but constraint to be
-within <i>21</i>&deg;C (&asymp;<i>70</i> F) and <i>24</i>&deg;C (&asymp;<i>75</i> F).
+and the minimum supply air temperature for cooling <code>TMin</code>.
+The deadband temperature is equal to the
+average set point for the zone temperature
+for heating and cooling, as obtained from the input <code>TSetZon</code>,
+constraint to be within <i>21</i>&deg;C (&asymp;<i>70</i> F) and
+<i>24</i>&deg;C (&asymp;<i>75</i> F).
 The setpoints are computed as shown in the figure below.
 Note that the setpoint for the supply air temperature for heating is
-lower than <code>TCooMin</code>, as shown in the figure.
+lower than <code>TMin</code>, as shown in the figure.
 </p>
 <p>
 For the fan speed set point, the
