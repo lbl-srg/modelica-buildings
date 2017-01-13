@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block h_TDryBulPhi
   "Block to compute the specific enthalpy based on relative humidity"
-  extends Modelica.Blocks.Icons.Block;
 
   Interfaces.RealInput TDryBul(
     start=Buildings.Media.Air.T_default,
@@ -56,6 +55,10 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

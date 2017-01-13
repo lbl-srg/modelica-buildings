@@ -2,5 +2,7 @@ Abs
 Add
 Add3
 Constant
+Max
+Min
 OnCounter
 Product

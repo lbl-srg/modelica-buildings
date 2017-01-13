@@ -17,6 +17,8 @@ Log
 Log10
 Max
 Min
+NumberOfRequests
 Product
+SignalRanker
 Sin
 Tan

@@ -2,6 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Psychrometrics "Library with psychrometric blocks"
   extends Modelica.Icons.Package;
 
+
 annotation (Icon(graphics={
         Line(points={{-78,86},{-78,-72}}),
         Polygon(
@@ -47,5 +48,4 @@ Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-
 end Psychrometrics;

@@ -1,5 +1,6 @@
 BooleanInput
 BooleanOutput
+DayTypeOutput
 IntegerInput
 IntegerOutput
 RealInput
