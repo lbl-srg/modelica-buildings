@@ -7,7 +7,7 @@ block HotWaterTemperatureReset
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TZon_nominal = 293.15 "Zonm temperature"
+  parameter Modelica.SIunits.Temperature TZon_nominal = 293.15 "Zone temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
@@ -28,9 +28,9 @@ block HotWaterTemperatureReset
 protected
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
   Modelica.SIunits.Temperature TOutOffSet
-    "Effective outside temperature for heat transfer (takes into account Zonm heat gains)";
+    "Effective outside temperature for heat transfer (takes into account zone heat gains)";
   parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
-    "Effective outside temperature for heat transfer at nominal conditions (takes into account Zonm heat gains)";
+    "Effective outside temperature for heat transfer at nominal conditions (takes into account zone heat gains)";
 
 equation
   TOutOffSet = TOut + dTOutHeaBal;
@@ -47,7 +47,7 @@ Documentation(info="<html>
 <p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
-The set point for the Zonm air temperature can either be specified
+The set point for the zone air temperature can either be specified
 by a parameter, or it can be an input to the model. The latter allows
 to use this model with systems that have night set back.
 </p>
@@ -57,7 +57,7 @@ to take into account that heat gains from solar, equipment and people
 make up for some of the transmission losses.
 For example, in energy efficient houses, the heating may not be switched on if
 the outside air temperature is greater than
-<i>12</i>&deg;C, even if a Zonm temperature of <i>20</i>&deg;C is required.
+<i>12</i>&deg;C, even if a zone temperature of <i>20</i>&deg;C is required.
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to
 shift the heating curve.
 </p>
@@ -73,7 +73,7 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
 February 13, 2013, by Michael Wetter:<br/>
-Corrected error that led to wrong results if the Zonm air temperature is
+Corrected error that led to wrong results if the zone air temperature is
 different from its nominal value <code>TZon_nominal</code>.
 See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>.
 </li>
@@ -112,7 +112,6 @@ First implementation.
           lineColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=TSetZon,
           extent={{-152,-4},{-102,-54}},
           lineColor={0,0,127},
           textString="TZon"),
