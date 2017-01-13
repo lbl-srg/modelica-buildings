@@ -2,14 +2,14 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 model DayType "Block that outputs a signal that indicates week-day or week-end"
   parameter Integer nout = 2
     "Number of days to output. Set to two for one day predictions";
-  parameter Types.Day[:] days={
-    Types.Day.WorkingDay,
-    Types.Day.WorkingDay,
-    Types.Day.WorkingDay,
-    Types.Day.WorkingDay,
-    Types.Day.WorkingDay,
-    Types.Day.NonWorkingDay,
-    Types.Day.NonWorkingDay}
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Day[:] days={
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.WorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay,
+    Buildings.Experimental.OpenBuildingControl.CDL.Types.Day.NonWorkingDay}
     "Array where each element is a day indicator";
    parameter Integer iStart(min=1, max=size(days, 1)) = 1
     "Index of element in days at simulation start";
@@ -72,8 +72,8 @@ This block outputs a periodic signal that indicates the type of the day.
 It can for example be used to generate a signal that indicates whether
 the current time is a work day or a non-working day.
 The output signal is of type
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
-Types.Day</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
+Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
 </p>
 <p>
 The parameter <code>nout</code> determines how many days should be

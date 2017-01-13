@@ -28,8 +28,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Connector with one output signal of type
-<a href=\"modelica://Experimental.CDL.Types.Day\">
-Types.Day</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Day\">
+Buildings.Experimental.OpenBuildingControl.CDL.Types.Day</a>.
 </p>
 </html>", revisions="<html>
 <ul>
