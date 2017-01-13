@@ -97,6 +97,15 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
     Text(
       extent={{-78,-45},{-40,-56}},
       lineColor={0,0,0},

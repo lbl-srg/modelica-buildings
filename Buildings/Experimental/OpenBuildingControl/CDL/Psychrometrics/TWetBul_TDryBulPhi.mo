@@ -78,6 +78,15 @@ annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},
           textString="TDryBul"),
