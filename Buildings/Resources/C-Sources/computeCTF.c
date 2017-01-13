@@ -32,7 +32,7 @@ double computeCTF(
   if (1 == 2)
         ModelicaError("There is an error.");
   /* Manage memory
-   * At first call, initialize storage */
+     At first call, initialize storage */
   if ( ctfData->n == 0 ){
     ctfData->x= malloc( n * sizeof(double) );
     if ( ctfData->x == NULL )
@@ -42,17 +42,20 @@ double computeCTF(
     ctfData->time = time;
   }
 
-  // Assign values
+  /* Assign values */
   dT_a = ctfData->x[0];
 
-  /* Do the CTF calculations */
+  /* Do the CTF calculations.
+     fixme: here is where the computations at each
+     time step need to be invoked. */
   dT_a = dT_a + (time-ctfData->time) * (Q_a_flow + Q_b_flow)/10000.;
   /*printf ("returning: %4.2f", ctfData->x[0]);*/
-  // Store the output for the next invocation
+
+  /* Store the output for the next invocation */
   ctfData->x[0] = dT_a;
   ctfData->time = time;
 
-  // Assign the output to pass the values to Modelica
+  /* Assign the output to pass the values to Modelica */
   *T_a = dT_a;
   *T_b = dT_a;
   return 0;

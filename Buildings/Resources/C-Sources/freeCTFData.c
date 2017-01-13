@@ -8,7 +8,7 @@
  * Michael Wetter, LBNL                  1/12/2017
  */
 
-#include "externalObjectStructure.h"
+#include "externalCTFStructure.h"
 #include <stdlib.h>
 
 void freeCTFData(void* object)

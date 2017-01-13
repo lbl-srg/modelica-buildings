@@ -23,4 +23,4 @@ void* initCTFData()
   ctfData->x=NULL;   /* set the pointer to null */
 
   return (void*) ctfData;
-};
+}
