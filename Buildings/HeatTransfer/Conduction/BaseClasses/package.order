@@ -1,5 +1,8 @@
+CTFData
+ConductionTransferFunction
 PartialConductor
 PartialConstruction
+computeCTF
 der_temperature_u
 temperature_u
 Examples
