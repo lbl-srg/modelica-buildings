@@ -32,7 +32,7 @@ gives a solution in the range
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Atan2.png\"
-     alt=\"atan2.png\">
+     alt=\"atan2.png\" />
 </p>
 
 </html>", revisions="<html>

@@ -28,7 +28,7 @@ two Integer input signals <code>u1</code> and <code>u2</code>,
 </pre>
 <p>
 where <code>k1</code> and <code>k2</code> are Integer parameters.
-</b>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

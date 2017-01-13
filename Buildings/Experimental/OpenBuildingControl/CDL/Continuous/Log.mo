@@ -52,7 +52,7 @@ zero or negative.
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Log.png\"
-     alt=\"log.png\">
+     alt=\"log.png\" />
 </p>
 
 </html>", revisions="<html>

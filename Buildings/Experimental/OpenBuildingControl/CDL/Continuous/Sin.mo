@@ -54,7 +54,7 @@ where
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Sin.png\"
-     alt=\"sin.png\">
+     alt=\"sin.png\" />
 </p>
 
 </html>", revisions="<html>

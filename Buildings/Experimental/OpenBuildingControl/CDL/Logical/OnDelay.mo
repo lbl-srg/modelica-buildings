@@ -77,10 +77,10 @@ is shown in the next figure.
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/OnDelay1.png\"
-     alt=\"OnDelay1.png\">
+     alt=\"OnDelay1.png\" />
 <br/>
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/OnDelay2.png\"
-     alt=\"OnDelay2.png\">
+     alt=\"OnDelay2.png\" />
 </p>
 
 </html>", revisions="<html>

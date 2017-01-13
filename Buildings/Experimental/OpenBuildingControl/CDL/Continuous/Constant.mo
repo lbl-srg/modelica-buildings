@@ -76,7 +76,7 @@ where <code>k</code> is a real-valued parameter.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Constant.png\"
-     alt=\"Constant.png\">
+     alt=\"Constant.png\" />
 </p>
 </html>"));
 end Constant;

@@ -52,7 +52,7 @@ where <code>k</code> is a Boolean-valued parameter.
 
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Logical/Constant.png\"
-     alt=\"Constant.png\">
+     alt=\"Constant.png\" />
 </p>
 </html>"));
 end Constant;
