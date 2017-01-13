@@ -7,17 +7,12 @@ block HotWaterTemperatureReset
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15 "Room temperature"
+  parameter Modelica.SIunits.Temperature TZon_nominal = 293.15 "Zonm temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Boolean use_TRoo_in = false "Get the room temperature set point from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.Temperature TRoo = 293.15 "Fixed value of room temperature set point"
-    annotation(Dialog(enable = not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8 "Offset for heating curve";
-  Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature", final unit = "K", displayUnit = "degC", min=0) if
-    use_TRoo_in "Room air temperature set point"
+  Interfaces.RealInput TSetZon(final quantity="ThermodynamicTemperature", final unit = "K", displayUnit = "degC", min=0)
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
@@ -31,27 +26,20 @@ block HotWaterTemperatureReset
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  Interfaces.RealInput TRoo_in_internal(final quantity="ThermodynamicTemperature",
-                                                        final unit = "K", displayUnit = "degC", min=0)
-    "Needed to connect to conditional connector";
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
   Modelica.SIunits.Temperature TOutOffSet
-    "Effective outside temperature for heat transfer (takes into account room heat gains)";
+    "Effective outside temperature for heat transfer (takes into account Zonm heat gains)";
   parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
-    "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
+    "Effective outside temperature for heat transfer at nominal conditions (takes into account Zonm heat gains)";
 
 equation
-  connect(TRoo_in, TRoo_in_internal);
-  if not use_TRoo_in then
-    TRoo_in_internal = TRoo;
-  end if;
- TOutOffSet = TOut + dTOutHeaBal;
- // Relative heating load, compared to nominal conditions
- qRel = max(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
- TSup = TRoo_in_internal
-          + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
+  TOutOffSet = TOut + dTOutHeaBal;
+  // Relative heating load, compared to nominal conditions
+  qRel = max(0, (TSetZon-TOutOffSet)/(TZon_nominal-TOutOffSet_nominal));
+  TSup = TSetZon
+          + ((TSup_nominal+TRet_nominal)/2-TZon_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
- TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
+  TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
           // The last icon might be obsolete, added instead of an icon extend block.
   annotation (
 defaultComponentName="hotWatRes",
@@ -59,7 +47,7 @@ Documentation(info="<html>
 <p>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
-The set point for the room air temperature can either be specified
+The set point for the Zonm air temperature can either be specified
 by a parameter, or it can be an input to the model. The latter allows
 to use this model with systems that have night set back.
 </p>
@@ -69,7 +57,7 @@ to take into account that heat gains from solar, equipment and people
 make up for some of the transmission losses.
 For example, in energy efficient houses, the heating may not be switched on if
 the outside air temperature is greater than
-<i>12</i>&deg;C, even if a room temperature of <i>20</i>&deg;C is required.
+<i>12</i>&deg;C, even if a Zonm temperature of <i>20</i>&deg;C is required.
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to
 shift the heating curve.
 </p>
@@ -77,7 +65,7 @@ shift the heating curve.
 <ul>
 <li>
 January 10, 2016, by Milica Grahovac:<br/>
-Initial CDL implementation.
+First CDL implementation.
 </li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
@@ -85,8 +73,8 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
 February 13, 2013, by Michael Wetter:<br/>
-Corrected error that led to wrong results if the room air temperature is
-different from its nominal value <code>TRoo_nominal</code>.
+Corrected error that led to wrong results if the Zonm air temperature is
+different from its nominal value <code>TZon_nominal</code>.
 See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>.
 </li>
 <li>
@@ -124,10 +112,10 @@ First implementation.
           lineColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=use_TRoo_in,
+          visible=TSetZon,
           extent={{-152,-4},{-102,-54}},
           lineColor={0,0,127},
-          textString="TRoo"),
+          textString="TZon"),
         Text(
           extent={{40,86},{90,36}},
           lineColor={0,0,127},
