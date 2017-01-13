@@ -10,11 +10,11 @@ block ConductionTransferFunction
 
   parameter Modelica.SIunits.Temperature T_a_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
-    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+    annotation (Dialog(group="Initialization"));
 
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
-    annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+    annotation (Dialog(group="Initialization"));
 
   parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps, start=0.1)
     "Sample period of component";
