@@ -7,36 +7,27 @@ block HotWaterTemperatureReset
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15
-    "Room temperature"
+  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15 "Room temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
-
-  parameter Boolean use_TRoo_in = false
-    "Get the room temperature set point from the input connector"
+  parameter Boolean use_TRoo_in = false "Get the room temperature set point from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.Temperature TRoo = 293.15
-    "Fixed value of room temperature set point"
+  parameter Modelica.SIunits.Temperature TRoo = 293.15 "Fixed value of room temperature set point"
     annotation(Dialog(enable = not use_TRoo_in));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
-    "Offset for heating curve";
-  Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
-                                               final unit = "K", displayUnit = "degC", min=0) if
-          use_TRoo_in "Room air temperature set point"
+  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8 "Offset for heating curve";
+  Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature", final unit = "K", displayUnit = "degC", min=0) if
+    use_TRoo_in "Room air temperature set point"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Outside temperature"
+    final unit = "K", displayUnit = "degC", min=0) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Setpoint for supply temperature"
+    final unit = "K", displayUnit = "degC", min=0) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Setpoint for return temperature"
+    final unit = "K", displayUnit = "degC", min=0) "Setpoint for return temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
