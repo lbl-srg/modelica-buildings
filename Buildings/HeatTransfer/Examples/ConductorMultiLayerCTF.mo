@@ -62,7 +62,7 @@ that uses the CTF calculation.
 </html>", revisions="<html>
 <ul>
 <li>
-March 6 2010, by Michael Wetter:<br/>
+January 12, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
