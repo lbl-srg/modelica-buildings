@@ -29,7 +29,11 @@ Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
         fillPattern=FillPattern.Solid), Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255})}),
+        lineColor={0,0,255}),
+               Text(
+          extent={{-94,34},{96,-164}},
+          lineColor={0,0,255},
+          textString="y[i] >= y[i+1]")}),
 defaultComponentName="sigRan",
 Documentation(info="<html>
 <p>
