@@ -271,6 +271,7 @@ This model is similar to
 <a href=\"modelica://Modelica.Blocks.Continuous.LimPID\">Modelica.Blocks.Continuous.LimPID</a>,
 except for the following changes:
 </p>
+
 <ol>
 <li>
 <p>
@@ -281,39 +282,35 @@ It can be configured to have a reverse action.
 otherwise the controller output is decreased. Thus,
 </p>
 <ul>
-<li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
-<li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
+  <li>for a heating coil with a two-way valve, set <code>reverseAction = false</code>, </li>
+  <li>for a cooling coils with a two-way valve, set <code>reverseAction = true</code>. </li>
 </ul>
 </li>
+
 <li>
 <p>
 It can be configured to enable an input port that allows resetting the controller
 output. The controller output can be reset as follows:
+</p>
 <ul>
-<li>
-<p>
-If <code>reset = Buildings.Types.Reset.Disabled</code>, which is the default,
-then the controller output is never reset.
-</p>
-</li>
-<li>
-<p>
-If <code>reset = Buildings.Types.Reset.Parameter</code>, then a boolean
-input signal <code>trigger</code> is enabled. Whenever the value of
-this input changes from <code>false</code> to <code>true</code>,
-the controller output is reset by setting <code>y</code>
-to the value of the parameter <code>y_reset</code>.
-</p>
-</li>
-<li>
-<p>
-If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
-input signal <code>trigger</code> is enabled. Whenever the value of
-this input changes from <code>false</code> to <code>true</code>,
-the controller output is reset by setting <code>y</code>
-to the value of the input signal <code>y_reset_in</code>.
-</p>
-</li>
+  <li>
+  If <code>reset = Buildings.Types.Reset.Disabled</code>, which is the default,
+  then the controller output is never reset.
+  </li>
+  <li>
+  If <code>reset = Buildings.Types.Reset.Parameter</code>, then a boolean
+  input signal <code>trigger</code> is enabled. Whenever the value of
+  this input changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting <code>y</code>
+  to the value of the parameter <code>y_reset</code>.
+  </li>
+  <li>
+  If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
+  input signal <code>trigger</code> is enabled. Whenever the value of
+  this input changes from <code>false</code> to <code>true</code>,
+  the controller output is reset by setting <code>y</code>
+  to the value of the input signal <code>y_reset_in</code>.
+  </li>
 </ul>
 <p>
 Note that this controller implements an integrator anti-windup. Therefore,
@@ -325,12 +322,15 @@ switched on, such as as a light dimmer that may slowly increase the luminance, o
 a variable speed drive of a motor that should continuously increase the speed.
 </p>
 </li>
+
 <li>
 The parameter <code>limitsAtInit</code> has been removed.
 </li>
+
 <li>
 Some parameters assignments in the instances have been made final.
 </li>
+
 </ol>
 </html>",
 revisions="<html>

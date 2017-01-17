@@ -63,7 +63,7 @@ equation
     Documentation(info="<html>
 <p>
 This example model demonstrates the used of the
-<code>FourPortHeatMassExchanger</code> model.
+<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">FourPortHeatMassExchanger</a> model.
 </p>
 </html>", revisions="<html>
 <ul>

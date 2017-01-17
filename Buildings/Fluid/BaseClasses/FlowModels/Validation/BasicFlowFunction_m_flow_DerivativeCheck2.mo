@@ -2,7 +2,12 @@ within Buildings.Fluid.BaseClasses.FlowModels.Validation;
 model BasicFlowFunction_m_flow_DerivativeCheck2
   "Model that checks the correct implementation of the 2nd order derivative of the flow function"
   extends Modelica.Icons.Example;
-
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu1(
+    threShold=1e-3)
+    "Block for checking integration error";
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu2(
+    threShold=1e-3)
+    "Block for checking integration error";
   parameter Real k = 0.35 "Flow coefficient";
   parameter Modelica.SIunits.MassFlowRate m_flow_turbulent = 0.36
     "Mass flow rate where transition to turbulent flow occurs";
@@ -27,7 +32,7 @@ equation
 
   dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow,
-    k=  k,
+    k = k,
     m_flow_turbulent=m_flow_turbulent);
 
   // Equate first and second order derivatives
@@ -36,15 +41,19 @@ equation
   der(der_dp) = der(der_dp_comp);
 
   // Error control
-  err_dp = dp-dp_comp;
+  cheEqu1.u1 = dp;
+  cheEqu1.u2 = dp_comp;
+  err_dp = cheEqu1.y;
   assert(abs(err_dp) < 1E-3, "Error in implementation.");
-  err_der_dp = der_dp-der_dp_comp;
+  cheEqu2.u1 = der_dp;
+  cheEqu2.u2 = der_dp_comp;
+  err_der_dp = cheEqu2.y;
   assert(abs(err_der_dp) < 1E-3, "Error in implementation.");
 annotation (
 experiment(
       StartTime=-2,
       StopTime=2,
-      Tolerance=1e-08),
+      Tolerance=1e-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck2.mos"
         "Simulate and plot"),
 Documentation(info="<html>
