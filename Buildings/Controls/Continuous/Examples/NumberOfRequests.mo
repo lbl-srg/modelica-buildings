@@ -8,7 +8,7 @@ model NumberOfRequests
     kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=2)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=0.25)
+  Modelica.Blocks.Sources.Pulse pulse(period=0.35)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(sine.y, numReq.u[1]) annotation (Line(points={{-39,-10},{-19.5,-10},{
@@ -20,6 +20,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+January 12, 2017, by Thierry S. Nouidui:<br/>
+Modified example to prevent simultaneous events
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/646\">#646</a>.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>
 Added documentation.

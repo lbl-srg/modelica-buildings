@@ -69,6 +69,7 @@ which becomes true at <i>t=0</i>, while <code>intWitRes2</code> is triggered
 by a boolean pulse with is true at <i>t=0</i>.
 Hence, <code>intWitRes1</code> starts with <code>y(0)=y_reset</code> while
 <code>intWitRes2</code> starts with <code>y(0)=y_start</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

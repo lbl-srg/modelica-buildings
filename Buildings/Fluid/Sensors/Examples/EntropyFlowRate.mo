@@ -25,7 +25,7 @@ model EntropyFlowRate "Test model for the entropy flow rate sensors"
   Modelica.Blocks.Sources.Ramp ramp(
     height=-2,
     offset=1,
-    duration=60)
+    duration=60) "Input signal for mass flow rate"
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
 
   Buildings.Fluid.Sensors.SpecificEntropyTwoPort  senS(
