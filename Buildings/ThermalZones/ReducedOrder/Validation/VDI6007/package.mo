@@ -12,7 +12,7 @@ annotation (Documentation(info="<html>
   exterior wall for the heavyweight construction.</p>
   <p>Comparative results are supplied with the guideline and have been caclulated
   using two different programs for electrical circuit calculations (for day 1,
-  10 and 60 in hourly steps). The validation procedure is orginally thought to
+  10 and 60 in hourly steps). The validation procedure is originally thought to
   verifiy the correct implementation of an analytical calculation algorithm
   defined in the guideline. For that, a range of max 0.1 K or max 1 W deviation
   is allowed. As the implementation cannot reflect all aspects of the algorithm,
