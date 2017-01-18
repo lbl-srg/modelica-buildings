@@ -92,9 +92,9 @@ model CoolingAndHeating
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Active Beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));

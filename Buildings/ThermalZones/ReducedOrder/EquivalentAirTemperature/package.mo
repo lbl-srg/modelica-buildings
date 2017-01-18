@@ -44,7 +44,7 @@ in TMY weather data sets (radiation from the environment is missing), the
 influence of this temperature is not considered in the presented 
 models. It is in any case a minor effect as black-body sky temperature and 
 environmental radiative temperature hardly differ. Furthermore, the Guideline 
-VDI 6007 Part 1 calculates the correction term for each orientation seperately 
+VDI 6007 Part 1 calculates the correction term for each orientation separately 
 with individual radiative and convective coefficients of heat transfer. In the 
 presented models, the user can define only one radiative and one convective 
 coefficient of heat transfer. When using area-weighted coefficients, the impact 

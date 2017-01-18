@@ -7,7 +7,7 @@ model FlowJunctionSteadyState
 
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Medium,
-    m_flow_nominal={1,2,3},
+    m_flow_nominal={2,2,2},
     dp_nominal={5,10,15},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Splitter"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
@@ -54,22 +54,19 @@ model FlowJunctionSteadyState
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    tau=0)
+    m_flow_nominal=1)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
-    m_flow_nominal=2,
-    tau=0)
+    m_flow_nominal=2)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(
     redeclare package Medium = Medium,
-    m_flow_nominal=3,
-    tau=0)
+    m_flow_nominal=3)
     "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 equation
@@ -104,6 +101,12 @@ The splitter model has been configured as a steady-state model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2017, by Michael Wetter:<br/>
+Changed <code>spl.m_flow_nominal</code>, boundary condition and enabled sensor dynamics.<br/>
+This is for
+<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/657\">issue 657</a>.
+</li>
 <li>
 October 14, 2016, by Michael Wetter:<br/>
 First implementation.<br/>

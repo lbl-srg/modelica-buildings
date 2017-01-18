@@ -239,7 +239,7 @@ equation
   Solar radiation on tilted surface is calculated using models of
   Buildings. The thermal zone is a simple room defined in Guideline
   VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
-  except sunblinds, seperate handling of heat transfer through
+  except sunblinds, separate handling of heat transfer through
   windows, no wall element for internal walls and solar radiation
   are similar to the ones defined for the guideline&apos;s test
   room. For solar radiation, the example relies on the standard
