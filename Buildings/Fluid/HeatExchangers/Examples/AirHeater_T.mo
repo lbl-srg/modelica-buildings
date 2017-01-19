@@ -63,7 +63,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StartTime=0.0, StopTime=172800,
-      Tolerance=1e-6),
+      Tolerance=1e-06),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
 end AirHeater_T;

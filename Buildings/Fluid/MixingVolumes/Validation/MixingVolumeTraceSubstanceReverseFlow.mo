@@ -42,5 +42,5 @@ First implementation.
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeTraceSubstanceReverseFlow.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=10));
+    experiment(Tolerance=1e-08, StartTime=0.0, StopTime=10));
 end MixingVolumeTraceSubstanceReverseFlow;
