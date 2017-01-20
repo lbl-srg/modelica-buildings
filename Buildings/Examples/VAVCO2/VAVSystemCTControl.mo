@@ -27,7 +27,8 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.FixedResistances.PressureDrop res31(
     dp_nominal=0.546,
     m_flow_nominal=scaM_flow*1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    from_dp=true)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Fluid.FixedResistances.PressureDrop res33(
     dp_nominal=0.164,
@@ -37,7 +38,8 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.FixedResistances.PressureDrop res57(
     dp_nominal=0.118000,
     m_flow_nominal=scaM_flow*1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    from_dp=true)
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (Placement(transformation(extent={{206,-92},
@@ -54,7 +56,9 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   redeclare package Medium = Medium,
     dpExh_nominal=0.467,
     allowFlowReversal=true,
-    from_dp=false) "mixing box"
+    from_dp=false,
+    filteredOpening=false)
+                   "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
