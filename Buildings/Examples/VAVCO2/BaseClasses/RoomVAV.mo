@@ -29,10 +29,11 @@ model RoomVAV "Model for CO2 emitted by people"
   Buildings.Fluid.MixingVolumes.MixingVolume ple(
     redeclare package Medium = Medium,
     V=VPle,
-    nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Plenum volume"
-                          annotation (extent=[-10,-70; 10,-50], Placement(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=2)
+    "Plenum volume"
+    annotation (extent=[-10,-70; 10,-50], Placement(
         transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-60})));
@@ -101,11 +102,6 @@ equation
       points={{121,30},{140,30},{140,70},{12,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ple.ports[1], portRet) annotation (Line(
-      points={{4.44089e-16,-62},{4.44089e-16,-83.5},{1.27676e-15,-83.5},{
-          1.27676e-15,-109},{5.55112e-16,-109},{5.55112e-16,-160}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(nPeo, gaiCO2.u) annotation (Line(
       points={{-178,-60},{-140,-60}},
       color={0,0,127},
@@ -141,13 +137,12 @@ equation
       points={{2.44753e-15,-20},{3.2,-20},{3.2,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dpPle.port_b, ple.ports[2]) annotation (Line(
-      points={{-1.22629e-15,-40},{-1.22629e-15,-47},{7.21645e-16,-47},{
-          7.21645e-16,-58}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(vol.C_flow[1], gaiCO2.y) annotation (Line(points={{-12,4},{-100,4},{-100,
           -60},{-117,-60}}, color={0,0,127}));
+  connect(dpPle.port_b, ple.ports[1])
+    annotation (Line(points={{0,-40},{0,-62},{0,-62}}, color={0,127,255}));
+  connect(ple.ports[2], portRet)
+    annotation (Line(points={{0,-58},{0,-160},{0,-160}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},{160,
             160}})),
