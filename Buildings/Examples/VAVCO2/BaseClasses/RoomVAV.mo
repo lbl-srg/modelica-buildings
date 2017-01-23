@@ -14,9 +14,10 @@ model RoomVAV "Model for CO2 emitted by people"
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=VRoo,
-    nPorts=6,
+    nPorts=5,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_C_flow=true) "Room volume"
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package
@@ -24,19 +25,15 @@ model RoomVAV "Model for CO2 emitted by people"
         Medium) "Sensor at volume"
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Buildings.Fluid.Sources.TraceSubstancesFlowSource sou(redeclare package
-      Medium =         Medium, use_m_flow_in=true,
-    nPorts=1) "CO2 source"
-    annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,
-            -70},{-80,-50}})));
   parameter Modelica.SIunits.Volume VRoo "Volume of room";
   Buildings.Fluid.MixingVolumes.MixingVolume ple(
     redeclare package Medium = Medium,
     V=VPle,
-    nPorts=2,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Plenum volume"
-                          annotation (extent=[-10,-70; 10,-50], Placement(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=2)
+    "Plenum volume"
+    annotation (extent=[-10,-70; 10,-50], Placement(
         transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-60})));
@@ -89,10 +86,6 @@ model RoomVAV "Model for CO2 emitted by people"
         rotation=270,
         origin={0,-30})));
 equation
-  connect(gaiCO2.y, sou.m_flow_in) annotation (Line(
-      points={{-117,-60},{-102.1,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(senCO2.C, volFraCO2.m) annotation (Line(
       points={{37,30},{59,30}},
       color={0,0,127},
@@ -109,11 +102,6 @@ equation
       points={{121,30},{140,30},{140,70},{12,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ple.ports[1], portRet) annotation (Line(
-      points={{4.44089e-16,-62},{4.44089e-16,-83.5},{1.27676e-15,-83.5},{
-          1.27676e-15,-109},{5.55112e-16,-109},{5.55112e-16,-160}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(nPeo, gaiCO2.u) annotation (Line(
       points={{-178,-60},{-140,-60}},
       color={0,0,127},
@@ -127,37 +115,34 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(portRoo1, vol.ports[1]) annotation (Line(
-      points={{-160,5.55112e-16},{-120.833,5.55112e-16},{-120.833,4.87687e-22},
-          {-81.6667,4.87687e-22},{-81.6667,-5.55112e-16},{-3.33333,-5.55112e-16}},
+      points={{-160,5.55112e-16},{-120.833,5.55112e-16},{-120.833,4.87687e-22},{
+          -81.6667,4.87687e-22},{-81.6667,-5.55112e-16},{-3.2,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vav.port_b, vol.ports[2]) annotation (Line(
-      points={{-1.22629e-15,60},{0,60},{0,40},{-22,40},{-22,-5.55112e-16},{-2,
+      points={{-1.22629e-15,60},{0,60},{0,40},{-22,40},{-22,-5.55112e-16},{-1.6,
           -5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senCO2.port, vol.ports[3]) annotation (Line(
-      points={{26,20},{26,-5.55112e-16},{-0.666667,-5.55112e-16}},
+      points={{26,20},{26,-5.55112e-16},{0,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(portRoo2, vol.ports[4]) annotation (Line(
-      points={{160,5.55112e-16},{120.167,5.55112e-16},{120.167,4.87687e-22},{
-          80.3333,4.87687e-22},{80.3333,-5.55112e-16},{0.666667,-5.55112e-16}},
+      points={{160,5.55112e-16},{120.167,5.55112e-16},{120.167,4.87687e-22},{80.3333,
+          4.87687e-22},{80.3333,-5.55112e-16},{1.6,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[1], vol.ports[5]) annotation (Line(
-      points={{-80,-60},{-40,-60},{-40,-5.55112e-16},{2,-5.55112e-16}},
+  connect(dpPle.port_a, vol.ports[5]) annotation (Line(
+      points={{2.44753e-15,-20},{3.2,-20},{3.2,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dpPle.port_a, vol.ports[6]) annotation (Line(
-      points={{2.44753e-15,-20},{3.33333,-20},{3.33333,-5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dpPle.port_b, ple.ports[2]) annotation (Line(
-      points={{-1.22629e-15,-40},{-1.22629e-15,-47},{7.21645e-16,-47},{
-          7.21645e-16,-58}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(vol.C_flow[1], gaiCO2.y) annotation (Line(points={{-12,4},{-100,4},{-100,
+          -60},{-117,-60}}, color={0,0,127}));
+  connect(dpPle.port_b, ple.ports[1])
+    annotation (Line(points={{0,-40},{0,-62},{0,-62}}, color={0,127,255}));
+  connect(ple.ports[2], portRet)
+    annotation (Line(points={{0,-58},{0,-160},{0,-160}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},{160,
             160}})),
@@ -232,5 +217,28 @@ equation
           fillColor=74,
           rgbfillColor={0,0,127},
           fillPattern=1),
-        string="occ")));
+        string="occ")),
+    Documentation(info="<html>
+<p>
+Model of a room and a plenum. CO2 is injected into the room.
+An air damper controls how much air flows into the room to track
+the CO2 level.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 20, 2017, by Michael Wetter:<br/>
+Removed the use of <code>TraceSubstancesFlowSource</code>
+and instead used the input connector <code>C_flow</code>
+of the volume. This reduces computing time from <i>25</i>
+to <i>12</i> seconds.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/628\">#628</a>.
+</li>
+<li>
+July 20, 2007 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end RoomVAV;
