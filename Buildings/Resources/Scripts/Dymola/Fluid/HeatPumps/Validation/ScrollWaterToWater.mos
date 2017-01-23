@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatPumps.Validation.ScrollWaterToWater", method=
 
 createPlot(id = 1,
    position = {60, 10, 640, 480},
-   y = {"temSou_in.T", "temSou_out.T", "heaPum.com.port_a.T", "temLoa_in.T", "temLoa_out.T", "heaPum.com.port_b.T"},
+   y = {"heaPum.sta_a2.T", "heaPum.sta_b2.T", "heaPum.com.port_a.T", "heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.com.port_b.T"},
    autoscale = true,
    autoerase = true,
    autoreplot = true,

@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model ScrollWaterToWater
   "Test model for scroll water to water heat pump"
-  import Buildings;
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water "Medium model";
   package Medium2 = Buildings.Media.Water "Medium model";
@@ -28,7 +27,7 @@ model ScrollWaterToWater
         transformation(
         extent={{10,-10},{-10,10}},
         origin={58,20})));
-  Modelica.Blocks.Sources.Constant          isOn(k=1)
+  Modelica.Blocks.Sources.Constant isOn(k=1)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-52,-26},{-40,-14}})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
@@ -59,16 +58,18 @@ model ScrollWaterToWater
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare package ref =
-        Buildings.Fluid.Chillers.Compressors.Refrigerants.R410A,
-    UACon=4400,
-    UAEva=4400,
-    volRat=2,
-    V_flow_nominal=0.003,
-    leaCoe=0.01,
-    etaEle=0.696,
-    PLos=500,
-    dTSup=10,
-    enable_variable_speed=false) "Scroll water to water heat pump"
+        Buildings.Media.Refrigerants.R410A,
+    show_T=true,
+    enable_variable_speed=true,
+    datHeaPum(
+      etaEle=0.696,
+      PLos=500,
+      dTSup=10,
+      UACon=4400,
+      UAEva=4400,
+      volRat=2,
+      V_flow_nominal=0.003,
+      leaCoe=0.01)) "Scroll water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp yLoa(
     height=20,
@@ -82,32 +83,6 @@ model ScrollWaterToWater
     offset=283.15,
     startTime=0) "Source side fluid temperature"
     annotation (Placement(transformation(extent={{100,-38},{80,-18}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temLoa_in(
-    redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    tau=0.01) "Load side inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temLoa_out(
-    redeclare package Medium = Medium1,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    m_flow_nominal=m1_flow_nominal) "Load side outlet temperature sensor"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSou_in(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Source side inlet temperature sensor"
-    annotation (Placement(transformation(extent={{20,-16},{40,4}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSou_out(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    tau=0.01,
-    initType=Modelica.Blocks.Types.Init.SteadyState)
-    "Source side outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
   connect(mSou.y, sou.m_flow_in)
     annotation (Line(points={{79,2},{68,2}},                 color={0,0,127}));
@@ -119,22 +94,14 @@ equation
           {70,-2}}, color={0,0,127}));
   connect(isOn.y,heaPum.y)  annotation (Line(points={{-39.4,-20},{-32,-20},{-32,
           3},{-12,3}}, color={0,0,127}));
-  connect(heaPum.port_a2, temSou_in.port_a)
-    annotation (Line(points={{10,-6},{20,-6}}, color={0,127,255}));
-  connect(sou.ports[1], temSou_in.port_b)
-    annotation (Line(points={{48,-6},{40,-6}}, color={0,127,255}));
-  connect(temLoa_out.port_b, sin1.ports[1])
-    annotation (Line(points={{40,20},{44,20},{48,20}}, color={0,127,255}));
-  connect(heaPum.port_b1, temLoa_out.port_a)
-    annotation (Line(points={{10,6},{20,6},{20,20}}, color={0,127,255}));
-  connect(heaPum.port_a1, temLoa_in.port_b) annotation (Line(points={{-10,6},{
-          -16,6},{-16,20},{-20,20}}, color={0,127,255}));
-  connect(temLoa_in.port_a, loa.ports[1])
-    annotation (Line(points={{-40,20},{-46,20}}, color={0,127,255}));
-  connect(heaPum.port_b2, temSou_out.port_b)
-    annotation (Line(points={{-10,-6},{-20,-6},{-20,-40}}, color={0,127,255}));
-  connect(temSou_out.port_a, sin2.ports[1])
-    annotation (Line(points={{-40,-40},{-60,-40}}, color={0,127,255}));
+  connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
+          -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(sou.ports[1], heaPum.port_a2)
+    annotation (Line(points={{48,-6},{29,-6},{10,-6}}, color={0,127,255}));
+  connect(sin1.ports[1], heaPum.port_b1) annotation (Line(points={{48,20},{20,
+          20},{20,6},{10,6}}, color={0,127,255}));
+  connect(loa.ports[1], heaPum.port_a1) annotation (Line(points={{-46,20},{-20,
+          20},{-20,6},{-10,6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater.mos"

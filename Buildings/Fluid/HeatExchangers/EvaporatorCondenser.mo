@@ -23,8 +23,8 @@ model EvaporatorCondenser
     (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp)
   "Number of transfer units of heat exchanger";
   Modelica.SIunits.Efficiency
-    eps = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
-      NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange))
+    eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+      NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
     "Effectiveness of heat exchanger";
   Modelica.Blocks.Sources.RealExpression UAeff(y=eps*cp*abs(port_a.m_flow)/(1 - eps))
     "Effective heat transfer coefficient"
