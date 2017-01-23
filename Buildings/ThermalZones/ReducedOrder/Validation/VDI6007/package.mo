@@ -10,7 +10,7 @@ annotation (Documentation(info="<html>
   tests are based on a simple test room, either in a lightweight version (L) or
   as heavyweight (S). A third version changes one interior wall into a second
   exterior wall for the heavyweight construction.</p>
-  <p>Comparative results are supplied with the guideline and have been caclulated
+  <p>Comparative results are supplied with the guideline and have been calculated
   using two different programs for electrical circuit calculations (for day 1,
   10 and 60 in hourly steps). The validation procedure is originally thought to
   verifiy the correct implementation of an analytical calculation algorithm
