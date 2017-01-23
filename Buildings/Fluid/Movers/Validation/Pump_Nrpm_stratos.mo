@@ -241,7 +241,7 @@ equation
       points={{58,-120},{100,-120},{100,-1},{110,-1},{110,-3.2}},
       color={0,127,255}));
 
-  annotation (experiment(Tolerance=1e-06, StartTime=0.0, StopTime=1000),
+  annotation (experiment(Tolerance=1e-08, StartTime=0.0, StopTime=1000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos"
         "Simulate and plot"),
     Documentation(info="<html>
