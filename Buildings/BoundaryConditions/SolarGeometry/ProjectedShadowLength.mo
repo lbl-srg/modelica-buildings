@@ -165,6 +165,12 @@ to a weather data file, in which case these values are read from the weather dat
 </html>", revisions="<html>
 <ul>
 <li>
+January 20, 2016, by Thierry S. Nouidui:<br/>
+Refactored the model to avoid spikes in the trajectory.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/626\">Buildings, #626</a>.
+</li>
+<li>
 April 21, 2016, by Michael Wetter:<br/>
 Introduced <code>absFilNam</code> to avoid multiple calls to
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath\">
