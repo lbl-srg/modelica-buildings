@@ -68,8 +68,7 @@ protected
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-public
-  Utilities.IO.InputSelector sel
+  Utilities.IO.InputFilter fil "input filter"
     annotation (Placement(transformation(extent={{126,-10},{146,10}})));
 equation
   connect(tan.u, zen.zen)
@@ -121,11 +120,11 @@ equation
           -50},{-99,-50}},         color={0,0,127}));
   connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
           -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
-  connect(proShaLen.y, sel.u2) annotation (Line(points={{91,-80},{100,-80},{100,
+  connect(proShaLen.y,fil. u2) annotation (Line(points={{91,-80},{100,-80},{100,
           -4},{124,-4}}, color={0,0,127}));
-  connect(sel.y, y)
+  connect(fil.y, y)
     annotation (Line(points={{147,0},{160,0},{190,0}}, color={0,0,127}));
-  connect(sel.u1, zen.zen) annotation (Line(points={{124,4},{114,4},{114,-100},
+  connect(fil.u1, zen.zen) annotation (Line(points={{124,4},{114,4},{114,-100},
           {-42,-100},{-42,-80},{-49,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",

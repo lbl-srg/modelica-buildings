@@ -1,6 +1,5 @@
 within Buildings.Utilities.IO;
-block InputSelector
-  "Block which filters the input depending on the threShold"
+block InputFilter "Block which filters the input depending on the threShold"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput u1 "Input"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
@@ -10,7 +9,7 @@ block InputSelector
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
    parameter Real threShold = 0.5*Modelica.Constants.pi "threShold";
 equation
-  y = noEvent(if abs(u1) < threShold then 0.0 else u2);
+  y = noEvent(if abs(u1) <= threShold then 0.0 else u2);
   annotation (
     defaultComponentName="sel",
     Documentation(info="<html>
@@ -48,4 +47,4 @@ First implementation.
           extent={{-58,12},{58,-18}},
           lineColor={0,0,255},
           textString="threShold = %threShold")}));
-end InputSelector;
+end InputFilter;
