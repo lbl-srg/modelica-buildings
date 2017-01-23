@@ -8,7 +8,6 @@ model RoomVAV "Model for CO2 emitted by people"
     A=ADam,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2,
-    allowFlowReversal=false,
     from_dp=false)
     annotation (extent=[-10,60; 10,80], rotation=270);
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
@@ -80,8 +79,7 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=20,
-    from_dp=true,
-    allowFlowReversal=false) annotation (Placement(transformation(
+    from_dp=true) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-30})));
@@ -226,6 +224,13 @@ the CO2 level.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2017, by Michael Wetter:<br/>
+Removed <code>allowFlowReversal=false</code> as
+<code>roo.roo49.dpPle.port_a.m_flow</code> and
+<code>roo.roo50.dpPle.port_a.m_flow</code>
+have negative mass flow rates.
+</li>
 <li>
 January 20, 2017, by Michael Wetter:<br/>
 Removed the use of <code>TraceSubstancesFlowSource</code>
