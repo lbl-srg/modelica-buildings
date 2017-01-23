@@ -9,14 +9,14 @@ block InputFilter "Block which filters the input depending on the threShold"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
    parameter Real threShold = 0.5*Modelica.Constants.pi "threShold";
 equation
-  y = noEvent(if abs(u1) <= threShold then 0.0 else u2);
+  y = noEvent(if abs(u1) < threShold then u2 else 0.0);
   annotation (
     defaultComponentName="sel",
     Documentation(info="<html>
 <p>
-Block that outputs <i>0</i> if 
+Block that outputs <i>u2</i> if 
 <i>|u1| &lt; threShold</i>,
-or else it outputs <i>u2</i>.
+or else it outputs <i>0.0</i>.
 </p>
 </html>", revisions="<html>
 <ul>
