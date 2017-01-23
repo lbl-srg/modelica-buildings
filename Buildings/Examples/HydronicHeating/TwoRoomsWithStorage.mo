@@ -180,7 +180,9 @@ model TwoRoomsWithStorage
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
-    from_dp=true) "Radiator valve"
+    from_dp=true,
+    filteredOpening=false)
+                  "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
   Controls.Continuous.LimPID conRoo2(
     yMax=1,
@@ -197,7 +199,9 @@ model TwoRoomsWithStorage
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
-    from_dp=true) "Radiator valve"
+    from_dp=true,
+    filteredOpening=false)
+                  "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.Continuous.LimPID conRoo1(
     yMax=1,
@@ -228,7 +232,8 @@ model TwoRoomsWithStorage
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
     dpFixed_nominal={100,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredOpening=false)                                    "Three-way valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -450,15 +455,17 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{100,530},{120,550}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_maxHeat=0) "Coil for mechanical cooling"
+    Q_flow_maxHeat=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                      "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{240,500},{260,520}})));
   Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
     "Test to block boiler if room air temperature is sufficiently high"
@@ -556,12 +563,14 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   end CoolingControl;
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Modelica.StateGraph.InitialStep off "Pump and furnace off"
