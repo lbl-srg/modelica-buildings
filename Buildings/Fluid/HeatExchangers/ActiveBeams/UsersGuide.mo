@@ -130,7 +130,7 @@ The model can be configured to be steady-state or dynamic.
 If configured as dynamic, then a dynamic conservation equation is applied to the water streams
 for heating and for cooling.
 However, because the capacity of the beam depends on its inlet temperature, and is independent of the
-outlet temperature, the heat transfered
+outlet temperature, the heat transferred
 to the room at the port <code>heaPor.Q_flow</code>, as well as the heat added to or removed from the
 water streams, will instantaneously change.
 The only dynamic responses are the water outlet temperatures, which change with a first

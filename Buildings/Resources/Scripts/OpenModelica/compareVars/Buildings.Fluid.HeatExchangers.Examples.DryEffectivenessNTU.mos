@@ -1,9 +1,5 @@
 compareVars :=
   {
-    "hexCou.sta_a1.T",
-    "hexCou.sta_b1.T",
-    "hexCou.sta_a2.T",
-    "hexCou.sta_b2.T",
     "hexCou.Q1_flow",
     "hexCou.Q2_flow",
     "hexCou.m1_flow",

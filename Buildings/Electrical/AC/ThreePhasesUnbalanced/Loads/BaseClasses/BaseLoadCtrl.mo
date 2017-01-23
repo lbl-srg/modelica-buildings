@@ -31,7 +31,7 @@ partial model BaseLoadCtrl
         enable = voltageCtrl));
   parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"
-    annotation (Dialog(tab="initialization"));
+    annotation (Dialog(tab="Initialization"));
   replaceable Buildings.Electrical.Interfaces.Load load1(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,

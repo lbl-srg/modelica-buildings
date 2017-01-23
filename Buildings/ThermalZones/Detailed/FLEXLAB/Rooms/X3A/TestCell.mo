@@ -24,7 +24,8 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
          layers = {bedDiv,celDiv, parCon, parDoo, R52Wal},
          A = {3.6576 * 7.62, 3.6576 * 9.144, 3.6576*2.886075-2.39*1.22, 2.39*1.22, 3.6576*1.2614},
          til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Wall},
-         azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N}),
+         azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.E, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N, Buildings.Types.Azimuth.N},
+         stateAtSurface_a = {false, false, true, true, true}),
       datConExtWin(
         layers={R16p8Wal},
         A={6.6675*3.6576},
@@ -37,40 +38,40 @@ model TestCell "Model of LBNL User Test Facility Cell X3A"
       extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
       lat=0.66098585832754);
 
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction10and23
                                                                      R16p8Wal
     annotation (Placement(transformation(extent={{410,-168},{430,-148}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
                                                                       R52Wal
     annotation (Placement(transformation(extent={{410,-192},{430,-172}})));
-  replaceable Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
+  replaceable parameter Data.Constructions.OpaqueConstructions.Roofs.ASHRAE_901_2010Roof
                                                                    R20Wal
     annotation (Placement(transformation(extent={{410,-216},{430,-196}})));
-  replaceable Data.Constructions.GlazingSystems.ASHRAE901Gla glaSys
+  replaceable parameter Data.Constructions.GlazingSystems.ASHRAE901Gla glaSys
     annotation (Placement(transformation(extent={{436,-192},{456,-172}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionWall
     parCon
     annotation (Placement(transformation(extent={{436,-216},{456,-196}})));
 
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.TestCellDividngWall
                                                                          celDiv
     "Construction of wall connecting to cell UF90X3B"
     annotation (Placement(transformation(extent={{410,-144},{430,-124}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.TestBedDividingWall
                                                                          bedDiv
     "Construction of wall connecting to cell UF90X2B"
     annotation (Placement(transformation(extent={{410,-120},{430,-100}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.PartitionConstructions.PartitionDoor
                                                                    parDoo
     "Door used in partition walls in FLEXLAB test cells"
     annotation (Placement(transformation(extent={{410,-96},{430,-76}})));
-  replaceable
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.ExteriorDoorInsulated
     extDoo "Construction of an exterior door"
     annotation (Placement(transformation(extent={{410,-72},{430,-52}})));

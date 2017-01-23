@@ -97,11 +97,9 @@ block HVACZones
         rotation=180,
         origin={-18,94})));
 
-  Sources.Boundary_pT out(
-    nPorts=3,
+  Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
-    use_T_in=true,
-    use_X_in=true)                      "Outside air boundary condition"
+    nPorts=3) "Outside air boundary condition"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
   Sources.MassFlowSource_T souWat(
     nPorts=1,
@@ -197,9 +195,6 @@ block HVACZones
     linearized=true,
     m_flow_nominal=0.5*mA_flow_nominal) "Fixed resistance for return air duct"
     annotation (Placement(transformation(extent={{40,20},{20,40}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
-    "Computes outside air mass fraction"
-    annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
 equation
   connect(zer.y, QGaiRad_flow) annotation (Line(points={{121,-90},{140,-90},{140,
           -40},{180,-40}}, color={0,0,127}));
@@ -297,14 +292,11 @@ equation
           {70,60},{106,60},{106,140},{120,140}}, color={0,127,255}));
   connect(resRet2.port_a, hvacAda[2].ports[2]) annotation (Line(points={{40,30},
           {72,30},{106,30},{106,140},{120,140}}, color={0,127,255}));
-  connect(x_pTphi.X, out.X_in) annotation (Line(points={{-129,70},{-126,70},{
-          -126,86},{-122,86}}, color={0,0,127}));
-  connect(out.T_in, weaBus.TDryBul) annotation (Line(points={{-122,94},{-132,94},
-          {-132,120},{-60,120},{-60,140}}, color={0,0,127}));
-  connect(x_pTphi.T, weaBus.TDryBul) annotation (Line(points={{-152,70},{-156,
-          70},{-156,120},{-60,120},{-60,140}}, color={0,0,127}));
-  connect(x_pTphi.phi, weaBus.relHum) annotation (Line(points={{-152,64},{-158,
-          64},{-158,120},{-60,120},{-60,140}}, color={0,0,127}));
+  connect(out.weaBus, weaBus) annotation (Line(
+      points={{-120,90.2},{-130,90.2},{-130,90},{-130,120},{-60,120},{-60,140}},
+
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,180}}), graphics={
         Text(

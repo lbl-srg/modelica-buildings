@@ -60,10 +60,10 @@ model ExteriorBoundaryConditionsWithWindow
 
   SkyRadiationExchange skyRadExcWin(
     final n=nCon,
-    each final absIR=conPar[:].glaSys.absIRFra,
+    final absIR=conPar[:].glaSys.absIRFra,
     vieFacSky={(Modelica.Constants.pi - conPar[i].til) ./ Modelica.Constants.pi for i in
             1:nCon},
-    each final A=conPar[:].AWin .* conPar[:].fFra)
+    final A=conPar[:].AWin .* conPar[:].fFra)
     "Infrared radiative heat exchange between window frame and sky"
     annotation (Placement(transformation(extent={{-140,-280},{-180,-240}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns[nCon]

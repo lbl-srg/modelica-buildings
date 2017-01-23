@@ -1,47 +1,36 @@
-last-generated=2016-11-12
+last-generated=2016-12-22
 statistics-fmu-dependencies=
 {
   "Outputs": {
     "weaBus.TDryBul": [], 
-    "weaBus.HHorIR": [
-      "TRadZon"
-    ], 
-    "CPUtime": [], 
+    "weaBus.HHorIR": [], 
     "fluPor[1].m_flow": [
       "fan.filter.x[2]"
     ], 
     "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
     "fluPor[1].forward.T": [
-      "TRadZon", 
       "fan.filter.x[2]", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
     "weaBus.nTot": [], 
     "weaBus.solHouAng": [], 
-    "weaBus.TBlaSky": [
-      "TRadZon"
-    ], 
+    "weaBus.TBlaSky": [], 
     "weaBus.TDewPoi": [], 
-    "EventCounter": [], 
     "TOut": [], 
     "QGaiLat_flow": [], 
     "fluPor[1].forward.X_w": [
-      "TRadZon"
+      "fan.filter.x[2]"
     ], 
     "weaBus.solTim": [], 
     "weaBus.winDir": [], 
     "weaBus.relHum": [], 
-    "weaBus.celHei": [
-      "TRadZon"
-    ], 
+    "weaBus.celHei": [], 
     "fluPor[2].forward.X_w": [], 
     "QGaiSenCon_flow": [], 
     "weaBus.lon": [], 
-    "weaBus.HGloHor": [
-      "TRadZon"
-    ], 
+    "weaBus.HGloHor": [], 
     "QGaiRad_flow": [], 
     "weaBus.solAlt": [], 
     "weaBus.solZen": [], 
@@ -49,56 +38,43 @@ statistics-fmu-dependencies=
     "fluPor[2].m_flow": [
       "fan.filter.x[2]"
     ], 
-    "weaBus.winSpe": [
-      "TRadZon"
-    ], 
+    "weaBus.winSpe": [], 
     "fluPor[2].forward.T": [], 
     "weaBus.cloTim": [], 
-    "weaBus.HDirNor": [
-      "TRadZon"
-    ], 
-    "weaBus.HDifHor": [
-      "TRadZon"
-    ], 
+    "weaBus.HDirNor": [], 
+    "weaBus.HDifHor": [], 
     "weaBus.pAtm": []
   }, 
   "InitialUnknowns": {
     "der(senTemHXOut.T)": [
-      "TRadZon", 
       "fan.m_flow_start", 
-      "out.p", 
       "senTemHXOut.T_start", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
+    "weaBus.HGloHor": [], 
     "weaBus.TDryBul": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "der(senTemSupAir.T)": [
-      "TRadZon", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "senTemSupAir.T_start", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
-    "weaBus.HHorIR": [
-      "TRadZon"
-    ], 
-    "CPUtime": [], 
+    "weaBus.HHorIR": [], 
     "fluPor[1].m_flow": [
       "fan.m_flow_start"
     ], 
     "weaBus.nOpa": [], 
     "weaBus.solDec": [], 
     "fluPor[1].forward.T": [
-      "TRadZon", 
       "fan.per.hydraulicEfficiency.V_flow[1]", 
       "fan.per.hydraulicEfficiency.eta[1]", 
       "fan.per.motorEfficiency.V_flow[1]", 
@@ -106,47 +82,40 @@ statistics-fmu-dependencies=
       "fan.per.motorCooledByFluid", 
       "fan.m_flow_start", 
       "cooCoi.eps", 
-      "out.p", 
       "con.bandwidth", 
       "con.pre_y_start", 
       "mWat_flow.realTrue", 
-      "x_pTphi.p", 
+      "weaDat.pAtm", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
     "weaBus.nTot": [], 
     "weaBus.solHouAng": [], 
     "weaBus.TBlaSky": [
-      "TRadZon", 
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "fan.filter.x[2]": [
       "fan.m_flow_start"
     ], 
     "weaBus.TDewPoi": [], 
     "weaBus.winDir": [], 
-    "weaBus.lon": [], 
     "TOut": [
-      "out.p"
+      "weaDat.pAtm"
     ], 
     "QGaiLat_flow": [
       "zero.k"
     ], 
     "der(fan.filter.x[1])": [], 
     "fluPor[1].forward.X_w": [
-      "TRadZon", 
-      "out.p", 
-      "x_pTphi.p"
+      "fan.m_flow_start", 
+      "weaDat.pAtm"
     ], 
     "weaBus.solTim": [], 
     "senTemHXOut.T": [
       "senTemHXOut.T_start"
     ], 
     "weaBus.relHum": [], 
-    "EventCounter": [], 
-    "weaBus.celHei": [
-      "TRadZon"
-    ], 
+    "weaBus.celHei": [], 
     "fluPor[2].forward.X_w": [], 
     "QGaiSenCon_flow": [
       "zero.k"
@@ -155,9 +124,7 @@ statistics-fmu-dependencies=
       "fan.riseTime", 
       "fan.m_flow_start"
     ], 
-    "weaBus.HGloHor": [
-      "TRadZon"
-    ], 
+    "weaBus.lon": [], 
     "senTemSupAir.T": [
       "senTemSupAir.T_start"
     ], 
@@ -170,17 +137,11 @@ statistics-fmu-dependencies=
     "fluPor[2].m_flow": [
       "fan.m_flow_start"
     ], 
-    "weaBus.winSpe": [
-      "TRadZon"
-    ], 
+    "weaBus.winSpe": [], 
     "fluPor[2].forward.T": [], 
     "weaBus.cloTim": [], 
-    "weaBus.HDirNor": [
-      "TRadZon"
-    ], 
-    "weaBus.HDifHor": [
-      "TRadZon"
-    ], 
+    "weaBus.HDirNor": [], 
+    "weaBus.HDifHor": [], 
     "fan.filter.x[1]": [
       "fan.riseTime"
     ], 
@@ -190,14 +151,12 @@ statistics-fmu-dependencies=
   }, 
   "Derivatives": {
     "der(senTemSupAir.T)": [
-      "TRadZon", 
       "fan.filter.x[2]", 
       "senTemSupAir.T", 
       "fluPor[1].backward.T", 
       "fluPor[1].backward.X_w"
     ], 
     "der(senTemHXOut.T)": [
-      "TRadZon", 
       "fan.filter.x[2]", 
       "senTemHXOut.T", 
       "fluPor[1].backward.T", 

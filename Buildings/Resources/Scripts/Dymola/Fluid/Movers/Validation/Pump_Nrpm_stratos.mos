@@ -2,7 +2,7 @@
 // because of the selected parameter values
 annex60_pedantic_old=Advanced.PedanticModelica;
 Advanced.PedanticModelica=false;
-simulateModel("Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos", stopTime=1000, method="Radau", tolerance=1e-06, resultFile="Pump_Nrpm_stratos");
+simulateModel("Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos", stopTime=1000, method="Radau", tolerance=1e-08, resultFile="Pump_Nrpm_stratos");
 removePlots();
 createPlot(id=1,
 filename = "Pump_Nrpm_stratos.mat",

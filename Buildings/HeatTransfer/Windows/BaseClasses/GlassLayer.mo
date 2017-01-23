@@ -29,7 +29,6 @@ model GlassLayer "Model for a glass layer of a window assembly"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-110})));
-  parameter Boolean linearize=false "Set to true to linearize emissive power";
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 protected
