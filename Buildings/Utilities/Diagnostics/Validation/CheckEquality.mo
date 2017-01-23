@@ -36,11 +36,11 @@ Buildings.Utilities.Diagnostics.CheckEquality</a>.
 revisions="<html>
 <ul>
 <li>
-Januray 17, 2017, by Michael Wetter:<br/>
+January 17, 2017, by Michael Wetter:<br/>
 Updated example to also test negative difference.
 </li>
 <li>
-Januray 17, 2017, by Thierry S. Nouidui:<br/>
+January 17, 2017, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>
