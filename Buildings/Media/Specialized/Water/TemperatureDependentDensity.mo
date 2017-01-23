@@ -843,7 +843,7 @@ alt=\"Thermal conductivity as a function of temperature\"/>
 <p>
 Dynamic viscosity is calculated as the product of density and kinematic viscosity,
 both temperature dependent. However, the kinematic viscosity
-has its own temperture dependent correlation, implemented at
+has its own temperature dependent correlation, implemented at
 <a href=\"modelica://Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity\">
 Buildings.Media.Specialized.Water.TemperatureDependentDensity.kinematicViscosity</a>.
 Results of the kinematic viscosity as a function of temperature are shown in the figure below.

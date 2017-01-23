@@ -12,12 +12,12 @@ model Delay
     height=20,
     offset=101315)
                  annotation (Placement(transformation(extent={{-94,30},{-74,50}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.PressureDrop res1(
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium)
-             annotation (Placement(transformation(extent={{-30,-4},{-10,16}})));
+    annotation (Placement(transformation(extent={{-30,-4},{-10,16}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
                 T=293.15, redeclare package Medium = Medium,
     use_p_in=true,
@@ -28,12 +28,12 @@ model Delay
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{78,-4},
             {58,16}})));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.PressureDrop res2(
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
     redeclare package Medium = Medium)
-             annotation (Placement(transformation(extent={{26,-4},{46,16}})));
+    annotation (Placement(transformation(extent={{26,-4},{46,16}})));
   Buildings.Fluid.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
     nPorts=2,

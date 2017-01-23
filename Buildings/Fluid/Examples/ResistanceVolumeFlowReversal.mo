@@ -44,7 +44,7 @@ model ResistanceVolumeFlowReversal
   Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=false)
     "Block for setting allowFlowReversal in components"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
+  Buildings.Fluid.FixedResistances.PressureDrop[nRes.k] res(
     redeclare package Medium = Medium,
     each allowFlowReversal=allowFlowReversal.k,
     each m_flow_nominal=m_flow_nominal,

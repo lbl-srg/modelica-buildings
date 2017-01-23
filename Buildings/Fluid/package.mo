@@ -323,8 +323,8 @@ parameters in various model to help the user understand how they are used.
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
       See
-      <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-      Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+      <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
+      Buildings.Fluid.FixedResistances.PressureDrop</a>.
   </td>
 </tr>
 <tr>

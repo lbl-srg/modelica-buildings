@@ -61,7 +61,7 @@ model YorkCalc
 
 protected
   package Water =  Buildings.Media.Water "Medium package for water";
-  parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false)
+  parameter Real FRWat0(min=0, start=1, fixed=false)
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)
     "Water inlet temperature at nominal condition";
@@ -305,6 +305,13 @@ instead of
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Corrected wrong type for <code>FRWat0</code>, as this variable
+can take on values that are bigger than <i>1</i>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/567\">issue 567</a>.
+</li>
 <li>
 January 2, 2015, by Michael Wetter:<br/>
 Replaced <code>Medium.temperature()</code> with

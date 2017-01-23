@@ -55,7 +55,7 @@ partial model DataCenter
     QRoo_flow=500000) "Room model" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={248,-238})));
-  Fluid.Movers.FlowControlled_dp pumCHW(
+  Buildings.Fluid.Movers.FlowControlled_dp pumCHW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
@@ -102,7 +102,7 @@ partial model DataCenter
     dp2_nominal=0,
     dp1_nominal=0) "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{126,83},{106,103}})));
-  Fluid.Actuators.Valves.TwoWayLinear val5(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
@@ -113,7 +113,7 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={218,180})));
-  Fluid.Actuators.Valves.TwoWayLinear val1(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
@@ -134,7 +134,7 @@ partial model DataCenter
     "Cooling tower approach" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-212,-20})));
-  Fluid.Chillers.ElectricEIR chi(
+  Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal,
@@ -144,7 +144,7 @@ partial model DataCenter
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{274,83},{254,103}})));
-  Fluid.Actuators.Valves.TwoWayLinear val6(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
@@ -176,7 +176,7 @@ partial model DataCenter
         origin={-230,170})));
   Modelica.Blocks.Math.BooleanToReal chiCon "Contorl signal for chiller"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Fluid.Actuators.Valves.TwoWayLinear val4(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
@@ -188,8 +188,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={98,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -201,8 +201,8 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,0})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -211,7 +211,7 @@ partial model DataCenter
     "Control singal for cooling tower fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={230,271})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
@@ -223,7 +223,7 @@ partial model DataCenter
         origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
     annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
-  Fluid.Actuators.Valves.TwoWayLinear val3(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
@@ -246,7 +246,7 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-332,-98},{-312,-78}})));
-  Fluid.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dp_nominal=89580)

@@ -20,7 +20,7 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
       preDro(dp(nominal=200*length)));
 
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
-  annotation(Dialog(group="Construction"));
+    annotation(Dialog(group="Construction"));
 
   parameter Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer
     heatTransfer=Types.HeatTransfer.EpsilonNTU
@@ -35,33 +35,40 @@ model SingleCircuitSlab "Model of a single circuit of a radiant slab"
 
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
     each final A=A/nSeg,
-    each steadyStateInitial=steadyStateInitial,
+    each final steadyStateInitial=steadyStateInitial,
     each layers(
+      final nSta={layers.material[i].nSta for i in 1:1:iLayPip},
       final nLay = iLayPip,
       final material={layers.material[i] for i in 1:iLayPip},
-      absIR_a=layers.absIR_a,
-      absIR_b=layers.absIR_b,
-      absSol_a=layers.absSol_a,
-      absSol_b=layers.absSol_b,
-      roughness_a=layers.roughness_a),
-      each T_a_start=T_a_start,
-      each T_b_start=T_c_start) "Construction near the surface port surf_a"
+      final absIR_a=layers.absIR_a,
+      final absIR_b=layers.absIR_b,
+      final absSol_a=layers.absSol_a,
+      final absSol_b=layers.absSol_b,
+      final roughness_a=layers.roughness_a),
+    each T_a_start=T_a_start,
+    each T_b_start=T_c_start,
+    each stateAtSurface_a=stateAtSurface_a,
+    each stateAtSurface_b=true)    "Construction near the surface port surf_a"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,50})));
+
   Buildings.HeatTransfer.Conduction.MultiLayer con_b[nSeg](
       each final A=A/nSeg,
-      each steadyStateInitial=steadyStateInitial,
+      each final steadyStateInitial=steadyStateInitial,
       each layers(
-      final nLay = layers.nLay-iLayPip,
-      final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
-      absIR_a=layers.absIR_a,
-      absIR_b=layers.absIR_b,
-      absSol_a=layers.absSol_a,
-      absSol_b=layers.absSol_b,
-      roughness_a=layers.roughness_a),
+        final nSta={layers.material[i].nSta for i in iLayPip + 1:layers.nLay},
+        final nLay = layers.nLay-iLayPip,
+        final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
+        final absIR_a=layers.absIR_a,
+        final absIR_b=layers.absIR_b,
+        final absSol_a=layers.absSol_a,
+        final absSol_b=layers.absSol_b,
+        final roughness_a=layers.roughness_a),
       each T_a_start=T_c_start,
-      each T_b_start=T_b_start) "Construction near the surface port surf_b"
+      each T_b_start=T_b_start,
+    each stateAtSurface_a=true,
+    each stateAtSurface_b=stateAtSurface_b)      "Construction near the surface port surf_b"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-58})));
@@ -101,7 +108,7 @@ protected
         d_hyd=pipe.dIn,
         L=length/nSeg,
         K=pipe.roughness),
-    each heatTransfer=heatTransfer) "Conductance between fluid and the slab"
+    each final heatTransfer=heatTransfer) "Conductance between fluid and the slab"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
 
   Modelica.SIunits.MassFraction Xi_in_a[Medium.nXi] = inStream(port_a.Xi_outflow)
@@ -121,7 +128,7 @@ protected
     "Fluid temperature at port b"
     annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
 
-  Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each y=m_flow)
+  Modelica.Blocks.Sources.RealExpression mFlu_flow[nSeg](each final y=m_flow)
     "Input signal for mass flow rate"
     annotation (Placement(transformation(extent={{-80,-56},{-60,-36}})));
 
@@ -218,6 +225,16 @@ user's guide</a> for more information.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 06, 2016, by Thierry S. Nouidui:<br/>
+Renamed parameter <code>nSta2</code> to <code>nSta</code>.
+</li>
+<li>
+November 17, 2016, by Thierry S. Nouidui:<br/>
+Added parameter <code>nSta2</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola
+which will be addressed in future releases.
+</li>
 <li>
 February 5, 2015, by Michael Wetter:<br/>
 Renamed <code>res</code> to <code>preDro</code> for

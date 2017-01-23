@@ -1,5 +1,7 @@
 within Buildings.Fluid.FMI;
 block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
+  extends Modelica.Blocks.Icons.Block;
+
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -69,17 +71,7 @@ equation
   connect(bacPro_internal, inlet.backward);
   annotation(defaultComponentName="spl",
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-            Text(
-          extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name"),
+            {100,100}}), graphics={
         Text(
           extent={{-100,98},{-60,60}},
           lineColor={0,0,127},

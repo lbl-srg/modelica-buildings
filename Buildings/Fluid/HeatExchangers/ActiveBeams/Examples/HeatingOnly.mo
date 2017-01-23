@@ -24,7 +24,7 @@ model HeatingOnly
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theConWal(G=200)
     "Thermal conductor for wall"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaFlo
     "Thermal loads"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 22)
@@ -78,9 +78,9 @@ model HeatingOnly
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_heating perHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Active beam"
     annotation (Placement(transformation(extent={{26,48},{54,72}})));
 equation

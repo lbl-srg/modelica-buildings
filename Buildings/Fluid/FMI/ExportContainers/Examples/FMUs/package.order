@@ -1,5 +1,4 @@
 Fan
-FixedResistanceDpM
 FlowSplitter_u
 HVACZone
 HVACZones
@@ -8,6 +7,7 @@ HeaterCooler_u
 Humidifier_u
 IdealSource_m_flow
 MixingVolume
+PressureDrop
 ResistanceVolume
 ThermalZone
 ThermalZones

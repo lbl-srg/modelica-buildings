@@ -8,7 +8,7 @@ model Line "Model of an electrical line"
      R=R,
      L=L,
      C=C,
-      V_nominal=V_nominal));
+     V_nominal=V_nominal));
 
   annotation (
     defaultComponentName="line",

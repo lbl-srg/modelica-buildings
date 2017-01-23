@@ -4,8 +4,7 @@ model TraceSubstanceConservationDynamicBalance
   extends
     Buildings.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
      vol(massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      C_nominal=zeros(Medium.nC)));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   Modelica.Blocks.Continuous.Integrator intTraSubIn(
     k=1,
@@ -24,8 +23,7 @@ model TraceSubstanceConservationDynamicBalance
   Modelica.Blocks.Sources.RealExpression reaExp(y=vol.m*vol.C[1])
     "Mixing volume total species mass"
     annotation (Placement(transformation(extent={{-8,-58},{30,-78}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assZer(threShold=1E-10)
-    "Assert conservation of mass"
+  Modelica.Blocks.Math.Add cheConMas(k2=-1) "Check for conservation of mass"
     annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
   Modelica.Blocks.Math.Add3 add3(
     k1=-1,
@@ -47,11 +45,11 @@ equation
       points={{21,-40},{21,-52},{38,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add3.y, assZer.u1) annotation (Line(
+  connect(add3.y, cheConMas.u1) annotation (Line(
       points={{61,-60},{70,-60},{70,-72},{78,-72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zero.y, assZer.u2) annotation (Line(
+  connect(zero.y, cheConMas.u2) annotation (Line(
       points={{61,-90},{70,-90},{70,-84},{78,-84}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -60,7 +58,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(CfloOut.y, intTraSubOut.u) annotation (Line(
-      points={{46,-41},{42,-41},{42,-42},{30,-42},{30,-22},{-2,-22},{-2,-40}},
+      points={{46,-41},{46,-41},{46,-44},{30,-44},{30,-22},{-12,-22},{-12,-40},{
+          -2,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -88,6 +87,19 @@ for a discussion.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed wrong assignment for <code>C_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/568\">issue 568</a>.
+</li>
+<li>
+November 2, 2016, by Michael Wetter:<br/>
+Changed assertions to blocks that compute the difference,
+and added the difference to the regression results.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+</li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
 First implementation.

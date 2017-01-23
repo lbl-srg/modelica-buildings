@@ -22,17 +22,14 @@ model Pipe
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final from_dp=from_dp,
-    use_dh=true,
-    dh=diameter,
     final show_T=show_T,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     final linearized=linearizeFlowResistance,
-    final ReC=ReC,
     final homotopyInitialization=homotopyInitialization) "Flow resistance"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(

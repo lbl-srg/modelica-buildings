@@ -55,7 +55,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCmodel.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCModel.mos"
         "Simulate and plot"),
         experiment(StopTime=15.0,Tolerance=1e-06),
     Documentation(info="<html>

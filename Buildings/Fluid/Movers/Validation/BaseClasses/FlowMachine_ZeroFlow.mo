@@ -22,7 +22,7 @@ partial model FlowMachine_ZeroFlow
     p=101325,
     T=293.15,
     nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSta(
+  Buildings.Fluid.FixedResistances.PressureDrop dpSta(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
@@ -39,19 +39,19 @@ partial model FlowMachine_ZeroFlow
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Dynamic model of a flow machine"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpDyn(
+  Buildings.Fluid.FixedResistances.PressureDrop dpDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Math.Gain gain "Gain for input signal"
     annotation (Placement(transformation(extent={{-46,90},{-26,110}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSta1(
+  Buildings.Fluid.FixedResistances.PressureDrop dpSta1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM dpDyn1(
+  Buildings.Fluid.FixedResistances.PressureDrop dpDyn1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal/2) "Pressure drop"

@@ -55,9 +55,8 @@ model TwoPortHeatMassExchanger
     final C_start=C_start) "Volume for fluid stream"
      annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
-    final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
@@ -65,7 +64,7 @@ model TwoPortHeatMassExchanger
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal) "Pressure drop model"
+    final dp_nominal=dp_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected
@@ -89,6 +88,8 @@ initial algorithm
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
+
+
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
@@ -141,6 +142,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 1, 2016, by Michael Wetter:<br/>
+Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>final quantity=Medium.substanceNames</code> for <code>X_start</code>.

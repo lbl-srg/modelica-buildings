@@ -11,7 +11,9 @@ package OpaqueConstructions
       annotation (choicesAllMatching=true, Evaluate=false, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[i].R for i in 1:nLay)
       "Thermal resistance per unit area";
-
+    parameter Integer nSta[nLay](each min=1) = {material[i].nSta for i in 1:nLay}
+      "Number of states (do not overwrite, used to work around Dymola 2017 bug)"
+      annotation (HideResult=true, Dialog(enable=false, tab="Advanced"));
    parameter Modelica.SIunits.Emissivity absIR_a=0.9
       "Infrared absorptivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity absIR_b=0.9
@@ -73,9 +75,14 @@ and temperature difference. See
 Buildings.HeatTransfer.Convection.Exterior</a>.
 </p>
 </html>",
-  revisions=
-  "<html>
+  revisions="<html>
 <ul>
+<li>
+January 05, 2017, by Thierry S. Nouidui:<br/>
+Added parameter <code>nSta</code> to avoid translation error
+in Dymola 2107. This is a work-around for a bug in Dymola
+which will be addressed in future releases.
+</li>
 <li>
 July 1, 2013, by Michael Wetter:<br/>
 Changed the annotation of the instance <code>material</code>

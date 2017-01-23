@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4N
 model DY
   "IEEE 4 node test feeder model with balanced load and D - Y connection (step up)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
-    (
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4(
     final line1_use_Z_y=false,
     final line2_use_Z_y=true,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeDelta
@@ -32,7 +31,9 @@ model DY
     VLow=VLL_side2,
     XoverR=6,
     Zperc=sqrt(0.01^2 + 0.06^2),
-    VABase=VARbase)
+    VABase=VARbase,
+    conv1(V1(start={11E3, 6E3})),
+    conv2(V1(start={-700, -11E3})))
     annotation (Placement(transformation(extent={{-26,0},{-6,20}})));
 equation
   connect(load.y, loadRL.Pow1) annotation (Line(
@@ -75,7 +76,14 @@ equation
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepUp/DY.mos"
         "Simulate and plot"),
- Documentation(revisions="<html><ul>
+ Documentation(revisions="<html>
+<ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Set start values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.

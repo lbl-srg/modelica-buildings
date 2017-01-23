@@ -17,13 +17,13 @@ model LakeWaterHeatExchanger_T_Heating
   Modelica.Blocks.Sources.Constant TSetC(k=273.15 + 8)
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Fluid.Sources.Boundary_pT bou(
+  Buildings.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=true,
     T=277.15) "Boundary condition"
     annotation (Placement(transformation(extent={{52,-10},{32,10}})));
-  Fluid.Sources.MassFlowSource_T floSou(
+  Buildings.Fluid.Sources.MassFlowSource_T floSou(
     redeclare package Medium = Medium,
     use_T_in=true,
     use_m_flow_in=true,
@@ -44,12 +44,12 @@ model LakeWaterHeatExchanger_T_Heating
     startTime=1800 + 900) "Mass flow rate"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
 
-  Fluid.Sensors.TemperatureTwoPort temWar(
+  Buildings.Fluid.Sensors.TemperatureTwoPort temWar(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Warm water supply leg temperature"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Fluid.Sensors.TemperatureTwoPort temCol(
+  Buildings.Fluid.Sensors.TemperatureTwoPort temCol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0) "Cold water supply leg temperature"

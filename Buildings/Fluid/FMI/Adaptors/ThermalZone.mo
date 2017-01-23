@@ -34,14 +34,14 @@ protected
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
 
   RealVectorExpression XiSup(
-    each final n=Medium.nXi,
+    final n=Medium.nXi,
     final y=inStream(ports[1].Xi_outflow)) if
        Medium.nXi > 0
       "Water vapor concentration of supply air"
     annotation (Placement(transformation(extent={{20,-30},{0,-10}})));
 
   RealVectorExpression CSup(
-    each final n=Medium.nC,
+    final n=Medium.nC,
     final y=inStream(ports[1].C_outflow)) if
     Medium.nC > 0 "Trace substance concentration of supply air"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
@@ -117,6 +117,14 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
+</html>", revisions=
+"<html>
+<ul>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
   end RealVectorExpression;
 
@@ -132,7 +140,7 @@ easy definition of vector-valued Real expressions in a block diagram.
           iconTransformation(extent={{-140,-20},{-100,20}})));
 
     Modelica.Blocks.Interfaces.RealOutput X_w(
-      each final unit="kg/kg") "Water vapor concentration in kg/kg total air"
+      final unit="kg/kg") "Water vapor concentration in kg/kg total air"
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   protected
     Modelica.Blocks.Interfaces.RealInput Xi_internal[Medium.nXi](
@@ -142,6 +150,7 @@ easy definition of vector-valued Real expressions in a block diagram.
     Modelica.Blocks.Interfaces.RealInput X_w_internal(
       final unit = "kg/kg")
       "Internal connector for water vapor concentration in kg/kg total air";
+
   equation
   // Conditional connector
   connect(Xi_internal, Xi);
@@ -154,7 +163,11 @@ easy definition of vector-valued Real expressions in a block diagram.
   annotation (Documentation(revisions="<html>
 <ul>
 <li>
-April 27, 2016, by Thierry S. Nouidui Wetter:<br/>
+November 8, 2016, by Michael Wetter:<br/>
+Removed wrong usage of <code>each</code> keyword.
+</li>
+<li>
+April 27, 2016, by Thierry S. Nouidui:<br/>
 First implementation.
 </li>
 </ul>

@@ -74,7 +74,7 @@ model SupplyBranch "Supply branch of a dual duct system"
     annotation (Placement(transformation(extent={{100,94},{120,114}})));
   Modelica.Blocks.Interfaces.RealInput TRoo "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
-  Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
+  Buildings.Fluid.FixedResistances.Junction mix(
     redeclare package Medium = MediumA,
     m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,
         mAirCol_flow_nominal + mAirHot_flow_nominal},
@@ -87,13 +87,13 @@ model SupplyBranch "Supply branch of a dual duct system"
         rotation=180,
         origin={50,40})));
 
-  Fluid.Sensors.RelativePressure senRelPreHot(redeclare package Medium =
+  Buildings.Fluid.Sensors.RelativePressure senRelPreHot(redeclare package Medium =
         MediumA) "Relative pressure hot deck (compared to room pressure)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={150,0})));
-  Fluid.Sensors.RelativePressure senRelPreCol(redeclare package Medium =
+  Buildings.Fluid.Sensors.RelativePressure senRelPreCol(redeclare package Medium =
         MediumA) "Relative pressure cold deck (compared to room pressure)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -103,7 +103,7 @@ model SupplyBranch "Supply branch of a dual duct system"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
   Modelica.Blocks.Interfaces.RealOutput p_relHot "Pressure signal of hot deck"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
-  Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium = MediumA,
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium = MediumA,
       m_flow_nominal=m_flow_nominal) "Supply air temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

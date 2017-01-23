@@ -65,7 +65,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow macConv
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow macConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*25.5)
@@ -90,10 +90,10 @@ model TestCase8 "VDI 6007 Test Case 8 model"
         295.05; 82800,294.05; 86400,294.05])
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-92,-20},{-76,-4}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perRad
     "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow perCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow perCon
     "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
@@ -156,8 +156,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     wfGro=0,
     aExt=0.7,
     alphaWallOut=20,
-    alphaRadWall=5,
-    eExt=0.9,
+    alphaRad=5,
     withLongwave=false,
     wfWall={0.05796831135677373,0.13249899738691134},
     wfWin={0.4047663456281575,0.4047663456281575},
@@ -222,7 +221,7 @@ model TestCase8 "VDI 6007 Test Case 8 model"
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{4,-10},{16,2}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -237,12 +236,12 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     annotation (Placement(transformation(extent={{62,46},{72,56}})));
 equation
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(perRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92,24}},
     color={191,0,0}));
   connect(intGai.y[1], perRad.Q_flow)
     annotation (Line(points={{22.8,
@@ -368,7 +367,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase8.mos"
         "Simulate and plot"));

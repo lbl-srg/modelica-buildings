@@ -2,8 +2,7 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4N
 model YD
   "IEEE 4 node test feeder model with balanced load and Y - D connection (step up)"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4
-    (
+    Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BaseClasses.IEEE4(
     final line1_use_Z_y=true,
     final line2_use_Z_y=false,
     redeclare Buildings.Electrical.AC.ThreePhasesUnbalanced.Sensors.ProbeWye
@@ -23,7 +22,9 @@ model YD
     final Theta2_ref=Modelica.Constants.pi/180.0*{-0.3,-120.3,119.6},
     final Theta3_ref=Modelica.Constants.pi/180.0*{56.7,-63.4,176.7},
     final Theta4_ref=Modelica.Constants.pi/180.0*{56.6,-63.6,176.5},
-    loadRL(use_pf_in=false, loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta));
+    loadRL(use_pf_in=false,
+           loadConn=Buildings.Electrical.Types.LoadConnection.wye_to_delta,
+           load1(v(each start = 15000))));
   Modelica.Blocks.Sources.Constant load(k=-1800e3)
     annotation (Placement(transformation(extent={{54,62},{74,82}})));
   Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerStepUpYD
@@ -76,6 +77,13 @@ equation
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Validation/IEEETests/Test4NodesFeeder/BalancedStepUp/YD.mos"
         "Simulate and plot"),
  Documentation(revisions="<html><ul>
+<li>
+November 28, 2016, by Michael Wetter:<br/>
+Set start value for <code>loadRL(load1(v(each start = 15000)))</code> which
+is needed for Dymola 2017 to find the correct solution.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
+</li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>
 Added documentation.

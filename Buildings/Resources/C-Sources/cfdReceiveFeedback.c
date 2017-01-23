@@ -1,33 +1,33 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   cfdReceiveFeedback.c
-///
-/// \brief  Functions to receive the feedback from CFD about the stop command
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+ *
+ * \file   cfdReceiveFeedback.c
+ *
+ * \brief  Functions to receive the feedback from CFD about the stop command
+ *
+ * \author Wangda Zuo
+ *         University of Miami
+ *         W.Zuo@miami.edu
+ *
+ * \date   8/3/2013
+ *
+ */
 #include "cfdCosimulation.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Receive the feedback from CFD about the stop command
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+ * Receive the feedback from CFD about the stop command
+ *
+ * @return 0 if no error occurred
+ */
 int cfdReceiveFeedback( ) {
   size_t i = 0, imax = 10000;
 
-  // Wait for the feedback from FFD
+  /* Wait for the feedback from FFD*/
   while(cosim->para->flag==0 && i<imax) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
     }
     else {
-      Sleep(10000);
+      sleep(10);
       i++;
     }
   }
@@ -50,4 +50,4 @@ int cfdReceiveFeedback( ) {
   free(cosim);
 
   return 0;
-} // End of cfdReceiveFeedback()
+} /* End of cfdReceiveFeedback()*/

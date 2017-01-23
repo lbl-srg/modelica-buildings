@@ -4,9 +4,9 @@ model TwoPortRLC "Model of an RLC element with two electrical ports"
     V_nominal(start = 110),
     redeclare package PhaseSystem_p = PhaseSystems.OnePhase,
     redeclare package PhaseSystem_n = PhaseSystems.OnePhase,
-    redeclare Interfaces.Terminal_n terminal_n(
+    redeclare replaceable Interfaces.Terminal_n terminal_n(
       redeclare package PhaseSystem = PhaseSystem_n),
-    redeclare Interfaces.Terminal_p terminal_p(
+    redeclare replaceable Interfaces.Terminal_p terminal_p(
       redeclare package PhaseSystem = PhaseSystem_p));
   parameter Modelica.SIunits.Voltage Vc_start[2] = {V_nominal,0}
     "Initial voltage phasor of the capacitance located in the middle of the line"
@@ -93,6 +93,12 @@ presence of the capacitive effect.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 8, 2016, by Michael Wetter:<br/>
+Added <code>replaceable</code> to terminal redeclaration as they are redeclared by
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC\">
+Buildings.Electrical.AC.ThreePhasesBalanced.Lines.TwoPortRLC</a>.
+</li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>
 Moved function call to <code>PhaseSystem.thetaRef</code> out of

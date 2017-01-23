@@ -10,7 +10,7 @@ model MediumColumn
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -29,9 +29,9 @@ model MediumColumn
 
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Modelica.SIunits.MassFlowRate m_flow(start=0)
+  Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa")
+  Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b";
   Modelica.SIunits.Density rho "Density in medium column";
 protected
@@ -41,17 +41,6 @@ protected
       actualStream(port_a.Xi_outflow)) "Medium properties in port_a";
   Medium.MassFraction Xi[Medium.nXi] "Mass fraction used to compute density";
 initial equation
-  /*
-   assert(abs(Medium.density(Medium.setState_pTX(
-    Medium.p_default,
-    Medium.T_default,
-    Medium.X_default)) - Medium.density(Medium.setState_pTX(
-    Medium.p_default,
-    Medium.T_default + 5,
-    Medium.X_default))) > 1E-10,
-    "Error: The density of the medium that is used to compute buoyancy force is independent of temperature."
-    + "\n       You need to select a different medium model.");
-    */
   // The next assert tests for all allowed values of the enumeration.
   // Testing against densitySelection > 0 gives an error in OpenModelica as enumerations start with 1.
   assert(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop
@@ -215,6 +204,13 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3, 2016, by Michael Wetter:<br/>
+Removed start values for mass flow rate and pressure difference
+to simplify the parameter window.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

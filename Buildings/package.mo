@@ -174,6 +174,23 @@ its class name ends with the string <code>Beta</code>.
    For Dymola, the conversion script will update models that use any model of the package
    <code>Buildings.Rooms</code>.
    </li>
+   <li>
+   The model <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> has been refactored. Now, if
+   the hydraulic diameter is not yet known, one can use the simpler model
+   <code>Buildings.Fluid.FixedResistances.PressureDrop</code>, otherwise the model
+   <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> may be used.
+   With this refactoring, also the model <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> has
+   been renamed to <code>Buildings.Fluid.FixedResistances.Junction</code> and
+   parameters that use the hydraulic diameter have been removed.
+   </li>
+   <li>
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, 
+   <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored 
+   to add the option to place a state at the surface of a construction. 
+   This leads in many examples that use the room model to a smaller number
+   of non-linear system of equations and a 20% to 40% faster simulation.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -227,6 +244,18 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Sensor for the flow velocity.
        </td>
    </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows.BaseClasses</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.HeatCapacity
+       </td>
+       <td valign=\"top\">Model for adding a state on the room-facing surface of a window.
+This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
+
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
@@ -371,27 +400,31 @@ its class name ends with the string <code>Beta</code>.
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/504\">issue 504</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
-                          Buildings.Fluid.Chillers.Carnot_y<br/>
-                          Buildings.Fluid.HeatPumps.Carnot_TCon<br/>
-                          Buildings.Fluid.HeatPumps.Carnot_y<br/>
-       </td>
-       <td valign=\"top\">Changed the default temperatures that are used to compute the coefficient
-                          of performance (COP) to be the leaving water temperature. Previously, the
-                          entering water temperature was used, which can give COPs that are higher than
-                          the Carnot efficiency if the temperature lift is small, because Carnot assumes
-                          no change in temperature along the fluid stream, and using the entering temperature is
-                          an optimistic choice.<br/>
-                          This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>.
-       </td>
-   </tr>
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.MultiLayer
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Window
+       </td>
+       <td valign=\"top\">Added option to place a state at the surface of a construction.
+                          This closes
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\">issue 565</a>.
+       </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BeamDepthInRoom
        </td>
        <td valign=\"top\">Refactored the use of <code>Modelica.Utilities.Files.loadResource</code>.
@@ -490,6 +523,54 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot_TEva<br/>
+                          Buildings.Fluid.Chillers.Carnot_y
+       </td>
+       <td valign=\"top\">Removed the parameters
+                          <code>effInpEva</code> and
+                          <code>effInpCon</code>.
+                          Now, always the leaving water temperatures are used to compute the coefficient
+                          of performance (COP). Previously, the
+                          entering water temperature could be used, but this can give COPs that are higher than
+                          the Carnot efficiency if the temperature lift is small.
+                          For Dymola, the conversion script will update models.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.FixedResistances</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.PressureDrop</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then the new model
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> can be used.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</code> to
+                          <code>Buildings.Fluid.FixedResistances.Junction</code>
+                          and removed the parameters <code>use_dh</code>, <code>dh</code> and <code>ReC</code>.
+                          For Dymola, the conversion script will update models.
+                          If a model needs to be used that allows specifying <code>dh</code> and <code>ReC</code>,
+                          then use <code>Buildings.Fluid.FixedResistances.Junction</code> with
+                          <code>dp_nominal = 0</code> (which removes the pressure drop) and use
+                          <code>Buildings.Fluid.FixedResistances.HydraulicDiameter</code> at each fluid port.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
        </td>
    </tr>
@@ -517,9 +598,25 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
-   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Carnot_TEva<br/>
+                          Buildings.Fluid.HeatPumps.Carnot_y
+       </td>
+       <td valign=\"top\">Removed the parameters
+                          <code>effInpEva</code> and
+                          <code>effInpCon</code>.
+                          Now, always the leaving water temperatures are used to compute the coefficient
+                          of performance (COP). Previously, the
+                          entering water temperature could be used, but this can give COPs that are higher than
+                          the Carnot efficiency if the temperature lift is small.
+                          For Dymola, the conversion script will update models.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+       </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.Boreholes
        </td>
        <td valign=\"top\">Moved the package <code>Buildings.Fluid.HeatExchangers.Boreholes</code> to
@@ -572,6 +669,15 @@ its class name ends with the string <code>Beta</code>.
        </td>
     </tr>
 
+    <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction
+       </td>
+       <td valign=\"top\">Removed parameter <code>A</code> as it is already declared in
+                          <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor\">
+                          Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</a>
+                          which is often used with this class.
+       </td>
+    </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
        </td>
    </tr>
@@ -619,20 +725,48 @@ its class name ends with the string <code>Beta</code>.
                           input and output signals.
                           Previously, the model assumed that all diffuse irradiation first hits the floor before it is
                           diffusely reflected to all other surfaces. Now, the incoming diffuse solar irradiation is distributed
-                          to all surfaces, proportional to their emissivity plus transmissivity times area.
+                          to all surfaces, proportional to their emissivity plus transmissivity times area.<br/>
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
-       </td>
+"    +
+    "       </td>
     </tr>
 
    <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain
        </td>
        <td valign=\"top\">Renamed model from <code>Buildings.ThermalZones.Detailed.BaseClasses.CFDHeatGain</code> to
-                          <code>Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</code>.
+                          <code>Buildings.ThermalZones.Detailed.BaseClasses.HeatGain</code>.<br/>
                           This is for
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/515\">Buildings, #515</a>.
        </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.ThermalZones.Detailed.BaseClasses.CFDExchange
+       </td>
+       <td valign=\"top\">Removed the parameter <code>uStart</code> as it is not required. As this is in a base
+                          class, users typically won't need to change their models
+                          unless they use this base class directly.<br/>
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/579\">Buildings, #579</a>.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+       </td>
+   </tr>
+       <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.WetBul_pTX
+       </td>
+       <td valign=\"top\">Deleted the model
+                          <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          as the same functionality is provided by
+                          <code>Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi</code>.
+                          Users who use <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
+                          need to replace the model manually and reconnect the input and output ports.<br/>
+                          This is for
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/475\">Annex 60, #475</a>.
+       </td>
+    </tr>
+
    </table>
    <!-- Errors that have been fixed -->
    <p>

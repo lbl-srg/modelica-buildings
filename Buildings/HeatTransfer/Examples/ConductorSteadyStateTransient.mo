@@ -14,10 +14,14 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
   Buildings.HeatTransfer.Conduction.MultiLayer conMul(
-    A=2, layers=composite)
+    A=2, layers=composite,
+    stateAtSurface_b=false)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con(
-    A=2, material=brick) annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    A=2, material=brick,
+    stateAtSurface_a=false,
+    stateAtSurface_b=false)
+                         annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
@@ -30,14 +34,17 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=2, material=insul)
+    A=2, material=insul,
+    stateAtSurface_b=false)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
     annotation (Placement(transformation(extent={{100,-20},{80,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=2, material=brick)
+    A=2, material=brick,
+    stateAtSurface_b=false,
+    stateAtSurface_a=false)
              annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -47,7 +54,7 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
     annotation (Placement(transformation(extent={{0,-16},{12,-4}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
     annotation (Placement(transformation(extent={{14,-56},{26,-44}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-4)
+  Modelica.Blocks.Math.Add cheEqu(k2=-1) "Check for equality"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.HeatTransfer.Convection.Interior conv1(A=2, til=Buildings.Types.Tilt.Wall)
     "Convective heat transfer"
@@ -84,11 +91,11 @@ equation
       points={{12,-10},{20,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(assertEquality.u1, heaFlo2.Q_flow) annotation (Line(
+  connect(cheEqu.u1, heaFlo2.Q_flow) annotation (Line(
       points={{58,-84},{20,-84},{20,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assertEquality.u2, heaFlo1.Q_flow) annotation (Line(
+  connect(cheEqu.u2, heaFlo1.Q_flow) annotation (Line(
       points={{58,-96},{6,-96},{6,-16}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -124,15 +131,25 @@ equation
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This example illustrates modeling of multi-layer materials. It also tests if the
 multi-layer material computes the same heat transfer with its boundary condition
 as two instances of a single layer material.
 The insulation is computed in steady-state, whereas the brick is computed using transient
 heat conduction.
-The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
-condition differs.
+</p>
+<p>
+The <code>cheEqu</code> block computes the difference between the heat fluxes,
+which should be equal except for the numerical approximation error of the solver.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 9, 2016, by Michael Wetter:<br/>
+Changed assertion with a computation of the difference.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/576\">issue 576</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

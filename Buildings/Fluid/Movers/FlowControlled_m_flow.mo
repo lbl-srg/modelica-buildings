@@ -17,8 +17,8 @@ model FlowControlled_m_flow
           per.pressure
         else
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow=  {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp=      {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
       final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
     preSou(m_flow_start=m_flow_start));
 
@@ -36,7 +36,9 @@ model FlowControlled_m_flow
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
-  parameter Modelica.SIunits.MassFlowRate[:] massFlowRates = m_flow_nominal*{0}
+  // By default, set massFlowRates proportional to (speed/speed_nominal)
+  parameter Modelica.SIunits.MassFlowRate[:] massFlowRates=
+    m_flow_nominal*{per.speeds[i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
     "Vector of mass flow rate set points, used when inputType=Stage"
     annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
@@ -98,6 +100,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 10, 2016, by Michael Wetter:<br/>
+Changed default values for <code>massFlowRates</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/583\">#583</a>.
+</li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.

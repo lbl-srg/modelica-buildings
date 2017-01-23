@@ -1,43 +1,43 @@
-///////////////////////////////////////////////////////////////////////////////
-///
-/// \file   cfdStartCosimulation.c
-///
-/// \brief  Function to start the coupled simulation
-///
-/// \author Wangda Zuo
-///         University of Miami
-///         W.Zuo@miami.edu
-///
-/// \date   8/3/2013
-///
-///////////////////////////////////////////////////////////////////////////////
+/*
+ *
+ * \file   cfdStartCosimulation.c
+ *
+ * \brief  Function to start the coupled simulation
+ *
+ * \author Wangda Zuo
+ *         University of Miami
+ *         W.Zuo@miami.edu
+ *
+ * \date   8/3/2013
+ *
+ */
 #include "cfdCosimulation.h"
 
-///////////////////////////////////////////////////////////////////////////////
-/// Start the cosimulation
-///
-/// Allocate memory for the data exchange and launch CFD simulation
-///
-///\param cfdFilNam Name of the input file for the CFD simulation
-///\param name Pointer to the names of surfaces and fluid ports
-///\param A Pointer to the area of surfaces in the same order of name
-///\param til Pointer to the tilt of surface in the same order of name
-///\param bouCon Pointer to the type of thermal boundary condition in the
-///       same order of name
-///\param nPorts Number of fluid ports
-///\param portName Pointer to the name of fluid ports
-///\param haveSensor Flag: 1->have sensor; 0->No sensor
-///\param sensorName Pointer to the names of the sensors used in CFD
-///\param haveShade Flag: 1->have shade; 0->no shade
-///\param nSur Number of surfaces
-///\param nSen Number of sensors
-///\param nConExtWin Number of exterior construction with windows
-///\param nXi Number of species
-///\param nC Number of trace substances
-///\param rho_start Density at initial state
-///
-///\return 0 if no error occurred
-///////////////////////////////////////////////////////////////////////////////
+/*
+ * Start the cosimulation
+ *
+ * Allocate memory for the data exchange and launch CFD simulation
+ *
+ * @param cfdFilNam Name of the input file for the CFD simulation
+ * @param name Pointer to the names of surfaces and fluid ports
+ * @param A Pointer to the area of surfaces in the same order of name
+ * @param til Pointer to the tilt of surface in the same order of name
+ * @param bouCon Pointer to the type of thermal boundary condition in the
+ *       same order of name
+ * @param nPorts Number of fluid ports
+ * @param portName Pointer to the name of fluid ports
+ * @param haveSensor Flag: 1->have sensor; 0->No sensor
+ * @param sensorName Pointer to the names of the sensors used in CFD
+ * @param haveShade Flag: 1->have shade; 0->no shade
+ * @param nSur Number of surfaces
+ * @param nSen Number of sensors
+ * @param nConExtWin Number of exterior construction with windows
+ * @param nXi Number of species
+ * @param nC Number of trace substances
+ * @param rho_start Density at initial state
+ *
+ * @return 0 if no error occurred
+ */
 int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
                 int *bouCon, int nPorts, char** portName, int haveSensor,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
@@ -46,13 +46,13 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | For call FFD-DLL
   ****************************************************************************/
-  //Define loaded library handle
-#ifdef _MSC_VER //Windows
+  /*Define loaded library handle*/
+#ifdef _MSC_VER /*Windows*/
   HINSTANCE hinstLib;
-#else //Linux
+#else /*Linux*/
   void *hinstLib;
 #endif
-  //Define function type
+  /*Define function type*/
   typedef int (*MYPROC)(CosimulationData *);
   MYPROC ProcAdd;
 
@@ -107,14 +107,14 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     }
   }
 
-  // Set the flag to initial value
+  /* Set the flag to initial value*/
   cosim->modelica->flag = 0;
   cosim->ffd->flag = 0;
   cosim->para->flag = 1;
   cosim->para->ffdError = 0;
 
   cosim->modelica->temHea = (REAL *) malloc(nSur*sizeof(REAL));
-  // Having a shade for window
+  /* Having a shade for window*/
   if(haveShade==1) {
     cosim->modelica->shaConSig = (REAL *) malloc(nConExtWin*sizeof(REAL));
     cosim->modelica->shaAbsRad = (REAL *) malloc(nConExtWin*sizeof(REAL));
@@ -144,7 +144,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | Get a handle to the DLL module.
   ****************************************************************************/
-#ifdef _MSC_VER //Windows
+#ifdef _MSC_VER /*Windows*/
 
 #if _WIN64
   hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll"));
@@ -154,7 +154,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   ModelicaError("Error: Failed to detect 32 or 64 bit Windows system in cfdStartCosimulation.c.\n");
 #endif
 
-#elif __linux__ //Linux
+#elif __linux__ /*Linux*/
 #if UINTPTR_MAX == 0xffffffff
 /* 32-bit */
   hinstLib = dlopen("Resources/Library/linux32/libffd.so", RTLD_LAZY);
@@ -169,7 +169,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   ModelicaError("Error: Unsupported operating system in cfdStartCosimulation.c.\n");
 #endif
 
-  // If the handle is valid, try to get the function address.
+  /* If the handle is valid, try to get the function address.*/
   if(hinstLib!=NULL) {
 #ifdef _MSC_VER
     ProcAdd = (MYPROC) GetProcAddress(hinstLib, "ffd_dll");
@@ -181,9 +181,9 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     ModelicaError("Error: Could not find dll handle.\n");
   }
 
-  // If the function address is valid, call the function.
+  /* If the function address is valid, call the function.*/
   if (ProcAdd!=NULL) {
-  //call function: passing pointer of NAME struct
+  /*call function: passing pointer of NAME struct*/
     ProcAdd(cosim);
   }
   else{
@@ -191,4 +191,4 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   }
 
   return 0;
-} // End of cfdStartCosimulation()
+} /* End of cfdStartCosimulation()*/

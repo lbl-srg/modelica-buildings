@@ -81,6 +81,6 @@ Created model and documentation
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sources/Examples/WindTurbineAC.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sources/Examples/WindTurbine.mos"
         "Simulate and plot"));
 end WindTurbine;

@@ -66,7 +66,7 @@ model TestCase2 "VDI 6007 Test Case 2 model"
         5184000,50.1])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -79,7 +79,7 @@ model TestCase2 "VDI 6007 Test Case 2 model"
   Modelica.Blocks.Sources.Constant const(k=0)
     "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  BaseClasses.AssertEqualityThreePeriods assEqu(
+  BaseClasses.VerifyDifferenceThreePeriods assEqu(
     startTime=3600,
     endTime=86400,
     startTime2=781200,
@@ -96,7 +96,7 @@ equation
   connect(theConWall.fluid, preTem.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, theConWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{44,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, theConWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(intGai.y[1], machinesRad.Q_flow)
@@ -104,7 +104,7 @@ equation
     22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
-    Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
+    Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92,24}},
     color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
@@ -137,7 +137,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),
+  </html>"),experiment(StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase2.mos"
         "Simulate and plot"));

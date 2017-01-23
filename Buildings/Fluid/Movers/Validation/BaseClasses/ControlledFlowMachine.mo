@@ -28,13 +28,13 @@ model ControlledFlowMachine
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  FixedResistances.FixedResistanceDpM dp1(
+  FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=0.006,
     dp_nominal=50000) "Pressure drop"
     annotation (Placement(transformation(extent={{16,50},{36,70}})));
-  FixedResistances.FixedResistanceDpM dp2(
+  FixedResistances.PressureDrop dp2(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=0.006,
@@ -43,7 +43,7 @@ model ControlledFlowMachine
   Buildings.Fluid.Sensors.MassFlowRate masFloRat2(
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  FixedResistances.FixedResistanceDpM dp3(
+  FixedResistances.PressureDrop dp3(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=0.006,
@@ -64,7 +64,7 @@ model ControlledFlowMachine
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  FixedResistances.FixedResistanceDpM dp4(
+  FixedResistances.PressureDrop dp4(
     redeclare package Medium = Medium,
     from_dp=true,
     m_flow_nominal=0.006,
@@ -80,25 +80,25 @@ model ControlledFlowMachine
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=3580) "Converts y to nominal rpm"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  FixedResistances.FixedResistanceDpM dp5(
+  FixedResistances.PressureDrop dp5(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
     annotation (Placement(transformation(extent={{-52,50},{-32,70}})));
-  FixedResistances.FixedResistanceDpM dp6(
+  FixedResistances.PressureDrop dp6(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
     annotation (Placement(transformation(extent={{-52,-30},{-32,-10}})));
-  FixedResistances.FixedResistanceDpM dp7(
+  FixedResistances.PressureDrop dp7(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}})));
-  FixedResistances.FixedResistanceDpM dp8(
+  FixedResistances.PressureDrop dp8(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
