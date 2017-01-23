@@ -41,7 +41,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false) "Pump for boiler circuit"             annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-170})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumRad(
