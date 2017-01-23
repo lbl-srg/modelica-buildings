@@ -56,3 +56,7 @@ createPlot(id = 5,
  filename = "VAVSystemCTControl.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
+createPlot(id=6, position={69, 759, 984, 742}, y={"roo.roo45.vol.C[1]", "roo.roo46.vol.C[1]", "roo.roo47.vol.C[1]", "roo.roo48.vol.C[1]", "roo.roo49.vol.C[1]", "roo.roo50.vol.C[1]"},
+  range={0.0, 180000.0, -0.0002, 0.0014}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
+createPlot(id=6, position={69, 759, 984, 368}, y={"roo.roo45.ple.C[1]", "roo.roo46.ple.C[1]", "roo.roo47.ple.C[1]", "roo.roo48.ple.C[1]", "roo.roo49.ple.C[1]", "roo.roo50.ple.C[1]"},
+range={0.0, 180000.0, -0.0006000000000000001, 0.0016}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});
