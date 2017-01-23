@@ -1,5 +1,4 @@
-stopTime=2*24*3600;
-simulateModel("Buildings.Examples.VAVReheat.ClosedLoop", stopTime=stopTime, method="radau", tolerance=1e-06, resultFile="ClosedLoop");
+simulateModel("Buildings.Examples.VAVReheat.ClosedLoop", stopTime=172800, method="radau", tolerance=1e-06, resultFile="ClosedLoop");
 
 createPlot(id = 3,
  position = {26, 33, 808, 649},
