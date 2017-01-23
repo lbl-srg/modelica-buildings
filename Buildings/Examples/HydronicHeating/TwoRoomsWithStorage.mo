@@ -365,7 +365,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
@@ -373,7 +374,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
@@ -448,7 +450,6 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{100,530},{120,550}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
@@ -555,13 +556,11 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   end CoolingControl;
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
     m_flow_nominal=2*VRoo*1.2*0.37/3600)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
