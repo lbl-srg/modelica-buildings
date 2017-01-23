@@ -68,15 +68,9 @@ protected
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(
-    final threshold=0.5*Modelica.Constants.pi)
-    "Output zero if sun is below horizon"
-    annotation (Placement(transformation(extent={{-30,-120},{-10,-100}})));
-  Modelica.Blocks.Logical.Switch switch1 "Switch to select the output signal"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero output"
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+public
+  Utilities.IO.InputSelector sel
+    annotation (Placement(transformation(extent={{126,-10},{146,10}})));
 equation
   connect(tan.u, zen.zen)
     annotation (Line(points={{-32,-80},{-32,-80},{-49,-80}},
@@ -105,21 +99,6 @@ equation
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(points={{81,120},
           {100,120},{100,80},{-80,80},{-80,-84},{-72,-84},{-72,-84.8}},
                      color={0,0,127}));
-  connect(lessThreshold.u, zen.zen) annotation (Line(points={{-32,-110},{-40,-110},
-          {-40,-80},{-49,-80}},
-                     color={0,0,127}));
-  connect(lessThreshold.y, switch1.u2)
-    annotation (Line(points={{-9,-110},{-9,-110},{118,-110}},
-                     color={255,0,255}));
-  connect(switch1.u1, proShaLen.y) annotation (Line(points={{118,-102},{100,-102},
-          {100,-80},{91,-80}},
-                         color={0,0,127}));
-  connect(zer.y, switch1.u3) annotation (Line(points={{81,-130},{100,-130},{100,
-          -118},{118,-118}},
-                     color={0,0,127}));
-  connect(switch1.y, y) annotation (Line(points={{141,-110},{160,-110},{160,0},{
-          190,0}},
-               color={0,0,127}));
   connect(modTim.y,locTim. cloTim) annotation (Line(
       points={{-139,0},{-50,0},{-50,100},{-22,100}},
       color={0,0,127}));
@@ -142,6 +121,12 @@ equation
           -50},{-99,-50}},         color={0,0,127}));
   connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
           -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
+  connect(proShaLen.y, sel.u2) annotation (Line(points={{91,-80},{100,-80},{100,
+          -4},{124,-4}}, color={0,0,127}));
+  connect(sel.y, y)
+    annotation (Line(points={{147,0},{160,0},{190,0}}, color={0,0,127}));
+  connect(sel.u1, zen.zen) annotation (Line(points={{124,4},{114,4},{114,-100},
+          {-42,-100},{-42,-80},{-49,-80}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",
     Documentation(info="<html>
