@@ -41,14 +41,15 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    filteredSpeed=false) "Pump for boiler circuit"             annotation (
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump for boiler circuit"                                  annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-170})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mRad_flow_nominal/1000*{0,2}, dp=dp_nominal*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump that serves the radiators" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -233,8 +234,8 @@ model TwoRoomsWithStorage
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
     dpFixed_nominal={100,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredOpening=false)                                    "Three-way valve"
+    filteredOpening=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -428,7 +429,7 @@ model TwoRoomsWithStorage
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -437,7 +438,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -446,7 +447,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
