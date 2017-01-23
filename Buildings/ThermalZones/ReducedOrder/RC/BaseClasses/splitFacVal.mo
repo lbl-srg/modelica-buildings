@@ -61,7 +61,7 @@ algorithm
   <code>AExt</code> and <code>AWin</code> can just be set to vectors  of
   zeros with length 1.
   For solar radiation through windows, the window and wall area with the same
-  orientation as the incoming radiation should be substracted as these areas
+  orientation as the incoming radiation should be subtracted as these areas
   cannot be hit by the radiation. This needs to be done separately for each
   orientation and for exterior walls and windows only, according to:
   <p align=\"center\" style=\"font-style:italic;\">
