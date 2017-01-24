@@ -69,6 +69,7 @@ protected
   final parameter Modelica.SIunits.Time daySampleStart(fixed=false)
     "Time when the sampling every day starts";
 
+
   Boolean hourSampleTrigger "True, if hourly sample time instant";
   Boolean daySampleTrigger "True, if daily sample time instant";
 
@@ -256,10 +257,6 @@ equation
   Documentation(revisions="<html>
 <ul>
 <li>
-January 24, 2017, by Milica Grahovac:<br/>
-Initial CDL implementation.
-</li>
-<li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -307,8 +304,12 @@ This is however not activated in the current model since these options may wrong
 that it changes the time based on which the solar position is computed and TMY3 data are read.
 </p>
 </html>"),
-    Icon(
-    graphics={
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={76,153,230},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-34,90},{96,80}},
           lineColor={28,108,200},
@@ -347,7 +348,7 @@ that it changes the time based on which the solar position is computed and TMY3 
         Ellipse(
           extent={{-94,94},{16,-16}},
           lineColor={160,160,164},
-          fillColor={215,215,215},
+          fillColor={217,120,23},
           fillPattern=FillPattern.Solid),
         Line(
           points={{-40,38},{-64,62}},
