@@ -55,7 +55,7 @@ model ScrollWaterToWater
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos"
         "Simulate and plot"),
     experiment(StopTime=142),
-ocumentation(info="<HTML>
+Documentation(info="<HTML>
 <p>
 Calibration model for the calibration of models for water to water heat pump 
 with scroll compressor. 
@@ -63,6 +63,10 @@ with scroll compressor.
 <p>
 Source and load temperatures and flow rates are read from an external time
 table.
+</p>
+<p>
+This model is called from the Python code that computes coefficients
+for the performance data.
 </p>
 </html>", revisions="<html>
 <ul>
