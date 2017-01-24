@@ -15,6 +15,7 @@ record Generic "Record for scroll water to water heat pump"
     annotation (Dialog(group="Compressor"));
 
   annotation (
+    defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",
     preferredView="info",
   Documentation(info="<html>

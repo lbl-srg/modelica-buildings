@@ -16,9 +16,9 @@ model PartialCompressor "Partial compressor model"
 
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
-
-  Real isOn(start = if y > 0.01 then 1.0 else 0.0)
-    "State of the compressor, 1 if turned on";
+    // fixme: make a boolean
+  discrete Real isOn
+    "State of the compressor,  if turned on";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Refrigerant connector a (corresponding to the evaporator)"
@@ -41,9 +41,12 @@ model PartialCompressor "Partial compressor model"
     annotation (Placement(transformation(extent={{100,50},{120,70}},
         rotation=-90)));
 
-equation
 
-  when y > 0.01 then
+
+equation
+  when initial() then
+    isOn = if y > 0.01 then 1.0 else 0.0;
+  elsewhen y > 0.01 then
     isOn = 1;
   elsewhen y <= 0.0 then
     isOn = 0;
@@ -64,9 +67,9 @@ equation
   // Assert statements to verify that the refrigerant temperatures are within
   // bounds of the property data in the refrigerant package
   assert(port_b.T > ref.T_min and port_b.T < ref.TCri,
-    "Condensing temperature must be above the minimum refrigerant temperature and below the critical temperature");
+    "Condensing temperature must be above the minimum refrigerant temperature and below the critical temperature.");
   assert(port_a.T > ref.T_min and port_a.T < ref.TCri,
-    "Evaporating temperature must be above the minimum refrigerant temperature and below the critical temperature");
+    "Evaporating temperature must be above the minimum refrigerant temperature and below the critical temperature.");
 
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},

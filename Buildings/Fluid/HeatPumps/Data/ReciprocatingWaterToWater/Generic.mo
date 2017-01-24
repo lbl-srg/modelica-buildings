@@ -1,5 +1,4 @@
 within Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater;
-
 record Generic "Record for reciprocating water to water heat pump"
   extends BaseClasses.HeatPumps;
 
@@ -16,6 +15,7 @@ record Generic "Record for reciprocating water to water heat pump"
     annotation (Dialog(group="Compressor"));
 
   annotation (
+    defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",
     preferredView="info",
   Documentation(info="<html>

@@ -14,7 +14,7 @@ model ReciprocatingWaterToWater
     eva(UA=datHeaPum.UAEva*scaling_factor),
     con(UA=datHeaPum.UACon*scaling_factor));
 
-  replaceable Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
+  replaceable parameter Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
     datHeaPum "Heat pump data"
     annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-98,78},{-78,98}})));

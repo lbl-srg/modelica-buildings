@@ -59,7 +59,7 @@ protected
   Real PRInt(start = 2.0)
     "Built-in pressure ratio";
 
-  Real U(start = 1)
+  Boolean shut_off(fixed=true, start = false)
     "Shutdown signal for invalid pressure ratios";
 
 equation
@@ -70,17 +70,16 @@ equation
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
   when PR <= 1.0 then
-    U = 0.0;
+    shut_off = true;
   elsewhen PR > 1.01 then
-    U = 1.0;
+    shut_off = false;
   end when;
-
   // The specific volume at suction of the compressor is calculated
   // from the Martin-Hou equation of state
   vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
 
   // Limit compressor speed to the full load speed
-  v_norm = min(1.0, max(0.0, y));
+  v_norm = 1;// fixme min(1.0, max(0.0, y));
 
   if isOn >= 0.5 then
     // Suction pressure
@@ -89,7 +88,7 @@ equation
     pDis = pCon;
     // Refrigerant mass flow rate
     mLea_flow = leaCoe*PR;
-    m_flow = v_norm * U * Buildings.Utilities.Math.Functions.smoothMax(
+    m_flow = if shut_off then 0 else v_norm * Buildings.Utilities.Math.Functions.smoothMax(
       V_flow_nominal/vSuc - mLea_flow,
       1e-5*V_flow_nominal/vSuc,
       1e-6*V_flow_nominal/vSuc);
@@ -107,7 +106,7 @@ equation
     TSuc = port_a.T + dTSup;
 
     // Power consumed by the compressor
-    P = (PThe / etaEle + PLos) * U;
+    P = if shut_off then 0 else (PThe / etaEle + PLos);
 
     // Energy balance of the compressor
      port_a.Q_flow = m_flow * (hEva - hCon);
