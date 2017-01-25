@@ -68,8 +68,11 @@ protected
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-  Utilities.IO.InputFilter fil "input filter"
-    annotation (Placement(transformation(extent={{126,-10},{146,10}})));
+public
+  Modelica.Blocks.Sources.RealExpression pshaLen(y=noEvent(if abs(zen.zen) <
+        0.5*Modelica.Constants.pi then proShaLen.y else 0.0))
+    "Projected shadow length"
+    annotation (Placement(transformation(extent={{102,-10},{122,10}})));
 equation
   connect(tan.u, zen.zen)
     annotation (Line(points={{-32,-80},{-32,-80},{-49,-80}},
@@ -120,12 +123,8 @@ equation
           -50},{-99,-50}},         color={0,0,127}));
   connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
           -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
-  connect(proShaLen.y,fil. u2) annotation (Line(points={{91,-80},{100,-80},{100,
-          -4},{124,-4}}, color={0,0,127}));
-  connect(fil.y, y)
-    annotation (Line(points={{147,0},{160,0},{190,0}}, color={0,0,127}));
-  connect(fil.u1, zen.zen) annotation (Line(points={{124,4},{114,4},{114,-100},
-          {-42,-100},{-42,-80},{-49,-80}}, color={0,0,127}));
+  connect(pshaLen.y, y)
+    annotation (Line(points={{123,0},{190,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",
     Documentation(info="<html>
@@ -165,7 +164,8 @@ to a weather data file, in which case these values are read from the weather dat
 <ul>
 <li>
 January 20, 2016, by Thierry S. Nouidui:<br/>
-Refactored the model to avoid spikes in the trajectory.
+Refactored the model and added a <code>realExpression</code> with <code>noEvent()</code> 
+to avoid spikes in the trajectory.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/626\">Buildings, #626</a>.
 </li>
