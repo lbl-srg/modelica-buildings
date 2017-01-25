@@ -47,7 +47,7 @@ protected
 
   Modelica.SIunits.HeatFlowRate J[nTot](
     each max=0,
-    start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
+    start=-A .* 0.8*Modelica.Constants.sigma*293.15^4,
     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
   Modelica.SIunits.HeatFlowRate G[nTot](
@@ -371,6 +371,12 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2017, by Michael Wetter:<br/>
+Corrected wrong start value for <code>J</code>.
+The start value was positive, but <code>J(each max =0)</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/627\">issue 627</a>.
+</li>
 <li>
 May 21, 2015, by Michael Wetter:<br/>
 Reformulated to reduce use of the division macro

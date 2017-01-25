@@ -68,15 +68,10 @@ protected
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(
-    final threshold=0.5*Modelica.Constants.pi)
-    "Output zero if sun is below horizon"
-    annotation (Placement(transformation(extent={{-30,-120},{-10,-100}})));
-  Modelica.Blocks.Logical.Switch switch1 "Switch to select the output signal"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Zero output"
-    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
+  Modelica.Blocks.Sources.RealExpression pShaLen(
+    y=noEvent(if abs(zen.zen) < 0.5*Modelica.Constants.pi then proShaLen.y else 0.0))
+    "Projected shadow length"
+    annotation (Placement(transformation(extent={{102,-10},{122,10}})));
 equation
   connect(tan.u, zen.zen)
     annotation (Line(points={{-32,-80},{-32,-80},{-49,-80}},
@@ -105,21 +100,6 @@ equation
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(points={{81,120},
           {100,120},{100,80},{-80,80},{-80,-84},{-72,-84},{-72,-84.8}},
                      color={0,0,127}));
-  connect(lessThreshold.u, zen.zen) annotation (Line(points={{-32,-110},{-40,-110},
-          {-40,-80},{-49,-80}},
-                     color={0,0,127}));
-  connect(lessThreshold.y, switch1.u2)
-    annotation (Line(points={{-9,-110},{-9,-110},{118,-110}},
-                     color={255,0,255}));
-  connect(switch1.u1, proShaLen.y) annotation (Line(points={{118,-102},{100,-102},
-          {100,-80},{91,-80}},
-                         color={0,0,127}));
-  connect(zer.y, switch1.u3) annotation (Line(points={{81,-130},{100,-130},{100,
-          -118},{118,-118}},
-                     color={0,0,127}));
-  connect(switch1.y, y) annotation (Line(points={{141,-110},{160,-110},{160,0},{
-          190,0}},
-               color={0,0,127}));
   connect(modTim.y,locTim. cloTim) annotation (Line(
       points={{-139,0},{-50,0},{-50,100},{-22,100}},
       color={0,0,127}));
@@ -142,6 +122,8 @@ equation
           -50},{-99,-50}},         color={0,0,127}));
   connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
           -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
+  connect(pShaLen.y, y)
+    annotation (Line(points={{123,0},{190,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",
     Documentation(info="<html>
@@ -179,6 +161,13 @@ to a weather data file, in which case these values are read from the weather dat
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 20, 2016, by Thierry S. Nouidui:<br/>
+Refactored the model and added a <code>realExpression</code> with <code>noEvent()</code> 
+to avoid spikes in the trajectory.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/626\">Buildings, #626</a>.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Introduced <code>absFilNam</code> to avoid multiple calls to
