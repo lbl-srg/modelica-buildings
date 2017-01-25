@@ -59,7 +59,7 @@ protected
   Real PRInt(start = 2.0)
     "Built-in pressure ratio";
 
-  Boolean shut_off(fixed=true, start = false)
+  Boolean shut_off(fixed=true, start=false)
     "Shutdown signal for invalid pressure ratios";
 
 equation
@@ -79,9 +79,9 @@ equation
   vSuc = ref.specificVolumeVap_pT(pSuc, TSuc);
 
   // Limit compressor speed to the full load speed
-  v_norm = 1;// fixme min(1.0, max(0.0, y));
+  v_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
-  if isOn >= 0.5 then
+  if isOn then
     // Suction pressure
     pSuc = pEva;
     // Discharge pressure
