@@ -20,7 +20,7 @@ protected
                         size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
-  Modelica.Blocks.Tables.CombiTable1D tab(
+  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CombiTable1D tab(
     tableOnFile=false,
     final table= (if constantExtrapolation then
                     cat(1, [table[1,1]-1, table[1,2]],
