@@ -26,6 +26,13 @@
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
 
+
+def _match_mos_w_mo():
+    import buildingspy.development.matchParameters as f
+
+    val = f.main()
+
+
 def _validate_html():
     import buildingspy.development.validator as v
 
@@ -114,6 +121,9 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
+    mos_group = parser.add_argument_group("arguments to match mos parameters with mo files parameters only")
+    mos_group.add_argument("--match-mos-only",
+                           action="store_true")
 
     # Set environment variables
     if platform.system() == "Windows":
@@ -140,6 +150,11 @@ if __name__ == '__main__':
     if args.validate_html_only:
         # Validate the html syntax only, and then exit
         ret_val = _validate_html()
+        exit(ret_val)
+
+    if args.match_mos_only:
+        # Match the mos file parameters with the mo files only, and then exit
+        ret_val = _match_mos_w_mo()
         exit(ret_val)
 
     if args.single_package:
