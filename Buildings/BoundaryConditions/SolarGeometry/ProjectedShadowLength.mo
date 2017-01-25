@@ -68,9 +68,8 @@ protected
   BaseClasses.SolarHourAngle solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-public
-  Modelica.Blocks.Sources.RealExpression pshaLen(y=noEvent(if abs(zen.zen) <
-        0.5*Modelica.Constants.pi then proShaLen.y else 0.0))
+  Modelica.Blocks.Sources.RealExpression pShaLen(
+    y=noEvent(if abs(zen.zen) < 0.5*Modelica.Constants.pi then proShaLen.y else 0.0))
     "Projected shadow length"
     annotation (Placement(transformation(extent={{102,-10},{122,10}})));
 equation
@@ -123,7 +122,7 @@ equation
           -50},{-99,-50}},         color={0,0,127}));
   connect(solAzi.solTim, solTim.solTim) annotation (Line(points={{-32,-56},{-42,
           -56},{-74,-56},{-74,72},{48,72},{48,120},{41,120}}, color={0,0,127}));
-  connect(pshaLen.y, y)
+  connect(pShaLen.y, y)
     annotation (Line(points={{123,0},{190,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="proShaLen",
