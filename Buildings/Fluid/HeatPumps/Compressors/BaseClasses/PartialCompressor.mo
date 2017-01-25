@@ -16,7 +16,6 @@ model PartialCompressor "Partial compressor model"
 
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
-    // fixme: make a boolean
   Boolean isOn(fixed=true, start=false)
     "State of the compressor,  if turned on";
 
