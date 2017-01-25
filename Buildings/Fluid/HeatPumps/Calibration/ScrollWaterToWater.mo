@@ -20,9 +20,9 @@ model ScrollWaterToWater
         volRat=volRat,
         V_flow_nominal=V_flow_nominal,
         leaCoe=leaCoe)),
-    calDat(tableName="ManufacturerData",
-    fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/HeatPumps/Calibration/manufacturerData.txt")),
+    calDat(tableName="ManufacturerData", fileName=
+          Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),
     UACon = 12000.0,
     UAEva = 12000.0,
     m1_flow_nominal=1.42,
