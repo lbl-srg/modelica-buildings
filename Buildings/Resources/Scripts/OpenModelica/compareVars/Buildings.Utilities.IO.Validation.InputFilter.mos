@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "inFil.u1",
-    "inFil.u2",
-    "inFil.y",
-    "inFil.u1",
-    "inFil.threShold",
-    "inFil.y"
-  };
