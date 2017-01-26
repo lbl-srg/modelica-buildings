@@ -8,6 +8,7 @@ and load sides. The resulting performance data is written to a text file.
 
 """
 from __future__ import division, print_function, absolute_import
+
 import os
 import sys
 
@@ -27,7 +28,8 @@ def main():
 
     # Initialize the heat pump model
     P_nominal = 17.5e3         # Nominal heat pump power input (W).
-    Q_nominal = P_nominal*4.0  # Nominal heat pump capacity (W).
+    COP_nominal = 4.0          # Nominal COP of the heat pump (-)
+    Q_nominal = P_nominal*COP_nominal  # Nominal heat pump capacity (W).
 
     # Model parameters
     volRat = 2.365             # Volume ratio (-).
