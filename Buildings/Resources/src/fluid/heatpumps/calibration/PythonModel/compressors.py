@@ -33,8 +33,8 @@ class ReciprocatingCompressor(object):
 
         Usage: Type
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
-           >>> com.get_SuctionTemperature(283.15)
-           292.96999999999997
+           >>> '%.2f' % com.get_SuctionTemperature(283.15)
+           '292.97'
 
         """
         # Apply superheating to evaporating temperature
@@ -50,8 +50,8 @@ class ReciprocatingCompressor(object):
 
         Usage: Type
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
-           >>> com.get_SuctionPressure(1.083e6)
-           983710.0
+           >>> '%.1f' % com.get_SuctionPressure(1.083e6)
+           '983710.0'
 
         """
         # Apply pressure drop at compressor suction
@@ -67,8 +67,8 @@ class ReciprocatingCompressor(object):
 
         Usage: Type
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
-           >>> com.get_DischargePressure(1.879e6)
-           1978290.0
+           >>> '%.1f' % com.get_DischargePressure(1.879e6)
+           '1978290.0'
 
         """
         # Apply pressure drop at compressor discharge
@@ -91,8 +91,8 @@ class ReciprocatingCompressor(object):
            >>> import refrigerants
            >>> ref = refrigerants.R410A()
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
-           >>> com.get_RefrigerantMassFlowRate(0.0288, ref, 1978290.0, 983710.0, 292.97)
-           0.053581664701638484
+           >>> '%.8f' % com.get_RefrigerantMassFlowRate(0.0288, ref, 1978290.0, 983710.0, 292.97)
+           '0.05358166'
 
         """
         # Evaluate refrigerant mass flow rate
@@ -117,8 +117,8 @@ class ReciprocatingCompressor(object):
            >>> import refrigerants
            >>> ref = refrigerants.R410A()
            >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
-           >>> com.get_Power(0.0288, ref, 1978290.0, 983710.0, 292.97)
-           1765.6261463889248
+           >>> '%.2f' % com.get_Power(0.0288, ref, 1978290.0, 983710.0, 292.97)
+           '1765.63'
 
         """
         # Evaluate compressor power consumption
@@ -273,8 +273,8 @@ class ScrollCompressor(object):
 
         Usage: Type
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
-           >>> com.get_SuctionTemperature(283.15)
-           289.64
+           >>> '%.2f' % com.get_SuctionTemperature(283.15)
+           '289.64'
 
         """
         # Apply superheating to evaporating temperature
@@ -290,8 +290,8 @@ class ScrollCompressor(object):
 
         Usage: Type
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
-           >>> com.get_SuctionPressure(1.083e6)
-           1083000.0
+           >>> '%.1f' % com.get_SuctionPressure(1.083e6)
+           '1083000.0'
 
         """
         # No pressure drop at compressor suction
@@ -307,8 +307,8 @@ class ScrollCompressor(object):
 
         Usage: Type
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
-           >>> com.get_DischargePressure(1.879e6)
-           1879000.0
+           >>> '%.1f' % com.get_DischargePressure(1.879e6)
+           '1879000.0'
 
         """
         # No pressure drop at compressor discharge
@@ -327,8 +327,8 @@ class ScrollCompressor(object):
 
         Usage: Type
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
-           >>> com.get_RefrigerantMassFlowRate(0.025, 1.879e6, 1.083e6)
-           0.1076865189289012
+           >>> '%.6f' % com.get_RefrigerantMassFlowRate(0.025, 1.879e6, 1.083e6)
+           '0.107687'
 
         """
         # Evaluate refrigerant mass flwo rate
@@ -351,8 +351,8 @@ class ScrollCompressor(object):
            >>> import refrigerants
            >>> ref = refrigerants.R410A()
            >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
-           >>> com.get_Power(0.025, ref, 1.879e6, 1.083e6, 289.64)
-           2940.2646079598467
+           >>> '%.2f' % com.get_Power(0.025, ref, 1.879e6, 1.083e6, 289.64)
+           '2940.26'
 
         """
         # Evaluate compressor power consumption

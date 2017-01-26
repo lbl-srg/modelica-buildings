@@ -27,8 +27,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_IsentropicExponent_vT(0.025, 289.64)
-           1.3862439691938546
+           >>> '%.4f' % ref.get_IsentropicExponent_vT(0.025, 289.64)
+           '1.3862'
 
         """
         cp = self.get_SpecificIsobaricHeatCapacity_vT(v, T)
@@ -46,8 +46,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SpecificIsobaricHeatCapacity_vT(0.025, 289.64)
-           1167.0076838180112
+           >>> '%.2f' % ref.get_SpecificIsobaricHeatCapacity_vT(0.025, 289.64)
+           '1167.01'
 
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
@@ -73,8 +73,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SpecificIsochoricHeatCapacity_vT(0.025, 289.64)
-           841.84870033855839
+           >>> '%.2f' % ref.get_SpecificIsochoricHeatCapacity_vT(0.025, 289.64)
+           '841.85'
 
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
@@ -97,8 +97,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SaturatedLiquidPressure(305.25)
-           1989639.9829398033
+           >>> '%.2f' % ref.get_SaturatedLiquidPressure(305.25)
+           '1989639.98'
 
         """
         a = [-1.4376, -6.8715, -0.53623, -3.82642, -4.06875, -1.2333]
@@ -117,8 +117,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SaturatedVaporPressure(283.15)
-           1082792.9317597288
+           >>> '%.2f' % ref.get_SaturatedVaporPressure(283.15)
+           '1082792.93'
 
         """
         a = [-1.440004, -6.865265, -0.5354309, -3.749023, -3.521484, -7.75]
@@ -137,8 +137,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SaturatedLiquidEnthalpy(305.25)
-           252787.4464306781
+           >>> '%.2f' % ref.get_SaturatedLiquidEnthalpy(305.25)
+           '252787.45'
 
         """
         a = [221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0]
@@ -160,8 +160,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_SaturatedVaporEnthalpy(283.15)
-           425094.17606945609
+           >>> '%.2f' % ref.get_SaturatedVaporEnthalpy(283.15)
+           '425094.18'
 
         """
         a = [406.0598, -34.78156, 262.8079, 223.8549, -1162.627, 570.6635]
@@ -183,8 +183,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_VaporPressure(289.64, 0.025)
-           1083546.30071468
+           >>> '%.2f' % ref.get_VaporPressure(289.64, 0.025)
+           '1083546.30'
 
         """
         R, A, B, C, b, k = self._martinHouCoefficients()
@@ -208,8 +208,8 @@ class R410A(object):
 
         Usage: Type
            >>> ref = R410A()
-           >>> ref.get_VaporSpecificVolume(1083546.3, 289.64)
-           0.025000012079155084
+           >>> '%.8f' % ref.get_VaporSpecificVolume(1083546.3, 289.64)
+           '0.02500001'
 
         """
         R = 114.55

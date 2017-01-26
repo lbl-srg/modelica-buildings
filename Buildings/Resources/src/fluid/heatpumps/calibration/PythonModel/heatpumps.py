@@ -151,8 +151,8 @@ class SingleStageHeatPump(object):
            >>> flu = fluids.ConstantPropertyWater()
            >>> ref = refrigerants.R410A()
            >>> heaPum = SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
-           >>> heaPum.get_Capacity(298.8, 311.0, 0.71, 0.71)
-           24124.807295735638
+           >>> '%.2f' % heaPum.get_Capacity(298.8, 311.0, 0.71, 0.71)
+           '24124.81'
 
         """
         if self.CoolingMode:
@@ -189,8 +189,8 @@ class SingleStageHeatPump(object):
            >>> flu = fluids.ConstantPropertyWater()
            >>> ref = refrigerants.R410A()
            >>> heaPum = SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
-           >>> heaPum.get_SourceSideTransferRate(298.8, 311.0, 0.71, 0.71)
-           19413.078703833973
+           >>> '%.2f' % heaPum.get_SourceSideTransferRate(298.8, 311.0, 0.71, 0.71)
+           '19413.08'
 
         """
         if self.CoolingMode:
@@ -223,8 +223,8 @@ class SingleStageHeatPump(object):
            >>> flu = fluids.ConstantPropertyWater()
            >>> ref = refrigerants.R410A()
            >>> heaPum = SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
-           >>> heaPum.get_EvaporatorHeatTransferRate(298.8, 311.0, 0.71, 0.71)
-           -19413.078703833973
+           >>> '%.2f' % heaPum.get_EvaporatorHeatTransferRate(298.8, 311.0, 0.71, 0.71)
+           '-19413.08'
 
         """
         # Evaluate heat pump state if different from current state
@@ -255,8 +255,8 @@ class SingleStageHeatPump(object):
            >>> flu = fluids.ConstantPropertyWater()
            >>> ref = refrigerants.R410A()
            >>> heaPum = SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
-           >>> heaPum.get_CondenserHeatTransferRate(298.8, 311.0, 0.71, 0.71)
-           24124.807295735638
+           >>> '%.2f' % heaPum.get_CondenserHeatTransferRate(298.8, 311.0, 0.71, 0.71)
+           '24124.81'
 
         """
         # Evaluate heat pump state if different from current state
@@ -286,8 +286,8 @@ class SingleStageHeatPump(object):
            >>> flu = fluids.ConstantPropertyWater()
            >>> ref = refrigerants.R410A()
            >>> heaPum = SingleStageHeatPump(com, con, eva, ref, flu, flu, 19300.0, 4289.0)
-           >>> heaPum.get_Power(298.8, 311.0, 0.71, 0.71)
-           4711.7292734833645
+           >>> '%.2f' % heaPum.get_Power(298.8, 311.0, 0.71, 0.71)
+           '4711.73'
 
         """
         # Evaluate heat pump state if different from current state

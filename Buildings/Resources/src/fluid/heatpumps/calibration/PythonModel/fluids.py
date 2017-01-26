@@ -22,8 +22,8 @@ class ConstantPropertyWater(object):
 
         Usage: Type
            >>> flu = ConstantPropertyWater()
-           >>> flu.get_Density()
-           998.207150468
+           >>> '%.2f' % flu.get_Density()
+           '998.21'
 
         """
         return self._d
@@ -35,8 +35,8 @@ class ConstantPropertyWater(object):
 
         Usage: Type
            >>> flu = ConstantPropertyWater()
-           >>> flu.get_SpecificIsobaricHeatCapacity()
-           4184.05092452
+           >>> '%.2f' % flu.get_SpecificIsobaricHeatCapacity()
+           '4184.05'
 
         """
         return self._cp
@@ -48,8 +48,8 @@ class ConstantPropertyWater(object):
 
         Usage: Type
            >>> flu = ConstantPropertyWater()
-           >>> flu.get_SpecificVolume()
-           0.00100179606961
+           >>> '%.8f' % flu.get_SpecificVolume()
+           '0.00100180'
 
         """
         return self._v

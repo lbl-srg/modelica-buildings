@@ -31,8 +31,8 @@ class EvaporatorCondenser(object):
            >>> import fluids
            >>> flu = fluids.ConstantPropertyWater()
            >>> eva = EvaporatorCondenser([21523])
-           >>> eva.get_RefrigerantTemperature(19300, 0.71, flu, 298.75)
-           305.25147703611856
+           >>> '%.2f' % eva.get_RefrigerantTemperature(19300, 0.71, flu, 298.75)
+           '305.25'
 
         """
         # Evaluate evaporating/condesing temeprature of the refrigerant
