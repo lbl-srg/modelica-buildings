@@ -1,3 +1,5 @@
+from __future__ import division, print_function, absolute_import
+
 from builtins import str
 import matplotlib.pyplot as plt
 import numpy as np
@@ -54,7 +56,7 @@ def calibrate_model(heaPum, calData, data, plot=True):
     optRes = simulate(heaPum, data)
     compare_data_sets(optRes, data, plot, fname=fname + '_opt_end')
     toc = tm.time() - tic
-    print "Total elapsed time for calibration : %f seconds" % toc
+    print('Total elapsed time for calibration : %f seconds' % toc)
     return optPar, optRes, gueRes
 
 
@@ -87,7 +89,7 @@ def compare_data_sets(data, refData, plot=False, fname='ComparedDataSets'):
         SE = ((refData.Power[i]-data.Power[i])/refData.Power[i])**2 \
             + ((refData.Capacity[i]-data.Capacity[i])/refData.Capacity[i])**2
         SSE += SE
-    print 'Number of invalid points :', invalidPoints
+    print('Number of invalid points :', invalidPoints)
 
     # Plot the results (optional)
     if plot:
@@ -160,16 +162,16 @@ def cost_function(scale, guess, heaPum, data):
     # Scale the normalized parameters back to dimensional values
     params = guess*scale
 
-    print '-----------------------------------------------------------------\n'
+    print('----------------------------------------------------------------\n')
     heaPum.reinitializeParameters(params)
     heaPum.printParameters()
-    print '-----------------------------------------------------------------\n'
+    print('----------------------------------------------------------------\n')
 
     res = simulate(heaPum, data)
     SSE = compare_data_sets(res, data)
 
-    print 'Sum of square errors : ' + str(SSE) + ' \n'
-    print '-----------------------------------------------------------------\n'
+    print('Sum of square errors : ' + str(SSE) + ' \n')
+    print('----------------------------------------------------------------\n')
     return SSE
 
 

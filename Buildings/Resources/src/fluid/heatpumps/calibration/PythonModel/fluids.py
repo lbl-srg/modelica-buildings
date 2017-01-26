@@ -1,3 +1,6 @@
+from __future__ import division, print_function, absolute_import
+
+
 class ConstantPropertyWater(object):
     """ Object for the evaluation of thermal properties of heat transfer fluid
         Water.
@@ -18,8 +21,7 @@ class ConstantPropertyWater(object):
         :return: Density of water at 20 C (kg/m3)
 
         Usage: Type
-           >>> from PythonModel import fluids
-           >>> flu = fluids.ConstantPropertyWater()
+           >>> flu = ConstantPropertyWater()
            >>> flu.get_Density()
            998.207150468
 
@@ -32,8 +34,7 @@ class ConstantPropertyWater(object):
         :return: Specific isobaric heat capacity of water at 20 C (J/(kg.K))
 
         Usage: Type
-           >>> from PythonModel import fluids
-           >>> flu = fluids.ConstantPropertyWater()
+           >>> flu = ConstantPropertyWater()
            >>> flu.get_SpecificIsobaricHeatCapacity()
            4184.05092452
 
@@ -46,8 +47,7 @@ class ConstantPropertyWater(object):
         :return: Specific volume of water at 20 C (m3/kg)
 
         Usage: Type
-           >>> from PythonModel import fluids
-           >>> flu = fluids.ConstantPropertyWater()
+           >>> flu = ConstantPropertyWater()
            >>> flu.get_SpecificVolume()
            0.00100179606961
 
@@ -63,8 +63,7 @@ class ConstantPropertyWater(object):
                   model from failing.
 
         Usage: Type
-           >>> from PythonModel import fluids
-           >>> flu = fluids.ConstantPropertyWater()
+           >>> flu = ConstantPropertyWater()
            >>> flu.modelicaModelPath()
            'Modelica.Media.Water.ConstantPropertyLiquidWater(T_min=223.15)'
 

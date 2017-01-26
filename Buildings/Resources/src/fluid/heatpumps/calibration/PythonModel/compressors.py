@@ -1,3 +1,6 @@
+from __future__ import division, print_function, absolute_import
+
+
 class ReciprocatingCompressor(object):
     """ Object for reciprocating compressor model based on Jin (2002):
         H. Jin. Parameter estimation based models of water source heat pumps.
@@ -29,10 +32,9 @@ class ReciprocatingCompressor(object):
         :return: Suction temperature (K).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.get_SuctionTemperature(283.15)
-           292.97
+           292.96999999999997
 
         """
         # Apply superheating to evaporating temperature
@@ -47,8 +49,7 @@ class ReciprocatingCompressor(object):
         :return: Suction pressure (Pa).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.get_SuctionPressure(1.083e6)
            983710.0
 
@@ -65,8 +66,7 @@ class ReciprocatingCompressor(object):
         :return: Discharge pressure (Pa).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.get_DischargePressure(1.879e6)
            1978290.0
 
@@ -88,10 +88,9 @@ class ReciprocatingCompressor(object):
         :return: Refrigerant mass flow rate (kg/s).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> from PythonModel import refrigerants
+           >>> import refrigerants
            >>> ref = refrigerants.R410A()
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.get_RefrigerantMassFlowRate(0.0288, ref, 1978290.0, 983710.0, 292.97)
            0.053581664701638484
 
@@ -115,10 +114,9 @@ class ReciprocatingCompressor(object):
         :return: Power input to the compressor (W).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> from PythonModel import refrigerants
+           >>> import refrigerants
            >>> ref = refrigerants.R410A()
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.get_Power(0.0288, ref, 1978290.0, 983710.0, 292.97)
            1765.6261463889248
 
@@ -203,8 +201,7 @@ class ReciprocatingCompressor(object):
         :return: Full path to the compressor model in the Buildings library.
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
+           >>> com = ReciprocatingCompressor([0.00162, 0.069, 0.696, 100.0, 99.29e3, 9.82])
            >>> com.modelicaModelPath()
            'Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor'
 
@@ -215,12 +212,12 @@ class ReciprocatingCompressor(object):
         """ Prints the value of the model parameters.
 
         """
-        print 'Piston displacement : ' + str(self.pisDis) + ' m3/s'
-        print 'Clearance factor : ' + str(self.cleFac) + ' '
-        print 'Electro-mechanical efficiency : ' + str(self.etaEle) + ' '
-        print 'Constant part of power losses : ' + str(self.PLos) + ' W'
-        print 'Suction and discharge pressure drop : ' + str(self.pDro) + ' Pa'
-        print 'Amplitude of superheating : ' + str(self.dTSup) + ' K\n'
+        print('Piston displacement : ' + str(self.pisDis) + ' m3/s')
+        print('Clearance factor : ' + str(self.cleFac) + ' ')
+        print('Electro-mechanical efficiency : ' + str(self.etaEle) + ' ')
+        print('Constant part of power losses : ' + str(self.PLos) + ' W')
+        print('Suction and discharge pressure drop : ' + str(self.pDro) + ' Pa')
+        print('Amplitude of superheating : ' + str(self.dTSup) + ' K\n')
         return
 
     def reinitializeParameters(self, parameters):
@@ -275,8 +272,7 @@ class ScrollCompressor(object):
         :return: Suction temperature (K).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.get_SuctionTemperature(283.15)
            289.64
 
@@ -293,8 +289,7 @@ class ScrollCompressor(object):
         :return: Suction pressure (Pa).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.get_SuctionPressure(1.083e6)
            1083000.0
 
@@ -311,8 +306,7 @@ class ScrollCompressor(object):
         :return: Discharge pressure (Pa).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.get_DischargePressure(1.879e6)
            1879000.0
 
@@ -332,8 +326,7 @@ class ScrollCompressor(object):
         :return: Refrigerant mass flow rate (kg/s).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.get_RefrigerantMassFlowRate(0.025, 1.879e6, 1.083e6)
            0.1076865189289012
 
@@ -355,10 +348,9 @@ class ScrollCompressor(object):
         :return: Power input to the compressor (W).
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> from PythonModel import refrigerants
+           >>> import refrigerants
            >>> ref = refrigerants.R410A()
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.get_Power(0.025, ref, 1.879e6, 1.083e6, 289.64)
            2940.2646079598467
 
@@ -455,8 +447,7 @@ class ScrollCompressor(object):
         :return: Full path to the compressor model in the Buildings library.
 
         Usage: Type
-           >>> from PythonModel import compressors
-           >>> com = compressors.ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
+           >>> com = ScrollCompressor([2.362, 0.00287, 0.0041, 0.922, 398.7, 6.49])
            >>> com.modelicaModelPath()
            'Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor'
 
@@ -467,12 +458,12 @@ class ScrollCompressor(object):
         """ Prints the value of the model parameters.
 
         """
-        print 'Volume ratio : ' + str(self.volRat) + ' '
-        print 'Volume flow rate : ' + str(self.v_flow) + ' m3/s'
-        print 'Leakage coefficient : ' + str(self.leaCoe) + ' kg/s'
-        print 'Electro-mechanical efficiency : ' + str(self.etaEle) + ' '
-        print 'Constant part of power losses : ' + str(self.PLos) + ' W'
-        print 'Amplitude of superheating : ' + str(self.dTSup) + ' K\n'
+        print('Volume ratio : ' + str(self.volRat) + ' ')
+        print('Volume flow rate : ' + str(self.v_flow) + ' m3/s')
+        print('Leakage coefficient : ' + str(self.leaCoe) + ' kg/s')
+        print('Electro-mechanical efficiency : ' + str(self.etaEle) + ' ')
+        print('Constant part of power losses : ' + str(self.PLos) + ' W')
+        print('Amplitude of superheating : ' + str(self.dTSup) + ' K\n')
         return
 
     def reinitializeParameters(self, parameters):

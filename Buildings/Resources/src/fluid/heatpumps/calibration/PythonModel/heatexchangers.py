@@ -1,3 +1,5 @@
+from __future__ import division, print_function, absolute_import
+
 import numpy as np
 
 
@@ -26,10 +28,9 @@ class EvaporatorCondenser(object):
         :return: Refrigerant temperature (K).
 
         Usage: Type
-           >>> from PythonModel import heatexchangers
-           >>> from PythonModel import fluids
+           >>> import fluids
            >>> flu = fluids.ConstantPropertyWater()
-           >>> eva = heatexchangers.EvaporatorCondenser([21523])
+           >>> eva = EvaporatorCondenser([21523])
            >>> eva.get_RefrigerantTemperature(19300, 0.71, flu, 298.75)
            305.25147703611856
 
@@ -79,8 +80,7 @@ class EvaporatorCondenser(object):
         :return: Full path to the compressor model in the Buildings library.
 
         Usage: Type
-           >>> from PythonModel import heatexchangers
-           >>> eva = heatexchangers.EvaporatorCondenser([21523])
+           >>> eva = EvaporatorCondenser([21523])
            >>> eva.modelicaModelPath()
            'Buildings.Fluid.HeatExchangers.EvaporatorCondenser'
 
@@ -91,8 +91,8 @@ class EvaporatorCondenser(object):
         """ Prints the value of the model parameters.
 
         """
-        print ('Thermal conductance of the heat exchanger : '
-               + str(self.UA) + ' W/K\n')
+        print('Thermal conductance of the heat exchanger : '
+              + str(self.UA) + ' W/K\n')
         return
 
     def reinitializeParameters(self, parameters):
