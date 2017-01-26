@@ -8,7 +8,6 @@ compareVars :=
     "tan.vol[3].T",
     "tan.vol[4].T",
     "tan.vol[5].T",
-    "boi.sta_b.T",
     "temSup.T",
     "temRet.T",
     "val1.y",
