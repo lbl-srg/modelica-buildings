@@ -65,8 +65,22 @@ Source and load temperatures and flow rates are read from an external time
 table.
 </p>
 <p>
-This model is called from the Python code that computes coefficients
-for the performance data.
+This model is called from the Python code that computes heat pump model
+parameters from the performance data.
+Heat pump model parameters are obtained through an optimization procedure that
+minimizes the difference between the modeled and tabulated (from the
+manufacturers) capacity and power input of the heat pump.
+</p>
+<p>
+The optimization is done using a Python implementation of the heat pump model, 
+found in Buildings/Resources/src/fluid/heatpumps/calibration/.
+Heat pump model parameters are verified using this modelica model after their
+evaluation by the Python code.
+</p>
+<p>
+Documentation for the Python code can be accessed 
+<a href=\"modelica://Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/html/index.html\">
+here</a>.
 </p>
 </html>", revisions="<html>
 <ul>
