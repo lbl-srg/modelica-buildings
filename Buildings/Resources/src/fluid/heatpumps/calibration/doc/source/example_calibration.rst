@@ -32,3 +32,9 @@ The scripts generates the following figures:
     Comparison between the performance data and the model predicted
     (from Dymola) heating capacities and power input using the
     calibrated parameters.
+
+The following record is generated for use in Modelica:
+
+.. literalinclude:: ../../Examples/SomeManufacturer_ABC060_70kW_4_0COP_R410A.mo
+   :language: modelica
+   :linenos:

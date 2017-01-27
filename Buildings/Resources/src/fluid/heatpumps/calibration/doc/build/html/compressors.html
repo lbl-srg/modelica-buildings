@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,7 +27,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="HeatPumpCalibration 1.0 documentation" href="index.html" />
     <link rel="next" title="Thermodynamic properties of heat carrier fluids" href="fluids.html" />
     <link rel="prev" title="Calibrate heat pump models" href="calibrate.html" /> 
   </head>
@@ -60,7 +60,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/compressors.txt"
+      <li><a href="_sources/compressors.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -123,10 +123,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
-<span class="go">1978290.0</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
+<span class="go">&#39;1978290.0&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -157,12 +156,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
-<span class="go">1765.6261463889248</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
+<span class="go">&#39;1765.63&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -193,12 +191,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
-<span class="go">0.053581664701638484</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
+<span class="go">&#39;0.05358166&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -221,10 +218,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
-<span class="go">983710.0</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;983710.0&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -247,10 +243,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
-<span class="go">292.97</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;292.97&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -303,8 +298,7 @@ routine.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor&#39;</span>
 </pre></div>
@@ -382,10 +376,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
-<span class="go">1879000.0</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
+<span class="go">&#39;1879000.0&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -416,12 +409,11 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
-<span class="go">2940.2646079598467</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;2940.26&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -451,10 +443,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">)</span>
-<span class="go">0.1076865189289012</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;0.107687&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -477,10 +468,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
-<span class="go">1083000.0</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
+<span class="go">&#39;1083000.0&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -503,10 +493,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
-<span class="go">289.64</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;289.64&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -559,8 +548,7 @@ routine.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">compressors</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor&#39;</span>
 </pre></div>
@@ -648,7 +636,7 @@ routine.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

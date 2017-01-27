@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,7 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="HeatPumpCalibration 1.0 documentation" href="index.html" />
+    <link rel="next" title="Generate performance data from heat pump model" href="dummy_performance_data.html" />
     <link rel="prev" title="Heat pump models" href="heatpumps.html" /> 
   </head>
   <body role="document">
@@ -40,6 +41,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="dummy_performance_data.html" title="Generate performance data from heat pump model"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="heatpumps.html" title="Heat pump models"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">HeatPumpCalibration 1.0 documentation</a> &#187;</li> 
@@ -50,10 +54,13 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="heatpumps.html"
                         title="previous chapter">Heat pump models</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dummy_performance_data.html"
+                        title="next chapter">Generate performance data from heat pump model</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/refrigerants.txt"
+      <li><a href="_sources/refrigerants.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -104,10 +111,9 @@
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_IsentropicExponent_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
-<span class="go">1.3862439691938546</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_IsentropicExponent_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;1.3862&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -130,10 +136,9 @@
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidEnthalpy</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
-<span class="go">252787.4464306781</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidEnthalpy</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
+<span class="go">&#39;252787.45&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -156,10 +161,9 @@
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidPressure</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
-<span class="go">1989639.9829398033</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedLiquidPressure</span><span class="p">(</span><span class="mf">305.25</span><span class="p">)</span>
+<span class="go">&#39;1989639.98&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -188,10 +192,9 @@ liquid enthalpy was used.</p>
 </div>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporEnthalpy</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
-<span class="go">425094.17606945609</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporEnthalpy</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;425094.18&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -214,10 +217,9 @@ liquid enthalpy was used.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporPressure</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
-<span class="go">1082792.9317597288</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SaturatedVaporPressure</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
+<span class="go">&#39;1082792.93&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -245,10 +247,9 @@ liquid enthalpy was used.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
-<span class="go">1167.0076838180112</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;1167.01&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -276,10 +277,9 @@ liquid enthalpy was used.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsochoricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
-<span class="go">841.84870033855839</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_SpecificIsochoricHeatCapacity_vT</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;841.85&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -309,10 +309,9 @@ liquid enthalpy was used.</p>
 refrigerant  R410A.</p>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_VaporPressure</span><span class="p">(</span><span class="mf">289.64</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
-<span class="go">1083546.30071468</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_VaporPressure</span><span class="p">(</span><span class="mf">289.64</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
+<span class="go">&#39;1083546.30&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -341,10 +340,9 @@ refrigerant  R410A.</p>
 <p>Uses the Martin-Hou equation of state to determine specific volume.</p>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">get_VaporSpecificVolume</span><span class="p">(</span><span class="mf">1083546.3</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
-<span class="go">0.025000012079155084</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ref</span><span class="o">.</span><span class="n">get_VaporSpecificVolume</span><span class="p">(</span><span class="mf">1083546.3</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
+<span class="go">&#39;0.02500001&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -368,8 +366,7 @@ refrigerant  R410A.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">refrigerants</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Media.Refrigerants.R410A&#39;</span>
 </pre></div>
@@ -398,6 +395,9 @@ refrigerant  R410A.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="dummy_performance_data.html" title="Generate performance data from heat pump model"
+             >next</a> |</li>
+        <li class="right" >
           <a href="heatpumps.html" title="Heat pump models"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">HeatPumpCalibration 1.0 documentation</a> &#187;</li> 
@@ -405,7 +405,7 @@ refrigerant  R410A.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

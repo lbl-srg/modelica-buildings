@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,7 +27,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="HeatPumpCalibration 1.0 documentation" href="index.html" />
     <link rel="next" title="Evaporator and condenser models" href="heatexchangers.html" />
     <link rel="prev" title="Compressor models" href="compressors.html" /> 
   </head>
@@ -60,7 +60,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/fluids.txt"
+      <li><a href="_sources/fluids.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -104,10 +104,9 @@ Water.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span><span class="o">.</span><span class="n">get_Density</span><span class="p">()</span>
-<span class="go">998.207150468</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_Density</span><span class="p">()</span>
+<span class="go">&#39;998.21&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -128,10 +127,9 @@ Water.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity</span><span class="p">()</span>
-<span class="go">4184.05092452</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity</span><span class="p">()</span>
+<span class="go">&#39;4184.05&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -152,10 +150,9 @@ Water.</p>
 </table>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificVolume</span><span class="p">()</span>
-<span class="go">0.00100179606961</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificVolume</span><span class="p">()</span>
+<span class="go">&#39;0.00100180&#39;</span>
 </pre></div>
 </div>
 </dd>
@@ -181,8 +178,7 @@ model from failing.</p>
 </div>
 <dl class="docutils">
 <dt>Usage: Type</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PythonModel</span> <span class="k">import</span> <span class="n">fluids</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Modelica.Media.Water.ConstantPropertyLiquidWater(T_min=223.15)&#39;</span>
 </pre></div>
@@ -221,7 +217,7 @@ model from failing.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,7 +27,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="HeatPumpCalibration 1.0 documentation" href="index.html" />
     <link rel="next" title="Calibrate heat pump model from performance data" href="example_calibration.html" />
     <link rel="prev" title="Refrigerant thermodynamic properties" href="refrigerants.html" /> 
   </head>
@@ -60,7 +60,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/dummy_performance_data.txt"
+      <li><a href="_sources/dummy_performance_data.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -180,7 +180,17 @@ and condenser inlets.</p>
 85
 86
 87
-88</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot; Example use of the heat pump model to generate performance data.</span>
 
 <span class="sd">This script demonstrates the use of the heat pump model to generate performance</span>
@@ -190,6 +200,7 @@ and condenser inlets.</p>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
@@ -209,7 +220,8 @@ and condenser inlets.</p>
 
     <span class="c1"># Initialize the heat pump model</span>
     <span class="n">P_nominal</span> <span class="o">=</span> <span class="mf">17.5e3</span>         <span class="c1"># Nominal heat pump power input (W).</span>
-    <span class="n">Q_nominal</span> <span class="o">=</span> <span class="n">P_nominal</span><span class="o">*</span><span class="mf">4.0</span>  <span class="c1"># Nominal heat pump capacity (W).</span>
+    <span class="n">COP_nominal</span> <span class="o">=</span> <span class="mf">4.0</span>          <span class="c1"># Nominal COP of the heat pump (-)</span>
+    <span class="n">Q_nominal</span> <span class="o">=</span> <span class="n">P_nominal</span><span class="o">*</span><span class="n">COP_nominal</span>  <span class="c1"># Nominal heat pump capacity (W).</span>
 
     <span class="c1"># Model parameters</span>
     <span class="n">volRat</span> <span class="o">=</span> <span class="mf">2.365</span>             <span class="c1"># Volume ratio (-).</span>
@@ -231,6 +243,9 @@ and condenser inlets.</p>
     <span class="c1"># Load-side entering water temperatures (K)</span>
     <span class="n">TLoa</span> <span class="o">=</span> <span class="p">[</span><span class="mf">288.15</span><span class="p">,</span> <span class="mf">298.15</span><span class="p">,</span> <span class="mf">308.15</span><span class="p">,</span> <span class="mf">318.15</span><span class="p">]</span>
 
+    <span class="c1"># -------------------------------------------------------------------------</span>
+    <span class="c1"># Initialize all models using given parameters values.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># Compressor model (Scroll)</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">compressors</span><span class="o">.</span><span class="n">ScrollCompressor</span><span class="p">([</span><span class="n">volRat</span><span class="p">,</span>
                                            <span class="n">V_flow_nominal</span><span class="p">,</span>
@@ -252,15 +267,20 @@ and condenser inlets.</p>
     <span class="n">heaPum</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">heatpumps</span><span class="o">.</span><span class="n">SingleStageHeatPump</span><span class="p">(</span>
         <span class="n">com</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">eva</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">fluCon</span><span class="p">,</span> <span class="n">fluEva</span><span class="p">,</span> <span class="n">Q_nominal</span><span class="p">,</span> <span class="n">P_nominal</span><span class="p">,</span> <span class="n">CoolingMode</span><span class="p">)</span>
 
+    <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="c1"># Evaluate heat pump peformance at all combinations of boundary conditions.</span>
+    <span class="c1"># -------------------------------------------------------------------------</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tableFileName</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">TS</span> <span class="ow">in</span> <span class="n">TSou</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">mS</span> <span class="ow">in</span> <span class="n">mSou_flow</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">TL</span> <span class="ow">in</span> <span class="n">TLoa</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">mL</span> <span class="ow">in</span> <span class="n">mLoa_flow</span><span class="p">:</span>
+                        <span class="c1"># Evaluate capacity, source-side heat transfer rate and</span>
+                        <span class="c1"># power input.</span>
                         <span class="n">Cap</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Capacity</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
                         <span class="n">HR</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_SourceSideTransferRate</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
                         <span class="n">Power</span> <span class="o">=</span> <span class="n">heaPum</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">)</span><span class="o">/</span><span class="mf">1e3</span>
+                        <span class="c1"># Write to text file.</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\t</span><span class="s1">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                 <span class="n">TS</span><span class="p">,</span> <span class="n">TL</span><span class="p">,</span> <span class="n">mS</span><span class="p">,</span> <span class="n">mL</span><span class="p">,</span> <span class="n">Cap</span><span class="p">,</span> <span class="n">HR</span><span class="p">,</span> <span class="n">Power</span><span class="p">))</span>
     <span class="k">return</span>
@@ -298,7 +318,7 @@ and condenser inlets.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>
