@@ -241,5 +241,5 @@ for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404<
         "Plot fan"),
     experiment(
       StartTime=0.0, StopTime=172800,
-      Tolerance=1e-06));
+      Tolerance=1e-08));
 end VAVSystemCTControl;
