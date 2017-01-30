@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
+                   //fixme issues zeroTim==Buildings.Utilities.Time.Types.ZeroTime.Custom, lots of hardcoded stuff
 
   parameter Buildings.Utilities.Time.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
