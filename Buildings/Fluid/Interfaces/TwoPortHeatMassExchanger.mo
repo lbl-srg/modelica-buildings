@@ -39,9 +39,10 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare replaceable package Medium = Buildings.Media.Water)
   constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare final package Medium = Medium,
+    redeclare replaceable package Medium = Buildings.Media.Water,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
     final allowFlowReversal=allowFlowReversal,

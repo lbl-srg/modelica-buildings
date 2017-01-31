@@ -1,6 +1,6 @@
 within Buildings.Fluid.Interfaces;
 record LumpedVolumeDeclarations "Declarations for lumped volumes"
-  replaceable package Medium =
+  replaceable package Medium = Buildings.Media.Water constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
