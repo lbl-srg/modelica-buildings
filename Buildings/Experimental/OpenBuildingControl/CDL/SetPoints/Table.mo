@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model Table
   "Model for a set point that is interpolated based on a user-specified table"
+  extends Modelica.Blocks.Interfaces.SISO;
   parameter Real table[:,2]=fill(0.0, 1, 2)
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
@@ -8,11 +9,6 @@ model Table
 
   parameter Boolean constantExtrapolation = true
     "If true, then y=y1 for u<u1, and y=yMax for u>uMax";
-
-  Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
 
 protected
   final parameter Integer nRow = if constantExtrapolation then
@@ -29,6 +25,10 @@ protected
                     table)
                   +offsetVector) "Table used for interpolation"
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+
+                  //***mg add option for periodic
+                  //***mg add option for keep previous abscissa point
+
 equation
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
@@ -77,10 +77,6 @@ Note that the first column must be strictly increasing.
 revisions="<html>
 <ul>
 <li>
-January 10, 2016, by Milica Grahovac:<br/>
-Initial CDL implementation.
-</li>
-<li>
 August 30, 2016, by Michael Wetter:<br/>
 Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>
 This is for
@@ -97,15 +93,6 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
-        Text(
-          extent={{-150,150},{150,110}},
-          textString="%name",
-          lineColor={0,0,255}),
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
     Text(
       extent={{-78,-45},{-40,-56}},
       lineColor={0,0,0},

@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 block CombiTable1D
   "Table look-up in one dimension (matrix/file) with n inputs and n outputs"
-
+  extends Modelica.Blocks.Interfaces.MIMOs(final n=size(columns, 1));
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file or in function usertab"
     annotation (Dialog(group="Table data definition"));
@@ -23,19 +23,36 @@ block CombiTable1D
   parameter Integer columns[:]=2:size(table, 2)
     "Columns of table to be interpolated"
     annotation (Dialog(group="Table data interpretation"));
-  parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.Smoothness smoothness=Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.Smoothness.LinearSegments
     "Smoothness of table interpolation"
     annotation (Dialog(group="Table data interpretation"));
-  parameter Integer n = size(columns, 1) "Number of inputs (= number of outputs)";
+protected
+  Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D tableID=
+      Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D(
+        if tableOnFile then tableName else "NoName",
+        if tableOnFile and fileName <> "NoName" and not Modelica.Utilities.Strings.isEmpty(fileName) then fileName else "NoName",
+        table,
+        columns,
+        smoothness) "External table object";
+  parameter Real tableOnFileRead(fixed=false)
+    "= 1, if table was successfully read from file";
 
-  RealInput u[n] "Connector of Real input signals" annotation (Placement(
-        transformation(extent={{-140,-20},{-100,20}})));
-  RealOutput y[n] "Connector of Real output signals" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}})));
+  function readTableData "Read table data from ASCII text or MATLAB MAT-file"
+    extends Modelica.Icons.Function;
+    input Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D tableID;
+    input Boolean forceRead = false
+      "= true: Force reading of table data; = false: Only read, if not yet read.";
+    input Boolean verboseRead
+      "= true: Print info message; = false: No info message";
+    output Real readSuccess "Table read success";
+    external"C" readSuccess = ModelicaStandardTables_CombiTable1D_read(tableID, forceRead, verboseRead)
+      annotation (Library={"ModelicaStandardTables", "ModelicaMatIO", "zlib"});
+    annotation(__ModelicaAssociation_Impure=true);
+  end readTableData;
 
   function getTableValue "Interpolate 1-dim. table defined by matrix"
     extends Modelica.Icons.Function;
-    input Modelica.Blocks.Types.ExternalCombiTable1D tableID;
+    input Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D tableID;
     input Integer icol;
     input Real u;
     input Real tableAvailable
@@ -49,7 +66,7 @@ block CombiTable1D
   function getTableValueNoDer
     "Interpolate 1-dim. table defined by matrix (but do not provide a derivative function)"
     extends Modelica.Icons.Function;
-    input Modelica.Blocks.Types.ExternalCombiTable1D tableID;
+    input Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D tableID;
     input Integer icol;
     input Real u;
     input Real tableAvailable
@@ -59,19 +76,19 @@ block CombiTable1D
       annotation (Library={"ModelicaStandardTables", "ModelicaMatIO", "zlib"});
   end getTableValueNoDer;
 
-//  function getDerTableValue
-//    "Derivative of interpolated 1-dim. table defined by matrix"
-//    extends Modelica.Icons.Function;
-//    input Modelica.Blocks.Types.ExternalCombiTable1D tableID;
-//    input Integer icol;
-//    input Real u;
-//    input Real tableAvailable
-//      "Dummy input to ensure correct sorting of function calls";
-//    input Real der_u;
-//    output Real der_y;
-//    external"C" der_y = ModelicaStandardTables_CombiTable1D_getDerValue(tableID, icol, u, der_u)
-//      annotation (Library={"ModelicaStandardTables", "ModelicaMatIO", "zlib"});
-//  end getDerTableValue;
+  function getDerTableValue
+    "Derivative of interpolated 1-dim. table defined by matrix"
+    extends Modelica.Icons.Function;
+    input Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.ExternalCombiTable1D tableID;
+    input Integer icol;
+    input Real u;
+    input Real tableAvailable
+      "Dummy input to ensure correct sorting of function calls";
+    input Real der_u;
+    output Real der_y;
+    external"C" der_y = ModelicaStandardTables_CombiTable1D_getDerValue(tableID, icol, u, der_u)
+      annotation (Library={"ModelicaStandardTables", "ModelicaMatIO", "zlib"});
+  end getDerTableValue;
 
 initial algorithm
   if tableOnFile then
@@ -79,7 +96,6 @@ initial algorithm
   else
     tableOnFileRead := 1.;
   end if;
-
 equation
   if tableOnFile then
     assert(tableName <> "NoName",
