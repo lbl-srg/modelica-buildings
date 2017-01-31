@@ -1,10 +1,8 @@
 within Buildings.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
- extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-  effInpEva=Buildings.Fluid.Types.EfficiencyInput.port_b,
-  effInpCon=Buildings.Fluid.Types.EfficiencyInput.port_b,
-  final COP_is_for_cooling = false);
+  extends Buildings.Fluid.Chillers.BaseClasses.PartialCarnot_y(
+    final COP_is_for_cooling = false);
 
 initial equation
   assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
@@ -26,7 +24,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
@@ -75,12 +73,9 @@ The maximum heating capacity is set by the parameter <code>QCon_flow_max</code>,
 which is by default set to infinity.
 </p>
 <p>
-By default, the coefficient of performance depends on the
-evaporator entering temperature and the condenser leaving
-temperature.
-This can be changed with the parameters
-<code>effInpEva</code> and
-<code>effInpCon</code>.
+The coefficient of performance depends on the
+evaporator and condenser leaving temperature
+since otherwise the second law of thermodynamics may be violated.
 </p>
 <h4>Notes</h4>
 <p>
@@ -90,6 +85,15 @@ For a similar model that can be used as a chiller, see
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 3, 2017, by Michael Wetter:<br/>
+Removed parameters
+<code>effInpEva</code> and <code>effInpCon</code>
+and updated documentation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+issue 497</a>.
+</li>
 <li>
 August 8, 2016, by Michael Wetter:<br/>
 Changed default temperature to compute COP to be the leaving temperature as

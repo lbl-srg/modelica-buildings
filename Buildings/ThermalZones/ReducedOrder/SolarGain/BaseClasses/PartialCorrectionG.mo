@@ -9,7 +9,7 @@ partial model PartialCorrectionG
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](
     each final quantity="RadiantEnergyFluenceRate",
     each final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
     iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil[n](
@@ -21,7 +21,7 @@ partial model PartialCorrectionG
   Modelica.Blocks.Interfaces.RealInput HGroDifTil[n](
     each final quantity="RadiantEnergyFluenceRate",
     each final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
+    "Hemispherical diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput inc[n](

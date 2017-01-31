@@ -46,9 +46,10 @@ block AirToOutlet
     displayUnit="degC") if
        allowFlowReversal
     "Temperature of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
         origin={-60,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},
@@ -58,9 +59,10 @@ block AirToOutlet
     final unit="kg/kg") if
        Medium.nXi > 0 and allowFlowReversal
     "Water mass fraction per total air mass of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
         origin={0,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},
@@ -70,9 +72,10 @@ block AirToOutlet
     final quantity=Medium.extraPropertiesNames) if
        allowFlowReversal
     "Trace substances of the backward flowing medium in the connector outlet"
-    annotation (Placement(transformation(extent={{20,20},{-20,-20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{20,20},{-20,-20}},
+        rotation=90,
         origin={60,-120}),
         iconTransformation(
         extent={{20,20},{-20,-20}},

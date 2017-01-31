@@ -2,7 +2,12 @@ within Buildings.Utilities.Math.Functions.Examples;
 model InverseXDerivative_2_Check
   "Model that checks the correct implementation of the 2nd order derivative of InverseXRegularized"
   extends Modelica.Icons.Example;
-
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu1(
+    threShold=1e-3)
+    "Block for checking integration error";
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu2(
+    threShold=1e-3)
+    "Block for checking integration error";
   constant Real gain = 4 "Gain for computing the mass flow rate";
 
   parameter Real delta = 0.7 "Smoothing coefficient";
@@ -21,14 +26,18 @@ initial equation
 equation
   x = time^3*gain;
   y = Buildings.Utilities.Math.Functions.inverseXRegularized(
-    x=  x,
-    delta=  delta);
+    x = x,
+    delta = delta);
 
   der_y = der(y);
   der_y_comp = der(y_comp);
   der(der_y) = der(der_y_comp);
-  err     = y-y_comp;
-  der_err = der_y-der_y_comp;
+  cheEqu1.u1 = y;
+  cheEqu1.u2 = y_comp;
+  err = cheEqu1.y;
+  cheEqu2.u1 = der_y;
+  cheEqu2.u2 = der_y_comp;
+  der_err = cheEqu2.y;
 
   assert(abs(err) < 1E-3, "Error in implementation.");
   assert(abs(der_err) < 1E-3, "Error in implementation.");
@@ -52,6 +61,11 @@ If the derivative implementation is wrong, the simulation will stop with an erro
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 12, 2017, by Thierry S. Nouidui:<br/>
+Added blocks for checking integration errors.
+This is needed for the JModelica verification tests.
+</li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>
 First implementation.

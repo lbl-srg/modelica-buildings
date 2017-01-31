@@ -69,7 +69,7 @@ package RC
   </p>
   <p>
   Heat transfer through windows and solar radiation transmission are handled
-  seperately. One major difference in the implementations in this
+  separately. One major difference in the implementations in this
   package compared to the guideline is an additional element for heat transfer
   through windows, which are lumped with exterior walls in the guideline VDI 6007
   Part 1 (VDI, 2012). The heat transfer element for the windows allows to model
@@ -79,11 +79,11 @@ package RC
   exterior walls leads to a virtual capacity for the windows and results in a
   shifted reaction of the room temperature to environmental impacts
   (Lauster, Bruentjen <i>et al.</i>, 2014).
-  However, the user is free to choose whether keeping windows seperately
+  However, the user is free to choose whether keeping windows separately
   (<code>AWin</code>) or merging them (<code>AExt=AExterior+AWindows, AWin=0</code>).
-   The window areas can be defined seperately for solar
+   The window areas can be defined separately for solar
   radiation (vector <code>ATransparent</code>) and heat transfer
-  (vector <code>AWin</code>). For cases where the windows are kept seperately,
+  (vector <code>AWin</code>). For cases where the windows are kept separately,
   <code>ATransparent</code> and <code>AWin</code> are equal. When merging
   windows and exterior walls,  <code>AWin</code> can be set to zero while
   <code>ATransparent</code> still represents the actual window area for solar
@@ -142,7 +142,7 @@ package RC
   one for convective and one for radiative gains. Considering solar radiation
   typically requires several models upstream to calculate angle-dependent
   irradiation or solar absorption and reflection by windows.
-  We decided to keep these models seperate from the thermal
+  We decided to keep these models separate from the thermal
   zone model. Thus, solar radiation is handled as a basic
   <code>RadiantEnergyFluenceRate</code>.
   For internal gains, the user might need
@@ -164,7 +164,7 @@ package RC
   the area of exterior walls and windows with the same orientation as the incoming
   radiation is not taken into account for the distribution as such surfaces cannot
   be hit by the particular radiation. This calculation is performed for each
-  orientation seperately using
+  orientation separately using
   <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal</a>.
   </p>

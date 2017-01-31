@@ -25,7 +25,7 @@ model ClosetFullBed
     A = {3.6576*1.524, 3.93},
     til = {Buildings.Types.Tilt.Wall, Buildings.Types.Tilt.Floor},
     azi = {Buildings.Types.Azimuth.W, Buildings.Types.Azimuth.N},
-    each stateAtSurface_a = false));
+    stateAtSurface_a = {true, false}));
 
   replaceable parameter
     Data.Constructions.OpaqueConstructions.DividingWalls.CellAndElectricalDividingWall
