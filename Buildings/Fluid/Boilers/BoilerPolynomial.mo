@@ -2,9 +2,7 @@ within Buildings.Fluid.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
   extends Interfaces.TwoPortHeatMassExchanger(
-    redeclare replaceable package Medium = Buildings.Media.Water,
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
-      redeclare replaceable package Medium = Buildings.Media.Water),
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
     show_T = true,
     final tau=VWat*rho_default/m_flow_nominal);
 
