@@ -41,7 +41,7 @@ model TwoPortHeatMassExchanger
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
   constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
     final allowFlowReversal=allowFlowReversal,

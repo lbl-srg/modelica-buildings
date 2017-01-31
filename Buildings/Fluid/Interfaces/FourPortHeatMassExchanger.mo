@@ -185,10 +185,6 @@ initial algorithm
 
 
 
-
-
-
-
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},

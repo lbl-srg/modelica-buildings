@@ -61,6 +61,10 @@ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
 revisions="<html>
 <ul>
 <li>
+January 31, 2016, by Michael Wetter:<br/>
+Hard-coded medium as a temporary work-around for OpenModelica.
+</li>
+<li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
