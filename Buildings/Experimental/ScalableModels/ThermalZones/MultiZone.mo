@@ -28,8 +28,8 @@ equation
           0,0}));
     end for;
   end for;
-  for iZon in 1:nZon-1 loop
-    for iFlo in 1:nFlo-1 loop
+  for iZon in 1:nZon loop
+    for iFlo in 1:nFlo loop
   connect(weaDat.weaBus, theZon[iZon, iFlo].weaBus) annotation (Line(
       points={{-40,-30},{-6,-30},{-6,-8}},
       color={255,204,51},
@@ -39,5 +39,9 @@ equation
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"));
 end MultiZone;

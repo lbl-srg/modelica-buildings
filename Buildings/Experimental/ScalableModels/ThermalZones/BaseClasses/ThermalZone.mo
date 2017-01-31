@@ -45,6 +45,10 @@ model ThermalZone "Thermal zone model"
       til={C_, Z_},
       absIR = {conFlo.absIR_a, conIntWal.absIR_a},
       absSol = {conFlo.absSol_a, conIntWal.absSol_a}),
+    datConPar(
+      layers={conIntWal},
+      A={8*2.7/2},
+      til={Buildings.Types.Tilt.Wall}),
     nConExt=0,
     nConPar=1,
     nSurBou=2,
