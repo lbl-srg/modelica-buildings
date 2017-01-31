@@ -2,6 +2,8 @@ within Buildings.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+    redeclare replaceable package Medium1 = Buildings.Media.Water,
+    redeclare replaceable package Medium2 = Buildings.Media.Air,
     port_a1(h_outflow(start=h1_outflow_start)),
     port_b1(h_outflow(start=h1_outflow_start)),
     port_a2(h_outflow(start=h2_outflow_start)),
@@ -183,6 +185,10 @@ initial algorithm
 
 
 
+
+
+
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -228,6 +234,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 31, 2016, by Michael Wetter:<br/>
+Hard-coded medium as a temporary work-around for OpenModelica.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
