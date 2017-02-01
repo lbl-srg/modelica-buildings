@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model Table
   "Model for a set point that is interpolated based on a user-specified table"
-  extends Modelica.Blocks.Interfaces.SISO;
+  extends Modelica.Blocks.Icons.Block;
   parameter Real table[:,2]=fill(0.0, 1, 2)
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
@@ -9,6 +9,12 @@ model Table
 
   parameter Boolean constantExtrapolation = true
     "If true, then y=y1 for u<u1, and y=yMax for u>uMax";
+
+  Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
+        transformation(extent={{-140,-20},{-100,20}})));
+
+  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
+        transformation(extent={{100,-10},{120,10}})));
 
 protected
   final parameter Integer nRow = if constantExtrapolation then
