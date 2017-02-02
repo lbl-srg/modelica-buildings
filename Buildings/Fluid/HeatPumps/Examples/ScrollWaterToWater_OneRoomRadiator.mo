@@ -25,7 +25,7 @@ model ScrollWaterToWater_OneRoomRadiator
     m_flow_nominal=mA_flow_nominal,
     V=V)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/30)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/40)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
@@ -52,12 +52,12 @@ model ScrollWaterToWater_OneRoomRadiator
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal,
-    m_flow_nominal=mHeaPum_flow_nominal)
-                                 "Radiator"
+    m_flow_nominal=mHeaPum_flow_nominal,
+    T_start=TRadSup_nominal)     "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
-      m_flow_nominal=mHeaPum_flow_nominal)
-                                        "Supply water temperature"
+      m_flow_nominal=mHeaPum_flow_nominal,
+    T_start=TRadSup_nominal)            "Supply water temperature"
       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -74,7 +74,8 @@ model ScrollWaterToWater_OneRoomRadiator
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mHeaPum_flow_nominal,
       y_start=1,
-      m_flow_start=0.85)
+      m_flow_start=0.85,
+    T_start=TRadSup_nominal)
     "Pump for radiator side"
      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -83,11 +84,13 @@ model ScrollWaterToWater_OneRoomRadiator
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
-      nPorts=1)
+      nPorts=1,
+    T=TRadSup_nominal)
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{94,-138},{74,-118}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temRet(redeclare package Medium =
-        MediumW, m_flow_nominal=mHeaPum_flow_nominal) "Return water temperature"
+        MediumW, m_flow_nominal=mHeaPum_flow_nominal,
+    T_start=TRadSup_nominal)                          "Return water temperature"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -122,18 +125,20 @@ model ScrollWaterToWater_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m1_flow_nominal=mHeaPum_flow_nominal,
     m2_flow_nominal=mHeaPum_flow_nominal,
-    datHeaPum=Data.ScrollWaterToWater.Heating.Daikin_WRA072_24kW_4_30COP_R410A())
+    datHeaPum=Data.ScrollWaterToWater.Heating.Daikin_WRA072_24kW_4_30COP_R410A(),
+    T1_start=TRadSup_nominal)
     "Heat pump"
     annotation (Placement(transformation(extent={{34,-146},{14,-126}})));
 
   Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
-      m_flow_nominal=mHeaPum_flow_nominal)
+      m_flow_nominal=mHeaPum_flow_nominal,
+    T_start=TRadSup_nominal)
     annotation (Placement(transformation(extent={{-20,-140},{-40,-120}})));
   Sources.FixedBoundary sou(
     redeclare package Medium = MediumW,
     use_T=true,
     nPorts=1,
-    T=283.15) "Fluid source on source side"
+    T=281.15) "Fluid source on source side"
     annotation (Placement(transformation(extent={{-38,-208},{-18,-188}})));
   Sources.FixedBoundary sin(
     redeclare package Medium = MediumW,
