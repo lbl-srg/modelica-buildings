@@ -109,14 +109,14 @@ equation
       points={{-79,50},{-46,50},{-46,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/MultiStage.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/MultiStage.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\">
-Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",

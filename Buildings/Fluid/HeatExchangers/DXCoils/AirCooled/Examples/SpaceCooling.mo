@@ -686,7 +686,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-300},{300,
             100}}), graphics),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SpaceCooling.mos"
         "Simulate and plot"),
     experiment(StartTime=1.58112e7,
                StopTime=1.6416e+07));

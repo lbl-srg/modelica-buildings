@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.Validation.SingleSpeedEnergyPlus", stopTime=86400, method="radau", tolerance=1e-05, resultFile="SingleSpeedEnergyPlus");
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation.SingleSpeedEnergyPlus", stopTime=86400, method="radau", tolerance=1e-05, resultFile="SingleSpeedEnergyPlus");
 removePlots();
 createPlot(id = 1,
  position = {9, 5, 455, 673},

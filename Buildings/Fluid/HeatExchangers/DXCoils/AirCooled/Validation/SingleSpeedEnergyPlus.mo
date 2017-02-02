@@ -315,14 +315,14 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Validation/SingleSpeedEnergyPlus.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Validation/SingleSpeedEnergyPlus.mos"
         "Simulate and plot"),
     experiment(StopTime=86400),
     Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</a>.
 </p>
 <p>
 The difference in results of
