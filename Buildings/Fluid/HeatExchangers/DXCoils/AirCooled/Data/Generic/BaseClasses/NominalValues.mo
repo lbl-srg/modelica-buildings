@@ -11,7 +11,7 @@ record NominalValues "Data record of nominal values"
   parameter Real SHR_nominal "Nominal sensible heat ratio"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal air mass flow rate"
+    "Nominal air mass flow rate at evaporators"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Temperature TEvaIn_nominal=273.15+19.4
@@ -19,7 +19,7 @@ record NominalValues "Data record of nominal values"
       annotation(Dialog(tab="General",group="Nominal condition"));
 
   parameter Modelica.SIunits.Temperature TConIn_nominal=308.15
-    "Condenser entering air temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb otherwise)"
+    "Condenser entering temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb for air cooled)"
       annotation(Dialog(tab="General",group="Nominal condition"));
 
   parameter Real phiIn_nominal=0.5
@@ -38,15 +38,8 @@ record NominalValues "Data record of nominal values"
 annotation (defaultComponentName="nomVal",
               preferredView="info",
   Documentation(info="<html>
-  <p>
-This is the base record of nominal values for DX cooling coil models.
-</p>
-<p>
-See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
-for a description of the data.
-</p>
+<p>This is the base record of nominal values for DX cooling coil models. </p>
+<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>

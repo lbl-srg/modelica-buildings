@@ -36,15 +36,8 @@ record PerformanceCurve "Data record for a performance curve"
     annotation (Dialog(group="Minimum and maximum values"));
 
   annotation (defaultComponentName="per", Documentation(info="<html>
-<p>
-This record declares the data used to specify performance curves for DX coils.
-</p>
-<p>
-See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
-for a description of the data.
-</p>
+<p>This record declares the data used to specify performance curves for DX coils. </p>
+<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>
