@@ -28,8 +28,8 @@ block CoolingCapacity
   parameter Modelica.SIunits.MassFlowRate m_flow_small
     "Small mass flow rate for regularization";
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage sta[nSta]
-    "Performance data for this stage";
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    sta[nSta] "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flwo rate";
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nSta](
@@ -116,7 +116,7 @@ equation
         String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
-        level=  AssertionLevel.warning);
+        level = AssertionLevel.warning);
         checkBoundsTEva[iSta] = false;
       end when;
       when ( stage == iSta and pre(checkBoundsTCon[stage])) then
@@ -130,7 +130,7 @@ equation
         String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
-        level=  AssertionLevel.warning);
+        level = AssertionLevel.warning);
         checkBoundsTCon[iSta] = false;
       end when;
     end for;

@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block EssentialParameters "A partial block for essential parameters"
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
-                                                                 datCoi
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected

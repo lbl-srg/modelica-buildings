@@ -90,10 +90,10 @@ algorithm
      end if;
 
     bypass := Buildings.Utilities.Math.Functions.smoothLimit(
-      x=  Modelica.Math.exp(-UAcp / m_flow_nonzero),
-      l=  0.01,
-      u=  0.99,
-      deltaX=  0.001);
+      x = Modelica.Math.exp(-UAcp / m_flow_nonzero),
+      l = 0.01,
+      u = 0.99,
+      deltaX = 0.001);
    delta_h:=Buildings.Utilities.Math.Functions.smoothMin(
       x1=-Q_flow/m_flow_nonzero/(1 - bypass),
       x2=0.999*hEvaIn,
