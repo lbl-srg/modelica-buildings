@@ -83,9 +83,9 @@ equation
   // Set point for outlet enthalpy without any capacity limitation
   hSet = Medium.specificEnthalpy(
     Medium.setState_pTX(
-      p=  port_a.p,
-      T=  T,
-      X=  inStream(port_a.Xi_outflow)));
+      p = port_a.p,
+      T = T,
+      X = inStream(port_a.Xi_outflow)));
 
   m_flow_pos = Buildings.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
@@ -101,8 +101,8 @@ equation
   else
 
     m_flow_limited = Buildings.Utilities.Math.Functions.smoothMax(
-      x1=  port_a.m_flow,
-      x2=  m_flow_small,
+      x1 = port_a.m_flow,
+      x2 = m_flow_small,
       deltaX=m_flow_small/2);
 
     if restrictHeat and restrictCool then

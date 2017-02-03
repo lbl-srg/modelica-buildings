@@ -294,9 +294,9 @@ equation
           {72,30},{106,30},{106,140},{120,140}}, color={0,127,255}));
   connect(out.weaBus, weaBus) annotation (Line(
       points={{-120,90.2},{-130,90.2},{-130,90},{-130,120},{-60,120},{-60,140}},
-
       color={255,204,51},
       thickness=0.5));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},
             {160,180}}), graphics={
         Text(

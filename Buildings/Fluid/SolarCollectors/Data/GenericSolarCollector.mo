@@ -23,7 +23,7 @@ record GenericSolarCollector
     "Nominal solar irradiance specified in ratings data";
    parameter Modelica.SIunits.TemperatureDifference dT_nominal
     "Nominal temperature difference specified in ratings data";
-annotation(
+annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info="<html>

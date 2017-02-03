@@ -2,6 +2,8 @@ ApparatusDewPoint
 ApparatusDryPoint
 Condensation
 CoolingCapacity
+CoolingCapacity1
+CoolingCapacity2
 DXCooling
 DryCoil
 DryWetSelector
@@ -10,6 +12,7 @@ Evaporation
 InputPower
 PartialCoilCondition
 PartialCoilInterface
+PartialCoolingCapacity
 PartialDXCoil
 PartialSurfaceCondition
 SensibleHeatRatio

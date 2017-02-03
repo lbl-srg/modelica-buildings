@@ -37,7 +37,6 @@ model CoolingCapacity "Test model for CoolingCapacity"
       m_flow_nominal=1.5),
     perCur=
         Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III(),
-
     spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

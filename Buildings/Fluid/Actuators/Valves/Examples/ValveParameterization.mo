@@ -14,14 +14,14 @@ model ValveParameterization
          annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     use_p_in=true,
     nPorts=3,
     T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=3,
     use_p_in=false,
     p=300000,

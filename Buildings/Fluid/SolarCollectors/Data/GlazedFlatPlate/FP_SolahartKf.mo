@@ -16,7 +16,7 @@ record FP_SolahartKf =
     final C2=0,
     final G_nominal=1000,
     final dT_nominal=10) "FP - Solahart Kf"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datSolCol",
 Documentation(info = "<html>

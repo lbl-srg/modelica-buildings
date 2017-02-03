@@ -24,8 +24,8 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Steady-state model of the humidifier"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 30; 120, 273.15 +
         30; 120, 273.15 + 25; 1200, 273.15 + 25]) "Setpoint"
@@ -46,8 +46,8 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=303.15) "Dynamic model of the humidifier"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.Continuous.LimPID con2(
     Td=1,

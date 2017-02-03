@@ -57,12 +57,12 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
         Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,-38},{-44,-22}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{22,-38},{38,-22}})));
-  Buildings.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium
-      = Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
+  Buildings.Fluid.Sensors.EnthalpyFlowRate HInEnh_flow(redeclare package Medium =
+        Medium, m_flow_nominal=m_flow_nominal) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{-60,0},{-44,16}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOutEnh_flow(redeclare package

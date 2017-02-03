@@ -117,8 +117,7 @@ The (time varying) vector <code>Real</code> output signal of this block can be d
 parameter menu via variable <code>y</code>. The purpose is to support the
 easy definition of vector-valued Real expressions in a block diagram.
 </p>
-</html>", revisions=
-"<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 27, 2016, by Thierry S. Nouidui:<br/>

@@ -50,8 +50,8 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Temperature sensor"
-
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+
   Buildings.Controls.Continuous.LimPID con2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,

@@ -296,8 +296,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{0,40},{0,10},{0,12}},
-          color={0,0,255}),
-                             Text(
+          color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
           lineColor={0,0,255},
           textString=

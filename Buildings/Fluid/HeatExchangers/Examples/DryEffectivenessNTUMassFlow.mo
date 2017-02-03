@@ -26,8 +26,8 @@ model DryEffectivenessNTUMassFlow
             {102,40}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
-                                                     redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal,
+                                                     redeclare package Medium =
+        Medium2, m_flow_nominal=m2_flow_nominal,
     initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
 equation

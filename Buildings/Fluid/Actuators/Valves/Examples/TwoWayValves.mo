@@ -15,15 +15,15 @@ model TwoWayValves "Two way valves with different opening characteristics"
     duration=1,
     offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     nPorts=4,
     use_p_in=false,
     p(displayUnit="Pa") = 306000,
     T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=4,
     p(displayUnit="Pa") = 3E5,
     T=293.15) "Boundary condition for flow sink"    annotation (Placement(

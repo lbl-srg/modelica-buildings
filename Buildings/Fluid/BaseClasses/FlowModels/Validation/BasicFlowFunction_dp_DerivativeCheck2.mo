@@ -26,7 +26,7 @@ equation
 
   m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=dp,
-    k=  k,
+    k = k,
     m_flow_turbulent=m_flow_turbulent);
 
   // Equate first and second order derivatives

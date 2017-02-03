@@ -20,8 +20,7 @@ record Carrier_Weathermaster_50HJ024 =
     TEvaInMin =            273.15 + 12.22,
     TEvaInMax =            273.15 + 26.67,
     ffMin =                0.75,
-    ffMax =                1.25))}) "Carrier Weathermaster 50HJ024" annotation
-  (
+    ffMax =                1.25))}) "Carrier Weathermaster 50HJ024" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
   Documentation(info=

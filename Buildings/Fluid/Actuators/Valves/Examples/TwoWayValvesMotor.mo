@@ -11,14 +11,14 @@ model TwoWayValvesMotor
     filteredOpening=false,
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     nPorts=4,
     use_p_in=true,
     T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=4,
     use_p_in=true,
     T=293.15) "Boundary condition for flow sink"    annotation (Placement(
