@@ -9,6 +9,8 @@ partial model PartialDXCoil "Partial model for DX coil"
       prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
+  constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
     displayUnit="degC")
@@ -27,7 +29,10 @@ partial model PartialDXCoil "Partial model for DX coil"
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare final package Medium = Medium,
-    final datCoi=datCoi) "DX cooling coil operation"
+    final datCoi=datCoi,
+    use_mCon_flow=use_mCon_flow,
+    wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
+    dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)) "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
@@ -73,6 +78,12 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
+public
+  Modelica.Blocks.Interfaces.RealInput mCon_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") if use_mCon_flow
+    "Water mass flowrate for an a water-cooled condenser"
+    annotation (Placement(transformation(extent={{-120,-42},{-100,-22}})));
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
@@ -82,6 +93,9 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
+
+
+
 
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
@@ -174,6 +188,8 @@ equation
       points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-32},{-26,
+          -32},{-26,40},{-21,40}}, color={0,0,127}));
   annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
