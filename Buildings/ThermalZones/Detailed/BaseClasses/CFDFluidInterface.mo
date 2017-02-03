@@ -169,9 +169,9 @@ equation
    for i in 1:nPorts loop
      m_flow[i] = ports[i].m_flow;
      T_inflow[i] = Medium.temperature(Medium.setState_phX(
-       p=  p,
-       h=  inStream(ports[i].h_outflow),
-       X=  inStream(ports[i].Xi_outflow)));
+       p = p,
+       h = inStream(ports[i].h_outflow),
+       X = inStream(ports[i].Xi_outflow)));
 
      for j in 1:Medium.nXi loop
        Xi_inflow_internal[(i-1)*Medium.nXi+j] = inStream(ports[i].Xi_outflow[j]);

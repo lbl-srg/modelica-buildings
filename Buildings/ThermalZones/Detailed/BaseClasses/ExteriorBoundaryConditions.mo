@@ -179,8 +179,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
-            {300,300}})),
-                          Icon(coordinateSystem(preserveAspectRatio=true,
+            {300,300}})), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}}), graphics={
         Rectangle(
           extent={{-160,280},{280,-250}},

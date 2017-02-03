@@ -7,8 +7,8 @@ model SampleStart "Test model for sampleStart function"
   parameter Modelica.SIunits.Time samSta[21](each fixed=false)
     "Start of sampling time";
 initial equation
- samSta = sampleStart(t=             tSimSta,
-                      samplePeriod=  tSample);
+ samSta = sampleStart(t =            tSimSta,
+                      samplePeriod = tSample);
  /*
  for i in 1:size(tSimSta,1) loop
    Modelica.Utilities.Streams.print("t = " + String(tSimSta[i]) + " samSta = " + String(samSta[i]));

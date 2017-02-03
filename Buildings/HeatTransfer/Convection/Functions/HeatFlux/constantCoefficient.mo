@@ -7,7 +7,7 @@ function constantCoefficient "Constant convective heat transfer coefficient"
 algorithm
   q_flow :=hCon*dT;
 
-annotation(
+annotation (
 Documentation(info=
 "<html>
 <p>

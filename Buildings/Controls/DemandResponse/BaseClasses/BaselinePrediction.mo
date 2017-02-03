@@ -4,8 +4,8 @@ block BaselinePrediction "Predicts the baseline consumption"
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC") if
+     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
