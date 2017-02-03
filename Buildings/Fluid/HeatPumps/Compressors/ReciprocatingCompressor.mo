@@ -53,7 +53,7 @@ protected
   Real PR(min = 1.0, final unit = "1", start = 2.0)
     "Pressure ratio";
 
-  Real U(start = 1.0)
+  Boolean shut_off(fixed=true, start=false)
     "Shutdown signal for invalid pressure ratios";
 
 equation
@@ -63,9 +63,9 @@ equation
   // The compressor is turned off if the resulting condensing pressure is lower
   // than the evaporating pressure
   when PR <= 1.0 then
-    U = 0;
+    shut_off = true;
   elsewhen PR > 1.01 then
-    U = 1;
+    shut_off = false;
   end when;
 
   // The specific volume at suction of the compressor is calculated
@@ -75,18 +75,19 @@ equation
   // Limit compressor speed to the full load speed
   pisDis_norm = Buildings.Utilities.Math.Functions.smoothLimit(y, 0.0, 1.0, 0.001);
 
-  if isOn >= 0.5 then
+  if isOn then
     // Suction pressure
     pSuc = Buildings.Utilities.Math.Functions.smoothMin(pEva - pDro, pCon - pDro, 0.01*ref.pCri);
     // Discharge pressure
     pDis = pCon + pDro;
     // Refrigerant mass flow rate
     k = ref.isentropicExponentVap_Tv(TSuc, vSuc);
-    m_flow = pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
+    m_flow = if shut_off then 0 else
+      pisDis_norm * pisDis/vSuc * (1+cleFac-cleFac*(PR)^(1/k));
     // Theoretical power of the compressor
     PThe = k/(k-1) * m_flow*pSuc*vSuc*((PR)^((k-1)/k)-1);
     // Power consumed by the compressor
-    P = PThe / etaEle + PLos;
+    P = if shut_off then 0 else PThe / etaEle + PLos;
     // Temperature at suction of the compressor
     TSuc = port_a.T + dTSup;
     // Energy balance of the compressor

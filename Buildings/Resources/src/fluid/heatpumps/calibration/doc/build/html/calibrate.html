@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Calibrate heat pump models &#8212; HeatPumpCalibration 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Compressor models" href="compressors.html" />
+    <link rel="prev" title="HeatPumpCalibration" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="compressors.html" title="Compressor models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="HeatPumpCalibration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">HeatPumpCalibration 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">HeatPumpCalibration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="compressors.html"
+                        title="next chapter">Compressor models</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/calibrate.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-PythonModel.calibrate">
+<span id="calibrate-heat-pump-models"></span><h1>Calibrate heat pump models<a class="headerlink" href="#module-PythonModel.calibrate" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="PythonModel.calibrate.ManufacturerData">
+<em class="property">class </em><code class="descclassname">PythonModel.calibrate.</code><code class="descname">ManufacturerData</code><span class="sig-paren">(</span><em>manufacturer</em>, <em>model</em>, <em>CoolingMode=False</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Heat pump performance data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>manufacturer</strong> &#8211; Name of the manufacturer.</li>
+<li><strong>model</strong> &#8211; Name of the heat pump model.</li>
+<li><strong>CoolingMode</strong> &#8211; Boolean, set to True if heat pump is used in cooling
+mode.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An empty heat pump performance object is created.</p>
+</div>
+<dl class="method">
+<dt id="PythonModel.calibrate.ManufacturerData.add_data_point">
+<code class="descname">add_data_point</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.add_data_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a data point to the heat pump performance data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
+<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>Capacity</strong> &#8211; Heat pump capacity (kW).</li>
+<li><strong>HR</strong> &#8211; Heat transfer rate on the source side (kW).</li>
+<li><strong>Power</strong> &#8211; Power input ot the heat pump (kW).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.calibrate.ManufacturerData.calibration_data_16_points">
+<code class="descname">calibration_data_16_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_16_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the 16 min/max data points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Performance data for calibration (object).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method returns a subsample of the performance data
+corresponding to the combination of minimums and maximums of
+the inlet water temperatures and mass flow rates on the
+source and load sides.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp">
+<code class="descname">calibration_data_min_max_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.calibration_data_min_max_temp" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Find the data points that correspond to the minimum and maximum</dt>
+<dd>inlet water temperature on the source and load sides.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Performance data for calibration (object).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method returns a subsample of the performance data
+corresponding to the combination of minimums and maximums of
+the inlet water temperatures on the source and load sides.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable">
+<code class="descname">write_modelica_combiTimeTable</code><span class="sig-paren">(</span><em>tableName</em>, <em>tableTempDir</em>, <em>tableFileName</em>, <em>CoolingMode</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.write_modelica_combiTimeTable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Write the combiTimeTable for use by the calibration model in</dt>
+<dd>Modelica.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tableName</strong> &#8211; Name of the combiTimeTable.</li>
+<li><strong>tableTempDir</strong> &#8211; Temporary directory to write the table file.</li>
+<li><strong>tableFileName</strong> &#8211; Name of the text file containing the
+combiTimeTable.</li>
+<li><strong>CoolingMode</strong> &#8211; Boolean, set to True if heat pump is used in
+cooling mode.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PythonModel.calibrate.SimulationResults">
+<em class="property">class </em><code class="descclassname">PythonModel.calibrate.</code><code class="descname">SimulationResults</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.SimulationResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Results from the simulation model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>EWT_Source</strong> &#8211; Array of entering water temperature on the source
+side (K).</li>
+<li><strong>EWT_Load</strong> &#8211; Array of entering water temperature on the load
+side (K).</li>
+<li><strong>Flow_Source</strong> &#8211; Array of fluid mass flow rate on the source
+side (kg/s).</li>
+<li><strong>Flow_Load</strong> &#8211; Array of fluid mass flow rate on the load
+side (kg/s).</li>
+<li><strong>Capacity</strong> &#8211; Array of heat pump capacity (W).</li>
+<li><strong>HR</strong> &#8211; Array of heat transfer rate on the source side (W).</li>
+<li><strong>Power</strong> &#8211; Array of power input ot the heat pump (W).</li>
+<li><strong>name</strong> &#8211; Name of the heat pump.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PythonModel.calibrate.calibrate_model">
+<code class="descclassname">PythonModel.calibrate.</code><code class="descname">calibrate_model</code><span class="sig-paren">(</span><em>heaPum</em>, <em>calData</em>, <em>data</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.calibrate_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manages the calibration of heat pump models.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>heaPum</strong> &#8211; Heat pump model (object).</li>
+<li><strong>calData</strong> &#8211; Subsampled data used for calibration (object).</li>
+<li><strong>data</strong> &#8211; Full data used for final comparison (object).</li>
+<li><strong>plot</strong> &#8211; Boolean, set to True to draw and save results.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of calibrated parameters,
+Results from the calibrated model,
+Results using the initial guess parameters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PythonModel.calibrate.compare_data_sets">
+<code class="descclassname">PythonModel.calibrate.</code><code class="descname">compare_data_sets</code><span class="sig-paren">(</span><em>data</em>, <em>refData</em>, <em>plot=False</em>, <em>fname='ComparedDataSets'</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.compare_data_sets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two sets of data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> &#8211; Performance data (object).</li>
+<li><strong>refData</strong> &#8211; Reference performance data (object).</li>
+<li><strong>plot</strong> &#8211; Boolean, set to True to draw and save results.</li>
+<li><strong>fname</strong> &#8211; Name of the output figure file (no extension).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Sum of normalized square errors between data sets.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="PythonModel.calibrate.cost_function">
+<code class="descclassname">PythonModel.calibrate.</code><code class="descname">cost_function</code><span class="sig-paren">(</span><em>scale</em>, <em>guess</em>, <em>heaPum</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.cost_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the cost function for optimization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>scale</strong> &#8211; Array of normalized parameters.</li>
+<li><strong>guess</strong> &#8211; Array of guess parameters.</li>
+<li><strong>heaPum</strong> &#8211; Heat pump model (object).</li>
+<li><strong>data</strong> &#8211; Reference performance data (object).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Sum of normalized square errors between model and reference data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Parameters are evaluated by multiplying the corresponding
+normalized parameter with its guess value.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="PythonModel.calibrate.simulate">
+<code class="descclassname">PythonModel.calibrate.</code><code class="descname">simulate</code><span class="sig-paren">(</span><em>heaPum</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the heat pump performance from the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>heaPum</strong> &#8211; Heat pump model (object).</li>
+<li><strong>data</strong> &#8211; Reference performance data (object).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Performance data of the modeled heat pump (object).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Performance data from the model is evaluated at the same
+operating conditions (inlet water temperatures and mass flow
+rates at the source and load sides) as in the reference data.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="PythonModel.calibrate.simulate_in_dymola">
+<code class="descclassname">PythonModel.calibrate.</code><code class="descname">simulate_in_dymola</code><span class="sig-paren">(</span><em>heaPum</em>, <em>data</em>, <em>tableName</em>, <em>tableFileName</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.simulate_in_dymola" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the heat pump performance from the model in Dymola.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>heaPum</strong> &#8211; Heat pump model (object).</li>
+<li><strong>data</strong> &#8211; Reference performance data (object).</li>
+<li><strong>tableName</strong> &#8211; Name of the combiTimeTable.</li>
+<li><strong>tableFileName</strong> &#8211; Name of the text file containing the combiTimeTable.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Performance data of the modeled heat pump (object).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Performance data from the model is evaluated at the same
+operating conditions (inlet water temperatures and mass flow
+rates at the source and load sides) as in the reference data.</p>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="compressors.html" title="Compressor models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="HeatPumpCalibration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">HeatPumpCalibration 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+  </body>
+</html>
