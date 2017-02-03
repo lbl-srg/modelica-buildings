@@ -7,7 +7,7 @@ partial block PartialCoilCondition
   constant Boolean variableSpeedCoil
     "Flag, set to true for coil with variable speed";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity2 cooCap(
     final sta=datCoi.sta,
     final nSta=datCoi.nSta,
     final m_flow_small=datCoi.m_flow_small) "Performance data"
