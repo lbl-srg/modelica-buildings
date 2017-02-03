@@ -3,7 +3,8 @@ block CoolingCapacity1
   "Calculates cooling capacity at given temperature and flow fraction for air-cooled coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
-  redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
+  redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta],
+  use_mCon_flow=false);
 
 equation
 
