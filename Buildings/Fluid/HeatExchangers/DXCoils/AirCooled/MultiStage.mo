@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model MultiStage "Multi-stage DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-      dxCoo(final variableSpeedCoil=false));
+      dxCoo(final variableSpeedCoil=false,
+          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
+          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)),
+      final use_mCon_flow=false);
 
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
