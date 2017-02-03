@@ -169,10 +169,10 @@ equation
       points={{-40,39},{-40,4},{39,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mCon_flow, wetCoi.mCon_flow) annotation (Line(points={{-110,-100},{
-          -84,-100},{-84,40},{-51,40}}, color={0,0,127}));
-  connect(mCon_flow, dryCoi.mCon_flow) annotation (Line(points={{-110,-100},{
-          -84,-100},{-84,-60},{-51,-60}}, color={0,0,127}));
+  connect(mCon_flow, wetCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
+          -100},{-84,40},{-51,40}}, color={0,0,127}));
+  connect(mCon_flow, dryCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
+          -100},{-84,-60},{-51,-60}}, color={0,0,127}));
   annotation (defaultComponentName="dxCoo", Documentation(info="<html>
 <p>
 This block combines the models for the dry coil and the wet coil.
