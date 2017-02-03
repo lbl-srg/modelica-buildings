@@ -12,7 +12,10 @@ model DXCooling "Test model for DXCooling"
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare package Medium = Medium,
     datCoi=datCoi,
-    variableSpeedCoil=true)
+    variableSpeedCoil=true,
+    use_mCon_flow=false,
+    wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
+    dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap))
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.IntegerStep onOff(
     startTime=600) "Compressor on-off signal"
