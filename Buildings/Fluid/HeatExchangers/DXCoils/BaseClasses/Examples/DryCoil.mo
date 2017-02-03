@@ -12,7 +12,9 @@ extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dryCoi(
     redeclare package Medium = Medium,
     datCoi=datCoi,
-    variableSpeedCoil=true) "Performs calculation for dry coil condition"
+    variableSpeedCoil=true,
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap,
+    use_mCon_flow=false)                                                                  "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.IntegerStep onOff(
     startTime=1200) "Compressor on-off signal"
