@@ -1,7 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model SingleSpeed "Single speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    dxCoo(final variableSpeedCoil=false),
+    dxCoo(final variableSpeedCoil=false,
+          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
+          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)),
+    final use_mCon_flow=false,
     final nSta=1);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
