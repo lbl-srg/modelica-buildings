@@ -14,7 +14,10 @@
 
 #include <stdio.h>
 
-#if defined(_MSC_VER) || defined(__WIN32__) /* Windows */
+#if defined(_MSC_VER) || defined(__WIN32__) \
+ || defined(_WIN32) || defined(WIN32)  \
+ || defined(__CYGWIN__) || defined(__MINGW32__) \
+ || defined(__BORLANDC__) /*Windows and MinGW */
 #include <windows.h>
 #define sleep(x) Sleep(1000*x)
 #else /* Linux*/
