@@ -50,7 +50,7 @@ public
 equation
 
   connect(appDewPt.TADP, TADP)
-                          annotation (Line(
+                      annotation (Line(
       points={{-9,-55},{30,-55},{30,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -62,7 +62,6 @@ equation
       points={{-110,-24},{-82,-24},{-82,-52},{-31,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(m_flow, appDewPt.m_flow) annotation (Line(
       points={{-110,24},{-78,24},{-78,-49},{-31,-49}},
       color={0,0,127},
@@ -151,9 +150,8 @@ equation
       points={{-31,-40},{-68,-40},{-68,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-
-  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{
-          -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
+  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{-92,
+          -100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="wetCoi", Documentation(info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition
