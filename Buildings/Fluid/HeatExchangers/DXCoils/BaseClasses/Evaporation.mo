@@ -6,7 +6,7 @@ model Evaporation
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);
 
-  replaceable parameter
+  parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
