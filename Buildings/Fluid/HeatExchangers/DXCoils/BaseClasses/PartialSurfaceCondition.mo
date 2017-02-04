@@ -43,7 +43,7 @@ partial block PartialSurfaceCondition
     "Rotational speed";
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
-      final per=datCoi.sta.nomVal,
+      per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
