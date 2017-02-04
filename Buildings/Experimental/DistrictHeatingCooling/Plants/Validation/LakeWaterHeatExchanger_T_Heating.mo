@@ -59,7 +59,7 @@ model LakeWaterHeatExchanger_T_Heating
     constrainedby Modelica.Blocks.Interfaces.SO "Water temperature"
     annotation (Placement(transformation(extent={{90,12},{70,32}})));
 
-  Modelica.Blocks.Sources.Constant TWatSou(k=275.15 + 15)
+  Modelica.Blocks.Sources.Constant TWatSou(k=273.15 + 15)
     "Ocean water temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Sources.Constant
@@ -113,6 +113,10 @@ reverses its direction.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2017, by Felix Buenning:<br/>
+Corrected offset for temperature from 275.15 to 273.15 in TWatSou.
+</li>
 <li>
 January 11, 2015, by Michael Wetter:<br/>
 First implementation.
