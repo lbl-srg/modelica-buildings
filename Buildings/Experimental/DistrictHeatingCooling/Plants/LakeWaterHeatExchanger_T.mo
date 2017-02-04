@@ -457,7 +457,7 @@ instances <code>valCoo</code> and <code>valHea</code>.
 <ul>
 <li>
 February 3, 2017, by Felix Buenning:<br/>
-Corrected wrong signs for TApp in TWatCoo and TWatHea.
+Corrected wrong signs for <code>TApp</code> in <code>TWatCoo</code> and <code>TWatHea</code>.
 </li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>

@@ -115,7 +115,7 @@ reverses its direction.
 <ul>
 <li>
 February 2, 2017, by Felix Buenning:<br/>
-Corrected offset for temperature from 275.15 to 273.15 in TWatSou.
+Corrected offset for temperature from <i>275.15</i> to <i>273.15</i> in <code>TWatSou</code>.
 </li>
 <li>
 January 11, 2015, by Michael Wetter:<br/>
