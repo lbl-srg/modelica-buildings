@@ -5,7 +5,7 @@ record NominalCondition
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
-  parameter
+  replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
     per "Performance data" annotation (choicesAllMatching=true);
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
