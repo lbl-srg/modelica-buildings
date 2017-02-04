@@ -2,14 +2,27 @@ within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
 model SingleSpeed "Single speed water-cooled DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
     dxCoo(final variableSpeedCoil=false,
+          redeclare WaterCooled.Data.Generic.DXCoil datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity2 cooCap,
-                 appDewPt(
+                 redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
+                 appDewPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
           dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity2 cooCap,
-                 appDryPt(
+                 redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
+                 appDryPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
-     eva(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues nomVal),
-    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi,
+    eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+                                             Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
+                                             COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
+                                             SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
+                                             m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+                                             TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
+                                             TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
+                                             phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
+                                             p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
+                                             tWet= datCoi.sta[nSta].nomVal.tWet,
+                                             gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow=true,
     final nSta=1);
 
