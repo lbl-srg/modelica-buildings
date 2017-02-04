@@ -36,7 +36,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
-                  nomVal=datCoi.sta[nSta].nomVal,
+                  final nomVal=datCoi.sta[nSta].nomVal,
                   final computeReevaporation = computeReevaporation)
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
@@ -93,7 +93,6 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
-
 
 
 
