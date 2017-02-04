@@ -2,9 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block PartialCoilInterface "Partial block for DX coil"
   extends Modelica.Blocks.Icons.Block;
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
-    redeclare parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi);
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
 
   constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
 
