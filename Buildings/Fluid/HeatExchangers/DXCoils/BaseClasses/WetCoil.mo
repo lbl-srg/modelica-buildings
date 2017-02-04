@@ -26,7 +26,7 @@ model WetCoil "Calculates wet coil condition "
     annotation (Placement(transformation(extent={{-60,20},{-48,32}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint appDewPt(
     redeclare package Medium = Medium,
-    final datCoi=datCoi,
+    datCoi=datCoi,
     final variableSpeedCoil=variableSpeedCoil)
     "Calculates air properties at apparatus dew point (ADP) at existing air-flow conditions"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
@@ -50,7 +50,7 @@ public
 equation
 
   connect(appDewPt.TADP, TADP)
-                          annotation (Line(
+                      annotation (Line(
       points={{-9,-55},{30,-55},{30,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -62,7 +62,6 @@ equation
       points={{-110,-24},{-82,-24},{-82,-52},{-31,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(m_flow, appDewPt.m_flow) annotation (Line(
       points={{-110,24},{-78,24},{-78,-49},{-31,-49}},
       color={0,0,127},
@@ -124,7 +123,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, conRat.Q_flow) annotation (Line(
-      points={{46.7,51},{50,52},{50,-56},{50,-56},{50,-74},{50,-74},{59,-74}},
+      points={{46.7,51},{50,52},{50,-74},{59,-74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDewPt.Q_flow) annotation (Line(
@@ -151,9 +150,8 @@ equation
       points={{-31,-40},{-68,-40},{-68,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-
-  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{
-          -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
+  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{-92,
+          -100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="wetCoi", Documentation(info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition
