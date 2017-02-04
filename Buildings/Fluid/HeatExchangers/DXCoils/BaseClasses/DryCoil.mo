@@ -13,7 +13,7 @@ model DryCoil "Calculates dry coil condition"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint appDryPt(
     redeclare package Medium = Medium,
-    final datCoi=datCoi,
+    datCoi=datCoi,
     final variableSpeedCoil=variableSpeedCoil)
     "Calculates air properties at dry coil condition"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
