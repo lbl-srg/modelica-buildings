@@ -29,7 +29,7 @@ partial model PartialDXCoil "Partial model for DX coil"
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare final package Medium = Medium,
-    final datCoi=datCoi,
+    datCoi=datCoi,
     use_mCon_flow=use_mCon_flow,
     wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
     dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)) "DX cooling coil operation"
@@ -93,6 +93,7 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
+
 
 
 
