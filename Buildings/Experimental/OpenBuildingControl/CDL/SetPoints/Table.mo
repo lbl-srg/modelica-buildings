@@ -187,10 +187,13 @@ First implementation.
   Interfaces.RealOutput y \"Connector of Real output signal\" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-protected 
+protected
   final parameter Integer nRow = if constantExtrapolation then 
-                        size(table,1)+2 else 
-                        size(table,1) \"Number of rows\";
+                        size(table,1)+2
+                        elseif retainPreviousAbscissa then
+                           nRow = 2*size(table,1)-1;
+                        else size(table,1) \"Number of rows\";
+                        end if;
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     \"Vector to take offset of output signal into account\";
   Modelica.Blocks.Tables.CombiTable1D tab(
@@ -208,7 +211,7 @@ protected
                         + offsetVector); \"Table used for interpolation\"
      annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
-equation 
+equation
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
       color={0,0,127}));
@@ -218,10 +221,16 @@ equation
       color={0,0,127}));
       
   if repeatPeriodicaly and not retainPreviousAbscissa then
-    connect(u, tab.u[mod(time,nrows)] 
+      connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
+      points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
+      color={0,0,127}));
   elseif repeatPeriodicaly and retainPreviousAbscissa then
-  
-    end if;
+      nRow = ceil(nRow/2)
+      connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
+      points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
+      color={0,0,127}));
+    
+  end if;
 
   annotation (
 defaultComponentName=\"tab\",
