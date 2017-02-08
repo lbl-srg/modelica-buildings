@@ -13,8 +13,8 @@ model Table
   parameter Boolean retainPreviousAbscissa = false
     "If true, then for x(i)=<x<x(i+1) y=y(1)";
 
-  parameter Boolean repeatPeriodicaly = false
-    "If true, then repeat the table as the simulation continues";
+//  parameter Boolean repeatPeriodicaly = false
+//    "If true, then repeat the table as the simulation continues";
 
   Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -28,24 +28,30 @@ protected
                         size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
+//   Modelica.Blocks.Tables.CombiTable1D tab(
+//     tableOnFile=false,
+//     final table= (if constantExtrapolation then
+//                     cat(1, [table[1,1]-1, table[1,2]],
+//                            table,
+//                            [table[end,1]+1, table[end,2]]),
+//                    elseif retainPreviousAbscissa then
+//                      for i in 1:2:n*2 loop
+//                        cat([table[i,1],table[i,2]],
+//                            [table[i+1,1], table[i+1,2]]),
+//                        table,
+//                    else table)
+//                        + offsetVector); "Table used for interpolation"
+//     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+
   Modelica.Blocks.Tables.CombiTable1D tab(
     tableOnFile=false,
     final table= (if constantExtrapolation then
                     cat(1, [table[1,1]-1, table[1,2]],
                            table,
-                           [table[end,1]+1, table[end,2]])
-                    else
+                           [table[end,1]+1, table[end,2]]) else
                     table)
                   +offsetVector) "Table used for interpolation"
-    annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
-//                   if retainPreviousAbscissa then
-//                     for i in 1:2:n*2 loop
-//                       cat([table[i,1],table[i,2],
-//                            table[]]
-
-
-                  //***mg add option for periodic
-                  //***mg add option for keep previous abscissa point
+  annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
 equation
   connect(u, tab.u[1]) annotation (Line(
@@ -172,8 +178,8 @@ First implementation.
   parameter Boolean retainPreviousAbscissa = false
     \"If true, then for x(i)=<x<x(i+1) y=y(1)\";
 
-//  parameter Boolean repeatPeriodicaly = false
-//    \"If true, then repeat the table as the simulation continues\";
+  parameter Boolean repeatPeriodicaly = false
+    \"If true, then repeat the table as the simulation continues\";
 
   Interfaces.RealInput u \"Connector of Real input signal\" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -188,18 +194,19 @@ protected
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     \"Vector to take offset of output signal into account\";
   Modelica.Blocks.Tables.CombiTable1D tab(
-    tableOnFile=false,
-    final table= (if constantExtrapolation then 
-                    cat(1, [table[1,1]-1, table[1,2]],
-                           table,
-                           [table[end,1]+1, table[end,2]],
+     tableOnFile=false,
+     final table= (if constantExtrapolation then 
+                     cat(1, [table[1,1]-1, table[1,2]],
+                            table,
+                            [table[end,1]+1, table[end,2]]);
                    elseif retainPreviousAbscissa then
                      for i in 1:2:n*2 loop
                        cat([table[i,1],table[i,2]],
-                           [table[i+1,1], table[i+1,2]]),
-                    table)
-                  +offsetVector) \"Table used for interpolation\"
-    annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+                          [table[i+1,1], table[i+1,2]]);
+                     end for;
+                   else table)
+                        + offsetVector); \"Table used for interpolation\"
+     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
 equation 
   connect(u, tab.u[1]) annotation (Line(
@@ -209,8 +216,12 @@ equation
   connect(tab.y[1], y) annotation (Line(
       points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
       color={0,0,127}));
-                     
-//  elseif repeatPeriodicaly
+      
+  if repeatPeriodicaly and not retainPreviousAbscissa then
+    connect(u, tab.u[mod(time,nrows)] 
+  elseif repeatPeriodicaly and retainPreviousAbscissa then
+  
+    end if;
 
   annotation (
 defaultComponentName=\"tab\",

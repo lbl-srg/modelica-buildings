@@ -10,6 +10,12 @@ model Table
   parameter Boolean constantExtrapolation = true
     "If true, then y=y1 for u<u1, and y=yMax for u>uMax";
 
+  parameter Boolean constantPreviousAbscissa = false
+    "If true, then for x(i)<=x<x(i+1): y=y(i)";
+
+  parameter Boolean repeatPeriodicaly = false
+    "If true, then extend table as the simulation time proceeds";
+
 protected
   final parameter Integer nRow = if constantExtrapolation then
                         size(table,1)+2 else
@@ -24,10 +30,10 @@ protected
                            [table[end,1]+1, table[end,2]]) else
                     table)
                   +offsetVector) "Table used for interpolation"
-    annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+  annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 equation
   connect(u, tab.u[1]) annotation (Line(
-      points={{-120,0},{-70,0},{-70,0},{-22,0}},
+      points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
       color={0,0,127}));
 
   connect(tab.y[1], y) annotation (Line(
