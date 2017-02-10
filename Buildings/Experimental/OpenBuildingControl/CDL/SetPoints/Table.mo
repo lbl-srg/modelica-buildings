@@ -1,7 +1,28 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model Table
-  "Model for a set point that is interpolated based on a user-specified table"
+    "Model for a set point that is interpolated based on a user-specified table"
   extends Modelica.Blocks.Icons.Block;
+    function tab_inter
+    input Real table[size(table,1),2];
+    output Real tab2[size(table,1),2];
+    //output Real tab2[2*size(table,1)-1,2];
+    Real tab_tmp[:,2];
+    Real tab2_x[:,2];
+    algorithm
+    //for i in 1:2:(2*size(table,1)-1)*2 loop
+    for i in 1:2:size(table,1) loop
+      tab_tmp:=cat(
+          1,
+          [table[i, 1],table[i, 2]],
+          [table[i + 1, 1],table[i + 1, 2]]);
+      tab2_x:=cat(
+          1,
+          tab_tmp,
+          tab2_x);
+    end for;
+    tab2 := tab2_x;
+    end tab_inter;
+
   parameter Real table[:,2]=fill(0.0, 1, 2)
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
@@ -37,9 +58,11 @@ protected
         1,
         [table[1, 1] - 1,table[1, 2]],
         table,
-        [table[end, 1] + 1,table[end, 2]]) elseif retainPreviousAbscissa then {
-        cat(1,[table[i, 1],table[i, 2]], [table[i + 1, 1],table[i + 1, 2]]) for i in
-            1:2:nRow*2} else table) + offsetVector) "Table used for interpolation"
+        [table[end, 1] + 1,table[end, 2]])
+ elseif
+       retainPreviousAbscissa then tab_inter(table)
+ else
+     table) + offsetVector) "Table used for interpolation"
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
 //     Modelica.Blocks.Tables.CombiTable1D tab(
