@@ -1,14 +1,14 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses;
-record Stage "Generic data record for a stage of a DX coil"
+record Stage "Generic data record for a stage of a air-cooled DX coil"
   extends Modelica.Icons.Record;
 
   parameter Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
-  parameter
+  replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  parameter
+  replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve
     perCur "Performance curves for this stage" annotation (choicesAllMatching=
         true, Placement(transformation(extent={{60,20},{80,40}})));
