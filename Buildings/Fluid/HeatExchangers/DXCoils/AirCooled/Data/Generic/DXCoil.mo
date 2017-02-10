@@ -11,9 +11,12 @@ record DXCoil
     "The data record is used for single speed operation"
     annotation(HideResult=true);
 
-  parameter
+  replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
-    sta[nSta] "Data record for coil performance at each stage";
+    sta[nSta]
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    "Data record for coil performance at each stage";
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*sta[1].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
