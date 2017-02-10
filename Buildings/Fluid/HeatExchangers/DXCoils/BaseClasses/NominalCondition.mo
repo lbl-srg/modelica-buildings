@@ -6,8 +6,11 @@ record NominalCondition
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
   replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per
+     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
-    per "Performance data" annotation (choicesAllMatching=true);
+     "Performance data" annotation (choicesAllMatching=true);
+
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=Medium.saturationPressure(per.TEvaIn_nominal),
