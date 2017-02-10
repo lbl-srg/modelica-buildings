@@ -35,8 +35,10 @@ partial block PartialCoolingCapacity
   parameter Modelica.SIunits.MassFlowRate m_flow_small
     "Small mass flow rate for regularization";
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage
-    sta[nSta] "Performance data for this stage";
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
+     constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+     "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flwo rate";
   output Real[nSta] ffCon(each min=0) if use_mCon_flow
