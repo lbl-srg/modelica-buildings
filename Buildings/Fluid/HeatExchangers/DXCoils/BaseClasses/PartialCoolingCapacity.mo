@@ -34,6 +34,7 @@ partial block PartialCoolingCapacity
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_small
     "Small mass flow rate for regularization";
+
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
      constrainedby
@@ -43,6 +44,7 @@ partial block PartialCoolingCapacity
     "Air flow fraction: ratio of actual air flow rate by rated mass flwo rate";
   output Real[nSta] ffCon(each min=0) if use_mCon_flow
     "Water flow fraction: ratio of actual water flow rate by rated mass flwo rate at the condenser";
+
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nSta](
     each max=0,
     each unit="W") "Total cooling capacity"
