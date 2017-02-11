@@ -77,7 +77,7 @@ protected
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
 public
-  Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium1,
+  Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
       m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
 equation
