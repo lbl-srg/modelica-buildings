@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model SingleSpeed "Single speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    dxCoo(final variableSpeedCoil=false,
-          redeclare AirCooled.Data.Generic.DXCoil datCoi,
+      dxCoo(final variableSpeedCoil=false,
+            redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap,
                  redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
                  appDewPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
