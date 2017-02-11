@@ -1,29 +1,46 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
 model Single "Single speed water-cooled DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
-
-  replaceable package Medium1 =Buildings.Media.Air;
-  replaceable package Medium2 =Buildings.Media.Water;
-
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+         redeclare replaceable package Medium1=Buildings.Media.Air,
+         redeclare replaceable package Medium2=Buildings.Media.Water,
+         final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+         final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
 
   parameter Modelica.SIunits.PressureDifference dp_nominal
-    "Pressure drop at m_flow_nominal in the evaporator";
+    "Pressure drop at nominal flowrate in the evaporator";
 
   parameter Modelica.SIunits.PressureDifference dpCon_nominal
-    "Pressure drop at mCon_flow_nominal in the condenser";
+    "Pressure drop at nominal flowrate in the condenser";
 
-  AirCooled.SingleSpeed sinSpeDX(
+public
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
+        iconTransformation(extent={{-120,72},{-100,92}})));
+  Modelica.Blocks.Interfaces.RealOutput P
+    "Electrical power consumed by the unit"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow
+    "Sensible heat flow rate in evaporators"
+    annotation (Placement(transformation(extent={{100,24},{120,44}})));
+  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow
+    "Latent heat flow rate in evaporators"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium1,
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-    dxCoo(redeclare WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity2 cooCap,
-                 redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-                 appDewPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+                 appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
           dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity2 cooCap,
-                 redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-                 appDryPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+                 appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
     eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
                                              Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
@@ -37,66 +54,108 @@ model Single "Single speed water-cooled DX coils"
                                              tWet= datCoi.sta[nSta].nomVal.tWet,
                                              gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow=true,
-    dp_nominal=dp_nominal)
+    final dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-  HeaterCooler_u watCooCon(
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
         redeclare package Medium=Medium2,
-        m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
-        dp_nominal = dpCon_nominal,
-        Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))
+        final m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
+        final dp_nominal = dpCon_nominal,
+        final Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))
                                     "Water-cooled condenser"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
-protected
-  Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)
-    "Nominal heat rejection (positive number)";
-
-  Modelica.Blocks.Sources.RealExpression u(y=(sinSpeDX.dxCoo.Q_flow + sinSpeDX.P)
-        /(-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))) "Signal of total heat flow removed by condenser"
-                                                                    annotation (
+  Modelica.Blocks.Sources.RealExpression u(final y=(sinSpeDX.dxCoo.Q_flow + sinSpeDX.P)
+        /(-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal)))
+        "Signal of total heat flow removed by condenser"
+        annotation (
      Placement(transformation(
         extent={{-13,-10},{13,10}},
         rotation=0,
         origin={-67,0})));
-public
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium=Medium1)
-    "Fluid connector b for evaporator(positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{90,70},{110,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium=Medium1)
-    "Fluid connector a for evaporator(positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium=Medium2)
-    "Fluid connector a for condenser (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium=Medium2)
-    "Fluid connector b for condenser (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
+      m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
+    annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
+
 protected
   Modelica.Blocks.Sources.RealExpression mCon(final y=port_a2.m_flow)
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
-public
-  Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
-      m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
-    annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
+
+
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
           12,-34}}, color={0,0,127}));
   connect(sinSpeDX.port_b, port_b1) annotation (Line(points={{10,40},{80,40},{80,
-          80},{100,80}}, color={0,127,255}));
+          60},{100,60}}, color={0,127,255}));
   connect(sinSpeDX.port_a, port_a1) annotation (Line(points={{-10,40},{-80,40},{
-          -80,80},{-100,80}}, color={0,127,255}));
+          -80,60},{-100,60}}, color={0,127,255}));
   connect(watCooCon.port_b, port_b2) annotation (Line(points={{-10,-40},{-80,-40},
-          {-80,-80},{-100,-80}}, color={0,127,255}));
+          {-80,-60},{-100,-60}}, color={0,127,255}));
   connect(watCooCon.port_a, senTem.port_b)
     annotation (Line(points={{10,-40},{40,-40},{30,-40}}, color={0,127,255}));
   connect(senTem.port_a, port_a2) annotation (Line(points={{50,-40},{80,-40},{80,
-          -80},{100,-80}}, color={0,127,255}));
+          -60},{100,-60}}, color={0,127,255}));
   connect(senTem.T, sinSpeDX.TConIn) annotation (Line(points={{40,-29},{40,-29},
-          {40,60},{-40,60},{-40,43},{-11,43}}, color={0,0,127}));
-  connect(mCon.y, sinSpeDX.mCon_flow) annotation (Line(points={{-52.7,20},{-40,20},
-          {-40,36.8},{-11,36.8}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          {40,0},{-20,0},{-20,43},{-11,43}},   color={0,0,127}));
+  connect(mCon.y, sinSpeDX.mCon_flow) annotation (Line(points={{-52.7,20},{-20,20},
+          {-20,36.8},{-11,36.8}}, color={0,0,127}));
+  connect(sinSpeDX.on, on) annotation (Line(points={{-11,48},{-60,48},{-60,80},{
+          -112,80}}, color={255,0,255}));
+  connect(sinSpeDX.P, P) annotation (Line(points={{11,49},{62,49},{62,80},{110,80}},
+        color={0,0,127}));
+  connect(sinSpeDX.QSen_flow, QEvaSen_flow) annotation (Line(points={{11,47},{58,
+          47},{58,34},{110,34}}, color={0,0,127}));
+  connect(sinSpeDX.QLat_flow, QEvaLat_flow) annotation (Line(points={{11,45},{54,
+          45},{54,0},{110,0}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-78,74},{80,-74}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-107,66},{94,56}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-6,56},{94,66}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+                                Text(
+          extent={{54,12},{98,-8}},
+          lineColor={0,0,127},
+          textString="QEvaLat"),Text(
+          extent={{54,50},{98,30}},
+          lineColor={0,0,127},
+          textString="QEvaSen"),
+        Rectangle(
+          extent={{6,-66},{106,-56}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-95,-56},{106,-66}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-6,-66},{94,-56}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+                                Text(
+          extent={{54,100},{98,80}},
+          lineColor={0,0,127},
+          textString="P")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Single;
