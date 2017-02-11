@@ -10,9 +10,9 @@ partial block PartialCoilCondition
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap
   constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
-    final sta=datCoi.sta,
-    final nSta=datCoi.nSta,
-    final m_flow_small=datCoi.m_flow_small) "Performance data"
+     sta=datCoi.sta,
+     nSta=datCoi.nSta,
+     m_flow_small=datCoi.m_flow_small) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
 
 protected
