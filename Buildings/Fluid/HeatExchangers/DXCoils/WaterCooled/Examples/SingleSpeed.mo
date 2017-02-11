@@ -1,26 +1,30 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
 model SingleSpeed "Test model for single speed DX coil"
   import Buildings;
-  package Medium = Buildings.Media.Air;
+  package MediumAir = Buildings.Media.Air;
+  package MediumWater = Buildings.Media.Water;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
     "Pressure drop at m_flow_nominal";
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
+ parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
+    "Pressure drop at mCon_flow_nominal";
+
+  Buildings.Fluid.Sources.Boundary_pT sinAir(
+    redeclare package Medium = MediumAir,
     p(displayUnit="Pa") = 101325,
     nPorts=1,
-    T=303.15) "Sink"
-    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium,
+    T=303.15) "Sink on air side"
+    annotation (Placement(transformation(extent={{52,30},{32,50}})));
+  Buildings.Fluid.Sources.Boundary_pT souAir(
+    redeclare package Medium = MediumAir,
     p(displayUnit="Pa") = 101325 + dp_nominal,
     use_T_in=true,
     nPorts=1,
     use_p_in=true,
-    T=299.85) "Source"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    T=299.85) "Source on air side"
+    annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -30,17 +34,15 @@ model SingleSpeed "Test model for single speed DX coil"
     height=-5,
     offset=273.15 + 23) "Temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed
-                                                               sinSpeDX(
-    redeclare package Medium = Medium,
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Single    sinSpeDX(
+    redeclare package Medium1=MediumAir,
+    redeclare package Medium2=MediumWater,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     show_T=true,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    dpCon_nominal=dpCon_nominal)
     "Single speed DX coil"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
   Modelica.Blocks.Sources.Ramp p(
     duration=600,
@@ -48,7 +50,7 @@ model SingleSpeed "Test model for single speed DX coil"
     height=dp_nominal,
     offset=101325) "Pressure"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
@@ -63,37 +65,49 @@ model SingleSpeed "Test model for single speed DX coil"
     "Condensor inlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Modelica.Blocks.Sources.Constant mCon_flow(k=1) "Condensor inlet mass flow"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                      souWat(
+    redeclare package Medium = MediumWater,
+    nPorts=1,
+    use_T_in=false,
+    use_m_flow_in=true,
+    T=305.15) "Source on water side"
+    annotation (Placement(transformation(extent={{52,-56},{32,-36}})));
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    redeclare package Medium = MediumWater,
+    nPorts=1,
+    p(displayUnit="Pa"),
+    T=303.15) "Sink on water side"
+    annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
 equation
-  connect(TEvaIn.y, sou.T_in) annotation (Line(
-      points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
+  connect(TEvaIn.y, souAir.T_in) annotation (Line(
+      points={{-79,-30},{-58,-30},{-58,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-39,70},{-26,70},{-26,18},{-11,18}},
+      points={{-39,70},{0,70},{0,12.2},{-7,12.2}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(sou.ports[1], sinSpeDX.port_a)
-                                        annotation (Line(
-      points={{-20,-10},{-16,-10},{-16,10},{-10,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sinSpeDX.port_b, sin.ports[1])
-                                        annotation (Line(
-      points={{10,10},{16,10},{16,-10},{20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(p.y, sou.p_in) annotation (Line(
-      points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
+  connect(p.y, souAir.p_in) annotation (Line(
+      points={{-79,10},{-62,10},{-62,46},{-50,46}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TConIn.y, sinSpeDX.TConIn) annotation (Line(
-      points={{-79,50},{-46,50},{-46,13},{-11,13}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mCon_flow.y, sinSpeDX.mCon_flow) annotation (Line(points={{-79,-70},{-58,
-          -70},{-14,-70},{-14,6.8},{-11,6.8}}, color={0,0,127}));
+  connect(sinSpeDX.port_a2, souWat.ports[1]) annotation (Line(points={{14,-2},{
+          28,-2},{28,-46},{32,-46}},
+                                  color={0,127,255}));
+  connect(sinSpeDX.port_b2, sinWat.ports[1]) annotation (Line(points={{-6,-2},{
+          -12,-2},{-12,-50},{-24,-50}},
+                                    color={0,127,255}));
+  connect(souAir.ports[1], sinSpeDX.port_a1) annotation (Line(points={{-28,38},
+          {-12,38},{-12,10},{-6,10}},
+                                    color={0,127,255}));
+  connect(sinAir.ports[1], sinSpeDX.port_b1) annotation (Line(points={{32,40},{
+          28,40},{28,10},{14,10}},
+                                color={0,127,255}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-70},{68,
+          -70},{68,-38},{52,-38}}, color={0,0,127}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
