@@ -126,6 +126,7 @@ The main packages are as follows:
   quantities such as mass flow rate, temperature, optional pressure, etc.
   </p>
 </td>
+</tr>
 </table>
 <p>
 The package

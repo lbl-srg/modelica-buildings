@@ -8,7 +8,7 @@ algorithm
   y := sum(u)/nin;
 
   annotation (Documentation(info="<html>
-<p>This block outputs the average of the vector. </p>
+<p>This function outputs the average of the vector. </p>
 </html>", revisions="<html>
 <ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>
