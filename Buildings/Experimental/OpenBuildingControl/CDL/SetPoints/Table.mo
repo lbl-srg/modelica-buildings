@@ -164,7 +164,7 @@ First implementation.
       points={{26,24},{77,24}},
       color={0,0,255},
       thickness=0.5)}),
-    __Dymola_DymolaStoredErrors(thetext="model Table
+    __Dymola_DymolaStoredErrors(thetext="model Table 
   \"Model for a set point that is interpolated based on a user-specified table\"
   extends Modelica.Blocks.Icons.Block;
   parameter Real table[:,2]=fill(0.0, 1, 2)
@@ -175,11 +175,11 @@ First implementation.
   parameter Boolean constantExtrapolation = true
     \"If true, then y=y1 for u<u1, and y=yMax for u>uMax\";
 
-  parameter Boolean retainPreviousAbscissa = false
+  parameter Boolean retainPreviousOrdinate = false
     \"If true, then for x(i)=<x<x(i+1) y=y(1)\";
 
-  parameter Boolean repeatPeriodicaly = false
-    \"If true, then repeat the table as the simulation continues\";
+//  parameter Boolean repeatPeriodicaly = false
+//    \"If true, then repeat the table as the simulation continues\";
 
   Interfaces.RealInput u \"Connector of Real input signal\" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -187,31 +187,48 @@ First implementation.
   Interfaces.RealOutput y \"Connector of Real output signal\" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-protected
+protected 
   final parameter Integer nRow = if constantExtrapolation then 
-                        size(table,1)+2
-                        elseif retainPreviousAbscissa then
-                           nRow = 2*size(table,1)-1;
-                        else size(table,1) \"Number of rows\";
-                        end if;
+                        size(table,1)+2 else 
+                        size(table,1) \"Number of rows\";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     \"Vector to take offset of output signal into account\";
+    
+  function step_tab
+    input Real table[size(table,1),2];
+    //output Real tab2[size(table,1),2];
+    output Real tab2[2*size(table,1)-1,2];
+    Real tab_tmp[:,2];
+    Real tab2_x[:,2];
+  algorithm
+    //for i in 1:2:(2*size(table,1)-1)*2 loop
+    for i in 1:size(table,1)-1 loop
+      tab_tmp:=cat(
+          1,
+          [table[i, 1],table[i, 2]],
+          [table[i, 1],table[i+1, 2]]);
+      tab2_x:=cat(
+          1,
+          tab2_x,
+          tab_tmp);
+    end for;
+    tab2_x:=cat(1,tab2_x,[table[end, 1],table[end, 2]]);
+    tab2 := tab2_x;
+  end step_tab;
+
   Modelica.Blocks.Tables.CombiTable1D tab(
-     tableOnFile=false,
-     final table= (if constantExtrapolation then 
+    tableOnFile=false,
+    final table= (if constantExtrapolation then
                      cat(1, [table[1,1]-1, table[1,2]],
                             table,
-                            [table[end,1]+1, table[end,2]]);
-                   elseif retainPreviousAbscissa then
-                     for i in 1:2:n*2 loop
-                       cat([table[i,1],table[i,2]],
-                          [table[i+1,1], table[i+1,2]]);
-                     end for;
-                   else table)
+                            [table[end,1]+1, table[end,2]]),
+                    elseif retainPreviousOrdinate then
+                      step_tab(table),
+                    else table)
                         + offsetVector); \"Table used for interpolation\"
-     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
-equation
+equation 
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
       color={0,0,127}));
@@ -219,18 +236,6 @@ equation
   connect(tab.y[1], y) annotation (Line(
       points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
       color={0,0,127}));
-      
-  if repeatPeriodicaly and not retainPreviousAbscissa then
-      connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
-      points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
-      color={0,0,127}));
-  elseif repeatPeriodicaly and retainPreviousAbscissa then
-      nRow = ceil(nRow/2)
-      connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
-      points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
-      color={0,0,127}));
-    
-  end if;
 
   annotation (
 defaultComponentName=\"tab\",
