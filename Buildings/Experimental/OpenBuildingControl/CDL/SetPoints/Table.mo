@@ -1,28 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model Table
-    "Model for a set point that is interpolated based on a user-specified table"
+  "Model for a set point that is interpolated based on a user-specified table"
   extends Modelica.Blocks.Icons.Block;
-    function tab_inter
-    input Real table[size(table,1),2];
-    output Real tab2[size(table,1),2];
-    //output Real tab2[2*size(table,1)-1,2];
-    Real tab_tmp[:,2];
-    Real tab2_x[:,2];
-    algorithm
-    //for i in 1:2:(2*size(table,1)-1)*2 loop
-    for i in 1:2:size(table,1) loop
-      tab_tmp:=cat(
-          1,
-          [table[i, 1],table[i, 2]],
-          [table[i + 1, 1],table[i + 1, 2]]);
-      tab2_x:=cat(
-          1,
-          tab_tmp,
-          tab2_x);
-    end for;
-    tab2 := tab2_x;
-    end tab_inter;
-
   parameter Real table[:,2]=fill(0.0, 1, 2)
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
@@ -34,8 +13,8 @@ model Table
   parameter Boolean retainPreviousAbscissa = false
     "If true, then for x(i)=<x<x(i+1) y=y(1)";
 
-  parameter Boolean repeatPeriodicaly = false
-    "If true, then repeat the table as the simulation continues";
+//  parameter Boolean repeatPeriodicaly = false
+//    "If true, then repeat the table as the simulation continues";
 
   Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -45,43 +24,35 @@ model Table
 
 protected
   final parameter Integer nRow = if constantExtrapolation then
-                        size(table,1)+2
-                        elseif retainPreviousAbscissa then
-                           2*size(table,1)-1
-                        else size(table,1) "Number of rows";
-
+                        size(table,1)+2 else
+                        size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
+//   Modelica.Blocks.Tables.CombiTable1D tab(
+//     tableOnFile=false,
+//     final table= (if constantExtrapolation then
+//                     cat(1, [table[1,1]-1, table[1,2]],
+//                            table,
+//                            [table[end,1]+1, table[end,2]]),
+//                    elseif retainPreviousAbscissa then
+//                      for i in 1:2:n*2 loop
+//                        cat([table[i,1],table[i,2]],
+//                            [table[i+1,1], table[i+1,2]]),
+//                        table,
+//                    else table)
+//                        + offsetVector); "Table used for interpolation"
+//     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
-  Modelica.Blocks.Tables.CombiTable1D tab(tableOnFile=false, final table=(if
-        constantExtrapolation then cat(
-        1,
-        [table[1, 1] - 1,table[1, 2]],
-        table,
-        [table[end, 1] + 1,table[end, 2]])
- elseif
-       retainPreviousAbscissa then tab_inter(table)
- else
-     table) + offsetVector) "Table used for interpolation"
-    annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
+  Modelica.Blocks.Tables.CombiTable1D tab(
+    tableOnFile=false,
+    final table= (if constantExtrapolation then
+                    cat(1, [table[1,1]-1, table[1,2]],
+                           table,
+                           [table[end,1]+1, table[end,2]]) else
+                    table)
+                  +offsetVector) "Table used for interpolation"
+  annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 
-//     Modelica.Blocks.Tables.CombiTable1D tab(
-//        tableOnFile=false,
-//        final table= (if constantExtrapolation then
-//                        cat(1, [table[1,1]-1, table[1,2]],
-//                               table,
-//                               [table[end,1]+1, table[end,2]])
-//   elseif retainPreviousAbscissa then
-//                          {cat([table[i,1],table[i,2]],
-//                             [table[i+1,1], table[i+1,2]]) for i in 1:2:n*2}
-//                      else table)
-//                           + offsetVector); "Table used for interpolation"
-// annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
-
-                     //      for i in 1:2:n*2 loop
-                     //   cat([table[i,1],table[i,2]],
-                     //      [table[i+1,1], table[i+1,2]]);
-                     // end for;
 equation
   connect(u, tab.u[1]) annotation (Line(
       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
@@ -90,18 +61,6 @@ equation
   connect(tab.y[1], y) annotation (Line(
       points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
       color={0,0,127}));
-
-//   if repeatPeriodicaly and not retainPreviousAbscissa then
-//       connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
-//       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
-//       color={0,0,127}));
-//   elseif repeatPeriodicaly and retainPreviousAbscissa then
-//       nRow = ceil(nRow/2)
-//       connect(u, tab.u[floor(time/nRow)+mod(time,nRow)]) annotation (Line(
-//       points={{-120,0},{-70,0},{-70,0},{-22.2,0}},
-//       color={0,0,127}));
-// end if;
-
 
   annotation (
 defaultComponentName="tab",
@@ -204,7 +163,6 @@ First implementation.
     Line(
       points={{26,24},{77,24}},
       color={0,0,255},
-<<<<<<< HEAD
       thickness=0.5)}),
     __Dymola_DymolaStoredErrors(thetext="model Table 
   \"Model for a set point that is interpolated based on a user-specified table\"
@@ -236,13 +194,13 @@ protected
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     \"Vector to take offset of output signal into account\";
     
-  function step_tab
+  function tab_step
     input Real table[size(table,1),2];
     //output Real tab2[size(table,1),2];
     output Real tab2[2*size(table,1)-1,2];
     Real tab_tmp[:,2];
     Real tab2_x[:,2];
-  algorithm
+  algorithm 
     //for i in 1:2:(2*size(table,1)-1)*2 loop
     for i in 1:size(table,1)-1 loop
       tab_tmp:=cat(
@@ -256,7 +214,7 @@ protected
     end for;
     tab2_x:=cat(1,tab2_x,[table[end, 1],table[end, 2]]);
     tab2 := tab2_x;
-  end step_tab;
+  end tab_step;
 
   Modelica.Blocks.Tables.CombiTable1D tab(
     tableOnFile=false,
@@ -265,7 +223,7 @@ protected
                             table,
                             [table[end,1]+1, table[end,2]]),
                     elseif retainPreviousOrdinate then
-                      step_tab(table),
+                      tab_step(table),
                     else table)
                         + offsetVector); \"Table used for interpolation\"
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
@@ -380,7 +338,7 @@ First implementation.
     Line(
       points={{26,24},{77,24}},
       color={0,0,255},
-=======
->>>>>>> 80350b5a26ec7fb123f484c300ea1114960c80a7
       thickness=0.5)}));
+end Table;
+"));
 end Table;
