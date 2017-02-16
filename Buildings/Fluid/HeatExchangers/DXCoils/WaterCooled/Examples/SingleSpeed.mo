@@ -100,7 +100,8 @@ equation
                                 color={0,127,255}));
   connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,
           -30},{68,-38},{52,-38}}, color={0,0,127}));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SingleSpeed.mos"
+  annotation (             __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
             Documentation(info="<html>
