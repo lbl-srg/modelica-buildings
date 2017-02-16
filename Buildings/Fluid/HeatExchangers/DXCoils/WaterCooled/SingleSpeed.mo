@@ -156,5 +156,23 @@ equation
           extent={{54,100},{98,80}},
           lineColor={0,0,127},
           textString="P")}),                                     Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model can be used to simulate a water-cooled DX cooling coil with single speed compressor.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 16, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SingleSpeed;
