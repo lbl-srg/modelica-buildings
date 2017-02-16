@@ -5,7 +5,7 @@ model VariableSpeed "Variable speed DX cooling coil"
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
           dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)),
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-    final use_mCon_flow=false);
+    use_mCon_flow=false);
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
