@@ -1,144 +1,118 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
 model VariableSpeed "Test model for variable speed DX coil"
+  import Buildings;
+  package MediumAir = Buildings.Media.Air;
+  package MediumWater = Buildings.Media.Water;
   extends Modelica.Icons.Example;
-
-  package Medium = Buildings.Media.Air "Medium model";
-
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
     "Pressure drop at m_flow_nominal";
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
+ parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
+    "Pressure drop at mCon_flow_nominal";
+
+  Buildings.Fluid.Sources.Boundary_pT sinAir(
+    redeclare package Medium = MediumAir,
     nPorts=1,
-    p(displayUnit="Pa") = 101325,
-    T=293.15) "Sink"
-    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium,
-    nPorts=1,
-    p(displayUnit="Pa") = 101325 + dp_nominal,
+    p(displayUnit="Pa"))
+              "Sink on air side"
+    annotation (Placement(transformation(extent={{52,30},{32,50}})));
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
+    redeclare package Medium = MediumAir,
     use_T_in=true,
-    use_p_in=true,
-    T=299.85) "Source"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed varSpeDX(
-    redeclare package Medium = Medium,
-    dp_nominal=dp_nominal,
-    datCoi=datCoi,
-    minSpeRat=datCoi.minSpeRat,
-    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Variable speed DX coil"
-    annotation (Placement(transformation(extent={{-10,2},{10,22}})));
+    nPorts=1,
+    m_flow=1.5,
+    T=299.85) "Source on air side"
+    annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
-    startTime=900,
-    height=5,
-    offset=273.15 + 20,
-    y(unit="K")) "temperature"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
-        1800,0.8; 2700,0.75; 3600,0.75]) "Speed ratio "
-    annotation (Placement(transformation(extent={{-84,50},{-64,70}})));
-  Modelica.Blocks.Sources.Ramp p(
-    duration=600,
-    height=dp_nominal,
-    offset=101325,
-    startTime=100) "Mass flow rate of air"
-    annotation (Placement(transformation(extent={{-100,-8},{-80,12}})));
-  AirCooled.Data.Generic.DXCoil datCoi(nSta=4, sta={
-        AirCooled.Data.Generic.BaseClasses.Stage(
-        spe=900/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-12000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=0.9),
-        perCur=PerformanceCurves.Curve_I()),
-        AirCooled.Data.Generic.BaseClasses.Stage(
-        spe=1200/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-18000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.2),
-        perCur=PerformanceCurves.Curve_I()),
-        AirCooled.Data.Generic.BaseClasses.Stage(
+    startTime=2400,
+    height=-5,
+    offset=273.15 + 23) "Temperature"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed varSpeDX(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
+    dp_nominal=dp_nominal,
+    datCoi=datCoi,
+    show_T=true,
+    dpCon_nominal=dpCon_nominal,
+    minSpeRat=datCoi.minSpeRat)  "Variable speed DX coil"
+    annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
+        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
           SHR_nominal=0.8,
-          m_flow_nominal=1.5),
-        perCur=PerformanceCurves.Curve_II()),
-        AirCooled.Data.Generic.BaseClasses.Stage(
-        spe=2400/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-30000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.8),
-        perCur=PerformanceCurves.Curve_III())}) "Coil data"
+          m_flow_nominal=1.5,
+          mCon_flow_nominal=1,
+          TEvaIn_nominal=273.15+26.67,
+          TConIn_nominal=273.15+29.4),
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I())}) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
-    "Condensor inlet temperature"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Modelica.Blocks.Sources.Ramp     mCon_flow(
+    duration=600,
+    startTime=6000,
+    height=0,
+    offset=1)                                     "Condensor inlet mass flow"
+    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                      souWat(
+    redeclare package Medium = MediumWater,
+    nPorts=1,
+    use_T_in=false,
+    use_m_flow_in=true,
+    T=298.15) "Source on water side"
+    annotation (Placement(transformation(extent={{52,-56},{32,-36}})));
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    redeclare package Medium = MediumWater,
+    nPorts=1,
+    p(displayUnit="Pa"))
+              "Sink on water side"
+    annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
+  Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
+        1800,0.8; 2700,0.75; 3600,0.75]) "Speed ratio "
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
-  connect(sou.ports[1], varSpeDX.port_a)
-                                        annotation (Line(
-      points={{-20,-10},{-16,-10},{-16,12},{-10,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(varSpeDX.port_b, sin.ports[1])
-                                        annotation (Line(
-      points={{10,12},{14,12},{14,-10},{20,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TEvaIn.y, sou.T_in) annotation (Line(
-      points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
+  connect(TEvaIn.y, souAir.T_in) annotation (Line(
+      points={{-79,50},{-58,50},{-58,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(speRat.y, varSpeDX.speRat)   annotation (Line(
-      points={{-63,60},{-22,60},{-22,20},{-11,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(p.y, sou.p_in) annotation (Line(
-      points={{-79,2},{-61.5,2},{-61.5,-2},{-42,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(varSpeDX.TConIn, TConIn.y) annotation (Line(
-      points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/VariableSpeed.mos"
+  connect(varSpeDX.port_a2, souWat.ports[1]) annotation (Line(points={{14,-2},{
+          28,-2},{28,-46},{32,-46}},
+                                  color={0,127,255}));
+  connect(varSpeDX.port_b2, sinWat.ports[1]) annotation (Line(points={{-6,-2},{
+          -12,-2},{-12,-50},{-24,-50}},
+                                    color={0,127,255}));
+  connect(souAir.ports[1],varSpeDX. port_a1) annotation (Line(points={{-28,38},
+          {-12,38},{-12,10},{-6,10}},
+                                    color={0,127,255}));
+  connect(sinAir.ports[1],varSpeDX. port_b1) annotation (Line(points={{32,40},{
+          28,40},{28,10},{14,10}},
+                                color={0,127,255}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,-30},
+          {68,-38},{52,-38}},      color={0,0,127}));
+  connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-79,0},{-40,0},{-40,
+          12},{-7.2,12}}, color={0,0,127}));
+  annotation (             __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/VariableSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-July 26, 2012 by Kaustubh Phalak:<br/>
+February 16, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
