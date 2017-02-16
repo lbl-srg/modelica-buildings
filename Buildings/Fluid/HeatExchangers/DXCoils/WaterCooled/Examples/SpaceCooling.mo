@@ -1,8 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
 model SpaceCooling "Space cooling with DX coils"
+  import Buildings;
   extends Modelica.Icons.Example;
-  replaceable package Medium =
-      Buildings.Media.Air;
+  package MediumAir = Buildings.Media.Air;
+  package MediumWater = Buildings.Media.Water;
 
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
@@ -38,20 +39,20 @@ model SpaceCooling "Space cooling with DX coils"
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
       Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+        MediumAir, redeclare package Medium2 = MediumAir,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
-  Buildings.Fluid.Sources.Outside out(nPorts=6, redeclare package Medium = Medium)
+  Buildings.Fluid.Sources.Outside out(nPorts=6, redeclare package Medium = MediumAir)
     annotation (Placement(transformation(extent={{-174,-76},{-154,-56}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -67,12 +68,12 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut(redeclare package
       Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-70},{-64,-58}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
       Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-70},{78,-58}})));
   Modelica.Blocks.Logical.OnOffController con(bandwidth=1, pre_y_start=true)
@@ -81,15 +82,17 @@ model SpaceCooling "Space cooling with DX coils"
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed sinSpeDX(
-    redeclare package Medium = Medium,
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed sinSpeDX(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
     datCoi=datCoi,
     dp_nominal=400,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    dpCon_nominal=40000,
+    sinSpeDX(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial))
     annotation (Placement(transformation(extent={{-2,-74},{18,-54}})));
 
   SimpleRoom rooSinSpe(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     nPorts=2,
     QRooInt_flow=QRooInt_flow,
     mA_flow_nominal=mA_flow_nominal)
@@ -97,13 +100,13 @@ model SpaceCooling "Space cooling with DX coils"
                                      annotation (Placement(transformation(
           extent={{120,40},{140,60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex1(
     redeclare package Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+        MediumAir, redeclare package Medium2 = MediumAir,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
@@ -112,62 +115,68 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{-110,-180},{-90,-160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut1(
                                                redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-170},{-64,-158}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir1(
                                                 redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage mulStaDX(
-    redeclare package Medium = Medium,
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed mulStaDX(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
     dp_nominal=400,
-    datCoi=datCoiMulSpe,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    dpCon_nominal=40000,
+    datCoi=datCoiMulSpe)
     "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-2,-174},{18,-154}})));
   SimpleRoom rooMulSpe(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     nPorts=2,
     QRooInt_flow=QRooInt_flow,
     mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
                                      annotation (Placement(transformation(
           extent={{180,40},{200,60}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
-      sta={AirCooled.Data.Generic.BaseClasses.Stage(
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
+      sta={WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
+        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
-          m_flow_nominal=mA_flow_nominal),
+          m_flow_nominal=mA_flow_nominal,
+          mCon_flow_nominal=QCoiC_flow_nominal/5/4200),
         perCur=PerformanceCurves.Curve_I())}, nSta=1)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil
-    datCoiMulSpe(nSta=2, sta={AirCooled.Data.Generic.BaseClasses.Stage(
+    Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil
+    datCoiMulSpe(nSta=2, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=900/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
+        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*900/2400,
           COP_nominal=3,
           SHR_nominal=0.7,
-          m_flow_nominal=mA_flow_nominal*900/2400),
-        perCur=PerformanceCurves.Curve_I()),AirCooled.Data.Generic.BaseClasses.Stage(
+          m_flow_nominal=mA_flow_nominal*900/2400,
+          mCon_flow_nominal=QCoiC_flow_nominal*900/2400/5/4200),
+        perCur=PerformanceCurves.Curve_I()),
+        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=AirCooled.Data.Generic.BaseClasses.NominalValues(
+        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
-          m_flow_nominal=mA_flow_nominal),
-        perCur=PerformanceCurves.Curve_III())}) "Coil data"
+          m_flow_nominal=mA_flow_nominal,
+          mCon_flow_nominal=QCoiC_flow_nominal/5/4200),
+        perCur=PerformanceCurves.Curve_I())}) "Coil data"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   ControllerTwoStage mulSpeCon "Controller for multi-stage coil"
                                annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
   SimpleRoom rooVarSpe(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     nPorts=2,
     QRooInt_flow=QRooInt_flow,
     mA_flow_nominal=mA_flow_nominal)
@@ -175,31 +184,33 @@ model SpaceCooling "Space cooling with DX coils"
                                      annotation (Placement(transformation(
           extent={{240,40},{260,60}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
-    redeclare package Medium = Medium,
+    redeclare package Medium = MediumAir,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
                                                 redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{64,-246},{76,-234}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed varSpeDX(
-    redeclare package Medium = Medium,
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed
+    varSpeDX(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
     dp_nominal=400,
+    dpCon_nominal=40000,
     datCoi=datCoiMulSpe,
-    minSpeRat=0.2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    minSpeRat=0.2)
     "Variable-speed DX coil"
     annotation (Placement(transformation(extent={{-4,-250},{16,-230}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut2(
                                                redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+        MediumAir, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-78,-246},{-66,-234}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex2(
                                                  redeclare package Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+        MediumAir, redeclare package Medium2 = MediumAir,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
@@ -223,6 +234,21 @@ model SpaceCooling "Space cooling with DX coils"
     Td=1,
     reverseAction=true) "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    redeclare package Medium = MediumWater,
+    nPorts=3,
+    p(displayUnit="Pa"))
+              "Sink on water side"
+    annotation (Placement(transformation(extent={{-172,-320},{-152,-300}})));
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                      souWat(
+    redeclare package Medium = MediumWater,
+    nPorts=3,
+    use_T_in=false,
+    use_m_flow_in=false,
+    m_flow=QCoiC_flow_nominal/5/4200,
+    T=303.15) "Source on water side"
+    annotation (Placement(transformation(extent={{262,-320},{242,-300}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -257,14 +283,6 @@ equation
       smooth=Smooth.None));
   connect(senTemSupAir.port_b, fan.port_a) annotation (Line(
       points={{78,-64},{100,-64}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemHXEvaOut.port_b, sinSpeDX.port_a) annotation (Line(
-      points={{-64,-64},{-2,-64}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sinSpeDX.port_b, senTemSupAir.port_a) annotation (Line(
-      points={{18,-64},{66,-64}},
       color={0,127,255},
       smooth=Smooth.None));
 public
@@ -352,10 +370,6 @@ public
   end SimpleRoom;
 equation
 
-  connect(sinSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
-      points={{-3,-61},{-56,-61},{-56,-50},{-128,-50},{-128,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(fan.port_b, rooSinSpe.ports[1])
                                     annotation (Line(
       points={{120,-64},{130.283,-64},{130.283,40.1154}},
@@ -376,20 +390,6 @@ equation
                                            annotation (Line(
       points={{78,-164},{100,-164}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemHXEvaOut1.port_b, mulStaDX.port_a)
-                                               annotation (Line(
-      points={{-64,-164},{-2,-164}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(mulStaDX.port_b, senTemSupAir1.port_a)
-                                                annotation (Line(
-      points={{18,-164},{66,-164}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(mulStaDX.TConIn, weaBus.TDryBul) annotation (Line(
-      points={{-3,-161},{-62,-161},{-62,-150},{-128,-150},{-128,70}},
-      color={0,0,127},
       smooth=Smooth.None));
 
   connect(fan1.port_b, rooMulSpe.ports[1]) annotation (Line(
@@ -502,7 +502,7 @@ public
   end ControllerTwoStage;
 equation
   connect(mulSpeCon.stage, mulStaDX.stage) annotation (Line(
-      points={{-39.6,-129.333},{-20,-129.333},{-20,-156},{-3,-156}},
+      points={{-39.6,-129.333},{-20,-129.333},{-20,-156},{-3.2,-156}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(rooVarSpe.TOutDryBul, weaBus.TDryBul) annotation (Line(
@@ -514,20 +514,6 @@ equation
                                            annotation (Line(
       points={{76,-240},{98,-240}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(varSpeDX.port_b, senTemSupAir2.port_a)
-                                                annotation (Line(
-      points={{16,-240},{64,-240}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemHXEvaOut2.port_b, varSpeDX.port_a)
-                                               annotation (Line(
-      points={{-66,-240},{-4,-240}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(varSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
-      points={{-5,-237},{-64,-237},{-64,-226},{-128,-226},{-128,70}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(hex2.port_b1,senTemHXEvaOut2. port_a)
                                            annotation (Line(
@@ -573,15 +559,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpePow.u, sinSpeDX.P) annotation (Line(
-      points={{38,-30},{30,-30},{30,-55},{19,-55}},
+      points={{38,-30},{30,-30},{30,-56},{19,-56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mulSpePow.u, mulStaDX.P) annotation (Line(
-      points={{38,-130},{30,-130},{30,-156},{19,-156},{19,-155}},
+      points={{38,-130},{30,-130},{30,-156},{19,-156}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(varSpeDX.P, varSpePow.u) annotation (Line(
-      points={{17,-231},{30,-231},{30,-210},{38,-210}},
+      points={{17,-232},{30,-232},{30,-210},{38,-210}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooSetPoi.y, con.reference) annotation (Line(
@@ -598,7 +584,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, sinSpeDX.on) annotation (Line(
-      points={{-17,12},{-10,12},{-10,-56},{-3,-56}},
+      points={{-17,12},{-10,12},{-10,-55.8},{-3,-55.8}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mulSpeCon.reference, TRooSetPoi.y) annotation (Line(
@@ -620,12 +606,39 @@ equation
       smooth=Smooth.None));
 
   connect(conVarSpe.y, varSpeDX.speRat) annotation (Line(
-      points={{-39,-210},{-20,-210},{-20,-232},{-5,-232}},
+      points={{-39,-210},{-20,-210},{-20,-232},{-5.2,-232}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(senTemHXEvaOut.port_b, sinSpeDX.port_a1) annotation (Line(points={{-64,
+          -64},{-20,-64},{-20,-58},{-2,-58}}, color={0,127,255}));
+  connect(sinSpeDX.port_b1, senTemSupAir.port_a) annotation (Line(points={{18,-58},
+          {40,-58},{40,-64},{66,-64}}, color={0,0,127}));
+  connect(senTemHXEvaOut1.port_b, mulStaDX.port_a1) annotation (Line(points={{-64,
+          -164},{-42,-164},{-20,-164},{-20,-158},{-2,-158}}, color={0,127,255}));
+  connect(mulStaDX.port_b1, senTemSupAir1.port_a) annotation (Line(points={{18,-158},
+          {60,-158},{60,-164},{66,-164}}, color={0,127,255}));
+  connect(senTemHXEvaOut2.port_b, varSpeDX.port_a1) annotation (Line(points={{-66,
+          -240},{-20,-240},{-20,-234},{-4,-234}}, color={0,127,255}));
+  connect(varSpeDX.port_b1, senTemSupAir2.port_a) annotation (Line(points={{16,-234},
+          {60,-234},{60,-240},{64,-240}}, color={0,127,255}));
+  connect(souWat.ports[1], varSpeDX.port_a2) annotation (Line(points={{242,
+          -307.333},{132,-307.333},{32,-307.333},{32,-246},{16,-246}},
+                                                             color={0,127,255}));
+  connect(souWat.ports[2], mulStaDX.port_a2) annotation (Line(points={{242,-310},
+          {86,-310},{32,-310},{32,-170},{18,-170}}, color={0,127,255}));
+  connect(souWat.ports[3], sinSpeDX.port_a2) annotation (Line(points={{242,
+          -312.667},{122,-312.667},{32,-312.667},{32,-70},{18,-70}},
+                                                           color={0,127,255}));
+  connect(sinSpeDX.port_b2, sinWat.ports[1]) annotation (Line(points={{-2,-70},
+          {-12,-70},{-12,-307.333},{-152,-307.333}},color={0,127,255}));
+  connect(mulStaDX.port_b2, sinWat.ports[2]) annotation (Line(points={{-2,-170},
+          {-12,-170},{-12,-310},{-152,-310}}, color={0,127,255}));
+  connect(varSpeDX.port_b2, sinWat.ports[3]) annotation (Line(points={{-4,-246},
+          {-8,-246},{-8,-246},{-12,-246},{-12,-310},{-152,-310},{-152,-312.667}},
+        color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-This model illustrates the use of the DX coil models with
+This model illustrates the use of the water-cooled DX coil models with
 single speed compressor, multi-stage compressor, and variable
 speed compressor.
 The three systems all have the same simple model for a room,
@@ -683,8 +696,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-300},{300,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-240,-340},{320,
+            120}})),
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SpaceCooling.mos"
         "Simulate and plot"),
