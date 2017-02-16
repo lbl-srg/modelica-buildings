@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
-model Single "Single speed water-cooled DX coils"
+model SingleSpeed "Single speed water-cooled DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
@@ -65,7 +65,7 @@ public
                                     "Water-cooled condenser"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
-  Modelica.Blocks.Sources.RealExpression u(final y=(sinSpeDX.dxCoo.Q_flow + sinSpeDX.P)
+  Modelica.Blocks.Sources.RealExpression u(final y=(-sinSpeDX.dxCoo.Q_flow + sinSpeDX.P)
         /(-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal)))
         "Signal of total heat flow removed by condenser"
         annotation (
@@ -82,7 +82,6 @@ protected
   Modelica.Blocks.Sources.RealExpression mCon(final y=port_a2.m_flow)
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
-
 
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
@@ -158,4 +157,4 @@ equation
           lineColor={0,0,127},
           textString="P")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Single;
+end SingleSpeed;
