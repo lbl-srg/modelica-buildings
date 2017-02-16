@@ -13,43 +13,36 @@ model SingleSpeed "Test model for single speed DX coil"
 
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumAir,
-    p(displayUnit="Pa") = 101325,
     nPorts=1,
-    T=303.15) "Sink on air side"
+    p(displayUnit="Pa"))
+              "Sink on air side"
     annotation (Placement(transformation(extent={{52,30},{32,50}})));
-  Buildings.Fluid.Sources.Boundary_pT souAir(
+  Buildings.Fluid.Sources.MassFlowSource_T
+                                      souAir(
     redeclare package Medium = MediumAir,
-    p(displayUnit="Pa") = 101325 + dp_nominal,
     use_T_in=true,
     nPorts=1,
-    use_p_in=true,
+    m_flow=1.5,
     T=299.85) "Source on air side"
     annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
     offset=273.15 + 23) "Temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Single    sinSpeDX(
-    redeclare package Medium1=MediumAir,
-    redeclare package Medium2=MediumWater,
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed sinSpeDX(
+    redeclare package Medium1 = MediumAir,
+    redeclare package Medium2 = MediumWater,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     show_T=true,
-    dpCon_nominal=dpCon_nominal)
-    "Single speed DX coil"
+    dpCon_nominal=dpCon_nominal) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
-  Modelica.Blocks.Sources.Ramp p(
-    duration=600,
-    startTime=600,
-    height=dp_nominal,
-    offset=101325) "Pressure"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
@@ -58,27 +51,30 @@ model SingleSpeed "Test model for single speed DX coil"
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.5,
-          mCon_flow_nominal=1),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_II())}) "Coil data"
+          mCon_flow_nominal=1,
+          TEvaIn_nominal=273.15+26.67,
+          TConIn_nominal=273.15+29.4),
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I())}) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
-    "Condensor inlet temperature"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Modelica.Blocks.Sources.Constant mCon_flow(k=1) "Condensor inlet mass flow"
-    annotation (Placement(transformation(extent={{100,-80},{80,-60}})));
+  Modelica.Blocks.Sources.Ramp     mCon_flow(
+    duration=600,
+    startTime=6000,
+    height=0,
+    offset=1)                                     "Condensor inlet mass flow"
+    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.Fluid.Sources.MassFlowSource_T
                                       souWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
     use_T_in=false,
     use_m_flow_in=true,
-    T=305.15) "Source on water side"
+    T=298.15) "Source on water side"
     annotation (Placement(transformation(extent={{52,-56},{32,-36}})));
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
-    p(displayUnit="Pa"),
-    T=303.15) "Sink on water side"
+    p(displayUnit="Pa"))
+              "Sink on water side"
     annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
 equation
   connect(TEvaIn.y, souAir.T_in) annotation (Line(
@@ -87,12 +83,8 @@ equation
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-39,70},{0,70},{0,12.2},{-7,12.2}},
+      points={{-79,70},{-76,70},{-76,12.2},{-7,12.2}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(p.y, souAir.p_in) annotation (Line(
-      points={{-79,10},{-62,10},{-62,46},{-50,46}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.port_a2, souWat.ports[1]) annotation (Line(points={{14,-2},{
           28,-2},{28,-46},{32,-46}},
@@ -106,16 +98,16 @@ equation
   connect(sinAir.ports[1], sinSpeDX.port_b1) annotation (Line(points={{32,40},{
           28,40},{28,10},{14,10}},
                                 color={0,127,255}));
-  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-70},{68,
-          -70},{68,-38},{52,-38}}, color={0,0,127}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,
+          -30},{68,-38},{52,-38}}, color={0,0,127}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
