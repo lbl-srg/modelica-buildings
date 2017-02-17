@@ -224,9 +224,8 @@ if stage > 0 then
 <h4>Cooling capacity modifiers</h4>
 <p>
 There are two cooling capacity modifier functions: The function
-<i>cap<sub>&theta;</sub></i> accounts for a performance change due to different
-air temperatures and the function
-cap<sub>FF </sub> accounts for a performance change due to different air flow rates,
+<i>cap<sub>&theta;</sub></i> accounts for a performance change due to different temperatures at the condenser and evaporator and the function
+cap<sub>FF </sub> accounts for a performance change due to different air flow rates at the evaporator,
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
 to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate as
@@ -254,7 +253,7 @@ where the six coefficients are obtained from the coil performance data record.
 </p>
 <p>
 The flow fraction dependent cooling capacity modifier function is a polynomial
-with the normalized mass flow rate <i>ff</i> (flow fraction) as the time dependent variable.
+with the normalized mass flow rate <i>ff</i> (flow fraction) at the evaporator as the time dependent variable.
 The normalized mass flow rate is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -262,7 +261,7 @@ The normalized mass flow rate is defined as
 </p>
 <p>
 where
-<i>m&#775;</i> is the mass flow rate and
+<i>m&#775;</i> is the mass flow rate at the evaporator and
 <i>m&#775;<sub>nom</sub></i> is the nominal mass flow rate.
 If the coil has multiple stages, then the nominal mass flow rate of the respective stage is used.
 Hence,
