@@ -19,17 +19,13 @@ record PerformanceCurve "Data record for a performance curve"
     "Maximum water flow fraction at condensers for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
   annotation (defaultComponentName="per", Documentation(info="<html>
-<p>This record declares the data used to specify performance curves for DX coils. </p>
-<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
+<p>This record declares the data used to specify performance curves for water-cooled DX coils. </p>
+<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-August 15, 2012 by Kaustubh Phalak:<br/>
+February 17, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
