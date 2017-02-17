@@ -96,7 +96,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
 </p>
 <p>
 There can be an arbitrary number of polynomial coefficients for the record
-<code>capFunFF</code> and <code>EIRFunFF</code>.
+<code>capFunFF</code>,<code>capFunFFCon</code>,<code>EIRFunFF</code> and <code>EIRFunFFCon</code>.
 However, if a coil has multiple stages, then each stage must declare the
 same amount of polynomial coefficients. For example, if a
 quadratic function is used for stage one, then stage two must also use
@@ -105,6 +105,10 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 17, 2017, by Yangyang Fu:<br/>
+Revised documentation for water-cooled DX coils.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
