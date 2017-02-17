@@ -19,14 +19,12 @@ model DXCooling "DX cooling coil operation "
     redeclare final package Medium = Medium,
     final variableSpeedCoil = variableSpeedCoil,
     datCoi=datCoi,
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap,
     use_mCon_flow=use_mCon_flow) "Wet coil condition"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   DryCoil dryCoi(
     redeclare final package Medium = Medium,
     final variableSpeedCoil = variableSpeedCoil,
     datCoi=datCoi,
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap,
     use_mCon_flow=use_mCon_flow) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
