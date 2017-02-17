@@ -55,8 +55,9 @@ model ScrollWaterToWater_OneRoomRadiator
     m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)     "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(redeclare package Medium = MediumW,
-      m_flow_nominal=mHeaPum_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSup(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)            "Supply water temperature"
       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -71,11 +72,13 @@ model ScrollWaterToWater_OneRoomRadiator
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
       redeclare package Medium = MediumW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       m_flow_nominal=mHeaPum_flow_nominal,
       y_start=1,
       m_flow_start=0.85,
-    T_start=TRadSup_nominal)
+    T_start=TRadSup_nominal,
+    nominalValuesDefineDefaultPressureCurve=true,
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for radiator side"
      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -148,11 +151,12 @@ model ScrollWaterToWater_OneRoomRadiator
     annotation (Placement(transformation(extent={{82,-208},{62,-188}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     y_start=1,
     m_flow_start=0.85,
-    m_flow_nominal=mHeaPum_flow_nominal)
+    m_flow_nominal=mHeaPum_flow_nominal,
+    nominalValuesDefineDefaultPressureCurve=true,
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heat pump source side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -173,7 +177,7 @@ model ScrollWaterToWater_OneRoomRadiator
         rotation=90,
         origin={-100,-70})));
   Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{2,-82},{12,-72}})));
+    annotation (Placement(transformation(extent={{6,-82},{16,-72}})));
   Modelica.Blocks.Logical.And and2
     annotation (Placement(transformation(extent={{26,-56},{36,-46}})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum1(
@@ -189,9 +193,9 @@ model ScrollWaterToWater_OneRoomRadiator
         origin={-31,-77})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0.25*
         mHeaPum_flow_nominal) annotation (Placement(transformation(
-        extent={{5,-5},{-5,5}},
+        extent={{6,-6},{-6,6}},
         rotation=-90,
-        origin={-7,-101})));
+        origin={0,-102})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -280,22 +284,25 @@ equation
           {-62,-98.2}}, color={0,0,127}));
   connect(temRet.port_a, rad.port_b)
     annotation (Line(points={{58,-10},{42,-10},{20,-10}}, color={0,127,255}));
-  connect(and2.u2, and1.y) annotation (Line(points={{25,-55},{18,-55},{18,-77},
-          {12.5,-77}}, color={255,0,255}));
+  connect(and2.u2, and1.y) annotation (Line(points={{25,-55},{18,-55},{18,-77},{
+          16.5,-77}},  color={255,0,255}));
   connect(and2.u1, booToReaPum.u) annotation (Line(points={{25,-51},{-44,-51},{
           -100,-51},{-100,-58}}, color={255,0,255}));
   connect(booToReaPum1.y, heaPum.y) annotation (Line(points={{41,-84.5},{41,
           -84.5},{41,-133},{36,-133}}, color={0,0,127}));
   connect(booToReaPum1.u, and2.y) annotation (Line(points={{41,-73},{41,-73},{
           41,-51},{36.5,-51}}, color={255,0,255}));
-  connect(greaterThreshold.y, and1.u1) annotation (Line(points={{-25.5,-77},{
-          -25.75,-77},{1,-77}}, color={255,0,255}));
-  connect(greaterThreshold1.y, and1.u2) annotation (Line(points={{-7,-95.5},{-6,
-          -95.5},{-6,-81},{1,-81}}, color={255,0,255}));
-  connect(pumHeaPum.m_flow_actual, greaterThreshold.u) annotation (Line(points=
-          {{-52,-87},{-48,-87},{-48,-77},{-37,-77}}, color={0,0,127}));
+  connect(greaterThreshold.y, and1.u1) annotation (Line(points={{-25.5,-77},{5,-77}},
+                                color={255,0,255}));
+  connect(greaterThreshold1.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},
+          {0,-95.4},{0,-81},{5,-81}},
+                                    color={255,0,255}));
+  connect(pumHeaPum.m_flow_actual, greaterThreshold.u) annotation (Line(points={{-52,-87},
+          {-52,-87},{-52,-78},{-52,-77},{-44,-77},{-37,-77}},
+                                                     color={0,0,127}));
   connect(pumHeaPumSou.m_flow_actual, greaterThreshold1.u) annotation (Line(
-        points={{6.66134e-016,-167},{0,-167},{0,-107},{-7,-107}}, color={0,0,
+        points={{6.66134e-16,-167},{0,-167},{0,-109.2},{-1.33227e-15,-109.2}},
+                                                                  color={0,0,
           127}));
   annotation (Documentation(info="<html>
 <p>
