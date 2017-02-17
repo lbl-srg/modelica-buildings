@@ -94,7 +94,12 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      X=X_start[1:Medium.nXi])) +
     (T_start - Medium.reference_T)*CSen,
     nominal = 1E5) "Internal energy of fluid";
-  Modelica.SIunits.Mass m "Mass of fluid";
+
+  Modelica.SIunits.Mass m(
+    stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    then StateSelect.default else StateSelect.prefer)
+    "Mass of fluid";
+
   Modelica.SIunits.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
   Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
@@ -411,6 +416,12 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 27, 2017, by Michael Wetter:<br/>
+Added <code>stateSelect</code> for mass <code>m</code>.<br/>
+This if or <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/642\">
+Buildings, issue 642</a>.
+</li>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Set nominal value for <code>U</code>.<br/>
