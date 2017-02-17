@@ -228,19 +228,7 @@ There are two cooling capacity modifier functions: The function
 cap<sub>FF </sub> accounts for a performance change due to different air flow rates at the evaporator,
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
-to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Q&#775;(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
-            cap<sub>FF</sub>(ff) Q&#775;<sub>nom</sub>,
-</p>
-<p>
-where
-<i>&theta;<sub>e,in</sub></i> is the evaporator inlet temperature and
-<i>&theta;<sub>c,in</sub></i> is the condenser inlet temperature in degrees Celsius.
-<i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry,
-or the wet-bulb temperature if the coil is wet.
-</p>
+to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate. See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1\"> Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1</a>.
 <p>
 The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >
@@ -290,11 +278,6 @@ The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Perform
 Similar to the cooling rate, the EIR of the coil is the product of a function
 that takes into account changes in condenser and evaporator inlet temperatures,
 and changes in mass flow rate.
-The EIR is computed as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
-           EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
 </p>
 <p>
 As for the cooling rate,
