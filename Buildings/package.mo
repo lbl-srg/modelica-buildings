@@ -191,6 +191,14 @@ its class name ends with the string <code>Beta</code>.
    This leads in many examples that use the room model to a smaller number
    of non-linear system of equations and a 20% to 40% faster simulation.
    </li>
+   <li>
+   The models <code>Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</code> 
+   and <code>Buildings.Fluid.HeatPumps.ScrollWaterToWater</code> have been added. 
+   Parameters to these models rely on calibration with tabulated heat pump performance
+   data. Python scripts for the calibration of the heat pump models are found in:
+   <code>modelica://Buildings/Resources/src/fluid/heatpumps/calibration/</code>.
+   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/587\">issue 587</a>.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -222,6 +230,13 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Package with models of active beams for space cooling and heating.
        </td>
        </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Compressors
+       </td>
+       <td valign=\"top\">Package with models of compressors for heat pumps.
+       </td>
+       </tr>
+       
      <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
        </td>
        <td valign=\"top\">Package with reduced order models of thermal zones based
@@ -245,6 +260,29 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.EvaporatorCondenser
+       </td>
+       <td valign=\"top\">Model for evaporator/condenser with refrigerant experiencing constant temperature phase change.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater
+       </td>
+       <td valign=\"top\">Model for water to water heat pump with a reciprocating compressor.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ScrollWaterToWater
+       </td>
+       <td valign=\"top\">Model for water to water heat pump with a scroll compressor.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows.BaseClasses</b>
        </td>
    </tr>
@@ -259,13 +297,19 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+       </td>
+       <td valign=\"top\">Model for thermodynamic properties of refrigerant R410A.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Media.Specialized.Water.ConstantProperties_pT
        </td>
        <td valign=\"top\">Model for liquid water with constant properties at user-selected temperature.<br/>
                           This closes
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">Annex 60, #511</a>.
        </td>
-   </tr>   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.IntegratorWithReset
