@@ -20,6 +20,10 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 revisions="<html>
 <ul>
 <li>
+February 17, 2017 by Yangyang Fu:<br/>
+Added prefix <code>replaceable</code> for the parameter <code>datCoi</code>.
+</li>
+<li>
 January 7, 2013 by Michael Wetter:<br/>
 Removed medium declaration to avoid multiple definitions of the medium.
 </li>
