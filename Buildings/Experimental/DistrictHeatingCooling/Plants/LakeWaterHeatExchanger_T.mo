@@ -157,10 +157,10 @@ protected
   Modelica.Blocks.Sources.Constant TAppHex(k=TApp)
     "Approach temperature difference"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
-  Modelica.Blocks.Math.Add TWatHea
+  Modelica.Blocks.Math.Add TWatHea(k2=-1)
     "Heat exchanger outlet, taking into account approach"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
-  Modelica.Blocks.Math.Add TWatCoo(k2=-1)
+  Modelica.Blocks.Math.Add TWatCoo
     "Heat exchanger outlet, taking into account approach"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Modelica.Blocks.Math.Add QExc_flow(k1=-1) "Heat added to water reservoir"
@@ -455,6 +455,10 @@ instances <code>valCoo</code> and <code>valHea</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2017, by Felix Buenning:<br/>
+Corrected wrong signs for <code>TApp</code> in <code>TWatCoo</code> and <code>TWatHea</code>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Corrected wrong argument type in function call of <code>Medium.temperature_phX</code>.
