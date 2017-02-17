@@ -48,6 +48,10 @@ These parameters are required to determine the apparatus dew point at the nomina
 revisions="<html>
 <ul>
 <li>
+February 17, 2017 by Yangyang Fu:<br/>
+Changed parameter <code>per</code> to replaceable and added constrained type for redeclaration in water-cooled DX coils. 
+</li>
+<li>
 October 9, 2013 by Michael Wetter:<br/>
 Changed protected parameter <code>Cp_nominal</code> to public, and
 hidded its result. The use of a protected parameter is not valid Modelica
