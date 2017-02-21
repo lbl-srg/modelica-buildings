@@ -1,0 +1,15 @@
+#!/bin/bash
+# This is invoked from the Buildings directory. Hence, we need to share one level up
+cur_dir=`pwd`
+sha_dir=`dirname ${cur_dir}`
+docker run \
+	  --mac-address=${MAC_ADDRESS} \
+	  --detach=false \
+	  --rm \
+	  --user=developer \
+	  -v ${sha_dir}:/mnt/shared \
+	  ${DOCKER_USERNAME}/travis_ubuntu-1604_dymola-2017fd01-x86-64 /bin/bash -c \
+	  "Xvfb :77  -extension RANDR & \
+	  export DISPLAY=:77.0 && \
+	  cd /mnt/shared/Buildings && \
+	  dymola runAll.mos /nowindow"
