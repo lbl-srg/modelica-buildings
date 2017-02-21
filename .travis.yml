@@ -1,0 +1,57 @@
+language: python
+python:
+  - "2.7"
+
+notifications:
+  email: false
+
+git:
+  depth: 3
+
+services:
+  - docker
+
+env:
+  - TEST_ARG=--validate-html-only
+  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Examples"
+  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Validation"
+  - TEST_ARG="-b -s Buildings.Experimental"
+  - TEST_ARG="-b -s Buildings.Fluid.Actuators,Buildings.Fluid.BaseClasses,Buildings.Fluid.Boilers,Buildings.Fluid.Chillers,Buildings.Fluid.Delays"
+  - TEST_ARG="-b -s Buildings.Fluid.Examples,Buildings.Fluid.FMI,Buildings.Fluid.FixedResistances"
+  - TEST_ARG="-b -s Buildings.Fluid.HeatExchangers,Buildings.Fluid.HeatPumps,Buildings.Fluid.Interfaces"
+  - TEST_ARG="-b -s Buildings.Fluid.MassExchangers,Buildings.Fluid.MixingVolumes,Buildings.Fluid.Movers,Buildings.Fluid.Sensors,Buildings.Fluid.SolarCollectors,Buildings.Fluid.Sources,Buildings.Fluid.Storage,Buildings.Fluid.Utilities"
+  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.FLEXLAB"
+  - TEST_ARG="-b -s Buildings.Electrical"
+  - TEST_ARG="-b -s Buildings.Airflow"
+  - TEST_ARG="-b -s Buildings.BoundaryConditions"
+  - TEST_ARG="-b -s Buildings.Controls"
+  - TEST_ARG="-b -s Buildings.Examples.ChillerPlant"
+  - TEST_ARG="-b -s Buildings.Examples.DualFanDualDuct"
+  - TEST_ARG="-b -s Buildings.Examples.HydronicHeating"
+  - TEST_ARG="-b -s Buildings.Examples.Tutorial"
+  - TEST_ARG="-b -s Buildings.Examples.VAVCO2"
+  - TEST_ARG="-b -s Buildings.Examples.VAVReheat"
+  - TEST_ARG="-b -s Buildings.HeatTransfer"
+  - TEST_ARG="-b -s Buildings.Media"
+  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.BaseClasses"
+  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Constructions"
+  - TEST_ARG="-b -s Buildings.Utilities"
+
+# Enable system site packages in virtualenv so BuildingsPy sees scipy and matplotlib
+virtualenv:
+  system_site_packages: true
+
+before_install:
+  - sudo mv Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
+  - sudo chmod +x /usr/local/bin/dymola
+  - sudo apt-get install -qq python-numpy python-scipy python-matplotlib
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
+
+# Install dependencies
+install:
+  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
+
+# Execute tests
+script:
+  - (cd Buildings && travis_wait 60 python ../bin/runUnitTests.py $TEST_ARG)
