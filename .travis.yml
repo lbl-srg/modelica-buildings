@@ -55,6 +55,3 @@ install:
 # Execute tests
 script:
   - (cd Buildings && travis_wait 60 python ../bin/runUnitTests.py $TEST_ARG)
-
-after_failure:
-  - cat Buildings/simulator.log
