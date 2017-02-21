@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/lbl-srg/modelica-buildings.svg)](https://travis-ci.org/lbl-srg/modelica-buildings)
-
 # Modelica Buildings library
+
+[![Build Status](https://travis-ci.org/lbl-srg/modelica-buildings.svg)](https://travis-ci.org/lbl-srg/modelica-buildings)
 
 This is the development site for the Modelica _Buildings_ library and its user guide.
 
