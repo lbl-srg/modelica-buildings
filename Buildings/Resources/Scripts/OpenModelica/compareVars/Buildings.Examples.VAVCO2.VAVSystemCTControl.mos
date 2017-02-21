@@ -22,5 +22,17 @@ compareVars :=
     "roo.roo47.vavACH.y",
     "roo.roo48.vavACH.y",
     "roo.roo49.vavACH.y",
-    "roo.roo50.vavACH.y"
+    "roo.roo50.vavACH.y",
+    "roo.roo45.vol.C[1]",
+    "roo.roo46.vol.C[1]",
+    "roo.roo47.vol.C[1]",
+    "roo.roo48.vol.C[1]",
+    "roo.roo49.vol.C[1]",
+    "roo.roo50.vol.C[1]",
+    "roo.roo45.ple.C[1]",
+    "roo.roo46.ple.C[1]",
+    "roo.roo47.ple.C[1]",
+    "roo.roo48.ple.C[1]",
+    "roo.roo49.ple.C[1]",
+    "roo.roo50.ple.C[1]"
   };

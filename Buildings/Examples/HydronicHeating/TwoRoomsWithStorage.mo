@@ -41,13 +41,15 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump for boiler circuit"                                  annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-170})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mRad_flow_nominal/1000*{0,2}, dp=dp_nominal*{2,0})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump that serves the radiators" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -180,7 +182,9 @@ model TwoRoomsWithStorage
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
-    from_dp=true) "Radiator valve"
+    from_dp=true,
+    filteredOpening=false)
+                  "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
   Controls.Continuous.LimPID conRoo2(
     yMax=1,
@@ -197,7 +201,9 @@ model TwoRoomsWithStorage
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
-    from_dp=true) "Radiator valve"
+    from_dp=true,
+    filteredOpening=false)
+                  "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.Continuous.LimPID conRoo1(
     yMax=1,
@@ -228,6 +234,7 @@ model TwoRoomsWithStorage
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
     dpFixed_nominal={100,0},
+    filteredOpening=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -365,7 +372,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.FlowControlled_m_flow fanSup(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
@@ -373,7 +381,8 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.FlowControlled_m_flow fanRet(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Return air fan"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    filteredSpeed=false) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
@@ -420,7 +429,7 @@ model TwoRoomsWithStorage
     dp_nominal={dpPip_nominal,0,0},
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -429,7 +438,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -438,7 +447,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal*{1,-1,-1},
     redeclare package Medium = MediumW,
     dp_nominal={0,0,0},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flow splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -448,16 +457,17 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{100,530},{120,550}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     dp_nominal=0,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_maxHeat=0) "Coil for mechanical cooling"
+    Q_flow_maxHeat=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                      "Coil for mechanical cooling"
     annotation (Placement(transformation(extent={{240,500},{260,520}})));
   Modelica.Blocks.Logical.LessThreshold lesThrTRoo(threshold=18 + 273.15)
     "Test to block boiler if room air temperature is sufficiently high"
@@ -555,14 +565,14 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   end CoolingControl;
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600)
+    m_flow_nominal=2*VRoo*1.2*0.37/3600,
+    filteredOpening=false)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Modelica.StateGraph.InitialStep off "Pump and furnace off"

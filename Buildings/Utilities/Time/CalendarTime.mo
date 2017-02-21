@@ -39,7 +39,7 @@ protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Real timeStampsNewYear[12] = {
+  constant Modelica.SIunits.Time timeStampsNewYear[12] = {
     1262304000, 1293840000, 1325376000,
     1356998400, 1388534400, 1420070400,
     1451606400, 1483228800, 1514764800,
@@ -128,10 +128,10 @@ initial algorithm
   elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
     zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2019 or
     zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2019 then
       timOff :=timeStampsNewYear[10];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
+  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2020 or
     zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
   else

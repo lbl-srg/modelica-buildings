@@ -1,0 +1,320 @@
+/* Style sheet for Modelica documentation
+*/
+html {
+    color: #191970;
+    background-color: #FFFFFF;
+    font-style: normal;
+    font-family: "Lucida Grande", Helvetica, Verdana, sans-serif;
+    font-size: 1em;
+    background-color: #BFD1D4;
+}
+
+body {
+    font-size: 14px;
+    line-height: 150%;
+    color: #022e4d;
+    padding: 10px;
+//    border: 1px solid #022e4d;
+    background-color: white;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 870px;
+    box-shadow: 2px -2px 10px 0px rgba(0,0,0,0.4);
+}
+
+// begin header css
+div.headerStyle {
+    font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
+    background-color: white; 
+    box-shadow: 2px -2px 10px 0px rgba(0,0,0,0.4);
+}
+
+div.headerStyle table{
+    padding: 10px 10px 15px 15px; 
+    width: 880px;
+    border: 0;
+}
+
+div.headerStyle td{
+    vertical-align: text-top;
+    font-size: 30pt;
+    padding: 10px 10px 15px 0px;
+    border: 0;
+}
+
+div.related {
+    font-size: 1em;
+}
+div.related ul {
+    background-image: url(navigation.png);
+    height: 2em;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+div.related ul li {
+    margin-left: -40px;
+    padding: 0;
+    height: 2em;
+    float: left;
+    list-style-type: none;
+}
+
+
+div.related ul li a {
+    margin: 0;
+    padding: 0 5px 0 5px;
+    line-height: 1.75em;
+    color: #750000;
+    text-decoration: none;
+}
+
+div.related ul li a:hover {
+    color: #750000;
+    text-decoration: none;
+}
+
+// end header css
+
+h1 {
+    margin: 0px;
+    padding: 0.7em 0 0.3em 0;
+    font-size: 1.5em;
+    color: #022e4d;
+}
+
+h2 {
+    margin: 0em 0 0.2em 0;
+    font-size: 1.35em;
+    padding: 0;
+    color: #022e4d;
+}
+
+h3 {
+    font-size: 1.2em;
+    color: #022e4d;
+}
+h4 {
+    margin: 1em 0 -0.3em 0;
+    font-size: 1em;
+    color: #022e4d;
+}
+
+/* Adding padding helps readability of subscripts */
+sub, sup {
+    padding: 2px;
+}
+
+
+/* Links */
+
+a {color: #750000;}
+h2 a {
+  color: #750000;
+  font-size: 1em;
+}
+
+/* a:visited {color: #597BB3;} */
+/* a:visited {color: #750000;} */
+
+a.nonexistent:visited, a.nonexistent
+{color: red;}
+
+
+li p {
+    margin: .25em 0;
+}
+
+li.gap {
+    margin-top: 0.5em;
+}
+
+dt {
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+
+dd {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+dd p {
+    margin: 0.25em 0;
+}
+
+a, img, img.drawing {
+    border: 0;
+    /* Restrict image size to width of text.
+     Otherwise, very large image overlap the screen
+    */
+    max-width: 865px;
+}
+
+code {
+    font-family: 'Consolas', 'Deja Vu Sans Mono',
+                 'Bitstream Vera Sans Mono', monospace;
+    background-color: #F3F5F7;
+}
+
+pre {
+    border: 1pt solid #AEBDCC;
+    background-color: #F3F5F7;
+    padding: 5pt;
+    font-family: 'Consolas', 'Deja Vu Sans Mono',
+                 'Bitstream Vera Sans Mono', monospace;
+    white-space: pre;
+    /* begin css 3 or browser specific rules - do not remove!
+    see: http://forums.techguy.org/archive/index.php/t-249849.html */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* end css 3 or browser specific rules */
+}
+
+pre.comment {
+    background-color: #CCCCCC;
+    color: red;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* .comment css definition must be top of .red/.green/.blue or it won't work */
+.comment { color: #555555; background-color: #DDDDFF; }
+
+.red { background-color: #FFCCCC; }
+.green { background-color: #CCFFCC; }
+.blue { background-color: #CCCCFF; }
+.yellow { background-color: #FFF29F; }
+.orange { background-color: #FFD59B; }
+
+.solid { border: 2px solid #000000; padding: 2px; }
+.dashed { border: 2px dashed #000000; padding: 2px; }
+.dotted { border: 2px dotted #000000; padding: 2px; }
+
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+.justify { text-align: justify; }
+
+table
+{
+    border-collapse: collapse;
+    border: 1px solid #022e4d;
+    max-width: 865px;
+}
+
+table.noBorder, th.noBorder, td.noBorder, tr.noBorder  {
+    border: none;
+}
+
+/* Format release table to avoid that it is too wide */
+.releaseTable td:nth-child(1)
+{
+    min-width: 400px;
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+.releaseTable td:nth-child(2)
+{
+    min-width: 435px;
+    max-width: 435px;
+    word-wrap: break-word;
+}
+
+th, td
+{
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    border: 1px solid #ADB9CC;
+}
+
+td p {
+    margin: 0;
+    padding: 0;
+}
+/* TableOfContents macro */
+div.table-of-contents {
+    border: 1px solid #bbbbbb;
+    color: black;
+    background-color: #eeeeee;
+    font-size: 80%;
+    text-align: left;
+    margin: 0.5em 0 0.5em 1em;
+    padding: 0.5em 0.75em 0.5em 0.5em;
+    max-width: 50%;
+    display: inline-table;
+}
+div.table-of-contents ol {
+    margin: 0;
+    padding: 0 0 0 2em;
+}
+div.table-of-contents ul {
+    margin: 0;
+    list-style:none;
+}
+div.table-of-contents li {
+    margin:0;
+    padding: 0;
+}
+p.table-of-contents-heading {
+    font-weight:bold;
+    padding:0;
+    margin: 0 0 0.5em 0;
+    letter-spacing: 0.075em;
+}
+
+/* Navigation macro */
+table.navigation {
+    background: #fff;
+    margin: 0;
+}
+
+.footnotes div {
+    width: 5em;
+    border-top: 1pt solid gray;
+}
+
+.footnotes ol {
+    padding: 0 2em;
+    margin: 0 0 1em;
+}
+
+.footnotes li {
+}
+
+.info {
+    float: right;
+    font-size: 0.7em;
+    color: gray;
+}
+
+#pageinfo {
+    margin-top: 2em;
+}
+
+.separator {
+    color: gray;
+}
+
+#pagebottom {clear: both;}
+
+/* standard rule ---- */
+hr {
+    height: 1pt;
+    background-color: #9C9C9C;
+    border: 0;
+}
+
+.modelica{
+    padding: 5px;
+    line-height: 100%;
+    background-color: #F3F5F7;
+
+}

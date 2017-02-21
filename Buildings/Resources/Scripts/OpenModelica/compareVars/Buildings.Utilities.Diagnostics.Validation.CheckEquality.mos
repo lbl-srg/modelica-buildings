@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "cheEqu.y",
+    "cheEqu.u1",
+    "cheEqu.u2"
+  };

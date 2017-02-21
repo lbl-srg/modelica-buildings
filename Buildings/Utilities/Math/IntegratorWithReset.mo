@@ -85,30 +85,25 @@ of the integrator.
 </p>
 <p>
 The output of the integrator can be reset as follows:
+</p>
 <ul>
 <li>
-<p>
 If <code>reset = Buildings.Types.Reset.Disabled</code>, which is the default,
 then the integrator is never reset.
-</p>
 </li>
 <li>
-<p>
 If <code>reset = Buildings.Types.Reset.Parameter</code>, then a boolean
 input signal <code>trigger</code> is enabled. Whenever the value of
 this input changes from <code>false</code> to <code>true</code>,
 the integrator is reset by setting <code>y</code>
 to the value of the parameter <code>y_reset</code>.
-</p>
 </li>
 <li>
-<p>
 If <code>reset = Buildings.Types.Reset.Input</code>, then a boolean
 input signal <code>trigger</code> is enabled. Whenever the value of
 this input changes from <code>false</code> to <code>true</code>,
 the integrator is reset by setting <code>y</code>
 to the value of the input signal <code>y_reset_in</code>.
-</p>
 </li>
 </ul>
 <p>

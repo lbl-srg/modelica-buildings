@@ -22,9 +22,10 @@ block InletToAir
     displayUnit="degC") if
        allowFlowReversal
     "Zone air temperature"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
         origin={-60,-120}),
         iconTransformation(
         extent={{-20,-20},{20,20}},
@@ -34,9 +35,10 @@ block InletToAir
     final unit="kg/kg") if
        Medium.nXi > 0 and allowFlowReversal
     "Zone air water mass fraction per total air mass"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
         origin={0,-120}),
         iconTransformation(
         extent={{-20,-20},{20,20}},
@@ -46,9 +48,10 @@ block InletToAir
     final quantity=Medium.extraPropertiesNames) if
        allowFlowReversal
     "Zone air trace substances"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
+    annotation (Placement(
         visible=allowFloWReserval,
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
         origin={60,-120}),
         iconTransformation(
         extent={{-20,-20},{20,20}},

@@ -27,7 +27,8 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.FixedResistances.PressureDrop res31(
     dp_nominal=0.546,
     m_flow_nominal=scaM_flow*1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    from_dp=true)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Fluid.FixedResistances.PressureDrop res33(
     dp_nominal=0.164,
@@ -37,7 +38,8 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.FixedResistances.PressureDrop res57(
     dp_nominal=0.118000,
     m_flow_nominal=scaM_flow*1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    from_dp=true)
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (Placement(transformation(extent={{206,-92},
@@ -54,7 +56,9 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   redeclare package Medium = Medium,
     dpExh_nominal=0.467,
     allowFlowReversal=true,
-    from_dp=false) "mixing box"
+    from_dp=false,
+    filteredOpening=false)
+                   "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
@@ -71,34 +75,40 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
-            annotation (Placement(transformation(extent={{40,80},{60,100}})));
+            annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
     init=Modelica.Blocks.Types.Init.InitialState,
+    m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mMIT_flow)
+    filteredSpeed=true)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
     init=Modelica.Blocks.Types.Init.InitialState,
+    m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mMIT_flow)
+    filteredSpeed=true)
     annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
-  Modelica.Blocks.Sources.Trapezoid
-                                pSet(
+  Modelica.Blocks.Sources.Pulse pSet(
     amplitude=120,
     period=86400,
-    width=86400/2,
-    falling=10,
-    rising=120,
-    startTime=6*3600) "Pressure setpoint (0 during night, 120 during day)"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    startTime=6*3600,
+    width=50)         "Pressure setpoint (0 during night, 120 during day)"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Math.Gain dp32(k=150) "Gain for fan"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Math.Gain dp56(k=60) "Gain for fan"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
+  Modelica.Blocks.Logical.GreaterThreshold hys(threshold=0.1)
+    "Hysteresis to separate the on and off signals"
+    annotation (Placement(transformation(extent={{0,120},{20,140}})));
+  Modelica.Blocks.Logical.Switch switch1
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
+  Modelica.Blocks.Sources.Constant off(k=0) "Off signal"
+    annotation (Placement(transformation(extent={{-60,92},{-40,112}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
       points={{-59,-40},{-50,-40},{-50,-56},{-40,-56}},
@@ -107,7 +117,7 @@ equation
       thickness=0.5));
   connect(roo.p_rel, conSupFan.u_m)
                               annotation (Line(
-      points={{312.6,-23.0769},{320,-23.0769},{320,40},{50,40},{50,78}},
+      points={{312.6,-23.0769},{320,-23.0769},{320,40},{10,40},{10,58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(yDam.y, mixBox.y) annotation (Line(
@@ -157,17 +167,25 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pSet.y, conSupFan.u_s) annotation (Line(
-      points={{-19,90},{38,90}},
+      points={{-19,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conSupFan.y, dp32.u)
-    annotation (Line(points={{61,90},{69.5,90},{78,90}}, color={0,0,127}));
-  connect(conSupFan.y, dp56.u) annotation (Line(points={{61,90},{70,90},{70,60},
-          {78,60}}, color={0,0,127}));
   connect(dp32.y, fan32.dp_in) annotation (Line(points={{101,90},{129.84,90},{
           129.84,-0.4}}, color={0,0,127}));
   connect(dp56.y, fan56.dp_in) annotation (Line(points={{101,60},{112,60},{112,
           -40},{130.16,-40},{130.16,-60.4}}, color={0,0,127}));
+  connect(hys.u, pSet.y) annotation (Line(points={{-2,130},{-12,130},{-12,70},{
+          -19,70}}, color={0,0,127}));
+  connect(hys.y, switch1.u2) annotation (Line(points={{21,130},{30,130},{30,110},
+          {38,110}}, color={255,0,255}));
+  connect(switch1.u1, conSupFan.y) annotation (Line(points={{38,118},{28,118},{
+          28,70},{21,70}}, color={0,0,127}));
+  connect(off.y, switch1.u3)
+    annotation (Line(points={{-39,102},{-20,102},{38,102}}, color={0,0,127}));
+  connect(switch1.y, dp32.u) annotation (Line(points={{61,110},{68,110},{68,90},
+          {78,90}}, color={0,0,127}));
+  connect(switch1.y, dp56.u) annotation (Line(points={{61,110},{68,110},{68,110},
+          {68,60},{78,60}}, color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{350,150}})),
 Documentation(info="<html>
@@ -196,6 +214,14 @@ of the supply fan and pressure raise of the return fan is arbitrary.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 20, 2017, by Michael Wetter:<br/>
+Changed the fan control so that they have a control signal of exactly zero if the setpoint for the
+duct static pressure is zero. This leads to about a four times faster simulation
+as previously, a very small control signal was received by the fan during the night hours.<br/>
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/628\">#628</a>.
+</li>
 <li>
 March 22, 2016, by Michael Wetter:<br/>
 Changed the fan model to use pressure as an input, which makes the

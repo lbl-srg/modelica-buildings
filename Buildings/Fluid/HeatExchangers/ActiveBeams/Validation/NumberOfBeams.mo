@@ -58,9 +58,9 @@ model NumberOfBeams
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling perCoo,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_cooling perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating perHea,
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_heating perHea,
     nBeams=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Active beam"
@@ -102,10 +102,10 @@ model NumberOfBeams
     redeclare package MediumWat = MediumW,
     redeclare package MediumAir = MediumA,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_cooling
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_cooling
       perCoo,
     redeclare
-      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_lenght6ft_heating
+      Buildings.Fluid.HeatExchangers.ActiveBeams.Data.Trox.DID632A_nozzleH_length6ft_heating
       perHea,
     nBeams=nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
