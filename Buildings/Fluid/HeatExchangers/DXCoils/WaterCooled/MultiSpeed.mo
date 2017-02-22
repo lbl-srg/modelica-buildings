@@ -9,36 +9,36 @@ model MultiSpeed "Multi speed water-cooled DX coils"
          final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
          final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the evaporator";
 
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the condenser";
 
-  Modelica.Blocks.Interfaces.RealOutput P
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,24},{120,44}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow(quantity="Power", unit="W")
     "Latent heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
+    annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage mulSpeDX(
     redeclare package Medium = Medium1,
     redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
     dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-          wetCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                  appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
     eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
@@ -82,10 +82,7 @@ protected
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
 
-public
-  Modelica.Blocks.Interfaces.IntegerInput stage
-    "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
-    annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
+
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
           12,-34}}, color={0,0,127}));
