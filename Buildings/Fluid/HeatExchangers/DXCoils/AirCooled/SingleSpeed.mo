@@ -2,24 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model SingleSpeed "Single speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
       dxCoo(final variableSpeedCoil=false,
-            redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-          wetCoi(
-        redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
-          cooCap,redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-                 appDewPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-                         uacp(redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(
-        redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
-          cooCap,redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-                 appDryPt(redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-                         uacp(redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per)))),
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-    eva(nomVal=datCoi.sta[nSta].nomVal),
-    use_mCon_flow=false,
-    final nSta=1);
-
+            wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
+            dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
+      eva(nomVal=datCoi.sta[nSta].nomVal),
+      redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
+      use_mCon_flow=false,
+      final nSta=1);
 
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
@@ -31,6 +19,7 @@ protected
     final integerTrue=1,
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
+
 equation
   connect(speRat.y, dxCoo.speRat) annotation (Line(
       points={{-43.4,64},{-40,64},{-40,57.6},{-21,57.6}},
