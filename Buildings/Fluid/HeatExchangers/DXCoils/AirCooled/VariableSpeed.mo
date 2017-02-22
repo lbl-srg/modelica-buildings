@@ -2,16 +2,14 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model VariableSpeed "Variable speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
   dxCoo(final variableSpeedCoil=true,
-          wetCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
-          cooCap),
-          dryCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
-          cooCap)),
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-    use_mCon_flow=false);
+          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
+          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
+  redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
+  use_mCon_flow=false);
+
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
+
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
