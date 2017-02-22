@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model CoolingCapacity1 "Test model for CoolingCapacity1"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap(
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+    cooCap(
     sta={sta},
     m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
     nSta=1) "Cooling capacity calculation"

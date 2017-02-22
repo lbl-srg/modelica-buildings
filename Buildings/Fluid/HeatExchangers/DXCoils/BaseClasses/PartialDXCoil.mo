@@ -31,8 +31,12 @@ partial model PartialDXCoil "Partial model for DX coil"
     redeclare final package Medium = Medium,
     datCoi=datCoi,
     use_mCon_flow=use_mCon_flow,
-    wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
-    dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)) "DX cooling coil operation"
+    wetCoi(redeclare
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap),
+    dryCoi(redeclare
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap))                                                                                  "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,

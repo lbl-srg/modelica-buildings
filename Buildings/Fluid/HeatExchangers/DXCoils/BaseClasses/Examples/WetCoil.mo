@@ -11,7 +11,9 @@ model WetCoil "Test model for WetCoil"
     datCoi=datCoi,
     variableSpeedCoil=true,
     use_mCon_flow=false,
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)   "Performs calculation for wet coil condition"
+    redeclare
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+      cooCap)                                                                               "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"

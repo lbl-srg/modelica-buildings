@@ -2,8 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model MultiStage "Multi-stage DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
       dxCoo(final variableSpeedCoil=false,
-          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
-          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)),
+          wetCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap),
+          dryCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap)),
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
       use_mCon_flow=false);
 

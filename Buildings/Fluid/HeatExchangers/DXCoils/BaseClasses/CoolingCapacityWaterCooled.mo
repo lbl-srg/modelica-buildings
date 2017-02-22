@@ -1,5 +1,5 @@
 ﻿within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-block CoolingCapacity2
+block CoolingCapacityWaterCooled
   "Calculates cooling capacity at given temperature and flow fraction for water-cooled DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
@@ -108,4 +108,4 @@ First implementation.
 </ul>
 
 </html>"));
-end CoolingCapacity2;
+end CoolingCapacityWaterCooled;

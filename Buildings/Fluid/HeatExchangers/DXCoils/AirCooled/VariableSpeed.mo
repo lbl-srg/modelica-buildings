@@ -2,8 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model VariableSpeed "Variable speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
   dxCoo(final variableSpeedCoil=true,
-          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap),
-          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1 cooCap)),
+          wetCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap),
+          dryCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap)),
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
     use_mCon_flow=false);
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
