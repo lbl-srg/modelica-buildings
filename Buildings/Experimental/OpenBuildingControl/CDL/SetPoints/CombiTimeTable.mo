@@ -1,8 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 block CombiTimeTable
   "Table look-up with respect to time and linear/periodic extrapolation methods (data from matrix/file)"
-  extends Modelica.Blocks.Interfaces.MO(final nout=max([size(columns, 1);
-        size(offset, 1)]));
+  extends Modelica.Blocks.Icons.Block;
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file or in function usertab"
     annotation (Dialog(group="Table data definition"));
@@ -38,9 +37,9 @@ block CombiTimeTable
   parameter Modelica.SIunits.Time timeScale(
     min=Modelica.Constants.eps)=1 "Time scale of first table column"
     annotation (Dialog(group="Table data interpretation"), Evaluate=true);
-  final parameter Modelica.SIunits.Time t_min(fixed=false) = 0
+  final parameter Modelica.SIunits.Time t_min(fixed=false)
     "Minimum abscissa value defined in table";
-  final parameter Modelica.SIunits.Time t_max(fixed=false) = 0
+  final parameter Modelica.SIunits.Time t_max(fixed=false)
     "Maximum abscissa value defined in table";
   final parameter Real t_minScaled(fixed=false)
     "Minimum (scaled) abscissa value defined in table";
@@ -50,7 +49,11 @@ block CombiTimeTable
   Interfaces.RealInput u "Connector of Real input signal" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
 
+  Interfaces.RealOutput y[nout] "Connector of Real output signals" annotation (Placement(
+        transformation(extent={{100,-10},{120,10}})));
+
 protected
+  final parameter Integer nout=max([size(columns, 1);size(offset, 1)]);
   final parameter Real p_offset[nout]=(if size(offset, 1) == 1 then ones(nout)*offset[1] else offset)
     "Offsets of output signals";
   Modelica.Blocks.Types.ExternalCombiTimeTable tableID=
@@ -169,23 +172,23 @@ protected
   end getNextTimeEvent;
 
 initial algorithm
-//   if tableOnFile then
-//     tableOnFileRead := readTableData(tableID, false, verboseRead);
-//   else
-//     tableOnFileRead := 1.;
-//   end if;
+   if tableOnFile then
+     tableOnFileRead := readTableData(tableID, false, verboseRead);
+   else
+     tableOnFileRead := 1.;
+   end if;
   t_minScaled := getTableTimeTmin(tableID, tableOnFileRead);
   t_maxScaled := getTableTimeTmax(tableID, tableOnFileRead);
   t_min := t_minScaled*timeScale;
   t_max := t_maxScaled*timeScale;
 equation
-//   if tableOnFile then
-//     assert(tableName <> "NoName",
-//       "tableOnFile = true and no table name given");
-//   else
-//     assert(size(table, 1) > 0 and size(table, 2) > 0,
-//       "tableOnFile = false and parameter table is an empty matrix");
-//   end if;
+   if tableOnFile then
+     assert(tableName <> "NoName",
+       "tableOnFile = true and no table name given");
+   else
+     assert(size(table, 1) > 0 and size(table, 2) > 0,
+       "tableOnFile = false and parameter table is an empty matrix");
+   end if;
   timeScaled = u/timeScale;
   when {u >= pre(nextTimeEvent),initial()} then
     nextTimeEventScaled = getNextTimeEvent(tableID, timeScaled, tableOnFileRead);
