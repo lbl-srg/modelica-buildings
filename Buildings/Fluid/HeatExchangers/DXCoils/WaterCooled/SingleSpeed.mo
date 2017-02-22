@@ -1,32 +1,30 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
 model SingleSpeed "Single speed water-cooled DX coils"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
-         redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
+          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-         redeclare replaceable package Medium1=Buildings.Media.Air,
-         redeclare replaceable package Medium2=Buildings.Media.Water,
-         final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
-         final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
+          redeclare replaceable package Medium1=Buildings.Media.Air,
+          redeclare replaceable package Medium2=Buildings.Media.Water,
+          final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+          final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the evaporator";
 
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the condenser";
 
-public
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
         iconTransformation(extent={{-120,72},{-100,92}})));
-  Modelica.Blocks.Interfaces.RealOutput P
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,24},{120,44}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow(quantity="Power", unit="W")
     "Latent heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -34,16 +32,12 @@ public
     redeclare package Medium = Medium1,
     redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
     dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-          wetCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                  appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
     eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
