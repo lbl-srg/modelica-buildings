@@ -12,39 +12,38 @@ model VariableSpeed "Variable speed water-cooled DX coils"
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the evaporator";
 
-  parameter Modelica.SIunits.PressureDifference dpCon_nominal
+  parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the condenser";
 
-  Modelica.Blocks.Interfaces.RealOutput P
+
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,24},{120,44}})));
-  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow
+  Modelica.Blocks.Interfaces.RealOutput QEvaLat_flow(quantity="Power", unit="W")
     "Latent heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
+    annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed varSpeDX(
     redeclare package Medium = Medium1,
-    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-          wetCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi = datCoi,
+    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi = datCoi,
+          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi = datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          cooCap,redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-                 appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi = datCoi,
+                 appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi = datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
-    eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+    eva(nomVal = Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
                                              Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
                                              COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
                                              SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
@@ -55,14 +54,14 @@ model VariableSpeed "Variable speed water-cooled DX coils"
                                              p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
                                              tWet= datCoi.sta[nSta].nomVal.tWet,
                                              gamma=datCoi.sta[nSta].nomVal.gamma)),
-    final use_mCon_flow=true,
-    final dp_nominal=dp_nominal,
-    minSpeRat=minSpeRat,
-    speRatDeaBan=speRatDeaBan)
+    final use_mCon_flow = true,
+    final dp_nominal = dp_nominal,
+    minSpeRat = minSpeRat,
+    speRatDeaBan = speRatDeaBan)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
-        redeclare package Medium=Medium2,
+        redeclare package Medium = Medium2,
         final m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
         final dp_nominal = dpCon_nominal,
         final Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))
@@ -78,7 +77,7 @@ model VariableSpeed "Variable speed water-cooled DX coils"
         rotation=0,
         origin={-67,0})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium2,
       m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
 
@@ -87,9 +86,7 @@ protected
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
 
-public
-  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
-    annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
+
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
           12,-34}}, color={0,0,127}));
