@@ -1,13 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
-                   //fixme issues zeroTim==Buildings.Utilities.Time.Types.ZeroTime.Custom, lots of hardcoded stuff
+                   //fixme issues zeroTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom, lots of hardcoded stuff
 
-  parameter Buildings.Utilities.Time.Types.ZeroTime zerTim
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef(min=firstYear, max=lastYear) = 2016
     "Year when time = 0, used if zerTim=Custom"
-    annotation(Dialog(enable=zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom));
+    annotation(Dialog(enable=zerTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom));
   parameter Modelica.SIunits.Time offset = 0
     "Offset that is added to 'time', may be used for computing time in different time zone"
     annotation(Dialog(tab="Advanced"));
@@ -57,9 +57,9 @@ protected
   // final parameters since the user may wrongly assume that this model shifts the
   // actual time of the simulation
   final constant Integer monthRef(min=1, max=12) = 1 "Month when time = 0"
-    annotation(Dialog(enable=zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom));
+    annotation(Dialog(enable=zerTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom));
   final constant Integer dayRef(min=1, max=31) = 1 "Day when time = 0"
-    annotation(Dialog(enable=zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom));
+    annotation(Dialog(enable=zerTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom));
   Integer daysSinceEpoch(fixed=false) "Number of days that passed since 1st of January 1970";
   discrete Integer yearIndex "Index of the current year in timeStampsNewYear";
   discrete Real epochLastMonth
@@ -89,51 +89,51 @@ initial equation
   weekDay = integer(rem(4+daysSinceEpoch-1,7)+1);
 initial algorithm
   // check if yearRef is in the valid range
-  assert(not zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom
+  assert(not zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom
          or yearRef>=firstYear and yearRef<=lastYear,
     "The value you chose for yearRef (=" + String(yearRef) + ") is outside of
    the validity range of " + String(firstYear) + " to " + String(lastYear) + ".");
 
   // check if the day number exists for the chosen month and year
-  assert(not zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom
+  assert(not zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom
          or dayInMonth[monthRef] + (if monthRef==2 and isLeapYear[yearRef-firstYear + 1] then 1 else 0) >=dayRef,
     "The day number you chose is larger than the number of days contained by the month you chose.");
 
   // compute the offset to be added to time based on the parameters specified by the user
-  if zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
+  if zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.UnixTimeStamp then
     timOff :=0;
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2010 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2010 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2010 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2010 then
       timOff :=timeStampsNewYear[1];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2011 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2011 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2011 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2011 then
       timOff :=timeStampsNewYear[2];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2012 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2012 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2012 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2012 then
       timOff :=timeStampsNewYear[3];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2013 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2013 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2013 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2013 then
       timOff :=timeStampsNewYear[4];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2014 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2014 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2014 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2014 then
       timOff :=timeStampsNewYear[5];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2015 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2015 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2015 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2015 then
       timOff :=timeStampsNewYear[6];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2016 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2016 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2016 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2016 then
       timOff :=timeStampsNewYear[7];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2017 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2017 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2017 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2017 then
       timOff :=timeStampsNewYear[8];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2018 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2018 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2018 then
       timOff :=timeStampsNewYear[9];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2019 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2018 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2019 then
       timOff :=timeStampsNewYear[10];
-  elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.NY2018 or
-    zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef == 2020 then
+  elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.NY2018 or
+    zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef == 2020 then
       timOff :=timeStampsNewYear[11];
   else
     timOff :=0;
@@ -143,18 +143,18 @@ initial algorithm
   end if;
 
   // add additional offset when using a custom date and time
-  if zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom then
+  if zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom then
     timOff :=timOff + ((dayRef - 1) + sum({dayInMonth[i] for i in 1:(monthRef - 1)})
      + (if monthRef > 2 and isLeapYear[yearRef - firstYear + 1] then 1 else 0))*3600*24;
   end if;
 
    // input data range checks at initial time
   assert(time + offset + timOff >= timeStampsNewYear[1],
-    if zerTim == Buildings.Utilities.Time.Types.ZeroTime.UnixTimeStamp then
+    if zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.UnixTimeStamp then
       "Could initialize date in the CalendarTime block.
    You selected 1970 as the time=0 reference.
    Therefore the simulation startTime must be at least " + String(timeStampsNewYear[1]) + "."
-    elseif zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom then
+    elseif zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom then
       if yearRef <firstYear then
         "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
@@ -168,7 +168,7 @@ initial algorithm
    Possibly your startTime is negative?");
 
   assert(time + offset + timOff < timeStampsNewYear[size(timeStampsNewYear,1)],
-    if zerTim == Buildings.Utilities.Time.Types.ZeroTime.Custom and yearRef >= lastYear then
+    if zerTim == Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom and yearRef >= lastYear then
       "Could not initialize date in the CalendarTime block.
    You selected a custom time=0 reference.
    The maximum value for yearRef is then " + String(lastYear) + " but your value is " + String(yearRef) + "."
@@ -258,6 +258,10 @@ equation
   Documentation(revisions="<html>
 <ul>
 <li>
+February 23, 2017, by Milica Grahovac:<br/>
+First CDL implementation.
+</li>
+<li>
 August 3, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -283,9 +287,8 @@ Daylight saving and time zones are not supported.
 <p>
 The user must define which time and date correspond to <code>time = 0</code>
 using the model parameters <code>zerTim</code>, and, if
-<code>zerTim==Buildings.Utilities.Time.Types.ZeroTime.Custom</code>,
+<code>zerTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom</code>,
 the parameter <code>yearRef</code>.
-
 The user can choose from new year, midnight for a number of years:
 2010 to 2020 and also 1970. 
 The latter corresponds to a unix stamp of <i>0</i>.
