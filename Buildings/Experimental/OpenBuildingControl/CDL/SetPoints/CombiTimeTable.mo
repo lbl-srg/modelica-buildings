@@ -422,6 +422,10 @@ MATLAB is a registered trademark of The MathWorks, Inc.
         revisions="<html>
 <p><b>Release Notes:</b></p>
 <ul>
+<li>
+February 23, 2017, by Milica Grahovac:<br/>
+Initial CDL implementation.
+</li>
 <li><i>April 09, 2013</i>
        by Thomas Beutlich:<br>
        Implemented as external object.</li>
