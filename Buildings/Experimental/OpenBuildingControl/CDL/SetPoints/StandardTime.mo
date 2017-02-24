@@ -1,6 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 block StandardTime "Standard time"
-  extends Modelica.Blocks.Interfaces.SO;
+  extends Modelica.Blocks.Icons.Block;
+  Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
+        transformation(extent={{100,-10},{120,10}})));
+  annotation (Documentation(info="<html>
+
+</html>"));
 equation
   y = time;
   annotation (
