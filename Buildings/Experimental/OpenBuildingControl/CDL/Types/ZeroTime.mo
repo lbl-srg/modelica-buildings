@@ -28,14 +28,14 @@ January 1, 2016, 0:00:00 local time.
 </html>", revisions="<html>
 <ul>
 <li>
+February 23, 2017, by Milica Grahovac:<br/>
+Initial CDL implementation.
+</li>
+<li>
 September 10, 2016, by Michael Wetter:<br/>
 Revised implementation and moved to new package
 <a href=\"modelica://Buildings.Utilities.Time.CalendarTime.Types\">
 Buildings.Utilities.Time.CalendarTime.Types</a>.
-</li>
-<li>
-February 23, 2017, by Milica Grahovac:<br/>
-Initial CDL implementation.
 </li>
 <li>
 August 3, 2016, by Filip Jorissen:<br/>
