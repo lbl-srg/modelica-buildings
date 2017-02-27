@@ -15,7 +15,7 @@ record Stage "Generic data record for a stage of a air-cooled DX coil"
 annotation (defaultComponentName="per",
               preferredView="info",
   Documentation(info="<html>
-<p>This is the base record for DX cooling coil model at a compressor speed. See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
+<p>This is the base record for air-cooled DX cooling coil model at a compressor speed. See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>

@@ -46,7 +46,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
-This model can be used to simulate a DX cooling coil with continuously variable speed compressors.
+This model can be used to simulate an air-cooled DX cooling coil with continuously variable speed compressors.
 The control input is the speed ratio.
 The coil will switch off if the speed ratio is below a minimum value.
 </p>

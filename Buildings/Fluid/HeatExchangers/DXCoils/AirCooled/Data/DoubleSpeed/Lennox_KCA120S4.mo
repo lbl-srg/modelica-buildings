@@ -45,10 +45,9 @@ record Lennox_KCA120S4 =
 "Lennox KCA120S4" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
+  Documentation(info="<html>
 <p>
-Performance data for double speed cooling coil model.
+Performance data for double speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:</p>
 <pre>
 Coil:Cooling:DX:TwoStageWithHumidityControlMode,

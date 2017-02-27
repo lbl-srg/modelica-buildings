@@ -24,9 +24,8 @@ record Lennox_KCA060S4 =
           ffMax=1.2))}) "Lennox KCA060S4" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
-<p>Performance data for DX single speed cooling coil model.
+  Documentation(info="<html>
+<p>Performance data for DX single speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:
 </p>
 <pre>

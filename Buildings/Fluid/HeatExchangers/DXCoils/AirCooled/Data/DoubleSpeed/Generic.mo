@@ -5,11 +5,10 @@ record Generic "Generic data record for DoubleSpeed DXCoils"
   annotation (
     defaultComponentName="datCoi",
     defaultComponentPrefixes="parameter",
-    Documentation(info=
-                 "<html>
+    Documentation(info="<html>
 <p>
 This record is used as a template for performance data
-for the double speed DX coils
+for the double speed air-cooled DX coils
 <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.DoubleSpeed</a>.
 </p>

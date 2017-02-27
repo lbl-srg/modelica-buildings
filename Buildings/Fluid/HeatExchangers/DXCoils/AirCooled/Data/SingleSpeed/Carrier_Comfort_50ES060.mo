@@ -23,9 +23,8 @@ record Carrier_Comfort_50ES060 =
     ffMax =                1.125))}) "Carrier Comfort 50ES060" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
-<p>Performance data for DX single speed cooling coil model.
+  Documentation(info="<html>
+<p>Performance data for DX single speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:
 </p>
 <pre>

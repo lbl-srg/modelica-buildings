@@ -23,9 +23,8 @@ record York_Sunline_DR060 =
     ffMax =                1.25))}) "York Sunline DR060" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
-<p>Performance data for DX single speed cooling coil model.
+  Documentation(info="<html>
+<p>Performance data for DX single speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:
 </p>
 <pre>

@@ -23,9 +23,8 @@ record York_Predator_ZF120 =
     ffMax =                1.25))}) "York Predator ZF120" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
-<p>Performance data for DX single speed cooling coil model.
+  Documentation(info="<html>
+<p>Performance data for DX single speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:
 </p>
 <pre>

@@ -5,8 +5,8 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils\">
-Buildings.Fluid.HeatExchangers.DXCoils</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

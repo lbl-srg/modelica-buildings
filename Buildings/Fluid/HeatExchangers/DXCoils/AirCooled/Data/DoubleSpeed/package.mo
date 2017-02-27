@@ -13,7 +13,7 @@ import Buildings;
 annotation(preferredView="info",
  Documentation(info="<html>
 <p>
-Package with performance data for DX coils.
+Package with performance data for air-cooled DX coils.
 </p>
 </html>", revisions="<html>
 <p>

@@ -39,7 +39,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
 <p>
-This model can be used to simulate a DX cooling coil with single speed compressor.
+This model can be used to simulate an air-cooled DX cooling coil with single speed compressor.
 </p>
 <p>
 See

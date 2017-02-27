@@ -39,7 +39,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
-This model can be used to simulate a DX cooling coil with multiple
+This model can be used to simulate an air-cooled DX cooling coil with multiple
 operating stages. Depending on the used performance curves, each
 stage could be a different compressor speed, or a different mode
 of operation, such as with or without hot gas reheat.

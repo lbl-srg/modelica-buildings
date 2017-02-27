@@ -23,9 +23,8 @@ record York_Sunline_ZF240 =
     ffMax =                1.25))}) "York Sunline ZF240" annotation (
   defaultComponentName="datCoi",
   defaultComponentPrefixes="parameter",
-  Documentation(info=
-                 "<html>
-<p>Performance data for DX single speed cooling coil model.
+  Documentation(info="<html>
+<p>Performance data for DX single speed air-cooled cooling coil model.
 This data corresponds to the following EnergyPlus model:
 </p>
 <pre>
