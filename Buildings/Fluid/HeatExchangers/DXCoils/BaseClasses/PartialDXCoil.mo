@@ -217,6 +217,10 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+February 27, 2017 by Yangyang Fu:<br/>
+Added <code>redeclare</code> for the type of <code>cooCap</code> in <code>dxCoo</code>.
+</li>
+<li>
 May 6, 2015 by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=true</code> for <code>vol</code>.
 </li>
