@@ -8,7 +8,7 @@ defaultComponentName="datCoi",
 defaultComponentPrefixes="parameter",
 Documentation(info="<html>
 <p>
-This record declares the performance data for the DX cooling coil model.
+This record declares the performance data for the water-cooled DX cooling coil model.
 The performance data are structured as follows:
 </p>
 <pre>

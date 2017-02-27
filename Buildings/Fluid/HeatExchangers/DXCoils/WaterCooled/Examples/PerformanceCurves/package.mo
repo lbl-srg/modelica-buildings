@@ -7,20 +7,11 @@ package PerformanceCurves "Package with sevral performance curves"
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
-of DX cooling coils that are used in the examples.
-</p>
-<p>
-For performance data of specific DX cooling coils, see the packages
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed</a>
-and
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed</a>.
-</p>
-<p>
+of water-cooled DX cooling coils that are used in the examples.
+
 The data are described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>.
 </p>
 </html>",
 revisions="<html>
