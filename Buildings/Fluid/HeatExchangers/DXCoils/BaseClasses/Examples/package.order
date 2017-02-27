@@ -1,9 +1,8 @@
 ApparatusDewPoint
 ApparatusDryPoint
 Condensation
-CoolingCapacity
-CoolingCapacity1
-CoolingCapacity2
+CoolingCapacityAirCooled
+CoolingCapacityWaterCooled
 DXCooling
 DryCoil
 DryWetSelector
