@@ -54,4 +54,4 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings && travis_wait 60 python ../bin/runUnitTests.py $TEST_ARG)
+  - (cd Buildings && travis_wait 70 python ../bin/runUnitTests.py $TEST_ARG)
