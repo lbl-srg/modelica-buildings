@@ -228,7 +228,7 @@ There are two cooling capacity modifier functions: The function
 cap<sub>FF </sub> accounts for a performance change due to different air flow rates at the evaporator,
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
-to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate. See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1\"> Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity1</a>.
+to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate. See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\"> Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>.
 <p>
 The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >
@@ -304,13 +304,13 @@ is
 <h4>Obtaining the polynomial coefficients</h4>
 <p>
 The package
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
 contains performance curves.
 Alternatively, users can enter their own performance curves by
 making an instance of a curve in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
 and specifying custom coefficients for the above polynomials.
 The polynomial coefficients can be obtained by doing a curve fit that fits the
 polynomials to a set of data.
@@ -322,14 +322,14 @@ If a coil has multiple stages, then the fit need to be done for each stage.
 For variable frequency coils, multiple fits need to be done for user selected
 compressor speeds. For intermediate speeds, the performance data will be interpolated
 by the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a>.
 </p>
 <p>
 The table below shows the polynomials explained above,
 the name of the polynomial coefficients in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -396,6 +396,10 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 27, 2017 by Yangyang Fu:<br/>
+Revised the documentation.
+</li>
 <li>
 December 18, 2012 by Michael Wetter:<br/>
 Added warning if the evaporator or condenser inlet temperature of the current stage
