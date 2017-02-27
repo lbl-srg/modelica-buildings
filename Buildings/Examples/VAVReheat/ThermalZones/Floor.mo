@@ -308,16 +308,17 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(
     table=[0,0.05;
-           3600*8,0.05;
-           3600*9,0.9;
-           3600*12,0.9;
-           3600*12,0.8;
-           3600*13,0.8;
-           3600*13,1;
-           3600*17,1;
-           3600*19,0.1;
-           3600*24,0.05],
-       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+           8,0.05;
+           9,0.9;
+           12,0.9;
+           12,0.8;
+           13,0.8;
+           13,1;
+           17,1;
+           19,0.1;
+           24,0.05],
+    timeScale=3600,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
