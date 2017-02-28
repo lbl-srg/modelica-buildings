@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
-model CoolingCapacityWaterCooled "Test model for CoolingCapacity2"
+model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
   import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
@@ -71,7 +71,7 @@ equation
           -80},{-26,10},{-21,10}}, color={0,0,127}));
   annotation (experiment(StopTime=3600),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity2.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacityWaterCooled.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
@@ -83,12 +83,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled</a
 revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br/>
-Declared the parameter record to be a parameter, as declaring its elements
-to be parameters does not imply that the whole record has the variability of a parameter.
-</li>
-<li>
-April 10, 2012 by Kaustubh Phalak:<br/>
+February 28, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
-model CoolingCapacityAirCooled "Test model for CoolingCapacity1"
+model CoolingCapacityAirCooled "Test model for CoolingCapacityAirCooled"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
@@ -37,7 +37,8 @@ model CoolingCapacityAirCooled "Test model for CoolingCapacity1"
       SHR_nominal=0.8,
       m_flow_nominal=1.5),
     perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III(),
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled(),
+
     spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -59,7 +60,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=3600),
-__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity1.mos"
+__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacityAirCooled.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
@@ -71,12 +73,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>.
 revisions="<html>
 <ul>
 <li>
-May 1, 2013, by Michael Wetter:<br/>
-Declared the parameter record to be a parameter, as declaring its elements
-to be parameters does not imply that the whole record has the variability of a parameter.
-</li>
-<li>
-April 10, 2012 by Kaustubh Phalak:<br/>
+February 28, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
