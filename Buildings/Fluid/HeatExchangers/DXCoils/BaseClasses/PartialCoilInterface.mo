@@ -50,8 +50,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </html>",
 revisions="<html>
 <ul>
-<li>February 17, 2017 by Yangyang Fu:<br>Added a boolean constant <code>use_mCon_flow</code> which is required in water-cooled DX coils. </li>
-<li>August 1, 2012 by Kaustubh Phalak:<br>First implementation. </li>
+<li>February 17, 2017 by Yangyang Fu:<br/>
+Added a boolean constant <code>use_mCon_flow</code> which is required in water-cooled DX coils. 
+</li>
+<li>August 1, 2012 by Kaustubh Phalak:<br/>
+First implementation. 
+</li>
 </ul>
 </html>"));
 end PartialCoilInterface;

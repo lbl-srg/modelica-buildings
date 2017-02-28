@@ -3,52 +3,67 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (preferredView="info",
   Documentation(info="<html>
-<p>This package contains models for direct evaporation cooling coils (DX coils). </p>
-<p>The following six DX coil models are available: </p>
-<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
-<td><p align=\"center\"><h4>DX coil condenser</h4></p></td>
-<td><p align=\"center\"><h4>DX coil model</h4></p></td>
-<td><p align=\"center\"><h4>Properties</h4></p></td>
-<td><p align=\"center\"><h4>Control signal</h4></p></td>
-</tr>
-<tr>
-<td><p>Air-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</p></td>
-<td><p>Coil with multiple operating stages, each stage having a constant speed. Each stage has its own performance curve, which may represent the coil performance at different compressor speed, or the coil performance as it switches between cooling only, cooling with hot gas reheat, or heating only.</p></td>
-<td><p>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</p></td>
-</tr>
-<tr>
-<td><p>Air-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</p></td>
-<td><p>Single stage coil with constant compressor speed</p></td>
-<td><p>Boolean signal; <code>true</code> if coil is on.</p></td>
-</tr>
-<tr>
-<td><p>Air-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</p></td>
-<td><p>Coil with variable speed compressor with lower speed limit. If the control signal is below the lower limit, the coil switches off. It switches on if the control signal is above the lower limit plus a hysteresis. By default, the minimum speed ratio is <code>minSpeRat</code> and obtained from the coil data record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</p></td>
-<td><p>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</p></td>
-</tr>
-<tr>
-<td><p>Water-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage</p></td>
-<td><p>Coil with multiple operating stages, each stage having a constant speed. Each stage has its own performance curve, which may represent the coil performance at different compressor speed, or the coil performance as it switches between cooling only, cooling with hot gas reheat, or heating only.</p></td>
-<td><p>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</p></td>
-</tr>
-<tr>
-<td><p>Water-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed</p></td>
-<td><p>Single stage coil with constant compressor speed</p></td>
-<td><p>Boolean signal; <code>true</code> if coil is on.</p></td>
-</tr>
-<tr>
-<td><p>Water-cooled</p></td>
-<td><p>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed</p></td>
-<td><p>Coil with variable speed compressor with lower speed limit. If the control signal is below the lower limit, the coil switches off. It switches on if the control signal is above the lower limit plus a hysteresis. By default, the minimum speed ratio is <code>minSpeRat</code> and obtained from the coil data record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</p></td>
-<td><p>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</p></td>
-</tr>
+<p>
+This package contains models for direct evaporation cooling coils (DX coils). 
+</p>
+<p>
+The following six DX coil models are available: 
+</p>
+  <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+  <tr>
+      <th>DX coil condenser</th>
+      <th>DX coil model</th>
+      <th>Properties</th>
+      <th>Control signal</th>
+  </tr>
+  <tr>
+    <td>Air-cooled</td>
+    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</td>
+    <td>Coil with multiple operating stages, each stage having a constant speed. 
+        Each stage has its own performance curve, which may represent 
+        the coil performance at different compressor speed, or the 
+        coil performance as it switches between cooling only, 
+        cooling with hot gas reheat, or heating only.</td>
+    <td>Integer; <i>0</i> for off, 
+                 <i>1</i> for first stage, 
+                 <i>2</i> for second stage, etc.</td>
+  </tr>
+  <tr>
+      <td>Air-cooled</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</td>
+      <td>Single stage coil with constant compressor speed</td>
+      <td>Boolean signal; <code>true</code> if coil is on.</td>
+  </tr>
+  <tr>
+      <td>Air-cooled</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</td>
+      <td>Coil with variable speed compressor with lower speed limit. If the control signal 
+          is below the lower limit, the coil switches off. It switches on if the control 
+          signal is above the lower limit plus a hysteresis. By default, the minimum speed 
+          ratio is <code>minSpeRat</code> and obtained from the coil data 
+          record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
+      <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
+  </tr>
+  <tr>
+      <td>Water-cooled</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage</td>
+      <td>Coil with multiple operating stages, each stage having a constant speed. Each stage has its own performance curve, which may represent the coil performance at different compressor speed, or the coil performance as it switches between cooling only, cooling with hot gas reheat, or heating only.</td>
+      <td>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</td>
+  </tr>
+   <tr>
+      <td>Water-cooled</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed</td>
+      <td>Single stage coil with constant compressor speed</td>
+      <td>Boolean signal; <code>true</code> if coil is on.</td>
+   </tr>
+   <tr>
+      <td>Water-cooled</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed</td>
+      <td>Coil with variable speed compressor with lower speed limit. If the control signal is below the lower limit, the coil switches off. It switches on if the control signal is above the lower limit plus a hysteresis. By default, the minimum speed ratio is <code>minSpeRat</code> and obtained from the coil data record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
+      <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
+   </tr>
 </table>
-<p><br><h4>Control of the coils</h4></p>
+<h4>Control of the coils</h4>
 <p>The DX coil models take as a control input the stage of operation, an on/off signal, or the speed of the compressor. Because the thermal response of the coil is very fast, it is important to use as the controlled variable the room air temperature, as the room air temperature has a much slower response compare to the supply air temperature. If the supply air temperature is used, then the control algorithm should be such that short-cycling is avoided. </p>
 <h4>Coil performance</h4>
 <p>For air-cooled DX coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR) are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate), the evaporator air inlet temperature and the condensor air inlet temperature. These polynomials are explained at <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>. </p>
