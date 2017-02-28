@@ -180,7 +180,8 @@ We set the table parameters to
       smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
               8, QRooInt_flow;
-             18, 0]) \"Time table for internal heat gain\";
+             18, 0],
+      timeScale=3600) \"Time table for internal heat gain\";
 </pre>
 <p>
 Note that we set the output to be a periodic signal by configuring
