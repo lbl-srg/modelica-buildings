@@ -218,7 +218,7 @@ time points and the other columns contain the data to be interpolated.
 
 <p>
 <img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/CombiTimeTable.png\"
-     alt=\"CombiTimeTable.png\">
+     alt=\"CombiTimeTable.png\"/>
 </p>
 
 <p>
@@ -289,7 +289,7 @@ The table interpolation has the following properties:
     continuous,and if the interpolation method is smooth, also continuously differentiable).
     No time events are generated within an interval
     in order that also intervals with many points do not reduce the simulation efficiency
-    (note in package Modelica version 3.2 and earlier, time events had been generated).<br>
+    (note in package Modelica version 3.2 and earlier, time events had been generated).<br/>
     If the table points are largely changing, it is adviseable to force
     time events by duplicating every time point (especially, if the model in which
     the table is present allows the variable step integrator to make large
@@ -366,7 +366,8 @@ The table matrix can be defined in the following ways:
 <pre>
    savematfile tables.mat tab1 tab2 tab3
 </pre>
-      when the three tables tab1, tab2, tab3 should be used from the model.<br>
+      when the three tables tab1, tab2, tab3 should be used from the model.
+      <br/>
       Note, a fileName can be defined as URI by using the helper function
       <a href=\"modelica://Modelica.Utilities.Files.loadResource\">loadResource</a>.</li>
 <li>  Statically stored in function \"usertab\" in file \"usertab.c\".
@@ -428,10 +429,10 @@ February 23, 2017, by Milica Grahovac:<br/>
 Initial CDL implementation.
 </li>
 <li><i>April 09, 2013</i>
-       by Thomas Beutlich:<br>
+       by Thomas Beutlich:<br/>
        Implemented as external object.</li>
 <li><i>March 31, 2001</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br>
+       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br/>
        Used CombiTableTime as a basis and added the
        arguments <b>extrapolation, columns, startTime</b>.
        This allows periodic function definitions.</li>
