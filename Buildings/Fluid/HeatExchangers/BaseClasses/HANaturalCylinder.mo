@@ -84,17 +84,17 @@ initial equation
 
   // Fluid properties
   mu_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
-        T = 0.5 * (TSur_nominal+TFlu_nominal));
+        T=  0.5 * (TSur_nominal+TFlu_nominal));
   rho_nominal = Medium.density(
         Medium.setState_pTX(
-          p = Medium.p_default,
-          T = 0.5*(TSur_nominal+TFlu_nominal),
-          X = Medium.X_default));
+          p=  Medium.p_default,
+          T=  0.5*(TSur_nominal+TFlu_nominal),
+          X=  Medium.X_default));
   Pr_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
-          T = 0.5*(TSur_nominal+TFlu_nominal));
+          T=  0.5*(TSur_nominal+TFlu_nominal));
 
   B_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
-          T = 0.5*(TSur_nominal+TFlu_nominal));
+          T=  0.5*(TSur_nominal+TFlu_nominal));
   nu_nominal = mu_nominal/rho_nominal;
 
   Gr_nominal = Modelica.Constants.g_n * B_nominal * (TSur_nominal -
@@ -103,26 +103,26 @@ initial equation
   // Convection coefficient
   k_nominal = Medium.thermalConductivity(
     Medium.setState_pTX(
-    p = Medium.p_default,
-    T = 0.5*(TFlu_nominal+TSur_nominal),
-    X = Medium.X_default));
+    p=  Medium.p_default,
+    T=  0.5*(TFlu_nominal+TSur_nominal),
+    X=  Medium.X_default));
   Nusselt_nominal = nusselt(k=k_nominal, Pr=Pr_nominal, Ra=Ra_nominal);
   h_nominal = Nusselt_nominal * k_nominal/ChaLen;
   A = hA_nominal / h_nominal;
 equation
   // Fluid properties
   state = Medium.setState_pTX(
-             p = Medium.p_default,
-             T = 0.5*(TSur+TFlu),
-             X = Medium.X_default);
+             p=  Medium.p_default,
+             T=  0.5*(TSur+TFlu),
+             X=  Medium.X_default);
   mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
-        T = 0.5 * (TSur+TFlu));
+        T=  0.5 * (TSur+TFlu));
   rho = Medium.density(state);
   Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
-          T = 0.5*(TSur+TFlu));
+          T=  0.5*(TSur+TFlu));
 
   B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
-          T = 0.5*(TSur+TFlu));
+          T=  0.5*(TSur+TFlu));
   nu = mu/rho;
 
   Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;

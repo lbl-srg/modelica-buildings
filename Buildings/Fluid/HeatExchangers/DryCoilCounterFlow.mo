@@ -68,8 +68,8 @@ model DryCoilCounterFlow
     r_nominal=r_nominal) "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 protected
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium =
-        Medium1,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
+      = Medium1,
     allowFlowReversal=allowFlowReversal1,
     m_flow_nominal=m1_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(
@@ -77,8 +77,8 @@ protected
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
           extent={{-80,54},{-68,66}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium =
-        Medium2,
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium
+      = Medium2,
     final allowFlowReversal=allowFlowReversal2,
     m_flow_nominal=m2_flow_nominal) "Temperature sensor"
                                       annotation (Placement(transformation(

@@ -26,7 +26,8 @@ package Gases "Package with thermophysical properties for window fill gases"
     annotation (
     defaultComponentPrefixes="parameter",
     defaultComponentName="datGas",
-      Documentation(info="<html>
+Documentation(info=
+"<html>
 Generic record for thermophysical properties for window
 gas fills.
 The implementation is according to
@@ -53,7 +54,7 @@ First implementation.
                        a_mu=3.723E-6, b_mu=4.940E-8,
                        a_c=1002.737,  b_c= 1.2324E-2,
                        MM=28.97E-3) "Thermophysical properties for air"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -61,7 +62,7 @@ First implementation.
                          a_mu=3.379E-6, b_mu=6.451E-8,
                          a_c=521.9285,  b_c= 0,
                          MM=39.948E-3) "Thermophysical properties for argon"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -69,7 +70,7 @@ First implementation.
                            a_mu=2.213E-6, b_mu=7.777E-8,
                            a_c=248.0907,  b_c= 0,
                            MM=83.80E-3) "Thermophysical properties for krypton"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 
@@ -77,7 +78,7 @@ First implementation.
                          a_mu=1.069E-6, b_mu=7.414E-8,
                          a_c=158.3397,  b_c= 0,
                          MM=131.3E-3) "Thermophysical properties for krypton"
-    annotation (
+    annotation(
       defaultComponentPrefixes="parameter",
       defaultComponentName="datGas");
 

@@ -1,5 +1,6 @@
 within Buildings.ThermalZones;
-package ReducedOrder "Reduced order models based on VDI 6007"
+package ReducedOrder
+  "Reduced order models based on VDI 6007"
   extends Modelica.Icons.Package;
 
 

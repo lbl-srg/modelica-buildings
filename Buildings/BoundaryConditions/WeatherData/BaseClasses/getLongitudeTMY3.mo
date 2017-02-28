@@ -13,7 +13,7 @@ algorithm
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3(
       filNam=filNam,
       start="#LOCATION",
-      name = "longitude",
+      name=  "longitude",
       position=8);
    (nexInd, lon) :=Modelica.Utilities.Strings.Advanced.scanReal(
     string=element,
