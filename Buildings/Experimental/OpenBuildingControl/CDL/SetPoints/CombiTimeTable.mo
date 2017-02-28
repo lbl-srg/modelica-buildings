@@ -26,7 +26,7 @@ block CombiTimeTable
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Smoothness smoothness=Buildings.Experimental.OpenBuildingControl.CDL.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation"
     annotation (Dialog(group="Table data interpretation"));
-  parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Extrapolation extrapolation=Buildings.Experimental.OpenBuildingControl.CDL.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range"
     annotation (Dialog(group="Table data interpretation"));
   parameter Real offset[:]={0} "Offsets of output signals"
