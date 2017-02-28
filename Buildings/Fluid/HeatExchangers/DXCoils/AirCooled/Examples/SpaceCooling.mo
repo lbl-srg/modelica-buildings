@@ -625,7 +625,7 @@ equation
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
-This model illustrates the use of the DX coil models with
+This model illustrates the use of the air-cooled DX coil models with
 single speed compressor, multi-stage compressor, and variable
 speed compressor.
 The three systems all have the same simple model for a room,
@@ -649,7 +649,7 @@ and for the coil with variable compressor speed, as both of these coils
 switch off less frequent.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.png\" />
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SpaceCooling.png\" />
 </p>
 <h4>Implementation</h4>
 <p>

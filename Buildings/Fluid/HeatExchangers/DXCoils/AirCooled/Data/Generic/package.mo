@@ -5,18 +5,18 @@ package Generic "Package with generic performance curves"
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
-of DX cooling coils.
-For performance data of specific DX cooling coils, see the packages
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed</a>
+of air-cooled DX cooling coils.
+For performance data of specific air-cooled DX cooling coils, see the packages
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed</a>
 and
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed</a>.
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed</a>.
 </p>
 <p>
 The data are described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a>.
 </p>
 </html>",
 revisions="<html>
