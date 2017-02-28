@@ -324,7 +324,8 @@ The table interpolation has the following properties:
     <b>t_max</b> define the scaled abscissa values (using parameter
     <b>timeScale</b>) in SIunits.Time, <b>t_minScaled</b> and
     <b>t_maxScaled</b> define the unitless original abscissa values of
-    the table.</li>
+    the table.
+</li>
 </ul>
 <p>
 Example:
