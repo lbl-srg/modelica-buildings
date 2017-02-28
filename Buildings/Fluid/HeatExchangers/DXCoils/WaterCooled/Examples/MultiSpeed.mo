@@ -6,7 +6,7 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpEva_nominal = 1000
     "Pressure drop at m_flow_nominal";
  parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
     "Pressure drop at mCon_flow_nominal";
@@ -34,10 +34,10 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed  mulSpeDX(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
-    dp_nominal=dp_nominal,
     datCoi=datCoi,
     show_T=true,
-    dpCon_nominal=dpCon_nominal) "Multi-speed DX coil"
+    dpCon_nominal=dpCon_nominal,
+    dpEva_nominal=dpEva_nominal) "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=4, sta={

@@ -6,7 +6,7 @@ model VariableSpeed "Test model for variable speed DX coil"
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1000
+ parameter Modelica.SIunits.PressureDifference dpEva_nominal = 1000
     "Pressure drop at m_flow_nominal";
  parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
     "Pressure drop at mCon_flow_nominal";
@@ -33,7 +33,7 @@ model VariableSpeed "Test model for variable speed DX coil"
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed varSpeDX(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
-    dp_nominal=dp_nominal,
+    dpEva_nominal=dpEva_nominal,
     datCoi=datCoi,
     show_T=true,
     dpCon_nominal=dpCon_nominal,

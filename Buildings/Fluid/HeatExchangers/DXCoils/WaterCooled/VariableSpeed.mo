@@ -4,15 +4,17 @@ model VariableSpeed "Variable speed water-cooled DX coils"
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-         redeclare replaceable package Medium1=Buildings.Media.Air,
-         redeclare replaceable package Medium2=Buildings.Media.Water,
+         redeclare replaceable package Medium1=
+        Modelica.Media.Interfaces.PartialMedium,
+         redeclare replaceable package Medium2=
+        Modelica.Media.Interfaces.PartialMedium,
          final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
          final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
 
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpEva_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the evaporator";
 
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
@@ -55,7 +57,7 @@ model VariableSpeed "Variable speed water-cooled DX coils"
                                              tWet= datCoi.sta[nSta].nomVal.tWet,
                                              gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow = true,
-    final dp_nominal = dp_nominal,
+    final dp_nominal = dpEva_nominal,
     minSpeRat = minSpeRat,
     speRatDeaBan = speRatDeaBan)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
