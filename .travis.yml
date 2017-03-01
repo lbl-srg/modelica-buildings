@@ -37,19 +37,16 @@ env:
   - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Constructions"
   - TEST_ARG="-b -s Buildings.Utilities"
 
-# Enable system site packages in virtualenv so BuildingsPy sees scipy and matplotlib
-virtualenv:
-  system_site_packages: true
-
 before_install:
   - sudo mv Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
-  - sudo apt-get install -qq python-numpy python-scipy python-matplotlib
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
 
 # Install dependencies
 install:
+  - pip install --upgrade pip setuptools wheel
+  - pip install --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib
   - pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
