@@ -213,45 +213,52 @@ model RenewableSources
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{120,28},{140,48}})));
   Modelica.Blocks.Sources.CombiTimeTable pow1(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.8; 10*3600,0.7; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.8; 20*3600,0.7; 22*3600,0.3; 24*3600,0.1])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2,0.1;
+        4,0.1; 6,0.1; 8,0.8; 10,0.7; 12,0.3; 14,0.3;
+        16,0.3; 18,0.8; 20,0.7; 22,0.3; 24,0.1],
+    timeScale=3600)
     "Power consumption profile for load 1"
     annotation (Placement(transformation(extent={{-2,34},{-14,46}})));
   Modelica.Blocks.Sources.CombiTimeTable pow2(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.8; 10*3600,0.7; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.8; 20*3600,0.7; 22*3600,0.3; 24*3600,0.1])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2,0.1;
+        4,0.1; 6,0.1; 8,0.8; 10,0.7; 12,0.3; 14,0.3;
+        16,0.3; 18,0.8; 20,0.7; 22,0.3; 24,0.1],
+    timeScale=3600)
     "Power consumption profile for load 2"
     annotation (Placement(transformation(extent={{36,34},{24,46}})));
   Modelica.Blocks.Sources.CombiTimeTable pow3(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.8; 10*3600,0.7; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.8; 20*3600,0.7; 22*3600,0.3; 24*3600,0.1])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2,0.1;
+        4,0.1; 6,0.1; 8,0.8; 10,0.7; 12,0.3; 14,0.3;
+        16,0.3; 18,0.8; 20,0.7; 22,0.3; 24,0.1],
+    timeScale=3600)
     "Power consumption profile for load 3"
     annotation (Placement(transformation(extent={{76,34},{64,46}})));
   Modelica.Blocks.Sources.CombiTimeTable pow4(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.2; 2*3600,0.2;
-        4*3600,0.2; 6*3600,0.2; 8*3600,0.8; 10*3600,0.8; 12*3600,0.6; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.8; 20*3600,0.8; 22*3600,0.3; 24*3600,0.3])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.2; 2,0.2;
+        4,0.2; 6,0.2; 8,0.8; 10,0.8; 12,0.6; 14,0.3;
+        16,0.3; 18,0.8; 20,0.8; 22,0.3; 24,0.3],
+    timeScale=3600)
     "Power consumption profile for load 4"
     annotation (Placement(transformation(extent={{116,34},{104,46}})));
   Modelica.Blocks.Sources.CombiTimeTable pow5(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.5; 10*3600,0.2; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.9; 20*3600,0.4; 22*3600,0.2; 24*3600,0.1])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2,0.1;
+        4,0.1; 6,0.1; 8,0.5; 10,0.2; 12,0.3; 14,0.3;
+        16,0.3; 18,0.9; 20,0.4; 22,0.2; 24,0.1],
+    timeScale=3600)
     "Power consumption profile for load 5"
     annotation (Placement(transformation(extent={{16,-46},{4,-34}})));
   Modelica.Blocks.Sources.CombiTimeTable pow6(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.8; 10*3600,0.7; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.8; 20*3600,0.7; 22*3600,0.3; 24*3600,0.1])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.1; 2,0.1;
+        4,0.1; 6,0.1; 8,0.8; 10,0.7; 12,0.3; 14,0.3;
+        16,0.3; 18,0.8; 20,0.7; 22,0.3; 24,0.1],
+    timeScale=3600)
     "Power consumption profile for load 6"
     annotation (Placement(transformation(extent={{56,-46},{44,-34}})));
   Modelica.Blocks.Sources.CombiTimeTable pow7(extrapolation=
-        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.2; 2*3600,0.1;
-        4*3600,0.1; 6*3600,0.1; 8*3600,0.4; 10*3600,0.7; 12*3600,0.3; 14*3600,0.3;
-        16*3600,0.3; 18*3600,0.2; 20*3600,0.7; 22*3600,0.3; 24*3600,0.2])
+        Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,0.2; 2,0.1;
+        4,0.1; 6,0.1; 8,0.4; 10,0.7; 12,0.3; 14,0.3;
+        16,0.3; 18,0.2; 20,0.7; 22,0.3; 24,0.2],
+    timeScale=3600)
     "Power consumption profile for load 7"
     annotation (Placement(transformation(extent={{96,-46},{84,-34}})));
   AC.ThreePhasesBalanced.Sensors.Probe sen1(V_nominal=V_nominal, perUnit=true)
