@@ -4,9 +4,9 @@ model VariableSpeed "Variable speed water-cooled DX coils"
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-         redeclare replaceable package Medium1=
+         redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialMedium,
-         redeclare replaceable package Medium2=
+         redeclare replaceable package Medium2 =
         Modelica.Media.Interfaces.PartialMedium,
          final m1_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
          final m2_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal);
