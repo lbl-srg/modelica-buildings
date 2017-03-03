@@ -41,7 +41,6 @@ partial block PartialSurfaceCondition
     max=1.0) "Bypass factor";
  output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
-
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
       per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
