@@ -1,14 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data;
 package DoubleSpeed "Performance data for DoubleSpeed DXCoils"
-import Buildings;
-
   extends Modelica.Icons.MaterialPropertiesPackage;
-
-
-
-
-
-
 
 annotation(preferredView="info",
  Documentation(info="<html>
