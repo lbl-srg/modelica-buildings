@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled;
 model MultiStage "Multi-stage DX cooling coil"
+
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
       dxCoo(final variableSpeedCoil=false,
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
