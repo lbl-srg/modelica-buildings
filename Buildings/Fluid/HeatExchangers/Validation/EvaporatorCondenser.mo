@@ -1,12 +1,11 @@
 within Buildings.Fluid.HeatExchangers.Validation;
-model EvaporatorCondenser "Test model for the evaporator / condenser model"
+model EvaporatorCondenser "Test model for the evaporator or condenser model"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Water;
+  package Medium = Buildings.Media.Water "Medium model";
 
-
-  parameter Modelica.SIunits.MassFlowRate
-    m_flow_nominal = 0.01 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.01
+    "Nominal mass flow rate";
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature ref(T=283.15)
     "Refrigerant temperature"
@@ -38,7 +37,7 @@ model EvaporatorCondenser "Test model for the evaporator / condenser model"
     dp_nominal=0,
     tau=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=m_flow_nominal)                            "Evaporator"
+    m_flow_nominal=m_flow_nominal) "Evaporator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -51,6 +50,7 @@ model EvaporatorCondenser "Test model for the evaporator / condenser model"
     redeclare package Medium = Medium,
     tau=0.01,
     initType=Modelica.Blocks.Types.Init.SteadyState)
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{24,-10},{44,10}})));
 equation
   connect(ref.port, heaFlo.port_a)

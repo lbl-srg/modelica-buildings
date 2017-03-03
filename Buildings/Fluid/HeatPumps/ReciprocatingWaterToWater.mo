@@ -3,16 +3,16 @@ model ReciprocatingWaterToWater
   "Model for a reciprocating water to water heat pump"
 
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
+    final UAEva=datHeaPum.UAEva*scaling_factor,
+    final UACon=datHeaPum.UACon*scaling_factor,
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
-      redeclare package ref=ref,
+      redeclare final package ref=ref,
       pisDis=datHeaPum.pisDis*scaling_factor,
       cleFac=datHeaPum.cleFac,
       etaEle=datHeaPum.etaEle,
       PLos=datHeaPum.PLos*scaling_factor,
       pDro=datHeaPum.pDro,
-      dTSup=datHeaPum.dTSup),
-    eva(UA=datHeaPum.UAEva*scaling_factor),
-    con(UA=datHeaPum.UACon*scaling_factor));
+      dTSup=datHeaPum.dTSup));
 
   replaceable parameter Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
     datHeaPum "Heat pump data"
@@ -55,8 +55,8 @@ condensing pressure.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-The compression process is assumed isentropic. The thermal energy 
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant 
+The compression process is assumed isentropic. The thermal energy
+of superheating is ignored in the evaluation of the heat transfered to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>

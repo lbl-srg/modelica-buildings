@@ -3,14 +3,9 @@ model ScrollWaterToWater
   "Calibration model for scroll water to water heat pump"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatPumps.Calibration.BaseClasses.PartialWaterToWater(
+    redeclare package Medium1 = Buildings.Media.Water,
+    redeclare package Medium2 = Buildings.Media.Water,
     redeclare Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
-      redeclare package Medium1 = Medium1,
-      redeclare package Medium2 = Medium2,
-      redeclare package ref = ref,
-      m1_flow_nominal=m1_flow_nominal,
-      m2_flow_nominal=m2_flow_nominal,
-      dp1_nominal=1000,
-      dp2_nominal=1000,
       datHeaPum(
         etaEle=etaEle,
         PLos=PLos,
@@ -20,8 +15,8 @@ model ScrollWaterToWater
         volRat=volRat,
         V_flow_nominal=V_flow_nominal,
         leaCoe=leaCoe)),
-    calDat(tableName="ManufacturerData", fileName=
-          Modelica.Utilities.Files.loadResource(
+    calDat(tableName="ManufacturerData",
+           fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/src/fluid/heatpumps/calibration/manufacturerData.txt")),
     UACon = 12000.0,
     UAEva = 12000.0,

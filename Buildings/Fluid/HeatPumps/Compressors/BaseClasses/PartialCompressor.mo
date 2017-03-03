@@ -1,9 +1,30 @@
 within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
 model PartialCompressor "Partial compressor model"
 
-  replaceable package ref =
-      Buildings.Media.Refrigerants.R410A "Refrigerant in the component"
-      annotation (choicesAllMatching = true);
+  replaceable package ref = Buildings.Media.Refrigerants.R410A
+    "Refrigerant in the component"
+    annotation (choicesAllMatching = true);
+
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+      "Refrigerant connector a (corresponding to the evaporator)"
+      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
+      "Refrigerant connector b (corresponding to the condenser)"
+      annotation (Placement(transformation(extent={{110,-10},{90,10}})));
+
+    Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
+     "Modulating signal for compressor frequency, equal to 1 at full load conditions"
+      annotation (Placement(
+        transformation(
+          extent={{-120,70},{-100,50}},
+          rotation = -90)));
+
+    Modelica.Blocks.Interfaces.RealOutput P(
+      final quantity="Power",
+      final unit="W") "Electric power consumed by compressor"
+      annotation (Placement(transformation(extent={{100,50},{120,70}},
+          rotation=-90)));
 
   Modelica.SIunits.SpecificEnthalpy hEva
     "Specific enthalpy of saturated vapor at evaporator temperature";
@@ -16,29 +37,9 @@ model PartialCompressor "Partial compressor model"
 
   Modelica.SIunits.AbsolutePressure pCon(start = 1000e3)
     "Pressure of saturated liquid at condenser temperature";
+
   Boolean isOn(fixed=true, start=false)
-    "State of the compressor,  if turned on";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
-    "Refrigerant connector a (corresponding to the evaporator)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
-    "Refrigerant connector b (corresponding to the condenser)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
-
-  Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
-   "Modulating signal for compressor frequency, equal to 1 at full load conditions"
-    annotation (Placement(
-      transformation(
-        extent={{-120,70},{-100,50}},
-        rotation = -90)));
-
-  Modelica.Blocks.Interfaces.RealOutput P(
-    final quantity="Power",
-    final unit="W") "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,50},{120,70}},
-        rotation=-90)));
+    "State of the compressor, true if turned on";
 
 equation
   when initial() then
@@ -102,11 +103,11 @@ equation
 This is the base class for the compressor model.
 </p>
 <p>
-The model evaluates the evaporating pressure of the refrigerant <i>p<sub>eva</sub></i>, 
-the specific enthalpy of the evaporating saturated refrigerant vapor <i>h<sub>eva</sub></i>, 
-the condensing pressure of the refrigerant <i>p<sub>con</sub></i> 
-and the specific enthalpy of the condensing saturated liquid refrigerant <i>h<sub>cond</sub></i> 
-at the evaporating temperature <i>T<sub>eva</sub></i> = <code>port_a.T</code> 
+The model evaluates the evaporating pressure of the refrigerant <i>p<sub>eva</sub></i>,
+the specific enthalpy of the evaporating saturated refrigerant vapor <i>h<sub>eva</sub></i>,
+the condensing pressure of the refrigerant <i>p<sub>con</sub></i>
+and the specific enthalpy of the condensing saturated liquid refrigerant <i>h<sub>cond</sub></i>
+at the evaporating temperature <i>T<sub>eva</sub></i> = <code>port_a.T</code>
 and condensing temperature <i>T<sub>con</sub></i> = <code>port_b.T</code>.
 </p>
 <p>
@@ -114,7 +115,8 @@ Thermodynamic properties are evaluated from functions contained in the specified
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-The model assumes isothermal condensation and evaporation, therefore refrigerant mass flow is not accounted for and Heat Ports are used instead of Fluid Ports.
+The model assumes isothermal condensation and evaporation, therefore
+refrigerant mass flow is not accounted for and heat ports are used instead of fluid ports.
 </p>
 </html>", revisions="<html>
 <ul>

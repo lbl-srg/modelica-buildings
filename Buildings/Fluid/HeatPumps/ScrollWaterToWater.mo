@@ -3,16 +3,16 @@ model ScrollWaterToWater
   "Model for a scroll water to water heat pump"
 
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
+    final UAEva=datHeaPum.UAEva*scaling_factor,
+    final UACon=datHeaPum.UACon*scaling_factor,
     redeclare HeatPumps.Compressors.ScrollCompressor com(
-      redeclare package ref = ref,
-      volRat=datHeaPum.volRat,
-      V_flow_nominal=datHeaPum.V_flow_nominal*scaling_factor,
-      leaCoe=datHeaPum.leaCoe*scaling_factor,
-      etaEle=datHeaPum.etaEle,
-      PLos=datHeaPum.PLos*scaling_factor,
-      dTSup=datHeaPum.dTSup),
-    eva(UA=datHeaPum.UAEva*scaling_factor),
-    con(UA=datHeaPum.UACon*scaling_factor));
+      redeclare final package ref = ref,
+      final volRat=datHeaPum.volRat,
+      final V_flow_nominal=datHeaPum.V_flow_nominal*scaling_factor,
+      final leaCoe=datHeaPum.leaCoe*scaling_factor,
+      final etaEle=datHeaPum.etaEle,
+      final PLos=datHeaPum.PLos*scaling_factor,
+      final dTSup=datHeaPum.dTSup));
 
   parameter Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Generic
     datHeaPum "Heat pump data" annotation (choicesAllMatching=true, Placement(
