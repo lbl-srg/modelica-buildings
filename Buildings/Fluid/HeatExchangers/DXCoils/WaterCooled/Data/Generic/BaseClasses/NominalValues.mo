@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses;
 record NominalValues "Data record of nominal values for water-cooled DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues;
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues;
 
 //-----------------------------Nominal conditions-----------------------------//
 
