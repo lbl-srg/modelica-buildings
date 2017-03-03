@@ -13,10 +13,8 @@ model MultiSpeed "Multi speed water-cooled DX coils"
 
   parameter Modelica.SIunits.PressureDifference dpEva_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the evaporator";
-
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the condenser";
-
   Modelica.Blocks.Interfaces.RealOutput P(quantity="Power", unit="W")
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
@@ -44,28 +42,21 @@ model MultiSpeed "Multi speed water-cooled DX coils"
                  appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
     eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-                                             Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
-                                             COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
-                                             SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
-                                             m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
-                                             TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
-                                             TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
-                                             phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
-                                             p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
-                                             tWet= datCoi.sta[nSta].nomVal.tWet,
-                                             gamma=datCoi.sta[nSta].nomVal.gamma)),
+        Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
+       SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+       TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
+        phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
+        tWet= datCoi.sta[nSta].nomVal.tWet,gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-
   Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
         redeclare package Medium=Medium2,
         final m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
         final dp_nominal = dpCon_nominal,
         final Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))
-                                    "Water-cooled condenser"
+   "Water-cooled condenser"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
-
   Modelica.Blocks.Sources.RealExpression u(final y=(-mulSpeDX.dxCoo.Q_flow +mulSpeDX.P)
         /(-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal)))
         "Signal of total heat flow removed by condenser"
@@ -74,7 +65,6 @@ model MultiSpeed "Multi speed water-cooled DX coils"
         extent={{-13,-10},{13,10}},
         rotation=0,
         origin={-67,0})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
       m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
@@ -83,8 +73,6 @@ protected
   Modelica.Blocks.Sources.RealExpression mCon(final y=port_a2.m_flow)
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
-
-
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
           12,-34}}, color={0,0,127}));
