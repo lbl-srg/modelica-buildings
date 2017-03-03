@@ -26,6 +26,13 @@
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
 
+def _validate_user_guides():
+    import os
+    import subprocess
+
+    return subprocess.Popen(["make", "-f", "Makefile", "regressiontest"],
+                            cwd = os.path.join("Resources", "Documentation", "userGuide"))
+
 def _validate_html(path):
     import buildingspy.development.validator as v
 
@@ -119,6 +126,10 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
+    html_group = parser.add_argument_group("arguments to check user guides")
+    html_group.add_argument("--validate-user-guides",
+                           action="store_true")
+
 
     # Set environment variables
     if platform.system() == "Windows":
@@ -146,6 +157,12 @@ if __name__ == '__main__':
         # Validate the html syntax only, and then exit
         ret_val = _validate_html(args.path)
         exit(ret_val)
+
+    if args.validate_user_guides:
+        # Validate the html syntax only, and then exit
+        ret_val = _validate_user_guides()
+        exit(ret_val)
+
 
     if args.single_package:
         single_package = args.single_package
