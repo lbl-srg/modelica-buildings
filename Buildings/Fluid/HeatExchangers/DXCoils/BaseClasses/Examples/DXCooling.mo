@@ -10,15 +10,13 @@ model DXCooling "Test model for DXCooling"
     k=273.15 + 35)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
-    redeclare package Medium = Medium,
-    datCoi=datCoi,
-    variableSpeedCoil=true,
-    use_mCon_flow=false,
-    wetCoi(redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+   redeclare package Medium = Medium,
+   datCoi=datCoi,
+   variableSpeedCoil=true,
+   use_mCon_flow=false,
+   wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
         cooCap),
-    dryCoi(redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+    dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
         cooCap))
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.IntegerStep onOff(
