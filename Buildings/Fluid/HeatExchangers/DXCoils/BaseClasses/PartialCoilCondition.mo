@@ -28,7 +28,6 @@ protected
     final speSet=datCoi.sta.spe) "Interpolates Q_flow"
     annotation (Placement(transformation(extent={{32,44},{46,58}})));
 equation
-
   connect(cooCap.EIR, speShiEIR.u)
                                   annotation (Line(
       points={{7,54},{10,54},{10,65.4},{30.6,65.4}},
