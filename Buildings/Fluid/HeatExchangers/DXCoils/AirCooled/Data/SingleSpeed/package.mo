@@ -1,28 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data;
 package SingleSpeed "Performance data for SingleSpeed DXCoils"
-import Buildings;
-
   extends Modelica.Icons.MaterialPropertiesPackage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 annotation(preferredView="info",
  Documentation(info="<html>
