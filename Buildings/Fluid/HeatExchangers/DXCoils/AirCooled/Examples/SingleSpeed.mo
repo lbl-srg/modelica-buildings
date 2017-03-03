@@ -46,14 +46,15 @@ model SingleSpeed "Test model for single speed DX coil"
     height=dp_nominal,
     offset=101325) "Pressure"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Data.Generic.DXCoil datCoi(sta={Data.Generic.BaseClasses.Stage(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+    sta={Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
-        perCur=PerformanceCurves.Curve_II())}, nSta=1) "Coil data"
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_II())}, nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
     "Condensor inlet temperature"
