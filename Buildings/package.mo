@@ -191,6 +191,10 @@ its class name ends with the string <code>Beta</code>.
    This leads in many examples that use the room model to a smaller number
    of non-linear system of equations and a 20% to 40% faster simulation.
    </li>
+   <li>
+   The package <code>Buildings.Utilities.IO.Python34</code> with
+   blocks and functions that embed Python 3.4 in Modelica has been added.
+   </li>
    </ul>
    </div>
    <!-- New libraries -->
@@ -226,6 +230,11 @@ its class name ends with the string <code>Beta</code>.
        </td>
        <td valign=\"top\">Package with reduced order models of thermal zones based
                         on VDI 6007.
+       </td>
+       </tr>
+     <tr><td valign=\"top\">Buildings.Utilities.IO.Python34
+       </td>
+       <td valign=\"top\">Package with blocks and functions that embed Python 3.4 in Modelica.
        </td>
        </tr>
 
