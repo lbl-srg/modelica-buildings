@@ -30,18 +30,12 @@ model CoolingCapacityAirCooled "Test model for CoolingCapacityAirCooled"
     offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  parameter AirCooled.Data.Generic.BaseClasses.Stage sta(
-    nomVal(
-      Q_flow_nominal=-21000,
-      COP_nominal=3,
-      SHR_nominal=0.8,
-      m_flow_nominal=1.5),
-    perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled(),
-
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta(
+    nomVal(Q_flow_nominal=-21000,COP_nominal=3,
+      SHR_nominal=0.8,m_flow_nominal=1.5),
+   perCur = Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled(),
     spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
 equation
   connect(TConIn.y, cooCap.TConIn) annotation (Line(
       points={{-59,20},{-46,20},{-46,4.8},{-21,4.8}},
