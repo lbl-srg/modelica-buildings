@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Validation;
 model SingleSpeedEnergyPlus
   "Validation model for single speed DX coil with PLR=1"
   extends Modelica.Icons.Example;
-
   package Medium = Buildings.Media.Air "Medium model";
 
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
@@ -36,7 +35,8 @@ model SingleSpeedEnergyPlus
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  Data.Generic.DXCoil datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+       nSta=1, sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,
