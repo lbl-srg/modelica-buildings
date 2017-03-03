@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
 model MultiSpeed "Test model for multi speed water-cooled DX coil"
-  import Buildings;
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
   extends Modelica.Icons.Example;
@@ -10,15 +9,12 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     "Pressure drop at m_flow_nominal";
  parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
     "Pressure drop at mCon_flow_nominal";
-
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumAir,
     nPorts=1,
-    p(displayUnit="Pa"))
-              "Sink on air side"
+    p(displayUnit="Pa")) "Sink on air side"
     annotation (Placement(transformation(extent={{52,30},{32,50}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                      souAir(
+  Buildings.Fluid.Sources.MassFlowSource_T souAir(
     redeclare package Medium = MediumAir,
     use_T_in=true,
     nPorts=1,
@@ -39,61 +35,43 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     dpCon_nominal=dpCon_nominal,
     dpEva_nominal=dpEva_nominal) "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
-
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=900/60,
-        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-12000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=0.9,
-          mCon_flow_nominal=0.57143,
-          TEvaIn_nominal=273.15+26.67,
+      nomVal=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-12000,COP_nominal=3,SHR_nominal=0.8,
+          m_flow_nominal=0.9,mCon_flow_nominal=0.57143,TEvaIn_nominal=273.15+26.67,
           TConIn_nominal=273.15+29.4),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
+      perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
-        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-18000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.2,
-          mCon_flow_nominal=0.85714,
-          TEvaIn_nominal=273.15+26.67,
+      nomVal=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-18000,COP_nominal=3,SHR_nominal=0.8,
+          m_flow_nominal=1.2,mCon_flow_nominal=0.85714,TEvaIn_nominal=273.15+26.67,
           TConIn_nominal=273.15+29.4),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
+      perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-21000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.5,
-          mCon_flow_nominal=1,
-          TEvaIn_nominal=273.15+26.67,
+      nomVal=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-21000,COP_nominal=3,SHR_nominal=0.8,
+          m_flow_nominal=1.5,mCon_flow_nominal=1,TEvaIn_nominal=273.15+26.67,
           TConIn_nominal=273.15+29.4),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
+      perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=WaterCooled.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=-30000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=1.8,
-          mCon_flow_nominal=1.42857,
-          TEvaIn_nominal=273.15+26.67,
+      nomVal=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-30000,COP_nominal=3,SHR_nominal=0.8,
+          m_flow_nominal=1.8,mCon_flow_nominal=1.42857,TEvaIn_nominal=273.15+26.67,
           TConIn_nominal=273.15+29.4),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I())}) "Coil data"
+      perCur=Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples.PerformanceCurves.Curve_I())}) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.Ramp     mCon_flow(
+  Modelica.Blocks.Sources.Ramp mCon_flow(
     duration=600,
     startTime=6000,
     height=0,
-    offset=1)                                     "Condensor inlet mass flow"
+    offset=1) "Condensor inlet mass flow"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  Buildings.Fluid.Sources.MassFlowSource_T
-                                      souWat(
+  Buildings.Fluid.Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
     use_T_in=false,
@@ -103,8 +81,7 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
-    p(displayUnit="Pa"))
-              "Sink on water side"
+    p(displayUnit="Pa")) "Sink on water side"
     annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
   Modelica.Blocks.Sources.IntegerTable speRat(table=[
     0.0,0.0;
