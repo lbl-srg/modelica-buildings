@@ -17,11 +17,11 @@ partial record HeatPumps
 
 
   parameter Modelica.SIunits.ThermalConductance UACon
-    "Thermal conductance of condenser"
+    "Thermal conductance of condenser between water and refrigerant"
     annotation (Dialog(group="Condenser"));
 
   parameter Modelica.SIunits.ThermalConductance UAEva
-    "Thermal conductance of evaporator"
+    "Thermal conductance of evaporator between water and refrigerant"
     annotation (Dialog(group="Evaporator"));
 
   annotation (
