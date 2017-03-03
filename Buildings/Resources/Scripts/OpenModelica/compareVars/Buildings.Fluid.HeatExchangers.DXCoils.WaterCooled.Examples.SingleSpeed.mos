@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "sinSpeDX.sinSpeDX.vol.T",
+    "sinSpeDX.sta_a1.T",
+    "sinSpeDX.sta_a2.T",
+    "sinSpeDX.sta_b2.T",
+    "sinSpeDX.sta_a1.X[1]",
+    "sinSpeDX.sinSpeDX.vol.X_w",
+    "sinSpeDX.sinSpeDX.dxCoo.mWat_flow",
+    "onOff.y",
+    "sinSpeDX.P",
+    "sinSpeDX.sinSpeDX.dxCoo.Q_flow",
+    "sinSpeDX.watCooCon.Q_flow"
+  };
