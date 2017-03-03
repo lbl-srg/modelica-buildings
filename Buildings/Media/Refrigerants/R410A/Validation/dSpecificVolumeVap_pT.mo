@@ -50,8 +50,8 @@ protected
     "Numerical delta of specific volume of refrigerant with regards to
     temperature";
 
-  Modelica.SIunits.Time oneSec = 1.0
-    "Unit time variale for unit conversion of time derivatives";
+  constant Modelica.SIunits.Time oneSec = 1.0
+    "Unit time variable for unit conversion of time derivatives";
 
 equation
 
