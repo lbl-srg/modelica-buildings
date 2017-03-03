@@ -1,9 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
 model SingleSpeed "Single speed water-cooled DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
           redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-          redeclare replaceable package Medium1=
+          redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialMedium,
           redeclare replaceable package Medium2 =
         Modelica.Media.Interfaces.PartialMedium,
@@ -15,7 +16,6 @@ model SingleSpeed "Single speed water-cooled DX coils"
 
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(min=0,displayUnit="Pa")
     "Pressure drop at nominal flowrate in the condenser";
-
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
@@ -43,16 +43,11 @@ model SingleSpeed "Single speed water-cooled DX coils"
                  appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
     eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-                                             Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
-                                             COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
-                                             SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
-                                             m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
-                                             TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
-                                             TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
-                                             phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
-                                             p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
-                                             tWet= datCoi.sta[nSta].nomVal.tWet,
-                                             gamma=datCoi.sta[nSta].nomVal.gamma)),
+    Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
+    SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+    TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
+    phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
+    tWet= datCoi.sta[nSta].nomVal.tWet,gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -62,7 +57,7 @@ model SingleSpeed "Single speed water-cooled DX coils"
         final m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
         final dp_nominal = dpCon_nominal,
         final Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal))
-                                    "Water-cooled condenser"
+    "Water-cooled condenser"
     annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
 
   Modelica.Blocks.Sources.RealExpression u(final y=(-sinSpeDX.dxCoo.Q_flow + sinSpeDX.P)
@@ -82,7 +77,6 @@ protected
   Modelica.Blocks.Sources.RealExpression mCon(final y=port_a2.m_flow)
     "Inlet water mass flow rate at the condenser"
     annotation (Placement(transformation(extent={{-80,10},{-54,30}})));
-
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-52.7,0},{20,0},{20,-34},{
           12,-34}}, color={0,0,127}));
