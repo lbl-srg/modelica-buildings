@@ -7,7 +7,7 @@ function dSpecificVolumeVap_pT
     "Temperature of refrigerant";
   input Real dp(
     final unit="Pa/s")
-    "Delta of ressure of refrigerant vapor";
+    "Delta of pressure of refrigerant vapor";
   input Real dT(
     final unit="K/s")
     "Delta of temperature of refrigerant";
