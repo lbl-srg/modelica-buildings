@@ -37,6 +37,10 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+regressiontest: clean html
+	@echo "Verify whether all files compile and no uncommitted changes exist"
+	git diff --exit-code
+
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
@@ -91,4 +95,3 @@ doctest:
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
 dist:	html, linkcheck
-
