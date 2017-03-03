@@ -16,15 +16,7 @@ model ReciprocatingWaterToWater
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    dp1_nominal=100,
-    dp2_nominal=100,
-    show_T=true,
-    redeclare Data.ReciprocatingWaterToWater.Generic datHeaPum(
+     per = Data.ReciprocatingWaterToWater.Generic(
       etaEle=0.696,
       PLos=100,
       dTSup=9.82,
@@ -32,7 +24,15 @@ model ReciprocatingWaterToWater
       UAEva=1540,
       pisDis=0.00162,
       cleFac=0.069,
-      pDro=99290))   "Reciprocating water to water heat pump"
+      pDro=99290),
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    dp1_nominal=100,
+    dp2_nominal=100,
+    show_T=true) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(

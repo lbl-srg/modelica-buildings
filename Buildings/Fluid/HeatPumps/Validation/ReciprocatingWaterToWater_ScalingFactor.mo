@@ -57,10 +57,9 @@ model ReciprocatingWaterToWater_ScalingFactor
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     enable_variable_speed=false,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -76,13 +75,12 @@ model ReciprocatingWaterToWater_ScalingFactor
     redeclare package Medium2 = Medium2,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     enable_variable_speed=false,
     scaling_factor=scaling_factor,
     m1_flow_nominal=m1_flow_nominal*scaling_factor,
     m2_flow_nominal=m2_flow_nominal*scaling_factor,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -90,8 +88,9 @@ model ReciprocatingWaterToWater_ScalingFactor
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump with transient effects"
-             annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+        pDro=99290))
+    "Reciprocating water to water heat pump with transient effects"
+    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));

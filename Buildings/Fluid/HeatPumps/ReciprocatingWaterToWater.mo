@@ -3,21 +3,21 @@ model ReciprocatingWaterToWater
   "Model for a reciprocating water to water heat pump"
 
   extends Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater(
-    final UAEva=datHeaPum.UAEva*scaling_factor,
-    final UACon=datHeaPum.UACon*scaling_factor,
+    final UAEva=per.UAEva * scaling_factor,
+    final UACon=per.UACon * scaling_factor,
     redeclare HeatPumps.Compressors.ReciprocatingCompressor com(
       redeclare final package ref=ref,
-      pisDis=datHeaPum.pisDis*scaling_factor,
-      cleFac=datHeaPum.cleFac,
-      etaEle=datHeaPum.etaEle,
-      PLos=datHeaPum.PLos*scaling_factor,
-      pDro=datHeaPum.pDro,
-      dTSup=datHeaPum.dTSup));
+      pisDis=per.pisDis * scaling_factor,
+      cleFac=per.cleFac,
+      etaEle=per.etaEle,
+      PLos=per.PLos * scaling_factor,
+      pDro=per.pDro,
+      dTSup=per.dTSup));
 
-  replaceable parameter Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic
-    datHeaPum "Heat pump data"
-    annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-98,78},{-78,98}})));
+  parameter Data.ReciprocatingWaterToWater.Generic per
+    "Heat pump performance data"
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-98,
+            78},{-78,98}})));
 
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})),

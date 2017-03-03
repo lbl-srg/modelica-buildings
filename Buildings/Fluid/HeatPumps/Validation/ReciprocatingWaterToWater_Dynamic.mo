@@ -16,13 +16,15 @@ model ReciprocatingWaterToWater_Dynamic
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
-    redeclare package Medium = Medium2, nPorts=2) "Source side sink"
+    redeclare package Medium = Medium2,
+    nPorts=2) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-32,20})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
-    redeclare package Medium = Medium1, nPorts=2) "Load side sink"
+    redeclare package Medium = Medium1,
+    nPorts=2) "Load side sink"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -54,11 +56,10 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     show_T=true,
     enable_variable_speed=false,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -76,13 +77,12 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=15,
     tau2=15,
     enable_variable_speed=false,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -90,8 +90,9 @@ model ReciprocatingWaterToWater_Dynamic
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump with transient effects"
-             annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+        pDro=99290))
+    "Reciprocating water to water heat pump with transient effects"
+    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
@@ -178,8 +179,8 @@ validation case also tests the stage input to the heat pump models.
 </p>
 <p>
 With constant inlet source and load water temperatures, the heat pumps cycle on
-and off. The apparent capacity of the dynamic model is compared to the 
-steady-state model and to the condenser heat transfer rate. 
+and off. The apparent capacity of the dynamic model is compared to the
+steady-state model and to the condenser heat transfer rate.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -60,10 +60,9 @@ model ReciprocatingWaterToWater_VariableSpeed
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     show_T=true,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
