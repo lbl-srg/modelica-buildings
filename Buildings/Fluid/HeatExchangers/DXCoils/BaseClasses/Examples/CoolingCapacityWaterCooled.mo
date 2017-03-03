@@ -1,11 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
-  import Buildings;
+
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-    cooCap(
-    sta={sta},
+    cooCap(sta={sta},
     m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
     nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -31,15 +30,12 @@ model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
     offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta(
-    nomVal(
-      Q_flow_nominal=-21000,
-      COP_nominal=3,
-      SHR_nominal=0.8,
-      m_flow_nominal=1.5,
-      mCon_flow_nominal=1),
-    perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_WaterCooled(),
+  parameter
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage
+   sta(nomVal(
+    Q_flow_nominal=-21000,COP_nominal=3,SHR_nominal=0.8,
+    m_flow_nominal=1.5,mCon_flow_nominal=1),
+  perCur=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_WaterCooled(),
     spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -48,7 +44,7 @@ model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
     startTime=600,
     offset=0,
     height=sta.nomVal.mCon_flow_nominal)
-              "Mass flow rate of water at the condenser"
+    "Mass flow rate of water at the condenser"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(TConIn.y, cooCap.TConIn) annotation (Line(
