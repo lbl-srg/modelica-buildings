@@ -8,7 +8,6 @@ model SingleSpeed "Single speed DX cooling coil"
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
       use_mCon_flow=false,
       final nSta=1);
-
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on
@@ -19,7 +18,6 @@ protected
     final integerTrue=1,
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
-
 equation
   connect(speRat.y, dxCoo.speRat) annotation (Line(
       points={{-43.4,64},{-40,64},{-40,57.6},{-21,57.6}},
