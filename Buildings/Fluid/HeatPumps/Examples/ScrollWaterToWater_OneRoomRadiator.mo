@@ -103,7 +103,7 @@ model ScrollWaterToWater_OneRoomRadiator
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
-    annotation (Placement(transformation(extent={{-166,20},{-146,40}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
@@ -161,16 +161,17 @@ model ScrollWaterToWater_OneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={2,-178})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=273.15 + 19, uHigh=273.15 +
-        21) "Hysteresis controller"
+  Modelica.Blocks.Logical.Hysteresis hysteresis(
+    uLow=273.15 + 19,
+    uHigh=273.15 + 21) "Hysteresis controller"
             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-100,-2})));
+        rotation=0,
+        origin={-190,-50})));
   Modelica.Blocks.Logical.Not not2 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-100,-36})));
+        rotation=0,
+        origin={-150,-50})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum(realTrue=1, y(start=0))
     "Pump signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -179,20 +180,25 @@ model ScrollWaterToWater_OneRoomRadiator
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{6,-82},{16,-72}})));
   Modelica.Blocks.Logical.And and2
-    annotation (Placement(transformation(extent={{26,-56},{36,-46}})));
+    annotation (Placement(transformation(extent={{26,-56},{38,-44}})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum1(
-                                                 realTrue=1, y(start=0))
+    realTrue=1,
+    y(start=0))
     "Pump signal" annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=90,
         origin={41,-79})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.25*
-        mHeaPum_flow_nominal) annotation (Placement(transformation(
+  Modelica.Blocks.Logical.Hysteresis tesConHea(
+    uHigh=0.25*mHeaPum_flow_nominal,
+    uLow=0.20*mHeaPum_flow_nominal) "Test for flow rate of condenser pump"
+    annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=180,
         origin={-31,-77})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0.25*
-        mHeaPum_flow_nominal) annotation (Placement(transformation(
+  Modelica.Blocks.Logical.Hysteresis tesEvaPum(
+    uLow=0.20*mHeaPum_flow_nominal,
+    uHigh=0.25*mHeaPum_flow_nominal) "Test for flow rate of evaporator pump"
+    annotation (Placement(transformation(
         extent={{6,-6},{-6,6}},
         rotation=-90,
         origin={0,-102})));
@@ -251,7 +257,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOut.port, senTOut.port) annotation (Line(
-      points={{-88,70},{-68,70},{-68,50},{-188,50},{-188,30},{-166,30}},
+      points={{-88,70},{-60,70}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -269,14 +275,16 @@ equation
           {2,-168},{2,-142},{14,-142}},                    color={0,127,255}));
   connect(sin.ports[1], heaPum.port_b2) annotation (Line(points={{62,-198},{42,-198},
           {42,-142},{34,-142}},       color={0,127,255}));
-  connect(hysteresis.y, not2.u) annotation (Line(points={{-100,-13},{-100,-26},{
-          -100,-24}}, color={255,0,255}));
+  connect(hysteresis.y, not2.u) annotation (Line(points={{-179,-50},{-179,-50},{
+          -162,-50}}, color={255,0,255}));
   connect(temRoo.T, hysteresis.u)
-    annotation (Line(points={{-50,30},{-100,30},{-100,10}}, color={0,0,127}));
+    annotation (Line(points={{-50,30},{-220,30},{-220,30},{-220,-50},{-202,-50},
+          {-202,-50}},                                      color={0,0,127}));
   connect(pumHeaPum.port_b, temSup.port_a)
     annotation (Line(points={{-50,-88},{-50,-30}}, color={0,127,255}));
   connect(not2.y, booToReaPum.u)
-    annotation (Line(points={{-100,-47},{-100,-58}}, color={255,0,255}));
+    annotation (Line(points={{-139,-50},{-139,-50},{-100,-50},{-100,-58}},
+                                                     color={255,0,255}));
   connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-100,-81},
           {-100,-81},{-100,-98.2},{-62,-98.2}}, color={0,0,127}));
   connect(pumHeaPumSou.m_flow_in, pumHeaPum.m_flow_in) annotation (Line(points={
@@ -284,38 +292,41 @@ equation
           {-62,-98.2}}, color={0,0,127}));
   connect(temRet.port_a, rad.port_b)
     annotation (Line(points={{58,-10},{42,-10},{20,-10}}, color={0,127,255}));
-  connect(and2.u2, and1.y) annotation (Line(points={{25,-55},{18,-55},{18,-77},{
-          16.5,-77}},  color={255,0,255}));
-  connect(and2.u1, booToReaPum.u) annotation (Line(points={{25,-51},{-44,-51},{
-          -100,-51},{-100,-58}}, color={255,0,255}));
+  connect(and2.u2, and1.y) annotation (Line(points={{24.8,-54.8},{18,-54.8},{18,
+          -77},{16.5,-77}},
+                       color={255,0,255}));
+  connect(and2.u1, booToReaPum.u) annotation (Line(points={{24.8,-50},{-44,-50},
+          {-100,-50},{-100,-58}},color={255,0,255}));
   connect(booToReaPum1.y, heaPum.y) annotation (Line(points={{41,-84.5},{41,
           -84.5},{41,-133},{36,-133}}, color={0,0,127}));
-  connect(booToReaPum1.u, and2.y) annotation (Line(points={{41,-73},{41,-73},{
-          41,-51},{36.5,-51}}, color={255,0,255}));
-  connect(greaterThreshold.y, and1.u1) annotation (Line(points={{-25.5,-77},{5,-77}},
-                                color={255,0,255}));
-  connect(greaterThreshold1.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},
-          {0,-95.4},{0,-81},{5,-81}},
-                                    color={255,0,255}));
-  connect(pumHeaPum.m_flow_actual, greaterThreshold.u) annotation (Line(points={{-52,-87},
-          {-52,-87},{-52,-78},{-52,-77},{-44,-77},{-37,-77}},
-                                                     color={0,0,127}));
-  connect(pumHeaPumSou.m_flow_actual, greaterThreshold1.u) annotation (Line(
-        points={{6.66134e-16,-167},{0,-167},{0,-109.2},{-1.33227e-15,-109.2}},
-                                                                  color={0,0,
-          127}));
+  connect(booToReaPum1.u, and2.y) annotation (Line(points={{41,-73},{41,-73},{41,
+          -50},{38.6,-50}},    color={255,0,255}));
+  connect(tesConHea.y, and1.u1)
+    annotation (Line(points={{-25.5,-77},{5,-77}}, color={255,0,255}));
+  connect(tesEvaPum.y, and1.u2) annotation (Line(points={{1.11022e-15,-95.4},{0,
+          -95.4},{0,-81},{5,-81}}, color={255,0,255}));
+  connect(pumHeaPum.m_flow_actual, tesConHea.u) annotation (Line(points={{-52,-87},
+          {-52,-87},{-52,-78},{-52,-77},{-44,-77},{-37,-77}}, color={0,0,127}));
+  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{6.66134e-16,
+          -167},{0,-167},{0,-109.2},{-1.33227e-15,-109.2}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-Example that simulates on room equipped with a radiator. Hot water is produced
-by a 24 kW nominal capacity heat pump. The source side water temperature to the
-heat pump is constant at 10C.
+Example that simulates one room equipped with a radiator. Hot water is produced
+by a <i>24</i> kW nominal capacity heat pump. The source side water temperature to the
+heat pump is constant at <i>10</i>&deg;C.
 </p>
 <p>
-The heat pump is turned on when the room temperature falls below 19C and turned
-off when the room temperature rises above 21C.
+The heat pump is turned on when the room temperature falls below
+<i>19</i>&deg;C and turned
+off when the room temperature rises above <i>21</i>&deg;C.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 3, 2017, by Michael Wetter:<br/>
+Changed mass flow test to use a hysteresis as a threshold test
+can cause chattering.
+</li>
 <li>
 January 27, 2017, by Massimo Cimmino:<br/>
 First implementation.
