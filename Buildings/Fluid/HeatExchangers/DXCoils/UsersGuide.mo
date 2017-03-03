@@ -47,7 +47,10 @@ The following six DX coil models are available:
   <tr>
       <td>Water-cooled</td>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage</td>
-      <td>Coil with multiple operating stages, each stage having a constant speed. Each stage has its own performance curve, which may represent the coil performance at different compressor speed, or the coil performance as it switches between cooling only, cooling with hot gas reheat, or heating only.</td>
+      <td>Coil with multiple operating stages, each stage having a constant speed.
+      Each stage has its own performance curve, which may represent the coil 
+      performance at different compressor speed, or the coil performance as 
+      it switches between cooling only, cooling with hot gas reheat, or heating only.</td>
       <td>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</td>
   </tr>
    <tr>
@@ -59,7 +62,12 @@ The following six DX coil models are available:
    <tr>
       <td>Water-cooled</td>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed</td>
-      <td>Coil with variable speed compressor with lower speed limit. If the control signal is below the lower limit, the coil switches off. It switches on if the control signal is above the lower limit plus a hysteresis. By default, the minimum speed ratio is <code>minSpeRat</code> and obtained from the coil data record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
+      <td>Coil with variable speed compressor with lower speed limit. 
+      If the control signal is below the lower limit, the coil switches off. 
+      It switches on if the control signal is above the lower limit plus a hysteresis. 
+      By default, the minimum speed ratio is <code>minSpeRat</code> and obtained
+      from the coil data record <code>datCoi.minSpeRat</code>. 
+      The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
    </tr>
 </table>
@@ -76,7 +84,8 @@ If the supply air temperature is used, then the control algorithm should be such
 For air-cooled DX coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR) 
 are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate), 
 the evaporator air inlet temperature and the condensor air inlet temperature. These polynomials are explained at 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>. 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>. 
 </p>
 <p>
 For water-cooled DX coils, the steady-state total rate of cooling and the EIR 
@@ -84,15 +93,23 @@ are computed using polynimials in the air mass flow fraction (relative to the no
 the water mass flow fraction (relative to the nomina water mass flow rate), 
 the evaporator air inelt temperature and the condenser water intet temperature. 
 These polynomials are explained at 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled</a>.
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
 <p>
-If a coil dehumidifies air, a water film builts up on the evaporator. When the compressor is off, then this water film evaporates into the air stream. For coils that short-cycle, this significantly decrease the dehumidification capacity of the coil. The accumulation and reevaporation of water on the evaporator coil is explained at <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>. </p>
+If a coil dehumidifies air, a water film builts up on the evaporator. 
+When the compressor is off, then this water film evaporates into the air stream. 
+For coils that short-cycle, this significantly decrease the dehumidification capacity of the coil. 
+The accumulation and reevaporation of water on the evaporator coil is explained at 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>. 
+</p>
 <h4>Coil dynamics</h4>
 <p>Two dynamic effects are modeled: The accumulation and reevaporation of water at the evaporator, 
 and the thermal response of the evaporator. The dynamics of the evaporation is described at 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>. 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>. 
 The dynamics of the evaporator is approximated by a first order response 
 where the time constant is a model parameter. 
 Hence, the dynamic response is similar to other models of the <code>Buildings.Fluid</code> package and described at 
