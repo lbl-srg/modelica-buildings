@@ -367,7 +367,18 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/539\">issue 539</a>.
+                          </td>
+       </tr>
+       <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
        </td>
+       <td valign=\"top\">Shifted the computation of the infrared irradiation such that
+                          the results in <code>Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody</code>
+                          are consistent for both option of the black-body sky temperature calculation.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/648\">Annex 60, #648</a>.
+       </td>
+       </tr>
+       <tr>
        <td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
        </td>
        <td valign=\"top\">Reduced tolerance for regularization if the sky clearness is near one or eight.

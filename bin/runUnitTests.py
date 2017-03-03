@@ -26,11 +26,11 @@
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
 
-def _validate_html():
+def _validate_html(path):
     import buildingspy.development.validator as v
 
     val = v.Validator()
-    errMsg = val.validateHTMLInPackage(".")
+    errMsg = val.validateHTMLInPackage(path)
     n_msg = len(errMsg)
     for i in range(n_msg):
         if i == 0:
@@ -56,13 +56,14 @@ def _setEnvironmentVariables(var, value):
     else:
         os.environ[var] = value
 
-def _runUnitTests(batch, single_package, n_pro, show_gui):
+def _runUnitTests(batch, package, path, n_pro, show_gui):
     import buildingspy.development.regressiontest as u
 
     ut = u.Tester()
     ut.batchMode(batch)
-    if single_package is not None:
-        ut.setSinglePackage(single_package)
+    ut.setLibraryRoot(path)
+    if package is not None:
+        ut.setSinglePackage(package)
     ut.setNumberOfThreads(n_pro)
     ut.pedanticModelica(True)
     ut.showGUI(show_gui)
@@ -102,6 +103,10 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-s', "--single-package",
                         metavar="Modelica.Package",
                         help="Test only the Modelica package Modelica.Package")
+    unit_test_group.add_argument("-p", "--path",
+                        default = ".",
+                        help="Path where top-level package.mo of the library is located")
+
     unit_test_group.add_argument("-n", "--number-of-processors",
                         type=int,
                         default = multiprocessing.cpu_count(),
@@ -139,7 +144,7 @@ if __name__ == '__main__':
 
     if args.validate_html_only:
         # Validate the html syntax only, and then exit
-        ret_val = _validate_html()
+        ret_val = _validate_html(args.path)
         exit(ret_val)
 
     if args.single_package:
@@ -148,7 +153,8 @@ if __name__ == '__main__':
         single_package = None
 
     retVal = _runUnitTests(batch = args.batch,
-                           single_package = single_package,
+                           package = single_package,
+                           path = args.path,
                            n_pro = args.number_of_processors,
                            show_gui = args.show_gui)
     exit(retVal)

@@ -59,9 +59,10 @@ model System5
   Modelica.Blocks.Sources.CombiTimeTable timTab(
       extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
       smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-      table=[-6*3600, 0;
-              8*3600, QRooInt_flow;
-             18*3600, 0]) "Time table for internal heat gain"
+      table=[-6, 0;
+              8, QRooInt_flow;
+             18, 0],
+      timeScale=3600) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
