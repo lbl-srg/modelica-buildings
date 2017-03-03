@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses;
 record PerformanceCurve "Data record for a performance curve"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve;
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve;
 //-----------------------------Performance curves-----------------------------//
 
   parameter Real  capFunFFCon[:]
