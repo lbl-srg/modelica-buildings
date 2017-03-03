@@ -97,13 +97,6 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
-
-
-
-
-
-
-
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
       points={{-110,30},{-94,30},{-94,54},{-94,54},{-94,55},{-21,55}},
