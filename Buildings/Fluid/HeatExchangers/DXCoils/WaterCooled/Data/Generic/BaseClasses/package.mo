@@ -3,12 +3,6 @@ package BaseClasses "Package with base classes for performance data"
   extends Modelica.Icons.BasesPackage;
 
 
-
-
-
-
-
-
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR
