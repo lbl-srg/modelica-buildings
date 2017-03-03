@@ -50,14 +50,17 @@ protected
     "Numerical delta of specific volume of refrigerant with regards to
     temperature";
 
+  Modelica.SIunits.Time oneSec = 1.0
+    "Unit time variale for unit conversion of time derivatives";
+
 equation
 
   // Analytical derivatives
   dv_p = Buildings.Media.Refrigerants.R410A.dSpecificVolumeVap_pT(
-    p, T, dp, 0.0);
+    p, T, dp/oneSec, 0.0)*oneSec;
 
   dv_T = Buildings.Media.Refrigerants.R410A.dSpecificVolumeVap_pT(
-    p, T, 0.0, dT);
+    p, T, 0.0, dT/oneSec)*oneSec;
 
   dvdp = dv_p / dp;
 
