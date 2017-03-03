@@ -39,7 +39,7 @@ html:
 
 regressiontest: clean html
 	@echo "Verify whether all files compile and no uncommitted changes exist"
-	git diff --exit-code
+	git diff --exit-code .
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

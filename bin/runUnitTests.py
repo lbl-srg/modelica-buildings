@@ -30,8 +30,21 @@ def _validate_user_guides():
     import os
     import subprocess
 
-    return subprocess.Popen(["make", "-f", "Makefile", "regressiontest"],
-                            cwd = os.path.join("Resources", "Documentation", "userGuide"))
+    process = subprocess.Popen(["make", "-f", \
+        "Makefile", "regressiontest"], \
+        cwd = os.path.join("Resources", "Documentation", "userGuide"), \
+        stdout=subprocess.PIPE, \
+        stderr=subprocess.PIPE)
+
+    while True:
+        out = process.stdout.read(1)
+        if out == '' and process.poll() != None:
+            break
+        if out != '':
+            sys.stdout.write(out)
+            sys.stdout.flush()
+
+    return process.returncode
 
 def _validate_html(path):
     import buildingspy.development.validator as v
