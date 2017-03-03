@@ -58,15 +58,13 @@ model PartialWaterToWater
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={50,20})));
+        origin={50,30})));
 
-// fixme: use lower coase loa
-  Modelica.Fluid.Sources.MassFlowSource_T Loa(
+  Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare final package Medium = Medium1,
     nPorts=1,
     use_m_flow_in=true,
-    use_T_in=true)
-    "Mass flow source"
+    use_T_in=true) "Mass flow source"
     annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
 
   replaceable Buildings.Fluid.HeatPumps.BaseClasses.PartialWaterToWater
@@ -94,19 +92,19 @@ equation
           84},{92,84},{92,-2},{62,-2}}, color={0,0,127}));
   connect(splDat.y3[1], Sou.m_flow_in) annotation (Line(points={{-79,7},{-72,7},
           {-72,80},{88,80},{88,2},{60,2}}, color={0,0,127}));
-  connect(splDat.y4[1], Loa.m_flow_in) annotation (Line(points={{-79,1},{-75.5,1},
+  connect(splDat.y4[1],loa.m_flow_in)  annotation (Line(points={{-79,1},{-75.5,1},
           {-75.5,16},{-60,16}}, color={0,0,127}));
-  connect(Loa.ports[1], heaPum.port_a1) annotation (Line(points={{-40,8},{-40,8},
+  connect(loa.ports[1], heaPum.port_a1) annotation (Line(points={{-40,8},{-40,8},
           {-30,8},{-20,8},{-20,6},{-10,6}}, color={0,127,255}));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-40,-40},{
           -20,-40},{-20,-6},{-10,-6}},
                                    color={0,127,255}));
   connect(Sou.ports[1], heaPum.port_a2)
     annotation (Line(points={{40,-6},{26,-6},{10,-6}}, color={0,127,255}));
-  connect(sin1.ports[1], heaPum.port_b1) annotation (Line(points={{40,20},{20,
-          20},{20,6},{10,6}},
+  connect(sin1.ports[1], heaPum.port_b1) annotation (Line(points={{40,30},{20,
+          30},{20,6},{10,6}},
                           color={0,127,255}));
-  connect(splDat.y2[1], Loa.T_in) annotation (Line(points={{-79,13},{-70.5,13},{
+  connect(splDat.y2[1],loa.T_in)  annotation (Line(points={{-79,13},{-70.5,13},{
           -70.5,12},{-62,12}}, color={0,0,127}));
 
   connect(isOn.y, heaPum.stage) annotation (Line(points={{-37.4,-10},{-24,-10},
