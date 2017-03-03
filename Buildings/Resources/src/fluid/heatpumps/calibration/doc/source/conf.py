@@ -57,7 +57,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'HeatPumpCalibration'
-copyright = u'2016'
+copyright = u'2017'
 author = u''
 
 # The version info for the project you're documenting, acts as replacement for

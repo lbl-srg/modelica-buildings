@@ -5,13 +5,13 @@ Calibrate heat pump model from performance data
 
 This example demonstrates the use of the :doc:`calibrate <calibrate>` module
 to obtain parameters of the heat pump model. Data is loaded from a performance
-file generated in the 
+file generated in the
 :doc:`performance data generation example <dummy_performance_data>`.
 Once heat pump parameters are identified, the results are verified
 by running the model in Dymola.
 
 The following script can be found in
-`Buildings/Resources/Data/Fluid/HeatPumps/Calibration/Examples/example_calibration.py`:
+`Buildings/Resources/src/fluid/heatpumps/calibration/Examples/example_calibration.py`:
 
 .. literalinclude:: ../../Examples/example_calibration.py
    :language: python
