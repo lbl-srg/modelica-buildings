@@ -23,7 +23,7 @@ model ScrollWaterToWater
               defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
-Model for a water to water heat pump with a scroll compressor, as detailed 
+Model for a water to water heat pump with a scroll compressor, as detailed
 in Jin (2002). The thermodynamic heat pump cycle is represented below.
 </p>
 <p align=\"center\">
@@ -55,17 +55,17 @@ condensing pressure.
 <p>
 The model parameters are obtained by calibration of the heat pump model to
 manufacturer performance data. Calibrated model parameters for various heat
-pumps from different manufacturers are found in 
+pumps from different manufacturers are found in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater\">
 Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater</a>. The calibrated model is
-located in 
+located in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater\">
 Buildings.Fluid.HeatPumps.Calibration.ScrollWaterToWater</a>.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-The compression process is assumed isentropic. The thermal energy 
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant 
+The compression process is assumed isentropic. The thermal energy
+of superheating is ignored in the evaluation of the heat transfered to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>
