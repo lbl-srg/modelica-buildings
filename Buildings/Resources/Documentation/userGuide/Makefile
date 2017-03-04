@@ -41,6 +41,7 @@ html:
 
 regressiontest: clean html
 	@echo "Verify whether all files compile and no uncommitted changes exist"
+	git checkout build/html/.buildinfo
 	git diff --exit-code .
 
 dirhtml:

@@ -40,7 +40,6 @@ simulator.log
 
 # Ignore doctree pickles of sphinx and the buildinfo hashcode
 Buildings/Resources/Documentation/userGuide/build/doctrees
-Buildings/Resources/Documentation/userGuide/build/html/.buildinfo
 
 # Python compiled files #
 #########################
