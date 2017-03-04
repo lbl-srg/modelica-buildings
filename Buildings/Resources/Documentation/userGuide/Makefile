@@ -30,9 +30,11 @@ help:
 	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
 
 clean:
+	@echo "Cleaning build directory in `pwd`"
 	-rm -rf $(BUILDDIR)/*
 
 html:
+	@echo "Running sphinx in `pwd`"
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
