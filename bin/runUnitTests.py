@@ -30,21 +30,36 @@ def _validate_user_guides():
     import os
     import subprocess
 
-    process = subprocess.Popen(["make", "-f", \
+    pro = subprocess.Popen(["make", "-f", \
         "Makefile", "regressiontest"], \
         cwd = os.path.join("Resources", "Documentation", "userGuide"), \
         stdout=subprocess.PIPE, \
         stderr=subprocess.PIPE)
 
-    while True:
-        out = process.stdout.read(1)
-        if out == '' and process.poll() != None:
-            break
-        if out != '':
-            sys.stdout.write(out)
-            sys.stdout.flush()
+    try:
+        stdout = []
+        while True:
+            line = pro.stdout.readline()
+            stdout.append(line)
+            print line,
+            if line == '' and pro.poll() != None:
+                break
 
-    return process.returncode
+        retcode = pro.wait()
+
+        if retcode != 0:
+            print("Child was terminated by signal {}".format(retcode))
+            return retcode
+        else:
+            return 0
+    except OSError as e:
+        sys.stderr.write("Execution of '" + " ".join(map(str, cmd)) + " failed.\n" +
+                         "Working directory is '" + worDir + "'.")
+        raise(e)
+    except KeyboardInterrupt as e:
+        pro.kill()
+        sys.stderr.write("Users stopped process in %s.\n" % worDir)
+
 
 def _validate_html(path):
     import buildingspy.development.validator as v
