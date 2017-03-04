@@ -42,7 +42,7 @@ html:
 #regressiontest: clean html
 #	@echo "Verify whether all files compile and no uncommitted changes exist"
 #	git diff --exit-code .
-regressiontest:
+regressiontest: clean html
 	@echo "Verify whether all files compile and no uncommitted changes exist"
 
 dirhtml:
