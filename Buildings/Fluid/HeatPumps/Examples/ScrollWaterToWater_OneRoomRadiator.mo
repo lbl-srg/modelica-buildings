@@ -160,11 +160,9 @@ model ScrollWaterToWater_OneRoomRadiator
     uHigh=273.15 + 21) "Hysteresis controller"
             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-190,-50})));
   Modelica.Blocks.Logical.Not not2 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-150,-50})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum(realTrue=1, y(start=0))
     "Pump signal" annotation (Placement(transformation(

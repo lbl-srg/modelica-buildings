@@ -109,9 +109,7 @@ equation
     COP = 1.0;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="scrCom",
+  annotation (    defaultComponentName="scrCom",
     Documentation(info="<html>
 <p>
 Model for a reciprocating processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:

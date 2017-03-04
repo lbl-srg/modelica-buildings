@@ -167,9 +167,7 @@ equation
           66},{-60,66}}, color={0,0,127}));
   connect(mSou1.y, sou.m_flow_in)
     annotation (Line(points={{79,54},{69.5,54},{60,54}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_ScalingFactor.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_ScalingFactor.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

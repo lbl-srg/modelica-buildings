@@ -104,9 +104,7 @@ equation
           {20,20},{48,20}}, color={0,127,255}));
   connect(sou.ports[1], heaPum.port_a2)
     annotation (Line(points={{48,-6},{10,-6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_VariableSpeed.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

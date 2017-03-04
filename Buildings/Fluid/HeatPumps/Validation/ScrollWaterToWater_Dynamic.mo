@@ -161,9 +161,7 @@ equation
           80},{-16,55},{-12,55}}, color={255,127,0}));
   connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
           80},{-16,-51},{-12,-51}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

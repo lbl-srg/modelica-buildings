@@ -102,9 +102,7 @@ equation
           20},{20,6},{10,6}}, color={0,127,255}));
   connect(loa.ports[1], heaPum.port_a1) annotation (Line(points={{-46,20},{-20,
           20},{-20,6},{-10,6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

@@ -100,9 +100,7 @@ equation
           {20,20},{48,20}}, color={0,127,255}));
   connect(heaPum.port_a2, sou.ports[1])
     annotation (Line(points={{10,-6},{48,-6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_VariableSpeed.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_VariableSpeed.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

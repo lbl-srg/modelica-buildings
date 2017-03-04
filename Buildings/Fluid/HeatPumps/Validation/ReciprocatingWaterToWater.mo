@@ -102,9 +102,7 @@ equation
     annotation (Line(points={{10,-6},{48,-6}},         color={0,127,255}));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
           -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),
