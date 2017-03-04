@@ -57,4 +57,4 @@ install:
 
 # Execute tests
 script:
-  - (cd Buildings/Resources/Scripts/travis && $TEST_ARG)
+  - (cd Buildings/Resources/Scripts/travis && travis_wait 70 $TEST_ARG)

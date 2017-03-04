@@ -5,4 +5,4 @@ test-documentation:
 	(cd $(ROOT)/Buildings/Resources/Documentation/userGuide; make regressiontest)
 
 test-dymola:
-	(cd $(ROOT)/Buildings && travis_wait 70 python ../bin/runUnitTests.py $(PACKAGE))
+	(cd $(ROOT)/Buildings && python ../bin/runUnitTests.py $(PACKAGE))
