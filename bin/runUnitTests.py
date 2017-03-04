@@ -26,41 +26,6 @@
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
 
-def _validate_user_guides():
-    import os
-    import subprocess
-
-    pro = subprocess.Popen(["make", "-f", \
-        "Makefile", "regressiontest"], \
-        cwd = os.path.join("Resources", "Documentation", "userGuide"), \
-        stdout=subprocess.PIPE, \
-        stderr=subprocess.PIPE)
-
-    try:
-        stdout = []
-        while True:
-            line = pro.stdout.readline()
-            stdout.append(line)
-            print line,
-            if line == '' and pro.poll() != None:
-                break
-
-        retcode = pro.wait()
-
-        if retcode != 0:
-            print("Child was terminated by signal {}".format(retcode))
-            return retcode
-        else:
-            return 0
-    except OSError as e:
-        sys.stderr.write("Execution of '" + " ".join(map(str, cmd)) + " failed.\n" +
-                         "Working directory is '" + worDir + "'.")
-        raise(e)
-    except KeyboardInterrupt as e:
-        pro.kill()
-        sys.stderr.write("Users stopped process in %s.\n" % worDir)
-
-
 def _validate_html(path):
     import buildingspy.development.validator as v
 
@@ -154,11 +119,6 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
-    html_group = parser.add_argument_group("arguments to check user guides")
-    html_group.add_argument("--validate-user-guides",
-                           action="store_true")
-
-
     # Set environment variables
     if platform.system() == "Windows":
         _setEnvironmentVariables("PATH",
@@ -185,12 +145,6 @@ if __name__ == '__main__':
         # Validate the html syntax only, and then exit
         ret_val = _validate_html(args.path)
         exit(ret_val)
-
-    if args.validate_user_guides:
-        # Validate the html syntax only, and then exit
-        ret_val = _validate_user_guides()
-        exit(ret_val)
-
 
     if args.single_package:
         single_package = args.single_package
