@@ -47,7 +47,8 @@ env:
 # Install dependencies
 install:
   - pip install --upgrade pip setuptools wheel
-  - pip install --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib Sphinx==1.5.1
+  - pip install --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib
+  - pip install sphinx==1.5.1 sphinx-bootstrap-theme==0.4.13 sphinxcontrib-bibtex==0.3.4
 #  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
