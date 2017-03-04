@@ -23,7 +23,7 @@ model ScrollWaterToWater
               defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
-Model for a water to water heat pump with a scroll compressor, as detailed
+Model for a water to water heat pump with a scroll compressor, as described
 in Jin (2002). The thermodynamic heat pump cycle is represented below.
 </p>
 <p align=\"center\">
