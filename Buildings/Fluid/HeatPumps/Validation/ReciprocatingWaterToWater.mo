@@ -10,9 +10,9 @@ model ReciprocatingWaterToWater
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.47
     "Nominal mass flow rate on the evaporator side";
 
-  parameter Modelica.SIunits.MassFlowRate Flow_Source = 0.79
+  parameter Modelica.SIunits.MassFlowRate flowSource = 0.79
     "Mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate Flow_Load = 0.47
+  parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
@@ -49,22 +49,22 @@ model ReciprocatingWaterToWater
         origin={58,20})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-66,10},{-46,30}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Sourc side flow source"
     annotation (Placement(transformation(extent={{68,-16},{48,4}})));
-  Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load)
+  Modelica.Blocks.Sources.RealExpression mLoa(y=flowLoad)
     "Load side mass flow rate"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source)
+  Modelica.Blocks.Sources.RealExpression mSou(y=flowSource)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-8},{80,12}})));
   Modelica.Blocks.Sources.Ramp yLoa(

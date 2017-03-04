@@ -44,14 +44,14 @@ def main():
             dataPoint = line[0:-2].split('\t')
             EWT_Source = float(dataPoint[0])
             EWT_Load = float(dataPoint[1])
-            Flow_Source = float(dataPoint[2])
-            Flow_Load = float(dataPoint[3])
+            flowSource = float(dataPoint[2])
+            flowLoad = float(dataPoint[3])
             Capacity = float(dataPoint[4])
             HR = float(dataPoint[5])
             Power = float(dataPoint[6])
             # Add data point to Data object
-            data.add_data_point(EWT_Source, EWT_Load, Flow_Source,
-                                Flow_Load, Capacity, HR, Power)
+            data.add_data_point(EWT_Source, EWT_Load, flowSource,
+                                flowLoad, Capacity, HR, Power)
 
     # Data points used in calibration
     calData = data.calibration_data_16_points()

@@ -34,18 +34,18 @@ class SingleStageHeatPump(object):
         # Current entering fluid temperature on the condenser side
         self._EWT_Load = 1e99
         # Current fluid flow rate temperature on the evaporator side
-        self._Flow_Source = 1e99
+        self._flowSource = 1e99
         # Current fluid flow rate temperature on the condenser side
-        self._Flow_Load = 1e99
+        self._flowLoad = 1e99
 
-    def set_State(self, EWT_Source, EWT_Load, Flow_Source, Flow_Load,
+    def set_State(self, EWT_Source, EWT_Load, flowSource, flowLoad,
                   tol=1e-6, relax=0.7):
         """ Evaluates the current state of the heat pump.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
         :param tol: Relative tolerance on the evaluation of the capacity and
                     heat pump power input (-).
         :param relax: Relaxation factor for the iteration procedure (-).
@@ -53,8 +53,8 @@ class SingleStageHeatPump(object):
         """
         self._EWT_Source = EWT_Source
         self._EWT_Load = EWT_Load
-        self._Flow_Source = Flow_Source
-        self._Flow_Load = Flow_Load
+        self._flowSource = flowSource
+        self._flowLoad = flowLoad
 
         # Initial guesses and fluid temperatures
         if self.CoolingMode:
@@ -63,16 +63,16 @@ class SingleStageHeatPump(object):
             QCon = P - QEva
             TEva_in = EWT_Load
             TCon_in = EWT_Source
-            mEva_flow = Flow_Load
-            mCon_flow = Flow_Source
+            mEva_flow = flowLoad
+            mCon_flow = flowSource
         else:
             QCon = self.Q_nominal*0.5
             P = self.P_nominal*0.5
             QEva = P - QCon
             TEva_in = EWT_Source
             TCon_in = EWT_Load
-            mEva_flow = Flow_Source
-            mCon_flow = Flow_Load
+            mEva_flow = flowSource
+            mCon_flow = flowLoad
         dQCon = 1e99
         dP = 1e99
         i = 0
@@ -130,13 +130,13 @@ class SingleStageHeatPump(object):
         self._verify_State()
         return
 
-    def get_Capacity(self, EWT_Source, EWT_Load, Flow_Source, Flow_Load):
+    def get_Capacity(self, EWT_Source, EWT_Load, flowSource, flowLoad):
         """ Return heat pump capacity.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         :return: Heat pump capacity (W).
 
@@ -158,23 +158,23 @@ class SingleStageHeatPump(object):
         if self.CoolingMode:
             capacity = -self.get_EvaporatorHeatTransferRate(EWT_Source,
                                                             EWT_Load,
-                                                            Flow_Source,
-                                                            Flow_Load)
+                                                            flowSource,
+                                                            flowLoad)
         else:
             capacity = self.get_CondenserHeatTransferRate(EWT_Source,
                                                           EWT_Load,
-                                                          Flow_Source,
-                                                          Flow_Load)
+                                                          flowSource,
+                                                          flowLoad)
         return capacity
 
-    def get_SourceSideTransferRate(self, EWT_Source, EWT_Load, Flow_Source,
-                                   Flow_Load):
+    def get_SourceSideTransferRate(self, EWT_Source, EWT_Load, flowSource,
+                                   flowLoad):
         """ Return heat pump source side heat transfer rate.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         :return: Heat pump source side heat transfer rate (W).
 
@@ -195,20 +195,20 @@ class SingleStageHeatPump(object):
         """
         if self.CoolingMode:
             HR = self.get_CondenserHeatTransferRate(EWT_Source, EWT_Load,
-                                                    Flow_Source, Flow_Load)
+                                                    flowSource, flowLoad)
         else:
             HR = - self.get_EvaporatorHeatTransferRate(EWT_Source, EWT_Load,
-                                                       Flow_Source, Flow_Load)
+                                                       flowSource, flowLoad)
         return HR
 
     def get_EvaporatorHeatTransferRate(self, EWT_Source, EWT_Load,
-                                       Flow_Source, Flow_Load):
+                                       flowSource, flowLoad):
         """ Evaluate evaporator heat transfer rate.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         :return: Evaporator heat transfer rate (W).
 
@@ -228,19 +228,19 @@ class SingleStageHeatPump(object):
 
         """
         # Evaluate heat pump state if different from current state
-        if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
-                                    Flow_Load):
-            self.set_State(EWT_Source, EWT_Load, Flow_Source, Flow_Load)
+        if not self._isCurrentState(EWT_Source, EWT_Load, flowSource,
+                                    flowLoad):
+            self.set_State(EWT_Source, EWT_Load, flowSource, flowLoad)
         return self._QEva
 
-    def get_CondenserHeatTransferRate(self, EWT_Source, EWT_Load, Flow_Source,
-                                      Flow_Load):
+    def get_CondenserHeatTransferRate(self, EWT_Source, EWT_Load, flowSource,
+                                      flowLoad):
         """ Evaluate condenser heat transfer rate.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         :return: condenser heat transfer rate (W).
 
@@ -260,18 +260,18 @@ class SingleStageHeatPump(object):
 
         """
         # Evaluate heat pump state if different from current state
-        if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
-                                    Flow_Load):
-            self.set_State(EWT_Source, EWT_Load, Flow_Source, Flow_Load)
+        if not self._isCurrentState(EWT_Source, EWT_Load, flowSource,
+                                    flowLoad):
+            self.set_State(EWT_Source, EWT_Load, flowSource, flowLoad)
         return self._QCon
 
-    def get_Power(self, EWT_Source, EWT_Load, Flow_Source, Flow_Load):
+    def get_Power(self, EWT_Source, EWT_Load, flowSource, flowLoad):
         """ Evaluate heat pump power input.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         :return: Heat pump power input (W).
 
@@ -291,9 +291,9 @@ class SingleStageHeatPump(object):
 
         """
         # Evaluate heat pump state if different from current state
-        if not self._isCurrentState(EWT_Source, EWT_Load, Flow_Source,
-                                    Flow_Load):
-            self.set_State(EWT_Source, EWT_Load, Flow_Source, Flow_Load)
+        if not self._isCurrentState(EWT_Source, EWT_Load, flowSource,
+                                    flowLoad):
+            self.set_State(EWT_Source, EWT_Load, flowSource, flowLoad)
         return self._P
 
     def set_ModelicaParameters(self, simulator):
@@ -456,8 +456,8 @@ class SingleStageHeatPump(object):
         # Replace current component parameters and reset heat pump state
         self._EWT_Source = 1e99
         self._EWT_Load = 1e99
-        self._Flow_Source = 1e99
-        self._Flow_Load = 1e99
+        self._flowSource = 1e99
+        self._flowLoad = 1e99
         NParCom = self.com.NPar
         NParCon = self.con.NPar
         NParEva = self.eva.NPar
@@ -467,20 +467,20 @@ class SingleStageHeatPump(object):
                                                    + NParCon + NParEva])
         return
 
-    def _isCurrentState(self, EWT_Source, EWT_Load, Flow_Source,
-                        Flow_Load, tol=1e-6):
+    def _isCurrentState(self, EWT_Source, EWT_Load, flowSource,
+                        flowLoad, tol=1e-6):
         """ Check if the current state is the same as the requested state.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
 
         """
         isCurrentState = (abs((EWT_Source-self._EWT_Source)/self._EWT_Source) < tol and
                           abs((EWT_Load-self._EWT_Load)/self._EWT_Load) < tol and
-                          abs((Flow_Source-self._Flow_Source)/self._Flow_Source) < tol and
-                          abs((Flow_Load-self._Flow_Load)/self._Flow_Load) < tol)
+                          abs((flowSource-self._flowSource)/self._flowSource) < tol and
+                          abs((flowLoad-self._flowLoad)/self._flowLoad) < tol)
         return isCurrentState
 
     def _verify_State(self):
