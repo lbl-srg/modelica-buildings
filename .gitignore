@@ -38,7 +38,7 @@ simulator.log
 #####################
 *.mat
 
-# Ignore doctree pickles of sphinx and the buildinfo hashcode
+# Ignore doctree pickles of sphinx
 Buildings/Resources/Documentation/userGuide/build/doctrees
 
 # Python compiled files #

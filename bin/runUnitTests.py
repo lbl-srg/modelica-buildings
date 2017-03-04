@@ -119,6 +119,7 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
+
     # Set environment variables
     if platform.system() == "Windows":
         _setEnvironmentVariables("PATH",
