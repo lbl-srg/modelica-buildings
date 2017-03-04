@@ -13,7 +13,7 @@ services:
 
 env:
 #  - TEST_ARG=--validate-html-only
-  - TEST_ARG=--validate-user-guide
+  - TEST_ARG="make test-documentation"
 #  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Examples"
 #  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Validation"
 #  - TEST_ARG="-b -s Buildings.Experimental"
@@ -38,9 +38,9 @@ env:
 #  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Constructions"
 #  - TEST_ARG="-b -s Buildings.Utilities"
 
-before_install:
-  - sudo mv Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
-  - sudo chmod +x /usr/local/bin/dymola
+#before_install:
+#  - sudo mv Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
+#  - sudo chmod +x /usr/local/bin/dymola
 #  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 #  - docker pull "$DOCKER_USERNAME"/travis_ubuntu-1604_dymola-2017fd01-x86-64
 
@@ -48,8 +48,8 @@ before_install:
 install:
   - pip install --upgrade pip setuptools wheel
   - pip install --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib Sphinx==1.5.1
-  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
+#  - pip install git+https://github.com/lbl-srg/BuildingsPy@master
 
 # Execute tests
 script:
-  - (cd Buildings && travis_wait 70 python ../bin/runUnitTests.py $TEST_ARG)
+  - (cd Buildings/Resources/Resources/Scripts/travis && $TEST_ARG)
