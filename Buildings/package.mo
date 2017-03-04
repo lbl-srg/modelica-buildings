@@ -147,6 +147,9 @@ its class name ends with the string <code>Beta</code>.
    the numerical robustness at very low speed when the fans or pumps are switched on or off.
    </li>
    <li>
+   The following new packages have been added:
+   <ul>
+   <li>
    The packages <code>Buildings.Fluid.FMI.Adaptors</code> and
    <code>Buildings.Fluid.FMI.ExportContainers</code> have been added to
    allow export of HVAC systems and of thermal zones as
@@ -154,18 +157,18 @@ its class name ends with the string <code>Beta</code>.
    </li>
    <li>
    The package <code>Buildings.Experimental.DistrictHeatingCooling</code>
-   has been added. This package contains
-   models for district heating and cooling
-   with bi-directional flow in the distribution pipes.
+   with models for district heating and cooling
+   with bi-directional flow in the distribution pipes has been added.
    </li>
    <li>
    The package <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>
-   with active beams has been added.
+   with active beams for cooling and heating has been added.
    </li>
    <li>
    The package <code>Buildings.ThermalZones.ReducedOrder</code> with
    reduced order models of thermal zones based on VDI 6007 has been added.
    </li>
+   </ul>
    <li>
    The package <code>Buildings.Rooms</code> has been renamed to <code>Buildings.ThermalZones.Detailed</code>.
    This was done because of the introduction of <code>Buildings.ThermalZones.ReducedOrder</code>,
@@ -184,16 +187,16 @@ its class name ends with the string <code>Beta</code>.
    parameters that use the hydraulic diameter have been removed.
    </li>
    <li>
-   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, 
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>,
    <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
-   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored 
-   to add the option to place a state at the surface of a construction. 
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored
+   to add the option to place a state at the surface of a construction.
    This leads in many examples that use the room model to a smaller number
    of non-linear system of equations and a 20% to 40% faster simulation.
    </li>
    <li>
-   The models <code>Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</code> 
-   and <code>Buildings.Fluid.HeatPumps.ScrollWaterToWater</code> have been added. 
+   The models <code>Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</code>
+   and <code>Buildings.Fluid.HeatPumps.ScrollWaterToWater</code> have been added.
    Parameters to these models rely on calibration with tabulated heat pump performance
    data. Python scripts for the calibration of the heat pump models are found in:
    <code>modelica://Buildings/Resources/src/fluid/heatpumps/calibration/</code>.
@@ -236,7 +239,7 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Package with models of compressors for heat pumps.
        </td>
        </tr>
-       
+
      <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
        </td>
        <td valign=\"top\">Package with reduced order models of thermal zones based
