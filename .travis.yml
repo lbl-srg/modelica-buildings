@@ -12,7 +12,7 @@ services:
   - docker
 
 env:
-#  - TEST_ARG=--validate-html-only
+  - TEST_ARG="make test-modelica-html"
   - TEST_ARG="make test-documentation"
 #  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Examples"
 #  - TEST_ARG="-b -s Buildings.ThermalZones.Detailed.Validation"
