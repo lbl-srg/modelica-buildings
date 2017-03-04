@@ -37,7 +37,7 @@ env:
 #  - TEST_ARG="make test-dymola PACKAGE=Buildings.ThermalZones.Detailed.Constructions"
 #  - TEST_ARG="make test-dymola PACKAGE=Buildings.Utilities"
 
-#before_install:
+before_install:
   - sudo mv Buildings/Resources/Scripts/travis/usr/local/bin/dymola /usr/local/bin/
   - sudo chmod +x /usr/local/bin/dymola
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
