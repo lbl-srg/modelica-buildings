@@ -30,12 +30,19 @@ help:
 	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
 
 clean:
+	@echo "Cleaning build directory in `pwd`"
 	-rm -rf $(BUILDDIR)/*
 
 html:
+	@echo "Running sphinx in `pwd`"
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+regressiontest: clean html
+	@echo "Verify whether all files compile and no uncommitted changes exist"
+	git checkout build/html/.buildinfo
+	git diff --exit-code .
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
