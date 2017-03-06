@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatPumps.Compressors;
-package BaseClasses
+package BaseClasses "Package with base classes for
+  Buildings.Fluid.HeatPumps.Compressors"
   extends Modelica.Icons.BasesPackage;
 
 
