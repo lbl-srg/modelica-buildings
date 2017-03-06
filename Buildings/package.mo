@@ -6088,6 +6088,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
+</li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
