@@ -175,7 +175,7 @@ mode.</li>
 </div>
 <dl class="method">
 <dt id="PythonModel.calibrate.ManufacturerData.add_data_point">
-<code class="descname">add_data_point</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.add_data_point" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_data_point</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.ManufacturerData.add_data_point" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a data point to the heat pump performance data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -184,8 +184,8 @@ mode.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 <li><strong>Capacity</strong> &#8211; Heat pump capacity (kW).</li>
 <li><strong>HR</strong> &#8211; Heat transfer rate on the source side (kW).</li>
 <li><strong>Power</strong> &#8211; Power input ot the heat pump (kW).</li>
@@ -269,7 +269,7 @@ cooling mode.</li>
 
 <dl class="class">
 <dt id="PythonModel.calibrate.SimulationResults">
-<em class="property">class </em><code class="descclassname">PythonModel.calibrate.</code><code class="descname">SimulationResults</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.SimulationResults" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">PythonModel.calibrate.</code><code class="descname">SimulationResults</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em>, <em>Capacity</em>, <em>HR</em>, <em>Power</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.calibrate.SimulationResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Results from the simulation model.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -281,9 +281,9 @@ cooling mode.</li>
 side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Array of entering water temperature on the load
 side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Array of fluid mass flow rate on the source
+<li><strong>flowSource</strong> &#8211; Array of fluid mass flow rate on the source
 side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Array of fluid mass flow rate on the load
+<li><strong>flowLoad</strong> &#8211; Array of fluid mass flow rate on the load
 side (kg/s).</li>
 <li><strong>Capacity</strong> &#8211; Array of heat pump capacity (W).</li>
 <li><strong>HR</strong> &#8211; Array of heat transfer rate on the source side (W).</li>

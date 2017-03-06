@@ -179,7 +179,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 </table>
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.get_Capacity">
-<code class="descname">get_Capacity</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_Capacity</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return heat pump capacity.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -188,8 +188,8 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 </ul>
 </td>
 </tr>
@@ -220,7 +220,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate">
-<code class="descname">get_CondenserHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_CondenserHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_CondenserHeatTransferRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate condenser heat transfer rate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -229,8 +229,8 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 </ul>
 </td>
 </tr>
@@ -261,7 +261,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate">
-<code class="descname">get_EvaporatorHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_EvaporatorHeatTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_EvaporatorHeatTransferRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate evaporator heat transfer rate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -270,8 +270,8 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 </ul>
 </td>
 </tr>
@@ -302,7 +302,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.get_Power">
-<code class="descname">get_Power</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_Power</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_Power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate heat pump power input.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -311,8 +311,8 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 </ul>
 </td>
 </tr>
@@ -343,7 +343,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate">
-<code class="descname">get_SourceSideTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_SourceSideTransferRate</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.get_SourceSideTransferRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return heat pump source side heat transfer rate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -352,8 +352,8 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.</dd>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 </ul>
 </td>
 </tr>
@@ -541,7 +541,7 @@ library.</p>
 
 <dl class="method">
 <dt id="PythonModel.heatpumps.SingleStageHeatPump.set_State">
-<code class="descname">set_State</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>Flow_Source</em>, <em>Flow_Load</em>, <em>tol=1e-06</em>, <em>relax=0.7</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_State</code><span class="sig-paren">(</span><em>EWT_Source</em>, <em>EWT_Load</em>, <em>flowSource</em>, <em>flowLoad</em>, <em>tol=1e-06</em>, <em>relax=0.7</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatpumps.SingleStageHeatPump.set_State" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluates the current state of the heat pump.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -550,8 +550,8 @@ library.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>EWT_Source</strong> &#8211; Entering water temperature on the source side (K).</li>
 <li><strong>EWT_Load</strong> &#8211; Entering water temperature on the load side (K).</li>
-<li><strong>Flow_Source</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
-<li><strong>Flow_Load</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
+<li><strong>flowSource</strong> &#8211; Fluid mass flow rate on the source side (kg/s).</li>
+<li><strong>flowLoad</strong> &#8211; Fluid mass flow rate on the load side (kg/s).</li>
 <li><strong>tol</strong> &#8211; Relative tolerance on the evaluation of the capacity and
 heat pump power input (-).</li>
 <li><strong>relax</strong> &#8211; Relaxation factor for the iteration procedure (-).</li>
