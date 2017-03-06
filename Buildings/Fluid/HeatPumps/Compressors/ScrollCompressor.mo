@@ -11,13 +11,9 @@ model ScrollCompressor
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
     "Refrigerant volume flow rate at suction at full load conditions";
 
-  // fixme: is this really a mass flow rate (and hence has units kg/s),
-  //        *and* it has a maximum value of 1?
-  //        If it is called ...Coe, it probably is a unitless coefficient.
   parameter Modelica.SIunits.MassFlowRate leaCoe(
-    min = 0,
-    max = 1)
-    "Leakage coefficient";
+    min = 0)
+    "Leakage mass flow rate at a pressure ratio of 1";
 
   parameter Modelica.SIunits.Efficiency etaEle
     "Electro-mechanical efficiency of the compressor";
