@@ -10,41 +10,43 @@ model ReciprocatingWaterToWater_Dynamic
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.47
     "Nominal mass flow rate on the evaporator side";
 
-  parameter Modelica.SIunits.MassFlowRate Flow_Source = 0.79
+  parameter Modelica.SIunits.MassFlowRate flowSource = 0.79
     "Mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate Flow_Load = 0.47
+  parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
-    redeclare package Medium = Medium2, nPorts=2) "Source side sink"
+    redeclare package Medium = Medium2,
+    nPorts=2) "Source side sink"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         origin={-32,20})));
   Buildings.Fluid.Sources.FixedBoundary sin1(
-    redeclare package Medium = Medium1, nPorts=2) "Load side sink"
+    redeclare package Medium = Medium1,
+    nPorts=2) "Load side sink"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={44,20})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Source side flow source"
     annotation (Placement(transformation(extent={{60,36},{40,56}})));
-  Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load)
+  Modelica.Blocks.Sources.RealExpression mLoa(y=flowLoad)
     "Load side mass flwo rate"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source)
+  Modelica.Blocks.Sources.RealExpression mSou(y=flowSource)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-62},{80,-42}})));
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
@@ -54,11 +56,10 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     show_T=true,
     enable_variable_speed=false,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -76,13 +77,12 @@ model ReciprocatingWaterToWater_Dynamic
     m2_flow_nominal=m2_flow_nominal,
     dp1_nominal=1000,
     dp2_nominal=1000,
-    redeclare package ref =
-        Buildings.Media.Refrigerants.R410A,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     tau1=15,
     tau2=15,
     enable_variable_speed=false,
-    datHeaPum=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
+    per=Buildings.Fluid.HeatPumps.Data.ReciprocatingWaterToWater.Generic(
         etaEle=0.696,
         PLos=100,
         dTSup=9.82,
@@ -90,22 +90,23 @@ model ReciprocatingWaterToWater_Dynamic
         UAEva=1540,
         pisDis=0.00162,
         cleFac=0.069,
-        pDro=99290)) "Reciprocating water to water heat pump with transient effects"
-             annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
+        pDro=99290))
+    "Reciprocating water to water heat pump with transient effects"
+    annotation (Placement(transformation(extent={{-10,-64},{10,-44}})));
 
   Modelica.Blocks.Sources.Pulse N(width=60, period=500)
     "Heat pump control signal"
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));
   Modelica.Fluid.Sources.MassFlowSource_T loa1(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,-58},{-40,-38}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Source side flow source"
@@ -163,9 +164,7 @@ equation
           80},{-16,55},{-12,55}}, color={255,127,0}));
   connect(realToInteger.y, heaPum1.stage) annotation (Line(points={{-19,80},{-16,
           80},{-16,-51},{-12,-51}}, color={255,127,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater_Dynamic.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),
@@ -178,8 +177,8 @@ validation case also tests the stage input to the heat pump models.
 </p>
 <p>
 With constant inlet source and load water temperatures, the heat pumps cycle on
-and off. The apparent capacity of the dynamic model is compared to the 
-steady-state model and to the condenser heat transfer rate. 
+and off. The apparent capacity of the dynamic model is compared to the
+steady-state model and to the condenser heat transfer rate.
 </p>
 </html>", revisions="<html>
 <ul>

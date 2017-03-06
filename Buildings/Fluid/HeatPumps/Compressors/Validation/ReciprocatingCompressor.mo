@@ -36,9 +36,7 @@ equation
     annotation (Line(points={{48,0},{56,0},{64,0}}, color={191,0,0}));
   connect(on.y,com.y)
     annotation (Line(points={{-5,28},{6,28},{6,11}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ReciprocatingCompressor.mos"
         "Simulate and plot"),
     experiment(
       StopTime=100),

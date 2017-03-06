@@ -2,25 +2,13 @@ within Buildings.Fluid.HeatPumps.BaseClasses;
 partial model PartialWaterToWater
   "Partial model for water to water heat pumps and chillers"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface;
+  extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
+    final computeFlowResistance1 = dp1_nominal > 0,
+    final computeFlowResistance2 = dp2_nominal > 0);
 
-  replaceable package Medium1 =
-      Buildings.Media.Water
-      "Medium model";
-  replaceable package Medium2 =
-      Buildings.Media.Water
-      "Medium model";
-
-  replaceable package ref =
-    Buildings.Media.Refrigerants.R410A "Refrigerant in the component"
+  replaceable package ref = Buildings.Media.Refrigerants.R410A
+    "Refrigerant in the component"
     annotation (choicesAllMatching = true);
-
-  parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
-    "Pressure difference over condenser"
-    annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.Pressure dp2_nominal(displayUnit="Pa")
-    "Pressure difference over evaporator"
-    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean enable_variable_speed = true
     "Set to true to allow modulating of compressor speed";
@@ -28,26 +16,11 @@ partial model PartialWaterToWater
   parameter Real scaling_factor = 1.0
     "Scaling factor for heat pump capacity";
 
-  parameter Boolean from_dp1=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
-  parameter Boolean from_dp2=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.SIunits.ThermalConductance UACon
+    "Thermal conductance of condenser";
 
-  parameter Boolean linearizeFlowResistance1=false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
-  parameter Boolean linearizeFlowResistance2=false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
-
-  parameter Real deltaM1(final unit="1")=0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(tab="Flow resistance", group="Condenser"));
-  parameter Real deltaM2(final unit="1")=0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(tab="Flow resistance", group="Evaporator"));
+  parameter Modelica.SIunits.ThermalConductance UAEva
+    "Thermal conductance of evaporator";
 
   parameter Modelica.SIunits.Time tau1=60
     "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
@@ -80,19 +53,22 @@ partial model PartialWaterToWater
     "Current stage of the heat pump, equal to 1 at full load condition"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(min = 0,
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    min = 0,
     final quantity="HeatFlowRate",
     final unit="W") "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(min = 0,
+  Modelica.Blocks.Interfaces.RealOutput P(
+    min = 0,
     final quantity="Power",
     final unit="W") "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(max = 0,
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    max = 0,
     final quantity="HeatFlowRate",
     final unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
@@ -111,7 +87,8 @@ partial model PartialWaterToWater
     final tau=tau1,
     final T_start=T1_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization)
+    final homotopyInitialization=homotopyInitialization,
+    final UA=UACon)
     "Condenser"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -128,7 +105,8 @@ partial model PartialWaterToWater
     final tau=tau2,
     final T_start=T2_start,
     final energyDynamics=energyDynamics,
-    final homotopyInitialization=homotopyInitialization)
+    final homotopyInitialization=homotopyInitialization,
+    final UA=UAEva)
     "Evaporator"
     annotation (Placement(transformation(extent={{10,-50},{-10,-70}})));
 
@@ -140,12 +118,19 @@ partial model PartialWaterToWater
         rotation=90,
         origin={0,-6})));
 
+protected
   Modelica.Blocks.Math.IntegerToReal integerToReal if
     enable_variable_speed == false
+    "Conversion for stage signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0) if
+
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    final uMin=0,
+    final uMax=1) if
     enable_variable_speed == false
+    "Limiter for control signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
+
 equation
   connect(port_a1, con.port_a)
     annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
@@ -266,8 +251,8 @@ equation
     defaultComponentName="heaPum",
     Documentation(info="<html>
 <p>
-Partial model for a water to water heat pump, as detailed in Jin (2002). The 
-model for the comrpessor is a partial model and needs to be replaced by one of the 
+Partial model for a water to water heat pump, as detailed in Jin (2002). The
+model for the comrpessor is a partial model and needs to be replaced by one of the
 compressor models in <a href = \"modelica://Buildings.Fluid.Chillers.Compressors\">
 Buildings.Fluid.Chillers.Compressors</a>.
 </p>

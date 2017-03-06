@@ -83,8 +83,8 @@ def compare_data_sets(data, refData, plot=False, fname='ComparedDataSets'):
             invalidPoints += 1.
             print ('Invalid : EWT_Source =', data.EWT_Source[i],
                    'EWT_Load = ', data.EWT_Load[i],
-                   'Flow_Source = ', data.Flow_Source[i],
-                   'Flow_Load = ', data.Flow_Load[i])
+                   'flowSource = ', data.flowSource[i],
+                   'flowLoad = ', data.flowLoad[i])
         # Calculate the sum of square errors
         SE = ((refData.Power[i]-data.Power[i])/refData.Power[i])**2 \
             + ((refData.Capacity[i]-data.Capacity[i])/refData.Capacity[i])**2
@@ -196,17 +196,17 @@ def simulate(heaPum, data):
     for i in range(len(data.EWT_Load)):
         Capacity[i] = heaPum.get_Capacity(data.EWT_Source[i],
                                           data.EWT_Load[i],
-                                          data.Flow_Source[i],
-                                          data.Flow_Load[i])
+                                          data.flowSource[i],
+                                          data.flowLoad[i])
         HR[i] = heaPum.get_SourceSideTransferRate(data.EWT_Source[i],
                                                   data.EWT_Load[i],
-                                                  data.Flow_Source[i],
-                                                  data.Flow_Load[i])
+                                                  data.flowSource[i],
+                                                  data.flowLoad[i])
         P[i] = heaPum.get_Power(data.EWT_Source[i], data.EWT_Load[i],
-                                data.Flow_Source[i], data.Flow_Load[i])
+                                data.flowSource[i], data.flowLoad[i])
 
-    res = SimulationResults(data.EWT_Source, data.EWT_Load, data.Flow_Source,
-                            data.Flow_Load, Capacity, HR, P, 'Python model')
+    res = SimulationResults(data.EWT_Source, data.EWT_Load, data.flowSource,
+                            data.flowLoad, Capacity, HR, P, 'Python model')
     return res
 
 
@@ -251,8 +251,8 @@ def simulate_in_dymola(heaPum, data, tableName, tableFileName):
                      outputDirectory=tmpDir,
                      packagePath=packagePath)
     s = heaPum.set_ModelicaParameters(s)
-    m1_flow_nominal = min(data.Flow_Source)
-    m2_flow_nominal = min(data.Flow_Load)
+    m1_flow_nominal = min(data.flowSource)
+    m2_flow_nominal = min(data.flowLoad)
     tableFilePath = \
         str(os.path.join(tmpDir, tableFileName).replace(os.sep, '/'))
     s.addParameters({'m1_flow_nominal': m1_flow_nominal,
@@ -300,8 +300,8 @@ def simulate_in_dymola(heaPum, data, tableName, tableFileName):
         HR = -QEva
     dymRes = SimulationResults(data.EWT_Source,
                                data.EWT_Load,
-                               data.Flow_Source,
-                               data.Flow_Load,
+                               data.flowSource,
+                               data.flowLoad,
                                Capacity,
                                HR,
                                P,
@@ -323,22 +323,22 @@ class ManufacturerData(object):
     def __init__(self, manufacturer, model, CoolingMode=False):
         self.EWT_Source = []
         self.EWT_Load = []
-        self.Flow_Source = []
-        self.Flow_Load = []
+        self.flowSource = []
+        self.flowLoad = []
         self.Capacity = []
         self.HR = []
         self.Power = []
         self.name = manufacturer + '_' + model
         self.CoolingMode = CoolingMode
 
-    def add_data_point(self, EWT_Source, EWT_Load, Flow_Source,
-                       Flow_Load, Capacity, HR, Power):
+    def add_data_point(self, EWT_Source, EWT_Load, flowSource,
+                       flowLoad, Capacity, HR, Power):
         """ Add a data point to the heat pump performance data.
 
         :param EWT_Source: Entering water temperature on the source side (K).
         :param EWT_Load: Entering water temperature on the load side (K).
-        :param Flow_Source: Fluid mass flow rate on the source side (kg/s).
-        :param Flow_Load: Fluid mass flow rate on the load side (kg/s).
+        :param flowSource: Fluid mass flow rate on the source side (kg/s).
+        :param flowLoad: Fluid mass flow rate on the load side (kg/s).
         :param Capacity: Heat pump capacity (kW).
         :param HR: Heat transfer rate on the source side (kW).
         :param Power: Power input ot the heat pump (kW).
@@ -346,8 +346,8 @@ class ManufacturerData(object):
         """
         self.EWT_Source.append(EWT_Source)
         self.EWT_Load.append(EWT_Load)
-        self.Flow_Source.append(Flow_Source)
-        self.Flow_Load.append(Flow_Load)
+        self.flowSource.append(flowSource)
+        self.flowLoad.append(flowLoad)
         self.Capacity.append(Capacity)
         self.HR.append(HR)
         self.Power.append(Power)
@@ -367,8 +367,8 @@ class ManufacturerData(object):
         # Only the 16 extreme data points for temperature and flow rates
         # are used
         indexes = range(len(self.EWT_Source))
-        variables = [self.Flow_Load, self.EWT_Source,
-                     self.EWT_Load, self.Flow_Source]
+        variables = [self.flowLoad, self.EWT_Source,
+                     self.EWT_Load, self.flowSource]
         li = [indexes]
         # Go through the data for each variable and keep indexes corresponding
         # to min/max values
@@ -388,13 +388,13 @@ class ManufacturerData(object):
 
         EWT_Source = np.array([self.EWT_Source[i] for i in indexes])
         EWT_Load = np.array([self.EWT_Load[i] for i in indexes])
-        Flow_Source = np.array([self.Flow_Source[i] for i in indexes])
-        Flow_Load = np.array([self.Flow_Load[i] for i in indexes])
+        flowSource = np.array([self.flowSource[i] for i in indexes])
+        flowLoad = np.array([self.flowLoad[i] for i in indexes])
         Capacity = np.array([self.Capacity[i] for i in indexes])
         HR = np.array([self.HR[i] for i in indexes])
         Power = np.array([self.Power[i] for i in indexes])
-        calData = SimulationResults(EWT_Source, EWT_Load, Flow_Source,
-                                    Flow_Load, Capacity*1e3, HR*1e3,
+        calData = SimulationResults(EWT_Source, EWT_Load, flowSource,
+                                    flowLoad, Capacity*1e3, HR*1e3,
                                     Power*1e3, self.name)
         return calData
 
@@ -432,13 +432,13 @@ class ManufacturerData(object):
 
         EWT_Source = np.array([self.EWT_Source[i] for i in indexes])
         EWT_Load = np.array([self.EWT_Load[i] for i in indexes])
-        Flow_Source = np.array([self.Flow_Source[i] for i in indexes])
-        Flow_Load = np.array([self.Flow_Load[i] for i in indexes])
+        flowSource = np.array([self.flowSource[i] for i in indexes])
+        flowLoad = np.array([self.flowLoad[i] for i in indexes])
         Capacity = np.array([self.Capacity[i] for i in indexes])
         HR = np.array([self.HR[i] for i in indexes])
         Power = np.array([self.Power[i] for i in indexes])
-        calData = SimulationResults(EWT_Source, EWT_Load, Flow_Source,
-                                    Flow_Load, Capacity*1e3, HR*1e3,
+        calData = SimulationResults(EWT_Source, EWT_Load, flowSource,
+                                    flowLoad, Capacity*1e3, HR*1e3,
                                     Power*1e3, self.name)
         return calData
 
@@ -469,8 +469,8 @@ class ManufacturerData(object):
                             + str(j)
                             + '\t' + str(self.EWT_Load[i])
                             + '\t' + str(self.EWT_Source[i])
-                            + '\t' + str(self.Flow_Load[i])
-                            + '\t' + str(self.Flow_Source[i]) + '\n')
+                            + '\t' + str(self.flowLoad[i])
+                            + '\t' + str(self.flowSource[i]) + '\n')
         else:
             for i in range(len(self.EWT_Source)):
                 for j in [i, i + 1]:
@@ -478,8 +478,8 @@ class ManufacturerData(object):
                             + str(j)
                             + '\t' + str(self.EWT_Source[i])
                             + '\t' + str(self.EWT_Load[i])
-                            + '\t' + str(self.Flow_Source[i])
-                            + '\t' + str(self.Flow_Load[i]) + '\n')
+                            + '\t' + str(self.flowSource[i])
+                            + '\t' + str(self.flowLoad[i]) + '\n')
         f.close()
         return
 
@@ -491,9 +491,9 @@ class SimulationResults(object):
                            side (K).
         :param EWT_Load: Array of entering water temperature on the load
                          side (K).
-        :param Flow_Source: Array of fluid mass flow rate on the source
+        :param flowSource: Array of fluid mass flow rate on the source
                             side (kg/s).
-        :param Flow_Load: Array of fluid mass flow rate on the load
+        :param flowLoad: Array of fluid mass flow rate on the load
                           side (kg/s).
         :param Capacity: Array of heat pump capacity (W).
         :param HR: Array of heat transfer rate on the source side (W).
@@ -501,12 +501,12 @@ class SimulationResults(object):
         :param name: Name of the heat pump.
 
     """
-    def __init__(self, EWT_Source, EWT_Load, Flow_Source, Flow_Load,
+    def __init__(self, EWT_Source, EWT_Load, flowSource, flowLoad,
                  Capacity, HR, Power, name):
         self.EWT_Source = EWT_Source
         self.EWT_Load = EWT_Load
-        self.Flow_Source = Flow_Source
-        self.Flow_Load = Flow_Load
+        self.flowSource = flowSource
+        self.flowLoad = flowLoad
         self.Capacity = Capacity*1e-3
         self.HR = HR*1e-3
         self.Power = Power*1e-3

@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers;
 model EvaporatorCondenser
-  "Evaporator / condenser with refrigerant experiencing constant temperature phase change"
+  "Evaporator or condenser with refrigerant experiencing constant temperature phase change"
   extends Interfaces.TwoPortHeatMassExchanger(
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
-       prescribedHeatFlowRate=false));
+       final prescribedHeatFlowRate=false));
 
   parameter Modelica.SIunits.ThermalConductance UA
     "Thermal conductance of heat exchanger";
@@ -17,18 +17,21 @@ model EvaporatorCondenser
     annotation (Placement(transformation(extent={{-5,-55},{5,-65}}),
         iconTransformation(extent={{-5,-55},{5,-65}})));
 
-  Modelica.SIunits.SpecificHeatCapacityAtConstantPressure
-    cp = vol.Medium.cp_const "Specific heat capacity of the fluid";
+  Modelica.SIunits.SpecificHeatCapacityAtConstantPressure cp = vol.Medium.cp_const
+    "Specific heat capacity of the fluid";
+
   Modelica.SIunits.Efficiency NTU = UA /
     (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp)
-  "Number of transfer units of heat exchanger";
-  Modelica.SIunits.Efficiency
-    eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
+   "Number of transfer units of heat exchanger";
+
+  Modelica.SIunits.Efficiency eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
       NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
     "Effectiveness of heat exchanger";
-  Modelica.Blocks.Sources.RealExpression UAeff(y=eps*cp*abs(port_a.m_flow)/(1 - eps))
+
+  Modelica.Blocks.Sources.RealExpression UAeff(final y=eps*cp*abs(port_a.m_flow)/(1 - eps))
     "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
+
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
@@ -69,7 +72,7 @@ equation
 defaultComponentName="evaCon",
 Documentation(info="<html>
 <p>
-Model for a constant temperature evaporator / condenser based on a epsilon-NTU
+Model for a constant temperature evaporator or condenser based on a epsilon-NTU
 heat exchanger model.
 </p>
 <p>

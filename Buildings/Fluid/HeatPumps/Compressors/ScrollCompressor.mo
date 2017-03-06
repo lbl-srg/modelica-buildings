@@ -1,16 +1,22 @@
 within Buildings.Fluid.HeatPumps.Compressors;
 model ScrollCompressor
   "Model for a scroll compressor, based on Jin (2002)"
-
   extends Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
-  parameter Real volRat(min = 1.0, final unit = "1")
+  parameter Real volRat(
+    min = 1.0,
+    final unit = "1")
     "Built-in volume ratio";
 
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal(min=0)
     "Refrigerant volume flow rate at suction at full load conditions";
 
-  parameter Modelica.SIunits.MassFlowRate leaCoe(min = 0, max = 1)
+  // fixme: is this really a mass flow rate (and hence has units kg/s),
+  //        *and* it has a maximum value of 1?
+  //        If it is called ...Coe, it probably is a unitless coefficient.
+  parameter Modelica.SIunits.MassFlowRate leaCoe(
+    min = 0,
+    max = 1)
     "Leakage coefficient";
 
   parameter Modelica.SIunits.Efficiency etaEle
@@ -127,9 +133,7 @@ equation
     COP = 1.0;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="scrCom",
+  annotation (    defaultComponentName="scrCom",
     Documentation(info="<html>
 <p>
 Model for a scroll processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:
@@ -151,8 +155,8 @@ condensing pressure.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-The compression process is assumed isentropic. The thermal energy 
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant 
+The compression process is assumed isentropic. The thermal energy
+of superheating is ignored in the evaluation of the heat transfered to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>

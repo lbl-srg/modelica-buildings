@@ -36,9 +36,7 @@ equation
     annotation (Line(points={{-26,0},{-10,0}}, color={191,0,0}));
   connect(on.y, com.y)
     annotation (Line(points={{5,38},{6,38},{6,11}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor_ZeroInput.mos"
         "Simulate and plot"),
     experiment(
       StopTime=100),

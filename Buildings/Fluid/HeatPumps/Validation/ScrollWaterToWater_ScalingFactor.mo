@@ -10,9 +10,9 @@ model ScrollWaterToWater_ScalingFactor
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.47
     "Nominal mass flow rate on the evaporator side";
 
-  parameter Modelica.SIunits.MassFlowRate Flow_Source = 0.79
+  parameter Modelica.SIunits.MassFlowRate flowSource = 0.79
     "Mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate Flow_Load = 0.47
+  parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
   parameter Real scaling_factor = 2.41
@@ -32,14 +32,14 @@ model ScrollWaterToWater_ScalingFactor
         origin={44,20})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Source side flow source"
@@ -92,14 +92,14 @@ model ScrollWaterToWater_ScalingFactor
     annotation (Placement(transformation(extent={{-98,70},{-78,90}})));
   Modelica.Fluid.Sources.MassFlowSource_T loa1(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-60,-58},{-40,-38}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Source side flow source"
@@ -111,18 +111,18 @@ model ScrollWaterToWater_ScalingFactor
     annotation (Placement(transformation(extent={{100,-90},{80,-70}})));
   Modelica.Blocks.Math.RealToInteger realToInteger
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source*scaling_factor)
+  Modelica.Blocks.Sources.RealExpression mSou(y=flowSource*scaling_factor)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-62},{80,-42}})));
-  Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load*scaling_factor)
+  Modelica.Blocks.Sources.RealExpression mLoa(y=flowLoad*scaling_factor)
     "Load side mass flwo rate"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.RealExpression mLoa1(
-                                              y=Flow_Load)
+                                              y=flowLoad)
     "Load side mass flwo rate"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.RealExpression mSou1(
-                                              y=Flow_Source)
+                                              y=flowSource)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,44},{80,64}})));
   Modelica.Blocks.Sources.RealExpression capErr(y=(heaPum1.QCon_flow -
@@ -169,9 +169,7 @@ equation
     annotation (Line(points={{79,54},{69.5,54},{60,54}}, color={0,0,127}));
   connect(mLoa1.y, loa.m_flow_in) annotation (Line(points={{-79,40},{-74,40},{-74,
           66},{-60,66}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ScrollWaterToWater_ScalingFactor.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),
@@ -184,8 +182,8 @@ validation case also tests the stage input to the heat pump models.
 </p>
 <p>
 With constant inlet source and load water temperatures, the heat pumps cycle on
-and off. The capacity of the scaled heat pump model is compared to the 
-capacity of the non-scaled heat pump model. 
+and off. The capacity of the scaled heat pump model is compared to the
+capacity of the non-scaled heat pump model.
 </p>
 </html>", revisions="<html>
 <ul>

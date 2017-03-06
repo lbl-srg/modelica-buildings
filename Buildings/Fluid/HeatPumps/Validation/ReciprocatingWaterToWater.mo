@@ -10,21 +10,13 @@ model ReciprocatingWaterToWater
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 0.47
     "Nominal mass flow rate on the evaporator side";
 
-  parameter Modelica.SIunits.MassFlowRate Flow_Source = 0.79
+  parameter Modelica.SIunits.MassFlowRate flowSource = 0.79
     "Mass flow rate on the condenser side";
-  parameter Modelica.SIunits.MassFlowRate Flow_Load = 0.47
+  parameter Modelica.SIunits.MassFlowRate flowLoad = 0.47
     "Mass flow rate on the evaporator side";
 
   Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater heaPum(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    redeclare package ref = Buildings.Media.Refrigerants.R410A,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
-    dp1_nominal=100,
-    dp2_nominal=100,
-    show_T=true,
-    redeclare Data.ReciprocatingWaterToWater.Generic datHeaPum(
+     per = Data.ReciprocatingWaterToWater.Generic(
       etaEle=0.696,
       PLos=100,
       dTSup=9.82,
@@ -32,7 +24,15 @@ model ReciprocatingWaterToWater
       UAEva=1540,
       pisDis=0.00162,
       cleFac=0.069,
-      pDro=99290))   "Reciprocating water to water heat pump"
+      pDro=99290),
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
+    redeclare package ref = Buildings.Media.Refrigerants.R410A,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    dp1_nominal=100,
+    dp2_nominal=100,
+    show_T=true) "Reciprocating water to water heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.FixedBoundary sin2(
@@ -49,22 +49,22 @@ model ReciprocatingWaterToWater
         origin={58,20})));
   Modelica.Fluid.Sources.MassFlowSource_T loa(
     redeclare package Medium = Medium1,
-    m_flow=Flow_Load,
+    m_flow=flowLoad,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Load side flow source"
     annotation (Placement(transformation(extent={{-66,10},{-46,30}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium2,
-    m_flow=Flow_Source,
+    m_flow=flowSource,
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1) "Sourc side flow source"
     annotation (Placement(transformation(extent={{68,-16},{48,4}})));
-  Modelica.Blocks.Sources.RealExpression mLoa(y=Flow_Load)
+  Modelica.Blocks.Sources.RealExpression mLoa(y=flowLoad)
     "Load side mass flow rate"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.Blocks.Sources.RealExpression mSou(y=Flow_Source)
+  Modelica.Blocks.Sources.RealExpression mSou(y=flowSource)
     "Source side mass flow rate"
     annotation (Placement(transformation(extent={{100,-8},{80,12}})));
   Modelica.Blocks.Sources.Ramp yLoa(
@@ -102,9 +102,7 @@ equation
     annotation (Line(points={{10,-6},{48,-6}},         color={0,127,255}));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-60,-40},{
           -20,-40},{-20,-6},{-10,-6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater.mos"
+  annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/ReciprocatingWaterToWater.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1000),

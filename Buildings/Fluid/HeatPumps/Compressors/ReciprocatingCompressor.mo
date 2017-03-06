@@ -1,13 +1,14 @@
 within Buildings.Fluid.HeatPumps.Compressors;
 model ReciprocatingCompressor
   "Model for a reciprocating compressor, based on Jin (2002)"
-
   extends Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
   parameter Modelica.SIunits.VolumeFlowRate pisDis
     "Piston displacement";
 
-  parameter Real cleFac(min = 0, final unit = "1")
+  parameter Real cleFac(
+    min = 0,
+    final unit = "1")
     "Clearance factor";
 
   parameter Modelica.SIunits.Efficiency etaEle
@@ -108,9 +109,7 @@ equation
     COP = 1.0;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    defaultComponentName="scrCom",
+  annotation (    defaultComponentName="scrCom",
     Documentation(info="<html>
 <p>
 Model for a reciprocating processor, as detailed in Jin (2002). The rate of heat transfered to the evaporator is given by:
@@ -132,8 +131,8 @@ condensing pressure.
 </p>
 <h4>Assumptions and limitations</h4>
 <p>
-The compression process is assumed isentropic. The thermal energy 
-of superheating is ignored in the evaluation of the heat transfered to the refrigerant 
+The compression process is assumed isentropic. The thermal energy
+of superheating is ignored in the evaluation of the heat transfered to the refrigerant
 in the evaporator. There is no supercooling.
 </p>
 <h4>References</h4>
