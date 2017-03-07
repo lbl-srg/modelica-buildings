@@ -3,6 +3,9 @@ partial block PartialCoilInterface "Partial block for DX coil"
   extends Modelica.Blocks.Icons.Block;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+
+  constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of coil, or 0/1 for variable-speed coil"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
@@ -32,6 +35,10 @@ partial block PartialCoilInterface "Partial block for DX coil"
     unit="W") "Total cooling capacity"
      annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
+
+  Modelica.Blocks.Interfaces.RealInput mCon_flow if use_mCon_flow
+    "Water mass flow rate at condensers for water-cooled DX units"
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   annotation ( Documentation(info="<html>
 <p>
 This partial block declares the inputs and outputs that are common for
@@ -43,11 +50,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </html>",
 revisions="<html>
 <ul>
-<li>
-August 1, 2012 by Kaustubh Phalak:<br/>
-First implementation.
+<li>February 17, 2017 by Yangyang Fu:<br/>
+Added a boolean constant <code>use_mCon_flow</code> which is required in water-cooled DX coils. 
+</li>
+<li>August 1, 2012 by Kaustubh Phalak:<br/>
+First implementation. 
 </li>
 </ul>
-
 </html>"));
 end PartialCoilInterface;

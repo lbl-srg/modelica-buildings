@@ -9,6 +9,8 @@ partial model PartialDXCoil "Partial model for DX coil"
       prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
+  constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
     displayUnit="degC")
@@ -27,11 +29,18 @@ partial model PartialDXCoil "Partial model for DX coil"
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare final package Medium = Medium,
-    final datCoi=datCoi) "DX cooling coil operation"
+    datCoi=datCoi,
+    use_mCon_flow=use_mCon_flow,
+    wetCoi(redeclare
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap),
+    dryCoi(redeclare
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap))  "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
-                  final nomVal=datCoi.sta[nSta].nomVal,
+                  nomVal=datCoi.sta[nSta].nomVal,
                   final computeReevaporation = computeReevaporation)
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
@@ -73,6 +82,12 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
+public
+  Modelica.Blocks.Interfaces.RealInput mCon_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") if use_mCon_flow
+    "Water mass flowrate for an a water-cooled condenser"
+    annotation (Placement(transformation(extent={{-120,-42},{-100,-22}})));
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
@@ -82,7 +97,6 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
-
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
       points={{-110,30},{-94,30},{-94,54},{-94,54},{-94,55},{-21,55}},
@@ -174,6 +188,8 @@ equation
       points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-32},{-26,
+          -32},{-26,40},{-21,40}}, color={0,0,127}));
   annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
@@ -193,6 +209,10 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 27, 2017 by Yangyang Fu:<br/>
+Added <code>redeclare</code> for the type of <code>cooCap</code> in <code>dxCoo</code>.
+</li>
 <li>
 May 6, 2015 by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=true</code> for <code>vol</code>.

@@ -7,8 +7,8 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
-     nomVal "Nominal values"
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
     parameter Modelica.SIunits.MassFlowRate mAir_flow_small(min=0)=
@@ -173,12 +173,15 @@ initial equation
 
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
-  assert(dX_nominal > 1E-10,
+  assert(
+    dX_nominal > 1E-10,
     "*** Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
-    " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
-      AssertionLevel.warning);
+    " +
+      Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+      nomVal),
+    AssertionLevel.warning);
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
 
@@ -208,8 +211,8 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-   Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
-     nomVal) + "
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+    nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
 equation

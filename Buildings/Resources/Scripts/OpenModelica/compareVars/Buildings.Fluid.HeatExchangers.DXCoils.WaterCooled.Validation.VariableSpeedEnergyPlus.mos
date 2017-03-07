@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "varSpeDX.varSpeDX.vol.T",
+    "TOutEPlu.y",
+    "varSpeDX.varSpeDX.m_flow",
+    "varSpeDX.varSpeDX.vol.Xi[1]",
+    "XEvaOutEPluMod.y",
+    "QCoo_flow.y",
+    "Q_flowEPlu.y",
+    "varSpeDX.P",
+    "PEPlu.y"
+  };
