@@ -43,7 +43,7 @@ model System4
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate";
   parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
     "Internal heat gains of the room";
@@ -534,6 +534,11 @@ Buildings.Examples.Tutorial.Boiler.System5</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 6, 2017, by Michael Wetter:<br/>
+Added missing density to computation of air mass flow rate.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/673\">#673</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
