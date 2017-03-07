@@ -184,10 +184,10 @@ its class name ends with the string <code>Beta</code>.
    parameters that use the hydraulic diameter have been removed.
    </li>
    <li>
-   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>, 
+   The models <code>Buildings.HeatTransfer.Conduction.SingleLayer</code>,
    <code>Buildings.HeatTransfer.Conduction.MultiLayer</code>,
-   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored 
-   to add the option to place a state at the surface of a construction. 
+   and <code>Buildings.HeatTransfer.Windows.Window</code> have been refactored
+   to add the option to place a state at the surface of a construction.
    This leads in many examples that use the room model to a smaller number
    of non-linear system of equations and a 20% to 40% faster simulation.
    </li>
@@ -6031,6 +6031,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Yangyang Fu, University of Miami, Florida, USA
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
 </li>
