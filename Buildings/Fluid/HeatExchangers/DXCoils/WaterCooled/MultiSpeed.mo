@@ -88,8 +88,9 @@ equation
           -60},{100,-60}}, color={0,127,255}));
   connect(senTem.T,mulSpeDX. TConIn) annotation (Line(points={{40,-29},{40,-29},
           {40,0},{-20,0},{-20,43},{-11,43}},   color={0,0,127}));
-  connect(mCon.y,mulSpeDX. mCon_flow) annotation (Line(points={{-52.7,20},{-20,20},
-          {-20,36.8},{-11,36.8}}, color={0,0,127}));
+  connect(mCon.y,mulSpeDX. mCon_flow) annotation (Line(points={{-52.7,20},{-24,
+          20},{-24,36.8},{-11,36.8}},
+                                  color={0,0,127}));
   connect(mulSpeDX.P, P) annotation (Line(points={{11,49},{62,49},{62,80},{110,80}},
         color={0,0,127}));
   connect(mulSpeDX.QSen_flow, QEvaSen_flow) annotation (Line(points={{11,47},{58,

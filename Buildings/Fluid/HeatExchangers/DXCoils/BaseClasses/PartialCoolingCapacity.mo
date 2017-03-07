@@ -3,7 +3,8 @@ partial block PartialCoolingCapacity
   "Calculates performance curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
-  constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+  constant Boolean use_mCon_flow
+    "Set to true to enable connector for the condenser mass flow rate";
 
   Modelica.Blocks.Interfaces.IntegerInput stage(final min=0)
     "Stage of coil, or 0/1 for variable-speed coil"
@@ -41,9 +42,7 @@ partial block PartialCoolingCapacity
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
      "Performance data for this stage";
   output Real[nSta] ff(each min=0)
-    "Air flow fraction: ratio of actual air flow rate by rated mass flwo rate";
-  output Real[nSta] ffCon(each min=0) if use_mCon_flow
-    "Water flow fraction: ratio of actual water flow rate by rated mass flwo rate at the condenser";
+    "Air flow fraction: ratio of actual air flow rate by rated mass flow rate";
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow[nSta](
     each max=0,
@@ -58,20 +57,14 @@ partial block PartialCoolingCapacity
     "Cooling capacity modification factor as a function of temperature";
   output Real cap_FF[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as a function of flow fraction";
-  output Real cap_FFCon[nSta](each min=0, each nominal=1, each start=1) if use_mCon_flow
-    "Cooling capacity modification factor as a function of water flow fraction at the condenser";
 
 //----------------------------Energy Input Ratio---------------------------------//
   output Real EIR_T[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as a function of temperature";
   output Real EIR_FF[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as a function of flow fraction";
-  output Real EIR_FFCon[nSta](each min=0, each nominal=1, each start=1) if use_mCon_flow
-    "EIR modification factor as a function of water flow fraction at the condenser";
   output Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
-  output Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1) if use_mCon_flow
-    "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid water flow fraction at the condenser";
 
 protected
   output Boolean checkBoundsTEva[nSta]

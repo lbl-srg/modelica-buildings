@@ -6,6 +6,20 @@ block CoolingCapacityWaterCooled
   final use_mCon_flow=true,
   redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
 
+protected
+  output Real[nSta] ffCon(each min=0)
+    "Water flow fraction: ratio of actual water flow rate by rated mass flow rate at the condenser";
+
+  output Real cap_FFCon[nSta](each min=0, each nominal=1, each start=1)
+    "Cooling capacity modification factor as a function of water flow fraction at the condenser";
+
+  output Real EIR_FFCon[nSta](each min=0, each nominal=1, each start=1)
+    "EIR modification factor as a function of water flow fraction at the condenser";
+  output Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1)
+    "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid water flow fraction at the condenser";
+
+  Modelica.Blocks.Interfaces.RealInput mCon_flow_internal
+    "Internal connector, needed as mCon_flow can be conditionally removed";
 initial algorithm
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
    for iSta in 1:nSta loop
@@ -30,6 +44,13 @@ initial algorithm
    end for;
 
 equation
+
+   if use_mCon_flow then
+     connect(mCon_flow_internal, mCon_flow);
+   else
+     mCon_flow_internal = 0;
+   end if;
+
     // Modelica requires to evaluate the when() block for each element in iSta=1...nSta.
     // But we only want to check the stage that is currently running.
     // Hence, the test starts with stage == iSta.
@@ -39,7 +60,7 @@ if stage > 0 then
 
     // Compute performance
     ffCon[iSta]=Buildings.Utilities.Math.Functions.smoothMax(
-      x1=mCon_flow,
+      x1=mCon_flow_internal,
       x2=m_flow_small,
       deltaX=m_flow_small/10)/sta[iSta].nomVal.mCon_flow_nominal;
   //-------------------------Cooling capacity modifiers----------------------------//
