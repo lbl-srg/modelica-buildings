@@ -30,7 +30,7 @@ model MultiSpeed "Multi speed water-cooled DX coils"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage mulSpeDX(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
     dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
@@ -41,12 +41,17 @@ model MultiSpeed "Multi speed water-cooled DX coils"
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                  appDryPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per)))),
-    eva(nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
-       SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
-       TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
-        phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
-        tWet= datCoi.sta[nSta].nomVal.tWet,gamma=datCoi.sta[nSta].nomVal.gamma)),
+    eva(final nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
+        COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
+        SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
+        m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+        TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
+        TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
+        phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
+        p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
+        tWet= datCoi.sta[nSta].nomVal.tWet,
+        gamma=datCoi.sta[nSta].nomVal.gamma)),
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));

@@ -109,8 +109,9 @@ equation
                                 color={0,127,255}));
   connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,-30},
           {68,-38},{52,-38}},      color={0,0,127}));
-  connect(speRat.y,mulSpeDX. stage) annotation (Line(points={{-79,0},{-60,0},{-60,
-          12},{-7.2,12}}, color={255,127,0}));
+  connect(speRat.y,mulSpeDX. stage) annotation (Line(points={{-79,0},{-60,0},{
+          -60,12},{-7.2,12}},
+                          color={255,127,0}));
   annotation (             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/MultiSpeed.mos"
         "Simulate and plot"),
