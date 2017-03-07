@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
-model MultiSpeed "Multi speed water-cooled DX coils"
+model MultiStage "Multi speed water-cooled DX coils"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
       redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage eva);
 
@@ -40,4 +40,4 @@ Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>"));
-end MultiSpeed;
+end MultiStage;

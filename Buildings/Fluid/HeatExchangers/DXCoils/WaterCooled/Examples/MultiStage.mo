@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Examples;
-model MultiSpeed "Test model for multi speed water-cooled DX coil"
+model MultiStage "Test model for multi speed water-cooled DX coil"
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
   extends Modelica.Icons.Example;
@@ -27,7 +27,7 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     height=-5,
     offset=273.15 + 23) "Temperature"
     annotation (Placement(transformation(extent={{-88,32},{-68,52}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed  mulSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage  mulSpeDX(
     redeclare package MediumEva = MediumAir,
     redeclare package MediumCon = MediumWater,
     datCoi=datCoi,
@@ -110,14 +110,14 @@ equation
   connect(speRat.y,mulSpeDX. stage) annotation (Line(points={{-67,12},{-60,12},
           {-7.2,12}},     color={255,127,0}));
   annotation (             __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/MultiSpeed.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/MultiStage.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
@@ -129,4 +129,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MultiSpeed;
+end MultiStage;
