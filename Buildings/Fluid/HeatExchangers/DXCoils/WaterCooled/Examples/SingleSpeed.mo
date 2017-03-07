@@ -24,7 +24,7 @@ model SingleSpeed "Test model for single speed DX coil"
     annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+    annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
@@ -76,7 +76,7 @@ equation
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-69,10},{-20,10},{-20,12.2},{-7,12.2}},
+      points={{-69,12},{-7,12}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(sinSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
