@@ -4,10 +4,8 @@ model SingleSpeed "Single speed DX cooling coil"
       dxCoo(final variableSpeedCoil=false,
             wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
             dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
-      eva(nomVal=datCoi.sta[nSta].nomVal),
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi,
-      use_mCon_flow=false,
-      final nSta=1);
+      use_mCon_flow=false);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on
@@ -18,6 +16,8 @@ protected
     final integerTrue=1,
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
+initial equation
+  assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
 equation
   connect(speRat.y, dxCoo.speRat) annotation (Line(
       points={{-43.4,64},{-40,64},{-40,57.6},{-21,57.6}},
