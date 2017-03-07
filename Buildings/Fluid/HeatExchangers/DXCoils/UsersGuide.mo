@@ -83,7 +83,7 @@ If the supply air temperature is used, then the control algorithm should be such
 <p>
 For air-cooled DX coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR) 
 are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate), 
-the evaporator air inlet temperature and the condensor air inlet temperature. These polynomials are explained at 
+the evaporator air inlet temperature and the condenser air inlet temperature. These polynomials are explained at 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>. 
 </p>

@@ -81,7 +81,7 @@ model MultiStage "Test model for multi stage DX coil"
     3600,2]) "Speed ratio "
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
-    "Condensor inlet temperature"
+    "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 equation
   connect(sou.ports[1], mulStaDX.port_a)

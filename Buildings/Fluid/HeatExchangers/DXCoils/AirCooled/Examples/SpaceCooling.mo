@@ -42,9 +42,9 @@ model SpaceCooling "Space cooling with DX coils"
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
-      Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
@@ -102,8 +102,8 @@ model SpaceCooling "Space cooling with DX coils"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex1(
-    redeclare package Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
@@ -111,13 +111,13 @@ model SpaceCooling "Space cooling with DX coils"
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-180},{-90,-160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut1(
-                                               redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+    redeclare package Medium = Medium,
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-170},{-64,-158}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir1(
-                                                redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+    redeclare package Medium = Medium,
+     m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage mulStaDX(
@@ -132,8 +132,7 @@ model SpaceCooling "Space cooling with DX coils"
     nPorts=2,
     QRooInt_flow=QRooInt_flow,
     mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
-                                     annotation (Placement(transformation(
-          extent={{180,40},{200,60}})));
+     annotation (Placement(transformation(extent={{180,40},{200,60}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
       sta={Data.Generic.BaseClasses.Stage(
@@ -198,8 +197,8 @@ model SpaceCooling "Space cooling with DX coils"
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-78,-246},{-66,-234}})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex2(
-                                                 redeclare package Medium1 =
-        Medium, redeclare package Medium2 = Medium,
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,

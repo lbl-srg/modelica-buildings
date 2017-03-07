@@ -5,25 +5,25 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
           redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
 
 
-  replaceable package Medium1 =
+  replaceable package MediumEva =
       Modelica.Media.Interfaces.PartialMedium "Medium for evaporator"
       annotation (choicesAllMatching = true);
-  replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialMedium "Medium for condensor"
+  replaceable package MediumCon =
+      Modelica.Media.Interfaces.PartialMedium "Medium for condenser"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversalEva = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for evaporator"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Boolean allowFlowReversalCon = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal for condensor"
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal for condenser"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Modelica.SIunits.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure difference over evaporator at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.PressureDifference dpCon_nominal(displayUnit="Pa")
-    "Pressure difference over condensor at nominal flow rate"
+    "Pressure difference over condenser at nominal flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
@@ -61,41 +61,41 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "Set to true to compute reevaporation of water that accumulated on coil";
 
   // Initialization
-  parameter Medium1.AbsolutePressure pEva_start = Medium1.p_default
+  parameter MediumEva.AbsolutePressure pEva_start = MediumEva.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Medium1.Temperature TEva_start = Medium1.T_default
+  parameter MediumEva.Temperature TEva_start = MediumEva.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization", group = "Medium 1"));
-  parameter Medium1.MassFraction XEva_start[Medium1.nX] = Medium1.X_default
+  parameter MediumEva.MassFraction XEva_start[MediumEva.nX] = MediumEva.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nXi > 0));
-  parameter Medium1.ExtraProperty CEva_start[Medium1.nC](
-    final quantity=Medium1.extraPropertiesNames)=fill(0, Medium1.nC)
+    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nXi > 0));
+  parameter MediumEva.ExtraProperty CEva_start[MediumEva.nC](
+    final quantity=MediumEva.extraPropertiesNames)=fill(0, MediumEva.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
-  parameter Medium1.ExtraProperty CEva_nominal[Medium1.nC](
-    final quantity=Medium1.extraPropertiesNames) = fill(1E-2, Medium1.nC)
+    annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nC > 0));
+  parameter MediumEva.ExtraProperty CEva_nominal[MediumEva.nC](
+    final quantity=MediumEva.extraPropertiesNames) = fill(1E-2, MediumEva.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", group = "Medium 1", enable=Medium1.nC > 0));
+   annotation (Dialog(tab="Initialization", group = "Medium 1", enable=MediumEva.nC > 0));
 
-  parameter Medium2.AbsolutePressure pCon_start = Medium2.p_default
+  parameter MediumCon.AbsolutePressure pCon_start = MediumCon.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization", group = "Medium 2"));
-  parameter Medium2.Temperature TCon_start = Medium2.T_default
+  parameter MediumCon.Temperature TCon_start = MediumCon.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization", group = "Medium 2"));
-  parameter Medium2.MassFraction XCon_start[Medium2.nX] = Medium2.X_default
+  parameter MediumCon.MassFraction XCon_start[MediumCon.nX] = MediumCon.X_default
     "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nXi > 0));
-  parameter Medium2.ExtraProperty CCon_start[Medium2.nC](
-    final quantity=Medium2.extraPropertiesNames)=fill(0, Medium2.nC)
+    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nXi > 0));
+  parameter MediumCon.ExtraProperty CCon_start[MediumCon.nC](
+    final quantity=MediumCon.extraPropertiesNames)=fill(0, MediumCon.nC)
     "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
-  parameter Medium2.ExtraProperty CCon_nominal[Medium2.nC](
-    final quantity=Medium2.extraPropertiesNames) = fill(1E-2, Medium2.nC)
+    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nC > 0));
+  parameter MediumCon.ExtraProperty CCon_nominal[MediumCon.nC](
+    final quantity=MediumCon.extraPropertiesNames) = fill(1E-2, MediumCon.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
-   annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
+   annotation (Dialog(tab="Initialization", group = "Medium 2", enable=MediumCon.nC > 0));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -123,36 +123,36 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
 
   // Ports
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumEva,
     m_flow(min=if allowFlowReversalEva then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium1.h_default))
+    h_outflow(start=MediumEva.h_default))
     "Fluid connector for evaporator inlet (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumEva,
     m_flow(max=if allowFlowReversalEva then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium1.h_default))
+    h_outflow(start=MediumEva.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a portCon_a(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium = MediumCon,
     m_flow(min=if allowFlowReversalCon then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default))
-    "Fluid connector a of condensor (positive design flow direction is from port_a2 to port_b2)"
+    h_outflow(start=MediumCon.h_default))
+    "Fluid connector a of condenser (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b portCon_b(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium = MediumCon,
     m_flow(max=if allowFlowReversalCon then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium2.h_default))
-    "Fluid connector b of condensor (positive design flow direction is from port_a2 to port_b2)"
+    h_outflow(start=MediumCon.h_default))
+    "Fluid connector b of condenser (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-50,-110},{-70,-90}})));
 
   // Components
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
    constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    redeclare final package Medium = Medium1,
+    redeclare final package Medium = MediumEva,
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal,
     final allowFlowReversal=allowFlowReversalEva,
@@ -194,7 +194,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
-    redeclare package Medium=Medium2,
+    redeclare package Medium=MediumCon,
     final m_flow_nominal = datCoi.sta[nSta].nomVal.mCon_flow_nominal,
     final Q_flow_nominal=-datCoi.sta[nSta].nomVal.Q_flow_nominal*(1+1/datCoi.sta[nSta].nomVal.COP_nominal),
     final allowFlowReversal=allowFlowReversalCon,
@@ -215,33 +215,33 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "Water-cooled condenser"
     annotation (Placement(transformation(extent={{-20,-90},{-40,-70}})));
 
-  Medium1.ThermodynamicState sta_a1=Medium1.setState_phX(
+  MediumEva.ThermodynamicState sta_a1=MediumEva.setState_phX(
       port_a.p,
       noEvent(actualStream(port_a.h_outflow)),
       noEvent(actualStream(port_a.Xi_outflow))) if show_T
     "Medium properties in port_a1";
-  Medium1.ThermodynamicState sta_b1=Medium1.setState_phX(
+  MediumEva.ThermodynamicState sta_b1=MediumEva.setState_phX(
       port_b.p,
       noEvent(actualStream(port_b.h_outflow)),
       noEvent(actualStream(port_b.Xi_outflow))) if show_T
     "Medium properties in port_b1";
-  Medium2.ThermodynamicState sta_a2=Medium2.setState_phX(
+  MediumCon.ThermodynamicState sta_a2=MediumCon.setState_phX(
       portCon_a.p,
       noEvent(actualStream(portCon_a.h_outflow)),
       noEvent(actualStream(portCon_a.Xi_outflow))) if show_T
     "Medium properties in port_a2";
-  Medium2.ThermodynamicState sta_b2=Medium2.setState_phX(
+  MediumCon.ThermodynamicState sta_b2=MediumCon.setState_phX(
       portCon_b.p,
       noEvent(actualStream(portCon_b.h_outflow)),
       noEvent(actualStream(portCon_b.Xi_outflow))) if show_T
     "Medium properties in port_b2";
 
 protected
-  final parameter Medium1.MassFlowRate mEva_flow_small(min=0) = datCoi.m_flow_small
+  final parameter MediumEva.MassFlowRate mEva_flow_small(min=0) = datCoi.m_flow_small
     "Small mass flow rate for regularization of zero flow at evaporator"
     annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate mCon_flow_small(min=0) = 1E-4*abs(datCoi.sta[nSta].nomVal.mCon_flow_nominal)
-    "Small mass flow rate for regularization of zero flow at condensor"
+  parameter MediumCon.MassFlowRate mCon_flow_small(min=0) = 1E-4*abs(datCoi.sta[nSta].nomVal.mCon_flow_nominal)
+    "Small mass flow rate for regularization of zero flow at condenser"
     annotation(Dialog(tab = "Advanced"));
 
   Modelica.Blocks.Sources.RealExpression u(final y=(-eva.dxCoo.Q_flow + eva.P)/(
@@ -252,13 +252,13 @@ protected
         rotation=0,
         origin={-29,-60})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=Medium2,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=MediumCon,
       m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
     "fixme: to be replaced with a realexpression"
     annotation (Placement(transformation(extent={{50,-90},{30,-70}})));
 
-  Sensors.MassFlowRate senMasFloCon(redeclare final package Medium = Medium2)
-    "Mass flow through condensor"
+  Sensors.MassFlowRate senMasFloCon(redeclare final package Medium = MediumCon)
+    "Mass flow through condenser"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-14.7,-60},{-8,-60},{-8,-74},
@@ -355,6 +355,10 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2017, by Michael Wetter:<br/>
+Refactored implementation to avoid code duplication and to propagate parameters.
+</li>  
 <li>
 February 16, 2017 by Yangyang Fu:<br/>
 First implementation.

@@ -27,10 +27,10 @@ model VariableSpeed "Test model for variable speed DX coil"
     startTime=2400,
     height=-5,
     offset=273.15 + 23) "Temperature"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-90,32},{-70,52}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed varSpeDX(
-    redeclare package Medium1 = MediumAir,
-    redeclare package Medium2 = MediumWater,
+    redeclare package MediumEva = MediumAir,
+    redeclare package MediumCon = MediumWater,
     dpEva_nominal=dpEva_nominal,
     dpCon_nominal=dpCon_nominal,
     datCoi=datCoi,
@@ -51,8 +51,8 @@ model VariableSpeed "Test model for variable speed DX coil"
     duration=600,
     startTime=6000,
     height=0,
-    offset=1) "Condensor inlet mass flow"
-    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+    offset=1) "Condenser inlet mass flow"
+    annotation (Placement(transformation(extent={{90,-48},{70,-28}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
@@ -67,10 +67,10 @@ model VariableSpeed "Test model for variable speed DX coil"
     annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
         1800,0.8; 2700,0.75; 3600,0.75]) "Speed ratio "
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
 equation
   connect(TEvaIn.y, souAir.T_in) annotation (Line(
-      points={{-79,50},{-58,50},{-58,42},{-50,42}},
+      points={{-69,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(varSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
@@ -81,10 +81,10 @@ equation
           -12,38},{-12,4},{-6,4}}, color={0,127,255}));
   connect(sinAir.ports[1], varSpeDX.port_b) annotation (Line(points={{32,40},{
           28,40},{28,4},{14,4}}, color={0,127,255}));
-  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,-30},
-          {68,-38},{52,-38}},      color={0,0,127}));
-  connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-79,0},{-40,0},{-40,
-          12},{-7.2,12}}, color={0,0,127}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{69,-38},{68,
+          -38},{52,-38}},          color={0,0,127}));
+  connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-69,12},{-40,12},
+          {-7.2,12}},     color={0,0,127}));
   annotation (             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/VariableSpeed.mos"
         "Simulate and plot"),

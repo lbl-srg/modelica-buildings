@@ -57,7 +57,7 @@ model SingleSpeed "Test model for single speed DX coil"
         perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.Curve_II())}, nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
-    "Condensor inlet temperature"
+    "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 equation
   connect(TEvaIn.y, sou.T_in) annotation (Line(

@@ -24,16 +24,16 @@ model SingleSpeed "Test model for single speed DX coil"
     annotation (Placement(transformation(extent={{-48,28},{-28,48}})));
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
     offset=273.15 + 23) "Temperature"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-90,32},{-70,52}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed sinSpeDX(
-    redeclare package Medium1 = MediumAir,
-    redeclare package Medium2 = MediumWater,
+    redeclare package MediumEva = MediumAir,
+    redeclare package MediumCon = MediumWater,
     datCoi=datCoi,
     dpEva_nominal=dpEva_nominal,
     dpCon_nominal=dpCon_nominal,
@@ -53,8 +53,8 @@ model SingleSpeed "Test model for single speed DX coil"
     duration=600,
     startTime=6000,
     height=0,
-    offset=1) "Condensor inlet mass flow"
-    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+    offset=1) "Condenser inlet mass flow"
+    annotation (Placement(transformation(extent={{92,-48},{72,-28}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
@@ -69,12 +69,12 @@ model SingleSpeed "Test model for single speed DX coil"
     annotation (Placement(transformation(extent={{-44,-60},{-24,-40}})));
 equation
   connect(TEvaIn.y, souAir.T_in) annotation (Line(
-      points={{-79,-30},{-58,-30},{-58,42},{-50,42}},
+      points={{-69,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-79,70},{-76,70},{-76,12.2},{-7,12.2}},
+      points={{-69,10},{-20,10},{-20,12.2},{-7,12.2}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(sinSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
@@ -85,8 +85,8 @@ equation
           -12,38},{-12,4},{-6,4}}, color={0,127,255}));
   connect(sinAir.ports[1], sinSpeDX.port_b) annotation (Line(points={{32,40},{
           28,40},{28,4},{14,4}}, color={0,127,255}));
-  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,
-          -30},{68,-38},{52,-38}}, color={0,0,127}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{71,-38},{68,
+          -38},{52,-38}},          color={0,0,127}));
   annotation (             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/SingleSpeed.mos"
         "Simulate and plot"),

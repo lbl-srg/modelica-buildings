@@ -26,10 +26,10 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     startTime=2400,
     height=-5,
     offset=273.15 + 23) "Temperature"
-    annotation (Placement(transformation(extent={{-100,42},{-80,62}})));
+    annotation (Placement(transformation(extent={{-88,32},{-68,52}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiSpeed  mulSpeDX(
-    redeclare package Medium1 = MediumAir,
-    redeclare package Medium2 = MediumWater,
+    redeclare package MediumEva = MediumAir,
+    redeclare package MediumCon = MediumWater,
     datCoi=datCoi,
     dpEva_nominal=dpEva_nominal,
     dpCon_nominal=dpCon_nominal,
@@ -69,8 +69,8 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     duration=600,
     startTime=6000,
     height=0,
-    offset=1) "Condensor inlet mass flow"
-    annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
+    offset=1) "Condenser inlet mass flow"
+    annotation (Placement(transformation(extent={{88,-48},{68,-28}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     redeclare package Medium = MediumWater,
     nPorts=1,
@@ -89,10 +89,10 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     1800,4;
     2700,3;
     3600,2]) "Speed ratio "
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-88,2},{-68,22}})));
 equation
   connect(TEvaIn.y, souAir.T_in) annotation (Line(
-      points={{-79,52},{-58,52},{-58,42},{-50,42}},
+      points={{-67,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mulSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
@@ -103,11 +103,10 @@ equation
           -12,38},{-12,4},{-6,4}}, color={0,127,255}));
   connect(sinAir.ports[1], mulSpeDX.port_b) annotation (Line(points={{32,40},{
           28,40},{28,4},{14,4}}, color={0,127,255}));
-  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,-30},
-          {68,-38},{52,-38}},      color={0,0,127}));
-  connect(speRat.y,mulSpeDX. stage) annotation (Line(points={{-79,0},{-60,0},{
-          -60,12},{-7.2,12}},
-                          color={255,127,0}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{67,-38},{68,
+          -38},{52,-38}},          color={0,0,127}));
+  connect(speRat.y,mulSpeDX. stage) annotation (Line(points={{-67,12},{-60,12},
+          {-7.2,12}},     color={255,127,0}));
   annotation (             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/MultiSpeed.mos"
         "Simulate and plot"),

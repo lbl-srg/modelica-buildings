@@ -7,7 +7,6 @@ model MultiSpeed "Multi speed water-cooled DX coils"
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
-
 equation
   connect(eva.stage, stage)
    annotation (Line(points={{-11,8},{-90,8},{-90,80},{-112,80}},    color={255,127,0}));
@@ -19,6 +18,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 7, 2017, by Michael Wetter:<br/>
+Refactored implementation to avoid code duplication and to propagate parameters.
+</li>    
 <li>
 February 16, 2017 by Yangyang Fu:<br/>
 First implementation.

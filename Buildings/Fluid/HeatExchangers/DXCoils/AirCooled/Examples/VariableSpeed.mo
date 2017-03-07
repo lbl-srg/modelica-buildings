@@ -80,7 +80,7 @@ model VariableSpeed "Test model for variable speed DX coil"
         perCur=PerformanceCurves.Curve_III())}) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
-    "Condensor inlet temperature"
+    "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(sou.ports[1], varSpeDX.port_a)
