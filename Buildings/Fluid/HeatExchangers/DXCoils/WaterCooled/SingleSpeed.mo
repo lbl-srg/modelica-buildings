@@ -5,13 +5,15 @@ model SingleSpeed "Single speed water-cooled DX coils"
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
-        iconTransformation(extent={{-120,72},{-100,92}})));
+    annotation (Placement(transformation(extent={{-124,66},{-100,90}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
 equation
   connect(eva.on, on) annotation (Line(points={{-11,8},{-11,68},{-88,68},{-88,
-          80},{-106,80},{-112,80}},
+          80},{-112,80},{-112,78}},
                                 color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
+            points={{-100,80},{-68,80},{-68,20}}, color={255,85,170})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

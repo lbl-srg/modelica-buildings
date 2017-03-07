@@ -33,7 +33,9 @@ model MultiSpeed "Test model for multi speed water-cooled DX coil"
     datCoi=datCoi,
     dpEva_nominal=dpEva_nominal,
     dpCon_nominal=dpCon_nominal,
-    show_T=true) "Multi-speed DX coil"
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                 "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(

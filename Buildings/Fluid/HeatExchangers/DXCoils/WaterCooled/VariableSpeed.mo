@@ -16,7 +16,9 @@ equation
   connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-90,80},{-90,
           8},{-11,8}},
                      color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
+            points={{-100,80},{-68,80},{-68,20}}, color={28,108,200})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

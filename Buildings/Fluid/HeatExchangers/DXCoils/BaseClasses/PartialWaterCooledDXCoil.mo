@@ -120,7 +120,6 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "Latent heat flow rate in evaporators"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
-
   // Ports
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumEva,
@@ -215,6 +214,12 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     "Water-cooled condenser"
     annotation (Placement(transformation(extent={{-20,-90},{-40,-70}})));
 
+
+  // Variables
+  Modelica.SIunits.Temperature TConEnt=
+    MediumCon.temperature(MediumCon.setState_phX(portCon_a.p, inStream(portCon_a.h_outflow)))
+    "Temperature of fluid entering the condensor";
+
   MediumEva.ThermodynamicState sta_a1=MediumEva.setState_phX(
       port_a.p,
       noEvent(actualStream(port_a.h_outflow)),
@@ -252,14 +257,16 @@ protected
         rotation=0,
         origin={-29,-60})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium=MediumCon,
-      m_flow_nominal=datCoi.sta[nSta].nomVal.mCon_flow_nominal)
-    "fixme: to be replaced with a realexpression"
-    annotation (Placement(transformation(extent={{50,-90},{30,-70}})));
-
   Sensors.MassFlowRate senMasFloCon(redeclare final package Medium = MediumCon)
     "Mass flow through condenser"
-    annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
+    annotation (Placement(transformation(extent={{40,-90},{20,-70}})));
+
+  Modelica.Blocks.Sources.RealExpression TConEntWat(final y=TConEnt)
+    "Temperature of water entering condensor" annotation (Placement(
+        transformation(
+        extent={{-10,-9},{10,9}},
+        rotation=0,
+        origin={-50,11})));
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-14.7,-60},{-8,-60},{-8,-74},
           {-18,-74}},
@@ -270,11 +277,6 @@ equation
     annotation (Line(points={{-10,0},{-10,0},{-100,0}},    color={0,127,255}));
   connect(watCooCon.port_b, portCon_b) annotation (Line(points={{-40,-80},{-60,-80},
           {-60,-100}}, color={0,127,255}));
-  connect(senTem.port_a, portCon_a) annotation (Line(points={{50,-80},{50,-80},{
-          58,-80},{58,-80},{60,-80},{60,-100},{60,-100}},
-                      color={0,127,255}));
-  connect(senTem.T, eva.TConIn) annotation (Line(points={{40,-69},{40,-69},{40,-20},
-          {-20,-20},{-20,3},{-11,3}}, color={0,0,127}));
   connect(eva.P, P) annotation (Line(points={{11,9},{40,9},{40,90},{110,90}},
         color={0,0,127}));
   connect(eva.QSen_flow, QEvaSen_flow) annotation (Line(points={{11,7},{44,7},{44,
@@ -282,12 +284,14 @@ equation
   connect(eva.QLat_flow, QEvaLat_flow) annotation (Line(points={{11,5},{48,5},{48,
           30},{110,30}},   color={0,0,127}));
   connect(watCooCon.port_a, senMasFloCon.port_b)
-    annotation (Line(points={{-20,-80},{0,-80}}, color={0,127,255}));
-  connect(senMasFloCon.port_a, senTem.port_b)
-    annotation (Line(points={{20,-80},{30,-80}}, color={0,127,255}));
-  connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{10,-69},
-          {10,-69},{10,-38},{10,-30},{-30,-30},{-30,-3.2},{-11,-3.2}}, color={0,
+    annotation (Line(points={{-20,-80},{20,-80}},color={0,127,255}));
+  connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{30,-69},
+          {30,-69},{30,-38},{30,-30},{-20,-30},{-20,-3.2},{-11,-3.2}}, color={0,
           0,127}));
+  connect(TConEntWat.y, eva.TConIn) annotation (Line(points={{-39,11},{-20,11},{
+          -20,4},{-20,4},{-20,3},{-11,3}}, color={0,0,127}));
+  connect(portCon_a, senMasFloCon.port_a) annotation (Line(points={{60,-100},{60,
+          -100},{60,-80},{40,-80}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-74,20},{80,-74}},

@@ -35,7 +35,9 @@ model VariableSpeed "Test model for variable speed DX coil"
     dpCon_nominal=dpCon_nominal,
     datCoi=datCoi,
     show_T=true,
-    minSpeRat=datCoi.minSpeRat)  "Variable speed DX coil"
+    minSpeRat=datCoi.minSpeRat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                                 "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(nSta=1, sta={

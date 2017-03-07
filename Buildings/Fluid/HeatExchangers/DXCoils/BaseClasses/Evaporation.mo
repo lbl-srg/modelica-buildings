@@ -65,7 +65,7 @@ model Evaporation
   Modelica.SIunits.Mass m(nominal=-5000*1400/2257E3, start=0, fixed=true)
     "Mass of water that accumulated on the coil";
 
-  Modelica.SIunits.MassFlowRate mEva_flow(max=0)
+  Modelica.SIunits.MassFlowRate mEva_flow(start=0)
     "Moisture mass flow rate that evaporates into air stream";
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
@@ -264,7 +264,7 @@ equation
          x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
          deltax=nomVal.m_flow_nominal/3)))
         - XEvaWetBulOut;
-      mEva_flow = -smooth(1, noEvent(dX *
+      mEva_flow = -dX * smooth(1, noEvent(
         Buildings.Utilities.Math.Functions.spliceFunction(
          pos=if abs(mAir_flow) > mAir_flow_small/3 then
             abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
@@ -578,6 +578,10 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2017, by Michael Wetter:<br/>
+Set start value and removed max attribute for <code>mEva_flow</code> as this can take on zero.
+</li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected implementation of wet bulb temperature computation.

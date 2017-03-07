@@ -37,7 +37,9 @@ model SingleSpeed "Test model for single speed DX coil"
     datCoi=datCoi,
     dpEva_nominal=dpEva_nominal,
     dpCon_nominal=dpCon_nominal,
-    show_T=true) "Single speed DX coil"
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+                 "Single speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
   Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
       nSta=1,
@@ -78,9 +80,9 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(sinSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
-          {28,-6},{28,-46},{32,-46}}, color={0,127,255}));
+          {10,-6},{10,-46},{32,-46}}, color={0,127,255}));
   connect(sinSpeDX.portCon_b, sinWat.ports[1]) annotation (Line(points={{-2,-6},
-          {-12,-6},{-12,-50},{-24,-50}}, color={0,127,255}));
+          {-2,-6},{-2,-50},{-24,-50}},   color={0,127,255}));
   connect(souAir.ports[1], sinSpeDX.port_a) annotation (Line(points={{-28,38},{
           -12,38},{-12,4},{-6,4}}, color={0,127,255}));
   connect(sinAir.ports[1], sinSpeDX.port_b) annotation (Line(points={{32,40},{
