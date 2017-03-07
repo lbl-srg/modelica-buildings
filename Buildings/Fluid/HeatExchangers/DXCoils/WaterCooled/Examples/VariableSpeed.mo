@@ -32,9 +32,9 @@ model VariableSpeed "Test model for variable speed DX coil"
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
     dpEva_nominal=dpEva_nominal,
+    dpCon_nominal=dpCon_nominal,
     datCoi=datCoi,
     show_T=true,
-    dpCon_nominal=dpCon_nominal,
     minSpeRat=datCoi.minSpeRat)  "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
@@ -73,18 +73,14 @@ equation
       points={{-79,50},{-58,50},{-58,42},{-50,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(varSpeDX.port_a2, souWat.ports[1]) annotation (Line(points={{14,-2},{
-          28,-2},{28,-46},{32,-46}},
-                                  color={0,127,255}));
-  connect(varSpeDX.port_b2, sinWat.ports[1]) annotation (Line(points={{-6,-2},{
-          -12,-2},{-12,-50},{-24,-50}},
-                                    color={0,127,255}));
-  connect(souAir.ports[1],varSpeDX. port_a1) annotation (Line(points={{-28,38},
-          {-12,38},{-12,10},{-6,10}},
-                                    color={0,127,255}));
-  connect(sinAir.ports[1],varSpeDX. port_b1) annotation (Line(points={{32,40},{
-          28,40},{28,10},{14,10}},
-                                color={0,127,255}));
+  connect(varSpeDX.portCon_a, souWat.ports[1]) annotation (Line(points={{10,-6},
+          {28,-6},{28,-46},{32,-46}}, color={0,127,255}));
+  connect(varSpeDX.portCon_b, sinWat.ports[1]) annotation (Line(points={{-2,-6},
+          {-12,-6},{-12,-50},{-24,-50}}, color={0,127,255}));
+  connect(souAir.ports[1], varSpeDX.port_a) annotation (Line(points={{-28,38},{
+          -12,38},{-12,4},{-6,4}}, color={0,127,255}));
+  connect(sinAir.ports[1], varSpeDX.port_b) annotation (Line(points={{32,40},{
+          28,40},{28,4},{14,4}}, color={0,127,255}));
   connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{79,-30},{68,-30},
           {68,-38},{52,-38}},      color={0,0,127}));
   connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-79,0},{-40,0},{-40,

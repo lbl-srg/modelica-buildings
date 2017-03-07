@@ -14,14 +14,14 @@ model VariableSpeedEnergyPlus "Validation model for variable speed DX coil "
  parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
     "Pressure drop at mCon_flow_nominal";
 
-  VariableSpeed  varSpeDX(
+  VariableSpeed varSpeDX(
     dpEva_nominal=dpEva_nominal,
     datCoi=datCoi,
     dpCon_nominal=dpCon_nominal,
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumWater,
-    varSpeDX(T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-             energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    eva(T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     watCooCon(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     minSpeRat=0.05)
     "Variable speed DX coil"
@@ -338,7 +338,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(varSpeDX.P, PMea.u) annotation (Line(
-      points={{11,18},{14,18},{14,50},{78,50}},
+      points={{11,19},{14,19},{14,50},{78,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XEvaInMod.y, mux.u1[1]) annotation (Line(
@@ -357,26 +357,26 @@ equation
           -10.2},{-60,24},{-54,24}}, color={0,0,127}));
   connect(mux.y, souAir.X_in) annotation (Line(points={{-59,-50},{-56,-50},{-56,
           16},{-54,16}}, color={0,0,127}));
-  connect(souAir.ports[1], varSpeDX.port_a1) annotation (Line(points={{-32,20},{
-          -20,20},{-20,16},{-10,16}}, color={0,127,255}));
-  connect(varSpeDX.port_b1, sinAir.ports[1]) annotation (Line(points={{10,16},{26,
-          16},{26,20},{38,20}}, color={0,127,255}));
-  connect(souWat.ports[1], varSpeDX.port_a2) annotation (Line(points={{38,-30},{
-          26,-30},{26,4},{10,4}}, color={0,127,255}));
-  connect(sinWat.ports[1], varSpeDX.port_b2) annotation (Line(points={{-30,-30},
-          {-20,-30},{-20,4},{-10,4}}, color={0,127,255}));
+  connect(souAir.ports[1], varSpeDX.port_a) annotation (Line(points={{-32,20},{
+          -20,20},{-20,10},{-10,10}}, color={0,127,255}));
+  connect(varSpeDX.port_b, sinAir.ports[1]) annotation (Line(points={{10,10},{
+          26,10},{26,20},{38,20}}, color={0,127,255}));
+  connect(souWat.ports[1], varSpeDX.portCon_a) annotation (Line(points={{38,-30},
+          {26,-30},{26,0},{6,0}}, color={0,127,255}));
+  connect(sinWat.ports[1], varSpeDX.portCon_b) annotation (Line(points={{-30,
+          -30},{-20,-30},{-20,0},{-6,0}}, color={0,127,255}));
   connect(TCIn.y, TCIn_K.Celsius) annotation (Line(points={{139,-30},{122,-30},{
           122,-30.4}}, color={0,0,127}));
   connect(TCIn_K.Kelvin, souWat.T_in) annotation (Line(points={{99,-30.2},{72,-30.2},
           {72,-26},{60,-26}}, color={0,0,127}));
   connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-119,110},{-60,110},
           {-60,40},{-16,40},{-16,18},{-11.2,18}}, color={0,0,127}));
-  connect(varSpeDX.QEvaSen_flow, QCoo_flow.u1) annotation (Line(points={{11,13.4},
-          {16,13.4},{16,34},{16,42},{-50,42},{-50,96},{-42,96}}, color={0,0,127}));
-  connect(varSpeDX.QEvaLat_flow, QCoo_flow.u2) annotation (Line(points={{11,10},
-          {18,10},{18,44},{-48,44},{-48,84},{-42,84}}, color={0,0,127}));
-  connect(varSpeDX.QEvaSen_flow, Q_flowSenMea.u) annotation (Line(points={{11,13.4},
-          {18,13.4},{18,60},{-12,60},{-12,130},{-2,130}}, color={0,0,127}));
+  connect(varSpeDX.QEvaSen_flow, QCoo_flow.u1) annotation (Line(points={{11,16},
+          {16,16},{16,34},{16,42},{-50,42},{-50,96},{-42,96}},   color={0,0,127}));
+  connect(varSpeDX.QEvaLat_flow, QCoo_flow.u2) annotation (Line(points={{11,13},
+          {18,13},{18,44},{-48,44},{-48,84},{-42,84}}, color={0,0,127}));
+  connect(varSpeDX.QEvaSen_flow, Q_flowSenMea.u) annotation (Line(points={{11,16},
+          {18,16},{18,60},{-12,60},{-12,130},{-2,130}},   color={0,0,127}));
   connect(masConIn.y, souWat.m_flow_in) annotation (Line(points={{139,10},{80,10},
           {80,-22},{58,-22}}, color={0,0,127}));
   connect(masEvaIn.y, souAir.m_flow_in)

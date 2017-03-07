@@ -1,15 +1,16 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoil "Partial model for DX coil"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
-  extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName = "water");
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare package Medium = Medium,
+    redeclare package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
   constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+
+  parameter String substanceName="water" "Name of species substance";
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
@@ -31,10 +32,10 @@ partial model PartialDXCoil "Partial model for DX coil"
     redeclare final package Medium = Medium,
     datCoi=datCoi,
     use_mCon_flow=use_mCon_flow,
-    wetCoi(redeclare
+    wetCoi(redeclare replaceable
         Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
         cooCap),
-    dryCoi(redeclare
+    dryCoi(redeclare replaceable
         Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
         cooCap))  "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -52,6 +53,8 @@ partial model PartialDXCoil "Partial model for DX coil"
   // Q_flow and EIR are set the zero. Hence, it is safe to assume
   // forward flow, which will avoid an event
 protected
+  parameter Integer i_x(fixed=false) "Index of substance";
+
   Modelica.SIunits.SpecificEnthalpy hEvaIn=
     inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
   Modelica.SIunits.Temperature TEvaIn = Medium.temperature_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
@@ -99,6 +102,18 @@ initial algorithm
    end for;
 
 
+  // Compute index of species vector that carries the substance name
+  i_x :=-1;
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false) then
+        i_x :=i;
+      end if;
+    end for;
+  assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has '" + substanceName + "' as a substance.");
 
 
 equation

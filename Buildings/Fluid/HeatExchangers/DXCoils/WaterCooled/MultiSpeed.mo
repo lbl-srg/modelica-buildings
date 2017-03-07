@@ -10,51 +10,8 @@ model MultiSpeed "Multi speed water-cooled DX coils"
 
 equation
   connect(eva.stage, stage)
-   annotation (Line(points={{-11,68},{-90,68},{-90,80}, {-112,80}}, color={255,127,0}));
+   annotation (Line(points={{-11,8},{-90,8},{-90,80},{-112,80}},    color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          extent={{-78,74},{80,-74}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-107,66},{94,56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-6,56},{94,66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-                                Text(
-          extent={{54,12},{98,-8}},
-          lineColor={0,0,127},
-          textString="QEvaLat"),Text(
-          extent={{54,50},{98,30}},
-          lineColor={0,0,127},
-          textString="QEvaSen"),
-        Rectangle(
-          extent={{6,-66},{106,-56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-95,-56},{106,-66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-6,-66},{94,-56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
                                 Text(
           extent={{54,100},{98,80}},
           lineColor={0,0,127},
