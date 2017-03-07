@@ -52,7 +52,7 @@ Each element of the array <code>per</code> has the following data.
      capFunFFCon - Polynomial coefficients for cooling capacity
                 as a function of the water mass flow fraction at condensers.
 
-     EIRFunT  - Coefficients of biquadratic polynomial for EIR 
+     EIRFunT  - Coefficients of biquadratic polynomial for EIR
                 as a function of temperature.
      EIRFunFF - Polynomial coefficients for EIR
                 as a function of the air mass flow fraction at evaporators.

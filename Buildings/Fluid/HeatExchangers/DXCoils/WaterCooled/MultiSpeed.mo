@@ -22,7 +22,7 @@ equation
 <li>
 March 7, 2017, by Michael Wetter:<br/>
 Refactored implementation to avoid code duplication and to propagate parameters.
-</li>    
+</li>
 <li>
 February 16, 2017 by Yangyang Fu:<br/>
 First implementation.

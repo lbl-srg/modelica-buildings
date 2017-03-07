@@ -104,26 +104,26 @@ if stage > 0 then
           textString="f(T,m)")}),
           Documentation(info="<html>
 <p>
-  This model calculates cooling capacity and EIR at off-designed conditions for water-cooled DX coils. 
+  This model calculates cooling capacity and EIR at off-designed conditions for water-cooled DX coils.
   The difference between air-cooled and water-cooled DX coils is that water-cooled DX coils require
-  two additional modifer curves for total cooling capacity and EIR 
+  two additional modifer curves for total cooling capacity and EIR
   as a function of water mass flowrate at the condensers.
 </p>
 <h4>Total Cooling Capacity</h4>
 <p>
-  The total cooling capacity at off-designed conditions for water-cooled DX coils is calculated as: 
+  The total cooling capacity at off-designed conditions for water-cooled DX coils is calculated as:
 </p>
 <p align=\"center\">
   <i>
-     Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) cap<sub>FFCon</sub>(ffCon) Q̇<sub>nom</sub> 
+     Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) cap<sub>FFCon</sub>(ffCon) Q̇<sub>nom</sub>
   </i>
 </p>
 <p>
-  where <i>cap<sub>FFCon</sub>(ffCon)</i> is the additional modifier for cooling capacity, and calculated as: 
+  where <i>cap<sub>FFCon</sub>(ffCon)</i> is the additional modifier for cooling capacity, and calculated as:
 </p>
 <p align=\"center\">
   <i>
-     capCon<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ... 
+     capCon<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ...
   </i>
 </p>
 <p>
@@ -135,20 +135,20 @@ if stage > 0 then
   </i>
 </p>
 <p>
-   where <i>ṁCon</i> is the mass flow rate at the condenser and <i>ṁCon<sub>nom</i></sub> is the nominal mass flow rate at the condenser. 
+   where <i>ṁCon</i> is the mass flow rate at the condenser and <i>ṁCon<sub>nom</i></sub> is the nominal mass flow rate at the condenser.
 </p>
 <h4>Energy Input Ratio (EIR)</h4>
 <p>
-  The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>). 
-  Similar to the cooling capacity modifiers, the change in EIR due to change in water mass flow rate at the condenser is 
+  The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
+  Similar to the cooling capacity modifiers, the change in EIR due to change in water mass flow rate at the condenser is
 </p>
 <p align=\"center\">
   <i>
-     EIR<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ... 
+     EIR<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ...
   </i>
 </p>
 <p>
-  where the six coefficients are obtained from the coil performance data record. 
+  where the six coefficients are obtained from the coil performance data record.
   See <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity</a> for more information.
 </p>
 </html>",

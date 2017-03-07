@@ -221,8 +221,8 @@ There are two cooling capacity modifier functions: The function
 cap<sub>FF </sub> accounts for a performance change due to different air flow rates at the evaporator,
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
-to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate. 
-See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\"> 
+to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate.
+See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>.
 <p>
 The temperature dependent cooling capacity modifier function is</p>

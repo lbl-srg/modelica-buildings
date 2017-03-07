@@ -37,13 +37,13 @@ record PerformanceCurve "Data record for a performance curve"
 
   annotation (defaultComponentName="per", Documentation(info="<html>
 <p>
-  This record declares the data used to specify performance curves for air-cooled DX coils. 
+  This record declares the data used to specify performance curves for air-cooled DX coils.
 </p>
 <p>
- See the information section of 
+ See the information section of
  <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil\">
- Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a> 
- for a description of the data. 
+ Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a>
+ for a description of the data.
 </p>
 </html>",
 revisions="<html>

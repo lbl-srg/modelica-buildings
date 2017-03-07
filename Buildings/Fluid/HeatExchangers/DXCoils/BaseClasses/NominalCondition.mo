@@ -49,7 +49,7 @@ revisions="<html>
 <ul>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>
-Changed parameter <code>per</code> to replaceable and added constrained type for redeclaration in water-cooled DX coils. 
+Changed parameter <code>per</code> to replaceable and added constrained type for redeclaration in water-cooled DX coils.
 </li>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
