@@ -37,17 +37,15 @@ performance modifers calculated in partial model
 The cooling capacity modifiers are multiplied with nominal cooling capacity to obtain
 the cooling capacity of the coil at given inlet temperatures and mass flow rate as
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
       Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) Q̇<sub>nom</sub>,
-  </i>
 </p>
 <p>
-  where <i>&theta;<sub>e,in</i></sub> is the evaporator inlet temperature
-  and <i>&theta;<sub>c,in</i></sub> is the condenser inlet temperature in degrees Celsius.
-  <i>&theta;<sub>e,in</i></sub> is the dry-bulb temperature if the coil is dry,
+  where <i>&theta;<sub>e,in</sub></i> is the evaporator inlet temperature
+  and <i>&theta;<sub>c,in</sub></i> is the condenser inlet temperature in degrees Celsius.
+  <i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry,
   or the wet-bulb temperature if the coil is wet.
-  <i>cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) is
+  <i>cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub></i>) is
   cooling capacity modifier as a function of temperature.
   cap<sub>FF</sub>(ff) is cooling capacity modifier as a function of
   nomalized mass flowrate at the evaporator.
@@ -59,10 +57,8 @@ the cooling capacity of the coil at given inlet temperatures and mass flow rate 
   takes into account changes in condenser and evaporator inlet temperatures,
   and changes in mass flow rate. The EIR is computed as
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
      EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
-  </i>
 </p>
 </html>",
 revisions="<html>

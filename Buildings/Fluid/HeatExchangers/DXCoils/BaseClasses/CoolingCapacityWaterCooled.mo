@@ -113,39 +113,32 @@ if stage > 0 then
 <p>
   The total cooling capacity at off-designed conditions for water-cooled DX coils is calculated as:
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
      Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) cap<sub>FFCon</sub>(ffCon) Q̇<sub>nom</sub>
-  </i>
 </p>
 <p>
   where <i>cap<sub>FFCon</sub>(ffCon)</i> is the additional modifier for cooling capacity, and calculated as:
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
      capCon<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ...
-  </i>
 </p>
 <p>
    where the variable <i>ffCon</i> is the nomalized mass flow rate at the condenser, and calculated as:
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
      ffCon = ṁCon &frasl; ṁCon<sub>nom</sub>
-  </i>
 </p>
 <p>
-   where <i>ṁCon</i> is the mass flow rate at the condenser and <i>ṁCon<sub>nom</i></sub> is the nominal mass flow rate at the condenser.
+  where <i>ṁCon</i> is the mass flow rate at the condenser and <i>ṁCon<sub>nom</sub></i>
+  is the nominal mass flow rate at the condenser.
 </p>
 <h4>Energy Input Ratio (EIR)</h4>
 <p>
   The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
   Similar to the cooling capacity modifiers, the change in EIR due to change in water mass flow rate at the condenser is
 </p>
-<p align=\"center\">
-  <i>
+<p align=\"center\" style=\"font-style:italic;\">
      EIR<sub>FFCon</sub>(ffCon) = b<sub>1</sub> + b<sub>2</sub> ffCon + b<sub>3</sub> ffCon<sup>2</sup> + b<sub>4</sub>ffCon<sup>3</sup> + ...
-  </i>
 </p>
 <p>
   where the six coefficients are obtained from the coil performance data record.

@@ -122,9 +122,9 @@ The dry coil is modeled using <a href=\"modelica://Buildings.Fluid.HeatExchanger
 and the wet coil is modeled using <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 Both use the same model <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>
 to compute the cooling capacity, but the wet coil uses the wet-bulb temperature of the air inlet instead of the dry bulb temperature to compute the coil performance.
-The wet coil model computes the humidity of the leaving air <i>X<sub>w,o</i></sub>, using the bypass factor model.
-This humidity is compared to the humidity at the evaporator inlet <i>X<sub>i</i></sub>.
-If <i>X<sub>w,o</sub>-X<sub>i</sub> &GT; 0</i> the coil is assumed to be dry, otherwise it is wet.
+The wet coil model computes the humidity of the leaving air <i>X<sub>w,o</sub></i>, using the bypass factor model.
+This humidity is compared to the humidity at the evaporator inlet <i>X<sub>i</sub></i>.
+If <i>X<sub>w,o</sub>-X<sub>i</sub> &gt; 0</i> the coil is assumed to be dry, otherwise it is wet.
 This test is implemented in <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>
 in such a way that the transition between wet and dry coil is differentiable.
 </p>
@@ -138,11 +138,11 @@ Once the appartus dew point is known, the sensible to latent heat ratio can be d
 <p>
 The method used is the bypass factor method, which assumes that of the leaving air,
 a fraction is at the same condition as the entering air, and the other fraction is at the apparatus dew point.
-This computation requires the ratio <i>UA &frasl; c<sub>p</i></sub>, which is computed in
+This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which is computed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp</a>.
 </p>
 <p>
-Once the ratio <i>UA &frasl; c<sub>p</i></sub> is known,
+Once the ratio <i>UA &frasl; c<sub>p</sub></i> is known,
 the bypass factor is a function of the current mass flow rate only.
 (Under the assumption that the velocity dependence of <i>UA</i> can be neglected.
 </p>
