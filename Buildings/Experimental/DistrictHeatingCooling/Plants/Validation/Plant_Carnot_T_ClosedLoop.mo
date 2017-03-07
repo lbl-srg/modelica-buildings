@@ -71,15 +71,16 @@ model Plant_Carnot_T_ClosedLoop
     "Set point temperature for leaving water"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.CombiTimeTable TOut(table=[
-    0,273.15 + 14;
-    3*3600, 273.15+14;
-    3*3600, 273.15+0;
-    6*3600, 273.15+0;
-    6*3600, 273.15+20;
-    12*3600, 273.15+20;
-    12*3600, 273.15+30;
-    18*3600, 273.15+30;
-    18*3600, 273.15+20],
+    0, 273.15+14;
+    3, 273.15+14;
+    3, 273.15+0;
+    6, 273.15+0;
+    6, 273.15+20;
+    12, 273.15+20;
+    12, 273.15+30;
+    18, 273.15+30;
+    18, 273.15+20],
+    timeScale=3600,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     y(each displayUnit="degC", each unit="K"))
     "Outdoor temperature"

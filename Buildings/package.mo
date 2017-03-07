@@ -147,6 +147,9 @@ its class name ends with the string <code>Beta</code>.
    the numerical robustness at very low speed when the fans or pumps are switched on or off.
    </li>
    <li>
+   The following new packages have been added:
+   <ul>
+   <li>
    The packages <code>Buildings.Fluid.FMI.Adaptors</code> and
    <code>Buildings.Fluid.FMI.ExportContainers</code> have been added to
    allow export of HVAC systems and of thermal zones as
@@ -154,18 +157,18 @@ its class name ends with the string <code>Beta</code>.
    </li>
    <li>
    The package <code>Buildings.Experimental.DistrictHeatingCooling</code>
-   has been added. This package contains
-   models for district heating and cooling
-   with bi-directional flow in the distribution pipes.
+   with models for district heating and cooling
+   with bi-directional flow in the distribution pipes has been added.
    </li>
    <li>
    The package <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>
-   with active beams has been added.
+   with active beams for cooling and heating has been added.
    </li>
    <li>
    The package <code>Buildings.ThermalZones.ReducedOrder</code> with
    reduced order models of thermal zones based on VDI 6007 has been added.
    </li>
+   </ul>
    <li>
    The package <code>Buildings.Rooms</code> has been renamed to <code>Buildings.ThermalZones.Detailed</code>.
    This was done because of the introduction of <code>Buildings.ThermalZones.ReducedOrder</code>,
@@ -190,6 +193,14 @@ its class name ends with the string <code>Beta</code>.
    to add the option to place a state at the surface of a construction.
    This leads in many examples that use the room model to a smaller number
    of non-linear system of equations and a 20% to 40% faster simulation.
+   </li>
+   <li>
+   The models <code>Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</code>
+   and <code>Buildings.Fluid.HeatPumps.ScrollWaterToWater</code> have been added.
+   Parameters to these models rely on calibration with tabulated heat pump performance
+   data. Python scripts for the calibration of the heat pump models are found in:
+   <code>modelica://Buildings/Resources/src/fluid/heatpumps/calibration/</code>.
+   This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/587\">issue 587</a>.
    </li>
    </ul>
    </div>
@@ -222,6 +233,13 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Package with models of active beams for space cooling and heating.
        </td>
        </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Compressors
+       </td>
+       <td valign=\"top\">Package with models of compressors for heat pumps.
+       </td>
+       </tr>
+
      <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder
        </td>
        <td valign=\"top\">Package with reduced order models of thermal zones based
@@ -245,6 +263,29 @@ its class name ends with the string <code>Beta</code>.
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.EvaporatorCondenser
+       </td>
+       <td valign=\"top\">Model for evaporator/condenser with refrigerant experiencing constant temperature phase change.
+       </td>
+   </tr>
+
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater
+       </td>
+       <td valign=\"top\">Model for water to water heat pump with a reciprocating compressor.
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.ScrollWaterToWater
+       </td>
+       <td valign=\"top\">Model for water to water heat pump with a scroll compressor.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows.BaseClasses</b>
        </td>
    </tr>
@@ -259,13 +300,19 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Media</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Media.Refrigerants.R410A
+       </td>
+       <td valign=\"top\">Model for thermodynamic properties of refrigerant R410A.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Media.Specialized.Water.ConstantProperties_pT
        </td>
        <td valign=\"top\">Model for liquid water with constant properties at user-selected temperature.<br/>
                           This closes
                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">Annex 60, #511</a>.
        </td>
-   </tr>   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+   </tr>
+   <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Utilities.Math.IntegratorWithReset
@@ -323,7 +370,18 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           <code>Modelica.Utilities.Files.loadResource</code>.
                           This closes
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/539\">issue 539</a>.
+                          </td>
+       </tr>
+       <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
        </td>
+       <td valign=\"top\">Shifted the computation of the infrared irradiation such that
+                          the results in <code>Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody</code>
+                          are consistent for both option of the black-body sky temperature calculation.
+                          This closes
+                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/648\">Annex 60, #648</a>.
+       </td>
+       </tr>
+       <tr>
        <td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness
        </td>
        <td valign=\"top\">Reduced tolerance for regularization if the sky clearness is near one or eight.
@@ -6029,6 +6087,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>David Blum, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Massimo Cimmino, Polytechnique Montr&eacute;al, Canada
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>

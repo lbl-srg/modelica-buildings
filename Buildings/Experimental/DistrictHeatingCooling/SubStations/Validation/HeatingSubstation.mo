@@ -28,12 +28,13 @@ model HeatingSubstation "Validation model for heating substation"
     offset=273.15 + 12) "Temperature of warm supply"
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
   Modelica.Blocks.Sources.TimeTable QHea(table=[
-    0,       100E3;
-    6*3600, 100E3;
-    6*3600,  50E3;
-    18*3600,  50E3;
-    18*3600,  75E3;
-    24*3600,  75E3]) "Heating demand"
+    0,  100E3;
+    6,  100E3;
+    6,   50E3;
+    18,  50E3;
+    18,  75E3;
+    24,  75E3],
+    timeScale=3600) "Heating demand"
     annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
   Modelica.Blocks.Sources.Ramp TCoo(
     duration=86400,

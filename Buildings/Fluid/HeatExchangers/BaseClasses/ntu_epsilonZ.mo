@@ -53,11 +53,16 @@ algorithm
       x2=Z,
       deltaX=0.01));
     NTU := -Modelica.Math.log(1+Z*Modelica.Math.log(1-eps))/Z;
+  elseif (flowRegime == Integer(f.ConstantTemperaturePhaseChange)) then
+    // one side is experiencing constant temperature phase change
+    // Z is unused
+    a := 0;
+    NTU := -Modelica.Math.log((1-eps));
   else
     a := 0;
     NTU := 0;
     assert(Integer(f.ParallelFlow) <= flowRegime and
-           flowRegime <= Integer(f.CrossFlowCMinUnmixedCMaxMixed),
+           flowRegime <= Integer(f.ConstantTemperaturePhaseChange),
            "Flow regime is not implemented.");
   end if;
 
@@ -80,6 +85,11 @@ This is handled internally and not exposed to the global solver.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 28, 2016, by Massimo Cimmino:<br/>
+Added case for constant temperature phase change on one side of
+the heat exchanger.
+</li>
 <li>
 July 7, 2014, by Michael Wetter:<br/>
 Changed the type of the input <code>flowRegime</code> from

@@ -9,12 +9,13 @@ model CoolingSubstation "Validation model for cooling substation"
     Q_flow_nominal=-100E3) "Substation"
                  annotation (Placement(transformation(extent={{-8,0},{12,20}})));
   Modelica.Blocks.Sources.TimeTable QCoo(table=[
-    0,       -100E3;
-    6*3600,  -100E3;
-    6*3600,   -50E3;
-    18*3600,  -50E3;
-    18*3600,  -75E3;
-    24*3600,  -75E3]) "Cooling demand"
+    0,  -100E3;
+    6,  -100E3;
+    6,   -50E3;
+    18,  -50E3;
+    18,  -75E3;
+    24,  -75E3],
+    timeScale=3600) "Cooling demand"
     annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
   Buildings.Fluid.Sources.Boundary_pT coo(
     redeclare package Medium = Medium,
