@@ -254,7 +254,6 @@ protected
     "Signal of total heat flow removed by condenser" annotation (Placement(
         transformation(
         extent={{-13,-10},{13,10}},
-        rotation=0,
         origin={-29,-60})));
 
   Sensors.MassFlowRate senMasFloCon(redeclare final package Medium = MediumCon)
@@ -265,7 +264,6 @@ protected
     "Temperature of water entering condensor" annotation (Placement(
         transformation(
         extent={{-10,-9},{10,9}},
-        rotation=0,
         origin={-50,11})));
 equation
   connect(u.y, watCooCon.u) annotation (Line(points={{-14.7,-60},{-8,-60},{-8,-74},
@@ -345,9 +343,7 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+          fillPattern=FillPattern.Solid)}),    Documentation(info="<html>
 <p>
 This model can be used to simulate a water-cooled DX cooling coil with single speed compressor.
 </p>

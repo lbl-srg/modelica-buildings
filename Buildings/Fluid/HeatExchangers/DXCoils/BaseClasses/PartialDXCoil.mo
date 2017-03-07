@@ -90,7 +90,7 @@ public
     quantity="MassFlowRate",
     unit="kg/s") if use_mCon_flow
     "Water mass flowrate for an a water-cooled condenser"
-    annotation (Placement(transformation(extent={{-120,-42},{-100,-22}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
@@ -207,8 +207,8 @@ equation
       points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-32},{-26,
-          -32},{-26,40},{-21,40}}, color={0,0,127}));
+  connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-30},{-24,
+          -30},{-24,40},{-21,40}}, color={0,0,127}));
   annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for

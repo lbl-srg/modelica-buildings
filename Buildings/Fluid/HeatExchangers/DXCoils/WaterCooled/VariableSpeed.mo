@@ -18,8 +18,6 @@ equation
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
             points={{-100,80},{-68,80},{-68,20}}, color={28,108,200})}),
-                                                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 This model can be used to simulate a water-cooled DX cooling coil with variable speed compressor.
