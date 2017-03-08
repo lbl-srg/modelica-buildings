@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClass
 record Stage "Generic data record for a stage of a DX coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
-  redeclare parameter  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues nomVal,
-  redeclare parameter  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.PerformanceCurve perCur);
+  redeclare parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues nomVal,
+  redeclare parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.PerformanceCurve perCur);
 
 annotation (defaultComponentName="per",
               preferredView="info",

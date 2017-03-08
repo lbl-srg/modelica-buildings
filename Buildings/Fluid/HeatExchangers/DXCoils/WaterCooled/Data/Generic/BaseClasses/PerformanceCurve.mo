@@ -4,24 +4,31 @@ record PerformanceCurve "Data record for a performance curve"
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve;
 //-----------------------------Performance curves-----------------------------//
 
-  parameter Real  capFunFFCon[:]
+  parameter Real capFunFFCon[:]
     "Polynomial coefficients for cooling capacity function of water flow fration at condensers"
     annotation (Dialog(group="Performance curves"));
 
-  parameter Real  EIRFunFFCon[:]
+  parameter Real EIRFunFFCon[:]
     "Polynomial coefficients for EIR function of water flow fration at condensers"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
 
-  parameter Real  ffConMin
+  parameter Real ffConMin
     "Minimum water flow fraction at condensers for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Real  ffConMax
+  parameter Real ffConMax
     "Maximum water flow fraction at condensers for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
   annotation (defaultComponentName="per", Documentation(info="<html>
-<p>This record declares the data used to specify performance curves for water-cooled DX coils. </p>
-<p>See the information section of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil\">Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a> for a description of the data. </p>
+<p>
+This record declares the data used to specify performance curves for water-cooled DX coils.
+</p>
+<p>
+See the information section of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil</a>
+for a description of the data.
+</p>
 </html>",
 revisions="<html>
 <ul>
