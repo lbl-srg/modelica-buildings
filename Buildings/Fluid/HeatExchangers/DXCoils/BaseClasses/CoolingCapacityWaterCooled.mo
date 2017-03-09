@@ -6,7 +6,7 @@ block CoolingCapacityWaterCooled
   final use_mCon_flow=true,
   redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
 
-protected
+
   output Real[nSta] ffCon(each min=0)
     "Water flow fraction: ratio of actual water flow rate by rated mass flow rate at the condenser";
 
@@ -17,7 +17,7 @@ protected
     "EIR modification factor as a function of water flow fraction at the condenser";
   output Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid water flow fraction at the condenser";
-
+protected
   Modelica.Blocks.Interfaces.RealInput mCon_flow_internal
     "Internal connector, needed as mCon_flow can be conditionally removed";
 initial algorithm
