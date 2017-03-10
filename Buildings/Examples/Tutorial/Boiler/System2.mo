@@ -207,7 +207,7 @@ at the top-level of the model by adding the lines
 </p>
 <pre>
   replaceable package MediumW =
-      Buildings.Media.ConstantPropertyLiquidWater \"Medium model\";
+      Buildings.Media.Water \"Medium model\";
 </pre>
 </li>
 <li>
