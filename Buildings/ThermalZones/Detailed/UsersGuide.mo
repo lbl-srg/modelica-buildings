@@ -657,7 +657,9 @@ a constant pressure during the whole simulation and does not use the pressure
 of the Modelica model.
 </li>
 </ul>
-A description of the model assumptions and the implemention and validation of this room model can be found in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
+A description of the model assumptions and the implemention and validation of
+this room model can be found in <a href=\"#ZuoEtAl2016\">Zuo et al. (2016)</a>
+and in <a href=\"#ZuoEtAl2014\">Zuo et al. (2014)</a>.
 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <h4>Conventions</h4>
 <p>
@@ -983,9 +985,20 @@ port <i>2</i> etc.
 </ol>
 <h4>References</h4>
 <p>
+<a name=\"ZuoEtAl2016\"/>
+Wangda Zuo, Michael Wetter, Wei Tian, Dan Li, Mingang Jin, Qingyan Chen.<br/>
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2016.pdf\">
+Coupling Indoor Airflow, HVAC, Control and Building Envelope Heat Transfer in the Modelica Buildings Library.
+</a>
+<br/>
+Journal of Building Performance Simulation, 9(4), pp. 366-381, 2016.<br/>
+<a href=\"http://dx.doi.org/10.1080/19401493.2015.1062557\">
+http://dx.doi.org/10.1080/19401493.2015.1062557</a>.
+</p>
+<p>
 <a name=\"ZuoEtAl2014\"/>
 Wangda Zuo, Michael Wetter, Dan Li, Mingang Jin, Wei Tian, Qingyan Chen.<br/>
-<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2014.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/ZuoEtAl2014.pdf\">
 Coupled Simulation of Indoor Environment, HVAC and Control System by Using Fast Fluid Dynamics and the Modelica Buildings Library. </a><br/>
 Proc. of the 2014 ASHRAE/IBPSA-USA Building Simulation Conference, Atlanta, GA, September 10-12, 2014.
 </p>
