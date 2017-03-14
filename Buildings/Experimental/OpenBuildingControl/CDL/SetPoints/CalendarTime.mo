@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 model CalendarTime
   "Computes the unix time stamp and calendar time from the simulation time"
-                   //fixme issues zeroTim==Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime.Custom, lots of hardcoded stuff
 
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
@@ -40,11 +39,11 @@ protected
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
-  constant Real timeStampsNewYear[12] = {
-    1262304000, 1293840000, 1325376000,
-    1356998400, 1388534400, 1420070400,
-    1451606400, 1483228800, 1514764800,
-    1546300800, 1577836800, 1609459200}
+  constant Modelica.SIunits.Time timeStampsNewYear[12] = {
+    1262304000.0, 1293840000.0, 1325376000.0,
+    1356998400.0, 1388534400.0, 1420070400.0,
+    1451606400.0, 1483228800.0, 1514764800.0,
+    1546300800.0, 1577836800.0, 1609459200.0}
     "Epoch time stamps for new years day 2010 to 2021";
   constant Boolean isLeapYear[11] = {
     false, false, true, false,
