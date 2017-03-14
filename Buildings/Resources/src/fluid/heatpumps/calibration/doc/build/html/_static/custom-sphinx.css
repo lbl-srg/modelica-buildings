@@ -1,0 +1,27 @@
+
+/* End stylesheet from main web site -------------------- */
+/* ------------------------------------------------------ */
+
+div.container{
+    width: 100%;
+}
+
+div.warning {
+    border: 1px solid #AFC1C4!important;
+}
+div.warning p.last{
+   color: #022e4d!important;
+}
+
+div.note {
+    border: 1px solid #AFC1C4!important;
+}
+.alert-warning{
+    background-image: none;
+    color: inherit;
+}
+
+.alert-info{
+    background-image: none;
+    color: inherit;
+}

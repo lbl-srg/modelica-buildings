@@ -95,7 +95,9 @@ First implementation.
       CounterFlow "Counter flow",
       CrossFlowUnmixed "Cross flow, both streams unmixed",
       CrossFlowCMinMixedCMaxUnmixed "Cross flow, CMin mixed,   CMax unmixed",
-      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed")
+      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed",
+      ConstantTemperaturePhaseChange "One side is experiencing constant
+      temperature phase change")
     "Enumeration for heat exchanger flow configuration"
   annotation(Documentation(info="<html>
 <p>
@@ -116,6 +118,7 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>
 <tr><td>CrossFlowCMinMixedCMaxUnmixed</td><td>Cross flow, CMin mixed,   CMax unmixed</td></tr>
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
+<tr><td>ConstantTemperaturePhaseChange</td><td>One side is experiencing constant temperature phase change</td></tr>
 </table>
 </html>"));
   type InputType = enumeration(
