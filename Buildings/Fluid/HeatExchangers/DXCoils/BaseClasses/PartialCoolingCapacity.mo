@@ -33,8 +33,6 @@ partial block PartialCoolingCapacity
   parameter Integer nSta(min=1)
     "Number of coil stages (not counting the off stage)"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow_small
-    "Small mass flow rate for regularization";
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
@@ -48,28 +46,32 @@ partial block PartialCoolingCapacity
     each max=0,
     each unit="W") "Total cooling capacity"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
   Modelica.Blocks.Interfaces.RealOutput EIR[nSta](each min=0)
     "Energy Input Ratio"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
 //------------------------------Cooling capacity---------------------------------//
-  output Real cap_T[nSta](each min=0, each nominal=1, each start=1)
+  Real cap_T[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as a function of temperature";
-  output Real cap_FF[nSta](each min=0, each nominal=1, each start=1)
+  Real cap_FF[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as a function of flow fraction";
 
 //----------------------------Energy Input Ratio---------------------------------//
-  output Real EIR_T[nSta](each min=0, each nominal=1, each start=1)
+  Real EIR_T[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as a function of temperature";
-  output Real EIR_FF[nSta](each min=0, each nominal=1, each start=1)
+  Real EIR_FF[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as a function of flow fraction";
-  output Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
+  Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
 
 protected
-  output Boolean checkBoundsTEva[nSta]
+  final parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4 * sta[1].nomVal.m_flow_nominal
+    "Small mass flow rate for regularization";
+
+  Boolean checkBoundsTEva[nSta]
     "Flag, used to check for out of bounds data";
-  output Boolean checkBoundsTCon[nSta]
+  Boolean checkBoundsTCon[nSta]
     "Flag, used to check for out of bounds data";
 
 initial algorithm

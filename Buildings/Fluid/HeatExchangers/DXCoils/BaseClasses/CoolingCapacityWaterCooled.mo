@@ -7,15 +7,15 @@ block CoolingCapacityWaterCooled
   redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
 
 protected
-  output Real[nSta] ffCon(each min=0)
+  Real[nSta] ffCon(each min=0)
     "Water flow fraction: ratio of actual water flow rate by rated mass flow rate at the condenser";
 
-  output Real cap_FFCon[nSta](each min=0, each nominal=1, each start=1)
+   Real cap_FFCon[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as a function of water flow fraction at the condenser";
 
-  output Real EIR_FFCon[nSta](each min=0, each nominal=1, each start=1)
+  Real EIR_FFCon[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as a function of water flow fraction at the condenser";
-  output Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1)
+  Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid water flow fraction at the condenser";
 
   Modelica.Blocks.Interfaces.RealInput mCon_flow_internal
