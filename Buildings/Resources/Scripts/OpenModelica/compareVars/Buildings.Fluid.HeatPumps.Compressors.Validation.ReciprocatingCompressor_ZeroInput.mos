@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "com.pDis",
+    "com.pSuc",
+    "com.P",
+    "heaFloEva.Q_flow",
+    "heaFloCon.Q_flow"
+  };

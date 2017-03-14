@@ -2,6 +2,7 @@ ConstantEffectiveness
 DryCoilCounterFlow
 DryCoilDiscretized
 DryEffectivenessNTU
+EvaporatorCondenser
 HeaterCooler_T
 HeaterCooler_u
 WetCoilCounterFlow

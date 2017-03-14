@@ -54,11 +54,13 @@ partial model EffectivenessNTUMassFlow
     "Water mass flow rate"
     annotation (Placement(transformation(extent={{-42,100},{-22,120}})));
   Modelica.Blocks.Sources.TimeTable mWatGai(
-    table=[0,1; 3600*0.1,1; 3600*0.2,0.01; 3600*0.3,0.01])
+    table=[0,1; 0.1,1; 0.2,0.01; 0.3,0.01],
+    timeScale=3600)
     "Gain for water mass flow rate"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Modelica.Blocks.Sources.TimeTable mAirGai(
-    table=[0,1; 3600*0.5,1; 3600*0.6,-1; 3600*0.7,0; 3600*1,0])
+    table=[0,1; 0.5,1; 0.6,-1; 0.7,0; 1,0],
+    timeScale=3600)
     "Gain for air mass flow rate"
     annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
   Modelica.Blocks.Math.Gain mAir_flow(k=-m2_flow_nominal) "Air mass flow rate"
