@@ -2,9 +2,9 @@ within Buildings.Experimental.OpenBuildingControl.CDL;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
-  // constant Integer nDayTypes = 3 "Integer with the number of day types";
-
 annotation (Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;

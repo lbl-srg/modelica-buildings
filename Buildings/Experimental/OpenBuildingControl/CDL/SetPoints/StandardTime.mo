@@ -1,19 +1,24 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.SetPoints;
 block StandardTime "Standard time"
-  extends Modelica.Blocks.Icons.Block;
+
   Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
-  annotation (Documentation(info="<html>
-
-</html>"));
 equation
   y = time;
+
   annotation (
     defaultComponentName="modTim",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
+        grid={1,1}), graphics={         Text(
+        extent={{-150,150},{150,110}},
+        textString="%name",
+        lineColor={0,0,255}),   Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Ellipse(extent={{-80,80},{80,-80}}, lineColor={160,160,164},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
@@ -35,17 +40,24 @@ equation
         Line(
           points={{0,0},{40,0}},
           thickness=0.5)}),
-    Documentation(info="<html>
-    <p>This component outputs the standard time, which starts at the value at 
-    which the simulation starts. For example, if a simulation starts 
-    at <i>t=-1</i>, then this block outputs first <i>t=-1</i>, 
-    and its output is advanced at the same rate as the simulation time. </p>
-    <p>The standard is used to allow the simulation to start from any time 
-    without having  to set the parameters for the clock, as would be 
-    necessary for the standard 
-    <a href=\"modelica://Modelica.Blocks.Sources.Clock\">Modelica.Blocks.Sources.Clock</a>. </p>
+Documentation(info="<html>
+<p>Block that outputs the standard time.
+</p>
+<h4>Implementation</h4>
+<p>
+This block outputs the time of the model, or in the case of a building
+automation system, the standard time.
+Daylight saving time is not taken into account.
+If a simulation starts
+at <i>t=-1</i>, then this block outputs first <i>t=-1</i>,
+and its output is advanced at the same rate as the simulation time.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 14, 2017, by Michael Wetter:<br/>
+Revised implemenation.
+</li>
 <li>
 February 23, 2017, by Milica Grahovac:<br/>
 First CDL implementation.

@@ -2,10 +2,10 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Types;
 type Day = enumeration(
     WorkingDay "Working day, such as Monday through Friday",
     NonWorkingDay "Non-working day, such as week-ends, but not holidays",
-    Holiday "Holiday") "Enumeration for the day types"
-                                 annotation (Documentation(info="<html>
+    Holiday "Holiday") "Enumeration for the day types" annotation (
+    Documentation(info =     "<html>
 <p>
-Enumeration for the type of days that are used in the demand response models.
+Enumeration for the type of days.
 The possible values are
 </p>
 <ol>

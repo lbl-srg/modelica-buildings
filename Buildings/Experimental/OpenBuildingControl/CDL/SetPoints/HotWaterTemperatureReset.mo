@@ -12,25 +12,29 @@ block HotWaterTemperatureReset
   parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8 "Offset for heating curve";
+
   Interfaces.RealInput TSetZon(final quantity="ThermodynamicTemperature", final unit = "K", displayUnit = "degC", min=0)
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
     final unit = "K", displayUnit = "degC", min=0) "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
   Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
     final unit = "K", displayUnit = "degC", min=0) "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
   Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
     final unit = "K", displayUnit = "degC", min=0) "Setpoint for return temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
+  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
+    "Effective outside temperature for heat transfer at nominal conditions (takes into account zone heat gains)";
+
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
   Modelica.SIunits.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account zone heat gains)";
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
-    "Effective outside temperature for heat transfer at nominal conditions (takes into account zone heat gains)";
 
 equation
   TOutOffSet = TOut + dTOutHeaBal;

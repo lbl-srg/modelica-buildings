@@ -13,20 +13,24 @@ type ZeroTime = enumeration(
     NY2018 "New year 2018, 00:00:00 local time",
     NY2019 "New year 2019, 00:00:00 local time",
     NY2020 "New year 2020, 00:00:00 local time")
-  "Use this to set the date corresponding to time = 0"
+  "Enumerationset the date corresponding to time = 0"
   annotation (Documentation(info="<html>
 <p>
 Type for choosing how to set the reference time in
-<a href=\"modelica://Buildings.Utilities.Time.CalendarTime\">
-Buildings.Utilities.Time.CalendarTime</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CalendarTime\">
+Buildings.Experimental.OpenBuildingControl.CDL.SetPoints.CalendarTime</a>.
 </p>
 <p>
-For example, <code>Buildings.Utilities.Time.Types.TimeReference.NY2016</code>
-means that if the Modelica built-in variable <code>time=0</code>, it is
+For example, <code>CDL.Types.TimeReference.NY2016</code>
+means that if model time is <i>0</i>, it is
 January 1, 2016, 0:00:00 local time.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 14, 2017, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 February 23, 2017, by Milica Grahovac:<br/>
 Initial CDL implementation.
