@@ -45,7 +45,7 @@ equation
   connect(m_flow_internal, m_flow_in);
 
   // Energy balance (no storage)
-  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) else Medium.h_default;
   port_b.h_outflow = inStream(port_a.h_outflow);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
@@ -84,6 +84,12 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 2, 2017, by Filip Jorissen:<br/>
+Implemented simplification when <code>allowFlowReversal=false</code>.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/673\">#673</a>.
+</li>
 <li>
 March 20, 2016, by Michael Wetter:<br/>
 Corrected documentation for <code>dp_in</code>.
