@@ -1,5 +1,5 @@
-within Buildings.Media.Refrigerants.R410A.Validation;
-model dSpecificVolumeVap_pT
+within Buildings.Media.Refrigerants.Validation;
+model R410A_dSpecificVolumeVap_pT
   "Validation of the derivatives of the specific volume with regards to p and T"
   extends Modelica.Icons.Example;
 
@@ -78,7 +78,7 @@ equation
   dvdT_num = dv_T / dT;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Media/Refrigerants/R410A/Validation/dSpecificVolumeVap_pT.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Media/Refrigerants/Validation/R410A_dSpecificVolumeVap_pT.mos"
         "Simulate and plot"),
     experiment(
       StopTime=100),
@@ -99,4 +99,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end dSpecificVolumeVap_pT;
+end R410A_dSpecificVolumeVap_pT;

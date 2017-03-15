@@ -1,6 +1,6 @@
-within Buildings.Media.Refrigerants.R410A;
-package Validation "Collection of models that validate the implementation of
-  refrigerant R410A"
+within Buildings.Media.Refrigerants;
+package Validation "Collection of models that validate the implementation of the
+  refrigerants"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
