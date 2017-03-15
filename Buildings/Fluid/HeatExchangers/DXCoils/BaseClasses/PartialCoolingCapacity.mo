@@ -66,7 +66,7 @@ partial block PartialCoolingCapacity
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
 
 protected
-  final parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4 * sta[1].nomVal.m_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate m_flow_small = 1E-4 * sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization";
 
   Boolean checkBoundsTEva[nSta]

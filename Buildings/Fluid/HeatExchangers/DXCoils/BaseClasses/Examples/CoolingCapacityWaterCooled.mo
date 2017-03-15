@@ -5,7 +5,6 @@ model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
   package Medium = Buildings.Media.Air;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
     cooCap(sta={sta},
-    m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
     nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Modelica.Blocks.Sources.Ramp m_flow(

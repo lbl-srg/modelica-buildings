@@ -5,7 +5,6 @@ model CoolingCapacityAirCooled "Test model for CoolingCapacityAirCooled"
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
     cooCap(
     sta={sta},
-    m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
     nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Ramp m_flow(
