@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Functions;
-package Solver_Tsat_ph_temp "Helper solver for Tsat_ph"
+package Solver_TSat_ph "Helper solver for Tsat_ph"
   extends Modelica.Media.Common.OneNonLinearEquation;
 
   function h_pT
@@ -40,4 +40,4 @@ package Solver_Tsat_ph_temp "Helper solver for Tsat_ph"
   algorithm
     y := h_pT(x, data=f_nonlinear_data);
   end f_nonlinear;
-end Solver_Tsat_ph_temp;
+end Solver_TSat_ph;

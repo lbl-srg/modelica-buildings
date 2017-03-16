@@ -9,7 +9,7 @@ function TSat_ph
     "Temperature of the fluid at saturation conditions";
 
 protected
-  Buildings.Utilities.Psychrometrics.Functions.Solver_Tsat_ph_temp.f_nonlinear_Data
+  Buildings.Utilities.Psychrometrics.Functions.Solver_TSat_ph.f_nonlinear_Data
     data(p=p);
   Modelica.SIunits.Temperature x_min;
   Modelica.SIunits.Temperature x_max;
@@ -17,7 +17,7 @@ protected
 algorithm
   x_min := Modelica.SIunits.Conversions.from_degF(-40);
   x_max := Modelica.SIunits.Conversions.from_degF(180);
-  T :=Buildings.Utilities.Psychrometrics.Functions.Solver_Tsat_ph_temp.solve(
+  T :=Buildings.Utilities.Psychrometrics.Functions.Solver_TSat_ph.solve(
     h,
     x_min,
     x_max,
