@@ -1,0 +1,17 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtu", method="dassl", tolerance=1e-006, resultFile="WetCoilEffNtu");
+createPlot(id=1,
+  position={75, 70, 584, 420},
+  y={"QTotWat", "QTotAir", "wetEffNtu.dryWetCalcs.QTot"},
+  range={0.0, 1.0, -60000.0, 60000.0},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffNtu.mat",
+  colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2,
+  position={95, 90, 584, 420},
+  y={"wetEffNtu.dryWetCalcs.TWatOutPar", "wetEffNtu.sta_b1.T"},
+  range={0.0, 1.0, 7.800000000000001, 9.8},
+  erase=false,
+  grid=true,
+  filename="WetCoilEffNtu.mat",
+  colors={{28,108,200}, {238,46,47}});

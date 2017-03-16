@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "QTotWat",
+    "QTotAir",
+    "wetEffNtu.dryWetCalcs.QTot",
+    "wetEffNtu.dryWetCalcs.TWatOutPar",
+    "wetEffNtu.sta_b1.T"
+  };

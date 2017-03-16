@@ -1,0 +1,18 @@
+last-generated=2017-03-16
+statistics-initialization=
+{
+  "numerical Jacobians": "4", 
+  "nonlinear": "1, 1, 1, 0, 1, 2, 1, 1, 1, 0, 1, 2"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+QTotAir=[-50424.72265625, -50424.72265625]
+wetEffNtu.dryWetCalcs.QTot=[50424.72265625, 50424.72265625]
+QTotWat=[50424.72265625, 50424.72265625]
+time=[0., 1.]
+wetEffNtu.sta_b1.T=[281.89385986328125, 281.89385986328125]
+wetEffNtu.dryWetCalcs.TWatOutPar=[281.89385986328125, 281.89385986328125]

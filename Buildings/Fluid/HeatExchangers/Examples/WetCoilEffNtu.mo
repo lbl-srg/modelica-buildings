@@ -138,5 +138,9 @@ equation
   connect(wetEffNtu.port_b1, sinWat.ports[1]) annotation (Line(points=
        {{8,-20.4},{40,-20.4},{40,20},{50,20}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{80,40}})));
+          extent={{-100,-100},{80,40}})),
+          experiment(StopTime=1),
+          __Dymola_Commands(
+            file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtu.mos"
+            "Simulate and plot"));
 end WetCoilEffNtu;
