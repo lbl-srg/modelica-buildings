@@ -177,9 +177,8 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Heat transferred 'air' to 'water' for a 100% wet coil";
   Modelica.SIunits.HeatFlowRate QSenWet
     "Heat transferred 'water' to 'air' for a 100% wet coil";
-  Modelica.SIunits.Temperature TWatOutWet
+  Medium1.Temperature TWatOutWet(start=TWatOutNominal)
     "Water outlet temperature for a 100% wet coil";
-                                          //(start=TWatOutNominal)
   Medium2.Temperature TAirOutWet
     "Water outlet temperature for a 100% wet coil";
   Modelica.SIunits.MassFlowRate masFloConWet
@@ -294,7 +293,7 @@ equation
     TCon = TConWet;
   else
     dryFra = 0.5; // placeholder
-    if noEvent(abs(QTotWet) > abs(QSenDry)) then
+    if noEvent(QTotWet > 0 and QTotWet > (-QSenDry)) then
       QTot = QTotWet;
       QSen = QSenWet;
       masFloCon = -masFloConWet;

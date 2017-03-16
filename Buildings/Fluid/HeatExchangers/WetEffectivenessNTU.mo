@@ -10,7 +10,7 @@ model WetEffectivenessNTU
   // PARAMETERS
   parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
@@ -32,6 +32,14 @@ model WetEffectivenessNTU
     annotation (Dialog(tab="Heat transfer"));
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration cfg=
     Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow;
+  // Dynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Type of mass balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // COMPONENTS
   // Q_flow_nominal below is the "gain" for heat flow. By setting the basis
@@ -42,8 +50,8 @@ model WetEffectivenessNTU
     Q_flow_nominal = 1,
     dp_nominal = dp1_nominal,
     m_flow_nominal = m1_flow_nominal,
-    energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics = energyDynamics,
+    massDynamics = massDynamics)
     "Heater/cooler for water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Fluid.HeatExchangers.HeaterCoolerHumidifier_u heaCooHum_u(
@@ -53,8 +61,8 @@ model WetEffectivenessNTU
     Q_flow_nominal = 1,
     dp_nominal = dp2_nominal,
     m_flow_nominal = m2_flow_nominal,
-    energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics = energyDynamics,
+    massDynamics = massDynamics)
     "Heater/cooler + (de-)humidifier for air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
