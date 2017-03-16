@@ -1,3 +1,5 @@
+DryWetCalcs
+DryWetCalcsSweep
 EpsilonNTUZ
 HACoilInside
 HANaturalCylinder
@@ -5,3 +7,5 @@ HexElementLatent
 HexElementSensible
 MassExchange
 RayleighNumber
+TestDryCoilFun
+TestWetCoilFun

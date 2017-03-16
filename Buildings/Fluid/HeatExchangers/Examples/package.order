@@ -13,3 +13,6 @@ WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
 WetCoilDiscretizedPControl
 BaseClasses
+AirCoolerHumidifier_u
+WetCoilEffNtu
+HeaterCoolerHumidifier_u

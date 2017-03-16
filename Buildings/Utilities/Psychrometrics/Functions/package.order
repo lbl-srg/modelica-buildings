@@ -1,4 +1,5 @@
 Internal
+Solver_Tsat_ph
 TDewPoi_pW
 TDewPoi_pW_amb
 X_pSatpphi
@@ -11,5 +12,6 @@ phi_pTX
 saturationPressure
 saturationPressureLiquid
 sublimationPressureIce
+TSat_ph
 Examples
 BaseClasses
