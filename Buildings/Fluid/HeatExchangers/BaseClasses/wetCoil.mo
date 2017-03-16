@@ -116,7 +116,8 @@ algorithm
      (abs(TAirIn - TWatIn) < 1e-4) then
     QTot := 0;
     QSen := 0;
-    TWatOut := TWatIn;
+    // stop iteration immediately by returning the guess value
+    TWatOut := TWatOutGuess;
     TAirOut := TAirIn;
     TSurAirIn := (TWatIn + TAirIn) / 2;
     masFloCon := 0;
@@ -173,11 +174,6 @@ algorithm
       "Braun 1988, eq 4.1.22";
     masFloCon := masFloAir * (wAirIn - wAirOut);
     QSen := -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
-    /* // need hx, the enthalpy equal to wAirOut and TAirIn at pAir
-    hX := Buildings.Media.Air.specificEnthalpy_pTX(
-      p = pAir, T = TAirIn, X = {wAirOut, 1 - wAirOut});
-    QSen := masFloAir * (hX - hAirOut);
-    */
     QTot := Q;
     TCon := TSurEff;
     TWatOut := (QTot / (masFloWat * cpWat)) + TWatIn;
