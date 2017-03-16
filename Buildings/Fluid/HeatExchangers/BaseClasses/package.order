@@ -32,4 +32,6 @@ lmtd
 ntu_epsilonZ
 prandtlNumberWater
 wetCoil
+wetCoilInitial
 Examples
+DryWetCalcs2

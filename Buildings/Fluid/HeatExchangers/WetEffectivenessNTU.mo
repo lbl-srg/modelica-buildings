@@ -14,6 +14,10 @@ model WetEffectivenessNTU
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TWatOutNominal=
+    Modelica.SIunits.Conversions.from_degF(42)
+    "Guess for the water outlet temperature which is an iteration variable"
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
     annotation (Dialog(tab="Heat transfer"));
@@ -64,9 +68,10 @@ model WetEffectivenessNTU
     r_nominal = r_nominal)
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs2 dryWetCalcs(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
+    TWatOutNominal = TWatOutNominal,
     cfg=cfg)
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
   Modelica.Blocks.Sources.RealExpression cp_a1Exp(

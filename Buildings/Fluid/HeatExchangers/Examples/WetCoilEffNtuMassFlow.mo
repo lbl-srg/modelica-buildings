@@ -23,7 +23,8 @@ model WetCoilEffNtuMassFlow
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    show_T=true)
+    show_T=true,
+    TWatOutNominal=T_a1_nominal)
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,
