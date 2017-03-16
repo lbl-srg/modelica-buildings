@@ -1,3 +1,4 @@
+AirCoolerHumidifier_u
 AirHeater_T
 AirHeater_u
 DryCoilCounterFlowMassFlow
@@ -7,12 +8,11 @@ DryCoilDiscretizedPControl
 DryEffectivenessNTU
 DryEffectivenessNTUMassFlow
 DryEffectivenessNTUPControl
+HeaterCoolerHumidifier_u
 WaterHeater_T
 WaterHeater_u
 WetCoilCounterFlowMassFlow
 WetCoilCounterFlowPControl
 WetCoilDiscretizedPControl
-BaseClasses
-AirCoolerHumidifier_u
 WetCoilEffNtu
-HeaterCoolerHumidifier_u
+BaseClasses
