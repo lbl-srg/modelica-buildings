@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Functions;
-package Solver_Tsat_ph "Helper solver for Tsat_ph"
+package Solver_Tsat_ph_temp "Helper solver for Tsat_ph"
   extends Modelica.Media.Common.OneNonLinearEquation;
 
   function h_pT
@@ -12,7 +12,7 @@ package Solver_Tsat_ph "Helper solver for Tsat_ph"
     output Modelica.SIunits.SpecificEnthalpy h
       "The specific enthalpy of the fluid";
 
-protected
+  protected
       constant Integer watIdx = 1
         "Index of water in Buildings.Media.Air";
       constant Integer othIdx = 2
@@ -40,4 +40,4 @@ protected
   algorithm
     y := h_pT(x, data=f_nonlinear_data);
   end f_nonlinear;
-end Solver_Tsat_ph;
+end Solver_Tsat_ph_temp;
