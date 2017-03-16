@@ -352,7 +352,7 @@ equation
   elseif noEvent(allWet or dryFra <= 0) then
     dryFraFin = 0;
     QTot = QTotWet;
-    QSen = QSenWetPar;
+    QSen = QSenWet;
     /*
     -(QTotWet - masFloConWet * Medium2.enthalpyOfVaporization(TConWet));
     */
