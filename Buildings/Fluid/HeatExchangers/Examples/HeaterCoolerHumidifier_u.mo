@@ -1,3 +1,4 @@
+within Buildings.Fluid.HeatExchangers.Examples;
 model HeaterCoolerHumidifier_u
   "Example of the HeaterCoolerHumidifier_u model"
   extends Modelica.Icons.Example;
@@ -117,4 +118,3 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end HeaterCoolerHumidifier_u;
-
