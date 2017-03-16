@@ -8,4 +8,5 @@ HexElementSensible
 MassExchange
 RayleighNumber
 TestDryCoilFun
+TestEffCalc
 TestWetCoilFun
