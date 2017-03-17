@@ -17,7 +17,6 @@ protected
     "EIR modification factor as a function of water flow fraction at the condenser";
   Real corFacCon[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid water flow fraction, and attains zero below the valid water flow fraction at the condenser";
-
   Modelica.Blocks.Interfaces.RealInput mCon_flow_internal
     "Internal connector, needed as mCon_flow can be conditionally removed";
 initial algorithm

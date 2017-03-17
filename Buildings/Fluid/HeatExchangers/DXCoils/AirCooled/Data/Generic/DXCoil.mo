@@ -49,7 +49,7 @@ Each element of the array <code>per</code> has the following data.
      SHR_nominal    - Sensible heat ratio at nominal conditions.
 
      m_flow_nominal - Evaporator air mass flow rate at nominal conditions.
-     TEvaIn_nominal    - Evaporator air inlet temperature at nominal conditions.
+     TEvaIn_nominal    - Evaporator air inlet wet-bulb temperature at nominal conditions.
      TConIn_nominal    - Condenser air inlet temperature at nominal conditions
                          (for evaporative coils, use wet bulb, otherwise use dry bulb
                          temperature).

@@ -15,7 +15,7 @@ record NominalValues "Data record of nominal values"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.Temperature TEvaIn_nominal=273.15+19.4
-    "Evaporator entering air dry-bulb temperature at rating condition"
+    "Evaporator entering air wet-bulb temperature at rating condition"
       annotation(Dialog(tab="General",group="Nominal condition"));
 
   parameter Modelica.SIunits.Temperature TConIn_nominal=308.15
