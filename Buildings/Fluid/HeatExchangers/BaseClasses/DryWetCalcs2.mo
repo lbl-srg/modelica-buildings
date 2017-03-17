@@ -188,7 +188,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Heat transferred 'air' to 'water' for a 100% wet coil";
   Modelica.SIunits.HeatFlowRate QSenWet
     "Heat transferred 'water' to 'air' for a 100% wet coil";
-  Medium1.Temperature TWatOutWet
+  Medium1.Temperature TWatOutWet(start=TWatOutNominal)
     "Water outlet temperature for a 100% wet coil";
   Medium2.Temperature TAirOutWet
     "Water outlet temperature for a 100% wet coil";
