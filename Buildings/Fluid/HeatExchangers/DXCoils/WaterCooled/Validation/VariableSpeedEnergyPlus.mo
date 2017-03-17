@@ -439,7 +439,7 @@ are equal to the state variables of the model.
 The EnergyPlus results were generated using the example file <code>ZoneVSWSHP_wDOAS.idf</code>
 from EnergyPlus 7.1,
 with a nominal cooling capacity of <i>6758</i> Watts instead of autosizing and an internal gain from
-electric equipment as <i>9400</i> Watts.This allowed to have a speed ratio of one.
+electric equipment as <i>9400</i> Watts. This allowed to have a speed ratio of one.
 </p>
 <p>
 Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
