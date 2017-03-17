@@ -3,8 +3,8 @@ model VariableSpeedEnergyPlusPartLoad
   "Validation model for variable speed DX coil under part load condition"
   extends Modelica.Icons.Example;
 
-  package MediumAir = Buildings.Media.Air;
-  package MediumWater = Buildings.Media.Water;
+  package MediumAir = Buildings.Media.Air "Medium model for air";
+  package MediumWater = Buildings.Media.Water "Medium model for water";
 
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
@@ -453,6 +453,12 @@ whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus value
 are corrected by dividing them by
 <code>1+X</code>.
 </p>
-</html>",
-revisions=""));
+</html>", revisions="<html>
+<ul>
+<li>
+February 16, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end VariableSpeedEnergyPlusPartLoad;

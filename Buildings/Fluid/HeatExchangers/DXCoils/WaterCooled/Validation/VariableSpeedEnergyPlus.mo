@@ -447,6 +447,12 @@ whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus value
 are corrected by dividing them by
 <code>1+X</code>.
 </p>
-</html>",
-revisions=""));
+</html>", revisions="<html>
+<ul>
+<li>
+February 16, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end VariableSpeedEnergyPlus;
