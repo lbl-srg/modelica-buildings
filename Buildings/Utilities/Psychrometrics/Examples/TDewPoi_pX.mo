@@ -20,6 +20,11 @@ model TDewPoi_pX
 equation
   w = min(wMax * time, wMax);
   TDewPoi = TDewPoi_pX.TDewPoi;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    experiment(StopTime=1.0),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TDewPoi_pX.mos"
+      "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TDewPoi_pX;
