@@ -1,6 +1,7 @@
 CoilHeader
 CoilRegister
 DryWetCalcs
+DryWetCalcs2
 DuctManifoldFixedResistance
 DuctManifoldFlowDistributor
 DuctManifoldNoResistance
@@ -34,4 +35,3 @@ prandtlNumberWater
 wetCoil
 wetCoilInitial
 Examples
-DryWetCalcs2
