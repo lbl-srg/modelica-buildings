@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.HeaterCoolerHumidifier_u", method="dassl", tolerance=1e-006, resultFile="HeaterCoolerHumidifier_u");
+createPlot(id=1, position={55, 50, 584, 420}, y={"TAirOutSenExp", "TAirOutAtUnit"}, range={0.0, 1.0, 24.400000000000002, 27.000000000000004}, grid=true, filename="HeaterCoolerHumidifier_u.mat", colors={{28,108,200}, {238,46,47}});

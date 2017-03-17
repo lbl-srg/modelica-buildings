@@ -115,6 +115,10 @@ equation
           -20},{-22,-20},{-22,-6},{-12,-6}}, color={0,0,127}));
   connect(QSenInp.y, heaCooHum.u1) annotation (Line(points={{-26.6,
           -34},{-18,-34},{-18,-9},{-12,-9}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    experiment(StopTime=1.0),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerHumidifier_u.mos"
+        "Simulate and plot"),
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end HeaterCoolerHumidifier_u;

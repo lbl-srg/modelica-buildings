@@ -1,0 +1,15 @@
+last-generated=2017-03-17
+statistics-initialization=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+TAirOutSenExp=[297.77716064453125, 297.77716064453125]
+TAirOutAtUnit=[300.089599609375, 300.089599609375]
+time=[0., 1.]
