@@ -12,7 +12,10 @@ model DryWetCalcsSweep
 equation
   R = time / 10;
   annotation (
-    Experiment(StopTime=20),
+    experiment(StopTime=20),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/DryWetCalcsSweep.mos"
+      "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end DryWetCalcsSweep;
