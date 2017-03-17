@@ -285,6 +285,25 @@ equation
     QSen = QSenDry;
     masFloCon = 0;
     TCon = TConWet;
+  else
+    dryFra = 1 - (TAirInDewPoi - TDewPoiA) / max(TDewPoiB - TDewPoiA, 0.01);
+    QTot = Buildings.Utilities.Math.Functions.spliceFunction(
+      pos = (-QSenDry),
+      neg = QTotWet,
+      x = dryFra,
+      deltax = 1);
+    QSen = Buildings.Utilities.Math.Functions.spliceFunction(
+      pos = QSenDry,
+      neg = QSenWet,
+      x = dryFra,
+      deltax = 1);
+    masFloCon = Buildings.Utilities.Math.Functions.spliceFunction(
+      pos = 0,
+      neg = -masFloConWet,
+      x = dryFra,
+      deltax = 1);
+    TCon = TConWet;
+      /*
   elseif noEvent(TAirInDewPoi >= TDewPoiB) then
     dryFra = 0;
     QTot = QTotWet;
@@ -304,6 +323,8 @@ equation
       masFloCon = 0;
       TCon = TConWet;
     end if;
+    end if;
+    */
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},
             {140,120}}), graphics={
