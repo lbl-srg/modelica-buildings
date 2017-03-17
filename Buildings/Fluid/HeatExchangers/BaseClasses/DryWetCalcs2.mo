@@ -175,14 +175,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Water outlet temperature for a 100% dry coil";
   Medium2.Temperature TSurAirOutDry
     "Air-side coil temperature at outlet for a 100% dry coil";
-  Real NtuWat
-    "";
-  Real NtuAir
-    "";
-  Real NtuDry
-    "";
-  Real CSta
-    "";
   // - 100% wet coil
   Modelica.SIunits.HeatFlowRate QTotWet
     "Heat transferred 'air' to 'water' for a 100% wet coil";
@@ -228,8 +220,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
 
 equation
   TAirInDewPoi = TDewPoi_pX.TDewPoi;
-  (QSenDry, TWatOutDry, TAirOutDry, TSurAirOutDry,
-    NtuWat, NtuAir, NtuDry, CSta) =
+  (QSenDry, TWatOutDry, TAirOutDry, TSurAirOutDry) =
     Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
       UAWat = UAWat,
       masFloWat = masFloWat,
