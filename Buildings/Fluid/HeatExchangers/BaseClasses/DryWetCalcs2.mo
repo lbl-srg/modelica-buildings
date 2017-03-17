@@ -223,14 +223,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Mass flow of condensate in a wet/dry coil. A positive number for flow.";
   Modelica.SIunits.Temperature TConPar
     "Temperature of condensate in a wet/dry coil";
-  Boolean cooling
-    "True indicates we are cooling";
-  Boolean heating
-    "True indicates we are heating (or there is no temperature driving force)";
-  Boolean allDry
-    "True indicates we are all dry";
-  Boolean allWet
-    "True indicates we are all wet";
   constant Real DUMMY = 0
     "Used to 'switch off' the dry / wet coil calculation functions";
 
@@ -251,8 +243,6 @@ equation
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
-  cooling = TWatIn < TAirIn;
-  heating = TWatIn >= TAirIn;
   // We are in the all-dry regime if:
   // - we are not cooling (i.e., we are heating (TWatIn >= TAirIn))
   // - the water inlet temperature is greater than the inlet air dew point
@@ -263,22 +253,24 @@ equation
   //   below the dew point, then we would not condense
   // - the inlet air dew point temperature is <= TDewPoiA, since TDewPoiA
   //   is the trigger point to start condensation
-  allDry = heating
-    or TWatIn > TAirInDewPoi
-    or TSurAirOutDry > TAirInDewPoi
-    or TAirInDewPoi <= TDewPoiA;
   // Note: by setting UA values to zero below, we "short circuit"
   // the following functions so, although we have the cost of calling
   // the function, there should be no iteration and no calculation.
   (QTotWet, QSenWet, TWatOutWet, TAirOutWet, TSurAirInWet,
     masFloConWet, TConWet) =
     Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
-      UAWat = if noEvent(allDry) then DUMMY else UAWat,
+      UAWat = if noEvent(TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA) then DUMMY else UAWat,
       masFloWat = masFloWat,
       cpWat = cpWat,
       TWatIn = TWatIn,
       TWatOutGuess = TWatOutWet,
-      UAAir = if noEvent(allDry) then DUMMY else UAAir,
+      UAAir = if noEvent(TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA) then DUMMY else UAAir,
       masFloAir = masFloAir,
       cpAir = cpAir,
       TAirIn = TAirIn,
@@ -293,66 +285,95 @@ equation
   // - the incoming air dew point is greater than or equal to the trigger
   //   dew point at dryFra = 0
   // - and we are not heating
-  allWet = TAirInDewPoi >= TDewPoiB and cooling;
   // The use of TAirInDewPoi below as the "then clause" is so the equation
   // below the two function calls "(TAirX - TAirInDewPoi) ..." will
   // gracefully degrade and still be true when we short circuit the following
   // code where we solve for the partially wet/ partially dry region.
   (QSenDryPar, TWatOutPar, TAirX, TSurAirOutPar) =
     Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
-      UAWat = if noEvent(allWet or allDry or heating)
+      UAWat = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
               then DUMMY
               else UAWat * dryFra,
       masFloWat = masFloWat,
       cpWat = cpWat,
-      TWatIn = if noEvent(allWet or allDry or heating)
+      TWatIn = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
                then TAirInDewPoi
                else TWatX,
-      UAAir = if noEvent(allWet or allDry or heating)
+      UAAir = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
               then DUMMY
               else UAAir * dryFra,
       masFloAir = masFloAir,
       cpAir = cpAir,
-      TAirIn = if noEvent(allWet or allDry or heating)
+      TAirIn = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
                then TAirInDewPoi
                else TAirIn,
       cfg = cfg);
   (QTotWetPar, QSenWetPar, TWatX, TAirOutPar, TSurAirInWetPar,
     masFloConPar, TConPar) =
     Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
-      UAWat = if noEvent(allWet or allDry or heating)
+      UAWat = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
               then DUMMY
               else UAWat * (1 - dryFra),
       masFloWat = masFloWat,
       cpWat = cpWat,
-      TWatIn = if noEvent(allWet or allDry or heating)
+      TWatIn = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
                then TAirInDewPoi
                else TWatIn,
       TWatOutGuess = TWatX,
-      UAAir = if noEvent(allWet or allDry or heating)
+      UAAir = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
               then DUMMY
               else UAAir * (1 - dryFra),
       masFloAir = masFloAir,
       cpAir = cpAir,
-      TAirIn = if noEvent(allWet or allDry or heating)
+      TAirIn = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
                then TAirInDewPoi
                else TAirX,
       pAir = pAir,
       wAirIn = wAirIn,
-      hAirIn = if noEvent(allWet or allDry or heating)
+      hAirIn = if noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or TWatIn >= TAirIn)
                then DUMMY
                else
                  Medium2.specificEnthalpy_pTX(
                    p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
       cfg = cfg);
   (TAirX - TAirInDewPoi) * UAAir = (TAirInDewPoi - TWatX) * UAWat;
-  if noEvent(allDry or dryFra >= 1) then
+  if noEvent(TWatIn >= TAirIn
+    or TWatIn > TAirInDewPoi
+    or TSurAirOutDry > TAirInDewPoi
+    or TAirInDewPoi <= TDewPoiA or dryFra >= 1) then
     dryFraFin = 1;
     QTot = -QSenDry;
     QSen = QSenDry;
     masFloCon = 0;
     TCon = TConWet;
-  elseif noEvent(allWet or dryFra <= 0) then
+  elseif noEvent((TAirInDewPoi >= TDewPoiB and TWatIn < TAirIn) or dryFra <= 0) then
     dryFraFin = 0;
     QTot = QTotWet;
     QSen = QSenWet;
