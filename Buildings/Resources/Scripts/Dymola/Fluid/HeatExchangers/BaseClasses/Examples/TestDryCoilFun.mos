@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.TestDryCoilFun", method="dassl", tolerance=1e-006, resultFile="TestDryCoilFun");
+createPlot(id=1, position={75, 70, 584, 420}, y={"Q"}, range={0.0, 1.0, -49000.0, -39000.0}, grid=true, filename="TestDryCoilFun.mat", colors={{28,108,200}});
+createPlot(id=2, position={483, 215, 584, 413}, y={"TWatOut", "TAirOut", "TSurAirOut"}, range={0.0, 1.0, 7.800000000000001, 10.600000000000001}, grid=true, filename="TestDryCoilFun.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}});

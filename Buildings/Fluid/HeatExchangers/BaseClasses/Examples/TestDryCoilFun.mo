@@ -62,6 +62,11 @@ equation
       cpAir = cpAir,
       TAirIn = TAirIn,
       cfg=cfg);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    experiment(StopTime = 1.0),
+    __Dymola_Commands__Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/TestDryCoilFun.mos"
+      "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestDryCoilFun;

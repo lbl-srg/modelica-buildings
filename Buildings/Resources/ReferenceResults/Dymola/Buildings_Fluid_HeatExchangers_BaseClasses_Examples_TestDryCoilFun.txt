@@ -1,0 +1,12 @@
+last-generated=2017-03-17
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+Q=[-44036.86328125, -44036.86328125]
+time=[0., 1.]
+TSurAirOut=[281.1153564453125, 281.1153564453125]
+TWatOut=[281.479827880859375, 281.479827880859375]
+TAirOut=[283.525146484375, 283.525146484375]
