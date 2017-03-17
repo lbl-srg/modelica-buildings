@@ -11,6 +11,8 @@ model DryWetCalcsSweep
     "Parameter to adjust wAirIn with time";
 equation
   R = time / 10;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    Experiment(StopTime=20),
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end DryWetCalcsSweep;

@@ -116,8 +116,7 @@ algorithm
      (abs(TAirIn - TWatIn) < 1e-4) then
     QTot := 0;
     QSen := 0;
-    // stop iteration immediately by returning the guess value
-    TWatOut := TWatOutGuess;
+    TWatOut := TWatIn;
     TAirOut := TAirIn;
     TSurAirIn := (TWatIn + TAirIn) / 2;
     masFloCon := 0;
