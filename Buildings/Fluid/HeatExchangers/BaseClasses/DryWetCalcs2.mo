@@ -354,9 +354,6 @@ equation
     dryFraFin = 0;
     QTot = QTotWet;
     QSen = QSenWet;
-    /*
-    -(QTotWet - masFloConWet * Medium2.enthalpyOfVaporization(TConWet));
-    */
     masFloCon = -masFloConWet;
     TCon = TConWet;
   else
@@ -365,10 +362,6 @@ equation
     // Note: QSenDryPar is negative, thus the expression below adds the heat
     // transfers to estimate a sensible heat transfer amount
     QSen = QSenDryPar + QSenWetPar;
-    /*
-    QSenDryPar
-    - (QTotWetPar - masFloConPar * Medium2.enthalpyOfVaporization(TConWet));
-    */
     masFloCon = -masFloConPar;
     TCon = TConPar;
   end if;
