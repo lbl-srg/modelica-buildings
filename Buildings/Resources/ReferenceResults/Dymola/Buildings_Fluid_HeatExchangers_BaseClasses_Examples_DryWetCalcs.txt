@@ -1,0 +1,24 @@
+last-generated=2017-03-17
+statistics-initialization=
+{
+  "numerical Jacobians": "2", 
+  "nonlinear": "1, 0, 1, 2"
+}
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+dryWetCalcs.TWatOutPar=[281.8875732421875, 281.8875732421875]
+dryWetCalcs.TWatOutWet=[281.7425537109375, 281.7425537109375]
+dryWetCalcs.TWatOutDry=[281.47979736328125, 281.47979736328125]
+time=[0., 1.]
+dryWetCalcs.TAirOutWet=[284.32672119140625, 284.32672119140625]
+dryWetCalcs.TAirOutDry=[283.525238037109375, 283.525238037109375]
+dryWetCalcs.TAirOutPar=[284.0584716796875, 284.0584716796875]
+dryWetCalcs.QTot=[50510.25, 50510.25]
+dryWetCalcs.QSen=[-50407.23828125, -50407.23828125]
+dryWetCalcs.QTotWet=[48208.15625, 48208.15625]
+dryWetCalcs.QSenWet=[-48116.1015625, -48116.1015625]
+dryWetCalcs.QSenDry=[-44037.34765625, -44037.34765625]

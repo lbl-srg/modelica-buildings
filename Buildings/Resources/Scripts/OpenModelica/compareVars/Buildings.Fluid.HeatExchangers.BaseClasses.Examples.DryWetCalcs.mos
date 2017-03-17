@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "dryWetCalcs.TAirOutPar",
+    "dryWetCalcs.TWatOutWet",
+    "dryWetCalcs.TAirOutWet",
+    "dryWetCalcs.TWatOutPar",
+    "dryWetCalcs.TWatOutDry",
+    "dryWetCalcs.TAirOutDry",
+    "dryWetCalcs.QTot",
+    "dryWetCalcs.QSen",
+    "dryWetCalcs.QSenDry",
+    "dryWetCalcs.QTotWet",
+    "dryWetCalcs.QSenWet"
+  };

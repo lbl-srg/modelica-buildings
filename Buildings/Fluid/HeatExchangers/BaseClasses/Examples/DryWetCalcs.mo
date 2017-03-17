@@ -94,8 +94,12 @@ equation
   connect(UAAirExp.y, dryWetCalcs.UAAir) annotation (Line(points={{-79,-110},{
           -52,-110},{-52,-55},{-36.4286,-55}},
                                            color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-100,-120},{100,100}})),
+  annotation (
+    experiment(StopTime=1.0),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/DryWetCalcs.mos"
+      "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=false,
+      extent={{-100,-120},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-            extent={{-100,-120},{100,100}})));
+      extent={{-100,-120},{100,100}})));
 end DryWetCalcs;
