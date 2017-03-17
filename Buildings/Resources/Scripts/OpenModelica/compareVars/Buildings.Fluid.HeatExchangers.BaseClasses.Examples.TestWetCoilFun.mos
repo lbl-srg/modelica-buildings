@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "QTot",
+    "QSen",
+    "TWatOut",
+    "TAirOut",
+    "TCon"
+  };

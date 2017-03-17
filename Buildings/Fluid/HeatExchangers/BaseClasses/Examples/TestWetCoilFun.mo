@@ -58,7 +58,7 @@ model TestWetCoilFun "Validate wetCoilFun versus text-book example"
 
 equation
   (QTot, QSen, TWatOut, TAirOut, TSurAirIn, masFloCon, TCon) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.wetCoilFun(
+    Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
       UAWat = UAWat,
       masFloWat = masFloWat,
       cpWat = cpWat,
@@ -72,6 +72,11 @@ equation
       wAirIn = wAirIn,
       hAirIn = hAirIn,
       cfg=cfg);
-  annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
+  annotation (
+    experiment(StopTime=1),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/TestWetCoilFun.mos"
+      "Simulate and plot"),
+    Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end TestWetCoilFun;
