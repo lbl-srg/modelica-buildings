@@ -172,8 +172,9 @@ equation
       points={{100,-60},{20,-60},{-60,-60}},
       color={0,127,255},
       thickness=1));
-    annotation (Placement(transformation(extent={{60,50},{80,70}})),
-              Icon(graphics={
+  annotation (
+    Placement(transformation(extent={{60,50},{80,70}})),
+    Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
@@ -245,12 +246,14 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}), Diagram(graphics={Text(
+          fillPattern=FillPattern.Solid)}),
+        Diagram(graphics={Text(
           extent={{44,84},{86,76}},
           lineColor={28,108,200},
           textString="Water Side",
           textStyle={TextStyle.Italic},
-          horizontalAlignment=TextAlignment.Left), Text(
+          horizontalAlignment=TextAlignment.Left),
+        Text(
           extent={{-42,-80},{0,-88}},
           lineColor={28,108,200},
           textStyle={TextStyle.Italic},

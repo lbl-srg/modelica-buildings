@@ -1,7 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-function wetCoil
-  "Wet coil effectiveness-NTU calculations"
-
+model WetCalcs "Wet effectiveness-NTU calculations"
   // INPUTS
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
@@ -69,9 +67,6 @@ protected
   Modelica.SIunits.SpecificEnthalpy hSurEff
     "Effective surface enthalpy; assumes coil surface is at a uniform
     temperature and enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hX
-    "Enthalpy used for calculating the sensible load; the enthalpy at the
-    outlet temperature but with the inlet humidity ratio";
   Real effSta
     "Effectiveness for heat exchanger (e*)";
   Modelica.SIunits.Temperature TSurEff
@@ -111,70 +106,105 @@ protected
   Modelica.SIunits.MassFraction wAirOut
     "Mass fraction of water in air at outlet";
 
-algorithm
-  if masFloWat < 1e-4 or masFloAir < 1e-4 or UAAir < 1e-4 or UAWat < 1e-4 or
-     (abs(TAirIn - TWatIn) < 1e-4) then
-    QTot := 0;
-    QSen := 0;
-    TWatOut := TWatIn;
-    TAirOut := TAirIn;
-    TSurAirIn := (TWatIn + TAirIn) / 2;
-    masFloCon := 0;
-    TCon := TSurAirIn;
+equation
+  if noEvent(
+      masFloWat < 1e-4 or masFloAir < 1e-4 or UAAir < 1e-4
+      or UAWat < 1e-4 or (abs(TAirIn - TWatIn) < 1e-4)) then
+    QTot = 0;
+    QSen = 0;
+    TWatOut = TWatIn;
+    TAirOut = TAirIn;
+    TSurAirIn = (TWatIn + TAirIn) / 2;
+    masFloCon = 0;
+    TCon = TSurAirIn;
+    // Other Equations
+    cpEff = 0;
+    hAirOut = hAirIn;
+    hAirSatSurIn = hAirIn;
+    hAirSatSurOut = hAirIn;
+    hSurEff = hAirIn;
+    effSta = 0;
+    TSurEff = TAirIn;
+    pSatOut = 0;
+    mSta = 0;
+    UAsta = 0;
+    Q = 0;
+    NtuSta = 0;
+    NtuAirSta = 0;
+    NtuAirHat = 0;
+    NtuWat = 0;
+    NtuAir = 0;
+    NtuWet = 0;
+    XOut[watIdx] = wAirIn;
+    XOut[othIdx] = 1 - wAirIn;
+    XAirSatIn[watIdx] = wAirIn;
+    XAirSatIn[othIdx] = 1 - wAirIn;
+    XAirSatOut[watIdx] = wAirIn;
+    XAirSatOut[othIdx] = 1 - wAirIn;
+    pSatWatIn = 0;
+    pSatWatOut = 0;
+    wAirOut = wAirIn;
   else
-    pSatWatIn :=
+    pSatWatIn =
       Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
         TWatIn);
-    XAirSatIn[watIdx] := Buildings.Utilities.Psychrometrics.Functions.X_pW(
+    XAirSatIn[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pW(
       p_w=pSatWatIn, p=pAir);
-    XAirSatIn[othIdx] := 1 - XAirSatIn[watIdx];
-    hAirSatSurIn := Buildings.Media.Air.specificEnthalpy_pTX(
+    XAirSatIn[othIdx] =  1 - XAirSatIn[watIdx];
+    hAirSatSurIn =  Buildings.Media.Air.specificEnthalpy_pTX(
       p=pAir, T=TWatIn, X=XAirSatIn);
-    pSatWatOut :=
+    pSatWatOut =
       Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
         TWatOutGuess);
-    XAirSatOut[watIdx] := Buildings.Utilities.Psychrometrics.Functions.X_pW(
+    XAirSatOut[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pW(
       p_w=pSatWatOut, p=pAir);
-    XAirSatOut[othIdx] := 1 - XAirSatOut[watIdx];
-    hAirSatSurOut := Buildings.Media.Air.specificEnthalpy_pTX(
+    XAirSatOut[othIdx] =  1 - XAirSatOut[watIdx];
+    hAirSatSurOut =  Buildings.Media.Air.specificEnthalpy_pTX(
       p=pAir, T=TWatOutGuess, X=XAirSatOut);
-    cpEff := abs(hAirSatSurOut - hAirSatSurIn)
+    cpEff =  abs(hAirSatSurOut - hAirSatSurIn)
       / max(abs(TWatOutGuess - TWatIn), 0.1);
-    mSta := max((masFloAir * cpEff) / (masFloWat * cpWat), 0.01)
+    mSta =  max((masFloAir * cpEff) / (masFloWat * cpWat), 0.01)
       "Braun et al 2013 eq 2.20";
-    UAsta :=(UAAir / cpAir) / (1 + (cpEff*UAAir) / (cpAir*UAWat))
+    UAsta = (UAAir / cpAir) / (1 + (cpEff*UAAir) / (cpAir*UAWat))
       "Mitchell 2012 eq 13.19";
-    NtuSta := UAsta/masFloAir
+    NtuSta =  UAsta/masFloAir
       "Mitchell 2012 eq 13.20";
-    effSta := effCalc(CSta=mSta, Ntu=NtuSta, cfg=cfg);
-    Q := effSta * masFloAir * (hAirIn - hAirSatSurIn);
-    hAirOut := hAirIn - (Q / masFloAir);
-    NtuAirSta := UAAir / (masFloAir * cpAir);
-    hSurEff := hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
-    NtuAirHat := UAAir / (masFloAir * cpAir);
+    effSta =  effCalc(CSta=mSta, Ntu=NtuSta, cfg=cfg);
+    Q =  effSta * masFloAir * (hAirIn - hAirSatSurIn);
+    hAirOut =  hAirIn - (Q / masFloAir);
+    NtuAirSta =  UAAir / (masFloAir * cpAir);
+    hSurEff =  hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
+    NtuAirHat =  UAAir / (masFloAir * cpAir);
     // The effective surface temperature Ts,eff or TSurEff is the saturation
     // temperature at the value of an effective surface enthalpy, hs,eff or
     // hSurEff, which is given by the relation similar to that for temperature.
-    TSurEff := Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
+    TSurEff =  Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
       p=pAir, h=hSurEff);
-    TAirOut := TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
-    pSatOut := Buildings.Media.Air.saturationPressure(TAirOut);
-    XOut[watIdx] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    TAirOut =  TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
+    pSatOut =  Buildings.Media.Air.saturationPressure(TAirOut);
+    XOut[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=pSatOut, p=pAir, phi=phiSat);
-    XOut[othIdx] := 1 - XOut[watIdx];
-    wAirOut := XOut[watIdx];
-    NtuWat := UAWat / (masFloWat * cpWat);
-    NtuAir := UAAir / (masFloAir * cpAir);
-    NtuWet := NtuAir / (1 + mSta * (NtuAir / NtuWat))
+    XOut[othIdx] =  1 - XOut[watIdx];
+    wAirOut =  XOut[watIdx];
+    NtuWat =  UAWat / (masFloWat * cpWat);
+    NtuAir =  UAAir / (masFloAir * cpAir);
+    NtuWet =  NtuAir / (1 + mSta * (NtuAir / NtuWat))
       "Braun 1988 eq 4.1.13";
-    TSurAirIn := TWatOutGuess +
+    TSurAirIn =  TWatOutGuess +
       (masFloAir * NtuWet * (hAirIn - hAirSatSurOut))
       / (masFloWat * cpWat * NtuWat)
       "Braun 1988, eq 4.1.22";
-    masFloCon := masFloAir * (wAirIn - wAirOut);
-    QSen := -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
-    QTot := Q;
-    TCon := TSurEff;
-    TWatOut := (QTot / (masFloWat * cpWat)) + TWatIn;
+    masFloCon =  masFloAir * (wAirIn - wAirOut);
+    QSen =  -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
+    QTot =  Q;
+    TCon =  TSurEff;
+    TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
   end if;
-end wetCoil;
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,213,170},
+          fillPattern=FillPattern.Solid)}),                      Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end WetCalcs;

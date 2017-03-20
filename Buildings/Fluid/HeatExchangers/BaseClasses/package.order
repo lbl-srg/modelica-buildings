@@ -21,6 +21,7 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
+WetCalcs
 appartusDewPoint
 determineWaterIndex
 dryCoil

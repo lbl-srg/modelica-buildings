@@ -151,6 +151,24 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
     p=pAir, XSat=wAirIn)
     annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCalcs wet(
+    UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAWat,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = TWatIn,
+    TWatOutGuess = TWatOutWet,
+    UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAAir,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = TAirIn,
+    pAir = pAir,
+    wAirIn = wAirIn,
+    hAirIn = hAirIn,
+    cfg = cfg);
 
   // VARIABLES
   Real dryFraFin(min=0, max=1, unit="1")
@@ -247,6 +265,14 @@ equation
   // Note: by setting UA values to zero below, we "short circuit"
   // the following functions so, although we have the cost of calling
   // the function, there should be no iteration and no calculation.
+  QTotWet = wet.QTot;
+  QSenWet = wet.QSen;
+  TWatOutWet = wet.TWatOut;
+  TAirOutWet = wet.TAirOut;
+  TSurAirInWet = wet.TSurAirIn;
+  masFloConWet = wet.masFloCon;
+  TConWet = wet.TCon;
+  /*
   (QTotWet, QSenWet, TWatOutWet, TAirOutWet, TSurAirInWet,
     masFloConWet, TConWet) =
     Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
@@ -267,6 +293,7 @@ equation
       wAirIn = wAirIn,
       hAirIn = hAirIn,
       cfg = cfg);
+  */
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
