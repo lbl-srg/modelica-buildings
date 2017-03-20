@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
-block Mod "Output the remainder of first input divided by second input (~=0)"
+block Average "Output the average of its two inputs"
 
   Interfaces.RealInput u1 "Connector of Real input signal 1"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -14,10 +14,10 @@ block Mod "Output the remainder of first input divided by second input (~=0)"
         iconTransformation(extent={{100,-8},{120,12}})));
 
 equation
-  y = mod(u1/u2);
+  y = (u1 + u2)/2.0;
 
   annotation (
-    defaultComponentName="mod1",
+    defaultComponentName="average",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
@@ -30,32 +30,17 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-32,-52},{40,-100}},
+          extent={{-50,34},{52,-26}},
           lineColor={192,192,192},
-          textString="mod"),
-        Ellipse(lineColor={0,0,127}, extent={{-50,-48},{50,52}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{13,14},{23,24}}),
-        Line(points={{-2,2},{40,2}}),
-        Ellipse(fillPattern=FillPattern.Solid, extent={{13,-18},{23,-8}}),
-        Ellipse(lineColor={0,0,127}, extent={{-34,14},{-16,32}},
-          lineThickness=1),
-        Ellipse(lineColor={0,0,127}, extent={{-26,-24},{-8,-6}},
-          lineThickness=1),
-        Line(
-          points={{0,26},{-42,-20}},
-          color={0,0,127},
-          thickness=1),
+          textString="avg()"),
         Line(points={{-8,16}}, color={0,0,0}),
         Line(
           points={{-100,60}},
           color={0,0,0},
-          thickness=1),
-        Line(points={{-100,60},{-28,60},{-12,50}}, color={0,0,127}),
-        Line(points={{-100,-60},{-26,-60},{-2,-48}}, color={0,0,127}),
-        Line(points={{50,2},{102,2},{100,2}}, color={0,0,127})}),
+          thickness=1)}),
     Documentation(info="<html>
 <p>
-Block that outputs <code>y = mod(u1/u2)</code>,
+Block that outputs <code>y = avg(u1,u2)</code>,
 where
 <code>u1</code> and <code>u2<code> are inputs.
 </p>
@@ -68,4 +53,4 @@ Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end Mod;
+end Average;

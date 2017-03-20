@@ -13,7 +13,7 @@ block Sqrt
 equation
   y = sqrt(u);
   annotation (
-    defaultComponentName="sqrt1",
+    defaultComponentName="sqrt",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={  Rectangle(
         extent={{-100,-100},{100,100}},

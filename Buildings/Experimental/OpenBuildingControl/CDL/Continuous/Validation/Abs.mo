@@ -27,18 +27,17 @@ The input varies from <i>-1</i> to <i>+1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 22, 2017, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-<ul>
-<li>
 March 17, 2017, by Jianjun Hu:<br/>
 Update the Ramp block: <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp\">
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp</a>.
 </li>
 </ul>
-
+<ul>
+<li>
+February 22, 2017, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 
 </html>"));
 end Abs;
