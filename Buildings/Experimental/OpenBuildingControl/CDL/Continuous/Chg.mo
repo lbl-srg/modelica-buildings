@@ -2,17 +2,17 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Chg "Change sign of the input"
 
   Interfaces.RealInput u "Connector of Real input signal"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = (-1.0) * u;
+  y = -u;
   annotation (
-    defaultComponentName="chg1",
+    defaultComponentName="chg",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
@@ -62,7 +62,7 @@ equation
         Line(points={{0,-60},{100,-60}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
-Block that outputs a changed sign signal <code>y = (1)*u</code>,
+Block that outputs <code>y = -u</code>,
 where <code>u</code> is an input.
 </p>
 </html>", revisions="<html>

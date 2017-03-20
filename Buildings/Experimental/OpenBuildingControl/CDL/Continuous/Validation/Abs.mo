@@ -5,10 +5,10 @@ model Abs "Validation model for the absolute block"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Abs abs1
     "Block that outputs the absolute value of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Ramp ramp(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp(
     height=2,
     duration=1,
-    offset=-1) "fixme: this need to be replaced with a CDL block"
+    offset=-1) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(ramp.y, abs1.u)
@@ -31,5 +31,14 @@ February 22, 2017, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
+<ul>
+<li>
+March 17, 2017, by Jianjun Hu:<br/>
+Update the Ramp block: <a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp</a>.
+</li>
+</ul>
+
+
 </html>"));
 end Abs;

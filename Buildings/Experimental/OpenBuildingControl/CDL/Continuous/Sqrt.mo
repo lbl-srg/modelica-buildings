@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Sqrt
   "Output the square root of the input (input >= 0 required)"
 
-   Interfaces.RealInput u "Connector of Real input signal"
+  Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -15,7 +15,11 @@ equation
   annotation (
     defaultComponentName="sqrt1",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
+            100}}), graphics={  Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Line(points={{-90,-80},{68,-80}}, color={192,192,192}),
         Polygon(
           points={{90,-80},{68,-72},{68,-88},{90,-80}},
@@ -72,8 +76,4 @@ Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-
-
-
-
 end Sqrt;

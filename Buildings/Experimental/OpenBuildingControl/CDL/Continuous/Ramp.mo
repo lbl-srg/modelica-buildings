@@ -6,8 +6,10 @@ block Ramp "Generate ramp signal"
   parameter Real offset=0 "Offset of output signal";
   parameter Modelica.SIunits.Time startTime=0
     "Output = offset for time < startTime";
-  extends Modelica.Blocks.Interfaces.SO;
 
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
 equation
   y = offset + (if time < startTime then 0 else if time < (startTime +
     duration) then (time - startTime)*height/duration else height);
@@ -15,6 +17,11 @@ equation
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
@@ -126,12 +133,20 @@ The Real output y is a ramp signal:
 </p>
 
 <p>
-<img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Ramp.png\"
      alt=\"Ramp.png\">
 </p>
 
 <p>
 If parameter duration is set to 0.0, the limiting case of a Step signal is achieved.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 16, 2017, by Jianjun Hu:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
+</ul>
 </html>"));
 end Ramp;
