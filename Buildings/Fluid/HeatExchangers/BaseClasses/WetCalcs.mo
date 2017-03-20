@@ -1,5 +1,12 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCalcs "Wet effectiveness-NTU calculations"
+
+  replaceable package Medium1 =
+    Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component: the 'water'"
+    annotation (choicesAllMatching = true);
+
+  //replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium;
   // INPUTS
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
@@ -8,9 +15,9 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "Mass flow rate for water";
   input Modelica.SIunits.SpecificHeatCapacity cpWat
     "Specific heat capacity of water";
-  input Modelica.SIunits.Temperature TWatIn
+  input Medium1.Temperature TWatIn
     "Water temperature at inlet";
-  input Modelica.SIunits.Temperature TWatOutGuess
+  input Medium1.Temperature TWatOutGuess
     "A guess variable for the outlet water temperature";
   // -- air
   input Modelica.SIunits.ThermalConductance UAAir
@@ -36,7 +43,7 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "Total heat flow from 'air' into 'water' stream";
   output Modelica.SIunits.HeatFlowRate QSen
      "Sensible heat flow from 'water' into 'air' stream";
-  output Modelica.SIunits.Temperature TWatOut
+  output Medium1.Temperature TWatOut
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
     "Temperature of air at the outlet";
