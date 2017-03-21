@@ -176,38 +176,38 @@ equation
       "Mitchell 2012 eq 13.19";
     NtuSta =  UAsta/masFloAir
       "Mitchell 2012 eq 13.20";
-    Q =  effSta * masFloAir * (hAirIn - hAirSatSurIn);
-    hAirOut =  hAirIn - (Q / masFloAir);
-    NtuAirSta =  UAAir / (masFloAir * cpAir);
-    hSurEff =  hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
-    NtuAirHat =  UAAir / (masFloAir * cpAir);
     effSta = epsilon_ntuZ(
       Z = mSta,
       NTU = NtuSta,
       flowRegime = Integer(cfg));
+    Q = effSta * masFloAir * (hAirIn - hAirSatSurIn);
+    hAirOut = hAirIn - (Q / masFloAir);
+    NtuAirSta = UAAir / (masFloAir * cpAir);
+    hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
+    NtuAirHat = UAAir / (masFloAir * cpAir);
     // The effective surface temperature Ts,eff or TSurEff is the saturation
     // temperature at the value of an effective surface enthalpy, hs,eff or
     // hSurEff, which is given by the relation similar to that for temperature.
-    TSurEff =  Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
+    TSurEff = Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
       p=pAir, h=hSurEff);
-    TAirOut =  TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
-    pSatOut =  Buildings.Media.Air.saturationPressure(TAirOut);
-    XOut[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    TAirOut = TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
+    pSatOut = Buildings.Media.Air.saturationPressure(TAirOut);
+    XOut[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=pSatOut, p=pAir, phi=phiSat);
-    XOut[othIdx] =  1 - XOut[watIdx];
-    wAirOut =  XOut[watIdx];
-    NtuWat =  UAWat / (masFloWat * cpWat);
-    NtuAir =  UAAir / (masFloAir * cpAir);
-    NtuWet =  NtuAir / (1 + mSta * (NtuAir / NtuWat))
+    XOut[othIdx] = 1 - XOut[watIdx];
+    wAirOut = XOut[watIdx];
+    NtuWat = UAWat / (masFloWat * cpWat);
+    NtuAir = UAAir / (masFloAir * cpAir);
+    NtuWet = NtuAir / (1 + mSta * (NtuAir / NtuWat))
       "Braun 1988 eq 4.1.13";
-    TSurAirIn =  TWatOutGuess +
+    TSurAirIn = TWatOutGuess +
       (masFloAir * NtuWet * (hAirIn - hAirSatSurOut))
       / (masFloWat * cpWat * NtuWat)
       "Braun 1988, eq 4.1.22";
-    masFloCon =  masFloAir * (wAirIn - wAirOut);
-    QSen =  -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
-    QTot =  Q;
-    TCon =  TSurEff;
+    masFloCon = masFloAir * (wAirIn - wAirOut);
+    QSen = -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
+    QTot = Q;
+    TCon = TSurEff;
     TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -1,18 +1,12 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model DryWetCalcs2 "Second attempt to make drywet calcs faster"
 
-  replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium
-      "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
-      /*
-  replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialCondensingGases
-      "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
-      */
-  replaceable package Medium2 = Buildings.Media.Air;
-  //replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium;
+  replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
+    annotation (choicesAllMatching = true);
+  replaceable package Medium2 = Buildings.Media.Air
+    "Medium 2 in the component"
+    annotation (choicesAllMatching = true);
 
   // PARAMETERS
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
@@ -200,7 +194,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
              then DUMMY
              else Medium2.specificEnthalpy_pTX(
                     p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
-                    cfg = cfg)
+    cfg = cfg)
     "Calculations for the wet part of the coil in a partially wet coil";
 
   // VARIABLES
