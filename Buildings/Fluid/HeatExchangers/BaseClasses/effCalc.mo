@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function effCalc
   "Effectiveness calculation given C*, Ntu, and Configuration"
-
+  // fixme: delete this function as epsilon_ntuZ should be used instead
   input Real Z(min=0, max=1)
     "Ratio of capacity flow rate (CMin/CMax)";
   input Real NTU "The number of transfer units";
