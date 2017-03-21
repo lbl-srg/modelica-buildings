@@ -578,7 +578,7 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected implementation of wet bulb temperature computation.
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex60, #474</a>
+See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">Annex60, #474</a>
 for a discussion.
 </li>
 <li>

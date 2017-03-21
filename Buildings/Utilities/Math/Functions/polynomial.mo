@@ -25,7 +25,7 @@ revisions="<html>
 December 14, 2016, by Michael Wetter:<br/>
 Removed derivative annotation.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/602\">issue 602</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/602\">issue 602</a>.
 </li>
 <li>
 March 30, 2011, by Michael Wetter:<br/>

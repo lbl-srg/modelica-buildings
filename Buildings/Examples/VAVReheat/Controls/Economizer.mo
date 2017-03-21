@@ -221,7 +221,7 @@ April 26, 2016, by Michael Wetter:<br/>
 Changed controller for freeze protection as the old implementation closed
 the outdoor air damper during summer.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">#511</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/511\">#511</a>.
 </li>
 </ul>
 </html>"));
