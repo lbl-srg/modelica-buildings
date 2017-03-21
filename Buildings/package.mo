@@ -6058,16 +6058,15 @@ The development of the Buildings library is organized by<br/>
  </li>
  </ul>
 <p>
-The core of this library is the Annex 60 library,
+The core of this library is the Modelica IBPSA library,
 a free open-source library with basic models that codify best practices for
 the implementation of models for building and community energy and control systems.
-The Annex 60 library is developed at
-<a href=\"https://github.com/ibpsa/modelica\">
-https://github.com/ibpsa/modelica</a>
-within the Annex 60 project
-(<a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>)
-of the International Energy Agency's
-<a href=\"http://www.iea-ebc.org/\">Energy in Buildings and Communities</a> Programme.
+The development of the IBPSA library is organized through the
+<a href=\"https://ibpsa.github.io/project1\">IBPSA Project 1</a>
+of the International Building Performance Simulation Association (IBPSA).
+From 2012 to 2017, the development was organized through the
+<a href=\"http://www.iea-annex60.org\">Annex 60 project</a>
+of the Energy in Buildings and Communities Programme of the International Energy Agency (IEA EBC).
 </p>
  <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
