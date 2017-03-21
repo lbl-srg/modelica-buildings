@@ -102,18 +102,18 @@ December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
 </li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/396\">#396</a>.
 </li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>

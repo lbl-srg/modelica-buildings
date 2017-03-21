@@ -309,7 +309,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Model for liquid water with constant properties at user-selected temperature.<br/>
                           This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/511\">Annex 60, #511</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/511\">Annex 60, #511</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
@@ -321,7 +321,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           resetting the state if the input changes from <code>false</code>
                           to <code>true</code>.<br/>
                           This closes
-                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>.
+                           <a href=\"https://github.com/ibpsa/modelica/issues/494\">Annex 60, #494</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
@@ -331,7 +331,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Block that outputs the calendar time, time of the week, hour of the day etc.<br/>
                           This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/501\">Annex 60, #501</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/501\">Annex 60, #501</a>.
        </td>
    </tr>
 
@@ -378,7 +378,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           the results in <code>Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody</code>
                           are consistent for both option of the black-body sky temperature calculation.
                           This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/648\">Annex 60, #648</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/648\">Annex 60, #648</a>.
        </td>
        </tr>
        <tr>
@@ -386,7 +386,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Reduced tolerance for regularization if the sky clearness is near one or eight.
                           This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/521\">Annex 60, #521</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/521\">Annex 60, #521</a>.
 
        </td>
    </tr>
@@ -401,7 +401,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
           <td valign=\"top\">Added option to reset the control output when an optional boolean input signal
                            changes from <code>false</code> to <code>true</code>.<br/>
                            This closes
-                           <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/494\">Annex 60, #494</a>.
+                           <a href=\"https://github.com/ibpsa/modelica/issues/494\">Annex 60, #494</a>.
        </td>
    </tr>
 
@@ -596,7 +596,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           the Carnot efficiency if the temperature lift is small.
                           For Dymola, the conversion script will update models.<br/>
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+                          <a href=\"https://github.com/ibpsa/modelica/issues/497\">Annex 60, #497</a>
        </td>
    </tr>
 
@@ -671,7 +671,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           the Carnot efficiency if the temperature lift is small.
                           For Dymola, the conversion script will update models.<br/>
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">Annex 60, #497</a>
+                          <a href=\"https://github.com/ibpsa/modelica/issues/497\">Annex 60, #497</a>
        </td>
    </tr>
 
@@ -692,7 +692,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           and changed the arguments of the function
                           <code>Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</code>.<br/>
                           This was done due to the refactoring of the fan and pump model for low speed. This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">Annex 60, #458</a>.<br/>
+                          <a href=\"https://github.com/ibpsa/modelica/issues/458\">Annex 60, #458</a>.<br/>
                           Users who simply use the existing model in <code>Buildings.Fluid.Movers</code> are not affected by
                           this change as the function are called by a low-level implementation only.
        </td>
@@ -821,7 +821,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           Users who use <code>Buildings.Utilities.Psychrometrics.WetBul_pTX</code>
                           need to replace the model manually and reconnect the input and output ports.<br/>
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/475\">Annex 60, #475</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/475\">Annex 60, #475</a>.
        </td>
     </tr>
 
@@ -845,7 +845,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           is switched off. The results change slightly.
                           This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/520\">issue 520</a>
                           and integrates the change of
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex 60, #474</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/474\">Annex 60, #474</a>.
 
        </td>
    </tr>
@@ -1011,7 +1011,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         Language Definition. This change was required to enable pedantic model check and translation
                         in Dymola 2016 FD01.
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/426\">#426</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/426\">#426</a>.
        </td>
        </tr>
 
@@ -1024,7 +1024,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           similarly to a change in Carnot efficiency. The control input signal
                           is the evaporator leaving fluid temperature.
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60, #353</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/353\">Annex 60, #353</a>.
        </td>
        </tr>
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b>
@@ -1153,7 +1153,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        <td valign=\"top\">Implemented more efficient computation of <code>port_a.Xi_outflow</code>
                           and <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/305\">Annex 60 issue 305</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/305\">Annex 60 issue 305</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp<br/>
@@ -1164,8 +1164,8 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
                         and changed <code>Inline=true</code> to <code>LateInline=true</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">Annex 60 issue 301</a>
-                        and for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">Annex 60 issue 279</a>.
+                        <a href=\"https://github.com/ibpsa/modelica/issues/301\">Annex 60 issue 301</a>
+                        and for <a href=\"https://github.com/ibpsa/modelica/issues/279\">Annex 60 issue 279</a>.
        </td>
    </tr>
    <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
@@ -1200,7 +1200,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        <td valign=\"top\">Refactored <code>Buildings.Utilities.Math.Functions.inverseXRegularized</code>
                         to make it more efficient as it is used in many steady-state energy balances.
                           This closes
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">Annex 60 issue 302</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/302\">Annex 60 issue 302</a>.
        </td>
    </tr>
   </table>
@@ -1219,7 +1219,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
      </td>
        <td valign=\"top\">Renamed the connector from <code>radHorIR</code> to <code>HHorIR</code>
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">Annex 60 issue 376</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/376\">Annex 60 issue 376</a>.
                           For Dymola, the conversion script updates these connections.
                           However, this also results in a renaming of the weather bus variable
                           <code>weaBus.radHorIR</code> to <code>HHorIR</code>, which may
@@ -1247,7 +1247,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         <code>use_eta_Carnot</code> was changed to <code>use_eta_Carnot_nominal</code>, and
                         <code>etaCar</code> was changed to <code>etaCarnot_nominal</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/353\">Annex 60 issue 353</a>.
+                        <a href=\"https://github.com/ibpsa/modelica/issues/353\">Annex 60 issue 353</a>.
                         For Dymola, the conversion script removes these parameters.
      </td>
    </tr>
@@ -1271,7 +1271,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
      </td>
      <td valign=\"top\">Removed the public variable <code>r_N</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.                        For Dymola, the conversion script will remove
+                        <a href=\"https://github.com/ibpsa/modelica/issues/417\">Annex 60 issue 417</a>.                        For Dymola, the conversion script will remove
                         For Dymola, the conversion script removes
                         assignments of <code>r_N(start)</code>.
      </td>
@@ -1296,7 +1296,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         <code>Buildings.Fluid.Movers.Data.Generic</code>
                         which is used for all four types of movers.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">Annex 60 issue 417</a>.
+                        <a href=\"https://github.com/ibpsa/modelica/issues/417\">Annex 60 issue 417</a>.
                         This change allows to correctly compute the fan or pump power also for the models
                         <code>Buildings.Fluid.Movers.FlowControlled_dp</code>,
                         <code>Buildings.Fluid.Movers.FlowControlled_m_flow</code>
@@ -1307,7 +1307,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         <code>Buildings.Fluid.Movers.Data.SpeedControlled_Nrpm</code>,
                         changed the parameter <code>N_nominal</code> to <code>speed_rpm_nominal</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">Annex 60 issue 396</a>.
+                        <a href=\"https://github.com/ibpsa/modelica/issues/396\">Annex 60 issue 396</a>.
                         For Dymola, the conversion script updates this parameter.
      </td>
    </tr>
@@ -1325,7 +1325,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
      <td valign=\"top\">Removed parameter <code>dynamicBalance</code> that overwrote the setting
                         of <code>energyDynamics</code> and <code>massDynamics</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">
+                        <a href=\"https://github.com/ibpsa/modelica/issues/411\">
                         Annex 60, issue 411</a>.
                         For Dymola, the conversion script updates the models.
      </td>
@@ -1336,9 +1336,9 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         <code>port_a_exposesState</code>, <code>port_b_exposesState</code> and
                         <code>showDesignFlowDirection</code>.
                         This is for
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">Annex 60 issue 349</a>
+                        <a href=\"https://github.com/ibpsa/modelica/issues/349\">Annex 60 issue 349</a>
                         and
-                        <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/351\">Annex 60 issue 351</a>.
+                        <a href=\"https://github.com/ibpsa/modelica/issues/351\">Annex 60 issue 351</a>.
                         For Dymola, the conversion script updates models
                         that extend from <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
      </td>
@@ -1352,7 +1352,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         <code>h_outflow_a2_start</code> and
                         <code>h_outflow_b2_start</code>
                         to make the model similar to <code>Buildings.Fluid.Interfaces.PartialTwoPort</code>.
-                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">Annex 60 issue 299</a>
+                        See <a href=\"https://github.com/ibpsa/modelica/issues/299\">Annex 60 issue 299</a>
                         for a discussion.
                         For Dymola, the conversion script updates models
                         that extend from <code>Buildings.Fluid.Interfaces.FourPort</code>.
@@ -1364,13 +1364,13 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                         Revised implementation of conservation equations and
                         added default values for outlet quantities at <code>port_a</code>
                         if <code>allowFlowReversal=false</code>.
-                        This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">Annex 60 issue 281</a>.
+                        This is for <a href=\"https://github.com/ibpsa/modelica/issues/281\">Annex 60 issue 281</a>.
                         Also, revised implementation so that equations are always consistent
                         and do not lead to division by zero,
                         also when connecting a <code>prescribedHeatFlowRate</code>
                         to <code>MixingVolume</code> instances.
                         Renamed <code>use_safeDivision</code> to <code>prescribedHeatFlowRate</code>.
-                        See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">Annex 60 issue 282</a>
+                        See <a href=\"https://github.com/ibpsa/modelica/issues/282\">Annex 60 issue 282</a>
                         for a discussion.
                         For users who simply instantiate existing component models, this change is backward
                         compatible.
@@ -1475,7 +1475,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/303\">Annex 60 issue 303</a>.
        </td>
    </tr>
 
@@ -1500,7 +1500,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Corrected wrong derivative implementation and improved their regression tests.
                           This is for
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">Annex 60 issue 303</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/303\">Annex 60 issue 303</a>.
 
        </td>
    </tr>
@@ -1654,7 +1654,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        <td valign=\"top\">Corrected wrong sensor signal if <code>allowFlowReversal=false</code>.
                           For this setting, the sensor output was for the wrong flow direction.
                           This corrects
-                          <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
+                          <a href=\"https://github.com/ibpsa/modelica/issues/249\">issue 249</a>.
        </td>
    </tr>
    </table>
@@ -2416,7 +2416,7 @@ Modelica Standard Library 3.2.1 and to <code>Modelica_StateGraph2</code> 2.0.2.
 <p>
 This is the first version of the <code>Buildings</code> library
 that contains models from the
-<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+<a href=\"https://github.com/ibpsa/modelica\">
 IEA EBC Annex 60 library</a>,
 a Modelica library for building and community energy systems that is
 collaboratively developed within the project
@@ -6062,8 +6062,8 @@ The core of this library is the Annex 60 library,
 a free open-source library with basic models that codify best practices for
 the implementation of models for building and community energy and control systems.
 The Annex 60 library is developed at
-<a href=\"https://github.com/iea-annex60/modelica-annex60\">
-https://github.com/iea-annex60/modelica-annex60</a>
+<a href=\"https://github.com/ibpsa/modelica\">
+https://github.com/ibpsa/modelica</a>
 within the Annex 60 project
 (<a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>)
 of the International Energy Agency's
