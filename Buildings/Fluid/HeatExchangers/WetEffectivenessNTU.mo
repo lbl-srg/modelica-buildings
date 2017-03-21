@@ -30,8 +30,8 @@ model WetEffectivenessNTU
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration cfg=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow;
+  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
