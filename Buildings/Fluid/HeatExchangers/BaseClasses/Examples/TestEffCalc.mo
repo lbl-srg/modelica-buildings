@@ -2,21 +2,17 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model TestEffCalc
   "Test using the effCalc function to calculate effectiveness"
   extends Modelica.Icons.Example;
-  parameter Real[:] CSta=  0:0.25:1
-    "C* to hold constant; C* is equal to CMin/CMax";
+  parameter Real Z[:]=0:0.25:1 "Ratio of capacity flow rates, Z = CMin/CMax";
 
   // VARIABLES
-  Real Ntu(min=0) = time
-    "Number of transfer units";
-  Real effPar[size(CSta,1)]
-    "Effectiveness of a parallel flow heat exchanger";
-  Real effCou[size(CSta,1)]
-    "Effectiveness of a counter flow heat exchanger";
-  Real effCro[size(CSta,1)]
+  Real NTU(min=0) = time "Number of transfer units";
+  Real effPar[size(Z, 1)] "Effectiveness of a parallel flow heat exchanger";
+  Real effCou[size(Z, 1)] "Effectiveness of a counter flow heat exchanger";
+  Real effCro[size(Z, 1)]
     "Effectiveness of a cross-flow heat exchanger; both streams mixed";
-  Real effCro1Mix2Unm[size(CSta,1)]
+  Real effCro1Mix2Unm[size(Z, 1)]
     "Effectiveness of a cross-flow heat exchanger; stream 1 mixed, 2 unmixed";
-  Real effCro1Unm2Mix[size(CSta,1)]
+  Real effCro1Unm2Mix[size(Z, 1)]
     "Effectiveness of a cross-flow heat exchanger; stream 1 unmixed, 2 mixed";
 
 protected
@@ -32,17 +28,27 @@ protected
     Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed;
 
 equation
-  for i in 1:size(CSta,1) loop
-    effPar[i] = Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
-      CSta = CSta[i], Ntu = Ntu, cfg = par);
-    effCou[i] = Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
-      CSta = CSta[i], Ntu = Ntu, cfg = cou);
-    effCro[i] = Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
-      CSta = CSta[i], Ntu = Ntu, cfg = cro);
-    effCro1Mix2Unm[i] = Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
-      CSta = CSta[i], Ntu = Ntu, cfg = cro1Mix2Unm);
-    effCro1Unm2Mix[i] = Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
-      CSta = CSta[i], Ntu = Ntu, cfg = cro1Unm2Mix);
+  for i in 1:size(Z, 1) loop
+    effPar[i] =Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
+      Z=Z[i],
+      NTU=NTU,
+      cfg=par);
+    effCou[i] =Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
+      Z=Z[i],
+      NTU=NTU,
+      cfg=cou);
+    effCro[i] =Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
+      Z=Z[i],
+      NTU=NTU,
+      cfg=cro);
+    effCro1Mix2Unm[i] =Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
+      Z=Z[i],
+      NTU=NTU,
+      cfg=cro1Mix2Unm);
+    effCro1Unm2Mix[i] =Buildings.Fluid.HeatExchangers.BaseClasses.effCalc(
+      Z=Z[i],
+      NTU=NTU,
+      cfg=cro1Unm2Mix);
   end for;
   annotation (
     __Dymola_Commands(file=

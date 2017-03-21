@@ -176,7 +176,10 @@ equation
       "Mitchell 2012 eq 13.19";
     NtuSta =  UAsta/masFloAir
       "Mitchell 2012 eq 13.20";
-    effSta =  effCalc(CSta=mSta, Ntu=NtuSta, cfg=cfg);
+    effSta =effCalc(
+      Z=mSta,
+      NTU=NtuSta,
+      cfg=cfg);
     Q =  effSta * masFloAir * (hAirIn - hAirSatSurIn);
     hAirOut =  hAirIn - (Q / masFloAir);
     NtuAirSta =  UAAir / (masFloAir * cpAir);

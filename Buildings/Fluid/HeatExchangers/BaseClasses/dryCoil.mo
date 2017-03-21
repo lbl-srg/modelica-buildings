@@ -89,7 +89,10 @@ algorithm
     ResTot := ResAir + ResWat;
     UA := 1/ResTot "UA is for the overall coil (i.e., both sides)";
     Ntu := UA/CMin;
-    eff := effCalc(CSta=CSta, Ntu=Ntu, cfg=cfg);
+    eff :=effCalc(
+      Z=CSta,
+      NTU=Ntu,
+      cfg=cfg);
     Q := eff * CMin * (TWatIn - TAirIn)
       "Note: positive heat transfer is water to air";
     TAirOut := TAirIn - eff * (TAirIn - TWatIn)

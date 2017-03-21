@@ -89,7 +89,10 @@ algorithm
       "Mitchell 2012 eq 13.19";
     NtuSta := UAsta / masFloAir
       "Mitchell 2012 eq 13.20";
-    effSta := effCalc(CSta=mSta, Ntu=NtuSta, cfg=cfg);
+    effSta :=effCalc(
+      Z=mSta,
+      NTU=NtuSta,
+      cfg=cfg);
     QTot := effSta * masFloAir * (hAirIn - hAirSatSurIn);
     TWatOut := (QTot / (masFloWat * cpWat)) + TWatIn;
   end if;
