@@ -35,7 +35,7 @@ model WetCalcs "Wet effectiveness-NTU calculations"
   input Modelica.SIunits.SpecificEnthalpy hAirIn
     "Specific enthalpy of air at inlet conditions";
   // -- misc.
-  input Buildings.Fluid.Types.HeatExchangerConfiguration cfg
+  input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The configuration of the heat exchanger";
 
   // OUTPUTS
@@ -176,15 +176,15 @@ equation
       "Mitchell 2012 eq 13.19";
     NtuSta =  UAsta/masFloAir
       "Mitchell 2012 eq 13.20";
-    effSta =effCalc(
-      Z=mSta,
-      NTU=NtuSta,
-      cfg=cfg);
     Q =  effSta * masFloAir * (hAirIn - hAirSatSurIn);
     hAirOut =  hAirIn - (Q / masFloAir);
     NtuAirSta =  UAAir / (masFloAir * cpAir);
     hSurEff =  hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
     NtuAirHat =  UAAir / (masFloAir * cpAir);
+    effSta = epsilon_ntuZ(
+      Z = mSta,
+      NTU = NtuSta,
+      flowRegime = Integer(cfg));
     // The effective surface temperature Ts,eff or TSurEff is the saturation
     // temperature at the value of an effective surface enthalpy, hs,eff or
     // hSurEff, which is given by the relation similar to that for temperature.
