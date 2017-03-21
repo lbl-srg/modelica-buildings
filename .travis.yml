@@ -23,6 +23,7 @@ env:
   - TEST_ARG="make test-dymola PACKAGE=Buildings.Fluid.{HeatExchangers,HeatPumps,Interfaces}"
   - TEST_ARG="make test-dymola PACKAGE=Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}"
   - TEST_ARG="make test-dymola PACKAGE=Buildings.ThermalZones.Detailed.FLEXLAB"
+  - TEST_ARG="make test-dymola PACKAGE=Buildings.ThermalZones.ReducedOrder"
   - TEST_ARG="make test-dymola PACKAGE=Buildings.Electrical"
   - TEST_ARG="make test-dymola PACKAGE=Buildings.{Airflow,BoundaryConditions,Controls}"
   - TEST_ARG="make test-dymola PACKAGE=Buildings.Examples"
