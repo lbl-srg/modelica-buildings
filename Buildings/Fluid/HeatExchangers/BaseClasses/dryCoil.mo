@@ -22,7 +22,7 @@ function dryCoil
   input Modelica.SIunits.Temperature TAirIn
     "Temperature of air at inlet";
   // -- misc.
-  input Buildings.Fluid.Types.HeatExchangerConfiguration cfg
+  input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The configuration of the heat exchanger";
 
   // OUTPUTS
@@ -89,10 +89,10 @@ algorithm
     ResTot := ResAir + ResWat;
     UA := 1/ResTot "UA is for the overall coil (i.e., both sides)";
     Ntu := UA/CMin;
-    eff :=effCalc(
-      Z=CSta,
-      NTU=Ntu,
-      cfg=cfg);
+    eff := epsilon_ntuZ(
+      Z = CSta,
+      NTU = Ntu,
+      flowRegime = Integer(cfg));
     Q := eff * CMin * (TWatIn - TAirIn)
       "Note: positive heat transfer is water to air";
     TAirOut := TAirIn - eff * (TAirIn - TWatIn)

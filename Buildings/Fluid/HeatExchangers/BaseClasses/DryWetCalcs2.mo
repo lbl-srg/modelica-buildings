@@ -15,8 +15,8 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   //replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium;
 
   // PARAMETERS
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration cfg=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow;
+  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
   parameter Modelica.SIunits.Temperature TWatOutNominal=
     Modelica.SIunits.Conversions.from_degF(44)
     "Guess for the water outlet temperature which is an iteration variable";
