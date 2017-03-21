@@ -283,19 +283,6 @@ equation
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
-  // We are in the all-dry regime if:
-  // - we are not cooling (i.e., we are heating (TWatIn >= TAirIn))
-  // - the water inlet temperature is greater than the inlet air dew point
-  //   since we can never cool the air stream to the water inlet temperature
-  //   we know we can never condense
-  // - the coil surface at outlet is greater than inlet air dew point
-  //   since the coldest part of the coil will be at outlet and if it is not
-  //   below the dew point, then we would not condense
-  // - the inlet air dew point temperature is <= TDewPoiA, since TDewPoiA
-  //   is the trigger point to start condensation
-  // Note: by setting UA values to zero below, we "short circuit"
-  // the following functions so, although we have the cost of calling
-  // the function, there should be no iteration and no calculation.
   QTotWet = wet.QTot;
   QSenWet = wet.QSen;
   TWatOutWet = wet.TWatOut;
@@ -306,10 +293,6 @@ equation
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
-  // We are 100% wet if:
-  // - the incoming air dew point is greater than or equal to the trigger
-  //   dew point at dryFra = 0
-  // - and we are not heating
   // The use of TAirInDewPoi below as the "then clause" is so the equation
   // below the two function calls "(TAirX - TAirInDewPoi) ..." will
   // gracefully degrade and still be true when we short circuit the following
@@ -344,41 +327,6 @@ equation
   TSurAirInWetPar = parWet.TSurAirIn;
   masFloConPar = parWet.masFloCon;
   TConPar = parWet.TCon;
-      /*
-  (QTotWetPar, QSenWetPar, TWatX, TAirOutPar, TSurAirInWetPar,
-    masFloConPar, TConPar) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
-      UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-              then DUMMY
-              else UAWat * (1 - dryFra),
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-               then TAirInDewPoi
-               else TWatIn,
-      TWatOutGuess = TWatX,
-      UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-              then DUMMY
-              else UAAir * (1 - dryFra),
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-               then TAirInDewPoi
-               else TAirX,
-      pAir = pAir,
-      wAirIn = wAirIn,
-      hAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-               then DUMMY
-               else 
-                 Medium2.specificEnthalpy_pTX(
-                   p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
-                   cfg = cfg);
-                   */
   if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA) then
     dryFra = 1;
     QTot = -QSenDry;
@@ -394,8 +342,6 @@ equation
   else
     (TAirX - TAirInDewPoi) * UAAir = (TAirInDewPoi - TWatX) * UAWat;
     QTot = QTotWetPar + (-QSenDryPar);
-    // Note: QSenDryPar is negative, thus the expression below adds the heat
-    // transfers to estimate a sensible heat transfer amount
     QSen = QSenDryPar + QSenWetPar;
     masFloCon = -masFloConPar;
     TCon = TConPar;
