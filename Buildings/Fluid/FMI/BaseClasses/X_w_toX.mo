@@ -22,9 +22,15 @@ equation
     X_w_internal = 0;
   end if;
   // Assign vector to output connector
- X = cat(1, {X_w_internal}, {1-X_w_internal});
+ X = if Medium.nX == 1 then ones(Medium.nX) else cat(1, {X_w_internal}, {1-X_w_internal});
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+March 17, 2017, by Michael Wetter:<br/>
+Changed assignment of <code>X</code>.<br/>
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/675\">Annex 60, #675</a>.
+</li>
 <li>
 April 15, 2016, by Michael Wetter:<br/>
 First implementation.

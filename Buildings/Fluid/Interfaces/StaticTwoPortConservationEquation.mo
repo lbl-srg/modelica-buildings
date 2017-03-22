@@ -343,16 +343,16 @@ Added test for energy conservation at small mass flow rates.
 March 17, 2016, by Michael Wetter:<br/>
 Refactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+<a href=\"https://github.com/ibpsa/modelica/issues/247\">#247</a>
 and for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">#300</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/300\">#300</a>.
 </li>
 <li>
 September 3, 2015, by Filip Jorissen:<br/>
 Revised implementation of conservation of vapor mass.
 Added new variable <code>mFlow_inv_b</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/247\">#247</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
@@ -368,14 +368,14 @@ January 20, 2016, by Filip Jorissen:<br/>
 Removed if-else block in code for parameter <code>sensibleOnly</code>
 since this is no longer needed to simplify the equations.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/372\">#372</a>.
 </li>
 <li>
 January 17, 2016, by Michael Wetter:<br/>
 Added parameter <code>use_C_flow</code> and converted <code>C_flow</code>
 to a conditionally removed connector.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/372\">#372</a>.
 </li>
 <li>
 December 16, 2015, by Michael Wetter:<br/>
@@ -388,7 +388,7 @@ November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
 </li>
 <li>
 September 14, 2015, by Filip Jorissen:<br/>
@@ -402,7 +402,7 @@ Buildings.Utilities.Math.Functions.inverseXRegularized</a>
 to allow function to be inlined and to factor out the computation
 of arguments that only depend on parameters.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">issue 302</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/302\">issue 302</a>.
 </li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
@@ -411,7 +411,7 @@ allowed.
 The previous formulation was singular.
 This caused some models to not translate.
 The error was introduced in
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/282\">#282</a>.
 </li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
@@ -425,7 +425,7 @@ added default values for outlet quantities at <code>port_a</code>
 if <code>allowFlowReversal=false</code> and
 updated documentation.
 See
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">
+<a href=\"https://github.com/ibpsa/modelica/issues/281\">
 issue 281</a> for a discussion.
 </li>
 <li>
@@ -435,7 +435,7 @@ and do not lead to division by zero,
 also when connecting a <code>prescribedHeatFlowRate</code>
 to <code>MixingVolume</code> instances.
 Renamed <code>use_safeDivision</code> into <code>prescribedHeatFlowRate</code>.
-See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
+See <a href=\"https://github.com/ibpsa/modelica/issues/282\">#282</a>
 for a discussion.
 </li>
 <li>

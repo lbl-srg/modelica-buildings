@@ -35,8 +35,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shr.y, mWat.SHR) annotation (Line(
-      points={{-39,6.10623e-16},{-29.5,6.10623e-16},{-29.5,6.10623e-16},{-20,
-          6.10623e-16},{-20,6.10623e-16},{-1,6.10623e-16}},
+      points={{-39,6.10623e-16},{-1,6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
 annotation (experiment(StopTime=3600),

@@ -178,7 +178,7 @@ of the pumps have different values. This then tests the correct extrapolation.
 December 6, 2016, by Michael Wetter:<br/>
 Relaxed input signal to allow simulation if bounds on min and max values are checked in Dymola.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
@@ -187,7 +187,7 @@ Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 January 7, 2015, by Michael Wetter:<br/>

@@ -183,6 +183,6 @@ end UsersGuide;
 
 
 annotation (preferredView="info", Documentation(info="<html>
-This package contains components models for actuators.
+This package contains component models for actuators.
 </html>"));
 end Actuators;

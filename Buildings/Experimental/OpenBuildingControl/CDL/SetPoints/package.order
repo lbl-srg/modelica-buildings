@@ -1,8 +1,4 @@
 CalendarTime
 HotWaterTemperatureReset
-ModelTime
-Table
-CombiTable1D
-CombiTable1Ds
-ExternalCombiTable1D
-Smoothness
+StandardTime
+TimeTable

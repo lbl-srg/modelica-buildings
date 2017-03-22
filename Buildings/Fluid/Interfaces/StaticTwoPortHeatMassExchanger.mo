@@ -151,7 +151,7 @@ are the results of an iterative solver.
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
 </li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
@@ -165,7 +165,7 @@ November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
 </li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
@@ -174,7 +174,7 @@ added default values for outlet quantities at <code>port_a</code>
 if <code>allowFlowReversal=false</code> and
 updated documentation.
 See
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/281\">
+<a href=\"https://github.com/ibpsa/modelica/issues/281\">
 issue 281</a> for a discussion.
 </li>
 <li>
@@ -182,7 +182,7 @@ July 1, 2015 by Filip Jorissen:<br/>
 Renamed <code>use_safeDivision</code> into
 <code>prescribedHeatFlowRate</code>.
 See
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+<a href=\"https://github.com/ibpsa/modelica/issues/282\">
 issue 282</a> for a discussion.
 </li>
 <li>

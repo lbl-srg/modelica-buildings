@@ -3,7 +3,7 @@ package Discrete "Package with models for discrete time controls"
   extends Modelica.Icons.Package;
 annotation (
 preferredView="info", Documentation(info="<html>
-This package contains components models for discrete time controls.
+This package contains component models for discrete time controls.
 For additional models, see also
 <a href=\"modelica://Modelica.Blocks.Discrete\">
 Modelica.Blocks.Discrete</a>.
