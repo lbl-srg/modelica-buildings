@@ -34,6 +34,8 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "Mass fraction of water in moist air at inlet";
   input Modelica.SIunits.SpecificEnthalpy hAirIn
     "Specific enthalpy of air at inlet conditions";
+  input Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
+    "Specific enthalpy of saturated air at inlet at coil surface";
   // -- misc.
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The configuration of the heat exchanger";
@@ -67,8 +69,6 @@ protected
      temperature";
   Modelica.SIunits.SpecificEnthalpy hAirOut
     "Specific enthalpy of air outlet";
-  Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
-    "Specific enthalpy of saturated air at inlet at coil surface";
   Modelica.SIunits.SpecificEnthalpy hAirSatSurOut
     "Specific enthalpy of saturated air at outlet at coil surface";
   Modelica.SIunits.SpecificEnthalpy hSurEff
@@ -100,12 +100,8 @@ protected
     "Overall Ntu for a wet coil, defined in eq 4.1.13 of Braun 1988";
   Modelica.SIunits.MassFraction XOut[2]
     "Mass fraction of air at outlet";
-  Modelica.SIunits.MassFraction XAirSatIn[2]
-    "Mass fractions of components at inlet";
   Modelica.SIunits.MassFraction XAirSatOut[2]
     "Mass fractions of components at outlet";
-  Modelica.SIunits.AbsolutePressure pSatWatIn
-    "Saturation pressure of water vapor at inlet";
   Modelica.SIunits.AbsolutePressure pSatWatOut
     "Saturation pressure of water vapor at outlet";
   Modelica.SIunits.MassFraction wAirOut
@@ -129,7 +125,6 @@ equation
     // Other Equations
     cpEff = 0;
     hAirOut = hAirIn;
-    hAirSatSurIn = hAirIn;
     hAirSatSurOut = hAirIn;
     hSurEff = hAirIn;
     effSta = 0;
@@ -148,22 +143,11 @@ equation
     NtuWet = 0;
     XOut[watIdx] = wAirIn;
     XOut[othIdx] = 1 - wAirIn;
-    XAirSatIn[watIdx] = wAirIn;
-    XAirSatIn[othIdx] = 1 - wAirIn;
     XAirSatOut[watIdx] = wAirIn;
     XAirSatOut[othIdx] = 1 - wAirIn;
-    pSatWatIn = 0;
     pSatWatOut = 0;
     wAirOut = wAirIn;
   else
-    pSatWatIn =
-      Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
-        TWatIn);
-    XAirSatIn[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pW(
-      p_w=pSatWatIn, p=pAir);
-    XAirSatIn[othIdx] =  1 - XAirSatIn[watIdx];
-    hAirSatSurIn =  Buildings.Media.Air.specificEnthalpy_pTX(
-      p=pAir, T=TWatIn, X=XAirSatIn);
     pSatWatOut =
       Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
         TWatOutGuess);
@@ -185,6 +169,8 @@ equation
       NTU = NtuSta,
       flowRegime = Integer(cfg));
     QTot = effSta * masFloAir * (hAirIn - hAirSatSurIn);
+    TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
+
     hAirOut = hAirIn - (QTot / masFloAir);
     NtuAirSta = UAAir / (masFloAir * cpAir);
     hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
@@ -217,7 +203,7 @@ equation
     masFloCon = masFloAir * (wAirIn - wAirOut);
     QSen = -(QTot - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
     TCon = TSurEff;
-    TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
+
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

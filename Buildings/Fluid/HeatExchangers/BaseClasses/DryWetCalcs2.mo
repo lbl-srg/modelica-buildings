@@ -145,6 +145,8 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
     p=pAir, XSat=wAirIn)
     annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSat_pTSat(
+    p=pAir, TSat=TWatIn);
   Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs dry(
     UAWat = UAWat,
     masFloWat = masFloWat,
@@ -173,6 +175,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     pAir = pAir,
     wAirIn = wAirIn,
     hAirIn = hAirIn,
+    hAirSatSurIn = hAirSatSurIn,
     cfg = cfg);
   Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs parDry(
     UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
@@ -226,6 +229,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
              then DUMMY
              else Medium2.specificEnthalpy_pTX(
                     p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
+    hAirSatSurIn = hAirSatSurIn,
     cfg = cfg)
     "Calculations for the wet part of the coil in a partially wet coil";
 
@@ -292,9 +296,12 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Temperature of condensate in a wet/dry coil";
   constant Real DUMMY = 0
     "Used to 'switch off' the dry / wet coil calculation functions";
+  Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
+    "";
 
 equation
   TAirInDewPoi = TDewPoi_pX.TDewPoi;
+  hAirSatSurIn = hSat_pTSat.hSat;
   QSenDry = dry.Q;
   TWatOutDry = dry.TWatOut;
   TAirOutDry = dry.TAirOut;
