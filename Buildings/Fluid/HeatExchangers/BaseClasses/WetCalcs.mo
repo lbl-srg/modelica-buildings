@@ -112,6 +112,10 @@ protected
     "Saturation pressure of water vapor at outlet";
   Modelica.SIunits.MassFraction wAirOut
     "Mass fraction of water in air at outlet";
+  Modelica.SIunits.AbsolutePressure pSatEff
+    "Saturation pressure of water vapor at the effective surface temperature";
+  Modelica.SIunits.MassFraction XSurEff[2]
+    "Mass fraction of air at the surface effective conditions";
 
 equation
   if noEvent(
@@ -132,6 +136,9 @@ equation
     hSurEff = hAirIn;
     effSta = 0;
     TSurEff = TAirIn;
+    pSatEff = 0;
+    XSurEff[1] = 0;
+    XSurEff[2] = 0;
     pSatOut = 0;
     mSta = 0;
     UAsta = 0;
@@ -187,9 +194,15 @@ equation
     NtuAirHat = UAAir / (masFloAir * cpAir);
     // The effective surface temperature Ts,eff or TSurEff is the saturation
     // temperature at the value of an effective surface enthalpy, hs,eff or
-    // hSurEff, which is given by the relation similar to that for temperature.
-    TSurEff = Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
-      p=pAir, h=hSurEff);
+    // hSurEff, which is given by the following relation:
+    pSatEff = Buildings.Media.Air.saturationPressure(TSurEff);
+    XSurEff[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=pSatEff, p=pAir, phi=phiSat);
+    XSurEff[othIdx] = 1 - XSurEff[watIdx];
+    hSurEff = Buildings.Media.Air.specificEnthalpy_pTX(
+      p=pAir, T=TSurEff, X=XSurEff);
+    //TSurEff = Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
+    //  p=pAir, h=hSurEff);
     TAirOut = TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
     pSatOut = Buildings.Media.Air.saturationPressure(TAirOut);
     XOut[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
