@@ -145,6 +145,16 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
     p=pAir, XSat=wAirIn)
     annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs dry(
+    UAWat = UAWat,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = TWatIn,
+    UAAir = UAAir,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = TAirIn,
+    cfg = cfg);
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCalcs wet(
     redeclare package Medium1 = Medium1,
     UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA)
@@ -263,6 +273,11 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
 
 equation
   TAirInDewPoi = TDewPoi_pX.TDewPoi;
+  QSenDry = dry.Q;
+  TWatOutDry = dry.TWatOut;
+  TAirOutDry = dry.TAirOut;
+  TSurAirOutDry = dry.TSurAirOut;
+  /*
   (QSenDry, TWatOutDry, TAirOutDry, TSurAirOutDry) =
     Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
       UAWat = UAWat,
@@ -274,6 +289,7 @@ equation
       cpAir = cpAir,
       TAirIn = TAirIn,
       cfg = cfg);
+  */
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
@@ -287,10 +303,11 @@ equation
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
-  // The use of TAirInDewPoi below as the "then clause" is so the equation
-  // below the two function calls "(TAirX - TAirInDewPoi) ..." will
-  // gracefully degrade and still be true when we short circuit the following
-  // code where we solve for the partially wet/ partially dry region.
+  /*
+  QSenDryPar = dry.Q;
+  TWatOutPar = dry.TWatOut;
+  TAirX = dry.TAirOut;  
+  */
   (QSenDryPar, TWatOutPar, TAirX, TSurAirOutPar) =
     Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
       UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
