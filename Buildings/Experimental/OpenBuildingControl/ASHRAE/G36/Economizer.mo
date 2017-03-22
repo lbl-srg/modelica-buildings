@@ -184,19 +184,53 @@ Outputs: MinOA-P setpoint, MaxRA-P setpoint
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SingleCommonEconDamperMinOA.png\"/>
 </p>
+The third sequence is the high limit lockout used to disable the economizer, 
+in other words to set the MaxOA-P = MinOA-P.
+Fixme: List variables as provided on the chart below.
+<p>
+Sequence 2: HighLimitLockout
+</p>
+<p>
+Inputs: TOut, Freezstat status, time since last disable
+</p>
+<p>
+Outputs: MaxRA-P setpoint
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+</p>
+<p>
+The third control sequence modulates OA and RA dampers. It takes MinOA-P and 
+MaxRA-P outputs from the first sequence as inputs that set the corresponding 
+damper position limits. The positions for both OA and RA dampers are set by 
+a single PI loop. The damper positions are modulated between the MinOA-P 
+(MinRA-P) and MaxOA-P (MaxRA-P) positions such that SAT remains at SATsp.
+</p>
+<p>
+Sequence 3: DamperModulation
+</p>
+<p>
+Inputs: SAT measurement, SAT setpoint, MinOA-P, MaxRA-P
+</p>
+<p>
+Outputs: OA-P, RA-P
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon.PNG\"/>
+</p>
 
 
 
 
-Single common economizer damper provides the minimum outdoor 
-air as perscribed by the building code. Separate minimum outdoor air damper 
-provided by  
 
 
 
-This documentation assumes a single common economizer damper, as described 
-in section 
-
+<p>
+Fixme: Leaving VAV docs here for now, remove when harmonized.
+</p>
+<p>
 For the temperature set points, the
 parameters are the maximum supply air temperature <code>TMax</code>,
 and the minimum supply air temperature for cooling <code>TMin</code>.
@@ -219,11 +253,6 @@ the speed is faster increased the larger the difference is between
 the zone temperature minus outdoor temperature <code>TZon-TOut</code>.
 The figure below shows the sequence.
 </p>
-<p align=\"center\">
-<img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.svg\"/>
-</p>
-<p>
 Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
 based on the same temperature sensors and control loops.
 </p>

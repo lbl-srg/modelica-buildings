@@ -1,37 +1,212 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="197.1mm" height="114.1mm" version="1.1" viewBox="0 0 197.09947 114.10156" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
- <defs>
-  <marker id="marker5553-0" overflow="visible" orient="auto">
-   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill-rule="evenodd" stroke="#000" stroke-width="1pt"/>
-  </marker>
-  <marker id="marker5381-6" overflow="visible" orient="auto">
-   <path transform="matrix(-.8 0 0 -.8 -10 0)" d="m0 0 5-5-17.5 5 17.5 5z" fill-rule="evenodd" stroke="#000" stroke-width="1pt"/>
-  </marker>
- </defs>
- <metadata>
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:format>image/svg+xml</dc:format>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title/>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <g transform="translate(-9.9825 -110.85)">
-  <g stroke="#000">
-   <g>
-    <path d="m102.09 136.46c-6.3104-0.94049-11.449-3.654-14.128-7.4604-1.2718-1.807-1.6524-2.9989-1.6524-5.1749 0-2.1539 0.37055-3.3367 1.6034-5.1178 2.5485-3.6817 7.1988-6.2419 13.39-7.372 2.7319-0.49862 7.1211-0.53304 9.8306-0.077 5.3536 0.9009 9.5346 2.816 12.393 5.6769 3.7144 3.7171 4.2068 8.2607 1.3307 12.279-2.5245 3.5275-7.6082 6.2048-13.604 7.1645-2.4504 0.3923-6.8169 0.43095-9.1639 0.0811z" fill="#e6e6e6" stroke-width=".17871"/>
-    <path d="m102.41 224.62c-6.3104-0.94045-11.449-3.6539-14.128-7.4603-1.2718-1.807-1.6524-2.9989-1.6524-5.1749 0-2.1539 0.37054-3.3366 1.6034-5.1178 2.5485-3.6817 7.1988-6.2419 13.39-7.3719 2.7319-0.4986 7.1211-0.53298 9.8306-0.077 5.3536 0.90087 9.5346 2.816 12.393 5.6769 3.7144 3.7171 4.2068 8.2607 1.3307 12.279-2.5245 3.5275-7.6082 6.2048-13.604 7.1646-2.4505 0.39223-6.8169 0.43088-9.1639 0.0806z" fill="#e6e6e6" stroke-width=".17871"/>
-    <path d="m106.09 136.59v61.865" fill="none" marker-end="url(#marker5381-6)" stroke-width=".38265"/>
-   </g>
-   <path d="m88.006 207.44c-25.993-34.884 4.2728-73.37 4.2728-73.37" fill="none" marker-end="url(#marker5553-0)" stroke-width=".51441px"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg4557"
+   viewBox="0 0 123.13358 71.151235"
+   version="1.1"
+   height="71.150261mm"
+   width="123.1339mm">
+  <defs
+     id="defs4491">
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0">
+      <path
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         id="path4485"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6">
+      <path
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt"
+         id="path4488"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata4493">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g4555"
+     transform="matrix(0.62206046,0,0,0.62357432,-6.2106269,-69.121379)">
+    <g
+       style="stroke:#000000"
+       id="g4505">
+      <g
+         id="g4501">
+        <path
+           style="fill:#e6e6e6;stroke-width:0.17871"
+           id="path4495"
+           d="m 102.09,136.46 c -6.3104,-0.94049 -11.449,-3.654 -14.128,-7.4604 -1.2718,-1.807 -1.6524,-2.9989 -1.6524,-5.1749 0,-2.1539 0.37055,-3.3367 1.6034,-5.1178 2.5485,-3.6817 7.1988,-6.2419 13.39,-7.372 2.7319,-0.49862 7.1211,-0.53304 9.8306,-0.077 5.3536,0.9009 9.5346,2.816 12.393,5.6769 3.7144,3.7171 4.2068,8.2607 1.3307,12.279 -2.5245,3.5275 -7.6082,6.2048 -13.604,7.1645 -2.4504,0.3923 -6.8169,0.43095 -9.1639,0.0811 z" />
+        <path
+           style="fill:#e6e6e6;stroke-width:0.17871"
+           id="path4497"
+           d="m 102.41,224.62 c -6.3104,-0.94045 -11.449,-3.6539 -14.128,-7.4603 -1.2718,-1.807 -1.6524,-2.9989 -1.6524,-5.1749 0,-2.1539 0.37054,-3.3366 1.6034,-5.1178 2.5485,-3.6817 7.1988,-6.2419 13.39,-7.3719 2.7319,-0.4986 7.1211,-0.53298 9.8306,-0.077 5.3536,0.90087 9.5346,2.816 12.393,5.6769 3.7144,3.7171 4.2068,8.2607 1.3307,12.279 -2.5245,3.5275 -7.6082,6.2048 -13.604,7.1646 -2.4505,0.39223 -6.8169,0.43088 -9.1639,0.0806 z" />
+        <path
+           style="fill:none;stroke-width:0.38264999;marker-end:url(#marker5381-6)"
+           id="path4499"
+           d="m 106.09,136.59 v 61.865" />
+      </g>
+      <path
+         style="fill:none;stroke-width:0.51441002px;marker-end:url(#marker5553-0)"
+         id="path4503"
+         d="m 88.006,207.44 c -25.993,-34.884 4.2728,-73.37 4.2728,-73.37" />
+    </g>
+    <g
+       style="font-family:'8514fix';letter-spacing:0px;word-spacing:0px;fill:#000000;stroke-width:0.38539001"
+       id="g4553"
+       word-spacing="0px"
+       letter-spacing="0px">
+      <text
+         id="text4525"
+         xml:space="preserve"
+         style="font-size:5.13859987px;line-height:1.25;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;text-anchor:middle"
+         text-align="center"
+         font-size="5.1386px"
+         y="151.59299"
+         x="168.24487"
+         transform="scale(0.9396,1.0643)"><tspan
+           id="tspan4507"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="151.59299"
+           x="168.24487">TOut &lt; TOutHigLim and</tspan><tspan
+           id="tspan4509"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="158.01627"
+           x="168.24487">Freezestat is off and</tspan><tspan
+           id="tspan4511"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="164.43954"
+           x="168.24487">Time since last disable &gt; 10 min and</tspan><tspan
+           id="tspan4513"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="170.86284"
+           x="169.14815">(SAT &gt; 38 C or SAT &lt; 38 C for &lt; 5 min) </tspan><tspan
+           id="tspan4515"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="177.28612"
+           x="168.24487" /><tspan
+           id="tspan4517"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="183.7094"
+           x="168.24487" /><tspan
+           id="tspan4519"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="190.13269"
+           x="168.24487" /><tspan
+           id="tspan4521"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="196.55597"
+           x="168.24487" /><tspan
+           id="tspan4523"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="202.97925"
+           x="168.24487" /></text>
+      <text
+         id="text4529"
+         xml:space="preserve"
+         style="font-size:5.13859987px;line-height:1.25;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal"
+         font-size="5.1386px"
+         y="116.93456"
+         x="106.93219"
+         transform="scale(0.9396,1.0643)"><tspan
+           id="tspan4527"
+           style="font-size:5.13859987px;line-height:1;font-family:'8514fix';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;stroke-width:0.38539001"
+           font-size="5.1386px"
+           y="116.93456"
+           x="106.93219">yMin</tspan></text>
+      <text
+         id="text4533"
+         xml:space="preserve"
+         style="font-size:5.13859987px;line-height:1.25;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal"
+         font-size="5.1386px"
+         y="200.29712"
+         x="107.43964"
+         transform="scale(0.9396,1.0643)"><tspan
+           id="tspan4531"
+           style="font-size:5.13859987px;line-height:1;font-family:'8514fix';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;stroke-width:0.38539001"
+           font-size="5.1386px"
+           y="200.29712"
+           x="107.43964">yMax</tspan></text>
+      <text
+         id="text4551"
+         xml:space="preserve"
+         style="font-size:5.13859987px;line-height:1.25;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;text-anchor:middle"
+         text-align="center"
+         font-size="5.1386px"
+         y="154.86447"
+         x="45.033894"
+         transform="scale(0.9396,1.0643)"><tspan
+           id="tspan4535"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="154.86447"
+           x="45.937168">TOut &gt;= TOutHigLim or </tspan><tspan
+           id="tspan4537"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="161.28775"
+           x="45.033894">Freezestat is on or</tspan><tspan
+           id="tspan4539"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="167.71103"
+           x="45.033894">SAT &lt;= 38 C for &gt;= 5 min</tspan><tspan
+           id="tspan4541"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="174.13432"
+           x="45.033894" /><tspan
+           id="tspan4543"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="180.5576"
+           x="45.033894" /><tspan
+           id="tspan4545"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="186.98088"
+           x="45.033894" /><tspan
+           id="tspan4547"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="193.40417"
+           x="45.033894" /><tspan
+           id="tspan4549"
+           style="line-height:1;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center"
+           text-align="center"
+           y="199.82745"
+           x="45.033894" /></text>
+    </g>
   </g>
-  <g fill="#000000" font-family="'8514fix'" letter-spacing="0px" stroke-width=".38539" word-spacing="0px">
-   <text transform="scale(.9396 1.0643)" x="168.24487" y="151.59299" font-size="5.1386px" text-align="center" text-anchor="middle" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="168.24487" y="151.59299" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">TOut &lt; TOutHigLim and</tspan><tspan x="168.24487" y="158.01627" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">Freezestat is off and</tspan><tspan x="168.24487" y="164.43954" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">Time since last disable &gt; 10 min and</tspan><tspan x="169.14815" y="170.86284" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">(SAT &gt; 38 C or SAT &lt; 38 C for &lt; 5 min) </tspan><tspan x="168.24487" y="177.28612" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="168.24487" y="183.7094" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="168.24487" y="190.13269" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="168.24487" y="196.55597" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="168.24487" y="202.97925" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/></text>
-   <text transform="scale(.9396 1.0643)" x="106.93219" y="116.93456" font-size="5.1386px" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="106.93219" y="116.93456" font-family="'8514fix'" font-size="5.1386px" stroke-width=".38539" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">yMin</tspan></text>
-   <text transform="scale(.9396 1.0643)" x="107.43964" y="200.29712" font-size="5.1386px" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="107.43964" y="200.29712" font-family="'8514fix'" font-size="5.1386px" stroke-width=".38539" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">yMax</tspan></text>
-   <text transform="scale(.9396 1.0643)" x="45.033894" y="154.86447" font-size="5.1386px" text-align="center" text-anchor="middle" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="45.937168" y="154.86447" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">TOut &gt;= TOutHigLim or </tspan><tspan x="45.033894" y="161.28775" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">Freezestat is on or</tspan><tspan x="45.033894" y="167.71103" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1">SAT &lt;= 38 C for &gt;= 5 min</tspan><tspan x="45.033894" y="174.13432" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="45.033894" y="180.5576" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="45.033894" y="186.98088" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="45.033894" y="193.40417" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/><tspan x="45.033894" y="199.82745" text-align="center" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1"/></text>
-  </g>
- </g>
 </svg>
