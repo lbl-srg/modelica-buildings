@@ -169,7 +169,6 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     final X_start=XEva_start,
     final C_start=CEva_start,
     final computeReevaporation=computeReevaporation,
-    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
     dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
@@ -284,7 +283,7 @@ equation
   connect(watCooCon.port_a, senMasFloCon.port_b)
     annotation (Line(points={{-20,-80},{20,-80}},color={0,127,255}));
   connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{30,-69},
-          {30,-69},{30,-38},{30,-30},{-20,-30},{-20,-3.2},{-11,-3.2}}, color={0,
+          {30,-69},{30,-38},{30,-30},{-20,-30},{-20,-3},{-11,-3}},     color={0,
           0,127}));
   connect(TConEntWat.y, eva.TConIn) annotation (Line(points={{-39,11},{-20,11},{
           -20,4},{-20,4},{-20,3},{-11,3}}, color={0,0,127}));
@@ -355,6 +354,12 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Michael Wetter:<br/>
+Moved assignment of evaporator data <code>datCoi</code> from the
+<code>constrainedBy</code> declaration in the base class
+to the instantiation to work around a limitation of JModelica.
+</li>
 <li>
 March 7, 2017, by Michael Wetter:<br/>
 Refactored implementation to avoid code duplication and to propagate parameters.

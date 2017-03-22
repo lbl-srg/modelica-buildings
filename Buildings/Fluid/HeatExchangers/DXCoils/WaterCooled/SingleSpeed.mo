@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled;
 model SingleSpeed "Single speed water-cooled DX coils"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed eva);
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed eva(
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi));
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
@@ -25,6 +26,12 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2017, by Michael Wetter:<br/>
+Moved assignment of evaporator data <code>datCoi</code> from the
+<code>constrainedBy</code> declaration in the base class
+to the instantiation to work around a limitation of JModelica.
+</li>
 <li>
 March 7, 2017, by Michael Wetter:<br/>
 Refactored implementation to avoid code duplication and to propagate parameters.
