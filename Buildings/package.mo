@@ -132,12 +132,17 @@ its class name ends with the string <code>Beta</code>.
      annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 4.0.0 is a major new release.
+   Version 4.0.0 is a major new release. It is the first release
+   that is based on the <i>Modelica IBPSA Library</i>
+   (<a href=\"https://github.com/ibpsa/modelica\">https://github.com/ibpsa/modelica</a>).
+   All models simulate with Dymola 2017 FD01 and with JModelica,
+   and the results of these simulators have been cross-compared and are
+   equal within the expected tolerance.
    </p>
    <p>
      The following major changes have been done:
    <ul>
-     <li>
+   <li>
    It no longer uses the <code>Modelica_StateGraph2</code>
    library. Instead, it uses <code>Modelica.StateGraph</code> which is part
    of the Modelica Standard Library.
@@ -150,23 +155,28 @@ its class name ends with the string <code>Beta</code>.
    The following new packages have been added:
    <ul>
    <li>
-   The packages <code>Buildings.Fluid.FMI.Adaptors</code> and
-   <code>Buildings.Fluid.FMI.ExportContainers</code> have been added to
+   <code>Buildings.Experimental.DistrictHeatingCooling</code>
+   with models for district heating and cooling
+   with bi-directional flow in the distribution pipes.
+   </li>
+   <li>
+   <code>Buildings.Fluid.FMI.Adaptors</code> and
+   <code>Buildings.Fluid.FMI.ExportContainers</code>, which
    allow export of HVAC systems and of thermal zones as
    Functional Mockup Units.
    </li>
    <li>
-   The package <code>Buildings.Experimental.DistrictHeatingCooling</code>
-   with models for district heating and cooling
-   with bi-directional flow in the distribution pipes has been added.
+   <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>,
+   with active beams for cooling and heating.
    </li>
    <li>
-   The package <code>Buildings.Fluid.HeatExchangers.ActiveBeams</code>
-   with active beams for cooling and heating has been added.
+   <code>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled</code>,
+   with water-cooled direct expansion cooling coils.
    </li>
    <li>
-   The package <code>Buildings.ThermalZones.ReducedOrder</code> with
-   reduced order models of thermal zones based on VDI 6007 has been added.
+   <code>Buildings.ThermalZones.ReducedOrder</code>, with
+   reduced order models of thermal zones based on VDI 6007
+   that are suitable for district energy simulation.
    </li>
    </ul>
    <li>
@@ -233,6 +243,14 @@ its class name ends with the string <code>Beta</code>.
        <td valign=\"top\">Package with models of active beams for space cooling and heating.
        </td>
        </tr>
+
+    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled
+       </td>
+       <td valign=\"top\">Package with models of water-cooled direct expansion
+                          cooling coils with single speed, variable speed
+                          or multi-stage compressor.
+        </td>
+        </tr>
 
    <tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Compressors
        </td>
@@ -656,6 +674,32 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">
+                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.Data
+       </td>
+       <td valign=\"top\">Renamed
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</code>,<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</code>,<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</code> and<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.Data</code> to<br/>
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data</code>.<br/>
+                          This was due to the addition of the new package
+                          <code>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled</code>.
+                          This is for
+                          <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/635\">Buildings, #635</a>.<br/>
+                          For Dymola, the conversion script updates these models.
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatPumps</b>
        </td>
    </tr>
@@ -835,10 +879,10 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.MultiStage<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed<br/>
-                          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
+   <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.BaseClasses.Evaporation
        </td>
        <td valign=\"top\">Corrected the computation of the wet bulb state in the model
                           that computes the reevaporation of water vapor into the air stream when the coil
