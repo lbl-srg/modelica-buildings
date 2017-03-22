@@ -232,12 +232,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
 </li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
@@ -247,14 +247,14 @@ Set <code>quantity</code> attributes.
 November 13, 2015, by Michael Wetter:<br/>
 Changed assignments of start values in <code>extends</code> statement.
 This is for issue
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/299\">#299</a>.
 </li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in
 <code>vol1</code> and <code>vol2</code>.
 This is for issue
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/258=\">#258</a>.
 </li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>

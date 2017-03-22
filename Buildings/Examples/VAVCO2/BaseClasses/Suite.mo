@@ -532,7 +532,7 @@ Model of a suite consisting of five rooms for the MIT system model.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>
