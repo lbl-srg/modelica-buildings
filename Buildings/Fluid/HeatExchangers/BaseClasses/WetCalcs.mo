@@ -86,8 +86,6 @@ protected
     (Braun 2013 Ch02 eq 2.20)";
   Modelica.SIunits.MassFlowRate UAsta
     "Overall mass transfer coefficient for dry coil";
-  Modelica.SIunits.HeatFlowRate Q
-    "Total heat flow rate from air to water for dry coil";
   Real NtuSta
     "Number of transfer units (NTU*)";
   Real NtuAirSta
@@ -142,7 +140,6 @@ equation
     pSatOut = 0;
     mSta = 0;
     UAsta = 0;
-    Q = 0;
     NtuSta = 0;
     NtuAirSta = 0;
     NtuAirHat = 0;
@@ -187,8 +184,8 @@ equation
       Z = mSta,
       NTU = NtuSta,
       flowRegime = Integer(cfg));
-    Q = effSta * masFloAir * (hAirIn - hAirSatSurIn);
-    hAirOut = hAirIn - (Q / masFloAir);
+    QTot = effSta * masFloAir * (hAirIn - hAirSatSurIn);
+    hAirOut = hAirIn - (QTot / masFloAir);
     NtuAirSta = UAAir / (masFloAir * cpAir);
     hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
     NtuAirHat = UAAir / (masFloAir * cpAir);
@@ -218,8 +215,7 @@ equation
       / (masFloWat * cpWat * NtuWat)
       "Braun 1988, eq 4.1.22";
     masFloCon = masFloAir * (wAirIn - wAirOut);
-    QSen = -(Q - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
-    QTot = Q;
+    QSen = -(QTot - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
     TCon = TSurEff;
     TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
   end if;
