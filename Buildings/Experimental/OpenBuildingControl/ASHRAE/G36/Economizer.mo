@@ -205,13 +205,15 @@ The third control sequence modulates OA and RA dampers. It takes MinOA-P and
 MaxRA-P outputs from the first sequence as inputs that set the corresponding 
 damper position limits. The positions for both OA and RA dampers are set by 
 a single PI loop. The damper positions are modulated between the MinOA-P 
-(MinRA-P) and MaxOA-P (MaxRA-P) positions such that SAT remains at SATsp.
+(MinRA-P) and MaxOA-P (MaxRA-P) positions based on the control signal from a 
+controller which regulates SAT to SATsp.
 </p>
 <p>
 Sequence 3: DamperModulation
 </p>
 <p>
-Inputs: SAT measurement, SAT setpoint, MinOA-P, MaxRA-P
+Inputs: SAT measurement, SAT setpoint, MinOA-P, MaxOA-P (100% or set at 
+comissioning, thus parameter), MaxRA-P
 </p>
 <p>
 Outputs: OA-P, RA-P
