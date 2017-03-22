@@ -214,7 +214,7 @@ equation
           Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
-          fillColor={255,213,170},
+          fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end WetCalcs;
