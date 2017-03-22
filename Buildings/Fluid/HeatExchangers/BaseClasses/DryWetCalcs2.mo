@@ -299,19 +299,6 @@ equation
   TWatOutDry = dry.TWatOut;
   TAirOutDry = dry.TAirOut;
   TSurAirOutDry = dry.TSurAirOut;
-  /*
-  (QSenDry, TWatOutDry, TAirOutDry, TSurAirOutDry) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
-      UAWat = UAWat,
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = TWatIn,
-      UAAir = UAAir,
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = TAirIn,
-      cfg = cfg);
-  */
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
@@ -329,31 +316,6 @@ equation
   TWatOutPar = parDry.TWatOut;
   TAirX = parDry.TAirOut;
   TSurAirOutPar = parDry.TSurAirOut;
-  /*
-  (QSenDryPar, TWatOutPar, TAirX, TSurAirOutPar) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
-      UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-              then DUMMY
-              else UAWat * dryFra,
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-               then TAirInDewPoi
-               else TWatX,
-      UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-              then DUMMY
-              else UAAir * dryFra,
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
-                or TAirInDewPoi <= TDewPoiA)
-               then TAirInDewPoi
-               else TAirIn,
-               cfg = cfg);
-  */
   QTotWetPar = parWet.QTot;
   QSenWetPar = parWet.QSen;
   TWatX = parWet.TWatOut;
