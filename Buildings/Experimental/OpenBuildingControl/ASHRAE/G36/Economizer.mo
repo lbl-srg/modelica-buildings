@@ -184,7 +184,7 @@ Outputs: MinOA-P setpoint, MaxRA-P setpoint
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SingleCommonEconDamperMinOA.png\"/>
 </p>
-The third sequence is the high limit lockout used to disable the economizer, 
+The second sequence is the high limit lockout used to disable the economizer, 
 in other words to set the MaxOA-P = MinOA-P.
 Fixme: List variables as provided on the chart below.
 <p>
@@ -206,7 +206,7 @@ MaxRA-P outputs from the first sequence as inputs that set the corresponding
 damper position limits. The positions for both OA and RA dampers are set by 
 a single PI loop. The damper positions are modulated between the MinOA-P 
 (MinRA-P) and MaxOA-P (MaxRA-P) positions based on the control signal from a 
-controller which regulates SAT to SATsp.
+controller which regulates SAT to SATsp. The heating signal must be off.
 </p>
 <p>
 Sequence 3: DamperModulation
