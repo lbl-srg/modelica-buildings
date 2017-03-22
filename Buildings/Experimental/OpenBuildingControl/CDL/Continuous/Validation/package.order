@@ -4,6 +4,8 @@ Add3
 AddParameter
 Atan
 Atan2
+Average
+ChangeSign
 Cos
 Division
 Exp
@@ -15,12 +17,10 @@ Log
 Log10
 Max
 Min
+Modulo
 NumberOfRequests
 Product
 SignalRanker
 Sin
-Tan
-ChangeSign
-Modulo
-Average
 Sqrt
+Tan

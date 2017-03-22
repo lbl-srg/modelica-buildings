@@ -4,6 +4,8 @@ Add3
 AddParameter
 Atan
 Atan2
+Average
+ChangeSign
 Constant
 Cos
 Division
@@ -17,14 +19,12 @@ Log
 Log10
 Max
 Min
+Modulo
 NumberOfRequests
 Product
+Ramp
 SignalRanker
 Sin
+Sqrt
 Tan
 Validation
-ChangeSign
-Modulo
-Average
-Sqrt
-Ramp
