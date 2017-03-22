@@ -151,10 +151,52 @@ model Economizer
     Documentation(info="<html>
 <p>
 Fixme
-This is initial documentation based on comments from BE and 
-G36.
+This is initial and somewhat broad documentation based on comments from BE. 
+G36. Update labels and charts to match documentation standard and final 
+sequences as implemented.
 </p>
 <p>
+Economizer damper is used to control the outdor airflow to the building HVAC 
+system. The economizer is primarily used to reduce the heating and cooling 
+energy consumption, but depending on the configuration it is also be used to
+satisfy the minimum outdoor air requirement, as perscribed by the applicable
+building code. Thus we differentiate between a single common economizer 
+damper and a separate minimum outdoor air damper. In case of a separate minimum
+outdoor air damper, the first control sequence described bellow should get 
+modified. However, the three sequences we utilize are the most generic version
+of economizer control as described in G36.
+<p>
+The first control sequence resets the MinOA-P (minimum outside air damper 
+position) and the MaxRA-P (maximum return air damper position). A PI 
+controller determines mentioned damper postion limits based on the error between 
+outdoor air setpoint and measured outdoor airflow.
+</p>
+<p>
+Sequence 1: MinOAReset
+</p>
+<p>
+Inputs: OA volume setpoint, OA volume measurement
+</p>
+<p>
+Outputs: MinOA-P setpoint, MaxRA-P setpoint
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SingleCommonEconDamperMinOA.png\"/>
+</p>
+
+
+
+
+Single common economizer damper provides the minimum outdoor 
+air as perscribed by the building code. Separate minimum outdoor air damper 
+provided by  
+
+
+
+This documentation assumes a single common economizer damper, as described 
+in section 
+
 For the temperature set points, the
 parameters are the maximum supply air temperature <code>TMax</code>,
 and the minimum supply air temperature for cooling <code>TMin</code>.
@@ -179,7 +221,7 @@ The figure below shows the sequence.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.svg\"/>
 </p>
 <p>
 Note that the inputs <code>uHea</code> and <code>uCoo</code> must be computed
