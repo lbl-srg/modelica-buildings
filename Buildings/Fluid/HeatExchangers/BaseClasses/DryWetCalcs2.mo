@@ -174,6 +174,28 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     wAirIn = wAirIn,
     hAirIn = hAirIn,
     cfg = cfg);
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs parDry(
+    UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAWat * dryFra,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TWatX,
+    UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAAir * dryFra,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TAirIn,
+    cfg = cfg);
   Buildings.Fluid.HeatExchangers.BaseClasses.WetCalcs parWet(
     redeclare package Medium1 = Medium1,
     UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
@@ -303,11 +325,11 @@ equation
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
+  QSenDryPar = parDry.Q;
+  TWatOutPar = parDry.TWatOut;
+  TAirX = parDry.TAirOut;
+  TSurAirOutPar = parDry.TSurAirOut;
   /*
-  QSenDryPar = dry.Q;
-  TWatOutPar = dry.TWatOut;
-  TAirX = dry.TAirOut;  
-  */
   (QSenDryPar, TWatOutPar, TAirX, TSurAirOutPar) =
     Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
       UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
@@ -330,7 +352,8 @@ equation
                 or TAirInDewPoi <= TDewPoiA)
                then TAirInDewPoi
                else TAirIn,
-      cfg = cfg);
+               cfg = cfg);
+  */
   QTotWetPar = parWet.QTot;
   QSenWetPar = parWet.QSen;
   TWatX = parWet.TWatOut;
