@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
-block ChangSign "Change sign of the input"
+block ChangeSign "Change sign of the input"
 
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -74,4 +74,4 @@ Modelica Standard Library.
 </li>
 </ul>
 </html>"));
-end ChangSign;
+end ChangeSign;

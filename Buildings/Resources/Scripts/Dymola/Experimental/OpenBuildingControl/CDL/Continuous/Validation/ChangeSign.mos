@@ -1,0 +1,3 @@
+simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.ChangeSign", method="dassl", tolerance=1e-06, resultFile="ChangeSign");
+createPlot(id=1, position={15, 10, 590, 420}, y={"ChgS1.u", "ChgS1.y"}, range={0.0, 1.0, -2, 2}, grid=true, colors={{238,46,47}, {28,108,200}});
+

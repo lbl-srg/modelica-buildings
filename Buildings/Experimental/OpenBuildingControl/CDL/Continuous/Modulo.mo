@@ -15,7 +15,7 @@ block Modulo
         iconTransformation(extent={{100,-8},{120,12}})));
 
 equation
-  y = mod(u1/u2);
+  y = mod(u1,u2);
 
   annotation (
     defaultComponentName="modulo",
