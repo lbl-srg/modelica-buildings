@@ -13,7 +13,7 @@ model DryCoil "Calculates dry coil condition"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint appDryPt(
     redeclare package Medium = Medium,
-    final datCoi=datCoi,
+    datCoi=datCoi,
     final variableSpeedCoil=variableSpeedCoil)
     "Calculates air properties at dry coil condition"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -55,6 +55,8 @@ equation
       points={{59,-30},{20,-30},{20,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
+  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{
+          -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="dryCoi", Documentation(info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition

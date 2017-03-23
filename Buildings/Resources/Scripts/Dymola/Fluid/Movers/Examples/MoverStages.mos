@@ -1,6 +1,6 @@
 // Switch off pedantic mode as this model writes a assertion with level= AssertionLevel.warning
 // because of the selected parameter values
-annex60_pedantic_old=Advanced.PedanticModelica;
+ibpsa_pedantic_old=Advanced.PedanticModelica;
 Advanced.PedanticModelica=false;
 simulateModel("Buildings.Fluid.Movers.Examples.MoverStages", stopTime=1, method="Dassl", tolerance=1e-06, resultFile="MoverStages");
 createPlot(id=1, 
@@ -10,4 +10,4 @@ range={0.0, 1.0, -0.2, 2.2},
 grid=true, 
 colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
 
-Advanced.PedanticModelica=annex60_pedantic_old;
+Advanced.PedanticModelica=ibpsa_pedantic_old;

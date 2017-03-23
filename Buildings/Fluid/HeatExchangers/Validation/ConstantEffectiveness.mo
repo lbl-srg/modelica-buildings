@@ -20,7 +20,7 @@ model ConstantEffectiveness
     duration=60,
     offset=101325,
     startTime=50)
-    "Ramp signal for pressue"
+    "Ramp signal for pressure"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou_2(

@@ -114,7 +114,7 @@ revisions="<html>
 <li>
 April, 25, 2016 by Marcus Fuchs:<br/>
 Introduced missing <code>each</code> keyword. This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/454\"> #454</a>,
+<a href=\"https://github.com/ibpsa/modelica/issues/454\"> #454</a>,
 to prevent a warning in OpenModelica.
 </li>
 <li>

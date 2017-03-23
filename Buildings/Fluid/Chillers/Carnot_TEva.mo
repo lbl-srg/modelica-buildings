@@ -161,7 +161,7 @@ Removed parameters
 <code>effInpEva</code> and <code>effInpCon</code>
 and updated documentation.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica/issues/497\">
 issue 497</a>.
 </li>
 <li>
@@ -170,7 +170,7 @@ Changed default temperature to compute COP to be the leaving temperature as
 use of the entering temperature can violate the 2nd law if the temperature
 lift is small.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica/issues/497\">
 Annex 60, issue 497</a>.
 </li>
 <li>

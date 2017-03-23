@@ -24,7 +24,7 @@ Buildings.Utilities.Math.Examples.SmoothHeaviside</a>.
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/300\">issue 300</a>.
 </li>
 <li>
 July 17, 2015, by Marcus Fuchs:<br/>
