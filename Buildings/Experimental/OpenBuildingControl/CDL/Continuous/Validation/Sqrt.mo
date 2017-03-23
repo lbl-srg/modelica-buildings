@@ -24,7 +24,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sqrt</a>.
 </p>
 <p>
-The input <code>u<code\> varies from <i>0.0</i> to <i>+9.0</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+9.0</i>. 
 </p>
 </html>", revisions="<html>
 <ul>

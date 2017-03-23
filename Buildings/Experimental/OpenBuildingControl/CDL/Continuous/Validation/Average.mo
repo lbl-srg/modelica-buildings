@@ -42,5 +42,4 @@ First implementation.
 </ul>
 
 </html>"));
-
 end Average;

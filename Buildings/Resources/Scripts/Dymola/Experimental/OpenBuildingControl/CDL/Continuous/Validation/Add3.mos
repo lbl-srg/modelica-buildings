@@ -1,2 +1,2 @@
-simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.Add3", method="dassl", tolerance=1e-06, resultFile="Add3");
+simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.Add3", method="dassl", tolerance=1e-06, resultFile="Add3_1");
 createPlot(id=1, position={15, 10, 590, 420}, y={"add1.u1", "add1.u2", "add1.u3", "add1.y"}, range={0.0, 1.0, -5, 6}, grid=true, colors={{0,140,72}, {238,46,47}, {217,67,180}, {28,108,200}});
