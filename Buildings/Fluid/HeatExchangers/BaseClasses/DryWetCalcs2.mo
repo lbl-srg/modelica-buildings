@@ -245,8 +245,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Water outlet temperature for a 100% dry coil";
   Medium2.Temperature TAirOutDry
     "Water outlet temperature for a 100% dry coil";
-  Medium2.Temperature TSurAirOutDry
-    "Air-side coil temperature at outlet for a 100% dry coil";
   // - 100% wet coil
   Modelica.SIunits.HeatFlowRate QTotWet
     "Heat transferred 'air' to 'water' for a 100% wet coil";
@@ -256,8 +254,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Water outlet temperature for a 100% wet coil";
   Medium2.Temperature TAirOutWet
     "Water outlet temperature for a 100% wet coil";
-  Medium2.Temperature TSurAirInWet
-    "Air-side coil temperature at outlet for a 100% wet coil";
   Modelica.SIunits.MassFlowRate masFloConWet
     "Mass flow of condensate for a 100% wet coil; a positive number or zero.";
   Modelica.SIunits.Temperature TConWet
@@ -279,10 +275,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   Modelica.SIunits.HeatFlowRate QSenWetPar
     "Sensible heat transferred from 'water' to 'air' for the wet part of
     a partially wet coil";
-  Medium2.Temperature TSurAirInWetPar
-    "The coil surface at the air inlet to the wet coil in a partially wet coil";
-  Medium2.Temperature TSurAirOutPar
-    "The coil surface at the air outlet from the dry section in a wet/dry coil";
   Modelica.SIunits.MassFlowRate masFloConPar
     "Mass flow of condensate in a wet/dry coil. A positive number for flow.";
   Modelica.SIunits.Temperature TConPar
@@ -290,7 +282,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   constant Real DUMMY = 0
     "Used to 'switch off' the dry / wet coil calculation functions";
   Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
-    "";
+    "Air enthalpy at coil surface at water inlet conditions; used in wet calcs";
 
 equation
   TAirInDewPoi = TDewPoi_pW.T;
@@ -298,7 +290,6 @@ equation
   QSenDry = dry.Q;
   TWatOutDry = dry.TWatOut;
   TAirOutDry = dry.TAirOut;
-  TSurAirOutDry = dry.TSurAirOut;
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
@@ -306,7 +297,6 @@ equation
   QSenWet = wet.QSen;
   TWatOutWet = wet.TWatOut;
   TAirOutWet = wet.TAirOut;
-  TSurAirInWet = wet.TSurAirIn;
   masFloConWet = wet.masFloCon;
   TConWet = wet.TCon;
   // Find TDewPoiB, the incoming air dew point temperature that would put us
@@ -315,12 +305,10 @@ equation
   QSenDryPar = parDry.Q;
   TWatOutPar = parDry.TWatOut;
   TAirX = parDry.TAirOut;
-  TSurAirOutPar = parDry.TSurAirOut;
   QTotWetPar = parWet.QTot;
   QSenWetPar = parWet.QSen;
   TWatX = parWet.TWatOut;
   TAirOutPar = parWet.TAirOut;
-  TSurAirInWetPar = parWet.TSurAirIn;
   masFloConPar = parWet.masFloCon;
   TConPar = parWet.TCon;
   if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA) then

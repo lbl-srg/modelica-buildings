@@ -30,9 +30,6 @@ model DryCalcs
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
     "Temperature of air at the outlet";
-  output Modelica.SIunits.Temperature TSurAirOut
-    "Temperature at the coil surface on the air side at outlet.
-    Braun 1988, eqn 4.1.10";
 
   Real eff
     "Effectiveness for heat exchanger";
@@ -56,13 +53,6 @@ model DryCalcs
     "Overall heat transfer coefficient";
   Real Ntu
     "dry coil number of transfer units";
-  Real NtuWat
-    "Ntu for water side, Braun 1988 eqn 4.1.5";
-  Real NtuAir
-    "Ntu for air side, Braun 1988 eqn 4.1.6";
-  Real NtuDry
-    "Overall number of transfer units for the dry coil,
-    Braun 1988, eq 4.1.7";
 
 equation
   if noEvent(masFloAir < 1e-4 or masFloWat < 1e-4
@@ -71,7 +61,6 @@ equation
     Q = 0;
     TWatOut = TWatIn;
     TAirOut = TAirIn;
-    TSurAirOut = (TWatIn + TAirIn) / 2;
     eff = 0;
     CWat = 0;
     CAir = 0;
@@ -83,19 +72,16 @@ equation
     ResTot = 0;
     UA = 0;
     Ntu = 0;
-    NtuAir = 0;
-    NtuWat = 0;
-    NtuDry = 0;
   else
     CWat = masFloWat * cpWat;
     CAir = masFloAir * cpAir;
     CMin = min(CWat, CAir);
     CMax = max(CWat, CAir);
-    Z = CMin / CMax "Braun 1988 eq 4.1.10";
     ResAir = 1 / UAAir;
     ResWat = 1 / UAWat;
     ResTot = ResAir + ResWat;
     UA = 1/ResTot "UA is for the overall coil (i.e., both sides)";
+    Z = CMin / CMax "Braun 1988 eq 4.1.10";
     Ntu = UA/CMin;
     eff = epsilon_ntuZ(
       Z = Z,
@@ -107,14 +93,6 @@ equation
       "Braun 1988 eq 4.1.8";
     TWatOut = TWatIn + Z * (TAirIn - TAirOut)
       "Braun 1988 eq 4.1.9";
-    NtuAir = UAAir / (masFloAir * cpAir)
-      "Braun 1988, eq 4.1.6, called Ntu_o in the text";
-    NtuWat = UAWat / (masFloWat * cpWat)
-      "Braun 1988, eq 4.1.5, called Ntu_i in the text";
-    NtuDry = NtuAir / (1 + Z * (NtuAir / NtuWat))
-      "Braun 1988, eq 4.1.7";
-    TSurAirOut = TWatIn + ((Z * NtuDry * (TAirOut - TWatIn)) / NtuWat)
-      "Braun 1988, eq 4.1.10, calculation for T_s,o";
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(

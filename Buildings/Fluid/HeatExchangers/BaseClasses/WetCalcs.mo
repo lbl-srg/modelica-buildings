@@ -46,8 +46,6 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
     "Temperature of air at the outlet";
-  output Modelica.SIunits.Temperature TSurAirIn
-    "Surface temperature of the coil at inlet, Braun 1988, eq 4.1.22";
   output Modelica.SIunits.MassFlowRate masFloCon
     "The amount of condensate removed from 'air' stream";
   output Modelica.SIunits.Temperature TCon
@@ -86,15 +84,7 @@ protected
   Real NtuSta
     "Number of transfer units (NTU*)";
   Real NtuAirSta
-    "Number of transfer units (NTU_a*)";
-  Real NtuAirHat
-    "Number of transfer units (NTU_a_hat)";
-  Real NtuWat
-    "Ntu for water side, referred to as Ntu_i in Braun 1988 eq 4.1.6";
-  Real NtuAir
-    "Ntu for air side, referred to as Ntu_o in Braun 1988 eq 4.1.5";
-  Real NtuWet
-    "Overall Ntu for a wet coil, defined in eq 4.1.13 of Braun 1988";
+    "Number of transfer units for air-side only (NTU_a*)";
   Modelica.SIunits.MassFraction XOut[2]
     "Mass fraction of air at outlet";
   Modelica.SIunits.MassFraction XAirSatOut[2]
@@ -116,9 +106,8 @@ equation
     QSen = 0;
     TWatOut = TWatIn;
     TAirOut = TAirIn;
-    TSurAirIn = (TWatIn + TAirIn) / 2;
     masFloCon = 0;
-    TCon = TSurAirIn;
+    TCon = TAirIn;
     // Other Equations
     cpEff = 0;
     hAirOut = hAirIn;
@@ -134,10 +123,6 @@ equation
     UAsta = 0;
     NtuSta = 0;
     NtuAirSta = 0;
-    NtuAirHat = 0;
-    NtuWat = 0;
-    NtuAir = 0;
-    NtuWet = 0;
     XOut[watIdx] = wAirIn;
     XOut[othIdx] = 1 - wAirIn;
     XAirSatOut[watIdx] = wAirIn;
@@ -170,7 +155,6 @@ equation
     hAirOut = hAirIn - (QTot / masFloAir);
     NtuAirSta = UAAir / (masFloAir * cpAir);
     hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
-    NtuAirHat = UAAir / (masFloAir * cpAir);
     // The effective surface temperature Ts,eff or TSurEff is the saturation
     // temperature at the value of an effective surface enthalpy, hs,eff or
     // hSurEff, which is given by the following relation:
@@ -180,22 +164,12 @@ equation
     XSurEff[othIdx] = 1 - XSurEff[watIdx];
     hSurEff = Buildings.Media.Air.specificEnthalpy_pTX(
       p=pAir, T=TSurEff, X=XSurEff);
-    //TSurEff = Buildings.Utilities.Psychrometrics.Functions.TSat_ph(
-    //  p=pAir, h=hSurEff);
-    TAirOut = TSurEff + (TAirIn - TSurEff) * exp(-NtuAirHat);
+    TAirOut = TSurEff + (TAirIn - TSurEff) * exp(-NtuAirSta);
     pSatOut = Buildings.Media.Air.saturationPressure(TAirOut);
     XOut[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=pSatOut, p=pAir, phi=phiSat);
     XOut[othIdx] = 1 - XOut[watIdx];
     wAirOut = XOut[watIdx];
-    NtuWat = UAWat / (masFloWat * cpWat);
-    NtuAir = UAAir / (masFloAir * cpAir);
-    NtuWet = NtuAir / (1 + mSta * (NtuAir / NtuWat))
-      "Braun 1988 eq 4.1.13";
-    TSurAirIn = TWatOutGuess +
-      (masFloAir * NtuWet * (hAirIn - hAirSatSurOut))
-      / (masFloWat * cpWat * NtuWat)
-      "Braun 1988, eq 4.1.22";
     masFloCon = masFloAir * (wAirIn - wAirOut);
     QSen = -(QTot - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
     TCon = TSurEff;
