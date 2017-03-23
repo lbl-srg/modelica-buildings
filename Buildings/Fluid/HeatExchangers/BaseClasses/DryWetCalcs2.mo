@@ -8,14 +8,12 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "Medium 2 in the component"
     annotation (choicesAllMatching = true);
 
-  // PARAMETERS
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
   parameter Modelica.SIunits.Temperature TWatOutNominal=
     Modelica.SIunits.Conversions.from_degF(44)
     "Guess for the water outlet temperature which is an iteration variable";
 
-  // INPUTS
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(
     final quantity="ThermalConductance", final unit="W/K")
@@ -42,7 +40,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "inlet water temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}}),
         iconTransformation(extent={{-140,40},{-120,60}})));
-
   // -- Air
   Modelica.Blocks.Interfaces.RealInput UAAir(
     final quantity="ThermalConductance", final unit="W/K")
@@ -92,7 +89,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
       Placement(transformation(extent={{-140,0},{-120,20}}), iconTransformation(
           extent={{-140,0},{-120,20}})));
 
-  // OUTPUTS
   Modelica.Blocks.Interfaces.RealOutput QTot(
     final quantity="Power", final unit="W")
     "total heat transfer from air into water"
@@ -141,7 +137,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
         rotation=-90,
         origin={60,-110})));
 
-  // COMPONENTS
   Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
     p=pAir, XSat=wAirIn)
     annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
@@ -233,7 +228,6 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     cfg = cfg)
     "Calculations for the wet part of the coil in a partially wet coil";
 
-  // VARIABLES
   Real dryFra(min=0, max=1, unit="1", start=0.5)
     "Dry fraction of the coil; note: this is an iteration variable and is
     not always accurate; use dryFraFin for final determination of the region";
