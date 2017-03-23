@@ -137,9 +137,8 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
         rotation=-90,
         origin={60,-110})));
 
-  Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
-    p=pAir, XSat=wAirIn)
-    annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
+  Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi_pW(
+    p_w=Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=wAirIn, p=pAir));
   Buildings.Utilities.Psychrometrics.hSat_pTSat hSat_pTSat(
     p=pAir, TSat=TWatIn);
   Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs dry(
@@ -294,7 +293,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     "";
 
 equation
-  TAirInDewPoi = TDewPoi_pX.TDewPoi;
+  TAirInDewPoi = TDewPoi_pW.T;
   hAirSatSurIn = hSat_pTSat.hSat;
   QSenDry = dry.Q;
   TWatOutDry = dry.TWatOut;
