@@ -2,7 +2,6 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model DryCalcs
   "Dry coil calculations for effectiveness-NTU model"
 
-  // INPUTS
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
@@ -25,7 +24,6 @@ model DryCalcs
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The flow regime of the heat exchanger";
 
-  // OUTPUTS
   output Modelica.SIunits.HeatFlowRate Q
     "Heat transferred from 'water' to 'air'";
   output Modelica.SIunits.Temperature TWatOut
