@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.SolarCollectors.Controls.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Examples for solar thermal collector controller models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.SolarCollectors.Controls.Examples"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+>Buildings.Fluid.SolarCollectors.Controls</A>.Examples</H2>
+<B>Examples for solar thermal collector controller models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+  <p>
+    This package contains examples demonstrating the use of models that can be found in
+    <A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+> 
+    Buildings.Fluid.SolarCollectors.Controls</a>. 
+  </p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColl090c21f295282545ollerS.png" ALT="Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Controls_Examples.html#Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController"
+>SolarPumpController</A>
+</TD><TD>Example for the solar pump controller</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolarPumpController<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarColl090c21f295282545ollerI.png" ALT="Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController"></A><A HREF="Buildings_Fluid_SolarCollectors_Controls_Examples.html#Buildings.Fluid.SolarCollectors.Controls.Examples"
+>Buildings.Fluid.SolarCollectors.Controls.Examples</A>.SolarPumpController</H2>
+<B>Example for the solar pump controller</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarColl090c21f295282545ollerD.png" ALT="Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController">
+<P></P><H3>Information</H3>
+
+      <p>
+        This model illustrates the use of the 
+        <A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+> 
+        Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a> model. 
+        Based on weather data and inlet temperature, the controller switches the pump on 
+        and off.
+      </p>
+    <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SolarPumpController <font color="darkgreen">&quot;Example for the solar pump controller&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls.SolarPumpController"
+>Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</A>
+        pumCon(per=
+        <font color="red">Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20</font>()) <font color="darkgreen">
+    &quot;Model controlling the on/off status of the pump&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+     filNam=&quot;modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos&quot;) <font color="darkgreen">
+    &quot;Weather data input file&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(
+    amplitude=20,
+    freqHz=0.0001,
+    offset=273.15 + 40) <font color="darkgreen">&quot;Water inlet temperature&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaDat.weaBus, pumCon.weaBus);
+  <font color="red">connect</font>(sine.y, pumCon.TIn);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SolarPumpController;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:52 2013.
+</address></BODY>
+</HTML>

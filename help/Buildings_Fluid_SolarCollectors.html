@@ -1,0 +1,398 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.SolarCollectors</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolarCollectors<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.SolarCollectors"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</A>.SolarCollectors</H2>
+<P></P><H3>Information</H3>
+
+  This package contains models which can be used to simulate solar thermal 
+  systems and examples describing their use.
+  <P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarColldcf8d56eaf0d5ba3GuideS.png" ALT="Buildings.Fluid.SolarCollectors.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_UsersGuide.html#Buildings.Fluid.SolarCollectors.UsersGuide"
+>UsersGuide</A>
+</TD><TD>User&#39;s Guide for Buildings.Fluid.SolarCollectors</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.EN12975S.png" ALT="Buildings.Fluid.SolarCollectors.EN12975" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.EN12975"
+>EN12975</A>
+</TD><TD>Model of a concentrating solar collector</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.EN12975S.png" ALT="Buildings.Fluid.SolarCollectors.ASHRAE93" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors.ASHRAE93"
+>ASHRAE93</A>
+</TD><TD>Model of a flat plate solar thermal collector</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.ControlsS.png" ALT="Buildings.Fluid.SolarCollectors.Controls" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Controls.html#Buildings.Fluid.SolarCollectors.Controls"
+>Controls</A>
+</TD><TD>Package for solar thermal collector controllers</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.DataS.png" ALT="Buildings.Fluid.SolarCollectors.Data" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data"
+>Data</A>
+</TD><TD>Data for solar thermal collectors</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.TypesS.png" ALT="Buildings.Fluid.SolarCollectors.Types" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types"
+>Types</A>
+</TD><TD>Package with type definitions used in solar collector data records</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollectors.ExamplesS.png" ALT="Buildings.Fluid.SolarCollectors.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_Examples.html#Buildings.Fluid.SolarCollectors.Examples"
+>Examples</A>
+</TD><TD>Examples demonstrating the use of models in the SolarCollectors package</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.SolarCollf62837abb6387eb2assesS.png" ALT="Buildings.Fluid.SolarCollectors.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Fluid.SolarCollectors</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE EN12975<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarCollectors.EN12975I.png" ALT="Buildings.Fluid.SolarCollectors.EN12975" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.EN12975"></A><A HREF="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</A>.EN12975</H2>
+<B>Model of a concentrating solar collector</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarCollectors.EN12975D.png" ALT="Buildings.Fluid.SolarCollectors.EN12975">
+<P></P><H3>Information</H3>
+
+      <h4>Overview</h4>
+        <p>
+          This component models a solar thermal collector according 
+          to the EN12975 test standard.
+        </p>
+      <h4>Notice</h4>
+        <ul>
+          <li>
+            As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
+            incident angle modifier equation coefficients are only valid for 
+            incident angles of 60 degrees or less. Because these curves behave 
+            poorly for angles greater than 60 degrees the model does not calculate 
+            either direct or diffuse solar radiation gains when the incidence
+            angle is greater than 60 degrees. 
+          </li>
+          <li>
+            By default, the estimated heat capacity of the collector without 
+            fluid is calculated based on the dry mass and the specific heat 
+            capacity of copper.
+          </li>
+        </ul>
+      <h4>References</h4>
+        <p>
+          <a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br/>
+        </p>
+    <P></P>
+Extends from <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</A> (Partial model for solar collectors).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Integer</TD><TD>nSeg</TD><TD>3</TD><TD>Number of segments used to discretize the collector model</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
+<TR><TD>Real</TD><TD>rho</TD><TD>&nbsp;</TD><TD>Ground reflectance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>HeatCapacity</A></TD><TD>C</TD><TD>385*perPar.mDry</TD><TD>Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels) [J/K]</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>Performance data</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Shading</TD></TR>
+<TR><TD>Boolean</TD><TD>use_shaCoe_in</TD><TD>false</TD><TD>Enables an input connector for shaCoe</TD></TR>
+<TR><TD>Real</TD><TD>shaCoe</TD><TD>0</TD><TD>Shading coefficient. 0.0: no shading, 1.0: full shading</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Area declarations</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.NumberSelection"
+>NumberSelection</A></TD><TD>nColType</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Selection of area specification format</TD></TR>
+<TR><TD>Integer</TD><TD>nPanels</TD><TD>0</TD><TD>Desired number of panels in the simulation</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>totalArea</TD><TD>0</TD><TD>Total area of panels in the simulation [m2]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Configuration declarations</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"
+>SystemConfiguration</A></TD><TD>sysConfig</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Selection of system configuration</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>shaCoe_in</TD><TD>Shading coefficient</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Weather data bus</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> EN12975 <font color="darkgreen">&quot;Model of a concentrating solar collector&quot;</font>
+<font color="blue">extends </font><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</A>(<font color="blue">final </font>perPar=per);
+    <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per <font color="darkgreen">
+    &quot;Performance data&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain"
+>BaseClasses.EN12975SolarGain</A> solGai(
+    <font color="blue">final </font>A_c=TotalArea_internal,
+    <font color="blue">final </font>nSeg=nSeg,
+    <font color="blue">final </font>y_intercept=per.y_intercept,
+    <font color="blue">final </font>B0=per.B0,
+    <font color="blue">final </font>B1=per.B1,
+    <font color="blue">final </font>shaCoe=shaCoe,
+    <font color="blue">final </font>iamDiff=per.IAMDiff,
+    <font color="blue">final </font>use_shaCoe_in=use_shaCoe_in,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Identifies heat gained from the sun using standard EN12975 calculations&quot;</font>;
+  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss"
+>BaseClasses.EN12975HeatLoss</A> heaLos(
+    <font color="blue">final </font>A_c=TotalArea_internal,
+    <font color="blue">final </font>nSeg=nSeg,
+    <font color="blue">final </font>y_intercept=per.y_intercept,
+    <font color="blue">final </font>C1=per.C1,
+    <font color="blue">final </font>C2=per.C2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>G_nominal=per.G_nominal,
+    <font color="blue">final </font>dT_nominal=per.dT_nominal,
+    <font color="blue">final </font>m_flow_nominal=per.mperA_flow_nominal*per.A) <font color="darkgreen">
+    &quot;Calculates the heat lost to the surroundings using the EN12975 standard calculations&quot;</font>;</textblock>
+
+<font color="blue">equation </font>
+  <font color="red">connect</font>(shaCoe_internal, solGai.shaCoe_in);
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.TDryBul, heaLos.TEnv);
+  <font color="red">connect</font>(HDirTil.inc, solGai.incAng);
+  <font color="red">connect</font>(HDifTilIso.H, solGai.HSkyDifTil);
+  <font color="red">connect</font>(HDirTil.H, solGai.HDirTil);
+  <font color="red">connect</font>(shaCoe_in, solGai.shaCoe_in);
+  <font color="red">connect</font>(heaLos.TFlu, temSen.T);
+  <font color="red">connect</font>(heaLos.QLos, QLos.Q_flow);
+  <font color="red">connect</font>(solGai.QSol_flow, heaGai.Q_flow);
+  <font color="red">connect</font>(temSen.T, solGai.TFlu);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>EN12975;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ASHRAE93<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.SolarCollectors.EN12975I.png" ALT="Buildings.Fluid.SolarCollectors.ASHRAE93" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.SolarCollectors.ASHRAE93"></A><A HREF="Buildings_Fluid_SolarCollectors.html#Buildings.Fluid.SolarCollectors"
+>Buildings.Fluid.SolarCollectors</A>.ASHRAE93</H2>
+<B>Model of a flat plate solar thermal collector</B><p></P>
+<IMG SRC="Buildings.Fluid.SolarCollectors.ASHRAE93D.png" ALT="Buildings.Fluid.SolarCollectors.ASHRAE93">
+<P></P><H3>Information</H3>
+
+      <p>
+        This component models a solar thermal collector according to the ASHRAE93
+        test standard.
+      </p>
+    <h4>Notice</h4>
+      <ul>
+        <li>
+          As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC 
+          incident angle modifier equation coefficients are only valid for 
+          incident angles of 60 degrees or less. Because these curves behave 
+          poorly for angles greater than 60 degrees the model does not 
+          calculate either direct or diffuse solar radiation gains when the
+          incidence angle is greater than 60 degrees.  
+        </li>
+        <li>
+          By default, the estimated heat capacity of the collector without 
+          fluid is calculated based on the dry mass and the specific heat
+          capacity of copper.
+        </li>
+      </ul>
+ <h4>References</h4>
+   <p>
+     <a href="http://www.energyplus.gov">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br/>
+   </p>
+ <P></P>
+Extends from <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</A> (Partial model for solar collectors).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Integer</TD><TD>nSeg</TD><TD>3</TD><TD>Number of segments used to discretize the collector model</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>azi</TD><TD>&nbsp;</TD><TD>Surface azimuth [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>til</TD><TD>&nbsp;</TD><TD>Surface tilt [rad]</TD></TR>
+<TR><TD>Real</TD><TD>rho</TD><TD>&nbsp;</TD><TD>Ground reflectance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatCapacity"
+>HeatCapacity</A></TD><TD>C</TD><TD>385*perPar.mDry</TD><TD>Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels) [J/K]</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>GenericSolarCollector</A></TD><TD>per</TD><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Shading</TD></TR>
+<TR><TD>Boolean</TD><TD>use_shaCoe_in</TD><TD>false</TD><TD>Enables an input connector for shaCoe</TD></TR>
+<TR><TD>Real</TD><TD>shaCoe</TD><TD>0</TD><TD>Shading coefficient. 0.0: no shading, 1.0: full shading</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Area declarations</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.NumberSelection"
+>NumberSelection</A></TD><TD>nColType</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Selection of area specification format</TD></TR>
+<TR><TD>Integer</TD><TD>nPanels</TD><TD>0</TD><TD>Desired number of panels in the simulation</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>totalArea</TD><TD>0</TD><TD>Total area of panels in the simulation [m2]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Configuration declarations</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_SolarCollectors_Types.html#Buildings.Fluid.SolarCollectors.Types.SystemConfiguration"
+>SystemConfiguration</A></TD><TD>sysConfig</TD><TD>Buildings.Fluid.SolarCollect...</TD><TD>Selection of system configuration</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>computeFlowResistance</TD><TD>true</TD><TD>=true, compute flow resistance. Set to false to assume no friction</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>shaCoe_in</TD><TD>Shading coefficient</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Weather data bus</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ASHRAE93 <font color="darkgreen">&quot;Model of a flat plate solar thermal collector&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector"
+>Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</A>(<font color="blue">final </font>perPar=per);
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_SolarCollectors_Data.html#Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector"
+>Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector</A> per;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain"
+>BaseClasses.ASHRAESolarGain</A> solGai(
+    <font color="blue">final </font>B0=per.B0,
+    <font color="blue">final </font>B1=per.B1,
+    <font color="blue">final </font>shaCoe=shaCoe,
+    <font color="blue">final </font>til=til,
+    <font color="blue">final </font>nSeg=nSeg,
+    <font color="blue">final </font>y_intercept=per.y_intercept,
+    <font color="blue">final </font>use_shaCoe_in=use_shaCoe_in,
+    <font color="blue">final </font>A_c=TotalArea_internal,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">
+    &quot;Identifies heat gained from the sun using standard ASHRAE93 calculations&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_SolarCollectors_BaseClasses.html#Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss"
+>BaseClasses.ASHRAEHeatLoss</A> heaLos(
+    <font color="blue">final </font>nSeg=nSeg,
+    <font color="blue">final </font>slope=per.slope,
+    <font color="blue">final </font>y_intercept=per.y_intercept,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal,
+    <font color="blue">final </font>A_c=TotalArea_internal,
+    m_flow_nominal=per.mperA_flow_nominal*per.A) <font color="darkgreen">
+    &quot;Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations&quot;</font>;
+    </textblock>
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.TDryBul, heaLos.TEnv);
+  <font color="red">connect</font>(HDirTil.inc, solGai.incAng);
+  <font color="red">connect</font>(HDirTil.H, solGai.HDirTil);
+  <font color="red">connect</font>(HDifTilIso.HGroDifTil, solGai.HGroDifTil);
+  <font color="red">connect</font>(HDifTilIso.HSkyDifTil, solGai.HSkyDifTil);
+  <font color="red">connect</font>(shaCoe_in, solGai.shaCoe_in);
+  <font color="red">connect</font>(solGai.QSol_flow, heaGai.Q_flow);
+  <font color="red">connect</font>(temSen.T, heaLos.TFlu);
+  <font color="red">connect</font>(temSen.T, solGai.TFlu);
+  <font color="red">connect</font>(heaLos.QLos, QLos.Q_flow);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ASHRAE93;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:52 2013.
+</address></BODY>
+</HTML>

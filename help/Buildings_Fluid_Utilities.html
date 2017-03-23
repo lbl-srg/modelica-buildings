@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Utilities</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with utility functions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Utilities<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Utilities"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</A>.Utilities</H2>
+<B>Package with utility functions</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains utility classes that are used by the package
+<A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>
+Buildings.Fluid</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</A> (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Utilitiesc2209ce45a499d0bomialS.png" ALT="Buildings.Fluid.Utilities.extendedPolynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities.extendedPolynomial"
+>extendedPolynomial</A>
+</TD><TD>Polynomial that is linearly extended at user specified values</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Utilitiesc2209ce45a499d0bomialS.png" ALT="Buildings.Fluid.Utilities.polynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities.polynomial"
+>polynomial</A>
+</TD><TD>Polynomial, used because OpenModelica 1.4.3 does not expand the sum() into a scalar</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Utilities.ExamplesS.png" ALT="Buildings.Fluid.Utilities.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities_Examples.html#Buildings.Fluid.Utilities.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Utilities.BaseClassesS.png" ALT="Buildings.Fluid.Utilities.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Fluid.Utilities</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE extendedPolynomial<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Utilitiesc2209ce45a499d0bomialI.png" ALT="Buildings.Fluid.Utilities.extendedPolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Utilities.extendedPolynomial"></A><A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>Buildings.Fluid.Utilities</A>.extendedPolynomial</H2>
+<B>Polynomial that is linearly extended at user specified values</B><p></P>
+<P></P><H3>Information</H3>
+
+For <i>x</i> between the bounds <i>x<sub>min</sub> &lt; x &lt; x<sub>max</sub></i>,
+this function defines a polynomial 
+<p align="center" style="font-style:italic;">
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
+</p>
+where <i>n &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
+are parameters.
+For <i>x &lt; x<sub>min</sub></i> and <i>x &gt; x<sub>max</sub></i>,
+the polynomial is replaced by a linear function
+in such a way that the first derivative is continuous everywhere. 
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A> (Icon for functions).
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>x value</TD></TR>
+<TR><TD>Real</TD><TD>c[:]</TD><TD>&nbsp;</TD><TD>Polynomial coefficients</TD></TR>
+<TR><TD>Real</TD><TD>xMin</TD><TD>&nbsp;</TD><TD>Minimum x value for polynomial</TD></TR>
+<TR><TD>Real</TD><TD>xMax</TD><TD>&nbsp;</TD><TD>Maximum x value for polynomial</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>y value</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> extendedPolynomial <font color="darkgreen">
+  &quot;Polynomial that is linearly extended at user specified values&quot;</font>
+  annotation(derivative=<A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial"
+>BaseClasses.der_extendedPolynomial</A>);
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A>;
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;x value&quot;</font>;
+  <font color="blue">input </font>Real[:] c <font color="darkgreen">&quot;Polynomial coefficients&quot;</font>;
+  <font color="blue">input </font>Real xMin <font color="darkgreen">&quot;Minimum x value for polynomial&quot;</font>;
+  <font color="blue">input </font>Real xMax <font color="darkgreen">&quot;Maximum x value for polynomial&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;y value&quot;</font>;
+<font color="blue">protected </font>
+ Integer N =<font color="red"> size</font>(c,1) <font color="darkgreen">&quot;Number of coefficients&quot;</font>;
+<font color="blue">algorithm </font>
+<font color="blue">if </font>x &lt; xMin<font color="blue"> then</font>
+   y := c[1];
+   <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+     y := y + xMin^(i - 1)*c[i] + (x - xMin)*(i - 1)*xMin^(i - 2)*c[i];
+   <font color="blue">end for</font>;
+  <font color="blue">elseif </font>x &lt; xMax<font color="blue"> then</font>
+   y := c[1];
+   <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+     y := y + x^(i - 1)*c[i];
+  <font color="blue">end for</font>;
+  <font color="blue">else</font>
+     y := c[1];
+     <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+       y := y + xMax^(i - 1)*c[i] + (x - xMax)*(i - 1)*xMax^(i - 2)*c[i];
+    <font color="blue">end for</font>;
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>extendedPolynomial;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE polynomial<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Utilitiesc2209ce45a499d0bomialI.png" ALT="Buildings.Fluid.Utilities.polynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Utilities.polynomial"></A><A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>Buildings.Fluid.Utilities</A>.polynomial</H2>
+<B>Polynomial, used because OpenModelica 1.4.3 does not expand the sum() into a scalar</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Function that computes
+<p align="center" style="font-style:italic;">
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
+</p>
+<br/>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A> (Icon for functions).
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>c[:]</TD><TD>&nbsp;</TD><TD>Coefficients</TD></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Independent variable</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>Dependent variable</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> polynomial <font color="darkgreen">
+  &quot;Polynomial, used because OpenModelica 1.4.3 does not expand the sum() into a scalar&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A>;
+  <font color="blue">input </font>Real[:] c <font color="darkgreen">&quot;Coefficients&quot;</font>;
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;Independent variable&quot;</font>;
+  <font color="blue">output </font>Real y <font color="darkgreen">&quot;Dependent variable&quot;</font>;
+<font color="blue">algorithm </font>
+ y := c[1];
+ <font color="blue">for </font>i<font color="blue"> in </font>2 :<font color="red"> size</font>(c,1)<font color="blue"> loop</font>
+   y := y + x^(i-1) * c[i];
+ <font color="blue">end for</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>polynomial;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:04 2013.
+</address></BODY>
+</HTML>

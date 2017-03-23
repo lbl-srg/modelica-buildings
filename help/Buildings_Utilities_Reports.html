@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.Reports</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Library with models that facilitates the reporting of values&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Reports<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Reports"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</A>.Reports</H2>
+<B>Library with models that facilitates the reporting of values</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains components models to report values to files.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Reports.PrinterS.png" ALT="Buildings.Utilities.Reports.Printer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.Printer"
+>Printer</A>
+</TD><TD>Model that prints values to a file</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Reporad1c8d3c0668f525ArrayS.png" ALT="Buildings.Utilities.Reports.printRealArray" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports.printRealArray"
+>printRealArray</A>
+</TD><TD>Print string to terminal or file</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Reports.ExamplesS.png" ALT="Buildings.Utilities.Reports.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Reports_Examples.html#Buildings.Utilities.Reports.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Printer<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Reports.PrinterI.png" ALT="Buildings.Utilities.Reports.Printer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Reports.Printer"></A><A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
+>Buildings.Utilities.Reports</A>.Printer</H2>
+<B>Model that prints values to a file</B><p></P>
+<IMG SRC="Buildings.Utilities.Reports.PrinterD.png" ALT="Buildings.Utilities.Reports.Printer">
+<P></P><H3>Information</H3>
+
+<p>
+This model prints to a file or the terminal at a fixed sample interval.
+</p>
+<p>
+The parameter <code>configuration</code> controls the printing as follows:
+</p>
+<table summary="summary" border="1">
+<tr><td><code>configuration</code></td><td>configuration</td></tr>
+<tr><td><code>1</code></td> <td>print at sample times only</td></tr>
+<tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>
+<tr><td><code>3</code></td> <td>print at end of simulation only</td></tr>
+ </table>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>samplePeriod</TD><TD>&nbsp;</TD><TD>Sample period of component [s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>startTime</TD><TD>0</TD><TD>First sample time instant [s]</TD></TR>
+<TR><TD>String</TD><TD>header</TD><TD>&quot;&quot;</TD><TD>Header to be printed</TD></TR>
+<TR><TD>String</TD><TD>fileName</TD><TD>&quot;&quot;</TD><TD>File name (empty string is the terminal)</TD></TR>
+<TR><TD>Integer</TD><TD>nin</TD><TD>1</TD><TD>Number of inputs</TD></TR>
+<TR><TD>Integer</TD><TD>configuration</TD><TD>1</TD><TD>Index for treating final report (see documentation)</TD></TR>
+<TR><TD>Integer</TD><TD>minimumLength</TD><TD>1</TD><TD>Minimum length of result string</TD></TR>
+<TR><TD>Integer</TD><TD>significantDigits</TD><TD>16</TD><TD>Number of significant digits</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>x[nin]</TD><TD>Value to be printed</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Printer <font color="darkgreen">&quot;Model that prints values to a file&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
+>Modelica.Blocks.Interfaces.DiscreteBlock</A>;
+
+  <font color="blue">parameter </font>String header=&quot;&quot; <font color="darkgreen">&quot;Header to be printed&quot;</font>;
+  <font color="blue">parameter </font>String fileName=&quot;&quot; <font color="darkgreen">&quot;File name (empty string is the terminal)&quot;</font>;
+  <font color="blue">parameter </font>Integer nin=1 <font color="darkgreen">&quot;Number of inputs&quot;</font>;
+  <font color="blue">parameter </font>Integer configuration = 1 <font color="darkgreen">
+    &quot;Index for treating final report (see documentation)&quot;</font>;
+  <font color="blue">parameter </font>Integer minimumLength =  1 <font color="darkgreen">&quot;Minimum length of result string&quot;</font>;
+  <font color="blue">parameter </font>Integer significantDigits = 16 <font color="darkgreen">&quot;Number of significant digits&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> x[nin] <font color="darkgreen">&quot;Value to be printed&quot;</font>;</textblock>
+
+<font color="blue">initial </font><font color="blue">algorithm </font>
+  <font color="blue">if </font>(fileName &lt;&gt; &quot;&quot;)<font color="blue"> then</font>
+    <font color="red">Modelica.Utilities.Files.removeFile</font>(fileName);
+  <font color="blue">end if</font>;
+  <font color="red">Modelica.Utilities.Streams.print</font>(fileName=fileName, string=header);
+<font color="blue">equation </font>
+  <font color="blue">if </font>configuration &lt; 3<font color="blue"> then</font>
+  <font color="blue">when </font>{sampleTrigger,<font color="red"> initial</font>()}<font color="blue"> then</font>
+      <font color="red">Buildings.Utilities.Reports.printRealArray</font>(
+                                      x=x, fileName=fileName,
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
+  <font color="blue">end when</font>;
+  <font color="blue">end if</font>;
+  <font color="blue">when </font><font color="red">terminal</font>()<font color="blue"> then</font>
+    <font color="blue">if </font>configuration &gt;= 2<font color="blue"> then</font>
+      <font color="red"> Buildings.Utilities.Reports.printRealArray</font>(
+                                      x=x, fileName=fileName,
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
+   <font color="blue">end if</font>;
+  <font color="blue">end when</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Printer;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE printRealArray<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Reporad1c8d3c0668f525ArrayI.png" ALT="Buildings.Utilities.Reports.printRealArray" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Reports.printRealArray"></A><A HREF="Buildings_Utilities_Reports.html#Buildings.Utilities.Reports"
+>Buildings.Utilities.Reports</A>.printRealArray</H2>
+<B>Print string to terminal or file</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Function that prints a real array to an output file.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A> (Icon for functions).
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x[:]</TD><TD>&nbsp;</TD><TD>Input to be printed</TD></TR>
+<TR><TD>String</TD><TD>fileName</TD><TD>&quot;&quot;</TD><TD>File where to print (empty string is the terminal)</TD></TR>
+<TR><TD>Integer</TD><TD>minimumLength</TD><TD>1</TD><TD>Minimum width of result</TD></TR>
+<TR><TD>Integer</TD><TD>significantDigits</TD><TD>6</TD><TD>Number of significant digits</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>outStr</TD><TD>String to be printed</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> printRealArray <font color="darkgreen">&quot;Print string to terminal or file&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A>;
+  <font color="blue">input </font>Real[:] x <font color="darkgreen">&quot;Input to be printed&quot;</font>;
+  <font color="blue">input </font>String fileName=&quot;&quot; <font color="darkgreen">&quot;File where to print (empty string is the terminal)&quot;</font>;
+  <font color="blue">input </font>Integer minimumLength =  1 <font color="darkgreen">&quot;Minimum width of result&quot;</font>;
+  <font color="blue">input </font>Integer significantDigits = 6 <font color="darkgreen">&quot;Number of significant digits&quot;</font>;
+  <font color="blue">output </font>String outStr=&quot;&quot; <font color="darkgreen">&quot;String to be printed&quot;</font>;
+<font color="blue">algorithm </font>
+  <font color="blue">for </font>i<font color="blue"> in </font>1:<font color="red">size</font>(x,1)<font color="blue"> loop</font>
+     outStr :=outStr + &quot;  &quot;
+                     +<font color="red"> String</font>(x[i],
+                              minimumLength=minimumLength,
+                              significantDigits=significantDigits);
+  <font color="blue">end for</font>;
+  <font color="red">Modelica.Utilities.Streams.print</font>(string=outStr, fileName=fileName);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>printRealArray;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:13:46 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.Resistances</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with thermal resistances&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Resistances<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Resistances"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.Resistances</H2>
+<B>Package with thermal resistances</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+Package with records that implement thermal properties of
+heat resistances.
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac3ce8353b50f400fnericS.png" ALT="Buildings.HeatTransfer.Data.Resistances.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of heat resistances</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dac3ce8353b50f400fnericS.png" ALT="Buildings.HeatTransfer.Data.Resistances.Carpet" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances.Carpet"
+>Carpet</A>
+</TD><TD>Carpet</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac3ce8353b50f400fnericI.png" ALT="Buildings.HeatTransfer.Data.Resistances.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Resistances.Generic"></A><A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
+>Buildings.HeatTransfer.Data.Resistances</A>.Generic</H2>
+<B>Thermal properties of heat resistances</B><p></P>
+<P></P><H3>Information</H3>
+
+Generic record for thermal properties of
+heat resistances.
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</A> (Thermal properties of materials w/o storage).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>0</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>0</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>0</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>0</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Real</TD><TD>R</TD><TD>&nbsp;</TD><TD>Thermal resistance of a unit area of material [m2.K/W]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>0</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>true</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>293.15</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>293.15</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>0</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>1</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of heat resistances&quot;</font>
+    <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</A>(
+    <font color="blue">final </font>c=0,
+    <font color="blue">final </font>d=0,
+    <font color="blue">final </font>k=0,
+    <font color="blue">final </font>x=0,
+    <font color="blue">final </font>nStaRef=0,
+    <font color="blue">final </font>nSta=1,
+    <font color="blue">final </font>steadyState=true,
+    <font color="blue">final </font>TSol=293.15,
+    <font color="blue">final </font>TLiq=293.15,
+    <font color="blue">final </font>LHea=0,
+    <font color="blue">final </font>phasechange=false);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Carpet<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Dac3ce8353b50f400fnericI.png" ALT="Buildings.HeatTransfer.Data.Resistances.Carpet" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Resistances.Carpet"></A><A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances"
+>Buildings.HeatTransfer.Data.Resistances</A>.Carpet</H2>
+<B>Carpet</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>R</TD><TD>0.2165</TD><TD>Thermal resistance of a unit area of material [m2.K/W]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Carpet = <A HREF="Buildings_HeatTransfer_Data_Resistances.html#Buildings.HeatTransfer.Data.Resistances.Generic"
+>Buildings.HeatTransfer.Data.Resistances.Generic</A> (R=0.2165) <font color="darkgreen">&quot;Carpet&quot;</font>;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:40 2013.
+</address></BODY>
+</HTML>

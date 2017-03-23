@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues", method="dassl", stopTime=1, resultFile="ExchangeValues");
+createPlot(id = 1,
+ position = {31, 30, 400, 280},
+ y = {"y"},
+ grid = true);

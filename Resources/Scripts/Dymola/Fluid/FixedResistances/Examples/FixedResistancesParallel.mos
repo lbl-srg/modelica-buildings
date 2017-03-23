@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.FixedResistances.Examples.FixedResistancesParallel", method="dassl", resultFile="FixedResistancesParallel");
+
+createPlot(id = 2,
+ position = {5, 4, 832, 537},
+ y = {"res1.m_flow", "res2.m_flow"},
+ range = {0, 1, 6.0, (-6.0)},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "FixedResistancesParallel.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

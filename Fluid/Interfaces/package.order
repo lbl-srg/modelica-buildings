@@ -1,0 +1,14 @@
+UsersGuide
+FourPort
+TwoPortHeatMassExchanger
+FourPortHeatMassExchanger
+StaticTwoPortHeatMassExchanger
+StaticFourPortHeatMassExchanger
+PartialTwoPortInterface
+PartialFourPortInterface
+ConservationEquation
+StaticTwoPortConservationEquation
+TwoPortFlowResistanceParameters
+FourPortFlowResistanceParameters
+LumpedVolumeDeclarations
+Examples

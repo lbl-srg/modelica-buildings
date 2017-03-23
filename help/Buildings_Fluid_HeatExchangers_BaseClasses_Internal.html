@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.BaseClasses.Internal</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Solve f(x, data) for x with given f&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Internal<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Internal"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses"
+>Buildings.Fluid.HeatExchangers.BaseClasses</A>.Internal</H2>
+<B>Solve f(x, data) for x with given f</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+Function that internally solves a scalar equation.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation"
+>Modelica.Media.Common.OneNonLinearEquation</A> (Determine solution of a non-linear algebraic equation in one unknown without derivatives in a reliable and efficient way).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha5ce408fc2ba7319finearS.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Internal.f_nonlinear" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Internal.html#Buildings.Fluid.HeatExchangers.BaseClasses.Internal.f_nonlinear"
+>f_nonlinear</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TH COLSPAN="2">Inherited</TH></TR>
+<TR><TD><IMG SRC="Modelica.Media.Common.One6f1b27059dc01742_DataS.png" ALT="Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data"
+>f_nonlinear_Data</A>
+</TD><TD>Data specific for function f_nonlinear</TD></TR>
+<TR><TD><IMG SRC="Modelica.Media.Common.One2bbe6ad25ce22d50solveS.png" ALT="Modelica.Media.Common.OneNonLinearEquation.solve" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="../../msl/3.2/help/Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.solve"
+>solve</A>
+</TD><TD>Solve f_nonlinear(x_zero)=y_zero; f_nonlinear(x_min) - y_zero and f_nonlinear(x_max)-y_zero must have different sign</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE f_nonlinear<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExcha5ce408fc2ba7319finearI.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.Internal.f_nonlinear" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.BaseClasses.Internal.f_nonlinear"></A><A HREF="Buildings_Fluid_HeatExchangers_BaseClasses_Internal.html#Buildings.Fluid.HeatExchangers.BaseClasses.Internal"
+>Buildings.Fluid.HeatExchangers.BaseClasses.Internal</A>.f_nonlinear</H2>
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear"
+></A> (Nonlinear algebraic equation in one unknown: y = f_nonlinear(x,p,X)).
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>Independent variable of function</TD></TR>
+<TR><TD>Real</TD><TD>p</TD><TD>0.0</TD><TD>disregaded variables (here always used for pressure)</TD></TR>
+<TR><TD>Real</TD><TD>X[:]</TD><TD>fill(0, 0)</TD><TD>disregaded variables (her always used for composition)</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Common_OneNonLinearEquation.html#Modelica.Media.Common.OneNonLinearEquation.f_nonlinear_Data"
+>f_nonlinear_Data</A></TD><TD>f_nonlinear_data</TD><TD>&nbsp;</TD><TD>Additional data for the function</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>y</TD><TD>= f_nonlinear(x)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">redeclare </font><font color="blue">function</font> <font color="blue">extends </font>f_nonlinear
+<font color="blue">algorithm </font>
+<font color="red">assert</font>(x&gt;0, &quot;NTU needs to be strictly positive.
+Received NTU = &quot;
+               +<font color="red"> String</font>(x) + &quot;
+         Z   = &quot;
+               +<font color="red"> String</font>(p));
+  y :=<font color="red"> epsilon_ntuZ</font>(NTU=x, Z=p,
+       flowRegime=Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed);
+<font color="blue">end </font>f_nonlinear;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:31 2013.
+</address></BODY>
+</HTML>

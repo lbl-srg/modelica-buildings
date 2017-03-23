@@ -1,0 +1,316 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Movers.Examples.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Fluid.Movers.Examples&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Movers.Examples.BaseClasses"></A><A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Fluid.Movers.Examples</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Fluid_Movers_Examples.html#Buildings.Fluid.Movers.Examples"
+>Buildings.Fluid.Movers.Examples</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"
+>FlowMachine_ZeroFlow</A>
+</TD><TD>Base class to test flow machines with zero flow rate</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"
+>ControlledFlowMachine</A>
+</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FlowMachine_ZeroFlow<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow"></A><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses"
+>Buildings.Fluid.Movers.Examples.BaseClasses</A>.FlowMachine_ZeroFlow</H2>
+<B>Base class to test flow machines with zero flow rate</B><p></P>
+<IMG SRC="Buildings.Fluid.Movers.Exbc6621558607728eoFlowD.png" ALT="Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow">
+<P></P><H3>Information</H3>
+
+This example demonstrates the use of a flow machine whose flow rate transitions to zero.
+<P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>1</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>500</TD><TD>Nominal pressure difference [Pa]</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>PartialFlowMachine</A></TD><TD>floMacSta</TD><TD>redeclare Buildings.Fluid.Mo...</TD><TD>Static model of a flow machine</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>PartialFlowMachine</A></TD><TD>floMacDyn</TD><TD>redeclare Buildings.Fluid.Mo...</TD><TD>Dynamic model of a flow machine</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> FlowMachine_ZeroFlow <font color="darkgreen">
+  &quot;Base class to test flow machines with zero flow rate&quot;</font>
+
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_GasesPTDecoupled_MoistAirUnsaturated.html#Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated"
+>Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</A>;
+
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal= 1 <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> dp_nominal = 500 <font color="darkgreen">
+    &quot;Nominal pressure difference&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> y(
+    offset=1,
+    duration=0.5,
+    startTime=0.25,
+    height=-1) <font color="darkgreen">&quot;Input signal&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_p_in=false,
+    p=system.p_ambient,
+    T=293.15,
+    nPorts=4);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dpSta(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> floMacSta(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false)
+                      <font color="blue">constrainedby </font>
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine <font color="darkgreen">
+    &quot;Static model of a flow machine&quot;</font>;
+  <font color="blue">replaceable </font><A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
+>Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> floMacDyn(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+                      <font color="blue">constrainedby </font>
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine <font color="darkgreen">
+    &quot;Dynamic model of a flow machine&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dpDyn(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain <font color="darkgreen">&quot;Gain for input signal&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dpSta1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> dpDyn1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal/2) <font color="darkgreen">&quot;Pressure drop&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(floMacSta.port_b, dpSta.port_a);
+  <font color="red">connect</font>(y.y, gain.u);
+  <font color="red">connect</font>(floMacDyn.port_b, dpDyn.port_a);
+  <font color="red">connect</font>(dpSta1.port_b, floMacSta.port_a);
+  <font color="red">connect</font>(dpDyn1.port_b, floMacDyn.port_a);
+  <font color="red">connect</font>(dpSta1.port_a, sou.ports[1]);
+  <font color="red">connect</font>(dpDyn1.port_a, sou.ports[2]);
+  <font color="red">connect</font>(dpDyn.port_b, sou.ports[3]);
+  <font color="red">connect</font>(dpSta.port_b, sou.ports[4]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FlowMachine_ZeroFlow;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ControlledFlowMachine<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine"></A><A HREF="Buildings_Fluid_Movers_Examples_BaseClasses.html#Buildings.Fluid.Movers.Examples.BaseClasses"
+>Buildings.Fluid.Movers.Examples.BaseClasses</A>.ControlledFlowMachine</H2>
+<IMG SRC="Buildings.Fluid.Movers.Ex93480a3e5f696cb3chineD.png" ALT="Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine">
+<P></P><H3>Information</H3>
+
+This example demonstrates the use of the flow model with four different configuration.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+<P></P>
+
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ControlledFlowMachine
+
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_IdealGases_SimpleAir.html#Buildings.Media.IdealGases.SimpleAir"
+>Buildings.Media.IdealGases.SimpleAir</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A>     y(
+    startTime=0,
+    offset=0,
+    amplitude=1,
+    period=120,
+    width=50);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_p_in=false,
+    p=system.p_ambient,
+    T=293.15,
+    nPorts=4);
+  <font color="blue">inner </font><A HREF="../../msl/3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</A> masFloRat1(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.RelativePressure"
+>Buildings.Fluid.Sensors.RelativePressure</A> relPre(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium);
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y"
+>Buildings.Fluid.Movers.FlowMachine_y</A> fan1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    pressure(<font color="blue">final </font>V_flow={0,1.8,3}, dp={1000,600,0}),
+    dynamicBalance=false);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp1(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp2(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</A> masFloRat2(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp3(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</A> masFloRat3(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium);
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_dp"
+>Buildings.Fluid.Movers.FlowMachine_dp</A> fan3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=6000/3600*1.2,
+    dynamicBalance=false);
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_m_flow"
+>Buildings.Fluid.Movers.FlowMachine_m_flow</A> fan2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=6000/3600*1.2,
+    dynamicBalance=false);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp4(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFlowRate"
+>Buildings.Fluid.Sensors.MassFlowRate</A> masFloRat4(<font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium);
+  <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_Nrpm"
+>Buildings.Fluid.Movers.FlowMachine_Nrpm</A> fan4(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    pressure(<font color="blue">final </font>V_flow={0,1.8,3}, dp={1000,600,0}),
+    dynamicBalance=false);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=1500) <font color="darkgreen">&quot;Converts y to nominal rpm&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp5(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp6(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp7(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> dp8(
+    m_flow_nominal=6000/3600*1.2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=300) <font color="darkgreen">&quot;Pressure drop&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_p_in=false,
+    p=system.p_ambient,
+    T=293.15,
+    nPorts=4);</textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(fan1.port_a, relPre.port_b);
+  <font color="red">connect</font>(fan1.port_b, relPre.port_a);
+  <font color="red">connect</font>(fan1.port_b, dp1.port_a);
+  <font color="red">connect</font>(fan2.port_b, dp2.port_a);
+  <font color="red">connect</font>(fan3.port_b, dp3.port_a);
+  <font color="red">connect</font>(fan4.port_b, dp4.port_a);
+  <font color="red">connect</font>(gain.y, fan4.Nrpm);
+  <font color="red">connect</font>(masFloRat1.m_flow, fan2.m_flow_in);
+  <font color="red">connect</font>(relPre.p_rel, fan3.dp_in);
+  <font color="red">connect</font>(dp8.port_b, fan4.port_a);
+  <font color="red">connect</font>(dp5.port_b, fan1.port_a);
+  <font color="red">connect</font>(dp6.port_b, fan2.port_a);
+  <font color="red">connect</font>(dp7.port_b, fan3.port_a);
+  <font color="red">connect</font>(y.y, fan1.y);
+  <font color="red">connect</font>(y.y, gain.u);
+  <font color="red">connect</font>(dp8.port_a, sou.ports[1]);
+  <font color="red">connect</font>(dp5.port_a, sou.ports[2]);
+  <font color="red">connect</font>(dp6.port_a, sou.ports[3]);
+  <font color="red">connect</font>(dp7.port_a, sou.ports[4]);
+  <font color="red">connect</font>(dp4.port_b, masFloRat4.port_a);
+  <font color="red">connect</font>(dp1.port_b, masFloRat1.port_a);
+  <font color="red">connect</font>(dp2.port_b, masFloRat2.port_a);
+  <font color="red">connect</font>(dp3.port_b, masFloRat3.port_a);
+  <font color="red">connect</font>(masFloRat4.port_b, sin.ports[1]);
+  <font color="red">connect</font>(masFloRat1.port_b, sin.ports[2]);
+  <font color="red">connect</font>(masFloRat2.port_b, sin.ports[3]);
+  <font color="red">connect</font>(masFloRat3.port_b, sin.ports[4]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ControlledFlowMachine;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:09:46 2013.
+</address></BODY>
+</HTML>

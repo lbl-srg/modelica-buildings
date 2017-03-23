@@ -1,0 +1,348 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.SolidsPCM</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with solid material, characterized by thermal conductance, density and specific heat capacity&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SolidsPCM<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.SolidsPCM"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.SolidsPCM</H2>
+<B>Package with solid material, characterized by thermal conductance, density and specific heat capacity</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+Package with records for solid materials with embedded phase change material.
+The material is characterized by its 
+thermal conductivity, mass density and specific
+heat capacity, as well as the solidus and liquidus temperatures, and 
+the latent heat.
+</p>
+<p>
+For a description of the parameter <code>nStaRef</code>, which is
+used to generate the spatial grid, see the documentation of the package
+<A HREF="Buildings_HeatTransfer_Data_Solids.html#Buildings.HeatTransfer.Data.Solids"
+>
+Buildings.HeatTransfer.Data.Solids</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da5ef47f27b4fde9d2nericS.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of solids with heat storage</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020S.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.PCM020" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.PCM020"
+>PCM020</A>
+</TD><TD>Wallboard with 20% of microencapsulated paraffin</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020S.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.PCM030" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.PCM030"
+>PCM030</A>
+</TD><TD>Wallboard with 30% of microencapsulated paraffin</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020S.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard23" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard23"
+>MicronalSmartBoard23</A>
+</TD><TD>Micronal PCM SmartBoard 23</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020S.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard26" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard26"
+>MicronalSmartBoard26</A>
+</TD><TD>Micronal PCM SmartBoard 26</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da5ef47f27b4fde9d2nericI.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.SolidsPCM.Generic"></A><A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+>Buildings.HeatTransfer.Data.SolidsPCM</A>.Generic</H2>
+<B>Thermal properties of solids with heat storage</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+Generic record for phase change materials.
+The record extends from 
+<A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>
+Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+and declares parameters and constants for phase change materials.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</A> (Thermal properties of materials w/o storage).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>&nbsp;</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>&nbsp;</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>&nbsp;</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Real</TD><TD>R</TD><TD>x/k</TD><TD>Thermal resistance of a unit area of material [m2.K/W]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>&nbsp;</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>&nbsp;</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>&nbsp;</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of solids with heat storage&quot;</font>
+    <font color="blue">extends </font><A HREF="Buildings_HeatTransfer_Data_BaseClasses.html#Buildings.HeatTransfer.Data.BaseClasses.Material"
+>Buildings.HeatTransfer.Data.BaseClasses.Material</A>(<font color="blue">final </font>R=x/k,
+                                                             <font color="blue">final </font>phasechange=true);
+
+<textblock type="annotcomp" expanded="false">
+<font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PCM020<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020I.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.PCM020" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.SolidsPCM.PCM020"></A><A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+>Buildings.HeatTransfer.Data.SolidsPCM</A>.PCM020</H2>
+<B>Wallboard with 20% of microencapsulated paraffin</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This material record is for PCM treated wallboard. The data source is Feustel (1995).
+</p>
+<h4>References</h4>
+<p>
+Feustel, Helmut E.
+Simplified numerical description of latent storage characteristics for phase change wallboard.
+<i>LBNL-Technical Report 36933</i>. 1995.
+<a href="http://dx.doi.org/10.2172/70723">DOI: 10.2172/70723</a>.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (Thermal properties of solids with heat storage).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>0.204</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>1341</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>800</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>273.15 + 23</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>273.15 + 27</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>38900</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> PCM020 =<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (
+    k=0.204,
+    d=800,
+    c=1341,
+    TSol=273.15+23,
+    TLiq=273.15+27,
+    LHea=38900) <font color="darkgreen">&quot;Wallboard with 20% of microencapsulated paraffin&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PCM030<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020I.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.PCM030" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.SolidsPCM.PCM030"></A><A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+>Buildings.HeatTransfer.Data.SolidsPCM</A>.PCM030</H2>
+<B>Wallboard with 30% of microencapsulated paraffin</B><p></P>
+<P></P><H3>Information</H3>
+
+<p>
+This material record is for PCM treated wallboard. The data source is Feustel (1995).
+</p>
+<h4>References</h4>
+<p>
+Feustel, Helmut E.
+Simplified numerical description of latent storage characteristics for phase change wallboard.
+<i>LBNL-Technical Report 36933</i>. 1995.
+<a href="http://dx.doi.org/10.2172/70723">DOI: 10.2172/70723</a>.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (Thermal properties of solids with heat storage).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>0.232</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>1467</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>998</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>273.15 + 24</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>273.15 + 26</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>58300</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> PCM030 =<A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (
+    k=0.232,
+    d=998,
+    c=1467,
+    TSol=273.15+24,
+    TLiq=273.15+26,
+    LHea=58300) <font color="darkgreen">&quot;Wallboard with 30% of microencapsulated paraffin&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MicronalSmartBoard23<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020I.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard23" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard23"></A><A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+>Buildings.HeatTransfer.Data.SolidsPCM</A>.MicronalSmartBoard23</H2>
+<B>Micronal PCM SmartBoard 23</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>0.18</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>1200</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>767</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>273.15 + 22.99</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>273.15 + 23.01</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>28696</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> MicronalSmartBoard23 =
+                      <A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (
+    k=0.18,
+    d=767,
+    c=1200,
+    TSol=273.15+22.99,
+    TLiq=273.15+23.01,
+    LHea=28696) <font color="darkgreen">&quot;Micronal PCM SmartBoard 23&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MicronalSmartBoard26<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da7b2b7064b1d73314CM020I.png" ALT="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard26" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.SolidsPCM.MicronalSmartBoard26"></A><A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM"
+>Buildings.HeatTransfer.Data.SolidsPCM</A>.MicronalSmartBoard26</H2>
+<B>Micronal PCM SmartBoard 26</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Material thickness [m]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>0.18</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c</TD><TD>1200</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>d</TD><TD>767</TD><TD>Mass density [kg/m3]</TD></TR>
+<TR><TD>Integer</TD><TD>nStaRef</TD><TD>3</TD><TD>Number of state variables in a reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Boolean</TD><TD>steadyState</TD><TD>(c == 0 or d == 0)</TD><TD>Flag, if true, then material is computed using steady-state heat conduction</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Properties for phase change material</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TSol</TD><TD>273.15 + 25.99</TD><TD>Solidus temperature, used only for PCM. [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TLiq</TD><TD>273.15 + 26.01</TD><TD>Liquidus temperature, used only for PCM [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificInternalEnergy"
+>SpecificInternalEnergy</A></TD><TD>LHea</TD><TD>28696</TD><TD>Latent heat of phase change [J/kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>max(1, integer(ceil(nStaReal...</TD><TD>Actual number of state variables in material</TD></TR>
+<TR><TD>Real</TD><TD>piRef</TD><TD>331.4</TD><TD>Ratio x/sqrt(alpha) for reference material of 0.2 m concrete</TD></TR>
+<TR><TD>Real</TD><TD>piMat</TD><TD>if steadyState then piRef el...</TD><TD>Ratio x/sqrt(alpha)</TD></TR>
+<TR><TD>Real</TD><TD>nStaReal</TD><TD>nStaRef*piMat/piRef</TD><TD>Number of states as a real number</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> MicronalSmartBoard26 =
+                      <A HREF="Buildings_HeatTransfer_Data_SolidsPCM.html#Buildings.HeatTransfer.Data.SolidsPCM.Generic"
+>Buildings.HeatTransfer.Data.SolidsPCM.Generic</A> (
+    k=0.18,
+    d=767,
+    c=1200,
+    TSol=273.15+25.99,
+    TLiq=273.15+26.01,
+    LHea=28696) <font color="darkgreen">&quot;Micronal PCM SmartBoard 26&quot;</font>;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:40 2013.
+</address></BODY>
+</HTML>

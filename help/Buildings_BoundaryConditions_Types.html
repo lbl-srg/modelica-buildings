@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.Types</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with type definitions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Types<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.Types"></A><A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>Buildings.BoundaryConditions</A>.Types</H2>
+<B>Package with type definitions</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+This package contains type definitions.
+<P></P>
+
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.DataSource"
+>DataSource</A>
+</TD><TD>Enumeration to define data source</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.RadiationDataSource"
+>RadiationDataSource</A>
+</TD><TD>Enumeration to define solar radiation data source</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_Types.html#Buildings.BoundaryConditions.Types.SkyTemperatureCalculation"
+>SkyTemperatureCalculation</A>
+</TD><TD>Enumeration for computation of sky temperature</TD></TR>
+</TABLE>
+<P></p><H3>Types and constants</H3>
+<A NAME="Buildings.BoundaryConditions.Types.DataSource"></A><PRE>  <font color="blue">type</font> DataSource = <font color="blue">enumeration</font>(
+    File <font color="darkgreen">&quot;Use data from file&quot;</font>,
+    Parameter <font color="darkgreen">&quot;Use parameter&quot;</font>,
+    Input <font color="darkgreen">&quot;Use input connector&quot;</font>) <font color="darkgreen">&quot;Enumeration to define data source&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.BoundaryConditions.Types.RadiationDataSource"></A><PRE>  <font color="blue">type</font> RadiationDataSource = <font color="blue">enumeration</font>(
+    File <font color="darkgreen">&quot;Use data from file&quot;</font>,
+    Input_HGloHor_HDifHor <font color="darkgreen">
+      &quot;Global horizontal and diffuse horizontal radiation from connector&quot;</font>,
+    Input_HDirNor_HDifHor <font color="darkgreen">
+      &quot;Direct normal and diffuse horizontal radiation from connector&quot;</font>,
+    Input_HDirNor_HGloHor <font color="darkgreen">
+      &quot;Direct normal and global horizontal radiation from connector&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration to define solar radiation data source&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.BoundaryConditions.Types.SkyTemperatureCalculation"></A><PRE>  <font color="blue">type</font> SkyTemperatureCalculation = <font color="blue">enumeration</font>(
+    HorizontalRadiation <font color="darkgreen">&quot;Use horizontal irradiation&quot;</font>,
+    TemperaturesAndSkyCover <font color="darkgreen">
+      &quot;Use dry-bulb and dew-point temperatures and sky cover&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration for computation of sky temperature&quot;</font>;</PRE><P></p>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:02 2013.
+</address></BODY>
+</HTML>

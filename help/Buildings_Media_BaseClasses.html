@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Media.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Media&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Media.BaseClasses"></A><A HREF="Buildings_Media.html#Buildings.Media"
+>Buildings.Media</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Media</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Media.html#Buildings.Media"
+>Buildings.Media</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"
+>TestTemperatureEnthalpyInversion</A>
+</TD><TD>Model to check computation of h(T) and its inverse</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE TestTemperatureEnthalpyInversion<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion"></A><A HREF="Buildings_Media_BaseClasses.html#Buildings.Media.BaseClasses"
+>Buildings.Media.BaseClasses</A>.TestTemperatureEnthalpyInversion</H2>
+<B>Model to check computation of h(T) and its inverse</B><p></P>
+<P></P><H3>Information</H3>
+
+This model computes <code>h=f(T0)</code> and
+<code>T=g(h)</code>. It then checks whether <code>T=T0</code>.
+Hence, it checks whether the function <code>T_phX</code> is 
+implemented correctly.
+<P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T0</TD><TD>273.15 + 20</TD><TD>Temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> TestTemperatureEnthalpyInversion <font color="darkgreen">
+  &quot;Model to check computation of h(T) and its inverse&quot;</font>
+   <font color="blue">replaceable </font><font color="blue">package</font> Medium =
+        <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
+>Modelica.Media.Interfaces.PartialCondensingGases</A>;
+     <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T0=273.15+20 <font color="darkgreen">&quot;Temperature&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Temperature&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificEnthalpy"
+>Modelica.SIunits.SpecificEnthalpy</A> h <font color="darkgreen">&quot;Enthalpy&quot;</font>;
+     <A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>Medium.MassFraction</A> Xi[:] = Medium.reference_X <font color="darkgreen">&quot;Mass fraction&quot;</font>;
+<font color="blue">equation </font>
+    h =<font color="red"> Medium.h_pTX</font>(p=101325, T=T0, X=Xi);
+    T =<font color="red"> Medium.T_phX</font>(p=101325, h=h,  X=Xi);
+    <font color="blue">if </font>(time&gt;0.1)<font color="blue"> then</font>
+    <font color="red">assert</font>(<font color="red">abs</font>(T-T0)&lt;1E-8, &quot;Error in implementation of functions.\n&quot;
+       + &quot;   T0 = &quot; +<font color="red"> String</font>(T0) + &quot;\n&quot;
+       + &quot;   T  = &quot; +<font color="red"> String</font>(T));
+    <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>TestTemperatureEnthalpyInversion;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:47 2013.
+</address></BODY>
+</HTML>

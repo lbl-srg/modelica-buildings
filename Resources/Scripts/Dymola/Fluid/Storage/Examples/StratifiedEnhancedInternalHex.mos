@@ -1,0 +1,18 @@
+simulateModel("Buildings.Fluid.Storage.Examples.StratifiedEnhancedInternalHex", stopTime = 30000, method = "dassl",tolerance=1e-05, resultFile = "StratifiedEnhancedInternalHex");
+removePlots();
+createPlot(id = 4,
+ position = {0, 0, 600, 400},
+ y={"tan.vol[1].T", "tan.vol[2].T", "tan.vol[3].T", "tan.vol[4].T"},
+ range = {0.0, 30000.0, 15.0, 45.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "StratifiedEnhancedInternalHex.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
+

@@ -1,0 +1,616 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models for rooms&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Rooms<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms"></A><A HREF="Buildings.html#Buildings"
+>Buildings</A>.Rooms</H2>
+<B>Package with models for rooms</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains models for the heat transfer in rooms
+and through the building envelope. 
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</A> (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.UsersGuideS.png" ALT="Buildings.Rooms.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_UsersGuide.html#Buildings.Rooms.UsersGuide"
+>UsersGuide</A>
+</TD><TD>User&#39;s Guide</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.MixedAirS.png" ALT="Buildings.Rooms.MixedAir" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>MixedAir</A>
+</TD><TD>Model of a room in which the air is completely mixed</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.ConstructionsS.png" ALT="Buildings.Rooms.Constructions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions"
+>Constructions</A>
+</TD><TD>Package with models for constructions that are used in the room model</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.FLEXLABS.png" ALT="Buildings.Rooms.FLEXLAB" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_FLEXLAB.html#Buildings.Rooms.FLEXLAB"
+>FLEXLAB</A>
+</TD><TD>Models that can be used to model the FLEXLAB</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.ExamplesS.png" ALT="Buildings.Rooms.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.BaseClassesS.png" ALT="Buildings.Rooms.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Rooms</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE MixedAir<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.MixedAirI.png" ALT="Buildings.Rooms.MixedAir" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.MixedAir"></A><A HREF="Buildings_Rooms.html#Buildings.Rooms"
+>Buildings.Rooms</A>.MixedAir</H2>
+<B>Model of a room in which the air is completely mixed</B><p></P>
+<IMG SRC="Buildings.Rooms.MixedAirD.png" ALT="Buildings.Rooms.MixedAir">
+<P></P><H3>Information</H3>
+
+<p>
+Room model that assumes the air to be completely mixed. 
+</p>
+<p>
+See 
+<A HREF="Buildings_Rooms_UsersGuide.html#Buildings.Rooms.UsersGuide"
+>Buildings.Rooms.UsersGuide</a>
+for detailed explanations.
+</p>
+<P></P>
+Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
+>Buildings.Rooms.BaseClasses.ConstructionRecords</A> (Data records for construction data).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConExt[NConExt]</TD><TD>&nbsp;</TD><TD>Data for exterior construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow"
+>ParameterConstructionWithWindow</A></TD><TD>datConExtWin[NConExtWin]</TD><TD>&nbsp;</TD><TD>Data for exterior construction with window</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConPar[NConPar]</TD><TD>&nbsp;</TD><TD>Data for partition construction</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ParameterConstruction"
+>ParameterConstruction</A></TD><TD>datConBou[NConBou]</TD><TD>&nbsp;</TD><TD>Data for construction boundary</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueSurfaces.html#Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic"
+>Generic</A></TD><TD>surBou[NSurBou]</TD><TD>&nbsp;</TD><TD>Record for data of surfaces whose heat conduction is modeled outside of this room</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>lat</TD><TD>&nbsp;</TD><TD>Latitude [rad]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>AFlo</TD><TD>&nbsp;</TD><TD>Floor area [m2]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>hRoo</TD><TD>&nbsp;</TD><TD>Average room height [m]</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeRadiation</TD><TD>true</TD><TD>Set to true to linearize emissive power</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExt</TD><TD>&nbsp;</TD><TD>Number of exterior constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>&nbsp;</TD><TD>Number of window constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Partition constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConPar</TD><TD>&nbsp;</TD><TD>Number of partition constructions</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Boundary constructions</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>&nbsp;</TD><TD>Number of constructions that have their outside surface exposed to the boundary of this room</TD></TR>
+<TR><TD>Integer</TD><TD>nSurBou</TD><TD>&nbsp;</TD><TD>Number of surface heat transfer models that connect to constructions that are modeled outside of this room</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Convective heat transfer</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>InteriorConvection</A></TD><TD>intConMod</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Convective heat transfer model for room-facing surfaces of opaque constructions</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>hIntFixed</TD><TD>3.0</TD><TD>Constant convection coefficient for room-facing surfaces of opaque constructions [W/(m2.K)]</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>ExteriorConvection</A></TD><TD>extConMod</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Convective heat transfer model for exterior facing surfaces of opaque constructions</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>CoefficientOfHeatTransfer</A></TD><TD>hExtFixed</TD><TD>10.0</TD><TD>Constant convection coefficient for exterior facing surfaces of opaque constructions [W/(m2.K)]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>V*1.2/3600</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>&nbsp;</TD><TD>= true, use homotopy method</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>VesselFluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>Fluid inlets and outlets</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorAir</TD><TD>Heat port to air volume</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heaPorRad</TD><TD>Heat port for radiative heat gain and radiative temperature</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>surf_conBou[nConBou]</TD><TD>Heat port at surface b of construction conBou</TD></TR>
+<TR><TD><A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>surf_surBou[nSurBou]</TD><TD>Heat port of surface that is connected to the room air</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>uSha[nConExtWin]</TD><TD>Control signal for the shading device (removed if no shade is present)</TD></TR>
+<TR><TD>input <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>qGai_flow[3]</TD><TD>Radiant, convective and latent heat input into room (positive if heat gain) [W/m2]</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> MixedAir <font color="darkgreen">&quot;Model of a room in which the air is completely mixed&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A>;
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
+>Buildings.Rooms.BaseClasses.ConstructionRecords</A>;
+  <font color="blue">parameter </font>Integer nPorts=0 <font color="darkgreen">&quot;Number of ports&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> lat <font color="darkgreen">&quot;Latitude&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> V=AFlo*hRoo <font color="darkgreen">&quot;Volume&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> AFlo <font color="darkgreen">&quot;Floor area&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> hRoo <font color="darkgreen">&quot;Average room height&quot;</font>;
+
+  <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Fluid and heat ports</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Fluid_Vessels_BaseClasses.html#Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b"
+>Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b</A> ports[nPorts](
+      <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium) <font color="darkgreen">&quot;Fluid inlets and outlets&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heaPorAir <font color="darkgreen">
+    &quot;Heat port to air volume&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heaPorRad <font color="darkgreen">
+    &quot;Heat port for radiative heat gain and radiative temperature&quot;</font>;</textblock>
+  <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Constructions</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+>Constructions.Construction</A> conExt[NConExt](
+    A=datConExt.A,
+    til=datConExt.til,
+    <font color="blue">final </font>layers={datConExt[i].layers <font color="blue">for </font>i<font color="blue"> in </font>1:NConExt},
+    steadyStateInitial=datConExt.steadyStateInitial,
+    T_a_start=datConExt.T_a_start,
+    T_b_start=datConExt.T_b_start) <font color="blue">if </font>haveConExt <font color="darkgreen">
+    &quot;Heat conduction through exterior construction that have no window&quot;</font>;
+  <A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.ConstructionWithWindow"
+>Constructions.ConstructionWithWindow</A> conExtWin[NConExtWin](
+    A=datConExtWin.A,
+    til=datConExtWin.til,
+    <font color="blue">final </font>layers={datConExtWin[i].layers <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin},
+    steadyStateInitial=datConExtWin.steadyStateInitial,
+    T_a_start=datConExtWin.T_a_start,
+    T_b_start=datConExtWin.T_b_start,
+    AWin=datConExtWin.AWin,
+    fFra=datConExtWin.fFra,
+    glaSys=datConExtWin.glaSys) <font color="blue">if </font>haveConExtWin <font color="darkgreen">
+    &quot;Heat conduction through exterior construction that have a window&quot;</font>;
+  <A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+>Constructions.Construction</A> conPar[NConPar](
+    A=datConPar.A,
+    til=datConPar.til,
+    <font color="blue">final </font>layers={datConPar[i].layers <font color="blue">for </font>i<font color="blue"> in </font>1:NConPar},
+    steadyStateInitial=datConPar.steadyStateInitial,
+    T_a_start=datConPar.T_a_start,
+    T_b_start=datConPar.T_b_start) <font color="blue">if </font>haveConPar <font color="darkgreen">
+    &quot;Heat conduction through partitions that have both sides inside the thermal zone&quot;</font>;
+  <A HREF="Buildings_Rooms_Constructions.html#Buildings.Rooms.Constructions.Construction"
+>Constructions.Construction</A> conBou[NConBou](
+    A=datConBou.A,
+    til=datConBou.til,
+    <font color="blue">final </font>layers={datConBou[i].layers <font color="blue">for </font>i<font color="blue"> in </font>1:NConBou},
+    steadyStateInitial=datConBou.steadyStateInitial,
+    T_a_start=datConBou.T_a_start,
+    T_b_start=datConBou.T_b_start) <font color="blue">if </font>haveConBou <font color="darkgreen">
+    &quot;Heat conduction through opaque constructions that have the boundary conditions of the other side exposed&quot;</font>;
+    </textblock>
+  <font color="blue">parameter </font>Boolean linearizeRadiation=true <font color="darkgreen">
+    &quot;Set to true to linearize emissive power&quot;</font>;
+  <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Convection</font>
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.InteriorConvection"
+>Buildings.HeatTransfer.Types.InteriorConvection</A> intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature <font color="darkgreen">
+    &quot;Convective heat transfer model for room-facing surfaces of opaque constructions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</A> hIntFixed=3.0 <font color="darkgreen">
+    &quot;Constant convection coefficient for room-facing surfaces of opaque constructions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Types.html#Buildings.HeatTransfer.Types.ExteriorConvection"
+>Buildings.HeatTransfer.Types.ExteriorConvection</A> extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind <font color="darkgreen">
+    &quot;Convective heat transfer model for exterior facing surfaces of opaque constructions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.CoefficientOfHeatTransfer"
+>Modelica.SIunits.CoefficientOfHeatTransfer</A> hExtFixed=10.0 <font color="darkgreen">
+    &quot;Constant convection coefficient for exterior facing surfaces of opaque constructions&quot;</font>;
+  <font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal(min=0) = V*1.2/3600 <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
+  <font color="blue">parameter </font>Boolean homotopyInitialization <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
+  <font color="darkgreen">////////////////////////////////////////////////////////////////////////</font>
+  <font color="darkgreen">// Models for boundary conditions</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> surf_conBou[nConBou] <font color="blue">if </font>
+    haveConBou <font color="darkgreen">&quot;Heat port at surface b of construction conBou&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> surf_surBou[nSurBou] <font color="blue">if </font>
+    haveSurBou <font color="darkgreen">&quot;Heat port of surface that is connected to the room air&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> uSha[nConExtWin](<font color="blue">each </font>min=0, <font color="blue">each </font>max=1) <font color="blue">if </font>
+       haveShade <font color="darkgreen">
+    &quot;Control signal for the shading device (removed if no shade is present)&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> qGai_flow[3](unit=&quot;W/m2&quot;) <font color="darkgreen">
+    &quot;Radiant, convective and latent heat input into room (positive if heat gain)&quot;</font>;</textblock>
+  <font color="darkgreen">// Reassign the tilt since a construction that is declared as a ceiling of the</font>
+  <font color="darkgreen">// room model has an exterior-facing surface that is a floor</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions"
+>BaseClasses.ExteriorBoundaryConditions</A> bouConExt(
+    <font color="blue">final </font>nCon=nConExt,
+    <font color="blue">final </font>lat=lat,
+    linearizeRadiation=linearizeRadiation,
+    <font color="blue">final </font>conMod=extConMod,
+    <font color="blue">final </font>conPar=datConExt,
+    <font color="blue">final </font>hFixed=hExtFixed) <font color="blue">if </font>haveConExt <font color="darkgreen">
+    &quot;Exterior boundary conditions for constructions without a window&quot;</font>;</textblock>
+  <font color="darkgreen">// Reassign the tilt since a construction that is declared as a ceiling of the</font>
+  <font color="darkgreen">// room model has an exterior-facing surface that is a floor</font>
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow"
+>BaseClasses.ExteriorBoundaryConditionsWithWindow</A> bouConExtWin(
+    <font color="blue">final </font>nCon=nConExtWin,
+    <font color="blue">final </font>lat=lat,
+    <font color="blue">final </font>conPar=datConExtWin,
+    linearizeRadiation=linearizeRadiation,
+    <font color="blue">final </font>conMod=extConMod,
+    <font color="blue">final </font>hFixed=hExtFixed) <font color="blue">if </font>haveConExtWin <font color="darkgreen">
+    &quot;Exterior boundary conditions for constructions with a window&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation"
+>HeatTransfer.Windows.BaseClasses.WindowRadiation</A> conExtWinRad[NConExtWin](
+    <font color="blue">final </font>AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
+    <font color="blue">final </font>N=datConExtWin.glaSys.nLay,
+    <font color="blue">final </font>tauGlaSol=datConExtWin.glaSys.glass.tauSol,
+    <font color="blue">final </font>rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
+    <font color="blue">final </font>rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
+    <font color="blue">final </font>xGla=datConExtWin.glaSys.glass.x,
+    <font color="blue">final </font>tauShaSol_a=datConExtWin.glaSys.shade.tauSol_a,
+    <font color="blue">final </font>tauShaSol_b=datConExtWin.glaSys.shade.tauSol_b,
+    <font color="blue">final </font>rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
+    <font color="blue">final </font>rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
+    <font color="blue">final </font>haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
+    <font color="blue">final </font>haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) <font color="blue">if </font>
+    haveConExtWin <font color="darkgreen">&quot;Model for solar radiation through shades and window&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>BoundaryConditions.WeatherData.Bus</A> weaBus;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed"
+>Buildings.Rooms.BaseClasses.AirHeatMassBalanceMixed</A> air(
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>energyDynamics=energyDynamics,
+    <font color="blue">final </font>massDynamics=massDynamics,
+    nPorts=nPorts + 1,
+    <font color="blue">final </font>V=V,
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    <font color="blue">final </font>homotopyInitialization=homotopyInitialization,
+    <font color="blue">final </font>p_start=p_start,
+    <font color="blue">final </font>T_start=T_start,
+    <font color="blue">final </font>X_start=X_start,
+    <font color="blue">final </font>C_start=C_start,
+    <font color="blue">final </font>C_nominal=C_nominal,
+    <font color="blue">final </font>m_flow_nominal=m_flow_nominal,
+    <font color="blue">final </font>haveShade=haveShade,
+    <font color="blue">final </font>conMod=intConMod,
+    <font color="blue">final </font>hFixed=hIntFixed) <font color="darkgreen">&quot;Convective heat and mass balance of air&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SolarRadiationExchange"
+>Buildings.Rooms.BaseClasses.SolarRadiationExchange</A> solRadExc(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>isFloorConExt=isFloorConExt,
+    <font color="blue">final </font>isFloorConExtWin=isFloorConExtWin,
+    <font color="blue">final </font>isFloorConPar_a=isFloorConPar_a,
+    <font color="blue">final </font>isFloorConPar_b=isFloorConPar_b,
+    <font color="blue">final </font>isFloorConBou=isFloorConBou,
+    <font color="blue">final </font>isFloorSurBou=isFloorSurBou,
+    <font color="blue">final </font>tauGla={datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin}) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Solar radiative heat exchange&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution"
+>Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution</A> irRadGai(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>haveShade=haveShade) <font color="darkgreen">
+    &quot;Distribution for infrared radiative heat gains (e.g., due to equipment and people)&quot;</font>;
+  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.InfraredRadiationExchange"
+>Buildings.Rooms.BaseClasses.InfraredRadiationExchange</A> irRadExc(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt = datConExt,
+    <font color="blue">final </font>datConExtWin = datConExtWin,
+    <font color="blue">final </font>datConPar = datConPar,
+    <font color="blue">final </font>datConBou = datConBou,
+    <font color="blue">final </font>surBou = surBou,
+    <font color="blue">final </font>linearizeRadiation = linearizeRadiation) <font color="darkgreen">
+    &quot;Infrared radiative heat exchange&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.RadiationTemperature"
+>Buildings.Rooms.BaseClasses.RadiationTemperature</A> radTem(
+    <font color="blue">final </font>nConExt=nConExt,
+    <font color="blue">final </font>nConExtWin=nConExtWin,
+    <font color="blue">final </font>nConPar=nConPar,
+    <font color="blue">final </font>nConBou=nConBou,
+    <font color="blue">final </font>nSurBou=nSurBou,
+    <font color="blue">final </font>datConExt=datConExt,
+    <font color="blue">final </font>datConExtWin=datConExtWin,
+    <font color="blue">final </font>datConPar=datConPar,
+    <font color="blue">final </font>datConBou=datConBou,
+    <font color="blue">final </font>surBou=surBou,
+    <font color="blue">final </font>haveShade=haveShade) <font color="darkgreen">&quot;Radiative temperature of the room&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation"
+>HeatTransfer.Windows.BaseClasses.ShadeRadiation</A> shaRad[NConExtWin](
+    <font color="blue">final </font>A=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
+    <font color="blue">final </font>thisSideHasShade=haveInteriorShade,
+    <font color="blue">final </font>absIR_air=datConExtWin.glaSys.shade.absIR_a,
+    <font color="blue">final </font>absIR_glass={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin},
+    <font color="blue">final </font>tauIR_air=tauIRSha_air,
+    <font color="blue">final </font>tauIR_glass=tauIRSha_glass,
+    <font color="blue">each </font><font color="blue">final </font>linearize = linearizeRadiation) <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Radiation model for room-side window shade&quot;</font>;</textblock>
+
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_air[NConExtWin]=
+    datConExtWin.glaSys.shade.tauIR_a <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the exterior or the room&quot;</font>;
+        <font color="blue">final </font><font color="blue">parameter </font><A HREF="../../msl/3.2/help/Modelica_SIunits.html#Modelica.SIunits.TransmissionCoefficient"
+>Modelica.SIunits.TransmissionCoefficient</A> tauIRSha_glass[
+                                                                          NConExtWin]=
+    datConExtWin.glaSys.shade.tauIR_b <font color="darkgreen">
+    &quot;Infrared transmissivity of shade for radiation coming from the glass&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveExteriorShade[NConExtWin]=
+    {datConExtWin[i].glaSys.haveExteriorShade <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin} <font color="darkgreen">
+    &quot;Set to true if window has exterior shade (at surface a)&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveInteriorShade[NConExtWin]=
+    {datConExtWin[i].glaSys.haveInteriorShade <font color="blue">for </font>i<font color="blue"> in </font>1:NConExtWin} <font color="darkgreen">
+    &quot;Set to true if window has interior shade (at surface b)&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean haveShade=
+    <font color="red">Modelica.Math.BooleanVectors.anyTrue</font>(haveExteriorShade[:])<font color="blue"> or </font>
+    <font color="red">Modelica.Math.BooleanVectors.anyTrue</font>(haveInteriorShade[:]) <font color="darkgreen">
+    &quot;Set to true if the windows have a shade&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConExt[NConExt]=
+    datConExt.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for exterior constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConExtWin[NConExtWin]=
+    datConExtWin.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConPar_a[NConPar]=
+    datConPar.isFloor <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConPar_b[NConPar]=
+    datConPar.isCeiling <font color="darkgreen">&quot;Flag to indicate if floor for constructions&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean isFloorConBou[NConBou]=
+    datConBou.isFloor <font color="darkgreen">
+    &quot;Flag to indicate if floor for constructions with exterior boundary conditions exposed to outside of room model&quot;</font>;
+  <font color="blue">parameter </font>Boolean isFloorSurBou[NSurBou]=
+    surBou.isFloor <font color="darkgreen">
+    &quot;Flag to indicate if floor for constructions that are modeled outside of this room&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal"
+>HeatTransfer.Windows.BaseClasses.ShadingSignal</A> shaSig[NConExtWin](
+    <font color="blue">each </font><font color="blue">final </font>haveShade=haveShade) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Shading signal&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.HeatGain"
+>Buildings.Rooms.BaseClasses.HeatGain</A> heaGai(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, <font color="blue">final </font>AFlo=AFlo) <font color="darkgreen">
+    &quot;Model to convert internal heat gains&quot;</font>;
+  <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.RadiationAdapter"
+>Buildings.Rooms.BaseClasses.RadiationAdapter</A> radiationAdapter;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> sumJToWin[NConExtWin](
+    <font color="blue">each </font><font color="blue">final </font>k1=1,
+    <font color="blue">each </font><font color="blue">final </font>k2=1) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">
+    &quot;Sum of radiosity flows from room surfaces toward the window&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Radiosity.html#Buildings.HeatTransfer.Radiosity.RadiositySplitter"
+>HeatTransfer.Radiosity.RadiositySplitter</A> radShaOut[NConExtWin] <font color="blue">if </font>
+     haveConExtWin <font color="darkgreen">
+    &quot;Splitter for radiosity that strikes shading device or unshaded part of window&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</A> sumJFroWin[NConExtWin](<font color="blue">each </font>nin=<font color="blue">if </font>haveShade<font color="blue"> then </font>2<font color="blue">
+         else </font>1) <font color="blue">if </font>
+       haveConExtWin <font color="darkgreen">&quot;Sum of radiosity fom window to room surfaces&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</A> TSha[NConExtWin] <font color="blue">if </font>
+       haveShade <font color="darkgreen">&quot;Temperature of shading device&quot;</font>;</textblock>
+
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_a, surf_conBou);
+  <font color="red">connect</font>(uSha, conExtWin.uSha);
+  <font color="red">connect</font>(uSha, bouConExtWin.uSha);
+  <font color="red">connect</font>(bouConExtWin.opa_a, conExtWin.opa_a);
+  <font color="red">connect</font>(conExtWin.JInUns_a, bouConExtWin.JOutUns);
+  <font color="red">connect</font>(bouConExtWin.JInUns, conExtWin.JOutUns_a);
+  <font color="red">connect</font>(conExtWin.glaUns_a, bouConExtWin.glaUns);
+  <font color="red">connect</font>(bouConExtWin.glaSha, conExtWin.glaSha_a);
+  <font color="red">connect</font>(conExtWin.JInSha_a, bouConExtWin.JOutSha);
+  <font color="red">connect</font>(bouConExtWin.JInSha, conExtWin.JOutSha_a);
+  <font color="red">connect</font>(conExtWin.fra_a, bouConExtWin.fra);
+  <font color="red">connect</font>(conExt.opa_a, bouConExt.opa_a);
+  <font color="red">connect</font>(weaBus, bouConExtWin.weaBus);
+  <font color="red">connect</font>(weaBus, bouConExt.weaBus);
+  <font color="red">connect</font>(bouConExtWin.QAbsSolSha_flow, conExtWinRad.QAbsExtSha_flow);
+  <font color="red">connect</font>(bouConExtWin.inc, conExtWinRad.incAng);
+  <font color="red">connect</font>(bouConExtWin.HDir, conExtWinRad.HDir);
+  <font color="red">connect</font>(bouConExtWin.HDif, conExtWinRad.HDif);
+  <font color="red">connect</font>(uSha, conExtWinRad.uSha);
+  <font color="red">connect</font>(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow);
+  <font color="red">connect</font>(conExtWinRad.QAbsGlaUns_flow, conExtWin.QAbsUns_flow);</textblock>
+ <font color="darkgreen">// Connect statements from the model BaseClasses.MixedAir</font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conExt.opa_b, irRadExc.conExt);
+  <font color="red">connect</font>(conExtWin.fra_b, irRadExc.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, irRadExc.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, irRadExc.conPar_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_b, irRadExc.conBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(surf_surBou, irRadExc.conSurBou);
+  <font color="red">connect</font>(irRadGai.conExt, conExt.opa_b);
+  <font color="red">connect</font>(irRadGai.conExtWinFra, conExtWin.fra_b);
+  <font color="red">connect</font>(irRadGai.conPar_a, conPar.opa_a);
+  <font color="red">connect</font>(irRadGai.conPar_b, conPar.opa_b);
+  <font color="red">connect</font>(irRadGai.conBou, conBou.opa_b);
+  <font color="red">connect</font>(irRadGai.conSurBou, surf_surBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(irRadGai.uSha, uSha);
+  <font color="red">connect</font>(heaGai.qGai_flow, qGai_flow);
+  <font color="red">connect</font>(conExtWin.opa_b, irRadExc.conExtWin);
+  <font color="red">connect</font>(conExtWin.opa_b, irRadGai.conExtWin);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conExt.opa_b, solRadExc.conExt);
+  <font color="red">connect</font>(conExtWin.fra_b, solRadExc.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, solRadExc.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, solRadExc.conPar_b);
+  <font color="red">connect</font>(conBou.opa_b, solRadExc.conBou);
+  <font color="red">connect</font>(surf_surBou, solRadExc.conSurBou);
+  <font color="red">connect</font>(conExtWin.opa_b, solRadExc.conExtWin);
+  <font color="red">connect</font>(solRadExc.JInConExtWin, conExtWinRad.QTra_flow);
+  <font color="red">connect</font>(solRadExc.HOutConExtWin,conExtWinRad.HRoo);
+  <font color="red">connect</font>(uSha, radTem.uSha);
+  <font color="red">connect</font>(conExt.opa_b, radTem.conExt);
+  <font color="red">connect</font>(conExtWin.opa_b, radTem.conExtWin);
+  <font color="red">connect</font>(conExtWin.fra_b, radTem.conExtWinFra);
+  <font color="red">connect</font>(conPar.opa_a, radTem.conPar_a);
+  <font color="red">connect</font>(conPar.opa_b, radTem.conPar_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conBou.opa_b, radTem.conBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(surf_surBou, radTem.conSurBou);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radTem.glaUns, conExtWin.glaUns_b);
+  <font color="red">connect</font>(radTem.glaSha, conExtWin.glaSha_b);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radTem.TRad, radiationAdapter.TRad);
+  <font color="red">connect</font>(radiationAdapter.rad, heaPorRad);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(radiationAdapter.QRad_flow, add.u1);
+  <font color="red">connect</font>(heaGai.QRad_flow, add.u2);
+  <font color="red">connect</font>(add.y, irRadGai.Q_flow);
+  <font color="red">connect</font>(irRadExc.JOutConExtWin, sumJToWin.u1);
+  <font color="red">connect</font>(irRadGai.JOutConExtWin, sumJToWin.u2);
+  <font color="red">connect</font>(uSha, shaSig.u);
+  <font color="red">connect</font>(shaSig.y, radShaOut.u);
+  <font color="red">connect</font>(shaSig.y, shaRad.u);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sumJToWin.y, radShaOut.JIn);
+  <font color="red">connect</font>(radShaOut.JOut_1, shaRad.JIn_air);
+  <font color="red">connect</font>(radShaOut.JOut_2, conExtWin.JInUns_b);
+  <font color="red">connect</font>(shaRad.JOut_glass, conExtWin.JInSha_b);
+  <font color="red">connect</font>(conExtWin.JOutSha_b, shaRad.JIn_glass);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(irRadExc.JInConExtWin, sumJFroWin.y);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(shaRad.QSolAbs_flow, conExtWinRad.QAbsIntSha_flow);
+  <font color="red">connect</font>(sumJFroWin.u[1], conExtWin.JOutUns_b);
+  <font color="red">connect</font>(sumJFroWin.u[2], shaRad.JOut_air);
+  <font color="red">connect</font>(radTem.sha, TSha.port);</textblock>
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nPorts<font color="blue"> loop</font>
+<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(ports[i],air. ports[i]);</textblock>
+  <font color="blue">end for</font>;
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(heaGai.QLat_flow,air. ports[nPorts + 1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.heaPorAir, heaGai.QCon_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.conExt, conExt.opa_b);
+  <font color="red">connect</font>(air.conExtWin, conExtWin.opa_b);
+  <font color="red">connect</font>(air.glaUns, conExtWin.glaUns_b);
+  <font color="red">connect</font>(air.glaSha, conExtWin.glaSha_b);
+  <font color="red">connect</font>(air.conExtWinFra, conExtWin.fra_b);
+  <font color="red">connect</font>(air.conPar_a, conPar.opa_a);
+  <font color="red">connect</font>(air.conPar_b, conPar.opa_b);
+  <font color="red">connect</font>(air.conBou, conBou.opa_b);
+  <font color="red">connect</font>(air.conSurBou, surf_surBou);
+  <font color="red">connect</font>(air.uSha, uSha);
+  <font color="red">connect</font>(shaRad.QRadAbs_flow,air. QRadAbs_flow);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.TSha, shaRad.TSha);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(air.heaPorAir, heaPorAir);
+  <font color="red">connect</font>(air.TSha, TSha.T);</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>MixedAir;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:10:56 2013.
+</address></BODY>
+</HTML>

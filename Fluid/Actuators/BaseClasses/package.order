@@ -1,0 +1,9 @@
+ActuatorSignal
+PartialDamperExponential
+PartialThreeWayValve
+PartialTwoWayValve
+ValveParameters
+der_equalPercentage
+equalPercentage
+exponentialDamper
+Examples

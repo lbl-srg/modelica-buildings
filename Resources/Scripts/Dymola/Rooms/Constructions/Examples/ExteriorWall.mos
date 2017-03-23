@@ -1,0 +1,5 @@
+simulateModel("Buildings.Rooms.Constructions.Examples.ExteriorWall", stopTime=1209600, method="dassl", resultFile="ExteriorWall");
+createPlot(
+ y = {"conExt[1].opa.T[1]", "conExt[1].opa.T[2]", "conExt[1].opa.T[3]", "conExt[1].opa.T[4]", "conExt[1].opa.T[5]", "bouConExt.weaBus.TDryBul"},
+ grid = true
+)

@@ -1,0 +1,458 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Controls.Continuous.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
+</HEAD>
+<body>
+<!-- --- header ------ -->
+<div class="headerStyle">
+<img src="../Resources/www/lbl-logo.png" alt="LBL logo"/>
+</div>
+<div class="headerLinks">
+<ul><li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt; <a href="Buildings.html">Modelica</a></li></ul>
+</div>
+<!-- --- end header -- -->
+</P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Controls.Continuous.Examples"></A><A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>Buildings.Controls.Continuous</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous"
+>
+Buildings.Controls.Continuous</a>.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.LimPID" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.LimPID"
+>LimPID</A>
+</TD><TD>Test model for PID controller with optional reverse action</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresis" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.PIDHysteresis"
+>PIDHysteresis</A>
+</TD><TD>Example model for PID controller with hysteresis</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.PIDHysteresisTimer"
+>PIDHysteresisTimer</A>
+</TD><TD>Example model for PID controller with hysteresis and timer</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.SignalRanker" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.SignalRanker"
+>SignalRanker</A>
+</TD><TD>Example model for signal ranker</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.NumberOfRequests" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.NumberOfRequests"
+>NumberOfRequests</A>
+</TD><TD>Example model for block that outputs the number of requests</TD></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDS.png" ALT="Buildings.Controls.Continuous.Examples.OffTimer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.OffTimer"
+>OffTimer</A>
+</TD><TD>Example model for off timer</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE LimPID<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.LimPID" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.LimPID"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.LimPID</H2>
+<B>Test model for PID controller with optional reverse action</B><p></P>
+<IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDD.png" ALT="Buildings.Controls.Continuous.Examples.LimPID">
+<P></P><H3>Information</H3>
+
+<p>
+This model tests the implementation of the 
+PID controller with optional reverse action.
+The model <code>limPIDOri</code> is the original
+implementation of the controller from the Modelica
+Standard Library. The models <code>limPID</code>
+and <code>limPIDRev</code> are the implementations
+from the Buildings library. The model
+<code>limPIDRev</code> is parameterized to have
+reverse action. 
+The assertion blocks test whether the results
+of all three controllers are identical.
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> LimPID <font color="darkgreen">
+  &quot;Test model for PID controller with optional reverse action&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> limPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState);
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> limPIDRev(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    reverseAction=true,
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState) <font color="darkgreen">
+    &quot;Controller with reverse action&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> const(k=0.5);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=-1);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality(threShold=1e-10);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.LimPID"
+>Modelica.Blocks.Continuous.LimPID</A> limPIDOri(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assertEquality1(
+                                                                threShold=1e-10);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(pulse.y, limPID.u_s);
+  <font color="red">connect</font>(pulse.y, limPIDRev.u_s);
+  <font color="red">connect</font>(const.y, limPID.u_m);
+  <font color="red">connect</font>(const.y, limPIDRev.u_m);
+  <font color="red">connect</font>(limPIDRev.y, gain.u);
+  <font color="red">connect</font>(gain.y, assertEquality.u2);
+  <font color="red">connect</font>(limPID.y, assertEquality.u1);
+  <font color="red">connect</font>(pulse.y, limPIDOri.u_s);
+  <font color="red">connect</font>(const.y, limPIDOri.u_m);
+  <font color="red">connect</font>(assertEquality1.u1, limPIDOri.y);
+  <font color="red">connect</font>(assertEquality1.u2, limPID.y);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>LimPID;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PIDHysteresis<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresis" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.PIDHysteresis"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.PIDHysteresis</H2>
+<B>Example model for PID controller with hysteresis</B><p></P>
+<IMG SRC="Buildings.Controls.Contin17dbd8eb55a05830resisD.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresis">
+<P></P><H3>Information</H3>
+
+<p>
+Example that demonstrates the use of the PID controller
+with hysteresis. The control objective is to keep 
+the temperature of the energy storage <code>cap</code>
+at <i>40</i>&deg;C.
+The controller <code>con</code> is parameterized to 
+switch on if the control error is bigger than 
+<i>e<sub>on</sub>=1</i>.
+The output of the controller remains above <i>y<sub>min</sub>=0.3</i> until the control
+error is smaller than <i>e<sub>off</sub>=-1</i>, at which 
+time the controller outputs <i>y=0</i> until the
+control error is again bigger than <i>1</i>.
+The figure below shows the control error
+<code>con.feeBac.y</code> and the control signal
+<code>con.y</code>.
+</p>
+<p align="center">
+<img src="../Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png" border="1" alt="Control error."/>
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PIDHysteresis <font color="darkgreen">
+  &quot;Example model for PID controller with hysteresis&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresis"
+>Buildings.Controls.Continuous.PIDHysteresis</A> con(
+    pre_y_start=false,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMin=0.3,
+    Ti=600,
+    Td=60);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TSet(k=273.15 + 40, y(unit=&quot;K&quot;)) <font color="darkgreen">&quot;Set point&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> cap(C=1000000, T(start=
+         313.15, fixed=true));
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TBC;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=20);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=2000);
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temSen;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> Q_flow;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(
+    freqHz=1/86400,
+    offset=273.15,
+    amplitude=20,
+    phase=-1.5707963267949,
+    y(unit=&quot;K&quot;));</textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TSet.y, con.u_s);
+  <font color="red">connect</font>(TBC.port, theCon.port_a);
+  <font color="red">connect</font>(theCon.port_b, cap.port);
+  <font color="red">connect</font>(con.y, gain.u);
+  <font color="red">connect</font>(cap.port, temSen.port);
+  <font color="red">connect</font>(temSen.T, con.u_m);
+  <font color="red">connect</font>(gain.y, Q_flow.Q_flow);
+  <font color="red">connect</font>(Q_flow.port, cap.port);
+  <font color="red">connect</font>(sine.y, TBC.T);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PIDHysteresis;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PIDHysteresisTimer<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.PIDHysteresisTimer</H2>
+<B>Example model for PID controller with hysteresis and timer</B><p></P>
+<IMG SRC="Buildings.Controls.Contin3329b0aec5de7863TimerD.png" ALT="Buildings.Controls.Continuous.Examples.PIDHysteresisTimer">
+<P></P><H3>Information</H3>
+
+<p>
+Example that demonstrates the use of the PID controller
+with hysteresis and off timer. 
+The example is identical to 
+<A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples.PIDHysteresis"
+>
+Buildings.Controls.Continuous.Examples.PIDHysteresis</a>,
+except that the controller also has an off timer.
+This timer keeps the control signal at <i>y=0</i>
+for a period of <code>minOffTime=1000</code> seconds.
+This may be used to avoid short-cycling if the load is small
+and the system has little heat capacity.
+</p>
+<p>
+The figure below shows the control error
+<code>con.feeBac.y</code> and the control signal
+<code>con.y</code>.
+<p align="center">
+<img src="../Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png" border="1" alt="Control error."/><br/>
+<img src="../Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png" border="1" alt="Control signal."/>
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> PIDHysteresisTimer <font color="darkgreen">
+  &quot;Example model for PID controller with hysteresis and timer&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.PIDHysteresisTimer"
+>Buildings.Controls.Continuous.PIDHysteresisTimer</A> con(
+    yMin=0.3,
+    minOffTime=10000,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=60,
+    Td=10);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TSet(k=273.15 + 40, y(unit=&quot;K&quot;)) <font color="darkgreen">&quot;Set point&quot;</font>;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> cap(C=100000, T(start=
+          293.15, fixed=true));
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedTemperature"
+>Buildings.HeatTransfer.Sources.PrescribedTemperature</A> TBC;
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> theCon(G=10);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=800);
+  <A HREF="../../msl/3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temSen;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A> Q_flow;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(
+    freqHz=1/86400,
+    offset=273.15,
+    amplitude=20,
+    phase=-1.5707963267949);</textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TSet.y, con.u_s);
+  <font color="red">connect</font>(TBC.port, theCon.port_a);
+  <font color="red">connect</font>(theCon.port_b, cap.port);
+  <font color="red">connect</font>(con.y, gain.u);
+  <font color="red">connect</font>(cap.port, temSen.port);
+  <font color="red">connect</font>(temSen.T, con.u_m);
+  <font color="red">connect</font>(gain.y, Q_flow.Q_flow);
+  <font color="red">connect</font>(Q_flow.port, cap.port);
+  <font color="red">connect</font>(sine.y, TBC.T);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>PIDHysteresisTimer;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SignalRanker<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.SignalRanker" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.SignalRanker"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.SignalRanker</H2>
+<B>Example model for signal ranker</B><p></P>
+<IMG SRC="Buildings.Controls.Continacb9fa5017e77eddankerD.png" ALT="Buildings.Controls.Continuous.Examples.SignalRanker">
+<P></P><H3>Information</H3>
+
+<p>
+Example that demonstrates the use of the signal ranker model.
+The figure below shows the input and output signals of the block.
+Note that 
+<code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
+<p align="center">
+<img src="../Resources/Images/Controls/Continuous/Examples/SignalRankerU.png" border="1" alt="Input to signal ranker."/><br/>
+		  <img src="../Resources/Images/Controls/Continuous/Examples/SignalRankerY.png" border="1" alt="Output of signal ranker."/>
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SignalRanker <font color="darkgreen">&quot;Example model for signal ranker&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(freqHz=2);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.SignalRanker"
+>Buildings.Controls.Continuous.SignalRanker</A> sigRan(
+                                                  nin=3);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.ExpSine"
+>Modelica.Blocks.Sources.ExpSine</A> expSine(freqHz=10, damping=1);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sine.y, sigRan.u[1]);
+  <font color="red">connect</font>(pulse.y, sigRan.u[2]);
+  <font color="red">connect</font>(expSine.y, sigRan.u[3]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SignalRanker;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE NumberOfRequests<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.NumberOfRequests" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.NumberOfRequests"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.NumberOfRequests</H2>
+<B>Example model for block that outputs the number of requests</B><p></P>
+<IMG SRC="Buildings.Controls.Contin50d874f787c97573uestsD.png" ALT="Buildings.Controls.Continuous.Examples.NumberOfRequests">
+<P></P><H3>Information</H3>
+
+<p>
+Example that demonstrates the use of the block
+<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.NumberOfRequests"
+>
+Buildings.Controls.Continuous.NumberOfRequests</a>.
+The parameters of the block are such that the output is incremented
+for each input signal that is strictly larger than <i>0</i>.
+The figure below shows the inputs and the output of the block.
+</p>
+<p align="center">
+<img src="../Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png" border="1">
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> NumberOfRequests <font color="darkgreen">
+  &quot;Example model for block that outputs the number of requests&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.NumberOfRequests"
+>Buildings.Controls.Continuous.NumberOfRequests</A> numReq(
+    nin=2,
+    threShold=0,
+    kind=0);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(freqHz=2);
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(period=0.25);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sine.y, numReq.u[1]);
+  <font color="red">connect</font>(pulse.y, numReq.u[2]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>NumberOfRequests;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OffTimer<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Continfedc05c2e902852aimPIDI.png" ALT="Buildings.Controls.Continuous.Examples.OffTimer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Continuous.Examples.OffTimer"></A><A HREF="Buildings_Controls_Continuous_Examples.html#Buildings.Controls.Continuous.Examples"
+>Buildings.Controls.Continuous.Examples</A>.OffTimer</H2>
+<B>Example model for off timer</B><p></P>
+<IMG SRC="Buildings.Controls.Contin3d44d379dc44136dTimerD.png" ALT="Buildings.Controls.Continuous.Examples.OffTimer">
+<P></P><H3>Information</H3>
+
+<p>
+Example that demonstrates the use of the model
+<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
+>
+Buildings.Controls.Continuous.OffTimer</a>.
+The input to the two timers are alternating boolean values.
+Whenever the input becomes <code>false(=0)</code>, the timer is reset.
+The figures below show the input and output of the blocks.
+<p align="center">
+<img src="../Resources/Images/Controls/Continuous/Examples/OffTimer1.png" border="1" alt="Input and output of the OffTimer offTim1."/><br/>
+<img src="../Resources/Images/Controls/Continuous/Examples/OffTimer2.png" border="1" alt="Input and output of the OffTimer offTim1."/>
+</p>
+<P></P>
+Extends from <A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> OffTimer <font color="darkgreen">&quot;Example model for off timer&quot;</font>
+  <font color="blue">extends </font><A HREF="../../msl/3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="../../msl/3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanPulse"
+>Modelica.Blocks.Sources.BooleanPulse</A> booleanPulse(period=0.2);
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
+>Buildings.Controls.Continuous.OffTimer</A> offTim1;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.OffTimer"
+>Buildings.Controls.Continuous.OffTimer</A> offTim2;
+  <A HREF="../../msl/3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Not"
+>Modelica.Blocks.Logical.Not</A> not1;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(booleanPulse.y, offTim1.u);
+  <font color="red">connect</font>(booleanPulse.y, not1.u);
+  <font color="red">connect</font>(offTim2.u, not1.y);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OffTimer;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Oct 24 15:08:05 2013.
+</address></BODY>
+</HTML>

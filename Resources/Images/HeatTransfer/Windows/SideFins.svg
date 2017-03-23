@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1129.4504"
+   height="572.92188"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="SideFins.svg"
+   inkscape:export-filename="/Users/mwetter/Downloads/reshadingblockupdate/WindowSideFinsDimensions.png"
+   inkscape:export-xdpi="44.970001"
+   inkscape:export-ydpi="44.970001">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3960"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#a3a3a3;stop-opacity:1;"
+         offset="0"
+         id="stop3962" />
+      <stop
+         style="stop-color:#a3a3a3;stop-opacity:0;"
+         offset="1"
+         id="stop3964" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-3"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-38"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-3"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-9"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3960"
+       id="linearGradient3968"
+       x1="61.630444"
+       y1="265.22733"
+       x2="77.489326"
+       y2="265.22733"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-116.90506,152.15405)" />
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-9"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.2124913"
+     inkscape:cx="760.23176"
+     inkscape:cy="270.84375"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1384"
+     inkscape:window-height="1003"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="10"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(330.5,10.059692)">
+    <rect
+       style="fill:#e5e5e5;stroke:#000000;stroke-width:1.98500001000000004;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
+       id="rect3765-7"
+       width="19.459457"
+       height="394.875"
+       x="400.54053"
+       y="67.487183"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <rect
+       style="fill:#e5e5e5;stroke:#000000;stroke-width:1.98507929000000005;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
+       id="rect3765-5-4"
+       width="19.459457"
+       height="394.875"
+       x="60"
+       y="67.487183"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <rect
+       style="fill:#e5e5e5;stroke:#000000;stroke-width:1.91212881000000001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
+       id="rect3765-7-2"
+       width="141.5"
+       height="395.375"
+       x="658"
+       y="67.487183"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 588,42.362183 30,0 10,-20 0,40 10,-20 20,0 0,449.999997 -20,0 -10,20 0,-40 -10,20 -30,0 z"
+       id="path3876"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,72.362183 70,0"
+       id="path3878"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,102.36218 70,0"
+       id="path3880"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,192.36218 70,0"
+       id="path3880-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,162.36218 70,0"
+       id="path3880-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,132.36218 70,0"
+       id="path3880-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,312.36218 70,0"
+       id="path3880-2-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,222.36218 70,0"
+       id="path3880-2-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,252.36218 70,0"
+       id="path3880-2-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,282.36218 70,0"
+       id="path3880-2-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,342.36218 70,0"
+       id="path3880-2-8-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,372.36218 70,0"
+       id="path3880-2-8-8"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,402.36218 70,0"
+       id="path3880-2-8-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,432.36218 70,0"
+       id="path3880-2-8-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 588,462.36218 70,0"
+       id="path3880-2-8-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 638,72.362183 0,29.999997"
+       id="path3999"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 608,102.36218 0,30"
+       id="path4001"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 638,132.36218 0,30"
+       id="path4003"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 608,162.36218 0,30"
+       id="path4005"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 638,192.36218 0,30"
+       id="path4007"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 608,222.36218 0,30"
+       id="path4009"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 638,252.36218 0,30 -30,0 0,30 30,0 0,30 -30,0 c 0,0 0,30 0,30 l 30,0 0,30 -30,0 0,30 30,0 0,30"
+       id="path4011"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,57.602109 0,-13.788582 14.68833,0 14.68832,0 3.6552,-7.247845 3.6552,-7.247844 0.0412,16.793786 c 0.0401,16.321816 0.0811,16.793786 1.4588,16.793786 1.11371,0 2.43725,-2.046038 6.17505,-9.545942 l 4.7575,-9.545941 9.02775,0 9.02775,0 0,13.788582 0,13.788582 -33.58758,0 -33.58757,0 0,-13.788582 z"
+       id="path4013"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,87.654147 0,-14.142136 23.68808,0 23.68808,0 0,14.142136 0,14.142133 -23.68808,0 -23.68808,0 0,-14.142133 z"
+       id="path4015"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,87.654147 0,-14.142136 8.83883,0 8.83884,0 0,14.142136 0,14.142133 -8.83884,0 -8.83883,0 0,-14.142133 z"
+       id="path4017"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,117.35263 0,-14.14213 8.83884,0 8.83883,0 0,14.14213 0,14.14214 -8.83883,0 -8.83884,0 0,-14.14214 z"
+       id="path4019"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,117.35263 0,-14.14213 24.04163,0 24.04163,0 0,14.14213 0,14.14214 -24.04163,0 -24.04163,0 0,-14.14214 z"
+       id="path4021"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,147.05112 0,-14.14214 23.68808,0 23.68808,0 0,14.14214 0,14.14213 -23.68808,0 -23.68808,0 0,-14.14213 z"
+       id="path4023"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,147.05112 0,-14.14214 8.83883,0 8.83884,0 0,14.14214 0,14.14213 -8.83884,0 -8.83883,0 0,-14.14213 z"
+       id="path4025"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,177.45671 0,-14.14214 8.83884,0 8.83883,0 0,14.14214 0,14.14213 -8.83883,0 -8.83884,0 0,-14.14213 z"
+       id="path4027"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,177.45671 0,-14.14214 24.04163,0 24.04163,0 0,14.14214 0,14.14213 -24.04163,0 -24.04163,0 0,-14.14213 z"
+       id="path4029"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,207.15519 0,-14.14213 23.68808,0 23.68808,0 0,14.14213 0,14.14214 -23.68808,0 -23.68808,0 0,-14.14214 z"
+       id="path4031"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,237.56078 0,-14.14213 8.83884,0 8.83883,0 0,14.14213 0,14.14214 -8.83883,0 -8.83884,0 0,-14.14214 z"
+       id="path4033"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,267.25927 0,-14.14214 23.68808,0 23.68808,0 0,14.14214 0,14.14214 -23.68808,0 -23.68808,0 0,-14.14214 z"
+       id="path4035"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,297.66486 0,-14.14213 8.83884,0 8.83883,0 0,14.14213 0,14.14214 -8.83883,0 -8.83884,0 0,-14.14214 z"
+       id="path4037"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,327.36335 0,-14.14214 23.68808,0 23.68808,0 0,14.14214 0,14.14213 -23.68808,0 -23.68808,0 0,-14.14213 z"
+       id="path4039"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,357.06183 0,-14.14213 8.83884,0 8.83883,0 0,14.14213 0,14.14214 -8.83883,0 -8.83884,0 0,-14.14214 z"
+       id="path4041"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,387.46742 0,-14.14213 23.68808,0 23.68808,0 0,14.14213 0,14.14214 -23.68808,0 -23.68808,0 0,-14.14214 z"
+       id="path4043"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,417.16591 0,-14.14214 8.83884,0 8.83883,0 0,14.14214 0,14.14213 -8.83883,0 -8.83884,0 0,-14.14213 z"
+       id="path4045"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 589.67591,447.5715 0,-14.14214 23.68808,0 23.68808,0 0,14.14214 0,14.14213 -23.68808,0 -23.68808,0 0,-14.14213 z"
+       id="path4047"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 629.31497,489.11402 c -0.0381,-16.24536 -0.13072,-17.50089 -1.29065,-17.50089 -0.89805,0 -2.58794,2.68544 -6.00708,9.54594 l -4.7575,9.54594 -13.79192,0 -13.79191,0 0,-13.78858 0,-13.78858 33.58757,0 33.58758,0 0,13.78858 0,13.78858 -9.73719,0 -9.73718,0 -4.01032,7.95495 -4.01032,7.95495 -0.0411,-17.50089 z"
+       id="path4049"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,447.5715 0,-14.14214 8.83883,0 8.83884,0 0,14.14214 0,14.14213 -8.83884,0 -8.83883,0 0,-14.14213 z"
+       id="path4051"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,417.16591 0,-14.14214 24.04163,0 24.04163,0 0,14.14214 0,14.14213 -24.04163,0 -24.04163,0 0,-14.14213 z"
+       id="path4053"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,387.46742 0,-14.14213 8.83883,0 8.83884,0 0,14.14213 0,14.14214 -8.83884,0 -8.83883,0 0,-14.14214 z"
+       id="path4055"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,357.06183 0,-14.14213 24.04163,0 24.04163,0 0,14.14213 0,14.14214 -24.04163,0 -24.04163,0 0,-14.14214 z"
+       id="path4057"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,327.36335 0,-14.14214 8.83883,0 8.83884,0 0,14.14214 0,14.14213 -8.83884,0 -8.83883,0 0,-14.14213 z"
+       id="path4059"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,297.66486 0,-14.14213 24.04163,0 24.04163,0 0,14.14213 0,14.14214 -24.04163,0 -24.04163,0 0,-14.14214 z"
+       id="path4061"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,267.25927 0,-14.14214 8.83883,0 8.83884,0 0,14.14214 0,14.14214 -8.83884,0 -8.83883,0 0,-14.14214 z"
+       id="path4063"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 608.7678,237.56078 0,-14.14213 24.04163,0 24.04163,0 0,14.14213 0,14.14214 -24.04163,0 -24.04163,0 0,-14.14214 z"
+       id="path4065"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-width:1.41421354;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 639.17339,207.15519 0,-14.14213 8.83883,0 8.83884,0 0,14.14213 0,14.14214 -8.83884,0 -8.83883,0 0,-14.14214 z"
+       id="path4067"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.510041;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6.04016405, 6.04016405;stroke-dashoffset:0"
+       d="m 658,122.86218 -15,0 0,339.5 15,0"
+       id="path4069"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,123.36218 149.5,0"
+       id="path4071"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 405,67.362183 164.5,0"
+       id="path4073-9"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <text
+       xml:space="preserve"
+       style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="-106.99166"
+       y="470.60715"
+       id="text6204-4-5"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001"><tspan
+         sodipodi:role="line"
+         id="tspan3116"
+         x="-106.99166"
+         y="470.60715">h</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none;stroke-dashoffset:0"
+       d="m 335.36841,542.36218 62.63159,0"
+       id="path5640-2-61-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <text
+       xml:space="preserve"
+       style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="428.6561"
+       y="509.48203"
+       id="text6204-4-8"
+       sodipodi:linespacing="125%"
+       transform="scale(0.96798992,1.0330686)"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-6"
+         x="428.6561"
+         y="509.48203"
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"><tspan
+           style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
+           id="tspan6411-3-0">gap</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 462.63159,542.36218 -62.63159,0"
+       id="path5640-2-61-2-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 400,462.36218 0,100"
+       id="path4209"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 362,542.36218 -242,0"
+       id="path5640-2-61-6-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <text
+       xml:space="preserve"
+       style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="203.0242"
+       y="513.33533"
+       id="text6204-4-4"
+       sodipodi:linespacing="125%"
+       transform="scale(0.97525325,1.0253747)"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-3"
+         x="203.0242"
+         y="513.33533"
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"><tspan
+           style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
+           id="tspan6411-3-1">wWin</tspan></tspan></text>
+    <path
+       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:1.37704849;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 119.0837,293.36609 0,-169.49609 120.20815,0 120.20815,0 0,169.49609 0,169.49609 -120.20815,0 -120.20815,0 0,-169.49609 z"
+       id="path4311"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <text
+       xml:space="preserve"
+       style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="-315.02081"
+       y="462.91592"
+       id="text6204-4"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2"
+         x="-315.02081"
+         y="462.91592"
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"><tspan
+           style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
+           id="tspan6411-3">hWin</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 499.49999,122.86218 0,339.5"
+       id="path5640-2-61-4"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 797.99997,542.36218 -139.99999,0"
+       id="path5640-2-61-6-5-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <text
+       xml:space="preserve"
+       style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       x="721.86511"
+       y="511.38492"
+       id="text6204-4-4-5"
+       sodipodi:linespacing="125%"
+       transform="scale(0.97525325,1.0253747)"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-3-0"
+         x="721.86511"
+         y="511.38492"
+         style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Sans;-inkscape-font-specification:Sans"><tspan
+           style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;fill:#000000;fill-opacity:1;font-family:Sans;-inkscape-font-specification:Sans"
+           id="tspan6411-3-1-2">dep</tspan></tspan></text>
+    <path
+       inkscape:export-ydpi="44.970001"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:connector-curvature="0"
+       id="path4164"
+       d="m 120,462.36218 0,100"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 658,462.36218 0,100"
+       id="path4166"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       inkscape:export-ydpi="44.970001"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:connector-curvature="0"
+       id="path4168"
+       d="m 799.5,462.36218 0,100"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 499.49999,67.36218 0,55.5"
+       id="path5640-2-61-4-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,462.36218 0,100"
+       id="path4209-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,463.36218 149.5,0"
+       id="path4071-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+  </g>
+</svg>
