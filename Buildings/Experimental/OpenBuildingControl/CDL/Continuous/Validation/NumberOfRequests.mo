@@ -59,9 +59,9 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.NumberOfRequests</a>.
 </p>
 <p>
-The input <code>u1<code\> varies from <i>-2</i> to <i>+2</i>, input <code>u2<code\> varies from <i>-1</i> to <i>+2</i>, 
-input <code>u3<code\> varies from <i>+2</i> to <i>-2</i>, input <code>u4<code\> varies from <i>+3</i> to <i>+2</i>,
-input <code>u5<code\> varies from <i>0</i> to <i>+4</i>,
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>-1</i> to <i>+2</i>, 
+input <code>u3</code> varies from <i>+2</i> to <i>-2</i>, input <code>u4</code> varies from <i>+3</i> to <i>+2</i>,
+input <code>u5</code> varies from <i>0</i> to <i>+4</i>,
 </p>
 </html>", revisions="<html>
 <ul>

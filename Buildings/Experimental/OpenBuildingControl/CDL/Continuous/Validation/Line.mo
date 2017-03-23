@@ -51,7 +51,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Line</a>.
 </p>
 <p>
-The input <code>u<code\> varies from <i>0.0</i> to <i>+2</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>. 
 </p>
 <p>
 The block outputs <code>y = a + b u</code>,

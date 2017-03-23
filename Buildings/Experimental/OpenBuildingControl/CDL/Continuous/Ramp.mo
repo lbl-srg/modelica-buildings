@@ -132,9 +132,9 @@ equation
 The Real output y is a ramp signal:
 </p>
 
-<p>
+<p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/Ramp.png\"
-     alt=\"Ramp.png\">
+     alt=\"Ramp.png\" />
 </p>
 
 <p>

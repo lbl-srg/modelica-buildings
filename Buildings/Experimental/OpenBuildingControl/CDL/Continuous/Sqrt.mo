@@ -61,7 +61,11 @@ equation
             textString="y"),Text(
             extent={{60,-52},{84,-72}},
             lineColor={160,160,164},
-            textString="u")}),
+            textString="u"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-140,106},{160,146}},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 Block that outputs square root of the input <code>y = sqrt(u)</code>,

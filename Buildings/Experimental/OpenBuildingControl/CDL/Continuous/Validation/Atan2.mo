@@ -33,8 +33,8 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Atan2</a>.
 </p>
 <p>
-The input <code>u1<code\> varies from <i>-2</i> to <i>+2</i>, 
-The input <code>u2<code\> varies from <i>+1</i> to <i>+3</i>. 
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, 
+The input <code>u2</code> varies from <i>+1</i> to <i>+3</i>. 
 </p>
 </html>", revisions="<html>
 <ul>
