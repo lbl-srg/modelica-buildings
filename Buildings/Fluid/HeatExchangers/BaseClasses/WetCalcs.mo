@@ -6,8 +6,6 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "Medium 1 in the component: the 'water'"
     annotation (choicesAllMatching = true);
 
-  //replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium;
-  // INPUTS
   // - water
   input Modelica.SIunits.ThermalConductance UAWat
     "UA for water side";
@@ -40,7 +38,6 @@ model WetCalcs "Wet effectiveness-NTU calculations"
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg
     "The configuration of the heat exchanger";
 
-  // OUTPUTS
   output Modelica.SIunits.HeatFlowRate QTot
     "Total heat flow from 'air' into 'water' stream";
   output Modelica.SIunits.HeatFlowRate QSen
@@ -170,7 +167,6 @@ equation
       flowRegime = Integer(cfg));
     QTot = effSta * masFloAir * (hAirIn - hAirSatSurIn);
     TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
-
     hAirOut = hAirIn - (QTot / masFloAir);
     NtuAirSta = UAAir / (masFloAir * cpAir);
     hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
@@ -203,7 +199,6 @@ equation
     masFloCon = masFloAir * (wAirIn - wAirOut);
     QSen = -(QTot - (masFloCon * Buildings.Media.Air.enthalpyOfLiquid(TSurEff)));
     TCon = TSurEff;
-
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
