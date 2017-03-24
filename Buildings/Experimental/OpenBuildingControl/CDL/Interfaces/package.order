@@ -5,3 +5,5 @@ IntegerInput
 IntegerOutput
 RealInput
 RealOutput
+SISO
+partialBooleanSource

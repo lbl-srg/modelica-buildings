@@ -12,6 +12,7 @@ Division
 Exp
 Feedback
 Gain
+IntegratorWithReset
 LimPID
 Limiter
 Line
