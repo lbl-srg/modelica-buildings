@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model IntegratorWithReset "Test model for integrator with reset"
-  extends Modelica.Icons.Example;
+
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
@@ -56,6 +56,21 @@ equation
   experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/IntegratorWithReset.mos"
         "Simulate and plot"),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 This model tests the implementation of

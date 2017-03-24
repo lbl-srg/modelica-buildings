@@ -1,6 +1,10 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block IntegratorWithReset "Output the integral of the input signal"
-  extends Interfaces.SISO(y(start=y_start));
+
+  Interfaces.RealInput u "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   parameter Real k(unit="1")=1 "Integrator gain";
 
@@ -79,6 +83,11 @@ Icon(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100.0,-100.0},{100.0,100.0}}),
         graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
           Text(
             extent={{-88,-94},{212,-54}},
           lineColor={0,0,0},
