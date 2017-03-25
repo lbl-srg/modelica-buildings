@@ -457,7 +457,7 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Actuators.Dampers.Exponential damSupByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    filteredOpening=false)
+    use_input_filter=false)
     "Supply air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{160,510},{180,530}})));
   Buildings.Fluid.HeatExchangers.HeaterCooler_T coo(
@@ -565,13 +565,13 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Buildings.Fluid.Actuators.Dampers.Exponential damHex(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    filteredOpening=false)
+    use_input_filter=false)
     "Supply air damper that closes the heat recovery"
     annotation (Placement(transformation(extent={{120,490},{140,510}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRetByp(
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    filteredOpening=false)
+    use_input_filter=false)
     "Return air damper that bypasses the heat recovery"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Modelica.StateGraph.InitialStep off "Pump and furnace off"

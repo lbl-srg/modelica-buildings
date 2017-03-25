@@ -54,7 +54,7 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     dpExh_nominal=0.467,
     allowFlowReversal=true,
     from_dp=false,
-    filteredOpening=false) "mixing box"
+    use_input_filter=false) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,

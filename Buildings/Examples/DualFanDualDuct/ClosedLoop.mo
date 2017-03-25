@@ -228,7 +228,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    filteredOpening=false,
+    use_input_filter=false,
     linearized=true) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
@@ -1204,7 +1204,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
-Set <code>filteredSpeed=false</code> in fan models to avoid a large
+Set <code>use_input_filter=false</code> in fan models to avoid a large
 increase in computing time when simulated between <i>t=1.60E7</i>
 and <i>t=1.66E7</i>.
 </li>
