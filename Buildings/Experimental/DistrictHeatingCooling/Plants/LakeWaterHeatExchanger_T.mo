@@ -78,14 +78,13 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     "Heat exchanged with water reservoir (positive if added to reservoir)"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valCoo(
-    redeclare final package Medium =  Medium,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    filteredOpening=false,
+    use_input_filter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
-    "Switching valve for cooling"                                       annotation (
-      Placement(transformation(
+    "Switching valve for cooling" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,60})));
@@ -93,11 +92,10 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    filteredOpening=false,
+    use_input_filter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
-    "Switching valve for heating"
-    annotation (Placement(transformation(
+    "Switching valve for heating" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,-60})));
