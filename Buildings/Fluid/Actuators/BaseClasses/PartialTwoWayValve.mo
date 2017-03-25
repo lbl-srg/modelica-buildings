@@ -57,7 +57,7 @@ equation
         Line(
           points={{0,40},{0,-4}}),
         Line(
-          visible=not filteredOpening,
+          visible=not use_input_filter,
           points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
@@ -101,6 +101,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
 <li>
 November 16, 2017, by Michael Wetter:<br/>
 Relaxed assertion on <code>phi</code>.<br/>

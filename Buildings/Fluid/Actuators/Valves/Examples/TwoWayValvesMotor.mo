@@ -117,7 +117,7 @@ To use common values, use the default values.
 All valves are connected to a model of a motor with
 hysteresis. A more efficient implementation that approximates
 a motor but lacks hysteresis would be to
-set the valve parameter <code>filteredOpening=true</code> instead
+set the valve parameter <code>use_input_filter=true</code> instead
 of using the motor model.
 </p>
 </html>", revisions="<html>

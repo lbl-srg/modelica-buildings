@@ -7,7 +7,7 @@ model MixingBox
     "Medium in the component"
          annotation (choicesAllMatching = true);
 
-  Dampers.MixingBox mixBox(
+  Buildings.Fluid.Actuators.Dampers.MixingBox mixBox(
     mOut_flow_nominal=1,
     dpOut_nominal=20,
     mRec_flow_nominal=1,

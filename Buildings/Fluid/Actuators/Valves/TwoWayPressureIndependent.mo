@@ -103,7 +103,7 @@ equation
         Line(
           points={{0,40},{0,-4}}),
         Line(
-          visible=not filteredOpening,
+          visible=not use_input_filter,
           points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
@@ -163,6 +163,12 @@ the result when using <code>from_dp = false</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
