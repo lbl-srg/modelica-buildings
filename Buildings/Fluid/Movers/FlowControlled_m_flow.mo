@@ -61,7 +61,7 @@ model FlowControlled_m_flow
         iconTransformation(extent={{100,10},{120,30}})));
 
 equation
-  if filteredSpeed then
+  if use_input_filter then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{34.7,88},{44,88},{44,20},{110,20}},
       color={0,0,127},

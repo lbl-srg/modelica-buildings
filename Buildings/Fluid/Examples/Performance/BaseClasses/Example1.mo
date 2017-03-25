@@ -13,7 +13,7 @@ partial model Example1 "Example 1 partial model"
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_input_filter=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -38,10 +38,13 @@ partial model Example1 "Example 1 partial model"
     dpValve_nominal=1000,
     l={0.002,0.002},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredOpening=false,
-    portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    use_input_filter=false,
+    portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Three way valve with constant input"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"

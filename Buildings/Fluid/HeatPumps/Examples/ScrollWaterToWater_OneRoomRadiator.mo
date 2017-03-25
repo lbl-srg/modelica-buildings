@@ -71,16 +71,15 @@ model ScrollWaterToWater_OneRoomRadiator
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
-      redeclare package Medium = MediumW,
-      m_flow_nominal=mHeaPum_flow_nominal,
-      y_start=1,
-      m_flow_start=0.85,
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaPum_flow_nominal,
+    y_start=1,
+    m_flow_start=0.85,
     T_start=TRadSup_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    filteredSpeed=false,
+    use_input_filter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Pump for radiator side"
-     annotation (Placement(transformation(
+    "Pump for radiator side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-100})));
@@ -149,7 +148,7 @@ model ScrollWaterToWater_OneRoomRadiator
     m_flow_start=0.85,
     m_flow_nominal=mHeaPum_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    filteredSpeed=false,
+    use_input_filter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heat pump source side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

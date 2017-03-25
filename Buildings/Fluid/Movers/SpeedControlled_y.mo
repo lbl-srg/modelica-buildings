@@ -51,7 +51,7 @@ equation
     annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
                                                      color={0,0,127}));
 
-  if filteredSpeed then
+  if use_input_filter then
     connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
             {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
                                       color={0,0,127}));

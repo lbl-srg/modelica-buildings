@@ -43,8 +43,7 @@ model ThermalZoneHVACNoExhaust
     dp_nominal=1200,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
-                     "Fan or pump"
+    use_input_filter=false) "Fan or pump"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   HeatExchangers.HeaterCooler_u
     hea(

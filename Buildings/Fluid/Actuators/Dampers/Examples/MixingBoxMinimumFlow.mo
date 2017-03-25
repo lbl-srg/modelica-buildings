@@ -8,9 +8,6 @@ model MixingBoxMinimumFlow
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
     AOutMin=0.3,
-    AOut=0.7,
-    AExh=1,
-    ARec=1,
     mOutMin_flow_nominal=0.3,
     dpOutMin_nominal=20,
     mOut_flow_nominal=1,
@@ -20,8 +17,7 @@ model MixingBoxMinimumFlow
     mExh_flow_nominal=1,
     dpExh_nominal=20,
     redeclare package Medium = Medium) "mixing box"
-                            annotation (Placement(transformation(extent={{14,
-            -22},{34,-2}})));
+    annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
     use_p_in=true,

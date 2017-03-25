@@ -41,10 +41,11 @@ model TwoRoomsWithStorage
   Buildings.Fluid.Movers.SpeedControlled_y pumBoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow=mBoi_flow_nominal/1000*{0.5,1}, dp=(3000 + 2000)*{2,1})),
-    filteredSpeed=false,
+
+    use_input_filter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Pump for boiler circuit"                                  annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}}, origin={70,-170})));
+    "Pump for boiler circuit" annotation (Placement(transformation(extent={{-10,
+            -10},{10,10}}, origin={70,-170})));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
@@ -183,8 +184,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    filteredOpening=false)
-                  "Radiator valve"
+    use_input_filter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
   Controls.Continuous.LimPID conRoo2(
     yMax=1,
@@ -202,8 +202,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    filteredOpening=false)
-                  "Radiator valve"
+    use_input_filter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.Continuous.LimPID conRoo1(
     yMax=1,
@@ -234,7 +233,7 @@ model TwoRoomsWithStorage
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
     dpFixed_nominal={100,0},
-    filteredOpening=false,
+    use_input_filter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Three-way valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -373,7 +372,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false) "Supply air fan"
+    use_input_filter=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
@@ -382,7 +381,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = MediumA,
     m_flow_nominal=2*VRoo*1.2*0.37/3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false) "Return air fan"
+    use_input_filter=false) "Return air fan"
     annotation (Placement(transformation(extent={{90,450},{70,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
