@@ -7,9 +7,9 @@ convertClear();
 
 // Renaming of filteredSpeed and filteredOpening
 convertElement("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
-               "filteredSpeed", "use_input_filter")
+               "filteredSpeed", "use_inputFilter")
 convertElement("Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal",
-               "filteredOpening", "use_input_filter")
+               "filteredOpening", "use_inputFilter")
 
 
 // Refactoring of damper
