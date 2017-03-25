@@ -17,7 +17,7 @@ model MixingBoxMinimumFlow
 
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_input_filter));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
@@ -56,10 +56,10 @@ model MixingBoxMinimumFlow
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOutMin_flow_nominal,
     dp_nominal=dpOutMin_nominal,
-    final filteredOpening=false) "Damper for minimum outside air intake"
+    final use_input_filter=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
-  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if filteredOpening
+  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_input_filter
     "Filtered damper position in the range 0..1"
     annotation (Placement(transformation(extent={{-32,78},{-12,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
@@ -72,7 +72,7 @@ protected
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
      x(each stateSelect=StateSelect.always)) if
-        filteredOpening
+        use_input_filter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{-56,81},{-42,95}})));
 
@@ -81,7 +81,7 @@ equation
       points={{-41.3,88},{-22,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  if filteredOpening then
+  if use_input_filter then
   connect(yOutMin, filterOutMin.u) annotation (Line(
       points={{-60,120},{-60,88},{-57.4,88}},
       color={0,0,127},

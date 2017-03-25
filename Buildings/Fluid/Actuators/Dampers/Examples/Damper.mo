@@ -33,19 +33,19 @@ model Damper
   Exponential resLinear(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    filteredOpening=false,
+    use_input_filter=false,
     linearized=true)
     "A damper with linear relationship between m_flow and dp (linearized = true)"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
-      points={{1,50},{10,50},{10,34}},
+      points={{1,50},{10,50},{10,32}},
       color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
-      points={{-48,22},{0,22}},
+      points={{-48,22},{-24,22},{-24,20},{0,20}},
       color={0,127,255}));
   connect(sin.ports[1], res.port_b) annotation (Line(
-      points={{54,22},{20,22}},
+      points={{54,22},{38,22},{38,20},{20,20}},
       color={0,127,255}));
   connect(resLinear.port_b, sin.ports[2]) annotation (Line(points={{20,-20},{32,
           -20},{32,18},{54,18}}, color={0,127,255}));
