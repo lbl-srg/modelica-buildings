@@ -7,7 +7,6 @@ model MixingBoxMinimumFlow
          annotation (choicesAllMatching = true);
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
-    AOutMin=0.3,
     mOutMin_flow_nominal=0.3,
     dpOutMin_nominal=20,
     mOut_flow_nominal=1,
