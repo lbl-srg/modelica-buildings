@@ -599,6 +599,31 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
 
+   <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+       </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                          Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+                          Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                          Buildings.Fluid.Actuators.Valves.TwoWayTable
+       </td>
+       <td valign=\"top\">Renamed the parameter
+                          <code>filteredOpening</code> to
+                          <code>use_input_filter</code>.<br/>
+                          For Dymola, the conversion script will update models that access this parameter.<br/>
+                          This is for
+                          <a href=\"https://github.com/ibpsa/modelica/issues/665\">IBPSA, #665</a>
+       </td>
+   </tr>
+
    <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
        </td>
    </tr>
@@ -741,6 +766,22 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           this change as the function are called by a low-level implementation only.
        </td>
    </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Movers.
+                          Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                          Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                          Buildings.Fluid.Movers.SpeedControlled_y
+       </td>
+       <td valign=\"top\">Renamed the parameter
+                          <code>filteredSpeed</code> to
+                          <code>use_input_filter</code>.<br/>
+                          For Dymola, the conversion script will update models that access this parameter.<br/>
+                          This is for
+                          <a href=\"https://github.com/ibpsa/modelica/issues/665\">IBPSA, #665</a>
+       </td>
+   </tr>
+
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.CoolingTowers
        </td>
        <td valign=\"top\">Changed the name of the function
