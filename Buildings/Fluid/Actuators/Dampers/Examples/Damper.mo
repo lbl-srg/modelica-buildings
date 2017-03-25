@@ -7,7 +7,7 @@ model Damper
   Buildings.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    use_input_filter=false)
+    use_inputFilter=false)
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
     Modelica.Blocks.Sources.Ramp yRam(
@@ -33,7 +33,7 @@ model Damper
   Exponential resLinear(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    use_input_filter=false,
+    use_inputFilter=false,
     linearized=true)
     "A damper with linear relationship between m_flow and dp (linearized = true)"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));

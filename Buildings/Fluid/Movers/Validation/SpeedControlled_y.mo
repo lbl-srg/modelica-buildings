@@ -8,13 +8,13 @@ model SpeedControlled_y
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                     dp={2*dp_nominal,dp_nominal,0})),
-      use_input_filter=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y floMacDyn(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                     dp={2*dp_nominal,dp_nominal,0})),
-      use_input_filter=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation

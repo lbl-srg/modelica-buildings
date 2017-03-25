@@ -15,7 +15,7 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal,
           final dpFixed_nominal=dpFixed_nominal[1],
-          final use_input_filter=false),
+          final use_inputFilter=false),
       redeclare FixedResistances.LosslessPipe res2(
         m_flow_nominal=m_flow_nominal),
       redeclare replaceable
@@ -31,7 +31,7 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal/fraK^2,
           final dpFixed_nominal=dpFixed_nominal[2],
-          final use_input_filter=false));
+          final use_inputFilter=false));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -122,19 +122,19 @@ equation
         Line(
           points={{0,100},{0,-2}}),
         Rectangle(
-          visible=use_input_filter,
+          visible=use_inputFilter,
           extent={{-36,36},{36,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_input_filter,
+          visible=use_inputFilter,
           extent={{-36,100},{36,36}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_input_filter,
+          visible=use_inputFilter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},
           fillColor={135,135,135},
@@ -172,7 +172,7 @@ for details regarding the valve implementation.
 <ul>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
 </li>

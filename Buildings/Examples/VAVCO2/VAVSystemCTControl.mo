@@ -54,7 +54,7 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     dpExh_nominal=0.467,
     allowFlowReversal=true,
     from_dp=false,
-    use_input_filter=false) "mixing box"
+    use_inputFilter=false) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
@@ -78,7 +78,7 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_input_filter=true)
+    use_inputFilter=true)
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
   Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
@@ -86,7 +86,7 @@ Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Mediu
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_input_filter=true)
+    use_inputFilter=true)
     annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
   Modelica.Blocks.Sources.Pulse pSet(
     amplitude=120,

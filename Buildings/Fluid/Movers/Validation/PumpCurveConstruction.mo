@@ -16,7 +16,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -31,7 +31,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_input_filter=false,
+    use_inputFilter=false,
     per(pressure(V_flow={0,0.5*V_flow_nominal,V_flow_nominal}, dp={dp_nominal,
             0.5*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -41,7 +41,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_dp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_input_filter=false,
+    use_inputFilter=false,
     per(pressure(V_flow={0.5*V_flow_nominal,0.75*V_flow_nominal,V_flow_nominal},
           dp={0.5*dp_nominal,0.25*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -51,7 +51,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_m_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_input_filter=false,
+    use_inputFilter=false,
     per(pressure(V_flow={0,0.25*V_flow_nominal,0.5*V_flow_nominal}, dp={
             dp_nominal,0.75*dp_nominal,0.5*dp_nominal})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -61,7 +61,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_no(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_input_filter=false,
+    use_inputFilter=false,
     per(pressure(V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*
             V_flow_nominal}, dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal})),
 
@@ -78,7 +78,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -86,7 +86,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -94,7 +94,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));

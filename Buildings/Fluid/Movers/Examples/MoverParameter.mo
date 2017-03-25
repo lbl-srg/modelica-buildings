@@ -10,7 +10,7 @@ model MoverParameter
   FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_input_filter=false,
+    use_inputFilter=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -29,7 +29,7 @@ model MoverParameter
     redeclare package Medium = Medium,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
         speeds_rpm=1800*{0,0.5,1}, constantSpeed_rpm=1800),
-    use_input_filter=false,
+    use_inputFilter=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with normalised speed input"
@@ -38,7 +38,7 @@ model MoverParameter
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
-    use_input_filter=false,
+    use_inputFilter=false,
     heads={0,0.5,1}*dp_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     dp_nominal=dp_nominal,
@@ -53,7 +53,7 @@ model MoverParameter
     annotation (Placement(transformation(extent={{26,-90},{46,-70}})));
   SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
-    use_input_filter=false,
+    use_inputFilter=false,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
         speeds_rpm={0,1000,2000}, constantSpeed_rpm=2000),
     inputType=Buildings.Fluid.Types.InputType.Constant,

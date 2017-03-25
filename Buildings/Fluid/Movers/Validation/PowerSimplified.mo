@@ -14,7 +14,7 @@ model PowerSimplified
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     per=per,
-    use_input_filter=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with RPM as control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
@@ -24,7 +24,7 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
-    use_input_filter=false,
+    use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with pressure rise as control signal"
@@ -36,7 +36,7 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0}, eta={0.3577})),
-    use_input_filter=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));

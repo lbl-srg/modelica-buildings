@@ -618,7 +618,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Renamed the parameter
                           <code>filteredOpening</code> to
-                          <code>use_input_filter</code>.<br/>
+                          <code>use_inputFilter</code>.<br/>
                           For Dymola, the conversion script will update models that access this parameter.<br/>
                           This is for
                           <a href=\"https://github.com/ibpsa/modelica/issues/665\">IBPSA, #665</a>
@@ -792,7 +792,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
        <td valign=\"top\">Renamed the parameter
                           <code>filteredSpeed</code> to
-                          <code>use_input_filter</code>.<br/>
+                          <code>use_inputFilter</code>.<br/>
                           For Dymola, the conversion script will update models that access this parameter.<br/>
                           This is for
                           <a href=\"https://github.com/ibpsa/modelica/issues/665\">IBPSA, #665</a>

@@ -10,7 +10,7 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal(displayUnit="kPa") = 4500,
-    use_input_filter=false) "Valve model, linear opening characteristics"
+    use_inputFilter=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -37,7 +37,7 @@ model ValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=150/3600,
     Kv=0.73,
-    use_input_filter=false) "Valve model, linear opening characteristics"
+    use_inputFilter=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Valves.TwoWayLinear valCv(
@@ -45,7 +45,7 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=0.84,
-    use_input_filter=false) "Valve model, linear opening characteristics"
+    use_inputFilter=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));

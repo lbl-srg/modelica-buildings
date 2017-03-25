@@ -81,7 +81,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    use_input_filter=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
     "Switching valve for cooling" annotation (Placement(transformation(
@@ -92,7 +92,7 @@ model LakeWaterHeatExchanger_T "Heat exchanger with lake, ocean or river water"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     dpValve_nominal=1000,
-    use_input_filter=false,
+    use_inputFilter=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     final dpFixed_nominal={if disableHeatExchanger then 0 else dpHex_nominal,0})
     "Switching valve for heating" annotation (Placement(transformation(

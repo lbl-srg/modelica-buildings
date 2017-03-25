@@ -102,19 +102,19 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_input_filter=false) "Supply air fan for hot deck"
+    use_inputFilter=false) "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_input_filter=false) "Supply air fan for cold deck"
+    use_inputFilter=false) "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
     per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_input_filter=false) "Return air fan"
+    use_inputFilter=false) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(
     redeclare package Medium = MediumW,
@@ -183,7 +183,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     dpFixed_nominal=6000,
-    use_input_filter=false) "Cooling coil valve" annotation (Placement(
+    use_inputFilter=false) "Cooling coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -228,7 +228,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpRec_nominal=10,
     dpExh_nominal=10,
     from_dp=from_dp,
-    use_input_filter=false,
+    use_inputFilter=false,
     linearized=true) "Economizer"
     annotation (Placement(transformation(extent={{-40,66},{14,12}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCoiCoo(
@@ -414,7 +414,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
     riseTime=10,
-    use_input_filter=false) "Preheating coil valve" annotation (Placement(
+    use_inputFilter=false) "Preheating coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -460,7 +460,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
     dpFixed_nominal=6000,
-    use_input_filter=false) "Heating coil valve" annotation (Placement(
+    use_inputFilter=false) "Heating coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -1204,7 +1204,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 <ul>
 <li>
 May 19, 2016, by Michael Wetter:<br/>
-Set <code>use_input_filter=false</code> in fan models to avoid a large
+Set <code>use_inputFilter=false</code> in fan models to avoid a large
 increase in computing time when simulated between <i>t=1.60E7</i>
 and <i>t=1.66E7</i>.
 </li>

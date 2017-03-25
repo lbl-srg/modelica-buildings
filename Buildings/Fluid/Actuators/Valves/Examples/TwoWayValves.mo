@@ -7,7 +7,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
     Modelica.Blocks.Sources.Ramp y(
@@ -32,7 +32,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=6000) "Valve model, quick opening characteristics"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -41,7 +41,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     R=10,
     delta0=0.1,
     m_flow_nominal=2,
-    use_input_filter=false,
+    use_inputFilter=false,
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -51,7 +51,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     m_flow_nominal=1,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=10000,
-    use_input_filter=false,
+    use_inputFilter=false,
     l=0.05,
     l2=0.01) annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 equation
