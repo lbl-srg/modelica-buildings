@@ -13,10 +13,14 @@ convertElement("Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal",
 
 
 // Refactoring of damper
+
 convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
                  {"A"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
                  {"use_v_nominal"}, fill("",0), true);
+
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"AOutMin"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
                  {"AOut", "AExh", "ARec"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",

@@ -606,7 +606,8 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
    <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
                           Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
                           Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
-                          Buildings.Fluid.Actuators.Dampers.VAVBoxExponential
+                          Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
                           Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
                           Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
                           Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
@@ -621,6 +622,22 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           For Dymola, the conversion script will update models that access this parameter.<br/>
                           This is for
                           <a href=\"https://github.com/ibpsa/modelica/issues/665\">IBPSA, #665</a>
+       </td>
+   </tr>
+
+   <tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                          Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br/>
+                          Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow
+       </td>
+       <td valign=\"top\">Renamed the parameters
+                          <code>use_v_nominal</code> and all area related parameters,
+                          because <code>m_flow_nominal</code> and <code>v_nominal</code>
+                          are used to compute the area.<br/>
+                          For Dymola, the conversion script will update models that access this parameter.<br/>
+                          This is for
+                          <a href=\"https://github.com/ibpsa/modelica/issues/544\">IBPSA, #544</a>
        </td>
    </tr>
 
