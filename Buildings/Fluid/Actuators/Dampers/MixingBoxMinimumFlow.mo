@@ -4,7 +4,7 @@ model MixingBoxMinimumFlow
  extends Buildings.Fluid.Actuators.Dampers.MixingBox;
   import Modelica.Constants;
 
-  parameter Modelica.SIunits.Area AOutMin
+  final parameter Modelica.SIunits.Area AOutMin = mOutMin_flow_nominal/rho_default/v_nominal
     "Face area minimum outside air damper";
 
   parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
@@ -140,6 +140,23 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_input_filter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
+March 22, 2017, by Michael Wetter:<br/>
+Removed the assignments of <code>AOut</code>, <code>AExh</code>, <code>AOutMin</code>
+and <code>ARec</code> as these are done in the damper instance using
+a final assignment of the parameter.
+This allows scaling the model with <code>m_flow_nominal</code>,
+which is generally known in the flow leg,
+and <code>v_nominal</code>, for which a default value can be specified.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
