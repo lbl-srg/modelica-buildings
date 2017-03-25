@@ -7,8 +7,6 @@ model VAVBranch "Supply branch of a VAV system"
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    A=0.6,
-    use_v_nominal=true,
     dp_nominal(displayUnit="Pa") = 220 + 20) "VAV box for room" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

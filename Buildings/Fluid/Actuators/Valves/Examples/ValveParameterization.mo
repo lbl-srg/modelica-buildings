@@ -10,18 +10,18 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal(displayUnit="kPa") = 4500,
-    filteredOpening=false) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    use_inputFilter=false) "Valve model, linear opening characteristics"
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium,
     use_p_in=true,
     nPorts=3,
     T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=3,
     use_p_in=false,
     p=300000,
@@ -37,16 +37,16 @@ model ValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=150/3600,
     Kv=0.73,
-    filteredOpening=false) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    use_inputFilter=false) "Valve model, linear opening characteristics"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Valves.TwoWayLinear valCv(
     redeclare package Medium = Medium,
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=0.84,
-    filteredOpening=false) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    use_inputFilter=false) "Valve model, linear opening characteristics"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flowKv(redeclare package Medium =

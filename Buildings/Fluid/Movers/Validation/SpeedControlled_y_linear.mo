@@ -24,8 +24,8 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixDp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
-    filteredSpeed=false) "Pump with fixed pressure raise"
+    per(pressure(V_flow=2/1000*{0,m_flow_nominal}, dp={2*dp_nominal,0})),
+    use_inputFilter=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou1(
@@ -49,8 +49,8 @@ model SpeedControlled_y_linear
   Buildings.Fluid.Movers.SpeedControlled_y pumFixM_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0})),
-    filteredSpeed=false) "Pump with fixed mass flow rate"
+    per(pressure(V_flow=2/1000*{0,m_flow_nominal}, dp={2*dp_nominal,0})),
+    use_inputFilter=false) "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou3(
     redeclare package Medium = Medium,

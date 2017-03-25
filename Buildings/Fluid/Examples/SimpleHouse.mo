@@ -85,7 +85,7 @@ model SimpleHouse
 
   Movers.FlowControlled_m_flow pump(
     redeclare package Medium = MediumWater,
-    filteredSpeed=false,
+    use_inputFilter=false,
     m_flow_nominal=mWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
@@ -109,7 +109,7 @@ model SimpleHouse
   Movers.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
     dp_nominal=dpAir_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mAir_flow_nominal,
