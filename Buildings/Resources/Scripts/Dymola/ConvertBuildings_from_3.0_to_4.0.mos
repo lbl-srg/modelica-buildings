@@ -5,6 +5,24 @@ clear
 
 convertClear();
 
+// Renaming of filteredSpeed and filteredOpening
+convertElement("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+               "filteredSpeed", "use_input_filter")
+convertElement("Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal",
+               "filteredOpening", "use_input_filter")
+
+
+// Refactoring of damper
+convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"AOut", "AExh", "ARec"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"use_v_nominal"}, fill("",0), true);
+
+
 // Refactoring of DX coil class hierarchy
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed",
              "Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed");
