@@ -11,7 +11,7 @@ block Truncation
         iconTransformation(extent={{100,-10},{120,10}})));
 
 equation
-  y = integer(u);
+  y = if (u > 0) then integer(u) else integer(u + 1.0);
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,

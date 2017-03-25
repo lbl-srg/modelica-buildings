@@ -5,7 +5,7 @@ model IntegratorWithReset "Test model for integrator with reset"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intWitRes1(
-    y_start=5, reset=Buildings.Types.Reset.Parameter,
+    y_start=5, reset=Types.Reset.Parameter,
     k=0.5,
     y_reset=2)                                      "Integrator with reset"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
@@ -13,14 +13,14 @@ model IntegratorWithReset "Test model for integrator with reset"
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intWitRes2(
     y_reset=10,
     y_start=-5,
-    reset=Buildings.Types.Reset.Input,
+    reset=Types.Reset.Input,
     k=0.5)     "Integrator with reset and y_reset = 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.BooleanPulse
     booleanPulse(width=50, period=0.2) "Boolean pulse"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intNoReset(
-    reset=Buildings.Types.Reset.Disabled,
+    reset=Types.Reset.Disabled,
     k=0.5,
     y_start=1)
     "Integrator without reset"

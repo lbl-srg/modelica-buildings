@@ -31,7 +31,7 @@ block IntegratorWithReset "Output the integral of the input signal"
 
   Interfaces.RealInput y_reset_in if
        reset == Types.Reset.Input
-    "Input signal for state to which integrator is reset, enabled if reset = Buildings.Types.Reset.Input"
+    "Input signal for state to which integrator is reset, enabled if reset = Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.BooleanInput trigger if

@@ -1,14 +1,14 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block LimPID
-  "fixme: this block needs refactoring. P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
-  import Modelica.Blocks.Types.InitPID;
-  import Modelica.Blocks.Types.Init;
-  import Modelica.Blocks.Types.SimpleController;
+  "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
+  import Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID;
+  import Buildings.Experimental.OpenBuildingControl.CDL.Types.Init;
+  import Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=
-         Modelica.Blocks.Types.SimpleController.PID "Type of controller";
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController controllerType=
+         Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
   parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
@@ -33,7 +33,7 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.Blocks.Types.InitPID initType= Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID initType= Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
                                      annotation(Evaluate=true,
       Dialog(group="Initialization"));
@@ -67,20 +67,21 @@ block LimPID
   Interfaces.RealOutput y "Connector of actuator output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
+  Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Math.Add addD(k1=wd, k2=-1) if with_D
+  Add addD(k1=wd, k2=-1) if with_D
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Math.Gain P(k=1)
+  Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Continuous.Integrator I(
+  Continuous.IntegratorWithReset I(
+    reset=Types.Reset.Disabled,
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else
         if initType == InitPID.InitialState or initType == InitPID.DoNotUse_InitialIntegratorState
          then Init.InitialState else Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Continuous.Derivative D(
+  Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
@@ -88,20 +89,20 @@ block LimPID
          then Init.SteadyState else if initType == InitPID.InitialState then
         Init.InitialState else Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Math.Gain gainPID(k=k)
+  Gain gainPID(k=k)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Modelica.Blocks.Math.Add3 addPID
+  Add3 addPID
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Blocks.Math.Add3 addI(k2=-1) if with_I
+  Add3 addI(k2=-1) if with_I
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Math.Add addSat(k1=+1, k2=-1) if with_I annotation (
+  Add addSat(k1=+1, k2=-1) if with_I annotation (
       Placement(transformation(
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if with_I
+  Gain gainTrack(k=1/(k*Ni)) if with_I
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(
+  Limiter limiter(
     uMax=yMax,
     uMin=yMin,
     strict=strict,
@@ -210,13 +211,11 @@ equation
           color={255,0,0})}),
     Documentation(info="<html>
     <p>
-    *fixme*: This block needs refactoring.
-
 Via parameter <code>controllerType</code> either <code>P</code>, <code>PI</code>, <code>PD</code>,
 or <code>PID</code> can be selected. If, e.g., PI is selected, all components belonging to the
 D-part are removed from the block (via conditional declarations).
 The example model
-<a href=\"modelica://Modelica.Blocks.Examples.PID_Controller\">Modelica.Blocks.Examples.PID_Controller</a>
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID\">Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.LimPID</a>
 demonstrates the usage of this controller.
 Several practical aspects of PID controller design are incorporated
 according to chapter 3 of the book:
@@ -365,6 +364,10 @@ to use <code>limitAtInit</code> = <code>false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2017, by Jianjun Hu:<br/>
+Updated the block, for CDL implementation.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

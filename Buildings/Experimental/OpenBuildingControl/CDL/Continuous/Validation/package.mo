@@ -44,7 +44,7 @@ allow continuous validation whenever models in the library change.
           extent={{-100,-100},{100,100}},
           radius=25.0),
         Polygon(
-          origin={8,14},
+          origin={18,14},
           lineColor={78,138,73},
           fillColor={78,138,73},
           pattern=LinePattern.None,
