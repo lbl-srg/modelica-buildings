@@ -1,6 +1,8 @@
 Day
 Extrapolation
 Init
-Reset
 InitPID
+Reset
 SimpleController
+Smoothness
+ZeroTime

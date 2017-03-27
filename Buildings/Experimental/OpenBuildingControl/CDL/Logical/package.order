@@ -2,6 +2,7 @@ And
 Change
 Constant
 Edge
+Equal
 FallingEdge
 Greater
 GreaterEqual
@@ -24,4 +25,3 @@ Timer
 TriggeredTrapezoid
 Xor
 ZeroCrossing
-Equal
