@@ -160,9 +160,9 @@ if __name__ == '__main__':
         for old, new in replacements.iteritems():
             for i in range(len(lines)):
                 lines[i] = lines[i].replace(old, new)
-                filObj=open(filNam, 'w')
-                filObj.writelines(lines)
-                filObj.close()
+        filObj=open(filNam, 'w')
+        filObj.writelines(lines)
+        filObj.close()
 
     # Replace certain sections
     for fil in files:
