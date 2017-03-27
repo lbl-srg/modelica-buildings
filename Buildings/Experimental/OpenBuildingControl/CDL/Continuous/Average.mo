@@ -14,10 +14,10 @@ block Average "Output the average of its two inputs"
         iconTransformation(extent={{100,-8},{120,12}})));
 
 equation
-  y = (u1 + u2)/2.0;
+  y = 0.5*(u1 + u2);
 
   annotation (
-    defaultComponentName="average",
+    defaultComponentName="ave",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
