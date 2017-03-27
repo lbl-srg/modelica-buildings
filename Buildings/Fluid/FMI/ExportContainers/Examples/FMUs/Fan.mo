@@ -4,7 +4,8 @@ block Fan "Declaration of an FMU that exports a fan"
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
-      final filteredSpeed=false,
+      final use_inputFilter=
+                          false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01

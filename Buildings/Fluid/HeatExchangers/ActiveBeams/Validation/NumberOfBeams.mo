@@ -33,9 +33,8 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for hot water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.FixedBoundary sou_2(
     redeclare package Medium = MediumW,
@@ -50,9 +49,8 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
     redeclare package MediumWat = MediumW,
@@ -83,9 +81,8 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for hot water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat10(
@@ -93,9 +90,8 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    nominalValuesDefineDefaultPressureCurve=true)
-   "Pump for chilled water"
+    use_inputFilter=false,
+    nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea10(
