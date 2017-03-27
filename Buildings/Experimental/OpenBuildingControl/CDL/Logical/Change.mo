@@ -15,7 +15,7 @@ initial equation
 equation
   y = change(u);
   annotation (
-    defaultComponentName="change1",
+    defaultComponentName="cha1",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(

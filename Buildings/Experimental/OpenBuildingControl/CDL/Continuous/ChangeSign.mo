@@ -12,7 +12,7 @@ block ChangeSign "Change sign of the input"
 equation
   y = -u;
   annotation (
-    defaultComponentName="ChangeSign",
+    defaultComponentName="chaSig",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

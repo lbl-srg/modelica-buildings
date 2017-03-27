@@ -8,7 +8,7 @@ block Constant "Output constant signal of type Real"
 equation
   y = k;
   annotation (
-    defaultComponentName="const",
+    defaultComponentName="con",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
