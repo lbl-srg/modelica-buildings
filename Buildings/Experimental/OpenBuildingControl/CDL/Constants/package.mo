@@ -1,105 +1,24 @@
 within Buildings.Experimental.OpenBuildingControl.CDL;
-package Constants "Library of mathematical constants and constants of nature (e.g., pi, eps, R, sigma)"
-
-  import SI = Modelica.SIunits;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
-
-  // Mathematical constants
-  final constant Real e=Modelica.Math.exp(1.0);
-  final constant Real pi=2*Modelica.Math.asin(1.0);
-                                                    // 3.14159265358979;
-  final constant Real D2R=pi/180 "Degree to Radian";
-  final constant Real R2D=180/pi "Radian to Degree";
-  final constant Real gamma=0.57721566490153286060
-    "see http://en.wikipedia.org/wiki/Euler_constant";
+package Constants "Library of constants"
 
   // Machine dependent constants
-  final constant Real eps=ModelicaServices.Machine.eps
+  final constant Real eps=1E-15
     "Biggest number such that 1.0 + eps = 1.0";
-  final constant Real small=ModelicaServices.Machine.small
+  final constant Real small=1E-60
     "Smallest number such that small and -small are representable on the machine";
-  final constant Real inf=ModelicaServices.Machine.inf
-    "Biggest Real number such that inf and -inf are representable on the machine";
-  final constant Integer Integer_inf=ModelicaServices.Machine.Integer_inf
-    "Biggest Integer number such that Integer_inf and -Integer_inf are representable on the machine";
-
-  // Constants of nature
-  // (name, value, description from http://physics.nist.gov/cuu/Constants/index.html, data from 2014)
-  final constant SI.Velocity c=299792458 "Speed of light in vacuum";
-  final constant SI.Acceleration g_n=9.80665
-    "Standard acceleration of gravity on earth";
-  final constant Real G(final unit="m3/(kg.s2)") = 6.67408e-11
-    "Newtonian constant of gravitation (previous value: 6.6742e-11)";
-  final constant SI.FaradayConstant F = 9.648533289e4
-    "Faraday constant, C/mol (previous value: 9.64853399e4)";
-  final constant Real h(final unit="J.s") = 6.626070040e-34
-    "Planck constant (previous value: 6.6260693e-34)";
-  final constant Real k(final unit="J/K") = 1.38064852e-23
-    "Boltzmann constant (previous value: 1.3806505e-23)";
-  final constant Real R(final unit="J/(mol.K)") = 8.3144598
-    "Molar gas constant (previous value: 8.314472)";
-  final constant Real sigma(final unit="W/(m2.K4)") = 5.670367e-8
-    "Stefan-Boltzmann constant (previous value: 5.670400e-8)";
-  final constant Real N_A(final unit="1/mol") = 6.022140857e23
-    "Avogadro constant (previous value: 6.0221415e23)";
-  final constant Real mue_0(final unit="N/A2") = 4*pi*1.e-7 "Magnetic constant";
-  final constant Real epsilon_0(final unit="F/m") = 1/(mue_0*c*c)
-    "Electric constant";
-  final constant NonSI.Temperature_degC T_zero=-273.15
-    "Absolute zero temperature";
 
   annotation (
     Documentation(info="<html>
 <p>
-This package provides often needed constants from mathematics, machine
-dependent constants and constants from nature. The latter constants
-(name, value, description) are from the following source:
-</p>
-
-<dl>
-<dt>Peter J. Mohr, David B. Newell, and Barry N. Taylor:</dt>
-<dd><b>CODATA Recommended Values of the Fundamental Physical Constants: 2014</b>.
-<a href= \"http://dx.doi.org/10.5281/zenodo.22826\">http://dx.doi.org/10.5281/zenodo.22826</a>, 2015. See also <a href=
-\"http://physics.nist.gov/cuu/Constants/index.html\">http://physics.nist.gov/cuu/Constants/index.html</a></dd>
-</dl>
-
-<p>CODATA is the Committee on Data for Science and Technology.</p>
-
-<dl>
-<dt><b>Main Author:</b></dt>
-<dd><a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a><br/>
-    Deutsches Zentrum f&uuml;r Luft und Raumfahrt e. V. (DLR)<br/>
-    Oberpfaffenhofen<br/>
-    Postfach 1116<br/>
-    D-82230 We&szlig;ling<br/>
-    email: <a href=\"mailto:Martin.Otter@dlr.de\">Martin.Otter@dlr.de</a></dd>
-</dl>
-
-<p>
-Copyright &copy; 1998-2016, Modelica Association and DLR.
-</p>
-<p>
-<i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"https://www.modelica.org/licenses/ModelicaLicense2\"> https://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
+This package provides often needed constants.
 </p>
 </html>", revisions="<html>
 <ul>
-<li><i>Nov 4, 2015</i>
-       by Thomas Beutlich:<br/>
-       Constants updated according to 2014 CODATA values.</li>
-<li><i>Nov 8, 2004</i>
-       by Christian Schweiger:<br/>
-       Constants updated according to 2002 CODATA values.</li>
-<li><i>Dec 9, 1999</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br/>
-       Constants updated according to 1998 CODATA values. Using names, values
-       and description text from this source. Included magnetic and
-       electric constant.</li>
-<li><i>Sep 18, 1999</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br/>
-       Constants eps, inf, small introduced.</li>
-<li><i>Nov 15, 1997</i>
-       by <a href=\"http://www.robotic.dlr.de/Martin.Otter/\">Martin Otter</a>:<br/>
-       Realized.</li>
+<li>
+March 27, 2017, by Michael Wetter:<br/>
+First implementation, based on the implementation of the
+Modelica Standard Library.
+</li>
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
