@@ -11,7 +11,7 @@ model Example3
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -79,7 +79,7 @@ equation
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>

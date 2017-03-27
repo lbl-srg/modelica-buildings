@@ -170,7 +170,7 @@ revisions="<html>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
 </li>
 <li>
 November 11, 2014, by Michael Wetter:<br/>

@@ -3,7 +3,7 @@ package Movers "Package with fan and pump models"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
-This package contains components models for fans and pumps.
+This package contains component models for fans and pumps.
 </html>"),
   Icon(graphics={Ellipse(
         extent={{-66,66},{68,-68}},

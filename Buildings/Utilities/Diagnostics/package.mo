@@ -4,7 +4,7 @@ package Diagnostics "Library with models to diagnose model errors"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains components models for run-time diagnostics.
+This package contains component models for run-time diagnostics.
 The models in this package can be used to stop a simulation if a
 test is violated.
 </p>

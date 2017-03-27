@@ -10,7 +10,7 @@ model Example2 "Example 2 model with series pressure components"
   Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -112,7 +112,7 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>

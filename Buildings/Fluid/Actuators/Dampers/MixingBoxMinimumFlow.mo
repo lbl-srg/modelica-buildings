@@ -4,7 +4,7 @@ model MixingBoxMinimumFlow
  extends Buildings.Fluid.Actuators.Dampers.MixingBox;
   import Modelica.Constants;
 
-  parameter Modelica.SIunits.Area AOutMin
+  final parameter Modelica.SIunits.Area AOutMin = mOutMin_flow_nominal/rho_default/v_nominal
     "Face area minimum outside air damper";
 
   parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
@@ -17,7 +17,7 @@ model MixingBoxMinimumFlow
 
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
@@ -43,7 +43,6 @@ model MixingBoxMinimumFlow
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
     v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
@@ -57,11 +56,10 @@ model MixingBoxMinimumFlow
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOutMin_flow_nominal,
     dp_nominal=dpOutMin_nominal,
-    A=AOutMin,
-    final filteredOpening=false) "Damper for minimum outside air intake"
+    final use_inputFilter=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
-  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if filteredOpening
+  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_inputFilter
     "Filtered damper position in the range 0..1"
     annotation (Placement(transformation(extent={{-32,78},{-12,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
@@ -74,7 +72,7 @@ protected
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
      x(each stateSelect=StateSelect.always)) if
-        filteredOpening
+        use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{-56,81},{-42,95}})));
 
@@ -83,7 +81,7 @@ equation
       points={{-41.3,88},{-22,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  if filteredOpening then
+  if use_inputFilter then
   connect(yOutMin, filterOutMin.u) annotation (Line(
       points={{-60,120},{-60,88},{-57.4,88}},
       color={0,0,127},
@@ -143,10 +141,27 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
+March 22, 2017, by Michael Wetter:<br/>
+Removed the assignments of <code>AOut</code>, <code>AExh</code>, <code>AOutMin</code>
+and <code>ARec</code> as these are done in the damper instance using
+a final assignment of the parameter.
+This allows scaling the model with <code>m_flow_nominal</code>,
+which is generally known in the flow leg,
+and <code>v_nominal</code>, for which a default value can be specified.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 February 14, 2012 by Michael Wetter:<br/>

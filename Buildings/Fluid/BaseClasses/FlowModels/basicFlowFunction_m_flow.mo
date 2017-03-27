@@ -55,14 +55,14 @@ revisions="<html>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
 and changed <code>Inline=true</code> to <code>LateInline=true</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/301\">issue 301</a>.
 </li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
@@ -70,7 +70,7 @@ New, more efficient implementation based on regularisation using simple polynomi
 Expanded common subexpressions for function inlining to be possible.
 Set <code>Inline=true</code> for inlining to occur.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/279\">#279</a>.
 </li>
 <li>
 August 10, 2011, by Michael Wetter:<br/>

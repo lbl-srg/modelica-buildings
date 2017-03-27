@@ -31,7 +31,7 @@ model FlowControlled_dp
   parameter Modelica.SIunits.PressureDifference dp_nominal(
     min=0,
     displayUnit="Pa")=
-      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
+      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
@@ -74,7 +74,7 @@ equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
-  if filteredSpeed then
+  if use_inputFilter then
     connect(filter.y, gain.u) annotation (Line(
       points={{34.7,88},{36,88},{36,42}},
       color={0,0,127},
@@ -109,7 +109,7 @@ in record <code>per</code>, which is of type
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
-If <code>filteredSpeed=true</code>, then the parameter <code>dp_nominal</code> is
+If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code> is
 used to normalize the filter. This is used to improve the numerics of the transient response.
 The actual pressure raise of the mover at steady-state is independent
 of the value of <code>dp_nominal</code>. It is recommended to set
@@ -125,29 +125,35 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>
 November 14, 2016, by Michael Wetter:<br/>
 Changed default values for <code>heads</code>.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/583\">#583</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/583\">#583</a>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 Refactored model such that it directly extends <code>PartialFlowMachine</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>

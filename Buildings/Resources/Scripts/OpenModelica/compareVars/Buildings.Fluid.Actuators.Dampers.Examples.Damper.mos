@@ -1,4 +1,5 @@
 compareVars :=
   {
-    "res.m_flow"
+    "res.m_flow",
+    "resLinear.m_flow"
   };

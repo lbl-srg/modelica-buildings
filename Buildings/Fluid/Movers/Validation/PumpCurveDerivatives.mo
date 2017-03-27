@@ -29,20 +29,21 @@ model PumpCurveDerivatives
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    filteredSpeed=false) "Wilo Stratos pump"
+    use_inputFilter=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump2(
     y_start=1,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    filteredSpeed=false) "Wilo Stratos pump"
+    use_inputFilter=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(redeclare package
-      Medium = Medium, m_flow_nominal=3,
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false) "Pump for forcing a certain mass flow rate"
+    use_inputFilter=false) "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
 
   Modelica.Blocks.Sources.Constant rpm1(k=1000) "Pump speed control signal"
@@ -175,7 +176,7 @@ revisions="<html>
 June 6, 2015, by Michael Wetter:<br/>
 Removed dublicate <code>experiment</code> annotation.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
 </li>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>

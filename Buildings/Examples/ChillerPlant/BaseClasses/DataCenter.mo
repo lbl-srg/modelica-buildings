@@ -25,7 +25,7 @@ partial model DataCenter
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15) "Fan for air flow through the data center"
     annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
@@ -60,10 +60,9 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Chilled water pump"                      annotation (Placement(
-        transformation(
+    "Chilled water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,-120})));
@@ -86,10 +85,9 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
-    filteredSpeed=false,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Condenser water pump"                      annotation (Placement(
-        transformation(
+    "Condenser water pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={358,200})));
@@ -108,7 +106,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
     y_start=1,
-    filteredOpening=false) "Control valve for condenser water loop of chiller"
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -117,7 +115,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    filteredOpening=false)
+    use_inputFilter=false)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -150,7 +148,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
     y_start=1,
-    filteredOpening=false)
+    use_inputFilter=false)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -182,7 +180,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
     y_start=0,
-    filteredOpening=false)
+    use_inputFilter=false)
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -217,10 +215,8 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
     y_start=0,
-    filteredOpening=false) "Bypass valve for chiller."
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={288,20})));
+    use_inputFilter=false) "Bypass valve for chiller." annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
     annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
@@ -228,11 +224,10 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
-    filteredOpening=false)
+    use_inputFilter=false)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={118,-60})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={
+            118,-60})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
       Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water leaving the cooling coil"
@@ -612,7 +607,7 @@ Buildings.Examples.ChillerPlant</a>.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 January 13, 2015 by Michael Wetter:<br/>

@@ -48,9 +48,9 @@ algorithm
     //Calculate Sensible Heat Ratio
     entRat := (h_TEvaIn_XADP - hADP)/
       Buildings.Utilities.Math.Functions.smoothMax(
-        x1=      epsH,
-        x2=      hEvaIn - hADP,
-        deltaX=  0.1*epsH);
+        x1 =     epsH,
+        x2 =     hEvaIn - hADP,
+        deltaX = 0.1*epsH);
     SHR := Buildings.Utilities.Math.Functions.smoothMin(
       x1=entRat,
       x2=0.999,
