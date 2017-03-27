@@ -1,32 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 package Validation "Collection of models that validate the continuous models of the CDL"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the continuous blocks

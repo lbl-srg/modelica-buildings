@@ -92,7 +92,7 @@ Icon(coordinateSystem(
             extent={{-88,-94},{212,-54}},
           lineColor={0,0,0},
           textString="y_reset_in",
-          visible=reset == Buildings.Types.Reset.Input,
+          visible= (reset == Types.Reset.Input),
           horizontalAlignment=TextAlignment.Left),
         Bitmap(extent={{-54,-50},{60,50}}, fileName=
               "modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Continuous/int.png"),

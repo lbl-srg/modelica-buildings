@@ -1,15 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Limiter "Limit the range of a signal"
 
-  parameter Real uMax "Upper limit of input signal";
-  parameter Real uMin "Lower limit of input signal";
-  parameter Boolean strict=false
-"= true, if strict limits with noEvent(..)"
-    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-  parameter Boolean limitsAtInit=true
-"Has no longer an effect and is only kept for backwards compatibility (the implementation uses now the homotopy operator)"
-    annotation (Dialog(tab="Dummy"),Evaluate=true, choices(checkBox=true));
-
+  parameter Real uMax(min=uMin+1E-20) "Upper limit of input signal";
+  parameter Real uMin(max=uMax-1E-20) "Lower limit of input signal";
 
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -18,14 +11,8 @@ block Limiter "Limit the range of a signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  assert(uMax >= uMin, "Limiter: Limits must be consistent. However, uMax (=" + String(uMax) +
-                       ") < uMin (=" + String(uMin) + ")");
-  if strict then
-     y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u)), simplified=u);
-  else
-     y = homotopy(actual = smooth(0,if u > uMax then uMax else if u < uMin then uMin else u), simplified=u);
-  end if;
-  annotation (
+  y = homotopy(actual = smooth(0, noEvent(if u > uMax then uMax else if u < uMin then uMin else u)), simplified=u);
+   annotation (
 Documentation(info="<html>
 <p>
 Block that outputs <code>y = min(uMax, max(uMin, u))</code>,

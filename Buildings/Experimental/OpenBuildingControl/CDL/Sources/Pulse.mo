@@ -4,8 +4,8 @@ block Pulse "Generate pulse signal of type Real"
   parameter Real width(
     final min=Constants.small,
     final max=100) = 50 "Width of pulse in % of period";
-  parameter Modelica.SIunits.Time period(final min=Constants.small,
-      start=1) "Time for one period";
+  parameter Modelica.SIunits.Time period(final min=Constants.small)
+   "Time for one period";
   parameter Integer nperiod=-1
     "Number of periods (< 0 means infinite number of periods)";
   parameter Real offset=0 "Offset of output signals";

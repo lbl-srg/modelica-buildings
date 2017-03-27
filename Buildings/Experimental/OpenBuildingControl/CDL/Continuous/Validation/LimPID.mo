@@ -10,7 +10,7 @@ model LimPID
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID.InitialState)
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState)
           annotation (Placement(transformation(extent={{16,-10},{36,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID limPIDOri(
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
@@ -18,7 +18,7 @@ model LimPID
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID.InitialState)
+    initType=Buildings.Experimental.OpenBuildingControl.CDL.Types.Init.InitialState)
           annotation (Placement(transformation(extent={{16,30},{36,50}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=0.5)
     annotation (Placement(transformation(extent={{-44,-40},{-24,-20}})));
@@ -61,7 +61,7 @@ Buildings.Experimental.OpenBuildingControl.CDL.Continuous.LimPID</a>.
 The model <code>limPIDOri</code> is the original
 implementation of the controller from the Modelica
 Standard Library. The models <code>limPID</code>
-is the implementations from the Buildings library. 
+is the implementations from the Buildings library.
 </p>
 </html>", revisions="<html>
 <ul>

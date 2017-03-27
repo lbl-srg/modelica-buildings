@@ -42,8 +42,8 @@ equation
           thickness=0.5)}),
     Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if the inputs are equal,
-Otherwise the output is <code>false</code>. where <code>u1</code> and <code>u2</code> are inputs.
+Block that outputs <code>true</code> if
+the inputs <code>u1</code> and <code>u2</code> are equal.
 </p>
 </html>", revisions="<html>
 <ul>

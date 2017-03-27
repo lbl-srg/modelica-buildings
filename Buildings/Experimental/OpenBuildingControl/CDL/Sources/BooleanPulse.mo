@@ -2,10 +2,10 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 block BooleanPulse "Generate pulse signal of type Boolean"
 
   parameter Real width(
-    final min=Modelica.Constants.small,
+    final min=Constants.small,
     final max=100) = 50 "Width of pulse in % of period";
-  parameter Modelica.SIunits.Time period(final min=Modelica.Constants.small,
-      start=1) "Time for one period";
+  parameter Modelica.SIunits.Time period(
+    final min=Constants.small) "Time for one period";
   parameter Modelica.SIunits.Time startTime=0 "Time instant of first pulse";
   Interfaces.BooleanOutput y
     "Connector of Boolean output signal"

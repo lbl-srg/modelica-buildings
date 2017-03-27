@@ -1,8 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Derivative "Approximated derivative block"
   import Buildings.Experimental.OpenBuildingControl.CDL.Types.Init;
-  parameter Real k(unit="1")=1 "Gains";
-  parameter Modelica.SIunits.Time T(min=Constants.small)=0.01
+  parameter Real k(unit="1") = 1 "Gains";
+  parameter Modelica.SIunits.Time T(min=1E-60)=0.01
     "Time constants (T>0 required; T=0 is ideal derivative block)";
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType=Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
@@ -21,7 +21,7 @@ block Derivative "Approximated derivative block"
   output Real x(start=x_start) "State of block";
 
 protected
-  parameter Boolean zeroGain = abs(k) < Constants.eps;
+  parameter Boolean zeroGain = abs(k) < 100*1E-15;
 initial equation
   if initType == Init.SteadyState then
     der(x) = 0;
@@ -41,7 +41,7 @@ equation
     Documentation(info="<html>
 <p>
 This blocks defines the transfer function between the
-input u and the output y
+input <code>u</code> and the output <code>y</code>
 (element-wise) as <i>approximated derivative</i>:
 </p>
 <pre>

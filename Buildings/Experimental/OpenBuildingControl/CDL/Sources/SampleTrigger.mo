@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
 block SampleTrigger "Generate sample trigger signal"
-  parameter Modelica.SIunits.Time period(final min=Modelica.Constants.small,
-      start=0.01) "Sample period";
+  parameter Modelica.SIunits.Time period(
+    final min=Constants.small) "Sample period";
   parameter Modelica.SIunits.Time startTime=0
     "Time instant of first sample trigger";
   Interfaces.BooleanOutput y

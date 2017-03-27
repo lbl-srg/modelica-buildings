@@ -1,7 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation and setpoint weighting"
-  import Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID;
   import Buildings.Experimental.OpenBuildingControl.CDL.Types.Init;
   import Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController;
   output Real controlError = u_s - u_m
@@ -10,7 +9,7 @@ block LimPID
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController controllerType=
          Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+  parameter Modelica.SIunits.Time Ti(min=Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
@@ -18,23 +17,23 @@ block LimPID
     "Time constant of Derivative block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PD or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real yMax(start=1) "Upper limit of output";
+  parameter Real yMax "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)";
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
+  parameter Real Ni(min=100*Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
      annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PI or
                               controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
+  parameter Real Nd(min=100*Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
-  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.InitPID initType= Types.InitPID.DoNotUse_InitialIntegratorState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
+  parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType= Types.Init.InitialState
+    "Type of initialization"
                                      annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Boolean limitsAtInit = true
@@ -51,10 +50,9 @@ block LimPID
                          enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput, group=
           "Initialization"));
-  parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
-    annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+
   constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
 
   Interfaces.RealInput u_s "Connector of setpoint input signal" annotation (Placement(
@@ -77,16 +75,16 @@ block LimPID
     reset=Types.Reset.Disabled,
     k=unitTime/Ti,
     y_start=xi_start,
-    initType=if initType == InitPID.SteadyState then Init.SteadyState else
-        if initType == InitPID.InitialState or initType == InitPID.DoNotUse_InitialIntegratorState
+    initType=if initType == Init.SteadyState then Init.SteadyState else
+        if initType == Init.InitialState
          then Init.InitialState else Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
-    initType=if initType == InitPID.SteadyState or initType == InitPID.InitialOutput
-         then Init.SteadyState else if initType == InitPID.InitialState then
+    initType=if initType == Init.SteadyState or initType == Init.InitialOutput
+         then Init.SteadyState else if initType == Init.InitialState then
         Init.InitialState else Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Gain gainPID(k=k)
@@ -104,9 +102,7 @@ block LimPID
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Limiter limiter(
     uMax=yMax,
-    uMin=yMin,
-    strict=strict,
-    limitsAtInit=limitsAtInit)
+    uMin=yMin)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 protected
   parameter Boolean with_I = controllerType==SimpleController.PI or
@@ -119,11 +115,11 @@ public
   Constant Izero(k=0) if not with_I
     annotation (Placement(transformation(extent={{10,-55},{0,-45}})));
 initial equation
-  if initType==InitPID.InitialOutput then
+  if initType==Init.InitialOutput then
      gainPID.y = y_start;
   end if;
 equation
-  if initType == InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
+  if initType == Init.InitialOutput and (y_start < yMin or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
   end if;
@@ -206,7 +202,6 @@ equation
           lineColor={192,192,192},
           textString="%controllerType"),
         Line(
-          visible=strict,
           points={{30,60},{81,60}},
           color={255,0,0})}),
     Documentation(info="<html>
@@ -255,7 +250,7 @@ together) and using the following strategy:
 </p>
 
 <ol>
-<li> Set very large limits, e.g., yMax = Modelica.Constants.inf</li>
+<li> Set very large limits, e.g., yMax = Constants.inf</li>
 <li> Select a <code>P</code>-controller and manually enlarge parameter <code>k</code>
      (the total gain of the controller) until the closed-loop response
      cannot be improved any more.</li>
@@ -286,15 +281,8 @@ together) and using the following strategy:
 This block can be initialized in different
 ways controlled by parameter <code>initType</code>. The possible
 values of initType are defined in
-<a href=\"modelica://Modelica.Blocks.Types.InitPID\">Modelica.Blocks.Types.InitPID</a>.
-This type is identical to
-<a href=\"modelica://Modelica.Blocks.Types.Init\">Types.Init</a>,
-with the only exception that the additional option
-<code>DoNotUse_InitialIntegratorState</code> is added for
-backward compatibility reasons (= integrator is initialized with
-InitialState whereas differential part is initialized with
-NoInit which was the initialization in version 2.2 of the Modelica
-standard library).
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Types.Init\">
+Buildings.Experimental.OpenBuildingControl.CDL.Types.Init</a>.
 </p>
 
 <p>
@@ -324,15 +312,12 @@ blocks inside the PID controller are initialized according to the following tabl
       <td valign=\"top\">NoInit</td>
       <td valign=\"top\">SteadyState</td></tr>
 
-  <tr><td valign=\"top\"><code>DoNotUse_InitialIntegratorState</code></td>
-      <td valign=\"top\">InitialState</td>
-      <td valign=\"top\">NoInit</td></tr>
 </table>
 
 <p>
 In many cases, the most useful initial condition is
 <code>SteadyState</code> because initial transients are then no longer
-present. If initType = InitPID.SteadyState, then in some
+present. If initType = Init.SteadyState, then in some
 cases difficulties might occur. The reason is the
 equation of the integrator:
 </p>
@@ -342,7 +327,7 @@ equation of the integrator:
 </pre>
 
 <p>
-The steady state equation \"der(x)=0\" leads to the condition that the input u to the
+The steady state equation <code>der(x)=0</code> leads to the condition that the input u to the
 integrator is zero. If the input u is already (directly or indirectly) defined
 by another initial condition, then the initialization problem is <code>singular</code>
 (has none or infinitely many solutions). This situation occurs often
@@ -353,15 +338,6 @@ The solution is to not initialize u_m or the variable that is used
 to compute u_m by an algebraic equation.
 </p>
 
-<p>
-If parameter <code>limitAtInit</code> = <code>false</code>, the limits at the
-output of this controller block are removed from the initialization problem which
-leads to a much simpler equation system. After initialization has been
-performed, it is checked via an assert whether the output is in the
-defined limits. For backward compatibility reasons
-<code>limitAtInit</code> = <code>true</code>. In most cases it is best
-to use <code>limitAtInit</code> = <code>false</code>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
