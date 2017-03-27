@@ -114,9 +114,9 @@ protected
   parameter Boolean with_D = controllerType==SimpleController.PD or
                              controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
 public
-  Modelica.Blocks.Sources.Constant Dzero(k=0) if not with_D
+  Constant Dzero(k=0) if not with_D
     annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
-  Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I
+  Constant Izero(k=0) if not with_I
     annotation (Placement(transformation(extent={{10,-55},{0,-45}})));
 initial equation
   if initType==InitPID.InitialOutput then
