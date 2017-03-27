@@ -47,7 +47,7 @@ equation
   end if;
    y = a + b * xLim;
   annotation (
-    defaultComponentName="line",
+    defaultComponentName="lin",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
