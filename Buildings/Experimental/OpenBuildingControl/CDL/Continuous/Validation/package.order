@@ -11,6 +11,8 @@ Division
 Exp
 Feedback
 Gain
+IntegratorWithReset
+LimPID
 Limiter
 Line
 Log
@@ -24,3 +26,4 @@ SignalRanker
 Sin
 Sqrt
 Tan
+Truncation

@@ -1,4 +1,6 @@
 Day
 Extrapolation
-Smoothness
-ZeroTime
+Init
+Reset
+InitPID
+SimpleController

@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Average "Validation model for the Average block"
-  extends Modelica.Icons.Example;
+
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Average avg1
     "Block that output the average of its two inputs"
@@ -24,6 +24,21 @@ equation
 experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Average.mos"
         "Simulate and plot"),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block
@@ -31,7 +46,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Average</a>.
 </p>
 <p>
-The input <code>u1<code\> varies from <i>-2.0</i> to <i>+6.0</i>, input <code>u2<code\> varies from <i>+1.5</i> to <i>+4.5</i>
+The input <code>u1</code> varies from <i>-2.0</i> to <i>+6.0</i>, input <code>u2</code> varies from <i>+1.5</i> to <i>+4.5</i>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -42,5 +57,4 @@ First implementation.
 </ul>
 
 </html>"));
-
 end Average;

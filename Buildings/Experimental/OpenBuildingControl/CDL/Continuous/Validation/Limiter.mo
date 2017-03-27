@@ -1,10 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Limiter "Validation model for the Limiter block"
-  extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Limiter limiter1(
     uMax = 2.5,
-    uMin = 1.2)
+    uMin = 1.2,
+    strict=false,
+    limitsAtInit=true)
     "Block that limit the range of a signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
@@ -19,6 +20,21 @@ equation
 experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Limiter.mos"
         "Simulate and plot"),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block
@@ -26,7 +42,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Limiter</a>.
 </p>
 <p>
-The input <code>u<code\> varies from <i>0.0</i> to <i>+2</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+2</i>. 
 </p>
 </html>", revisions="<html>
 <ul>

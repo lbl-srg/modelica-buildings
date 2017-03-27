@@ -8,10 +8,12 @@ Average
 ChangeSign
 Constant
 Cos
+Derivative
 Division
 Exp
 Feedback
 Gain
+IntegratorWithReset
 LimPID
 Limiter
 Line
@@ -27,4 +29,5 @@ SignalRanker
 Sin
 Sqrt
 Tan
+Truncation
 Validation

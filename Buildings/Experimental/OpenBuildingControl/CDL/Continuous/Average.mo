@@ -42,7 +42,7 @@ equation
 <p>
 Block that outputs <code>y = avg(u1,u2)</code>,
 where
-<code>u1</code> and <code>u2<code> are inputs.
+<code>u1</code> and <code>u2</code> are inputs.
 </p>
 </html>", revisions="<html>
 <ul>

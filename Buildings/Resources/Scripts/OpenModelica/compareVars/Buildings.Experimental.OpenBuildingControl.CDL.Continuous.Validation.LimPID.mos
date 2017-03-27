@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "limPID.u_s",
+    "limPID.u_m",
+    "limPID.y",
+    "limPIDOri.u_s",
+    "limPIDOri.u_m",
+    "limPIDOri.y"
+  };

@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Division "Validation model for the Division block"
-  extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Division div1
     "Block that outputs first input divided by second input: u1/u2"
@@ -24,6 +23,21 @@ equation
 experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Division.mos"
         "Simulate and plot"),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block
@@ -31,7 +45,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Division</a>.
 </p>
 <p>
-The input <code>u1<code\> varies from <i>-2</i> to <i>+2</i>, input <code>u2<code\> varies from <i>+1</i> to <i>+3</i>.
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>+1</i> to <i>+3</i>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Feedback "Validation model for the Feedback block"
-  extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Feedback feedback1
     "Block that outputs difference between commanded and feedback input"
@@ -26,6 +25,21 @@ equation
 experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Feedback.mos"
         "Simulate and plot"),
+    Icon(graphics={
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
+        Ellipse(lineColor = {75,138,73},
+                fillColor={255,255,255},
+                fillPattern = FillPattern.Solid,
+                extent={{-100,-100},{100,100}}),
+        Polygon(lineColor = {0,0,255},
+                fillColor = {75,138,73},
+                pattern = LinePattern.None,
+                fillPattern = FillPattern.Solid,
+                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block
@@ -33,7 +47,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Feedback</a>.
 </p>
 <p>
-The input <code>u1<code\> varies from <i>-2</i> to <i>+2</i>, input <code>u2<code\> varies from <i>-1</i> to <i>+1</i>.
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, input <code>u2</code> varies from <i>-1</i> to <i>+1</i>.
 </p>
 </html>", revisions="<html>
 <ul>
