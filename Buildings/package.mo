@@ -208,8 +208,8 @@ its class name ends with the string <code>Beta</code>.
    The models <code>Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater</code>
    and <code>Buildings.Fluid.HeatPumps.ScrollWaterToWater</code> have been added.
    Parameters to these models rely on calibration with tabulated heat pump performance
-   data. Python scripts for the calibration of the heat pump models are found in:
-   <code>modelica://Buildings/Resources/src/fluid/heatpumps/calibration/</code>.
+   data. Python scripts for the calibration of the heat pump models are in
+   <code>Buildings/Resources/src/fluid/heatpumps/calibration</code>.
    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/587\">issue 587</a>.
    </li>
    </ul>
