@@ -3,34 +3,6 @@ package Validation "Collection of models that validate the continuous models of 
 
 extends Modelica.Icons.ExamplesPackage;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the continuous blocks
