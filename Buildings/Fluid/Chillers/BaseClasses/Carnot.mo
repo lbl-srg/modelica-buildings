@@ -50,12 +50,12 @@ partial model Carnot
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature dTApproachCon(start=0, min=0, displayUnit="K")
-    "Temperature difference between refrigerant and working fluid in condenser"
+  parameter Modelica.SIunits.TemperatureDifference TAppCon_nominal(min=0) = if cp_default < 3000 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.Temperature dTApproachEva(start=0, min=0, displayUnit="K")
-    "Temperature difference between refrigerant and working fluid in evaporator"
+  parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp_default < 3000 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
@@ -136,9 +136,9 @@ partial model Carnot
     x2=TCon-TEva,
     deltaX=0.25) "Carnot efficiency";
 
-  Modelica.SIunits.Temperature TCon(start=TCon_nominal) = Medium1.temperature(staB1)+QCon_flow/QCon_flow_nominal*dTApproachCon
+  Modelica.SIunits.Temperature TCon(start=TCon_nominal) = Medium1.temperature(staB1)+QCon_flow/QCon_flow_nominal*TAppCon_nominal
     "Condenser temperature used to compute efficiency (dT_pinch above water/air temperature at nominal conditions)";
-  Modelica.SIunits.Temperature TEva(start=TEva_nominal) = Medium2.temperature(staB2)-QEva_flow/QEva_flow_nominal*dTApproachEva
+  Modelica.SIunits.Temperature TEva(start=TEva_nominal) = Medium2.temperature(staB2)-QEva_flow/QEva_flow_nominal*TAppEva_nominal
     "Evaporator temperature used to compute efficiency (dt_pinch below water/air temperature at nominal conditions)";
 
 protected
@@ -377,8 +377,8 @@ and the part load ratio are set up.
 </html>", revisions="<html>
 <ul>
 <li>
-February 7, 2017, by Felix Buenning:<br/>
-Added temperature difference between fluids in condenser and evaporator.
+March 28, 2017, by Felix Buenning:<br/>
+Added temperature difference between fluids in condenser and evaporator. (difference according to Emerson Climate Technologies)
 </li>
 <li>
 January 2, 2017, by Filip Jorissen:<br/>
