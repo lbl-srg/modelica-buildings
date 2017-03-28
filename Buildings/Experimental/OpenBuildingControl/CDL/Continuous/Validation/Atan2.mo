@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model Atan2 "Validation model for the Atan2 block"
-
+extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Atan2 atan2_1
     "Block that outputs atan(u1/u2) of the inputs u1 and u2"
@@ -26,21 +26,6 @@ equation
 experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Atan2.mos"
         "Simulate and plot"),
-    Icon(graphics={
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-36,60},{64,0},{-36,-60},{-36,60}}),
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block

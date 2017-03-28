@@ -10,16 +10,15 @@ type Init = enumeration(
   "Enumeration defining initialization of a block" annotation (Evaluate=true,
   Documentation(info="<html>
   <p>The following initialization alternatives are available:</p>
-  <dl>
-    <dt><code><strong>NoInit</strong></code></dt>
-      <dd>No initialization (start values are used as guess values with <code>fixed=false</code>)</dd>
-    <dt><code><strong>SteadyState</strong></code></dt>
-      <dd>Steady state initialization (derivatives of states are zero)</dd>
-    <dt><code><strong>InitialState</strong></code></dt>
-      <dd>Initialization with initial states</dd>
-    <dt><code><strong>InitialOutput</strong></code></dt>
-      <dd>Initialization with initial outputs (and steady state of the states if possible)</dd>
-  </dl>
+
+<table summary=\"summary\" border=\"1\">
+<tr><td><code><strong>NoInit</strong></code></td><td>No initialization (start values are used as guess values with <code>fixed=false</code>)</td></tr>
+<tr><td><code><strong>SteadyState</strong></code></td><td>Steady state initialization (derivatives of states are zero)</td></tr>
+<tr><td><code><strong>InitialState</strong></code></td><td>Initialization with initial states</td></tr>
+<tr><td><code><strong>InitialOutput</strong></code></td><td>Initialization with initial outputs (and steady state of the states if possible)</td></tr>
+</table>
+<br/>
+
   </html>", revisions="<html>
 <ul>
 <li>

@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
-model LimPID
-  "Test model for LimPID controller"
+model LimPID "Test model for LimPID controller"
+extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
@@ -40,16 +40,6 @@ equation
  experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/LimPID.mos"
         "Simulate and plot"),
-    Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
 Validation test for the block

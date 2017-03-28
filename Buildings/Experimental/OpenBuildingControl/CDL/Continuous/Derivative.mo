@@ -52,13 +52,13 @@ input <code>u</code> and the output <code>y</code>
 <p>
 If you would like to be able to change easily between different
 transfer functions (FirstOrder, SecondOrder, ... ) by changing
-parameters, use the general block <b>TransferFunction</b> instead
+parameters, use the general block <code>TransferFunction</code> instead
 and model a derivative block with parameters<br/>
-b = {k,0}, a = {T, 1}.
+<code>b = {k,0}</code>, <code>a = {T, 1}</code>.
 </p>
 
 <p>
-If k=0, the block reduces to y=0.
+If <code>k=0</code>, the block reduces to <code>y=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
