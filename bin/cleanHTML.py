@@ -5,9 +5,8 @@
 #
 # MWetter@lbl.gov                                          2011-05-15
 #####################################################################
-import os, string, fnmatch, os.path, sys
+import os
 from os import listdir
-from os.path import isfile, join
 import argparse
 
 
@@ -46,14 +45,14 @@ if __name__ == '__main__':
                         help = 'URL to main site of the library, such as "http://simulationresearch.lbl.gov/modelica"',
                         default = "http://simulationresearch.lbl.gov/modelica",
                         dest = 'HOMEPAGE')
-    
+
     args = parser.parse_args()
 
     # Parse arguments
     LIB_NAME = args.LIB_NAME
     HOMEPAGE = args.HOMEPAGE
 
-    
+
     # --------------------------
     # Global settings
     LIBHOME=os.path.abspath(".")
@@ -127,7 +126,7 @@ if __name__ == '__main__':
                 # Get a string such as file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/
                 insLoc = lin[lin.find('href=')+6:iEnd]
                 break
-    
+
     if insLoc is not None:
         # Remove Library from a string such as file:////opt/dymola-2015FD01-x86_64-patch1/Modelica/Library
         # and add help/ExternalObject instead of
@@ -135,7 +134,7 @@ if __name__ == '__main__':
         replacements[repExtObj] = insLoc + "ExternalObject/ExternalObject"
         replacements['%s' % (insLoc)] = '../../msl/'
 
-        
+
     # Search for text such as
     # <img alt="image" src="/tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings/Resources/Images/UsersGuide/HydronicHeating.png" border="1"/>
     # in order to update the link.
@@ -161,9 +160,9 @@ if __name__ == '__main__':
         for old, new in replacements.iteritems():
             for i in range(len(lines)):
                 lines[i] = lines[i].replace(old, new)
-                filObj=open(filNam, 'w')
-                filObj.writelines(lines)
-                filObj.close()
+        filObj=open(filNam, 'w')
+        filObj.writelines(lines)
+        filObj.close()
 
     # Replace certain sections
     for fil in files:

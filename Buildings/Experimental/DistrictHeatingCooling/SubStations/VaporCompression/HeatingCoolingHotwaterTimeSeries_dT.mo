@@ -198,7 +198,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mHeaEva_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false,
+    use_inputFilter=false,
     addPowerToMedium=false) "Pump for space heating heat pump"
     annotation (Placement(transformation(extent={{30,290},{50,310}})));
 
@@ -214,7 +214,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     m_flow_nominal=mHotWatEva_flow_nominal,
     allowFlowReversal=allowFlowReversal,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false,
+    use_inputFilter=false,
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
@@ -251,7 +251,7 @@ model HeatingCoolingHotwaterTimeSeries_dT
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
-    filteredSpeed=false,
+    use_inputFilter=false,
     m_flow_nominal=mCooCon_flow_nominal,
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-122,-304},{-102,-284}})));

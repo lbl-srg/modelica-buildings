@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 block FirstOrderHold "First order hold of a sampled-data system"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
+  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
     "Sample period of component";
 
   parameter Modelica.SIunits.Time startTime=0 "First sample time instant";

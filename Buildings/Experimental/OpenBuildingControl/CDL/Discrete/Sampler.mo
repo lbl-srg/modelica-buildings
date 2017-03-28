@@ -1,7 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Discrete;
 block Sampler "Ideal sampler of a continuous signal"
 
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
+  parameter Modelica.SIunits.Time samplePeriod(min=100*1E-15)
     "Sample period of component";
 
   parameter Modelica.SIunits.Time startTime=0 "First sample time instant";

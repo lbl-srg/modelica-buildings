@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "feedback1.u1",
+    "feedback1.u2",
+    "feedback1.y"
+  };

@@ -36,26 +36,20 @@ model SupplyBranch "Supply branch of a dual duct system"
             -110,-50},{-90,-30}}), iconTransformation(extent={{-110,-38},{-90,-18}})));
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vavHot(
     redeclare package Medium = MediumA,
-    A=0.6,
-    use_v_nominal=true,
     m_flow_nominal=mAirHot_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "VAV damper for hot deck"
-                                                                annotation (
+    linearized=linearizeFlowResistance) "VAV damper for hot deck" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-30})));
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vavCol(
     redeclare package Medium = MediumA,
-    A=0.6,
-    use_v_nominal=true,
     m_flow_nominal=mAirCol_flow_nominal,
     dp_nominal(displayUnit="Pa") = 40,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "VAV damper for cold deck"
-                                                                annotation (
+    linearized=linearizeFlowResistance) "VAV damper for cold deck" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

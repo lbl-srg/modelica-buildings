@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "SigRank1.u[1]",
+    "SigRank1.u[2]",
+    "SigRank1.u[3]",
+    "SigRank1.u[4]",
+    "SigRank1.u[5]",
+    "SigRank1.y[1]",
+    "SigRank1.y[2]",
+    "SigRank1.y[3]",
+    "SigRank1.y[4]",
+    "SigRank1.y[5]"
+  };
