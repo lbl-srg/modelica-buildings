@@ -9,16 +9,16 @@ block Line
     annotation(Evaluate=true);
 
   Interfaces.RealInput x1 "Support point x1"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-
-  Interfaces.RealInput f1 "Support point f(x1)"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
-  Interfaces.RealInput x2 "Support point x2"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
 
-  Interfaces.RealInput f2 "Support point f(x2)"
+  Interfaces.RealInput f1 "Support point f(x1)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+
+  Interfaces.RealInput x2 "Support point x2"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+
+  Interfaces.RealInput f2 "Support point f(x2)"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Interfaces.RealInput u "Independent variable"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
