@@ -531,14 +531,6 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
                           <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/451\">issue 451</a>.
        </td>
    </tr>
-   <tr><td colspan=\"2\"><b>xxx</b>
-       </td>
-   </tr>
-   <tr><td valign=\"top\">xxx
-       </td>
-       <td valign=\"top\">xxx.
-       </td>
-   </tr>
    </table>
    <!-- Non-backward compatible changes to existing components -->
    <p>
@@ -1023,14 +1015,6 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
    </table>
-   <p>
-   Note:
-   </p>
-   <ul>
-   <li>
-   xxx
-   </li>
-   </ul>
    </html>"));
    end Version_4_0_0;
 
@@ -6050,7 +6034,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (xxx, 2016)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (March 29, 2016)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a> (March 29, 2016)
@@ -6577,8 +6561,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="4.0.0",
-versionDate="2016-03-29",
-dateModified="2016-03-29",
+versionDate="2017-03-29",
+dateModified="2017-03-29",
 uses(Modelica(version="3.2.2")),
 conversion(
  from(version={"3.0.0", "4.0.0"},

@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACZones
   "Declaration of an FMU that exports a simple convective only HVAC system for two zones"
-  import Buildings;
   extends Buildings.Fluid.FMI.ExportContainers.HVACZones(
     redeclare final package Medium = MediumA,
     nZon = 2,
