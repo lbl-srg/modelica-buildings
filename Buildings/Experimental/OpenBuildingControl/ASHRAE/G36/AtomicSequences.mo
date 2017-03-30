@@ -1,6 +1,7 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package AtomicSequences
-  model EnableDisable
+  model EconEnableDisable
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Line(
             points={{-80,-60},{0,-60},{0,60}},
@@ -10,7 +11,34 @@ package AtomicSequences
             color={28,108,200},
             thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=
               false)));
-  end EnableDisable;
+
+    annotation(Documentation(info="<html>         
+  <p>
+  Fixme: There might be a need to convert this block in a generic enable-disable
+  control block that receives one or more hysteresis conditions, one or more 
+  timed conditions, and one or more additional boolean signal conditions. For 
+  now, the block is implemented as economizer enable-disable control block, an
+  atomic sequence implemented in the economizer control composite sequence.
+  </p>
+  <p>
+  The economizer enable-disable sequence implements conditions from 
+  ASHRAE guidline 36 (G36) as listed on the state machine diagram bellow. The 
+  sequence output is binary, it either sets the economizer damper position to
+  its high (yEcoDamPosMax) or to its low limit (yEcoDamPosMin).
+  </p>
+
+<p>
+Fixme: Edit conditions based on any additional stakeholder input, e.g. include
+space averaged MAT sensor output.
+</p>
+
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+</p>
+</html>"));
+
+  end EconEnableDisable;
 
   block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
 

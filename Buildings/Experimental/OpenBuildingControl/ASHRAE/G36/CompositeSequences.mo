@@ -185,13 +185,16 @@ Outputs: MinOA-P setpoint, MaxRA-P setpoint
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/SingleCommonEconDamperMinOA.png\"/>
 </p>
+<p>
 The second sequence is the high limit lockout used to disable the economizer, 
 in other words to set the MaxOA-P = MinOA-P.
 Fixme: List variables as provided on the chart below.
+</p>
 <p>
 Sequence 2: Enable-disable more suitable (based on Pauls comments about low temp shutdown to MinOA-P):
 - Includes high limit lockout, freezestat [fixme: and MAT temperature (in case that there is a 
 MAT sensor - space average accross the coil?)]
+</p>
 
 
 </p>
