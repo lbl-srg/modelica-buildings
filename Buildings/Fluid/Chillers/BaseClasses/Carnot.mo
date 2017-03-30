@@ -50,11 +50,11 @@ partial model Carnot
     "Pressure difference over evaporator"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.TemperatureDifference TAppCon_nominal(min=0) = if cp_default < 3000 then 5 else 2
+  parameter Modelica.SIunits.TemperatureDifference TAppCon_nominal(min=0) = if cp1_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
 
-  parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp_default < 3000 then 5 else 2
+  parameter Modelica.SIunits.TemperatureDifference TAppEva_nominal(min=0) = if cp2_default < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
 
