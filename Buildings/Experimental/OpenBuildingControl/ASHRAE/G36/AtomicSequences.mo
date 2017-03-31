@@ -72,8 +72,9 @@ package AtomicSequences
       annotation (Line(points={{31,-10},{38,-10}}, color={255,0,255}));
     connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{61,-10},{68,
             -10},{68,-60},{74,-60}}, color={255,0,255}));
-    connect(or2.y, or1.u1) annotation (Line(points={{31,18},{18,18},{18,-10},{8,
-            -10}}, color={255,0,255}));
+    connect(or2.y, or1.u1) annotation (Line(points={{31,18},{42,18},{42,34},{-6,
+            34},{-6,4},{2,4},{2,-10},{8,-10}},
+                   color={255,0,255}));
     connect(not2.y, or2.u1) annotation (Line(points={{-9,160},{0,160},{0,18},{8,
             18}}, color={255,0,255}));
     connect(TSupThreshold.y, or2.u2) annotation (Line(points={{-57,98},{-26,98},
@@ -804,9 +805,13 @@ First implementation.
     end VAVSingleZoneTSupSet_u;
 
     model EconEnableDisable_TOut
+      "Validation model for econ high limit lockout based on the 
+  outdoor air temperature"
+      extends Modelica.Icons.Example;
+
       EconEnableDisable econEnableDisable
         annotation (Placement(transformation(extent={{-20,-6},{0,24}})));
-      CDL.Logical.Constant FreezestatStatus(k=0)
+      CDL.Logical.Constant FreezestatStatus(k=false)
         "Keep freezestat alarm off for this validation test"
         annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
       CDL.Continuous.Constant EcoDamPosMax(k=0.9)
