@@ -2,17 +2,50 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package AtomicSequences
   model EconEnableDisable
 
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    CDL.Interfaces.BooleanInput uFre "Freezestat status"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    CDL.Interfaces.RealInput TOut "Outdoor temperature"
+      annotation (Placement(transformation(extent={{-140,140},{-100,180}})));
+    CDL.Interfaces.RealInput TSup "Outdoor temperature"
+      annotation (Placement(transformation(extent={{-140,100},{-100,140}})));
+    CDL.Interfaces.RealOutput yEcoDamPos
+      "Fixme: Should this remain as type real? Output can take two values: disable = yEcoDamPosMin and enable = yEcoDamPosMax."
+      annotation (Placement(transformation(extent={{100,-78},{138,-40}})));
+    CDL.Interfaces.RealInput uEcoDamPosMin
+      "Minimal economizer damper position, output from a separate sequence."
+      annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    CDL.Interfaces.RealInput uEcoDamPosMax
+      "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
+      annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    CDL.Logical.Timer TimerTSup
+      "Usage: Measure time elapsed during which TSup remains under 38F"
+      annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+    CDL.Logical.Timer TimerDamperStatus
+      "Usage: Measure time elapsed after the most recent output status change"
+      annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+    CDL.Logical.Switch assignDamperPosition
+      "If control loop signal = 1 opens the damper to it's max position; if signal = 0 closes the damper to it's min position."
+      annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  equation
+    connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{
+            58,-52},{-22,-52},{-22,-40},{-120,-40}}, color={0,0,127}));
+    connect(assignDamperPosition.u3, uEcoDamPosMax) annotation (Line(points={{
+            58,-68},{-20,-68},{-20,-80},{-120,-80}}, color={0,0,127}));
+    connect(assignDamperPosition.y, yEcoDamPos) annotation (Line(points={{81,
+            -60},{104,-60},{104,-59},{119,-59}}, color={0,0,127}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,200}},
+          initialScale=0.1),                                      graphics={
             Line(
             points={{-80,-60},{0,-60},{0,60}},
             color={28,108,200},
             thickness=0.5), Line(
             points={{0,60},{80,60}},
             color={28,108,200},
-            thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=
-              false)));
-
-    annotation(Documentation(info="<html>         
+            thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,200}},
+          initialScale=0.1)),
+               Documentation(info="<html>         
   <p>
   Fixme: There might be a need to convert this block in a generic enable-disable
   control block that receives one or more hysteresis conditions, one or more 
@@ -37,7 +70,6 @@ space averaged MAT sensor output.
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
 </p>
 </html>"));
-
   end EconEnableDisable;
 
   block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
