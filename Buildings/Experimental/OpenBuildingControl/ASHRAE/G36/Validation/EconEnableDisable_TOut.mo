@@ -16,13 +16,6 @@ model EconEnableDisable_TOut
     annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
   CDL.Interfaces.RealOutput yEcoDamPosMax
     annotation (Placement(transformation(extent={{38,0},{58,20}})));
-  CDL.SetPoints.TimeTable timeTable(timeScale=60, table=[1,288.15; 2,289.15;
-        3,290.15; 4,291.15; 5,292.15; 6,293.15; 7,294.15; 8,295.15; 9,
-        296.15; 10,297.15; 11,298.15; 12,299.15; 13,300.15; 14,300.15; 15,
-        300.15; 16,300.15; 17,300.15; 18,300.15; 19,300.15; 20,300.15; 21,
-        300.15; 22,299.15; 23,298.15; 24,297.15; 25,296.15; 26,295.15; 27,
-        294.15; 28,293.15; 29,292.15; 30,291.15])
-    annotation (Placement(transformation(extent={{-16,60},{4,80}})));
   CDL.Continuous.Constant TSup(k=277.594)
     "Set TSup to a constant value above 38F"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
