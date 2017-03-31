@@ -797,7 +797,7 @@ First implementation.
 
     model EconEnableDisable_TOut
       "Validation model for econ high limit lockout based on the 
-  outdoor air temperature"
+  outdoor air temperature_fixme"
       extends Modelica.Icons.Example;
 
       EconEnableDisable econEnableDisable
