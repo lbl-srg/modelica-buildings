@@ -2,12 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36;
 package AtomicSequences
   model EconEnableDisable
 
-    CDL.Interfaces.BooleanInput uFre "Freezestat status"
-      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     CDL.Interfaces.RealInput TOut "Outdoor temperature"
       annotation (Placement(transformation(extent={{-140,140},{-100,180}})));
-    CDL.Interfaces.RealInput TSup "Outdoor temperature"
-      annotation (Placement(transformation(extent={{-140,100},{-100,140}})));
+    CDL.Interfaces.BooleanInput uFre(start=1) "Freezestat status"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    CDL.Interfaces.RealInput TSup "Supply air temperature"
+      annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
     CDL.Interfaces.RealOutput yEcoDamPos
       "Fixme: Should this remain as type real? Output can take two values: disable = yEcoDamPosMin and enable = yEcoDamPosMax."
       annotation (Placement(transformation(extent={{100,-78},{138,-40}})));
@@ -25,14 +25,30 @@ package AtomicSequences
       annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
     CDL.Logical.Switch assignDamperPosition
       "If control loop signal = 1 opens the damper to it's max position; if signal = 0 closes the damper to it's min position."
-      annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+      annotation (Placement(transformation(extent={{76,-70},{96,-50}})));
+    CDL.Logical.Or or1
+      annotation (Placement(transformation(extent={{44,-36},{64,-16}})));
+    CDL.Logical.Hysteresis hysteresis
+      annotation (Placement(transformation(extent={{-8,150},{12,170}})));
+    CDL.Logical.Or or2
+      "fixme: should we have an or block that allows multiple inputs?"
+      annotation (Placement(transformation(extent={{16,-2},{36,18}})));
+    CDL.Logical.OnDelay onDelay
+      annotation (Placement(transformation(extent={{26,60},{46,80}})));
   equation
-    connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{
-            58,-52},{-22,-52},{-22,-40},{-120,-40}}, color={0,0,127}));
-    connect(assignDamperPosition.u3, uEcoDamPosMax) annotation (Line(points={{
-            58,-68},{-20,-68},{-20,-80},{-120,-80}}, color={0,0,127}));
-    connect(assignDamperPosition.y, yEcoDamPos) annotation (Line(points={{81,
-            -60},{104,-60},{104,-59},{119,-59}}, color={0,0,127}));
+    connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{74,-52},
+            {-22,-52},{-22,-40},{-120,-40}},         color={0,0,127}));
+    connect(assignDamperPosition.u3, uEcoDamPosMax) annotation (Line(points={{74,-68},
+            {-20,-68},{-20,-80},{-120,-80}},         color={0,0,127}));
+    connect(assignDamperPosition.y, yEcoDamPos) annotation (Line(points={{97,-60},
+            {104,-60},{104,-59},{119,-59}},      color={0,0,127}));
+    connect(or1.y, assignDamperPosition.u2) annotation (Line(points={{65,-26},{68,
+            -26},{68,-60},{74,-60}},
+                                color={255,0,255}));
+    connect(or1.u2, uFre) annotation (Line(points={{42,-34},{-30,-34},{-30,0},{-120,
+            0}}, color={255,0,255}));
+    connect(or2.y, or1.u1) annotation (Line(points={{37,8},{38,8},{38,-26},{42,-26}},
+          color={255,0,255}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,200}},
           initialScale=0.1),                                      graphics={
@@ -55,7 +71,7 @@ package AtomicSequences
   </p>
   <p>
   The economizer enable-disable sequence implements conditions from 
-  ASHRAE guidline 36 (G36) as listed on the state machine diagram bellow. The 
+  ASHRAE guidline 36 (G36) as listed on the state machine diagram below. The 
   sequence output is binary, it either sets the economizer damper position to
   its high (yEcoDamPosMax) or to its low limit (yEcoDamPosMin).
   </p>
