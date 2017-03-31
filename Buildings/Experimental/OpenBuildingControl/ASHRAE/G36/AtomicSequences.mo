@@ -25,12 +25,6 @@ package AtomicSequences
       "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
       annotation (Placement(transformation(extent={{-140,-54},{-100,-14}}),
           iconTransformation(extent={{-140,-54},{-100,-14}})));
-    CDL.Logical.Timer TimerTSup
-      "Usage: Measure time elapsed during which TSup remains under 38F"
-      annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-    CDL.Logical.Timer TimerDamperStatus
-      "Usage: Measure time elapsed after the most recent output status change"
-      annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
     CDL.Logical.Switch assignDamperPosition
       "If control loop signal = 1 opens the damper to it's max position; if signal = 0 closes the damper to it's min position."
       annotation (Placement(transformation(extent={{76,-70},{96,-50}})));
@@ -44,10 +38,6 @@ package AtomicSequences
     CDL.Logical.Or or2
       "fixme: should we have an or block that allows multiple inputs?"
       annotation (Placement(transformation(extent={{10,8},{30,28}})));
-    CDL.Logical.OnDelay onDelay
-      annotation (Placement(transformation(extent={{62,-120},{82,-100}})));
-    CDL.Logical.Not not2
-      annotation (Placement(transformation(extent={{-30,150},{-10,170}})));
     CDL.Logical.Not not1
       annotation (Placement(transformation(extent={{40,-20},{60,0}})));
     CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
@@ -63,8 +53,6 @@ package AtomicSequences
             -60},{104,-60},{104,63},{119,63}}, color={0,0,127}));
     connect(or1.u2, uFre) annotation (Line(points={{8,-18},{-10,-18},{-10,58},{-120,
             58}},color={255,0,255}));
-    connect(hysTOut.y, not2.u) annotation (Line(points={{-49,160},{-49,160},{-32,160}},
-          color={255,0,255}));
     connect(TOut, hysTOut.u)
       annotation (Line(points={{-120,154},{-96,154},{-96,160},{-72,160}},
                                                       color={0,0,127}));
@@ -75,12 +63,12 @@ package AtomicSequences
     connect(or2.y, or1.u1) annotation (Line(points={{31,18},{42,18},{42,34},{-6,
             34},{-6,4},{2,4},{2,-10},{8,-10}},
                    color={255,0,255}));
-    connect(not2.y, or2.u1) annotation (Line(points={{-9,160},{0,160},{0,18},{8,
-            18}}, color={255,0,255}));
     connect(TSupThreshold.y, or2.u2) annotation (Line(points={{-57,98},{-26,98},
             {-26,10},{8,10}}, color={255,0,255}));
     connect(TSup, TSupThreshold.u) annotation (Line(points={{-120,104},{-100,
             104},{-100,98},{-80,98}}, color={0,0,127}));
+    connect(hysTOut.y, or2.u1) annotation (Line(points={{-49,160},{-22,160},{-22,18},
+            {8,18}}, color={255,0,255}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,200}},
           initialScale=0.1),                                      graphics={
@@ -135,7 +123,10 @@ package AtomicSequences
             thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,200}},
           initialScale=0.1)),
-               Documentation(info="<html>         
+               Documentation(info="<html>      
+             <p>
+             implementation fixme: timers for TSup, AND for 10 min delay
+             </p>   
   <p>
   Fixme: There might be a need to convert this block in a generic enable-disable
   control block that receives one or more hysteresis conditions, one or more 
@@ -822,13 +813,6 @@ First implementation.
         annotation (Placement(transformation(extent={{-80,-86},{-60,-66}})));
       CDL.Interfaces.RealOutput yEcoDamPosMax
         annotation (Placement(transformation(extent={{38,0},{58,20}})));
-      CDL.SetPoints.TimeTable timeTable(timeScale=60, table=[1,288.15; 2,289.15;
-            3,290.15; 4,291.15; 5,292.15; 6,293.15; 7,294.15; 8,295.15; 9,
-            296.15; 10,297.15; 11,298.15; 12,299.15; 13,300.15; 14,300.15; 15,
-            300.15; 16,300.15; 17,300.15; 18,300.15; 19,300.15; 20,300.15; 21,
-            300.15; 22,299.15; 23,298.15; 24,297.15; 25,296.15; 26,295.15; 27,
-            294.15; 28,293.15; 29,292.15; 30,291.15])
-        annotation (Placement(transformation(extent={{-16,60},{4,80}})));
       CDL.Continuous.Constant TSup(k=277.594)
         "Set TSup to a constant value above 38F"
         annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
