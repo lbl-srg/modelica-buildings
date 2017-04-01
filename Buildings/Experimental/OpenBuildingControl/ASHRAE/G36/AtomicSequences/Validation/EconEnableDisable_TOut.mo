@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36_new.AtomicSequences.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model EconEnableDisable_TOut
   "Validation model for econ high limit lockout based on the 
   outdoor air temperature_fixm   e"
