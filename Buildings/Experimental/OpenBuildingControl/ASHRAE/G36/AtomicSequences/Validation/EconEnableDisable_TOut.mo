@@ -34,6 +34,9 @@ equation
           {-46,30},{-46,14.4},{-22,14.4}}, color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},
           {-42,70},{-42,19.4},{-22,19.4}}, color={0,0,127}));
+  //fixme - turn into proper test and uncomment
+  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
+  //     "Simulate and plot"),
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -44,8 +47,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  annotation (
+        coordinateSystem(preserveAspectRatio=false)),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
@@ -62,7 +64,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  //fixme - turn into proper test and uncomment
-  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
-  //     "Simulate and plot"),
 end EconEnableDisable_TOut;

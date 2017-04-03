@@ -30,6 +30,13 @@ equation
         points={{-59,-42},{-36,-42},{-36,5.4},{-22,5.4}}, color={0,0,127}));
   connect(EcoDamPosMin.y, econEnableDisable.uEcoDamPosMax) annotation (Line(
         points={{-59,-76},{-32,-76},{-32,0.6},{-22,0.6}}, color={0,0,127}));
+  connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
+          -34,70},{-34,19.4},{-22,19.4}}, color={0,0,127}));
+  connect(TSup.y, econEnableDisable.TSup) annotation (Line(points={{-59,30},{
+          -42,30},{-42,14.4},{-22,14.4}}, color={0,0,127}));
+  //fixme - turn into proper test and uncomment
+  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
+  //     "Simulate and plot"),
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -40,12 +47,7 @@ equation
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -34,70},{-34,19.4},{-22,19.4}}, color={0,0,127}));
-  connect(TSup.y, econEnableDisable.TSup) annotation (Line(points={{-59,30},{
-          -42,30},{-42,14.4},{-22,14.4}}, color={0,0,127}));
-  annotation (
+        coordinateSystem(preserveAspectRatio=false)),
   experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
@@ -62,7 +64,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  //fixme - turn into proper test and uncomment
-  //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
-  //     "Simulate and plot"),
 end EconEnableDisable_TSup;
