@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36_new.AtomicSequences.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model VAVSingleZoneTSupSet_u "Validation model for control input"
   extends Modelica.Icons.Example;
 

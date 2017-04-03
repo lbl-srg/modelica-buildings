@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36_new.AtomicSequences.Validation;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
 model VAVSingleZoneTSupSet_T
   "Validation model for outdoor minus room air temperature"
   extends Modelica.Icons.Example;
