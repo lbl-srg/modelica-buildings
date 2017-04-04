@@ -7,7 +7,6 @@ model WetEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
-  // PARAMETERS
   parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -41,7 +40,6 @@ model WetEffectivenessNTU
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  // COMPONENTS
   // Q_flow_nominal below is the "gain" for heat flow. By setting the basis
   // to 1.0, we can allow the value coming in via the control signal, u, to
   // be the Q_flow added to medium 1 (the "water")
