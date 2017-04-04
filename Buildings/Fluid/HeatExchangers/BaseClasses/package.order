@@ -24,15 +24,11 @@ RayleighNumber
 WetCalcs
 appartusDewPoint
 determineWaterIndex
-dryCoil
 dynamicViscosityWater
-effCalc
 epsilon_C
 epsilon_ntuZ
 isobaricExpansionCoefficientWater
 lmtd
 ntu_epsilonZ
 prandtlNumberWater
-wetCoil
-wetCoilInitial
 Examples
