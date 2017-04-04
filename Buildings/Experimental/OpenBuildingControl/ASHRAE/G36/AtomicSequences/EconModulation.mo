@@ -16,7 +16,7 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
   CDL.Continuous.Constant RetDamPhyPosMin(k=0)
     "Physical or at the comissioning fixed minimum opening of the return air damper. Assuming 0 airflow through the damper at this position."
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-    //fixme add units, should be percentage
+  //fixme add units, should be percentage
   CDL.Continuous.Constant EcoDamPhyPosMin(k=0)
     "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper."
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
@@ -24,6 +24,7 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
     yMax=1,
     yMin=0,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
+
     Ti=0.9,
     Td=0.1,
     Nd=1,
@@ -40,13 +41,13 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealOutput yEcoDamPosMin
-    "Minimum economizer damper position limit."
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
-        iconTransformation(extent={{100,-40},{120,-20}})));
+    "Minimum economizer damper position limit." annotation (Placement(
+        transformation(extent={{100,-40},{120,-20}}), iconTransformation(extent
+          ={{100,-40},{120,-20}})));
   CDL.Interfaces.RealOutput yRetDamPosMax
-    "Maximum return air damper position limit"
-    annotation (Placement(transformation(extent={{100,20},{120,40}}),
-        iconTransformation(extent={{100,20},{120,40}})));
+    "Maximum return air damper position limit" annotation (Placement(
+        transformation(extent={{100,20},{120,40}}), iconTransformation(extent={
+            {100,20},{120,40}})));
   CDL.Continuous.Constant RetDamPhyPosMax(k=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper."
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
@@ -82,53 +83,52 @@ equation
   connect(uSupFan, nand.u1) annotation (Line(points={{-120,0},{-96,0},{-96,-20},
           {-82,-20}}, color={255,0,255}));
   connect(uAHUMod, nand.u2) annotation (Line(points={{-120,-40},{-96,-40},{-96,
-          -28},{-82,-28}},
-                      color={255,0,255}));
+          -28},{-82,-28}}, color={255,0,255}));
   connect(nand.y, EcoDamPosMax.u2) annotation (Line(points={{-59,-20},{-50,-20},
           {-50,-170},{-42,-170}}, color={255,0,255}));
   connect(nand.y, RetDamPosMin.u2) annotation (Line(points={{-59,-20},{-50,-20},
           {-50,-130},{-42,-130}}, color={255,0,255}));
-  connect(EcoDamPhyPosMax.y, EcoDamPosMax.u3) annotation (Line(points={{-59,
-          -170},{-50,-170},{-50,-178},{-42,-178}},
-                                             color={0,0,127}));
-  connect(EcoDamPhyPosMin.y, EcoDamPosMax.u1) annotation (Line(points={{-59,
-          -210},{-52,-210},{-52,-162},{-42,-162}},
-                                             color={0,0,127}));
+  connect(EcoDamPhyPosMax.y, EcoDamPosMax.u3) annotation (Line(points={{-59,-170},
+          {-50,-170},{-50,-178},{-42,-178}}, color={0,0,127}));
+  connect(EcoDamPhyPosMin.y, EcoDamPosMax.u1) annotation (Line(points={{-59,-210},
+          {-52,-210},{-52,-162},{-42,-162}}, color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMin.u1) annotation (Line(points={{-59,-90},
           {-50,-90},{-50,-122},{-42,-122}}, color={0,0,127}));
   connect(RetDamPhyPosMin.y, RetDamPosMin.u3) annotation (Line(points={{-59,-130},
           {-56,-130},{-56,-138},{-52,-138},{-42,-138}}, color={0,0,127}));
   connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{94,
-          -110},{94,-30},{110,-30}},  color={0,0,127}));
+          -110},{94,-30},{110,-30}}, color={0,0,127}));
   connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{90,
-          -70},{90,30},{110,30}},    color={0,0,127}));
+          -70},{90,30},{110,30}}, color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMax.f1) annotation (Line(points={{-59,-90},
           {12,-90},{12,-66},{58,-66}}, color={0,0,127}));
   connect(RetDamPosMin.y, RetDamPosMax.f2) annotation (Line(points={{-19,-130},
-          {20,-130},{20,-78},{58,-78}}, color={0,0,127}));
-  connect(SigFraForEconDam.y, RetDamPosMax.x1) annotation (Line(points={{1,70},{
-          42,70},{42,-62},{58,-62}},  color={0,0,127}));
-  connect(maxSignalLimit.y, RetDamPosMax.x2) annotation (Line(points={{1,10},{32,
-          10},{32,-74},{58,-74}},    color={0,0,127}));
-  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points={{-59,80},
-          {-28,80},{-28,-70},{58,-70}},           color={0,0,127}));
+          {20,-130},{20,-78},{58,-78}},color={0,0,127}));
+  connect(SigFraForEconDam.y, RetDamPosMax.x1) annotation (Line(points={{1,70},
+          {42,70},{42,-62},{58,-62}},color={0,0,127}));
+  connect(maxSignalLimit.y, RetDamPosMax.x2) annotation (Line(points={{1,10},{
+          32,10},{32,-74},{58,-74}}, color={0,0,127}));
+  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points=
+          {{-59,80},{-28,80},{-28,-70},{58,-70}},color={0,0,127}));
   connect(EcoDamPosMax.y, EcoDamPosMin.f2) annotation (Line(points={{-19,-170},
-          {46,-170},{46,-118},{58,-118}}, color={0,0,127}));
-  connect(EcoDamPhyPosMin.y, EcoDamPosMin.f1) annotation (Line(points={{-59,
-          -210},{32,-210},{32,-106},{58,-106}}, color={0,0,127}));
-  connect(minSignalLimit.y, EcoDamPosMin.x1) annotation (Line(points={{1,40},{36,
-          40},{36,-102},{58,-102}},    color={0,0,127}));
-  connect(SigFraForEconDam.y, EcoDamPosMin.x2) annotation (Line(points={{1,70},{
-          18,70},{18,-114},{58,-114}},  color={0,0,127}));
-  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points={{-59,80},
-          {-38,80},{-38,-110},{58,-110}},           color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -240},{100,100}}),                                  graphics={
+          {46,-170},{46,-118},{58,-118}},color={0,0,127}));
+  connect(EcoDamPhyPosMin.y, EcoDamPosMin.f1) annotation (Line(points={{-59,-210},
+          {32,-210},{32,-106},{58,-106}}, color={0,0,127}));
+  connect(minSignalLimit.y, EcoDamPosMin.x1) annotation (Line(points={{1,40},{
+          36,40},{36,-102},{58,-102}}, color={0,0,127}));
+  connect(SigFraForEconDam.y, EcoDamPosMin.x2) annotation (Line(points={{1,70},
+          {18,70},{18,-114},{58,-114}},color={0,0,127}));
+  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points=
+          {{-59,80},{-38,80},{-38,-110},{58,-110}},color={0,0,127}));
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
+            100}}), graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),                                   Line(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
           points={{2,50},{-46,-40},{48,-40},{2,50}},
           color={28,108,200},
           thickness=0.5),
@@ -167,14 +167,15 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan")}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
-            100}})),
- Documentation(info="<html>      
+          textString="uSupFan")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{
+            100,100}})),
+    Documentation(info="<html>      
 <p>
 This atomic sequence sets the economizer and
 return air damper position. The implementation is according
-to ASHRAE Guidline 36 (G36), PART5.N.2.c.
+to ASHRAE Guidline 36 (G36), PART5.N.2.c and functionaly it represents the 
+final sequence in the composite economizer control sequence.
 </p>   
 <p>
 The controller is enabled indirectly through the output of the the EconEnableDisable 
