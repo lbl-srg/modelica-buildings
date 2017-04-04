@@ -25,7 +25,8 @@ equation
     Line(points={{-57,-54},{-46,-54}}, color={0,0,127}));
   connect(preHea.port, vol.heatPort) annotation (
     Line(points={{-26,-54},{-16,-54},{-16,-10},{-9,-10}}, color={191,0,0}));
-  annotation (Icon(graphics={
+  annotation (defaultComponentName="heaCooHum",
+    Icon(graphics={
         Rectangle(
           extent={{-100,-89},{-78,-92}},
           lineColor={0,0,255},
