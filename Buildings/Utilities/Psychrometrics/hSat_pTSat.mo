@@ -53,5 +53,16 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model is a convenience wrapper for calculating the enthalpy of saturated
+air given the saturation temperature and fluid pressure.
+</p>
+
+<p>
+The model wraps several existing psychrometric functions and the
+<a href=\"modelica://Buildings.Media.Air\">Buildings.Media.Air</a> medium
+library.
+</p>
 </html>"));
 end hSat_pTSat;
