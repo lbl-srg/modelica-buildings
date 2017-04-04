@@ -2,16 +2,14 @@ within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 model EconEnableDisable "Economizer enable/disable switch"
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-    "Outdoor temperature"
-    annotation (Placement(transformation(extent={{-140,134},{-100,174}}),
-        iconTransformation(extent={{-140,134},{-100,174}})));
-  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status"
-    annotation (Placement(transformation(extent={{-140,36},{-100,76}}),
-        iconTransformation(extent={{-140,36},{-100,76}})));
+    "Outdoor temperature" annotation (Placement(transformation(extent={{-140,
+            134},{-100,174}}), iconTransformation(extent={{-140,134},{-100,174}})));
+  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation
+    (Placement(transformation(extent={{-140,36},{-100,76}}), iconTransformation(
+          extent={{-140,36},{-100,76}})));
   CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-140,84},{-100,124}}),
-        iconTransformation(extent={{-140,84},{-100,124}})));
+    "Supply air temperature" annotation (Placement(transformation(extent={{-140,
+            84},{-100,124}}), iconTransformation(extent={{-140,84},{-100,124}})));
   CDL.Interfaces.RealOutput yEcoDamPosMax(min=0, max=1)
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yEcoDamPosMin and enable = yEcoDamPosMax."
     annotation (Placement(transformation(extent={{100,42},{138,80}}),
@@ -30,8 +28,7 @@ model EconEnableDisable "Economizer enable/disable switch"
   CDL.Logical.Or or1
     "If any of the conditions evaluated is 1, the block returns 1 and it's inverse in the following block closes the damper to uEcoDamPosMin. If all conditions are 0, the damper can be opened up to uEcoDamPosMax"
     annotation (Placement(transformation(extent={{30,54},{50,74}})));
-  CDL.Logical.Hysteresis hysTOut(                      uHigh = 297, final uLow=
-        297 - 1)
+  CDL.Logical.Hysteresis hysTOut(uHigh=297, final uLow=297 - 1)
     "Close damper when TOut is above the uHigh, open it again only when TOut falls down to uLow"
     annotation (Placement(transformation(extent={{-70,144},{-50,164}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
@@ -51,29 +48,26 @@ model EconEnableDisable "Economizer enable/disable switch"
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
     annotation (Placement(transformation(extent={{-62,78},{-42,98}})));
 equation
-  connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{64,-56},
-          {-18,-56},{-18,14},{-120,14}},           color={0,0,127}));
-  connect(TOut, hysTOut.u)
-    annotation (Line(points={{-120,154},{-96,154},{-72,154}},
-                                                    color={0,0,127}));
+  connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{64,
+          -56},{-18,-56},{-18,14},{-120,14}}, color={0,0,127}));
+  connect(TOut, hysTOut.u) annotation (Line(points={{-120,154},{-96,154},{-72,
+          154}}, color={0,0,127}));
   connect(or1.y, not1.u)
-    annotation (Line(points={{51,64},{58,64}},   color={255,0,255}));
+    annotation (Line(points={{51,64},{58,64}}, color={255,0,255}));
   connect(or2.y, or1.u1) annotation (Line(points={{51,92},{62,92},{62,108},{14,
-          108},{14,78},{14,78},{14,64},{28,64}},
-                 color={255,0,255}));
+          108},{14,78},{14,78},{14,64},{28,64}}, color={255,0,255}));
   connect(TSup, TSupThreshold.u)
     annotation (Line(points={{-120,104},{-92,104}}, color={0,0,127}));
   connect(hysTOut.y, or2.u1) annotation (Line(points={{-49,154},{-2,154},{-2,92},
           {28,92}},color={255,0,255}));
-  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-69,104},{-66,104},
-          {-66,114},{-64,114}}, color={255,0,255}));
-  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-41,88},{-38,88},
-          {-38,96},{-34,96}}, color={0,0,127}));
+  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-69,104},{-66,
+          104},{-66,114},{-64,114}}, color={255,0,255}));
+  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-41,88},{-38,
+          88},{-38,96},{-34,96}}, color={0,0,127}));
   connect(timer1.y, greater.u1) annotation (Line(points={{-41,114},{-38,114},{-38,
           104},{-34,104}}, color={0,0,127}));
   connect(greater.y, or2.u2) annotation (Line(points={{-11,104},{-11,104},{-4,
-          104},{-4,84},{14,84},{28,84}},
-                                    color={255,0,255}));
+          104},{-4,84},{14,84},{28,84}}, color={255,0,255}));
   connect(uFre, or1.u2)
     annotation (Line(points={{-120,56},{-46,56},{28,56}}, color={255,0,255}));
   connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{87,-64},
@@ -82,15 +76,17 @@ equation
           -34},{-28,-34},{-28,-72},{64,-72}}, color={0,0,127}));
   connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{81,64},{86,
           64},{86,-4},{52,-4},{52,-64},{64,-64}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
         extent={{-100,-100},{100,200}},
-        initialScale=0.1),                                      graphics={
+        initialScale=0.1), graphics={
         Rectangle(
-        extent={{-100,-38},{100,162}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-                          Line(
+          extent={{-100,-38},{100,162}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
           points={{2,116},{82,116}},
           color={28,108,200},
           thickness=0.5),
@@ -130,13 +126,15 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uFre"),
-          Line(
+        Line(
           points={{-78,-4},{2,-4},{2,116}},
           color={28,108,200},
-          thickness=0.5)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          thickness=0.5)}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
         extent={{-100,-100},{100,200}},
         initialScale=0.1)),
-             Documentation(info="<html>      
+    Documentation(info="<html>      
              <p>
              implementation fixme: 10 min delay
              - pg. 119 - Ret damper position when disabled: before releasing 
