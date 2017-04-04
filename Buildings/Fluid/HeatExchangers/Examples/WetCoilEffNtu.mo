@@ -10,12 +10,14 @@ model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
   parameter Modelica.SIunits.Temperature TWatIn=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
-  parameter Modelica.SIunits.Temperature TWatOut = 8.74 + 273.15
+  parameter Modelica.SIunits.Temperature TWatOut=
+    Modelica.SIunits.Conversions.from_degF(47.72)
     "Outlet water temperature";
   parameter Modelica.SIunits.Temperature TAirIn=
     Modelica.SIunits.Conversions.from_degF(80)
     "Inlet air temperature";
-  parameter Modelica.SIunits.Temperature TAirOut = 10.91+273.15
+  parameter Modelica.SIunits.Temperature TAirOut=
+    Modelica.SIunits.Conversions.from_degF(53)
     "Outlet air temperature";
   parameter Modelica.SIunits.Pressure pAirIn = pAtm + 20
     "Inlet air pressure";
@@ -73,7 +75,8 @@ model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
     m2_flow_nominal=masFloAirNom,
     dp2_nominal=0,
     dp1_nominal=0,
-    cfg=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed,
+    cfg=
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed,
     show_T=true,
     r_nominal=1)
     "Heat Exchanger Coil"
