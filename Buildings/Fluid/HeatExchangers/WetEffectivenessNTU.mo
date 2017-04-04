@@ -176,7 +176,7 @@ equation
       color={0,127,255},
       thickness=1));
   annotation (
-    Placement(transformation(extent={{60,50},{80,70}})),
+    defaultComponentName="hexWetNtu",
     Icon(graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
