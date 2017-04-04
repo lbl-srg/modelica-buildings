@@ -9,9 +9,9 @@ model EconMinOutAirDamPosLimits_VOut
     "Outdoor air temperature, constant below example 75 F"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp VOut(
-    height=1,
     duration=1800,
-    offset=0)
+    height=0.2,
+    offset=0.4)
     "TSup falls below 38 F and remains there for longer than 5 min. "
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Logical.Constant AHUMode(k=true) "AHU is enabled"
@@ -33,8 +33,8 @@ equation
           -59,30},{-42,30},{-42,54},{-22,54}}, color={0,0,127}));
   connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
         points={{-59,-10},{-42,-10},{-42,50},{-22,50}}, color={255,0,255}));
-  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points
-        ={{-59,-42},{-42,-42},{-42,46},{-22,46}}, color={255,0,255}));
+  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points=
+         {{-59,-42},{-42,-42},{-42,46},{-22,46}}, color={255,0,255}));
   connect(econMinOutAirDamPosLimits.yRetDamPosMax, yRet) annotation (Line(
         points={{1,53},{34.5,53},{34.5,50},{78,50}}, color={0,0,127}));
   connect(econMinOutAirDamPosLimits.yEcoDamPosMin, yEco) annotation (Line(

@@ -25,9 +25,10 @@ model EconMinOutAirDamPosLimits
     yMax=1,
     yMin=0,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
-
-    Ti=0.8,
-    Td=0.05)
+    Ti=0.9,
+    Td=0.1,
+    Nd=1,
+    k=0.02)
     "Contoller that outputs a signal based on the error between the measured outdoor airflow and the minimum outdoor airflow requirement."
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
 
