@@ -515,5 +515,17 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model implements the calculation for a (possibly) dry/wet coil.
+Specifically, this model coordinates the 100% wet and 100% dry calculations to
+represent partially wet coil physics.
+</p>
+
+<p>
+Extensive documentation can be found in the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
+WetEffectivenessNTU</a> model. 
+</p>
 </html>"));
 end DryWetCalcs;
