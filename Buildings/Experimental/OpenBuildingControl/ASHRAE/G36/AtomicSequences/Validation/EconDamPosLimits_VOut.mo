@@ -29,28 +29,29 @@ equation
   //     "Simulate and plot"),
   connect(VOutMinSet.y, econMinOutAirDamPosLimits.uVOutMinSet) annotation (Line(
         points={{-59,70},{-40,70},{-40,58},{-22,58}}, color={0,0,127}));
-  connect(VOut.y, econMinOutAirDamPosLimits.uVOut) annotation (Line(points={{
-          -59,30},{-42,30},{-42,54},{-22,54}}, color={0,0,127}));
+  connect(VOut.y, econMinOutAirDamPosLimits.uVOut) annotation (Line(points={{-59,
+          30},{-42,30},{-42,54},{-22,54}}, color={0,0,127}));
   connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
         points={{-59,-10},{-42,-10},{-42,50},{-22,50}}, color={255,0,255}));
-  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points=
-         {{-59,-42},{-42,-42},{-42,46},{-22,46}}, color={255,0,255}));
+  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points
+        ={{-59,-42},{-42,-42},{-42,46},{-22,46}}, color={255,0,255}));
   connect(econMinOutAirDamPosLimits.yRetDamPosMax, yRet) annotation (Line(
-        points={{1,53},{34.5,53},{34.5,50},{78,50}}, color={0,0,127}));
+        points={{1,52.8},{34.5,52.8},{34.5,50},{78,50}}, color={0,0,127}));
   connect(econMinOutAirDamPosLimits.yEcoDamPosMin, yEco) annotation (Line(
-        points={{1,47},{35.5,47},{35.5,28},{78,28}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent={{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points={{-36,58},{64,-2},{-36,-62},{-36,58}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-  experiment(StopTime=1800.0),
+        points={{1,48.8},{35.5,48.8},{35.5,28},{78,28}}, color={0,0,127}));
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}), Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,58},{64,-2},{-36,-62},{-36,58}})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1800.0),
     Documentation(info="<html>
 <p>
 This example validates
