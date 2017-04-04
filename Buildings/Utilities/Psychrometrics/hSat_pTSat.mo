@@ -1,3 +1,4 @@
+within Buildings.Utilities.Psychrometrics;
 model hSat_pTSat
   "Calculate saturation enthalpy given a saturation (dry bulb) temperature"
   extends Modelica.Blocks.Icons.Block;
