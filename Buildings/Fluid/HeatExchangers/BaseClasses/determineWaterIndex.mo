@@ -31,5 +31,16 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+Given an array of strings representing substance names, this function returns
+the integer index of the substance named \"water\" (case-insensitive).
+</p>
+
+<p>
+This function is useful to automate lookup up the index of water within a media
+so as to avoid hard-coding or guessing what the index will be. Typically, this
+function would be run once at initialization time.
+</p>
 </html>"));
 end determineWaterIndex;
