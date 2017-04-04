@@ -1,2 +1,0 @@
-simulateModel("Buildings.Utilities.Psychrometrics.Examples.TDewPoi_pX", method="dassl", tolerance=1e-006, resultFile="TDewPoi_pX");
-createPlot(id=1, position={55, 50, 584, 420}, x="w", y={"TDewPoi"}, range={0.0, 0.1, -60.0, 60.0}, erase=false, grid=true, filename="TDewPoi_pX.mat", colors={{28,108,200}});

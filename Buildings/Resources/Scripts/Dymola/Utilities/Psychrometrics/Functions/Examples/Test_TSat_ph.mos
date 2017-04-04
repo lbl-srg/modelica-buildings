@@ -1,2 +1,0 @@
-simulateModel("Buildings.Utilities.Psychrometrics.Functions.Examples.Test_TSat_ph", method="dassl", tolerance=1e-006, resultFile="Test_TSat_ph");
-createPlot(id=1, position={55, 50, 819, 489}, x="TSat", y={"h"}, range={-4.0, 16.0, 0.0, 45000.0}, grid=true, filename="Test_TSat_ph.mat", colors={{28,108,200}});

@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "Q",
-    "TWatOut",
-    "TAirOut",
-    "TSurAirOut"
-  };
