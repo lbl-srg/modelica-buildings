@@ -11,7 +11,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
   parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
   parameter Modelica.SIunits.Temperature TWatOutNominal=
-    Modelica.SIunits.Conversions.from_degF(44)
+    Modelica.SIunits.Conversions.from_degC(8.7333)
     "Guess for the water outlet temperature which is an iteration variable";
 
   // -- Water
@@ -264,7 +264,7 @@ model DryWetCalcs2 "Second attempt to make drywet calcs faster"
     a partially wet coil";
   Medium1.Temperature TWatOutPar
     "Water outlet temperature";
-  Medium2.Temperature TWatX
+  Medium2.Temperature TWatX(start=TWatOutNominal)
     "Water temperature at the wet/dry transition";
   Medium2.Temperature TAirX
     "Air temperature at the wet/dry transition";
