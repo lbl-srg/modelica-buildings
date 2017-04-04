@@ -4,6 +4,5 @@ compareVars :=
     "ntu[2]",
     "ntu[3]",
     "ntu[4]",
-    "ntu[5]",
-    "ntu[6]"
+    "ntu[5]"
   };
