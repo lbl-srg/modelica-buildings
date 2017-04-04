@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "sou.T",
-    "senTem.T",
-    "ref.T",
-    "eva.eps",
-    "m_flow.y"
-  };
