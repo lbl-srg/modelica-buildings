@@ -133,8 +133,9 @@ equation
     pSatWatOut =
       Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
         TWatOutGuess);
-    XAirSatOut[watIdx] =  Buildings.Utilities.Psychrometrics.Functions.X_pW(
-      p_w=pSatWatOut, p=pAir);
+    XAirSatOut[watIdx] =
+      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+        pSat=pSatWatOut, p=pAir, phi=phiSat);
     XAirSatOut[othIdx] =  1 - XAirSatOut[watIdx];
     hAirSatSurOut =  Buildings.Media.Air.specificEnthalpy_pTX(
       p=pAir, T=TWatOutGuess, X=XAirSatOut);
