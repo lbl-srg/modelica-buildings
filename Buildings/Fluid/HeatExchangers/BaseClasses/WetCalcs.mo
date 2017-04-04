@@ -137,9 +137,9 @@ equation
       Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=pSatWatOut, p=pAir, phi=phiSat);
     XAirSatOut[othIdx] =  1 - XAirSatOut[watIdx];
-    hAirSatSurOut =  Buildings.Media.Air.specificEnthalpy_pTX(
+    hAirSatSurOut = Buildings.Media.Air.specificEnthalpy_pTX(
       p=pAir, T=TWatOutGuess, X=XAirSatOut);
-    cpEff =  abs(hAirSatSurOut - hAirSatSurIn)
+    cpEff = abs(hAirSatSurOut - hAirSatSurIn)
       / max(abs(TWatOutGuess - TWatIn), 0.1);
     mSta =  max((masFloAir * cpEff) / (masFloWat * cpWat), 0.01)
       "Braun et al 2013 eq 2.20";
