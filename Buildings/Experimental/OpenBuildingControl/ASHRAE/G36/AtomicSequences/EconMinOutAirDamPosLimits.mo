@@ -173,14 +173,27 @@ equation
             100}})),
  Documentation(info="<html>      
 <p>
-implementation fixme: timers for TSup, AND for 10 min delay
+This atomic sequence sets the minimum economizer damper position limit and
+the maximum return air damper position limit. The implementation is according
+to ASHRAE Guidline 36 (G36), PART5.M.6.c.
 </p>   
-  <p>
-bla
-  </p>
-  <p>
-bla
-  </p>
+<p>
+The controller is enabled when the supply fan is proven on and the AHU is in
+Occupied Mode. Otherwise the damper position limits are set to their corresponding
+maximum and minimum physical or at comissioning fixed limits. The state machine
+diagram below illustrates this.
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
+</p>
+<p>
+According to mentioned article from G36, the outdoor airflow rate shall be 
+maintained at the minimum outdoor air setpoint, VOutMinSet, which is an output of
+a separate atomic sequence, by a reverse-acting control loop whose output is 
+mapped to the maximum return air damper position, yRetDamPosMax, and to the
+minimum supply air damper position, yEcoDamPosMin.  
+</p>
 
 <p>
 bla
@@ -193,9 +206,12 @@ bla
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
 </p>
+</html>", revisions="<html>
+<ul>
 <li>
 April 04, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
+</ul>
 </html>"));
 end EconMinOutAirDamPosLimits;
