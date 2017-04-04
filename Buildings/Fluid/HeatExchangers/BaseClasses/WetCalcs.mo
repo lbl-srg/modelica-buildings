@@ -69,7 +69,7 @@ protected
   Modelica.SIunits.SpecificEnthalpy hSurEff
     "Effective surface enthalpy; assumes coil surface is at a uniform
     temperature and enthalpy";
-  Real effSta
+  Real effSta(start=0.66)
     "Effectiveness for heat exchanger (e*)";
   Modelica.SIunits.Temperature TSurEff
     "Effective surface temperature of the coil";
