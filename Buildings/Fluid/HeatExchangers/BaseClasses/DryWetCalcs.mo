@@ -505,5 +505,15 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="Note: please see text file for explicit
 connections; there are too many
-connections to show graphically here")}));
+connections to show graphically here")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
+</html>"));
 end DryWetCalcs;

@@ -1099,5 +1099,14 @@ Elmahdy, A.H. and Mitalas, G.P. 1977. \"A Simple Model for Cooling and
 Dehumidifying Coils for Use In Calculating Energy Requirements for Buildings\".
 ASHRAE Transactions. Vol.83. Part 2. pp. 103-117.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
 </html>"));
 end WetEffectivenessNTU;

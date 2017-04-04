@@ -102,5 +102,15 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-120},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-120},{100,100}})));
+      extent={{-100,-120},{100,100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
+</html>"));
 end DryWetCalcs;

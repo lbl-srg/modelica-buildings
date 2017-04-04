@@ -100,5 +100,15 @@ equation
           lineColor={28,108,200},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
+</html>"));
 end DryCalcs;

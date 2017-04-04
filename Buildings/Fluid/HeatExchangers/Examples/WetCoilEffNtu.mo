@@ -172,5 +172,14 @@ Hoboken, N.J.: Wiley. Available online:
 <a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
 http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
 </html>"));
 end WetCoilEffNtu;

@@ -59,5 +59,15 @@ equation
       "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}})));
+            -100},{200,200}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 17, 2017, by Michael O'Keefe:<br/>
+First implementation. See
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
+issue 622</a> for more information.
+</li>
+</ul>
+</html>"));
 end WetCoilEffNtuMassFlow;
