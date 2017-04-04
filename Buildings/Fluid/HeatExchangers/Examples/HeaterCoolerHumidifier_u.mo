@@ -12,17 +12,20 @@ model HeaterCoolerHumidifier_u
     "Inlet air pressure";
   parameter Modelica.SIunits.Pressure pAirOut = pAtm
     "Outlet air pressure";
-  parameter Modelica.SIunits.MassFlowRate masFloAirNom = 2.646
+  parameter Modelica.SIunits.MassFlowRate masFloAir = 2.646
     "Nominal mass flow rate of air";
-  parameter Modelica.SIunits.MassFlowRate masFloCon = 0.0025
-    "Mass flow rate of condensate";                     // 0.00247525
-  parameter Modelica.SIunits.Temperature TAirIn = 25 + 273.15;
-  parameter Real XWatIn = 0.0089757;
-  parameter Modelica.SIunits.Temperature TAirOut = 20 + 273.15;
-  parameter Modelica.SIunits.Temperature TCon = 10.3 + 273.15
+  parameter Modelica.SIunits.MassFlowRate masFloCon = 0.00246
     "Mass flow rate of condensate";
-  parameter Modelica.SIunits.HeatFlowRate QSen = -1000
-    "Sensible heat flow rate";
+  parameter Modelica.SIunits.Temperature TAirIn=
+    Modelica.SIunits.Conversions.from_degC(26.666);
+  parameter Real XWatIn = 0.0089757;
+  parameter Modelica.SIunits.Temperature TAirOut=
+    Modelica.SIunits.Conversions.from_degC(10.8957);
+  parameter Modelica.SIunits.Temperature TCon=
+    Modelica.SIunits.Conversions.from_degC(10.064)
+    "Mass flow rate of condensate";
+  parameter Modelica.SIunits.HeatFlowRate QSet = 50484.6
+    "Sensible heat flow rate setting; positive is out of the stream";
 
   Buildings.Fluid.HeatExchangers.HeaterCoolerHumidifier_u heaCooHum(
     redeclare package Medium = Medium_A,
@@ -30,7 +33,7 @@ model HeaterCoolerHumidifier_u
     use_T_in=true,
     mWat_flow_nominal=1,
     Q_flow_nominal=1,
-    m_flow_nominal=masFloAirNom,
+    m_flow_nominal=masFloAir,
     dp_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -58,7 +61,7 @@ model HeaterCoolerHumidifier_u
         origin={56,0})));
   Buildings.Fluid.FixedResistances.PressureDrop airRes(
     redeclare package Medium = Medium_A,
-    m_flow_nominal=masFloAirNom,
+    m_flow_nominal=masFloAir,
     dp_nominal=pAirIn - pAirOut)
     "Pressure drop in airway"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -70,37 +73,50 @@ model HeaterCoolerHumidifier_u
   Modelica.Blocks.Sources.RealExpression TConInp(y=TCon)
     "Expression for the condensate temperature"
     annotation (Placement(transformation(extent={{-56,-26},{-28,-14}})));
-  Modelica.Blocks.Sources.RealExpression QSenInp(y=QSen)
-    "Expression for the condensate temperature"
+  Modelica.Blocks.Sources.RealExpression QSenInp(y=-QSet)
+    "Expression for the sensible heat flow rate; note sign change is to change
+    positive as heat added to the stream"
     annotation (Placement(transformation(extent={{-56,-40},{-28,-28}})));
 
-  // VARIABLES
-  Modelica.SIunits.Temperature TAirOutSenExp
-    "Expected output temperature for sensible only";
-  Modelica.SIunits.Temperature TAirOutTotExp
-    "Expected output temperature for sensible + latent";
   Modelica.SIunits.Temperature TAirOutAtUnit
     "Outlet air temperature at the heaCooHum";
-  Modelica.SIunits.SpecificHeatCapacity cpAir
-    "Specific heat capacity of air";
+  Modelica.SIunits.HeatFlowRate QOut
+    "Total heat flow out of the stream";
+  Modelica.SIunits.SpecificEnthalpy h1
+    "Specific enthalpy at port_a";
+  Modelica.SIunits.SpecificEnthalpy h2
+    "Specific enthalpy at port_b";
+  Modelica.SIunits.SpecificEnthalpy hx
+    "Specific enthalpy at a state that is the same temperature as the
+    entering state and same humidity ratio as the leaving state. See
+    Mitchell and Braun 2012 Chapter 5 - Heating and Cooling Coil and
+    Figure 5.6";
+  Modelica.SIunits.HeatFlowRate QSen
+    "Sensible heat flow out of the stream";
+  Modelica.SIunits.HeatFlowRate QLat
+    "Latent heat flow out of the stream";
 
 equation
+  h1 = inStream(heaCooHum.port_a.h_outflow);
+  h2 = actualStream(heaCooHum.port_b.h_outflow);
+  QOut = masFloAir * (h1 - h2);
+  QSen = masFloAir * (hx - h2)
+    "Mitchell and Braun 2012 Eq 5.30";
+  QLat = masFloAir * (h1 - hx)
+    "Mitchell and Braun 2012 Eq 5.31";
+  hx = Medium_A.specificEnthalpy_pTX(
+    p = pAtm,
+    T = TAirIn,
+    X = {actualStream(heaCooHum.port_b.Xi_outflow[1]),
+        1 - actualStream(heaCooHum.port_b.Xi_outflow[1])});
   TAirOutAtUnit = Medium_A.temperature(
     Medium_A.setState_phX(
       p=heaCooHum.port_b.p,
-      h=actualStream(heaCooHum.port_b.h_outflow),
+      h=heaCooHum.port_b.h_outflow,
       X={actualStream(heaCooHum.port_b.Xi_outflow[1]),
         1 - actualStream(heaCooHum.port_b.Xi_outflow[1])}));
-  TAirOutSenExp = QSen / (masFloAirNom * cpAir) + TAirIn;
-  TAirOutTotExp = TAirOutSenExp;
-  cpAir = Medium_A.specificHeatCapacityCp(
-    Medium_A.setState_phX(
-      p=airRes.port_b.p,
-      h=inStream(airRes.port_b.h_outflow),
-      X={XWatIn, 1 - XWatIn}));
-  connect(heaCooHum.port_b, sinAir.ports[1])
-    annotation (Line(points={{10,0},{46,0}},        color={0,127,255},
-      thickness=1));
+  connect(heaCooHum.port_b, sinAir.ports[1]) annotation (
+    Line(points={{10,0},{46,0}}, color={0,127,255}, thickness=1));
   connect(souAir.ports[1], airRes.port_a) annotation (Line(
       points={{-70,0},{-52,0}},
       color={0,127,255},
@@ -130,5 +146,44 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model exercises the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerHumidifier_u\">
+HeaterCoolerHumidifier_u</a> model over the example SM2-1 from Mitchell and
+Braun (2012).
+</p>
+
+<p>
+The example introduces an \"x\" state enthalpy to split out and check the latent
+versus sensible heat transfer. The \"x\" state enthalpy is the enthalpy
+corresponding to the temperature of the entering state but the mass fraction of
+water of the exit state. This is discussed in Chapter 5 of Mitchell and Braun
+(2012a).
+</p>
+
+<p>
+The example demonstrates that mosture can be extracted from the stream while
+heat is also being transferred out of the stream and the results agree roughly
+with both those of the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.Examples.DryWetCalcs\">
+DryWetCalcs</a> example and with Chapter 5 of Mitchell and Braun.
+</p>
+
+<h4>References</h4>
+
+<p>
+Mitchell, John W., and James E. Braun. 2012.
+\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
+Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
+Hoboken, N.J.: Wiley. Available online:
+<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
+http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
+</p>
+
+<p>
+Mitchell, John W., and James E. Braun. 2012a. <i>Principles of heating,
+  ventilation, and air conditioning in buildings</i>.  Hoboken, N.J.: Wiley.
+</p>
 </html>"));
 end HeaterCoolerHumidifier_u;
