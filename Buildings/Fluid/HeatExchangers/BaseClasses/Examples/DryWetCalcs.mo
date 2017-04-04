@@ -2,14 +2,11 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model DryWetCalcs "Test the DryWetCalcs model"
   extends Modelica.Icons.Example;
 
-  // PACKAGES
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  // CONSTANTS
   constant Modelica.SIunits.AbsolutePressure pAtm = 101325;
 
-  // PARAMETERS
   // -- water
   parameter Modelica.SIunits.ThermalConductance UAWat = 9495.5;
   parameter Modelica.SIunits.Temperature TWatIn=
@@ -31,7 +28,6 @@ model DryWetCalcs "Test the DryWetCalcs model"
   parameter Modelica.SIunits.AbsolutePressure pAir = pAtm;
   parameter Real wAirIn(min=0,max=1,unit="1") = 0.0089757;
 
-  // COMPONENTS
   Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
