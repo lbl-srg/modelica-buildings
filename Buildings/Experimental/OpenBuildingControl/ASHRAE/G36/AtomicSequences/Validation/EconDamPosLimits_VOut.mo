@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences.Validation;
-model EconMinOutAirDamPosLimits_VOut
+model EconDamPosLimits_VOut
   "Validation model for setting the min econ damper limit and max return air damper limit."
   extends Modelica.Icons.Example;
 
@@ -16,7 +16,7 @@ model EconMinOutAirDamPosLimits_VOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Logical.Constant AHUMode(k=true) "AHU is enabled"
     annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
-  EconMinOutAirDamPosLimits econMinOutAirDamPosLimits
+  EconDamPosLimits econMinOutAirDamPosLimits
     "One of the economizer control sequences, it sets the min econ damper limit and the max return air damper limit in order to maintain the minimum outdoor airflow setpoint."
     annotation (Placement(transformation(extent={{-20,26},{0,60}})));
   CDL.Interfaces.RealOutput yRet
@@ -66,4 +66,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconMinOutAirDamPosLimits_VOut;
+end EconDamPosLimits_VOut;

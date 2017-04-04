@@ -138,9 +138,16 @@ equation
         initialScale=0.1)),
              Documentation(info="<html>      
              <p>
-             implementation fixme: timers for TSup, AND for 10 min delay
+             implementation fixme: 10 min delay
+             - pg. 119 - Ret damper position when disabled: before releasing 
+             the return air damper to be controled by the minimum air req 
+             (EconDamPosLimits): open fully, wait 15 sec MaxOA-P = MinOA-P,
+             wait 3 min after that and release ret dam for EconDamPosLimits
+             control.
              </p>   
-  <p>
+             <p>
+             This sequence enables or disables the economizer based on 
+             conditions provided in G36 PART5.N.7.           
   Fixme: There might be a need to convert this block in a generic enable-disable
   control block that receives one or more hysteresis conditions, one or more 
   timed conditions, and one or more additional boolean signal conditions. For 

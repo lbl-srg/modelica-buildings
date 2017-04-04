@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36_new.AtomicSequences;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
 block VAVSingleZoneTSupSet "Supply air set point for single zone VAV system"
 
   parameter Modelica.SIunits.Temperature TMax

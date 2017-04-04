@@ -2,4 +2,4 @@ VAVSingleZoneTSupSet_T
 VAVSingleZoneTSupSet_u
 EconEnableDisable_TOut
 EconEnableDisable_TSup
-EconMinOutAirDamPosLimits_VOut
+EconDamPosLimits_VOut

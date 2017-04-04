@@ -1,6 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.AtomicSequences;
-model EconMinOutAirDamPosLimits
-  "Based on measured and requred minimum outdoor airflow the controller resets 
+model EconModulation "Based on measured and requred minimum outdoor airflow the controller resets 
   the min limit of the economizer damper and the max limit of the return air 
   damper in order to maintain the minimum required outdoor airflow."
   // fixme: add keep previous pos if VOut>VOutSet AND EcoDamPos>EcoDamPosMin
@@ -173,34 +172,33 @@ equation
             100}})),
  Documentation(info="<html>      
 <p>
-This atomic sequence sets the minimum economizer damper position limit and
-the maximum return air damper position limit. The implementation is according
-to ASHRAE Guidline 36 (G36), PART5.M.6.c.
+This atomic sequence sets the economizer and
+return air damper position. The implementation is according
+to ASHRAE Guidline 36 (G36), PART5.N.2.c.
 </p>   
 <p>
-The controller is enabled when the supply fan is proven on and the AHU is in
-Occupied Mode. Otherwise the damper position limits are set to their corresponding
-maximum and minimum physical or at comissioning fixed limits. The state machine
-diagram below illustrates this.
+The controller is enabled indirectly through the output of the the EconEnableDisable 
+sequence, which defines the maximum economizer damper position. Thus, strictly 
+speaking, the modulation sequence remains active, but if the economizer gets
+disabled, the range of economizer damper modulation equals zero.
+fixme: return air damper may be modulated even if econ disable, according to
+this control loop. Check if that is desired. Last time I reflected on this
+it seemed it would not pose functional dificulties.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationStateMachineChart.png\"/>
 </p>
 <p>
-According to mentioned article from G36, the outdoor airflow rate, uVOut,
-shall be maintained at the minimum outdoor air setpoint, VOutMinSet, which is an output of
-a separate atomic sequence, by a reverse-acting control loop whose output is 
-mapped to the maximum return air damper position, yRetDamPosMax, and to the
-minimum supply air damper position, yEcoDamPosMin.
+fixme: interpret corresponding text from G36 as implemented here.
 </p>
 <p>
-Control charts below show the input-output structure and a damper limit 
-position sequence assuming a well tuned controller. Control diagram:
+Control charts below show the input-output structure and an economizer damper 
+modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationLimitsControlDiagram.png\"/>
 </p>
 <p>
 Expected control performance, upon tuning:
@@ -209,15 +207,10 @@ Expected control performance, upon tuning:
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationLimitsControlChart.png\"/>
 </p>
 <p>
-fixme: additional text about the functioning of the sequence
-Note that VOut depends on whether the economizer damper is controlled to a 
-position higher than it's minimum limit. This is defined by the EconEnableDisable
-and EconModulate [fixme check seq name] sequences. Fixme feature add: For this reason
-we may want to implement something like:
-while VOut > VOutSet and EcoDamPos>EcoDamPosMin, keep previous EcoDamPosMin.
+bla
 </p>
 
 </html>", revisions="<html>
@@ -228,4 +221,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EconMinOutAirDamPosLimits;
+end EconModulation;
