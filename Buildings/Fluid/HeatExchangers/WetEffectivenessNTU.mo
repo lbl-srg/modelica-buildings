@@ -76,36 +76,41 @@ model WetEffectivenessNTU
     r_nominal = r_nominal)
     "Model for convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs2 dryWetCalcs(
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     TWatOutNominal = TWatOutNominal,
-    cfg=cfg)
+    cfg = cfg)
+    "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
   Modelica.Blocks.Sources.RealExpression cp_a1Exp(
-    y=Medium1.specificHeatCapacityCp(state_a1_inflow))
+    y = Medium1.specificHeatCapacityCp(state_a1_inflow))
+    "Expression for cp of air"
     annotation (Placement(transformation(extent={{-40,18},{-26,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(
-    y=state_a2_inflow.X[nWat])
+    y = state_a2_inflow.X[nWat])
+    "Expression for XWat"
     annotation (Placement(transformation(extent={{-40,-2},{-26,10}})));
   Modelica.Blocks.Sources.RealExpression p_a2Exp(
-    y=Medium2.pressure(state_a2_inflow))
+    y = Medium2.pressure(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-10},{-26,2}})));
   Modelica.Blocks.Sources.RealExpression h_a2Exp(
-    y=Medium2.specificEnthalpy(state_a2_inflow))
+    y = Medium2.specificEnthalpy(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-18},{-26,-6}})));
   Modelica.Blocks.Sources.RealExpression cp_a2Exp(
-    y=Medium2.specificHeatCapacityCp(state_a2_inflow))
+    y = Medium2.specificHeatCapacityCp(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-30},{-26,-18}})));
-  Modelica.Blocks.Sources.RealExpression TIn_a1Exp(y=Medium1.temperature(
-        state_a1_inflow))
+  Modelica.Blocks.Sources.RealExpression TIn_a1Exp(
+    y = Medium1.temperature(state_a1_inflow))
     annotation (Placement(transformation(extent={{-98,16},{-84,28}})));
-  Modelica.Blocks.Sources.RealExpression TIn_a2Exp(y=Medium2.temperature(
-        state_a2_inflow))
+  Modelica.Blocks.Sources.RealExpression TIn_a2Exp(
+    y = Medium2.temperature(state_a2_inflow))
     annotation (Placement(transformation(extent={{-98,-8},{-84,4}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(y=port_a1.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(
+    y = port_a1.m_flow)
     annotation (Placement(transformation(extent={{-98,30},{-84,42}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(y=port_a2.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
+    y = port_a2.m_flow)
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
 
 protected

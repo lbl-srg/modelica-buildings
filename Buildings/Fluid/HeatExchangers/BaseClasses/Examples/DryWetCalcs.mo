@@ -32,11 +32,12 @@ model DryWetCalcs "Test the DryWetCalcs model"
   parameter Real wAirIn(min=0,max=1,unit="1") = 0.0089757;
 
   // COMPONENTS
-  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs2 dryWetCalcs(
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs dryWetCalcs(
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
     TWatOutNominal = TWatIn,
-    cfg=Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed)
+    cfg=
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed)
     annotation (Placement(transformation(extent={{-40,-60},{60,60}})));
 
   Modelica.Blocks.Sources.RealExpression UAAirExp(y=UAAir)

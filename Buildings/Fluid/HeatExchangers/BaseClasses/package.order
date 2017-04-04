@@ -2,7 +2,6 @@ CoilHeader
 CoilRegister
 DryCalcs
 DryWetCalcs
-DryWetCalcs2
 DuctManifoldFixedResistance
 DuctManifoldFlowDistributor
 DuctManifoldNoResistance

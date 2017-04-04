@@ -1,20 +1,20 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model DryWetCalcs "Combines both dry and wet eff NTU calculations"
+model DryWetCalcs
+  "Combines both dry and wet eff NTU calculations"
 
-  replaceable package Medium1 =
-      Modelica.Media.Interfaces.PartialMedium
-      "Medium 1 in the component"
-      annotation (choicesAllMatching = true);
-      /*
-  replaceable package Medium2 =
-      Modelica.Media.Interfaces.PartialCondensingGases
-      "Medium 2 in the component"
-      annotation (choicesAllMatching = true);
-      */
-  replaceable package Medium2 = Buildings.Media.Air;
-  //replaceable package Medium2 = Modelica.Media.Interfaces.PartialMedium;
+  replaceable package Medium1 = Modelica.Media.Interfaces.PartialMedium
+    "Medium 1 in the component"
+    annotation (choicesAllMatching = true);
+  replaceable package Medium2 = Buildings.Media.Air
+    "Medium 2 in the component"
+    annotation (choicesAllMatching = true);
 
-  // INPUTS
+  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
+    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  parameter Modelica.SIunits.Temperature TWatOutNominal=
+    Modelica.SIunits.Conversions.from_degC(8.7333)
+    "Guess for the water outlet temperature which is an iteration variable";
+
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(
     final quantity="ThermalConductance", final unit="W/K")
@@ -41,7 +41,6 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
     "inlet water temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}}),
         iconTransformation(extent={{-140,40},{-120,60}})));
-
   // -- Air
   Modelica.Blocks.Interfaces.RealInput UAAir(
     final quantity="ThermalConductance", final unit="W/K")
@@ -91,7 +90,6 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
       Placement(transformation(extent={{-140,0},{-120,20}}), iconTransformation(
           extent={{-140,0},{-120,20}})));
 
-  // OUTPUTS
   Modelica.Blocks.Interfaces.RealOutput QTot(
     final quantity="Power", final unit="W")
     "total heat transfer from air into water"
@@ -140,18 +138,96 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
         rotation=-90,
         origin={60,-110})));
 
-  // PARAMETERS
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration cfg=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow;
+  Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi_pW(
+    p_w=Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=wAirIn, p=pAir));
+  Buildings.Utilities.Psychrometrics.hSat_pTSat hSat_pTSat(
+    p=pAir, TSat=TWatIn);
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs dry(
+    UAWat = UAWat,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = TWatIn,
+    UAAir = UAAir,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = TAirIn,
+    cfg = cfg);
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCalcs wet(
+    redeclare package Medium1 = Medium1,
+    UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAWat,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = TWatIn,
+    TWatOutGuess = TWatOutWet,
+    UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAAir,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = TAirIn,
+    pAir = pAir,
+    wAirIn = wAirIn,
+    hAirIn = hAirIn,
+    hAirSatSurIn = hAirSatSurIn,
+    cfg = cfg);
+  Buildings.Fluid.HeatExchangers.BaseClasses.DryCalcs parDry(
+    UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAWat * dryFra,
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TWatX,
+    UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAAir * dryFra,
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TAirIn,
+    cfg = cfg);
+  Buildings.Fluid.HeatExchangers.BaseClasses.WetCalcs parWet(
+    redeclare package Medium1 = Medium1,
+    UAWat = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAWat * (1 - dryFra),
+    masFloWat = masFloWat,
+    cpWat = cpWat,
+    TWatIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+               or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TWatIn,
+    TWatOutGuess = TWatX,
+    UAAir = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+              or TAirInDewPoi <= TDewPoiA)
+            then DUMMY
+            else UAAir * (1 - dryFra),
+    masFloAir = masFloAir,
+    cpAir = cpAir,
+    TAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+               or TAirInDewPoi <= TDewPoiA)
+             then TAirInDewPoi
+             else TAirX,
+    pAir = pAir,
+    wAirIn = wAirIn,
+    hAirIn = if noEvent(TWatIn >= TAirIn or TAirInDewPoi >= TDewPoiB
+               or TAirInDewPoi <= TDewPoiA)
+             then DUMMY
+             else Medium2.specificEnthalpy_pTX(
+                    p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
+    hAirSatSurIn = hAirSatSurIn,
+    cfg = cfg)
+    "Calculations for the wet part of the coil in a partially wet coil";
 
-  // COMPONENTS
-  Buildings.Utilities.Psychrometrics.TDewPoi_pX TDewPoi_pX(
-    p=pAir, XSat=wAirIn)
-    annotation (Placement(transformation(extent={{60,-80},{120,-20}})));
-
-  // VARIABLES
-  Real dryFraFin(min=0, max=1, unit="1")
-    "Final dry fraction of the coil";
   Real dryFra(min=0, max=1, unit="1", start=0.5)
     "Dry fraction of the coil; note: this is an iteration variable and is
     not always accurate; use dryFraFin for final determination of the region";
@@ -170,27 +246,15 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
     "Water outlet temperature for a 100% dry coil";
   Medium2.Temperature TAirOutDry
     "Water outlet temperature for a 100% dry coil";
-  Medium2.Temperature TSurAirOutDry
-    "Air-side coil temperature at outlet for a 100% dry coil";
-  Real NtuWat
-    "";
-  Real NtuAir
-    "";
-  Real NtuDry
-    "";
-  Real CSta
-    "";
   // - 100% wet coil
   Modelica.SIunits.HeatFlowRate QTotWet
     "Heat transferred 'air' to 'water' for a 100% wet coil";
   Modelica.SIunits.HeatFlowRate QSenWet
     "Heat transferred 'water' to 'air' for a 100% wet coil";
-  Medium1.Temperature TWatOutWet
+  Medium1.Temperature TWatOutWet(start=TWatOutNominal)
     "Water outlet temperature for a 100% wet coil";
   Medium2.Temperature TAirOutWet
     "Water outlet temperature for a 100% wet coil";
-  Medium2.Temperature TSurAirInWet
-    "Air-side coil temperature at outlet for a 100% wet coil";
   Modelica.SIunits.MassFlowRate masFloConWet
     "Mass flow of condensate for a 100% wet coil; a positive number or zero.";
   Modelica.SIunits.Temperature TConWet
@@ -201,7 +265,7 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
     a partially wet coil";
   Medium1.Temperature TWatOutPar
     "Water outlet temperature";
-  Medium2.Temperature TWatX
+  Medium2.Temperature TWatX(start=TWatOutNominal)
     "Water temperature at the wet/dry transition";
   Medium2.Temperature TAirX
     "Air temperature at the wet/dry transition";
@@ -212,162 +276,58 @@ model DryWetCalcs "Combines both dry and wet eff NTU calculations"
   Modelica.SIunits.HeatFlowRate QSenWetPar
     "Sensible heat transferred from 'water' to 'air' for the wet part of
     a partially wet coil";
-  Medium2.Temperature TSurAirInWetPar
-    "The coil surface at the air inlet to the wet coil in a partially wet coil";
-  Medium2.Temperature TSurAirOutPar
-    "The coil surface at the air outlet from the dry section in a wet/dry coil";
   Modelica.SIunits.MassFlowRate masFloConPar
     "Mass flow of condensate in a wet/dry coil. A positive number for flow.";
   Modelica.SIunits.Temperature TConPar
     "Temperature of condensate in a wet/dry coil";
-  Boolean cooling
-    "True indicates we are cooling";
-  Boolean heating
-    "True indicates we are heating (or there is no temperature driving force)";
-  Boolean allDry
-    "True indicates we are all dry";
-  Boolean allWet
-    "True indicates we are all wet";
   constant Real DUMMY = 0
     "Used to 'switch off' the dry / wet coil calculation functions";
+  Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
+    "Air enthalpy at coil surface at water inlet conditions; used in wet calcs";
 
 equation
-  TAirInDewPoi = TDewPoi_pX.TDewPoi;
-  (QSenDry, TWatOutDry, TAirOutDry, TSurAirOutDry,
-    NtuWat, NtuAir, NtuDry, CSta) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
-      UAWat = UAWat,
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = TWatIn,
-      UAAir = UAAir,
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = TAirIn,
-      cfg = cfg);
+  TAirInDewPoi = TDewPoi_pW.T;
+  hAirSatSurIn = hSat_pTSat.hSat;
+  QSenDry = dry.Q;
+  TWatOutDry = dry.TWatOut;
+  TAirOutDry = dry.TAirOut;
   // Find TDewPoiA, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 1; i.e., 100% dry coil.
   (TAirOutDry - TDewPoiA) * UAAir = (TDewPoiA - TWatIn) * UAWat;
-  cooling = TWatIn < TAirIn;
-  heating = TWatIn >= TAirIn;
-  // We are in the all-dry regime if:
-  // - we are not cooling (i.e., we are heating (TWatIn >= TAirIn))
-  // - the water inlet temperature is greater than the inlet air dew point
-  //   since we can never cool the air stream to the water inlet temperature
-  //   we know we can never condense
-  // - the coil surface at outlet is greater than inlet air dew point
-  //   since the coldest part of the coil will be at outlet and if it is not
-  //   below the dew point, then we would not condense
-  // - the inlet air dew point temperature is <= TDewPoiA, since TDewPoiA
-  //   is the trigger point to start condensation
-  allDry = heating
-    or TWatIn > TAirInDewPoi
-    or TSurAirOutDry > TAirInDewPoi
-    or TAirInDewPoi <= TDewPoiA;
-  // Note: by setting UA values to zero below, we "short circuit"
-  // the following functions so, although we have the cost of calling
-  // the function, there should be no iteration and no calculation.
-  (QTotWet, QSenWet, TWatOutWet, TAirOutWet, TSurAirInWet,
-    masFloConWet, TConWet) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
-      UAWat = if noEvent(allDry) then DUMMY else UAWat,
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = TWatIn,
-      TWatOutGuess = TWatOutWet,
-      UAAir = if noEvent(allDry) then DUMMY else UAAir,
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = TAirIn,
-      pAir = pAir,
-      wAirIn = wAirIn,
-      hAirIn = hAirIn,
-      cfg = cfg);
+  QTotWet = wet.QTot;
+  QSenWet = wet.QSen;
+  TWatOutWet = wet.TWatOut;
+  TAirOutWet = wet.TAirOut;
+  masFloConWet = wet.masFloCon;
+  TConWet = wet.TCon;
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
-  // We are 100% wet if:
-  // - the incoming air dew point is greater than or equal to the trigger
-  //   dew point at dryFra = 0
-  // - and we are not heating
-  allWet = TAirInDewPoi >= TDewPoiB and cooling;
-  // The use of TAirInDewPoi below as the "then clause" is so the equation
-  // below the two function calls "(TAirX - TAirInDewPoi) ..." will
-  // gracefully degrade and still be true when we short circuit the following
-  // code where we solve for the partially wet/ partially dry region.
-  (QSenDryPar, TWatOutPar, TAirX, TSurAirOutPar) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.dryCoil(
-      UAWat = if noEvent(allWet or allDry or heating)
-              then DUMMY
-              else UAWat * dryFra,
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = if noEvent(allWet or allDry or heating)
-               then TAirInDewPoi
-               else TWatX,
-      UAAir = if noEvent(allWet or allDry or heating)
-              then DUMMY
-              else UAAir * dryFra,
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = if noEvent(allWet or allDry or heating)
-               then TAirInDewPoi
-               else TAirIn,
-      cfg = cfg);
-  (QTotWetPar, QSenWetPar, TWatX, TAirOutPar, TSurAirInWetPar,
-    masFloConPar, TConPar) =
-    Buildings.Fluid.HeatExchangers.BaseClasses.wetCoil(
-      UAWat = if noEvent(allWet or allDry or heating)
-              then DUMMY
-              else UAWat * (1 - dryFra),
-      masFloWat = masFloWat,
-      cpWat = cpWat,
-      TWatIn = if noEvent(allWet or allDry or heating)
-               then TAirInDewPoi
-               else TWatIn,
-      TWatOutGuess = TWatX,
-      UAAir = if noEvent(allWet or allDry or heating)
-              then DUMMY
-              else UAAir * (1 - dryFra),
-      masFloAir = masFloAir,
-      cpAir = cpAir,
-      TAirIn = if noEvent(allWet or allDry or heating)
-               then TAirInDewPoi
-               else TAirX,
-      pAir = pAir,
-      wAirIn = wAirIn,
-      hAirIn = if noEvent(allWet or allDry or heating)
-               then DUMMY
-               else
-                 Medium2.specificEnthalpy_pTX(
-                   p=pAir, T=TAirX, X={wAirIn, 1 - wAirIn}),
-      cfg = cfg);
-  (TAirX - TAirInDewPoi) * UAAir = (TAirInDewPoi - TWatX) * UAWat;
-  if noEvent(allDry or dryFra >= 1) then
-    dryFraFin = 1;
+  QSenDryPar = parDry.Q;
+  TWatOutPar = parDry.TWatOut;
+  TAirX = parDry.TAirOut;
+  QTotWetPar = parWet.QTot;
+  QSenWetPar = parWet.QSen;
+  TWatX = parWet.TWatOut;
+  TAirOutPar = parWet.TAirOut;
+  masFloConPar = parWet.masFloCon;
+  TConPar = parWet.TCon;
+  if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA) then
+    dryFra = 1;
     QTot = -QSenDry;
     QSen = QSenDry;
     masFloCon = 0;
     TCon = TConWet;
-  elseif noEvent(allWet or dryFra <= 0) then
-    dryFraFin = 0;
+  elseif noEvent(TAirInDewPoi >= TDewPoiB) then
+    dryFra = 0;
     QTot = QTotWet;
     QSen = QSenWet;
-    /*
-    -(QTotWet - masFloConWet * Medium2.enthalpyOfVaporization(TConWet));
-    */
     masFloCon = -masFloConWet;
     TCon = TConWet;
   else
-    dryFraFin = dryFra;
+    (TAirX - TAirInDewPoi) * UAAir = (TAirInDewPoi - TWatX) * UAWat;
     QTot = QTotWetPar + (-QSenDryPar);
-    // Note: QSenDryPar is negative, thus the expression below adds the heat
-    // transfers to estimate a sensible heat transfer amount
     QSen = QSenDryPar + QSenWetPar;
-    /*
-    QSenDryPar
-    - (QTotWetPar - masFloConPar * Medium2.enthalpyOfVaporization(TConWet));
-    */
     masFloCon = -masFloConPar;
     TCon = TConPar;
   end if;
