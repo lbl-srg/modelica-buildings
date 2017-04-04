@@ -11,12 +11,12 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
     annotation (Placement(transformation(extent={{-76,8},{-56,28}})));
 
-   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc2(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc2(
      CycleOn = true,
      period = 5)
      "Block that output cyclc on and off"
      annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=50) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=50) "Constant as source term"
      annotation (Placement(transformation(extent={{-76,-26},{-56,-6}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.Latch latch1

@@ -9,9 +9,15 @@ block Latch "Maintains an on signal until conditions changes"
   Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
+
 
 protected
   Integer scenario "scenario index";
+
+initial equation
+  pre(u) = pre_u_start;
+  pre(u0) = pre_u_start;
 
 algorithm
   when (not u0) and (pre(u) <> u) and (pre(u) == false) then
