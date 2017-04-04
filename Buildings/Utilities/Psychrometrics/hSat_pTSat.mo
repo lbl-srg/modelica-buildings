@@ -3,7 +3,6 @@ model hSat_pTSat
   "Calculate saturation enthalpy given a saturation (dry bulb) temperature"
   extends Modelica.Blocks.Icons.Block;
 
-  // INPUTS
   Modelica.Blocks.Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
@@ -22,7 +21,6 @@ model hSat_pTSat
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 
-  // OUTPUTS
   Modelica.Blocks.Interfaces.RealOutput hSat(
     final quantity="SpecificEnergy",
     final unit="J/kg")
@@ -30,8 +28,9 @@ model hSat_pTSat
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Integer watIdx = 1;
-  constant Integer othIdx = 2;
+  constant Integer watIdx = 1 "Index of water";
+  constant Integer othIdx = 2 "Index of other species";
+  constant Real phiSat(min=0, max=1) = 1 "Saturation relative humidity";
   Modelica.SIunits.AbsolutePressure pSat
     "Saturation pressure of water vapor in air at TSat";
   Real XSat[2]
@@ -39,8 +38,8 @@ protected
 
 equation
   pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TSat);
-  XSat[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pW(
-    p_w=pSat, p=p);
+  XSat[watIdx] = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    pSat=pSat, p=p, phi=phiSat);
   XSat[othIdx] = 1 - XSat[watIdx];
   hSat = Buildings.Media.Air.specificEnthalpy_pTX(p=p, T=TSat, X=XSat);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
