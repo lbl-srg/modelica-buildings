@@ -188,24 +188,33 @@ diagram below illustrates this.
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
 </p>
 <p>
-According to mentioned article from G36, the outdoor airflow rate shall be 
-maintained at the minimum outdoor air setpoint, VOutMinSet, which is an output of
+According to mentioned article from G36, the outdoor airflow rate, uVOut,
+shall be maintained at the minimum outdoor air setpoint, VOutMinSet, which is an output of
 a separate atomic sequence, by a reverse-acting control loop whose output is 
 mapped to the maximum return air damper position, yRetDamPosMax, and to the
-minimum supply air damper position, yEcoDamPosMin.  
-</p>
-
-<p>
-bla
+minimum supply air damper position, yEcoDamPosMin.
 </p>
 <p>
-bla
+Control charts below show the input-output structure and a damper limit 
+position sequence assuming a well tuned controller.
 </p>
-
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
 </p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
+</p>
+<p>
+fixme: additional text about the functioning of the sequence
+Note that VOut depends on whether the economizer damper is controlled to a 
+position higher than it's minimum limit. This is defined by the EconEnableDisable
+and EconModulate [fixme check seq name] sequences. Fixme feature add: For this reason
+we may want to implement something like:
+while VOut > VOutSet and EcoDamPos>EcoDamPosMin, keep previous EcoDamPosMin.
+</p>
+
 </html>", revisions="<html>
 <ul>
 <li>
