@@ -5,7 +5,7 @@ model EconMinOutAirDamPosLimits_VOut
 
   CDL.Logical.Constant FanStatus(k=true) "Fan is on"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Constant VOutSet(k=0.5)
+  CDL.Continuous.Constant VOutMinSet(k=0.5)
     "Outdoor air temperature, constant below example 75 F"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp VOut(
@@ -16,10 +16,29 @@ model EconMinOutAirDamPosLimits_VOut
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   CDL.Logical.Constant AHUMode(k=true) "AHU is enabled"
     annotation (Placement(transformation(extent={{-80,-52},{-60,-32}})));
+  EconMinOutAirDamPosLimits econMinOutAirDamPosLimits
+    "One of the economizer control sequences, it sets the min econ damper limit and the max return air damper limit in order to maintain the minimum outdoor airflow setpoint."
+    annotation (Placement(transformation(extent={{-20,26},{0,60}})));
+  CDL.Interfaces.RealOutput yRet
+    annotation (Placement(transformation(extent={{68,40},{88,60}})));
+  CDL.Interfaces.RealOutput yEco
+    annotation (Placement(transformation(extent={{68,18},{88,38}})));
 equation
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
+  connect(VOutMinSet.y, econMinOutAirDamPosLimits.uVOutMinSet) annotation (Line(
+        points={{-59,70},{-40,70},{-40,58},{-22,58}}, color={0,0,127}));
+  connect(VOut.y, econMinOutAirDamPosLimits.uVOut) annotation (Line(points={{
+          -59,30},{-42,30},{-42,54},{-22,54}}, color={0,0,127}));
+  connect(FanStatus.y, econMinOutAirDamPosLimits.uSupFan) annotation (Line(
+        points={{-59,-10},{-42,-10},{-42,50},{-22,50}}, color={255,0,255}));
+  connect(AHUMode.y, econMinOutAirDamPosLimits.uAHUMod) annotation (Line(points
+        ={{-59,-42},{-42,-42},{-42,46},{-22,46}}, color={255,0,255}));
+  connect(econMinOutAirDamPosLimits.yRetDamPosMax, yRet) annotation (Line(
+        points={{1,53},{34.5,53},{34.5,50},{78,50}}, color={0,0,127}));
+  connect(econMinOutAirDamPosLimits.yEcoDamPosMin, yEco) annotation (Line(
+        points={{1,47},{35.5,47},{35.5,28},{78,28}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

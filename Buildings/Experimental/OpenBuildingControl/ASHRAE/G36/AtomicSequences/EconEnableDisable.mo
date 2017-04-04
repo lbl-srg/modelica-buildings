@@ -58,8 +58,8 @@ equation
                                                     color={0,0,127}));
   connect(or1.y, not1.u)
     annotation (Line(points={{51,64},{58,64}},   color={255,0,255}));
-  connect(or2.y, or1.u1) annotation (Line(points={{51,92},{62,92},{62,108},{14,108},
-          {14,78},{22,78},{22,64},{28,64}},
+  connect(or2.y, or1.u1) annotation (Line(points={{51,92},{62,92},{62,108},{14,
+          108},{14,78},{14,78},{14,64},{28,64}},
                  color={255,0,255}));
   connect(TSup, TSupThreshold.u)
     annotation (Line(points={{-120,104},{-92,104}}, color={0,0,127}));
