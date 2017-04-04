@@ -185,7 +185,7 @@ diagram below illustrates this.
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChart.png\"/>
 </p>
 <p>
 According to mentioned article from G36, the outdoor airflow rate, uVOut,
@@ -196,15 +196,20 @@ minimum supply air damper position, yEcoDamPosMin.
 </p>
 <p>
 Control charts below show the input-output structure and a damper limit 
-position sequence assuming a well tuned controller.
+position sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagram.png\"/>
+</p>
+<p>
+Expected control performance, upon tuning:
+<br>
+</br>
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/fixme.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChart.png\"/>
 </p>
 <p>
 fixme: additional text about the functioning of the sequence
