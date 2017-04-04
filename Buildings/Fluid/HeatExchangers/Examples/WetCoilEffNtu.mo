@@ -2,14 +2,11 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
   extends Modelica.Icons.Example;
 
-  // PACKAGES
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  // CONSTANTS
   constant Modelica.SIunits.AbsolutePressure pAtm = 101325;
 
-  // PARAMETERS
   parameter Modelica.SIunits.Temperature TWatIn=
     Modelica.SIunits.Conversions.from_degF(42)
     "Inlet water temperature";
@@ -37,7 +34,6 @@ model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
   parameter Real XWatIn(min=0,max=1) = 0.0089757
     "Inlet air humidity ratio: mass of water per mass of moist air";
 
-  // COMPONENTS
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = Medium_A,
     use_p_in=false,
@@ -95,7 +91,6 @@ model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
     "Pressure drop in airway"
     annotation (Placement(transformation(extent={{36,-50},{16,-30}})));
 
-  // VARIABLES
   Modelica.SIunits.HeatFlowRate QTotWat
     "Total heat transferred to the water";
   Modelica.SIunits.HeatFlowRate QTotAir
