@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "sample1.u",
-    "sample1.y"
+    "sampler1.u",
+    "sampler1.y"
   };

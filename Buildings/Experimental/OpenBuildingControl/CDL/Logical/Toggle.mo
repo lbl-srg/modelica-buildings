@@ -8,6 +8,7 @@ block Toggle "Toggles output value whenever its input turns on"
   Interfaces.BooleanOutput y
     "Connector of Real output signal used as actuator signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  parameter Boolean pre_u_start=false "Start value of pre(u) at initial time";
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
 
 protected
@@ -15,6 +16,8 @@ protected
 
 initial equation
   pre(y) = pre_y_start;
+  pre(u) = pre_u_start;
+  pre(u0) = pre_u_start;
 
 algorithm
   when (not u0) and ((pre(u)<>u) and (pre(u) == false)) and (pre(y) == false) then
