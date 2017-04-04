@@ -58,5 +58,20 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This model is a dual heater and humidifier for a fluid stream capable of adding
+(or removing) heat and at the same time adding (or removing) moisture.
+</p>
+
+<p>
+As this model is effectively a combination of the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.HeatCooler_u\">
+Buildings.Fluid.HeatExchangers.HeatCooler_u</a> and
+<a href=\"modelica://Buildings.Fluid.MassExchangers.Humidifier_u\">
+Buildings.Fluid.MassExchangers.Humidifier_u
+</a> models, the interested user is directed to each of those
+models to read about the fundamental physics, limitations, etc.
+</p>
 </html>"));
 end HeaterCoolerHumidifier_u;
