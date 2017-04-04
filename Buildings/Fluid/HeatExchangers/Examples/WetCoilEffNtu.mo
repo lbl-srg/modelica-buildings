@@ -137,5 +137,37 @@ equation
           experiment(StopTime=1),
           __Dymola_Commands(
             file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilEffNtu.mos"
-            "Simulate and plot"));
+            "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This example duplicates an example from Mitchell and Braun 2012, example SM-2-1
+(Mitchell and Braun 2012) to validate a single case for the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.WetEffectivenessNTU</a> model.
+</p>
+
+<h4>Validation</h4>
+
+<p>
+The example is a steady-state analysis of a partially wet coil with the inlet
+conditions as specified in the model setup.
+</p>
+
+<p>
+The slight deviations we find are believed due to differences in the tolerance
+of the solver algorithms employed as well as differences in media property
+calculations for air and water.
+</p>
+
+<h4>References</h4>
+
+<p>
+Mitchell, John W., and James E. Braun. 2012.
+\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
+Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
+Hoboken, N.J.: Wiley. Available online:
+<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
+http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
+</p>
+</html>"));
 end WetCoilEffNtu;
