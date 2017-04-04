@@ -164,6 +164,7 @@ test excluding hysteresis by simply setting the delta parameter to 0.
 Notes: Delay seems to replace hysteresis in practice, 
 at least based on our current project partners input.
 </p>
+
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
@@ -172,7 +173,5 @@ src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASH
 March 31, 2017, by Milica Grahovac:<br/>
 First implementation.
 </li>
-
-
 </html>"));
 end EconEnableDisable;
