@@ -30,14 +30,15 @@ model EconMinOutAirDamPosLimits
     Nd=1,
     k=0.02)
     "Contoller that outputs a signal based on the error between the measured outdoor airflow and the minimum outdoor airflow requirement."
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   CDL.Continuous.Constant SigFraForEconDam(k=0.6)
     "Fraction of the control signal for which the economizer damper is and stays fully open and above which the return air damper modulates downwards."
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  CDL.Interfaces.BooleanInput uAHUMod "AHU Mode, occupied or not occupied"
+  CDL.Interfaces.BooleanInput uAHUMod
+    "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealOutput yEcoDamPosMin
     "Minimum economizer damper position limit."
@@ -76,9 +77,9 @@ model EconMinOutAirDamPosLimits
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(uVOutMinSet, MinOutAirDamPosController.u_s)
-    annotation (Line(points={{-120,80},{-120,80},{-72,80}}, color={0,0,127}));
+    annotation (Line(points={{-120,80},{-120,80},{-82,80}}, color={0,0,127}));
   connect(uVOut, MinOutAirDamPosController.u_m)
-    annotation (Line(points={{-120,40},{-60,40},{-60,68}}, color={0,0,127}));
+    annotation (Line(points={{-120,40},{-70,40},{-70,68}}, color={0,0,127}));
   connect(uSupFan, nand.u1) annotation (Line(points={{-120,0},{-96,0},{-96,-20},
           {-82,-20}}, color={255,0,255}));
   connect(uAHUMod, nand.u2) annotation (Line(points={{-120,-40},{-96,-40},{-96,
@@ -110,8 +111,8 @@ equation
           42,70},{42,-62},{58,-62}},  color={0,0,127}));
   connect(maxSignalLimit.y, RetDamPosMax.x2) annotation (Line(points={{1,10},{32,
           10},{32,-74},{58,-74}},    color={0,0,127}));
-  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points=
-          {{-49,80},{-28,80},{-28,-70},{58,-70}}, color={0,0,127}));
+  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points={{-59,80},
+          {-28,80},{-28,-70},{58,-70}},           color={0,0,127}));
   connect(EcoDamPosMax.y, EcoDamPosMin.f2) annotation (Line(points={{-19,-170},
           {46,-170},{46,-118},{58,-118}}, color={0,0,127}));
   connect(EcoDamPhyPosMin.y, EcoDamPosMin.f1) annotation (Line(points={{-59,
@@ -120,8 +121,8 @@ equation
           40},{36,-102},{58,-102}},    color={0,0,127}));
   connect(SigFraForEconDam.y, EcoDamPosMin.x2) annotation (Line(points={{1,70},{
           18,70},{18,-114},{58,-114}},  color={0,0,127}));
-  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points=
-          {{-49,80},{-38,80},{-38,-110},{58,-110}}, color={0,0,127}));
+  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points={{-59,80},
+          {-38,80},{-38,-110},{58,-110}},           color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -240},{100,100}}),                                  graphics={
         Rectangle(
@@ -139,17 +140,23 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uVOutMin"),
         Text(
+          extent={{112,70},{182,34}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRetDamPosMax"),
+        Text(
           extent={{-96,62},{-26,26}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uVOut"),
         Text(
-          extent={{-96,22},{-26,-14}},
+          extent={{112,6},{182,-30}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan"),
+          textString="yRetDamPosMin"),
         Text(
           extent={{-96,-20},{-26,-56}},
           lineColor={0,0,127},
@@ -157,17 +164,38 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uAHUMod"),
         Text(
-          extent={{112,70},{182,34}},
+          extent={{-96,22},{-26,-14}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMax"),
-        Text(
-          extent={{112,6},{182,-30}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMin")}),                         Diagram(
+          textString="uSupFan")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
-            100}})));
+            100}})),
+ Documentation(info="<html>      
+<p>
+implementation fixme: timers for TSup, AND for 10 min delay
+</p>   
+  <p>
+bla
+  </p>
+  <p>
+bla
+  </p>
+
+<p>
+bla
+</p>
+<p>
+bla
+</p>
+
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
+</p>
+<li>
+April 04, 2017, by Milica Grahovac:<br/>
+First implementation.
+</li>
+</html>"));
 end EconMinOutAirDamPosLimits;

@@ -71,8 +71,9 @@ equation
           {-38,96},{-34,96}}, color={0,0,127}));
   connect(timer1.y, greater.u1) annotation (Line(points={{-41,114},{-38,114},{-38,
           104},{-34,104}}, color={0,0,127}));
-  connect(greater.y, or2.u2) annotation (Line(points={{-11,104},{-11,94},{-4,94},
-          {-4,84},{14,84},{28,84}}, color={255,0,255}));
+  connect(greater.y, or2.u2) annotation (Line(points={{-11,104},{-11,104},{-4,
+          104},{-4,84},{14,84},{28,84}},
+                                    color={255,0,255}));
   connect(uFre, or1.u2)
     annotation (Line(points={{-120,56},{-46,56},{28,56}}, color={255,0,255}));
   connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{87,-64},
