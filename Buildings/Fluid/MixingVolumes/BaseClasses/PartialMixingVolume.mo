@@ -310,7 +310,7 @@ Buildings.Fluid.MixingVolumes</a>.
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs U, m, mXi, mC for being able to
-check conservation of quantities. 
+check conservation of quantities.
 This if or <a href=\"https://github.com/ibpsa/modelica/issues/247\">
 issue 247</a>.
 </li>

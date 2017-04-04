@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckWindDirection", startTime=0, stopTime=8640000, method="dassl", resultFile="CheckWindDirection");
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.CheckWindDirection", startTime=0, tolerance=1e-6, stopTime=8640000, method="dassl", resultFile="CheckWindDirection");
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},

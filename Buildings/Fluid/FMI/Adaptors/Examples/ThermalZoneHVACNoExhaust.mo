@@ -206,5 +206,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end ThermalZoneHVACNoExhaust;

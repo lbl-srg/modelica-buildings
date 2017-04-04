@@ -239,7 +239,7 @@ equation
       color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{240,180}}), graphics),
-            experiment(StopTime=600),
+            experiment(Tolerance=1e-6, StopTime=600),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -20,7 +20,9 @@ October 7, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), __Dymola_Commands(file=
+</html>"),
+experiment(Tolerance=1e-6, StopTime=5),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified1.mos"
         "Simulate and plot"));
 end Simplified1;

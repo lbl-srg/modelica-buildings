@@ -1,4 +1,4 @@
-simulateModel("Buildings.Utilities.Math.Examples.Splice",stopTime=2, method="dassl", resultFile="Splice");
+simulateModel("Buildings.Utilities.Math.Examples.Splice",tolerance=1e-6, stopTime=2, method="dassl", resultFile="Splice");
 removePlots();
 
 createPlot(id = 1,

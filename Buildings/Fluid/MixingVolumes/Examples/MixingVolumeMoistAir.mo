@@ -147,7 +147,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
 experiment(StopTime=600,
-           Tolerance=1e-6),
+           Tolerance=1E-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>

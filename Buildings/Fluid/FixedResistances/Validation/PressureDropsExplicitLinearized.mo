@@ -11,7 +11,7 @@ model PressureDropsExplicitLinearized
     res41(linearized=true),
     res42(linearized=true));
   annotation (
-experiment(StartTime=-1, StopTime=1.0),
+experiment(StartTime=-1, Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PressureDropsExplicitLinearized.mos"
         "Simulate and plot"),
     Documentation(info="<html>

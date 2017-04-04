@@ -119,7 +119,7 @@ equation
   connect(pumHea.m_flow_in, conPID.y) annotation (Line(points={{-20,68},{-40,68},
           {-40,-10},{-49,-10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),experiment(StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/HeatingOnly.mos"
+            -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/HeatingOnly.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>

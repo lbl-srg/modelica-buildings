@@ -11,7 +11,7 @@ equation
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
-   annotation(experiment(StopTime=1),
+   annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Specialized/Water/Examples/TemperatureDependentDensityProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>

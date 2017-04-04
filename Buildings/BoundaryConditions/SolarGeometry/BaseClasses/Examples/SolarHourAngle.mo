@@ -27,7 +27,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (experiment(StopTime=86400),
+  annotation (experiment(Tolerance=1e-6, StopTime=86400),
 Documentation(info="<html>
 <p>
 This example computes the solar hour angle,

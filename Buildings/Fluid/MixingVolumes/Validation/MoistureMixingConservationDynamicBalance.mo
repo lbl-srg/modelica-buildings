@@ -195,11 +195,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -280},{180,120}})),           Documentation(info="<html>
 <p>
-This model verifies if mass and energy are conserved, 
-using a dynamic balance. 
-Two air streams with different mass flow rate are humidified 
-by a mixing volume with two different vapor mass flow rates. 
-These flows are then mixed. 
+This model verifies if mass and energy are conserved,
+using a dynamic balance.
+Two air streams with different mass flow rate are humidified
+by a mixing volume with two different vapor mass flow rates.
+These flows are then mixed.
 Boundary integrals are used to verify if air mass,
 vapour mass and internal energy are conserved.
 </p>
@@ -230,7 +230,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+experiment(Tolerance=1e-6, StopTime=1),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));

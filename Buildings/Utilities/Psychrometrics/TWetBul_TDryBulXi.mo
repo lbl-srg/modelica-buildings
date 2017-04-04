@@ -182,8 +182,8 @@ Changed icon.
 </li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
-Corrected exact implementation. 
-See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a> 
+Corrected exact implementation.
+See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a>
 for a discussion.
 </li>
 <li>
