@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "Fedge1.u",
+    "Fedge1.y",
+    "triggeredSampler.u",
+    "triggeredSampler.y"
+  };

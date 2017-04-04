@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "logicalSw1.u1",
+    "logicalSw1.u2",
+    "logicalSw1.u3",
+    "logicalSw1.y"
+  };

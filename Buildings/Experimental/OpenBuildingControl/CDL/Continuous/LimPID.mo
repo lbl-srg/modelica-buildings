@@ -33,8 +33,7 @@ block LimPID
        annotation(Dialog(enable=controllerType==Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==Modelica.Blocks.Types.SimpleController.PID));
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.Init initType= Types.Init.InitialState
-    "Type of initialization"
-                                     annotation(Evaluate=true,
+    "Type of initialization"         annotation(Evaluate=true,
       Dialog(group="Initialization"));
   parameter Boolean limitsAtInit = true
     "= false, if limits are ignored during initialization"

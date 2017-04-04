@@ -9,6 +9,7 @@ GreaterEqual
 GreaterEqualThreshold
 GreaterThreshold
 Hysteresis
+Latch
 Less
 LessEqual
 LessEqualThreshold
@@ -22,6 +23,8 @@ OnOffController
 Or
 Switch
 Timer
+Toggle
 TriggeredTrapezoid
 Xor
 ZeroCrossing
+Validation

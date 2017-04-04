@@ -6,7 +6,7 @@ block Truncation
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.RealOutput y "Connector of Real output signal"
+  Interfaces.IntegerOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 
@@ -38,13 +38,21 @@ equation
         Line(points={{-33,0},{0,0}}),
         Line(points={{-1,0},{32,0}}),
         Line(points={{33,24},{66,24}}),
-        Line(points={{65,46},{98,46}})}),
+        Line(points={{65,46},{98,46}}),
+        Text(
+          lineColor={0,0,255},
+          extent={{-126,102},{116,134}},
+          textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Text(
           lineColor={0,0,255},
           extent={{-152,104},{148,144}},
+          textString="%name"),
+        Text(
+          lineColor={0,0,255},
+          extent={{-130,116},{170,156}},
           textString="%name")}),
     Documentation(info="<html>
 <p>
@@ -53,6 +61,13 @@ where <code>u</code> is an input.
 </p>
 
 </html>", revisions="<html>
+<ul>
+<li>
+March 31, 2017, by Jianjun Hu:<br/>
+Change block output from <code>Interfaces.RealOutput</code> 
+to <code>Interfaces.IntegerOutput</code>.
+</li>
+</ul>
 <ul>
 <li>
 March 22, 2017, by Jianjun Hu:<br/>

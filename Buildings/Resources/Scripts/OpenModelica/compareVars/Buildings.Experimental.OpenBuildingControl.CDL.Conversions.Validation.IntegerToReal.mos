@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "InToReal1.u",
+    "InToReal1.y"
+  };

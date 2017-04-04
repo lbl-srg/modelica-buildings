@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "onCounter1.trigger",
+    "onCounter1.reset",
+    "onCounter1.y"
+  };

@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "grterEqThr1.u",
+    "grterEqThr1.y"
+  };

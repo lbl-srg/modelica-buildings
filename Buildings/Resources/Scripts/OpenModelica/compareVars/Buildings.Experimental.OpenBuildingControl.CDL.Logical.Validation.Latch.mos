@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "latch1.u0",
+    "latch1.u",
+    "latch1.y"
+  };
