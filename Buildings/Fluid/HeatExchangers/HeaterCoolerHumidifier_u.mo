@@ -2,8 +2,10 @@ within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerHumidifier_u
   "A heating and humidifcation block"
   extends MassExchangers.Humidifier_u;
+
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
+
   Modelica.Blocks.Interfaces.RealInput u1
     "Control input for heat flow"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}})));
@@ -14,15 +16,15 @@ model HeaterCoolerHumidifier_u
     final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-46,-64},{-26,-44}})));
+
 equation
-  connect(u1, gai1.u)
-    annotation (Line(points={{-120,-90},{-90,-90},{-90,-54},{-80,-54}},
-                     color={0,0,127}));
-  connect(gai1.y, preHea.Q_flow)
-    annotation (Line(points={{-57,-54},{-46,-54}}, color={0,0,127}));
-  connect(preHea.port, vol.heatPort)
-  annotation (Line(points={{-26,-54},{-16,-54},{-16,-10},{-9,-10}},
-                   color={191,0,0}));
+  connect(u1, gai1.u) annotation (
+    Line(points={{-120,-90},{-90,-90},{-90,-54},{-80,-54}},
+    color={0,0,127}));
+  connect(gai1.y, preHea.Q_flow) annotation (
+    Line(points={{-57,-54},{-46,-54}}, color={0,0,127}));
+  connect(preHea.port, vol.heatPort) annotation (
+    Line(points={{-26,-54},{-16,-54},{-16,-10},{-9,-10}}, color={191,0,0}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,-89},{-78,-92}},
