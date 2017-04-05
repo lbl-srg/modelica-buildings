@@ -41,12 +41,13 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealOutput yEcoDamPosMin
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{100,-22},{120,-2}}), iconTransformation(extent=
-            {{100,-22},{120,-2}})));
+        transformation(extent={{100,20},{120,40}}),  iconTransformation(extent={{100,20},
+            {120,40}})));
   CDL.Interfaces.RealOutput yRetDamPosMax
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,18},{120,38}}), iconTransformation(extent={
-            {100,18},{120,38}})));
+        transformation(extent={{100,-58},{120,-38}}),
+                                                    iconTransformation(extent={{100,-58},
+            {120,-38}})));
   CDL.Continuous.Constant RetDamPhyPosMax(k=1)
     "Physical or at the comissioning fixed maximum opening of the return air damper. This is the initial condition of the return air damper."
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
@@ -76,12 +77,12 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   CDL.Interfaces.RealOutput yRetDamPosMin
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,-2},{120,18}}), iconTransformation(extent={
-            {100,-2},{120,18}})));
+        transformation(extent={{100,-20},{120,0}}), iconTransformation(extent={{100,-20},
+            {120,0}})));
   CDL.Interfaces.RealOutput yEcoDamPosMax
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,-38},{120,-18}}), iconTransformation(extent=
-           {{100,38},{120,58}})));
+        transformation(extent={{100,-38},{120,-18}}), iconTransformation(extent={{100,50},
+            {120,70}})));
 equation
   connect(uVOutMinSet, MinOutAirDamPosController.u_s)
     annotation (Line(points={{-120,80},{-120,80},{-82,80}}, color={0,0,127}));
@@ -103,10 +104,11 @@ equation
           {-50,-90},{-50,-122},{-42,-122}}, color={0,0,127}));
   connect(RetDamPhyPosMin.y, RetDamPosMin.u3) annotation (Line(points={{-59,-130},
           {-56,-130},{-56,-138},{-52,-138},{-42,-138}}, color={0,0,127}));
-  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{92,
-          -110},{92,-12},{110,-12}}, color={0,0,127}));
-  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{80,
-          -70},{80,28},{96,28},{110,28}}, color={0,0,127}));
+  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{84,
+          -110},{84,-110},{84,-110},{84,30},{84,30},{110,30}},
+                                     color={0,0,127}));
+  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{92,
+          -70},{92,-48},{110,-48}},       color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMax.f1) annotation (Line(points={{-59,-90},
           {12,-90},{12,-66},{58,-66}}, color={0,0,127}));
   connect(RetDamPosMin.y, RetDamPosMax.f2) annotation (Line(points={{-19,-130},
@@ -128,21 +130,23 @@ equation
   connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points={{-59,80},
           {-38,80},{-38,-110},{58,-110}},           color={0,0,127}));
   connect(RetDamPhyPosMin.y, yRetDamPosMin) annotation (Line(points={{-59,-130},
-          {-58,-130},{-58,-144},{-56,-144},{88,-144},{88,8},{110,8}}, color={0,
+          {-58,-130},{-58,-144},{-56,-144},{88,-144},{88,-10},{110,-10}},
+                                                                      color={0,
           0,127}));
   connect(EcoDamPhyPosMax.y, yEcoDamPosMax) annotation (Line(points={{-59,-170},
           {-56,-170},{-56,-184},{-52,-184},{96,-184},{96,-28},{110,-28}}, color=
          {0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
-            100}}), graphics={
+    defaultComponentName = "ecoEnaDis",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),                                        graphics={
         Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Line(
-          points={{2,50},{-46,-40},{48,-40},{2,50}},
+          points={{2,66},{-64,-62},{66,-62},{2,66}},
           color={28,108,200},
           thickness=0.5),
         Text(
@@ -152,7 +156,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uVOutMin"),
         Text(
-          extent={{118,76},{188,40}},
+          extent={{108,96},{178,60}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -164,7 +168,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uVOut"),
         Text(
-          extent={{118,16},{188,-20}},
+          extent={{108,64},{178,28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -182,19 +186,20 @@ equation
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
         Text(
-          extent={{118,56},{188,20}},
+          extent={{110,-6},{180,-42}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMax"),
         Text(
-          extent={{118,36},{188,0}},
+          extent={{110,26},{180,-10}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMin")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{
-            100,100}})),
+    Diagram(coordinateSystem(                           extent={{-100,-240},{
+            100,100}},
+        initialScale=0.1)),
     Documentation(info="<html>      
 <p>
 This atomic sequence sets the minimum economizer damper position limit and

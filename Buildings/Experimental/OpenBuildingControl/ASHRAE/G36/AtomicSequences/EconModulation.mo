@@ -24,7 +24,6 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
     yMax=1,
     yMin=0,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
-
     Ti=0.9,
     Td=0.1,
     Nd=1,
@@ -133,17 +132,14 @@ equation
   connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points=
           {{-59,80},{-36,80},{-36,-242},{60,-242}},color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
-            100}}), graphics={
+    defaultComponentName = "ecoMod",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),                                        graphics={
         Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{2,50},{-46,-40},{48,-40},{2,50}},
-          color={28,108,200},
-          thickness=0.5),
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Text(
           extent={{-96,100},{-26,64}},
           lineColor={0,0,127},
@@ -179,7 +175,11 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan")}),
+          textString="uSupFan"),
+        Line(
+          points={{0,64},{-66,-64},{64,-64},{0,64}},
+          color={28,108,200},
+          thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{
             100,100}})),
     Documentation(info="<html>      

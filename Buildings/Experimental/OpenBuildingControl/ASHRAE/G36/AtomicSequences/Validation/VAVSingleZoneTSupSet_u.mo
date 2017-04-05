@@ -11,7 +11,7 @@ model VAVSingleZoneTSupSet_u "Validation model for control input"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   CDL.Continuous.Constant TZon(k=273.15 + 23) "Zone air temperature"
-    annotation (Placement(transformation(extent={{-80,-22},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   CDL.Continuous.Constant TOut(k=273.15 + 21) "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-40}})));
@@ -29,7 +29,7 @@ model VAVSingleZoneTSupSet_u "Validation model for control input"
   CDL.Continuous.Constant TSetZon(k=273.15 + 22) "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 equation
-  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-11},{-31.5,-11},
+  connect(TZon.y, setPoiVAV.TZon) annotation (Line(points={{-59,-10},{-31.5,-10},
           {-31.5,-4},{-2,-4}}, color={0,0,127}));
   connect(TOut.y, setPoiVAV.TOut) annotation (Line(points={{-59,-51},{-24,-51},{
           -24,-8},{-2,-8}}, color={0,0,127}));
