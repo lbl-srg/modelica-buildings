@@ -27,7 +27,7 @@ model Case920 "Case 900, but with windows on East and West side walls"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case920.mos"
         "Simulate and plot"),
         experiment(
-      StartTime=0.0, StopTime=3.1536e+07,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-06),
     Documentation(info="<html>

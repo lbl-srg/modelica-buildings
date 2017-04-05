@@ -50,7 +50,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=3.1536e+07),
+experiment(Tolerance=1e-6, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos"
         "Simulate and plot"),
     Documentation(info="<html>

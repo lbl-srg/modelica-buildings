@@ -209,13 +209,13 @@ November 3, 2016, by Michael Wetter:<br/>
 Removed start values for mass flow rate and pressure difference
 to simplify the parameter window.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/552\">#552</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/552\">#552</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
@@ -232,7 +232,7 @@ does not depend on temperature.
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
-<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/311\">#311</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
 </li>
 <li><i>October 4, 2014</i> by Michael Wetter:<br/>
 Removed assignment of <code>port_?.p.nominal</code> to avoid a warning in OpenModelica because

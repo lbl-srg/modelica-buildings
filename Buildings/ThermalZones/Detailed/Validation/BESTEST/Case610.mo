@@ -17,7 +17,7 @@ model Case610 "Case 600 with south shading"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case610.mos"
         "Simulate and plot"),
         experiment(
-      StartTime=0.0, StopTime=3.1536e+07,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-06),
     Documentation(

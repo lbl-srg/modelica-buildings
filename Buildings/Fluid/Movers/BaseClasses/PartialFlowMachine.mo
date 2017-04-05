@@ -49,17 +49,17 @@ partial model PartialFlowMachine
                                massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
-  parameter Boolean filteredSpeed=true
+  parameter Boolean use_inputFilter=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
   parameter Modelica.SIunits.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
     Modelica.Blocks.Interfaces.IntegerInput stage if
@@ -189,7 +189,7 @@ protected
      x(each stateSelect=StateSelect.always),
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
+        use_inputFilter
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
@@ -457,7 +457,7 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          visible=not filteredSpeed,
+          visible=not use_inputFilter,
           points={{0,100},{0,40}}),
         Rectangle(
           extent={{-100,16},{100,-14}},
@@ -482,19 +482,19 @@ equation
           visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199}),
         Rectangle(
-          visible=filteredSpeed,
+          visible=use_inputFilter,
           extent={{-34,40},{32,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=filteredSpeed,
+          visible=use_inputFilter,
           extent={{-34,100},{32,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=filteredSpeed,
+          visible=use_inputFilter,
           extent={{-22,92},{20,46}},
           lineColor={0,0,0},
           fillColor={135,135,135},
@@ -530,11 +530,17 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
 December 2, 2016, by Michael Wetter:<br/>
 Removed <code>min</code> attribute as otherwise numerical noise can cause
 the assertion on the limit to fail.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
@@ -551,7 +557,7 @@ with a backwards compatible change.
 July 19, 2016, by Filip Jorissen:<br/>
 Created custom implementation for extractor.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/498\">#498</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/498\">#498</a>.
 </li>
 <li>
 June 16, 2016, by Filip Jorissen:<br/>
@@ -560,7 +566,7 @@ This is to have a consistent operating point tuple
 of <code>dp</code> and <code>m_flow</code> when having
 compressible flow.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/458\">#458</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/458\">#458</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
@@ -568,19 +574,19 @@ Refactored model to make implementation clearer.
 This model now includes code for both speed and flow prescribed models,
 eliminating the need for an additional level of partial models.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
 </li>
 <li>
 Removed the parameter <code>dynamicBalance</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">#411</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/411\">#411</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
 Removed assignment of <code>min</code> and <code>max</code> attributes
 of the port mass flow rate as this is already done in the base class.
 Removed <code>import</code> statement.

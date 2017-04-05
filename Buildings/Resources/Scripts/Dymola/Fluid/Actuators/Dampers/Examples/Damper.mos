@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, startTime=0.0, numberOfIntervals=500, stopTime=1.0, resultFile="Damper");
+simulateModel("Buildings.Fluid.Actuators.Dampers.Examples.Damper", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Damper");
 createPlot(id = 4,
  position = {73, 9, 598, 390},
  x = "res.y",
- y = {"res.m_flow"},
+ y = {"res.m_flow", "resLinear.m_flow"},
  range = {0.15, 0.6, 11.0, 7.0},
  autoscale = true,
  autoerase = true,

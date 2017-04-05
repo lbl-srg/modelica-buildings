@@ -144,10 +144,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   /****************************************************************************
   | Get a handle to the DLL module.
   ****************************************************************************/
-#if defined(_MSC_VER) || defined(__WIN32__) \
- || defined(_WIN32) || defined(WIN32)  \
- || defined(__CYGWIN__) || defined(__MINGW32__) \
- || defined(__BORLANDC__) /*Windows and MinGW */
+#ifdef _MSC_VER /*Windows*/
 
 #if _WIN64
   hinstLib = LoadLibrary(TEXT("Resources/Library/win64/ffd.dll"));
@@ -174,10 +171,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
 
   /* If the handle is valid, try to get the function address.*/
   if(hinstLib!=NULL) {
-#if defined(_MSC_VER) || defined(__WIN32__) \
- || defined(_WIN32) || defined(WIN32)  \
- || defined(__CYGWIN__) || defined(__MINGW32__) \
- || defined(__BORLANDC__) /*Windows and MinGW */
+#ifdef _MSC_VER
     ProcAdd = (MYPROC) GetProcAddress(hinstLib, "ffd_dll");
 #else
     ProcAdd = (MYPROC) dlsym(hinstLib, "ffd_dll");

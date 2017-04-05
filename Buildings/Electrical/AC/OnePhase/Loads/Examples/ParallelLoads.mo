@@ -86,7 +86,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    experiment(StartTime=0.0, StopTime=1.0, Tolerance=1e-6),
+    experiment(StopTime=1.0, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the load models.

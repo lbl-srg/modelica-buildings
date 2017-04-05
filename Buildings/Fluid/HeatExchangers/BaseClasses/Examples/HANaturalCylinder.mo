@@ -32,7 +32,7 @@ equation
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HANaturalCylinder.mos"
         "Simulate and Plot"),
-        experiment(Tolerance=1e-6, StartTime=0.0, StopTime=250),
+        experiment(Tolerance=1e-6, StopTime=250),
         Documentation(info="<html>
         <p>
         Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">

@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.Condensation",
-tolerance=1e-6, startTime=0.0, numberOfIntervals=500, stopTime=3600, method="dassl", resultFile="Condensation");
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Condensation");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 438, 555},

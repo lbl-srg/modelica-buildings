@@ -11,7 +11,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  VAVBoxExponential damOA(A=AOut,
+  VAVBoxExponential damOA(
     redeclare package Medium = Medium,
     dp_nominal=dpOut_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
@@ -19,8 +19,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -32,17 +30,14 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOut_flow_nominal,
-    final filteredOpening=false)
+    final use_inputFilter=false)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Dialog(enable=use_deltaM));
-  parameter Boolean use_v_nominal = true
-    "Set to true to use face velocity to compute area";
-  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
-    annotation(Dialog(enable=use_v_nominal));
+  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity";
 
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
@@ -51,10 +46,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
 
-  parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_default/v_nominal
-    "Face area outside air damper"
-    annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damExh(A=AExh,
+  VAVBoxExponential damExh(
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
@@ -63,8 +55,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -75,12 +65,10 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Exhaust air damper"
+    final use_inputFilter=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
-  parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
-    "Face area exhaust air damper"
-    annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damRec(A=ARec,
+
+  VAVBoxExponential damRec(
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,
@@ -89,8 +77,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     linearized=linearized,
     use_deltaM=use_deltaM,
     deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
     a=a,
@@ -101,14 +87,11 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    final filteredOpening=false) "Recirculation air damper"
-                               annotation (Placement(transformation(
+    final use_inputFilter=false) "Recirculation air damper" annotation (
+      Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.Area ARec=mRec_flow_nominal/rho_default/v_nominal
-    "Face area recirculation air damper"
-    annotation(Dialog(enable=not use_v_nominal));
 
   parameter Boolean dp_nominalIncludesDamper=false
     "set to true if dp_nominal includes the pressure loss of the open damper"
@@ -296,8 +279,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(
           points={{0,40},{0,10},{0,12}},
-          color={0,0,255}),
-                             Text(
+          color={0,0,255}),  Text(
           extent={{-50,-84},{48,-132}},
           lineColor={0,0,255},
           textString=
@@ -306,10 +288,26 @@ defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
 <li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
+March 22, 2017, by Michael Wetter:<br/>
+Removed the assignments of <code>AOut</code>, <code>AExh</code> and <code>ARec</code> as these are done in the damper instance using
+a final assignment of the parameter.
+This allows scaling the model with <code>m_flow_nominal</code>,
+which is generally known in the flow leg,
+and <code>v_nominal</code>, for which a default value can be specified.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>

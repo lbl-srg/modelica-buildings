@@ -156,7 +156,7 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 Otherwise a calculation based on an energy balance is used.
-See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> for a discussion.
+See <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a> for a discussion.
 </p>
 <p>
 For a model that takes the relative humidity instead of the mass fraction as an input, see
@@ -182,14 +182,14 @@ Changed icon.
 </li>
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
-Corrected exact implementation. 
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
+Corrected exact implementation.
+See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a>
 for a discussion.
 </li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 November 17, 2014, by Michael Wetter:<br/>

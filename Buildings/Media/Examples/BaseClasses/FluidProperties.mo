@@ -121,7 +121,7 @@ causes an error if
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
 </li>
 <li>
 October 16, 2014, by Michael Wetter:<br/>

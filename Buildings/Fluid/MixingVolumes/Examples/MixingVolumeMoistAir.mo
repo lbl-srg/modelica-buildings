@@ -146,7 +146,7 @@ equation
       color={0,127,255}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
-experiment(StartTime=0.0, StopTime=600,
+experiment(StopTime=600,
            Tolerance=1E-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
         "Simulate and plot"),

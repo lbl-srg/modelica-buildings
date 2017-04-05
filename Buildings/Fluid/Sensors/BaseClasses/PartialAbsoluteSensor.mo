@@ -6,7 +6,7 @@ partial model PartialAbsoluteSensor
     "Medium in the sensor"
     annotation(choicesAllMatching=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
+  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0,max=0))
     annotation (Placement(transformation(
         origin={0,-100},
         extent={{-10,-10},{10,10}},
@@ -28,6 +28,12 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 22, 2017, by Filip Jorissen:<br/>
+Set <code>m_flow(max=0)</code>.
+This is for
+<a href=https://github.com/ibpsa/modelica/issues/687>#687</a>.
+</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

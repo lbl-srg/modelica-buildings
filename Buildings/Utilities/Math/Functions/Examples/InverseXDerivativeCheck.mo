@@ -44,9 +44,9 @@ revisions="<html>
 <ul>
 <li>
 June 22, 2016, by Filip Jorissen:<br/>
-Changed example such that it explicitly uses 
+Changed example such that it explicitly uses
 <a href=\"modelica://Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized\">
-Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized</a>. 
+Buildings.Utilities.Math.Functions.BaseClasses.der_inverseXRegularized</a>.
 </li>
 <li>
 August 11, 2015, by Michael Wetter:<br/>

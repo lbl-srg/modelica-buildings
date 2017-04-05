@@ -14,7 +14,7 @@ equation
   dT = T - TInv;
   assert(abs(dT) < 10E-12, "Error in function implementation.");
   annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos"
         "Simulate and plot"));
 end pW_TDewPoi;

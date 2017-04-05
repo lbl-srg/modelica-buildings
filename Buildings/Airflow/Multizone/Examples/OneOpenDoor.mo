@@ -77,7 +77,7 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=7200,
+      StopTime=7200,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>

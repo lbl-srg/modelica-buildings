@@ -17,7 +17,7 @@ model OnlyPartition "Test model for room model"
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
-      StartTime=0.0, StopTime=86400,
+      StopTime=86400,
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>

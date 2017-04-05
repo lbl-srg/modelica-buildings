@@ -73,8 +73,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=5),
+experiment(Tolerance=1e-6, StopTime=5),
 __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mos"
         "Simulate and plot"));

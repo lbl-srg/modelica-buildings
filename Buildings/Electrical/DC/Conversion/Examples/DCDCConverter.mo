@@ -45,7 +45,7 @@ equation
       points={{-40,0},{-20,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (experiment(StartTime=0.0, StopTime=1.0,Tolerance=1e-06),
+  annotation (experiment(StopTime=1.0,Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model illustrates the use of a model that converts between DC voltages.

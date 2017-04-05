@@ -174,7 +174,7 @@ equation
                                        color={0,0,127}));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-experiment(Tolerance=1E-9, StartTime=0.0, StopTime=2),
+experiment(Tolerance=1E-9, StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -195,14 +195,14 @@ This is needed for the JModelica verification tests.
 November 4, 2016, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code> keyword.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/575\">issue 575</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/575\">issue 575</a>.
 </li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 October 24, 2013, by Michael Wetter:<br/>

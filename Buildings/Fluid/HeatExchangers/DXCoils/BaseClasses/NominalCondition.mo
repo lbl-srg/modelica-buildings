@@ -5,11 +5,12 @@ record NominalCondition
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
-                                                                          per
-    "Performance data"
-    annotation (choicesAllMatching = true);
+  replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues per
+     constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+     "Performance data" annotation (choicesAllMatching=true);
+
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
         pSat=Medium.saturationPressure(per.TEvaIn_nominal),
@@ -46,6 +47,10 @@ These parameters are required to determine the apparatus dew point at the nomina
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 17, 2017 by Yangyang Fu:<br/>
+Changed parameter <code>per</code> to replaceable and added constrained type for redeclaration in water-cooled DX coils.
+</li>
 <li>
 October 9, 2013 by Michael Wetter:<br/>
 Changed protected parameter <code>Cp_nominal</code> to public, and

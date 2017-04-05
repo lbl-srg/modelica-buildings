@@ -406,7 +406,7 @@ equation
       points={{-90,80},{-90,70}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (experiment(StartTime=0.0, StopTime=4000,Tolerance=1e-06),
+  annotation (experiment(StopTime=4000,Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/DCLines.mos"
         "Simulate and plot"),
     Documentation(info="<html>

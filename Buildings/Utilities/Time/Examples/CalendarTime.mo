@@ -27,5 +27,5 @@ Buildings.Utilities.Time.CalendarTime</a>
 block.
 </p>
 </html>"),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1e+08));
+    experiment(Tolerance=1e-6, StopTime=1e+08));
 end CalendarTime;

@@ -27,7 +27,7 @@ equation
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/RayleighNumber.mos"
         "Simulate and Plot"),
-        experiment(Tolerance=1e-6, StartTime=0.0, StopTime=50),
+        experiment(Tolerance=1e-05, StopTime=50),
         Documentation(info="<html>
         <p>
         Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber\">

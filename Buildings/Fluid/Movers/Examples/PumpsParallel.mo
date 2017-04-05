@@ -128,7 +128,7 @@ Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code
 </li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using a <code>parameter</code> 
+Set constant speed for pump using a <code>parameter</code>
 instead of a <code>realInput</code>.
 </li>
 <li>
@@ -148,6 +148,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StartTime=0.0, StopTime=300,
+      StopTime=300,
       Tolerance=1e-06));
 end PumpsParallel;

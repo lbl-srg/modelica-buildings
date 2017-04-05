@@ -41,9 +41,8 @@ partial block PartialSurfaceCondition
     max=1.0) "Bypass factor";
  output Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
-
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
-      final per=datCoi.sta.nomVal,
+      per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
@@ -90,10 +89,10 @@ algorithm
      end if;
 
     bypass := Buildings.Utilities.Math.Functions.smoothLimit(
-      x=  Modelica.Math.exp(-UAcp / m_flow_nonzero),
-      l=  0.01,
-      u=  0.99,
-      deltaX=  0.001);
+      x = Modelica.Math.exp(-UAcp / m_flow_nonzero),
+      l = 0.01,
+      u = 0.99,
+      deltaX = 0.001);
    delta_h:=Buildings.Utilities.Math.Functions.smoothMin(
       x1=-Q_flow/m_flow_nonzero/(1 - bypass),
       x2=0.999*hEvaIn,

@@ -5,12 +5,12 @@ model EvaporationFlowReversal
   package Medium =Buildings.Media.Air;
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
-                                                                          nomVal(
-          Q_flow_nominal=-5000,
-          COP_nominal=3,
-          SHR_nominal=0.8,
-          m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    nomVal(
+    Q_flow_nominal=-5000,
+    COP_nominal=3,
+    SHR_nominal=0.8,
+    m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
@@ -103,6 +103,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StartTime=0.0, StopTime=2400,
-      Tolerance=1e-6));
+      StopTime=2400,
+      Tolerance=1e-05));
 end EvaporationFlowReversal;

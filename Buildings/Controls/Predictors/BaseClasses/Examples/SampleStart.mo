@@ -15,7 +15,7 @@ initial equation
  end for;
  */
   annotation (
-  experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+  experiment(Tolerance=1e-6, StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/BaseClasses/Examples/SampleStart.mos"
         "Simulate and plot"),
     Documentation(info="<html>

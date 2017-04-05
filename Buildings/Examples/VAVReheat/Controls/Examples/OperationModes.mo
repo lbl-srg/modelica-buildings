@@ -190,8 +190,8 @@ equation
         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Controls/Examples/OperationModes.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=172800,
-      Tolerance=1e-6),
+      StopTime=172800,
+      Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model tests the transition between the different modes of operation of the HVAC system.

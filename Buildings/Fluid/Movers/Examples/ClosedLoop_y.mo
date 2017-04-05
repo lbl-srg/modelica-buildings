@@ -89,7 +89,7 @@ The fan is controlled to track a required mass flow rate.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
@@ -100,6 +100,6 @@ First implementation.
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ClosedLoop_y.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=3600,
+      StopTime=3600,
       Tolerance=1e-06));
 end ClosedLoop_y;

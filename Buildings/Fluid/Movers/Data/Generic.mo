@@ -85,24 +85,24 @@ record Generic "Generic data record for movers"
 <ul>
 <li>
 February 19, 2016, by Filip Jorissen:<br/>
-Refactored model such that <code>SpeedControlled_Nrpm</code>, 
-<code>SpeedControlled_y</code> and <code>FlowControlled</code> 
+Refactored model such that <code>SpeedControlled_Nrpm</code>,
+<code>SpeedControlled_y</code> and <code>FlowControlled</code>
 are integrated into one record.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
 </li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Changed parameter <code>N_nominal</code> to
 <code>speed_rpm_nominal</code> as it is the same quantity as <code>speeds_rmp</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/396\">#396</a>.
 </li>
 <li>
 January 19, 2016, by Filip Jorissen:<br/>
 Added parameter <code>speeds_rpm</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/396\">#396</a>.
 </li>
 <li>
 February 13, 2015, by Michael Wetter:<br/>
@@ -150,7 +150,7 @@ Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
 </p>
 <h4>Parameters in RPM</h4>
 <p>
-The parameters <code>speed_rpm_nominal</code>, 
+The parameters <code>speed_rpm_nominal</code>,
 <code>constantSpeed_rpm</code> and
 <code>speeds_rpm</code> are used to assign the non-dimensional speeds
 </p>

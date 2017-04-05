@@ -47,6 +47,6 @@ equation
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/Controls/Examples/RoomMixingBox.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=10800,
+      StopTime=10800,
       Tolerance=1e-06));
 end RoomMixingBox;

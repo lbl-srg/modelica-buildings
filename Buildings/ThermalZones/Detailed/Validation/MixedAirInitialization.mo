@@ -246,5 +246,5 @@ Buildings.ThermalZones.Detailed.Examples.MixedAirInitialization</a>.
 </ul>
 </html>"),
     experiment(
-      Tolerance=1e-06, StartTime=0.0, StopTime=172800));
+      Tolerance=1e-06, StopTime=172800));
 end MixedAirInitialization;

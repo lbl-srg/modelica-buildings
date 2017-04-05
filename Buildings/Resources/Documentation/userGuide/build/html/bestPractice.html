@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2. Best Practice &mdash; Buildings Library User Guide</title>
+    <title>2. Best Practice &#8212; Buildings Library User Guide</title>
     
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,7 +25,8 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -37,7 +38,8 @@
     <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
-    <link rel="top" title="Buildings Library User Guide" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="3. Work-Arounds" href="workArounds.html" />
     <link rel="prev" title="1. Getting Started" href="gettingStarted.html" />
 <meta charset='utf-8'>
@@ -843,7 +845,7 @@ to switch the sign of the control gain because the economizer can provide heatin
 depending on the ambient and return air temperature. The problematic model is
 shown in the figure below.</p>
 <div class="figure" id="id16">
-<span id="fig-dualfan-eco-con-bad"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-bad.svg"><img src="_images/EconomizerTemperatureControl-bad.svg" /></a>
+<span id="fig-dualfan-eco-con-bad"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-bad.svg"><img alt="_images/EconomizerTemperatureControl-bad.svg" src="_images/EconomizerTemperatureControl-bad.svg" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
 control signal. This implementation triggers many events.</span></p>
 </div>
@@ -859,7 +861,7 @@ which we did as shown in the figure below.
 We selected a hysteresis of <span class="math">\(0.2\)</span> Kelvin, and now the model runs fine
 for the whole year.</p>
 <div class="figure" id="id17">
-<span id="fig-dualfan-eco-con-revised"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-revised.svg"><img src="_images/EconomizerTemperatureControl-revised.svg" /></a>
+<span id="fig-dualfan-eco-con-revised"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-revised.svg"><img alt="_images/EconomizerTemperatureControl-revised.svg" src="_images/EconomizerTemperatureControl-revised.svg" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
 control signal.</span></p>
 </div>
@@ -872,7 +874,7 @@ control signal.</span></p>
 the simulation time was very slow during part of the
 simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span class="std std-numref">Fig. 2.11</span></a>.</p>
 <div class="figure" id="id18">
-<span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img src="_images/DualFanDualDuctWithFilteredSpeed.svg" /></a>
+<span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img alt="_images/DualFanDualDuctWithFilteredSpeed.svg" src="_images/DualFanDualDuctWithFilteredSpeed.svg" /></a>
 <p class="caption"><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Computing time and number of events.</span></p>
 </div>
 <p>The number of state events did not increase in that time interval.
@@ -951,7 +953,7 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
     </p>
     <p>
         &copy; Copyright 2012-2016, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.<br/>
     </p>
   </div>
 </footer>

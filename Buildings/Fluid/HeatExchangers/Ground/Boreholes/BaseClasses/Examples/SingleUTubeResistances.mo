@@ -46,7 +46,7 @@ initial equation
     kTub=kTub);
 
  annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/SingleUTubeResistances.mos"
         "Simulate and plot"),
                   Documentation(info="<html>

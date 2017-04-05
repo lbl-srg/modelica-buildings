@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "rooSinSpe.vol.T",
+    "rooMulSpe.vol.T",
+    "rooVarSpe.vol.T",
+    "weaDat.weaBus.TDryBul",
+    "rooSinSpe.vol.Xi[1]",
+    "rooMulSpe.vol.Xi[1]",
+    "rooVarSpe.vol.Xi[1]",
+    "sinSpePow.y",
+    "varSpePow.y",
+    "mulSpePow.y"
+  };

@@ -79,7 +79,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
-    experiment(StartTime=0.0, StopTime=172800, Tolerance=1e-6),
+    experiment(StopTime=172800, Tolerance=1e-05),
 Documentation(info="<html>
 <p>
 This model illustrates the use of the photovoltaic model.

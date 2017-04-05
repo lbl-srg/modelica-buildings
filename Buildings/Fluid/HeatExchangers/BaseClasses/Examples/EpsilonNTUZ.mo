@@ -2,18 +2,19 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model EpsilonNTUZ "Test model for the functions epsilon_ntuZ and ntu_epsilonZ"
   extends Modelica.Icons.Example;
   import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-  Real Z[5] "Ratio of capacity flow rates";
-  Real epsilon[5] "Heat exchanger effectiveness";
-  Real eps[5] "Heat exchanger effectiveness";
-  Real ntu[5] "Number of transfer units";
-  Real diff[5] "Difference in results";
+  Real Z[6] "Ratio of capacity flow rates";
+  Real epsilon[6] "Heat exchanger effectiveness";
+  Real eps[6] "Heat exchanger effectiveness";
+  Real ntu[6] "Number of transfer units";
+  Real diff[6] "Difference in results";
 
 equation
   for conf in {Integer(f.ParallelFlow),
                Integer(f.CounterFlow),
                Integer(f.CrossFlowUnmixed),
                Integer(f.CrossFlowCMinMixedCMaxUnmixed),
-               Integer(f.CrossFlowCMinUnmixedCMaxMixed)} loop
+               Integer(f.CrossFlowCMinUnmixedCMaxMixed),
+               Integer(f.ConstantTemperaturePhaseChange)} loop
     Z[conf]       = abs(cos(time));
     epsilon[conf] = 0.01 + 0.98*abs(sin(time)) * 1/(1+Z[conf]);
     ntu[conf]     = ntu_epsilonZ(epsilon[conf], Z[conf], conf);
@@ -21,7 +22,7 @@ equation
     diff[conf]    = epsilon[conf] - eps[conf];
   end for;
   annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/EpsilonNTUZ.mos"
         "Simulate and plot"),
 Documentation(info="<html>
@@ -32,10 +33,14 @@ Model to test the implementation of the epsilon-NTU functions and their inverse 
 revisions="<html>
 <ul>
 <li>
-April 25, 2016, by Michael Wetter:<br/>
-Added work-around for JModelica in processing the enumeration.
-This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>.
+September 28, 2016, by Massimo Cimmino:<br/>
+Modified the test model for the addition of <code>ConstantTemperaturePhaseChange</code> flow regime.
+</li>
+<li>
+April 25, 2016, by Michael Wetter:<br/> 
+Added work-around for JModelica in processing the enumeration. 
+This is for 
+<a href=\"https://github.com/ibpsa/modelica/issues/510\">Buildings, issue 510</a>. 
 </li>
 <li>
 October 19, 2014, by Michael Wetter:<br/>

@@ -52,7 +52,8 @@ Users Guide</a>.
       CrossFlowStream1MixedStream2Unmixed
         "Cross flow, stream 1 mixed, stream 2 unmixed",
       CrossFlowStream1UnmixedStream2Mixed
-        "Cross flow, stream 1 unmixed, stream 2 mixed")
+        "Cross flow, stream 1 unmixed, stream 2 mixed",
+      ConstantTemperaturePhaseChange "Constant temperature phase change in one stream")
     "Enumeration for heat exchanger construction"
   annotation(Documentation(info="<html>
 <p>
@@ -68,21 +69,29 @@ The following heat exchanger configurations are available in this enumeration:
 <tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>
 <tr><td>CrossFlowStream1MixedStream2Unmixed</td><td>Cross flow, stream 1 mixed, stream 2 unmixed</td></tr>
 <tr><td>CrossFlowStream1UnmixedStream2Mixed</td><td>Cross flow, stream 1 unmixed, stream 2 mixed</td></tr>
+<tr><td>ConstantTemperaturePhaseChange</td><td>Constant temperature phase change in one stream</td></tr>
 </table>
 <p>
 Note that for a given heat exchanger, the
  <code>HeatExchangerConfiguration</code> is fixed. However, if the capacity
  flow rates change, then the
  <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\">
- HeatExchangerFlowRegime</a> may change. For example,
+ Buildings.Fluid.Types.HeatExchangerFlowRegime</a> may change. For example,
  a counter flow heat exchanger has <code>HeatExchangerConfiguration=CounterFlow</code>,
  but the <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\">
- HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
+ Buildings.Fluid.Types.HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
  its direction.
  </p>
 </html>", revisions=
           "<html>
 <ul>
+<li>
+March 27, 2017, by Michael Wetter:<br/>
+Added <code>ConstantTemperaturePhaseChange</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/694\">
+Buildings #694</a>.
+</li>
 <li>
 February 18, 2009, by Michael Wetter:<br/>
 First implementation.
@@ -95,7 +104,8 @@ First implementation.
       CounterFlow "Counter flow",
       CrossFlowUnmixed "Cross flow, both streams unmixed",
       CrossFlowCMinMixedCMaxUnmixed "Cross flow, CMin mixed,   CMax unmixed",
-      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed")
+      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed",
+      ConstantTemperaturePhaseChange "Constant temperature phase change in one stream")
     "Enumeration for heat exchanger flow configuration"
   annotation(Documentation(info="<html>
 <p>
@@ -116,7 +126,22 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>
 <tr><td>CrossFlowCMinMixedCMaxUnmixed</td><td>Cross flow, CMin mixed,   CMax unmixed</td></tr>
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
+<tr><td>ConstantTemperaturePhaseChange</td><td>Constant temperature phase change in one stream</td></tr>
 </table>
+</html>", revisions="<html>
+<ul>
+<li>
+March 27, 2017, by Michael Wetter:<br/>
+Added <code>ConstantTemperaturePhaseChange</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/694\">
+Buildings #694</a>.
+</li>
+<li>
+February 18, 2009, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
   type InputType = enumeration(
       Constant "Use parameter to set stage",
@@ -124,7 +149,7 @@ The following heat exchanger flow regimes are available in this enumeration:
       Continuous "Use continuous, real input") "Input options for movers"
     annotation (Documentation(info="<html>
 <p>
-This type allows defining which type of input should be used for movers. 
+This type allows defining which type of input should be used for movers.
 This can either be
 </p>
 <ol>

@@ -70,7 +70,7 @@ First implementation.
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WaterHeater_T.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=0.0, StopTime=172800,
+      StopTime=172800,
       Tolerance=1e-6),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));

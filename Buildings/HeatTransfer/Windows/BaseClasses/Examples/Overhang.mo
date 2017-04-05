@@ -69,7 +69,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-experiment(Tolerance=1e-6, StartTime=0.0, StopTime=86400),
+experiment(Tolerance=1e-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
 Documentation(info="<html>

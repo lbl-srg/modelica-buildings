@@ -235,7 +235,7 @@ equation
       points={{61,80},{92,80},{92,58},{82,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(experiment(Tolerance=1e-6, StartTime=0.0, StopTime=360),
+  annotation(experiment(Tolerance=1e-05, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
         "Simulate and plot"),
 Documentation(info="<html>

@@ -23,6 +23,6 @@ equation
                                                                     FRWat=1,
                                                                     FRAir=x);
 
-  annotation(experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0),
+  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Correlations/Examples/YorkCalc.mos" "Simulate and plot"));
 end YorkCalc;

@@ -91,7 +91,7 @@ equation
     annotation (Line(points={{0,4},{0,4},{0,-64},{18,-64}}, color={0,0,127}));
   connect(heaFlo2.Q_flow, cheEqu.u2) annotation (Line(points={{8,-36},{8,-36},{8,
           -76},{18,-76}}, color={0,0,127}));
-  annotation (            experiment(StartTime=0.0, StopTime=86400,
+  annotation (            experiment(StopTime=86400,
             Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
         "Simulate and plot"),

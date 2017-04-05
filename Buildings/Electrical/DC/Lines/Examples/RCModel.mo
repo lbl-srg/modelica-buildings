@@ -57,7 +57,7 @@ equation
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/RCModel.mos"
         "Simulate and plot"),
-        experiment(StartTime=0.0, StopTime=15.0,Tolerance=1e-06),
+        experiment(StopTime=15.0,Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model shows how to use a two port resistance-capacitance model.
