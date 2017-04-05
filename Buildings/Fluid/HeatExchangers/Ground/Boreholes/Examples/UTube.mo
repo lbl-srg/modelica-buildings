@@ -79,5 +79,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=5*365,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end UTube;
