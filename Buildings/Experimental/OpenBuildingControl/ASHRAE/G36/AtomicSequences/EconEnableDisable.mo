@@ -112,12 +112,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="yEcoDamPos"),
         Text(
-          extent={{-98,152},{-62,132}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="TOut"),
-        Text(
           extent={{-96,114},{-58,88}},
           lineColor={0,0,127},
           fillColor={0,0,0},
@@ -132,7 +126,13 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFre")}),
+          textString="uFre"),
+        Text(
+          extent={{-96,154},{-58,128}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="TOut")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-40},{100,160}},

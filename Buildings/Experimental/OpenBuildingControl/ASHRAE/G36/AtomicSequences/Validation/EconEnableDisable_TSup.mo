@@ -4,7 +4,7 @@ model EconEnableDisable_TSup
   extends Modelica.Icons.Example;
 
   EconEnableDisable econEnableDisable
-    annotation (Placement(transformation(extent={{-20,-6},{0,24}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   CDL.Logical.Constant FreezestatStatus(k=false)
     "Keep freezestat alarm off for this validation test"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
@@ -25,15 +25,15 @@ model EconEnableDisable_TSup
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(FreezestatStatus.y, econEnableDisable.uFre) annotation (Line(
-        points={{-59,-10},{-40,-10},{-40,9.6},{-22,9.6}}, color={255,0,255}));
+        points={{-59,-10},{-40,-10},{-40,10},{-22,10}},   color={255,0,255}));
   connect(EcoDamPosMax.y, econEnableDisable.uEcoDamPosMin) annotation (Line(
-        points={{-59,-42},{-36,-42},{-36,5.4},{-22,5.4}}, color={0,0,127}));
+        points={{-59,-42},{-36,-42},{-36,6},{-22,6}},     color={0,0,127}));
   connect(EcoDamPosMin.y, econEnableDisable.uEcoDamPosMax) annotation (Line(
-        points={{-59,-76},{-32,-76},{-32,0.6},{-22,0.6}}, color={0,0,127}));
+        points={{-59,-76},{-32,-76},{-32,2},{-22,2}},     color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -34,70},{-34,19.4},{-22,19.4}}, color={0,0,127}));
+          -34,70},{-34,18},{-22,18}},     color={0,0,127}));
   connect(TSup.y, econEnableDisable.TSup) annotation (Line(points={{-59,30},{
-          -42,30},{-42,14.4},{-22,14.4}}, color={0,0,127}));
+          -42,30},{-42,14},{-22,14}},     color={0,0,127}));
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
