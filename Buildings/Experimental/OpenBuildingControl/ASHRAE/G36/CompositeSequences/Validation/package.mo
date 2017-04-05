@@ -1,4 +1,4 @@
-within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36_new.CompositeSequences;
+within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences;
 package Validation
   annotation (Icon(graphics={
         Rectangle(
