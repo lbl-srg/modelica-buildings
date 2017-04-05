@@ -3,10 +3,10 @@ model EconEnableDisable "Economizer enable/disable switch"
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-140,
-            134},{-100,174}}), iconTransformation(extent={{-140,134},{-100,174}})));
-  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation
-    (Placement(transformation(extent={{-140,36},{-100,76}}), iconTransformation(
-          extent={{-140,36},{-100,76}})));
+            130},{-100,170}}), iconTransformation(extent={{-140,130},{-100,170}})));
+  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
+     Placement(transformation(extent={{-140,42},{-100,82}}), iconTransformation(
+          extent={{-140,42},{-100,82}})));
   CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
     "Supply air temperature" annotation (Placement(transformation(extent={{-140,
             84},{-100,124}}), iconTransformation(extent={{-140,84},{-100,124}})));
@@ -16,66 +16,67 @@ model EconEnableDisable "Economizer enable/disable switch"
         iconTransformation(extent={{100,42},{138,80}})));
   CDL.Interfaces.RealInput uEcoDamPosMin
     "Minimal economizer damper position, output from a separate sequence."
-    annotation (Placement(transformation(extent={{-140,-6},{-100,34}}),
-        iconTransformation(extent={{-140,-6},{-100,34}})));
+    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
+        iconTransformation(extent={{-140,-4},{-100,36}})));
   CDL.Interfaces.RealInput uEcoDamPosMax
     "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
     annotation (Placement(transformation(extent={{-140,-54},{-100,-14}}),
         iconTransformation(extent={{-140,-54},{-100,-14}})));
   CDL.Logical.Switch assignDamperPosition
     "If control loop signal = 1 opens the damper to it's max position; if signal = 0 closes the damper to it's min position."
-    annotation (Placement(transformation(extent={{66,-74},{86,-54}})));
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   CDL.Logical.Or or1
     "If any of the conditions evaluated is 1, the block returns 1 and it's inverse in the following block closes the damper to uEcoDamPosMin. If all conditions are 0, the damper can be opened up to uEcoDamPosMax"
-    annotation (Placement(transformation(extent={{30,54},{50,74}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   CDL.Logical.Hysteresis hysTOut(uHigh=297, final uLow=297 - 1)
     "Close damper when TOut is above the uHigh, open it again only when TOut falls down to uLow"
-    annotation (Placement(transformation(extent={{-70,144},{-50,164}})));
+    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
   CDL.Logical.Or or2
     "fixme: should we have an or block that allows multiple inputs?"
-    annotation (Placement(transformation(extent={{30,82},{50,102}})));
+    annotation (Placement(transformation(extent={{20,86},{40,106}})));
   CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{60,54},{80,74}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
-    "fixme: timer still not implemented, threshold value provided in K, units not indicated"
+    "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
     annotation (Placement(transformation(extent={{-90,94},{-70,114}})));
   CDL.Logical.Timer timer1
-    annotation (Placement(transformation(extent={{-62,104},{-42,124}})));
+    annotation (Placement(transformation(extent={{-60,104},{-40,124}})));
   CDL.Logical.Greater greater
     annotation (Placement(transformation(extent={{-32,94},{-12,114}})));
   CDL.Continuous.Constant TSupTimeLimit(k=300)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
-    annotation (Placement(transformation(extent={{-62,78},{-42,98}})));
+    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
 equation
-  connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{64,
-          -56},{-18,-56},{-18,14},{-120,14}}, color={0,0,127}));
-  connect(TOut, hysTOut.u) annotation (Line(points={{-120,154},{-96,154},{-72,
-          154}}, color={0,0,127}));
-  connect(or1.y, not1.u)
-    annotation (Line(points={{51,64},{58,64}}, color={255,0,255}));
-  connect(or2.y, or1.u1) annotation (Line(points={{51,92},{62,92},{62,108},{14,
-          108},{14,78},{14,78},{14,64},{28,64}}, color={255,0,255}));
+  connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{58,-42},
+          {-18,-42},{-18,16},{-120,16}},      color={0,0,127}));
+  connect(TOut, hysTOut.u) annotation (Line(points={{-120,150},{-62,150}},
+                 color={0,0,127}));
+  connect(or2.y, or1.u1) annotation (Line(points={{41,96},{46,96},{46,110},{12,
+          110},{12,78},{12,70},{18,70}},         color={255,0,255}));
   connect(TSup, TSupThreshold.u)
     annotation (Line(points={{-120,104},{-92,104}}, color={0,0,127}));
-  connect(hysTOut.y, or2.u1) annotation (Line(points={{-49,154},{-2,154},{-2,92},
-          {28,92}},color={255,0,255}));
+  connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,150},{-2,150},{-2,96},
+          {18,96}},color={255,0,255}));
   connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-69,104},{-66,
-          104},{-66,114},{-64,114}}, color={255,0,255}));
-  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-41,88},{-38,
+          104},{-66,114},{-62,114}}, color={255,0,255}));
+  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-39,88},{-38,
           88},{-38,96},{-34,96}}, color={0,0,127}));
-  connect(timer1.y, greater.u1) annotation (Line(points={{-41,114},{-38,114},{-38,
-          104},{-34,104}}, color={0,0,127}));
+  connect(timer1.y, greater.u1) annotation (Line(points={{-39,114},{-38,114},{
+          -38,104},{-34,104}},
+                           color={0,0,127}));
   connect(greater.y, or2.u2) annotation (Line(points={{-11,104},{-11,104},{-4,
-          104},{-4,84},{14,84},{28,84}}, color={255,0,255}));
+          104},{-4,84},{18,84},{18,88}}, color={255,0,255}));
   connect(uFre, or1.u2)
-    annotation (Line(points={{-120,56},{-46,56},{28,56}}, color={255,0,255}));
-  connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{87,-64},
-          {94,-64},{94,61},{119,61}}, color={0,0,127}));
+    annotation (Line(points={{-120,62},{-120,62},{18,62}},color={255,0,255}));
+  connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{81,-50},
+          {94,-50},{94,61},{119,61}}, color={0,0,127}));
   connect(uEcoDamPosMax, assignDamperPosition.u3) annotation (Line(points={{-120,
-          -34},{-28,-34},{-28,-72},{64,-72}}, color={0,0,127}));
-  connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{81,64},{86,
-          64},{86,-4},{52,-4},{52,-64},{64,-64}}, color={255,0,255}));
+          -34},{-28,-34},{-28,-58},{58,-58}}, color={0,0,127}));
+  connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{81,70},{86,
+          70},{86,0},{52,0},{52,-50},{58,-50}},   color={255,0,255}));
+  connect(or1.y, not1.u)
+    annotation (Line(points={{41,70},{49.5,70},{58,70}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,

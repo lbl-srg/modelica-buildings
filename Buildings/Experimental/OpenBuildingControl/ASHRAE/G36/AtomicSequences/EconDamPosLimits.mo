@@ -24,7 +24,6 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     yMax=1,
     yMin=0,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
-
     Ti=0.9,
     Td=0.1,
     Nd=1,
@@ -56,10 +55,10 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
   CDL.Continuous.Line EcoDamPosMin(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
-    annotation (Placement(transformation(extent={{54,-120},{74,-100}})));
+    annotation (Placement(transformation(extent={{60,-120},{80,-100}})));
   CDL.Continuous.Line RetDamPosMax(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
-    annotation (Placement(transformation(extent={{54,-80},{74,-60}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   CDL.Logical.Nand nand
     "If any of the input signals is not true, the block outputs true, damper modulation gets supressed and dampers are kept in their initial positions."
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -81,8 +80,8 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
             {100,-2},{120,18}})));
   CDL.Interfaces.RealOutput yEcoDamPosMax
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,-38},{120,-18}}), iconTransformation(extent
-          ={{100,38},{120,58}})));
+        transformation(extent={{100,-38},{120,-18}}), iconTransformation(extent=
+           {{100,38},{120,58}})));
 equation
   connect(uVOutMinSet, MinOutAirDamPosController.u_s)
     annotation (Line(points={{-120,80},{-120,80},{-82,80}}, color={0,0,127}));
@@ -104,36 +103,36 @@ equation
           {-50,-90},{-50,-122},{-42,-122}}, color={0,0,127}));
   connect(RetDamPhyPosMin.y, RetDamPosMin.u3) annotation (Line(points={{-59,-130},
           {-56,-130},{-56,-138},{-52,-138},{-42,-138}}, color={0,0,127}));
-  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{75,-110},{94,
+  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{94,
           -110},{94,-12},{110,-12}}, color={0,0,127}));
-  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{75,-70},{80,
+  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{80,
           -70},{80,28},{96,28},{110,28}}, color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMax.f1) annotation (Line(points={{-59,-90},
-          {12,-90},{12,-66},{52,-66}}, color={0,0,127}));
+          {12,-90},{12,-66},{58,-66}}, color={0,0,127}));
   connect(RetDamPosMin.y, RetDamPosMax.f2) annotation (Line(points={{-19,-130},
-          {20,-130},{20,-78},{52,-78}}, color={0,0,127}));
-  connect(SigFraForEconDam.y, RetDamPosMax.x1) annotation (Line(points={{1,70},
-          {42,70},{42,-62},{52,-62}}, color={0,0,127}));
+          {20,-130},{20,-78},{58,-78}}, color={0,0,127}));
+  connect(SigFraForEconDam.y, RetDamPosMax.x1) annotation (Line(points={{1,70},{
+          42,70},{42,-62},{58,-62}},  color={0,0,127}));
   connect(maxSignalLimit.y, RetDamPosMax.x2) annotation (Line(points={{1,10},{
-          32,10},{32,-74},{52,-74}}, color={0,0,127}));
-  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points=
-          {{-59,80},{-28,80},{-28,-70},{52,-70}}, color={0,0,127}));
+          32,10},{32,-74},{58,-74}}, color={0,0,127}));
+  connect(MinOutAirDamPosController.y, RetDamPosMax.u) annotation (Line(points={{-59,80},
+          {-28,80},{-28,-70},{58,-70}},           color={0,0,127}));
   connect(EcoDamPosMax.y, EcoDamPosMin.f2) annotation (Line(points={{-19,-170},
-          {46,-170},{46,-118},{52,-118}}, color={0,0,127}));
+          {46,-170},{46,-118},{58,-118}}, color={0,0,127}));
   connect(EcoDamPhyPosMin.y, EcoDamPosMin.f1) annotation (Line(points={{-59,
-          -210},{32,-210},{32,-106},{52,-106}}, color={0,0,127}));
+          -210},{32,-210},{32,-106},{58,-106}}, color={0,0,127}));
   connect(minSignalLimit.y, EcoDamPosMin.x1) annotation (Line(points={{1,40},{
-          36,40},{36,-102},{52,-102}}, color={0,0,127}));
-  connect(SigFraForEconDam.y, EcoDamPosMin.x2) annotation (Line(points={{1,70},
-          {18,70},{18,-114},{52,-114}}, color={0,0,127}));
-  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points=
-          {{-59,80},{-38,80},{-38,-110},{52,-110}}, color={0,0,127}));
+          36,40},{36,-102},{58,-102}}, color={0,0,127}));
+  connect(SigFraForEconDam.y, EcoDamPosMin.x2) annotation (Line(points={{1,70},{
+          18,70},{18,-114},{58,-114}},  color={0,0,127}));
+  connect(MinOutAirDamPosController.y, EcoDamPosMin.u) annotation (Line(points={{-59,80},
+          {-38,80},{-38,-110},{58,-110}},           color={0,0,127}));
   connect(RetDamPhyPosMin.y, yRetDamPosMin) annotation (Line(points={{-59,-130},
           {-58,-130},{-58,-144},{-56,-144},{88,-144},{88,8},{110,8}}, color={0,
           0,127}));
   connect(EcoDamPhyPosMax.y, yEcoDamPosMax) annotation (Line(points={{-59,-170},
-          {-56,-170},{-56,-184},{-52,-184},{96,-184},{96,-28},{110,-28}}, color
-        ={0,0,127}));
+          {-56,-170},{-56,-184},{-52,-184},{96,-184},{96,-28},{110,-28}}, color=
+         {0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{100,
             100}}), graphics={
