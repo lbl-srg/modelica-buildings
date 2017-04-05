@@ -103,8 +103,8 @@ equation
           {-50,-90},{-50,-122},{-42,-122}}, color={0,0,127}));
   connect(RetDamPhyPosMin.y, RetDamPosMin.u3) annotation (Line(points={{-59,-130},
           {-56,-130},{-56,-138},{-52,-138},{-42,-138}}, color={0,0,127}));
-  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{94,
-          -110},{94,-12},{110,-12}}, color={0,0,127}));
+  connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{92,
+          -110},{92,-12},{110,-12}}, color={0,0,127}));
   connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{80,
           -70},{80,28},{96,28},{110,28}}, color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMax.f1) annotation (Line(points={{-59,-90},

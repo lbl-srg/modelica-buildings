@@ -3,137 +3,139 @@ model EconEnableDisable "Economizer enable/disable switch"
 
   CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
     "Outdoor temperature" annotation (Placement(transformation(extent={{-140,
-            130},{-100,170}}), iconTransformation(extent={{-140,130},{-100,170}})));
+            120},{-100,160}}), iconTransformation(extent={{-140,120},{-100,160}})));
   CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
-     Placement(transformation(extent={{-140,42},{-100,82}}), iconTransformation(
-          extent={{-140,42},{-100,82}})));
+     Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(
+          extent={{-140,40},{-100,80}})));
   CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
-    "Supply air temperature" annotation (Placement(transformation(extent={{-140,
-            84},{-100,124}}), iconTransformation(extent={{-140,84},{-100,124}})));
+    "Supply air temperature" annotation (Placement(transformation(extent={{-140,80},
+            {-100,120}}),     iconTransformation(extent={{-140,80},{-100,120}})));
   CDL.Interfaces.RealOutput yEcoDamPosMax(min=0, max=1)
     "Output sets maximum allowable economizer damper position. Fixme: Should this remain as type real? Output can take two values: disable = yEcoDamPosMin and enable = yEcoDamPosMax."
     annotation (Placement(transformation(extent={{100,42},{138,80}}),
         iconTransformation(extent={{100,42},{138,80}})));
   CDL.Interfaces.RealInput uEcoDamPosMin
     "Minimal economizer damper position, output from a separate sequence."
-    annotation (Placement(transformation(extent={{-140,-4},{-100,36}}),
-        iconTransformation(extent={{-140,-4},{-100,36}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   CDL.Interfaces.RealInput uEcoDamPosMax
     "Maximum economizer damper position, either 100% or set to a constant value <100% at commisioning."
-    annotation (Placement(transformation(extent={{-140,-54},{-100,-14}}),
-        iconTransformation(extent={{-140,-54},{-100,-14}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   CDL.Logical.Switch assignDamperPosition
     "If control loop signal = 1 opens the damper to it's max position; if signal = 0 closes the damper to it's min position."
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
   CDL.Logical.Or or1
     "If any of the conditions evaluated is 1, the block returns 1 and it's inverse in the following block closes the damper to uEcoDamPosMin. If all conditions are 0, the damper can be opened up to uEcoDamPosMax"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{60,74},{80,94}})));
   CDL.Logical.Hysteresis hysTOut(uHigh=297, final uLow=297 - 1)
     "Close damper when TOut is above the uHigh, open it again only when TOut falls down to uLow"
-    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   //fixme: units for instantiated limits, example TOut limit is 75K, delta = 1K
   CDL.Logical.Or or2
     "fixme: should we have an or block that allows multiple inputs?"
-    annotation (Placement(transformation(extent={{20,86},{40,106}})));
+    annotation (Placement(transformation(extent={{60,100},{80,120}})));
   CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
-    annotation (Placement(transformation(extent={{-90,94},{-70,114}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   CDL.Logical.Timer timer1
-    annotation (Placement(transformation(extent={{-60,104},{-40,124}})));
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   CDL.Logical.Greater greater
-    annotation (Placement(transformation(extent={{-32,94},{-12,114}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   CDL.Continuous.Constant TSupTimeLimit(k=300)
     "Max time during which TSup may be lower than temperature defined in the appropriate evaluation block. fixme: should this be a parameter, how do we deal with units"
-    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
-  connect(assignDamperPosition.u1, uEcoDamPosMin) annotation (Line(points={{58,-42},
-          {-18,-42},{-18,16},{-120,16}},      color={0,0,127}));
-  connect(TOut, hysTOut.u) annotation (Line(points={{-120,150},{-62,150}},
+  connect(TOut, hysTOut.u) annotation (Line(points={{-120,140},{-114,140},{-88,
+          140},{-62,140}},
                  color={0,0,127}));
-  connect(or2.y, or1.u1) annotation (Line(points={{41,96},{46,96},{46,110},{12,
-          110},{12,78},{12,70},{18,70}},         color={255,0,255}));
-  connect(TSup, TSupThreshold.u)
-    annotation (Line(points={{-120,104},{-92,104}}, color={0,0,127}));
-  connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,150},{-2,150},{-2,96},
-          {18,96}},color={255,0,255}));
-  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-69,104},{-66,
-          104},{-66,114},{-62,114}}, color={255,0,255}));
-  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-39,88},{-38,
-          88},{-38,96},{-34,96}}, color={0,0,127}));
-  connect(timer1.y, greater.u1) annotation (Line(points={{-39,114},{-38,114},{
-          -38,104},{-34,104}},
-                           color={0,0,127}));
-  connect(greater.y, or2.u2) annotation (Line(points={{-11,104},{-11,104},{-4,
-          104},{-4,84},{18,84},{18,88}}, color={255,0,255}));
-  connect(uFre, or1.u2)
-    annotation (Line(points={{-120,62},{-120,62},{18,62}},color={255,0,255}));
-  connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{81,-50},
-          {94,-50},{94,61},{119,61}}, color={0,0,127}));
+  connect(or2.y, or1.u1) annotation (Line(points={{81,110},{90,110},{90,130},{
+          50,130},{50,84},{58,84}},              color={255,0,255}));
+  connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,140},{30,140},{30,
+          110},{58,110}},
+                   color={255,0,255}));
+  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-59,90},{-50,90},
+          {-50,110},{-42,110}},      color={255,0,255}));
+  connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-19,70},{-12,
+          70},{-12,82},{-2,82}},  color={0,0,127}));
+  connect(timer1.y, greater.u1) annotation (Line(points={{-19,110},{-12,110},{
+          -12,90},{-2,90}},color={0,0,127}));
+  connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{81,10},
+          {88,10},{90,10},{90,60},{106,60},{106,61},{119,61}},
+                                      color={0,0,127}));
   connect(uEcoDamPosMax, assignDamperPosition.u3) annotation (Line(points={{-120,
-          -34},{-28,-34},{-28,-58},{58,-58}}, color={0,0,127}));
-  connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{81,70},{86,
-          70},{86,0},{52,0},{52,-50},{58,-50}},   color={255,0,255}));
-  connect(or1.y, not1.u)
-    annotation (Line(points={{41,70},{49.5,70},{58,70}}, color={255,0,255}));
+          -20},{-30,-20},{-30,2},{58,2}},     color={0,0,127}));
+  connect(or1.y, not1.u) annotation (Line(points={{81,84},{90,84},{90,68},{50,
+          68},{50,50},{58,50}}, color={255,0,255}));
+  connect(greater.y, or2.u2) annotation (Line(points={{21,90},{30,90},{30,102},
+          {58,102}}, color={255,0,255}));
+  connect(uFre, or1.u2) annotation (Line(points={{-120,60},{-60,60},{-60,50},{0,
+          50},{0,76},{58,76}}, color={255,0,255}));
+  connect(not1.y, assignDamperPosition.u2) annotation (Line(points={{81,50},{86,
+          50},{86,36},{50,36},{50,10},{58,10}}, color={255,0,255}));
+  connect(uEcoDamPosMin, assignDamperPosition.u1) annotation (Line(points={{
+          -120,20},{-30,20},{-30,18},{58,18}}, color={0,0,127}));
+  connect(TSup, TSupThreshold.u) annotation (Line(points={{-120,100},{-90,100},
+          {-90,90},{-82,90}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,200}},
+        extent={{-100,-40},{100,160}},
         initialScale=0.1), graphics={
         Rectangle(
-          extent={{-100,-38},{100,162}},
+          extent={{-100,-40},{100,160}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{2,116},{82,116}},
+          points={{2,124},{82,124}},
           color={28,108,200},
           thickness=0.5),
         Text(
-          extent={{-94,32},{-24,-4}},
+          extent={{-96,40},{-26,4}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uEcoDamPosMin"),
         Text(
-          extent={{-96,-12},{-26,-48}},
+          extent={{-96,0},{-26,-36}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uEcoDamPosMax"),
         Text(
-          extent={{106,118},{176,82}},
+          extent={{106,114},{176,78}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yEcoDamPos"),
         Text(
-          extent={{-96,166},{-26,130}},
+          extent={{-98,152},{-62,132}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TOut"),
         Text(
-          extent={{-96,124},{-26,88}},
+          extent={{-96,114},{-58,88}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="TSup"),
+        Line(
+          points={{-78,4},{2,4},{2,124}},
+          color={28,108,200},
+          thickness=0.5),
         Text(
-          extent={{-96,78},{-26,42}},
+          extent={{-96,76},{-58,50}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uFre"),
-        Line(
-          points={{-78,-4},{2,-4},{2,116}},
-          color={28,108,200},
-          thickness=0.5)}),
+          textString="uFre")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,200}},
+        extent={{-100,-40},{100,160}},
         initialScale=0.1)),
     Documentation(info="<html>      
              <p>
