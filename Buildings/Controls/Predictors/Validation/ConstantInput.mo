@@ -19,7 +19,7 @@ equation
       smooth=Smooth.None));
 
   annotation (
-  experiment(StopTime=5270400),
+  experiment(Tolerance=1e-6, StopTime=5270400),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/ConstantInput.mos"
         "Simulate and plot"),
     Documentation(info="<html>

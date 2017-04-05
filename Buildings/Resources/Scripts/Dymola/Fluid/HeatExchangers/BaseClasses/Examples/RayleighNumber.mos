@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.RayleighNumber", stopTime=50, method="dassl", tolerance=1e-05, resultFile="RayleighNumber");
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.RayleighNumber", stopTime=50, method="dassl", tolerance=1e-6, resultFile="RayleighNumber");
 
 createPlot(id = 1,
  position = {0, 0, 1609, 781},

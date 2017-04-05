@@ -128,7 +128,7 @@ equation
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/DemandResponse/Examples/ClientLBNL90.mos"
         "Simulate and plot"),
             experiment(
-      StopTime=1.728e+06),
+      Tolerance=1e-6, StopTime=1.728e+06),
     Documentation(info="<html>
 <p>
 Model that demonstrates the demand response client,

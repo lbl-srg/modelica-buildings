@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.WetCoil",
-stopTime=3600, method="dassl", resultFile="WetCoil");
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="WetCoil");
 removePlots();
 createPlot(id = 1,
  position = {29, 7, 484, 723},

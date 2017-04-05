@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ", method="Euler", fixedstepsize=0.001, resultFile="EpsilonNTUZ");
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ", method="Euler", fixedstepsize=0.001, tolerance=1e-6, stopTime=1.0, resultFile="EpsilonNTUZ");
 createPlot(id = 1,
  position = {31, 30, 400, 280},
  x = "eps[1]",

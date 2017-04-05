@@ -43,7 +43,7 @@ equation
     Diagram(coordinateSystem(extent={{-100,-100},{240,100}},
           preserveAspectRatio=false), graphics),
     experiment(
-      StopTime=2678400,
+      StopTime=2.6784e+06,
       Tolerance=1e-05),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Examples/BESTEST.mos"
         "Simulate and plot"),

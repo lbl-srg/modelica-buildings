@@ -49,7 +49,7 @@ model ScrollWaterToWater
     preferredView="info",
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Calibration/ScrollWaterToWater.mos"
         "Simulate and plot"),
-    experiment(StopTime=142),
+    experiment(Tolerance=1e-6, StopTime=142),
 Documentation(info="<HTML>
 <p>
 Calibration model for the calibration of models for water to water heat pump

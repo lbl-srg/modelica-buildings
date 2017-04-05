@@ -688,5 +688,5 @@ First implementation.
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/SpaceCooling.mos"
         "Simulate and plot"),
     experiment(StartTime=1.58112e7,
-               StopTime=1.6416e+07));
+               Tolerance=1e-05, StopTime=1.6416e+07));
 end SpaceCooling;

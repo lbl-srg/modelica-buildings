@@ -126,7 +126,7 @@ by consuming <i>10</i> kW for each phase, while at the end of the simulation
 they all produce <i>10</i> kW.
 </p>
 </html>"),
-experiment(StopTime=1.0, Tolerance=1e-05),
+experiment(StopTime=1.0, Tolerance=1e-6),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Sensors/Examples/Sensors.mos"
         "Simulate and plot"));

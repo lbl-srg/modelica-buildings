@@ -23,7 +23,7 @@ model Case630 "Case 620, but with added overhang and sidefins"
         experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model is case 630 of the BESTEST validation suite.

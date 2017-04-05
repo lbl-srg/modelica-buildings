@@ -454,7 +454,7 @@ equation
             {160,140}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Validation/SingleSpeedPLREnergyPlus.mos"
         "Simulate and plot"),
-    experiment(StopTime=86400),
+    experiment(Tolerance=1e-05, StopTime=86400),
             Documentation(info="<html>
 <p>
 This model validates the model
