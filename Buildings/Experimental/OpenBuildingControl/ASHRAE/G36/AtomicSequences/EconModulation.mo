@@ -176,10 +176,13 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="uSupFan"),
+        Line(points={{20,58}}, color={28,108,200}),
+        Line(points={{-74,-64},{-28,-64},{34,62},{78,62}}, color={28,108,200}),
+
         Line(
-          points={{0,64},{-66,-64},{64,-64},{0,64}},
+          points={{-54,62},{-10,62},{60,-60},{82,-60}},
           color={28,108,200},
-          thickness=0.5)}),
+          pattern=LinePattern.Dash)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{
             100,100}})),
     Documentation(info="<html>      
