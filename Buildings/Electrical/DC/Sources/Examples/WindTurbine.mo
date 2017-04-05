@@ -61,7 +61,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
-    experiment(StopTime=172800, Tolerance=1e-05),
+    experiment(StopTime=172800, Tolerance=1e-6),
 Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.

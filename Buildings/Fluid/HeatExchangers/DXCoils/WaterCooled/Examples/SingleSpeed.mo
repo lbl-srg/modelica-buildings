@@ -92,7 +92,7 @@ equation
   annotation (             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/WaterCooled/Examples/SingleSpeed.mos"
         "Simulate and plot"),
-    experiment(Tolerance=1e-05, StopTime=3600),
+    experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
