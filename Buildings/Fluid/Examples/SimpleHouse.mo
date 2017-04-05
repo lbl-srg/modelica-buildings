@@ -287,7 +287,7 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Weather")}),
-    experiment(StopTime=1e+06),
+    experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>
 <ul>
 <li>

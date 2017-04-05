@@ -40,7 +40,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StopTime=1),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/FlowMachineInterface.mos"
         "Simulate and plot"));
 end FlowMachineInterface;

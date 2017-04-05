@@ -106,7 +106,7 @@ equation
       points={{-67,-5.55112e-16},{-67,-14},{10,-14}},
       color={0,127,255}));
   annotation (
-experiment(StopTime=7200),
+experiment(Tolerance=1e-006, StopTime=7200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ClosedDoors.mos"
         "Simulate and plot"),
     Documentation(info="<html>

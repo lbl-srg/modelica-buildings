@@ -327,6 +327,10 @@ ports which are exposed at the FMU interface.
 </html>", revisions="<html>
 <ul>
 <li>
+April 4, 2017, by Michael Wetter:<br/>
+Removed import statement.
+</li>
+<li>
 November 11, 2016, by Michael Wetter:<br/>
 Made the cooling coil replaceable because the Buildings library
 uses the model for validation with a cooling coil model that is not

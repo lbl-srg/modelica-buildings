@@ -72,18 +72,18 @@ power</a></td>
 </tr>
 </table>
 <p>*Note: This record should not be used
-(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>) 
+(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>)
 for the movers that take as a control signal
-the mass flow rate or the head, 
+the mass flow rate or the head,
 unless also values for the record <code>pressure</code> are provided.
 The reason is that for these movers the record <code>pressure</code>
 is required to be able to compute the mover speed,
 which is required to be able to compute the electrical power
-correctly using similarity laws. 
-If a <code>Pressure</code> record is not provided, 
+correctly using similarity laws.
+If a <code>Pressure</code> record is not provided,
 the model will internally override <code>use_powerCharacteristic=false</code>.
 In this case the efficiency records will be used.
-Note that in this case an error is still introduced, 
+Note that in this case an error is still introduced,
 but it is smaller than when using the power records.
 Compare
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
@@ -91,7 +91,7 @@ Buildings.Fluid.Movers.Validation.PowerSimplified</a>
 with
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
 Buildings.Fluid.Movers.Validation.PowerSimplified</a>
-for an illustration of this error. 
+for an illustration of this error.
 </p>
 <p>
 These performance curves are implemented in
@@ -291,13 +291,13 @@ at zero pressure difference, solving for the flow rate and the revolution leads 
 <p>
 However, the computation of the electrical power consumption
 requires the mover speed to be known
-and the computation of the mover speed requires the performance 
+and the computation of the mover speed requires the performance
 curves for the flow and efficiency/power characteristics.
-Therefore these performance curves do need to be provided 
+Therefore these performance curves do need to be provided
 if the user desires a correct electrical power computation.
-If the curves are not provided, a simplified computation is used, 
+If the curves are not provided, a simplified computation is used,
 where the efficiency curve is used and assumed to be correct for all speeds.
-This loss of accuracy has the advantage that it allows to use the 
+This loss of accuracy has the advantage that it allows to use the
 mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>

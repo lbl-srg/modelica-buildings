@@ -1566,15 +1566,15 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 <li>
 February 18, 2017, by Filip Jorissen:<br/>
 Infrared radiation on horizontal surface is now delayed by 30 minutes
-such that the results in 
-<a href=modelica://Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody>TBlaSky</a> 
+such that the results in
+<a href=modelica://Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody>TBlaSky</a>
 are consistent.
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/648\">#648</a>.
 </li>
 <li>
 December 06, 2016, by Thierry S. Nouidui:<br/>
-Constrained the direct normal radiation to not be bigger than the solar constant when using 
+Constrained the direct normal radiation to not be bigger than the solar constant when using
 global and diffuse solar radiation data provided via the inputs connectors.
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/608\">#608</a>.

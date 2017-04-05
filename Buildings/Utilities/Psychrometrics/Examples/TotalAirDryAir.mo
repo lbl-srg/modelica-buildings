@@ -30,7 +30,7 @@ equation
       points={{38,-16},{-50,-16},{-50,10},{-59,10}},
       color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos"
         "Simulate and plot"));
 end TotalAirDryAir;

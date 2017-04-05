@@ -115,7 +115,7 @@ equation
     experiment(Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-This model is reconfigured to a steady state or 
+This model is reconfigured to a steady state or
 dynamic check for conservation of trace substances.
 </p>
 </html>", revisions="<html>

@@ -171,14 +171,14 @@ equation
           lineColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
-      StopTime=2),
+      Tolerance=1E-6, StopTime=2),
     Documentation(revisions="<html>
 <ul>
 <li>
 January 27, 2016, by Filip Jorissen:<br/>
 Changed heat flow rate at zero flow to avoid triggering of
 conservation of energy check.
-This is for 
+This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/470\">
 issue 470</a>.
 </li>

@@ -110,7 +110,7 @@ equation
   connect(trapezoid.y, sin_1.p_in) annotation (Line(
       points={{61,72},{94,72},{94,20},{86,20}},
       color={0,0,127}));
-  annotation(experiment(StopTime=360),
+  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>

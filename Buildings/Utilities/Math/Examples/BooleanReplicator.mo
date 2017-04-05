@@ -11,7 +11,7 @@ equation
   connect(booTab.y, booRep.u) annotation (Line(
       points={{-19,10},{-2,10}},
       color={255,0,255}));
-annotation (experiment(StopTime=600),
+annotation (experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>

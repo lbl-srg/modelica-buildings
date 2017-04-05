@@ -11,7 +11,7 @@ equation
   connect(intTab.y, intRep.u) annotation (Line(
       points={{-19,10},{-2,10}},
       color={255,127,0}));
-annotation (experiment(StopTime=2),
+annotation (experiment(Tolerance=1e-6, StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegerReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
