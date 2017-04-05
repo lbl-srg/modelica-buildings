@@ -19,8 +19,8 @@ algorithm
              smoothOrder=2,
              derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
                Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der,
-             inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
+             __LBNL(inverse(m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+               dp=dp, k=k, m_flow_turbulent=m_flow_turbulent))),
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -51,6 +51,10 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 05, 2016, by Thierry Nouidui:<br/>
+Disabled <code>inverse</code> annotation which is not supported by JModelica.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

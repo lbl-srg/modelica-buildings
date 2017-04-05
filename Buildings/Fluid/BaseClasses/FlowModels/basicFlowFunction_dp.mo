@@ -22,8 +22,8 @@ algorithm
            smoothOrder=2,
            derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
              Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
-           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
+           __LBNL(inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent))),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -53,6 +53,10 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 05, 2016, by Thierry Nouidui:<br/>
+Disabled <code>inverse</code> annotation which is not supported by JModelica.
+</li>
 <li>
 March 19, 2016, by Michael Wetter:<br/>
 Added <code>abs</code> function for
