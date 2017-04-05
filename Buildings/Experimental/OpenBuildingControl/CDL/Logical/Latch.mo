@@ -18,6 +18,7 @@ initial equation
   pre(y) = pre_y_start;
   pre(u) = pre_u_start;
   pre(u0) = pre_u_start;
+  pre(scenario) = 0;
 
 algorithm
   when (not u0) and (pre(u) <> u) and (pre(u) == false) then
