@@ -69,5 +69,24 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This example model is meant to create a comparison of the 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
+WetEffectivenessNTU</a> model (which is tested here) versus a 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+WetCoilCounterFlow</a> model over a similar example (compare this example with
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
+WetCoilCounterFlowMassFlow</a>). 
+</p>
+
+<p>
+The two models correspond approximately (realizing that the
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetEffectivenessNTU\">
+WetEffectivenessNTU
+</a> model does not have dynamics) over the first half of the simulation but
+does not agree well over the second half which subjects the model to
+flow reversals.
+</p>
 </html>"));
 end WetCoilEffNtuMassFlow;
