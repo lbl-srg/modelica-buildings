@@ -13,7 +13,9 @@
 #        will create reference_result_file.csv
 #
 # MWetter@lbl.gov                               2016-08-31
-##########################################################
+# Revision: Modified by Thierry Nouidui         2016-12-01
+# for non equidistant time grids
+############################################################
 
 def _read_reference_result(file_name):
     ''' Read the reference results and write them as a csv file
@@ -94,7 +96,8 @@ def _write_csv(file_name, d):
     # Set all series to have the same length
     for key in d.keys():
         if len(d[key]) != n:
-            if key == 'time':
+            #d[key] = [d[key][0] for x in range(n)]
+            if ((key == 'time') and (len(d[key])<3)):
                 d[key] = np.linspace( \
                    np.float64(d[key][0]), \
                    np.float64(d[key][-1]), n).tolist()
@@ -107,7 +110,7 @@ def _write_csv(file_name, d):
         f.write("time")
         for key in d.keys():
             if key != 'time':
-                f.write(", %s" % key)
+                f.write("; %s" % key)
         f.write("\n")
         # Write data
         for i in range(n):
@@ -116,7 +119,7 @@ def _write_csv(file_name, d):
             for key in d.keys():
                 if key != 'time':
                     vals = d[key]
-                    f.write(", %s" % vals[i])
+                    f.write("; %s" % vals[i])
             f.write("\n")
 
 
