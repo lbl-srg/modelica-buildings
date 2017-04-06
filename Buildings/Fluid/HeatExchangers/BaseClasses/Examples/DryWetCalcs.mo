@@ -137,13 +137,7 @@ uses a different zero-point for calculation of specific enthalpy -- therefore, o
 differences in specific enthalpy should be compared:
 </p>
 
-<p>
-<table
-   summary=\"summary\"
-   border=\"1\"
-   cellspacing=\"0\"
-   cellpadding=\"2\"
-   style=\"border-collapse:collapse;\">
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
   <th>Ex. SM2-1 Parameter</th>
   <th>Ex. SM2-1 Value</th>
@@ -445,7 +439,6 @@ differences in specific enthalpy should be compared:
   <td><code>dryWetCalcs.dryFra</code></td>
 </tr>
 </table>
-</p>
 
 <h4>References</h4>
 
@@ -457,6 +450,5 @@ Hoboken, N.J.: Wiley. Available online:
 <a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
 http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
 </p>
-
 </html>"));
 end DryWetCalcs;
