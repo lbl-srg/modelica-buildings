@@ -1,5 +1,9 @@
 compareVars :=
   {
-    "TAirOutSenExp",
-    "TAirOutAtUnit"
+    "TAirOutAtUnit",
+    "h1",
+    "h2",
+    "hx",
+    "QSen",
+    "QLat"
   };
