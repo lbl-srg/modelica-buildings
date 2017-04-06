@@ -9,8 +9,18 @@ model DryWetCalcsSweep
       X = {wAirIn * R, 1 - (wAirIn * R)})));
   Real R
     "Parameter to adjust wAirIn with time";
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi TWetBul_TDryBulXi(
+    redeclare package Medium = Medium_A,
+    TDryBul = TAirIn,
+    p = pAir,
+    Xi = {wAirIn * R})
+    "Utility to calculate the wet bulb temperature";
+  Modelica.SIunits.Temperature TWetBul
+    "The wet bulb temperature";
+
 equation
   R = time / 10;
+  TWetBul = TWetBul_TDryBulXi.TWetBul;
   annotation (
     experiment(StopTime=20),
     __Dymola_Commands(
