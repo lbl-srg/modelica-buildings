@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtuMassFlow", stopTime=3600, method="dassl", tolerance=1e-006, resultFile="WetCoilEffNtuMassFlow");
 createPlot(id=1, 
   position={0, 0, 1614, 872}, 
-  y={"hex.Q2_flow", "hex.QLat2_flow"}, 
+  y={"hex.heaCoo.Q_flow"}, 
   range={0.0, 3600.0, -3000.0, 1000.0},
   autoscale = true,
   autoerase = true,
