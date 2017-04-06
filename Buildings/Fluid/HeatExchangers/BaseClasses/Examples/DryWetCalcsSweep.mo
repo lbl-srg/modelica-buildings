@@ -37,5 +37,29 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This example duplicates the figure associated with example SM2-1 from Mitchell
+and Braun 2012. This example is a further test of the implementation of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs\">
+Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs</a>.
+</p>
+
+<p>
+The plot associated with SM2-1 can be recreated by plotting both
+<code>dryWetCalcs.dryFra</code> and <code>dryWetCalcs.QTot</code> versus
+<code>TWetBul</code>.
+</p>
+
+<h4>References</h4>
+
+<p>
+Mitchell, John W., and James E. Braun. 2012.
+\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
+Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
+Hoboken, N.J.: Wiley. Available online:
+<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
+http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
+</p>
 </html>"));
 end DryWetCalcsSweep;

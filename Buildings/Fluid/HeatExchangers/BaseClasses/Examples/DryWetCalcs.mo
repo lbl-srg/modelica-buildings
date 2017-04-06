@@ -108,5 +108,355 @@ First implementation. See
 issue 622</a> for more information.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This example duplicates example SM2-1 from Mitchell and Braun 2012. Because we
+have the ability to directly specify fluid properties as inputs, we can use the
+exact same numbers for specific heats, etc. as in the textbook example. The
+only known differences are in the tolerance, the iterative solution method of
+the solvers (Mitchell and Braun's example was calculed using Engineering
+Equation Solver or EES), and in the unit system employed. In particular, the
+authors performed their calculations in IP units while this problem is
+conducted in SI units which may imply differences due to the conversion
+factors used and precision of results. This example tests the implementation of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs\">
+Buildings.Fluid.HeatExchangers.BaseClasses.DryWetCalcs</a>.
+</p>
+
+<p>
+The example values calculated here corresponds closely with those of the text.
+Note: to do a full comparison, you may want to choose to show values of
+protected variables if you have that option in your Modelica compiler.
+</p>
+
+<p>
+Because the full data corresponding to SM2-1 is somewhat difficult to obtain
+(it requires downloading an EES file and running it and converting the units to
+SI), we present it below in tabular form. Note in particular that the SM2-1 data
+uses a different zero-point for calculation of specific enthalpy -- therefore, only
+differences in specific enthalpy should be compared:
+</p>
+
+<p>
+<table
+   summary=\"summary\"
+   border=\"1\"
+   cellspacing=\"0\"
+   cellpadding=\"2\"
+   style=\"border-collapse:collapse;\">
+<tr>
+  <th>Ex. SM2-1 Parameter</th>
+  <th>Ex. SM2-1 Value</th>
+  <th>Compare With</th>
+</tr>
+<tr>
+  <td>Configuration</td>
+  <td>Cross-flow</td>
+  <td><code>cfg</code></td>
+</tr>
+<tr>
+  <td>A<sub>a</sub></td>
+  <td>33.4450944 m<sup>2</sup></td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>A<sub>w</sub></td>
+  <td>1.67225472 m<sup>2</sup></td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>cp<sub>a</sub></td>
+  <td>1021.5792 J/kg/K</td>
+  <td><code>cpAir</code></td>
+</tr>
+<tr>
+  <td>cp<sub>w</sub></td>
+  <td>4199.3604 J/kg/K</td>
+  <td><code>cpWat</code></td>
+</tr>
+<tr>
+  <td>C<sub>a</sub></td>
+  <td>2703.05 W/K</td>
+  <td><code>dryWetCalcs.dry.CAir</code></td>
+</tr>
+<tr>
+  <td>C<sub>min</sub></td>
+  <td>2703.05 W/K</td>
+  <td><code>dryWetCalcs.dry.CMin</code></td>
+</tr>
+<tr>
+  <td>c<sub>s</sub></td>
+  <td>2104.70 J/kg/K</td>
+  <td><code>dryWetCalcs.wet.cpEff</code></td>
+</tr>
+<tr>
+  <td>C<sup>*</sup></td>
+  <td>0.1704</td>
+  <td><code>dryWetCalcs.dry.Z</code></td>
+</tr>
+<tr>
+  <td>C<sub>w</sub></td>
+  <td>15866.98 W/K</td>
+  <td><code>dryWetCalcs.dry.CWat</code></td>
+</tr>
+<tr>
+  <td>eff<sub>dry</sub></td>
+  <td>0.7717</td>
+  <td><code>dryWetCalcs.dry.eff</code></td>
+</tr>
+<tr>
+  <td>eff<sub>p,dry</sub></td>
+  <td>0.4525</td>
+  <td><code>dryWetCalcs.parDry.eff</code></td>
+</tr>
+<tr>
+  <td>eff<sub>p,wet</sub></td>
+  <td>0.4745</td>
+  <td><code>dryWetCalcs.parWet.effSta</code></td>
+</tr>
+<tr>
+  <td>eff<sup>*</sup></td>
+  <td>0.6071</td>
+  <td><code>dryWetCalcs.wet.effSta</code></td>
+</tr>
+<tr>
+  <td>h<sub>a,in</sub></td>
+  <td>67709.86 J/kg</td>
+  <td><code>hAirIn</code></td>
+</tr>
+<tr>
+  <td>h<sub>a,out,p</sub></td>
+  <td>48659.92 J/kg</td>
+  <td><code>dryWetCalcs.parWet.hAirOut</code></td>
+</tr>
+<tr>
+  <td>h<sub>a,out,wet</sub></td>
+  <td>49380.98 J/kg</td>
+  <td><code>dryWetCalcs.wet.hAirOut</code></td>
+</tr>
+<tr>
+  <td>h<sub>a,x</sub></td>
+  <td>58731.50 J/kg</td>
+  <td><code>dryWetCalcs.wet.hAirIn</code></td>
+</tr>
+<tr>
+  <td>h<sub>s,eff</sub></td>
+  <td>48822.74 J/kg</td>
+  <td><code>dryWetCalcs.wet.hSurEff</code></td>
+</tr>
+<tr>
+  <td>h<sub>w,in</sub></td>
+  <td>37518.38 J/kg</td>
+  <td><code>dryWetCalcs.hAirSatSurIn</code></td>
+</tr>
+<tr>
+  <td>h<sub>w,out,wet</sub></td>
+  <td>43938.14 J/kg</td>
+  <td><code>dryWetCalcs.wet.hAirSatSurOut</code></td>
+</tr>
+<tr>
+  <td>m<sub>dot,a</sub></td>
+  <td>2.646 kg/s</td>
+  <td><code>masFloAir</code></td>
+</tr>
+<tr>
+  <td>m<sub>dot,cond,wet</sub></td>
+  <td>0.002087 kg/s</td>
+  <td><code>dryWetCalcs.wet.masFloCon</code></td>
+</tr>
+<tr>
+  <td>m<sub>dot,w</sub></td>
+  <td>3.78 kg/s</td>
+  <td><code>masFloWat</code></td>
+</tr>
+<tr>
+  <td>m<sup>*</sup></td>
+  <td>0.351</td>
+  <td><code>dryWetCalcs.wet.mSta</code></td>
+</tr>
+<tr>
+  <td>Ntu<sub>a,star</sub></td>
+  <td>3.513</td>
+  <td><code>dryWetCalcs.wet.NtuAirSta</code></td>
+</tr>
+<tr>
+  <td>Ntu<sub>dry</sub></td>
+  <td>1.756</td>
+  <td><code>dryWetCalcs.dry.Ntu</code></td>
+</tr>
+<tr>
+  <td>Ntu<sub>p,dry</sub></td>
+  <td>0.6366</td>
+  <td><code>dryWetCalcs.parDry.Ntu</code></td>
+</tr>
+<tr>
+  <td>Ntu<sub>p,wet</sub></td>
+  <td>0.7319</td>
+  <td><code>dryWetCalcs.parWet.NtuSta</code></td>
+</tr>
+<tr>
+  <td>Ntu<sup>*</sup></td>
+  <td>1.148</td>
+  <td><code>dryWetCalcs.wet.NtuSta</code></td>
+</tr>
+<tr>
+  <td>p<sub>atm</sub></td>
+  <td>101352.93 Pa</td>
+  <td><code>pAtm</code></td>
+</tr>
+<tr>
+  <td>Q<sub>dry</sub></td>
+  <td>44035.97 W</td>
+  <td><code>-dryWetCalcs.dry.Q</code></td>
+</tr>
+<tr>
+  <td>Q<sub>p,dry</sub></td>
+  <td>23769.24 W</td>
+  <td><code>-dryWetCalcs.parDry.Q</code></td>
+</tr>
+<tr>
+  <td>Q<sub>p,total</sub></td>
+  <td>50404.71 W</td>
+  <td><code>dryWetCalcs.QTot</code></td>
+</tr>
+<tr>
+  <td>Q<sub>p,wet</sub></td>
+  <td>26626.97 W</td>
+  <td><code>dryWetCalcs.QTotWetPar</code></td>
+</tr>
+<tr>
+  <td>Q<sub>wet</sub></td>
+  <td>48505.90 W</td>
+  <td><code>dryWetCalcs.QTotWet</code></td>
+</tr>
+<tr>
+  <td>R<sub>a</sub></td>
+  <td>0.000105 K/W</td>
+  <td><code>dryWetCalcs.dry.ResAir</code></td>
+</tr>
+<tr>
+  <td>R<sub>dry</sub></td>
+  <td>0.000210 K/W</td>
+  <td><code>dryWetCalcs.dry.ResTot</code></td>
+</tr>
+<tr>
+  <td>R<sub>w</sub></td>
+  <td>0.000105 K/W</td>
+  <td><code>dryWetCalcs.dry.ResWat</code></td>
+</tr>
+<tr>
+  <td>T<sub>a,in</sub></td>
+  <td>26.67 C</td>
+  <td><code>TAirIn</code></td>
+</tr>
+<tr>
+  <td>T<sub>a,out,dry</sub></td>
+  <td>10.38 C</td>
+  <td><code>dryWetCalcs.dry.TAirOut</code></td>
+</tr>
+<tr>
+  <td>T<sub>a,out,dry</sub></td>
+  <td>10.38 C</td>
+  <td><code>dryWetCalcs.wet.TAirOut</code></td>
+</tr>
+<tr>
+  <td>T<sub>a,x</sub></td>
+  <td>17.87 C</td>
+  <td><code>dryWetCalcs.TAirX</code></td>
+</tr>
+<tr>
+  <td>T<sub>s,x</sub></td>
+  <td>10.73 C</td>
+  <td><code>dryWetCalcs.wet.TSurEff</code></td>
+</tr>
+<tr>
+  <td>T<sub>wb,in</sub></td>
+  <td>17.78 C</td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>T<sub>w,in</sub></td>
+  <td>5.56 C</td>
+  <td><code>TWatIn</code></td>
+</tr>
+<tr>
+  <td>T<sub>w,out,dry</sub></td>
+  <td>8.33 C</td>
+  <td><code>dryWetCalcs.dry.TWatOut</code></td>
+</tr>
+<tr>
+  <td>T<sub>w,out,p</sub></td>
+  <td>8.73 C</td>
+  <td><code>dryWetCalcs.parDry.TWatOut</code></td>
+</tr>
+<tr>
+  <td>T<sub>w,out,wet</sub></td>
+  <td>8.61 C</td>
+  <td><code>dryWetCalcs.wet.TWatOut</code></td>
+</tr>
+<tr>
+  <td>T<sub>w,x</sub></td>
+  <td>7.23 C</td>
+  <td><code>dryWetCalcs.TWatX</code></td>
+</tr>
+<tr>
+  <td>UA<sub>dry</sub></td>
+  <td>4747.75 W/K</td>
+  <td><code>dryWetCalcs.dry.UA</code></td>
+</tr>
+<tr>
+  <td>UA<sub>wet</sub></td>
+  <td>3.037 kg/s</td>
+  <td><code>dryWetCalcs.wet.UASta</code></td>
+</tr>
+<tr>
+  <td>UA<sub>a</sub></td>
+  <td>283.913 W/m<sup>2</sup>/K</td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>UA<sub>a,dry</sub></td>
+  <td>141.96 W/m<sup>2</sup>/K</td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>UA<sup>*</sup></td>
+  <td>0.0908 kg/s/m<sup>2</sup></td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>U<sub>w</sub></td>
+  <td>5678.26 W/m<sup>2</sup>/K</td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>w<sub>in</sub></td>
+  <td>0.0089757 kg water/kg moist air</td>
+  <td><code>wAirIn</code></td>
+</tr>
+<tr>
+  <td>w<sub>out,wet</sub></td>
+  <td>0.0082002 kg water/kg moist air</td>
+  <td><code>dryWetCalcs.wet.wAirOut</code></td>
+</tr>
+<tr>
+  <td>X</td>
+  <td>0.3624</td>
+  <td><code>dryWetCalcs.dryFra</code></td>
+</tr>
+</table>
+</p>
+
+<h4>References</h4>
+
+<p>
+Mitchell, John W., and James E. Braun. 2012.
+\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
+Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
+Hoboken, N.J.: Wiley. Available online:
+<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
+http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
+</p>
+
 </html>"));
 end DryWetCalcs;
