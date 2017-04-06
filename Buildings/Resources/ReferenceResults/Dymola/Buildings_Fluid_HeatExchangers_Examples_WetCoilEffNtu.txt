@@ -1,8 +1,8 @@
-last-generated=2017-03-20
+last-generated=2017-04-06
 statistics-initialization=
 {
-  "numerical Jacobians": "4", 
-  "nonlinear": "1, 1, 1, 0, 1, 3, 1, 1, 1, 0, 1, 2"
+  "numerical Jacobians": "0", 
+  "nonlinear": "1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1"
 }
 statistics-simulation=
 {
@@ -10,9 +10,9 @@ statistics-simulation=
   "nonlinear": " ", 
   "linear": " "
 }
-QTotAir=[-50424.72265625, -50424.72265625]
-wetEffNtu.dryWetCalcs.QTot=[50424.72265625, 50424.72265625]
-QTotWat=[50424.72265625, 50424.72265625]
+QTotAir=[-50426.8125, -50426.8125]
+wetEffNtu.dryWetCalcs.QTot=[50426.8125, 50426.8125]
+QTotWat=[50426.8125, 50426.8125]
 time=[0., 1.]
-wetEffNtu.sta_b1.T=[281.89385986328125, 281.89385986328125]
-wetEffNtu.dryWetCalcs.TWatOutPar=[281.89385986328125, 281.89385986328125]
+wetEffNtu.sta_b1.T=[281.89398193359375, 281.89398193359375]
+wetEffNtu.dryWetCalcs.TWatOutPar=[281.89398193359375, 281.89398193359375]
