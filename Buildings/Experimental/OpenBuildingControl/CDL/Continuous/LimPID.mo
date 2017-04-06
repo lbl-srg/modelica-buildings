@@ -8,11 +8,11 @@ block LimPID
   parameter Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController controllerType=
          CDL.Types.SimpleController.PID "Type of controller";
   parameter Real k(min=0, unit="1") = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Constants.small)=0.5
+  parameter Modelica.SIunits.Time Ti(min=Constants.small)
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PI or
           controllerType == CDL.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+  parameter Modelica.SIunits.Time Td(min=0)
     "Time constant of Derivative block" annotation (Dialog(enable=
           controllerType == CDL.Types.SimpleController.PD or
           controllerType == CDL.Types.SimpleController.PID));
@@ -51,8 +51,6 @@ block LimPID
     annotation(Dialog(enable=initType == CDL.Types.Init.InitialOutput,
                       group="Initialization"));
 
-  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
-
   Interfaces.RealInput u_s "Connector of setpoint input signal" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealInput u_m "Connector of measurement input signal" annotation (Placement(
@@ -63,14 +61,16 @@ block LimPID
   Interfaces.RealOutput y "Connector of actuator output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 
+protected
+  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+
   Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Add addD(k1=wd, k2=-1) if with_D
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Continuous.IntegratorWithReset I(
-    reset=Types.Reset.Disabled,
+  Modelica.Blocks.Continuous.Integrator I(
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == CDL.Types.Init.SteadyState then CDL.Types.Init.SteadyState else
@@ -102,14 +102,14 @@ block LimPID
     uMax=yMax,
     uMin=yMin)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-protected
+
   parameter Boolean with_I = controllerType==CDL.Types.SimpleController.PI or
                              controllerType==CDL.Types.SimpleController.PID
                              annotation(Evaluate=true, HideResult=true);
   parameter Boolean with_D = controllerType==CDL.Types.SimpleController.PD or
                              controllerType==CDL.Types.SimpleController.PID
                              annotation(Evaluate=true, HideResult=true);
-public
+
   Constant Dzero(k=0) if not with_D
     annotation (Placement(transformation(extent={{-30,20},{-20,30}})));
   Constant Izero(k=0) if not with_I
