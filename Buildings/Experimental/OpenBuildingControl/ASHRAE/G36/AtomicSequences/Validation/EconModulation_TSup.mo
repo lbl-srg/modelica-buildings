@@ -34,7 +34,7 @@ equation
   connect(TCooSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,48},
           {-20,48},{-20,38},{-2,38}},
                             color={0,0,127}));
-  connect(TCoo.y, ecoMod.TCoo) annotation (Line(points={{-59,70},{-30,70},{-30,34},
+  connect(TCoo.y,ecoMod.TSup)  annotation (Line(points={{-59,70},{-30,70},{-30,34},
           {-2,34}},color={0,0,127}));
   connect(uCoo.y, ecoMod.uCoo)
     annotation (Line(points={{-59,10},{-2,10},{-2,30}},    color={0,0,127}));

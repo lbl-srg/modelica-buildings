@@ -154,6 +154,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uVOutMin"),
         Text(
           extent={{118,42},{188,6}},
@@ -166,6 +167,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uVOut"),
         Text(
           extent={{118,64},{188,28}},
@@ -178,12 +180,14 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uAHUMod"),
         Text(
           extent={{-96,22},{-26,-14}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uSupFan"),
         Text(
           extent={{118,-10},{188,-46}},

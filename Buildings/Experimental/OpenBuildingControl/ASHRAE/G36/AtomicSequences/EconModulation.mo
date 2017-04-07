@@ -5,7 +5,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   prevent modulation, provide input signals that set max and min position
   limits to the same value."
 
-  CDL.Interfaces.RealInput TCoo
+  CDL.Interfaces.RealInput TSup
     "Measured supply air temperature. Sensor output."
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   CDL.Interfaces.RealInput TCooSet
@@ -28,12 +28,12 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  CDL.Interfaces.RealOutput yEcoDamPos
-    "Minimum economizer damper position limit." annotation (Placement(
+  CDL.Interfaces.RealOutput yEcoDamPos "Economizer damper position"
+                                                annotation (Placement(
         transformation(extent={{100,-30},{120,-10}}), iconTransformation(extent=
            {{100,-30},{120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPos
-    "Maximum return air damper position limit" annotation (Placement(
+  CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
+                                               annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{
             100,10},{120,30}})));
   CDL.Continuous.Line EcoDamPos(limitBelow=true, limitAbove=true)
@@ -89,7 +89,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Conversions.IntegerToReal integerToReal
     annotation (Placement(transformation(extent={{-80,34},{-60,54}})));
 equation
-  connect(TCoo, DamPosController.u_m) annotation (Line(points={{-120,40},{-50,
+  connect(TSup, DamPosController.u_m) annotation (Line(points={{-120,40},{-50,
           40},{-50,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
   connect(EcoDamPos.y, yEcoDamPos) annotation (Line(points={{81,10},{90,10},{90,
           -20},{110,-20}}, color={0,0,127}));
@@ -160,36 +160,42 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="TCooSet"),
         Text(
           extent={{110,58},{180,22}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPos"),
+          textString="yRetDamPos",
+          fontSize=40),
         Text(
           extent={{-96,64},{-26,28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TCoo"),
+          horizontalAlignment=TextAlignment.Left,
+          textString="TSup"),
         Text(
           extent={{110,14},{180,-22}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPos"),
+          textString="yEcoDamPos",
+          fontSize=40),
         Text(
           extent={{-96,-20},{-26,-56}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uHea"),
         Text(
           extent={{-96,22},{-26,-14}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uCoo"),
         Line(points={{20,58}}, color={28,108,200}),
         Line(points={{-74,-64},{-28,-64},{34,62},{78,62}}, color={28,108,200}),
@@ -202,6 +208,7 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
+          horizontalAlignment=TextAlignment.Left,
           textString="uSupFan"),
         Text(
           extent={{-96,-92},{-26,-128}},
