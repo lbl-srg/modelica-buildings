@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Discrete.Examples;
 model ZeroOrderHold "Example model for the ZeroOrderHold block"
   extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.ZeroOrderHold ZerOrdHol1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Discrete.ZeroOrderHold zerOrdHol(
     samplePeriod = 0.2)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -19,9 +19,10 @@ model ZeroOrderHold "Example model for the ZeroOrderHold block"
 equation
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
-  connect(sin1.y, ZerOrdHol1.u)
+  connect(sin1.y, zerOrdHol.u)
     annotation (Line(points={{11,0},{20,0},{28,0}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/ZeroOrderHold.mos"
         "Simulate and plot"),
     Documentation(

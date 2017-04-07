@@ -1,4 +1,4 @@
 compareVars :=
   {
-    "Pulse1.y"
+    "pulse.y"
   };

@@ -70,14 +70,14 @@ protected
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Continuous.Integrator I(
+  IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == CDL.Types.Init.SteadyState then CDL.Types.Init.SteadyState else
         if initType == CDL.Types.Init.InitialState
          then CDL.Types.Init.InitialState else CDL.Types.Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Continuous.Derivative D(
+  Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,

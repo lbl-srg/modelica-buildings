@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "onoffControl1.reference",
-    "onoffControl1.u",
-    "onoffControl1.y"
+    "onOffController.reference",
+    "onOffController.u",
+    "onOffController.y"
   };

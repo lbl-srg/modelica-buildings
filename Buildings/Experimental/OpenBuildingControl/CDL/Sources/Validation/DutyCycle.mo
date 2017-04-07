@@ -2,8 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Sources.Validation;
 model DutyCycle "Validation model for the DutyCycle block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc1(
-    CycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
+    cycleOn = true,
     period = 1)
     "Block that output cyclc on and off"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -12,9 +12,10 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(cons.y, DutyCyc1.u)
+  connect(cons.y, dutCyc.u)
     annotation (Line(points={{-39,0},{-26,0},{-12,0}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Sources/Validation/DutyCycle.mos"
         "Simulate and plot"),
     Documentation(info="<html>

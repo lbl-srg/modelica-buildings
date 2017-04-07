@@ -22,6 +22,7 @@ equation
   connect(ramp2.y, less1.u2) annotation (Line(points={{-5,-20},{10,-20},{10,-6},
           {24,-6}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Less.mos"
         "Simulate and plot"),
     Documentation(info="<html>

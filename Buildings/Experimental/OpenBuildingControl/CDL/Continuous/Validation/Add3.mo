@@ -28,7 +28,7 @@ equation
   connect(ramp3.y, add1.u3) annotation (Line(points={{-39,-28},{-26,-28},{-26,-8},
           {-12,-8}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Add3.mos"
         "Simulate and plot"),
     Documentation(info="<html>

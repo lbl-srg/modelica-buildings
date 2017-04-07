@@ -9,13 +9,14 @@ extends Modelica.Icons.Example;
     height=2) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-26,-8},{-6,12}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.GreaterEqualThreshold grterEqThr1
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.GreaterEqualThreshold greEquThr
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(ramp2.y, grterEqThr1.u)
+  connect(ramp2.y, greEquThr.u)
     annotation (Line(points={{-5,2},{8,2},{24,2}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/GreaterEqualThreshold.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "FirOrdHol1.u",
-    "FirOrdHol1.y"
+    "firOrdHol.u",
+    "firOrdHol.y"
   };

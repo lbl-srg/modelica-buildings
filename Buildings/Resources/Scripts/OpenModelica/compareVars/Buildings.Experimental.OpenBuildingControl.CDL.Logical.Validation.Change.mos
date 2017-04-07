@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "change1.u",
-    "change1.y",
+    "change.u",
+    "change.y",
     "triggeredSampler.u",
     "triggeredSampler.y"
   };

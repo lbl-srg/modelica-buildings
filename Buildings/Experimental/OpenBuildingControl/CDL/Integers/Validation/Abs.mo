@@ -6,7 +6,7 @@ extends Modelica.Icons.Example;
     "Block that outputs the absolute value of the input"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation trunc1
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation truncation1
     "Block that discards the fractional portion of input and provides a whol number output"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
@@ -16,11 +16,12 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
 
 equation
-  connect(ramp1.y, trunc1.u)
+  connect(ramp1.y, truncation1.u)
     annotation (Line(points={{-51,0},{-30,0},{-30,0}}, color={0,0,127}));
-  connect(trunc1.y, abs1.u)
+  connect(truncation1.y, abs1.u)
     annotation (Line(points={{-7,0},{4,0},{14,0}}, color={255,127,0}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Integers/Validation/Abs.mos"
         "Simulate and plot"),
     Documentation(info="<html>

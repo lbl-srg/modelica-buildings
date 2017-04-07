@@ -55,7 +55,7 @@ equation
   connect(cons.y, intDef.u) annotation (Line(points={{-39,70},{-26,70},{-26,-80},
           {-14,-80}}, color={0,0,127}));
           annotation (
-  experiment(StopTime=1.0),
+  experiment(StopTime=1.0, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/IntegratorWithReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>

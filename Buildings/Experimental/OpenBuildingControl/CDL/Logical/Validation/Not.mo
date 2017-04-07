@@ -2,8 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Not "Validation model for the Not block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc1(
-    CycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
+    cycleOn = true,
     period = 1.5)
     "Block that output cyclc on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
@@ -14,11 +14,12 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
 equation
-  connect(cons1.y, DutyCyc1.u)
+  connect(cons1.y, dutCyc.u)
     annotation (Line(points={{-55,0},{-48,0},{-28,0}},    color={0,0,127}));
-  connect(DutyCyc1.y, not1.u)
+  connect(dutCyc.y, not1.u)
     annotation (Line(points={{-5,0},{8,0},{24,0}}, color={255,0,255}));
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Not.mos"
         "Simulate and plot"),
     Documentation(info="<html>

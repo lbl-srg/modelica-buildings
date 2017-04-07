@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Sources.Validation;
 model SampleTrigger "Validation model for the SampleTrigger block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger SamTri1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.SampleTrigger samTri(
     period = 0.5)
     "Block that generates sample trigger signal"
     annotation (Placement(transformation(extent={{2,-4},{22,16}})));
@@ -18,11 +18,12 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{2,44},{22,64}})));
 
 equation
-  connect(SamTri1.y, triggeredSampler.trigger) annotation (Line(points={{23,6},{
+  connect(samTri.y, triggeredSampler.trigger) annotation (Line(points={{23,6},{
           38,6},{38,42.2},{52,42.2}}, color={255,0,255}));
   connect(ramp2.y, triggeredSampler.u)
     annotation (Line(points={{23,54},{31.5,54},{40,54}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Sources/Validation/SampleTrigger.mos"
         "Simulate and plot"),
     Documentation(info="<html>

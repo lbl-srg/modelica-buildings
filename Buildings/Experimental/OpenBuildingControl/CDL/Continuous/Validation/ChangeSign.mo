@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model ChangeSign "Validation model for the ChangeSign block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.ChangeSign ChgS1
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.ChangeSign changSign
     "Block that change sign of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
@@ -11,10 +11,10 @@ extends Modelica.Icons.Example;
     height=3.0) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
-  connect(ramp1.y, ChgS1.u)
+  connect(ramp1.y, changSign.u)
     annotation (Line(points={{-39,0},{-12,0}},         color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/ChangeSign.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "product1.u1",
-    "product1.u2",
-    "product1.y"
+    "product.u1",
+    "product.u2",
+    "product.y"
   };

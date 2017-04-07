@@ -16,7 +16,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.7) "Constant as source term"
     annotation (Placement(transformation(extent={{-32,18},{-12,38}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.OnOffController onoffControl1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.OnOffController onOffController(
     bandwidth = 0.1)
     "Delay a rising edge of the input, but do not delay a falling edge."
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
@@ -24,11 +24,12 @@ extends Modelica.Icons.Example;
 equation
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-55,-6},{-34,-6}}, color={0,0,127}));
-  connect(sin1.y, onoffControl1.u)
+  connect(sin1.y, onOffController.u)
     annotation (Line(points={{-11,-6},{6,-6},{24,-6}}, color={0,0,127}));
-  connect(cons2.y, onoffControl1.reference)
+  connect(cons2.y, onOffController.reference)
     annotation (Line(points={{-11,28},{6,28},{6,6},{24,6}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/OnOffController.mos"
         "Simulate and plot"),
     Documentation(info="<html>

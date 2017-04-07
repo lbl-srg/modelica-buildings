@@ -9,13 +9,14 @@ extends Modelica.Icons.Example;
     height=4)  "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Logical.LessEqualThreshold lessEqThr1
+  Buildings.Experimental.OpenBuildingControl.CDL.Logical.LessEqualThreshold lesEquThr
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
 equation
-  connect(ramp1.y, lessEqThr1.u)
+  connect(ramp1.y, lesEquThr.u)
     annotation (Line(points={{-15,0},{0,0},{14,0}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/LessEqualThreshold.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -3,7 +3,7 @@ block DutyCycle "Generate output cyclc on and off"
 
   Interfaces.RealInput u "Percentage of the cycle time the output should be on: [0, 100]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  parameter Boolean CycleOn = true
+  parameter Boolean cycleOn = true
     "= false, if don't want to have the cycle ON.";
 
   parameter Modelica.SIunits.Time period(min=Constants.small) = 1.0 "Time for one cycle";
@@ -28,7 +28,7 @@ equation
     count = pre(count) + 1;
     T_start = time;
   end when;
-  y = if CycleOn then
+  y = if cycleOn then
          (if (time < startTime or nperiod == 0 or (nperiod > 0 and count >= nperiod))
          then false
          else if time < T_start + (period-T_width) then false

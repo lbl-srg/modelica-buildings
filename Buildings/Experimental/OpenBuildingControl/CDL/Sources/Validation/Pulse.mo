@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Sources.Validation;
 model Pulse "Validation model for the Pulse block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse Pulse1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.Pulse pulse(
     amplitude = 2.0,
     width = 50,
     offset = 0.2,
@@ -11,6 +11,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Sources/Validation/Pulse.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -23,7 +23,7 @@ equation
           -12},{0,-12}},
                      color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Feedback.mos"
         "Simulate and plot"),
     Documentation(info="<html>

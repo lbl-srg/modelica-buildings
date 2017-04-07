@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "lessEq1.u1",
-    "lessEq1.u2",
-    "lessEq1.y"
+    "lesEqu.u1",
+    "lesEqu.u2",
+    "lesEqu.y"
   };

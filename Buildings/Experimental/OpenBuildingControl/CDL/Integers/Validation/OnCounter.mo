@@ -2,12 +2,12 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Integers.Validation;
 model OnCounter "Validation model for the OnCounter block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Integers.OnCounter onCounter1
+  Buildings.Experimental.OpenBuildingControl.CDL.Integers.OnCounter onCounter
     "Block that outputs increment if the input switches to true"
     annotation (Placement(transformation(extent={{16,-10},{36,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutyCyc1(
-    CycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
+    cycleOn = true,
     period = 0.1)
     "Block that output cyclc on and off"
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
@@ -15,7 +15,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle reset(
-    CycleOn = true,
+    cycleOn = true,
     period = 1.0)
     "Block that output cyclc on and off"
     annotation (Placement(transformation(extent={{-26,-50},{-6,-30}})));
@@ -25,13 +25,14 @@ extends Modelica.Icons.Example;
 equation
   connect(cons2.y, reset.u) annotation (Line(points={{-51,-40},{-39.5,-40},{-28,
           -40}}, color={0,0,127}));
-  connect(reset.y, onCounter1.reset) annotation (Line(points={{-5,-40},{10,-40},
+  connect(reset.y, onCounter.reset) annotation (Line(points={{-5,-40},{10,-40},
           {10,-12},{26,-12}}, color={255,0,255}));
-  connect(cons1.y, dutyCyc1.u)
+  connect(cons1.y, dutCyc.u)
     annotation (Line(points={{-51,0},{-28,0}}, color={0,0,127}));
-  connect(dutyCyc1.y, onCounter1.trigger)
+  connect(dutCyc.y, onCounter.trigger)
     annotation (Line(points={{-5,0},{4,0},{14,0}}, color={255,0,255}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Integers/Validation/OnCounter.mos"
         "Simulate and plot"),
     Documentation(info="<html>

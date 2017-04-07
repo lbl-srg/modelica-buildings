@@ -1,4 +1,16 @@
 simulateModel("Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation.LimPID", method="dassl", tolerance=1e-06, resultFile="LimPID1");
-createPlot(id=1, position={15, 10, 730, 420}, y={"limPID.u_s","limPID.u_m","limPID.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180}});
-createPlot(id=2, position={760, 10, 730, 420}, y={"limPIDOri.u_s","limPIDOri.u_m","limPIDOri.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180}});
+createPlot(id=1, position={15, 10, 900, 700}, subPlot=1, y={"limPID.u_s","limPID.u_m","limPIDOri.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180}});
+createPlot(id=1, position={15, 10, 900, 700}, subPlot=2, y={"limPID.u_s","limPID.y","noLimPID.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180}});
+createPlot(id=1, position={15, 10, 900, 700}, subPlot=3, y={"limP.y","limPI.y","limPD.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, colors={{238,46,47},{0,140,72},{217,67,180}});
+
+
+
+
+
+
+
+
+
+
+
 

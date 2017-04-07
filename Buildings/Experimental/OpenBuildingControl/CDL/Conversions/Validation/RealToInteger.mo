@@ -2,7 +2,7 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Conversions.Validation;
 model RealToInteger "Validation model for the RealToInteger block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToInteger RealToIn1
+  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.RealToInteger reaToInt
     "Block that convert Integer to Real signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
@@ -13,9 +13,10 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(ramp1.y, RealToIn1.u)
+  connect(ramp1.y, reaToInt.u)
     annotation (Line(points={{-39,0},{28,0},{28,0}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Conversions/Validation/RealToInteger.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "lessEqThr1.u",
-    "lessEqThr1.y"
+    "lesEquThr.u",
+    "lesEquThr.y"
   };

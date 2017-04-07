@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "zeroCro1.u",
-    "zeroCro1.enable",
+    "zeroCrossing.u",
+    "zeroCrossing.enable",
     "triggeredSampler.u",
     "triggeredSampler.y"
   };

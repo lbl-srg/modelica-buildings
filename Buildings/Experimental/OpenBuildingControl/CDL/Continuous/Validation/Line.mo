@@ -41,7 +41,7 @@ equation
   connect(f2.y, line1.f2) annotation (Line(points={{-39,-66},{-26,-66},{-26,-8},
           {-12,-8}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/Line.mos"
         "Simulate and plot"),
     Documentation(info="<html>

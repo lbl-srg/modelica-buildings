@@ -3,7 +3,7 @@ model NumberOfRequests
   "Validation model for the NumberOfRequests block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.NumberOfRequests NumReq1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.NumberOfRequests numReq1(
     nin = 5,
     threShold = 1.0,
     kind = 0)
@@ -38,18 +38,18 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
 
 equation
-  connect(ramp1.y, NumReq1.u[1]) annotation (Line(points={{-39,66},{-26,66},{-26,
+  connect(ramp1.y, numReq1.u[1]) annotation (Line(points={{-39,66},{-26,66},{-26,
           -1.6},{-12,-1.6}}, color={0,0,127}));
-  connect(ramp2.y, NumReq1.u[2]) annotation (Line(points={{-39,32},{-26,32},{-26,
+  connect(ramp2.y, numReq1.u[2]) annotation (Line(points={{-39,32},{-26,32},{-26,
           -0.8},{-12,-0.8}}, color={0,0,127}));
-  connect(ramp3.y, NumReq1.u[3])
+  connect(ramp3.y, numReq1.u[3])
     annotation (Line(points={{-39,0},{-25.5,0},{-12,0}}, color={0,0,127}));
-  connect(ramp4.y, NumReq1.u[4]) annotation (Line(points={{-39,-32},{-26,-32},{-26,
+  connect(ramp4.y, numReq1.u[4]) annotation (Line(points={{-39,-32},{-26,-32},{-26,
           0.8},{-12,0.8}}, color={0,0,127}));
-  connect(ramp5.y, NumReq1.u[5]) annotation (Line(points={{-39,-64},{-26,-64},{-26,
+  connect(ramp5.y, numReq1.u[5]) annotation (Line(points={{-39,-64},{-26,-64},{-26,
           1.6},{-12,1.6}}, color={0,0,127}));
   annotation (
-experiment(StopTime=1.0),
+experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/NumberOfRequests.mos"
         "Simulate and plot"),
     Documentation(info="<html>

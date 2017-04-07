@@ -1,18 +1,18 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block RampLimiter "Limit the increase or decrease rate of input"
 
-  parameter Real Increase "Increase amount of the input";
-  parameter Real Decrease "Decrease amount of the input";
+  parameter Real increase "Increase amount of the input";
+  parameter Real decrease "Decrease amount of the input";
 
-  parameter Modelica.SIunits.Time  IncDT(min=100*Constants.eps) = 1.0
+  parameter Modelica.SIunits.Time  incDelTim(min=100*Constants.eps) = 1.0
     "Amount of time between increases of input";
-  parameter Modelica.SIunits.Time  DecDT(min=100*Constants.eps) = 1.0
+  parameter Modelica.SIunits.Time  decDelTim(min=100*Constants.eps) = 1.0
     "Amount of time between decreases of input";
 
   parameter Modelica.SIunits.Time Td(min=Constants.eps) = 0.001
     "Derivative time constant";
 
-  parameter Boolean LimitsOn = true
+  parameter Boolean limitsOn = true
     "= false, if limits are off.";
 
   Interfaces.RealInput u "Connector of Real input signal"
@@ -22,26 +22,26 @@ block RampLimiter "Limit the increase or decrease rate of input"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Real Rising = Increase/IncDT "Increase rate limit";
-  Real Falling = -Decrease/DecDT "Decrease rate limit";
+  Real rising = increase/incDelTim "Increase rate limit";
+  Real falling = -decrease/decDelTim "Decrease rate limit";
   Real val = (u-y)/Td;
 
 initial equation
     y = u;
 
 equation
-  if LimitsOn then
-    der(y) = if val<Falling then Falling else if val>Rising then Rising else val;
+  if limitsOn then
+    der(y) = if val<falling then falling else if val>rising then rising else val;
   else
     y = u;
   end if;
    annotation (
 Documentation(info="<html>
 <p>
-The block limits the increase/decrease rate of its input signal in the range of <code>[Falling, Rising]</code>, where:
+The block limits the increase/decrease rate of its input signal in the range of <code>[falling, rising]</code>, where:
 </p>
 <pre>
-    <code>Falling = -Decrease/DecDT</code>; <code>Rising = Increase/IncDT</code>;
+    falling = -decrease/decDelTim; rising = increase/incDelTim;
 </pre>
     
 <p>

@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "BooToIn1.u",
-    "BooToIn1.y"
+    "booToInt.u",
+    "booToInt.y"
   };

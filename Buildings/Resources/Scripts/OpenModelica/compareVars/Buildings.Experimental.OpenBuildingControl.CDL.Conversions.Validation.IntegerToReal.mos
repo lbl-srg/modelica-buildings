@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "InToReal1.u",
-    "InToReal1.y"
+    "intToRea.u",
+    "intToRea.y"
   };

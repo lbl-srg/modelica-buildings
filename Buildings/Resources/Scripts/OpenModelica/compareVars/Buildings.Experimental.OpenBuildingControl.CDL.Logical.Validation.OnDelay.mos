@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "onDelay1.u",
-    "onDelay1.y"
+    "onDelay.u",
+    "onDelay.y"
   };

@@ -3,12 +3,12 @@ model IntegerToBoolean
   "Validation model for the IntegerToBoolean block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.IntegerToBoolean InToBoo1(
+  Buildings.Experimental.OpenBuildingControl.CDL.Conversions.IntegerToBoolean intToBoo(
     threshold=1)
     "Block that convert Integer to Boolean signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation trunc1
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Truncation truncation
     "Block that discards the fractional portion of input and provides a whol number output"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
@@ -18,11 +18,12 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 equation
-  connect(ramp1.y, trunc1.u)
+  connect(ramp1.y, truncation.u)
     annotation (Line(points={{-39,0},{-12,0},{-12,0}}, color={0,0,127}));
-  connect(trunc1.y, InToBoo1.u)
+  connect(truncation.y, intToBoo.u)
     annotation (Line(points={{11,0},{28,0},{28,0}}, color={255,127,0}));
   annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Conversions/Validation/IntegerToBoolean.mos"
         "Simulate and plot"),
     Documentation(info="<html>

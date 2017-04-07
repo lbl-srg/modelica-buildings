@@ -6,7 +6,7 @@ block Truncation
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Interfaces.IntegerOutput y "Connector of Real output signal"
+  Interfaces.IntegerOutput y "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
 

@@ -38,6 +38,7 @@ equation
   connect(ramp3.y, triggeredSampler.u)
     annotation (Line(points={{23,54},{31.5,54},{40,54}}, color={0,0,127}));
   annotation (
+  experiment(StopTime=5.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Equal.mos"
         "Simulate and plot"),
     Documentation(info="<html>

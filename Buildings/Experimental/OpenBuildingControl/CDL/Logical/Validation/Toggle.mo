@@ -2,8 +2,8 @@ within Buildings.Experimental.OpenBuildingControl.CDL.Logical.Validation;
 model Toggle "Validation model for the Toggle block"
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc1(
-    CycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc1(
+    cycleOn = true,
     period = 1.5)
     "Block that output cyclc on and off"
     annotation (Placement(transformation(extent={{-26,8},{-6,28}})));
@@ -11,8 +11,8 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
     annotation (Placement(transformation(extent={{-76,8},{-56,28}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle DutyCyc2(
-     CycleOn = true,
+  Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc2(
+     cycleOn = true,
      period = 5)
      "Block that output cyclc on and off"
      annotation (Placement(transformation(extent={{-26,-26},{-6,-6}})));
@@ -23,16 +23,17 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{26,-8},{46,12}})));
 
 equation
-  connect(cons1.y, DutyCyc1.u)
+  connect(cons1.y, dutCyc1.u)
     annotation (Line(points={{-55,18},{-41.5,18},{-28,18}}, color={0,0,127}));
-  connect(DutyCyc1.y, toggle1.u) annotation (Line(points={{-5,18},{10,18},{10,2},
+  connect(dutCyc1.y, toggle1.u) annotation (Line(points={{-5,18},{10,18},{10,2},
           {25,2}}, color={255,0,255}));
-   connect(DutyCyc2.y, toggle1.u0) annotation (Line(points={{-5,-16},{10,-16},{10,
+   connect(dutCyc2.y, toggle1.u0) annotation (Line(points={{-5,-16},{10,-16},{10,
            -4},{25,-4}}, color={255,0,255}));
-   connect(cons2.y, DutyCyc2.u)
+   connect(cons2.y, dutCyc2.u)
      annotation (Line(points={{-55,-16},{-28,-16}}, color={0,0,127}));
   annotation (
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Toggle.mos"
+  experiment(StopTime=10.0, Tolerance=1e-06),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Toggle.mos"
           "Simulate and plot"),
     Documentation(info="<html>
 <p>
