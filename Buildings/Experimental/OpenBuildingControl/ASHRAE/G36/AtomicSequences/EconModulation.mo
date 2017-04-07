@@ -76,7 +76,7 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
   CDL.Logical.LessEqualThreshold ZoneStateStatusCooling(threshold=0)
     "Cooling is off. fixme: should we add an \"equal\" block that takes a parameter rather than an input, since we have such blocks for both less and greater than"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Logical.And and1
+  CDL.Logical.And andBlock
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   CDL.Continuous.Add add(k1=1, k2=-2)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -101,17 +101,17 @@ equation
           -10},{30,10},{58,10}}, color={0,0,127}));
   connect(coolingZoneState.u, uCoo)
     annotation (Line(points={{-82,0},{-82,0},{-120,0}}, color={0,0,127}));
-  connect(and1.u2, uSupFan) annotation (Line(points={{-82,-78},{-90,-78},{-90,
+  connect(andBlock.u2, uSupFan) annotation (Line(points={{-82,-78},{-90,-78},{-90,
           -70},{-120,-70}}, color={255,0,255}));
   connect(uHea, ZoneStateStatusCooling.u) annotation (Line(points={{-120,-40},{
           -101,-40},{-82,-40}}, color={0,0,127}));
-  connect(ZoneStateStatusCooling.y, and1.u1) annotation (Line(points={{-59,-40},
-          {-50,-40},{-50,-20},{-90,-20},{-90,-52},{-90,-70},{-82,-70}}, color={
-          255,0,255}));
-  connect(and1.y, EnableEcoDamModulation.u2) annotation (Line(points={{-59,-70},
-          {-50,-70},{-50,-140},{-42,-140}}, color={255,0,255}));
-  connect(and1.y, DisableRetDamModulation.u2) annotation (Line(points={{-59,-70},
-          {-50,-70},{-50,-170},{-42,-170}}, color={255,0,255}));
+  connect(ZoneStateStatusCooling.y, andBlock.u1) annotation (Line(points={{-59,
+          -40},{-50,-40},{-50,-20},{-90,-20},{-90,-52},{-90,-70},{-82,-70}},
+        color={255,0,255}));
+  connect(andBlock.y, EnableEcoDamModulation.u2) annotation (Line(points={{-59,
+          -70},{-50,-70},{-50,-140},{-42,-140}}, color={255,0,255}));
+  connect(andBlock.y, DisableRetDamModulation.u2) annotation (Line(points={{-59,
+          -70},{-50,-70},{-50,-170},{-42,-170}}, color={255,0,255}));
   connect(uEcoDamPosMax, EnableEcoDamModulation.u1) annotation (Line(points={{
           -120,-140},{-80,-140},{-80,-132},{-42,-132}}, color={0,0,127}));
   connect(uEcoDamPosMin, EnableEcoDamModulation.u3) annotation (Line(points={{
