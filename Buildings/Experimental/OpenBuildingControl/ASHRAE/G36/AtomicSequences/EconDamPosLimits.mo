@@ -6,6 +6,7 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
   // to avoid non-realistic setting of say econ min limit to 0 because the
   // measured flow is higher while the economizer is open wider (enabled or
   // modulating above the min)
+  // fixme: potentially a better name since used in communication with Brent: OA control loop
 
   CDL.Interfaces.RealInput uVOut
     "Measured outdoor airflow rate. Sensor output. Location: after the economizer damper intake."
@@ -18,7 +19,7 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   //fixme add units, should be percentage
   CDL.Continuous.Constant EcoDamPhyPosMin(k=0)
-    "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper."
+    "Physical or at the comissioning fixed minimum position of the economizer damper - economizer damper closed. Assuming VOut = 0 at this condition. This is the initial position of the economizer damper. fixme: It should always be 0 (pp), should we define this as final?"
     annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
   CDL.Continuous.LimPID MinOutAirDamPosController(
     yMax=1,
@@ -79,10 +80,6 @@ model EconDamPosLimits "Based on measured and requred minimum outdoor airflow th
     "Maximum return air damper position limit" annotation (Placement(
         transformation(extent={{100,-20},{120,0}}), iconTransformation(extent={{100,-20},
             {120,0}})));
-  CDL.Interfaces.RealOutput yEcoDamPosMax
-    "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,-38},{120,-18}}), iconTransformation(extent={{100,50},
-            {120,70}})));
 equation
   connect(uVOutMinSet, MinOutAirDamPosController.u_s)
     annotation (Line(points={{-120,80},{-120,80},{-82,80}}, color={0,0,127}));
@@ -105,10 +102,9 @@ equation
   connect(RetDamPhyPosMin.y, RetDamPosMin.u3) annotation (Line(points={{-59,-130},
           {-56,-130},{-56,-138},{-52,-138},{-42,-138}}, color={0,0,127}));
   connect(EcoDamPosMin.y, yEcoDamPosMin) annotation (Line(points={{81,-110},{84,
-          -110},{84,-110},{84,-110},{84,30},{84,30},{110,30}},
-                                     color={0,0,127}));
-  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{92,
-          -70},{92,-48},{110,-48}},       color={0,0,127}));
+          -110},{84,30},{110,30}},   color={0,0,127}));
+  connect(RetDamPosMax.y, yRetDamPosMax) annotation (Line(points={{81,-70},{92,-70},
+          {92,-48},{110,-48}},            color={0,0,127}));
   connect(RetDamPhyPosMax.y, RetDamPosMax.f1) annotation (Line(points={{-59,-90},
           {12,-90},{12,-66},{58,-66}}, color={0,0,127}));
   connect(RetDamPosMin.y, RetDamPosMax.f2) annotation (Line(points={{-19,-130},
@@ -133,9 +129,6 @@ equation
           {-58,-130},{-58,-144},{-56,-144},{88,-144},{88,-10},{110,-10}},
                                                                       color={0,
           0,127}));
-  connect(EcoDamPhyPosMax.y, yEcoDamPosMax) annotation (Line(points={{-59,-170},
-          {-56,-170},{-56,-184},{-52,-184},{96,-184},{96,-28},{110,-28}}, color=
-         {0,0,127}));
   annotation (
     defaultComponentName = "ecoEnaDis",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -197,8 +190,8 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yRetDamPosMin")}),
-    Diagram(coordinateSystem(                           extent={{-100,-240},{
-            100,100}},
+    Diagram(coordinateSystem(                           extent={{-100,-240},{100,
+            100}},
         initialScale=0.1)),
     Documentation(info="<html>      
 <p>

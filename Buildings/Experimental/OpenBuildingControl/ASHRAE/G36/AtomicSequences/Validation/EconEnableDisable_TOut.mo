@@ -31,9 +31,9 @@ equation
   connect(EcoDamPosMin.y, econEnableDisable.uEcoDamPosMax) annotation (Line(
         points={{-59,-70},{-32,-70},{-32,2},{-22,2}},     color={0,0,127}));
   connect(TSup.y, econEnableDisable.TSup) annotation (Line(points={{-59,30},{
-          -46,30},{-46,14},{-22,14}},      color={0,0,127}));
+          -40,30},{-40,14},{-22,14}},      color={0,0,127}));
   connect(TOut.y, econEnableDisable.TOut) annotation (Line(points={{-59,70},{
-          -42,70},{-42,18},{-22,18}},      color={0,0,127}));
+          -36,70},{-36,18},{-22,18}},      color={0,0,127}));
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
