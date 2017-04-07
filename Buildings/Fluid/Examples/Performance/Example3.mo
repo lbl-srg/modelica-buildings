@@ -72,7 +72,7 @@ equation
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -60},{60,40}}),    graphics),
-    experiment(StopTime=1000),
+    experiment(Tolerance=1e-6, StopTime=20),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -367,7 +367,7 @@ equation
   Implemented.
   </li>
   </ul>
-  </html>"),experiment(StopTime=5.184e+006, Interval=60),
+  </html>"),experiment(Tolerance=1e-6, StopTime=5.184e+006, Interval=60),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase8.mos"
         "Simulate and plot"));

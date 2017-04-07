@@ -165,7 +165,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example checks if the pump similarity law implementation results in 
+This example checks if the pump similarity law implementation results in
 monotoneously increasing or decreasing relations between <code>dp</code>,
 <code>m_flow</code> and <code>Nrpm</code>.
 </p>

@@ -26,7 +26,7 @@ equation
        a=a, b=b, c=c, d=d, e=e, f=f);
   dy_dt=der(y);
   d2y_dt2=der(dy_dt);
-  annotation(experiment(StopTime=1.0),
+  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos"
         "Simulate and plot"),
     Documentation(info="<html>

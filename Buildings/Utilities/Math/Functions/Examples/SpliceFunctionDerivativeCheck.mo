@@ -28,7 +28,7 @@ equation
   err = y-y_comp;
   assert(abs(err) < 1E-2, "Model has an error");
 
- annotation(experiment(StartTime=-1, StopTime=1.0),
+ annotation(experiment(StartTime=-1, Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>

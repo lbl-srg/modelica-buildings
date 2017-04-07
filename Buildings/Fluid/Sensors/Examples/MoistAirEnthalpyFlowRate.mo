@@ -84,7 +84,7 @@ equation
       points={{5.55112e-16,-70},{60,-70}},
       color={0,127,255}));
     annotation (
-experiment(StopTime=60.0),
+experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
     Documentation(

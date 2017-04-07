@@ -45,5 +45,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-6, StartTime=0.0, StopTime=1.0));
+    experiment(Tolerance=1e-6, StopTime=1));
 end CheckEquality;

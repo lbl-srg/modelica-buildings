@@ -33,8 +33,7 @@ Documentation(info="<html>
   </a>
   for more information about how the data is derived.
   </p>
-  </html>
-",revisions="<html>
+  </html>",revisions="<html>
 <ul>
 <li>
 February 17, 2016, by Michael Wetter:<br/>

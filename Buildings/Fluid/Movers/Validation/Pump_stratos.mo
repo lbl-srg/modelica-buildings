@@ -27,7 +27,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-06, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos"
         "Simulate and plot"),
     Documentation(info="<html>

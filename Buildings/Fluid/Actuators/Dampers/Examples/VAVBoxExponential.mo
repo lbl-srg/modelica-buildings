@@ -69,7 +69,7 @@ equation
       color={0,127,255}));
  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
+    experiment(Tolerance=1e-6, StopTime=240),
 Documentation(info="<html>
 <p>
 Test model for the variable air volume flow box.

@@ -2,7 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Fluid.MixingVolumes.Validation.MixingVolume",
    tolerance=1E-9,
-   stopTime=2,
+ stopTime=2,
    resultFile="MixingVolume");
 createPlot(id=3, position={168, 31, 827, 821}, y={"vol.medium.T", "vol1.T", "vol2.T"}, range={0.0, 2.0, 8.0, 22.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=3, position={168, 31, 827, 271}, y={"res1.m_flow", "res2.m_flow"}, range={0.0, 2.0, -3.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

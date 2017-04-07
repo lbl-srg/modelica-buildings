@@ -50,5 +50,5 @@ To see the effect of the expansion vessel, delete the connecting line between
 the volume and the expansion vessel and check how much more the pressure increases
 as the fluid is heated.
 </html>"),
-    experiment(StopTime=7200));
+    experiment(Tolerance=1e-6, StopTime=7200));
 end ExpansionVessel;

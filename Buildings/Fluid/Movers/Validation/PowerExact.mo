@@ -5,7 +5,7 @@ model PowerExact
     pump_dp(per=per),
     pump_m_flow(per=per));
   annotation (
-    experiment(StopTime=200),
+    experiment(Tolerance=1e-6, StopTime=200),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     __Dymola_Commands(file=

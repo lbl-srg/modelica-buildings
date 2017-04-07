@@ -151,7 +151,7 @@ equation
       points={{60,80},{80,80},{80,-92},{-48,-92},{-48,10.5},{-62,10.5}},
       color={0,127,255}));
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -16,7 +16,8 @@ The following books are useful for new users to get started:
 
 Although the `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
 
-Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov/modelica/Publications. The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
+Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov/modelica/publications.html.
+The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
 
 
 Literature for Developers
@@ -30,7 +31,7 @@ Xogeny's `Modelica Web Reference <http://modref.xogeny.com/>`_ gives a concise o
 
 Software Requirements
 ---------------------
-Check the software requirements for the different versions of the Buildings library at http://simulationresearch.lbl.gov/modelica/Download
+Check the software requirements for the different versions of the Buildings library at http://simulationresearch.lbl.gov/modelica/download.html
 
 
 Running the First Simulations
@@ -59,4 +60,3 @@ References
 .. [Til2001] Michael M. Tiller. *Introduction to Physical Modeling with Modelica.* Kluwer Academic Publisher, 2001.
 
 .. ###############################################################################################################
-

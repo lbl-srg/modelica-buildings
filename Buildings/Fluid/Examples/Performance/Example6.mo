@@ -27,7 +27,7 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100),
+      Tolerance=1e-6, StopTime=100),
     Documentation(revisions="<html>
 <ul>
 <li>
