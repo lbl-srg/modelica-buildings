@@ -175,8 +175,13 @@ monotoneously increasing or decreasing relations between <code>dp</code>,
 revisions="<html>
 <ul>
 <li>
+April 6, 2017, by Thierry S. Nouidui:<br/>
+Added <code>experiment</code> annotation 
+for JModelica verification.
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
-Removed dublicate <code>experiment</code> annotation.
+Removed duplicate <code>experiment</code> annotation.
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
 </li>
