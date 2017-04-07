@@ -18,7 +18,6 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
     yMax=1,
     yMin=0,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
-
     Ti=0.9,
     Td=0.1,
     Nd=1,
@@ -28,14 +27,14 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
 
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  CDL.Interfaces.RealOutput yEcoDamPosMin
+  CDL.Interfaces.RealOutput yEcoDamPos
     "Minimum economizer damper position limit." annotation (Placement(
-        transformation(extent={{100,-30},{120,-10}}),iconTransformation(extent={{100,-30},
-            {120,-10}})));
-  CDL.Interfaces.RealOutput yRetDamPosMax
+        transformation(extent={{100,-30},{120,-10}}), iconTransformation(extent
+          ={{100,-30},{120,-10}})));
+  CDL.Interfaces.RealOutput yRetDamPos
     "Maximum return air damper position limit" annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}),iconTransformation(extent={{100,-10},
-            {120,10}})));
+        transformation(extent={{100,10},{120,30}}), iconTransformation(extent={
+            {100,10},{120,30}})));
   CDL.Continuous.Line EcoDamPos(limitBelow=true, limitAbove=true)
     "Damper position is linearly proportional to the control signal."
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
@@ -88,10 +87,10 @@ model EconModulation "Based on measured and requred minimum outdoor airflow the 
 equation
   connect(TCoo, DamPosController.u_m) annotation (Line(points={{-120,40},{-50,
           40},{-50,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
-  connect(EcoDamPos.y, yEcoDamPosMin) annotation (Line(points={{81,10},{90,10},
-          {90,-20},{110,-20}}, color={0,0,127}));
-  connect(RetDamPos.y, yRetDamPosMax) annotation (Line(points={{81,50},{90,50},
-          {90,0},{110,0}}, color={0,0,127}));
+  connect(EcoDamPos.y, yEcoDamPos) annotation (Line(points={{81,10},{90,10},{90,
+          -20},{110,-20}}, color={0,0,127}));
+  connect(RetDamPos.y, yRetDamPos) annotation (Line(points={{81,50},{90,50},{90,
+          20},{110,20}}, color={0,0,127}));
   connect(maxSignalLimit.y, RetDamPos.x2) annotation (Line(points={{1,30},{30,
           30},{30,46},{58,46}}, color={0,0,127}));
   connect(DamPosController.y, RetDamPos.u) annotation (Line(points={{1,-10},{20,
@@ -157,44 +156,73 @@ equation
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uVOutMin"),
+          textString="TCooSet"),
         Text(
-          extent={{112,70},{182,34}},
+          extent={{110,58},{180,22}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMax"),
+          textString="yRetDamPos"),
         Text(
-          extent={{-96,62},{-26,26}},
+          extent={{-96,64},{-26,28}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uVOut"),
+          textString="TCoo"),
         Text(
-          extent={{112,6},{182,-30}},
+          extent={{110,14},{180,-22}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="yRetDamPosMin"),
+          textString="yRetDamPos"),
         Text(
           extent={{-96,-20},{-26,-56}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uAHUMod"),
+          textString="uHea"),
         Text(
           extent={{-96,22},{-26,-14}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="uSupFan"),
+          textString="uCoo"),
         Line(points={{20,58}}, color={28,108,200}),
         Line(points={{-74,-64},{-28,-64},{34,62},{78,62}}, color={28,108,200}),
-
         Line(
           points={{-54,62},{-10,62},{60,-60},{82,-60}},
           color={28,108,200},
-          pattern=LinePattern.Dash)}),
+          pattern=LinePattern.Dash),
+        Text(
+          extent={{-96,-54},{-26,-90}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uSupFan"),
+        Text(
+          extent={{-96,-92},{-26,-128}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uEcoDamPosMin"),
+        Text(
+          extent={{-96,-120},{-26,-156}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uEcoDamPosMax"),
+        Text(
+          extent={{-96,-152},{-26,-188}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uRetDamPosMin"),
+        Text(
+          extent={{-96,-182},{-26,-218}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="uRetDamPosMax")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-240},{
             100,100}})),
     Documentation(info="<html>      
