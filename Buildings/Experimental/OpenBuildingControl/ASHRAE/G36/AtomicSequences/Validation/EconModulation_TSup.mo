@@ -3,7 +3,7 @@ model EconModulation_TSup
   "Validation model for economizer and return air damper modulation to preserve the supply air temperature"
   extends Modelica.Icons.Example;
 
-  CDL.Continuous.Constant TCooSet(k=70, unit="F", displayUnit="F")
+  CDL.Continuous.Constant TSupSet(k=70, unit="F", displayUnit="F")
     "Supply air temperature setpoint. The economizer control uses cooling supply temperature"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Ramp TSup(
@@ -32,7 +32,7 @@ equation
   //fixme - turn into proper test and uncomment
   //__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/ASHRAE/G36/Validation/fixme.mos"
   //     "Simulate and plot"),
-  connect(TCooSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,48},
+  connect(TSupSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,48},
           {-20,48},{-20,38},{-2,38}},
                             color={0,0,127}));
   connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,70},{-30,70},{-30,34},

@@ -5,14 +5,16 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   prevent modulation, provide input signals that set max and min position
   limits to the same value."
 
-  CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
+  CDL.Interfaces.RealInput TSup
     "Measured supply air temperature. Sensor output."
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  CDL.Interfaces.RealInput TCooSet(unit="K", displayUnit="degC")
+                               //fixme brakes the validation, introduce when ready (unit="K", displayUnit="degC")
+  CDL.Interfaces.RealInput TCooSet
     "Output of a ***TSupSet sequence. The economizer modulates to the TCoo rather 
     than to the THea. If Zone State is Cooling, economizer modulates to a temperture 
     slightly lower than the TCoo [PART5.P.1]."
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+                                  //fixme brakes the validation, introduce when ready (unit="K", displayUnit="degC")
   CDL.Continuous.LimPID DamPosController(
     yMax=1,
     yMin=0,
