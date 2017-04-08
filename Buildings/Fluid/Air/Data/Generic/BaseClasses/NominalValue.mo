@@ -2,20 +2,27 @@ within Buildings.Fluid.Air.Data.Generic.BaseClasses;
 record NominalValue "Nominal conditions for air handling units"
   extends Modelica.Icons.Record;
   //-----------------------------Nominal conditions of the coil-----------------------------//
-
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Nominal water mass flow rate"
+  parameter Modelica.SIunits.Temperature T_a1_nominal=6 + 273.15
+    "Nominal water inlet temperature"
+    annotation (Dialog(tab="General",group="Cooling Coil"));
+  parameter Modelica.SIunits.Temperature T_b1_nominal=11 + 273.15
+    "Nominal water outlet temperature"
+    annotation (Dialog(tab="General",group="Cooling Coil"));
+  parameter Modelica.SIunits.Temperature T_a2_nominal=26 + 273.15
+    "Nominal air inlet temperature"
+    annotation (Dialog(tab="General",group="Cooling Coil"));
+  parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
+    "Nominal air outlet temperature"
+    annotation (Dialog(tab="General",group="Cooling Coil"));
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Nominal heat transfer"
     annotation (Dialog(tab="General",group="Cooling Coil"));
 
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Nominal air mass flow rate"
-    annotation (Dialog(group="Cooling Coil"));
-
-  parameter Modelica.SIunits.PressureDifference dp1_coil_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpCoil1_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
     annotation (Dialog(tab="General",group="Cooling Coil"));
 
-  parameter Modelica.SIunits.PressureDifference dp2_coil_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpCoil2_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
     annotation (Dialog(group="Cooling Coil"));
 
@@ -44,20 +51,22 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification"
     annotation (Dialog(tab="General",group="Humidifier"));
-  parameter Modelica.SIunits.PressureDifference dp_humidifier_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpHumidifier_nominal(min=0,displayUnit="Pa")=0
     "Nominal pressure difference in the humidifier"
     annotation (Dialog(tab="General",group="Humidifier"));
 
  //------------------Nominal conditions of the Electric Heater-----------------------------//
-  parameter Modelica.SIunits.PressureDifference dp_heater_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpHeater_nominal(min=0,displayUnit="Pa")=0
     "Nominal pressure difference in the electric heater"
     annotation (Dialog(tab="General",group="Electric Heater"));
-  parameter Modelica.SIunits.HeatFlowRate Q_heater_nominal(min=0)
+  parameter Modelica.SIunits.HeatFlowRate QHeater_nominal(min=0)
     "Nominal heating capacity of eletric heater,positive"
+    annotation (Dialog(group="Electric Heater"));
+  parameter Real effHeater_nominal(min=0.01,max=1)=0.9 "Efficiency of electrical heater"
     annotation (Dialog(group="Electric Heater"));
 
  //------------------Nominal conditions of the water-side two-way valve-----------------------------//
-  parameter Modelica.SIunits.PressureDifference dp_valve_nominal(min=0,displayUnit="Pa")
+  parameter Modelica.SIunits.PressureDifference dpValve_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the water-side two-way valve"
     annotation (Dialog(tab="General",group="Valve"));
 
