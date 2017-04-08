@@ -23,21 +23,18 @@ model Economizer "Economizer control block"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   CDL.Interfaces.BooleanInput uSupFan "Supply Fan Status, on or off"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  CDL.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
-    "Outdoor temperature" annotation (Placement(transformation(extent={{-120,90},
-            {-100,110}}),      iconTransformation(extent={{-120,90},{-100,110}})));
-  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
-     Placement(transformation(extent={{-120,-90},{-100,-70}}),
-                                                             iconTransformation(
-          extent={{-120,-90},{-100,-70}})));
+  CDL.Interfaces.RealInput TOut "Outdoor temperature"
+    annotation (Placement(transformation(extent={{-120,90}, {-100,110}}),
+    iconTransformation(extent={{-120,90},{-100,110}})));
+  CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
+    iconTransformation(extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
-                                               annotation (Placement(
-        transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,10},
-            {120,30}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+    iconTransformation(extent={{100,10}, {120,30}})));
   CDL.Interfaces.RealOutput yEcoDamPos "Economizer damper position"
-                                                annotation (Placement(
-        transformation(extent={{100,-30},{120,-10}}), iconTransformation(extent={{100,-30},
-            {120,-10}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+    iconTransformation(extent={{100,-30}, {120,-10}})));
   CDL.Interfaces.BooleanInput uAHUMod
     "AHU Mode, fixme: see pg. 103 in G36 for the full list of modes, here we use true = \"occupied\""
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -78,14 +75,14 @@ equation
           100},{-40,-42},{-22,-42}}, color={0,0,127}));
   connect(TSup, econEnableDisable.TSup) annotation (Line(points={{-110,60},{-50,
           60},{-50,-46},{-22,-46}}, color={0,0,127}));
-  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-96,-60},
-          {-96,30},{-82,30}}, color={255,0,255}));
+  connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-90,-60},
+          {-90,30},{-82,30}}, color={255,0,255}));
   connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,20},{-98,20},{-98,
           34},{-82,34}}, color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,40},
           {-98,40},{-98,38},{-82,38}}, color={0,0,127}));
-  connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-96,0},
-          {-96,26},{-82,26}}, color={255,0,255}));
+  connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-90,0},
+          {-90,26},{-82,26}}, color={255,0,255}));
   connect(uFre, econEnableDisable.uFre) annotation (Line(points={{-110,-80},{-66,
           -80},{-66,-50},{-22,-50}}, color={255,0,255}));
   connect(uSupFan, ecoMod.uSupFan) annotation (Line(points={{-110,-60},{-36,-60},

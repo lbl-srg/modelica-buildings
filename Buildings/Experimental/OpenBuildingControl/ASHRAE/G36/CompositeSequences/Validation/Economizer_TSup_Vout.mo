@@ -9,7 +9,7 @@ model Economizer_TSup_Vout
   Modelica.Blocks.Sources.Ramp TSup(
     height=-10,
     duration=1800,
-    offset=75)
+    offset=300)
     "TSup falls below 38 F and remains there for longer than 5 min. "
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Economizer economizer
@@ -32,14 +32,14 @@ model Economizer_TSup_Vout
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   CDL.Continuous.Constant uCoo(k=0.2) "Cooling signal, range 0 - 1"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  CDL.Continuous.Constant TSupSet(k=70, unit="F", displayUnit="F")
+  CDL.Continuous.Constant TSupSet(k=294)
     "Supply air temperature setpoint. The economizer control uses cooling supply temperature. fixme: change to a more realistic supply profile in the control domain"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp TOut(
-    duration=800,
-    height=6,
-    offset=293,
-    startTime=0) "297K is the cut off temeprature to disable the econ. "
+    startTime=0,
+    height=9,
+    duration=1800,
+    offset=292)  "297K is the cut off temeprature to disable the econ. "
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
   //fixme - turn into proper test and uncomment
@@ -51,8 +51,6 @@ equation
           70},{-50,50},{-10,50},{-10,18},{59,18}}, color={0,0,127}));
   connect(VOut.y, economizer.uVOut) annotation (Line(points={{-19,30},{20,30},{20,
           12},{59,12}}, color={0,0,127}));
-  connect(VOutMinSet.y, economizer.uVOutMinSet) annotation (Line(points={{-19,70},
-          {20,70},{20,14},{59,14}}, color={0,0,127}));
   connect(TSup.y, economizer.TSup) annotation (Line(points={{-59,30},{-50,30},{-50,
           10},{4,10},{4,16},{59,16}}, color={0,0,127}));
   connect(FanStatus.y, economizer.uSupFan) annotation (Line(points={{-19,-30},{-10,
@@ -65,6 +63,8 @@ equation
           8},{59,8}}, color={0,0,127}));
   connect(uHea.y, economizer.uHea) annotation (Line(points={{41,-70},{50,-70},{50,
           6},{59,6}}, color={0,0,127}));
+  connect(economizer.uVOutMinSet, VOutMinSet.y) annotation (Line(points={{59,14},
+          {-10,14},{-10,70},{-19,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
