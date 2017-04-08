@@ -5,10 +5,10 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   prevent modulation, provide input signals that set max and min position
   limits to the same value."
 
-  CDL.Interfaces.RealInput TSup
+  CDL.Interfaces.RealInput TSup(unit="K", displayUnit="degC")
     "Measured supply air temperature. Sensor output."
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  CDL.Interfaces.RealInput TCooSet
+  CDL.Interfaces.RealInput TCooSet(unit="K", displayUnit="degC")
     "Output of a ***TSupSet sequence. The economizer modulates to the TCoo rather 
     than to the THea. If Zone State is Cooling, economizer modulates to a temperture 
     slightly lower than the TCoo [PART5.P.1]."
@@ -151,7 +151,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-100,-98},{100,102}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -198,11 +198,13 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="uCoo"),
         Line(points={{20,58}}, color={28,108,200}),
-        Line(points={{-74,-64},{-28,-64},{34,62},{78,62}}, color={28,108,200}),
+        Line(points={{-74,-64},{-28,-64},{34,62},{78,62}}, color={28,108,200},
+          thickness=0.5),
         Line(
           points={{-54,62},{-10,62},{60,-60},{82,-60}},
           color={28,108,200},
-          pattern=LinePattern.Dash),
+          pattern=LinePattern.Dash,
+          thickness=0.5),
         Text(
           extent={{-96,-54},{-26,-90}},
           lineColor={0,0,127},

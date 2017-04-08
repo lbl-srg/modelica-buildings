@@ -3,13 +3,14 @@ model EconModulation_TSup
   "Validation model for economizer and return air damper modulation to preserve the supply air temperature"
   extends Modelica.Icons.Example;
 
-  CDL.Continuous.Constant TCooSet(k=70)
+  CDL.Continuous.Constant TCooSet(k=70, unit="F", displayUnit="F")
     "Supply air temperature setpoint. The economizer control uses cooling supply temperature"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Sources.Ramp TCoo(
+  Modelica.Blocks.Sources.Ramp TSup(
     duration=1800,
     height=8,
-    offset=64) "Supply air temperature sensor output temperature"
+    offset=64,
+    unit="F", displayUnit="F") "Supply air temperature sensor output temperature"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   CDL.Logical.Constant uSupFan(k=true) "Supply fan on or off"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -34,7 +35,7 @@ equation
   connect(TCooSet.y, ecoMod.TCooSet) annotation (Line(points={{1,70},{8,70},{8,48},
           {-20,48},{-20,38},{-2,38}},
                             color={0,0,127}));
-  connect(TCoo.y,ecoMod.TSup)  annotation (Line(points={{-59,70},{-30,70},{-30,34},
+  connect(TSup.y,ecoMod.TSup)  annotation (Line(points={{-59,70},{-30,70},{-30,34},
           {-2,34}},color={0,0,127}));
   connect(uCoo.y, ecoMod.uCoo)
     annotation (Line(points={{-59,10},{-2,10},{-2,30}},    color={0,0,127}));

@@ -28,7 +28,7 @@ model Economizer "Economizer control block"
   CDL.Interfaces.BooleanInput uFre(start=false) "Freezestat status" annotation (
      Placement(transformation(extent={{-120,-90},{-100,-70}}),
                                                              iconTransformation(
-          extent={{-120,20},{-100,40}})));
+          extent={{-120,-90},{-100,-70}})));
   CDL.Interfaces.RealOutput yRetDamPos "Return air damper position"
                                                annotation (Placement(
         transformation(extent={{100,10},{120,30}}), iconTransformation(extent={{100,10},
@@ -95,11 +95,29 @@ equation
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
-        Line(points={{-66,-36},{-42,-36},{-4,40},{34,40}}, color={28,108,200}),
+        Line(points={{-66,-36},{-42,-36},{-4,40},{34,40}}, color={28,108,200},
+          thickness=0.5),
         Line(
           points={{-64,40},{-38,40},{2,-40},{66,-40}},
           color={28,108,200},
-          pattern=LinePattern.Dash),
-        Line(points={{34,40},{34,-36},{34,-36},{66,-36}}, color={28,108,200})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)));
+          pattern=LinePattern.Dash,
+          thickness=0.5),
+        Line(
+          points={{34,40},{34,-36},{34,-36},{66,-36}},
+          color={28,108,200},
+          thickness=0.5),
+        Text(
+          extent={{100,62},{170,26}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yRetDamPos",
+          fontSize=40),
+        Text(
+          extent={{100,18},{170,-18}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yEcoDamPos",
+          fontSize=40)}), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end Economizer;
