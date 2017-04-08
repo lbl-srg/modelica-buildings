@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.Air.Example.AirHandlingUnitControl", stopTime=3600, method="dassl", resultFile="AirHandlingUnitControl");
+
+createPlot(id=1, position={21, 0, 592, 636}, y={"TWat.y", "sou_2.T"}, range={0.0, 3600.0, 0.0, 30.0}, erase=false, grid=true, filename="AirHandlingUnitControl.mat", colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={21, 0, 592, 156}, y={"ahu.port_a1.m_flow", "ahu.port_a2.m_flow"}, range={0.0, 3600.0, -2.0, 4.0}, erase=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={21, 0, 592, 156}, y={"ahu.cooCoi.QSen2_flow", "ahu.cooCoi.QLat2_flow"}, range={0.0, 3600.0, -60000.0, 20000.0}, erase=false, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={21, 0, 592, 156}, y={"ahu.cooCoi.SHR"}, range={0.0, 3600.0, -0.2, 0.6000000000000001}, erase=false, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=2, position={636, 26, 704, 584}, y={"TCon.conEleHea.u_s", "TCon.conEleHea.u_m"}, range={0.0, 3600.0, 291.5, 296.0}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={636, 26, 704, 290}, y={"TCon.conEleHea.y"}, range={0.0, 3600.0, -1.5, 1.5}, erase=false, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=7, position={365, 132, 592, 427}, y={"TCon.conVal.u_s", "TCon.conVal.u_m"}, range={0.0, 3600.0, 18.0, 23.0}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={365, 132, 592, 211}, y={"TCon.conVal.y"}, range={0.0, 3600.0, 0.2, 1.2}, erase=false, grid=true, subPlot=2, colors={{28,108,200}});
+
