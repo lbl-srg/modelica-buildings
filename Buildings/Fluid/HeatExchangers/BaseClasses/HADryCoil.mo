@@ -11,19 +11,19 @@ model HADryCoil "Sensible convective heat transfer model for air to water coil"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a "Air mass flow rate"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  Modelica.Blocks.Interfaces.RealInput m1_flow "Mass flow rate medium 1"
+  Modelica.Blocks.Interfaces.RealInput m1_flow(final unit="kg/s") "Mass flow rate medium 1"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput m2_flow "Mass flow rate medium 2"
+  Modelica.Blocks.Interfaces.RealInput m2_flow(final unit="kg/s") "Mass flow rate medium 2"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput T_1 "Temperature medium 1"
+  Modelica.Blocks.Interfaces.RealInput T_1(final unit="K") "Temperature medium 1"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealInput T_2 "Temperature medium 2"
+  Modelica.Blocks.Interfaces.RealInput T_2(final unit="K") "Temperature medium 2"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.RealOutput hA_1
+  Modelica.Blocks.Interfaces.RealOutput hA_1(final unit="W/K")
     "Convective heat transfer medium 1" annotation (Placement(transformation(
           extent={{100,60},{120,80}})));
-  Modelica.Blocks.Interfaces.RealOutput hA_2
+  Modelica.Blocks.Interfaces.RealOutput hA_2(final unit="W/K")
     "Convective heat transfer medium 2" annotation (Placement(transformation(
           extent={{100,-80},{120,-60}})));
 
@@ -154,11 +154,71 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
-          extent={{-66,74},{92,-50}},
+          extent={{-60,90},{66,0}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="hA")}),
+          textString="hA"),
+        Ellipse(
+          extent={{-32,-10},{-12,-32}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{34,-10},{54,-32}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{0,-10},{20,-32}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-64,-10},{-44,-32}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-48,-40},{-28,-62}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-16,-40},{4,-62}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{16,-40},{36,-62}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{50,-40},{70,-62}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-68,-66},{-48,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-36,-66},{-16,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-4,-66},{16,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{30,-66},{50,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
               Icon(
       Rectangle(extent=[-36,-36; -24,-72],   style(
           color=0,
