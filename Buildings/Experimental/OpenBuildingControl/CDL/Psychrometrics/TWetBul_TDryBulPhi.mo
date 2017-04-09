@@ -1,7 +1,8 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-  final package Medium = Buildings.Media.Air "Medium model";
+  final package Medium =
+      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air   "Medium model";
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
@@ -16,9 +17,10 @@ block TWetBul_TDryBulPhi
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Interfaces.RealInput p(final quantity="Pressure",
-                                         final unit="Pa",
-                                         min = 0) "Pressure"
+  Interfaces.RealInput p(
+    final quantity="Pressure",
+    final unit="Pa",
+    min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput TWetBul(
@@ -38,6 +40,19 @@ protected
   Modelica.SIunits.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
+
+  // Modelica.SIunits.Temperature T_ref = 273.15
+  //     "Reference temperature for psychrometric calculations"
+  // constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  //   "Specific heat capacity of air";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  //   "Specific heat capacity of water vapor";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  //   "Specific heat capacity of liquid water";
+  // constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  //   "Enthalpy of evaporation of water at the reference temperature";
+  // constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
+
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
@@ -52,23 +67,23 @@ equation
     XiSatRefIn=0;
   else
     XiSatRefIn=(1-XiDryBul)*XiSat/(1-XiSat);
-    XiSat  = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+    XiSat  = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.X_pSatpphi(
+      pSat = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p =    p,
       phi =  1);
-    XiDryBul =Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    XiDryBul =Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.X_pSatpphi(
       p =    p,
-      pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      pSat = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
       phi =  phi);
-    (TWetBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
-              (1-XiDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
-              XiSatRefIn * Buildings.Utilities.Psychrometrics.Constants.cpSte +
-              (XiDryBul-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)
+    (TWetBul-273.15) * (
+              (1-XiDryBul) * 1006 +
+              XiSatRefIn * 1860 +
+              (XiDryBul-XiSatRefIn) * 4184)
     =
-    (TDryBul-Buildings.Utilities.Psychrometrics.Constants.T_ref) * (
-              (1-XiDryBul) * Buildings.Utilities.Psychrometrics.Constants.cpAir +
-              XiDryBul * Buildings.Utilities.Psychrometrics.Constants.cpSte)  +
-    (XiDryBul-XiSatRefIn) * Buildings.Utilities.Psychrometrics.Constants.h_fg;
+    (TDryBul-273.15) * (
+              (1-XiDryBul) * 1006 +
+              XiDryBul * 1860)  +
+    (XiDryBul-XiSatRefIn) * 2501014.5;
 
     TDryBul_degC = 0;
     rh_per       = 0;
@@ -175,6 +190,10 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 7, 2017, by Jianjun Hu:<br/>
+Changed medium model path, replaced <code>Buildings.Utilities.Psychrometrics.Constants</code> with their values.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Changed icon.

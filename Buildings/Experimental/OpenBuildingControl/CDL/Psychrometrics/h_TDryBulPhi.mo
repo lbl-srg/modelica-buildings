@@ -8,14 +8,13 @@ block h_TDryBulPhi
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-
   Interfaces.RealInput phi(min=0, max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-
-  Interfaces.RealInput p(final quantity="Pressure",
-                                         final unit="Pa",
-                                         min = 0) "Pressure"
+  Interfaces.RealInput p(
+    final quantity="Pressure",
+    final unit="Pa",
+    min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput h(
@@ -23,32 +22,43 @@ block h_TDryBulPhi
     final unit="J/kg") "Specific enthalpy"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+protected
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+    "Dry bulb temperature in degree Celsius";
+  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
+    "Water vapor mass fraction at dry bulb state";
+
+  // Modelica.SIunits.Temperature T_ref = 273.15
+  //     "Reference temperature for psychrometric calculations"
+  // constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  //   "Specific heat capacity of air";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  //   "Specific heat capacity of water vapor";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  //   "Specific heat capacity of liquid water";
+  // constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  //   "Enthalpy of evaporation of water at the reference temperature";
+  // constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
+
 equation
-  assert(false,
-    "fixme: this block is not yet implemented. See https://github.com/lbl-srg/modelica-buildings/issues/591");
+  TDryBul_degC = TDryBul - 273.15;
+  p_w = phi * Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressure(TDryBul);
+  XiDryBul = 0.6219647130774989*p_w/(p-p_w);
+  h = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
+
+
     annotation (
     defaultComponentName="dewPoi",
     Documentation(info="<html>
 <p>
-Dew point temperature calculation for moist air above freezing temperature.
-</p>
-<p>
-The correlation used in this model is valid for dew point temperatures between
-<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
-ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point
-temperatures.
+The correlation used in this model is from 2005
+ASHRAE Handbook Fundamentals, p. 6.9.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 4, 2008 by Michael Wetter:<br/>
-Changed from causal to acausal ports, needed, for example, for
-<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
-Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
-</li>
-<li>
-August 7, 2008 by Michael Wetter:<br/>
+April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

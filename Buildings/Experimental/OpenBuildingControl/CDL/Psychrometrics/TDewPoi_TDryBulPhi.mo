@@ -1,12 +1,14 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TDewPoi_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
+  final package Medium =
+      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air   "Medium model";
 
   Interfaces.RealInput TDryBul(
-    start=Buildings.Media.Air.T_default,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dry bulb temperature"
+    min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Interfaces.RealInput phi(min=0, max=1)
@@ -14,21 +16,35 @@ block TDewPoi_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Interfaces.RealInput p(final quantity="Pressure",
-                                         final unit="Pa",
-                                         min = 0) "Pressure"
+                         final unit="Pa",
+                         min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Interfaces.RealOutput TWetBul(
-    start=Buildings.Media.Air.T_default-2,
+  Interfaces.RealOutput TDewPoi(
+    start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Wet bulb temperature"
+    min=0) "Dew point temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+protected
+  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  constant Real C14=6.54;
+  constant Real C15=14.526;
+  constant Real C16=0.7389;
+  constant Real C17=0.09486;
+  constant Real C18=0.4569;
+  Real alpha;
+
+
 equation
-  // p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
-  assert(false,
-    "fixme: this block is not yet implemented. See https://github.com/lbl-srg/modelica-buildings/issues/591");
+  p_w = phi * Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressure(TDryBul);
+  alpha = Modelica.Math.log(p_w/1000.0);
+
+  TDewPoi = (C14 + C15*alpha + C16*alpha^2 + C17*alpha^3 + C18*(p_w/1000.0)^0.1984)+273.15;
+
+//   TDewPoi = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.TDewPoi_pW(p_w);
+
     annotation (
     defaultComponentName="dewPoi",
     Documentation(info="<html>
@@ -37,21 +53,13 @@ Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between
-<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
-ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point
-temperatures.
+<i>0</i>&deg;C and <i>93</i>&deg;C. It is the correlation from 2005
+ASHRAE Handbook Fundamentals, p. 6.9. 
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 4, 2008 by Michael Wetter:<br/>
-Changed from causal to acausal ports, needed, for example, for
-<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
-Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
-</li>
-<li>
-August 7, 2008 by Michael Wetter:<br/>
+April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

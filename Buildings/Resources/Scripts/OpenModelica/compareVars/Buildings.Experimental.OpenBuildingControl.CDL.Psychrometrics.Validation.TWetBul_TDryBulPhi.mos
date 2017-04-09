@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "wetBulPhi.TWetBul",
+    "wetBulPhi_BuiLib.TWetBul",
+    "wetBulXi.TWetBul",
+    "wetBulPhi.TDryBul",
+    "wetBulPhi.phi"
+  };
