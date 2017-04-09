@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TWat.y",
+    "TAir.y",
+    "mWat_flow.y",
+    "mAir_flow.y",
+    "hADryCoi.hA_1",
+    "hADryCoi.hA_2"
+  };
