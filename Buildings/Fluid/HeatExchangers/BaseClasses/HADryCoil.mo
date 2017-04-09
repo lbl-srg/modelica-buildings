@@ -80,7 +80,7 @@ equation
          1 + s_w * (T_1-T0_w) else
               1;
   x_a = if airSideTemperatureDependent then
-         1 + 4.769E-3 * (T_2-T0_a) else
+         1 + 7.8532E-4 * (T_2-T0_a) else
               1;
   if waterSideFlowDependent then
     hA_1 = x_w * hA_nominal_w
@@ -130,6 +130,12 @@ Berkeley, CA, 1999.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 9, 2017, by Michael Wetter:<br/>
+Corrected coefficient in Taylor expansion of <code>x_a</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/698\">#698</a>.
+</li>
 <li>
 June 8, 2010, by Michael Wetter:<br/>
 Fixed bug in computation of <code>s_w</code>.
