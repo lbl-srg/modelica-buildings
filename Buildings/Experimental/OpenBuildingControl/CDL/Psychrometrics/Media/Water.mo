@@ -119,7 +119,7 @@ The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Media/Water/plotCp.png\" border=\"1\"
+<img src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL/Psychrometrics/Media/Water/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
