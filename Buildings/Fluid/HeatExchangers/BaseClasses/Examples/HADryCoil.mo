@@ -5,7 +5,7 @@ model HADryCoil "Test model for dry coil convection coefficient"
     m_flow_nominal_w=0.1,
     UA_nominal=10000,
     m_flow_nominal_a=2.5) "Calculates an hA value for a dry coil"
-    annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Modelica.Blocks.Sources.Ramp TWat(
     offset=293.15,
     duration=20,
@@ -29,17 +29,48 @@ model HADryCoil "Test model for dry coil convection coefficient"
     height=2.5,
     startTime=20) "Air mass flow rate"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hADryCoiAir(
+    m_flow_nominal_w=0.1,
+    UA_nominal=10000,
+    m_flow_nominal_a=2.5,
+    waterSideFlowDependent=false,
+    waterSideTemperatureDependent=false)
+    "Calculates an hA value for a dry coil"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hADryCoiWat(
+    m_flow_nominal_w=0.1,
+    UA_nominal=10000,
+    m_flow_nominal_a=2.5,
+    airSideFlowDependent=false,
+    airSideTemperatureDependent=false) "Calculates an hA value for a dry coil"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 equation
   connect(TWat.y, hADryCoi.T_1) annotation (Line(points={{-59,30},{-30,30},{-30,
-          1},{-11,1}},  color={0,0,127}));
-  connect(hADryCoi.T_2, TAir.y) annotation (Line(points={{-11,-5},{-30,-5},{-30,
+          43},{-1,43}}, color={0,0,127}));
+  connect(hADryCoi.T_2, TAir.y) annotation (Line(points={{-1,37},{-30,37},{-30,
           -30},{-59,-30}},
                       color={0,0,127}));
-  connect(mAir_flow.y, hADryCoi.m2_flow) annotation (Line(points={{-59,-70},{-20,
-          -70},{-20,-9},{-11,-9}},
+  connect(mAir_flow.y, hADryCoi.m2_flow) annotation (Line(points={{-59,-70},{
+          -20,-70},{-20,33},{-1,33}},
                                 color={0,0,127}));
   connect(mWat_flow.y, hADryCoi.m1_flow) annotation (Line(points={{-59,70},{-20,
-          70},{-20,5},{-11,5}},  color={0,0,127}));
+          70},{-20,47},{-1,47}}, color={0,0,127}));
+  connect(TWat.y, hADryCoiAir.T_1) annotation (Line(points={{-59,30},{-30,30},{
+          -30,3},{-1,3}}, color={0,0,127}));
+  connect(hADryCoiAir.T_2, TAir.y) annotation (Line(points={{-1,-3},{-30,-3},{
+          -30,-30},{-59,-30}}, color={0,0,127}));
+  connect(mAir_flow.y, hADryCoiAir.m2_flow) annotation (Line(points={{-59,-70},
+          {-20,-70},{-20,-7},{-1,-7}}, color={0,0,127}));
+  connect(mWat_flow.y, hADryCoiAir.m1_flow) annotation (Line(points={{-59,70},{
+          -20,70},{-20,7},{-1,7}}, color={0,0,127}));
+  connect(TWat.y, hADryCoiWat.T_1) annotation (Line(points={{-59,30},{-30,30},{
+          -30,-37},{-1,-37}}, color={0,0,127}));
+  connect(hADryCoiWat.T_2, TAir.y) annotation (Line(points={{-1,-43},{-30,-43},
+          {-30,-30},{-59,-30}}, color={0,0,127}));
+  connect(mAir_flow.y, hADryCoiWat.m2_flow) annotation (Line(points={{-59,-70},
+          {-20,-70},{-20,-47},{-1,-47}}, color={0,0,127}));
+  connect(mWat_flow.y, hADryCoiWat.m1_flow) annotation (Line(points={{-59,70},{
+          -20,70},{-20,-33},{-1,-33}}, color={0,0,127}));
   annotation ( __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HADryCoil.mos"
   "Simulate and Plot"),
