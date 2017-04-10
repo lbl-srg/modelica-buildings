@@ -31,16 +31,16 @@ model Damper
       annotation (Placement(
         transformation(extent={{94,-10},{74,10}})));
 
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndDpFixed_nominal(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=5,
     dp_nominal=10)
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent preInd(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -48,9 +48,9 @@ model Damper
     dp_nominal=10,
     from_dp=false)
     "A damper with a mass flow proportional to the input signal and using from_dp = false"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent lin(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent preInd(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
@@ -62,29 +62,31 @@ equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,70},{10,70},{10,52}},
       color={0,0,127}));
-  connect(yRam.y, lin.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,20},
-          {10,12}}, color={0,0,127}));
-  connect(preIndFrom_dp.y, lin.y) annotation (Line(points={{10,-28},{10,-20},{30,-20},
-          {30,20},{10,20},{10,12}},
-                                color={0,0,127}));
-  connect(preInd.y, lin.y) annotation (Line(points={{10,-68},{10,-60},{30,
-          -60},{30,20},{10,20},{10,12}}, color={0,0,127}));
-  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{-20,
-          4},{-20,3},{-40,3}}, color={0,127,255}));
-  connect(lin.port_a, sou.ports[2])
+  connect(yRam.y, preInd.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,
+          20},{10,12}}, color={0,0,127}));
+  connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{
+          -20,4},{-20,3},{-40,3}},
+                               color={0,127,255}));
+  connect(preInd.port_a, sou.ports[2])
     annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
-  connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},{-8,-40},
-          {-8,-40},{-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
-  connect(preInd.port_a, sou.ports[4]) annotation (Line(points={{0,-80},{-24,
-          -80},{-24,-3},{-40,-3}}, color={0,127,255}));
-  connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{60,
-          3},{74,3}}, color={0,127,255}));
-  connect(lin.port_b, sin.ports[2])
+  connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},
+          {-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
+  connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{
+          60,3},{74,3}},
+                      color={0,127,255}));
+  connect(preInd.port_b, sin.ports[2])
     annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
-  connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},{40,-40},
+  connect(sou.ports[4], preIndDpFixed_nominal.port_a) annotation (Line(points={
+          {-40,-3},{-24,-3},{-24,-4},{-24,-4},{-24,-80},{0,-80}}, color={0,127,
+          255}));
+  connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},
           {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
-  connect(preInd.port_b, sin.ports[4]) annotation (Line(points={{20,-80},{
-          36,-80},{62,-80},{62,-3},{74,-3}}, color={0,127,255}));
+  connect(preIndDpFixed_nominal.port_b, sin.ports[4]) annotation (Line(points={
+          {20,-80},{44,-80},{64,-80},{64,-3},{74,-3}}, color={0,127,255}));
+  connect(preIndFrom_dp.y, yRam.y) annotation (Line(points={{10,-28},{10,-20},{
+          30,-20},{30,70},{1,70}}, color={0,0,127}));
+  connect(preIndDpFixed_nominal.y, yRam.y) annotation (Line(points={{10,-68},{
+          10,-60},{30,-60},{30,70},{1,70}}, color={0,0,127}));
     annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
