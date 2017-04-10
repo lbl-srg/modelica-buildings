@@ -31,7 +31,7 @@ model Damper
       annotation (Placement(
         transformation(extent={{94,-10},{74,10}})));
 
-  Linear preIndFrom_dp(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -40,7 +40,7 @@ model Damper
     "A damper with a mass flow proportional to the input signal and using dpFixed_nominal"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
-  Linear preInd(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent preInd(
     use_inputFilter=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -50,7 +50,7 @@ model Damper
     "A damper with a mass flow proportional to the input signal and using from_dp = false"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Linear lin(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent lin(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=10,
