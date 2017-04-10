@@ -1,14 +1,14 @@
 within Buildings.Experimental.OpenBuildingControl.ASHRAE.G36.CompositeSequences;
 package Validation
-  annotation (Icon(graphics={
+annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
           fillPattern=FillPattern.HorizontalCylinder,
           extent={{-100,-100},{100,100}},
-          radius=25),
+          radius=25.0),
         Polygon(
-          origin={18,24},
+          origin={8,14},
           lineColor={78,138,73},
           fillColor={78,138,73},
           pattern=LinePattern.None,

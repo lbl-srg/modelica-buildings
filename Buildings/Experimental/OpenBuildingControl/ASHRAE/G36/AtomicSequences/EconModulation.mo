@@ -12,7 +12,7 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Interfaces.RealInput TCooSet
     "Output of a ***TSupSet sequence. The economizer modulates to the TCoo rather 
     than to the THea. If Zone State is Cooling, economizer modulates to a temperture 
-    slightly lower than the TCoo [PART5.P.1]."
+    slightly lower than the TCoo [PART5.P.3.b]."
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
                                   //fixme brakes the validation, introduce when ready (unit="K", displayUnit="degC")
   CDL.Continuous.LimPID DamPosController(
@@ -153,7 +153,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Rectangle(
-        extent={{-100,-98},{100,102}},
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -242,12 +242,14 @@ equation
             100,100}})),
     Documentation(info="<html>      
     <p>
-    fixme status: initiate inputs and outputs
+    fixme - issues: initiate inputs and outputs
+    </p>
+<p>
 This atomic sequence sets the economizer and
 return air damper position. The implementation is according
-to ASHRAE Guidline 36 (G36), PART5.N.2.c and functionaly it represents the 
+to ASHRAE Guidline 36 (G36), PART5.N.2.c and Part 5.P.3.b and functionaly it represents the
 final sequence in the composite economizer control sequence.
-</p>   
+</p>
 <p>
 The controller is enabled indirectly through the output of the the EconEnableDisable 
 sequence, which defines the maximum economizer damper position. Thus, strictly 
@@ -256,10 +258,6 @@ disabled, the range of economizer damper modulation equals zero.
 fixme: return air damper may be modulated even if econ disable, according to
 this control loop. Check if that is desired. Last time I reflected on this
 it seemed it would not pose functional dificulties.
-</p>
-<p align=\"center\">
-<img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationStateMachineChart.png\"/>
 </p>
 <p>
 fixme: interpret corresponding text from G36 as implemented here.
@@ -270,16 +268,26 @@ modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationLimitsControlDiagram.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagram.png\"/>
 </p>
 <p>
-Expected control performance, upon tuning:
+The modulation is indirectly enabled through outputs of EconDamPosLimits, but also the conditions illustrated here:
 <br>
 </br>
 </p>
 <p align=\"center\">
 <img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationLimitsControlChart.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationStateMachineChart.png\"/>
+</p>
+<p>
+Expected control performance, upon tuning:
+fixme: create our customized chart instead
+<br>
+</br>
+</p>
+<p align=\"center\">
+<img alt=\"Image of set point reset\"
+src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon.PNG\"/>
 </p>
 <p>
 bla
