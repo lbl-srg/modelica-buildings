@@ -223,6 +223,7 @@ Buildings/Fluid/Actuators/Dampers/Examples/package.mo
 Buildings/Fluid/Actuators/Dampers/Examples/package.order
 Buildings/Fluid/Actuators/Dampers/Exponential.mo
 Buildings/Fluid/Actuators/Dampers/MixingBox.mo
+Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo
 Buildings/Fluid/Actuators/Dampers/VAVBoxExponential.mo
 Buildings/Fluid/Actuators/Dampers/package.mo
 Buildings/Fluid/Actuators/Dampers/package.order
