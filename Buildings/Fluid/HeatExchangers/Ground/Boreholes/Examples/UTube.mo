@@ -78,6 +78,6 @@ First implementation.
 </ul>
 </html>"),
     experiment(
-      StopTime=5*365,
+      StopTime=1825,
       Tolerance=1e-6));
 end UTube;
