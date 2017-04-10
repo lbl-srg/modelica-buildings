@@ -27,8 +27,8 @@
 #######################################################
 
 
-def _match_mos_w_mo():
-    import buildingspy.development.matchParameters as f
+def _validate_mos_mo():
+    import buildingspy.development.check_parameters as f
 
     val = f.main()
 
@@ -121,8 +121,8 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
-    mos_group = parser.add_argument_group("arguments to match mos parameters with mo files parameters only")
-    mos_group.add_argument("--match-mos-only",
+    model_group = parser.add_argument_group("arguments to check consistency of mos/mo parameters only")
+    model_group.add_argument("--validate-mo-mos-only",
                            action="store_true")
 
     # Set environment variables
@@ -152,9 +152,9 @@ if __name__ == '__main__':
         ret_val = _validate_html()
         exit(ret_val)
 
-    if args.match_mos_only:
+    if args.validate_mo_mos_only:
         # Match the mos file parameters with the mo files only, and then exit
-        ret_val = _match_mos_w_mo()
+        ret_val = _validate_mos_mo()
         exit(ret_val)
 
     if args.single_package:
