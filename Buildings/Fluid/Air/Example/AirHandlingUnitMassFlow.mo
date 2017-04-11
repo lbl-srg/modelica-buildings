@@ -6,13 +6,11 @@ model AirHandlingUnitMassFlow
     sou_2(nPorts=1),
     sin_2(nPorts=1),
     sin_1(nPorts=1),
-    sou_1(nPorts=1));
-
-  AirHandlingUnit ahu(
+    sou_1(nPorts=1),
+    relHum(k=0.5));
+ Buildings.Fluid.Air.AirHandlingUnit ahu(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
     show_T=true,
@@ -20,9 +18,8 @@ model AirHandlingUnitMassFlow
     dat=dat)
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
-  Sensors.RelativeHumidityTwoPort senRelHum(
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
+    redeclare package Medium = Medium2, m_flow_nominal=dat.nomVal.m2_flow_nominal)
     annotation (Placement(transformation(extent={{68,14},{48,34}})));
   Modelica.Blocks.Sources.Constant uWatVal(k=0.7)
     "Control signal for water valve"
@@ -34,11 +31,11 @@ model AirHandlingUnitMassFlow
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.Constant uFan(k=1) "Control input for fan"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Sensors.TemperatureTwoPort temSen2(redeclare package Medium = Medium2,
-      m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen2(redeclare package Medium = Medium2,
+      m_flow_nominal=dat.nomVal.m2_flow_nominal)
     annotation (Placement(transformation(extent={{44,14},{24,34}})));
-  Sensors.TemperatureTwoPort temSen1(m_flow_nominal=m2_flow_nominal, redeclare
-      package Medium = Medium1)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen1(redeclare package Medium = Medium1,
+   m_flow_nominal=dat.nomVal.m2_flow_nominal)
     annotation (Placement(transformation(extent={{106,50},{126,70}})));
 equation
   connect(ahu.port_a2, sou_2.ports[1]) annotation (Line(
@@ -75,20 +72,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Air/
 Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
+<a href=\"modelica://Buildings.Fluid.Air.AirHandlingUnit\">
+Buildings.Fluid.Air.AirHandlingUnit</a>
 for different inlet conditions.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-May 27, 2010, by Michael Wetter:<br/>
+April 11, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
