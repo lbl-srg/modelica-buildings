@@ -177,7 +177,7 @@ equation
           {-232,70},{-239,70},{-239,70}}, color={0,0,127}));
   connect(bayWatHex.TSouCoo, weaBus.TDryBul) annotation (Line(points={{-122,10},
           {-130,10},{-130,108},{-160,108}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1E-6, StopTime=31536000),
+  annotation(experiment(Tolerance=1e-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Validation/HeatingCoolingHotWaterSmall.mos"
         "Simulate and plot"),
     Documentation(

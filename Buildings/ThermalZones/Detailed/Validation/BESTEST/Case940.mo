@@ -19,7 +19,7 @@ model Case940 "Case 900, but with heating schedule"
         experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>

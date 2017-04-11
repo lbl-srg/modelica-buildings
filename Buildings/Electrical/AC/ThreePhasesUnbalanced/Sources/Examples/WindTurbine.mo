@@ -59,7 +59,7 @@ equation
       points={{-20,5.55112e-16},{8,0},{8,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
+  annotation (    experiment(StopTime=172800, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model,

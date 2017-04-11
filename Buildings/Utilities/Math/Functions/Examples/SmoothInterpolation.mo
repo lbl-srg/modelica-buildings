@@ -54,7 +54,7 @@ algorithm
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothInterpolation.mos"
         "Simulate and plot"),
-    experiment(StopTime=1.0),
+    experiment(Tolerance=1e-6, StopTime=1.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for cubic hermite interpolation

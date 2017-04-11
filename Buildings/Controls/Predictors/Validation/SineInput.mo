@@ -45,7 +45,7 @@ equation
   annotation (
           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Predictors/Validation/SineInput.mos"
         "Simulate and plot"),
-            experiment(StopTime=5270400),
+            experiment(Tolerance=1e-6, StopTime=5270400),
     Documentation(info="<html>
 <p>
 Model that demonstrates and tests the demand response model.

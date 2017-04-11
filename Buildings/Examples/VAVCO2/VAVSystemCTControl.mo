@@ -237,5 +237,5 @@ for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
         "Plot fan"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-006));
+      Tolerance=1e-08));
 end VAVSystemCTControl;

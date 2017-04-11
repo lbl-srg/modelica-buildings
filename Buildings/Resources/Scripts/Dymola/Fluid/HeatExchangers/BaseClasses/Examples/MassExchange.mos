@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchange", method="dassl", resultFile="MassExchange");
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.MassExchange", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="MassExchange");
 removePlots();
 createPlot(id = 7,
  position = {35, 30, 611, 599},

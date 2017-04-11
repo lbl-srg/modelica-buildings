@@ -2,7 +2,7 @@
 // https://github.com/lbl-srg/modelica-buildings/issues/559
 Advanced_CompileWith64_ori=Advanced.CompileWith64;
 Advanced.CompileWith64 = 2;
-simulateModel("Buildings.Utilities.IO.Python27.Examples.KalmanFilter", method="dassl", resultFile="KalmanFilter", stopTime=1);
+simulateModel("Buildings.Utilities.IO.Python27.Examples.KalmanFilter", method="dassl", resultFile="KalmanFilter", tolerance=1e-6, stopTime=1);
 createPlot(id = 1,
  position = {15, 10, 592, 414},
  y = {"kalFil.uR[1]", "kalFil.yR[1]", "sine.y"},

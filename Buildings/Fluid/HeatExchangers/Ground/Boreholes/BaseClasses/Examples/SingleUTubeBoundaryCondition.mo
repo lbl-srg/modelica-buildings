@@ -55,7 +55,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=1.5768e+08),
+experiment(Tolerance=1e-6, StopTime=1.5768e+08),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/SingleUTubeBoundaryCondition.mos"
         "Simulate and plot"),
     Documentation(info="<html>

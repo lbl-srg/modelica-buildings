@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.SpeedSelect",
-stopTime=60, method="dassl", resultFile="SpeedSelect");
+tolerance=1e-6, stopTime=60, method="dassl", resultFile="SpeedSelect");
 removePlots();
 createPlot(id = 1,
  position = {35, 30, 413, 576},

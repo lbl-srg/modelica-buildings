@@ -37,7 +37,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
-    experiment(StopTime=1.0, Tolerance=1e-06),
+    experiment(StopTime=1.0, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model compares two resistive loads. Model <code>R</code> consumes or produces

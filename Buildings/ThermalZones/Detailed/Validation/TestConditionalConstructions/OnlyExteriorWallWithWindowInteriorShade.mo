@@ -36,7 +36,7 @@ equation
             200,160}})),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model tests

@@ -29,7 +29,7 @@ equation
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/Controls/Examples/PreHeatCoil.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=10800),
+      Tolerance=1e-6, StopTime=10800),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>

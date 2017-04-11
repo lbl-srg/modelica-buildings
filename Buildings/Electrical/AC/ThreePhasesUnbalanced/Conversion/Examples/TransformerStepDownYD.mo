@@ -36,7 +36,7 @@ measuring the voltage with a Wye (Y) is not possible because the voltage vectors
 in the connector do not have a neutral reference.
 </p>
 </html>"),
-experiment(Tolerance=1e-05),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerStepDownYD.mos"
         "Simulate and plot"));

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.MultiStage", stopTime=3600, method="radau", tolerance=1e-05, resultFile="MultiStage");
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.MultiStage", stopTime=3600, method="radau", tolerance=1e-6, resultFile="MultiStage");
 removePlots();
 createPlot(id = 1,
  position = {4, 0, 487, 690},
