@@ -1,60 +1,36 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-  final package Medium =
-      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air   "Medium model";
-
-  parameter Boolean approximateWetBulb=false
-    "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
   Interfaces.RealInput TDryBul(
-    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Interfaces.RealInput phi(min=0, max=1)
+  Interfaces.RealInput phi(
+    final min=0,
+    final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
-    min = 0) "Pressure"
+    final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput TWetBul(
-    start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Wet bulb temperature"
+    final min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
-  Modelica.SIunits.MassFraction XiDryBul
-    "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
-    "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
-
-
-  // Modelica.SIunits.Temperature T_ref = 273.15
-  //     "Reference temperature for psychrometric calculations"
-  // constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-  //   "Specific heat capacity of air";
-  // constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-  //   "Specific heat capacity of water vapor";
-  // constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
-  //   "Specific heat capacity of liquid water";
-  // constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-  //   "Enthalpy of evaporation of water at the reference temperature";
-  // constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
 
 equation
-  if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100*phi;
     TWetBul      = 273.15 + TDryBul_degC
@@ -62,32 +38,8 @@ equation
        + Modelica.Math.atan(TDryBul_degC + rh_per)
        - Modelica.Math.atan(rh_per-1.676331)
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
-    XiSat    = 0;
-    XiDryBul = 0;
-    XiSatRefIn=0;
-  else
-    XiSatRefIn=(1-XiDryBul)*XiSat/(1-XiSat);
-    XiSat  = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.X_pSatpphi(
-      pSat = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
-      p =    p,
-      phi =  1);
-    XiDryBul =Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.X_pSatpphi(
-      p =    p,
-      pSat = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
-      phi =  phi);
-    (TWetBul-273.15) * (
-              (1-XiDryBul) * 1006 +
-              XiSatRefIn * 1860 +
-              (XiDryBul-XiSatRefIn) * 4184)
-    =
-    (TDryBul-273.15) * (
-              (1-XiDryBul) * 1006 +
-              XiDryBul * 1860)  +
-    (XiDryBul-XiSatRefIn) * 2501014.5;
 
-    TDryBul_degC = 0;
-    rh_per       = 0;
-  end if;
+
 
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
