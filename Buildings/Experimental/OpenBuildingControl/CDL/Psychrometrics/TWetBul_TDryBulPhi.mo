@@ -1,10 +1,11 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
+
   Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dry bulb temperature"
+    final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Interfaces.RealInput phi(
@@ -22,7 +23,7 @@ block TWetBul_TDryBulPhi
   Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final min=0) "Wet bulb temperature"
+    final min=100) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -38,8 +39,6 @@ equation
        + Modelica.Math.atan(TDryBul_degC + rh_per)
        - Modelica.Math.atan(rh_per-1.676331)
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
-
-
 
 annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
@@ -107,10 +106,8 @@ This block computes the wet bulb temperature for a given dry bulb temperature, r
 and atmospheric pressure.
 </p>
 <p>
-If the constant <code>approximateWetBulb</code> is <code>true</code>,
-then the block uses the approximation of Stull (2011) to compute
+The block uses the approximation of Stull (2011) to compute
 the wet bulb temperature without requiring a nonlinear equation.
-Otherwise, the model will introduce one nonlinear equation.
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
 a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C
 and standard sea level pressure.
@@ -118,11 +115,9 @@ For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65<
 with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
-Otherwise a calculation based on an energy balance is used.
-See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> for a discussion.
 The model is validated in
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi\">
-Buildings.Utilities.Psychrometrics.Examples.TWetBul_TDryBulPhi</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi\">
+Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Examples.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 For a model that takes the mass fraction instead of the relative humidity as an input, see
@@ -143,8 +138,8 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
-April 7, 2017, by Jianjun Hu:<br/>
-Changed medium model path, replaced <code>Buildings.Utilities.Psychrometrics.Constants</code> with their values.
+April 11, 2017, by Jianjun Hu:<br/>
+Changed the model so to avoid using nonlinear equation.
 </li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>

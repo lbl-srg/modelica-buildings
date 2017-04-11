@@ -3,10 +3,6 @@ model TDewPoi_TDryBulPhi
   "Model to test the dew point temperature computation"
   extends Modelica.Icons.Example;
 
-  package Medium =
-      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air              "Medium model"
-           annotation (choicesAllMatching = true);
-
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.TDewPoi_TDryBulPhi dewBulPhi
    "Model for dew point temperature"
     annotation (Placement(transformation(extent={{16,74},{36,94}})));

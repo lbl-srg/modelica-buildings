@@ -3,18 +3,17 @@ block h_TDryBulPhi
   "Block to compute the specific enthalpy based on relative humidity"
 
   Interfaces.RealInput TDryBul(
-    start=Buildings.Media.Air.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dry bulb temperature"
+    final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Interfaces.RealInput phi(min=0, max=1)
+  Interfaces.RealInput phi(final min=0, final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Interfaces.RealInput p(
     final quantity="Pressure",
     final unit="Pa",
-    min = 0) "Pressure"
+    final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput h(
@@ -43,10 +42,9 @@ protected
 
 equation
   TDryBul_degC = TDryBul - 273.15;
-  p_w = phi * Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressure(TDryBul);
+  p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
   XiDryBul = 0.6219647130774989*p_w/(p-p_w);
   h = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
-
 
     annotation (
     defaultComponentName="dewPoi",

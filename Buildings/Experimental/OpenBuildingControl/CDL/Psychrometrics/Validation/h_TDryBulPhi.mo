@@ -3,10 +3,6 @@ model h_TDryBulPhi "Model to test the specific enthalpy computation"
   import Buildings;
   extends Modelica.Icons.Example;
 
-  package Medium =
-      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air              "Medium model"
-           annotation (choicesAllMatching = true);
-
   Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.h_TDryBulPhi   hBulPhi
    "Model for specific enthalpy computation"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));

@@ -1,30 +1,26 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics;
 block TDewPoi_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
-  final package Medium =
-      Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Media.Air   "Medium model";
 
   Interfaces.RealInput TDryBul(
-    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=100) "Dry bulb temperature"
+    final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Interfaces.RealInput phi(min=0, max=1)
+  Interfaces.RealInput phi(final min=0, final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Interfaces.RealInput p(final quantity="Pressure",
                          final unit="Pa",
-                         min = 0) "Pressure"
+                         final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput TDewPoi(
-    start=Medium.T_default-2,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dew point temperature"
+    final min=100) "Dew point temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
@@ -38,12 +34,10 @@ protected
 
 
 equation
-  p_w = phi * Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.saturationPressure(TDryBul);
+  p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
   alpha = Modelica.Math.log(p_w/1000.0);
 
   TDewPoi = (C14 + C15*alpha + C16*alpha^2 + C17*alpha^3 + C18*(p_w/1000.0)^0.1984)+273.15;
-
-//   TDewPoi = Buildings.Experimental.OpenBuildingControl.CDL.Psychrometrics.Functions.TDewPoi_pW(p_w);
 
     annotation (
     defaultComponentName="dewPoi",
