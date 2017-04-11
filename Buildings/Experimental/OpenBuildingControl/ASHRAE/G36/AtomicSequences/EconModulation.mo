@@ -18,11 +18,12 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Continuous.LimPID DamPosController(
     yMax=1,
     yMin=0,
-    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PID,
-    Ti=0.9,
     Td=0.1,
     Nd=1,
-    k=0.5)
+    controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
+
+    k=1,
+    Ti=300)
     "Contoller that outputs a signal based on the error between the measured 
     SAT and SAT setpoint [SAT setpoint is the cooling setpoint, in case of 
     cooling reduced in 2F per G36]"
@@ -89,10 +90,10 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
   CDL.Conversions.BooleanToInteger booleanToInteger1
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
   CDL.Conversions.IntegerToReal integerToReal
-    annotation (Placement(transformation(extent={{-80,34},{-60,54}})));
+    annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
 equation
-  connect(TSup, DamPosController.u_m) annotation (Line(points={{-120,40},{-50,
-          40},{-50,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
+  connect(TSup, DamPosController.u_m) annotation (Line(points={{-120,40},{-46,
+          40},{-46,-30},{-10,-30},{-10,-22}}, color={0,0,127}));
   connect(EcoDamPos.y, yEcoDamPos) annotation (Line(points={{81,10},{90,10},{90,
           -20},{110,-20}}, color={0,0,127}));
   connect(RetDamPos.y, yRetDamPos) annotation (Line(points={{81,50},{90,50},{90,
@@ -140,12 +141,14 @@ equation
     annotation (Line(points={{1,30},{30,30},{30,6},{58,6}}, color={0,0,127}));
   connect(TCooSet, add.u1) annotation (Line(points={{-120,80},{-92,80},{-92,86},
           {-82,86}}, color={0,0,127}));
-  connect(coolingZoneState.y, booleanToInteger1.u) annotation (Line(points={{
-          -59,0},{-70,0},{-70,22},{-82,22}}, color={255,0,255}));
-  connect(booleanToInteger1.y, integerToReal.u) annotation (Line(points={{-59,
-          22},{-70,22},{-70,44},{-82,44}}, color={255,127,0}));
-  connect(integerToReal.y, add.u2) annotation (Line(points={{-59,44},{-56,44},{
-          -56,62},{-56,62},{-90,62},{-90,74},{-82,74}}, color={0,0,127}));
+  connect(coolingZoneState.y, booleanToInteger1.u) annotation (Line(points={{-59,0},
+          {-54,0},{-54,-16},{-94,-16},{-94,22},{-82,22}},
+                                             color={255,0,255}));
+  connect(booleanToInteger1.y, integerToReal.u) annotation (Line(points={{-59,22},
+          {-54,22},{-54,34},{-92,34},{-92,46},{-82,46}},
+                                           color={255,127,0}));
+  connect(integerToReal.y, add.u2) annotation (Line(points={{-59,46},{-56,46},{
+          -56,62},{-90,62},{-90,74},{-82,74}},          color={0,0,127}));
   connect(add.y, DamPosController.u_s) annotation (Line(points={{-59,80},{-40,
           80},{-40,-10},{-22,-10}}, color={0,0,127}));
   annotation (

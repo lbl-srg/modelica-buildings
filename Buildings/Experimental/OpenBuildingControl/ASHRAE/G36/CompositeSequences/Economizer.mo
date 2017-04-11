@@ -55,7 +55,7 @@ equation
   connect(ecoEnaDis.yRetDamPosMax, ecoMod.uRetDamPosMax) annotation (Line(
         points={{-59,26},{-30,26},{-30,-10},{38,-10}}, color={0,0,127}));
   connect(ecoEnaDis.yEcoDamPosMin, ecoMod.uEcoDamPosMin) annotation (Line(
-        points={{-59,33.2},{-20,33.2},{-20,32},{-20,32},{-20,-1},{38,-1}},
+        points={{-59,33.2},{-20,33.2},{-20,32},{-20,-1},{38,-1}},
         color={0,0,127}));
   connect(econEnableDisable.yEcoDamPosMax, ecoMod.uEcoDamPosMax) annotation (
       Line(points={{1.9,-49.9},{10,-49.9},{10,-4},{38,-4}}, color={0,0,127}));
@@ -71,16 +71,19 @@ equation
           10},{38,10}}, color={0,0,127}));
   connect(uHea, ecoMod.uHea) annotation (Line(points={{-110,-40},{-38,-40},{-38,
           6},{38,6}}, color={0,0,127}));
-  connect(TOut, econEnableDisable.TOut) annotation (Line(points={{-110,100},{-40,
-          100},{-40,-42},{-22,-42}}, color={0,0,127}));
+  connect(TOut, econEnableDisable.TOut) annotation (Line(points={{-110,100},{
+          -40,100},{-40,-42},{-22,-42}},
+                                     color={0,0,127}));
   connect(TSup, econEnableDisable.TSup) annotation (Line(points={{-110,60},{-50,
           60},{-50,-46},{-22,-46}}, color={0,0,127}));
   connect(uSupFan, ecoEnaDis.uSupFan) annotation (Line(points={{-110,-60},{-90,-60},
           {-90,30},{-82,30}}, color={255,0,255}));
-  connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,20},{-98,20},{-98,
-          34},{-82,34}}, color={0,0,127}));
+  connect(uVOut, ecoEnaDis.uVOut) annotation (Line(points={{-110,20},{-98,20},{
+          -98,36},{-92,36}},
+                         color={0,0,127}));
   connect(uVOutMinSet, ecoEnaDis.uVOutMinSet) annotation (Line(points={{-110,40},
-          {-98,40},{-98,38},{-82,38}}, color={0,0,127}));
+          {-98,40},{-98,52},{-67.2,52}},
+                                       color={0,0,127}));
   connect(uAHUMod, ecoEnaDis.uAHUMod) annotation (Line(points={{-110,0},{-90,0},
           {-90,26},{-82,26}}, color={255,0,255}));
   connect(uFre, econEnableDisable.uFre) annotation (Line(points={{-110,-80},{-66,

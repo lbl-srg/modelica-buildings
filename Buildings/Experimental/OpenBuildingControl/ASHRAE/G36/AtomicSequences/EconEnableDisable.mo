@@ -39,9 +39,9 @@ model EconEnableDisable "Economizer enable/disable switch"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   CDL.Logical.LessThreshold TSupThreshold(threshold=276.483)
     "fixme: timer still not implemented, threshold value provided in K, units not indicated. Fixme: add hysteresis"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   CDL.Logical.Timer timer1
-    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   CDL.Logical.Greater greater
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   CDL.Continuous.Constant TSupTimeLimit(k=300)
@@ -56,11 +56,11 @@ equation
   connect(hysTOut.y, or2.u1) annotation (Line(points={{-39,140},{30,140},{30,
           110},{58,110}},
                    color={255,0,255}));
-  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-59,90},{-50,90},
-          {-50,110},{-42,110}},      color={255,0,255}));
+  connect(TSupThreshold.y, timer1.u) annotation (Line(points={{-59,100},{-50,
+          100},{-42,100}},           color={255,0,255}));
   connect(TSupTimeLimit.y, greater.u2) annotation (Line(points={{-19,70},{-12,
           70},{-12,82},{-2,82}},  color={0,0,127}));
-  connect(timer1.y, greater.u1) annotation (Line(points={{-19,110},{-12,110},{
+  connect(timer1.y, greater.u1) annotation (Line(points={{-19,100},{-12,100},{
           -12,90},{-2,90}},color={0,0,127}));
   connect(assignDamperPosition.y, yEcoDamPosMax) annotation (Line(points={{81,10},
           {88,10},{90,10},{90,60},{106,60},{106,61},{119,61}},
@@ -78,7 +78,7 @@ equation
   connect(uEcoDamPosMin, assignDamperPosition.u1) annotation (Line(points={{
           -120,20},{-30,20},{-30,18},{58,18}}, color={0,0,127}));
   connect(TSup, TSupThreshold.u) annotation (Line(points={{-120,100},{-90,100},
-          {-90,90},{-82,90}}, color={0,0,127}));
+          {-82,100}},         color={0,0,127}));
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
