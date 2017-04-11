@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #######################################################
 # Script that runs all unit tests or, optionally,
-# only checks the html syntax.
+# only checks the html syntax or the validaty of 
+# the simulation parameters of the models
 #
 # To run the unit tests, this script
 # - creates temporary directories for each processor,
@@ -24,6 +25,7 @@
 # non-zero exit value.
 #
 # MWetter@lbl.gov                            2011-02-23
+# TSNouidui@lbl.gov                          2017-04-11s
 #######################################################
 
 
@@ -32,8 +34,6 @@ def _validate_mos_mo(path):
 
     val = v.Validator()
     retVal = val.validateModelParameters(path)
-
-
 
 def _validate_html(path):
     import buildingspy.development.validator as v
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     html_group.add_argument("--validate-html-only",
                            action="store_true")
 
-    mos_mo_group = parser.add_argument_group("arguments to check consistency of mos/mo parameters only")
+    mos_mo_group = parser.add_argument_group("arguments to check validity of .mos/.mo parameters only")
     mos_mo_group.add_argument("--validate-mo-mos-only",
                            action="store_true")
 
