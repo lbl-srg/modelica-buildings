@@ -32,7 +32,7 @@ equation
   connect(dutCyc1.y, or1.u1) annotation (Line(points={{-5,18},{10,18},{10,2},{
           24,2}}, color={255,0,255}));
   annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
+  experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Logical/Validation/Or.mos"
         "Simulate and plot"),
     Documentation(info="<html>

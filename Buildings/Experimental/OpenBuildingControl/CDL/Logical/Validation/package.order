@@ -1,4 +1,5 @@
 And
+And3
 Change
 Edge
 Equal
@@ -20,6 +21,7 @@ Not
 OnDelay
 OnOffController
 Or
+Or3
 Switch
 Timer
 Toggle
