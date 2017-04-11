@@ -86,5 +86,5 @@ The figure shows that the signal <code>y</code> becomes zero around <i>t = 1</i>
         "Simulate and plot"),
     experiment(
       StopTime=10,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end TestVoltageCTRL;

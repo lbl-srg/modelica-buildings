@@ -29,7 +29,7 @@ model Case620 "Case 600, but with windows on East and West side walls"
         experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-006),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model is the case 620 of the BESTEST validation suite.

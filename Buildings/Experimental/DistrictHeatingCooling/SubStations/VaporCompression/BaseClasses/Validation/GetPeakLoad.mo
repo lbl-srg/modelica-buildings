@@ -26,7 +26,7 @@ equation
     + String(QHea_flow));
   assert(abs(QWatHea_flow -19496.90012) < 1E-3, "Error in reading the peak water heating load. Read "
     + String(QWatHea_flow));
-  annotation(experiment(StopTime=31536000),
+  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/BaseClasses/Validation/GetPeakLoad.mos"
         "Simulate and plot"),
     Documentation(

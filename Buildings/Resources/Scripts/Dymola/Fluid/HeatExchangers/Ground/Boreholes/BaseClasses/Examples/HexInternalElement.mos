@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.HexInternalElement", stopTime=3600, method="dassl", resultFile="HexInternalElement");
+simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.HexInternalElement", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="HexInternalElement");
 createPlot(id = 1,
  position = {35, 30, 400, 499},
  y = {"hex.vol1.T", "hex.vol2.T"},

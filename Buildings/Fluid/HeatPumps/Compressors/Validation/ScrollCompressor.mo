@@ -39,7 +39,7 @@ equation
   annotation (    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Compressors/Validation/ScrollCompressor.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=100),
+      Tolerance=1e-6, StopTime=100),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the ScrollCompressor model.

@@ -60,7 +60,7 @@ equation
       points={{-22,-20},{-70,-20},{-70,10}},
       color={127,0,127},
       smooth=Smooth.None));
-  annotation (    experiment(StopTime=172800, Tolerance=1e-05),
+  annotation (    experiment(StopTime=172800, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model illustrates the use of the wind turbine model with neutral cable,

@@ -87,7 +87,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=864000),
+experiment(Tolerance=1e-6, StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/TransmittedRadiation.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -54,7 +54,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{200,200}})),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/ForcedConvection.mos"
         "Simulate and plot"),
-    experiment(StopTime=12),
+    experiment(Tolerance=1e-06, StopTime=120),
     Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

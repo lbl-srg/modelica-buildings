@@ -31,7 +31,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
-    experiment(StopTime=172800),
+    experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(
       file="Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/Controls/Validation/ElectrochromicWindow.mos"
         "Simulate and plot"),

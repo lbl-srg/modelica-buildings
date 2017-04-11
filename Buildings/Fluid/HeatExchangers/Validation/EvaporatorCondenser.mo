@@ -70,7 +70,7 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/EvaporatorCondenser.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=100),
+      Tolerance=1e-6, StopTime=100),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of the

@@ -39,7 +39,7 @@ algorithm
     m_flow=m_flow,
     m_flow_nominal=m_flow_nominal);
  annotation (
-experiment(StopTime=1),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/ConvectionResistance.mos"
         "Simulate and plot"),
                   Documentation(info="<html>

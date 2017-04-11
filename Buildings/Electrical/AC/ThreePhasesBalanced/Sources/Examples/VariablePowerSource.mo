@@ -47,7 +47,7 @@ equation
       points={{59,0},{40,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (    experiment(StopTime=21, Tolerance=1e-05),
+  annotation (    experiment(StopTime=1.0, Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Sources/Examples/VariablePowerSource.mos"
         "Simulate and plot"),

@@ -60,7 +60,7 @@ equation
       smooth=Smooth.None));
   annotation (            experiment(
       StopTime=3600,
-      Tolerance=1e-05),
+      Tolerance=1e-6),
             __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/OnePhase/Storage/Examples/AcBattery.mos"
         "Simulate and plot"),

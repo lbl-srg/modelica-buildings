@@ -154,7 +154,7 @@ equation
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
-experiment(StopTime=1200.0),
+experiment(Tolerance=1e-6, StopTime=1200),
 Documentation(info="<html>
 <p>
 This model provides an example for the

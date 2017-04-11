@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl", stopTime=3600, method="dassl", tolerance=1e-05, resultFile="WetCoilDiscretizedPControl");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl", stopTime=3600, method="dassl", tolerance=1e-6, resultFile="WetCoilDiscretizedPControl");
 createPlot(id = 6,
  position = {14, (-1), 530, 586},
  y = {"hex.sta_a1.T", "hex.sta_b1.T", "hex.sta_a2.T", "hex.sta_b2.T", "hex.hexReg[1].ele[1, 1].vol1.T", "hex.hexReg[1].ele[1, 1].vol2.T", "hex.hexReg[1].ele[1, 2].vol1.T",  "hex.hexReg[1].ele[1, 2].vol2.T"},
