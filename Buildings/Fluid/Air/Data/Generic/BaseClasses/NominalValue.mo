@@ -14,9 +14,15 @@ record NominalValue "Nominal conditions for air handling units"
   parameter Modelica.SIunits.Temperature T_b2_nominal=12 + 273.15
     "Nominal air outlet temperature"
     annotation (Dialog(tab="General",group="Cooling Coil"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal)
     "Nominal heat transfer"
     annotation (Dialog(tab="General",group="Cooling Coil"));
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Cooling Coil"));
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Cooling Coil"));
 
   parameter Modelica.SIunits.PressureDifference dpCoil1_nominal(min=0,displayUnit="Pa")
     "Nominal pressure difference in the coil"
@@ -26,7 +32,12 @@ record NominalValue "Nominal conditions for air handling units"
     "Nominal pressure difference in the coil"
     annotation (Dialog(group="Cooling Coil"));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
+  parameter Modelica.SIunits.ThermalConductance UA_nominal=Q_flow_nominal/
+     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1_nominal,
+        T_b1_nominal,
+        T_a2_nominal,
+        T_b2_nominal)
     "Thermal conductance at nominal flow, used to compute time constant"
     annotation (Dialog(group="Cooling Coil"));
   parameter Real r_nominal=2/3
@@ -71,5 +82,23 @@ record NominalValue "Nominal conditions for air handling units"
     annotation (Dialog(tab="General",group="Valve"));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+  <p>
+This is the base record of nominal values for air handler models.
+</p>
+<p>
+See the information section of
+<a href=\"modelica://Buildings.Fluid.Air.Data.Generic.AirHandlingUnit\">
+Buildings.Fluid.Air.Data.Generic.AirHandlingUnit</a>
+for a description of the data.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 11, 2017 by Yangyang Fu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end NominalValue;
