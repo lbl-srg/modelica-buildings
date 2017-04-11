@@ -114,7 +114,7 @@ equation
   errMonotone    = relativeError(T=TMonotone, TExa=TExa, dTCha=  dTCha);
 
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.mos"
         "Simulate and plot"),

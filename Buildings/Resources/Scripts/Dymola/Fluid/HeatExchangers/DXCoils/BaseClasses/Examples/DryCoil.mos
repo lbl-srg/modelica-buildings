@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryCoil",
-stopTime=3600, method="dassl", resultFile="DryCoil");
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="DryCoil");
 removePlots();
 createPlot(id = 1,
  position = {27, 12, 443, 654},

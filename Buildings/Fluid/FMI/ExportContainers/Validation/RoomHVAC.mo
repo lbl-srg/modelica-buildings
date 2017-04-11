@@ -231,5 +231,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Validation/RoomHVAC.mos"
         "Simulate and plot"),
-    experiment(StartTime=1.5552e+07, StopTime=15638400, Tolerance=1e-7));
+    experiment(StartTime=1.5552e+07, StopTime=1.56384e+07, Tolerance=1e-7));
 end RoomHVAC;

@@ -96,7 +96,7 @@ equation
           4},{-52,4}}, color={0,0,127}));
   connect(pla.TSetHea, TSetH.y) annotation (Line(points={{-52,8},{-60,8},{-60,40},
           {-69,40}}, color={0,0,127}));
-  annotation(experiment(StopTime=864000),
+  annotation(experiment(Tolerance=1e-6, StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/Plant_T_ClosedLoop.mos"
         "Simulate and plot"),
     Documentation(

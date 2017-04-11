@@ -1,6 +1,6 @@
 storeProtected=Advanced.StoreProtectedVariables;
 Advanced.StoreProtectedVariables:=true;
-simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiation", stopTime=864000, method="dassl", resultFile="AbsorbedRadiation");
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.AbsorbedRadiation", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="AbsorbedRadiation");
 
 removePlots();
 createPlot(id = 1,

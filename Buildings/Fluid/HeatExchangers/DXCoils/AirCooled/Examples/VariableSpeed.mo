@@ -111,7 +111,7 @@ equation
       smooth=Smooth.None));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirCooled/Examples/VariableSpeed.mos"
         "Simulate and plot"),
-    experiment(StopTime=3600),
+    experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
 <p>
 This is a test model for
