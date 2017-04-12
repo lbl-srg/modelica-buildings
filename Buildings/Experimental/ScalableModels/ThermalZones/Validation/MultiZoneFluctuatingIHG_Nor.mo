@@ -1,5 +1,6 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.Validation;
-model MultiZone "Multiple thermal zone models"
+model MultiZoneFluctuatingIHG_Nor
+  "Multiple thermal zone models: North"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
@@ -8,12 +9,21 @@ model MultiZone "Multiple thermal zone models"
   parameter Integer nFlo(min=1) = 1 "Number of floors"
     annotation(Evaluate=true);
 
- parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
+  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
 
-  BaseClasses.ThermalZone theZon[nZon, nFlo](
+  parameter Real ampFactor[nZon,nFlo]=
+    if (nZon*nFlo)<=5 then
+        {{abs(cos(i*j*3.1415926/(nZon*nFlo))) for j in 1:nFlo} for i in 1:nZon}
+    else
+        {{abs(cos(i*j*3.1415926/5)) for j in 1:nFlo} for i in 1:nZon}
+    "IHG fluctuating amplitude factor";
+
+  BaseClasses.ThermalZoneFluctuatingIHG_North theZon[nZon, nFlo](
     redeclare each package MediumA = MediumA,
-    each final lat=lat)           "Thermal zone model"
+    each final lat=lat,
+    gainFactor={{(ampFactor[i,j]) for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -24,7 +34,8 @@ equation
         points={{0,-10.2},{0,-20},{16,-20},{16,20},{0,20},{0,10}}, color={191,0,
           0}));
   connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1 else iZon+1, iFlo].heaPorWal2) annotation (Line(
-        points={{-10,0},{-20,0},{-20,-24},{20,-24},{20,0},{10.2,0}}, color={191,
+        points={{-10,-1.6},{-20,-1.6},{-20,-24},{20,-24},{20,0},{10.2,0}},
+                                                                     color={191,
           0,0}));
     end for;
   end for;
@@ -39,8 +50,8 @@ equation
 
   annotation (
   experiment(StopTime=604800, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/Validation/MultiZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/Validation/MultiZoneFluctuatingIHG_Nor.mos"
         "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end MultiZone;
+end MultiZoneFluctuatingIHG_Nor;
