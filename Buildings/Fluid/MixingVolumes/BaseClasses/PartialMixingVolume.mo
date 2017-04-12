@@ -39,6 +39,10 @@ partial model PartialMixingVolume
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
     T(start=T_start)) "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
+  Modelica.SIunits.HeatFlowRate QSen_flow = heatPort.Q_flow "Sensible heat flow rate";
+  input Modelica.SIunits.HeatFlowRate QLat_flow "Latent heat flow rate";
+
   Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
   Modelica.Blocks.Interfaces.RealOutput U(unit="J")
@@ -122,7 +126,7 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
+  Modelica.Blocks.Sources.RealExpression _QSen_flow(y=QSen_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
 
@@ -270,9 +274,9 @@ using
 <pre>
 if allowFlowReversal then
   hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
-                                                  y2=port_a.h_outflow,
-                                                  x=port_a.m_flow,
-                                                  x_small=m_flow_small/1E3);
+                                                    y2=port_a.h_outflow,
+                                                    x=port_a.m_flow,
+                                                    x_small=m_flow_small/1E3);
 else
   hOut = port_b.h_outflow;
 end if;
@@ -307,6 +311,19 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Introduced variables <code>QSen_flow</code> and <code>QLat_flow</code>
+as these are required by
+<a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a> and by
+<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>.<br/>
+Renamed blocks <code>QSen_flow</code> to <code>_QSen_flow</code> and
+<code>QLat_flow</code> to <code>_QLat_flow</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+</li>
 <li>
 February 19, 2016 by Filip Jorissen:<br/>
 Added outputs U, m, mXi, mC for being able to

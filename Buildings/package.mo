@@ -158,7 +158,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">xxx
        </td>
        <td valign=\"top\">xxx.
-       </td> 
+       </td>
        </tr>
    </table>
    <!-- Backward compatible changes -->
@@ -210,6 +210,18 @@ its class name ends with the string <code>Beta</code>.
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                          Buildings.Fluid.Interfaces.FourPortHeatMassExchanger
+       </td>
+       <td valign=\"top\">Corrected assignment of <code>Q_flow</code> (or <code>Q1_flow</code>
+                          and <code>Q2_flow</code>).
+                          Previously, these variables were assigned only the sensible heat flow rate,
+                          but they should include the latent heat exhange to be consistent with
+                          the variable naming, and because the cooling coils interpret these variables
+                          as if they contain the latent heat flow rate.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+       </td>
+   </tr>
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil
        </td>
        <td valign=\"top\">Corrected coefficient for temperature-dependency correction
@@ -241,7 +253,7 @@ its class name ends with the string <code>Beta</code>.
    Note:
    </p>
    <ul>
-   <li> 
+   <li>
    xxx
    </li>
    </ul>

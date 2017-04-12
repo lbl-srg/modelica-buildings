@@ -5,7 +5,8 @@ model MixingVolumeMoistAir
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     dynBal(final use_mWat_flow = true),
-    steBal(final use_mWat_flow = true));
+    steBal(final use_mWat_flow = true),
+    final QLat_flow = _QLat_flow.y);
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -17,9 +18,6 @@ model MixingVolumeMoistAir
     annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
-  Modelica.Blocks.Math.Product QLat_flow
-    "Latent heat flow rate added to the fluid stream"
-    annotation (Placement(transformation(extent={{20,62},{40,82}})));
 protected
   parameter Integer i_w(fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi] = {
@@ -32,6 +30,9 @@ protected
   Modelica.Blocks.Sources.RealExpression hLiq(y=Medium.enthalpyOfLiquid(TWat))
     "Enthalpy of water at the given temperature"
     annotation (Placement(transformation(extent={{-40,62},{0,86}})));
+  Modelica.Blocks.Math.Product _QLat_flow
+    "Latent heat flow rate added to the fluid stream"
+    annotation (Placement(transformation(extent={{20,62},{40,82}})));
   Modelica.Blocks.Math.Add Q_flow(final k1=1, final k2=1)
     "Sensible and latent heat added to the volume"
     annotation (Placement(transformation(extent={{68,68},{88,88}})));
@@ -57,10 +58,10 @@ equation
   connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
       points={{-120,80},{-50,80},{-50,60},{52,60},{52,12},{58,12}},
       color={0,0,127}));
-  connect(mWat_flow,QLat_flow. u2) annotation (Line(
+  connect(mWat_flow, _QLat_flow.u2) annotation (Line(
       points={{-120,80},{-50,80},{-50,66},{18,66}},
       color={0,0,127}));
-  connect(hLiq.y,QLat_flow. u1) annotation (Line(
+  connect(hLiq.y, _QLat_flow.u1) annotation (Line(
       points={{2,74},{2,74},{4,74},{10,74},{10,78},{18,78}},
       color={0,0,127}));
   connect(Q_flow.y, steBal.Q_flow) annotation (Line(
@@ -72,10 +73,10 @@ equation
   connect(XLiq.y, X_w) annotation (Line(
       points={{83.1,-40},{120,-40}},
       color={0,0,127}));
-  connect(QLat_flow.y, Q_flow.u2) annotation (Line(
+  connect(_QLat_flow.y, Q_flow.u2) annotation (Line(
       points={{41,72},{50,72},{66,72}},
       color={0,0,127}));
-  connect(QSen_flow.y, Q_flow.u1) annotation (Line(
+  connect(_QSen_flow.y, Q_flow.u1) annotation (Line(
       points={{-19,88},{50,88},{50,84},{66,84}},
       color={0,0,127}));
   annotation (defaultComponentName="vol",
@@ -151,6 +152,19 @@ for an example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Introduced variables <code>QSen_flow</code> and <code>QLat_flow</code>
+as these are required by
+<a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a> and by
+<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">
+Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>.<br/>
+Renamed blocks <code>QSen_flow</code> to <code>_QSen_flow</code> and
+<code>QLat_flow</code> to <code>_QLat_flow</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+</li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
 Removed assignment of <code>sensibleOnly</code> in <code>steBal</code>

@@ -25,7 +25,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
             -80,120},{-60,140}})));
-  Buildings.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
+  Buildings.Utilities.Psychrometrics.pW_X humRat(use_p_in=false)
     "Conversion from humidity ratio to partial water vapor pressure"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
   Buildings.Utilities.Psychrometrics.TDewPoi_pW dewPoi "Dew point temperature"
@@ -37,7 +37,7 @@ model MixingVolumeMoistAir "Test model for mixing volume with moist air input"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
   Modelica.Blocks.Continuous.Integrator QLat "Enthalpy of extracted water"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Modelica.Blocks.Sources.RealExpression QLat_flow(y=vol1.QLat_flow.y)
+  Modelica.Blocks.Sources.RealExpression QLat_flow(y=vol1.QLat_flow)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
             60},{132,80}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
@@ -160,6 +160,12 @@ stabilizes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Renamed variable used in result processing.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Changed

@@ -39,6 +39,9 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
+  Modelica.SIunits.HeatFlowRate Q_flow = vol.QSen_flow + vol.QLat_flow
+    "Heat flow rate into medium";
+
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
   constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium,
@@ -88,7 +91,6 @@ initial algorithm
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
-
 
 
 equation
@@ -142,6 +144,13 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Corrected assignment of <code>Q_flow</code>
+to include latent rather than only sensible heat flow rate.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
