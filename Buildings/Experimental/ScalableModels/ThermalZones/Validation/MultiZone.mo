@@ -39,7 +39,7 @@ equation
 
   annotation (
   experiment(StopTime=604800, Tolerance=1e-06, __Dymola_Algorithm="Radau"),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/Validation/MultiZone.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/ScalableModels/ThermalZones/Validation/MultiZone.mos"
         "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
