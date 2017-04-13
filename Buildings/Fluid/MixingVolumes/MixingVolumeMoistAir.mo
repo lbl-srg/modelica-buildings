@@ -11,8 +11,15 @@ model MixingVolumeMoistAir
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
+  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="kg/kg")
+    "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=T_start))
+    "Heat port for sensible plus latent heat exchange with the control volume"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
 protected
   parameter Integer i_w(fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi] = {
@@ -25,6 +32,7 @@ protected
   Modelica.Blocks.Sources.RealExpression XLiq(y=s*Xi)
     "Species composition of the medium"
     annotation (Placement(transformation(extent={{72,-52},{94,-28}})));
+
 initial algorithm
   i_w := 0;
   for i in 1:Medium.nXi loop
@@ -39,6 +47,7 @@ initial algorithm
 
 
 
+
 equation
   connect(mWat_flow, steBal.mWat_flow) annotation (Line(
       points={{-120,80},{-120,80},{4,80},{4,14},{18,14}},
@@ -49,6 +58,8 @@ equation
   connect(XLiq.y, X_w) annotation (Line(
       points={{95.1,-40},{120,-40}},
       color={0,0,127}));
+  connect(heaFloSen.port_a, heatPort)
+    annotation (Line(points={{-90,0},{-100,0}}, color={191,0,0}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
 <p>

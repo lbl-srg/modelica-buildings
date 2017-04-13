@@ -36,10 +36,6 @@ partial model PartialMixingVolume
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
-    T(start=T_start))
-    "Heat port for total heat exchange with the control volume"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
@@ -184,8 +180,6 @@ equation
 
   connect(portT.y, preTem.T)
     annotation (Line(points={{-31,0},{-38,0}},   color={0,0,127}));
-  connect(heatPort, heaFloSen.port_a) annotation (Line(points={{-100,0},{-96,0},
-          {-90,0}},          color={191,0,0}));
   connect(heaFloSen.port_b, preTem.port)
     annotation (Line(points={{-70,0},{-65,0},{-60,0}},    color={191,0,0}));
   connect(heaFloSen.Q_flow, steBal.Q_flow) annotation (Line(points={{-80,-10},{
@@ -318,9 +312,9 @@ Buildings.Fluid.MixingVolumes</a>.
 <ul>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
-Changed comment of heat port, as this needs to be the total heat flow
-rate in order to be able to use this model for modeling steam humidifiers
-and adiabatic humidifiers.<br/>
+Moved heat port to the extending classes to provide better comment.
+Otherwise, the mixing volume without water input would have a comment
+that says latent heat can be added at this port.<br/>
 Removed blocks <code>QSen_flow</code> and
 <code>QLat_flow</code>.<br/>
 This is for issue

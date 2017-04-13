@@ -2,9 +2,13 @@ within Buildings.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
-  // fixme: PartialMixingVolume can safely be removed.
-equation
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=T_start)) "Heat port for heat exchange with the control volume"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+equation
+  connect(heaFloSen.port_a, heatPort)
+    annotation (Line(points={{-90,0},{-96,0},{-100,0}}, color={191,0,0}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
