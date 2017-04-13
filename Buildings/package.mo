@@ -127,12 +127,12 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-   class Version_4_0_1 "Version 4.0.1"
+   class Version_5_0_0 "Version 5.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 4.0.1 is ... xxx
+   Version 5.0.0 is ... xxx
    </p>
    </div>
    <!-- New libraries -->
@@ -258,7 +258,7 @@ its class name ends with the string <code>Beta</code>.
    </li>
    </ul>
    </html>"));
-   end Version_4_0_1;
+   end Version_5_0_0;
 
    class Version_4_0_0 "Version 4.0.0"
      extends Modelica.Icons.ReleaseNotes;
@@ -6167,7 +6167,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_1\">Version 4.0.1</a> (xxx, 2017)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_0\">Version 5.0.0</a> (xxx, 2017)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (March 29, 2017)
@@ -6696,14 +6696,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="4.0.1",
+version="5.0.0",
 versionDate="2017-03-29",
 dateModified="2017-03-29",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"3.0.0", "4.0.1"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_3.0_to_4.0.mos")),
-revisionId="$Id$",
+ from(version={"4.0.0", "5.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
