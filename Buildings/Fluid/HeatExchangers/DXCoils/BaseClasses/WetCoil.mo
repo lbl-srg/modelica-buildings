@@ -110,20 +110,16 @@ equation
       points={{-110,-77},{-90,-77},{-90,-58},{-31,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(appDewPt.TADP, conRat.TDewPoi)       annotation (Line(
-      points={{-9,-55},{29.5,-55},{29.5,-86},{59,-86}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conRat.mWat_flow, mWat_flow)       annotation (Line(
       points={{81,-80},{110,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shr.SHR, conRat.SHR) annotation (Line(
-      points={{41,-10},{46,-10},{46,-80},{59,-80}},
+      points={{41,-10},{46,-10},{46,-84},{59,-84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, conRat.Q_flow) annotation (Line(
-      points={{46.7,51},{50,52},{50,-74},{59,-74}},
+      points={{46.7,51},{50,51},{50,-76},{59,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDewPt.Q_flow) annotation (Line(
