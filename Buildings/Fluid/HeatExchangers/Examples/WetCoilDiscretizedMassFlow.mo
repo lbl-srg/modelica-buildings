@@ -29,7 +29,8 @@ model WetCoilDiscretizedMassFlow
 
   Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal)
+    m_flow_nominal=m2_flow_nominal,
+    initType=Modelica.Blocks.Types.Init.SteadyState)
     annotation (Placement(transformation(extent={{60,14},{40,34}})));
 
 equation
@@ -55,7 +56,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
-experiment(Tolerance=1e-6, StopTime=3600),
+experiment(Tolerance=1e-7, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedMassFlow.mos"
         "Simulate and plot"),
 Documentation(info="<html>

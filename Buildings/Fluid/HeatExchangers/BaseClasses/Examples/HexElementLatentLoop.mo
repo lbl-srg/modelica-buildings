@@ -6,8 +6,8 @@ model HexElementLatentLoop
  package Medium_W = Buildings.Media.Water;
  package Medium_A = Buildings.Media.Air;
 
- parameter Modelica.SIunits.MassFlowRate mW_flow_nominal = 1 "Water mass flow rate";
- parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = 1 "Air mass flow rate";
+ parameter Modelica.SIunits.MassFlowRate mW_flow_nominal = 0.1 "Water mass flow rate";
+ parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = 0.14 "Air mass flow rate";
 
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
@@ -39,7 +39,7 @@ model HexElementLatentLoop
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                     "Hex element"
                     annotation (Placement(transformation(extent={{10,-8},{30,12}})));
-  Modelica.Blocks.Sources.Constant hACon(k=10000) "Convective heat transfer"
+  Modelica.Blocks.Sources.Constant hACon(k=70)    "Convective heat transfer"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium_A,
@@ -97,7 +97,7 @@ equation
           {58,-66}}, color={0,0,127}));
   connect(TSur.y, TDewPoi.T)
     annotation (Line(points={{-59,70},{-41,70},{-41,70}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1e-6, StopTime=10),
+  annotation(experiment(Tolerance=1e-6, StopTime=50),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElementLatentLoop.mos"
         "Simulate and plot"),
     Documentation(info="<html>
