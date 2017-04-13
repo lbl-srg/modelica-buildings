@@ -33,8 +33,8 @@ model WetCoil "Calculates wet coil condition "
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio shr(
     redeclare package Medium = Medium) "Calculates sensible heat ratio"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation conRat(
-      redeclare package Medium = Medium) "Calculates rate of condensation"
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation conRat
+   "Calculates rate of condensation"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 protected
   Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
