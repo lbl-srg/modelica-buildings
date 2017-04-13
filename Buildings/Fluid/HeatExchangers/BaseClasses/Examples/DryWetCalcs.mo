@@ -438,6 +438,16 @@ differences in specific enthalpy should be compared:
   <td>0.3624</td>
   <td><code>dryWetCalcs.dryFra</code></td>
 </tr>
+<tr>
+  <td>SHR<sub>wet</sub> (calculated, approx.)</td>
+  <td>0.8876</td>
+  <td>NA</td>
+</tr>
+<tr>
+  <td>Q<sub>sensible, wet</sub> (calculated, approx.)</td>
+  <td>41807 W</td>
+  <td><code>-dryWetCalcs.wet.QSen</code></td>
+</tr>
 </table>
 
 <h4>References</h4>

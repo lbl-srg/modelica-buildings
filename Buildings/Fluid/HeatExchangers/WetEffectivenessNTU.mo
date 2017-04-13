@@ -40,9 +40,23 @@ model WetEffectivenessNTU
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  Modelica.SIunits.MassFlowRate mWat_flow
+    "Flow rate of condensate removed from the air stream; positive is moisture
+    removed from the air stream";
+  Modelica.SIunits.HeatFlowRate QTot
+    "The total heat added to the airstream (Medium2) and
+    removed from the water stream (Medium1)";
+  Modelica.SIunits.HeatFlowRate QLat
+    "The total latent heat added to the airstream (Medium2)";
+  Modelica.SIunits.HeatFlowRate QSen
+    "The total sensible heat added to the airstream (Medium2)";
+  Real SHR(min=0, max=1)
+    "Sensible heat ratio";
+
   // Q_flow_nominal below is the "gain" for heat flow. By setting the basis
   // to 1.0, we can allow the value coming in via the control signal, u, to
   // be the Q_flow added to medium 1 (the "water")
+protected
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare package Medium = Medium1,
     Q_flow_nominal = 1,
@@ -110,13 +124,18 @@ model WetEffectivenessNTU
   Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
     y = port_a2.m_flow)
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
-
-protected
   parameter Integer nWat=
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames);
 
 equation
+  mWat_flow = -dryWetCalcs.masFloCon;
+  QTot = -dryWetCalcs.QTot;
+  QLat = QTot - QSen;
+  QSen = dryWetCalcs.QSen
+    "dryWetCalcs.QSen is + for flow into medium2";
+  SHR = abs(QSen) / max(abs(QTot), 1e-6);
+
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
   connect(heaCooHum_u.port_b, port_b2) annotation (Line(
