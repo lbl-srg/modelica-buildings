@@ -18,8 +18,8 @@ package Medium = Buildings.Media.Air;
     m_flow(start=1),
     m_flow_nominal=1,
     mWat_flow_nominal=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T=283.15) "Humidifier with backward flow"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Humidifier with backward flow"
     annotation (Placement(transformation(extent={{-32,-16},{-52,4}})));
   Buildings.Fluid.MassExchangers.Humidifier_u humFor(
     redeclare package Medium = Medium,
@@ -27,8 +27,8 @@ package Medium = Buildings.Media.Air;
     m_flow(start=1),
     m_flow_nominal=1,
     mWat_flow_nominal=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T=283.15) "Humidifier with forward flow"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Humidifier with forward flow"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Constant u2(k=0.01) "Control input"
     annotation (Placement(transformation(extent={{-92,54},{-80,66}})));
@@ -166,6 +166,12 @@ This model tests whether the results for a humidifer are
 identical for forward flow and reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
