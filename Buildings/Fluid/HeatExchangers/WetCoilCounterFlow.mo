@@ -9,11 +9,11 @@ model WetCoilCounterFlow
 
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
-  // fixme: shouldn't this be enthalpyOfLiquid, as liquid water drains from the coil.
-  // Also, this could be reformulated using the new QLat_flow variable.
+
   Modelica.SIunits.HeatFlowRate QLat2_flow=
     sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle)
     "Latent heat input into air (negative if air is dehumidified)";
+
   Real SHR(
     min=0,
     max=1,
