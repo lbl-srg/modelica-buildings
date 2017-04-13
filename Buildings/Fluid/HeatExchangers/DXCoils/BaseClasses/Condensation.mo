@@ -21,8 +21,8 @@ block Condensation "Calculates rate of condensation"
     quantity="MassFlowRate",
     unit="kg/s") "Mass flow rate of water condensed at cooling coil"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-algorithm
-  mWat_flow := (1-SHR)*Q_flow/Medium.enthalpyOfVaporization(T=TDewPoi);
+equation
+  mWat_flow = (1-SHR)*Q_flow/Medium.enthalpyOfVaporization(T=TDewPoi);
 annotation (defaultComponentName="conRat",
 Documentation(info="<html>
 <p>
@@ -31,6 +31,10 @@ This block computes the water mass flow rate that condenses.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Changed algorithm to equation section.
+</li>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
 Revised implementation.
