@@ -5,17 +5,12 @@ model MixingVolumeMoistAir
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     dynBal(final use_mWat_flow = true),
-    steBal(final use_mWat_flow = true),
-    final QLat_flow = _QLat_flow.y);
+    steBal(final use_mWat_flow = true));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=260)
-    "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
 protected
@@ -27,18 +22,9 @@ protected
                                             for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
-  Modelica.Blocks.Sources.RealExpression hLiq(y=Medium.enthalpyOfLiquid(TWat))
-    "Enthalpy of water at the given temperature"
-    annotation (Placement(transformation(extent={{-40,62},{0,86}})));
-  Modelica.Blocks.Math.Product _QLat_flow
-    "Latent heat flow rate added to the fluid stream"
-    annotation (Placement(transformation(extent={{20,62},{40,82}})));
-  Modelica.Blocks.Math.Add Q_flow(final k1=1, final k2=1)
-    "Sensible and latent heat added to the volume"
-    annotation (Placement(transformation(extent={{68,68},{88,88}})));
   Modelica.Blocks.Sources.RealExpression XLiq(y=s*Xi)
     "Species composition of the medium"
-    annotation (Placement(transformation(extent={{60,-52},{82,-28}})));
+    annotation (Placement(transformation(extent={{72,-52},{94,-28}})));
 initial algorithm
   i_w := 0;
   for i in 1:Medium.nXi loop
@@ -51,33 +37,17 @@ initial algorithm
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
 
+
+
 equation
   connect(mWat_flow, steBal.mWat_flow) annotation (Line(
-      points={{-120,80},{-50,80},{-50,66},{-10,66},{-10,14},{8,14}},
+      points={{-120,80},{-120,80},{4,80},{4,14},{18,14}},
       color={0,0,127}));
   connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
-      points={{-120,80},{-50,80},{-50,60},{52,60},{52,12},{58,12}},
-      color={0,0,127}));
-  connect(mWat_flow, _QLat_flow.u2) annotation (Line(
-      points={{-120,80},{-50,80},{-50,66},{18,66}},
-      color={0,0,127}));
-  connect(hLiq.y, _QLat_flow.u1) annotation (Line(
-      points={{2,74},{2,74},{4,74},{10,74},{10,78},{18,78}},
-      color={0,0,127}));
-  connect(Q_flow.y, steBal.Q_flow) annotation (Line(
-      points={{89,78},{94,78},{94,40},{0,40},{0,18},{8,18}},
-      color={0,0,127}));
-  connect(Q_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{89,78},{94,78},{94,40},{54,40},{54,16},{58,16}},
+      points={{-120,80},{-50,80},{52,80},{52,12},{58,12}},
       color={0,0,127}));
   connect(XLiq.y, X_w) annotation (Line(
-      points={{83.1,-40},{120,-40}},
-      color={0,0,127}));
-  connect(_QLat_flow.y, Q_flow.u2) annotation (Line(
-      points={{41,72},{50,72},{66,72}},
-      color={0,0,127}));
-  connect(_QSen_flow.y, Q_flow.u1) annotation (Line(
-      points={{-19,88},{50,88},{50,84},{66,84}},
+      points={{95.1,-40},{120,-40}},
       color={0,0,127}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
@@ -154,14 +124,11 @@ for an example.
 <ul>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
-Introduced variables <code>QSen_flow</code> and <code>QLat_flow</code>
-as these are required by
-<a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a> and by
-<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>.<br/>
-Renamed blocks <code>QSen_flow</code> to <code>_QSen_flow</code> and
-<code>QLat_flow</code> to <code>_QLat_flow</code>.<br/>
+Changed comment of heat port, as this needs to be the total heat flow
+rate in order to be able to use this model for modeling steam humidifiers
+and adiabatic humidifiers.<br/>
+Removed blocks <code>QSen_flow</code> and
+<code>QLat_flow</code>.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
 </li>

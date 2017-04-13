@@ -1,16 +1,9 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
-    final QLat_flow = 0);
-
+  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
+  // fixme: PartialMixingVolume can safely be removed.
 equation
-  connect(_QSen_flow.y, steBal.Q_flow) annotation (Line(
-      points={{-19,88},{0,88},{0,18},{8,18}},
-      color={0,0,127}));
-  connect(_QSen_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{-19,88},{54,88},{54,16},{58,16}},
-      color={0,0,127}));
 
   annotation (
 defaultComponentName="vol",
@@ -109,14 +102,11 @@ Buildings.Fluid.MassExchangers.Humidifier_u</a>.
 <ul>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
-Introduced variables <code>QSen_flow</code> and <code>QLat_flow</code>
-as these are required by
-<a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a> and by
-<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>.<br/>
-Renamed blocks <code>QSen_flow</code> to <code>_QSen_flow</code> and
-<code>QLat_flow</code> to <code>_QLat_flow</code>.<br/>
+Changed comment of heat port, as this needs to be the total heat flow
+rate in order to be able to use this model for modeling steam humidifiers
+and adiabatic humidifiers.<br/>
+Removed blocks <code>QSen_flow</code> and
+<code>QLat_flow</code>.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
 </li>

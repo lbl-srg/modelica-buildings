@@ -63,9 +63,9 @@ model FourPortHeatMassExchanger
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.QSen_flow + vol1.QLat_flow
+  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
     "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.QSen_flow + vol2.QLat_flow
+  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
@@ -179,7 +179,6 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
-
 
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(

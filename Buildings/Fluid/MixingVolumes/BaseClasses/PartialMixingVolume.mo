@@ -37,11 +37,9 @@ partial model PartialMixingVolume
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
-    T(start=T_start)) "Heat port for sensible heat input"
+    T(start=T_start))
+    "Heat port for total heat exchange with the control volume"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
-  Modelica.SIunits.HeatFlowRate QSen_flow = heatPort.Q_flow "Sensible heat flow rate";
-  input Modelica.SIunits.HeatFlowRate QLat_flow "Latent heat flow rate";
 
   Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
@@ -72,7 +70,7 @@ protected
     final m_flow_small = m_flow_small,
     final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
-        annotation (Placement(transformation(extent={{10,0},{30,20}})));
+        annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
     final use_C_flow = use_C_flow,
@@ -126,15 +124,14 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Modelica.Blocks.Sources.RealExpression _QSen_flow(y=QSen_flow)
-    "Block to set sensible heat input into volume"
-    annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
-
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
-    annotation (Placement(transformation(extent={{-68,10},{-88,30}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
-    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
+    annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
+    "Heat flow sensor"
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -152,11 +149,11 @@ equation
   // then we use the same base class as for all other steady state models.
   if useSteadyStateTwoPort then
   connect(steBal.port_a, ports[1]) annotation (Line(
-      points={{10,10},{0,10},{0,-60},{0,-100}},
+      points={{20,10},{10,10},{10,-20},{0,-20},{0,-20},{0,-100}},
       color={0,127,255}));
 
   connect(steBal.port_b, ports[2]) annotation (Line(
-      points={{30,10},{40,10},{40,-20},{0,-20},{0,-100}},
+      points={{40,10},{46,10},{46,-20},{0,-20},{0,-100}},
       color={0,127,255}));
     U=0;
     mXi=zeros(Medium.nXi);
@@ -167,7 +164,8 @@ equation
     connect(COut_internal,  steBal.COut);
   else
       connect(dynBal.ports, ports) annotation (Line(
-      points={{70,0},{70,-20},{2.22045e-15,-20},{2.22045e-15,-100}},
+      points={{70,0},{70,-80},{62,-80},{2.22045e-15,-80},{2.22045e-15,-90},{2.22045e-15,
+            -100}},
       color={0,127,255}));
     connect(U,dynBal.UOut);
     connect(mXi,dynBal.mXiOut);
@@ -178,17 +176,24 @@ equation
     connect(COut_internal,  dynBal.COut);
   end if;
 
-  connect(steBal.C_flow, C_flow) annotation (Line(points={{8,6},{-80,6},{-80,
-          -60},{-120,-60}}, color={0,0,127}));
+  connect(steBal.C_flow, C_flow) annotation (Line(points={{18,6},{12,6},{12,-60},
+          {-120,-60}},      color={0,0,127}));
   connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,6},{50,6},{50,
           -60},{-120,-60}},
                       color={0,0,127}));
 
   connect(portT.y, preTem.T)
-    annotation (Line(points={{-61,20},{-66,20}}, color={0,0,127}));
-  connect(preTem.port, heatPort)
-    annotation (Line(points={{-88,20},{-92,20},{-92,0},{-100,0}},
-                                                           color={191,0,0}));
+    annotation (Line(points={{-31,0},{-38,0}},   color={0,0,127}));
+  connect(heatPort, heaFloSen.port_a) annotation (Line(points={{-100,0},{-96,0},
+          {-90,0}},          color={191,0,0}));
+  connect(heaFloSen.port_b, preTem.port)
+    annotation (Line(points={{-70,0},{-65,0},{-60,0}},    color={191,0,0}));
+  connect(heaFloSen.Q_flow, steBal.Q_flow) annotation (Line(points={{-80,-10},{
+          -80,-16},{6,-16},{6,18},{18,18}},
+                                     color={0,0,127}));
+  connect(heaFloSen.Q_flow, dynBal.Q_flow) annotation (Line(points={{-80,-10},{
+          -80,-10},{-80,-16},{6,-16},{6,24},{50,24},{50,16},{58,16}},
+                                                               color={0,0,127}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -313,14 +318,11 @@ Buildings.Fluid.MixingVolumes</a>.
 <ul>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
-Introduced variables <code>QSen_flow</code> and <code>QLat_flow</code>
-as these are required by
-<a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</a> and by
-<a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</a>.<br/>
-Renamed blocks <code>QSen_flow</code> to <code>_QSen_flow</code> and
-<code>QLat_flow</code> to <code>_QLat_flow</code>.<br/>
+Changed comment of heat port, as this needs to be the total heat flow
+rate in order to be able to use this model for modeling steam humidifiers
+and adiabatic humidifiers.<br/>
+Removed blocks <code>QSen_flow</code> and
+<code>QLat_flow</code>.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
 </li>
