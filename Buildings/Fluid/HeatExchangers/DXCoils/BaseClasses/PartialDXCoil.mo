@@ -167,15 +167,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.mWat_flow, dxCoo.mWat_flow) annotation (Line(
-      points={{-10,-66},{-18,-66},{-18,8},{8,8},{8,42},{1,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.TCoiSur, eva.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-72},{-10,-72}},
+      points={{-10,-70},{-18,-70},{-18,8},{8,8},{8,42},{1,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, eva.mAir_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,-78},{-10,-78}},
+      points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(

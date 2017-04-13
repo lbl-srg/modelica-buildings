@@ -47,6 +47,13 @@ public
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
+  Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
+    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput p "Pressure at inlet of coil"
+    annotation (Placement(transformation(extent={{-120,-34},{-100,-14}})));
+  Modelica.Blocks.Interfaces.RealInput hEvaIn
+    "Specific enthalpy of air entering the coil"
+            annotation (Placement(transformation(extent={{-120,-87},{-100,-67}})));
 equation
 
   connect(appDewPt.TADP, TADP)

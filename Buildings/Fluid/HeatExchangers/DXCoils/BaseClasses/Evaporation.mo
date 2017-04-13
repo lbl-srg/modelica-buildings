@@ -26,23 +26,17 @@ model Evaporation
   // Input and output signals
   Modelica.Blocks.Interfaces.BooleanInput on
     "Control signal, true if compressor is on"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
-                                            final unit = "K",
-                                            displayUnit = "degC")
-    "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput XEvaOut(min=0, max=1, unit="1")
     "Water mass fraction"
@@ -578,6 +572,10 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed input <code>TWat</code> that is not used.
+</li>
 <li>
 March 7, 2017, by Michael Wetter:<br/>
 Set start value and removed max attribute for <code>mEva_flow</code> as this can take on zero.

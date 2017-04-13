@@ -41,6 +41,10 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a>.
 revisions="<html>
 <ul>
 <li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed connectors that are no longer needed.
+</li>
+<li>
 Aug 8, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
