@@ -99,9 +99,11 @@ revisions="<html>
 <ul>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
-Removed optional specification of temperature through the parameter <code>T</code>
-or the input connector <code>T_in</code>, and exposed the heat port of the
-control volume to allow adding heat.<br/>
+Removed parameters <code>use_T_in</code> and <code>T</code>.
+This removes the optional specification of temperature through the parameter <code>T</code>
+or the input connector <code>T_in</code>.
+Exposed the heat port of the control volume to allow adding heat,
+for example, to use the model as a steam humidifier.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">
 #704</a>.
