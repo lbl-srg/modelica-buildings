@@ -8,43 +8,58 @@ model HexElementLatent "Element of a heat exchanger"
 
   MassExchange masExc(
      redeclare final package Medium=Medium2) "Model for mass exchange"
-    annotation (Placement(transformation(extent={{48,-44},{68,-24}})));
+    annotation (Placement(transformation(extent={{48,-50},{68,-30}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
     T(final quantity="ThermodynamicTemperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
-    annotation (Placement(transformation(extent={{8,-10},{28,10}})));
-public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCond
-    annotation (Placement(transformation(extent={{40,10},{20,30}})));
-  Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{70,10},{50,30}})));
-  Modelica.Blocks.Sources.RealExpression h_fg(y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
-    annotation (Placement(transformation(extent={{100,16},{80,36}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapAir
+    "Heat conductor for latent heat flow rate, accounting for latent heat removed with vapor"
+    annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
+  Modelica.Blocks.Math.Product pro
+    "Product to compute the latent heat flow rate"
+    annotation (Placement(transformation(extent={{60,-10},{40,10}})));
+  Modelica.Blocks.Sources.RealExpression h_fg(final y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
+    "Enthalpy of vaporization"
+    annotation (Placement(transformation(extent={{90,-4},{70,16}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaConVapCoi
+    "Heat conductor for latent heat flow rate, accounting for latent heat deposited with vapor on the coil"
+    annotation (Placement(transformation(extent={{0,10},{-20,30}})));
+  Modelica.Blocks.Math.Gain gain(final k=-1)
+    annotation (Placement(transformation(extent={{30,10},{10,30}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{40,0},{40,-26},
-          {46,-26}},                    color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-34},{
-          80,-34},{80,-52},{14,-52}},  color={0,0,127}));
-  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
-          {-20,-34},{46,-34}}, color={0,0,127}));
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{-40,0},{-28,0},{-28,-32},
+          {46,-32}},                    color={0,0,127}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-40},{80,
+          -40},{80,-52},{14,-52}},     color={0,0,127}));
+  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},{-20,
+          -44},{40,-44},{40,-40},{46,-40}},
+                               color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(
-      points={{40,-100},{40,-42},{46,-42}},
+      points={{40,-100},{40,-48},{46,-48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.port, con1.solid) annotation (Line(
-      points={{8,0},{-66,0},{-66,20},{-60,20}},
+      points={{-60,0},{-66,0},{-66,60},{-50,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heaCond.Q_flow, product.y)
-    annotation (Line(points={{40,20},{49,20}}, color={0,0,127}));
-  connect(masExc.mWat_flow, product.u2) annotation (Line(points={{69,-34},{80,-34},
-          {80,14},{72,14}}, color={0,0,127}));
-  connect(product.u1, h_fg.y)
-    annotation (Line(points={{72,26},{79,26}}, color={0,0,127}));
-  connect(heaCond.port, con2.fluid) annotation (Line(points={{20,20},{-10,20},{-10,
-          -20},{-40,-20}}, color={191,0,0}));
+  connect(heaConVapAir.Q_flow, pro.y) annotation (Line(points={{0,-20},{0,-20},{
+          36,-20},{36,0},{39,0}}, color={0,0,127}));
+  connect(masExc.mWat_flow, pro.u2) annotation (Line(points={{69,-40},{80,-40},{
+          80,-6},{62,-6}}, color={0,0,127}));
+  connect(pro.u1, h_fg.y)
+    annotation (Line(points={{62,6},{66,6},{69,6}},
+                                               color={0,0,127}));
+  connect(heaConVapAir.port, con2.fluid) annotation (Line(points={{-20,-20},{-24,
+          -20},{-24,-40},{-30,-40}}, color={191,0,0}));
+  connect(heaConVapCoi.port, con2.solid) annotation (Line(points={{-20,20},{-66,
+          20},{-66,0},{-66,-40},{-50,-40}}, color={191,0,0}));
+  connect(gain.y, heaConVapCoi.Q_flow)
+    annotation (Line(points={{9,20},{6,20},{0,20}}, color={0,0,127}));
+  connect(pro.y, gain.u) annotation (Line(points={{39,0},{36,0},{36,0},{36,20},{
+          32,20}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -55,14 +70,20 @@ with dynamics of the fluids and the solid.
 See
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
-for a description of the physics.
+for a description of the physics of the sensible heat exchange.
+For the latent heat exchange, this model removes water vapor from the air stream, as
+computed by the instance <code>masExc</code>. This effectively moves water vapor molecules
+out of the air, and deposits them on the coil. Hence, the latent heat that is carried
+by these water vapor molecules is removed from the air stream, and added to the coil
+surface. This is done using the heat flow sources <code>heaConVapAir</code> and
+<code>heaConVapWat</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 April 14, 2017, by David Blum:<br/>
-Added heat of condensation to coil surface heat balance.<br/>
+Added heat of condensation to coil surface heat balance and removed it from the air stream.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">Buildings #711</a>.
 </li>
