@@ -318,7 +318,7 @@ that says latent heat can be added at this port.<br/>
 Removed blocks <code>QSen_flow</code> and
 <code>QLat_flow</code>.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 February 19, 2016 by Filip Jorissen:<br/>

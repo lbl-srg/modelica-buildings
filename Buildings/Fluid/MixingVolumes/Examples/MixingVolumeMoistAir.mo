@@ -179,7 +179,7 @@ stabilizes.
 April 11, 2017, by Michael Wetter:<br/>
 Renamed variable used in result processing.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>

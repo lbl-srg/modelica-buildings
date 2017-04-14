@@ -29,7 +29,7 @@ The mass flow rate starts positive and reverses its direction at <i>t=5</i> seco
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 March 9, 2016, by Michael Wetter:<br/>

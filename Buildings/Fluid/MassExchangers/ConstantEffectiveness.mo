@@ -145,7 +145,7 @@ revisions="<html>
 April 11, 2017, by Michael Wetter:<br/>
 Corrected bug as <code>Q1_flow</code> did not include latent heat flow rate.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 October 14, 2013 by Michael Wetter:<br/>

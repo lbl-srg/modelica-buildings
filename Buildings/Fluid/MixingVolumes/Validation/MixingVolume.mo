@@ -185,7 +185,7 @@ library.
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 January 12, 2017, by Thierry S. Nouidui:<br/>

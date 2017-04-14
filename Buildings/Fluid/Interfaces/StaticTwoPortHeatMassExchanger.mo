@@ -153,7 +153,7 @@ April 11, 2017, by Michael Wetter:<br/>
 Updated documentation to make clear that <code>Q_flow</code>
 includes latent heat flow rate.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>

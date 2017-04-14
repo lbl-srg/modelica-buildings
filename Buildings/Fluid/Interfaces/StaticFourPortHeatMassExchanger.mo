@@ -119,7 +119,7 @@ April 11, 2017, by Michael Wetter:<br/>
 Updated documentation to make clear that <code>Q1_flow</code> and <code>Q2_flow</code>
 include latent heat flow rate.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>

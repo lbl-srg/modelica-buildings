@@ -106,7 +106,7 @@ Exposed the heat port of the control volume to allow adding heat,
 for example, to use the model as a steam humidifier.<br/>
 This is for issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">
-#704</a>.
+Buildings #704</a>.
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Set <code>prescribedHeatFlowRate=true</code>.

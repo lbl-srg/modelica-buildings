@@ -141,7 +141,7 @@ and adiabatic humidifiers.<br/>
 Removed blocks <code>QSen_flow</code> and
 <code>QLat_flow</code>.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>

@@ -112,7 +112,7 @@ equation
 April 12, 2017, by Michael Wetter:<br/>
 Removed connection that is no longer needed.<br/>
 This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
 </li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
