@@ -90,7 +90,6 @@ initial algorithm
  Received tau = " + String(tau) + "\n");
 
 
-
 equation
   connect(vol.ports[2], port_b) annotation (Line(
       points={{1,0},{100,0}},

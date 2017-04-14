@@ -23,9 +23,6 @@ model MixingVolumeAdiabaticCooling
     annotation (Placement(transformation(extent={{20,-38},{40,-18}})));
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TWat
-    "Temperature at which the water will be added"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Sources.RealExpression relErr(
     y=(volSim.heatPort.T - 20)
       /(if abs(volExa.heatPort.T - 20) < 1E-5 then 1 else (volExa.heatPort.T - 20)))
@@ -37,14 +34,9 @@ model MixingVolumeAdiabaticCooling
 equation
   connect(volSim.mWat_flow, mWatFlo.y) annotation (Line(points={{18,28},{18,28},
           {-16,28},{-16,80},{-39,80}}, color={0,0,127}));
-  connect(TWat.T, volSim.TWat) annotation (Line(points={{-40,20},{-16,20},{-16,24.8},
-          {18,24.8}}, color={0,0,127}));
-  connect(volSim.heatPort, TWat.port) annotation (Line(points={{20,20},{0,20},{0,
-          0},{-70,0},{-70,20},{-60,20}}, color={191,0,0}));
-  connect(volExa.mWat_flow, mWatFlo.y) annotation (Line(points={{18,-20},{18,-14},
-          {-14,-14},{-14,80},{-39,80}}, color={0,0,127}));
-  connect(TWat.T, volExa.TWat) annotation (Line(points={{-40,20},{-14,20},{-14,-23.2},
-          {18,-23.2}}, color={0,0,127}));
+  connect(volExa.mWat_flow, mWatFlo.y) annotation (Line(points={{18,-20},{18,
+          -20},{-16,-20},{-16,80},{-39,80}},
+                                        color={0,0,127}));
   connect(bou.ports[1], volSim.ports[1])
     annotation (Line(points={{70,2},{30,2},{30,10}}, color={0,127,255}));
   connect(bou.ports[2], volExa.ports[1]) annotation (Line(points={{70,-2},{66,-2},
@@ -64,6 +56,12 @@ two options is less than <i>0.1%</i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 First implementation.

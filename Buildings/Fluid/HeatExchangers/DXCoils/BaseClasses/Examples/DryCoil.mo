@@ -3,9 +3,6 @@ model DryCoil "Test model for DryCoil"
 extends Modelica.Icons.Example;
   package Medium =
       Buildings.Media.Air;
-  Modelica.Blocks.Sources.Constant p(
-    k=101325)
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
@@ -32,18 +29,6 @@ extends Modelica.Icons.Example;
     height=-4,
     offset=273.15 + 29) "Dry bulb temperature of air entering the coil"
     annotation (Placement(transformation(extent={{-80,-28},{-60,-8}})));
-  Modelica.Blocks.Sources.Ramp XEvaIn(
-    duration=600,
-    startTime=2400,
-    height=-0.002,
-    offset=0.006) "Inlet mass-fraction"
-    annotation (Placement(transformation(extent={{-80,-94},{-60,-74}})));
-  Modelica.Blocks.Sources.Ramp hEvaIn(
-    duration=600,
-    startTime=2400,
-    height=-10000,
-    offset=45000) "Specific enthalpy of air entering the coil"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
@@ -95,24 +80,12 @@ equation
       points={{-59,56},{-42,56},{-42,5},{19,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(p.y, dryCoi.p)  annotation (Line(
-      points={{-59,-50},{-42,-50},{-42,-2.4},{19,-2.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(m_flow.y, dryCoi.m_flow)  annotation (Line(
       points={{-59,22},{-48,22},{-48,2.4},{19,2.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEvaIn.y, dryCoi.TEvaIn)  annotation (Line(
       points={{-59,-18},{-48,-18},{-48,6.10623e-16},{19,6.10623e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaIn.y, dryCoi.XEvaIn)  annotation (Line(
-      points={{-59,-84},{-36,-84},{-36,-5},{19,-5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hEvaIn.y, dryCoi.hEvaIn)  annotation (Line(
-      points={{1,-30},{10,-30},{10,-7.7},{19,-7.7}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat.y, dryCoi.speRat)     annotation (Line(

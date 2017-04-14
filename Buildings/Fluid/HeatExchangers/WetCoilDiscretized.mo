@@ -10,6 +10,24 @@ model WetCoilDiscretized
         Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nPipPar, nPipSeg]),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
+
+  Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
+    "Sensible heat input into air stream (negative if air is cooled)";
+
+  Modelica.SIunits.HeatFlowRate QLat2_flow=
+    sum(  sum( sum( Medium2.enthalpyOfCondensingGas(hexReg[iReg].ele[iPipPar, iPipSeg].vol2.heatPort.T) *
+        hexReg[iReg].ele[iPipPar, iPipSeg].vol2.mWat_flow  for iPipPar in 1:nPipPar)  for iPipSeg in 1:nPipSeg)  for iReg in 1:nReg)
+    "Latent heat input into air (negative if air is dehumidified)";
+  Real SHR(
+    min=0,
+    max=1,
+    unit="1") = QSen2_flow /
+      noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
+       "Sensible to total heat ratio";
+
+   Modelica.SIunits.MassFlowRate mWat_flow = sum(hexReg[:].ele[:,:].vol2.mWat_flow)
+     "Water flow rate";
+
  annotation (
 defaultComponentName="cooCoi",
     Documentation(info="<html>
@@ -38,6 +56,10 @@ Modelica.Media.Air.MoistAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Added new variables <code>QSen2_flow</code>, <code>QLat2_flow</code> and <code>SHR</code>.
+</li>
 <li>
 July 29, 2016, by Michael Wetter:<br/>
 Redeclared <code>Medium2</code> to be <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
