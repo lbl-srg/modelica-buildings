@@ -1,6 +1,5 @@
 within Buildings.Experimental.ScalableModels.ThermalZones;
-model MultiZoneFluctuatingIHG_Nor
-  "Multiple thermal zone models: North"
+model MultiZoneFluctuatingIHG_Nor  "Multiple thermal zone models: North"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
@@ -21,7 +20,7 @@ model MultiZoneFluctuatingIHG_Nor
   BaseClasses.ThermalZoneFluctuatingIHG_North theZon[nZon, nFlo](
     redeclare each package MediumA = MediumA,
     each final lat=lat,
-    gainFactor={{(ampFactor[i,j]) for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
+    gainFactor={{ampFactor[i,j] for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

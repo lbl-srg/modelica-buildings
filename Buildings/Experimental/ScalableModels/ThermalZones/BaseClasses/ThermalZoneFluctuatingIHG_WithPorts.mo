@@ -1,6 +1,5 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
-model ThermalZoneFluctuatingIHG_North
-  "Thermal zone model: North exterior wall"
+model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
@@ -26,7 +25,7 @@ model ThermalZoneFluctuatingIHG_North
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nPorts=2,
+    nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=6*8,
     datConExtWin(
@@ -37,7 +36,7 @@ model ThermalZoneFluctuatingIHG_North
       hWin={2},
       fFra={0.001},
       til={Z_},
-      azi={N_}),
+      azi={S_}),
     datConBou(
       layers={conFlo, conIntWal},
       A={6*8, 6*2.7},
@@ -101,41 +100,41 @@ model ThermalZoneFluctuatingIHG_North
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{122,138},{142,158}})));
+    annotation (Placement(transformation(extent={{54,138},{74,158}})));
 
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{122,108},{142,128}})));
+    annotation (Placement(transformation(extent={{54,108},{74,128}})));
   final parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{122,78},{142,98}})));
+    annotation (Placement(transformation(extent={{54,78},{74,98}})));
   final parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{162,78},{182,98}})));
+    annotation (Placement(transformation(extent={{94,78},{114,98}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+    annotation (Placement(transformation(extent={{52,50},{72,70}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{160,50},{180,70}})));
+    annotation (Placement(transformation(extent={{92,50},{112,70}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{194,138},{214,158}})));
@@ -150,7 +149,7 @@ model ThermalZoneFluctuatingIHG_North
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{84,138},{104,158}})));
+    annotation (Placement(transformation(extent={{16,138},{36,158}})));
   final parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -159,8 +158,8 @@ model ThermalZoneFluctuatingIHG_North
     annotation (Placement(transformation(extent={{154,138},{174,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},
-            {-90,10}})));
+          extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},{
+            -90,-6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFlo
     "Heat port connected to floor" annotation (Placement(transformation(extent={
             {-10,-110},{10,-90}}), iconTransformation(extent={{-10,-112},{10,-92}})));
@@ -171,6 +170,16 @@ model ThermalZoneFluctuatingIHG_North
     "Heat port connected to common wall" annotation (Placement(transformation(
           extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
             10}})));
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsInOut[2](
+      redeclare package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-88,16},{-48,32}}),
+        iconTransformation(extent={{-88,16},{-48,32}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
+    "Air temperature sensor"    annotation (Placement(transformation(extent={{66,24},
+            {78,36}})));
+  Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperatures"
+    annotation (Placement(transformation(extent={{92,26},{112,46}}),
+        iconTransformation(extent={{92,26},{112,46}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=1/86400, startTime=7*3600)
     annotation (Placement(transformation(extent={{-96,96},{-88,104}})));
   Modelica.Blocks.Sources.Sine sine1(freqHz=1/86400, startTime=7*3600)
@@ -211,15 +220,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-10},{39.75,-10}},
+      points={{-45,-76},{32,-76},{32,-10.5},{39.75,-10.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
       points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[1])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
+  connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
+      points={{16,-60},{30,-60},{30,-8.5},{39.75,-8.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
@@ -231,13 +240,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-7},{39.75,-7}},       color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
+          -28},{14,-6.5},{39.75,-6.5}},   color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
-  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,
-          -12.625},{55.5,-16},{-100,-16},{-100,0}},
-                                                  color={191,0,0}));
+  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
+          {55.5,-16},{-80,-16},{-100,-16}},       color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
@@ -273,24 +281,40 @@ equation
           48},{-28,48},{-28,72},{-20,72},{-16.8,72},{-16.8,73.2}},
         color={0,0,127}));
   connect(sine.y, greaterThreshold.u)
-    annotation (Line(points={{-87.6,100},{-84.8,100}}, color={0,0,127}));
+    annotation (Line(points={{-87.6,100},{-86,100},{-84.8,100}},
+                                                       color={0,0,127}));
   connect(greaterThreshold.y, booleanToReal.u)
-    annotation (Line(points={{-75.6,100},{-72.8,100}}, color={255,0,255}));
-  connect(booleanToReal.y, product1.u2) annotation (Line(points={{-63.6,100},{-63.6,
-          104},{-57,104}}, color={0,0,127}));
-  connect(sine1.y, greaterThreshold1.u)
-    annotation (Line(points={{-87.6,70},{-84.8,70}}, color={0,0,127}));
-  connect(greaterThreshold1.y, booleanToReal1.u)
-    annotation (Line(points={{-75.6,70},{-72.8,70}}, color={255,0,255}));
+    annotation (Line(points={{-75.6,100},{-74,100},{-72.8,100}},
+                                                       color={255,0,255}));
+  connect(booleanToReal.y, product1.u2) annotation (Line(points={{-63.6,100},{-60,
+          100},{-60,104},{-57,104}}, color={0,0,127}));
+  connect(sine1.y, greaterThreshold1.u) annotation (Line(points={{-87.6,70},{-84.8,
+          70}},            color={0,0,127}));
+  connect(greaterThreshold1.y, booleanToReal1.u) annotation (Line(points={{-75.6,
+          70},{-72.8,70}},            color={255,0,255}));
   connect(booleanToReal1.y, product2.u2) annotation (Line(points={{-63.6,70},{-60,
           70},{-60,73},{-57,73}}, color={0,0,127}));
-  connect(sine2.y, greaterThreshold2.u) annotation (Line(points={{-87.6,40},{
-          -84.8,40}},                        color={0,0,127}));
+  connect(sine2.y, greaterThreshold2.u) annotation (Line(points={{-87.6,40},{-84.8,
+          40}},            color={0,0,127}));
   connect(greaterThreshold2.y, booleanToReal2.u) annotation (Line(points={{-75.6,
-          40},{-72.8,40}},                            color={255,0,255}));
-  connect(booleanToReal2.y, product3.u2) annotation (Line(points={{-63.6,40},{
-          -60,40},{-60,44},{-57,44}},
-                                  color={0,0,127}));
+          40},{-74,40},{-72.8,40}},   color={255,0,255}));
+  connect(booleanToReal2.y, product3.u2) annotation (Line(points={{-63.6,40},{-60,
+          40},{-60,44},{-57,44}}, color={0,0,127}));
+
+  connect(roo.ports[1], portsInOut[1]) annotation (Line(
+      points={{39.75,-10.5},{16,-10.5},{16,-10},{-8,-10},{-8,24},{-78,24}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(roo.ports[2], portsInOut[2]) annotation (Line(
+      points={{39.75,-8.5},{12,-8.5},{12,-8},{-8,-8},{-8,24},{-58,24}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(roo.heaPorAir, temAir.port) annotation (Line(points={{50.25,-1},{
+          55.125,-1},{55.125,30},{66,30}},
+                                    color={191,0,0}));
+  connect(temAir.T, TRooAir) annotation (Line(points={{78,30},{84,30},{84,36},{
+          102,36}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(
@@ -323,4 +347,4 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{280,180}})));
-end ThermalZoneFluctuatingIHG_North;
+end ThermalZoneFluctuatingIHG_WithPorts;

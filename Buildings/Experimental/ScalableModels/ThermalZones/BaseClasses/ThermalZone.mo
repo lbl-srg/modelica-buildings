@@ -24,7 +24,7 @@ model ThermalZone "Thermal zone model"
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nPorts=3,
+    nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=6*8,
     datConExtWin(
@@ -82,7 +82,7 @@ model ThermalZone "Thermal zone model"
            annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
-    annotation (Placement(transformation(extent={{-96,-78},{-88,-70}})));
+    annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
@@ -90,48 +90,48 @@ model ThermalZone "Thermal zone model"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-68,-88},{-52,-72}}),
-        iconTransformation(extent={{-68,-88},{-52,-72}})));
+    annotation (Placement(transformation(extent={{-80,-88},{-64,-72}}),
+        iconTransformation(extent={{-80,-88},{-64,-72}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
-    annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
+    annotation (Placement(transformation(extent={{-78,-58},{-66,-46}})));
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{54,138},{74,158}})));
+    annotation (Placement(transformation(extent={{122,138},{142,158}})));
 
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{54,108},{74,128}})));
+    annotation (Placement(transformation(extent={{122,108},{142,128}})));
   final parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{54,78},{74,98}})));
+    annotation (Placement(transformation(extent={{122,78},{142,98}})));
   final parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{94,78},{114,98}})));
+    annotation (Placement(transformation(extent={{162,78},{182,98}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{52,50},{72,70}})));
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{92,50},{112,70}})));
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{194,138},{214,158}})));
@@ -146,7 +146,7 @@ model ThermalZone "Thermal zone model"
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{16,138},{36,158}})));
+    annotation (Placement(transformation(extent={{84,138},{104,158}})));
   final parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -189,28 +189,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-10.5},{39.75,-10.5}},
+      points={{-45,-76},{32,-76},{32,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
       points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-8.5},{39.75,-8.5}},
+  connect(sinInf.ports[1], roo.ports[1])        annotation (Line(
+      points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
-      points={{-64.98,-74},{-54,-74},{-54,-52},{-51,-52}},
+      points={{-64.98,-52},{-51,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
-      points={{-87.6,-74},{-78,-74}},
+      points={{-87.6,-52},{-78,-52}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-6.5},{39.75,-6.5}},   color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
+          -28},{14,-7},{39.75,-7}},       color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
@@ -222,11 +222,11 @@ equation
   connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-19.6,80},{26,80},{26,
           12.5},{34.8,12.5}}, color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{-60,-80},{4,-80},{72,-80},{72,12.425},{64.425,12.425}},
+      points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
   connect(souInf.weaBus, weaBus) annotation (Line(
-      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-60,-80}},
+      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

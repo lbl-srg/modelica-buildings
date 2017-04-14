@@ -25,7 +25,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nPorts=3,
+    nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=6*8,
     datConExtWin(
@@ -60,17 +60,17 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{36,-16},{66,14}})));
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=579/48) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-96,72},{-88,80}})));
+    annotation (Placement(transformation(extent={{-96,80},{-88,88}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=689/48) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-96,116},{-88,124}})));
+    annotation (Placement(transformation(extent={{-96,110},{-88,118}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=146.5/48) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-96,28},{-88,36}})));
+    annotation (Placement(transformation(extent={{-96,50},{-88,58}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-14,64},{-6,72}})));
+    annotation (Placement(transformation(extent={{-16,72},{-8,80}})));
 
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-14,80},{-6,88}})));
+    annotation (Placement(transformation(extent={{-16,88},{-8,96}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf(
     redeclare package Medium = MediumA,
     m_flow=1,
@@ -85,7 +85,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
            annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
-    annotation (Placement(transformation(extent={{-96,-78},{-88,-70}})));
+    annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
@@ -93,48 +93,48 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-68,-88},{-52,-72}}),
-        iconTransformation(extent={{-68,-88},{-52,-72}})));
+    annotation (Placement(transformation(extent={{-80,-88},{-64,-72}}),
+        iconTransformation(extent={{-80,-88},{-64,-72}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
-    annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
+    annotation (Placement(transformation(extent={{-78,-58},{-66,-46}})));
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{54,138},{74,158}})));
+    annotation (Placement(transformation(extent={{122,138},{142,158}})));
 
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{54,108},{74,128}})));
+    annotation (Placement(transformation(extent={{122,108},{142,128}})));
   final parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{54,78},{74,98}})));
+    annotation (Placement(transformation(extent={{122,78},{142,98}})));
   final parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{94,78},{114,98}})));
+    annotation (Placement(transformation(extent={{162,78},{182,98}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{52,50},{72,70}})));
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{92,50},{112,70}})));
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{194,138},{214,158}})));
@@ -149,7 +149,7 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{16,138},{36,158}})));
+    annotation (Placement(transformation(extent={{84,138},{104,158}})));
   final parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -158,8 +158,8 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
     annotation (Placement(transformation(extent={{154,138},{174,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall" annotation (Placement(transformation(
-          extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},{
-            -90,-6}})));
+          extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},
+            {-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorFlo
     "Heat port connected to floor" annotation (Placement(transformation(extent={
             {-10,-110},{10,-90}}), iconTransformation(extent={{-10,-112},{10,-92}})));
@@ -171,38 +171,38 @@ model ThermalZoneFluctuatingIHG "Thermal zone model"
           extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
             10}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=1/86400, startTime=7*3600)
-    annotation (Placement(transformation(extent={{-96,102},{-88,110}})));
+    annotation (Placement(transformation(extent={{-96,96},{-88,104}})));
   Modelica.Blocks.Sources.Sine sine1(freqHz=1/86400, startTime=7*3600)
-    annotation (Placement(transformation(extent={{-96,58},{-88,66}})));
+    annotation (Placement(transformation(extent={{-96,66},{-88,74}})));
   Modelica.Blocks.Sources.Sine sine2(freqHz=1/86400, startTime=7*3600)
-    annotation (Placement(transformation(extent={{-96,14},{-88,22}})));
+    annotation (Placement(transformation(extent={{-96,36},{-88,44}})));
   Modelica.Blocks.Math.Product product1
-    annotation (Placement(transformation(extent={{-56,108},{-46,118}})));
+    annotation (Placement(transformation(extent={{-56,102},{-46,112}})));
   Modelica.Blocks.Math.Gain gain(k=gainFactor)
-    annotation (Placement(transformation(extent={{-40,108},{-30,118}})));
+    annotation (Placement(transformation(extent={{-40,102},{-30,112}})));
   Modelica.Blocks.Math.Product product2
-    annotation (Placement(transformation(extent={{-56,63},{-46,73}})));
+    annotation (Placement(transformation(extent={{-56,71},{-46,81}})));
   Modelica.Blocks.Math.Gain gain1(k=gainFactor)
-    annotation (Placement(transformation(extent={{-40,63},{-30,73}})));
+    annotation (Placement(transformation(extent={{-40,71},{-30,81}})));
   Modelica.Blocks.Math.Product product3
-    annotation (Placement(transformation(extent={{-56,20},{-46,30}})));
+    annotation (Placement(transformation(extent={{-56,42},{-46,52}})));
   Modelica.Blocks.Math.Gain gain2(k=gainFactor)
-    annotation (Placement(transformation(extent={{-40,20},{-30,30}})));
-  Modelica.Blocks.Sources.Constant constant1(k=0) "threshold value"
-    annotation (Placement(transformation(extent={{-96,88},{-88,96}})));
-  Modelica.Blocks.Sources.Constant constant2(k=0) "threshold value"
-    annotation (Placement(transformation(extent={{-96,44},{-88,52}})));
-  Modelica.Blocks.Sources.Constant constant3(k=0) "threshold value"
-    annotation (Placement(transformation(extent={{-96,0},{-88,8}})));
-  Modelica.Blocks.Math.Max max
-    annotation (Placement(transformation(extent={{-76,96},{-68,104}})));
-  Modelica.Blocks.Math.Max max1
-    annotation (Placement(transformation(extent={{-76,50},{-68,58}})));
-  Modelica.Blocks.Math.Max max2
-    annotation (Placement(transformation(extent={{-76,6},{-68,14}})));
+    annotation (Placement(transformation(extent={{-40,42},{-30,52}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
+    annotation (Placement(transformation(extent={{-84,96},{-76,104}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal
+    annotation (Placement(transformation(extent={{-72,96},{-64,104}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1
+    annotation (Placement(transformation(extent={{-84,66},{-76,74}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal1
+    annotation (Placement(transformation(extent={{-72,66},{-64,74}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold2
+    annotation (Placement(transformation(extent={{-84,36},{-76,44}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal2
+    annotation (Placement(transformation(extent={{-72,36},{-64,44}})));
 equation
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-5.6,68},{20,68},{20,5},{34.8,5}},
+      points={{-7.6,76},{20,76},{20,5},{34.8,5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, sinInf.m_flow_in)       annotation (Line(
@@ -210,83 +210,93 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-10.5},{39.75,-10.5}},
+      points={{-45,-76},{32,-76},{32,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
       points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-8.5},{39.75,-8.5}},
+  connect(sinInf.ports[1], roo.ports[1])        annotation (Line(
+      points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
-      points={{-64.98,-74},{-54,-74},{-54,-52},{-51,-52}},
+      points={{-64.98,-52},{-51,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
-      points={{-87.6,-74},{-78,-74}},
+      points={{-87.6,-52},{-78,-52}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-6.5},{39.75,-6.5}},   color={0,127,255}));
+  connect(souInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
+          -28},{14,-7},{39.75,-7}},       color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
-  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
-          {55.5,-16},{-80,-16},{-100,-16}},       color={191,0,0}));
+  connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,
+          -12.625},{55.5,-16},{-100,-16},{-100,0}},
+                                                  color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorCei) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{120,-20},{120,0}}, color={191,0,0}));
-  connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-5.6,84},{26,84},{26,12.5},
-          {34.8,12.5}},       color={0,0,127}));
+  connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,92},{26,92},{26,
+          12.5},{34.8,12.5}}, color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{-60,-80},{4,-80},{72,-80},{72,12.425},{64.425,12.425}},
+      points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
   connect(souInf.weaBus, weaBus) annotation (Line(
-      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-60,-80}},
+      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
       color={255,204,51},
       thickness=0.5));
-  connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-87.6,120},{-80,
-          120},{-80,116},{-57,116}},     color={0,0,127}));
-  connect(qConGai_flow.y, product2.u1) annotation (Line(points={{-87.6,76},{-80,
-          76},{-80,71},{-57,71}}, color={0,0,127}));
-  connect(qLatGai_flow.y, product3.u1) annotation (Line(points={{-87.6,32},{-80,
-          32},{-80,28},{-57,28}}, color={0,0,127}));
-  connect(product3.y, gain2.u) annotation (Line(points={{-45.5,25},{-45.5,25},{-41,
-          25}},      color={0,0,127}));
-  connect(product2.y, gain1.u) annotation (Line(points={{-45.5,68},{-45.5,68},{-41,
-          68}},      color={0,0,127}));
-  connect(product1.y, gain.u) annotation (Line(points={{-45.5,113},{-45.5,113},{
-          -41,113}},color={0,0,127}));
-  connect(gain.y, multiplex3_1.u1[1]) annotation (Line(points={{-29.5,113},{-29.5,
-          98},{-28,98},{-28,72},{-14.8,72},{-14.8,70.8}}, color={0,0,127}));
-  connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,68},{-14.8,
-          68}},            color={0,0,127}));
-  connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,25},{-29.5,
-          40},{-28,40},{-28,64},{-20,64},{-14.8,64},{-14.8,65.2}},
+  connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-87.6,114},{
+          -80,114},{-80,110},{-57,110}}, color={0,0,127}));
+  connect(qConGai_flow.y, product2.u1) annotation (Line(points={{-87.6,84},{-80,
+          84},{-80,79},{-57,79}}, color={0,0,127}));
+  connect(qLatGai_flow.y, product3.u1) annotation (Line(points={{-87.6,54},{-80,
+          54},{-80,50},{-57,50}}, color={0,0,127}));
+  connect(product3.y, gain2.u) annotation (Line(points={{-45.5,47},{-45.5,47},{
+          -41,47}},  color={0,0,127}));
+  connect(product2.y, gain1.u) annotation (Line(points={{-45.5,76},{-45.5,76},{
+          -41,76}},  color={0,0,127}));
+  connect(product1.y, gain.u) annotation (Line(points={{-45.5,107},{-45.5,107},
+          {-41,107}},
+                    color={0,0,127}));
+  connect(gain.y, multiplex3_1.u1[1]) annotation (Line(points={{-29.5,107},{
+          -29.5,106},{-28,106},{-28,80},{-16.8,80},{-16.8,78.8}},
+                                                          color={0,0,127}));
+  connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,76},{
+          -16.8,76}},      color={0,0,127}));
+  connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,47},{
+          -29.5,48},{-28,48},{-28,72},{-20,72},{-16.8,72},{-16.8,73.2}},
         color={0,0,127}));
-  connect(sine.y, max.u1) annotation (Line(points={{-87.6,106},{-80,106},{-80,102.4},
-          {-76.8,102.4}}, color={0,0,127}));
-  connect(constant1.y, max.u2) annotation (Line(points={{-87.6,92},{-80,92},{-80,
-          97.6},{-76.8,97.6}}, color={0,0,127}));
-  connect(max.y, product1.u2) annotation (Line(points={{-67.6,100},{-62,100},{-62,
-          110},{-57,110}}, color={0,0,127}));
-  connect(sine1.y, max1.u1) annotation (Line(points={{-87.6,62},{-80,62},{-80,56.4},
-          {-76.8,56.4}}, color={0,0,127}));
-  connect(constant2.y, max1.u2) annotation (Line(points={{-87.6,48},{-80,48},{-80,
-          51.6},{-76.8,51.6}}, color={0,0,127}));
-  connect(sine2.y, max2.u1) annotation (Line(points={{-87.6,18},{-80,18},{-80,12.4},
-          {-76.8,12.4}}, color={0,0,127}));
-  connect(constant3.y, max2.u2) annotation (Line(points={{-87.6,4},{-80,4},{-80,
-          7.6},{-76.8,7.6}}, color={0,0,127}));
-  connect(max2.y, product3.u2) annotation (Line(points={{-67.6,10},{-62,10},{-62,
-          22},{-57,22}}, color={0,0,127}));
-  connect(max1.y, product2.u2) annotation (Line(points={{-67.6,54},{-62,54},{-62,
-          65},{-57,65}}, color={0,0,127}));
+  connect(sine.y, greaterThreshold.u)
+    annotation (Line(points={{-87.6,100},{-86,100},{-84.8,100}},
+                                                       color={0,0,127}));
+  connect(greaterThreshold.y, booleanToReal.u)
+    annotation (Line(points={{-75.6,100},{-74,100},{-72.8,100}},
+                                                       color={255,0,255}));
+  connect(booleanToReal.y, product1.u2) annotation (Line(points={{-63.6,100},{
+          -60,100},{-60,104},{-57,104}},
+                                     color={0,0,127}));
+  connect(sine1.y, greaterThreshold1.u) annotation (Line(points={{-87.6,70},{
+          -84.8,70}},      color={0,0,127}));
+  connect(greaterThreshold1.y, booleanToReal1.u) annotation (Line(points={{-75.6,
+          70},{-72.8,70}},            color={255,0,255}));
+  connect(booleanToReal1.y, product2.u2) annotation (Line(points={{-63.6,70},{
+          -60,70},{-60,73},{-57,73}},
+                                  color={0,0,127}));
+  connect(sine2.y, greaterThreshold2.u) annotation (Line(points={{-87.6,40},{
+          -84.8,40}},      color={0,0,127}));
+  connect(greaterThreshold2.y, booleanToReal2.u) annotation (Line(points={{-75.6,
+          40},{-74,40},{-72.8,40}},   color={255,0,255}));
+  connect(booleanToReal2.y, product3.u2) annotation (Line(points={{-63.6,40},{
+          -60,40},{-60,44},{-57,44}},
+                                  color={0,0,127}));
+
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

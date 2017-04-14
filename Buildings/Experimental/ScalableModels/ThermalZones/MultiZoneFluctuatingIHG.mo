@@ -21,7 +21,7 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
   BaseClasses.ThermalZoneFluctuatingIHG theZon[nZon, nFlo](
     redeclare each package MediumA = MediumA,
     each final lat=lat,
-    gainFactor={{(ampFactor[i,j]) for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
+    gainFactor={{ampFactor[i,j] for j in 1:nFlo} for i in 1:nZon})           "Thermal zone model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
