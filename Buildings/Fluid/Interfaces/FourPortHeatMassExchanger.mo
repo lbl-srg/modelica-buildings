@@ -226,13 +226,6 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 11, 2017, by Michael Wetter:<br/>
-Corrected assignment of <code>Q1_flow</code> and <code>Q2_flow</code>
-to include latent rather than only sensible heat flow rate.<br/>
-This is for issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
-</li>
-<li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
 This is for
