@@ -192,12 +192,17 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Removed parameters <code>use_T_in</code> and <code>T</code>,
+                          and removed input connector <code>T_in</code>, as these are no
+                          longer needed.<br/>
+                          For Dymola, the conversion script will remove the parameter
+                          settings.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
    </table>
