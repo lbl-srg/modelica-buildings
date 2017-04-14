@@ -15,8 +15,15 @@ protected
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCond
+    annotation (Placement(transformation(extent={{40,10},{20,30}})));
+  Modelica.Blocks.Math.Product product
+    annotation (Placement(transformation(extent={{70,10},{50,30}})));
+  Modelica.Blocks.Sources.RealExpression h_fg(y=Buildings.Utilities.Psychrometrics.Constants.h_fg)
+    annotation (Placement(transformation(extent={{100,16},{80,36}})));
 equation
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{40,0},{40,-26},
           {46,-26}},                    color={0,0,127}));
   connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-34},{
           80,-34},{80,-52},{14,-52}},  color={0,0,127}));
@@ -30,6 +37,14 @@ equation
       points={{8,0},{-66,0},{-66,20},{-60,20}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(heaCond.Q_flow, product.y)
+    annotation (Line(points={{40,20},{49,20}}, color={0,0,127}));
+  connect(masExc.mWat_flow, product.u2) annotation (Line(points={{69,-34},{80,
+          -34},{80,14},{72,14}}, color={0,0,127}));
+  connect(product.u1, h_fg.y)
+    annotation (Line(points={{72,26},{79,26}}, color={0,0,127}));
+  connect(heaCond.port, con2.fluid) annotation (Line(points={{20,20},{-10,20},{
+          -10,-20},{-40,-20}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>
