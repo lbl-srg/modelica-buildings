@@ -39,12 +39,12 @@ equation
       smooth=Smooth.None));
   connect(heaCond.Q_flow, product.y)
     annotation (Line(points={{40,20},{49,20}}, color={0,0,127}));
-  connect(masExc.mWat_flow, product.u2) annotation (Line(points={{69,-34},{80,
-          -34},{80,14},{72,14}}, color={0,0,127}));
+  connect(masExc.mWat_flow, product.u2) annotation (Line(points={{69,-34},{80,-34},
+          {80,14},{72,14}}, color={0,0,127}));
   connect(product.u1, h_fg.y)
     annotation (Line(points={{72,26},{79,26}}, color={0,0,127}));
-  connect(heaCond.port, con2.fluid) annotation (Line(points={{20,20},{-10,20},{
-          -10,-20},{-40,-20}}, color={191,0,0}));
+  connect(heaCond.port, con2.fluid) annotation (Line(points={{20,20},{-10,20},{-10,
+          -20},{-40,-20}}, color={191,0,0}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -60,6 +60,12 @@ for a description of the physics.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 14, 2017, by David Blum:<br/>
+Added heat of condensation to coil surface heat balance.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/711\">Buildings #711</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature that is no longer needed.<br/>
