@@ -106,5 +106,5 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/ASHRAESolarGain.mos"
         "Simulate and Plot"),
-        experiment(StopTime=86400.0));
+        experiment(Tolerance=1e-6, StopTime=86400));
 end ASHRAESolarGain;

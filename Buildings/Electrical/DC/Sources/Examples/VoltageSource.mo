@@ -42,7 +42,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}}),      graphics),
-    experiment(StopTime=1, Tolerance=1e-05),
+    experiment(StopTime=1, Tolerance=1e-6),
 Documentation(info="<html>
 <p>
 This model illustrates the use of the variable voltage source model.

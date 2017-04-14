@@ -52,7 +52,7 @@ equation
       points={{-80,0},{-70,0},{-70,6.66134e-16},{-60,6.66134e-16}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (experiment(StopTime=1.0, Tolerance=1e-6),
   __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Lines/Examples/ACLineMatrix_RLC.mos"
         "Simulate and plot"),

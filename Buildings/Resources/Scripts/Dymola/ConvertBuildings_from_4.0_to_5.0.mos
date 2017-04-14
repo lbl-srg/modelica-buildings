@@ -1,0 +1,12 @@
+// Conversion script for Buildings library
+//  from: Version 3.0
+//  to:   Version 4.0
+clear
+
+convertClear();
+
+
+convertModifiers("Buildings.Fluid.MassExchangers.Humidifier_u",
+                 {"use_T_in"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.MassExchangers.Humidifier_u",
+                 {"T"}, fill("",0), true);

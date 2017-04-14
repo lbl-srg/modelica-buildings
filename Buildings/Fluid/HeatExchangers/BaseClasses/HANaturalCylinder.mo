@@ -84,17 +84,17 @@ initial equation
 
   // Fluid properties
   mu_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
-        T=  0.5 * (TSur_nominal+TFlu_nominal));
+        T = 0.5 * (TSur_nominal+TFlu_nominal));
   rho_nominal = Medium.density(
         Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  0.5*(TSur_nominal+TFlu_nominal),
-          X=  Medium.X_default));
+          p = Medium.p_default,
+          T = 0.5*(TSur_nominal+TFlu_nominal),
+          X = Medium.X_default));
   Pr_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
-          T=  0.5*(TSur_nominal+TFlu_nominal));
+          T = 0.5*(TSur_nominal+TFlu_nominal));
 
   B_nominal = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
-          T=  0.5*(TSur_nominal+TFlu_nominal));
+          T = 0.5*(TSur_nominal+TFlu_nominal));
   nu_nominal = mu_nominal/rho_nominal;
 
   Gr_nominal = Modelica.Constants.g_n * B_nominal * (TSur_nominal -
@@ -103,26 +103,26 @@ initial equation
   // Convection coefficient
   k_nominal = Medium.thermalConductivity(
     Medium.setState_pTX(
-    p=  Medium.p_default,
-    T=  0.5*(TFlu_nominal+TSur_nominal),
-    X=  Medium.X_default));
+    p = Medium.p_default,
+    T = 0.5*(TFlu_nominal+TSur_nominal),
+    X = Medium.X_default));
   Nusselt_nominal = nusselt(k=k_nominal, Pr=Pr_nominal, Ra=Ra_nominal);
   h_nominal = Nusselt_nominal * k_nominal/ChaLen;
   A = hA_nominal / h_nominal;
 equation
   // Fluid properties
   state = Medium.setState_pTX(
-             p=  Medium.p_default,
-             T=  0.5*(TSur+TFlu),
-             X=  Medium.X_default);
+             p = Medium.p_default,
+             T = 0.5*(TSur+TFlu),
+             X = Medium.X_default);
   mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
-        T=  0.5 * (TSur+TFlu));
+        T = 0.5 * (TSur+TFlu));
   rho = Medium.density(state);
   Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
-          T=  0.5*(TSur+TFlu));
+          T = 0.5*(TSur+TFlu));
 
   B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
-          T=  0.5*(TSur+TFlu));
+          T = 0.5*(TSur+TFlu));
   nu = mu/rho;
 
   Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
@@ -186,5 +186,62 @@ February 26, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={                       Text(
+          extent={{-66,88},{60,-2}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="hA"),
+        Rectangle(
+          extent={{-62,-26},{64,-72}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-56,-72},{-66,-26}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{70,-72},{60,-26}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-38,-4},{-44,-18},{-32,-18},{-38,-4}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-12,-4},{-18,-18},{-6,-18},{-12,-4}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{16,-4},{10,-18},{22,-18},{16,-4}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{42,-4},{36,-18},{48,-18},{42,-4}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-38,-18},{-34,-38},{-44,-52},{-32,-72},{-40,-86}},
+          color={175,175,175},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-12,-18},{-8,-38},{-18,-52},{-6,-72},{-14,-86}},
+          color={175,175,175},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{16,-18},{20,-38},{10,-52},{22,-72},{14,-86}},
+          color={175,175,175},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{42,-18},{46,-38},{36,-52},{48,-72},{40,-86}},
+          color={175,175,175},
+          smooth=Smooth.Bezier)}));
 end HANaturalCylinder;

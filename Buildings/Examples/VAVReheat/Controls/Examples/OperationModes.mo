@@ -191,7 +191,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-006),
+      Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model tests the transition between the different modes of operation of the HVAC system.

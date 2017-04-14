@@ -39,7 +39,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/InteriorConvection.mos"
         "Simulate and plot"),
  Documentation(info="<html>

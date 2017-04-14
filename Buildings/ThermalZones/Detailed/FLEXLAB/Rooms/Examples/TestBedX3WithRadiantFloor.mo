@@ -942,7 +942,7 @@ equation
             -300},{300,300}})),           __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/FLEXLAB/Rooms/Examples/TestBedX3WithRadiantFloor.mos"
         "Simulate and Plot"),
-        experiment(StopTime=864000.0),
+        experiment(Tolerance=1e-6, StopTime=864000),
         Documentation(info="<html>
         <p>
         This example models demonstrates how the <a href=\"modelica://Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.X3A\">

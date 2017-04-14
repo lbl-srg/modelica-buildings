@@ -15,7 +15,7 @@ model NominalCondition "Test model for NominalCondition"
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  annotation (experiment(StopTime=60),
+  annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/NominalCondition.mos"
         "Simulate and plot"),
           Documentation(info="<html>

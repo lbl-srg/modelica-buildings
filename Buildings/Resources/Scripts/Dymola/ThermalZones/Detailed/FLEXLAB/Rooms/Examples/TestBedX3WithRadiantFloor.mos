@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor", stopTime=864000, method="dassl", resultFile="TestBedX3WithRadiantFloor");
+simulateModel("Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.TestBedX3WithRadiantFloor", tolerance=1e-6, stopTime=864000, method="dassl", resultFile="TestBedX3WithRadiantFloor");
 
 createPlot(id = 1,
  position = {0, 0, 1049, 700},

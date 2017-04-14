@@ -89,7 +89,7 @@ equation
       smooth=Smooth.None));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBoxMinimumFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
+    experiment(Tolerance=1e-6, StopTime=240),
 Documentation(info="<html>
 <p>
 Test model for the economizer mixing box that has a flow leg for the

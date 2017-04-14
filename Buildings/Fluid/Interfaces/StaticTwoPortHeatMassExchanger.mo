@@ -13,6 +13,7 @@ model StaticTwoPortHeatMassExchanger
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Model inputs
+  // Q_flow is the sensible plus latent heat flow rate
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
   input Modelica.SIunits.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
@@ -106,7 +107,7 @@ that extend or instantiate this model.
 The following inputs need to be assigned:
 <ul>
 <li>
-<code>Q_flow</code>, which is the heat flow rate added to the medium.
+<code>Q_flow</code>, which is the sensible and latent heat flow rate added to the medium.
 </li>
 <li>
 <code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
@@ -147,6 +148,13 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Updated documentation to make clear that <code>Q_flow</code>
+includes latent heat flow rate.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>

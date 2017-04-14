@@ -97,7 +97,7 @@ equation
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(StopTime=120),
+        experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of

@@ -19,7 +19,7 @@ equation
       points={{-50,0},{-50,-12}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation ( experiment(StopTime=1,Tolerance=1e-05),
+  annotation ( experiment(StopTime=1.0,Tolerance=1e-06),
   Documentation(
   info="<html>
 <p>

@@ -1047,5 +1047,5 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/V
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-006));
+      Tolerance=1e-08));
 end ClosedLoop;

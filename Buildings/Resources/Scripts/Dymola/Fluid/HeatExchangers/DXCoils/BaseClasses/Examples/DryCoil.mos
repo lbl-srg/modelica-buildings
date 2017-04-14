@@ -1,6 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryCoil",
-stopTime=3600, method="dassl", resultFile="DryCoil");
-removePlots();
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="DryCoil");
 createPlot(id = 1,
  position = {27, 12, 443, 654},
  y = {"dryCoi.m_flow"},
@@ -33,7 +32,7 @@ createPlot(id = 1,
  colors = {{0,0,255}});
 createPlot(id = 1,
  position = {27, 12, 443, 159},
- y = {"dryCoi.TDry", "TEvaIn.y"},
+ y = {"TEvaIn.y"},
  range = {0.0, 4000.0, 310.0, 270.0},
  autoscale = true,
  autoerase = true,
@@ -45,7 +44,7 @@ createPlot(id = 1,
  subPlot = 3,
  leftTitleType = 1,
  bottomTitleType = 1,
- colors = {{0,0,255}, {255,0,0}});
+ colors = {{255,0,0}});
 createPlot(id = 1,
  position = {27, 12, 443, 160},
  y = {"dryCoi.Q_flow"},
@@ -61,5 +60,3 @@ createPlot(id = 1,
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
-
-

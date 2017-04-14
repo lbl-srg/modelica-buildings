@@ -199,5 +199,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=7200, Tolerance=1E-8));
+    experiment(StopTime=7200, Tolerance=1e-6));
 end ConductorSingleLayerPCM;

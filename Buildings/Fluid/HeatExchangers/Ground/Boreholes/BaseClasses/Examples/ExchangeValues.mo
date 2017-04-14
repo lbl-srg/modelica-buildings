@@ -28,7 +28,7 @@ algorithm
   assert(abs(y-3) < 1E-10, "Error in implementation of exchangeVaules.");
 
 annotation(
-experiment(StopTime=1),
+experiment(Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Ground/Boreholes/BaseClasses/Examples/ExchangeValues.mos"
         "Simulate"),
     Documentation(info="<html>
