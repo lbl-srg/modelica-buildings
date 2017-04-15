@@ -9,7 +9,7 @@ algorithm
   y := Buildings.Utilities.Math.Functions.trapezoidalIntegration(N=7, f=y1, deltaX=1);
  assert(y - 286.0 < 1E-4,
    "Error. Function should have returned 286.");
-  annotation (experiment(StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mos"
         "Simulate and plot"),
                      Documentation(info="<html>

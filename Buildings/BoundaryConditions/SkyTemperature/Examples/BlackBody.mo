@@ -77,13 +77,13 @@ February 18, 2017, by Filip Jorissen:<br/>
 Now computing both options of <code>TBlaSky</code>.
 This verifies the consistency of the two computation methods.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/648\">#648</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/648\">#648</a>.
 </li>
 <li>
 January 7, 2016, by Michael Wetter:<br/>
 Changed <code>connect</code> statement for infrared radiation due renaming of the
 variable. This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">issue 376</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/376\">issue 376</a>.
 Added comments.
 </li>
 <li>
@@ -92,7 +92,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StopTime=86400),
+experiment(Tolerance=1e-6, StartTime=0, StopTime=86400),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

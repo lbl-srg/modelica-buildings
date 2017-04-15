@@ -14,7 +14,7 @@ model ThermalZoneHVACWithExhaust
     dp_nominal=1200,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
+    use_inputFilter=false,
     m_flow_nominal=0.1*m_flow_nominal) "Constant air exhaust"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 equation
@@ -53,5 +53,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACWithExhaust.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end ThermalZoneHVACWithExhaust;

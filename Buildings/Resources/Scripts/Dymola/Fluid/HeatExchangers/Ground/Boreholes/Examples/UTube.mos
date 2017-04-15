@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.Examples.UTube", stopTime=5*365*86400, method="Radau", tolerance=1e-05, resultFile="UTube");
+simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.Examples.UTube", stopTime=5*365*86400, method="Radau", tolerance=1e-6, resultFile="UTube");
 createPlot(id = 1,
  position = {15, 10, 847, 743},
  y = {"borHol.port_a.m_flow"},

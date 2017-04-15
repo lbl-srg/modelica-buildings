@@ -7,13 +7,13 @@ model SpeedControlled_Nrpm "Fan with zero mass flow rate and speed as input"
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                   dp={2*dp_nominal,dp_nominal,0})),
-      filteredSpeed=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
     redeclare Buildings.Fluid.Movers.SpeedControlled_Nrpm floMacDyn(
       redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                    dp={2*dp_nominal,dp_nominal,0})),
-      filteredSpeed=false,
+      use_inputFilter=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 equation
@@ -26,7 +26,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-08, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_Nrpm.mos"
         "Simulate and plot"),
     Documentation(info="<html>

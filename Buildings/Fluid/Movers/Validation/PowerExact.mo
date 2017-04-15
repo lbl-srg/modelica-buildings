@@ -5,7 +5,7 @@ model PowerExact
     pump_dp(per=per),
     pump_m_flow(per=per));
   annotation (
-    experiment(StopTime=200),
+    experiment(Tolerance=1e-6, StopTime=200),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     __Dymola_Commands(file=
@@ -32,7 +32,7 @@ revisions="<html>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
 First implementation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/417\">#417</a>.
 </li>
 </ul>
 </html>"));

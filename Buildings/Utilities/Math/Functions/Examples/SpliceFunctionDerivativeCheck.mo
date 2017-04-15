@@ -28,7 +28,7 @@ equation
   err = y-y_comp;
   assert(abs(err) < 1E-2, "Model has an error");
 
- annotation(experiment(StartTime=-1, StopTime=1.0),
+ annotation(experiment(StartTime=-1, Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -43,7 +43,7 @@ is not correct, the model will stop with an assert statement.
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
 </li>
 <li>
 May 20, 2008, by Michael Wetter:<br/>

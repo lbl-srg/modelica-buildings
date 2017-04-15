@@ -95,5 +95,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Validation/FlowSplitter_u.mos"
         "Simulate and plot"),
-    experiment(StopTime=1));
+    experiment(Tolerance=1e-6, StopTime=1.0));
 end FlowSplitter_u;

@@ -488,7 +488,7 @@ equation
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
-experiment(StopTime=3600),
+experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
@@ -510,7 +510,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>

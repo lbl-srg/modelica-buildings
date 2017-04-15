@@ -102,7 +102,7 @@ equation
           {20,-32},{30,-32}}, color={0,0,127}));
   connect(QEva_flow.u2, heaPum.P) annotation (Line(points={{30,-44},{16,-44},{
           16,0},{11,0}}, color={0,0,127}));
-  annotation (experiment(StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_TCon_reverseFlow.mos"
         "Simulate and plot"),
     Documentation(

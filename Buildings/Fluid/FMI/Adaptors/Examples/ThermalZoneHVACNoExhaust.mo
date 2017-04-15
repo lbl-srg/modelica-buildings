@@ -43,8 +43,7 @@ model ThermalZoneHVACNoExhaust
     dp_nominal=1200,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false)
-                     "Fan or pump"
+    use_inputFilter=false) "Fan or pump"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   HeatExchangers.HeaterCooler_u
     hea(
@@ -197,7 +196,7 @@ connected to the adaptor <code>hvacAda</code>, rather than the volume <code>vol<
 November 29, 2016, by Michael Wetter:<br/>
 Added separate signal for outdoor temperature used by HVAC system. This is
 to improve clarity regarding what signals are exchanged, see also
-<a href=\"https://github.com/iea-annex60/modelica-annex60/pull/598\">#598</a>.
+<a href=\"https://github.com/ibpsa/modelica/pull/598\">#598</a>.
 </li>
 <li>
 June 29, 2016, by Michael Wetter:<br/>
@@ -207,5 +206,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/Adaptors/Examples/ThermalZoneHVACNoExhaust.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end ThermalZoneHVACNoExhaust;

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.BoreholeSegment", stopTime=5*365*86400, method="Radau", tolerance=1e-05, resultFile="BoreholeSegment");
+simulateModel("Buildings.Fluid.HeatExchangers.Ground.Boreholes.BaseClasses.Examples.BoreholeSegment", stopTime=5*365*86400, method="Radau", tolerance=1e-6, resultFile="BoreholeSegment");
 createPlot(id = 1,
  position = {15, 10, 847, 743},
  y = {"seg.port_a1.m_flow"},

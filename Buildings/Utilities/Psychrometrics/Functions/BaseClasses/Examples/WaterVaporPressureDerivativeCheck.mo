@@ -27,7 +27,7 @@ annotation (
       experiment(
         StartTime=-1,
         StopTime=1,
-        Tolerance=10E-8),
+        Tolerance=1E-9),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -48,7 +48,7 @@ This is for
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
 </li>
 <li>
 October 4, 2014, by Michael Wetter:<br/>

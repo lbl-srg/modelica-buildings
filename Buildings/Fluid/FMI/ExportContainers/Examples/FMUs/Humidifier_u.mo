@@ -7,17 +7,14 @@ block Humidifier_u
       final m_flow_nominal=m_flow_nominal,
       final dp_nominal=if use_p_in then dp_nominal else 0,
       final mWat_flow_nominal=mWat_flow_nominal,
-      final T=T,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
+
   parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=0
     "Pressure";
-
-  parameter Modelica.SIunits.Temperature T = 293.15
-    "Temperature of water that is added to the fluid stream (used if use_T_in=false)";
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=0.01*0.005
     "Water mass flow rate at u=1, positive for humidification";
@@ -50,10 +47,16 @@ for the rationale.
 </html>", revisions="<html>
 <ul>
 <li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 April 29, 2015 by Michael Wetter:<br/>

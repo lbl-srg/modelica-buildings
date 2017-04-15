@@ -7,14 +7,13 @@ model UACp "Test model for UACp"
     redeclare package Medium = Medium,
     homotopyInitialization=true) "Calculates UA/Cp value for the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  parameter Data.Generic.BaseClasses.NominalValues
-                                 nomVal(
+  parameter AirCooled.Data.Generic.BaseClasses.NominalValues nomVal(
     Q_flow_nominal=-21000,
     COP_nominal=3,
     SHR_nominal=0.8,
     m_flow_nominal=1.5) "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  annotation (experiment(StopTime=60),
+  annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/UACp.mos"
         "Simulate and plot"),
           Documentation(info="<html><p>

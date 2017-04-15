@@ -104,7 +104,7 @@ equation
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
         "Simulate and plot"),
-    experiment(StopTime=10800),
+    experiment(Tolerance=1e-6, StopTime=10800),
     Documentation(info="<html>
 This test model compares the radiator model when
 used as a steady-state and a dynamic model.
@@ -114,7 +114,7 @@ used as a steady-state and a dynamic model.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 June 5, 2015 by Michael Wetter:<br/>
@@ -122,7 +122,7 @@ Removed <code>annotation(Evaluate=true)</code> from instances
 <code>T_a_nominal</code> and <code>T_b_nominal</code>
 to avoid the warning about non-literal nominal values.
 This fixes
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/128\">#128</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/128\">#128</a>.
 </li>
 <li>
 January 30, 2009 by Michael Wetter:<br/>

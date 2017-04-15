@@ -12,7 +12,7 @@ model ResistanceVolumeFlowReversal
   Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -98,7 +98,7 @@ equation
       color={0,127,255}));
   end for;
   annotation (experiment(
-      StopTime=10000),
+      Tolerance=1e-6, StopTime=10000),
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -118,7 +118,7 @@ function. This change allows Dymola to exploit knowledge about the <code>min</co
 of <code>m_flow</code>.
 When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed.
 This is illustrated by the results below.
-See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/216\">issue 216</a> for a discussion.
+See <a href=\"https://github.com/ibpsa/modelica/issues/216\">issue 216</a> for a discussion.
 </p>
 <p>
 Note that Dymola 2015FD01 can only reliable solve the last case. For the other
@@ -157,12 +157,12 @@ Sizes after manipulation of the nonlinear systems: {1, 9, <b>1</b>}
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/411\">issue 411</a>.
 </li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>

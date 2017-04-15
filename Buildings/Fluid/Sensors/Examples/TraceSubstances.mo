@@ -104,7 +104,7 @@ equation
   connect(senPPM.port, vol.ports[5]) annotation (Line(points={{110,10},{110,4},{
           86,4},{86,50},{87.2,50}},  color={0,127,255}));
     annotation (
-experiment(StopTime=7200),
+experiment(Tolerance=1e-6, StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
@@ -126,7 +126,7 @@ revisions="<html>
 <li>
 May 22, 2015, by Michael Wetter:<br/>
 Updated example to test the correction for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/249\">issue 249</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/249\">issue 249</a>.
 </li>
 <li>
 May 8, 2014, by Michael Wetter:<br/>

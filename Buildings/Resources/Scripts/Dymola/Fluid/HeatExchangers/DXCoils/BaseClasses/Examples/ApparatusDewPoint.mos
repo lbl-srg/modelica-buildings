@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.ApparatusDewPoint",
-stopTime=3600, method="dassl", resultFile="ApparatusDewPoint");
+tolerance=1e-6, stopTime=3600, method="dassl", resultFile="ApparatusDewPoint");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 477, 639},

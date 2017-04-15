@@ -22,7 +22,7 @@ equation
     diff[conf]    = epsilon[conf] - eps[conf];
   end for;
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/EpsilonNTUZ.mos"
         "Simulate and plot"),
 Documentation(info="<html>
@@ -40,7 +40,7 @@ Modified the test model for the addition of <code>ConstantTemperaturePhaseChange
 April 25, 2016, by Michael Wetter:<br/> 
 Added work-around for JModelica in processing the enumeration. 
 This is for 
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>. 
+<a href=\"https://github.com/ibpsa/modelica/issues/510\">Buildings, issue 510</a>. 
 </li>
 <li>
 October 19, 2014, by Michael Wetter:<br/>

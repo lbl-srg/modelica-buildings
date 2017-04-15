@@ -46,7 +46,7 @@ revisions="<html>
 August 17, 2015 by Michael Wetter:<br/>
 Corrected wrong derivative implementation which omitted the <code>der_x</code> term.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
 </li>
 <li>
 April 9, 2009, by Michael Wetter:<br/>

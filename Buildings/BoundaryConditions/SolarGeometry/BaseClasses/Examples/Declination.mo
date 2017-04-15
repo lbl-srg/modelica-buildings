@@ -36,7 +36,7 @@ equation
 January 6, 2015, by Michael Wetter:<br/>
 Updated documentation and added validation.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/382\">issue 382</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/382\">issue 382</a>.
 </li>
 <li>
 May 17, 2010, by Wangda Zuo:<br/>
@@ -44,7 +44,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=3.1536e+007),
+  experiment(Tolerance=1e-6, StopTime=3.1536e+007),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/Declination.mos"
         "Simulate and plot"));
 end Declination;

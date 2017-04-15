@@ -60,5 +60,5 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{
             400,300}}),
                     graphics),
-    experiment(StartTime=1.30464e+07, StopTime=1.36512e+07));
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
 end DataCenterDiscreteTimeControl;

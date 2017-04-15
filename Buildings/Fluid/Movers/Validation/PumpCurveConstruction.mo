@@ -16,7 +16,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -31,10 +31,9 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    per(pressure(
-          V_flow={0,0.5*V_flow_nominal,V_flow_nominal},
-          dp={dp_nominal,0.5*dp_nominal,0})),
+    use_inputFilter=false,
+    per(pressure(V_flow={0,0.5*V_flow_nominal,V_flow_nominal}, dp={dp_nominal,
+            0.5*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Pump with 3 data points for the pressure flow relation"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
@@ -42,21 +41,19 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_dp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    per(pressure(
-          V_flow={0.5*V_flow_nominal, 0.75*V_flow_nominal, V_flow_nominal},
-          dp={0.5*dp_nominal, 0.25*dp_nominal, 0})),
+    use_inputFilter=false,
+    per(pressure(V_flow={0.5*V_flow_nominal,0.75*V_flow_nominal,V_flow_nominal},
+          dp={0.5*dp_nominal,0.25*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with data at dp=0"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-    Buildings.Fluid.Movers.SpeedControlled_y pum_m_flow(
+  Buildings.Fluid.Movers.SpeedControlled_y pum_m_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    per(pressure(
-           V_flow={0, 0.25*V_flow_nominal, 0.5*V_flow_nominal},
-           dp={dp_nominal, 0.75*dp_nominal, 0.5*dp_nominal})),
+    use_inputFilter=false,
+    per(pressure(V_flow={0,0.25*V_flow_nominal,0.5*V_flow_nominal}, dp={
+            dp_nominal,0.75*dp_nominal,0.5*dp_nominal})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with data at m_flow=0"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
@@ -64,10 +61,10 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_no(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false,
-    per(pressure(
-          V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*V_flow_nominal},
-          dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal})),
+    use_inputFilter=false,
+    per(pressure(V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*
+            V_flow_nominal}, dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal})),
+
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with no data at m_flow=0 and dp=0"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -81,7 +78,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -89,7 +86,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -97,7 +94,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -154,7 +151,7 @@ equation
       points={{60,80},{80,80},{80,-92},{-48,-92},{-48,10.5},{-62,10.5}},
       color={0,127,255}));
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -178,7 +175,7 @@ of the pumps have different values. This then tests the correct extrapolation.
 December 6, 2016, by Michael Wetter:<br/>
 Relaxed input signal to allow simulation if bounds on min and max values are checked in Dymola.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
 Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
@@ -187,7 +184,7 @@ Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 January 7, 2015, by Michael Wetter:<br/>

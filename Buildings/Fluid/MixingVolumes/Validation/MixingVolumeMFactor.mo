@@ -90,7 +90,9 @@ November 25, 2014 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), __Dymola_Commands(file=
+</html>"),
+experiment(Tolerance=1E-6, StopTime=100),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMFactor.mos"
         "Simulate and plot"));
 end MixingVolumeMFactor;

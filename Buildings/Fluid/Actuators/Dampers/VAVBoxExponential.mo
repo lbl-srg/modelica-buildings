@@ -8,7 +8,7 @@ model VAVBoxExponential
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
 protected
-  parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa") =
+  parameter Modelica.SIunits.PressureDifference dpDamOpe_nominal(displayUnit="Pa")=
      k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
@@ -41,7 +41,7 @@ does not include the flow resistance of the air damper.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>

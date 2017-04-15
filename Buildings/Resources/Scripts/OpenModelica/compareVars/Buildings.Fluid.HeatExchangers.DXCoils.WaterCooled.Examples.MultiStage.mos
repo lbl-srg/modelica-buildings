@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "mulSpeDX.eva.vol.T",
+    "mulSpeDX.sta_a1.T",
+    "mulSpeDX.sta_a2.T",
+    "mulSpeDX.sta_b2.T",
+    "mulSpeDX.sta_a1.X[1]",
+    "mulSpeDX.eva.vol.X_w",
+    "mulSpeDX.eva.dxCoo.mWat_flow",
+    "mulSpeDX.stage",
+    "mulSpeDX.P",
+    "mulSpeDX.eva.dxCoo.Q_flow",
+    "mulSpeDX.watCooCon.Q_flow"
+  };

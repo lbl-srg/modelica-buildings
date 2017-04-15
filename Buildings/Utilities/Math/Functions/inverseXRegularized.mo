@@ -75,7 +75,7 @@ August 10, 2015, by Michael Wetter:<br/>
 Removed dublicate entry <code>smoothOrder = 1</code>
 and reimplmented the function so it is twice continuously differentiable.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">issue 302</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/302\">issue 302</a>.
 </li>
 <li>
 February 5, 2015, by Filip Jorissen:<br/>

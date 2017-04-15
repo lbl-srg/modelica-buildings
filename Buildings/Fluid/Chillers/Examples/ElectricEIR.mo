@@ -47,7 +47,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=14400),
+experiment(Tolerance=1e-6, StopTime=14400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricEIR.mos"
         "Simulate and plot"),
     Documentation(info="<html>

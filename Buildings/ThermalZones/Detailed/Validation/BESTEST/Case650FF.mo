@@ -22,7 +22,7 @@ equation
       smooth=Smooth.None));
 
   annotation (
-experiment(StopTime=3.1536e+07),
+experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case650FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

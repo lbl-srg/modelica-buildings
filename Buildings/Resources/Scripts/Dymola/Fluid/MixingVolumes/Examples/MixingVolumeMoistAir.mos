@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir",
    tolerance=1E-6,
-   stopTime=600,
+ stopTime=600,
    resultFile="MixingVolumeMoistAir");
 
 createPlot(id = 1,

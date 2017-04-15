@@ -171,15 +171,15 @@ equation
           lineColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
-      StopTime=2),
+      Tolerance=1E-6, StopTime=2),
     Documentation(revisions="<html>
 <ul>
 <li>
 January 27, 2016, by Filip Jorissen:<br/>
 Changed heat flow rate at zero flow to avoid triggering of
 conservation of energy check.
-This is for 
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/470\">
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/470\">
 issue 470</a>.
 </li>
 <li>
@@ -189,7 +189,7 @@ part of the regression test.
 Also, the previous implementation mixed graphical with textual programming,
 which we try to avoid.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/441\">issue 441</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/441\">issue 441</a>.
 </li>
 <li>
 January 27, 2016, by Michael Wetter:<br/>
@@ -203,7 +203,7 @@ Revised example.
 June 30, 2015 by Filip Jorissen:<br/>
 First implementation
 to test
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+<a href=\"https://github.com/ibpsa/modelica/issues/282\">
 issue 282</a>.
 </li>
 </ul>

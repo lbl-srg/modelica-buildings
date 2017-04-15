@@ -39,7 +39,7 @@ July 14, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),  experiment(StopTime=864000),
+</html>"),  experiment(Tolerance=1e-6, StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/SolarTime.mos"
         "Simulate and plot"));
 end SolarTime;

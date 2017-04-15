@@ -46,7 +46,7 @@ algorithm
   <code>AArray[2]</code> are not zero. This is done separately for each
   orientation. Consequently, the function gives an <code>nRow x nCol</code>
   array back as output. Each row stands for one area in
-  <code>AArray</code> and each row for one orientation in
+  <code>AArray</code> and each column for one orientation in
   <code>AExt</code> and <code>AWin</code>. The function is used to
   calculate the split factors for
   <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">

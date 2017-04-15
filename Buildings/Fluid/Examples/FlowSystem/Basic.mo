@@ -480,10 +480,10 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Cold")}),
     experiment(
-      StopTime=10000),
+      Tolerance=1e-6, StopTime=1000),
     Documentation(info="<html>
 <p>
-Example model demonstrating the use of the <code>Buildings</code> components in a larger system. 
+Example model demonstrating the use of the <code>Buildings</code> components in a larger system.
 This model is extended in
 <a href=\"modelica://Buildings.Fluid.Examples.FlowSystem.Simplified1\">
 Buildings.Fluid.Examples.FlowSystem.Simplified1</a>,
@@ -494,17 +494,17 @@ Buildings.Fluid.Examples.FlowSystem.Simplified3</a>.
 In these examples, the flow network is simplified in three steps, which reduces the size of algebraic loops.
 </p>
 <p>
-The system model is for a hydronic system with a hot and cold water production device, 
-each having its own circulation pump. 
-The warm and cold supply water temperatures are selected by switching the bottom two-way valves. 
-The building consists of a west and east wing. 
-Each wing has multiple zones that are heated or cooled using the hydronic system. 
-Each wing has a north and south section with a different supply temperature, 
-which is controlled using two main three way valves. 
-In total there are therefore four supply pipes, 
-which are each connected to four or eight emission devices in the zones. 
+The system model is for a hydronic system with a hot and cold water production device,
+each having its own circulation pump.
+The warm and cold supply water temperatures are selected by switching the bottom two-way valves.
+The building consists of a west and east wing.
+Each wing has multiple zones that are heated or cooled using the hydronic system.
+Each wing has a north and south section with a different supply temperature,
+which is controlled using two main three way valves.
+In total there are therefore four supply pipes,
+which are each connected to four or eight emission devices in the zones.
 The flow through the emission devices is controlled using two way valves.
-The emission device itself also generates a pressure drop, 
+The emission device itself also generates a pressure drop,
 represented by components <code>tabsX</code>.
 Note that the emission devices are in the real building
 cooling and heating concrete slabs, but this simplified example

@@ -118,7 +118,7 @@ equation
       points={{-39,60},{-10,60},{-10,19},{-2,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/Carnot_y.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

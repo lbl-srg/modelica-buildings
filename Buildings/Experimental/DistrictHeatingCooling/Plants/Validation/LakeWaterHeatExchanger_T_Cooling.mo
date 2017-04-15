@@ -10,7 +10,7 @@ model LakeWaterHeatExchanger_T_Cooling
     redeclare Modelica.Blocks.Sources.Constant TWatCol(k=273.15 + 20));
 
   annotation (
-  experiment(StopTime=3600),
+  experiment(Tolerance=1e-6, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Plants/Validation/LakeWaterHeatExchanger_T_Cooling.mos"
         "Simulate and plot"),
     Documentation(info="<html>

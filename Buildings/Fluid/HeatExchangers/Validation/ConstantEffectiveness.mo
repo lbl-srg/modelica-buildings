@@ -20,7 +20,7 @@ model ConstantEffectiveness
     duration=60,
     offset=101325,
     startTime=50)
-    "Ramp signal for pressue"
+    "Ramp signal for pressure"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou_2(
@@ -110,7 +110,7 @@ equation
   connect(trapezoid.y, sin_1.p_in) annotation (Line(
       points={{61,72},{94,72},{94,20},{86,20}},
       color={0,0,127}));
-  annotation(experiment(StopTime=360),
+  annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>

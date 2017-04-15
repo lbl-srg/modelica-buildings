@@ -51,7 +51,7 @@ equation
       points={{69,-10},{60,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation ( experiment(StopTime=1.0, Tolerance=1e-05),
+  annotation ( experiment(StopTime=1.0, Tolerance=1e-6),
 Documentation(info="<html>
 <p>
 This example illustrates the use of a model that converts AC voltage to DC voltage.

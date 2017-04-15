@@ -4,7 +4,7 @@ model AirTestImplementation "Model that tests the medium implementation"
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = Buildings.Media.Air);
 
-      annotation (experiment(StopTime=1.0),
+      annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/Examples/AirTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -56,7 +56,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=8640000),
+  experiment(Tolerance=1e-6, StartTime=0, StopTime=8640000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"
         "Simulate and plot"));

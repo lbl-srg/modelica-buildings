@@ -100,7 +100,7 @@ equation
         points={{21,-30},{36,-30},{48,-30},{48,4},{58,4}}, color={0,0,127}));
   connect(assertions.phi, phi.y) annotation (Line(points={{58,16},{50,16},{40,16},
           {40,30},{-59,30}}, color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulPhi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -127,7 +127,7 @@ Changed graphical annotation.
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Updated example with validation data.
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a> 
+See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">#474</a>
 for a discussion.
 </li>
 <li>

@@ -4,7 +4,8 @@ block Fan "Declaration of an FMU that exports a fan"
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
       final m_flow_nominal=m_flow_nominal,
-      final filteredSpeed=false,
+      final use_inputFilter=
+                          false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
@@ -46,7 +47,7 @@ Buildings.Fluid.Movers.FlowMachine_m_flow</a>.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 November 3, 2014 by Michael Wetter:<br/>

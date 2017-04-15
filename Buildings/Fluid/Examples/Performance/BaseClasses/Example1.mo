@@ -13,7 +13,7 @@ partial model Example1 "Example 1 partial model"
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    filteredSpeed=false,
+    use_inputFilter=false,
     allowFlowReversal=allowFlowReversal.k,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -38,10 +38,13 @@ partial model Example1 "Example 1 partial model"
     dpValve_nominal=1000,
     l={0.002,0.002},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredOpening=false,
-    portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    use_inputFilter=false,
+    portFlowDirection_1=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal.k then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Three way valve with constant input"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"
@@ -109,7 +112,7 @@ and is created to avoid errors in the implementation of the two depending exampl
 <li>
 February 22, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code> for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">issue 411</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/411\">issue 411</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>

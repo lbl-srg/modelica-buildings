@@ -176,7 +176,7 @@ twice in the system model with the appropriate control settings.
 <li>
 October 10, 2016, by Michael Wetter:<br/>
 Added full path in the type declaration.<br/>
-This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/540\">issue 540</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica/issues/540\">issue 540</a>.
 </li>
 <li>
 October 3, 2016, by Michael Wetter:<br/>
@@ -201,7 +201,7 @@ equation
   connect(TSet.y, conNoRes.TSet) annotation (Line(points={{-59,0},{-50,0},{-50,-10},
           {-42,-10}}, color={0,0,127}));
  annotation (
-experiment(StopTime=600),
+experiment(Tolerance=1e-06, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPIDWithReset.mos"
         "Simulate and plot"),
     Documentation(

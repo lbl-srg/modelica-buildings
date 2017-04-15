@@ -3,20 +3,18 @@ partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
    extends Buildings.Fluid.BaseClasses.PartialResistance(
       m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_default*ReC*sqrt(area)*facRouDuc);
+      eta_default*ReC*sqrt(A)*facRouDuc);
    extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
+
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
  parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
    annotation(Dialog(enable=use_deltaM));
- parameter Boolean use_v_nominal = true
-    "Set to true to use face velocity to compute area";
- parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
-   annotation(Dialog(enable=use_v_nominal));
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
-    "Face area"
-   annotation(Dialog(enable=not use_v_nominal));
+ parameter Modelica.SIunits.Velocity v_nominal = 1 "Nominal face velocity";
+ final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+    "Face area";
+
  parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
    annotation(Dialog(enable=not use_deltaM));
@@ -59,19 +57,19 @@ protected
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
- parameter Modelica.SIunits.Area area=
-    if use_v_nominal then m_flow_nominal/rho_default/v_nominal else A
-    "Face velocity used in the computation";
 initial equation
-  assert(k0 > k1, "k0 must be bigger than k1.");
+  assert(k0 > k1, "k0 must be between k1 and 1e6.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
+  assert(k1 >= 0.2, "k1 must be between 0.2 and 0.5.");
+  assert(k1 <= 0.5, "k1 must be between 0.2 and 0.5.");
+  assert(k0 <= 1e6, "k0 must be between k1 and 1e6.");
 equation
   rho = if use_constant_density then
           rho_default
         else
           Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
-  kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+  kDam=sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y_actual,
     a=a,
     b=b,
@@ -125,6 +123,24 @@ Buildings.Fluid.Actuators.Dampers.Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 22, 2017, by Michael Wetter:<br/>
+Added back <code>v_nominal</code>, but set the assignment of <code>A</code>
+to be final. This allows scaling the model with <code>m_flow_nominal</code>,
+which is generally known in the flow leg,
+and <code>v_nominal</code>, for which a default value can be specified.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
+<li>
+October 12, 2016 by David Blum:<br/>
+Removed parameter <code>v_nominal</code> and variable <code>area</code>,
+to simplify parameterization of the model.
+Also added assertion statements upon initialization
+for parameters <code>k0</code> and <code>k1</code> so that they fall within
+suggested ranges found in ASHRAE 825-RP. This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/544\">#544</a>.
+</li>
 <li>
 January 27, 2015 by Michael Wetter:<br/>
 Set <code>Evaluate=true</code> for <code>use_constant_density</code>.

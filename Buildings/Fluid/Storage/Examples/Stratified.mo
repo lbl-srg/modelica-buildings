@@ -143,7 +143,7 @@ equation
       points={{-28,72},{-8,72},{-8,17.4}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation(experiment(StopTime=10800),
+  annotation(experiment(Tolerance=1e-08, StopTime=10800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos"
         "Simulate and plot"),
     Documentation(info="<html>

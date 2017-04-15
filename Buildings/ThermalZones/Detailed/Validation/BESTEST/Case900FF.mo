@@ -17,7 +17,7 @@ model Case900FF "Case 600FF, but with high thermal mass"
     annotation (Placement(transformation(extent={{80,60},{94,74}})));
 
   annotation (
-experiment(StopTime=3.1536e+07),
+experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case900FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

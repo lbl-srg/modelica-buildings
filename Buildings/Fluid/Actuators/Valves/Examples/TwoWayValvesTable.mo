@@ -26,13 +26,13 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
   Valves.TwoWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpValve_nominal=6000,
     flowCharacteristics=Buildings.Fluid.Actuators.Valves.Data.Linear(),
     from_dp=true) "Valve model with opening characteristics based on a table"
-         annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   TwoWayLinear valLin(
-    filteredOpening=false,
+    use_inputFilter=false,
     redeclare package Medium = Medium,
     l=0.0001,
     m_flow_nominal=2,
@@ -59,7 +59,7 @@ equation
   connect(valLin.port_b, sin.ports[2]) annotation (Line(
       points={{10,-20},{28,-20},{28,16},{40,16}},
       color={0,127,255}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesTable.mos"
         "Simulate and plot"),
     Documentation(info="<html>

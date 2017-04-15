@@ -80,7 +80,7 @@ model MoistureMixingConservationDynamicBalance
   Modelica.Blocks.Math.Add3 add3Ent(k3=-1) "Adding 3 enthalpy streams"
     annotation (Placement(transformation(extent={{60,-222},{80,-202}})));
   Modelica.Blocks.Sources.Constant entIn(k=sou1.m_flow*sou1.h + sou2.m_flow*
-        sou2.h + Medium.enthalpyOfLiquid(TWat.k)*(mWatFlo1.k + mWatFlo2.k))
+        sou2.h + Medium.enthalpyOfLiquid(273.15)*(mWatFlo1.k + mWatFlo2.k))
     "Added enthalpy"
     annotation (Placement(transformation(extent={{-40,-242},{-20,-222}})));
   Modelica.Blocks.Math.Product pro "Water vapor flow rate" annotation (
@@ -195,11 +195,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -280},{180,120}})),           Documentation(info="<html>
 <p>
-This model verifies if mass and energy are conserved, 
-using a dynamic balance. 
-Two air streams with different mass flow rate are humidified 
-by a mixing volume with two different vapor mass flow rates. 
-These flows are then mixed. 
+This model verifies if mass and energy are conserved,
+using a dynamic balance.
+Two air streams with different mass flow rate are humidified
+by a mixing volume with two different vapor mass flow rates.
+These flows are then mixed.
 Boundary integrals are used to verify if air mass,
 vapour mass and internal energy are conserved.
 </p>
@@ -222,7 +222,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>
@@ -230,7 +230,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
+experiment(Tolerance=1e-6, StopTime=1),
+__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));

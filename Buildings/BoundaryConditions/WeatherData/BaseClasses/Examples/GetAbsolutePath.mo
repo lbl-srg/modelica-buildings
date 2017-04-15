@@ -12,7 +12,7 @@ initial algorithm
   Modelica.Utilities.Streams.print("Absolute path = " + fAbs);
 
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -26,7 +26,7 @@ November 18, 2016, by Michael Wetter:<br/>
 Removed tests that assumed that the regression test is run
 from the library root directory.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/596\">#596</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/596\">#596</a>.
 </li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
