@@ -10,8 +10,8 @@ model WetCoilCounterFlow
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle)
+  Modelica.SIunits.HeatFlowRate QLat2_flow =
+    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
@@ -75,6 +75,10 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 <ul>
 <li>
 April 11, 2017, by Michael Wetter:<br/>
+Changed computation of <code>QLat_flow</code> to be consistent with
+how it is computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
 Moved variable assignments out of equation section to avoid mixing
 textual and graphical modeling in equation section.
 </li>
