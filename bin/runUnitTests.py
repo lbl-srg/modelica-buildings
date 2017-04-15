@@ -30,7 +30,7 @@
 
 
 def _validate_mos_mo(path):
-    import buildingspy.development.check_parameters as v
+    import buildingspy.development.validator as v
 
     val = v.Validator()
     retVal = val.validateModelParameters(path)
