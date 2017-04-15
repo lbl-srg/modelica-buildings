@@ -17,22 +17,23 @@ model EvaporatorCondenser
     annotation (Placement(transformation(extent={{-5,-55},{5,-65}}),
         iconTransformation(extent={{-5,-55},{5,-65}})));
 
-  Modelica.SIunits.SpecificHeatCapacityAtConstantPressure cp = vol.Medium.cp_const
-    "Specific heat capacity of the fluid";
 
   Modelica.SIunits.Efficiency NTU = UA /
-    (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp)
+    (Buildings.Utilities.Math.Functions.smoothMax(abs(port_a.m_flow),m_flow_small,m_flow_small)*cp_default)
    "Number of transfer units of heat exchanger";
 
   Modelica.SIunits.Efficiency eps = Buildings.Utilities.Math.Functions.smoothMin(Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(
       NTU, 0, Integer(Buildings.Fluid.Types.HeatExchangerFlowRegime.ConstantTemperaturePhaseChange)), 0.999, 1.0e-4)
     "Effectiveness of heat exchanger";
 
-  Modelica.Blocks.Sources.RealExpression UAeff(final y=eps*cp*abs(port_a.m_flow)/(1 - eps))
+  Modelica.Blocks.Sources.RealExpression UAeff(final y=eps*cp_default*abs(port_a.m_flow)/(1 - eps))
     "Effective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-88,-80},{-68,-60}})));
 
 protected
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
+     "Density, used to compute fluid volume";
+
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (
@@ -72,7 +73,7 @@ equation
 defaultComponentName="evaCon",
 Documentation(info="<html>
 <p>
-Model for a constant temperature evaporator or condenser based on a epsilon-NTU
+Model for a constant temperature evaporator or condenser based on a &epsilon;-NTU
 heat exchanger model.
 </p>
 <p>
@@ -95,6 +96,12 @@ throughout the heat exchanger.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Corrected invalid syntax for computing the specific heat capacity.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/707\">#707</a>.
+</li>
 <li>
 October 11, 2016, by Massimo Cimmino:<br/>
 First implementation.

@@ -25,14 +25,6 @@ block DryWetSelector "Selects results from dry or wet coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,110})));
-  Modelica.Blocks.Interfaces.RealInput TADPWet(
-    quantity="ThermodynamicTemperature",
-    unit="K",
-    min=273.15,
-    max=373.15) "Dry bulb temperature of air at ADP"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-40,110})));
   Modelica.Blocks.Interfaces.RealInput mWetWat_flow(
     quantity="MassFlowRate",
     unit="kg/s") "Mass flow rate of water condensed at cooling coil"
@@ -48,15 +40,6 @@ block DryWetSelector "Selects results from dry or wet coil"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-110})));
-  Modelica.Blocks.Interfaces.RealInput TADPDry(
-    quantity="ThermodynamicTemperature",
-    unit="K",
-    min=273.15,
-    max=373.15) "Dry bulb temperature of air at ADP"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,-110})));
-
   Modelica.Blocks.Interfaces.RealOutput EIR "Energy Input Ratio"
      annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -67,12 +50,6 @@ block DryWetSelector "Selects results from dry or wet coil"
     min=0,
     max=1.0)
     "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput TADP(
-    quantity="ThermodynamicTemperature",
-    unit="K",
-    min=273.15,
-    max=373.15) "Dry bulb temperature of air at ADP"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(
     quantity="MassFlowRate",
@@ -97,7 +74,6 @@ equation
   EIR       = fraDry * EIRDry    + fraWet * EIRWet;
   Q_flow    = fraDry * QDry_flow + fraWet * QWet_flow;
   SHR       = fraDry             + fraWet * SHRWet;
-  TADP      = fraDry * TADPDry   + fraWet * TADPWet;
   mWat_flow =                      fraWet * mWetWat_flow;
 
   annotation (defaultComponentName="dryWetPre",
@@ -112,6 +88,10 @@ and the coil inlet mass fraction.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed temperature that is no longer needed.
+</li>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
 Revised implementation.

@@ -176,7 +176,7 @@ revisions="<html>
 <ul>
 <li>
 April 6, 2017, by Thierry S. Nouidui:<br/>
-Added <code>experiment</code> annotation 
+Added <code>experiment</code> annotation
 for JModelica verification.
 </li>
 <li>

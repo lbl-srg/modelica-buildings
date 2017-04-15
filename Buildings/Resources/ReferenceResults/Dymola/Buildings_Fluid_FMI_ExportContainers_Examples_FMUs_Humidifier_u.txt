@@ -1,4 +1,4 @@
-last-generated=2016-12-22
+last-generated=2017-04-13
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -39,7 +39,6 @@ statistics-fmu-dependencies=
       "inlet.m_flow", 
       "outlet.backward.T", 
       "outlet.backward.X_w", 
-      "T", 
       "mWat_flow_nominal", 
       "u"
     ], 
@@ -53,7 +52,6 @@ statistics-fmu-dependencies=
       "inlet.m_flow", 
       "inlet.forward.T", 
       "inlet.forward.X_w", 
-      "T", 
       "mWat_flow_nominal", 
       "u"
     ], 

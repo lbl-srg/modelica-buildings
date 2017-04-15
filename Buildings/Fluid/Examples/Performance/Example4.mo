@@ -87,9 +87,6 @@ equation
   connect(senTem.port_b, vol.ports[1]) annotation (Line(
       points={{-4,16},{8,16}},
       color={0,127,255}));
-  connect(senTem.T, vol.TWat) annotation (Line(
-      points={{-10,22.6},{-10,30.8},{-2,30.8}},
-      color={0,0,127}));
   connect(senTem.T, xSat.T) annotation (Line(
       points={{-10,22.6},{-10,42},{28,42}},
       color={0,0,127}));
@@ -111,6 +108,12 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-20},
             {80,60}}),         graphics),    Documentation(revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 July 28, 2015, by Michael Wetter:<br/>
 Moved assignment of <code>m_condens</code> from equation section to

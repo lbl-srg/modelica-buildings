@@ -1,28 +1,22 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block Condensation "Calculates rate of condensation"
   extends Modelica.Blocks.Icons.Block;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-     annotation (choicesAllMatching=true);
-  Modelica.Blocks.Interfaces.RealInput TDewPoi(
-    start=278.15,
-    unit="K",
-    displayUnit="degC") "Dew point temperature"
-   annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(
     max=0,
     unit="W") "Heat flow"
-     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
+     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput SHR(
     min=0,
     max=1) "Sensible heat ratio"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(
     quantity="MassFlowRate",
     unit="kg/s") "Mass flow rate of water condensed at cooling coil"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-algorithm
-  mWat_flow := (1-SHR)*Q_flow/Medium.enthalpyOfVaporization(T=TDewPoi);
+equation
+  mWat_flow = (1-SHR)*Q_flow/Buildings.Utilities.Psychrometrics.Constants.h_fg;
+
 annotation (defaultComponentName="conRat",
 Documentation(info="<html>
 <p>
@@ -31,6 +25,14 @@ This block computes the water mass flow rate that condenses.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature dependency.
+</li>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Changed algorithm to equation section.
+</li>
 <li>
 September 20, 2012 by Michael Wetter:<br/>
 Revised implementation.

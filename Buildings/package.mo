@@ -127,12 +127,12 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-   class Version_4_0_1 "Version 4.0.1"
+   class Version_5_0_0 "Version 5.0.0"
      extends Modelica.Icons.ReleaseNotes;
        annotation (Documentation(info="<html>
    <div class=\"release-summary\">
    <p>
-   Version 4.0.1 is ... xxx
+   Version 5.0.0 is ... xxx
    </p>
    </div>
    <!-- New libraries -->
@@ -158,7 +158,7 @@ its class name ends with the string <code>Beta</code>.
    <tr><td valign=\"top\">xxx
        </td>
        <td valign=\"top\">xxx.
-       </td> 
+       </td>
        </tr>
    </table>
    <!-- Backward compatible changes -->
@@ -192,12 +192,17 @@ its class name ends with the string <code>Beta</code>.
    <b style=\"color:blue\">non-backward compatible</b> way:
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-    <tr><td colspan=\"2\"><b>xxx</b>
+    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
        </td>
    </tr>
-   <tr><td valign=\"top\">xxx
+   <tr><td valign=\"top\">Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
-       <td valign=\"top\">xxx.
+       <td valign=\"top\">Removed parameters <code>use_T_in</code> and <code>T</code>,
+                          and removed input connector <code>T_in</code>, as these are no
+                          longer needed.<br/>
+                          For Dymola, the conversion script will remove the parameter
+                          settings.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
    </table>
@@ -208,6 +213,18 @@ its class name ends with the string <code>Beta</code>.
    </p>
    <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
    <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+       </td>
+   </tr>
+   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br/>
+                          Buildings.Fluid.Interfaces.FourPortHeatMassExchanger
+       </td>
+       <td valign=\"top\">Corrected assignment of <code>Q_flow</code> (or <code>Q1_flow</code>
+                          and <code>Q2_flow</code>).
+                          Previously, these variables were assigned only the sensible heat flow rate,
+                          but they should include the latent heat exhange to be consistent with
+                          the variable naming, and because the cooling coils interpret these variables
+                          as if they contain the latent heat flow rate.<br/>
+                          This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">#704</a>.
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil
@@ -241,12 +258,12 @@ its class name ends with the string <code>Beta</code>.
    Note:
    </p>
    <ul>
-   <li> 
+   <li>
    xxx
    </li>
    </ul>
    </html>"));
-   end Version_4_0_1;
+   end Version_5_0_0;
 
    class Version_4_0_0 "Version 4.0.0"
      extends Modelica.Icons.ReleaseNotes;
@@ -6155,7 +6172,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_1\">Version 4.0.1</a> (xxx, 2017)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_5_0_0\">Version 5.0.0</a> (xxx, 2017)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a> (March 29, 2017)
@@ -6684,14 +6701,13 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="4.0.1",
+version="5.0.0",
 versionDate="2017-03-29",
 dateModified="2017-03-29",
 uses(Modelica(version="3.2.2")),
 conversion(
- from(version={"3.0.0", "4.0.1"},
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_3.0_to_4.0.mos")),
-revisionId="$Id$",
+ from(version={"4.0.0", "5.0.0"},
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_4.0_to_5.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

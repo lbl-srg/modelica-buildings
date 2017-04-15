@@ -1,4 +1,4 @@
-last-generated=2016-12-22
+last-generated=2017-04-13
 statistics-fmu-dependencies=
 {
   "Outputs": {
@@ -68,9 +68,7 @@ statistics-fmu-dependencies=
       "preHea.alpha", 
       "vol.p_start", 
       "vol.T_start", 
-      "vol.X_start[1]", 
-      "mWat_flow.k", 
-      "TWat.k"
+      "vol.X_start[1]"
     ], 
     "fluPor[2].backward.X_w": [
       "vol.X_start[1]"

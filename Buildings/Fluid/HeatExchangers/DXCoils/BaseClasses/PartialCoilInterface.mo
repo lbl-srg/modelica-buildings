@@ -16,13 +16,6 @@ partial block PartialCoilInterface "Partial block for DX coil"
   Modelica.Blocks.Interfaces.RealInput TEvaIn
     "Temperature of air entering the cooling coil"
      annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealInput p "Pressure at inlet of coil"
-    annotation (Placement(transformation(extent={{-120,-34},{-100,-14}})));
-  Modelica.Blocks.Interfaces.RealInput hEvaIn
-    "Specific enthalpy of air entering the coil"
-            annotation (Placement(transformation(extent={{-120,-87},{-100,-67}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
     displayUnit="degC")
@@ -50,6 +43,10 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed connectors that are no longer needed.
+</li>
 <li>February 17, 2017 by Yangyang Fu:<br/>
 Added a boolean constant <code>use_mCon_flow</code> which is required in water-cooled DX coils.
 </li>
