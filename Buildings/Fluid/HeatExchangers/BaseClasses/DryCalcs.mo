@@ -25,7 +25,7 @@ model DryCalcs
     "The flow regime of the heat exchanger";
 
   output Modelica.SIunits.HeatFlowRate Q
-    "Heat transferred from 'water' to 'air'";
+    "Heat transferred from water to air";
   output Modelica.SIunits.Temperature TWatOut
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
@@ -87,9 +87,9 @@ equation
       Z = Z,
       NTU = Ntu,
       flowRegime = Integer(cfg));
-    Q = eff * CMin * (TWatIn - TAirIn)
-      "Note: positive heat transfer is water to air";
-    TAirOut = TAirIn - eff * (TAirIn - TWatIn)
+    Q = eff * CMin * (TWatIn-TAirIn)
+      "Note: positive heat transfer is air to water";
+    TAirOut = TAirIn + eff * (TWatIn-TAirIn)
       "Braun 1988 eq 4.1.8";
     TWatOut = TWatIn + Z * (TAirIn - TAirOut)
       "Braun 1988 eq 4.1.9";
@@ -103,6 +103,11 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Michael Wetter:<br/>
+Changed sign of heat transfer so that sensible and total heat transfer
+have the same sign.
+</li>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
 First implementation. See

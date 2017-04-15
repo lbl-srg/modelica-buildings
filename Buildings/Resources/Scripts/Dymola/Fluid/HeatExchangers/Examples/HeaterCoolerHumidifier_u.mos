@@ -1,2 +1,0 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.HeaterCoolerHumidifier_u", method="dassl", tolerance=1e-006, resultFile="HeaterCoolerHumidifier_u");
-createPlot(id=1, position={15, 10, 584, 420}, y={"TAirOutAtUnit", "h1", "h2", "hx", "QSen", "QLat"}, range={0.0, 1.0, -5000.0, 55000.0}, grid=true, filename="HeaterCoolerHumidifier_u.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});

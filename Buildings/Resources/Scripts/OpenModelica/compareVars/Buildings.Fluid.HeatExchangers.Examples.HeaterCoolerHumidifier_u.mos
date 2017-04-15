@@ -1,9 +1,0 @@
-compareVars :=
-  {
-    "TAirOutAtUnit",
-    "h1",
-    "h2",
-    "hx",
-    "QSen",
-    "QLat"
-  };

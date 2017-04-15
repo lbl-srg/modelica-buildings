@@ -40,23 +40,43 @@ model WetEffectivenessNTU
     "Type of mass balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
+  Modelica.SIunits.HeatFlowRate Q1_flow = -dryWetCalcs.QTot
+    "Heat input into water stream (positive if air is cooled)";
+
+  Modelica.SIunits.HeatFlowRate Q2_flow = dryWetCalcs.QTot
+    "Total heat input into air stream (negative if air is cooled)";
+
+  Modelica.SIunits.HeatFlowRate QSen2_flow = dryWetCalcs.QSen
+    "Sensible heat input into air stream (negative if air is cooled)";
+
+  Modelica.SIunits.HeatFlowRate QLat2_flow=
+    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
+    "Latent heat input into air (negative if air is dehumidified)";
+
+  Real SHR(
+    min=0,
+    max=1,
+    unit="1") = QSen2_flow /
+      noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
+       "Sensible to total heat ratio";
+
+   Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.masFloCon
+     "Water flow rate";
   // Q_flow_nominal below is the "gain" for heat flow. By setting the basis
   // to 1.0, we can allow the value coming in via the control signal, u, to
   // be the Q_flow added to medium 1 (the "water")
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare package Medium = Medium1,
-    Q_flow_nominal = 1,
     dp_nominal = dp1_nominal,
     m_flow_nominal = m1_flow_nominal,
     energyDynamics = energyDynamics,
-    massDynamics = massDynamics)
+    massDynamics = massDynamics,
+    Q_flow_nominal=-1)
     "Heater/cooler for water stream"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Fluid.HeatExchangers.HeaterCoolerHumidifier_u heaCooHum_u(
+  MassExchangers.Humidifier_u heaCooHum_u(
     redeclare package Medium = Medium2,
-    use_T_in = true,
     mWat_flow_nominal = 1,
-    Q_flow_nominal = 1,
     dp_nominal = dp2_nominal,
     m_flow_nominal = m2_flow_nominal,
     energyDynamics = energyDynamics,
@@ -116,6 +136,10 @@ protected
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames);
 
+
+  HeatTransfer.Sources.PrescribedHeatFlow preHea
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
 equation
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
@@ -123,14 +147,6 @@ equation
       points={{-80,-60},{-90,-60},{-100,-60}},
       color={0,127,255},
       thickness=1));
-  connect(dryWetCalcs.QTot, heaCoo.u) annotation (Line(points={{37.1429,36.6667},
-          {37.1429,66},{58,66}}, color={0,0,127}));
-  connect(dryWetCalcs.masFloCon, heaCooHum_u.u) annotation (Line(points={{25.7143,
-          -36.6667},{25.7143,-54},{-58,-54}}, color={0,0,127}));
-  connect(dryWetCalcs.TCon, heaCooHum_u.T_in) annotation (Line(points={{37.1429,
-          -36.6667},{37.1429,-66},{-58,-66}}, color={0,0,127}));
-  connect(dryWetCalcs.QSen, heaCooHum_u.u1) annotation (Line(points={{48.5714,
-          -36.6667},{48.5714,-69},{-58,-69}}, color={0,0,127}));
   connect(hA.hA_1, dryWetCalcs.UAWat) annotation (Line(points={{-49.1,5.7},{-44,
           5.7},{-44,36.6667},{-17.1429,36.6667}},  color={0,0,127}));
   connect(hA.hA_2, dryWetCalcs.UAAir) annotation (Line(points={{-49.1,-9.7},{
@@ -175,6 +191,16 @@ equation
       points={{100,-60},{20,-60},{-60,-60}},
       color={0,127,255},
       thickness=1));
+  connect(preHea.port, heaCooHum_u.heatPort) annotation (Line(points={{0,-80},{-40,
+          -80},{-40,-66},{-60,-66}}, color={191,0,0}));
+  connect(dryWetCalcs.QTot, heaCoo.u) annotation (Line(points={{62.8571,
+          -6.66667},{80,-6.66667},{80,44},{40,44},{40,66},{58,66}},
+                                                          color={0,0,127}));
+  connect(dryWetCalcs.masFloCon, heaCooHum_u.u) annotation (Line(points={{62.8571,
+          -33.3333},{70,-33.3333},{70,-54},{-58,-54}}, color={0,0,127}));
+  connect(preHea.Q_flow, dryWetCalcs.QTot) annotation (Line(points={{20,-80},{
+          44,-80},{80,-80},{80,-6.66667},{62.8571,-6.66667}},
+                                                           color={0,0,127}));
   annotation (
     defaultComponentName="hexWetNtu",
     Icon(graphics={
@@ -1101,6 +1127,11 @@ ASHRAE Transactions. Vol.83. Part 2. pp. 103-117.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Michael Wetter:<br/>
+Added variables for total, sensible and latent heat transfer, and for
+sensible heat ratio. Refactored model for new base class.
+</li>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
 First implementation. See

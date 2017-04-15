@@ -5,7 +5,6 @@ DryEffectivenessNTU
 EvaporatorCondenser
 HeaterCooler_T
 HeaterCooler_u
-HeaterCoolerHumidifier_u
 WetCoilCounterFlow
 WetCoilDiscretized
 WetEffectivenessNTU
