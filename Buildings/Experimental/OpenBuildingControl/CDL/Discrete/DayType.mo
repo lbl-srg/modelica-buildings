@@ -49,20 +49,16 @@ equation
     end if;
   end when;
   annotation (
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-          -100},{100,100}}), graphics={Rectangle(
+  defaultComponentName="dayTyp",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={    Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={223,211,169},
         lineThickness=5.0,
         borderPattern=BorderPattern.Raised,
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255})}),
-  defaultComponentName="dayType",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Text(
+        fillPattern=FillPattern.Solid),
+                                   Text(
           extent={{-68,54},{68,-38}},
           lineColor={0,0,255},
           textString="day")}),

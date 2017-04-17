@@ -22,10 +22,9 @@ model DayType "Example model for the source that outputs the type of the day"
     "Model that outputs the type of the day for 3 days, starting with Monday"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   annotation (
-experiment(StopTime=1.0, Tolerance=1e-06),
-__Dymola_Commands(file="modelica://Buildings/Experimental/OpenBuildingControl/CDL/Discrete/Examples/DayType.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Discrete/Examples/DayType.mos"
         "Simulate and plot"),
-        experiment(StartTime=-1814400, StopTime=1814400),
+        experiment(StartTime=-1814400, StopTime=1814400, Tolerance=1E-6),
     Documentation(
     info="<html>
 <p>
