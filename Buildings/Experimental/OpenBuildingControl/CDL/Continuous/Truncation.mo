@@ -13,6 +13,7 @@ block Truncation
 equation
   y = if (u > 0) then integer(u) else integer(u + 1.0);
   annotation (
+    defaultComponentName="tru",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
