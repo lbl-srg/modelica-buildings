@@ -57,7 +57,7 @@ equation
           + ((TSup_nominal+TRet_nominal)/2-TZon_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
   TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
-          // The last icon might be obsolete, added instead of an icon extend block.
+
   annotation (
 defaultComponentName="hotWatRes",
 Documentation(info="<html>
@@ -103,16 +103,11 @@ February 5, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-        Text(
-          extent={{-150,150},{150,110}},
-          textString="%name",
-          lineColor={0,0,255}),
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+</html>"), Icon(graphics={      Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Polygon(
           points={{90,-82},{68,-74},{68,-90},{90,-82}},
           lineColor={192,192,192},
@@ -138,9 +133,10 @@ First implementation.
           lineColor={0,0,127},
           textString="TOut"),
         Text(
+          visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
           lineColor={0,0,127},
-          textString="TZon"),
+          textString="TRoo"),
         Text(
           extent={{40,86},{90,36}},
           lineColor={0,0,127},
@@ -148,14 +144,5 @@ First implementation.
         Text(
           extent={{42,-30},{92,-80}},
           lineColor={0,0,127},
-          textString="TRet")}),
-        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-          100,100}}), graphics={Rectangle(
-          extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
-          extent={{-150,150},{150,110}},
-          textString="%name",
-          lineColor={0,0,255})}));
+          textString="TRet")}));
 end HotWaterTemperatureReset;
