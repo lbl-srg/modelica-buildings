@@ -7,8 +7,8 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
-     nomVal "Nominal values"
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
     parameter Modelica.SIunits.MassFlowRate mAir_flow_small(min=0)=
@@ -26,23 +26,17 @@ model Evaporation
   // Input and output signals
   Modelica.Blocks.Interfaces.BooleanInput on
     "Control signal, true if compressor is on"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-  Modelica.Blocks.Interfaces.RealInput TWat(final quantity="ThermodynamicTemperature",
-                                            final unit = "K",
-                                            displayUnit = "degC")
-    "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput XEvaOut(min=0, max=1, unit="1")
     "Water mass fraction"
@@ -65,7 +59,7 @@ model Evaporation
   Modelica.SIunits.Mass m(nominal=-5000*1400/2257E3, start=0, fixed=true)
     "Mass of water that accumulated on the coil";
 
-  Modelica.SIunits.MassFlowRate mEva_flow(max=0)
+  Modelica.SIunits.MassFlowRate mEva_flow(start=0)
     "Moisture mass flow rate that evaporates into air stream";
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
@@ -173,12 +167,15 @@ initial equation
 
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
-  assert(dX_nominal > 1E-10,
+  assert(
+    dX_nominal > 1E-10,
     "*** Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
-    " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(nomVal),
-      AssertionLevel.warning);
+    " +
+      Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+      nomVal),
+    AssertionLevel.warning);
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
 
@@ -208,8 +205,8 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-   Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
-     nomVal) + "
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+    nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
 equation
@@ -261,7 +258,7 @@ equation
          x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
          deltax=nomVal.m_flow_nominal/3)))
         - XEvaWetBulOut;
-      mEva_flow = -smooth(1, noEvent(dX *
+      mEva_flow = -dX * smooth(1, noEvent(
         Buildings.Utilities.Math.Functions.spliceFunction(
          pos=if abs(mAir_flow) > mAir_flow_small/3 then
             abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
@@ -576,9 +573,17 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed input <code>TWat</code> that is not used.
+</li>
+<li>
+March 7, 2017, by Michael Wetter:<br/>
+Set start value and removed max attribute for <code>mEva_flow</code> as this can take on zero.
+</li>
+<li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected implementation of wet bulb temperature computation.
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Annex60, #474</a>
+See  <a href=\"https://github.com/ibpsa/modelica/issues/474\">Annex60, #474</a>
 for a discussion.
 </li>
 <li>

@@ -1,13 +1,16 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoil "Partial model for DX coil"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
-  extends Buildings.Fluid.BaseClasses.IndexMassFraction(final substanceName = "water");
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare package Medium = Medium,
+    redeclare package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
+
+  constant Boolean use_mCon_flow "Set to true to enable connector for the condenser mass flow rate";
+
+  parameter String substanceName="water" "Name of species substance";
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
@@ -27,11 +30,18 @@ partial model PartialDXCoil "Partial model for DX coil"
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare final package Medium = Medium,
-    final datCoi=datCoi) "DX cooling coil operation"
+    datCoi=datCoi,
+    use_mCon_flow=use_mCon_flow,
+    wetCoi(redeclare replaceable
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap),
+    dryCoi(redeclare replaceable
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        cooCap))  "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
-                  final nomVal=datCoi.sta[nSta].nomVal,
+                  nomVal=datCoi.sta[nSta].nomVal,
                   final computeReevaporation = computeReevaporation)
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
@@ -43,6 +53,8 @@ partial model PartialDXCoil "Partial model for DX coil"
   // Q_flow and EIR are set the zero. Hence, it is safe to assume
   // forward flow, which will avoid an event
 protected
+  parameter Integer i_x(fixed=false) "Index of substance";
+
   Modelica.SIunits.SpecificEnthalpy hEvaIn=
     inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
   Modelica.SIunits.Temperature TEvaIn = Medium.temperature_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
@@ -73,6 +85,12 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
+public
+  Modelica.Blocks.Interfaces.RealInput mCon_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") if use_mCon_flow
+    "Water mass flowrate for an a water-cooled condenser"
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
@@ -83,9 +101,24 @@ initial algorithm
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
 
+
+  // Compute index of species vector that carries the substance name
+  i_x :=-1;
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false) then
+        i_x :=i;
+      end if;
+    end for;
+  assert(i_x > 0, "Substance '" + substanceName + "' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has '" + substanceName + "' as a substance.");
+
+
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
-      points={{-110,30},{-94,30},{-94,54},{-94,54},{-94,55},{-21,55}},
+      points={{-110,30},{-94,30},{-94,55},{-21,55}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, dxCoo.m_flow)  annotation (Line(
@@ -134,19 +167,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.mWat_flow, dxCoo.mWat_flow) annotation (Line(
-      points={{-10,-66},{-18,-66},{-18,8},{8,8},{8,42},{1,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.TCoiSur, vol.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-14.8},{-11,-14.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.TCoiSur, eva.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-72},{-10,-72}},
+      points={{-10,-70},{-18,-70},{-18,8},{8,8},{8,42},{1,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, eva.mAir_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,-78},{-10,-78}},
+      points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(
@@ -174,6 +199,8 @@ equation
       points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mCon_flow, dxCoo.mCon_flow) annotation (Line(points={{-110,-30},{-24,
+          -30},{-24,40},{-21,40}}, color={0,0,127}));
   annotation (              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
@@ -193,6 +220,16 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
+<li>
+February 27, 2017 by Yangyang Fu:<br/>
+Added <code>redeclare</code> for the type of <code>cooCap</code> in <code>dxCoo</code>.
+</li>
 <li>
 May 6, 2015 by Michael Wetter:<br/>
 Added <code>prescribedHeatFlowRate=true</code> for <code>vol</code>.

@@ -5,13 +5,18 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
             from_dp=true,
             phi=l + y_actual*(1 - l));
 
-  parameter Real l2(min=1e-10) = 0.01
+  parameter Real l2(unit="1", min=1e-10) = 0.01
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
   parameter Real deltax = 0.1 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 
 protected
+  parameter Real kLin = l2*m_flow_nominal/dp_nominal
+    "Linear k value times l2, used to avoid duplicate computations";
+  parameter Real kLinInv = 1/kLin
+    "Inverse of linear k value times l2, used to avoid duplicate computations";
+
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.PressureDifference dp_min(displayUnit="Pa")
     "Minimum pressure difference required for delivering requested mass flow rate";
@@ -31,50 +36,50 @@ equation
    k = kVal;
  end if;
 
-   if homotopyInitialization then
-     if from_dp then
-         m_flow=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax),
-                         simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-     else
+  if homotopyInitialization then
+   if from_dp then
+       m_flow=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
+                          x=dp-dp_min,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
+                          y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                dp=dp,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=dp_nominal_pos*deltax),
+                       simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+   else
+       dp=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
+                          x=m_flow-m_flow_set,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
+                          y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                m_flow=m_flow,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=m_flow_nominal_pos*deltax*l2),
+                   simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+   end if;
+  else // do not use homotopy
+   if from_dp then
+     m_flow=Buildings.Utilities.Math.Functions.regStep(
+                          x=dp-dp_min,
+                          y1= m_flow_set + (dp-dp_min)*kLin,
+                          y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                dp=dp,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=dp_nominal_pos*deltax);
+    else
+      dp=Buildings.Utilities.Math.Functions.regStep(
+                          x=m_flow-m_flow_set,
+                          y1= dp_min + (m_flow-m_flow_set)*kLinInv,
+                          y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                m_flow=m_flow,
+                                k=k,
+                                m_flow_turbulent=m_flow_turbulent),
+                          x_small=m_flow_nominal_pos*deltax*l2);
+    end if;
+  end if; // homotopyInitialization
 
-         dp=homotopy(actual=Buildings.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2),
-                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=Buildings.Utilities.Math.Functions.regStep(
-                            x=dp-dp_min,
-                            y1= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=dp_nominal_pos*deltax);
-      else
-        dp=Buildings.Utilities.Math.Functions.regStep(
-                            x=m_flow-m_flow_set,
-                            y1= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            y2= Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            x_small=m_flow_nominal_pos*deltax*l2);
-      end if;
-    end if; // homotopyInitialization
   annotation (defaultComponentName="val",
   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
@@ -103,7 +108,7 @@ equation
         Line(
           points={{0,40},{0,-4}}),
         Line(
-          visible=not filteredOpening,
+          visible=not use_inputFilter,
           points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>
@@ -164,16 +169,29 @@ the result when using <code>from_dp = false</code>.
 revisions="<html>
 <ul>
 <li>
+April 10, 2017, my Michael Wetter:<br/>
+Added protected parameters <code>kLin</code> and <code>kLinInv</code> to have
+the same implementation as
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.PressureIndependent\">
+Buildings.Fluid.Actuators.Dampers.PressureIndependent</a>.
+</li>
+<li>
+March 24, 2017, by Michael Wetter:<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica/issues/665\">#665</a>.
+</li>
+<li>
 March 15, 2016, by Michael Wetter:<br/>
 Replaced <code>spliceFunction</code> with <code>regStep</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/300\">issue 300</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>

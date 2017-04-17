@@ -63,6 +63,11 @@ model FourPortHeatMassExchanger
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", group = "Medium 2", enable=Medium2.nC > 0));
 
+  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
+    "Heat flow rate into medium 1";
+  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
+    "Heat flow rate into medium 2";
+
   Buildings.Fluid.MixingVolumes.MixingVolume vol1(
     redeclare final package Medium = Medium1,
     nPorts = 2,
@@ -106,11 +111,6 @@ model FourPortHeatMassExchanger
         origin={2,-60},
         extent={{-10,10},{10,-10}},
         rotation=180)));
-
-  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
-    "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
-    "Heat flow rate into medium 2";
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare final package Medium = Medium1,
@@ -180,9 +180,6 @@ initial algorithm
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
 
-
-
-
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -232,12 +229,12 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 December 1, 2016, by Michael Wetter:<br/>
 Updated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
 </li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
@@ -247,14 +244,14 @@ Set <code>quantity</code> attributes.
 November 13, 2015, by Michael Wetter:<br/>
 Changed assignments of start values in <code>extends</code> statement.
 This is for issue
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/299\">#299</a>.
 </li>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
 Removed final modifier from <code>mSenFac</code> in
 <code>vol1</code> and <code>vol2</code>.
 This is for issue
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/258=\">#258</a>.
 </li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>

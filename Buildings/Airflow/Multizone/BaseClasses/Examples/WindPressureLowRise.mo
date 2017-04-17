@@ -13,7 +13,7 @@ equation
     G=G,
     incAng=incAng);
   annotation (
-experiment(StartTime=-2, StopTime=2),
+experiment(StartTime=-2, Tolerance=1e-6, StopTime=2),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

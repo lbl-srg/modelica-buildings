@@ -26,7 +26,7 @@ It is the complementory angle to the zenith angle.
 January 5, 2015, by Michael Wetter:<br/>
 Updated comment of the output connector as this is used in the weather bus connector.
 This is for
-issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">376</a>.
+issue <a href=\"https://github.com/ibpsa/modelica/issues/376\">376</a>.
 </li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak:<br/>

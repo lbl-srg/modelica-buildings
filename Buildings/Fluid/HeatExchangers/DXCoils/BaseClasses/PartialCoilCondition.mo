@@ -7,10 +7,12 @@ partial block PartialCoilCondition
   constant Boolean variableSpeedCoil
     "Flag, set to true for coil with variable speed";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
-    final sta=datCoi.sta,
-    final nSta=datCoi.nSta,
-    final m_flow_small=datCoi.m_flow_small) "Performance data"
+  replaceable
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+    cooCap constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
+    sta=datCoi.sta,
+    nSta=datCoi.nSta) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
 
 protected
@@ -25,7 +27,6 @@ protected
     final speSet=datCoi.sta.spe) "Interpolates Q_flow"
     annotation (Placement(transformation(extent={{32,44},{46,58}})));
 equation
-
   connect(cooCap.EIR, speShiEIR.u)
                                   annotation (Line(
       points={{7,54},{10,54},{10,65.4},{30.6,65.4}},
@@ -87,6 +88,14 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed connectors that are no longer needed.
+</li>
+<li>
+February 17, 2017 by Yangyang Fu:<br/>
+Added prefix <code>replaceable</code> to the type of <code>cooCap</code>.
+</li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation.

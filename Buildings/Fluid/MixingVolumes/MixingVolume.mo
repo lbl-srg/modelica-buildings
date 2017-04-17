@@ -3,14 +3,12 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=T_start)) "Heat port for heat exchange with the control volume"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
-  connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
-      points={{-19,88},{0,88},{0,18},{8,18}},
-      color={0,0,127}));
-  connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{-19,88},{54,88},{54,16},{58,16}},
-      color={0,0,127}));
-
+  connect(heaFloSen.port_a, heatPort)
+    annotation (Line(points={{-90,0},{-96,0},{-100,0}}, color={191,0,0}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -107,16 +105,26 @@ Buildings.Fluid.MassExchangers.Humidifier_u</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 11, 2017, by Michael Wetter:<br/>
+Changed comment of heat port, as this needs to be the total heat flow
+rate in order to be able to use this model for modeling steam humidifiers
+and adiabatic humidifiers.<br/>
+Removed blocks <code>QSen_flow</code> and
+<code>QLat_flow</code>.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
+<li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance
 in the mixing volume.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">
+<a href=\"https://github.com/ibpsa/modelica/issues/372\">
 issue 372</a>.
 </li>
 <li>
@@ -135,7 +143,7 @@ Changed code for handling trace substance insertions using input <code>C_flow</c
 May 1, 2015 by Michael Wetter<br/>
 Set <code>final</code> keyword for <code>masExc(final k=0)</code>.
 This addresses
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/230\">
+<a href=\"https://github.com/ibpsa/modelica/issues/230\">
 issue 230</a>.
 </li>
 <li>

@@ -10,7 +10,7 @@ equation
   T = TMin + conv*time * (TMax-TMin);
   pSat = Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/SaturationPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
@@ -22,7 +22,7 @@ This example computes the saturation pressure of water.
 April 22, 2016, by Michael Wetter:<br/>
 Corrected script name to use capital letter.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 November 20, 2013, by Michael Wetter:<br/>

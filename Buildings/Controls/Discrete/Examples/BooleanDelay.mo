@@ -13,7 +13,7 @@ equation
   connect(booleanPulse.y, del.u) annotation (Line(points={{-39,-10},{-22,-10},{-2,
           -10}},
         color={255,0,255}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -27,7 +27,7 @@ The output signal of the block is delayed by one sampling interval.
 January 3, 2017, by Michael Wetter:<br/>
 Changed sampling interval to avoid simultaneous events.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/641\">#641</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/641\">#641</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

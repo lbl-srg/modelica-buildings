@@ -45,7 +45,7 @@ equation
     annotation (Line(points={{-30,0},{-10,0}},          color={0,127,255}));
   connect(res.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
-  annotation (experiment(StopTime=1.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/HydraulicDiameter.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -57,7 +57,7 @@ Example model for a fixed resistance that takes as a parameter the hydraulic dia
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 First implementation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/480\">#480</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/480\">#480</a>.
 </li>
 </ul>
 </html>"));

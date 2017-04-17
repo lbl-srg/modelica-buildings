@@ -264,7 +264,7 @@ equation
       points={{28,30},{0,30},{0,34},{-30,34}},
       color={0,127,255}));
   annotation (
-experiment(StopTime=1),
+experiment(Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
@@ -296,7 +296,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>

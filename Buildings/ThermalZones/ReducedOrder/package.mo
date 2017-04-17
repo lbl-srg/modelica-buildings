@@ -29,6 +29,11 @@ package ReducedOrder
     smooth=Smooth.None)}), Documentation(info="<html>
     <p>This package contains models for reduced building physics of thermal
     zones and accompanying models for consideration of solar radiation and
-    radiation transmission through windows. </p>
+    radiation transmission through windows.</p>
+    <p>The Python package TEASER <a
+    href=\"https://github.com/RWTH-EBC/TEASER\">
+    https://github.com/RWTH-EBC/TEASER</a> can be used to calculate reduced
+    order parameters and generate ready-to-run models.
+    </p>
   </html>"));
 end ReducedOrder;

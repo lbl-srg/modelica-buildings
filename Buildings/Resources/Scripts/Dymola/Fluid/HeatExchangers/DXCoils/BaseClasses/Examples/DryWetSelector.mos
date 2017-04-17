@@ -1,6 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryWetSelector",
-stopTime=60, method="dassl", resultFile="DryWetSelector");
-removePlots();
+tolerance=1e-6, stopTime=60, method="dassl", resultFile="DryWetSelector");
 createPlot(id = 5,
  position = {12, 7, 400, 609},
  y = {"dryWet.fraDry", "dryWet.fraWet"},
@@ -62,20 +61,6 @@ createPlot(id = 5,
  bottomTitleType = 1,
  colors = {{0,0,255}});
 createPlot(id = 7,
- position = {436, 7, 400, 607},
- y = {"dryWet.TADP"},
- range = {0.0, 70.0, 22.0, 8.0},
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- description = false,
- grid = true,
- color = true,
- online = false,
- leftTitleType = 1,
- bottomTitleType = 1,
- colors = {{0,0,255}});
-createPlot(id = 7,
  position = {436, 7, 400, 300},
  y = {"dryWet.mWat_flow"},
  range = {0.0, 70.0, 0.012, -0.002},
@@ -90,5 +75,3 @@ createPlot(id = 7,
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});
-
-

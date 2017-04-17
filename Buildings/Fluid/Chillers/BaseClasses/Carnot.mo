@@ -328,7 +328,7 @@ the condenser temperature <i>T<sub>con,0</sub></i>, in which
 case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&eta;<sub>Carnot,0</sub> = 
+&eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
 &frasl;  (T<sub>use,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)),
 </p>
@@ -373,7 +373,7 @@ January 2, 2017, by Filip Jorissen:<br/>
 Removed option for choosing what temperature
 should be used to compute the Carnot efficiency.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/497\">
+<a href=\"https://github.com/ibpsa/modelica/issues/497\">
 issue 497</a>.
 </li>
 <li>

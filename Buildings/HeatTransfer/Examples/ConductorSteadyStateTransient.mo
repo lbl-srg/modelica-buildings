@@ -127,7 +127,7 @@ equation
       points={{-10,-50},{14,-50}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=86400),
+  annotation (experiment(Tolerance=1e-6, StopTime=86400),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos"
         "Simulate and plot"),
     Documentation(info="<html>

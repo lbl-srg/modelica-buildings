@@ -76,7 +76,7 @@ equation
   connect(assertEquality1.u2, limPID.y) annotation (Line(
       points={{58,64},{30,64},{30,40},{1,40}},
       color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

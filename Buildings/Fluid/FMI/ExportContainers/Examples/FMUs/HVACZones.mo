@@ -1,7 +1,6 @@
 within Buildings.Fluid.FMI.ExportContainers.Examples.FMUs;
 block HVACZones
   "Declaration of an FMU that exports a simple convective only HVAC system for two zones"
-  import Buildings;
   extends Buildings.Fluid.FMI.ExportContainers.HVACZones(
     redeclare final package Medium = MediumA,
     nZon = 2,
@@ -327,6 +326,10 @@ ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2017, by Michael Wetter:<br/>
+Removed import statement.
+</li>
 <li>
 November 11, 2016, by Michael Wetter:<br/>
 Made the cooling coil replaceable because the Buildings library

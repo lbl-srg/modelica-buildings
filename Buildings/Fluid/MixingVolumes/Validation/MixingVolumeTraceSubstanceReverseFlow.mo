@@ -32,7 +32,7 @@ December 7, 2016, by Michael Wetter:<br/>
 Set <code>bou(C={0.003})</code> to avoid a negative value for
 <code>C_outflow</code> of the steady state volume.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/613\">#613</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/613\">#613</a>.
 </li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
@@ -42,5 +42,5 @@ First implementation.
 </html>"),
  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeTraceSubstanceReverseFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=10));
+    experiment(Tolerance=1e-08, StopTime=10));
 end MixingVolumeTraceSubstanceReverseFlow;

@@ -80,5 +80,5 @@ First implementation.
     experiment(
       StartTime=1.728e+07,
       StopTime=1.78848e+07,
-      Tolerance=1e-05));
+      Tolerance=1e-6));
 end Outside_CpLowRise;

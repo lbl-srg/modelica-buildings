@@ -15,7 +15,8 @@ model SpeedControlled_y_pumpCurves
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
-    filteredSpeed=false,
+    use_inputFilter=
+                  false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
       pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
@@ -65,27 +66,27 @@ model SpeedControlled_y_pumpCurves
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    filteredOpening=false) "Pressure drop"
+    use_inputFilter=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    filteredOpening=false) "Pressure drop"
+    use_inputFilter=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    filteredOpening=false) "Pressure drop"
+    use_inputFilter=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    filteredOpening=false) "Pressure drop"
+    use_inputFilter=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
   connect(dp1.port_b, pum.port_a)      annotation (Line(
@@ -157,7 +158,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}})),
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/SpeedControlled_y_pumpCurves.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -175,7 +176,7 @@ December 2, 2016, by Michael Wetter:<br/>
 Changed the valve opening signal to not take on zero as otherwise <code>pum.port_a.p</code>
 is negative, violating the <code>min</code> attribute on the pressure variable.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/606\">#606</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/606\">#606</a>.
 </li>
 <li>
 March 11, 2016, by Michael Wetter:<br/>
@@ -185,7 +186,7 @@ Reformulated model for OpenModelica.
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 June 14, 2015, by Filip Jorissen:<br/>

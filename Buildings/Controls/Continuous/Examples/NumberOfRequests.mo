@@ -15,7 +15,7 @@ equation
           -19.5,29},{-2,29}}, color={0,0,127}));
   connect(pulse.y, numReq.u[2]) annotation (Line(points={{-39,30},{-20,30},{-20,
           31},{-2,31}}, color={0,0,127}));
- annotation (experiment(StopTime=1.0),
+ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
@@ -24,7 +24,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
 January 12, 2017, by Thierry S. Nouidui:<br/>
 Modified example to prevent simultaneous events
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/646\">#646</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/646\">#646</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

@@ -18,11 +18,8 @@ protected
 equation
   connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
           {46,-26}},                    color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-32},{
-          80,-32},{80,-52},{14,-52}},  color={0,0,127}));
-  connect(masExc.TLiq, vol2.TWat) annotation (Line(points={{69,-38},{72,-38},{
-          72,-55.2},{14,-55.2}},
-                             color={0,0,127}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-34},{
+          80,-34},{80,-52},{14,-52}},  color={0,0,127}));
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
           {-20,-34},{46,-34}}, color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(
@@ -48,6 +45,12 @@ for a description of the physics.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 June 18, 2014, by Michael Wetter:<br/>
 Added initialization for <code>mas</code> to avoid a warning during translation.

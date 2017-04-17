@@ -105,14 +105,14 @@ November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the
 system of equations.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/570\">#570</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/570\">#570</a>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
 <code>showDesignFlowDirection</code> in <code>extends</code> statement.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/349\">#349</a>.
 </li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>

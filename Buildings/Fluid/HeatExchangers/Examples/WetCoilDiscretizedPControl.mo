@@ -57,10 +57,10 @@ model WetCoilDiscretizedPControl
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
-    filteredOpening=false,
+    use_inputFilter=false,
     dpFixed_nominal=2000,
     dpValve_nominal=5000)
-             annotation (Placement(transformation(extent={{18,38},{38,58}})));
+    annotation (Placement(transformation(extent={{18,38},{38,58}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,293.15; 600,293.15; 600,
         288.15; 1200,288.15; 1800,288.15; 2400,295.15; 2400,295.15])
     "Setpoint temperature"
@@ -160,7 +160,7 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {200,200}}),       graphics),
-experiment(StopTime=3600),
+experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos"
         "Simulate and plot"),
 Documentation(info="<html>

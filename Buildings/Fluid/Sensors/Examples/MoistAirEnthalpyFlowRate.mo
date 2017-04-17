@@ -84,7 +84,7 @@ equation
       points={{5.55112e-16,-70},{60,-70}},
       color={0,127,255}));
     annotation (
-experiment(StopTime=60.0),
+experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
     Documentation(
@@ -102,7 +102,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Removed assertion and added the enthalpy flow rates instead
 to the plot window so that they become part of the regression tests.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 January 23 2013, by Michael Wetter:<br/>

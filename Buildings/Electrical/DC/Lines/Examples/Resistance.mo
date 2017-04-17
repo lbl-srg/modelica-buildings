@@ -44,6 +44,7 @@ Added model, documentation and results for regression test.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/Resistance.mos"
+experiment(Tolerance=1e-06, StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/DC/Lines/Examples/Resistance.mos"
         "Simulate and plot"));
 end Resistance;

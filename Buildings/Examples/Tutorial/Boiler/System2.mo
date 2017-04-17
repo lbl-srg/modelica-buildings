@@ -348,7 +348,7 @@ For numerical reasons, in particular in large system models, it is recommended t
 continuously change the mass flow rate, as opposed to having a step change.
 Therefore,
 in the instance <code>pumRad</code>, we leave the parameter
-<code>filteredSpeed</code> at its default value <code>true</code>.
+<code>use_inputFilter</code> at its default value <code>true</code>.
 This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
@@ -409,5 +409,5 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System2.mos"
         "Simulate and plot"),
-    experiment(StopTime=172800));
+    experiment(Tolerance=1e-6, StopTime=172800));
 end System2;

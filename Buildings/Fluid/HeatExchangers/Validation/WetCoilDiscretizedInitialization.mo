@@ -7,7 +7,7 @@ model WetCoilDiscretizedInitialization
         Buildings.Media.Air);
   extends Modelica.Icons.Example;
   annotation (
-experiment(StopTime=360),
+experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilDiscretizedInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>

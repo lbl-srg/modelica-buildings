@@ -84,7 +84,7 @@ equation
     annotation (Line(points={{-69,8},{-60,8}}, color={0,0,127}));
   connect(m3_flow.y, bou3.m_flow_in)
     annotation (Line(points={{-71,-52},{-60,-52}}, color={0,0,127}));
-  annotation (experiment(StopTime=100.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=100),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/FlowJunctionSteadyStateNoPressureDrop.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -102,13 +102,13 @@ with no flow resistance.
 January 18, 2017, by Michael Wetter:<br/>
 Changed <code>spl.m_flow_nominal</code>, boundary condition and enabled sensor dynamics.<br/>
 This is for
-<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/657\">issue 657</a>.
+<a href=\"modelica://https://github.com/ibpsa/modelica/issues/657\">issue 657</a>.
 </li>
 <li>
 October 14, 2016, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"modelica://https://github.com/iea-annex60/modelica-annex60/issues/451\">issue 451</a>.
+<a href=\"modelica://https://github.com/ibpsa/modelica/issues/451\">issue 451</a>.
 </li>
 </ul>
 </html>"));

@@ -23,13 +23,13 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100),
+      Tolerance=1e-6, StopTime=100),
     Documentation(revisions="<html>
 <ul>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/450\">issue 450</a>.
 </li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>

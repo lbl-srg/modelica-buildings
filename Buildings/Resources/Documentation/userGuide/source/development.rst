@@ -45,7 +45,7 @@ Alternatively, simple models such as the models below may be used as a starting 
 `Buildings.Fluid.MassExchangers.Humidifier_u <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.Humidifier_u>`_
   For a device that adds humidity to a fluid stream.
 
-`Buildings.Fluid.Chillers.Carnot <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot>`_
+`Buildings.Fluid.Chillers.Carnot_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot_y>`_
   For a device that exchanges heat between two fluid streams.
 
 `Buildings.Fluid.MassExchangers.ConstantEffectiveness <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness>`_

@@ -140,7 +140,7 @@ equation
   connect(pumHea.ports[1], beaCooHea.watHea_a)
     annotation (Line(points={{0,60},{13,60},{26,60}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}})),experiment(StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating.mos"
+            -120},{120,120}})),experiment(Tolerance=1e-6, StopTime=172800),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Examples/CoolingAndHeating.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})),
      Documentation(info="<html>
@@ -158,7 +158,7 @@ June 25, 2016, by Michael Wetter:<br/>
 Changed medium start temperature to avoid conflicting
 start values of the same precedence in Dymola 2016.
 See
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/485\">
+<a href=\"https://github.com/ibpsa/modelica/issues/485\">
 issue 485</a>.
 </li>
 <li>

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR", stopTime=4*3600, method="dassl", resultFile="ElectricReformulatedEIR");
+simulateModel("Buildings.Fluid.Chillers.Examples.ElectricReformulatedEIR", tolerance=1e-6, stopTime=4*3600, method="dassl", resultFile="ElectricReformulatedEIR");
 
 removePlots();
 createPlot(id = 1,

@@ -20,7 +20,7 @@ model NumberOfBeamsDynamics
     step3(startTime=200),
     step2(startTime=300));
   annotation (
-experiment(StopTime=500),
+experiment(Tolerance=1e-6, StopTime=500),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ActiveBeams/Validation/NumberOfBeamsDynamics.mos"
         "Simulate and plot"),
   Documentation(info="<html>

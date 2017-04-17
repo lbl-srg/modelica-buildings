@@ -7,10 +7,6 @@ model MixingBoxMinimumFlow
          annotation (choicesAllMatching = true);
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
-    AOutMin=0.3,
-    AOut=0.7,
-    AExh=1,
-    ARec=1,
     mOutMin_flow_nominal=0.3,
     dpOutMin_nominal=20,
     mOut_flow_nominal=1,
@@ -20,8 +16,7 @@ model MixingBoxMinimumFlow
     mExh_flow_nominal=1,
     dpExh_nominal=20,
     redeclare package Medium = Medium) "mixing box"
-                            annotation (Placement(transformation(extent={{14,
-            -22},{34,-2}})));
+    annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
     use_p_in=true,
@@ -94,7 +89,7 @@ equation
       smooth=Smooth.None));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/MixingBoxMinimumFlow.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
+    experiment(Tolerance=1e-6, StopTime=240),
 Documentation(info="<html>
 <p>
 Test model for the economizer mixing box that has a flow leg for the

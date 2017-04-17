@@ -5,10 +5,9 @@ model VAVBoxExponential
 
  package Medium = Buildings.Media.Air;
 
-  Buildings.Fluid.Actuators.Dampers.Exponential dam(
-         redeclare package Medium = Medium, A=1.8,
-    m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{20,10},{40,30}})));
+  Buildings.Fluid.Actuators.Dampers.Exponential dam(redeclare package Medium =
+        Medium, m_flow_nominal=2)
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
     Modelica.Blocks.Sources.Step yDam(
     height=-1,
     offset=1,
@@ -34,9 +33,8 @@ model VAVBoxExponential
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     dp_nominal=5,
-    A=1.8,
     m_flow_nominal=2)
-         annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
+    annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     m_flow_nominal=2,
@@ -71,7 +69,7 @@ equation
       color={0,127,255}));
  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
+    experiment(Tolerance=1e-6, StopTime=240),
 Documentation(info="<html>
 <p>
 Test model for the variable air volume flow box.

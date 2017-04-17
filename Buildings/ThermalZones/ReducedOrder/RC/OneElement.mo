@@ -147,14 +147,14 @@ model OneElement "Thermal Zone with one element for exterior walls"
     final splitFactor=splitFactor,
     final nOut=dimension,
     final nIn=1) if ATot > 0
-    "Splits incoming internal gains into separate gains for each wall element, 
+    "Splits incoming internal gains into separate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(
     final splitFactor=splitFactorSolRad,
     final nOut=dimension,
     final nIn=nOrientations) if ATot > 0 and sum(ATransparent) > 0
-    "Splits incoming solar radiation into separate gains for each wall element, 
+    "Splits incoming solar radiation into separate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
   BaseClasses.ExteriorWall extWallRC(

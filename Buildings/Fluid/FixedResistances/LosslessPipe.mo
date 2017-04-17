@@ -28,7 +28,7 @@ equation
           extent={{-100,50},{100,-48}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={217,236,256})}),
+          fillColor={217,236,255})}),
 defaultComponentName="pip",
     Documentation(info="<html>
 <p>

@@ -3,7 +3,7 @@ model Carnot_TEva_LimitedCapacity
   "Test model for Carnot_TEva with limited heating capacity"
   extends Examples.Carnot_TEva(
     chi(QEva_flow_min=-100000));
-  annotation (experiment(StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_LimitedCapacity.mos"
         "Simulate and plot"),
 Documentation(info="<html>

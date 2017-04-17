@@ -302,7 +302,7 @@ equation
   connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
           -28},{14,-20.5},{39.75,-20.5}}, color={0,127,255}));
   annotation (
-experiment(StopTime=3.1536e+07),
+experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

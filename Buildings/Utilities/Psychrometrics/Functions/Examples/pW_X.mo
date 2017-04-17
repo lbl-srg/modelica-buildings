@@ -14,7 +14,7 @@ equation
   dX = X - XInv;
   assert(abs(dX) < 10E-12, "Error in function implementation.");
   annotation (
-experiment(StopTime=1.0),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_X.mos"
         "Simulate and plot"));
 end pW_X;

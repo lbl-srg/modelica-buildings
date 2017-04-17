@@ -4,7 +4,7 @@ package FixedResistances "Package with models for fixed flow resistances"
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains components models for fixed flow resistances.
+This package contains component models for fixed flow resistances.
 By fixed flow resistance, we mean resistances that do not change the
 flow coefficient
 </p>

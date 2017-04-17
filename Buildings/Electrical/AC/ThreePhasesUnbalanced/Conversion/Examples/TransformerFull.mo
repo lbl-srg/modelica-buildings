@@ -36,7 +36,7 @@ This example model tests the
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.ACACTransformerFull</a> model.
 </p>
 </html>"),
-experiment(Tolerance=1e-05),
+experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file=
  "modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesUnbalanced/Conversion/Examples/TransformerFull.mos"
         "Simulate and plot"));

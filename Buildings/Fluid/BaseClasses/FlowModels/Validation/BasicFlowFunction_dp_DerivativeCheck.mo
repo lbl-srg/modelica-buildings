@@ -27,7 +27,7 @@ annotation (
 experiment(
       StartTime=-2,
       StopTime=2,
-      Tolerance=1e-08),
+      Tolerance=1e-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_dp_DerivativeCheck.mos"
         "Simulate and plot"),
 Documentation(info="<html>
@@ -47,7 +47,7 @@ revisions="<html>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 July 29, 2015, by Michael Wetter:<br/>

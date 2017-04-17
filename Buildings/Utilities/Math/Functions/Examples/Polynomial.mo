@@ -5,7 +5,7 @@ model Polynomial
 equation
   x=Buildings.Utilities.Math.Functions.polynomial(x=time^3-2, a={2, 4, -4, 5});
 
- annotation(experiment(StopTime=4, Tolerance=1e-06),
+ annotation(experiment(StartTime=0, StopTime=4, Tolerance=1E-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Polynomial.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -20,7 +20,7 @@ Buildings.Utilities.Math.Functions.polynomial</a>.
 December 14, 2016, by Michael Wetter:<br/>
 Renamed example and removed derivative computation.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/602\">issue 602</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/602\">issue 602</a>.
 </li>
 <li>
 April 22, 2016, by Michael Wetter:<br/>
@@ -34,7 +34,7 @@ This is for
 August 17, 2015 by Michael Wetter:<br/>
 Updated regression test to have slope that is different from one.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/303\">issue 303</a>.
 </li>
 <li>
 October 29, 2008, by Michael Wetter:<br/>

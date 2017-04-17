@@ -154,7 +154,7 @@ equation
   annotation ( __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
-experiment(StopTime=1200.0),
+experiment(Tolerance=1e-6, StopTime=1200),
 Documentation(info="<html>
 <p>
 This model provides an example for the
@@ -180,7 +180,7 @@ revisions="<html>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica/issues/404\">#404</a>.
 </li>
 <li>
 September 28, 2015 by Michael Wetter:<br/>

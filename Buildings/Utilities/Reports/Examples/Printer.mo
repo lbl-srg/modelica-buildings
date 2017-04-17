@@ -36,7 +36,7 @@ equation
           {-22,-31}}, color={0,0,127}));
   connect(ram.y, pri3.x[2]) annotation (Line(points={{-59,10},{-40,10},{-40,-29},
           {-22,-29}}, color={0,0,127}));
-  annotation(experiment(StopTime=1.0),
+  annotation(experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Reports/Examples/Printer.mos"
         "Simulate and plot"));
 end Printer;

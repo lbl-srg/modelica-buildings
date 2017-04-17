@@ -22,15 +22,15 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-120,-280},{180,120}}), graphics),
-    experiment(Tolerance=1e-08),
+    experiment(Tolerance=1e-6, StopTime=1),
     Documentation(info="<html>
 <p>
-This test checks if water vapour mass is conserved. 
-Two air streams with different mass flow rate are humidified 
-by a mixing volume with two different vapor mass flow rates. 
-These flows are then mixed. 
-Afterwards the added water is removed again. 
-The final water concentration, mass flow rate and enthalpy 
+This test checks if water vapour mass is conserved.
+Two air streams with different mass flow rate are humidified
+by a mixing volume with two different vapor mass flow rates.
+These flows are then mixed.
+Afterwards the added water is removed again.
+The final water concentration, mass flow rate and enthalpy
 flow rate should then be equal to the initial values.
 </p>
 <p>
@@ -52,7 +52,7 @@ November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
 and added the difference to the regression results.<br/>
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/564\">issue 564</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/564\">issue 564</a>.
 </li>
 <li>
 May 22 2015 by Filip Jorissen:<br/>

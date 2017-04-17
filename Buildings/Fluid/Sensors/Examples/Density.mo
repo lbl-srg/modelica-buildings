@@ -62,7 +62,7 @@ equation
   connect(ramp.y, masFloRat.m_flow_in) annotation (Line(
       points={{-69,8},{-50,8}},
       color={0,0,127}));
-    annotation (experiment(StopTime=60),
+    annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos"
         "Simulate and plot"),
     Documentation(info="<html>

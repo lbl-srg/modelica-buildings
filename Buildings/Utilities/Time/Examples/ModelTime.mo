@@ -20,8 +20,8 @@ First implementation.
 </ul>
 </html>"),
   experiment(
-  StartTime=-1.0,
-  StopTime=1.0),
+  StartTime=-1,
+  Tolerance=1e-6, StopTime=1),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Time/Examples/ModelTime.mos"
         "Simulate and plot"));
 end ModelTime;

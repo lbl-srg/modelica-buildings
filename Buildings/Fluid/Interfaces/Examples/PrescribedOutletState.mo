@@ -113,7 +113,7 @@ equation
       color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -120},{120,160}})),
-    experiment(StopTime=1200),
+    experiment(Tolerance=1e-6, StopTime=1200),
 __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/PrescribedOutletState.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -34,7 +34,7 @@ equation
       points={{-4.44089e-16,20},{-10,20},{-10,10},{-20,10}},
       color={0,120,120},
       smooth=Smooth.None));
-  annotation (experiment(StopTime=1.0, Tolerance=1e-06),
+  annotation (experiment(StopTime=1.0, Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model compares two dynamic load models that use the dynamic

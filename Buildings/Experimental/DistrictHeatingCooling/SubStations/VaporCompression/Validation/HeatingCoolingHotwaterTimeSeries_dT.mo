@@ -49,7 +49,7 @@ equation
           -10,30},{10,30},{10,40}}, color={0,127,255}));
   connect(subSta.port_b, coo1.ports[1])
     annotation (Line(points={{19.9286,0},{40,0},{40,-40}}, color={0,127,255}));
-  annotation(experiment(StopTime=31536000),
+  annotation(experiment(Tolerance=1e-08, StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/SubStations/VaporCompression/Validation/HeatingCoolingHotwaterTimeSeries_dT.mos"
         "Simulate and plot"),
     Documentation(

@@ -29,20 +29,21 @@ model PumpCurveDerivatives
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    filteredSpeed=false) "Wilo Stratos pump"
+    use_inputFilter=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump2(
     y_start=1,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    filteredSpeed=false) "Wilo Stratos pump"
+    use_inputFilter=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(redeclare package
-      Medium = Medium, m_flow_nominal=3,
+  Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    filteredSpeed=false) "Pump for forcing a certain mass flow rate"
+    use_inputFilter=false) "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
 
   Modelica.Blocks.Sources.Constant rpm1(k=1000) "Pump speed control signal"
@@ -159,12 +160,14 @@ equation
           {22,-4},{38,-4}}, color={0,0,127}));
   connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
           -89}},  color={0,0,127}));
-  annotation (__Dymola_Commands(file=
+  annotation (
+experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example checks if the pump similarity law implementation results in 
+This example checks if the pump similarity law implementation results in
 monotoneously increasing or decreasing relations between <code>dp</code>,
 <code>m_flow</code> and <code>Nrpm</code>.
 </p>
@@ -172,10 +175,15 @@ monotoneously increasing or decreasing relations between <code>dp</code>,
 revisions="<html>
 <ul>
 <li>
+April 6, 2017, by Thierry S. Nouidui:<br/>
+Added <code>experiment</code> annotation
+for JModelica verification.
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
-Removed dublicate <code>experiment</code> annotation.
+Removed duplicate <code>experiment</code> annotation.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+<a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
 </li>
 <li>
 November 26, 2014, by Filip Jorissen:<br/>
