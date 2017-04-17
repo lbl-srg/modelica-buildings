@@ -37,8 +37,8 @@ equation
   connect(cons1.y, dutCyc1.u)
     annotation (Line(points={{-61,-34},{-56,-34},{-40,-34}},
                                                    color={0,0,127}));
-  connect(dutCyc1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{0,-34},
-          {0,-12},{10,-12}},color={255,0,255}));
+  connect(dutCyc1.y, zeroCrossing.enable) annotation (Line(points={{-17,-34},{
+          10,-34},{10,-12}},color={255,0,255}));
   connect(ramp1.y, sin1.u)
     annotation (Line(points={{-61,0},{-50.5,0},{-40,0}},    color={0,0,127}));
   connect(sin1.y, zeroCrossing.u)
