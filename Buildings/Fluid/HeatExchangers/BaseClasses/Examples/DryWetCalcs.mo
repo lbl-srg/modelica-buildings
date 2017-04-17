@@ -137,6 +137,13 @@ uses a different zero-point for calculation of specific enthalpy -- therefore, o
 differences in specific enthalpy should be compared:
 </p>
 
+<p>
+Note also that the entries for Q<sub>sensible, wet</sub> and
+SHR<sub>wet</sub> are values for the 100% wet coil case
+derived using a Psychrometrics calculator that had less
+precision than calculations in Modelica.
+</p>
+
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr>
   <th>Ex. SM2-1 Parameter</th>
