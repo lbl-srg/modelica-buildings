@@ -95,10 +95,8 @@ protected
     "Saturation pressure of water vapor at the effective surface temperature";
   Modelica.SIunits.MassFraction XSurEff[2]
     "Mass fraction of air at the surface effective conditions";
-  Modelica.SIunits.SpecificEnthalpy hx
-    "Specific enthalpy with the same temperature as the entering state and
-    the same humidity ratio as the exiting state (and constant pressure); used
-    to determine sensible and latent heat";
+  Modelica.SIunits.HeatFlowRate QLat
+    "Latent heat flow from water to air stream";
 
 equation
   if noEvent(
@@ -130,7 +128,7 @@ equation
     XAirSatOut[othIdx] = 1 - wAirIn;
     pSatWatOut = 0;
     wAirOut = wAirIn;
-    hx = 0;
+    QLat = 0;
   else
     pSatWatOut =
       Buildings.Utilities.Psychrometrics.Functions.saturationPressure(
@@ -174,10 +172,8 @@ equation
     XOut[othIdx] = 1 - XOut[watIdx];
     wAirOut = XOut[watIdx];
     masFloCon = masFloAir * (wAirIn - wAirOut);
-    hx = Buildings.Media.Air.specificEnthalpy_pTX(
-      p = pAir, T=TAirIn, X={wAirOut, 1 - wAirOut});
-    QSen = masFloAir * (hAirOut - hx)
-      "See Mitchell and Braun 2012 eq. 5.30, sign reversed";
+    QLat = Buildings.Utilities.Psychrometrics.Constants.h_fg * (-masFloCon);
+    QSen = QTot - QLat;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
