@@ -21,52 +21,71 @@ model MultiZoneFluctuatingIHG "Multiple thermal zone models"
     redeclare each package MediumA = MediumA,
     each final lat=lat,
     gainFactor={{ampFactor[i,j] for j in 1:nFlo} for i in 1:nZon})  "Thermal zone model"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-18,-18},{18,18}})));
 
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus[nZon,nFlo]  "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus  "Weather data bus"
   annotation (Placement(transformation(extent={{-92,-10},{-72,10}}),
         iconTransformation(extent={{-92,-10},{-72,10}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsIn[nZon,nFlo](
-      redeclare each package Medium = Medium) "Fluid inlets"
+      redeclare each package Medium = MediumA) "Fluid inlets"
     annotation (Placement(transformation(extent={{-18,-76},{20,-66}}),
         iconTransformation(extent={{-18,-76},{20,-66}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsOut[nZon,nFlo](
-      redeclare each package Medium = Medium) "Fluid outlets"
+      redeclare each package Medium = MediumA) "Fluid outlets"
     annotation (Placement(transformation(extent={{-22,50},{14,60}}),
         iconTransformation(extent={{-17,64},{19,74}})));
   Modelica.Blocks.Interfaces.RealOutput TRooAir[nZon,nFlo] "Room air temperatures"
     annotation (Placement(transformation(extent={{96,26},{116,46}}),
         iconTransformation(extent={{96,26},{116,46}})));
 
+  Modelica.Blocks.Interfaces.RealOutput heaCooPow[nZon,nFlo] "HVAC power"
+    annotation (Placement(transformation(extent={{96,54},{116,74}})));
+  Modelica.Blocks.Interfaces.RealOutput TheatSetpoint[nZon,nFlo] "Heating setpoint"
+    annotation (Placement(transformation(extent={{94,-48},{114,-28}}),
+        iconTransformation(extent={{94,-48},{114,-28}})));
+  Modelica.Blocks.Interfaces.RealOutput TcoolSetpoint[nZon,nFlo] "Cooling setpoint"
+    annotation (Placement(transformation(extent={{94,-76},{114,-56}})));
 equation
   for iZon in 1:nZon-1 loop
     for iFlo in 1:nFlo-1 loop
       connect(theZon[iZon, iFlo].heaPorFlo, theZon[iZon, if iFlo == nFlo then 1 else iFlo+1].heaPorCei) annotation (Line(
-        points={{0,-10.2},{0,-20},{16,-20},{16,20},{0,20},{0,10}}, color={191,0,
+        points={{0,-18.36},{0,-20},{10,-20},{10,20},{0,20},{0,18}},color={191,0,
           0}));
       connect(theZon[iZon, iFlo].heaPorWal1, theZon[if iZon == nZon then 1 else iZon+1, iFlo].heaPorWal2) annotation (Line(
-        points={{-10,-1.6},{-20,-1.6},{-20,-24},{20,-24},{20,0},{10.2,0}},
+        points={{-18,-2.88},{-18,-2.88},{-18,24},{12.36,24},{12.36,0},{18.36,0}},
                                                                      color={191,
           0,0}));
     end for;
   end for;
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
-      connect(weaBus[iZon, iFlo], theZon[iZon, iFlo].weaBus) annotation (Line(
-      points={{-82,0},{-44,0},{-44,-8},{-7.2,-8}},
+      connect(weaBus, theZon[iZon, iFlo].weaBus) annotation (Line(
+      points={{-82,0},{-44,0},{-44,-14.4},{-13.32,-14.4}},
       color={255,204,51},
       thickness=0.5));
       connect(portsIn[iZon, iFlo], theZon[iZon, iFlo].portsInOut[1]) annotation (Line(
-      points={{1,-71},{-7.8,-71},{-7.8,2.4}},
+      points={{1,-71},{-14.04,-71},{-14.04,4.32}},
       color={0,127,255},
       thickness=0.25));
       connect(portsOut[iZon, iFlo], theZon[iZon, iFlo].portsInOut[2]) annotation (Line(
-      points={{-4,55},{-5.8,55},{-5.8,2.4}},
+      points={{-4,55},{-10.44,55},{-10.44,4.32}},
       color={0,127,255},
       thickness=0.25));
       connect(TRooAir[iZon, iFlo], theZon[iZon, iFlo].TRooAir) annotation (Line(
-      points={{106,36},{10.2,36},{10.2,3.6}},
+      points={{106,36},{38,36},{38,6},{16,6},{18.36,6},{18.36,6.48}},
+      color={0,0,0},
+      thickness=0.25));
+      connect(heaCooPow[iZon, iFlo], theZon[iZon, iFlo].heaCooPow) annotation (Line(
+      points={{106,64},{36,64},{36,10},{16,10},{18.36,10},{18.36,10.08}},
+      color={0,0,0},
+      thickness=0.25));
+      connect(TheatSetpoint[iZon, iFlo], theZon[iZon, iFlo].TheatSetpoint) annotation (Line(
+      points={{104,-38},{38,-38},{38,-8},{18,-8},{18.72,-8},{18.72,-8.28}},
+      color={0,0,0},
+      thickness=0.25));
+      connect(TcoolSetpoint[iZon, iFlo], theZon[iZon, iFlo].TcoolSetpoint) annotation (Line(
+      points={{104,-66},{36,-66},{36,-12},{16,-12},{18.72,-12},{18.72,-11.88}},
       color={0,0,0},
       thickness=0.25));
     end for;

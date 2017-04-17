@@ -1,5 +1,6 @@
 within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
+  import Buildings;
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
@@ -25,7 +26,7 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nPorts=3,
+    nPorts=5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     AFlo=6*8,
     datConExtWin(
@@ -71,91 +72,82 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-16,88},{-8,96}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sinInf(
-    redeclare package Medium = MediumA,
-    m_flow=1,
-    use_m_flow_in=true,
-    use_T_in=false,
-    use_X_in=false,
-    use_C_in=false,
-    nPorts=1) "Sink model for air infiltration"
-    annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
-  Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
-      nPorts=1) "Source model for air infiltration"
-           annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
+  Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
+      nPorts=1) "Sink model for air infiltration"
+           annotation (Placement(transformation(extent={{-22,-34},{-10,-22}})));
+  Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
-    annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
+    annotation (Placement(transformation(extent={{-96,-48},{-88,-40}})));
   Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{-50,-60},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-50,-52},{-40,-42}})));
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
     "Air density inside the building"
-    annotation (Placement(transformation(extent={{-40,-76},{-50,-66}})));
+    annotation (Placement(transformation(extent={{-40,-68},{-50,-58}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
-    annotation (Placement(transformation(extent={{-80,-88},{-64,-72}}),
-        iconTransformation(extent={{-80,-88},{-64,-72}})));
+    annotation (Placement(transformation(extent={{-82,-88},{-66,-72}}),
+        iconTransformation(extent={{-82,-88},{-66,-72}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
-    annotation (Placement(transformation(extent={{-78,-58},{-66,-46}})));
+    annotation (Placement(transformation(extent={{-78,-50},{-66,-38}})));
 
   final parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
-    annotation (Placement(transformation(extent={{54,138},{74,158}})));
+    annotation (Placement(transformation(extent={{174,144},{194,164}})));
 
   final parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
-    annotation (Placement(transformation(extent={{54,108},{74,128}})));
+    annotation (Placement(transformation(extent={{174,122},{194,142}})));
   final parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
-    annotation (Placement(transformation(extent={{54,78},{74,98}})));
+    annotation (Placement(transformation(extent={{174,100},{194,120}})));
   final parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
-    annotation (Placement(transformation(extent={{94,78},{114,98}})));
+    annotation (Placement(transformation(extent={{214,100},{234,120}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{52,50},{72,70}})));
+    annotation (Placement(transformation(extent={{174,78},{194,98}})));
   final parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
-    annotation (Placement(transformation(extent={{92,50},{112,70}})));
+    annotation (Placement(transformation(extent={{214,78},{234,98}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
-    annotation (Placement(transformation(extent={{194,138},{214,158}})));
+    annotation (Placement(transformation(extent={{240,144},{260,164}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
       material={matGyp2}) "Interior wall construction"
-    annotation (Placement(transformation(extent={{234,138},{254,158}})));
+    annotation (Placement(transformation(extent={{240,116},{260,136}})));
   final parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
         matCon}) "Floor construction (opa_a is carpet)"
-    annotation (Placement(transformation(extent={{196,98},{216,118}})));
+    annotation (Placement(transformation(extent={{240,88},{260,108}})));
   final parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
-    annotation (Placement(transformation(extent={{16,138},{36,158}})));
+    annotation (Placement(transformation(extent={{150,144},{170,164}})));
   final parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
-    annotation (Placement(transformation(extent={{154,138},{174,158}})));
+    annotation (Placement(transformation(extent={{208,144},{228,164}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorWal1
     "Heat port connected to common wall" annotation (Placement(transformation(
           extent={{-110,-26},{-90,-6}}), iconTransformation(extent={{-110,-26},{
@@ -171,12 +163,26 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
           extent={{110,-10},{130,10}}), iconTransformation(extent={{92,-10},{112,
             10}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsInOut[2](
-      redeclare package Medium = Medium) "Fluid inlets and outlets"
+      redeclare package Medium = MediumA) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-88,16},{-48,32}}),
         iconTransformation(extent={{-88,16},{-48,32}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAir
-    "Air temperature sensor"    annotation (Placement(transformation(extent={{66,24},
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor rooAirTem
+    "Air temperature sensor"  annotation (Placement(transformation(extent={{66,24},
             {78,36}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort supAirTem(redeclare package Medium =
+                       MediumA, m_flow_nominal=1,
+    tau=30)
+    "Supply air temperature sensor"  annotation (Placement(transformation(extent={{-24,9},
+            {-12,21}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort retAirTem(redeclare package Medium =
+                       MediumA, m_flow_nominal=1,
+    tau=30)
+    "Return air temperature sensor"  annotation (Placement(transformation(extent={{-12,26},
+            {-24,38}})));
+  Buildings.Fluid.Sensors.MassFlowRate supplyAirFlow(redeclare package Medium =
+               MediumA)
+    annotation (Placement(transformation(extent={{-44,10},{-34,20}})));
+
   Modelica.Blocks.Interfaces.RealOutput TRooAir "Room air temperatures"
     annotation (Placement(transformation(extent={{92,26},{112,46}}),
         iconTransformation(extent={{92,26},{112,46}})));
@@ -210,38 +216,54 @@ model ThermalZoneFluctuatingIHG_WithPorts "Thermal zone model"
     annotation (Placement(transformation(extent={{-84,36},{-76,44}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal2
     annotation (Placement(transformation(extent={{-72,36},{-64,44}})));
+  Modelica.Blocks.Sources.RealExpression PowerCalc(y=supplyAirFlow.m_flow*1005*(
+        supAirTem.T - TRooAir))     "Cooling negative, heating positive"
+    annotation (Placement(transformation(extent={{32,46},{52,66}})));
+  Modelica.Blocks.Interfaces.RealOutput heaCooPow "HVAC power"
+    annotation (Placement(transformation(extent={{92,46},{112,66}})));
+  Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses.DaySchedule
+                          TSetHea(table=[0.0,273.15 + 20]) "Heating setpoint"
+    annotation (Placement(transformation(extent={{76,-50},{84,-42}})));
+  Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses.DaySchedule
+                          TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
+    annotation (Placement(transformation(extent={{76,-70},{84,-62}})));
+  Modelica.Blocks.Interfaces.RealOutput TheatSetpoint "Heating setpoint"
+    annotation (Placement(transformation(extent={{94,-56},{114,-36}})));
+  Modelica.Blocks.Interfaces.RealOutput TcoolSetpoint "Cooling setpoint"
+    annotation (Placement(transformation(extent={{94,-76},{114,-56}})));
+  Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
+      nPorts=1) "Source model for air infiltration"
+    annotation (Placement(transformation(extent={{-22,-64},{-10,-52}})));
+  Buildings.Fluid.Movers.BaseClasses.IdealSource infMover(
+    control_m_flow=true,
+    allowFlowReversal=false,
+    redeclare package Medium = MediumA,
+    m_flow_small=1e-4)
+    annotation (Placement(transformation(extent={{0,-58},{8,-50}})));
 equation
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
       points={{-7.6,76},{20,76},{20,5},{34.8,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, sinInf.m_flow_in)       annotation (Line(
-      points={{-39.5,-55},{-36,-55},{-36,-55.2},{4,-55.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-10.5},{39.75,-10.5}},
+      points={{-45,-68},{32,-68},{32,-10.9},{39.75,-10.9}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
-      points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
+      points={{-50.5,-63},{-56,-63},{-56,-50},{-51,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[2])        annotation (Line(
-      points={{16,-60},{30,-60},{30,-8.5},{39.75,-8.5}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(multiSum.y, product.u1) annotation (Line(
-      points={{-64.98,-52},{-51,-52}},
+      points={{-64.98,-44},{-51,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
-      points={{-87.6,-52},{-78,-52}},
+      points={{-87.6,-44},{-78,-44}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[3]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-6.5},{39.75,-6.5}},   color={0,127,255}));
+  connect(sinInf.ports[1], roo.ports[3]) annotation (Line(points={{-10,-28},{14,
+          -28},{14,-8.5},{39.75,-8.5}},   color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
@@ -253,11 +275,11 @@ equation
   connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,92},{26,92},{26,12.5},
           {34.8,12.5}},       color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
-      points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
+      points={{-74,-80},{-74,-80},{70,-80},{70,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
-  connect(souInf.weaBus, weaBus) annotation (Line(
-      points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
+  connect(sinInf.weaBus, weaBus) annotation (Line(
+      points={{-22,-27.88},{-30,-27.88},{-30,-80},{-74,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-87.6,114},{-80,
@@ -301,20 +323,51 @@ equation
   connect(booleanToReal2.y, product3.u2) annotation (Line(points={{-63.6,40},{-60,
           40},{-60,44},{-57,44}}, color={0,0,127}));
 
-  connect(roo.ports[1], portsInOut[1]) annotation (Line(
-      points={{39.75,-10.5},{16,-10.5},{16,-10},{-8,-10},{-8,24},{-78,24}},
+  connect(roo.ports[4], supAirTem.port_b) annotation (Line(
+      points={{39.75,-7.3},{16,-7.3},{16,-10},{-8,-10},{-8,15},{-12,15}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(roo.ports[2], portsInOut[2]) annotation (Line(
-      points={{39.75,-8.5},{12,-8.5},{12,-8},{-8,-8},{-8,24},{-58,24}},
+  connect(supAirTem.port_a,supplyAirFlow.port_b) annotation (Line(
+      points={{-24,15},{-34,15}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(portsInOut[1],supplyAirFlow.port_a) annotation (Line(
+      points={{-78,24},{-50,24},{-50,15},{-44,15}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(portsInOut[2],retAirTem.port_b) annotation (Line(
+      points={{-58,24},{-50,24},{-50,32},{-24,32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(retAirTem.port_a,roo.ports[5]) annotation (Line(
+      points={{-12,32},{-4,32},{-4,-6.1},{39.75,-6.1}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(roo.heaPorAir, temAir.port) annotation (Line(points={{50.25,-1},{
+  connect(roo.heaPorAir, rooAirTem.port) annotation (Line(points={{50.25,-1},{
           55.125,-1},{55.125,30},{66,30}},
                                     color={191,0,0}));
-  connect(temAir.T, TRooAir) annotation (Line(points={{78,30},{84,30},{84,36},{
+
+  connect(rooAirTem.T, TRooAir) annotation (Line(points={{78,30},{84,30},{84,36},{
           102,36}}, color={0,0,127}));
+  connect(PowerCalc.y, heaCooPow)
+    annotation (Line(points={{53,56},{102,56}}, color={0,0,127}));
+  connect(TSetCoo.y[1],TcoolSetpoint)  annotation (Line(points={{84.4,-66},{
+          84.4,-66},{104,-66}},         color={0,0,127}));
+  connect(TSetHea.y[1],TheatSetpoint)  annotation (Line(points={{84.4,-46},{
+          84.4,-46},{104,-46}},         color={0,0,127}));
+  connect(souInf.ports[1], infMover.port_a) annotation (Line(points={{-10,-58},{
+          -10,-58},{0,-58},{0,-54}},            color={0,127,255}));
+  connect(souInf.weaBus, weaBus) annotation (Line(
+      points={{-22,-57.88},{-30,-57.88},{-30,-80},{-74,-80}},
+      color={255,204,51},
+      thickness=0.5));
+ connect(infMover.port_b, roo.ports[2]) annotation (Line(
+      points={{8,-54},{26,-54},{26,-9.7},{39.75,-9.7}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(product.y, infMover.m_flow_in) annotation (Line(points={{-39.5,-47},{1.25,
+          -47},{1.25,-50.8},{1.6,-50.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(

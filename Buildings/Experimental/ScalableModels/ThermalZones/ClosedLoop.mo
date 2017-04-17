@@ -144,8 +144,8 @@ model ClosedLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,50})));
-  Examples.VAVReheat.Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa")
-       = 410, r_N_min=0.2) "Controller for fan"
+  Examples.VAVReheat.Controls.FanVFD conFanSup(xSet_nominal(displayUnit="Pa")=
+         410, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{240,0},{260,20}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
@@ -271,8 +271,8 @@ model ClosedLoop
     m_flow_nominal=m0_flow_wes,
     VRoo=VRooWes) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1104,6},{1172,74}})));
-  Examples.VAVReheat.Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s")
-       = m_flow_nominal/1.2, r_N_min=0.2) "Controller for fan"
+  Examples.VAVReheat.Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s")=
+         m_flow_nominal/1.2, r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
   Buildings.Fluid.Sensors.VolumeFlowRate senRetFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)

@@ -31,7 +31,7 @@ equation
   for iZon in 1:nZon loop
     for iFlo in 1:nFlo loop
   connect(weaDat.weaBus, theZon[iZon, iFlo].weaBus) annotation (Line(
-      points={{-40,-30},{-6,-30},{-6,-8}},
+      points={{-40,-30},{-7.2,-30},{-7.2,-8}},
       color={255,204,51},
       thickness=0.5));
     end for;

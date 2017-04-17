@@ -68,18 +68,18 @@ model ThermalZone "Thermal zone model"
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-28,76},{-20,84}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sinInf(
+  Buildings.Fluid.Sources.MassFlowSource_T souInf(
     redeclare package Medium = MediumA,
     m_flow=1,
     use_m_flow_in=true,
     use_T_in=false,
     use_X_in=false,
     use_C_in=false,
-    nPorts=1) "Sink model for air infiltration"
+    nPorts=1) "Source model for air infiltration"
     annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
-  Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
-      nPorts=1) "Source model for air infiltration"
-           annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
+  Buildings.Fluid.Sources.Outside sinInf_(redeclare package Medium = MediumA,
+      nPorts=1) "Sink model for air infiltration"
+    annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
@@ -184,7 +184,7 @@ equation
       points={{-47.6,68},{-18.8,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, sinInf.m_flow_in)       annotation (Line(
+  connect(product.y,souInf. m_flow_in)       annotation (Line(
       points={{-39.5,-55},{-36,-55},{-36,-55.2},{4,-55.2}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -196,7 +196,7 @@ equation
       points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[1])        annotation (Line(
+  connect(souInf.ports[1], roo.ports[1])        annotation (Line(
       points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -209,8 +209,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
-          -28},{14,-7},{39.75,-7}},       color={0,127,255}));
+  connect(sinInf_.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{
+          14,-28},{14,-7},{39.75,-7}}, color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
   connect(roo.surf_conBou[2], heaPorWal1) annotation (Line(points={{55.5,-12.625},
@@ -225,7 +225,7 @@ equation
       points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
-  connect(souInf.weaBus, weaBus) annotation (Line(
+  connect(sinInf_.weaBus, weaBus) annotation (Line(
       points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
       color={255,204,51},
       thickness=0.5));

@@ -2,7 +2,7 @@ within Buildings.Experimental.ScalableModels.ThermalZones.BaseClasses;
 model ThermalZoneFluctuatingIHG_North
   "Thermal zone model: North exterior wall"
 
-  replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
+replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model";
 
   parameter Modelica.SIunits.Angle lat "Latitude";
@@ -72,19 +72,19 @@ model ThermalZoneFluctuatingIHG_North
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
     annotation (Placement(transformation(extent={{-16,88},{-8,96}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sinInf(
+  Buildings.Fluid.Sources.MassFlowSource_T souInf(
     redeclare package Medium = MediumA,
     m_flow=1,
     use_m_flow_in=true,
     use_T_in=false,
     use_X_in=false,
     use_C_in=false,
-    nPorts=1) "Sink model for air infiltration"
+    nPorts=1) "Source model for air infiltration"
     annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
-  Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
-      nPorts=1) "Source model for air infiltration"
+  Buildings.Fluid.Sources.Outside sinInf(redeclare package Medium = MediumA,
+      nPorts=1) "Sink model for air infiltration"
            annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
+  Modelica.Blocks.Sources.Constant InfiltrationRate(k=48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{-96,-56},{-88,-48}})));
   Modelica.Blocks.Math.Product product
@@ -206,7 +206,7 @@ equation
       points={{-7.6,76},{20,76},{20,5},{34.8,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, sinInf.m_flow_in)       annotation (Line(
+  connect(product.y, souInf.m_flow_in) annotation (Line(
       points={{-39.5,-55},{-36,-55},{-36,-55.2},{4,-55.2}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -218,7 +218,7 @@ equation
       points={{-50.5,-71},{-56,-71},{-56,-58},{-51,-58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinInf.ports[1], roo.ports[1])        annotation (Line(
+  connect(souInf.ports[1], roo.ports[1]) annotation (Line(
       points={{16,-60},{30,-60},{30,-10},{39.75,-10}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -231,7 +231,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(souInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
+  connect(sinInf.ports[1], roo.ports[2]) annotation (Line(points={{-12,-28},{14,
           -28},{14,-7},{39.75,-7}},       color={0,127,255}));
   connect(roo.surf_conBou[1], heaPorFlo) annotation (Line(points={{55.5,-13.375},
           {55.5,-86},{0,-86},{0,-100}}, color={191,0,0}));
@@ -242,55 +242,62 @@ equation
           {48.15,-20},{0,-20},{0,100}}, color={191,0,0}));
   connect(roo.surf_surBou[1], heaPorWal2) annotation (Line(points={{48.15,-11.875},
           {48.15,-20},{120,-20},{120,0}}, color={191,0,0}));
-  connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,92},{26,92},{26,12.5},
-          {34.8,12.5}},       color={0,0,127}));
+  connect(uSha.y, roo.uSha[1]) annotation (Line(points={{-7.6,92},{26,92},{26,
+          12.5},{34.8,12.5}}, color={0,0,127}));
   connect(weaBus, roo.weaBus) annotation (Line(
       points={{-72,-80},{-72,-80},{72,-80},{72,12.425},{64.425,12.425}},
       color={255,204,51},
       thickness=0.5));
-  connect(souInf.weaBus, weaBus) annotation (Line(
+  connect(sinInf.weaBus, weaBus) annotation (Line(
       points={{-24,-27.88},{-30,-27.88},{-30,-80},{-72,-80}},
       color={255,204,51},
       thickness=0.5));
-  connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-87.6,114},{-80,
-          114},{-80,110},{-57,110}},     color={0,0,127}));
+  connect(qRadGai_flow.y, product1.u1) annotation (Line(points={{-87.6,114},{
+          -80,114},{-80,110},{-57,110}}, color={0,0,127}));
   connect(qConGai_flow.y, product2.u1) annotation (Line(points={{-87.6,84},{-80,
           84},{-80,79},{-57,79}}, color={0,0,127}));
   connect(qLatGai_flow.y, product3.u1) annotation (Line(points={{-87.6,54},{-80,
           54},{-80,50},{-57,50}}, color={0,0,127}));
-  connect(product3.y, gain2.u) annotation (Line(points={{-45.5,47},{-45.5,47},{-41,
-          47}},      color={0,0,127}));
-  connect(product2.y, gain1.u) annotation (Line(points={{-45.5,76},{-45.5,76},{-41,
-          76}},      color={0,0,127}));
-  connect(product1.y, gain.u) annotation (Line(points={{-45.5,107},{-45.5,107},{
-          -41,107}},color={0,0,127}));
-  connect(gain.y, multiplex3_1.u1[1]) annotation (Line(points={{-29.5,107},{-29.5,
-          106},{-28,106},{-28,80},{-16.8,80},{-16.8,78.8}},
+  connect(product3.y, gain2.u) annotation (Line(points={{-45.5,47},{-45.5,47},{
+          -41,47}},  color={0,0,127}));
+  connect(product2.y, gain1.u) annotation (Line(points={{-45.5,76},{-45.5,76},{
+          -41,76}},  color={0,0,127}));
+  connect(product1.y, gain.u) annotation (Line(points={{-45.5,107},{-45.5,107},
+          {-41,107}},
+                    color={0,0,127}));
+  connect(gain.y, multiplex3_1.u1[1]) annotation (Line(points={{-29.5,107},{
+          -29.5,106},{-28,106},{-28,80},{-16.8,80},{-16.8,78.8}},
                                                           color={0,0,127}));
-  connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,76},{-16.8,
-          76}},            color={0,0,127}));
-  connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,47},{-29.5,
-          48},{-28,48},{-28,72},{-20,72},{-16.8,72},{-16.8,73.2}},
+  connect(gain1.y, multiplex3_1.u2[1]) annotation (Line(points={{-29.5,76},{
+          -16.8,76}},      color={0,0,127}));
+  connect(gain2.y, multiplex3_1.u3[1]) annotation (Line(points={{-29.5,47},{
+          -29.5,48},{-28,48},{-28,72},{-20,72},{-16.8,72},{-16.8,73.2}},
         color={0,0,127}));
   connect(sine.y, greaterThreshold.u)
-    annotation (Line(points={{-87.6,100},{-84.8,100}}, color={0,0,127}));
+    annotation (Line(points={{-87.6,100},{-86,100},{-84.8,100}},
+                                                       color={0,0,127}));
   connect(greaterThreshold.y, booleanToReal.u)
-    annotation (Line(points={{-75.6,100},{-72.8,100}}, color={255,0,255}));
-  connect(booleanToReal.y, product1.u2) annotation (Line(points={{-63.6,100},{-63.6,
-          104},{-57,104}}, color={0,0,127}));
-  connect(sine1.y, greaterThreshold1.u)
-    annotation (Line(points={{-87.6,70},{-84.8,70}}, color={0,0,127}));
-  connect(greaterThreshold1.y, booleanToReal1.u)
-    annotation (Line(points={{-75.6,70},{-72.8,70}}, color={255,0,255}));
-  connect(booleanToReal1.y, product2.u2) annotation (Line(points={{-63.6,70},{-60,
-          70},{-60,73},{-57,73}}, color={0,0,127}));
+    annotation (Line(points={{-75.6,100},{-74,100},{-72.8,100}},
+                                                       color={255,0,255}));
+  connect(booleanToReal.y, product1.u2) annotation (Line(points={{-63.6,100},{
+          -60,100},{-60,104},{-57,104}},
+                                     color={0,0,127}));
+  connect(sine1.y, greaterThreshold1.u) annotation (Line(points={{-87.6,70},{
+          -84.8,70}},      color={0,0,127}));
+  connect(greaterThreshold1.y, booleanToReal1.u) annotation (Line(points={{-75.6,
+          70},{-72.8,70}},            color={255,0,255}));
+  connect(booleanToReal1.y, product2.u2) annotation (Line(points={{-63.6,70},{
+          -60,70},{-60,73},{-57,73}},
+                                  color={0,0,127}));
   connect(sine2.y, greaterThreshold2.u) annotation (Line(points={{-87.6,40},{
-          -84.8,40}},                        color={0,0,127}));
+          -84.8,40}},      color={0,0,127}));
   connect(greaterThreshold2.y, booleanToReal2.u) annotation (Line(points={{-75.6,
-          40},{-72.8,40}},                            color={255,0,255}));
+          40},{-74,40},{-72.8,40}},   color={255,0,255}));
   connect(booleanToReal2.y, product3.u2) annotation (Line(points={{-63.6,40},{
           -60,40},{-60,44},{-57,44}},
                                   color={0,0,127}));
+
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100, 100}}), graphics={
         Rectangle(
