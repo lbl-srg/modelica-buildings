@@ -48,7 +48,7 @@ Dew point temperature calculation for moist air above freezing temperature.
 <p>
 The correlation used in this model is valid for dew point temperatures between
 <i>0</i>&deg;C and <i>93</i>&deg;C. It is the correlation from 2005
-ASHRAE Handbook Fundamentals, p. 6.9. 
+ASHRAE Handbook Fundamentals, p. 6.9.
 </p>
 </html>", revisions="<html>
 <ul>

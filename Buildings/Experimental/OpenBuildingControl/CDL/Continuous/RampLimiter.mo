@@ -43,7 +43,7 @@ The block limits the increase/decrease rate of its input signal in the range of 
 <pre>
     falling = -decrease/decDelTim; rising = increase/incDelTim;
 </pre>
-    
+
 <p>
 To ensure this for arbitrary inputs and in order to produce a differential output, the input is numerically differentiated
 with derivative time constant <code>Td</code>. Smaller time constant <code>Td</code> means nearer ideal derivative.

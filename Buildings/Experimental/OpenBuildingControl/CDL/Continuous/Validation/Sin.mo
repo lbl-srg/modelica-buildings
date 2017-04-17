@@ -24,7 +24,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Sin</a>.
 </p>
 <p>
-The input <code>u</code> varies from <i>0.0</i> to <i>+2&pi;</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+2&pi;</i>.
 </p>
 </html>", revisions="<html>
 <ul>

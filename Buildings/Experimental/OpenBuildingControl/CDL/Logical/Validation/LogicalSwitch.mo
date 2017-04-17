@@ -52,7 +52,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Logical.LogicalSwitch</a>.
 </p>
 <p>
-The input <code>u2</code> is the switch input: If <code>u2 = true</code>, 
+The input <code>u2</code> is the switch input: If <code>u2 = true</code>,
 then output <code>y = u1</code>;
 else output <code>y = u3</code>.
 </p>

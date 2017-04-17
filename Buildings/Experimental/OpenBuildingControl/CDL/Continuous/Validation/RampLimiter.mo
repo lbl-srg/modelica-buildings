@@ -29,7 +29,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RampLimiter</a>.
 </p>
 <p>
-The input <code>ramp1.u</code> varies from <i>0</i> to <i>+1.5</i>, 
+The input <code>ramp1.u</code> varies from <i>0</i> to <i>+1.5</i>,
 in <code> 1 s</code>.
 </p>
 <p>

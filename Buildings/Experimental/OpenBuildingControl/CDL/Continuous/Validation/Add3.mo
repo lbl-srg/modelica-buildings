@@ -38,7 +38,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add3</a>.
 </p>
 <p>
-The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>, 
+The input <code>u1</code> varies from <i>-2</i> to <i>+2</i>,
 input <code>u2</code> varies from <i>-1</i> to <i>+1</i>,
 input <code>u3</code> varies from <i>-1</i> to <i>+2</i>.
 </p>

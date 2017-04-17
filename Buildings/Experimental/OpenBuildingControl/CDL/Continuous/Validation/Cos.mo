@@ -24,7 +24,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Cos</a>.
 </p>
 <p>
-The input <code>u</code> varies from <i>0.0</i> to <i>+6.283</i>. 
+The input <code>u</code> varies from <i>0.0</i> to <i>+6.283</i>.
 </p>
 </html>", revisions="<html>
 <ul>

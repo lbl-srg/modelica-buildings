@@ -91,9 +91,9 @@ equation
 <p>
 The block maintains an <code>ON</code> signal until some other condition occurs to turn the signal <code>OFF</code>.
 Once the <code>latch</code> input <code>u</code> receives an <code>ON</code> signal, the output <code>y</code>
-turns <code>ON</code> and remains <code>ON</code> until the <code>clr</code> input <code>u0</code> turns <code>ON</code>, even if <code>u</code> 
-turns <code>OFF</code>. 
-When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the output <code>y</code> turns <code>OFF</code>. 
+turns <code>ON</code> and remains <code>ON</code> until the <code>clr</code> input <code>u0</code> turns <code>ON</code>, even if <code>u</code>
+turns <code>OFF</code>.
+When the <code>clr</code> input <code>u0</code> turns <code>ON</code>, the output <code>y</code> turns <code>OFF</code>.
 </p>
 
 <table summary=\"summary\" border=\"1\">

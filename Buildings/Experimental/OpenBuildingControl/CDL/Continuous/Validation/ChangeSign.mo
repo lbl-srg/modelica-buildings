@@ -24,7 +24,7 @@ Validation test for the block
 Buildings.Experimental.OpenBuildingControl.CDL.Continuous.ChangeSign</a>.
 </p>
 <p>
-The input <code>u</code> varies from <i>-1.5</i> to <i>+1.5</i>. 
+The input <code>u</code> varies from <i>-1.5</i> to <i>+1.5</i>.
 </p>
 </html>", revisions="<html>
 <ul>

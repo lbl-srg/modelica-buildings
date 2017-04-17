@@ -65,7 +65,7 @@ or the next largest integer if the input is negative.
 <ul>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>
-Change block output from <code>Interfaces.RealOutput</code> 
+Change block output from <code>Interfaces.RealOutput</code>
 to <code>Interfaces.IntegerOutput</code>.
 </li>
 </ul>

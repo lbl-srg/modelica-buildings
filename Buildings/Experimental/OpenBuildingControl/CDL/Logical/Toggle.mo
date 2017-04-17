@@ -94,9 +94,9 @@ equation
           textString="Latch input")}),
                                 Documentation(info="<html>
 <p>
-The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code> 
-turns <code>ON</code>, the output <code>y</code> turns <code>ON</code> and remains <code>ON</code> when the input <code>u</code> turns <code>OFF</code> again. 
-When the input <code>u</code> turns back <code>ON</code>, the output turns <code>OFF</code>. 
+The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>
+turns <code>ON</code>, the output <code>y</code> turns <code>ON</code> and remains <code>ON</code> when the input <code>u</code> turns <code>OFF</code> again.
+When the input <code>u</code> turns back <code>ON</code>, the output turns <code>OFF</code>.
 When the <code>clr</code> input turns <code>ON</code>, the output turns <code>OFF</code>.
 </p>
 
