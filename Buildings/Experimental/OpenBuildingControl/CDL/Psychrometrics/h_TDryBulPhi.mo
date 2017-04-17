@@ -119,5 +119,4 @@ First implementation.
           extent={{74,14},{94,-12}},
           lineColor={0,0,127},
           textString="h")}));
-
 end h_TDryBulPhi;
