@@ -25,14 +25,15 @@ extends Modelica.Icons.Example;
 equation
   connect(cons2.y, reset.u) annotation (Line(points={{-51,-40},{-39.5,-40},{-28,
           -40}}, color={0,0,127}));
-  connect(reset.y, onCounter.reset) annotation (Line(points={{-5,-40},{10,-40},
-          {10,-12},{26,-12}}, color={255,0,255}));
+  connect(reset.y, onCounter.reset) annotation (Line(points={{-5,-40},{26,-40},{
+          26,-14},{26,-14},{26,-12},{26,-12}},
+                              color={255,0,255}));
   connect(cons1.y, dutCyc.u)
     annotation (Line(points={{-51,0},{-28,0}}, color={0,0,127}));
   connect(dutCyc.y, onCounter.trigger)
     annotation (Line(points={{-5,0},{4,0},{14,0}}, color={255,0,255}));
   annotation (
-  experiment(StopTime=1.0, Tolerance=1e-06),
+  experiment(StopTime=2.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Integers/Validation/OnCounter.mos"
         "Simulate and plot"),
     Documentation(info="<html>
