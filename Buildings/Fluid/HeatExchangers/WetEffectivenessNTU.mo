@@ -42,29 +42,23 @@ model WetEffectivenessNTU
 
   Modelica.SIunits.HeatFlowRate Q1_flow = -dryWetCalcs.QTot
     "Heat input into water stream (positive if air is cooled)";
-
   Modelica.SIunits.HeatFlowRate Q2_flow = dryWetCalcs.QTot
     "Total heat input into air stream (negative if air is cooled)";
-
   Modelica.SIunits.HeatFlowRate QSen2_flow = dryWetCalcs.QSen
     "Sensible heat input into air stream (negative if air is cooled)";
-
   Modelica.SIunits.HeatFlowRate QLat2_flow=
     Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
-
   Real SHR(
     min=0,
     max=1,
     unit="1") = QSen2_flow /
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
-       "Sensible to total heat ratio";
+    "Sensible to total heat ratio";
+  Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.masFloCon
+    "Water flow rate of condensate removed from the air stream";
 
-   Modelica.SIunits.MassFlowRate mWat_flow = dryWetCalcs.masFloCon
-     "Water flow rate of condensate removed from the air stream";
-  // Q_flow_nominal below is the "gain" for heat flow. By setting the basis
-  // to 1.0, we can allow the value coming in via the control signal, u, to
-  // be the Q_flow added to medium 1 (the "water")
+protected
   Buildings.Fluid.HeatExchangers.HeaterCooler_u heaCoo(
     redeclare package Medium = Medium1,
     dp_nominal = dp1_nominal,
@@ -130,12 +124,9 @@ model WetEffectivenessNTU
   Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
     y = port_a2.m_flow)
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
-
-protected
   parameter Integer nWat=
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames);
-
   HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
