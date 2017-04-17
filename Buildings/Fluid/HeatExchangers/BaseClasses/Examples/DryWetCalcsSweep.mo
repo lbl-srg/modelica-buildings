@@ -17,8 +17,11 @@ model DryWetCalcsSweep
     "Utility to calculate the wet bulb temperature";
   Modelica.SIunits.Temperature TWetBul
     "The wet bulb temperature";
+  Modelica.SIunits.HeatFlowRate Q
+    "The heat transferred from the air to the water stream";
 
 equation
+  Q = -dryWetCalcs.QTot;
   R = time / 10;
   TWetBul = TWetBul_TDryBulXi.TWetBul;
   annotation (
