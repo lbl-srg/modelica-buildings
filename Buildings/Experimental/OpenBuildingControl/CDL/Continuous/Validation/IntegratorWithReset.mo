@@ -34,7 +34,7 @@ extends Modelica.Icons.Example;
     height=-1,
     duration=1,
     offset=-2) "Ramp as a source term"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-38},{-40,-18}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.IntegratorWithReset intDef
     "Integrator with default values"
     annotation (Placement(transformation(extent={{-12,-90},{8,-70}})));
@@ -49,8 +49,8 @@ equation
           {0,10},{0,18}},             color={255,0,255}));
   connect(booleanPulse.y, intWitRes2.trigger)
     annotation (Line(points={{-39,-60},{0,-60},{0,-32}},   color={255,0,255}));
-  connect(ramp.y, intWitRes2.y_reset_in) annotation (Line(points={{-39,-20},{
-          -39,-20},{-34,-20},{-34,-28},{-12,-28}},
+  connect(ramp.y, intWitRes2.y_reset_in) annotation (Line(points={{-39,-28},{
+          -39,-28},{-34,-28},{-12,-28}},
                                      color={0,0,127}));
   connect(cons.y, intDef.u) annotation (Line(points={{-39,70},{-26,70},{-26,-80},
           {-14,-80}}, color={0,0,127}));

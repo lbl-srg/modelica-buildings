@@ -26,7 +26,7 @@ block IntegratorWithReset "Output the integral of the input signal"
     "Value to which integrator is reset, used if reset = Types.Reset.Parameter"
     annotation(Evaluate=true,
                Dialog(
-                 enable=reset == Buildings.Types.Reset.Parameter,
+                 enable=reset == Types.Reset.Parameter,
                  group="Integrator reset"));
 
   Interfaces.RealInput y_reset_in if
@@ -153,8 +153,9 @@ has been copied into this model rather than extended.
 <ul>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+First implementation, based on the implementation of
+<a href=\"modelica://Buildings.Utilities.Math.IntegratorWithReset\">
+Buildings.Utilities.Math.IntegratorWithReset</a>.
 </li>
 </ul>
 </html>"));
