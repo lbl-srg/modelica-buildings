@@ -7,22 +7,23 @@ model WetCoilCounterFlow
     redeclare final
       Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent ele[nEle]);
 
-  Modelica.SIunits.HeatFlowRate QSen2_flow
+  Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
-  Modelica.SIunits.HeatFlowRate QLat2_flow
+
+  Modelica.SIunits.HeatFlowRate QLat2_flow=
+    sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle)
     "Latent heat input into air (negative if air is dehumidified)";
+
   Real SHR(
     min=0,
     max=1,
-    unit="1") "Sensible to total heat ratio";
+    unit="1") = QSen2_flow /
+      noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
+       "Sensible to total heat ratio";
 
-  Modelica.SIunits.MassFlowRate mWat_flow "Water flow rate";
+  Modelica.SIunits.MassFlowRate mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle)
+    "Water flow rate";
 
-equation
-  mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle);
-  QLat2_flow = sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle);
-  Q2_flow = QSen2_flow + QLat2_flow;
-  Q2_flow*SHR = QSen2_flow;
  annotation (
 defaultComponentName="cooCoi",
     Documentation(info="<html>
@@ -72,6 +73,11 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Moved variable assignments out of equation section to avoid mixing
+textual and graphical modeling in equation section.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.

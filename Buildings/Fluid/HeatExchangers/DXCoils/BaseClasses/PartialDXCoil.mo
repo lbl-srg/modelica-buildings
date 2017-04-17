@@ -118,7 +118,7 @@ initial algorithm
 
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
-      points={{-110,30},{-94,30},{-94,54},{-94,54},{-94,55},{-21,55}},
+      points={{-110,30},{-94,30},{-94,55},{-21,55}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, dxCoo.m_flow)  annotation (Line(
@@ -167,19 +167,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.mWat_flow, dxCoo.mWat_flow) annotation (Line(
-      points={{-10,-66},{-18,-66},{-18,8},{8,8},{8,42},{1,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.TCoiSur, vol.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-14.8},{-11,-14.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.TCoiSur, eva.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-72},{-10,-72}},
+      points={{-10,-70},{-18,-70},{-18,8},{8,8},{8,42},{1,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, eva.mAir_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,-78},{-10,-78}},
+      points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(
@@ -228,6 +220,12 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 February 27, 2017 by Yangyang Fu:<br/>
 Added <code>redeclare</code> for the type of <code>cooCap</code> in <code>dxCoo</code>.

@@ -14,11 +14,7 @@ model MassExchange
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
     "Water flow rate"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
-                                             final unit = "K", displayUnit = "degC", min=0)
-    "Temperature at which condensate drains from system"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput Gc
     "Signal representing the convective (sensible) thermal conductance in [W/K]"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
@@ -54,14 +50,12 @@ equation
           {-61,50}}, color={0,0,127}));
   connect(TDewPoi.p_w, humRatPre.p_w) annotation (Line(points={{-39,50},{-20,50},
           {-20,10},{-1,10}},color={0,0,255}));
-  connect(TSur, TLiq) annotation (Line(points={{-120,80},{80,80},{80,-40},{110,
-          -40}}, color={0,0,127}));
   connect(Gc, gain.u) annotation (Line(points={{-120,-80},{-82,-80}}, color={0,
           0,127}));
   connect(gain.y, mWat.u2) annotation (Line(points={{-59,-80},{0,-80},{0,-76},{
           58,-76}}, color={0,0,127}));
-  connect(mWat.y, mWat_flow) annotation (Line(points={{81,-70},{90,-70},{90,20},
-          {110,20}}, color={0,0,127}));
+  connect(mWat.y, mWat_flow) annotation (Line(points={{81,-70},{90,-70},{90,0},
+          {110,0}},  color={0,0,127}));
   connect(zero.y,min. u1) annotation (Line(points={{1,-30},{10,-30},{10,-44},{
           18,-44}}, color={0,0,127}));
   connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,
@@ -99,19 +93,13 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Gc"),
         Text(
-          extent={{54,-20},{92,-58}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="TLiq"),
-        Text(
-          extent={{56,28},{96,12}},
+          extent={{54,10},{94,-6}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m"),
         Ellipse(
-          extent={{72,38},{76,34}},
+          extent={{72,12},{76,8}},
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
@@ -183,6 +171,12 @@ corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions and fixed error in the documentation.

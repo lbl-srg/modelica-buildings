@@ -80,7 +80,7 @@ model MoistureMixingConservationDynamicBalance
   Modelica.Blocks.Math.Add3 add3Ent(k3=-1) "Adding 3 enthalpy streams"
     annotation (Placement(transformation(extent={{60,-222},{80,-202}})));
   Modelica.Blocks.Sources.Constant entIn(k=sou1.m_flow*sou1.h + sou2.m_flow*
-        sou2.h + Medium.enthalpyOfLiquid(TWat.k)*(mWatFlo1.k + mWatFlo2.k))
+        sou2.h + Medium.enthalpyOfLiquid(273.15)*(mWatFlo1.k + mWatFlo2.k))
     "Added enthalpy"
     annotation (Placement(transformation(extent={{-40,-242},{-20,-222}})));
   Modelica.Blocks.Math.Product pro "Water vapor flow rate" annotation (

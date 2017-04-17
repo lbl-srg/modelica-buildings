@@ -106,8 +106,6 @@ model MixingVolume "Test model for mixing volumes"
     annotation (Placement(transformation(extent={{40,-92},{60,-72}})));
     Modelica.Blocks.Sources.Constant zero(k=0)
       annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-    Modelica.Blocks.Sources.Constant TLiq(k=283.15)
-      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
@@ -120,9 +118,6 @@ equation
           {140,-24},{140,14},{154,14}}, color={0,0,127}));
   connect(zero.y, vol2.mWat_flow) annotation (Line(points={{-19,-20},{-12,-20},
           {-12,-64},{-2,-64}}, color={0,0,127}));
-  connect(TLiq.y, vol2.TWat) annotation (Line(points={{-19,-50},{-14,-50},{-14,
-          -67.2},{-2,-67.2}},
-                          color={0,0,127}));
   connect(sou.ports[1], res1.port_a) annotation (Line(
       points={{-50,60.6667},{-43,60.6667},{-43,60},{-36,60}},
       color={0,127,255}));
@@ -186,6 +181,12 @@ library.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 January 12, 2017, by Thierry S. Nouidui:<br/>
 Refactored difference blocks for checking integration errors.
