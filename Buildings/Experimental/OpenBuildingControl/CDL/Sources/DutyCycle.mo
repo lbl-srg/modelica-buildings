@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Sources;
-block DutyCycle "Generate output cyclc on and off"
+block DutyCycle "Generate output cyclic on and off"
 
   Interfaces.RealInput u "Percentage of the cycle time the output should be on: [0, 100]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

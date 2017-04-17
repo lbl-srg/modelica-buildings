@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
     "Block that convert Boolean to Integer signal"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc
-    "Generate output cyclc on and off"
+    "Generate output cyclic on and off"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=50)
     "Percentage of the cycle ON time"

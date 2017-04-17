@@ -5,7 +5,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
     cycleOn = true,
     period = 1.0)
-    "Block that output cyclc on and off"
+    "Block that output cyclic on and off"
     annotation (Placement(transformation(extent={{-36,-8},{-16,12}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"

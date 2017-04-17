@@ -18,7 +18,7 @@ model TriggeredSampler "Example model for the TriggeredSampler block"
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc(
     cycleOn = true,
     period = 0.2)
-    "Block that output cyclc on and off"
+    "Block that output cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,-48},{-40,-28}})));
