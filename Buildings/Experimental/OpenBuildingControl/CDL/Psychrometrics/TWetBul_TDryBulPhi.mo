@@ -41,6 +41,7 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
 
 annotation (
+    defaultComponentName="wetBul",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
         Text(
@@ -98,8 +99,12 @@ annotation (
           points={{-48,88},{-46,74},{-50,74},{-48,88}},
           lineColor={0,0,0},
           fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{26,-4},{36,-10},{34,-12},{26,-4}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
           fillPattern=FillPattern.Solid)}),
-    defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
 This block computes the wet bulb temperature for a given dry bulb temperature, relative air humidity

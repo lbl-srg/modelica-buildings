@@ -23,11 +23,11 @@ model TWetBul_TDryBulPhi
 
  // ============ Below blocks are from Buildings Library ============
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi_BuiLib(
-    redeclare package Medium = Medium,
-    approximateWetBulb=false) "Model for wet bulb temperature"
+    redeclare package Medium = Medium, approximateWetBulb=true)
+                              "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-10,6},{10,26}})));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulXi(
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium, approximateWetBulb=true)
     "Model for wet bulb temperature using Xi as an input, used to verify consistency with wetBulPhi"
     annotation (Placement(transformation(extent={{-10,-34},{10,-14}})));
   Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi "Computes mass fraction"

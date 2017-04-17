@@ -8,7 +8,7 @@ block TDewPoi_TDryBulPhi
     final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
-  Interfaces.RealInput phi(final min=0, final max=1)
+  Interfaces.RealInput phi(final min=0, final max=1, unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
@@ -59,60 +59,67 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+            100}}), graphics={  Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
           lineColor={0,0,255}),
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-124,50},{-86,4}},
-          lineColor={0,0,255},
-          textString="p_w"),
-        Text(
-          extent={{102,46},{140,0}},
-          lineColor={0,0,255},
-          textString="TDP"),
-        Line(points={{-68,86},{-68,-72}}),
-        Line(points={{82,-72},{-66,-72}}),
-        Line(points={{-68,-46},{-54,-42},{-24,-30},{8,-2},{20,22},{28,54},{32,
-              74}}),
-        Line(
-          points={{42,-32},{-28,-32}},
-          color={255,0,0},
-          thickness=0.5),
-        Polygon(
-          points={{-28,-32},{-14,-30},{-14,-34},{-28,-32}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{84,-72},{74,-70},{74,-74},{84,-72}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-68,88},{-66,74},{-70,74},{-68,88}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-64,84},{-42,66}},
+          extent={{-44,82},{-22,64}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
+        Polygon(
+          points={{-48,88},{-46,74},{-50,74},{-48,88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{82,-80},{92,-96}},
+          extent={{-92,14},{-72,-12}},
+          lineColor={0,0,127},
+          textString="phi"),
+        Text(
+          extent={{-92,100},{-62,56}},
+          lineColor={0,0,127},
+          textString="TDryBul"),
+        Text(
+          extent={{-90,-72},{-72,-90}},
+          lineColor={0,0,127},
+          textString="p"),
+        Polygon(
+          points={{86,-74},{76,-72},{76,-76},{86,-74}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{76,-78},{86,-94}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
-        Line(points={{68,-44},{-62,-44}}, color={175,175,175}),
+        Line(points={{-48,84},{-48,-74}}),
+        Text(
+          extent={{60,14},{98,-12}},
+          lineColor={0,0,127},
+          textString="TDewPoi"),
+        Line(points={{82,-72},{-66,-72}}),
+        Line(points={{-48,-40},{-38,-36},{-24,-30},{8,-2},{20,22},{28,54},{32,
+              74}}),
+        Line(
+          points={{68,-12},{-2,-12}},
+          color={255,0,0},
+          thickness=0.5),
+        Polygon(
+          points={{-2,-12},{12,-10},{12,-14},{-2,-12}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{66,-44},{-48,-44}}, color={175,175,175}),
         Line(points={{68,-18},{-10,-18}}, color={175,175,175}),
         Line(points={{70,6},{12,6}}, color={175,175,175}),
         Line(points={{68,32},{22,32}}, color={175,175,175})}));
