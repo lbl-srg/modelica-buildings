@@ -18,7 +18,7 @@ equation
   y = u1 and u2 and u3;
 
   annotation (
-    defaultComponentName="and1",
+    defaultComponentName="and3",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={           Rectangle(
           extent={{-100,100},{100,-100}},
