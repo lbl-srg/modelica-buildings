@@ -176,8 +176,8 @@ equation
     masFloCon = masFloAir * (wAirIn - wAirOut);
     hx = Buildings.Media.Air.specificEnthalpy_pTX(
       p = pAir, T=TAirIn, X={wAirOut, 1 - wAirOut});
-    QSen = masFloAir * (hx - hAirOut)
-      "See Mitchell and Braun 2012 eq. 5.30";
+    QSen = masFloAir * (hAirOut - hx)
+      "See Mitchell and Braun 2012 eq. 5.30, sign reversed";
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
