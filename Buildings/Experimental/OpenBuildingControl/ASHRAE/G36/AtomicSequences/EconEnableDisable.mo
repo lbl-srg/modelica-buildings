@@ -178,7 +178,7 @@ at least based on our current project partners input.
 </p>
 
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of economizer enable-disable state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconHighLimitLockout.png\"/>
 </p>
 

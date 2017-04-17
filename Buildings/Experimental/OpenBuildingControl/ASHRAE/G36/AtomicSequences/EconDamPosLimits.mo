@@ -221,7 +221,7 @@ maximum and minimum physical or at comissioning fixed limits. The state machine
 diagram below illustrates this.
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of damper position limits state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsStateMachineChart.png\"/>
 </p>
 <p>
@@ -236,7 +236,7 @@ Control charts below show the input-output structure and a damper limit
 position sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of damper position limits control diagram\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlDiagram.png\"/>
 </p>
 <p>
@@ -245,7 +245,7 @@ Expected control performance, upon tuning:
 </br>
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of damper position limits control chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconDamperLimitsControlChart.png\"/>
 </p>
 <p>

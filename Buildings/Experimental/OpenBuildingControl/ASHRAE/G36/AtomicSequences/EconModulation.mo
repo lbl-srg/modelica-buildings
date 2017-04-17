@@ -21,7 +21,6 @@ model EconModulation "Based on supply air temperature (SAT) setpoint and measure
     Td=0.1,
     Nd=1,
     controllerType=Buildings.Experimental.OpenBuildingControl.CDL.Types.SimpleController.PI,
-
     k=1,
     Ti=300)
     "Contoller that outputs a signal based on the error between the measured 
@@ -270,7 +269,7 @@ Control charts below show the input-output structure and an economizer damper
 modulation sequence assuming a well tuned controller. Control diagram:
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of the modulation sequence control diagram\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationControlDiagram.png\"/>
 </p>
 <p>
@@ -279,7 +278,7 @@ The modulation is indirectly enabled through outputs of EconDamPosLimits, but al
 </br>
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of the modulation sequence state machine chart\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/EconModulationStateMachineChart.png\"/>
 </p>
 <p>
@@ -289,7 +288,7 @@ fixme: create our customized chart instead
 </br>
 </p>
 <p align=\"center\">
-<img alt=\"Image of set point reset\"
+<img alt=\"Image of the modulation sequence expected performance\"
 src=\"modelica://Buildings/Resources/Images/Experimental/OpenBuildingControl/ASHRAE/G36/DamperModulationSequenceEcon.PNG\"/>
 </p>
 <p>
