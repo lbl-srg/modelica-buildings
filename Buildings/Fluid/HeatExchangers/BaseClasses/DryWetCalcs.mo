@@ -95,21 +95,15 @@ model DryWetCalcs
     "total heat transfer from air into water"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,110}),                                    iconTransformation(
-          extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,110})));
+        rotation=0,
+        origin={150,-20})));
   Modelica.Blocks.Interfaces.RealOutput QSen(
     final quantity="Power", final unit="W")
     "sensible heat transfer from water into air"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,-110}),                                   iconTransformation(
-          extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={100,-110})));
+        rotation=0,
+        origin={150,-60})));
   Modelica.Blocks.Interfaces.RealOutput masFloCon(
     quantity="MassFlowRate", final unit="kg/s")
     "mass flow of the condensate (positive is into the heat exchanger, negative
@@ -117,26 +111,8 @@ model DryWetCalcs
     humidify, only dehumidify)"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-30,-110}),                                  iconTransformation(
-          extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={20,-110})));
-  Modelica.Blocks.Interfaces.RealOutput TCon(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    min = 0.0,
-    start = 288.15,
-    nominal = 300,
-    displayUnit="degC")
-    "temperature of the condensate"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={10,-110}),                                   iconTransformation(
-          extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={60,-110})));
+        rotation=0,
+        origin={150,-100})));
 
   Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi_pW(
     p_w=Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=wAirIn, p=pAir));
@@ -256,9 +232,7 @@ model DryWetCalcs
   Medium2.Temperature TAirOutWet
     "Water outlet temperature for a 100% wet coil";
   Modelica.SIunits.MassFlowRate masFloConWet
-    "Mass flow of condensate for a 100% wet coil; a positive number or zero.";
-  Modelica.SIunits.Temperature TConWet
-    "Temperature of condensate for a 100% wet coil";
+    "Mass flow of condensate for a 100% wet coil; a positive number or zero";
   // - Partially wet / Partially dry coil
   Modelica.SIunits.HeatFlowRate QSenDryPar
     "Sensible heat transferred from 'water' to 'air' for the dry part of
@@ -278,8 +252,6 @@ model DryWetCalcs
     a partially wet coil";
   Modelica.SIunits.MassFlowRate masFloConPar
     "Mass flow of condensate in a wet/dry coil. A positive number for flow.";
-  Modelica.SIunits.Temperature TConPar
-    "Temperature of condensate in a wet/dry coil";
   constant Real DUMMY = 0
     "Used to 'switch off' the dry / wet coil calculation functions";
   Modelica.SIunits.SpecificEnthalpy hAirSatSurIn
@@ -299,7 +271,6 @@ equation
   TWatOutWet = wet.TWatOut;
   TAirOutWet = wet.TAirOut;
   masFloConWet = wet.masFloCon;
-  TConWet = wet.TCon;
   // Find TDewPoiB, the incoming air dew point temperature that would put us
   // at the point where dryFra just becomes 0; i.e., 100% wet coil.
   (TAirIn - TDewPoiB) * UAAir = (TDewPoiB - TWatOutWet) * UAWat;
@@ -311,25 +282,21 @@ equation
   TWatX = parWet.TWatOut;
   TAirOutPar = parWet.TAirOut;
   masFloConPar = parWet.masFloCon;
-  TConPar = parWet.TCon;
   if noEvent(TWatIn >= TAirIn or TAirInDewPoi <= TDewPoiA) then
     dryFra = 1;
-    QTot = -QSenDry;
+    QTot = QSenDry;
     QSen = QSenDry;
     masFloCon = 0;
-    TCon = TConWet;
   elseif noEvent(TAirInDewPoi >= TDewPoiB) then
     dryFra = 0;
     QTot = QTotWet;
     QSen = QSenWet;
     masFloCon = -masFloConWet;
-    TCon = TConWet;
   else
     (TAirX - TAirInDewPoi) * UAAir = (TAirInDewPoi - TWatX) * UAWat;
-    QTot = QTotWetPar + (-QSenDryPar);
+    QTot = QTotWetPar + QSenDryPar;
     QSen = QSenDryPar + QSenWetPar;
     masFloCon = -masFloConPar;
-    TCon = TConPar;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},
             {140,120}}), graphics={
@@ -481,19 +448,15 @@ equation
           horizontalAlignment=TextAlignment.Left,
           textString="w_in"),
         Text(
-          extent={{60,96},{60,84}},
+          extent={{120,-12},{120,-24}},
           lineColor={28,108,200},
           textString="QTot"),
         Text(
-          extent={{20,-84},{20,-96}},
+          extent={{104,-94},{104,-106}},
           lineColor={28,108,200},
-          textString="mCon"),
+          textString="masFloCon"),
         Text(
-          extent={{60,-84},{60,-96}},
-          lineColor={28,108,200},
-          textString="TCon"),
-        Text(
-          extent={{100,-84},{100,-96}},
+          extent={{118,-52},{118,-64}},
           lineColor={28,108,200},
           textString="QSen")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}}),
@@ -508,6 +471,12 @@ connections; there are too many
 connections to show graphically here")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 14, 2017, by Michael Wetter:<br/>
+Changed sign of heat transfer so that sensible and total heat transfer
+have the same sign.<br/>
+Removed condensate temperature which is no longer needed.
+</li>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
 First implementation. See

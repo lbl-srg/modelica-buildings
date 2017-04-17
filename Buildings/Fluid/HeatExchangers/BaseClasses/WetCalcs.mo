@@ -39,17 +39,15 @@ model WetCalcs "Wet effectiveness-NTU calculations"
     "The configuration of the heat exchanger";
 
   output Modelica.SIunits.HeatFlowRate QTot
-    "Total heat flow from 'air' into 'water' stream";
+    "Total heat flow from water to air stream";
   output Modelica.SIunits.HeatFlowRate QSen
-     "Sensible heat flow from 'water' into 'air' stream";
+     "Sensible heat flow from water to air stream";
   output Medium1.Temperature TWatOut
     "Temperature of water at outlet";
   output Modelica.SIunits.Temperature TAirOut
     "Temperature of air at the outlet";
   output Modelica.SIunits.MassFlowRate masFloCon
     "The amount of condensate removed from 'air' stream";
-  output Modelica.SIunits.Temperature TCon
-    "Temperature of the condensate leaving the air stream";
 
 protected
   constant Real phiSat(min=0, max=1) = 1
@@ -111,7 +109,6 @@ equation
     TWatOut = TWatIn;
     TAirOut = TAirIn;
     masFloCon = 0;
-    TCon = TAirIn;
     // Other Equations
     cpEff = 0;
     hAirOut = hAirIn;
@@ -156,9 +153,9 @@ equation
       Z = mSta,
       NTU = NtuSta,
       flowRegime = Integer(cfg));
-    QTot = effSta * masFloAir * (hAirIn - hAirSatSurIn);
-    TWatOut = (QTot / (masFloWat * cpWat)) + TWatIn;
-    hAirOut = hAirIn - (QTot / masFloAir);
+    QTot = effSta * masFloAir * (hAirSatSurIn - hAirIn);
+    TWatOut = TWatIn - QTot / (masFloWat * cpWat);
+    hAirOut = hAirIn + QTot / masFloAir;
     NtuAirSta = UAAir / (masFloAir * cpAir);
     hSurEff = hAirIn + (hAirOut - hAirIn) / (1 - exp(-NtuAirSta));
     // The effective surface temperature Ts,eff or TSurEff is the saturation
@@ -179,9 +176,8 @@ equation
     masFloCon = masFloAir * (wAirIn - wAirOut);
     hx = Buildings.Media.Air.specificEnthalpy_pTX(
       p = pAir, T=TAirIn, X={wAirOut, 1 - wAirOut});
-    QSen = masFloAir * (hAirOut - hx)
-      "See Mitchell and Braun 2012 eq. 5.30, sign convention reversed";
-    TCon = TSurEff;
+    QSen = masFloAir * (hx - hAirOut)
+      "See Mitchell and Braun 2012 eq. 5.30";
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
@@ -192,6 +188,15 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 17, 2017, by Michael O'Keefe:<br/>
+Merged changes from Michael Wetter into existing model. Fixed
+calculation of sensible heat (QSen) to be correct.
+</li>
+<li>
+April 14, 2017, by Michael Wetter:<br/>
+Removed condensate temperature which is no longer needed.
+</li>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
 First implementation. See

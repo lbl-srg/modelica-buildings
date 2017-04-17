@@ -14,10 +14,10 @@ model WetCoilDiscretized
   Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    sum(  sum( sum( Medium2.enthalpyOfCondensingGas(hexReg[iReg].ele[iPipPar, iPipSeg].vol2.heatPort.T) *
-        hexReg[iReg].ele[iPipPar, iPipSeg].vol2.mWat_flow  for iPipPar in 1:nPipPar)  for iPipSeg in 1:nPipSeg)  for iReg in 1:nReg)
+  Modelica.SIunits.HeatFlowRate QLat2_flow =
+    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
     "Latent heat input into air (negative if air is dehumidified)";
+
   Real SHR(
     min=0,
     max=1,
