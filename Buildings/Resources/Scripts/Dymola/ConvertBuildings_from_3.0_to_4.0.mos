@@ -10,12 +10,49 @@ convertElement("Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
                "filteredSpeed", "use_inputFilter")
 convertElement("Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal",
                "filteredOpening", "use_inputFilter")
-
+convertElement("Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.ThreeWayLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayLinear",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayTable",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.Exponential",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.MixingBox",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+               "filteredOpening", "use_inputFilter")
+convertElement("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+               "filteredOpening", "use_inputFilter")
 
 // Refactoring of damper
 
+convertModifiers("Buildings.Fluid.Actuators.Dampers.Exponential",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+                 {"A"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
                  {"A"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.Exponential",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"use_v_nominal"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Dampers.VAVBoxExponential",
+                 {"use_v_nominal"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
                  {"use_v_nominal"}, fill("",0), true);
 
@@ -23,9 +60,6 @@ convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
                  {"AOutMin"}, fill("",0), true);
 convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
                  {"AOut", "AExh", "ARec"}, fill("",0), true);
-convertModifiers("Buildings.Fluid.Actuators.Dampers.MixingBox",
-                 {"use_v_nominal"}, fill("",0), true);
-
 
 // Refactoring of DX coil class hierarchy
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed",

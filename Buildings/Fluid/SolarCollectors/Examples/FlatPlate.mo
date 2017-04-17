@@ -103,5 +103,5 @@ First implementation.
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
         "Simulate and Plot"),
- experiment(StopTime=86400.0));
+ experiment(Tolerance=1e-6, StopTime=86400.0));
 end FlatPlate;

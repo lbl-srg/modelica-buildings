@@ -91,7 +91,7 @@ equation
     annotation (Line(points={{30,0},{35,0},{40,0}}, color={0,127,255}));
   connect(senTem2.port_b, bou2.ports[1])
     annotation (Line(points={{60,0},{70,0}},        color={0,127,255}));
-  annotation (experiment(StopTime=100.0),
+  annotation (experiment(Tolerance=1e-6, StopTime=100),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FlowJunction.mos"
         "Simulate and plot"),
 Documentation(info="<html>

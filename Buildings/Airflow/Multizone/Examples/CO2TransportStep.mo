@@ -50,7 +50,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05),
+      Tolerance=1e-6),
     Documentation(info="<html>
 <p>
 This model is based on

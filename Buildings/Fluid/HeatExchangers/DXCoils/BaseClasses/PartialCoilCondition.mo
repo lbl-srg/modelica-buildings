@@ -89,6 +89,10 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 revisions="<html>
 <ul>
 <li>
+April 13, 2017, by Michael Wetter:<br/>
+Removed connectors that are no longer needed.
+</li>
+<li>
 February 17, 2017 by Yangyang Fu:<br/>
 Added prefix <code>replaceable</code> to the type of <code>cooCap</code>.
 </li>

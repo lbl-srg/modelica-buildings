@@ -111,7 +111,7 @@ equation
             {100,100}})),
             Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
-    experiment(StopTime=600),
+    experiment(Tolerance=1e-6, StopTime=600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Validation/HeatCapacityConstantShade.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -1,7 +1,9 @@
 EpsilonNTUZ
 HACoilInside
+HADryCoil
 HANaturalCylinder
 HexElementLatent
+HexElementLatentLoop
 HexElementSensible
 MassExchange
 RayleighNumber

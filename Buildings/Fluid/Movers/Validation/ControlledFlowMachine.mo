@@ -12,7 +12,7 @@ model ControlledFlowMachine "Fans with different control signals as input"
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
   annotation (
-experiment(StopTime=600),
+experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachine.mos"
         "Simulate and plot"),
     Documentation(info="<html>

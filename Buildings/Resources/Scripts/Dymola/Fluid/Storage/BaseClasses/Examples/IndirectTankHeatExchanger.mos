@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.Storage.BaseClasses.Examples.IndirectTankHeatExchanger", stopTime=15, method="dassl", tolerance=1e-05, resultFile="IndirectTankHeatExchanger");
+simulateModel("Buildings.Fluid.Storage.BaseClasses.Examples.IndirectTankHeatExchanger", stopTime=15, method="dassl", tolerance=1e-6, resultFile="IndirectTankHeatExchanger");
 
 createPlot(id = 1,
  position = {0, 0, 800, 400},

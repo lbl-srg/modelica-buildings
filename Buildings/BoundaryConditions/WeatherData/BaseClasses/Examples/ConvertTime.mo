@@ -25,7 +25,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=77760000),
+  experiment(Tolerance=1e-6, StopTime=77760000),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertTime.mos"
         "Simulate and plot"));

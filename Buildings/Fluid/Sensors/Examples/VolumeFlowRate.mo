@@ -47,7 +47,7 @@ equation
   connect(senSteSta.port_b, sin.ports[1]) annotation (Line(
       points={{48,0},{60,0}},
       color={0,127,255}));
-    annotation (experiment(StopTime=60),
+    annotation (experiment(Tolerance=1e-6, StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -210,7 +210,7 @@ equation
   connect(ret2.heatPort_b, bou_b8.heaPor) annotation (Line(points={{400,
           -146.429},{410,-146.429},{410,-146},{420,-146}},
                                                  color={191,0,0}));
-  annotation(experiment(Tolerance=1E-6, StopTime=31536000),
+  annotation(experiment(Tolerance=1E-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DistrictHeatingCooling/Examples/HeatingCoolingHotWater3ClustersBaseCase.mos"
         "Simulate and plot"),
     Documentation(

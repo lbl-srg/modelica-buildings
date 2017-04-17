@@ -58,5 +58,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(Tolerance=1e-06));
+    experiment(Tolerance=1e-06, StopTime=1));
 end MoverStages;

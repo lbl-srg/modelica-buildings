@@ -20,7 +20,7 @@ equation
   connect(const.y, splice.u1) annotation (Line(
       points={{-39,50},{-20.5,50},{-20.5,16},{-2,16}},
       color={0,0,127}));
-  annotation (experiment(StopTime=2),
+  annotation (experiment(Tolerance=1e-6, StopTime=2),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -70,7 +70,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StopTime=1.0),
+experiment(Tolerance=1E-6, StopTime=1.0),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeSteadyStateMass.mos"
         "Simulate and plot"));

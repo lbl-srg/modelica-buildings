@@ -78,7 +78,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=7200,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model consists of two doors with the same geometry.

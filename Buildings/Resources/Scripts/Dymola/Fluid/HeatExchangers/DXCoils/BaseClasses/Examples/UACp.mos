@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.UACp",
-stopTime=60, method="dassl", resultFile="UACp");
+tolerance=1e-6, stopTime=60, method="dassl", resultFile="UACp");
 removePlots();
 createPlot(id = 1,
  position = {46, 7, 438, 456},

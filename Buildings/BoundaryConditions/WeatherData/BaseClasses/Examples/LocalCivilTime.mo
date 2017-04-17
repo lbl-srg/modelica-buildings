@@ -25,7 +25,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=172800),
+  experiment(Tolerance=1e-6, StartTime=0, StopTime=172800),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos"
         "Simulate and plot"));
 end LocalCivilTime;

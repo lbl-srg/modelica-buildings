@@ -104,19 +104,8 @@ model MixedAirHeatMassBalance
 
   // Latent and convective sensible heat gains
 protected
-  constant Modelica.SIunits.Temperature TAveSkin = 273.15+37
-    "Average skin temperature";
-
-  parameter Modelica.SIunits.SpecificEnergy h_fg=
-    Medium.enthalpyOfCondensingGas(TAveSkin) "Latent heat of water vapor"
-    annotation(Evaluate=true);
-
-  Modelica.Blocks.Sources.Constant TSkin(
-    k=TAveSkin,
-    y(final unit="K",
-      final displayUnit="degC"))
-    "Skin temperature at which latent heat is added to the space"
-    annotation (Placement(transformation(extent={{-220,-138},{-200,-118}})));
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    Medium.enthalpyOfCondensingGas(273.15+37) "Latent heat of water vapor";
 
   Modelica.Blocks.Math.Gain mWat_flow(
     final k(unit="kg/J")=1/h_fg,
@@ -307,9 +296,6 @@ equation
   connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-199,-160},{-168,
           -160},{-168,-212},{-30,-212},{-30,-180},{16,-180},{16,-192},{12,-192}},
         color={0,0,127}));
-  connect(TSkin.y, vol.TWat) annotation (Line(points={{-199,-128},{-160,-128},{-160,
-          -208},{-34,-208},{-34,-176},{18,-176},{18,-195.2},{12,-195.2}}, color=
-         {0,0,127}));
   connect(conQLat_flow.Q_flow, QLat_flow) annotation (Line(points={{-220,-80},{-230,
           -80},{-230,-160},{-260,-160}}, color={0,0,127}));
   connect(conQLat_flow.port, vol.heatPort) annotation (Line(points={{-200,-80},{
@@ -334,6 +320,12 @@ The model assumes a completely mixed air volume.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 12, 2017, by Michael Wetter:<br/>
+Removed temperature connection that is no longer needed.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 Refactored implementation of latent heat gain.

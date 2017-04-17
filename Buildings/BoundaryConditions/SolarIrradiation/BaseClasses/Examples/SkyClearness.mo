@@ -61,7 +61,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-experiment(StartTime=100000, StopTime=3000000),
+experiment(StartTime=100000, Tolerance=1e-6, StopTime=3000000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/SkyClearness.mos"
         "Simulate and plot"));
 end SkyClearness;

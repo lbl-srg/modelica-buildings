@@ -1,4 +1,4 @@
-simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade", method="dassl", resultFile="Shade");
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.Shade", method="dassl", tolerance=1e-6, stopTime=1.0, resultFile="Shade");
 createPlot(id = 3,
  position = {55, 50, 400, 446},
  y = {"extShaCon.TSha", "TRadOut.T", "TRadRoo.T"},

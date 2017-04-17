@@ -30,7 +30,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  experiment(StopTime=864000),
+  experiment(Tolerance=1e-6, StopTime=864000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/RelativeAirMass.mos"
         "Simulate and plot"));
 end RelativeAirMass;

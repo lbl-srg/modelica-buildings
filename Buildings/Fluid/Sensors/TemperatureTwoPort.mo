@@ -154,7 +154,7 @@ the mass flow rate on should set <code>transferHeat=false</code>.
 <ul>
 <li>
 January 12, 2016 by Filip Jorissen:<br/>
-Removed parameter <code>tauInv</code> 
+Removed parameter <code>tauInv</code>
 since this now exists in
 <a href=\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 </li>

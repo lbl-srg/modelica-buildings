@@ -24,9 +24,9 @@ equation
   err = dp-dp_comp;
   assert(abs(err) < 1E-3, "Error in implementation.");
 annotation (
-experiment(StartTime=-1,
-           StopTime=1.0,
-           Tolerance=1e-08),
+experiment(StartTime=-2,
+           StopTime=2,
+           Tolerance=1e-8),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/BasicFlowFunction_m_flow_DerivativeCheck.mos"
         "Simulate and plot"),
 Documentation(info="<html>

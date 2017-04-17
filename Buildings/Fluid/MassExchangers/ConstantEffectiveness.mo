@@ -6,7 +6,7 @@ model ConstantEffectiveness
   redeclare replaceable package Medium2 = Modelica.Media.Interfaces.PartialCondensingGases,
   sensibleOnly1=false,
   sensibleOnly2=false,
-  Q1_flow = epsS * QMax_flow,
+  Q1_flow = epsS * QMax_flow + QLat_flow,
   Q2_flow = -Q1_flow,
   mWat1_flow = +mWat_flow,
   mWat2_flow = -mWat_flow);
@@ -15,6 +15,9 @@ model ConstantEffectiveness
     "Sensible heat exchanger effectiveness";
   parameter Modelica.SIunits.Efficiency epsL(max=1) = 0.8
     "Latent heat exchanger effectiveness";
+
+  Modelica.SIunits.HeatFlowRate QLat_flow
+    "Latent heat exchange from medium 2 to medium 1";
 
   Medium1.MassFraction X_w_in1 "Inlet water mass fraction of medium 1";
   Medium2.MassFraction X_w_in2 "Inlet water mass fraction of medium 2";
@@ -73,6 +76,12 @@ equation
   mMax_flow = smooth(1, min(smooth(1, gai1 * abs(m1_flow)),
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
   mWat_flow = epsL * mMax_flow;
+  // As enthalpyOfCondensingGas is dominated by the latent heat of phase change,
+  // we simplify and use Medium1.enthalpyOfVaporization for the
+  // latent heat that is exchanged among the fluid streams.
+  // This is simply added to QSen_flow, while mass is conserved because
+  // of the assignment of mWat1_flow and mWat2_flow.
+  QLat_flow = mWat_flow * Medium1.enthalpyOfVaporization(Medium1.T_default);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
@@ -109,13 +118,13 @@ Model for a heat and moisture exchanger with constant effectiveness.
 <p>
 This model transfers heat and moisture in the amount of </p>
 <pre>
-  Q = epsS * Q_max,
-  m = epsL * mWat_max,
+  QSen = epsS * Q_max,
+  m    = epsL * mWat_max,
 </pre>
 <p>
 where <code>epsS</code> and <code>epsL</code> are constant effectiveness
 for the sensible and latent heat transfer,
-<code>Q_max</code> is the maximum heat that can be transferred and
+<code>Q_max</code> is the maximum sensible heat that can be transferred and
 <code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
 <p>
@@ -132,6 +141,12 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 11, 2017, by Michael Wetter:<br/>
+Corrected bug as <code>Q1_flow</code> did not include latent heat flow rate.<br/>
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/704\">Buildings #704</a>.
+</li>
 <li>
 October 14, 2013 by Michael Wetter:<br/>
 Replaced access to constant <code>Medium1.Water</code> by introducing

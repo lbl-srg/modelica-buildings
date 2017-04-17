@@ -90,7 +90,7 @@ equation
           extent={{-90,60},{10,-88}},
           lineColor={0,0,0},
           lineThickness=1)}),
-experiment(StopTime=1),
+experiment(Tolerance=1e-06, StopTime=1),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneRoom.mos"
         "Simulate and plot"),
     Documentation(info="<html>

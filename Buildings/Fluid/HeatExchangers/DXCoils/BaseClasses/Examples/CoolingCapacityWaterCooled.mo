@@ -64,7 +64,7 @@ equation
       smooth=Smooth.None));
   connect(mCon_flow.y, cooCap.mCon_flow) annotation (Line(points={{-59,-80},{-26,
           -80},{-26,10},{-21,10}}, color={0,0,127}));
-  annotation (experiment(StopTime=3600),
+  annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacityWaterCooled.mos"
         "Simulate and plot"),

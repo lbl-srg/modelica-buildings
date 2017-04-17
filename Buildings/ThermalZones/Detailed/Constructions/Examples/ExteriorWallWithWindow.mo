@@ -273,7 +273,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-experiment(StopTime=1209600),
+experiment(Tolerance=1e-6, StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Constructions/Examples/ExteriorWallWithWindow.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-220},{200,

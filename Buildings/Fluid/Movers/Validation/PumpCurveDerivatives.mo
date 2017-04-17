@@ -160,12 +160,14 @@ equation
           {22,-4},{38,-4}}, color={0,0,127}));
   connect(assIne.u2, zero.y) annotation (Line(points={{38,-16},{28.5,-16},{28.5,
           -89}},  color={0,0,127}));
-  annotation (__Dymola_Commands(file=
+  annotation (
+experiment(Tolerance=1e-6, StopTime=1.0),
+__Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example checks if the pump similarity law implementation results in 
+This example checks if the pump similarity law implementation results in
 monotoneously increasing or decreasing relations between <code>dp</code>,
 <code>m_flow</code> and <code>Nrpm</code>.
 </p>
@@ -173,8 +175,13 @@ monotoneously increasing or decreasing relations between <code>dp</code>,
 revisions="<html>
 <ul>
 <li>
+April 6, 2017, by Thierry S. Nouidui:<br/>
+Added <code>experiment</code> annotation
+for JModelica verification.
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
-Removed dublicate <code>experiment</code> annotation.
+Removed duplicate <code>experiment</code> annotation.
 This is for
 <a href=\"https://github.com/ibpsa/modelica/issues/266\">#266</a>.
 </li>

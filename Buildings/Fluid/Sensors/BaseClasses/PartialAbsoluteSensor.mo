@@ -31,7 +31,7 @@ revisions="<html>
 <li>
 March 22, 2017, by Filip Jorissen:<br/>
 Set <code>m_flow(max=0)</code>.
-This is for 
+This is for
 <a href=https://github.com/ibpsa/modelica/issues/687>#687</a>.
 </li>
 <li>

@@ -8,7 +8,7 @@ model ControlledFlowMachineDynamic
     fan2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan3(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (
-experiment(StopTime=600),
+experiment(Tolerance=1e-6, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachineDynamic.mos"
         "Simulate and plot"),
     Documentation(info="<html>

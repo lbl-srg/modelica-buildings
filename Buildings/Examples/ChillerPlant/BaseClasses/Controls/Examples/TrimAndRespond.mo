@@ -33,7 +33,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06),
+      Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -102,7 +102,7 @@ equation
   connect(valInd.y, valEqu.y) annotation (Line(
       points={{10,-42},{10,-36},{-12,-36},{-12,0},{10,0},{10,-8}},
       color={0,0,127}));
-    annotation (experiment(StopTime=600),
+    annotation (experiment(Tolerance=1e-6, StartTime=0, StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvesMotor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
