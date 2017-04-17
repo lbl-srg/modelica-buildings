@@ -60,9 +60,5 @@ November 25, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-Icon(graphics={Text(
-          extent={{-94,34},{96,-164}},
-          lineColor={0,0,255},
-          textString="y[i] >= y[i+1]")}));
+</html>"));
 end SignalRanker;
