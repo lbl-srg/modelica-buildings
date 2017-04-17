@@ -87,9 +87,9 @@ equation
       Z = Z,
       NTU = Ntu,
       flowRegime = Integer(cfg));
-    Q = eff * CMin * (TWatIn-TAirIn)
+    Q = eff * CMin * (TWatIn - TAirIn)
       "Note: positive heat transfer is air to water";
-    TAirOut = TAirIn + eff * (TWatIn-TAirIn)
+    TAirOut = TAirIn + eff * (TWatIn - TAirIn)
       "Braun 1988 eq 4.1.8";
     TWatOut = TWatIn + Z * (TAirIn - TAirOut)
       "Braun 1988 eq 4.1.9";
