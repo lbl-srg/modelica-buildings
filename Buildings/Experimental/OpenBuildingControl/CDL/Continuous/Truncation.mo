@@ -1,6 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block Truncation
-  "Discards the fractional portion of input and provides a whol number output"
+  "Discards the fractional portion of input and provides a whole number output"
 
   Interfaces.RealInput u "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -56,8 +56,8 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-Block that outputs the whole number by discarding fractional portion of input: <code>y = integer(u)</code>,
-where <code>u</code> is an input. 
+Block that outputs the input, truncated to the next smallest integer if the input is positive,
+or the next largest integer if the input is negative.
 </p>
 
 </html>", revisions="<html>
