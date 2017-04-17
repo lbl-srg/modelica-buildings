@@ -87,7 +87,7 @@ equation
           30,-20},{30,70},{1,70}}, color={0,0,127}));
   connect(preIndDpFixed_nominal.y, yRam.y) annotation (Line(points={{10,-68},{
           10,-60},{30,-60},{30,70},{1,70}}, color={0,0,127}));
-    annotation (experiment(StopTime=1.0),
+    annotation (experiment(StopTime=1.0, Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Dampers/Examples/Damper.mos"
         "Simulate and plot"),
 Documentation(info="<html>
