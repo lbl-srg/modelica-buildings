@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
     nin = 5,
     threShold = 1.0,
     kind = 0)
-    "Block that output the number of signals that are above/below a certain threshold"
+    "Block that outputs the number of signals that are above/below a certain threshold"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,

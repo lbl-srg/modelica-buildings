@@ -4,7 +4,7 @@ extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.SignalRanker sigRan(
     nin = 5)
-    "Block that output signals such that y[i] >= y[i+1]"
+    "Block that outputs signals such that y[i] >= y[i+1]"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,

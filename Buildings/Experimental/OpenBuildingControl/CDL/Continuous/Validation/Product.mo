@@ -3,7 +3,7 @@ model Product "Validation model for the Product block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Product product1
-    "Block that output product of the two inputs"
+    "Block that outputs product of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,

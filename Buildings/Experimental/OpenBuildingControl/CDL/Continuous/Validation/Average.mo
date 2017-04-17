@@ -3,7 +3,7 @@ model Average "Validation model for the Average block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Average avg1
-    "Block that output the average of its two inputs"
+    "Block that outputs the average of its two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,

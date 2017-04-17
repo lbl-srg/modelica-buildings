@@ -3,7 +3,7 @@ model Modulo "Validation model for the Modulo block"
 extends Modelica.Icons.Example;
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Modulo mod1
-    "Block that output the remainder of first input divided by second input (~=0)"
+    "Block that outputs the remainder of first input divided by second input (~=0)"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
     duration=1,
