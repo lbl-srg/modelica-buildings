@@ -311,17 +311,17 @@ differences in specific enthalpy should be compared:
 <tr>
   <td>Q<sub>p,total</sub></td>
   <td>50404.71 W</td>
-  <td><code>dryWetCalcs.QTot</code></td>
+  <td><code>-dryWetCalcs.QTot</code></td>
 </tr>
 <tr>
   <td>Q<sub>p,wet</sub></td>
   <td>26626.97 W</td>
-  <td><code>dryWetCalcs.QTotWetPar</code></td>
+  <td><code>-dryWetCalcs.QTotWetPar</code></td>
 </tr>
 <tr>
   <td>Q<sub>wet</sub></td>
   <td>48505.90 W</td>
-  <td><code>dryWetCalcs.QTotWet</code></td>
+  <td><code>-dryWetCalcs.QTotWet</code></td>
 </tr>
 <tr>
   <td>R<sub>a</sub></td>
@@ -349,8 +349,8 @@ differences in specific enthalpy should be compared:
   <td><code>dryWetCalcs.dry.TAirOut</code></td>
 </tr>
 <tr>
-  <td>T<sub>a,out,dry</sub></td>
-  <td>10.38 C</td>
+  <td>T<sub>a,out,wet</sub></td>
+  <td>11.21 C</td>
   <td><code>dryWetCalcs.wet.TAirOut</code></td>
 </tr>
 <tr>
@@ -360,8 +360,8 @@ differences in specific enthalpy should be compared:
 </tr>
 <tr>
   <td>T<sub>s,x</sub></td>
-  <td>10.73 C</td>
-  <td><code>dryWetCalcs.wet.TSurEff</code></td>
+  <td>12.56 C</td>
+  <td><code>dryWetCalcs.TAirInDewPoi</code></td>
 </tr>
 <tr>
   <td>T<sub>wb,in</sub></td>
