@@ -75,10 +75,12 @@ model WetCoilEffNtu "Example of usage of the WetCoilEffNtu model"
     m2_flow_nominal=masFloAirNom,
     dp2_nominal=0,
     dp1_nominal=0,
-    cfg=
-    Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed,
+    configuration=
+    Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
     show_T=true,
-    r_nominal=1)
+    r_nominal=1,
+    T_a1_nominal = TWatIn,
+    T_a2_nominal = TAirIn)
     "Heat Exchanger Coil"
     annotation (Placement(transformation(extent={{-24,-46},{8,-14}})));
   Buildings.Fluid.FixedResistances.PressureDrop watRes(

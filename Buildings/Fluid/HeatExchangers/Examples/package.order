@@ -15,5 +15,6 @@ WetCoilCounterFlowPControl
 WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffNtu
+WetCoilEffNtuReverseFlow
 WetCoilEffNtuMassFlow
 BaseClasses

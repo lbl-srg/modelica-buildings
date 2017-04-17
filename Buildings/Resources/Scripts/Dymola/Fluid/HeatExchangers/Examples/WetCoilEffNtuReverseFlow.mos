@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.WetCoilEffNtuReverseFlow", method="dassl", tolerance=1e-006, resultFile="WetCoilEffNtuReverseFlow");
+createPlot(id=1,
+  position={28, 26, 1506, 732},
+  y={"wetEffNtu1.Q2_flow", "wetEffNtu1.QSen2_flow", "wetEffNtu1.QLat2_flow", "wetEffNtu.Q2_flow", "wetEffNtu.QSen2_flow", "wetEffNtu.QLat2_flow"},
+  range={0.0, 1.0, -52000.0, -4000.0},
+  grid=true,
+  filename="WetCoilEffNtuReverseFlow.mat",
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}});

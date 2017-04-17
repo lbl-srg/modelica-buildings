@@ -7,6 +7,9 @@ model WetEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
+  import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
+  import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
+
   parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(tab="General", group="Nominal condition"));
@@ -16,6 +19,12 @@ model WetEffectivenessNTU
   parameter Modelica.SIunits.Temperature TWatOutNominal=
     Modelica.SIunits.Conversions.from_degF(42)
     "Guess for the water outlet temperature which is an iteration variable"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a1_nominal
+    "Nominal temperature at port a1"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a2_nominal
+    "Nominal temperature at port a2"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
@@ -29,8 +38,7 @@ model WetEffectivenessNTU
   parameter Boolean airSideTemperatureDependent=false
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
-  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
-    Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  parameter con configuration = con.CounterFlow;
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
@@ -92,37 +100,66 @@ protected
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     TWatOutNominal = TWatOutNominal,
-    cfg = cfg)
+    cfg = flowRegime)
     "Dry/wet calculations block"
     annotation (Placement(transformation(extent={{-20,-40},{60,40}})));
   Modelica.Blocks.Sources.RealExpression cp_a1Exp(
-    y = Medium1.specificHeatCapacityCp(state_a1_inflow))
+    y = if allowFlowReversal1
+    then
+      fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow)
+      + fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow)
+    else
+      Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Expression for cp of air"
     annotation (Placement(transformation(extent={{-40,18},{-26,30}})));
   Modelica.Blocks.Sources.RealExpression XWat_a2Exp(
-    y = state_a2_inflow.X[nWat])
+    y = if allowFlowReversal2
+    then
+      fra_a2 * state_a2_inflow.X[nWat] + fra_b2 * state_b2_inflow.X[nWat]
+    else
+      state_a2_inflow.X[nWat])
     "Expression for XWat"
     annotation (Placement(transformation(extent={{-40,-2},{-26,10}})));
   Modelica.Blocks.Sources.RealExpression p_a2Exp(
     y = Medium2.pressure(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-10},{-26,2}})));
   Modelica.Blocks.Sources.RealExpression h_a2Exp(
-    y = Medium2.specificEnthalpy(state_a2_inflow))
+    y = if allowFlowReversal2
+    then
+      fra_a2 * Medium2.specificEnthalpy(state_a2_inflow)
+      + fra_b2 * Medium2.specificEnthalpy(state_b2_inflow)
+    else
+      Medium2.specificEnthalpy(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-18},{-26,-6}})));
   Modelica.Blocks.Sources.RealExpression cp_a2Exp(
-    y = Medium2.specificHeatCapacityCp(state_a2_inflow))
+    y = if allowFlowReversal2
+    then
+      fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow)
+      + fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow)
+    else
+      Medium2.specificHeatCapacityCp(state_a2_inflow))
     annotation (Placement(transformation(extent={{-40,-30},{-26,-18}})));
   Modelica.Blocks.Sources.RealExpression TIn_a1Exp(
-    y = Medium1.temperature(state_a1_inflow))
+    y = if allowFlowReversal1
+    then
+      fra_a1 * Medium1.temperature(state_a1_inflow)
+      + fra_b1 * Medium1.temperature(state_b1_inflow)
+    else
+      Medium1.temperature(state_a1_inflow))
     annotation (Placement(transformation(extent={{-98,16},{-84,28}})));
   Modelica.Blocks.Sources.RealExpression TIn_a2Exp(
-    y = Medium2.temperature(state_a2_inflow))
+    y = if allowFlowReversal2
+    then
+      fra_a2 * Medium2.temperature(state_a2_inflow)
+      + fra_b2 * Medium2.temperature(state_b2_inflow)
+    else
+      Medium2.temperature(state_a2_inflow))
     annotation (Placement(transformation(extent={{-98,-8},{-84,4}})));
   Modelica.Blocks.Sources.RealExpression m_flow_a1Exp(
-    y = port_a1.m_flow)
+    y = abs(port_a1.m_flow))
     annotation (Placement(transformation(extent={{-98,30},{-84,42}})));
   Modelica.Blocks.Sources.RealExpression m_flow_a2Exp(
-    y = port_a2.m_flow)
+    y = abs(port_a2.m_flow))
     annotation (Placement(transformation(extent={{-98,-36},{-84,-24}})));
   parameter Integer nWat=
     Buildings.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
@@ -130,8 +167,138 @@ protected
   HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,-90},{0,-70}})));
+  Real fra_a1(min=0, max=1)
+    "Fraction of incoming state taken from port a2
+    (used to avoid excessive calls to regStep)";
+  Real fra_b1(min=0, max=1)
+    "Fraction of incoming state taken from port b2
+    (used to avoid excessive calls to regStep)";
+  Real fra_a2(min=0, max=1)
+    "Fraction of incoming state taken from port a2
+    (used to avoid excessive calls to regStep)";
+  Real fra_b2(min=0, max=1)
+    "Fraction of incoming state taken from port b2
+    (used to avoid excessive calls to regStep)";
+  parameter flo flowRegime_nominal(fixed=false)
+    "Heat exchanger flow regime at nominal flow rates";
+  flo flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
+  Modelica.SIunits.ThermalConductance C1_flow
+    "Heat capacity flow rate medium 1";
+  Modelica.SIunits.ThermalConductance C2_flow
+    "Heat capacity flow rate medium 2";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal(fixed=false)
+    "Specific heat capacity of medium 1 at nominal condition";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal(fixed=false)
+    "Specific heat capacity of medium 2 at nominal condition";
+  parameter Modelica.SIunits.ThermalConductance C1_flow_nominal(fixed=false)
+    "Nominal capacity flow rate of Medium 1";
+  parameter Modelica.SIunits.ThermalConductance C2_flow_nominal(fixed=false)
+    "Nominal capacity flow rate of Medium 2";
+  final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
+     T=T_a1_nominal,
+     p=Medium1.p_default,
+     X=Medium1.X_default[1:Medium1.nXi]) "Default state for medium 1";
+  final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
+     T=T_a2_nominal,
+     p=Medium2.p_default,
+     X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
+
+initial equation
+  cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
+  cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
+  C1_flow_nominal = m1_flow_nominal*cp1_nominal;
+  C2_flow_nominal = m2_flow_nominal*cp2_nominal;
+  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
+      then
+        flo.CrossFlowCMinMixedCMaxUnmixed
+      else
+        flo.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+    flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
+      then
+        flo.CrossFlowCMinUnmixedCMaxMixed
+      else
+        flo.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == con.ParallelFlow) then
+    flowRegime_nominal = flo.ParallelFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime_nominal = flo.CounterFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+  else
+    // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
+    flowRegime_nominal = flo.CrossFlowUnmixed;
+    assert(configuration >= con.ParallelFlow and
+      configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+      "Invalid heat exchanger configuration.");
+  end if;
 
 equation
+  if allowFlowReversal2 then
+    fra_a2 = Modelica.Fluid.Utilities.regStep(
+      m2_flow,
+      1,
+      0,
+      m2_flow_small);
+    fra_b2 = 1-fra_a2;
+  else
+    fra_a2 = 1;
+    fra_b2 = 0;
+  end if;
+  if allowFlowReversal1 then
+    fra_a1 = Modelica.Fluid.Utilities.regStep(
+      m1_flow,
+      1,
+      0,
+      m1_flow_small);
+    fra_b1 = 1-fra_a1;
+  else
+    fra_a1 = 1;
+    fra_b1 = 0;
+  end if;
+  // Assign the flow regime for the given heat exchanger configuration and
+  // mass flow rates
+  if (configuration == con.ParallelFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0)
+      then
+        flo.ParallelFlow
+      else
+        flo.CounterFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0)
+      then
+        flo.CounterFlow
+      else
+        flo.ParallelFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime = flo.CrossFlowUnmixed;
+  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime = if (C1_flow < C2_flow)
+      then
+        flo.CrossFlowCMinMixedCMaxUnmixed
+      else
+        flo.CrossFlowCMinUnmixedCMaxMixed;
+  else
+    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+    flowRegime = if (C1_flow < C2_flow)
+      then
+        flo.CrossFlowCMinUnmixedCMaxMixed
+      else
+        flo.CrossFlowCMinMixedCMaxUnmixed;
+  end if;
+  C1_flow = abs(m1_flow)*
+    ( if allowFlowReversal1 then
+           fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
+           fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow) else
+        Medium1.specificHeatCapacityCp(state_a1_inflow));
+  C2_flow = abs(m2_flow)*
+    ( if allowFlowReversal2 then
+           fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
+           fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
+        Medium2.specificHeatCapacityCp(state_a2_inflow));
+
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
   connect(heaCooHum_u.port_b, port_b2) annotation (Line(

@@ -9,7 +9,7 @@ model DryWetCalcs
     "Medium 2 in the component"
     annotation (choicesAllMatching = true);
 
-  parameter Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
+  input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
   parameter Modelica.SIunits.Temperature TWatOutNominal=
     Modelica.SIunits.Conversions.from_degC(8.7333)

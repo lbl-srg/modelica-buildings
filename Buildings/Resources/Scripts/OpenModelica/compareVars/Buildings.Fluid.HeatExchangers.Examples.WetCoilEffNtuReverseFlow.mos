@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "wetEffNtu1.Q2_flow",
+    "wetEffNtu1.QSen2_flow",
+    "wetEffNtu1.QLat2_flow",
+    "wetEffNtu.Q2_flow",
+    "wetEffNtu.QSen2_flow",
+    "wetEffNtu.QLat2_flow"
+  };

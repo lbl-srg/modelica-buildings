@@ -2,7 +2,7 @@ last-generated=2017-04-17
 statistics-initialization=
 {
   "numerical Jacobians": "0", 
-  "nonlinear": "1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1"
+  "nonlinear": "1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1,   1"
 }
 statistics-simulation=
 {
@@ -10,7 +10,10 @@ statistics-simulation=
   "nonlinear": " ", 
   "linear": " "
 }
+wetEffNtu1.Q2_flow=[-50502.15234375, -50502.15234375]
 wetEffNtu.Q2_flow=[-50502.15234375, -50502.15234375]
+wetEffNtu1.QLat2_flow=[-6237.361328125, -6237.361328125]
 wetEffNtu.QLat2_flow=[-6237.361328125, -6237.361328125]
 wetEffNtu.QSen2_flow=[-44264.7890625, -44264.7890625]
 time=[0., 1.]
+wetEffNtu1.QSen2_flow=[-44264.7890625, -44264.7890625]
