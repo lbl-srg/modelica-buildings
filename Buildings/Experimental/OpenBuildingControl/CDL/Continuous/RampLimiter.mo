@@ -86,8 +86,5 @@ Modelica Standard Library.
       textString="%name",
       lineColor={0,0,255}),
     Line(
-      points={{-50,-70},{50,70}})}),
-    Diagram(coordinateSystem(
-    preserveAspectRatio=true,
-    extent={{-100,-100},{100,100}})));
+      points={{-50,-70},{50,70}})}));
 end RampLimiter;

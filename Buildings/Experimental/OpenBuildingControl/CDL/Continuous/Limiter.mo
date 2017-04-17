@@ -76,8 +76,5 @@ Modelica Standard Library.
     Text(
       extent={{-100,-98},{-18,-72}},
       lineColor={0,0,0},
-          textString="%uMin")}),
-    Diagram(coordinateSystem(
-    preserveAspectRatio=true,
-    extent={{-100,-100},{100,100}})));
+          textString="%uMin")}));
 end Limiter;
