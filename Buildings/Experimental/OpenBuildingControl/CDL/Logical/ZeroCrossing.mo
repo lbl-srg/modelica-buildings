@@ -44,7 +44,7 @@ this block is usually identically to <code>false</code>, because the output
 may only be <code>true</code> at an event instant, but not during
 continuous integration. In order to check that this component is
 actually working as expected, one should connect its output to, e.g.,
-component <i>ModelicaAdditions.Blocks.Discrete.TriggeredSampler</i>.
+component <i>Buildings.Experimental.OpenBuildingControl.CDL.Discrete.TriggeredSampler</i>.
 </p>
 </html>", revisions="<html>
 <ul>

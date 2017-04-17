@@ -3,19 +3,17 @@ block h_TDryBulPhi
   "Block to compute the specific enthalpy based on relative humidity"
 
   Interfaces.RealInput TDryBul(
-    start=Buildings.Media.Air.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Dry bulb temperature"
+    final min=100) "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-
-  Interfaces.RealInput phi(min=0, max=1)
+  Interfaces.RealInput phi(final min=0, final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-
-  Interfaces.RealInput p(final quantity="Pressure",
-                                         final unit="Pa",
-                                         min = 0) "Pressure"
+  Interfaces.RealInput p(
+    final quantity="Pressure",
+    final unit="Pa",
+    final min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Interfaces.RealOutput h(
@@ -23,32 +21,42 @@ block h_TDryBulPhi
     final unit="J/kg") "Specific enthalpy"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+protected
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+    "Dry bulb temperature in degree Celsius";
+  Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
+  Modelica.SIunits.MassFraction XiDryBul(nominal=0.01)
+    "Water vapor mass fraction at dry bulb state";
+
+  // Modelica.SIunits.Temperature T_ref = 273.15
+  //     "Reference temperature for psychrometric calculations"
+  // constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  //   "Specific heat capacity of air";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  //   "Specific heat capacity of water vapor";
+  // constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  //   "Specific heat capacity of liquid water";
+  // constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  //   "Enthalpy of evaporation of water at the reference temperature";
+  // constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
+
 equation
-  assert(false,
-    "fixme: this block is not yet implemented. See https://github.com/lbl-srg/modelica-buildings/issues/591");
+  TDryBul_degC = TDryBul - 273.15;
+  p_w = phi * Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul);
+  XiDryBul = 0.6219647130774989*p_w/(p-p_w);
+  h = 1006*TDryBul_degC + XiDryBul*(2501014.5+1860*TDryBul_degC);
+
     annotation (
-    defaultComponentName="dewPoi",
+    defaultComponentName="ent",
     Documentation(info="<html>
 <p>
-Dew point temperature calculation for moist air above freezing temperature.
-</p>
-<p>
-The correlation used in this model is valid for dew point temperatures between
-<i>0</i>&deg;C and <i>200</i>&deg;C. It is the correlation from 2005
-ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
-Peppers has been used, but this equation yielded about <i>15</i> Kelvin lower dew point
-temperatures.
+The correlation used in this model is from 2005
+ASHRAE Handbook Fundamentals, p. 6.9.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 4, 2008 by Michael Wetter:<br/>
-Changed from causal to acausal ports, needed, for example, for
-<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
-Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
-</li>
-<li>
-August 7, 2008 by Michael Wetter:<br/>
+April 7, 2017 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
@@ -64,51 +72,52 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-124,50},{-86,4}},
-          lineColor={0,0,255},
-          textString="p_w"),
-        Text(
-          extent={{102,46},{140,0}},
-          lineColor={0,0,255},
-          textString="TDP"),
-        Line(points={{-68,86},{-68,-72}}),
-        Line(points={{82,-72},{-66,-72}}),
-        Line(points={{-68,-46},{-54,-42},{-24,-30},{8,-2},{20,22},{28,54},{32,
-              74}}),
+        Line(points={{-44,-52},{-30,-48},{0,-36},{32,-8},{44,16},{52,48},{56,68}},
+          color={215,215,215},
+          smooth=Smooth.Bezier),
         Line(
-          points={{42,-32},{-28,-32}},
+          points={{66,-58},{10,-28}},
           color={255,0,0},
           thickness=0.5),
-        Polygon(
-          points={{-28,-32},{-14,-30},{-14,-34},{-28,-32}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{84,-72},{74,-70},{74,-74},{84,-72}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-68,88},{-66,74},{-70,74},{-68,88}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-64,84},{-42,66}},
+          extent={{-44,82},{-22,64}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
+        Polygon(
+          points={{-48,88},{-46,74},{-50,74},{-48,88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{82,-80},{92,-96}},
+          extent={{-92,14},{-72,-12}},
+          lineColor={0,0,127},
+          textString="phi"),
+        Text(
+          extent={{-92,100},{-62,56}},
+          lineColor={0,0,127},
+          textString="TDryBul"),
+        Text(
+          extent={{-90,-72},{-72,-90}},
+          lineColor={0,0,127},
+          textString="p"),
+        Line(points={{78,-74},{-48,-74}}),
+        Polygon(
+          points={{86,-74},{76,-72},{76,-76},{86,-74}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{76,-78},{86,-94}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
-        Line(points={{68,-44},{-62,-44}}, color={175,175,175}),
-        Line(points={{68,-18},{-10,-18}}, color={175,175,175}),
-        Line(points={{70,6},{12,6}}, color={175,175,175}),
-        Line(points={{68,32},{22,32}}, color={175,175,175})}));
+        Line(points={{-48,84},{-48,-74}}),
+        Text(
+          extent={{74,14},{94,-12}},
+          lineColor={0,0,127},
+          textString="h")}));
+
 end h_TDryBulPhi;

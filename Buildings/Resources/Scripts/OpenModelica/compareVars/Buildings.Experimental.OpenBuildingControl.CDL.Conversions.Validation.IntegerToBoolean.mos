@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "intToBoo.u",
+    "intToBoo.y"
+  };

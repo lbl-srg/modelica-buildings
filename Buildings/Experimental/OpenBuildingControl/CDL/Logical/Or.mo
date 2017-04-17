@@ -15,7 +15,7 @@ equation
   y = u1 or u2;
 
   annotation (
-    defaultComponentName="or1",
+    defaultComponentName="or2",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={           Rectangle(
           extent={{-100,100},{100,-100}},

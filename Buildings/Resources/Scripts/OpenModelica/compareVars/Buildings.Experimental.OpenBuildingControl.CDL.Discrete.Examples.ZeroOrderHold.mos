@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "zerOrdHol.u",
+    "zerOrdHol.y"
+  };

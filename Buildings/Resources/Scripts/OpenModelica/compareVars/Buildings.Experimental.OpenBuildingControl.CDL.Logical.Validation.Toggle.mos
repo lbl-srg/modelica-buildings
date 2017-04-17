@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "toggle1.u0",
+    "toggle1.u",
+    "toggle1.y"
+  };

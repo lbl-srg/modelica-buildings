@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Logical;
-block Not "Logical 'not': y = not u"
+block Not "Logical not"
 
   Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -33,7 +33,8 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Block that outputs <code>true</code> if the input is <code>false</code>.
+Block that outputs <code>true</code> if the input is <code>false</code>,
+and <code>false</code> if the input is <code>true</code>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "or1.u1",
+    "or1.u2",
+    "or1.u3",
+    "or1.y"
+  };

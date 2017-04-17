@@ -16,7 +16,7 @@ initial equation
 equation
   y = edge(u);
   annotation (
-    defaultComponentName="edg1",
+    defaultComponentName="edg",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-90,40},{90,-40}},

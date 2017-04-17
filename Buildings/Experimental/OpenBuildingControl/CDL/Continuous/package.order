@@ -25,6 +25,7 @@ Modulo
 NumberOfRequests
 Product
 Ramp
+RampLimiter
 SignalRanker
 Sin
 Sqrt

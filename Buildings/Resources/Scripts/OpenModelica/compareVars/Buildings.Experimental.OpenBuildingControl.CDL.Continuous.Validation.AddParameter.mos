@@ -1,5 +1,5 @@
 compareVars :=
   {
-    "addpara1.u",
-    "addpara1.y"
+    "addPar.u",
+    "addPar.y"
   };

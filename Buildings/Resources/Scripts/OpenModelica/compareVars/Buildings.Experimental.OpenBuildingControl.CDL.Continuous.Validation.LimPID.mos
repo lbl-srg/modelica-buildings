@@ -2,8 +2,11 @@ compareVars :=
   {
     "limPID.u_s",
     "limPID.u_m",
+    "limPIDOri.y",
+    "limPID.u_s",
     "limPID.y",
-    "limPIDOri.u_s",
-    "limPIDOri.u_m",
-    "limPIDOri.y"
+    "noLimPID.y",
+    "limP.y",
+    "limPI.y",
+    "limPD.y"
   };
