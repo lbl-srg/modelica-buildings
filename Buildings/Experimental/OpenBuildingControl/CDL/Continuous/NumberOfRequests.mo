@@ -36,27 +36,6 @@ algorithm
     end if;
   end for;
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-          100,100}}), graphics={Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
-        Line(points={{-52,4},{6,34}},   color={0,0,255}),
-        Line(points={{6,34},{74,70}},  color={255,0,0}),
-        Line(points={{-8,34},{76,64}},  color={255,0,0}),
-        Line(points={{-76,14},{-8,34}}, color={0,0,255}),
-        Line(
-          points={{-68,34},{88,34}},
-          pattern=LinePattern.Dot),
-        Text(
-          extent={{-118,98},{4,38}},
-          lineColor={0,0,255},
-          textString="%threShold"),
-        Line(points={{-68,-40},{88,-40}})}),
 defaultComponentName="numReq",
 Documentation(info="<html>
 <p>
@@ -107,6 +86,11 @@ First implementation.
 </li>
 </ul>
 </html>"), Icon(graphics={
+        Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Text(
           extent={{-128,88},{-6,28}},
           lineColor={0,0,255},
