@@ -1,5 +1,6 @@
 within Buildings.Experimental.OpenBuildingControl.CDL;
 package Constants "Library of constants"
+  extends Modelica.Icons.Package;
 
   // Machine dependent constants
   final constant Real eps=1E-15
