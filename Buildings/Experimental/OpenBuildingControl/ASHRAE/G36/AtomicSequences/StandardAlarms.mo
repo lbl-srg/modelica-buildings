@@ -85,16 +85,20 @@ equation
     <p>
     fixme:
     This is a placeholder for storing any input-output relationships related
-    to Alarms, which occur while configuring sequences that we already created
-    or are currently configuring.
-    Alarms are being mentioned in most of the sequences throughout G36 and all
-    sections should get harmonized, if possible, in this atomic sequence.
+    to Alarms. We've already [temporarily] configured these inputs and outputs
+    in existing sequences. However, they might need to get bundled in their 
+    own sequence for clarity. Thus, alarms are being mentioned in most of the 
+    sequences throughout G36 and all sections should get harmonized, if possible, 
+    in this atomic sequence.
     </p>   
     <p>
-
+    I'm using this documentation section to list all of the outputs of other 
+    sequences that set any Alarm Level signals.
     </p>
     <p>
-
+    Freeze protection [AtomicSequences.FreezeProtection]:
+    - Stage 2: Level 3 alarm, output name: fixme;
+    - Stage 3: Level 2 alarm, output name: fixme
     </p>
 
 <p>
