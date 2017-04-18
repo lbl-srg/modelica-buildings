@@ -22,7 +22,7 @@ Min
 Modulo
 NumberOfRequests
 Product
-RampLimiter
+RateLimiter
 SignalRanker
 Sin
 Sqrt

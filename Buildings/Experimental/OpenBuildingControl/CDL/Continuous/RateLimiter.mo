@@ -1,5 +1,5 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
-block RampLimiter "Limit the increase or decrease rate of input"
+block RateLimiter "Limit the increase or decrease rate of input"
 
   parameter Real raiseSpeed = 1 "Speed with which to increase the output";
   parameter Real fallSpeed = -1 "Speed with which to decrease the output";
@@ -88,4 +88,4 @@ Modelica Standard Library.
       lineColor={0,0,255}),
     Line(
       points={{-50,-70},{50,70}})}));
-end RampLimiter;
+end RateLimiter;

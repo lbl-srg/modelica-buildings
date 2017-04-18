@@ -1,9 +1,9 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
-model RampLimiter "Validation model for the RampLimiter block"
+model RateLimiter "Validation model for the RateLimiter block"
   import Buildings;
 extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RampLimiter rampLimiter(
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RateLimiter rampLimiter(
     raiseSpeed=1,
     fallSpeed = 1)
     "Block that limit the increase or decrease rate of input"
@@ -32,13 +32,13 @@ equation
     annotation (Line(points={{18,0},{-9,0}}, color={0,0,127}));
   annotation (
  experiment(StopTime=1.0, Tolerance=1e-06),
-   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/RampLimiter.mos"
+   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/RateLimiter.mos"
          "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RampLimiter\">
-Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RampLimiter</a>.
+<a href=\"modelica://Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RateLimiter\">
+Buildings.Experimental.OpenBuildingControl.CDL.Continuous.RateLimiter</a>.
 </p>
 <p>
 The input <code>ramp1.u</code> varies from <i>0</i> to <i>+1.5</i>,
@@ -56,4 +56,4 @@ First implementation.
 </ul>
 
 </html>"));
-end RampLimiter;
+end RateLimiter;
