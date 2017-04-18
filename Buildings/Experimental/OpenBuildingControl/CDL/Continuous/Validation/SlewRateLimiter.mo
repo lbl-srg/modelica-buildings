@@ -1,37 +1,122 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Validation;
 model SlewRateLimiter "Validation model for the SlewRateLimiter block"
   import Buildings;
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.SlewRateLimiter rampLimiter(
-    raiseSpeed=1,
-    fallSpeed = 1)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.SlewRateLimiter sleRatLim(
+      raisingSlewRate=1/30)
     "Block that limit the increase or decrease rate of input"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp1(
-    duration=1,
     offset=0,
-    height=1.5) "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    height=1.5,
+    duration=20,
+    startTime=10)
+                "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp2(
-    duration=1,
     offset=0,
     height=-1.5,
-    startTime=2)
+    startTime=60,
+    duration=20)
                 "Block that generates ramp signal"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+    "Signal adder"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp3(
+    offset=0,
+    height=-1.5,
+    duration=30,
+    startTime=120 + 60)
+                "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp4(
+    offset=0,
+    height=1.5,
+    duration=30,
+    startTime=120)
+                "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp5(
+    offset=0,
+    height=-1.5,
+    startTime=240 + 60,
+    duration=40) "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp6(
+    offset=0,
+    height=1.5,
+    startTime=240,
+    duration=40) "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add1
+    "Signal adder"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add2
+    "Signal adder"
+    annotation (Placement(transformation(extent={{-40,-48},{-20,-28}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp7(
+    offset=0,
+    height=-1.5,
+    duration=50,
+    startTime=360 + 60) "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Ramp ramp8(
+    offset=0,
+    height=1.5,
+    duration=50,
+    startTime=360) "Block that generates ramp signal"
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add3
+    "Signal adder"
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add4
+    "Signal adder"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add5
+    "Signal adder"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Add add6
+    "Signal adder"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(ramp1.y, add.u1) annotation (Line(points={{-59,30},{-46,30},{-46,6},{-32,
-          6}}, color={0,0,127}));
-  connect(ramp2.y, add.u2) annotation (Line(points={{-59,-30},{-46,-30},{-46,-6},
-          {-32,-6}}, color={0,0,127}));
-  connect(rampLimiter.u, add.y)
-    annotation (Line(points={{18,0},{-9,0}}, color={0,0,127}));
+  connect(ramp1.y, add.u1) annotation (Line(points={{-59,110},{-46,110},{-46,96},
+          {-42,96}},
+               color={0,0,127}));
+  connect(ramp2.y, add.u2) annotation (Line(points={{-59,80},{-52,80},{-52,84},{
+          -42,84}},  color={0,0,127}));
+  connect(ramp4.y, add1.u1) annotation (Line(points={{-59,50},{-50,50},{-50,36},
+          {-42,36}},
+                   color={0,0,127}));
+  connect(ramp3.y, add1.u2) annotation (Line(points={{-59,20},{-50,20},{-50,24},
+          {-42,24}}, color={0,0,127}));
+  connect(ramp6.y, add2.u1) annotation (Line(points={{-59,-20},{-50,-20},{-50,-32},
+          {-42,-32}}, color={0,0,127}));
+  connect(ramp5.y, add2.u2) annotation (Line(points={{-59,-50},{-50,-50},{-50,-44},
+          {-42,-44}}, color={0,0,127}));
+  connect(ramp8.y,add3. u1) annotation (Line(points={{-59,-90},{-50,-90},{-50,-104},
+          {-42,-104}},color={0,0,127}));
+  connect(ramp7.y,add3. u2) annotation (Line(points={{-59,-120},{-50,-120},{-50,
+          -116},{-42,-116}},
+                      color={0,0,127}));
+  connect(add.y, add4.u1) annotation (Line(points={{-19,90},{-12,90},{-12,66},{-2,
+          66}}, color={0,0,127}));
+  connect(add1.y, add4.u2) annotation (Line(points={{-19,30},{-10,30},{-10,54},{
+          -2,54}}, color={0,0,127}));
+  connect(add2.y, add5.u1) annotation (Line(points={{-19,-38},{-10,-38},{-10,-64},
+          {-2,-64}}, color={0,0,127}));
+  connect(add3.y, add5.u2) annotation (Line(points={{-19,-110},{-12,-110},{-12,-76},
+          {-2,-76}}, color={0,0,127}));
+  connect(add4.y, add6.u1)
+    annotation (Line(points={{21,60},{24,60},{24,6},{38,6}}, color={0,0,127}));
+  connect(add5.y, add6.u2) annotation (Line(points={{21,-70},{24,-70},{24,-6},{38,
+          -6}}, color={0,0,127}));
+  connect(sleRatLim.u, add6.y)
+    annotation (Line(points={{68,0},{68,0},{61,0}}, color={0,0,127}));
   annotation (
- experiment(StopTime=1.0, Tolerance=1e-06),
+ experiment(StopTime=480.0, Tolerance=1e-06),
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/OpenBuildingControl/CDL/Continuous/Validation/SlewRateLimiter.mos"
          "Simulate and plot"),
     Documentation(info="<html>
@@ -55,5 +140,7 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-140},{100,140}})),
+    Icon(coordinateSystem(extent={{-100,-140},{100,140}})));
 end SlewRateLimiter;

@@ -1,8 +1,13 @@
 within Buildings.Experimental.OpenBuildingControl.CDL.Continuous;
 block SlewRateLimiter "Limit the increase or decrease rate of input"
 
-  parameter Real raiseSpeed = 1 "Speed with which to increase the output";
-  parameter Real fallSpeed = -1 "Speed with which to decrease the output";
+  parameter Real raisingSlewRate(
+    min = Modelica.Constants.small,
+    final unit = "1/s") "Speed with which to increase the output";
+
+  parameter Real fallingSlewRate(
+    max = -Modelica.Constants.small,
+    final unit = "1/s") = -raisingSlewRate "Speed with which to decrease the output";
 
   parameter Modelica.SIunits.Time Td(min=Constants.eps) = 0.001
     "Derivative time constant";
@@ -24,7 +29,10 @@ initial equation
 
 equation
   if enable then
-    der(y) = if thr < fallSpeed then fallSpeed else if thr > raiseSpeed then raiseSpeed else thr;
+    der(y) = smooth(1, noEvent(
+      if thr < fallingSlewRate then fallingSlewRate
+      else if thr > raisingSlewRate then raisingSlewRate
+      else thr));
   else
     y = u;
   end if;
@@ -38,9 +46,9 @@ input <code>u</code> and output <code>y</code> as
 <code>thr = (u-y)/Td</code>, where <code>Td &gt; 0</code> is  parameter.
 The output <code>y</code> is computed as follows:
 <br/>
-If <code>thr &lt; fallSpeed</code>, then <code>dy/dt = fallSpeed</code>,
+If <code>thr &lt; fallingSlewRate</code>, then <code>dy/dt = fallingSlewRate</code>,
 <br/>
-if <code>thr &gt; raiseSpeed</code>, then <code>dy/dt = raiseSpeed</code>,
+if <code>thr &gt; raisingSlewRate</code>, then <code>dy/dt = raisingSlewRate</code>,
 <br/>
 otherwise, <code>dy/dt = thr</code>.
 </p>
