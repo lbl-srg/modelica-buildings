@@ -91,7 +91,7 @@ equation
           lineColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          textString="Latch input")}),
+          textString="Toggle input")}),
                                 Documentation(info="<html>
 <p>
 The block toggles output value whenever input turns <code>ON</code>. For instance, when the <code>toggle</code> input <code>u</code>
