@@ -20,7 +20,8 @@ model TriggeredMax "Example model for the TriggeredMax block"
     period = 0.2)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=50) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.5)
+                                                                                 "Constant as source term"
     annotation (Placement(transformation(extent={{-60,-48},{-40,-28}})));
 
 equation

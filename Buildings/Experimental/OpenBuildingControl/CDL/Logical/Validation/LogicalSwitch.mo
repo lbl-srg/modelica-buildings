@@ -8,21 +8,24 @@ extends Modelica.Icons.Example;
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-26,24},{-6,44}})));
 
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=70) "Constant as source term"
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons1(k=0.7)
+                                                                                 "Constant as source term"
     annotation (Placement(transformation(extent={{-76,24},{-56,44}})));
 
    Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc2(
      cycleOn = true, period=3)
      "Block that outputs cyclic on and off: switch between u1 and u3"
      annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=50) "Constant as source term"
+   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons2(k=0.5)
+                                                                                  "Constant as source term"
      annotation (Placement(transformation(extent={{-76,-10},{-56,10}})));
 
    Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc3(
      cycleOn = true, period=5)
      "Block that outputs cyclic on and off"
      annotation (Placement(transformation(extent={{-26,-46},{-6,-26}})));
-   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons3(k=50) "Constant as source term"
+   Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant cons3(k=0.5)
+                                                                                  "Constant as source term"
      annotation (Placement(transformation(extent={{-76,-46},{-56,-26}})));
 
   Buildings.Experimental.OpenBuildingControl.CDL.Logical.LogicalSwitch logicalSwitch

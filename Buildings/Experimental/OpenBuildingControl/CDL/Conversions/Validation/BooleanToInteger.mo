@@ -9,7 +9,7 @@ extends Modelica.Icons.Example;
   Buildings.Experimental.OpenBuildingControl.CDL.Sources.DutyCycle dutCyc
     "Generate output cyclic on and off"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=50)
+  Buildings.Experimental.OpenBuildingControl.CDL.Continuous.Constant const(k=0.5)
     "Percentage of the cycle ON time"
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
 
